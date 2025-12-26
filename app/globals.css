@@ -13,9 +13,15 @@
 }
 
 /* Global dark background to prevent white flash on overscroll */
-html, body {
+html {
   background-color: #18181b;
   font-family: system-ui, -apple-system, sans-serif;
+  /* Apply text scaling to all text via base font-size */
+  font-size: calc(16px * var(--text-scale));
+}
+
+body {
+  background-color: #18181b;
 }
 
 /* =============================================

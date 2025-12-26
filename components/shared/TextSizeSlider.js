@@ -30,11 +30,11 @@ const TextSizeSlider = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="fixed top-3 right-3 z-50">
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-zinc-500 hover:text-zinc-300 transition-colors p-2 rounded-lg hover:bg-zinc-800/50"
+        className="text-zinc-500 hover:text-zinc-300 transition-colors p-2 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm"
         title="Adjust text size"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
