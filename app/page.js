@@ -1360,7 +1360,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Header */}
         <div className="text-center mb-4 md:mb-6 mobile-header relative">
           <div className="flex items-center justify-center gap-2">
-            <h1 className="text-[20px] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
+            <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
             {!draws && (
               <button
                 onClick={() => setHelpPopover(helpPopover === 'intro' ? null : 'intro')}
@@ -1370,8 +1370,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               </button>
             )}
           </div>
-          <p className="text-zinc-400 text-[11px] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
-          <p className="text-zinc-500 text-[10px] mt-0.5">v0.33.2 alpha • Mobile Text Scaling Fix</p>
+          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
+          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v0.33.3 alpha • All Text Scales</p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -1394,15 +1394,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               <div className="flex justify-center mb-4 relative">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('durable'); setSpreadKey('arc'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[15px] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'durable' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'durable' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
                   <button onClick={() => { setSpreadType('random'); setSpreadKey('three'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[15px] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'random' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'random' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
                   <button onClick={() => { setSpreadType('forge'); setSpreadKey('one'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[15px] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
                 </div>
@@ -1442,12 +1442,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               </div>
 
               {/* Mode helper text */}
-              <p className="text-center text-zinc-500 text-[12px] sm:text-xs mb-4">{MODE_HELPER_TEXT[spreadType]}</p>
+              <p className="text-center text-zinc-500 text-[0.75rem] sm:text-xs mb-4">{MODE_HELPER_TEXT[spreadType]}</p>
 
               {/* Card Count Selector - fixed height to prevent layout shifts */}
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto card-count-selector h-[65px] sm:h-[45px]">
                 {spreadType === 'forge' ? (
-                  <div className="text-center text-zinc-400 text-[14px] sm:text-sm">
+                  <div className="text-center text-zinc-400 text-[0.875rem] sm:text-sm">
                     One card • Intention-first
                   </div>
                 ) : (
@@ -1456,14 +1456,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       {spreadType === 'random' ? (
                         Object.entries(RANDOM_SPREADS).map(([key, value]) => (
                           <button key={key} onClick={() => setSpreadKey(key)}
-                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[14px] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
+                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
                             {value.name}
                           </button>
                         ))
                       ) : (
                         Object.entries(DURABLE_SPREADS).map(([key, value]) => (
                           <button key={key} onClick={() => setSpreadKey(key)}
-                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[14px] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
+                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
                             {value.name}
                           </button>
                         ))
@@ -1476,7 +1476,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               {/* Spectrum/description area - compact, close to buttons */}
               <div className="h-[20px] mb-3 mt-1 flex items-center justify-center">
                 {spreadType === 'random' ? (
-                  <div className="flex justify-between w-full max-w-xs text-[10px] sm:text-[9px] text-zinc-500">
+                  <div className="flex justify-between w-full max-w-xs text-[0.625rem] sm:text-[0.5625rem] text-zinc-500">
                     <button
                       onClick={() => navigateSpread('left')}
                       className="hover:text-zinc-300 transition-colors cursor-pointer"
@@ -1491,17 +1491,17 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </button>
                   </div>
                 ) : spreadType === 'durable' && DURABLE_SPREADS[spreadKey] ? (
-                  <p className="text-center text-zinc-500 text-[12px] sm:text-xs">{DURABLE_SPREADS[spreadKey].description}</p>
+                  <p className="text-center text-zinc-500 text-[0.75rem] sm:text-xs">{DURABLE_SPREADS[spreadKey].description}</p>
                 ) : null}
               </div>
 
               {/* Stance Selector - same width as card count for alignment */}
               <div className="w-full max-w-lg mx-auto relative">
                 <div className="relative flex items-center justify-center mb-3">
-                  <span className="text-[12px] sm:text-xs text-zinc-400">Style</span>
+                  <span className="text-[0.75rem] sm:text-xs text-zinc-400">Style</span>
                   <button
                     onClick={() => setHelpPopover(helpPopover === 'stanceLabel' ? null : 'stanceLabel')}
-                    className="absolute right-0 w-7 h-7 sm:w-4 sm:h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs sm:text-[10px] flex items-center justify-center transition-all"
+                    className="absolute right-0 w-7 h-7 sm:w-4 sm:h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs sm:text-[0.625rem] flex items-center justify-center transition-all"
                   >
                     ?
                   </button>
@@ -1533,7 +1533,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         <button
                           key={key}
                           onClick={() => applyDeliveryPreset(key)}
-                          className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[13px] sm:text-[11px] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+                          className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
                             isActive
                               ? 'bg-[#2e1065] text-amber-400'
                               : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
@@ -1546,11 +1546,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     })}
                   </div>
                   {/* Current stance selection descriptor */}
-                  <div className="text-center text-[12px] sm:text-[10px] text-zinc-500 mt-1">
+                  <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mt-1">
                     {getCurrentDeliveryPreset()?.[1]?.descriptor || 'Custom'}
                   </div>
                   {/* Config toggle - centered */}
-                  <div className="flex justify-center w-full text-[11px] sm:text-[10px] text-zinc-400 mt-0.5">
+                  <div className="flex justify-center w-full text-[0.6875rem] sm:text-[0.625rem] text-zinc-400 mt-0.5">
                     <button
                       onClick={() => setShowLandingFineTune(!showLandingFineTune)}
                       className="hover:text-zinc-200 active:text-zinc-200 transition-colors flex items-center gap-0.5 py-2 sm:py-0 whitespace-nowrap"
@@ -1573,7 +1573,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                             <button
                               key={key}
                               onClick={() => setStance({ ...stance, complexity: key })}
-                              className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[8px] sm:text-xs transition-all whitespace-nowrap text-center ${
+                              className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.5rem] sm:text-xs transition-all whitespace-nowrap text-center ${
                                 stance.complexity === key
                                   ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
                                   : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
@@ -1584,7 +1584,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         ))}
                       </div>
                       {/* Current voice selection descriptor */}
-                      <div className="text-center text-[9px] sm:text-[10px] text-zinc-600 mt-1.5">
+                      <div className="text-center text-[0.5625rem] sm:text-[0.625rem] text-zinc-600 mt-1.5">
                         {COMPLEXITY_OPTIONS[stance.complexity]?.descriptor || ''}
                       </div>
                     </div>
@@ -1597,7 +1597,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           <button
                             key={key}
                             onClick={() => setStance({ ...stance, seriousness: key })}
-                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[8px] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
+                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.5rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
                               stance.seriousness === key
                                 ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
                                 : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
@@ -1629,7 +1629,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 <div className="flex items-center justify-center gap-2 flex-wrap">
                   <button
                     onClick={handleSpark}
-                    className="w-6 h-6 rounded bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center justify-center text-[11px]"
+                    className="w-6 h-6 rounded bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center justify-center text-[0.6875rem]"
                     title="Show a random suggestion"
                   >
                     ✨
@@ -1641,7 +1641,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       <button
                         key={`${idx}-${suggestion.slice(0, 10)}`}
                         onClick={() => setQuestion(suggestion)}
-                        className="text-[11px] sm:text-xs px-2 py-1 text-zinc-500 hover:text-zinc-300 truncate max-w-[150px] sm:max-w-[180px] transition-opacity duration-300"
+                        className="text-[0.6875rem] sm:text-xs px-2 py-1 text-zinc-500 hover:text-zinc-300 truncate max-w-[150px] sm:max-w-[180px] transition-opacity duration-300"
                       >
                         {suggestion}
                       </button>
@@ -1662,12 +1662,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         ? "What area of life are you examining?"
                         : "Name your question or declare your intent..."
                   )}
-                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 pr-10 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600 resize-none transition-colors text-[16px] sm:text-base min-h-[100px] sm:min-h-0"
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 pr-10 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
                   rows={3}
                 />
                 <button
                   onClick={() => setHelpPopover(helpPopover === 'input' ? null : 'input')}
-                  className="absolute top-3 right-3 w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[10px] flex items-center justify-center transition-all"
+                  className="absolute top-3 right-3 w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
                 >
                   ?
                 </button>
@@ -1744,7 +1744,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 <button onClick={resetReading} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#052e23] hover:bg-[#064e3b] border border-emerald-700/50">New</button>
                 <button
                   onClick={() => setHelpPopover(helpPopover === 'actions' ? null : 'actions')}
-                  className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[10px] flex items-center justify-center transition-all"
+                  className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
                 >
                   ?
                 </button>
@@ -1964,7 +1964,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         
             {/* Your Question */}
             <div className="bg-zinc-800/50 rounded-xl p-4 mb-4 mx-8">
-              <div className="text-[10px] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
+              <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
               <div className="text-zinc-300 text-sm">{question}</div>
             </div>
             
@@ -2140,13 +2140,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                 onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'reflect' })); }}
                                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
                               >
-                                <span className="text-[10px] text-red-500">▶</span> Reflect
+                                <span className="text-[0.625rem] text-red-500">▶</span> Reflect
                               </button>
                               <button
                                 onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
                                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
                               >
-                                <span className="text-[10px] text-red-500">▶</span> Forge
+                                <span className="text-[0.625rem] text-red-500">▶</span> Forge
                               </button>
                             </div>
                           )}
@@ -2163,7 +2163,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                                   }`}
                                 >
-                                  <span className="text-[10px] text-green-500">▶</span> Reflect
+                                  <span className="text-[0.625rem] text-green-500">▶</span> Reflect
                                 </button>
                                 <button
                                   onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
@@ -2173,7 +2173,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                                   }`}
                                 >
-                                  <span className="text-[10px] text-green-500">▶</span> Forge
+                                  <span className="text-[0.625rem] text-green-500">▶</span> Forge
                                 </button>
                               </div>
 
@@ -2326,7 +2326,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           <div className="space-y-4 mt-6">
             {followUpMessages.map((msg, i) => (
               <div key={i} className={`rounded-xl p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
-                {msg.role === 'user' && <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
+                {msg.role === 'user' && <div className="text-[0.625rem] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
                 <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm">{msg.content}</div>
               </div>
             ))}
@@ -2337,10 +2337,10 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {parsedReading && !loading && (
           <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] text-zinc-500 tracking-wider">Continue the conversation</span>
+              <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
               <button
                 onClick={() => setHelpPopover(helpPopover === 'followup' ? null : 'followup')}
-                className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[10px] flex items-center justify-center transition-all"
+                className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
               >
                 ?
               </button>
@@ -2433,7 +2433,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           <button
                             key={key}
                             onClick={() => applyDeliveryPreset(key)}
-                            className={`px-2 py-1.5 rounded-lg text-[11px] transition-all whitespace-nowrap ${
+                            className={`px-2 py-1.5 rounded-lg text-[0.6875rem] transition-all whitespace-nowrap ${
                               isActive
                                 ? 'bg-[#2e1065] text-amber-400'
                                 : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
@@ -2445,7 +2445,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       })}
                     </div>
                     {/* Config toggle - centered */}
-                    <div className="flex justify-center w-full text-[10px] text-zinc-500 mt-1.5">
+                    <div className="flex justify-center w-full text-[0.625rem] text-zinc-500 mt-1.5">
                       <button
                         onClick={() => setShowFineTune(!showFineTune)}
                         className="hover:text-zinc-300 transition-colors flex items-center gap-1"
@@ -2461,7 +2461,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     <div className="mt-3 space-y-3">
                       {/* Complexity Selector - centered */}
                       <div className="text-center">
-                        <div className="text-[10px] text-zinc-500 mb-2">Speak to me like...</div>
+                        <div className="text-[0.625rem] text-zinc-500 mb-2">Speak to me like...</div>
                         <div className="flex flex-wrap gap-2 justify-center">
                           {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
                             <button
@@ -2481,7 +2481,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
                       {/* Seriousness/Tone Selector */}
                       <div className="text-center">
-                        <div className="text-[10px] text-zinc-500 mb-2">Tone</div>
+                        <div className="text-[0.625rem] text-zinc-500 mb-2">Tone</div>
                         <div className="flex flex-wrap gap-2 justify-center">
                           {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
                             <button
@@ -2525,7 +2525,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         )}
 
         {/* Footer */}
-        <p className="text-center text-zinc-800 text-[10px] mt-8 tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+        <p className="text-center text-zinc-800 text-[0.625rem] mt-8 tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
       </div>
 
       {/* Info Modal */}

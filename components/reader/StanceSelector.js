@@ -23,12 +23,12 @@ const StanceSelector = ({ stance, setStance, showCustomize, setShowCustomize, co
   const DimensionRow = ({ label, dimension, options }) => (
     <div className="mb-2 sm:mb-2">
       <div className="grid grid-cols-[3rem_1fr_1fr_1fr_1fr] sm:grid-cols-[4rem_6rem_6rem_6rem_6rem] gap-1 sm:gap-2 items-center">
-        <span className="text-[11px] sm:text-xs text-amber-600/80 font-medium">{label}</span>
+        <span className="text-[0.6875rem] sm:text-xs text-amber-600/80 font-medium">{label}</span>
         {options.map(opt => (
           <button
             key={opt}
             onClick={() => setStance({ ...stance, [dimension]: opt })}
-            className={`py-2 sm:py-1.5 px-1 sm:px-0 rounded-sm text-[11px] sm:text-xs transition-all text-center min-h-[36px] sm:min-h-0 ${
+            className={`py-2 sm:py-1.5 px-1 sm:px-0 rounded-sm text-[0.6875rem] sm:text-xs transition-all text-center min-h-[36px] sm:min-h-0 ${
               stance[dimension] === opt
                 ? 'bg-zinc-700 text-white border border-zinc-500'
                 : 'bg-zinc-900/50 text-zinc-300 hover:text-white hover:bg-zinc-800 active:bg-zinc-700'
@@ -110,7 +110,7 @@ const StanceSelector = ({ stance, setStance, showCustomize, setShowCustomize, co
             key={key}
             onClick={() => applyPreset(key)}
             title={preset.description}
-            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[13px] sm:text-[11px] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
               currentPreset?.[0] === key
                 ? 'bg-[#2e1065] text-amber-400'
                 : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
@@ -123,12 +123,12 @@ const StanceSelector = ({ stance, setStance, showCustomize, setShowCustomize, co
       </div>
 
       {/* Custom label */}
-      <div className="text-center text-[12px] sm:text-[10px] text-zinc-500 mt-1">
+      <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mt-1">
         {currentPreset ? currentPreset[1].name : 'Custom'}
       </div>
 
       {/* Config toggle */}
-      <div className="flex justify-center w-full text-[11px] sm:text-[10px] text-zinc-400 mt-0.5">
+      <div className="flex justify-center w-full text-[0.6875rem] sm:text-[0.625rem] text-zinc-400 mt-0.5">
         <button
           onClick={() => setShowCustomize(!showCustomize)}
           className="hover:text-zinc-200 active:text-zinc-200 transition-colors flex items-center gap-0.5 py-2 sm:py-0 whitespace-nowrap"

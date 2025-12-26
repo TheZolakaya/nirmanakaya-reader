@@ -223,13 +223,13 @@ const ReadingSection = ({
                 onClick={(e) => { e.stopPropagation(); onOperationSelect('reflect'); }}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
               >
-                <span className="text-[10px] text-red-500">▶</span> Reflect
+                <span className="text-[0.625rem] text-red-500">▶</span> Reflect
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); onOperationSelect('forge'); }}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
               >
-                <span className="text-[10px] text-red-500">▶</span> Forge
+                <span className="text-[0.625rem] text-red-500">▶</span> Forge
               </button>
             </div>
           )}
@@ -246,7 +246,7 @@ const ReadingSection = ({
                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                   }`}
                 >
-                  <span className="text-[10px] text-green-500">▶</span> Reflect
+                  <span className="text-[0.625rem] text-green-500">▶</span> Reflect
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); onOperationSelect('forge'); }}
@@ -256,7 +256,7 @@ const ReadingSection = ({
                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                   }`}
                 >
-                  <span className="text-[10px] text-green-500">▶</span> Forge
+                  <span className="text-[0.625rem] text-green-500">▶</span> Forge
                 </button>
               </div>
 
@@ -510,13 +510,13 @@ const ReadingSection = ({
                   onClick={(e) => { e.stopPropagation(); onOperationSelect('reflect'); }}
                   className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
                 >
-                  <span className="text-[10px] text-red-500">▶</span> Reflect
+                  <span className="text-[0.625rem] text-red-500">▶</span> Reflect
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); onOperationSelect('forge'); }}
                   className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
                 >
-                  <span className="text-[10px] text-red-500">▶</span> Forge
+                  <span className="text-[0.625rem] text-red-500">▶</span> Forge
                 </button>
               </div>
             )}
@@ -533,7 +533,7 @@ const ReadingSection = ({
                         : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                     }`}
                   >
-                    <span className="text-[10px] text-green-500">▶</span> Reflect
+                    <span className="text-[0.625rem] text-green-500">▶</span> Reflect
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); onOperationSelect('forge'); }}
@@ -543,7 +543,7 @@ const ReadingSection = ({
                         : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                     }`}
                   >
-                    <span className="text-[10px] text-green-500">▶</span> Forge
+                    <span className="text-[0.625rem] text-green-500">▶</span> Forge
                   </button>
                 </div>
 
