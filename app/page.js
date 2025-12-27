@@ -81,34 +81,34 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.35.1";
+const VERSION = "0.35.2";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
   1: {
-    subtitle: "The most direct reading — one signature from the field",
-    whenToUse: "When you want the clearest signal with no noise",
-    whatYoullSee: "The single most active pattern and how it's expressing"
+    subtitle: "One signature from the Field",
+    whenToUse: "When you want the most focused response",
+    whatYoullSee: "A single pattern and how it's expressing"
   },
   2: {
-    subtitle: "Two signatures the architecture wants you to see together",
-    whenToUse: "When you sense a relationship or tension to explore",
-    whatYoullSee: "Two patterns and how they're interacting in your field"
+    subtitle: "Two signatures from the Field",
+    whenToUse: "When you want slightly more context",
+    whatYoullSee: "Two patterns and how they relate to each other"
   },
   3: {
-    subtitle: "A triangulation — three points that define your current territory",
-    whenToUse: "When you want a fuller picture without overwhelm",
-    whatYoullSee: "Three active patterns and the shape they create together"
+    subtitle: "Three signatures from the Field",
+    whenToUse: "When you want a fuller picture",
+    whatYoullSee: "Three patterns and the shape they create together"
   },
   4: {
-    subtitle: "Four signatures mapping the elemental dimensions of your question",
-    whenToUse: "When you want comprehensive coverage",
-    whatYoullSee: "Four patterns showing how Spirit, Mind, Emotion, and Body are each expressing"
+    subtitle: "Four signatures from the Field",
+    whenToUse: "When you want more comprehensive coverage",
+    whatYoullSee: "Four patterns and how they're interacting"
   },
   5: {
-    subtitle: "The fullest Discover reading — five signatures chosen by the architecture",
-    whenToUse: "When you're ready for a complete field diagnostic",
-    whatYoullSee: "Five patterns across your major houses and how they're working together"
+    subtitle: "Five signatures from the Field",
+    whenToUse: "When you want the most depth",
+    whatYoullSee: "Five patterns — the fullest Discover reading"
   }
 };
 
