@@ -77,7 +77,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.34.3";
+const VERSION = "0.34.4";
 
 // === MAIN COMPONENT ===
 export default function NirmanakaReader() {
@@ -493,6 +493,14 @@ Interpret this new card as the architecture's response to their declared directi
       setThreadOperations(prev => ({ ...prev, [threadKey]: null }));
       setThreadContexts(prev => ({ ...prev, [threadKey]: '' }));
 
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
+
     } catch (e) {
       setError(`Thread error: ${e.message}`);
     }
@@ -651,6 +659,14 @@ Interpret this new card as the architecture's response to their declared directi
       setThreadOperations(prev => ({ ...prev, [threadKey]: null }));
       setThreadContexts(prev => ({ ...prev, [threadKey]: '' }));
 
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
+
     } catch (e) {
       setError(`Thread error: ${e.message}`);
     }
@@ -758,6 +774,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           [expansionType]: data.reading
         }
       }));
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
     } catch (e) { 
       setError(`Expansion error: ${e.message}`); 
     }
@@ -806,6 +830,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       if (data.error) throw new Error(data.error);
       setFollowUpMessages([...messages, { role: 'assistant', content: data.reading }]);
       setFollowUp('');
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
     } catch (e) { setError(`Error: ${e.message}`); }
     setFollowUpLoading(false);
   };
@@ -1167,6 +1199,40 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       .replace(/"/g, '&quot;')
       .replace(/\n/g, '<br>');
 
+    // Render thread items recursively (defined outside loop for reuse)
+    const renderThreadItem = (item, depth = 0) => {
+      const itemTrans = getComponent(item.draw.transient);
+      const itemStat = STATUSES[item.draw.status];
+      const itemStatusPrefix = itemStat.prefix || 'Balanced';
+      const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
+      const opClass = item.operation === 'reflect' ? 'thread-reflect' : 'thread-forge';
+
+      let childrenHtml = '';
+      if (item.children && item.children.length > 0) {
+        childrenHtml = item.children.map(child => renderThreadItem(child, depth + 1)).join('');
+      }
+
+      return `
+        <div class="thread-item ${opClass}">
+          <div class="thread-label">↳ ${opLabel}${item.context ? `: "${escapeHtml(item.context)}"` : ''}</div>
+          <div class="thread-card">
+            <div class="thread-header">
+              <span class="signature-status status-${itemStat.name.toLowerCase().replace(' ', '-')}">${itemStat.name}</span>
+              <span class="thread-name">${itemStatusPrefix} ${itemTrans.name}</span>
+            </div>
+            <div class="thread-content">${escapeHtml(item.interpretation)}</div>
+          </div>
+          ${childrenHtml}
+        </div>`;
+    };
+
+    // Helper to render threads for a section
+    const renderSectionThreads = (key) => {
+      const threads = threadData[key] || [];
+      if (threads.length === 0) return '';
+      return `<div class="threads">${threads.map(t => renderThreadItem(t)).join('')}</div>`;
+    };
+
     let signaturesHtml = '';
     parsedReading.cards.forEach((card) => {
       const draw = draws[card.index];
@@ -1199,38 +1265,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>`;
       }
 
-      // Render thread items recursively
-      const renderThreadItem = (item, depth = 0) => {
-        const itemTrans = getComponent(item.draw.transient);
-        const itemStat = STATUSES[item.draw.status];
-        const itemStatusPrefix = itemStat.prefix || 'Balanced';
-        const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
-        const opClass = item.operation === 'reflect' ? 'thread-reflect' : 'thread-forge';
-
-        let childrenHtml = '';
-        if (item.children && item.children.length > 0) {
-          childrenHtml = item.children.map(child => renderThreadItem(child, depth + 1)).join('');
-        }
-
-        return `
-          <div class="thread-item ${opClass}">
-            <div class="thread-label">↳ ${opLabel}${item.context ? `: "${escapeHtml(item.context)}"` : ''}</div>
-            <div class="thread-card">
-              <div class="thread-header">
-                <span class="signature-status status-${itemStat.name.toLowerCase().replace(' ', '-')}">${itemStat.name}</span>
-                <span class="thread-name">${itemStatusPrefix} ${itemTrans.name}</span>
-              </div>
-              <div class="thread-content">${escapeHtml(item.interpretation)}</div>
-            </div>
-            ${childrenHtml}
-          </div>`;
-      };
-
-      let threadsHtml = '';
-      const cardThreads = threadData[card.index] || [];
-      if (cardThreads.length > 0) {
-        threadsHtml = `<div class="threads">${cardThreads.map(t => renderThreadItem(t)).join('')}</div>`;
-      }
+      const threadsHtml = renderSectionThreads(card.index);
 
       signaturesHtml += `
         <div class="signature">
@@ -1321,6 +1356,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     <div class="summary-box">
       <span class="summary-badge">Overview</span>
       <div class="summary">${escapeHtml(parsedReading.summary)}</div>
+      ${renderSectionThreads('summary')}
     </div>
   </div>` : ''}
 
@@ -1334,6 +1370,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     <div class="path-box">
       <span class="path-badge">◈ Path to Balance</span>
       <div class="path-content">${escapeHtml(parsedReading.rebalancerSummary)}</div>
+      ${renderSectionThreads('path')}
     </div>
   </div>` : ''}
 
@@ -1342,6 +1379,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     <div class="letter-box">
       <span class="letter-badge">Letter</span>
       <div class="letter">${escapeHtml(parsedReading.letter)}</div>
+      ${renderSectionThreads('letter')}
     </div>
   </div>` : ''}
 
@@ -1402,7 +1440,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             )}
           </div>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha • Token display + export fixes</p>
+          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha • Thread export + token accumulation</p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
