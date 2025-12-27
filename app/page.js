@@ -38,6 +38,7 @@ import {
   FORMAT_INSTRUCTIONS,
   EXPANSION_PROMPTS,
   SUGGESTIONS,
+  STARTERS,
   LOADING_PHRASES,
   // Corrections
   DIAGONAL_PAIRS,
@@ -77,7 +78,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.34.4";
+const VERSION = "0.34.5";
 
 // === MAIN COMPONENT ===
 export default function NirmanakaReader() {
@@ -264,6 +265,12 @@ export default function NirmanakaReader() {
   const handleSpark = () => {
     const randomSuggestion = SUGGESTIONS[Math.floor(Math.random() * SUGGESTIONS.length)];
     setSparkPlaceholder(randomSuggestion);
+  };
+
+  // Strip trailing signatures from API responses (e.g., "A.", "[A]", "— A")
+  const stripSignature = (text) => {
+    if (!text) return text;
+    return text.replace(/\s*[-—]?\s*\[?A\.?\]?\s*$/i, '').trim();
   };
 
   const copyShareUrl = async () => {
@@ -479,7 +486,7 @@ Interpret this new card as the architecture's response to their declared directi
       // Add to thread
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: data.reading,
+        interpretation: stripSignature(data.reading),
         operation: operation,
         context: userInput
       };
@@ -624,7 +631,7 @@ Interpret this new card as the architecture's response to their declared directi
       // Create new thread item
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: data.reading,
+        interpretation: stripSignature(data.reading),
         operation: operation,
         context: userInput,
         children: []
@@ -771,7 +778,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         ...prev,
         [sectionKey]: {
           ...(prev[sectionKey] || {}),
-          [expansionType]: data.reading
+          [expansionType]: stripSignature(data.reading)
         }
       }));
 
@@ -828,7 +835,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setFollowUpMessages([...messages, { role: 'assistant', content: data.reading }]);
+      setFollowUpMessages([...messages, { role: 'assistant', content: stripSignature(data.reading) }]);
       setFollowUp('');
 
       // Accumulate token usage
@@ -1428,19 +1435,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
         {/* Header */}
         <div className="text-center mb-4 md:mb-6 mobile-header relative">
-          <div className="flex items-center justify-center gap-2">
-            <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
-            {!draws && (
-              <button
-                onClick={() => setHelpPopover(helpPopover === 'intro' ? null : 'intro')}
-                className="w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all mb-1"
-              >
-                ?
-              </button>
-            )}
-          </div>
+          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha • Thread export + token accumulation</p>
+          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -1460,7 +1457,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {/* Reading Configuration Box */}
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6">
               {/* Spread Type Toggle */}
-              <div className="flex justify-center mb-4 relative">
+              <div className="flex justify-center items-center gap-2 mb-4 relative">
+                {/* Help icon on left */}
+                <button
+                  onClick={() => setHelpPopover(helpPopover === 'spreadType' ? null : 'spreadType')}
+                  className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all"
+                >
+                  ?
+                </button>
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('durable'); setSpreadKey('arc'); }}
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'durable' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
@@ -1475,13 +1479,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     Forge
                   </button>
                 </div>
-                {/* Help icon positioned absolutely so it doesn't affect centering */}
-                <button
-                  onClick={() => setHelpPopover(helpPopover === 'spreadType' ? null : 'spreadType')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all"
-                >
-                  ?
-                </button>
                 {helpPopover === 'spreadType' && (
                   <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80">
                     <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -1566,11 +1563,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
               {/* Stance Selector - same width as card count for alignment */}
               <div className="w-full max-w-lg mx-auto relative">
-                <div className="relative flex items-center justify-center mb-3">
+                <div className="flex items-center justify-center gap-1.5 mb-3">
                   <span className="text-[0.75rem] sm:text-xs text-zinc-400">Style</span>
                   <button
                     onClick={() => setHelpPopover(helpPopover === 'stanceLabel' ? null : 'stanceLabel')}
-                    className="absolute right-0 w-7 h-7 sm:w-4 sm:h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs sm:text-[0.625rem] flex items-center justify-center transition-all"
+                    className="w-4 h-4 sm:w-3.5 sm:h-3.5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.5rem] flex items-center justify-center transition-all"
                   >
                     ?
                   </button>
@@ -1715,53 +1712,56 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
             {/* Question Input Section */}
             <div className="relative mb-3 mt-4">
-              {/* Prompt suggestions ABOVE the input - subtle inspiration */}
-              <div className={`mb-2 transition-all duration-300 ${question.trim() ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
+              {/* Static starter prompts - gentle on-ramps */}
+              <div className={`mb-3 transition-all duration-300 ${question.trim() ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
                 <div className="flex items-center justify-center gap-2 flex-wrap">
-                  <button
-                    onClick={handleSpark}
-                    className="w-6 h-6 rounded bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center justify-center text-[0.6875rem]"
-                    title="Show a random suggestion"
-                  >
-                    ✨
-                  </button>
-                  {[0, 1].map((offset) => {
-                    const idx = (suggestionIndex + offset) % SUGGESTIONS.length;
-                    const suggestion = SUGGESTIONS[idx];
-                    return (
-                      <button
-                        key={`${idx}-${suggestion.slice(0, 10)}`}
-                        onClick={() => setQuestion(suggestion)}
-                        className="text-[0.6875rem] sm:text-xs px-2 py-1 text-zinc-500 hover:text-zinc-300 truncate max-w-[150px] sm:max-w-[180px] transition-opacity duration-300"
-                      >
-                        {suggestion}
-                      </button>
-                    );
-                  })}
+                  {STARTERS.map((starter, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setQuestion(starter)}
+                      className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/80 border border-zinc-700/50 transition-all"
+                    >
+                      {starter}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <div className="relative">
-                <textarea
-                  value={question}
-                  onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); }}
-                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                  placeholder={sparkPlaceholder || (
-                    spreadType === 'forge'
-                      ? "What are you forging? Declare your intention..."
-                      : spreadType === 'durable'
-                        ? "What area of life are you examining?"
-                        : "Name your question or declare your intent..."
-                  )}
-                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 pr-10 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                  rows={3}
-                />
+              {/* Input row with Spark button on left */}
+              <div className="flex gap-2">
+                {/* Spark button */}
                 <button
-                  onClick={() => setHelpPopover(helpPopover === 'input' ? null : 'input')}
-                  className="absolute top-3 right-3 w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
+                  onClick={handleSpark}
+                  className="flex-shrink-0 px-3 py-2 rounded-xl bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center gap-1.5 text-xs transition-colors border border-purple-800/50"
+                  title="Get a spark prompt"
                 >
-                  ?
+                  <span>✨</span>
+                  <span className="hidden sm:inline">Spark</span>
                 </button>
+
+                {/* Question textarea */}
+                <div className="relative flex-1">
+                  <textarea
+                    value={question}
+                    onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); }}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                    placeholder={sparkPlaceholder || (
+                      spreadType === 'forge'
+                        ? "What are you forging? Declare your intention..."
+                        : spreadType === 'durable'
+                          ? "What area of life are you examining?"
+                          : "Name your question or declare your intent..."
+                    )}
+                    className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 pr-10 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                    rows={3}
+                  />
+                  <button
+                    onClick={() => setHelpPopover(helpPopover === 'input' ? null : 'input')}
+                    className="absolute top-3 right-3 w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
+                  >
+                    ?
+                  </button>
+                </div>
               </div>
               {helpPopover === 'input' && (
                 <div className="absolute bottom-full right-0 mb-2 z-50 w-72">
@@ -2076,13 +2076,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   setSelectedInfo={setSelectedInfo}
                   isCollapsed={isSummaryCollapsed}
                   onToggleCollapse={() => toggleCollapse('summary', false)}
-                  selectedOperation={threadOperations['summary'] || null}
-                  onOperationSelect={(op) => setThreadOperations(prev => ({ ...prev, summary: op }))}
-                  operationContext={threadContexts['summary'] || ''}
-                  onContextChange={(ctx) => setThreadContexts(prev => ({ ...prev, summary: ctx }))}
-                  onContinue={() => continueThread('summary')}
-                  threadLoading={threadLoading['summary'] || false}
                   threadData={threadData['summary'] || []}
+                  collapsedThreads={collapsedThreads}
+                  setCollapsedThreads={setCollapsedThreads}
                 />
               );
             })()}
@@ -2125,21 +2121,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     onToggleCollapse={() => toggleCollapse(cardSectionKey, true)}
                     isCorrectionCollapsed={isCorrCollapsed}
                     onToggleCorrectionCollapse={() => toggleCollapse(corrSectionKey, true)}
-                    // Thread props (Phase 2)
                     threadData={threadData[card.index] || []}
-                    selectedOperation={threadOperations[card.index] || null}
-                    onOperationSelect={(op) => setThreadOperations(prev => ({ ...prev, [card.index]: op }))}
-                    operationContext={threadContexts[card.index] || ''}
-                    onContextChange={(ctx) => setThreadContexts(prev => ({ ...prev, [card.index]: ctx }))}
-                    onContinue={() => continueThread(card.index)}
-                    threadLoading={threadLoading[card.index] || false}
-                    // Nested thread props (Phase 2 polish)
-                    threadOperations={threadOperations}
-                    setThreadOperations={setThreadOperations}
-                    threadContexts={threadContexts}
-                    setThreadContexts={setThreadContexts}
-                    threadLoadingMap={threadLoading}
-                    onContinueThread={continueNestedThread}
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
                   />
@@ -2222,157 +2204,69 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           </div>
                         ))}
 
-                        {/* Path Reflect/Forge Operations */}
-                        <div className="border-t border-emerald-700/50 mt-5 pt-5">
-                          {/* Collapsed state: show [▶ Reflect] [▶ Forge] on one line */}
-                          {!threadOperations['path'] && (
-                            <div className="flex justify-center gap-3">
-                              <button
-                                onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'reflect' })); }}
-                                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
-                              >
-                                <span className="text-[0.625rem] text-red-500">▶</span> Reflect
-                              </button>
-                              <button
-                                onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
-                                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
-                              >
-                                <span className="text-[0.625rem] text-red-500">▶</span> Forge
-                              </button>
-                            </div>
-                          )}
-
-                          {/* Expanded state: show full panel with selected operation */}
-                          {threadOperations['path'] && (
-                            <div className="max-w-xs mx-auto">
-                              <div className="flex justify-center gap-4 mb-4">
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'reflect' })); }}
-                                  className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                                    threadOperations['path'] === 'reflect'
-                                      ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
-                                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
-                                  }`}
-                                >
-                                  <span className="text-[0.625rem] text-green-500">▶</span> Reflect
-                                </button>
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
-                                  className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                                    threadOperations['path'] === 'forge'
-                                      ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
-                                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
-                                  }`}
-                                >
-                                  <span className="text-[0.625rem] text-green-500">▶</span> Forge
-                                </button>
-                              </div>
-
-                              {/* Context Input */}
-                              <div className="mb-4">
-                                <textarea
-                                  value={threadContexts['path'] || ''}
-                                  onChange={(e) => setThreadContexts(prev => ({ ...prev, path: e.target.value }))}
-                                  onClick={(e) => e.stopPropagation()}
-                                  placeholder="Add context (optional)..."
-                                  rows={2}
-                                  className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none"
-                                />
-                              </div>
-
-                              {/* Continue Button */}
-                              <div className="flex justify-center">
-                                <button
-                                  onClick={(e) => { e.stopPropagation(); continueThread('path'); }}
-                                  disabled={!threadOperations['path'] || threadLoading['path']}
-                                  className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-                                    threadOperations['path'] && !threadLoading['path']
-                                      ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50'
-                                      : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'
-                                  }`}
-                                >
-                                  {threadLoading['path'] ? (
-                                    <>
-                                      <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
-                                      Drawing...
-                                    </>
-                                  ) : (
-                                    'Continue'
-                                  )}
-                                </button>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Thread Results for Path */}
-                          {threadData['path'] && threadData['path'].length > 0 && (
-                            <div className="mt-5 space-y-4">
-                              {threadData['path'].map((threadItem, threadIndex) => {
-                                const isReflect = threadItem.operation === 'reflect';
-                                // Both Reflect and Forge draw new cards
-                                const trans = getComponent(threadItem.draw.transient);
-                                const stat = STATUSES[threadItem.draw.status];
-                                const statusPrefix = stat.prefix || 'Balanced';
-                                return (
-                                  <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
-                                    {/* Header with operation type */}
-                                    <div className="flex items-center gap-2 mb-3">
-                                      <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
-                                        {isReflect ? '↩ Reflect' : '⚡ Forge'}
-                                      </span>
+                        {/* Thread Results for Path - display only, no input UI */}
+                        {threadData['path'] && threadData['path'].length > 0 && (
+                          <div className="border-t border-emerald-700/50 mt-5 pt-5 space-y-4">
+                            {threadData['path'].map((threadItem, threadIndex) => {
+                              const isReflect = threadItem.operation === 'reflect';
+                              const trans = getComponent(threadItem.draw.transient);
+                              const stat = STATUSES[threadItem.draw.status];
+                              const statusPrefix = stat.prefix || 'Balanced';
+                              return (
+                                <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                                  <div className="flex items-center gap-2 mb-3">
+                                    <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
+                                      {isReflect ? '↩ Reflect' : '⚡ Forge'}
+                                    </span>
+                                  </div>
+                                  {threadItem.context && (
+                                    <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
+                                      "{threadItem.context}"
                                     </div>
-                                    {/* User's input quote */}
-                                    {threadItem.context && (
-                                      <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
-                                        "{threadItem.context}"
-                                      </div>
-                                    )}
-                                    {/* Card info - both Reflect and Forge draw cards, with clickable terms */}
-                                    <div className="flex items-center gap-2 mb-2">
+                                  )}
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <span
+                                      className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
+                                      }}
+                                    >
+                                      {stat.name}
+                                    </span>
+                                    <span className="text-sm font-medium text-zinc-200">
                                       <span
-                                        className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
+                                        className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
                                         onClick={(e) => {
                                           e.stopPropagation();
                                           setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
                                         }}
                                       >
-                                        {stat.name}
+                                        {statusPrefix}
                                       </span>
-                                      <span className="text-sm font-medium text-zinc-200">
-                                        <span
-                                          className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
-                                          }}
-                                        >
-                                          {statusPrefix}
-                                        </span>
-                                        {statusPrefix && ' '}
-                                        <span
-                                          className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) });
-                                          }}
-                                        >
-                                          {trans.name}
-                                        </span>
+                                      {statusPrefix && ' '}
+                                      <span
+                                        className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) });
+                                        }}
+                                      >
+                                        {trans.name}
                                       </span>
-                                    </div>
-                                    {showTraditional && trans && (
-                                      <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
-                                    )}
-                                    {/* Response with hotlinks */}
-                                    <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                                      {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
-                                    </div>
+                                    </span>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
+                                  {showTraditional && trans && (
+                                    <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
+                                  )}
+                                  <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
+                                    {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </>
                     )}
                   </div>
@@ -2397,17 +2291,148 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   setSelectedInfo={setSelectedInfo}
                   isCollapsed={isLetterCollapsed}
                   onToggleCollapse={() => toggleCollapse('letter', false)}
-                  selectedOperation={threadOperations['letter'] || null}
-                  onOperationSelect={(op) => setThreadOperations(prev => ({ ...prev, letter: op }))}
-                  operationContext={threadContexts['letter'] || ''}
-                  onContextChange={(ctx) => setThreadContexts(prev => ({ ...prev, letter: ctx }))}
-                  onContinue={() => continueThread('letter')}
-                  threadLoading={threadLoading['letter'] || false}
                   threadData={threadData['letter'] || []}
+                  collapsedThreads={collapsedThreads}
+                  setCollapsedThreads={setCollapsedThreads}
                 />
               );
             })()}
-            
+
+            {/* Unified Reflect/Forge Section - ONE set of buttons at the bottom */}
+            <div className="mt-6 pt-4 border-t border-zinc-800/50">
+              <div className="text-center mb-4">
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">Continue exploring</span>
+              </div>
+
+              {/* Collapsed state: show [▶ Reflect] [▶ Forge] */}
+              {!threadOperations['unified'] && (
+                <div className="flex justify-center gap-3">
+                  <button
+                    onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                  >
+                    <span className="text-[0.625rem] text-red-500">▶</span> Reflect
+                  </button>
+                  <button
+                    onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                  >
+                    <span className="text-[0.625rem] text-red-500">▶</span> Forge
+                  </button>
+                </div>
+              )}
+
+              {/* Expanded state: full panel */}
+              {threadOperations['unified'] && (
+                <div className="max-w-sm mx-auto">
+                  <div className="flex justify-center gap-4 mb-4">
+                    <button
+                      onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
+                      className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        threadOperations['unified'] === 'reflect'
+                          ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
+                          : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                      }`}
+                    >
+                      ↩ Reflect
+                    </button>
+                    <button
+                      onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
+                      className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        threadOperations['unified'] === 'forge'
+                          ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
+                          : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                      }`}
+                    >
+                      ⚡ Forge
+                    </button>
+                  </div>
+
+                  <textarea
+                    value={threadContexts['unified'] || ''}
+                    onChange={(e) => setThreadContexts(prev => ({ ...prev, unified: e.target.value }))}
+                    placeholder="Add context (optional)..."
+                    rows={2}
+                    className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-4"
+                  />
+
+                  <button
+                    onClick={() => continueThread('unified')}
+                    disabled={!threadOperations['unified'] || threadLoading['unified']}
+                    className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                      threadOperations['unified'] && !threadLoading['unified']
+                        ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50'
+                        : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'
+                    }`}
+                  >
+                    {threadLoading['unified'] ? (
+                      <>
+                        <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                        Drawing...
+                      </>
+                    ) : (
+                      'Continue'
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* Unified Thread Results */}
+              {threadData['unified'] && threadData['unified'].length > 0 && (
+                <div className="mt-5 space-y-4">
+                  {threadData['unified'].map((threadItem, threadIndex) => {
+                    const isReflect = threadItem.operation === 'reflect';
+                    const trans = getComponent(threadItem.draw.transient);
+                    const stat = STATUSES[threadItem.draw.status];
+                    const statusPrefix = stat.prefix || 'Balanced';
+                    return (
+                      <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
+                            {isReflect ? '↩ Reflect' : '⚡ Forge'}
+                          </span>
+                        </div>
+                        {threadItem.context && (
+                          <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
+                            "{threadItem.context}"
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
+                            onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}
+                          >
+                            {stat.name}
+                          </span>
+                          <span className="text-sm font-medium text-zinc-200">
+                            <span
+                              className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
+                              onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}
+                            >
+                              {statusPrefix}
+                            </span>
+                            {statusPrefix && ' '}
+                            <span
+                              className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
+                              onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                            >
+                              {trans.name}
+                            </span>
+                          </span>
+                        </div>
+                        {showTraditional && trans && (
+                          <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
+                        )}
+                        <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
+                          {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             <div ref={messagesEndRef} />
           </div>
         )}
