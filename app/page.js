@@ -77,7 +77,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.34.1";
+const VERSION = "0.34.2";
 
 // === MAIN COMPONENT ===
 export default function NirmanakaReader() {
@@ -284,7 +284,7 @@ export default function NirmanakaReader() {
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514" })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514" })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -467,7 +467,7 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -604,7 +604,7 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -743,7 +743,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514" })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514" })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -796,7 +796,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         body: JSON.stringify({
           messages: [{ role: 'user', content: contextMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -1377,7 +1377,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             )}
           </div>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
+          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha • Haiku model toggle</p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
