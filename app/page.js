@@ -1936,6 +1936,38 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Error */}
         {error && <div className="bg-red-950/30 border border-red-900/50 rounded-xl p-4 my-4 text-red-400 text-sm">{error}</div>}
 
+        {/* OVERVIEW - First thing after a reading (before card visuals) */}
+        {parsedReading && !loading && parsedReading.summary && (() => {
+          const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
+          return (
+            <div className="mb-6">
+              {/* Your Question */}
+              <div className="bg-zinc-800/50 rounded-xl p-4 mb-4 mx-8">
+                <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
+                <div className="text-zinc-300 text-sm">{question}</div>
+              </div>
+              <ReadingSection
+                type="summary"
+                content={parsedReading.summary}
+                question={question}
+                expansions={expansions}
+                expanding={expanding}
+                onExpand={handleExpand}
+                showTraditional={showTraditional}
+                spreadType={spreadType}
+                spreadKey={spreadKey}
+                setSelectedInfo={setSelectedInfo}
+                isCollapsed={isSummaryCollapsed}
+                onToggleCollapse={() => toggleCollapse('summary', false)}
+                threadData={threadData['summary'] || []}
+                collapsedThreads={collapsedThreads}
+                setCollapsedThreads={setCollapsedThreads}
+                onGlossaryClick={handleGlossaryClick}
+              />
+            </div>
+          );
+        })()}
+
         {/* Signatures Display */}
         {draws && !loading && (() => {
           // Signatures default to EXPANDED (only true = collapsed)
@@ -2176,41 +2208,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Parsed Reading Sections */}
+        {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys, Letter) */}
         {parsedReading && !loading && (
           <div className="space-y-2">
-                        
-            {/* Your Question */}
-            <div className="bg-zinc-800/50 rounded-xl p-4 mb-4 mx-8">
-              <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
-              <div className="text-zinc-300 text-sm">{question}</div>
-            </div>
-            
-            {/* Summary Section - expanded by default, collapsible */}
-            {parsedReading.summary && (() => {
-              const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
-              return (
-                <ReadingSection
-                  type="summary"
-                  content={parsedReading.summary}
-                  question={question}
-                  expansions={expansions}
-                  expanding={expanding}
-                  onExpand={handleExpand}
-                  showTraditional={showTraditional}
-                  spreadType={spreadType}
-                  spreadKey={spreadKey}
-                  setSelectedInfo={setSelectedInfo}
-                  isCollapsed={isSummaryCollapsed}
-                  onToggleCollapse={() => toggleCollapse('summary', false)}
-                  threadData={threadData['summary'] || []}
-                  collapsedThreads={collapsedThreads}
-                  setCollapsedThreads={setCollapsedThreads}
-                  onGlossaryClick={handleGlossaryClick}
-                />
-              );
-            })()}
-            
             {/* Signature Sections with nested Rebalancers - collapsed by default */}
             {parsedReading.cards.map((card) => {
               const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
