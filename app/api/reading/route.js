@@ -2,7 +2,7 @@
 // Handles readings and follow-up conversations
 
 export async function POST(request) {
-  const { messages, system } = await request.json();
+  const { messages, system, model } = await request.json();
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -13,7 +13,7 @@ export async function POST(request) {
         "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: model || "claude-sonnet-4-20250514",
         max_tokens: 1500,
         system: system,
         messages: messages

@@ -120,6 +120,7 @@ export default function NirmanakaReader() {
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [sparkPlaceholder, setSparkPlaceholder] = useState('');
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
+  const [useHaiku, setUseHaiku] = useState(false); // Model toggle: false = Sonnet, true = Haiku
 
   // Thread state for Reflect/Forge operations (Phase 2)
   const [threadData, setThreadData] = useState({}); // {cardIndex: [{draw, interpretation, operation, context, children}, ...]}
@@ -280,11 +281,11 @@ export default function NirmanakaReader() {
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514" })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      
+
       // Parse the structured response
       const parsed = parseReadingResponse(data.reading, drawsToUse);
       setParsedReading(parsed);
@@ -462,7 +463,8 @@ Interpret this new card as the architecture's response to their declared directi
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
-          system: systemPrompt
+          system: systemPrompt,
+          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -598,7 +600,8 @@ Interpret this new card as the architecture's response to their declared directi
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
-          system: systemPrompt
+          system: systemPrompt,
+          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -737,11 +740,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514" })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      
+
       setExpansions(prev => ({
         ...prev,
         [sectionKey]: {
@@ -787,9 +790,10 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          messages: [{ role: 'user', content: contextMessage }], 
-          system: systemPrompt 
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: contextMessage }],
+          system: systemPrompt,
+          model: useHaiku ? "claude-haiku-4-5-20250306" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
@@ -1616,6 +1620,19 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       setShowCustomize={() => {}}
                       gridOnly={true}
                     />
+
+                    {/* Model Toggle */}
+                    <div className="mt-4 pt-3 border-t border-zinc-700/50">
+                      <label className="flex items-center justify-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={useHaiku}
+                          onChange={(e) => setUseHaiku(e.target.checked)}
+                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
+                      </label>
+                    </div>
                   </div>
                 )}
               </div>
