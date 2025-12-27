@@ -14,7 +14,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: model || "claude-sonnet-4-20250514",
-        max_tokens: 1500,
+        max_tokens: 4000,
         system: system,
         messages: messages
       })
@@ -27,7 +27,7 @@ export async function POST(request) {
     }
 
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
-    return Response.json({ reading: text });
+    return Response.json({ reading: text, usage: data.usage });
 
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
