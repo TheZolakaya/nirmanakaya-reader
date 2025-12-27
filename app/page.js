@@ -76,6 +76,9 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // NOTE: All data constants have been extracted to /lib modules.
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
+// REMEMBER: Update this when making changes
+const VERSION = "0.34.1";
+
 // === MAIN COMPONENT ===
 export default function NirmanakaReader() {
   const [question, setQuestion] = useState('');
@@ -1374,7 +1377,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             )}
           </div>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v0.33.5 alpha • Clear Mobile Fix + Pet Ban + Quotes</p>
+          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
