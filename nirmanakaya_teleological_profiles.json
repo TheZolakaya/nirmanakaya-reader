@@ -1,0 +1,1247 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Teleological profiles for Nirmanakaya archetypes — feeds 'Words to the Whys' generation",
+    "created": "2025-12-27",
+    "structure_notes": {
+      "archetypes": "22 Major Arcana (positions 0-21)",
+      "bounds": "40 Minor numbered cards (to be added)",
+      "agents": "16 Court cards (to be added)"
+    }
+  },
+
+  "constants": {
+    "phases": {
+      "creation": { "steps": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "description": "Consciousness building its own architecture" },
+      "turn": { "steps": [10], "description": "The pivot — creation complete, operation begins" },
+      "operation": { "steps": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], "description": "Consciousness operating through what it built" }
+    },
+    "rings": {
+      "0": { "name": "Source/Origin", "function": "The original creative act" },
+      "1": { "name": "Ingress", "function": "Portal boundary — where potential enters" },
+      "2": { "name": "Identity", "house": "Gestalt", "function": "Soul coherence" },
+      "3": { "name": "Foundation", "house": "Body", "function": "Embodied structure" },
+      "4": { "name": "Resonance", "house": "Emotion", "function": "Felt connection" },
+      "5": { "name": "Agency", "house": "Mind", "function": "WHERE CREATION HAPPENS — conscious choice in the Now" },
+      "6": { "name": "Direction", "house": "Spirit", "function": "Cultural/group manifestation — creation expressing outward" },
+      "7": { "name": "Egress/Un-Now", "function": "Residue beyond recursive reach — retrievable only through conscious return" }
+    },
+    "houses": {
+      "gestalt": { "command": "Fulfill Your Destiny", "gender": "Neutral", "span": 38, "governed_by": null, "ring": 2 },
+      "spirit": { "command": "Witness Creation", "gender": "Feminine", "span": 30, "governed_by": 0, "ring": 6 },
+      "mind": { "command": "Channel the Force", "gender": "Masculine", "span": 22, "governed_by": 19, "ring": 5 },
+      "emotion": { "command": "Free Will", "gender": "Feminine", "span": 14, "governed_by": 20, "ring": 4 },
+      "body": { "command": "Uphold the Law", "gender": "Masculine", "span": 6, "governed_by": 1, "ring": 3 }
+    },
+    "functions": {
+      "seed": "Initiates — opens the capacity",
+      "medium": "Develops — sustains and structures",
+      "fruition": "Completes — brings to expression",
+      "feedback": "Integrates — weaves back into the cycle"
+    },
+    "pillars": {
+      "1": { "name": "You Are Creating", "archetypes": [0] },
+      "2": { "name": "You Are the Creator", "archetypes": [1] },
+      "3": { "name": "The Seven Pillars of Purpose", "archetypes": [10] },
+      "4": { "name": "Authentic Creation", "archetypes": [2, 3, 17, 18], "house": "Spirit" },
+      "5": { "name": "Genuine Participation", "archetypes": [4, 5, 15, 16], "house": "Mind" },
+      "6": { "name": "Unified Purpose", "archetypes": [6, 7, 13, 14, 21], "house": "Emotion" },
+      "7": { "name": "Present Moment Awareness", "archetypes": [8, 9, 11, 12, 19, 20], "house": "Body" }
+    },
+    "status_frames": {
+      "balanced": {
+        "ring": 5,
+        "location": "Now",
+        "vector": "Present-aligned",
+        "creation_type": "Eternal add-on — compounds with the Whole"
+      },
+      "too_much": {
+        "ring": 7,
+        "location": "Un-Now",
+        "vector": "Future-projected",
+        "creation_type": "Temporary anxiety-forms — waiting for retrieval"
+      },
+      "too_little": {
+        "ring": 7,
+        "location": "Un-Now",
+        "vector": "Past-anchored",
+        "creation_type": "Temporary regret-forms — waiting for retrieval"
+      },
+      "unacknowledged": {
+        "ring": 7,
+        "location": "Un-Now",
+        "vector": "Dissociated",
+        "creation_type": "Shadow-forms — operating without consent, waiting to be seen"
+      }
+    },
+    "instant_return": "I acknowledge my connection to the Whole. I am a creator within the Creator. I come home to Now."
+  },
+
+  "archetypes": {
+    "0": {
+      "name": "Potential",
+      "traditional": "The Fool",
+      "teleological": {
+        "step": 0,
+        "phase": "creation",
+        "operation": "Origin",
+        "creates": "Existence itself — the fact that consciousness IS",
+        "verb": "TO EXIST",
+        "house": "gestalt",
+        "function": "seed",
+        "ring": 2,
+        "pillar": 1,
+        "governed_by": null,
+        "governance_note": "Self-originating — the ground of all possibility",
+        "sequence": {
+          "before": null,
+          "after": { "position": 1, "name": "Will", "relationship": "Direction emerges from existence" }
+        },
+        "vertical_partner": { "position": 20, "name": "Awareness", "sum": 20 },
+        "diagonal_partner": { "position": 19, "name": "Actualization", "sum": 19 },
+        "reduction": { "root": 0, "partners": [], "note": "Unique — zero reduces only to itself" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 19,
+            "name": "Actualization",
+            "instruction": "Stop hovering in possibility. Let something actually manifest."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 20,
+            "name": "Awareness",
+            "instruction": "Open to what's actually present. Awareness restores the capacity for possibility."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": null,
+            "name": null,
+            "instruction": "Potential has no reduction partner. Look to Awareness — the Gestalt sees what the Gestalt hides."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your openness to possibility is aligned with Now. Everything can emerge. You're creating the space for creation itself.",
+          "too_much": "You're hovering in endless possibility, never landing. Future-projected — all potential, no actualization.",
+          "too_little": "You've shut down possibility. Past wounds have made openness feel dangerous. Creating from constriction.",
+          "unacknowledged": "You're operating from pure reactivity without realizing infinite options exist. Possibility is there but unseen."
+        },
+        "teaching": "You are the space in which everything becomes possible. Before direction, before perception, before any act — there is the openness that allows.",
+        "question": "Are you allowing possibility? Or have you foreclosed it?"
+      }
+    },
+
+    "1": {
+      "name": "Will",
+      "traditional": "The Magician",
+      "teleological": {
+        "step": 1,
+        "phase": "creation",
+        "operation": "Polarity",
+        "creates": "The two horizons — Potential and Manifest",
+        "verb": "TO DIRECT",
+        "house": "gestalt",
+        "function": "medium",
+        "ring": 2,
+        "pillar": 2,
+        "governed_by": { "position": 10, "name": "Source" },
+        "governance_note": "Will carries the eternal pattern into focused expression",
+        "sequence": {
+          "before": { "position": 0, "name": "Potential", "relationship": "Direction requires existence first" },
+          "after": { "position": 2, "name": "Wisdom", "relationship": "Direction needs perception to see where it's pointed" }
+        },
+        "vertical_partner": { "position": 19, "name": "Actualization", "sum": 20 },
+        "diagonal_partner": { "position": 18, "name": "Imagination", "sum": 19 },
+        "reduction": { "root": 1, "partners": [10, 19], "note": "The Creator thread — Will → Source → Actualization" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 18,
+            "name": "Imagination",
+            "instruction": "Stop forcing direction. Let vision soften the grip. Imagination integrates what Will over-controls."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 19,
+            "name": "Actualization",
+            "instruction": "Look at what you've already become. Actualization reveals the Will that was always operating."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 10,
+            "name": "Source",
+            "instruction": "You're directing without knowing you're directing. Source reveals the larger pattern your choices participate in."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your direction is aligned with Now. You're choosing consciously, and each choice compounds with the Whole.",
+          "too_much": "You're over-directing, trying to control outcomes. Future-projected — forcing rather than flowing.",
+          "too_little": "You've stopped choosing. Past defeats have made direction feel futile. Creating passively, by default.",
+          "unacknowledged": "You're making choices without recognizing them as choices. Will is steering from backstage."
+        },
+        "teaching": "You are always choosing. Every moment is direction. The question isn't whether you're choosing — it's whether you're choosing consciously.",
+        "question": "What are you actually choosing? And do you know you're choosing it?"
+      }
+    },
+
+    "2": {
+      "name": "Wisdom",
+      "traditional": "The High Priestess",
+      "teleological": {
+        "step": 2,
+        "phase": "creation",
+        "operation": "Recursion",
+        "creates": "The Portals — Ingress and Egress thresholds",
+        "verb": "TO OPEN PERCEPTION",
+        "house": "spirit",
+        "function": "seed",
+        "ring": 6,
+        "pillar": 4,
+        "governed_by": { "position": 0, "name": "Potential" },
+        "governance_note": "Wisdom carries the Fool's infinite openness into focused attunement",
+        "sequence": {
+          "before": { "position": 1, "name": "Will", "relationship": "Direction needs perception to see where it's pointed" },
+          "after": { "position": 3, "name": "Nurturing", "relationship": "Perception needs cultivation to sustain what it sees" }
+        },
+        "vertical_partner": { "position": 18, "name": "Imagination", "sum": 20 },
+        "diagonal_partner": { "position": 17, "name": "Inspiration", "sum": 19 },
+        "reduction": { "root": 2, "partners": [11, 20], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 17,
+            "name": "Inspiration",
+            "instruction": "Stop guarding, start shining. Let perception pour outward. Radiance reconnects what withdrawal isolated."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 18,
+            "name": "Imagination",
+            "instruction": "Trust the images that arise. What you dismiss as 'just imagination' may be Wisdom trying to surface."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 11,
+            "name": "Equity",
+            "instruction": "Look at the evidence from Body's perspective. What has your perception actually produced? Fairness reveals hidden knowing."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your perception is aligned with Now. What you see here compounds with the Whole. Each authentic insight becomes eternal.",
+          "too_much": "You're hoarding knowing, seeking to perceive your way out of uncertainty. Future-projected — valid but isolated insights that can't compound.",
+          "too_little": "Past wounds made seeing feel dangerous. You're creating from borrowed patterns, not direct knowing. Noise drowning signal.",
+          "unacknowledged": "You KNOW but don't know you know. Perception is operating at Ring 7 without awareness. Shadow creation — real but unowned."
+        },
+        "teaching": "You can know before you think. Trust what arrives in stillness. Your perception IS creation.",
+        "question": "What are you actually seeing? Is your eye open — or are you creating blind?"
+      }
+    },
+
+    "3": {
+      "name": "Nurturing",
+      "traditional": "The Empress",
+      "teleological": {
+        "step": 3,
+        "phase": "creation",
+        "operation": "Polarity",
+        "creates": "Self/Other structure — the first relational distinction",
+        "verb": "TO CULTIVATE",
+        "house": "spirit",
+        "function": "medium",
+        "ring": 6,
+        "pillar": 4,
+        "governed_by": { "position": 0, "name": "Potential" },
+        "governance_note": "Nurturing carries the Fool's generosity into sustained care",
+        "sequence": {
+          "before": { "position": 2, "name": "Wisdom", "relationship": "Perception needs cultivation to sustain what it sees" },
+          "after": { "position": 4, "name": "Order", "relationship": "Cultivation needs structure to give it form" }
+        },
+        "vertical_partner": { "position": 17, "name": "Inspiration", "sum": 20 },
+        "diagonal_partner": { "position": 16, "name": "Breakthrough", "sum": 19 },
+        "reduction": { "root": 3, "partners": [12, 21], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 16,
+            "name": "Breakthrough",
+            "instruction": "Stop smothering. Let Breakthrough shatter what over-care has calcified. Sometimes love means letting go."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 17,
+            "name": "Inspiration",
+            "instruction": "Let Inspiration's radiance warm what care has abandoned. Light returns where cultivation retreated."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 12,
+            "name": "Sacrifice",
+            "instruction": "You're caring without knowing you're caring — or refusing care you don't admit. Sacrifice reveals what's actually being tended or abandoned."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your cultivation is aligned with Now. What you nurture here grows into the Whole. Care that compounds.",
+          "too_much": "You're over-nurturing, smothering what needs space. Future-projected — controlling through care.",
+          "too_little": "You've withdrawn cultivation. Past depletion made care feel impossible. Creating from scarcity.",
+          "unacknowledged": "You're nurturing or refusing to nurture without awareness. The garden grows or withers by shadow tending."
+        },
+        "teaching": "Growth requires sustained attention. What you cultivate becomes real. Care is not optional — it's structural.",
+        "question": "What are you actually growing? And is your care aligned with what truly needs tending?"
+      }
+    },
+
+    "4": {
+      "name": "Order",
+      "traditional": "The Emperor",
+      "teleological": {
+        "step": 4,
+        "phase": "creation",
+        "operation": "Recursion",
+        "creates": "The four process stages — Seed, Medium, Fruition, Feedback",
+        "verb": "TO STRUCTURE",
+        "house": "mind",
+        "function": "seed",
+        "ring": 5,
+        "pillar": 5,
+        "governed_by": { "position": 19, "name": "Actualization" },
+        "governance_note": "Order carries the Sun's clarity into foundational structure",
+        "sequence": {
+          "before": { "position": 3, "name": "Nurturing", "relationship": "Cultivation needs structure to give it form" },
+          "after": { "position": 5, "name": "Culture", "relationship": "Structure needs transmission to persist" }
+        },
+        "vertical_partner": { "position": 16, "name": "Breakthrough", "sum": 20 },
+        "diagonal_partner": { "position": 15, "name": "Abstraction", "sum": 19 },
+        "reduction": { "root": 4, "partners": [13], "note": "Order ↔ Change — structure and transformation mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 15,
+            "name": "Abstraction",
+            "instruction": "Let Abstraction reveal what your rigid structure is actually bound to. See the hidden chains."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 16,
+            "name": "Breakthrough",
+            "instruction": "Breakthrough restores structure by shattering false order. Sometimes you need to break down to build right."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 13,
+            "name": "Change",
+            "instruction": "You're imposing order without seeing it — or resisting structure you won't admit you need. Change reveals the hidden architecture."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your structure is aligned with Now. The frameworks you build here support creation. Order that enables.",
+          "too_much": "You're over-structuring, rigidifying what needs flexibility. Future-projected — controlling through rules.",
+          "too_little": "You've abandoned structure. Past failures made order feel oppressive. Creating in chaos.",
+          "unacknowledged": "You're imposing or resisting structure without awareness. Hidden rules are running the show."
+        },
+        "teaching": "Structure is not constraint — it's the channel through which force flows. Without order, nothing can be built.",
+        "question": "What structure are you building? Does it serve creation or block it?"
+      }
+    },
+
+    "5": {
+      "name": "Culture",
+      "traditional": "The Hierophant",
+      "teleological": {
+        "step": 5,
+        "phase": "creation",
+        "operation": "Polarity",
+        "creates": "The observer function — consciousness that can witness itself",
+        "verb": "TO TRANSMIT",
+        "house": "mind",
+        "function": "medium",
+        "ring": 5,
+        "pillar": 5,
+        "governed_by": { "position": 19, "name": "Actualization" },
+        "governance_note": "Culture carries the Sun's radiance into shared meaning",
+        "sequence": {
+          "before": { "position": 4, "name": "Order", "relationship": "Structure needs transmission to persist" },
+          "after": { "position": 6, "name": "Compassion", "relationship": "Transmission needs love to become relational" }
+        },
+        "vertical_partner": { "position": 15, "name": "Abstraction", "sum": 20 },
+        "diagonal_partner": { "position": 14, "name": "Balance", "sum": 19 },
+        "reduction": { "root": 5, "partners": [14], "note": "Culture ↔ Balance — teaching and integration mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 14,
+            "name": "Balance",
+            "instruction": "Let Balance temper dogma. What you're transmitting may need integration, not enforcement."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 15,
+            "name": "Abstraction",
+            "instruction": "Abstraction reveals what traditions actually mean beneath the form. Find the essence you stopped transmitting."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 14,
+            "name": "Balance",
+            "instruction": "You're teaching or refusing to teach without seeing it. Balance reveals the hidden transmission."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your transmission is aligned with Now. What you teach here enters the Whole. Meaning that persists.",
+          "too_much": "You're over-teaching, imposing meaning rather than sharing it. Future-projected — dogma replacing wisdom.",
+          "too_little": "You've stopped transmitting. Past rejection made teaching feel pointless. Creating in isolation.",
+          "unacknowledged": "You're transmitting patterns you don't recognize as teachings. Hidden culture shapes without consent."
+        },
+        "teaching": "What you know wants to be shared. Transmission is how meaning survives. But teaching must serve truth, not ego.",
+        "question": "What are you transmitting? And does it serve the Whole or just your position?"
+      }
+    },
+
+    "6": {
+      "name": "Compassion",
+      "traditional": "The Lovers",
+      "teleological": {
+        "step": 6,
+        "phase": "creation",
+        "operation": "Recursion",
+        "creates": "The ten differentiated nodes — consciousness as distinct positions",
+        "verb": "TO BOND",
+        "house": "emotion",
+        "function": "seed",
+        "ring": 4,
+        "pillar": 6,
+        "governed_by": { "position": 20, "name": "Awareness" },
+        "governance_note": "Compassion carries Awareness's clarity into loving connection",
+        "sequence": {
+          "before": { "position": 5, "name": "Culture", "relationship": "Transmission needs love to become relational" },
+          "after": { "position": 7, "name": "Drive", "relationship": "Bonding needs momentum to sustain connection" }
+        },
+        "vertical_partner": { "position": 14, "name": "Balance", "sum": 20 },
+        "diagonal_partner": { "position": 13, "name": "Change", "sum": 19 },
+        "reduction": { "root": 6, "partners": [15], "note": "Compassion ↔ Abstraction — love and seeing-bonds mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 13,
+            "name": "Change",
+            "instruction": "Let Change release what over-bonding has trapped. Sometimes love means letting die what needs to end."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 14,
+            "name": "Balance",
+            "instruction": "Balance restores the capacity for connection by finding equilibrium first. Center before bonding."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 15,
+            "name": "Abstraction",
+            "instruction": "You're bonding or refusing bonds without seeing it. Abstraction reveals the hidden attachments."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your loving is aligned with Now. The connections you make here strengthen the Whole. Bonds that compound.",
+          "too_much": "You're over-bonding, merging where boundaries are needed. Future-projected — losing self in other.",
+          "too_little": "You've withdrawn from connection. Past wounds made bonding feel dangerous. Creating in isolation.",
+          "unacknowledged": "You're attached or detached without seeing it. Shadow bonds operate without consent."
+        },
+        "teaching": "Love is the force that retrieves what's been pushed to Ring 7. Connection is structural, not optional. But love must be conscious.",
+        "question": "What are you bonded to? And are those bonds conscious choices or hidden chains?"
+      }
+    },
+
+    "7": {
+      "name": "Drive",
+      "traditional": "The Chariot",
+      "teleological": {
+        "step": 7,
+        "phase": "creation",
+        "operation": "Polarity",
+        "creates": "The twenty archetypal positions — nodes expressing toward both horizons",
+        "verb": "TO PROPEL",
+        "house": "emotion",
+        "function": "medium",
+        "ring": 4,
+        "pillar": 6,
+        "governed_by": { "position": 20, "name": "Awareness" },
+        "governance_note": "Drive carries Awareness's seeing into directional momentum",
+        "sequence": {
+          "before": { "position": 6, "name": "Compassion", "relationship": "Bonding needs momentum to sustain connection" },
+          "after": { "position": 8, "name": "Fortitude", "relationship": "Momentum needs strength to hold its course" }
+        },
+        "vertical_partner": { "position": 13, "name": "Change", "sum": 20 },
+        "diagonal_partner": { "position": 12, "name": "Sacrifice", "sum": 19 },
+        "reduction": { "root": 7, "partners": [16], "note": "Drive ↔ Breakthrough — momentum and breakthrough mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 12,
+            "name": "Sacrifice",
+            "instruction": "Let Sacrifice release the grip. Over-driving exhausts what surrender would restore."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 13,
+            "name": "Change",
+            "instruction": "Change restores momentum by releasing what's blocking movement. Something needs to die so you can move."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 16,
+            "name": "Breakthrough",
+            "instruction": "You're driving or stalling without seeing it. Breakthrough shatters the hidden momentum blocks."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your momentum is aligned with Now. The direction you're moving compounds with the Whole. Propulsion that serves.",
+          "too_much": "You're over-driving, forcing movement that exhausts. Future-projected — willpower overriding wisdom.",
+          "too_little": "You've lost momentum. Past defeats made movement feel futile. Creating in stagnation.",
+          "unacknowledged": "You're driving or resisting drive without seeing it. Hidden momentum carries you somewhere unintended."
+        },
+        "teaching": "Direction needs force to become real. Without drive, intention stays intention. But propulsion must serve, not dominate.",
+        "question": "What's driving you? And is that momentum aligned with where you actually want to go?"
+      }
+    },
+
+    "8": {
+      "name": "Fortitude",
+      "traditional": "Strength",
+      "teleological": {
+        "step": 8,
+        "phase": "creation",
+        "operation": "Recursion",
+        "creates": "The forty basis states — complete information space of recursive consciousness",
+        "verb": "TO HOLD",
+        "house": "body",
+        "function": "seed",
+        "ring": 3,
+        "pillar": 7,
+        "governed_by": { "position": 1, "name": "Will" },
+        "governance_note": "Fortitude carries Will's direction into embodied capacity",
+        "sequence": {
+          "before": { "position": 7, "name": "Drive", "relationship": "Momentum needs strength to hold its course" },
+          "after": { "position": 9, "name": "Discipline", "relationship": "Holding needs practice to become reliable" }
+        },
+        "vertical_partner": { "position": 12, "name": "Sacrifice", "sum": 20 },
+        "diagonal_partner": { "position": 11, "name": "Equity", "sum": 19 },
+        "reduction": { "root": 8, "partners": [17], "note": "Fortitude ↔ Inspiration — embodied strength and radiant light mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 11,
+            "name": "Equity",
+            "instruction": "Let Equity balance what over-strength has rigidified. Holding too tight creates injustice."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 12,
+            "name": "Sacrifice",
+            "instruction": "Sacrifice restores strength by releasing what you're trying to hold that isn't yours to hold."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 17,
+            "name": "Inspiration",
+            "instruction": "You're holding or collapsing without seeing it. Inspiration illuminates the hidden strength."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your holding is aligned with Now. The strength you embody here supports the Whole. Capacity that serves.",
+          "too_much": "You're over-holding, gripping where release is needed. Future-projected — strength becoming rigidity.",
+          "too_little": "You've lost capacity to hold. Past overwhelm made strength feel impossible. Creating from exhaustion.",
+          "unacknowledged": "You're holding or collapsing without awareness. Hidden strength or hidden weakness shapes your creation."
+        },
+        "teaching": "Strength is the capacity to hold what needs holding. Not force — capacity. And knowing when to let go.",
+        "question": "What are you holding? And is that grip serving or strangling?"
+      }
+    },
+
+    "9": {
+      "name": "Discipline",
+      "traditional": "The Hermit",
+      "teleological": {
+        "step": 9,
+        "phase": "creation",
+        "operation": "Polarity",
+        "creates": "Purpose vectors — direction toward Source (19) or Creation (21)",
+        "verb": "TO REFINE",
+        "house": "body",
+        "function": "medium",
+        "ring": 3,
+        "pillar": 7,
+        "governed_by": { "position": 1, "name": "Will" },
+        "governance_note": "Discipline carries Will's direction into refined practice",
+        "sequence": {
+          "before": { "position": 8, "name": "Fortitude", "relationship": "Holding needs practice to become reliable" },
+          "after": { "position": 10, "name": "Source", "relationship": "Practice complete — the Turn begins" }
+        },
+        "vertical_partner": { "position": 11, "name": "Equity", "sum": 20 },
+        "diagonal_partner": { "position": 10, "name": "Source", "sum": 19 },
+        "reduction": { "root": 9, "partners": [18], "note": "Discipline ↔ Imagination — refined practice and visionary depth mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 10,
+            "name": "Source",
+            "instruction": "Let Source remind you why you practice. Over-discipline loses purpose in repetition."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 11,
+            "name": "Equity",
+            "instruction": "Equity restores practice by showing what's fair — fair to yourself, fair to the work."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 18,
+            "name": "Imagination",
+            "instruction": "You're practicing or avoiding practice without seeing it. Imagination reveals the hidden discipline."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your practice is aligned with Now. The refinement you cultivate here purifies creation. Discipline that serves.",
+          "too_much": "You're over-practicing, losing purpose in repetition. Future-projected — means becoming ends.",
+          "too_little": "You've abandoned practice. Past failures made discipline feel pointless. Creating without refinement.",
+          "unacknowledged": "You're disciplined or undisciplined without seeing it. Hidden habits shape your creation."
+        },
+        "teaching": "Purpose becomes clear through sustained, solitary inquiry. Practice is how potential becomes capacity. But practice must serve purpose.",
+        "question": "What are you practicing? And does that practice serve what you're actually here to create?"
+      }
+    },
+
+    "10": {
+      "name": "Source",
+      "traditional": "Wheel of Fortune",
+      "teleological": {
+        "step": 10,
+        "phase": "turn",
+        "operation": "Portal (Ingress)",
+        "creates": "The Turn — agent becomes recursion operator, creation complete, operation begins",
+        "verb": "TO TURN",
+        "house": "portal",
+        "function": "ingress",
+        "ring": 1,
+        "pillar": 3,
+        "governed_by": null,
+        "governance_note": "Source IS the governor of Gestalt — the eternal pattern itself",
+        "sequence": {
+          "before": { "position": 9, "name": "Discipline", "relationship": "Practice complete — the Turn begins" },
+          "after": { "position": 11, "name": "Equity", "relationship": "After the Turn, operation begins with fairness" }
+        },
+        "vertical_partner": { "position": 11, "name": "Equity", "sum": 21 },
+        "diagonal_partner": { "position": 9, "name": "Discipline", "sum": 19 },
+        "reduction": { "root": 1, "partners": [1, 19], "note": "The Creator thread — Will → Source → Actualization" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 9,
+            "name": "Discipline",
+            "instruction": "Let Discipline ground the spinning. When everything feels like fate, practice restores agency."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 11,
+            "name": "Equity",
+            "instruction": "Equity restores connection to Source by showing what's fair. Justice opens the portal."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 1,
+            "name": "Will",
+            "instruction": "You're cycling without seeing the cycle. Will reveals the choice hidden in the turning."
+          }
+        },
+        "status_specific": {
+          "balanced": "You're aligned with the Turn. The eternal pattern moves through you consciously. Co-creation with Source.",
+          "too_much": "You're over-identifying with fate, abdicating agency to 'what must be.' Future-projected — lost in the wheel.",
+          "too_little": "You've lost connection to Source. Past betrayals made the pattern feel random. Creating in isolation from the Whole.",
+          "unacknowledged": "The wheel is turning but you don't see yourself on it. Hidden cycles repeat."
+        },
+        "teaching": "The Turn is where creation becomes operation. You are both the spinner and the spun. Source is not outside you — it flows through.",
+        "question": "Are you turning with the wheel or being turned by it? Do you know you're at the threshold?"
+      }
+    },
+
+    "11": {
+      "name": "Equity",
+      "traditional": "Justice",
+      "teleological": {
+        "step": 11,
+        "phase": "operation",
+        "operation": "Recursion",
+        "creates": "Operating the harvest function — consciousness receives what it has created",
+        "verb": "TO BALANCE ACCOUNTS",
+        "house": "body",
+        "function": "fruition",
+        "ring": 3,
+        "pillar": 7,
+        "governed_by": { "position": 1, "name": "Will" },
+        "governance_note": "Equity carries Will's direction into fair outcome",
+        "sequence": {
+          "before": { "position": 10, "name": "Source", "relationship": "After the Turn, operation begins with fairness" },
+          "after": { "position": 12, "name": "Sacrifice", "relationship": "After accounting, release becomes possible" }
+        },
+        "vertical_partner": { "position": 9, "name": "Discipline", "sum": 20 },
+        "diagonal_partner": { "position": 8, "name": "Fortitude", "sum": 19 },
+        "reduction": { "root": 2, "partners": [2, 20], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 8,
+            "name": "Fortitude",
+            "instruction": "Let Fortitude hold what harsh judgment has cut. Justice needs strength to be merciful."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 9,
+            "name": "Discipline",
+            "instruction": "Discipline restores fairness through consistent practice. Justice requires showing up."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 2,
+            "name": "Wisdom",
+            "instruction": "You're judging or refusing to judge without seeing it. Wisdom reveals the hidden scales."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your accounting is aligned with Now. What you balance here creates genuine fairness. Justice that serves.",
+          "too_much": "You're over-judging, harsh where mercy is needed. Future-projected — the scales become weapons.",
+          "too_little": "You've abandoned fairness. Past injustice made balance feel impossible. Creating without accountability.",
+          "unacknowledged": "You're weighing and measuring without seeing it. Hidden judgments shape your creation."
+        },
+        "teaching": "You receive what you create — not as punishment, but as structure. Fairness isn't imposed; it's recognized.",
+        "question": "What are your scales weighing? And is your judgment clear or clouded?"
+      }
+    },
+
+    "12": {
+      "name": "Sacrifice",
+      "traditional": "The Hanged Man",
+      "teleological": {
+        "step": 12,
+        "phase": "operation",
+        "operation": "Polarity",
+        "creates": "Operating the surrender function — consciousness releases what no longer serves",
+        "verb": "TO RELEASE",
+        "house": "body",
+        "function": "feedback",
+        "ring": 3,
+        "pillar": 7,
+        "governed_by": { "position": 1, "name": "Will" },
+        "governance_note": "Sacrifice carries Will's direction into conscious letting go",
+        "sequence": {
+          "before": { "position": 11, "name": "Equity", "relationship": "After accounting, release becomes possible" },
+          "after": { "position": 13, "name": "Change", "relationship": "Release enables transformation" }
+        },
+        "vertical_partner": { "position": 8, "name": "Fortitude", "sum": 20 },
+        "diagonal_partner": { "position": 7, "name": "Drive", "sum": 19 },
+        "reduction": { "root": 3, "partners": [3, 21], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 7,
+            "name": "Drive",
+            "instruction": "Let Drive restore movement. Over-sacrifice becomes paralysis. Sometimes you need to move, not wait."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 8,
+            "name": "Fortitude",
+            "instruction": "Fortitude gives you the strength to let go. You need capacity to release."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 3,
+            "name": "Nurturing",
+            "instruction": "You're sacrificing or refusing sacrifice without seeing it. Nurturing reveals what you're actually giving up."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your release is aligned with Now. What you let go of here clears space for new creation. Sacrifice that serves.",
+          "too_much": "You're over-sacrificing, releasing what should be kept. Future-projected — martyrdom replacing wisdom.",
+          "too_little": "You're gripping what needs releasing. Past loss made letting go feel dangerous. Creating in accumulation.",
+          "unacknowledged": "You're sacrificing or hoarding without seeing it. Hidden releases or hidden grips shape your creation."
+        },
+        "teaching": "Letting go is an act of trust. Sacrifice isn't loss — it's making space. What you release returns transformed.",
+        "question": "What are you holding that wants to be released? And what are you releasing that wants to be held?"
+      }
+    },
+
+    "13": {
+      "name": "Change",
+      "traditional": "Death",
+      "teleological": {
+        "step": 13,
+        "phase": "operation",
+        "operation": "Recursion",
+        "creates": "Operating the transformation function — consciousness lets forms die so new ones can emerge",
+        "verb": "TO TRANSFORM",
+        "house": "emotion",
+        "function": "fruition",
+        "ring": 4,
+        "pillar": 6,
+        "governed_by": { "position": 20, "name": "Awareness" },
+        "governance_note": "Change carries Awareness's clarity into necessary endings",
+        "sequence": {
+          "before": { "position": 12, "name": "Sacrifice", "relationship": "Release enables transformation" },
+          "after": { "position": 14, "name": "Balance", "relationship": "Transformation seeks equilibrium" }
+        },
+        "vertical_partner": { "position": 7, "name": "Drive", "sum": 20 },
+        "diagonal_partner": { "position": 6, "name": "Compassion", "sum": 19 },
+        "reduction": { "root": 4, "partners": [4], "note": "Change ↔ Order — transformation and structure mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 6,
+            "name": "Compassion",
+            "instruction": "Let Compassion soften relentless change. Love slows transformation to what can be borne."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 7,
+            "name": "Drive",
+            "instruction": "Drive restores movement toward necessary endings. Momentum breaks stagnation."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 4,
+            "name": "Order",
+            "instruction": "You're transforming or resisting transformation without seeing it. Order reveals the hidden architecture of change."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your transformation is aligned with Now. What ends here makes room for what must begin. Death that serves life.",
+          "too_much": "You're over-transforming, killing what should live. Future-projected — change for its own sake.",
+          "too_little": "You're resisting necessary endings. Past losses made death feel final. Creating from what should have ended.",
+          "unacknowledged": "Things are dying or refusing to die without your awareness. Hidden transformations shape your creation."
+        },
+        "teaching": "Death is not the opposite of life — it's the condition for new life. What refuses to die refuses to be reborn.",
+        "question": "What's dying in your life? And are you letting it go or keeping a corpse animated?"
+      }
+    },
+
+    "14": {
+      "name": "Balance",
+      "traditional": "Temperance",
+      "teleological": {
+        "step": 14,
+        "phase": "operation",
+        "operation": "Polarity",
+        "creates": "Operating the integration function — consciousness finds equilibrium between opposites",
+        "verb": "TO INTEGRATE",
+        "house": "emotion",
+        "function": "feedback",
+        "ring": 4,
+        "pillar": 6,
+        "governed_by": { "position": 20, "name": "Awareness" },
+        "governance_note": "Balance carries Awareness's clarity into harmonious blending",
+        "sequence": {
+          "before": { "position": 13, "name": "Change", "relationship": "Transformation seeks equilibrium" },
+          "after": { "position": 15, "name": "Abstraction", "relationship": "Equilibrium reveals deeper patterns" }
+        },
+        "vertical_partner": { "position": 6, "name": "Compassion", "sum": 20 },
+        "diagonal_partner": { "position": 5, "name": "Culture", "sum": 19 },
+        "reduction": { "root": 5, "partners": [5], "note": "Balance ↔ Culture — integration and transmission mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 5,
+            "name": "Culture",
+            "instruction": "Let Culture provide structure to over-blending. Sometimes you need tradition, not endless mixing."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 6,
+            "name": "Compassion",
+            "instruction": "Compassion restores balance through love. Connection is the ground of integration."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 5,
+            "name": "Culture",
+            "instruction": "You're balancing or refusing balance without seeing it. Culture reveals the hidden mixtures."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your integration is aligned with Now. The opposites you blend here create genuine harmony. Balance that serves.",
+          "too_much": "You're over-blending, losing distinction in endless equilibrium. Future-projected — temperance becoming tepidness.",
+          "too_little": "You've abandoned integration. Past imbalances made harmony feel impossible. Creating from extremes.",
+          "unacknowledged": "You're mixing or refusing to mix without seeing it. Hidden blends shape your creation."
+        },
+        "teaching": "Opposites aren't meant to destroy each other — they're meant to create together. Balance isn't stillness; it's dynamic harmony.",
+        "question": "What opposites are you holding? And are you integrating them or keeping them at war?"
+      }
+    },
+
+    "15": {
+      "name": "Abstraction",
+      "traditional": "The Devil",
+      "teleological": {
+        "step": 15,
+        "phase": "operation",
+        "operation": "Recursion",
+        "creates": "Operating the pattern-recognition function — consciousness sees what binds",
+        "verb": "TO REVEAL BONDS",
+        "house": "mind",
+        "function": "fruition",
+        "ring": 5,
+        "pillar": 5,
+        "governed_by": { "position": 19, "name": "Actualization" },
+        "governance_note": "Abstraction carries the Sun's clarity into seeing hidden chains",
+        "sequence": {
+          "before": { "position": 14, "name": "Balance", "relationship": "Equilibrium reveals deeper patterns" },
+          "after": { "position": 16, "name": "Breakthrough", "relationship": "Seeing bonds precedes breaking them" }
+        },
+        "vertical_partner": { "position": 5, "name": "Culture", "sum": 20 },
+        "diagonal_partner": { "position": 4, "name": "Order", "sum": 19 },
+        "reduction": { "root": 6, "partners": [6], "note": "Abstraction ↔ Compassion — seeing bonds and loving bonds mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 4,
+            "name": "Order",
+            "instruction": "Let Order simplify what over-analysis has tangled. Sometimes the structure is simpler than it looks."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 5,
+            "name": "Culture",
+            "instruction": "Culture restores pattern-recognition through shared meaning. Tradition shows what binds."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 6,
+            "name": "Compassion",
+            "instruction": "You're bound or binding without seeing it. Compassion reveals the hidden attachments through love."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your pattern-recognition is aligned with Now. What you see here liberates. Insight that serves.",
+          "too_much": "You're over-seeing, finding patterns everywhere until nothing is free. Future-projected — insight becoming obsession.",
+          "too_little": "You've stopped looking at what binds. Past revelations were too painful. Creating blind to the chains.",
+          "unacknowledged": "You're bound or binding without awareness. Hidden patterns shape your creation."
+        },
+        "teaching": "The Devil isn't evil — he's honest. He shows you what you're actually attached to. Liberation begins with seeing.",
+        "question": "What are you bound to? And do you see the chains or only feel them?"
+      }
+    },
+
+    "16": {
+      "name": "Breakthrough",
+      "traditional": "The Tower",
+      "teleological": {
+        "step": 16,
+        "phase": "operation",
+        "operation": "Polarity",
+        "creates": "Operating the liberation function — consciousness shatters false structures",
+        "verb": "TO SHATTER",
+        "house": "mind",
+        "function": "feedback",
+        "ring": 5,
+        "pillar": 5,
+        "governed_by": { "position": 19, "name": "Actualization" },
+        "governance_note": "Breakthrough carries the Sun's clarity into necessary destruction",
+        "sequence": {
+          "before": { "position": 15, "name": "Abstraction", "relationship": "Seeing bonds precedes breaking them" },
+          "after": { "position": 17, "name": "Inspiration", "relationship": "After shattering, new light enters" }
+        },
+        "vertical_partner": { "position": 4, "name": "Order", "sum": 20 },
+        "diagonal_partner": { "position": 3, "name": "Nurturing", "sum": 19 },
+        "reduction": { "root": 7, "partners": [7], "note": "Breakthrough ↔ Drive — shattering and momentum mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 3,
+            "name": "Nurturing",
+            "instruction": "Let Nurturing heal what over-shattering has destroyed. Care rebuilds what breakthrough tore down."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 4,
+            "name": "Order",
+            "instruction": "Order reveals what structure actually needs to fall. Sometimes the tower is rotten."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 7,
+            "name": "Drive",
+            "instruction": "Things are breaking or refusing to break without your awareness. Drive reveals the hidden shattering."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your breaking is aligned with Now. What shatters here was false. Liberation that serves.",
+          "too_much": "You're over-breaking, destroying what should stand. Future-projected — revolution for its own sake.",
+          "too_little": "You're refusing necessary shattering. Past collapses made breaking feel catastrophic. Creating on rotten foundations.",
+          "unacknowledged": "Things are breaking or calcifying without your awareness. Hidden collapses shape your creation."
+        },
+        "teaching": "The Tower falls so you can see the sky. False structures must break. This isn't punishment — it's liberation.",
+        "question": "What's breaking in your life? And is it a catastrophe or a liberation?"
+      }
+    },
+
+    "17": {
+      "name": "Inspiration",
+      "traditional": "The Star",
+      "teleological": {
+        "step": 17,
+        "phase": "operation",
+        "operation": "Recursion",
+        "creates": "Operating the radiance function — consciousness pours light into darkness",
+        "verb": "TO RADIATE",
+        "house": "spirit",
+        "function": "fruition",
+        "ring": 6,
+        "pillar": 4,
+        "governed_by": { "position": 0, "name": "Potential" },
+        "governance_note": "Inspiration carries the Fool's generosity into luminous giving",
+        "sequence": {
+          "before": { "position": 16, "name": "Breakthrough", "relationship": "After shattering, new light enters" },
+          "after": { "position": 18, "name": "Imagination", "relationship": "Radiance becomes vision" }
+        },
+        "vertical_partner": { "position": 3, "name": "Nurturing", "sum": 20 },
+        "diagonal_partner": { "position": 2, "name": "Wisdom", "sum": 19 },
+        "reduction": { "root": 8, "partners": [8], "note": "Inspiration ↔ Fortitude — radiant light and embodied strength mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 2,
+            "name": "Wisdom",
+            "instruction": "Let Wisdom receive what over-radiance has scattered. Stillness gathers what light dispersed."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 3,
+            "name": "Nurturing",
+            "instruction": "Nurturing restores radiance through care. Tend the flame before you can shine."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 8,
+            "name": "Fortitude",
+            "instruction": "You're shining or dimming without seeing it. Fortitude reveals the hidden light."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your radiance is aligned with Now. The light you pour out here heals the dark. Inspiration that serves.",
+          "too_much": "You're over-radiating, giving light you don't have. Future-projected — burning out to shine.",
+          "too_little": "You've stopped shining. Past rejection made radiance feel dangerous. Creating in dimness.",
+          "unacknowledged": "You're inspiring or failing to inspire without seeing it. Hidden light or hidden darkness shapes your creation."
+        },
+        "teaching": "After the Tower falls, the Star appears. Light enters where walls used to be. Your radiance isn't optional — it's structural.",
+        "question": "What light are you giving? And is that radiance sustainable or are you burning yourself to shine?"
+      }
+    },
+
+    "18": {
+      "name": "Imagination",
+      "traditional": "The Moon",
+      "teleological": {
+        "step": 18,
+        "phase": "operation",
+        "operation": "Polarity",
+        "creates": "Operating the vision function — consciousness weaves experience into symbolic meaning",
+        "verb": "TO ENVISION",
+        "house": "spirit",
+        "function": "feedback",
+        "ring": 6,
+        "pillar": 4,
+        "governed_by": { "position": 0, "name": "Potential" },
+        "governance_note": "Imagination carries the Fool's openness into symbolic depth",
+        "sequence": {
+          "before": { "position": 17, "name": "Inspiration", "relationship": "Radiance becomes vision" },
+          "after": { "position": 19, "name": "Actualization", "relationship": "Vision crystallizes into manifestation" }
+        },
+        "vertical_partner": { "position": 2, "name": "Wisdom", "sum": 20 },
+        "diagonal_partner": { "position": 1, "name": "Will", "sum": 19 },
+        "reduction": { "root": 9, "partners": [9], "note": "Imagination ↔ Discipline — visionary depth and refined practice mirror" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 1,
+            "name": "Will",
+            "instruction": "Let Will direct what over-imagination has scattered. Choose a vision and commit."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 2,
+            "name": "Wisdom",
+            "instruction": "Wisdom restores vision through direct perception. See clearly before you dream."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 9,
+            "name": "Discipline",
+            "instruction": "You're dreaming or refusing to dream without seeing it. Discipline reveals the hidden vision."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your vision is aligned with Now. The symbols you weave here become meaning. Imagination that serves.",
+          "too_much": "You're over-imagining, lost in vision without ground. Future-projected — dreams replacing reality.",
+          "too_little": "You've stopped dreaming. Past disappointments made vision feel dangerous. Creating without imagination.",
+          "unacknowledged": "You're dreaming or refusing to dream without seeing it. Hidden visions shape your creation."
+        },
+        "teaching": "The Moon illuminates through reflection. Imagination isn't escape — it's integration. What you dream, you create.",
+        "question": "What are you envisioning? And is that vision aligned with truth or fleeing from it?"
+      }
+    },
+
+    "19": {
+      "name": "Actualization",
+      "traditional": "The Sun",
+      "teleological": {
+        "step": 19,
+        "phase": "operation",
+        "operation": "Recursion",
+        "creates": "Operating the manifestation function — consciousness becomes what it willed",
+        "verb": "TO MANIFEST",
+        "house": "gestalt",
+        "function": "fruition",
+        "ring": 2,
+        "pillar": 7,
+        "governed_by": { "position": 10, "name": "Source" },
+        "governance_note": "Actualization carries Source's eternal pattern into radiant expression",
+        "sequence": {
+          "before": { "position": 18, "name": "Imagination", "relationship": "Vision crystallizes into manifestation" },
+          "after": { "position": 20, "name": "Awareness", "relationship": "Manifestation leads to recognition" }
+        },
+        "vertical_partner": { "position": 1, "name": "Will", "sum": 20 },
+        "diagonal_partner": { "position": 0, "name": "Potential", "sum": 19 },
+        "reduction": { "root": 1, "partners": [1, 10], "note": "The Creator thread — Will → Source → Actualization" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 0,
+            "name": "Potential",
+            "instruction": "Let Potential soften over-manifestation. Return to beginner's mind. Not everything needs to be achieved."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 1,
+            "name": "Will",
+            "instruction": "Will restores manifestation through renewed direction. Choose again."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 10,
+            "name": "Source",
+            "instruction": "You're becoming without seeing what you're becoming. Source reveals the hidden actualization."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your manifestation is aligned with Now. What you become here radiates into the Whole. Achievement that serves.",
+          "too_much": "You're over-manifesting, achieving without integration. Future-projected — becoming without being.",
+          "too_little": "You've stopped becoming. Past failures made manifestation feel impossible. Potential without expression.",
+          "unacknowledged": "You're becoming something without seeing it. Hidden achievements and hidden failures shape your creation."
+        },
+        "teaching": "The Sun shines without asking permission. Actualization is Will fulfilled. You ARE becoming what you chose.",
+        "question": "What are you becoming? And is that radiance what you actually intended?"
+      }
+    },
+
+    "20": {
+      "name": "Awareness",
+      "traditional": "Judgement",
+      "teleological": {
+        "step": 20,
+        "phase": "operation",
+        "operation": "Polarity",
+        "creates": "Operating the recognition function — consciousness sees what it has become",
+        "verb": "TO RECOGNIZE",
+        "house": "gestalt",
+        "function": "feedback",
+        "ring": 2,
+        "pillar": 7,
+        "governed_by": { "position": 10, "name": "Source" },
+        "governance_note": "Awareness carries Source's eternal pattern into integrative seeing",
+        "sequence": {
+          "before": { "position": 19, "name": "Actualization", "relationship": "Manifestation leads to recognition" },
+          "after": { "position": 21, "name": "Creation", "relationship": "Recognition enables completion" }
+        },
+        "vertical_partner": { "position": 0, "name": "Potential", "sum": 20 },
+        "diagonal_partner": { "position": 21, "name": "Creation", "sum": 41, "note": "Special case — portal pairing" },
+        "reduction": { "root": 2, "partners": [2, 11], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "diagonal",
+            "archetype": 21,
+            "name": "Creation",
+            "instruction": "Let Creation complete what over-recognition has paralyzed. Move into wholeness."
+          },
+          "too_little": {
+            "partner_type": "vertical",
+            "archetype": 0,
+            "name": "Potential",
+            "instruction": "Potential restores recognition through fresh seeing. Beginner's mind sees clearly."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 2,
+            "name": "Wisdom",
+            "instruction": "You're recognizing or refusing to recognize without seeing it. Wisdom reveals the hidden awareness."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your recognition is aligned with Now. What you see here integrates. Awareness that serves completion.",
+          "too_much": "You're over-recognizing, judging without mercy. Future-projected — awareness becoming condemnation.",
+          "too_little": "You've stopped seeing. Past reckonings made awareness feel dangerous. Creating without integration.",
+          "unacknowledged": "You're seeing or not seeing without knowing it. Hidden recognitions shape your creation."
+        },
+        "teaching": "Judgement isn't punishment — it's recognition. You see what you've become. This seeing IS the integration.",
+        "question": "What do you recognize about yourself? And can you see with mercy as well as clarity?"
+      }
+    },
+
+    "21": {
+      "name": "Creation",
+      "traditional": "The World",
+      "teleological": {
+        "step": 21,
+        "phase": "operation",
+        "operation": "Portal (Egress)",
+        "creates": "The completion — consciousness returns to Source, transformed",
+        "verb": "TO COMPLETE",
+        "house": "portal",
+        "function": "egress",
+        "ring": 7,
+        "pillar": 6,
+        "governed_by": null,
+        "governance_note": "Creation is the egress portal — where consciousness returns to Source transformed",
+        "sequence": {
+          "before": { "position": 20, "name": "Awareness", "relationship": "Recognition enables completion" },
+          "after": { "position": 0, "name": "Potential", "relationship": "Completion touches Potential — the cycle begins again" }
+        },
+        "vertical_partner": { "position": null, "name": null, "note": "Portal — no vertical partner" },
+        "diagonal_partner": { "position": 20, "name": "Awareness", "sum": 41, "note": "Special case — portal pairing" },
+        "reduction": { "root": 3, "partners": [3, 12], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "retrieval_routes": {
+          "too_much": {
+            "partner_type": "thread",
+            "archetype": 12,
+            "name": "Sacrifice",
+            "instruction": "Let Sacrifice release attachment to completion. Wholeness doesn't mean finished."
+          },
+          "too_little": {
+            "partner_type": "thread",
+            "archetype": 3,
+            "name": "Nurturing",
+            "instruction": "Nurturing restores completeness through care. Tend what's incomplete."
+          },
+          "unacknowledged": {
+            "partner_type": "reduction",
+            "archetype": 3,
+            "name": "Nurturing",
+            "instruction": "You're completing or refusing completion without seeing it. Nurturing reveals the hidden wholeness."
+          }
+        },
+        "status_specific": {
+          "balanced": "Your completion is aligned with Now. What ends here returns to Source transformed. Wholeness that serves.",
+          "too_much": "You're over-completing, forcing endings that aren't ripe. Future-projected — closure becoming foreclosure.",
+          "too_little": "You've refused completion. Past endings were too painful. Creating without closure.",
+          "unacknowledged": "Things are completing or refusing to complete without your awareness. Hidden wholeness shapes your creation."
+        },
+        "teaching": "The World touches the Fool. Completion is not ending — it's returning transformed. Everything cycles.",
+        "question": "What's completing in your life? And can you let it return to Source?"
+      }
+    }
+  }
+}

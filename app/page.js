@@ -66,7 +66,14 @@ import {
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
-import { renderWithHotlinks } from '../lib/hotlinks.js';
+import { renderWithHotlinks, processBracketHotlinks } from '../lib/hotlinks.js';
+
+// Import glossary utilities
+import { getGlossaryEntry } from '../lib/glossary.js';
+import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
+
+// Import teleology utilities for Words to the Whys
+import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
 
 // Import React components
 import ClickableTermContext from '../components/shared/ClickableTermContext.js';
@@ -81,7 +88,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.35.3";
+const VERSION = "0.36.0";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -156,6 +163,7 @@ export default function NirmanakaReader() {
   const [shareUrl, setShareUrl] = useState('');
   const [isSharedReading, setIsSharedReading] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState(null); // {type: 'card'|'channel'|'status'|'house', id: ..., data: ...}
+  const [glossaryTooltip, setGlossaryTooltip] = useState(null); // {entry, position: {x, y}}
   const [showMidReadingStance, setShowMidReadingStance] = useState(false);
   const [showFineTune, setShowFineTune] = useState(false);
   const [helpPopover, setHelpPopover] = useState(null); // 'dynamicLens' | 'fixedLayout' | 'stance' | null
@@ -342,10 +350,13 @@ export default function NirmanakaReader() {
     const spreadName = isReflect ? REFLECT_SPREADS[reflectSpreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
     const safeQuestion = sanitizeForAPI(questionToUse);
 
+    // Build teleological data for Words to the Whys section
+    const teleologicalPrompt = buildReadingTeleologicalPrompt(drawsToUse);
+
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
     const letterTone = VOICE_LETTER_TONE[stance.voice];
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\nLetter tone for this stance: ${letterTone}`;
-    const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [LETTER]. Each marker on its own line.`;
+    const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
 
     try {
       const res = await fetch('/api/reading', {
@@ -738,6 +749,18 @@ Interpret this new card as the architecture's response to their declared directi
     }
 
     setThreadLoading(prev => ({ ...prev, [threadKey]: false }));
+  };
+
+  // Handler for glossary term clicks (shows tooltip)
+  const handleGlossaryClick = (slug, entry, event) => {
+    const rect = event.target.getBoundingClientRect();
+    setGlossaryTooltip({
+      entry,
+      position: {
+        x: rect.left + rect.width / 2,
+        y: rect.top
+      }
+    });
   };
 
   const handleExpand = async (sectionKey, expansionType, remove = false) => {
@@ -2183,6 +2206,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   threadData={threadData['summary'] || []}
                   collapsedThreads={collapsedThreads}
                   setCollapsedThreads={setCollapsedThreads}
+                  onGlossaryClick={handleGlossaryClick}
                 />
               );
             })()}
@@ -2228,6 +2252,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     threadData={threadData[card.index] || []}
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
+                    onGlossaryClick={handleGlossaryClick}
                   />
                 </div>
               );
@@ -2258,7 +2283,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     {!isPathCollapsed && (
                       <>
                         <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
-                          {parsedReading.rebalancerSummary}
+                          {renderWithHotlinks(parsedReading.rebalancerSummary, setSelectedInfo)}
                         </div>
 
                         {/* Path Expansion Buttons */}
@@ -2303,7 +2328,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                               </button>
                             </div>
                             <div className="text-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-                              {expContent}
+                              {renderWithHotlinks(expContent, setSelectedInfo)}
                             </div>
                           </div>
                         ))}
@@ -2378,6 +2403,87 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               );
             })()}
 
+            {/* Words to the Whys Section - Teleological grounding, collapsed by default */}
+            {parsedReading.wordsToWhys && (() => {
+              const wordsExpansions = expansions['words-to-whys'] || {};
+              const isWordsExpanding = expanding?.section === 'words-to-whys';
+              const isWordsCollapsed = collapsedSections['words-to-whys'] !== false; // collapsed by default
+
+              return (
+                <div className="mb-6 rounded-xl border-2 border-cyan-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 95, 0.3), rgba(20, 184, 166, 0.15))'}}>
+                  <div className="p-5">
+                    {/* Words to the Whys Header - clickable for collapse */}
+                    <div
+                      className={`flex items-center gap-3 cursor-pointer ${!isWordsCollapsed ? 'mb-4' : ''}`}
+                      onClick={() => toggleCollapse('words-to-whys', true)}
+                    >
+                      <span className={`text-xs transition-transform duration-200 ${isWordsCollapsed ? 'text-red-500' : 'text-emerald-500'}`} style={{ transform: isWordsCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>
+                        ▼
+                      </span>
+                      <span className="text-lg">◇</span>
+                      <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Words to the Whys</span>
+                    </div>
+
+                    {/* Words to the Whys Content - collapsible */}
+                    {!isWordsCollapsed && (
+                      <>
+                        <div className="text-cyan-100/90 leading-relaxed whitespace-pre-wrap text-sm mb-4">
+                          {processBracketHotlinks(parsedReading.wordsToWhys, handleGlossaryClick)}
+                        </div>
+
+                        {/* Words to the Whys Expansion Buttons */}
+                        <div className="flex gap-2 flex-wrap">
+                          {Object.entries(EXPANSION_PROMPTS).map(([key, { label }]) => {
+                            const isThisExpanding = isWordsExpanding && expanding?.type === key;
+                            const hasExpansion = !!wordsExpansions[key];
+                            const isExpandingOther = expanding && !isThisExpanding;
+
+                            return (
+                              <button
+                                key={key}
+                                onClick={(e) => { e.stopPropagation(); handleExpand('words-to-whys', key); }}
+                                disabled={expanding}
+                                className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                                  hasExpansion
+                                    ? 'bg-cyan-800/50 text-cyan-200 border border-cyan-600/50'
+                                    : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+                                } ${isExpandingOther ? 'opacity-50 cursor-not-allowed' : ''}`}
+                              >
+                                {isThisExpanding && (
+                                  <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                                )}
+                                {label}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {/* Words to the Whys Expansion Content */}
+                        {Object.entries(wordsExpansions).map(([expType, expContent]) => (
+                          <div key={expType} className="mt-4 pt-4 border-t border-cyan-700/50">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-xs uppercase tracking-wider text-cyan-500/70">
+                                {EXPANSION_PROMPTS[expType]?.label}
+                              </span>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleExpand('words-to-whys', expType, true); }}
+                                className="text-xs text-zinc-600 hover:text-zinc-400"
+                              >
+                                ×
+                              </button>
+                            </div>
+                            <div className="text-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
+                              {processBracketHotlinks(expContent, handleGlossaryClick)}
+                            </div>
+                          </div>
+                        ))}
+                      </>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Letter Section - expanded by default, collapsible */}
             {parsedReading.letter && (() => {
               const isLetterCollapsed = collapsedSections['letter'] === true; // expanded by default
@@ -2398,6 +2504,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   threadData={threadData['letter'] || []}
                   collapsedThreads={collapsedThreads}
                   setCollapsedThreads={setCollapsedThreads}
+                  onGlossaryClick={handleGlossaryClick}
                 />
               );
             })()}
@@ -2782,6 +2889,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
       {/* Info Modal */}
       <InfoModal info={selectedInfo} onClose={() => setSelectedInfo(null)} setSelectedInfo={setSelectedInfo} />
+
+      {/* Glossary Tooltip */}
+      {glossaryTooltip && (
+        <GlossaryTooltip
+          entry={glossaryTooltip.entry}
+          position={glossaryTooltip.position}
+          onClose={() => setGlossaryTooltip(null)}
+        />
+      )}
     </div>
   );
 }

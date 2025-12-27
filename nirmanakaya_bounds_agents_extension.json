@@ -1,0 +1,724 @@
+{
+  "meta": {
+    "version": "1.1",
+    "description": "Bounds and Agents teleological extension — supplements nirmanakaya_teleological_profiles.json",
+    "created": "2025-12-27",
+    "note": "Merge this with the main archetypes JSON for complete 78-signature coverage"
+  },
+
+  "number_modes": {
+    "1": {
+      "mode": "Genesis",
+      "keywords": ["Beginning", "Perfection"],
+      "polarity": "Inner",
+      "domain": "Gestalt",
+      "teleological": "Your creation is at pure beginning — perfect potential not yet differentiated. The spark before the flame.",
+      "mirror": 10
+    },
+    "2": {
+      "mode": "Equilibrium",
+      "keywords": ["Balanced", "Decisive"],
+      "polarity": "Inner",
+      "domain": "Spirit",
+      "teleological": "Your creation is at the decisive moment — balanced between possibilities, poised to choose direction.",
+      "mirror": 9
+    },
+    "3": {
+      "mode": "Emergence",
+      "keywords": ["Primal", "Expansive"],
+      "polarity": "Inner",
+      "domain": "Mind",
+      "teleological": "Your creation is at first expression — primal expansion, the initial structure taking form.",
+      "mirror": 8
+    },
+    "4": {
+      "mode": "Grounding",
+      "keywords": ["Peace", "Stability"],
+      "polarity": "Inner",
+      "domain": "Emotion",
+      "teleological": "Your creation is finding foundation — peace and stability establishing, the ground beneath the work.",
+      "mirror": 7
+    },
+    "5": {
+      "mode": "Application",
+      "keywords": ["Internal", "Practical"],
+      "polarity": "Inner",
+      "domain": "Body",
+      "teleological": "Your creation is at internal testing — practical application to self, working it out in private.",
+      "mirror": 6
+    },
+    "6": {
+      "mode": "Participation",
+      "keywords": ["External", "Group"],
+      "polarity": "Outer",
+      "domain": "Body",
+      "teleological": "Your creation is moving outward — engaging with others, group expression, taking it public.",
+      "mirror": 5
+    },
+    "7": {
+      "mode": "Harvest",
+      "keywords": ["Gathering", "Reaping"],
+      "polarity": "Outer",
+      "domain": "Emotion",
+      "teleological": "Your creation is at harvest — gathering what was sown, reaping the consequences of what you planted.",
+      "mirror": 4
+    },
+    "8": {
+      "mode": "Immersion",
+      "keywords": ["Unfathomable", "Deep"],
+      "polarity": "Outer",
+      "domain": "Mind",
+      "teleological": "Your creation is going deep — unfathomable engagement, full immersion in the work.",
+      "mirror": 3
+    },
+    "9": {
+      "mode": "Overflow",
+      "keywords": ["Abundance", "Myriad"],
+      "polarity": "Outer",
+      "domain": "Spirit",
+      "teleological": "Your creation is at overflow — abundance pouring forth, myriad expressions of what you've built.",
+      "mirror": 2
+    },
+    "10": {
+      "mode": "Closure",
+      "keywords": ["Completion", "Finality"],
+      "polarity": "Outer",
+      "domain": "Gestalt",
+      "teleological": "Your creation is at completion — the cycle ready to turn, finality that touches new beginning.",
+      "mirror": 1
+    }
+  },
+
+  "channels": {
+    "intent": {
+      "traditional": "Wands",
+      "element": "Fire",
+      "mode": "Initiation, propulsion, directed will",
+      "teleological": "How you DIRECT creative force — will made active"
+    },
+    "cognition": {
+      "traditional": "Swords", 
+      "element": "Air",
+      "mode": "Differentiation, boundaries, clarity",
+      "teleological": "How you DIFFERENTIATE in creation — thought made sharp"
+    },
+    "resonance": {
+      "traditional": "Cups",
+      "element": "Water",
+      "mode": "Connection, value, relational attunement",
+      "teleological": "How you CONNECT in creation — feeling made relational"
+    },
+    "structure": {
+      "traditional": "Pentacles",
+      "element": "Earth",
+      "mode": "Stabilization, form, manifestation",
+      "teleological": "How you MANIFEST in creation — form made real"
+    }
+  },
+
+  "polarity_meanings": {
+    "inner": {
+      "numbers": [1, 2, 3, 4, 5],
+      "quality": "Inward-facing, potential-holding, forming",
+      "teleological": "Your creation is in the INNER half of this capacity — still forming, not yet fully expressed. What the function IS at rest."
+    },
+    "outer": {
+      "numbers": [6, 7, 8, 9, 10],
+      "quality": "Outward-facing, expressed, gathered",
+      "teleological": "Your creation is in the OUTER half of this capacity — expressed, gathered, moving toward completion. What the function DOES in action."
+    }
+  },
+
+  "bounds": {
+    "intent": {
+      "1": {
+        "name": "Activation",
+        "traditional": "Ace of Wands",
+        "associated_archetype": 0,
+        "archetype_name": "Potential",
+        "number": 1,
+        "polarity": "inner",
+        "teleological": "Potential's capacity expressed through Intent at Genesis — the spark of pure becoming, will igniting existence. Your creation is at the very beginning of directed force."
+      },
+      "2": {
+        "name": "Orientation",
+        "traditional": "2 of Wands",
+        "associated_archetype": 17,
+        "archetype_name": "Inspiration",
+        "number": 2,
+        "polarity": "inner",
+        "teleological": "Inspiration's capacity expressed through Intent at Equilibrium — visionary direction-setting, balanced between possible paths. Your creation is choosing which light to follow."
+      },
+      "3": {
+        "name": "Assertion",
+        "traditional": "3 of Wands",
+        "associated_archetype": 4,
+        "archetype_name": "Order",
+        "number": 3,
+        "polarity": "inner",
+        "teleological": "Order's capacity expressed through Intent at Emergence — structure asserting outward, the first framework of directed will. Your creation is establishing its initial architecture."
+      },
+      "4": {
+        "name": "Alignment",
+        "traditional": "4 of Wands",
+        "associated_archetype": 7,
+        "archetype_name": "Drive",
+        "number": 4,
+        "polarity": "inner",
+        "teleological": "Drive's capacity expressed through Intent at Grounding — momentum in harmonious alignment, stable propulsion. Your creation has found its rhythm."
+      },
+      "5": {
+        "name": "Offering",
+        "traditional": "5 of Wands",
+        "associated_archetype": 12,
+        "archetype_name": "Sacrifice",
+        "number": 5,
+        "polarity": "inner",
+        "teleological": "Sacrifice's capacity expressed through Intent at Application — purposeful release in action, testing what must be given up. Your creation is learning what to let go."
+      },
+      "6": {
+        "name": "Recognition",
+        "traditional": "6 of Wands",
+        "associated_archetype": 12,
+        "archetype_name": "Sacrifice",
+        "number": 6,
+        "polarity": "outer",
+        "teleological": "Sacrifice's capacity expressed through Intent at Participation — release acknowledged by others, what you gave up recognized. Your creation is being witnessed."
+      },
+      "7": {
+        "name": "Resolve",
+        "traditional": "7 of Wands",
+        "associated_archetype": 7,
+        "archetype_name": "Drive",
+        "number": 7,
+        "polarity": "outer",
+        "teleological": "Drive's capacity expressed through Intent at Harvest — momentum defending position, reaping what determination sowed. Your creation is gathering its momentum."
+      },
+      "8": {
+        "name": "Command",
+        "traditional": "8 of Wands",
+        "associated_archetype": 4,
+        "archetype_name": "Order",
+        "number": 8,
+        "polarity": "outer",
+        "teleological": "Order's capacity expressed through Intent at Immersion — structure in swift execution, deep engagement with directed will. Your creation is moving fast and true."
+      },
+      "9": {
+        "name": "Wellspring",
+        "traditional": "9 of Wands",
+        "associated_archetype": 17,
+        "archetype_name": "Inspiration",
+        "number": 9,
+        "polarity": "outer",
+        "teleological": "Inspiration's capacity expressed through Intent at Overflow — vision persisting through abundance, myriad expressions of radiant will. Your creation is pouring forth."
+      },
+      "10": {
+        "name": "Attainment",
+        "traditional": "10 of Wands",
+        "associated_archetype": 0,
+        "archetype_name": "Potential",
+        "number": 10,
+        "polarity": "outer",
+        "teleological": "Potential's capacity expressed through Intent at Closure — becoming fully carried, the weight of completion. Your creation cycle is ready to turn."
+      }
+    },
+    "cognition": {
+      "1": {
+        "name": "Perception",
+        "traditional": "Ace of Swords",
+        "associated_archetype": 19,
+        "archetype_name": "Actualization",
+        "number": 1,
+        "polarity": "inner",
+        "teleological": "Actualization's capacity expressed through Cognition at Genesis — clarity initiating, the first cut of discernment. Your creation begins with seeing."
+      },
+      "2": {
+        "name": "Reflection",
+        "traditional": "2 of Swords",
+        "associated_archetype": 2,
+        "archetype_name": "Wisdom",
+        "number": 2,
+        "polarity": "inner",
+        "teleological": "Wisdom's capacity expressed through Cognition at Equilibrium — discernment weighing options, balanced perception. Your creation is pausing to truly see."
+      },
+      "3": {
+        "name": "Calculation",
+        "traditional": "3 of Swords",
+        "associated_archetype": 15,
+        "archetype_name": "Abstraction",
+        "number": 3,
+        "polarity": "inner",
+        "teleological": "Abstraction's capacity expressed through Cognition at Emergence — pattern recognition emerging, the first pierce of insight. Your creation is seeing what binds."
+      },
+      "4": {
+        "name": "Repose",
+        "traditional": "4 of Swords",
+        "associated_archetype": 14,
+        "archetype_name": "Balance",
+        "number": 4,
+        "polarity": "inner",
+        "teleological": "Balance's capacity expressed through Cognition at Grounding — integration finding peace, stable equilibrium of mind. Your creation is resting in clarity."
+      },
+      "5": {
+        "name": "Conflict",
+        "traditional": "5 of Swords",
+        "associated_archetype": 9,
+        "archetype_name": "Discipline",
+        "number": 5,
+        "polarity": "inner",
+        "teleological": "Discipline's capacity expressed through Cognition at Application — refinement through internal testing, the clash of practice. Your creation is sharpening itself."
+      },
+      "6": {
+        "name": "Guidance",
+        "traditional": "6 of Swords",
+        "associated_archetype": 9,
+        "archetype_name": "Discipline",
+        "number": 6,
+        "polarity": "outer",
+        "teleological": "Discipline's capacity expressed through Cognition at Participation — refinement moving outward, practice becoming navigation. Your creation is finding its way."
+      },
+      "7": {
+        "name": "Reconciliation",
+        "traditional": "7 of Swords",
+        "associated_archetype": 14,
+        "archetype_name": "Balance",
+        "number": 7,
+        "polarity": "outer",
+        "teleological": "Balance's capacity expressed through Cognition at Harvest — integration gathering its insights, reaping equilibrium. Your creation is collecting its clarity."
+      },
+      "8": {
+        "name": "Anticipation",
+        "traditional": "8 of Swords",
+        "associated_archetype": 15,
+        "archetype_name": "Abstraction",
+        "number": 8,
+        "polarity": "outer",
+        "teleological": "Abstraction's capacity expressed through Cognition at Immersion — deep engagement with pattern, seeing constraints fully. Your creation is understanding its bonds."
+      },
+      "9": {
+        "name": "Multiplicity",
+        "traditional": "9 of Swords",
+        "associated_archetype": 2,
+        "archetype_name": "Wisdom",
+        "number": 9,
+        "polarity": "outer",
+        "teleological": "Wisdom's capacity expressed through Cognition at Overflow — perception holding myriad possibilities, abundance of knowing. Your creation is seeing everything."
+      },
+      "10": {
+        "name": "Realization",
+        "traditional": "10 of Swords",
+        "associated_archetype": 19,
+        "archetype_name": "Actualization",
+        "number": 10,
+        "polarity": "outer",
+        "teleological": "Actualization's capacity expressed through Cognition at Closure — clarity completing, understanding anchored in soul. Your creation knows what it has become."
+      }
+    },
+    "resonance": {
+      "1": {
+        "name": "Receptivity",
+        "traditional": "Ace of Cups",
+        "associated_archetype": 20,
+        "archetype_name": "Awareness",
+        "number": 1,
+        "polarity": "inner",
+        "teleological": "Awareness's capacity expressed through Resonance at Genesis — the first willingness to feel, recognition opening. Your creation begins with emotional availability."
+      },
+      "2": {
+        "name": "Merge",
+        "traditional": "2 of Cups",
+        "associated_archetype": 6,
+        "archetype_name": "Compassion",
+        "number": 2,
+        "polarity": "inner",
+        "teleological": "Compassion's capacity expressed through Resonance at Equilibrium — loving connection finding balance, two becoming available to each other. Your creation is bonding."
+      },
+      "3": {
+        "name": "Ripple",
+        "traditional": "3 of Cups",
+        "associated_archetype": 5,
+        "archetype_name": "Culture",
+        "number": 3,
+        "polarity": "inner",
+        "teleological": "Culture's capacity expressed through Resonance at Emergence — transmission through feeling, shared meaning rippling outward. Your creation is celebrating connection."
+      },
+      "4": {
+        "name": "Drift",
+        "traditional": "4 of Cups",
+        "associated_archetype": 14,
+        "archetype_name": "Balance",
+        "number": 4,
+        "polarity": "inner",
+        "teleological": "Balance's capacity expressed through Resonance at Grounding — integration finding emotional stability, contemplating what's offered. Your creation is weighing feelings."
+      },
+      "5": {
+        "name": "Ache",
+        "traditional": "5 of Cups",
+        "associated_archetype": 11,
+        "archetype_name": "Equity",
+        "number": 5,
+        "polarity": "inner",
+        "teleological": "Equity's capacity expressed through Resonance at Application — fairness tested through loss, internal reckoning with grief. Your creation is mourning what was lost."
+      },
+      "6": {
+        "name": "Reciprocity",
+        "traditional": "6 of Cups",
+        "associated_archetype": 11,
+        "archetype_name": "Equity",
+        "number": 6,
+        "polarity": "outer",
+        "teleological": "Equity's capacity expressed through Resonance at Participation — fairness flowing outward, balance in giving and receiving. Your creation is exchanging genuinely."
+      },
+      "7": {
+        "name": "Allure",
+        "traditional": "7 of Cups",
+        "associated_archetype": 14,
+        "archetype_name": "Balance",
+        "number": 7,
+        "polarity": "outer",
+        "teleological": "Balance's capacity expressed through Resonance at Harvest — integration gathering possibilities, reaping emotional options. Your creation is curating feelings."
+      },
+      "8": {
+        "name": "Release",
+        "traditional": "8 of Cups",
+        "associated_archetype": 5,
+        "archetype_name": "Culture",
+        "number": 8,
+        "polarity": "outer",
+        "teleological": "Culture's capacity expressed through Resonance at Immersion — transmission through deep leaving, walking away from what was shared. Your creation is moving on."
+      },
+      "9": {
+        "name": "Fulfillment",
+        "traditional": "9 of Cups",
+        "associated_archetype": 6,
+        "archetype_name": "Compassion",
+        "number": 9,
+        "polarity": "outer",
+        "teleological": "Compassion's capacity expressed through Resonance at Overflow — loving connection in abundance, wishes granted through care. Your creation is satisfied."
+      },
+      "10": {
+        "name": "Completion",
+        "traditional": "10 of Cups",
+        "associated_archetype": 20,
+        "archetype_name": "Awareness",
+        "number": 10,
+        "polarity": "outer",
+        "teleological": "Awareness's capacity expressed through Resonance at Closure — recognition completing in relationship, emotional wholeness. Your creation has arrived home."
+      }
+    },
+    "structure": {
+      "1": {
+        "name": "Initiation",
+        "traditional": "Ace of Pentacles",
+        "associated_archetype": 1,
+        "archetype_name": "Will",
+        "number": 1,
+        "polarity": "inner",
+        "teleological": "Will's capacity expressed through Structure at Genesis — direction taking form, the first contour of manifestation. Your creation begins to become real."
+      },
+      "2": {
+        "name": "Poise",
+        "traditional": "2 of Pentacles",
+        "associated_archetype": 3,
+        "archetype_name": "Nurturing",
+        "number": 2,
+        "polarity": "inner",
+        "teleological": "Nurturing's capacity expressed through Structure at Equilibrium — cultivation in dynamic balance, juggling what needs tending. Your creation is managing growth."
+      },
+      "3": {
+        "name": "Formation",
+        "traditional": "3 of Pentacles",
+        "associated_archetype": 16,
+        "archetype_name": "Breakthrough",
+        "number": 3,
+        "polarity": "inner",
+        "teleological": "Breakthrough's capacity expressed through Structure at Emergence — liberation taking initial form, building what was freed. Your creation is being constructed."
+      },
+      "4": {
+        "name": "Preservation",
+        "traditional": "4 of Pentacles",
+        "associated_archetype": 13,
+        "archetype_name": "Change",
+        "number": 4,
+        "polarity": "inner",
+        "teleological": "Change's capacity expressed through Structure at Grounding — transformation finding stable form, holding what's becoming. Your creation is preserving through change."
+      },
+      "5": {
+        "name": "Endurance",
+        "traditional": "5 of Pentacles",
+        "associated_archetype": 8,
+        "archetype_name": "Fortitude",
+        "number": 5,
+        "polarity": "inner",
+        "teleological": "Fortitude's capacity expressed through Structure at Application — strength tested through lack, holding on through scarcity. Your creation is enduring difficulty."
+      },
+      "6": {
+        "name": "Support",
+        "traditional": "6 of Pentacles",
+        "associated_archetype": 8,
+        "archetype_name": "Fortitude",
+        "number": 6,
+        "polarity": "outer",
+        "teleological": "Fortitude's capacity expressed through Structure at Participation — strength moving outward, holding space for others. Your creation is supporting."
+      },
+      "7": {
+        "name": "Cultivation",
+        "traditional": "7 of Pentacles",
+        "associated_archetype": 13,
+        "archetype_name": "Change",
+        "number": 7,
+        "polarity": "outer",
+        "teleological": "Change's capacity expressed through Structure at Harvest — transformation gathering results, assessing what's grown. Your creation is evaluating its yield."
+      },
+      "8": {
+        "name": "Commitment",
+        "traditional": "8 of Pentacles",
+        "associated_archetype": 16,
+        "archetype_name": "Breakthrough",
+        "number": 8,
+        "polarity": "outer",
+        "teleological": "Breakthrough's capacity expressed through Structure at Immersion — liberation through deep practice, mastery from repetition. Your creation is honing itself."
+      },
+      "9": {
+        "name": "Flourishing",
+        "traditional": "9 of Pentacles",
+        "associated_archetype": 3,
+        "archetype_name": "Nurturing",
+        "number": 9,
+        "polarity": "outer",
+        "teleological": "Nurturing's capacity expressed through Structure at Overflow — cultivation in full abundance, the garden flourishing. Your creation is bearing fruit."
+      },
+      "10": {
+        "name": "Achievement",
+        "traditional": "10 of Pentacles",
+        "associated_archetype": 1,
+        "archetype_name": "Will",
+        "number": 10,
+        "polarity": "outer",
+        "teleological": "Will's capacity expressed through Structure at Closure — direction fully manifest, legacy achieved. Your creation has become permanent."
+      }
+    }
+  },
+
+  "roles": {
+    "initiate": {
+      "traditional": "Page",
+      "house": "Spirit",
+      "teleological": "Learning the function — aspiring, witnessing, beginning to embody. You're not yet the master; you're the student stepping into this capacity. The question is: can you remain open while learning?",
+      "verb": "TO LEARN",
+      "command_relationship": "Serves 'Witness Creation' — learning to see what this function creates"
+    },
+    "catalyst": {
+      "traditional": "Knight",
+      "house": "Mind",
+      "teleological": "Activating the function — channeling force, creating change through pattern. You're not holding steady; you're moving fast, applying this capacity with directed energy. The question is: where are you charging?",
+      "verb": "TO ACTIVATE",
+      "command_relationship": "Serves 'Channel the Force' — directing this function's energy into action"
+    },
+    "steward": {
+      "traditional": "Queen",
+      "house": "Emotion",
+      "teleological": "Nurturing the function — holding space, exercising free will in service of this capacity. You're not commanding; you're tending, maintaining, choosing to care. The question is: what are you cultivating?",
+      "verb": "TO NURTURE",
+      "command_relationship": "Serves 'Free Will' — choosing to care for this function's expression"
+    },
+    "executor": {
+      "traditional": "King",
+      "house": "Body",
+      "teleological": "Mastering the function — upholding the law, executing with full embodiment. You're not learning or activating or nurturing; you're BEING this capacity completely. The question is: are you wielding this responsibly?",
+      "verb": "TO MASTER",
+      "command_relationship": "Serves 'Uphold the Law' — embodying this function's full authority"
+    }
+  },
+
+  "agents": {
+    "intent": {
+      "initiate": {
+        "name": "Initiate of Intent",
+        "traditional": "Page of Wands",
+        "associated_archetype": 17,
+        "archetype_name": "Inspiration",
+        "role": "initiate",
+        "channel": "intent",
+        "teleological": "Inspiration embodied as learner of directed will — the one who is discovering how to shine, aspiring to radiance, witnessing what it means to pour light forth. Your creation is learning to direct its fire."
+      },
+      "catalyst": {
+        "name": "Catalyst of Intent",
+        "traditional": "Knight of Wands",
+        "associated_archetype": 4,
+        "archetype_name": "Order",
+        "role": "catalyst",
+        "channel": "intent",
+        "teleological": "Order embodied as activator of directed will — the one who charges forward to establish structure through action, channeling force into pattern. Your creation is moving fast to build."
+      },
+      "steward": {
+        "name": "Steward of Intent",
+        "traditional": "Queen of Wands",
+        "associated_archetype": 7,
+        "archetype_name": "Drive",
+        "role": "steward",
+        "channel": "intent",
+        "teleological": "Drive embodied as nurturer of directed will — the one who holds space for momentum, chooses to sustain propulsion through care. Your creation is tending its fire."
+      },
+      "executor": {
+        "name": "Executor of Intent",
+        "traditional": "King of Wands",
+        "associated_archetype": 12,
+        "archetype_name": "Sacrifice",
+        "role": "executor",
+        "channel": "intent",
+        "teleological": "Sacrifice embodied as master of directed will — the one who commands through knowing when to release, executing purposeful letting go. Your creation is wielding fire with wisdom about what burns."
+      }
+    },
+    "cognition": {
+      "initiate": {
+        "name": "Initiate of Cognition",
+        "traditional": "Page of Swords",
+        "associated_archetype": 2,
+        "archetype_name": "Wisdom",
+        "role": "initiate",
+        "channel": "cognition",
+        "teleological": "Wisdom embodied as learner of discernment — the one who is discovering how to perceive, aspiring to direct knowing, witnessing truth emerge. Your creation is learning to see."
+      },
+      "catalyst": {
+        "name": "Catalyst of Cognition",
+        "traditional": "Knight of Swords",
+        "associated_archetype": 15,
+        "archetype_name": "Abstraction",
+        "role": "catalyst",
+        "channel": "cognition",
+        "teleological": "Abstraction embodied as activator of discernment — the one who charges forward to reveal patterns, channeling force into insight. Your creation is cutting through to what binds."
+      },
+      "steward": {
+        "name": "Steward of Cognition",
+        "traditional": "Queen of Swords",
+        "associated_archetype": 14,
+        "archetype_name": "Balance",
+        "role": "steward",
+        "channel": "cognition",
+        "teleological": "Balance embodied as nurturer of discernment — the one who holds space for integration, chooses to sustain equilibrium through clarity. Your creation is tending its truth."
+      },
+      "executor": {
+        "name": "Executor of Cognition",
+        "traditional": "King of Swords",
+        "associated_archetype": 9,
+        "archetype_name": "Discipline",
+        "role": "executor",
+        "channel": "cognition",
+        "teleological": "Discipline embodied as master of discernment — the one who commands through refined practice, executing precision through embodied knowing. Your creation is wielding clarity with mastery."
+      }
+    },
+    "resonance": {
+      "initiate": {
+        "name": "Initiate of Resonance",
+        "traditional": "Page of Cups",
+        "associated_archetype": 18,
+        "archetype_name": "Imagination",
+        "role": "initiate",
+        "channel": "resonance",
+        "teleological": "Imagination embodied as learner of connection — the one who is discovering how to dream, aspiring to vision, witnessing symbolic depth emerge. Your creation is learning to feel into possibility."
+      },
+      "catalyst": {
+        "name": "Catalyst of Resonance",
+        "traditional": "Knight of Cups",
+        "associated_archetype": 5,
+        "archetype_name": "Culture",
+        "role": "catalyst",
+        "channel": "resonance",
+        "teleological": "Culture embodied as activator of connection — the one who charges forward to transmit meaning through feeling, channeling force into shared resonance. Your creation is moving toward belonging."
+      },
+      "steward": {
+        "name": "Steward of Resonance",
+        "traditional": "Queen of Cups",
+        "associated_archetype": 6,
+        "archetype_name": "Compassion",
+        "role": "steward",
+        "channel": "resonance",
+        "teleological": "Compassion embodied as nurturer of connection — the one who holds space for bonding, chooses to sustain love through care. Your creation is tending its relationships."
+      },
+      "executor": {
+        "name": "Executor of Resonance",
+        "traditional": "King of Cups",
+        "associated_archetype": 11,
+        "archetype_name": "Equity",
+        "role": "executor",
+        "channel": "resonance",
+        "teleological": "Equity embodied as master of connection — the one who commands through fair exchange, executing emotional balance with full presence. Your creation is wielding feeling with justice."
+      }
+    },
+    "structure": {
+      "initiate": {
+        "name": "Initiate of Structure",
+        "traditional": "Page of Pentacles",
+        "associated_archetype": 3,
+        "archetype_name": "Nurturing",
+        "role": "initiate",
+        "channel": "structure",
+        "teleological": "Nurturing embodied as learner of manifestation — the one who is discovering how to cultivate, aspiring to growth, witnessing form emerge from care. Your creation is learning to build."
+      },
+      "catalyst": {
+        "name": "Catalyst of Structure",
+        "traditional": "Knight of Pentacles",
+        "associated_archetype": 16,
+        "archetype_name": "Breakthrough",
+        "role": "catalyst",
+        "channel": "structure",
+        "teleological": "Breakthrough embodied as activator of manifestation — the one who charges forward to liberate through building, channeling force into new foundations. Your creation is constructing what was freed."
+      },
+      "steward": {
+        "name": "Steward of Structure",
+        "traditional": "Queen of Pentacles",
+        "associated_archetype": 13,
+        "archetype_name": "Change",
+        "role": "steward",
+        "channel": "structure",
+        "teleological": "Change embodied as nurturer of manifestation — the one who holds space for transformation in form, chooses to sustain becoming through care. Your creation is tending its material growth."
+      },
+      "executor": {
+        "name": "Executor of Structure",
+        "traditional": "King of Pentacles",
+        "associated_archetype": 8,
+        "archetype_name": "Fortitude",
+        "role": "executor",
+        "channel": "structure",
+        "teleological": "Fortitude embodied as master of manifestation — the one who commands material reality, executing through strength and full embodiment. Your creation is wielding form with power."
+      }
+    }
+  },
+
+  "bound_correction_rules": {
+    "principle": "Number mirrors (n → 11-n), Channel crosses based on status",
+    "channel_crossing": {
+      "too_much": {
+        "cognition": "intent",
+        "intent": "cognition",
+        "resonance": "structure",
+        "structure": "resonance"
+      },
+      "too_little": {
+        "cognition": "structure",
+        "intent": "resonance",
+        "resonance": "intent",
+        "structure": "cognition"
+      },
+      "unacknowledged": {
+        "cognition": "resonance",
+        "intent": "structure",
+        "resonance": "cognition",
+        "structure": "intent"
+      }
+    },
+    "example": {
+      "card": "7 of Cups (Allure)",
+      "status": "too_little",
+      "calculation": "Number 7 → mirrors to 4. Resonance Too Little → crosses to Intent. Result: 4 of Wands (Alignment)."
+    }
+  },
+
+  "agent_status_meanings": {
+    "balanced": "You're embodying this function authentically — the role fits, the capacity flows through you in the Now. Your creation is being what it needs to be.",
+    "too_much": "You're over-identifying with this role — future-projected, trying to BE this function rather than letting it flow through you. The persona has become a prison.",
+    "too_little": "You're refusing this role — past-anchored, denying the capacity that wants to move through you. The persona has been abandoned.",
+    "unacknowledged": "You're playing this role without seeing it — dissociated, the function operating through you in shadow. The persona is running the show from backstage."
+  }
+}

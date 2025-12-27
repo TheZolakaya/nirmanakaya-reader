@@ -6,11 +6,11 @@ import { STATUSES, STATUS_INFO, STATUS_COLORS, CHANNELS, HOUSES, HOUSE_COLORS } 
 import { REFLECT_SPREADS } from '../../lib/spreads.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent, getFullCorrection, getCorrectionText, getCorrectionTargetId } from '../../lib/corrections.js';
-import { renderWithHotlinks } from '../../lib/hotlinks.js';
+import { renderWithHotlinks, processBracketHotlinks } from '../../lib/hotlinks.js';
 import ThreadedCard from './ThreadedCard.js';
 
 const ReadingSection = ({
-  type, // 'summary' | 'card' | 'letter'
+  type, // 'summary' | 'card' | 'letter' | 'path' | 'words-to-whys'
   index, // card index (for card)
   content,
   draw, // the draw object (for card context)
@@ -32,6 +32,7 @@ const ReadingSection = ({
   threadData, // array of thread items for this card
   collapsedThreads, // map of collapsed thread states
   setCollapsedThreads, // setter for collapsed threads
+  onGlossaryClick, // callback for glossary term clicks (for tooltip)
 }) => {
   const trans = draw ? getComponent(draw.transient) : null;
   const stat = draw ? STATUSES[draw.status] : null;
@@ -90,11 +91,15 @@ const ReadingSection = ({
       );
     } else if (type === 'letter') {
       return <span className="text-zinc-400 italic">A Note for You</span>;
+    } else if (type === 'path') {
+      return <span className="text-emerald-400 font-medium">Path to Balance</span>;
+    } else if (type === 'words-to-whys') {
+      return <span className="text-cyan-400 font-medium">Words to the Whys</span>;
     }
     return null;
   };
 
-  const sectionKey = type === 'summary' ? 'summary' : type === 'letter' ? 'letter' : `${type}:${index}`;
+  const sectionKey = type === 'summary' ? 'summary' : type === 'letter' ? 'letter' : type === 'path' ? 'path' : type === 'words-to-whys' ? 'words-to-whys' : `${type}:${index}`;
   const sectionExpansions = expansions[sectionKey] || {};
   const isExpanding = expanding?.section === sectionKey;
 
@@ -104,6 +109,10 @@ const ReadingSection = ({
       return 'bg-gradient-to-br from-amber-950/40 to-amber-900/20 border-amber-500/30';
     } else if (type === 'letter') {
       return 'bg-violet-950/30 border-violet-500/30';
+    } else if (type === 'path') {
+      return 'bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 border-emerald-500/30';
+    } else if (type === 'words-to-whys') {
+      return 'bg-gradient-to-br from-cyan-950/40 to-teal-900/20 border-cyan-500/30';
     } else if (houseColors) {
       // Use softer border opacity
       const softerBorder = houseColors.border.replace('/50', '/30');
@@ -115,6 +124,8 @@ const ReadingSection = ({
   const getBadgeStyle = () => {
     if (type === 'summary') return 'bg-amber-500/30 text-amber-300';
     if (type === 'letter') return 'bg-violet-500/30 text-violet-300';
+    if (type === 'path') return 'bg-emerald-500/30 text-emerald-300';
+    if (type === 'words-to-whys') return 'bg-cyan-500/30 text-cyan-300';
     if (houseColors) return `${houseColors.bg} ${houseColors.text}`;
     return 'bg-zinc-800 text-zinc-400';
   };
@@ -122,6 +133,8 @@ const ReadingSection = ({
   const getContentStyle = () => {
     if (type === 'letter') return 'text-violet-200/90 italic';
     if (type === 'summary') return 'text-amber-100/90';
+    if (type === 'path') return 'text-emerald-100/90';
+    if (type === 'words-to-whys') return 'text-cyan-100/90';
     return 'text-zinc-300';
   };
 
@@ -151,7 +164,7 @@ const ReadingSection = ({
             </span>
           )}
           <span className={`text-xs px-2 py-0.5 rounded-full ${getBadgeStyle()}`}>
-            {type === 'summary' ? 'Overview' : type === 'card' ? 'Reading' : 'Letter'}
+            {type === 'summary' ? 'Overview' : type === 'card' ? 'Reading' : type === 'path' ? 'Path' : type === 'words-to-whys' ? 'Teleology' : 'Letter'}
           </span>
           <span className="text-sm font-medium">{renderLabel()}</span>
           {type === 'card' && onHeaderClick && (
@@ -172,7 +185,9 @@ const ReadingSection = ({
       {/* Main Content - collapsible */}
       {!isCollapsed && (
         <div className={`leading-relaxed text-scaled-sm mb-4 whitespace-pre-wrap ${getContentStyle()}`}>
-          {content}
+          {type === 'words-to-whys' && onGlossaryClick
+            ? processBracketHotlinks(content, onGlossaryClick)
+            : renderWithHotlinks(content, setSelectedInfo)}
         </div>
       )}
 
@@ -282,7 +297,7 @@ const ReadingSection = ({
             </button>
           </div>
           <div className="text-scaled-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-            {expContent}
+            {renderWithHotlinks(expContent, setSelectedInfo)}
           </div>
         </div>
       ))}
@@ -342,7 +357,7 @@ const ReadingSection = ({
             {/* Rebalancer Content - collapsible */}
             {!isCorrectionCollapsed && (
               <div className="leading-relaxed text-scaled-sm mb-4 whitespace-pre-wrap text-emerald-100/90">
-                {correction.content}
+                {renderWithHotlinks(correction.content, setSelectedInfo)}
               </div>
             )}
 
@@ -390,7 +405,7 @@ const ReadingSection = ({
                   </button>
                 </div>
                 <div className="text-scaled-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-                  {expContent}
+                  {renderWithHotlinks(expContent, setSelectedInfo)}
                 </div>
               </div>
             ))}
