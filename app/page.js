@@ -2526,8 +2526,21 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </div>
                 )}
 
-                {/* Re-interpret Button */}
+                {/* Model Toggle */}
                 <div className="mt-4 pt-3 border-t border-zinc-800/50">
+                  <label className="flex items-center justify-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={useHaiku}
+                      onChange={(e) => setUseHaiku(e.target.checked)}
+                      className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                    />
+                    <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
+                  </label>
+                </div>
+
+                {/* Re-interpret Button */}
+                <div className="mt-3 pt-3 border-t border-zinc-800/50">
                   <button
                     onClick={reinterpret}
                     className="w-full bg-[#052e23] hover:bg-[#064e3b] text-[#f59e0b] py-2 rounded-lg text-sm transition-colors border border-emerald-700/50"
