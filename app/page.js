@@ -81,7 +81,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.35.2";
+const VERSION = "0.35.3";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -164,6 +164,7 @@ export default function NirmanakaReader() {
   const [loadingPhraseVisible, setLoadingPhraseVisible] = useState(true);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [sparkPlaceholder, setSparkPlaceholder] = useState('');
+  const [showSparkSuggestions, setShowSparkSuggestions] = useState(false); // Show starters + spark suggestions
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [useHaiku, setUseHaiku] = useState(false); // Model toggle: false = Sonnet, true = Haiku
   const [showTokenUsage, setShowTokenUsage] = useState(false); // Show token costs
@@ -302,10 +303,24 @@ export default function NirmanakaReader() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [draws, parsedReading]);
 
-  // Spark: show random suggestion as placeholder
+  // Click outside to dismiss help popover
+  useEffect(() => {
+    if (!helpPopover) return;
+    const handleClickOutside = (e) => {
+      // Check if click is outside any popover content
+      if (!e.target.closest('.help-popover-content') && !e.target.closest('.help-trigger')) {
+        setHelpPopover(null);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [helpPopover]);
+
+  // Spark: toggle suggestions panel and show random suggestion
   const handleSpark = () => {
     const randomSuggestion = SUGGESTIONS[Math.floor(Math.random() * SUGGESTIONS.length)];
     setSparkPlaceholder(randomSuggestion);
+    setShowSparkSuggestions(true);
   };
 
   // Strip trailing signatures from API responses (e.g., "A.", "[A]", "— A")
@@ -1500,10 +1515,45 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {!draws && (
           <>
             {/* Reading Configuration Box */}
-            <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6">
-              {/* Mode Toggle */}
-              <div className="flex justify-center items-center mb-4 relative">
-                {/* Mode buttons - centered */}
+            <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
+              {/* Unified Help Button - top right */}
+              <button
+                onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
+                className="help-trigger absolute top-3 right-3 sm:top-4 sm:right-4 w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all z-10"
+              >
+                ?
+              </button>
+              {helpPopover === 'unified' && (
+                <div className="help-popover-content absolute top-12 right-2 sm:right-4 z-50 w-80 sm:w-96">
+                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                    <div className="space-y-4 text-sm">
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
+                        <div className="space-y-2">
+                          <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
+                        <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
+                        <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
+                        <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Mode Toggle - centered */}
+              <div className="flex justify-center items-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
@@ -1518,39 +1568,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     Forge
                   </button>
                 </div>
-                {/* Help icon on right - absolute positioned to not affect centering */}
-                <button
-                  onClick={() => setHelpPopover(helpPopover === 'spreadType' ? null : 'spreadType')}
-                  className="absolute right-0 sm:right-4 w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all"
-                >
-                  ?
-                </button>
-                {helpPopover === 'spreadType' && (
-                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80">
-                    <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                      <div className="space-y-3 text-sm">
-                        <div>
-                          <span className="text-zinc-200 font-medium">Reflect:</span>
-                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.reflect}</p>
-                        </div>
-                        <div>
-                          <span className="text-zinc-200 font-medium">Discover:</span>
-                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.discover}</p>
-                        </div>
-                        <div>
-                          <span className="text-zinc-200 font-medium">Forge:</span>
-                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.forge}</p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => setHelpPopover(null)}
-                        className="mt-3 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center"
-                      >
-                        Got it
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Spread Selection - changes based on mode */}
@@ -1561,7 +1578,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 ) : spreadType === 'reflect' ? (
                   <>
                     {/* Position count selector for Reflect mode */}
-                    <div className="flex gap-1 justify-center items-center mb-3">
+                    <div className="flex gap-1 justify-center mb-3">
                       {[1, 2, 3, 4, 5, 6].map((count) => (
                         <button
                           key={count}
@@ -1579,12 +1596,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           {count}
                         </button>
                       ))}
-                      <button
-                        onClick={() => setHelpPopover(helpPopover === 'positionCount' ? null : 'positionCount')}
-                        className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all ml-1"
-                      >
-                        ?
-                      </button>
                     </div>
                     {/* Spread options for selected count */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
@@ -1608,7 +1619,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   </>
                 ) : (
                   /* Discover mode - simple position count as numbers */
-                  <div className="flex gap-1 justify-center items-center">
+                  <div className="flex gap-1 justify-center">
                     {Object.entries(RANDOM_SPREADS).map(([key, value]) => (
                       <button
                         key={key}
@@ -1622,30 +1633,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         {value.count}
                       </button>
                     ))}
-                    <button
-                      onClick={() => setHelpPopover(helpPopover === 'positionCount' ? null : 'positionCount')}
-                      className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all ml-1"
-                    >
-                      ?
-                    </button>
-                  </div>
-                )}
-                {/* Position count help popover - mode-specific text */}
-                {helpPopover === 'positionCount' && (
-                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-72">
-                    <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                      <p className="text-zinc-400 text-xs leading-relaxed">
-                        {spreadType === 'reflect'
-                          ? "Positions are the territories you choose to examine. Each position defines a lens — the spread determines what you're looking at, and the cards reveal what's active there."
-                          : "Positions are territories the architecture chooses for you. You select how many; the system decides which aspects of your field to illuminate."}
-                      </p>
-                      <button
-                        onClick={() => setHelpPopover(null)}
-                        className="mt-3 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center"
-                      >
-                        Got it
-                      </button>
-                    </div>
                   </div>
                 )}
               </div>
@@ -1700,14 +1687,16 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 ) : null}
               </div>
 
-              {/* Stance Selector - same width as card count for alignment */}
-              <div className="w-full max-w-lg mx-auto relative">
-                <div className="flex flex-col items-center stance-selector-mobile">
-                  {/* All 5 stance presets on one row with ? on the right */}
-                  <div className="flex gap-0.5 sm:gap-1.5 justify-center items-center w-full px-0.5 sm:px-0">
+              {/* Interpreter Voice Section */}
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                {/* Header */}
+                <div className="text-zinc-600 text-[0.625rem] tracking-widest uppercase mb-3 text-center">── Interpreter Voice ──</div>
+
+                {/* Voice presets - centered */}
+                <div className="w-full max-w-lg mx-auto">
+                  <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
                     {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
                       const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                      // Shorter names for mobile
                       const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
                       return (
                         <button
@@ -1724,43 +1713,18 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         </button>
                       );
                     })}
-                    <button
-                      onClick={() => setHelpPopover(helpPopover === 'stanceLabel' ? null : 'stanceLabel')}
-                      className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all flex-shrink-0 ml-1"
-                    >
-                      ?
-                    </button>
                   </div>
                 </div>
-                {helpPopover === 'stanceLabel' && (
-                  <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 w-72">
-                    <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                      <p className="text-zinc-400 text-xs leading-relaxed">
-                        Stances shape how the reading speaks to you — from quick and direct to deep and expansive.
-                      </p>
-                      <button
-                        onClick={() => setHelpPopover(null)}
-                        className="mt-3 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center"
-                      >
-                        Got it
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
 
-              {/* Voice Preview and Configuration Block */}
-              <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                {/* Voice Preview Sentence */}
-                <div className="text-center mb-4">
-                  <div className="text-zinc-600 text-[0.625rem] tracking-widest uppercase mb-2">── Voice Preview ──</div>
+                {/* Voice Preview */}
+                <div className="text-center mt-3 mb-4">
                   <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                    "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                    <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
                   </p>
                 </div>
 
                 {/* Voice Configuration Button */}
-                <div className="flex justify-center mt-4">
+                <div className="flex justify-center">
                   <button
                     onClick={() => setShowLandingFineTune(!showLandingFineTune)}
                     className="px-4 py-2 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-800/50 hover:bg-zinc-800 border border-zinc-700/50 rounded-lg transition-all flex items-center gap-2"
@@ -1773,16 +1737,16 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
                 {/* Fine-tune panel */}
                 {showLandingFineTune && (
-                  <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 sm:p-4 border border-zinc-800/50">
+                  <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
                     {/* Complexity Selector */}
-                    <div className="mb-4">
-                      <div className="text-xs text-zinc-500 mb-2 text-center">Speak to me like...</div>
-                      <div className="flex gap-1 sm:gap-2 justify-center w-full px-1 sm:px-0">
+                    <div className="mb-3">
+                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
+                      <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
                         {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
                             <button
                               key={key}
                               onClick={() => setStance({ ...stance, complexity: key })}
-                              className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.5rem] sm:text-xs transition-all whitespace-nowrap text-center ${
+                              className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
                                 stance.complexity === key
                                   ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
                                   : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
@@ -1795,14 +1759,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </div>
 
                     {/* Seriousness/Tone Selector */}
-                    <div className="mb-4">
-                      <div className="text-xs text-zinc-500 mb-2 text-center">Tone</div>
-                      <div className="flex gap-1 sm:gap-2 justify-center w-full px-1 sm:px-0">
+                    <div className="mb-3">
+                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
+                      <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
                         {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
                           <button
                             key={key}
                             onClick={() => setStance({ ...stance, seriousness: key })}
-                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.5rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
+                            className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
                               stance.seriousness === key
                                 ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
                                 : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
@@ -1824,24 +1788,24 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     />
 
                     {/* Model Toggle */}
-                    <div className="mt-4 pt-3 border-t border-zinc-700/50">
+                    <div className="mt-3 pt-2 border-t border-zinc-700/50">
                       <label className="flex items-center justify-center gap-2 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={useHaiku}
                           onChange={(e) => setUseHaiku(e.target.checked)}
-                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                          className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
                         />
-                        <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
+                        <span className="text-[0.625rem] text-zinc-400">Use Haiku (faster)</span>
                       </label>
-                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-2">
+                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-1.5">
                         <input
                           type="checkbox"
                           checked={showTokenUsage}
                           onChange={(e) => setShowTokenUsage(e.target.checked)}
-                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                          className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
                         />
-                        <span className="text-xs text-zinc-400">Show token usage</span>
+                        <span className="text-[0.625rem] text-zinc-400">Show token usage</span>
                       </label>
                     </div>
                   </div>
@@ -1851,21 +1815,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
             {/* Question Input Section */}
             <div className="relative mb-3 mt-4">
-              {/* Static starter prompts - gentle on-ramps */}
-              <div className={`mb-3 transition-all duration-300 ${question.trim() ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-                <div className="flex items-center justify-center gap-2 flex-wrap">
-                  {STARTERS.map((starter, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setQuestion(starter)}
-                      className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/80 border border-zinc-700/50 transition-all"
-                    >
-                      {starter}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Input row with Spark button on left */}
               <div className="flex gap-2">
                 {/* Spark button */}
@@ -1882,7 +1831,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 <div className="relative flex-1">
                   <textarea
                     value={question}
-                    onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); }}
+                    onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                     placeholder={sparkPlaceholder || (
                       spreadType === 'forge'
@@ -1891,29 +1840,42 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           ? "What area of life are you examining?"
                           : "Name your question or declare your intent..."
                     )}
-                    className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 pr-10 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                    className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
                     rows={3}
                   />
-                  <button
-                    onClick={() => setHelpPopover(helpPopover === 'input' ? null : 'input')}
-                    className="absolute top-3 right-3 w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
-                  >
-                    ?
-                  </button>
                 </div>
               </div>
-              {helpPopover === 'input' && (
-                <div className="absolute bottom-full right-0 mb-2 z-50 w-72">
-                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                    <p className="text-zinc-300 text-xs leading-relaxed">
-                      Ask about anything — relationships, work, decisions, direction. Use a verb or question. The more specific you are, the more specific the reading will be.
-                    </p>
+
+              {/* Spark suggestions panel - shown when Spark is clicked */}
+              {showSparkSuggestions && !question.trim() && (
+                <div className="mt-3 p-3 bg-zinc-900/50 rounded-xl border border-zinc-800/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-zinc-500">Tap to insert, or click Spark for more</span>
                     <button
-                      onClick={() => setHelpPopover(null)}
-                      className="mt-3 text-xs text-zinc-400 hover:text-zinc-200 w-full text-center"
+                      onClick={() => setShowSparkSuggestions(false)}
+                      className="text-xs text-zinc-600 hover:text-zinc-400"
                     >
-                      Got it
+                      ✕
                     </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {STARTERS.map((starter, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => { setQuestion(starter); setShowSparkSuggestions(false); }}
+                        className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/80 border border-zinc-700/50 transition-all"
+                      >
+                        {starter}
+                      </button>
+                    ))}
+                    {sparkPlaceholder && (
+                      <button
+                        onClick={() => { setQuestion(sparkPlaceholder); setShowSparkSuggestions(false); }}
+                        className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-[#2e1065]/50 text-amber-400 hover:bg-[#2e1065] border border-purple-800/50 transition-all"
+                      >
+                        {sparkPlaceholder}
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
