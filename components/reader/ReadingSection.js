@@ -3,7 +3,7 @@
 
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, CHANNELS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
-import { DURABLE_SPREADS } from '../../lib/spreads.js';
+import { REFLECT_SPREADS } from '../../lib/spreads.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent, getFullCorrection, getCorrectionText, getCorrectionTargetId } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
@@ -35,17 +35,18 @@ const ReadingSection = ({
 }) => {
   const trans = draw ? getComponent(draw.transient) : null;
   const stat = draw ? STATUSES[draw.status] : null;
-  const isDurable = spreadType === 'durable';
-  const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : null;
+  const isReflect = spreadType === 'reflect';
+  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
 
   // Get position/frame label
-  const posLabel = draw ? (isDurable
-    ? spreadConfig?.frames[index]?.name
+  const posLabel = draw ? (isReflect
+    ? spreadConfig?.positions?.[index]?.name
     : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Position ${index + 1}`)) : null;
 
   // Get house for coloring (for card/correction sections)
-  const house = draw ? (isDurable
-    ? spreadConfig?.frames[index]?.house
+  // Reflect mode uses neutral Gestalt coloring since positions don't have houses
+  const house = draw ? (isReflect
+    ? 'Gestalt'
     : (draw.position !== null ? ARCHETYPES[draw.position]?.house : 'Gestalt')) : null;
 
   const houseColors = house ? HOUSE_COLORS[house] : null;
@@ -82,7 +83,7 @@ const ReadingSection = ({
           {' '}
           <ClickableTerm type="card" id={draw.transient}>{trans?.name}</ClickableTerm>
           {' in your '}
-          <ClickableTerm type={isDurable ? "house" : "card"} id={isDurable ? house : draw.position}>
+          <ClickableTerm type={isReflect ? "house" : "card"} id={isReflect ? house : draw.position}>
             {posLabel}
           </ClickableTerm>
         </span>

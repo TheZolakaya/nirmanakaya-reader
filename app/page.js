@@ -18,9 +18,11 @@ import {
   CHANNEL_CROSSINGS,
   CHANNEL_COLORS,
   // Spreads
-  DURABLE_SPREADS,
   RANDOM_SPREADS,
   MODE_HELPER_TEXT,
+  REFLECT_SPREADS,
+  SPREADS_BY_COUNT,
+  MODE_EXPLANATIONS,
   // Voice/Stance
   VOICE_MODIFIERS,
   FOCUS_MODIFIERS,
@@ -33,6 +35,7 @@ import {
   STANCE_PRESETS,
   VOICE_LETTER_TONE,
   buildStancePrompt,
+  buildPreviewSentence,
   // Prompts
   BASE_SYSTEM,
   FORMAT_INSTRUCTIONS,
@@ -84,8 +87,10 @@ const VERSION = "0.34.5";
 export default function NirmanakaReader() {
   const [question, setQuestion] = useState('');
   const [followUp, setFollowUp] = useState('');
-  const [spreadType, setSpreadType] = useState('random');
+  const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge'
   const [spreadKey, setSpreadKey] = useState('three');
+  const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
+  const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -280,8 +285,10 @@ export default function NirmanakaReader() {
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
-    const drawText = formatDrawForAI(drawsToUse, spreadType, spreadKey, false); // Never send traditional names to API
-    const spreadName = spreadType === 'durable' ? DURABLE_SPREADS[spreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
+    const isReflect = spreadType === 'reflect';
+    const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
+    const drawText = formatDrawForAI(drawsToUse, spreadType, currentSpreadKey, false); // Never send traditional names to API
+    const spreadName = isReflect ? REFLECT_SPREADS[reflectSpreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
     const safeQuestion = sanitizeForAPI(questionToUse);
 
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
@@ -309,11 +316,12 @@ export default function NirmanakaReader() {
   const performReading = async () => {
     const actualQuestion = question.trim() || (spreadType === 'forge' ? 'Forging intention' : 'General reading');
     setQuestion(actualQuestion);
-    const isDurable = spreadType === 'durable';
+    const isReflect = spreadType === 'reflect';
     const isForge = spreadType === 'forge';
     // Forge mode always draws 1 card
-    const count = isForge ? 1 : (isDurable ? DURABLE_SPREADS[spreadKey].count : RANDOM_SPREADS[spreadKey].count);
-    const newDraws = generateSpread(count, isDurable);
+    // Reflect mode uses REFLECT_SPREADS, Discover uses RANDOM_SPREADS
+    const count = isForge ? 1 : (isReflect ? REFLECT_SPREADS[reflectSpreadKey].count : RANDOM_SPREADS[spreadKey].count);
+    const newDraws = generateSpread(count, isReflect);
     setDraws(newDraws);
     await performReadingWithDraws(newDraws, actualQuestion);
   };
@@ -861,8 +869,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
   };
 
   const getCardHouse = (draw, index) => {
-    if (spreadType === 'durable') {
-      return DURABLE_SPREADS[spreadKey].frames[index].house;
+    if (spreadType === 'reflect') {
+      // Reflect mode uses neutral Gestalt coloring since positions don't have houses
+      return 'Gestalt';
     } else if (draw.position !== null) {
       return ARCHETYPES[draw.position]?.house || 'Gestalt';
     }
@@ -871,8 +880,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
   // === CARD DISPLAY (simplified, visual only) ===
   const CardDisplay = ({ draw, index }) => {
-    const isDurable = spreadType === 'durable';
-    const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
+    const isReflect = spreadType === 'reflect';
+    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
     const trans = getComponent(draw.transient);
     const stat = STATUSES[draw.status];
     const transArchetype = trans.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
@@ -880,12 +889,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     const correction = getFullCorrection(draw.transient, draw.status);
     const correctionText = getCorrectionText(correction, trans, draw.status);
     const correctionTargetId = getCorrectionTargetId(correction, trans);
-    
+
     const house = getCardHouse(draw, index);
     const houseColors = HOUSE_COLORS[house];
-    
-    const contextLabel = isDurable ? spreadConfig.frames[index].name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : 'Draw');
-    const contextSub = isDurable ? null : (draw.position !== null ? `Position ${draw.position}` : null);
+
+    const contextLabel = isReflect ? spreadConfig?.positions?.[index]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : 'Draw');
+    const contextSub = isReflect ? null : (draw.position !== null ? `Position ${draw.position}` : null);
     
     // Helper to open card info
     const openCardInfo = (cardId) => {
@@ -948,7 +957,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         <div className="text-sm text-zinc-400 mb-3">
           in your <span 
             className={`font-medium cursor-pointer hover:underline decoration-dotted ${houseColors.text}`}
-            onClick={(e) => { e.stopPropagation(); isDurable ? openHouseInfo(house) : openCardInfo(draw.position); }}
+            onClick={(e) => { e.stopPropagation(); isReflect ? openHouseInfo(house) : openCardInfo(draw.position); }}
           >{contextLabel}</span>
           {contextSub && <span className="text-zinc-600 text-xs ml-1">({contextSub})</span>}
         </div>
@@ -1048,7 +1057,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
   const stanceKeys = Object.keys(DELIVERY_PRESETS);
 
   const navigateSpread = (direction) => {
-    if (spreadType !== 'random') return;
+    if (spreadType !== 'discover') return;
     const currentIndex = spreadKeys.indexOf(spreadKey);
     const newIndex = direction === 'left'
       ? Math.max(0, currentIndex - 1)
@@ -1107,11 +1116,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
   const exportToMarkdown = () => {
     if (!parsedReading || !draws) return;
 
-    const spreadName = spreadType === 'durable'
-      ? DURABLE_SPREADS[spreadKey]?.name
+    const isReflect = spreadType === 'reflect';
+    const spreadName = isReflect
+      ? REFLECT_SPREADS[spreadKey]?.name
       : `${RANDOM_SPREADS[spreadKey]?.name} Emergent`;
-    const isDurable = spreadType === 'durable';
-    const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : null;
+    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
 
     let md = `# Nirmanakaya Reading\n\n`;
     md += `**Date:** ${new Date().toLocaleDateString()}\n\n`;
@@ -1133,8 +1142,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const stat = STATUSES[draw.status];
       const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
 
-      const context = isDurable && spreadConfig
-        ? spreadConfig.frames[card.index]?.name
+      const context = isReflect && spreadConfig
+        ? spreadConfig.positions?.[card.index]?.name
         : `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
@@ -1193,11 +1202,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
   const exportToHTML = () => {
     if (!parsedReading || !draws) return;
 
-    const spreadName = spreadType === 'durable'
-      ? `Reflect • ${DURABLE_SPREADS[spreadKey]?.name}`
+    const isReflect = spreadType === 'reflect';
+    const spreadName = isReflect
+      ? `Reflect • ${REFLECT_SPREADS[spreadKey]?.name}`
       : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`;
-    const isDurable = spreadType === 'durable';
-    const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : null;
+    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
 
     const escapeHtml = (text) => text
       .replace(/&/g, '&amp;')
@@ -1246,7 +1255,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const trans = getComponent(draw.transient);
       const stat = STATUSES[draw.status];
       const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
-      const context = isDurable && spreadConfig ? spreadConfig.frames[card.index]?.name : `Position ${card.index + 1}`;
+      const context = isReflect && spreadConfig ? spreadConfig.positions?.[card.index]?.name : `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       let archDetails = '';
@@ -1456,7 +1465,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           <>
             {/* Reading Configuration Box */}
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6">
-              {/* Spread Type Toggle */}
+              {/* Mode Toggle */}
               <div className="flex justify-center items-center gap-2 mb-4 relative">
                 {/* Help icon on left */}
                 <button
@@ -1466,15 +1475,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   ?
                 </button>
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
-                  <button onClick={() => { setSpreadType('durable'); setSpreadKey('arc'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'durable' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                  <button onClick={() => { setSpreadType('reflect'); }}
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
-                  <button onClick={() => { setSpreadType('random'); setSpreadKey('three'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'random' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                  <button onClick={() => { setSpreadType('discover'); setSpreadKey('three'); }}
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
-                  <button onClick={() => { setSpreadType('forge'); setSpreadKey('one'); }}
+                  <button onClick={() => { setSpreadType('forge'); }}
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
@@ -1485,15 +1494,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       <div className="space-y-3 text-sm">
                         <div>
                           <span className="text-zinc-200 font-medium">Reflect:</span>
-                          <p className="text-zinc-400 text-xs mt-1">Structured mirror — examine specific areas. The energy is emergent, but it lands in life areas you choose.</p>
+                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.reflect}</p>
                         </div>
                         <div>
                           <span className="text-zinc-200 font-medium">Discover:</span>
-                          <p className="text-zinc-400 text-xs mt-1">Open mirror — receive what shows up. Both the energy and where it's showing up emerge together.</p>
+                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.discover}</p>
                         </div>
                         <div>
                           <span className="text-zinc-200 font-medium">Forge:</span>
-                          <p className="text-zinc-400 text-xs mt-1">Active creation — declare an intention, draw one card, iterate through action.</p>
+                          <p className="text-zinc-400 text-xs mt-1">{MODE_EXPLANATIONS.forge}</p>
                         </div>
                       </div>
                       <button
@@ -1507,41 +1516,78 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 )}
               </div>
 
-              {/* Mode helper text */}
-              <p className="text-center text-zinc-500 text-[0.75rem] sm:text-xs mb-4">{MODE_HELPER_TEXT[spreadType]}</p>
-
-              {/* Card Count Selector - fixed height to prevent layout shifts */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto card-count-selector h-[65px] sm:h-[45px]">
+              {/* Spread Selection - changes based on mode */}
+              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-4">
                 {spreadType === 'forge' ? (
-                  <div className="text-center text-zinc-400 text-[0.875rem] sm:text-sm">
+                  <div className="text-center text-zinc-400 text-[0.875rem] sm:text-sm py-2">
                     One card • Intention-first
                   </div>
-                ) : (
+                ) : spreadType === 'reflect' ? (
                   <>
-                    <div className="flex gap-1.5 sm:gap-1.5 justify-center flex-wrap">
-                      {spreadType === 'random' ? (
-                        Object.entries(RANDOM_SPREADS).map(([key, value]) => (
-                          <button key={key} onClick={() => setSpreadKey(key)}
-                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
-                            {value.name}
+                    {/* Card count selector for Reflect mode */}
+                    <div className="text-[0.6875rem] text-zinc-500 mb-2">How many cards?</div>
+                    <div className="flex gap-1 justify-center mb-3">
+                      {[1, 2, 3, 4, 5, 6].map((count) => (
+                        <button
+                          key={count}
+                          onClick={() => {
+                            setReflectCardCount(count);
+                            // Auto-select first spread for this count
+                            setReflectSpreadKey(SPREADS_BY_COUNT[count][0]);
+                          }}
+                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                            reflectCardCount === count
+                              ? 'bg-[#2e1065] text-amber-400'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                          }`}
+                        >
+                          {count}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Spread options for selected count */}
+                    <div className="flex gap-1.5 justify-center flex-wrap">
+                      {SPREADS_BY_COUNT[reflectCardCount].map((spreadId) => {
+                        const spread = REFLECT_SPREADS[spreadId];
+                        return (
+                          <button
+                            key={spreadId}
+                            onClick={() => setReflectSpreadKey(spreadId)}
+                            className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
+                              reflectSpreadKey === spreadId
+                                ? 'bg-[#2e1065] text-amber-400'
+                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            }`}
+                          >
+                            {spread.name}
                           </button>
-                        ))
-                      ) : (
-                        Object.entries(DURABLE_SPREADS).map(([key, value]) => (
-                          <button key={key} onClick={() => setSpreadKey(key)}
-                            className={`px-3 sm:px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadKey === key ? 'bg-[#2e1065] text-amber-400' : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 active:bg-zinc-700'}`}>
-                            {value.name}
-                          </button>
-                        ))
-                      )}
+                        );
+                      })}
                     </div>
                   </>
+                ) : (
+                  /* Discover mode - simple card count */
+                  <div className="flex gap-1.5 justify-center flex-wrap">
+                    {Object.entries(RANDOM_SPREADS).map(([key, value]) => (
+                      <button
+                        key={key}
+                        onClick={() => setSpreadKey(key)}
+                        className={`px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${
+                          spreadKey === key
+                            ? 'bg-[#2e1065] text-amber-400'
+                            : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                        }`}
+                      >
+                        {value.name}
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
 
-              {/* Spectrum/description area - compact, close to buttons */}
-              <div className="h-[20px] mb-3 mt-1 flex items-center justify-center">
-                {spreadType === 'random' ? (
+              {/* Spectrum navigation for Discover mode */}
+              <div className="h-[20px] mb-3 flex items-center justify-center">
+                {spreadType === 'discover' ? (
                   <div className="flex justify-between w-full max-w-xs text-[0.625rem] sm:text-[0.5625rem] text-zinc-500">
                     <button
                       onClick={() => navigateSpread('left')}
@@ -1556,8 +1602,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       Expansive →
                     </button>
                   </div>
-                ) : spreadType === 'durable' && DURABLE_SPREADS[spreadKey] ? (
-                  <p className="text-center text-zinc-500 text-[0.75rem] sm:text-xs">{DURABLE_SPREADS[spreadKey].description}</p>
                 ) : null}
               </div>
 
@@ -1611,10 +1655,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       );
                     })}
                   </div>
-                  {/* Current stance selection descriptor */}
-                  <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mt-1">
-                    {getCurrentDeliveryPreset()?.[1]?.descriptor || 'Custom'}
-                  </div>
                   {/* Config toggle - centered */}
                   <div className="flex justify-center w-full text-[0.6875rem] sm:text-[0.625rem] text-zinc-400 mt-0.5">
                     <button
@@ -1648,10 +1688,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                               {opt.label}
                             </button>
                         ))}
-                      </div>
-                      {/* Current voice selection descriptor */}
-                      <div className="text-center text-[0.5625rem] sm:text-[0.625rem] text-zinc-600 mt-1.5">
-                        {COMPLEXITY_OPTIONS[stance.complexity]?.descriptor || ''}
                       </div>
                     </div>
 
@@ -1708,6 +1744,31 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   </div>
                 )}
               </div>
+
+              {/* Dynamic Explanation Block */}
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                {/* Voice Preview Sentence */}
+                <div className="text-center mb-4">
+                  <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
+                    "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                  </p>
+                </div>
+
+                {/* Spread Info - only show for Reflect mode */}
+                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] && (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-2">
+                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} card{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Question Input Section */}
@@ -1748,7 +1809,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     placeholder={sparkPlaceholder || (
                       spreadType === 'forge'
                         ? "What are you forging? Declare your intention..."
-                        : spreadType === 'durable'
+                        : spreadType === 'reflect'
                           ? "What area of life are you examining?"
                           : "Name your question or declare your intent..."
                     )}
@@ -1786,7 +1847,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   disabled={loading}
                   className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#052e23] hover:bg-[#064e3b] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-xl transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
-                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'durable' ? 'Reflect →' : 'Discover →')}
+                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : 'Discover →')}
                 </button>
               </div>
             </div>
@@ -1822,7 +1883,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               {/* Metadata line ABOVE buttons */}
               <div className="text-center mb-3">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
-                  {spreadType === 'durable' ? `Reflect • ${DURABLE_SPREADS[spreadKey]?.name}` : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
+                  {spreadType === 'reflect' ? `Reflect • ${REFLECT_SPREADS[spreadKey]?.name}` : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
                 </span>
               </div>
               {/* Action buttons row */}
@@ -1891,14 +1952,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 
                 <div className="space-y-4 mb-6">
                   {draws.map((draw, i) => {
-                    const isDurable = spreadType === 'durable';
-                    const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
+                    const isReflect = spreadType === 'reflect';
+                    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
                     const trans = getComponent(draw.transient);
                     const stat = STATUSES[draw.status];
                     const pos = draw.position !== null ? ARCHETYPES[draw.position] : null;
                     const transArchetype = trans.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
                     const correction = getFullCorrection(draw.transient, draw.status);
-                    const label = isDurable ? spreadConfig.frames[i].name : (pos?.name || 'Draw');
+                    const label = isReflect ? spreadConfig?.positions?.[i]?.name : (pos?.name || 'Draw');
                     
                     return (
                       <div key={i} className="bg-zinc-800/30 rounded-lg p-3 text-sm">
@@ -1983,30 +2044,33 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     <div className="text-sm text-zinc-600 space-y-1">
                       {(() => {
                         const relationships = [];
-                        const isDurable = spreadType === 'durable';
-                        const spreadConfig = isDurable ? DURABLE_SPREADS[spreadKey] : null;
-                        
-                        const houseGroups = {};
-                        draws.forEach((draw, i) => {
-                          const house = isDurable ? spreadConfig.frames[i].house : (draw.position !== null ? ARCHETYPES[draw.position]?.house : null);
-                          if (house) {
-                            if (!houseGroups[house]) houseGroups[house] = [];
-                            const label = isDurable ? spreadConfig.frames[i].name : ARCHETYPES[draw.position]?.name;
-                            houseGroups[house].push(label);
-                          }
-                        });
-                        Object.entries(houseGroups).forEach(([house, cards]) => {
-                          if (cards.length > 1) {
-                            relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
-                          }
-                        });
-                        
+                        const isReflect = spreadType === 'reflect';
+                        const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+
+                        // House grouping only for Discover mode (Reflect mode doesn't have house per position)
+                        if (!isReflect) {
+                          const houseGroups = {};
+                          draws.forEach((draw, i) => {
+                            const house = draw.position !== null ? ARCHETYPES[draw.position]?.house : null;
+                            if (house) {
+                              if (!houseGroups[house]) houseGroups[house] = [];
+                              const label = ARCHETYPES[draw.position]?.name;
+                              houseGroups[house].push(label);
+                            }
+                          });
+                          Object.entries(houseGroups).forEach(([house, cards]) => {
+                            if (cards.length > 1) {
+                              relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
+                            }
+                          });
+                        }
+
                         const channelGroups = {};
                         draws.forEach((draw, i) => {
                           const trans = getComponent(draw.transient);
                           if (trans.channel) {
                             if (!channelGroups[trans.channel]) channelGroups[trans.channel] = [];
-                            const label = isDurable ? spreadConfig?.frames[i].name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Signature ${i+1}`);
+                            const label = isReflect ? spreadConfig?.positions?.[i]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Signature ${i+1}`);
                             channelGroups[trans.channel].push({ label, trans: trans.name });
                           }
                         });
@@ -2015,19 +2079,19 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                             relationships.push(`${channel} Channel: ${items.map(it => it.trans).join(' & ')} resonate`);
                           }
                         });
-                        
+
                         draws.forEach((draw, i) => {
                           const correction = getFullCorrection(draw.transient, draw.status);
                           if (correction) {
-                            const corrTarget = correction.target !== undefined ? correction.target : 
+                            const corrTarget = correction.target !== undefined ? correction.target :
                                              correction.targetBound?.archetype;
                             if (corrTarget !== undefined) {
                               draws.forEach((otherDraw, j) => {
                                 if (i !== j) {
                                   const otherTrans = getComponent(otherDraw.transient);
                                   if (otherDraw.transient === corrTarget || otherTrans.archetype === corrTarget) {
-                                    const label1 = isDurable ? spreadConfig?.frames[i].name : ARCHETYPES[draw.position]?.name;
-                                    const label2 = isDurable ? spreadConfig?.frames[j].name : ARCHETYPES[otherDraw.position]?.name;
+                                    const label1 = isReflect ? spreadConfig?.positions?.[i]?.name : ARCHETYPES[draw.position]?.name;
+                                    const label2 = isReflect ? spreadConfig?.positions?.[j]?.name : ARCHETYPES[otherDraw.position]?.name;
                                     relationships.push(`${label1} correction points toward ${label2}`);
                                   }
                                 }
