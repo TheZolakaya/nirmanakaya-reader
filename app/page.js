@@ -81,7 +81,43 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.34.5";
+const VERSION = "0.35.1";
+
+// Discover mode descriptions by position count
+const DISCOVER_DESCRIPTIONS = {
+  1: {
+    subtitle: "The most direct reading — one signature from the field",
+    whenToUse: "When you want the clearest signal with no noise",
+    whatYoullSee: "The single most active pattern and how it's expressing"
+  },
+  2: {
+    subtitle: "Two signatures the architecture wants you to see together",
+    whenToUse: "When you sense a relationship or tension to explore",
+    whatYoullSee: "Two patterns and how they're interacting in your field"
+  },
+  3: {
+    subtitle: "A triangulation — three points that define your current territory",
+    whenToUse: "When you want a fuller picture without overwhelm",
+    whatYoullSee: "Three active patterns and the shape they create together"
+  },
+  4: {
+    subtitle: "Four signatures mapping the elemental dimensions of your question",
+    whenToUse: "When you want comprehensive coverage",
+    whatYoullSee: "Four patterns showing how Spirit, Mind, Emotion, and Body are each expressing"
+  },
+  5: {
+    subtitle: "The fullest Discover reading — five signatures chosen by the architecture",
+    whenToUse: "When you're ready for a complete field diagnostic",
+    whatYoullSee: "Five patterns across your major houses and how they're working together"
+  }
+};
+
+// Forge mode description
+const FORGE_DESCRIPTION = {
+  subtitle: "One signature to reflect on your creative intent",
+  whenToUse: "When you're ready to declare and act",
+  whatYoullSee: "A single pattern that meets your intention — showing what's supporting it, challenging it, or waiting to be integrated"
+};
 
 // === MAIN COMPONENT ===
 export default function NirmanakaReader() {
@@ -1466,14 +1502,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {/* Reading Configuration Box */}
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6">
               {/* Mode Toggle */}
-              <div className="flex justify-center items-center gap-2 mb-4 relative">
-                {/* Help icon on left */}
-                <button
-                  onClick={() => setHelpPopover(helpPopover === 'spreadType' ? null : 'spreadType')}
-                  className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all"
-                >
-                  ?
-                </button>
+              <div className="flex justify-center items-center mb-4 relative">
+                {/* Mode buttons - centered */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
@@ -1488,6 +1518,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     Forge
                   </button>
                 </div>
+                {/* Help icon on right - absolute positioned to not affect centering */}
+                <button
+                  onClick={() => setHelpPopover(helpPopover === 'spreadType' ? null : 'spreadType')}
+                  className="absolute right-0 sm:right-4 w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all"
+                >
+                  ?
+                </button>
                 {helpPopover === 'spreadType' && (
                   <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80">
                     <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -1517,16 +1554,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               </div>
 
               {/* Spread Selection - changes based on mode */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-4">
+              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-4 relative">
                 {spreadType === 'forge' ? (
-                  <div className="text-center text-zinc-400 text-[0.875rem] sm:text-sm py-2">
-                    One card • Intention-first
-                  </div>
+                  /* Forge mode - no position selector needed */
+                  null
                 ) : spreadType === 'reflect' ? (
                   <>
-                    {/* Card count selector for Reflect mode */}
-                    <div className="text-[0.6875rem] text-zinc-500 mb-2">How many cards?</div>
-                    <div className="flex gap-1 justify-center mb-3">
+                    {/* Position count selector for Reflect mode */}
+                    <div className="flex gap-1 justify-center items-center mb-3">
                       {[1, 2, 3, 4, 5, 6].map((count) => (
                         <button
                           key={count}
@@ -1544,6 +1579,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           {count}
                         </button>
                       ))}
+                      <button
+                        onClick={() => setHelpPopover(helpPopover === 'positionCount' ? null : 'positionCount')}
+                        className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all ml-1"
+                      >
+                        ?
+                      </button>
                     </div>
                     {/* Spread options for selected count */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
@@ -1566,61 +1607,37 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </div>
                   </>
                 ) : (
-                  /* Discover mode - simple card count */
-                  <div className="flex gap-1.5 justify-center flex-wrap">
+                  /* Discover mode - simple position count as numbers */
+                  <div className="flex gap-1 justify-center items-center">
                     {Object.entries(RANDOM_SPREADS).map(([key, value]) => (
                       <button
                         key={key}
                         onClick={() => setSpreadKey(key)}
-                        className={`px-3 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${
+                        className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
                           spreadKey === key
                             ? 'bg-[#2e1065] text-amber-400'
                             : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                         }`}
                       >
-                        {value.name}
+                        {value.count}
                       </button>
                     ))}
+                    <button
+                      onClick={() => setHelpPopover(helpPopover === 'positionCount' ? null : 'positionCount')}
+                      className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all ml-1"
+                    >
+                      ?
+                    </button>
                   </div>
                 )}
-              </div>
-
-              {/* Spectrum navigation for Discover mode */}
-              <div className="h-[20px] mb-3 flex items-center justify-center">
-                {spreadType === 'discover' ? (
-                  <div className="flex justify-between w-full max-w-xs text-[0.625rem] sm:text-[0.5625rem] text-zinc-500">
-                    <button
-                      onClick={() => navigateSpread('left')}
-                      className="hover:text-zinc-300 transition-colors cursor-pointer"
-                    >
-                      ← Focused
-                    </button>
-                    <button
-                      onClick={() => navigateSpread('right')}
-                      className="hover:text-zinc-300 transition-colors cursor-pointer"
-                    >
-                      Expansive →
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-
-              {/* Stance Selector - same width as card count for alignment */}
-              <div className="w-full max-w-lg mx-auto relative">
-                <div className="flex items-center justify-center gap-1.5 mb-3">
-                  <span className="text-[0.75rem] sm:text-xs text-zinc-400">Style</span>
-                  <button
-                    onClick={() => setHelpPopover(helpPopover === 'stanceLabel' ? null : 'stanceLabel')}
-                    className="w-4 h-4 sm:w-3.5 sm:h-3.5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.5rem] flex items-center justify-center transition-all"
-                  >
-                    ?
-                  </button>
-                </div>
-                {helpPopover === 'stanceLabel' && (
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 z-50 w-72">
+                {/* Position count help popover - mode-specific text */}
+                {helpPopover === 'positionCount' && (
+                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-72">
                     <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
                       <p className="text-zinc-400 text-xs leading-relaxed">
-                        Stances shape how the reading speaks to you — from quick and direct to deep and expansive.
+                        {spreadType === 'reflect'
+                          ? "Positions are the territories you choose to examine. Each position defines a lens — the spread determines what you're looking at, and the cards reveal what's active there."
+                          : "Positions are territories the architecture chooses for you. You select how many; the system decides which aspects of your field to illuminate."}
                       </p>
                       <button
                         onClick={() => setHelpPopover(null)}
@@ -1631,10 +1648,63 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </div>
                   </div>
                 )}
+              </div>
 
+              {/* Description Block - shows immediately after selections, before style presets */}
+              <div className="w-full max-w-lg mx-auto mb-4">
+                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'discover' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'forge' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Forge • 1 position
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {FORGE_DESCRIPTION.subtitle}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+
+              {/* Stance Selector - same width as card count for alignment */}
+              <div className="w-full max-w-lg mx-auto relative">
                 <div className="flex flex-col items-center stance-selector-mobile">
-                  {/* All 5 stance presets on one row */}
-                  <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
+                  {/* All 5 stance presets on one row with ? on the right */}
+                  <div className="flex gap-0.5 sm:gap-1.5 justify-center items-center w-full px-0.5 sm:px-0">
                     {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
                       const isActive = getCurrentDeliveryPreset()?.[0] === key;
                       // Shorter names for mobile
@@ -1654,17 +1724,51 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         </button>
                       );
                     })}
-                  </div>
-                  {/* Config toggle - centered */}
-                  <div className="flex justify-center w-full text-[0.6875rem] sm:text-[0.625rem] text-zinc-400 mt-0.5">
                     <button
-                      onClick={() => setShowLandingFineTune(!showLandingFineTune)}
-                      className="hover:text-zinc-200 active:text-zinc-200 transition-colors flex items-center gap-0.5 py-2 sm:py-0 whitespace-nowrap"
+                      onClick={() => setHelpPopover(helpPopover === 'stanceLabel' ? null : 'stanceLabel')}
+                      className="w-7 h-7 sm:w-5 sm:h-5 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all flex-shrink-0 ml-1"
                     >
-                      <span>{showLandingFineTune ? '▾' : '▸'}</span>
-                      <span>Config</span>
+                      ?
                     </button>
                   </div>
+                </div>
+                {helpPopover === 'stanceLabel' && (
+                  <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 w-72">
+                    <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                      <p className="text-zinc-400 text-xs leading-relaxed">
+                        Stances shape how the reading speaks to you — from quick and direct to deep and expansive.
+                      </p>
+                      <button
+                        onClick={() => setHelpPopover(null)}
+                        className="mt-3 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center"
+                      >
+                        Got it
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Voice Preview and Configuration Block */}
+              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+                {/* Voice Preview Sentence */}
+                <div className="text-center mb-4">
+                  <div className="text-zinc-600 text-[0.625rem] tracking-widest uppercase mb-2">── Voice Preview ──</div>
+                  <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
+                    "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                  </p>
+                </div>
+
+                {/* Voice Configuration Button */}
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => setShowLandingFineTune(!showLandingFineTune)}
+                    className="px-4 py-2 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-800/50 hover:bg-zinc-800 border border-zinc-700/50 rounded-lg transition-all flex items-center gap-2"
+                  >
+                    <span className="text-zinc-500">⚙</span>
+                    <span>Voice Configuration</span>
+                    <span className="text-zinc-600">{showLandingFineTune ? '▾' : '▸'}</span>
+                  </button>
                 </div>
 
                 {/* Fine-tune panel */}
@@ -1673,7 +1777,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     {/* Complexity Selector */}
                     <div className="mb-4">
                       <div className="text-xs text-zinc-500 mb-2 text-center">Speak to me like...</div>
-                      {/* All 5 voice options on one row */}
                       <div className="flex gap-1 sm:gap-2 justify-center w-full px-1 sm:px-0">
                         {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
                             <button
@@ -1740,31 +1843,6 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         />
                         <span className="text-xs text-zinc-400">Show token usage</span>
                       </label>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Dynamic Explanation Block */}
-              <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                {/* Voice Preview Sentence */}
-                <div className="text-center mb-4">
-                  <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                    "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                  </p>
-                </div>
-
-                {/* Spread Info - only show for Reflect mode */}
-                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] && (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-2">
-                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} card{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
                     </div>
                   </div>
                 )}
