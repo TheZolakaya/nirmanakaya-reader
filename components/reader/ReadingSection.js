@@ -76,13 +76,25 @@ const ReadingSection = ({
       return <span className="text-amber-300 font-medium">Overview</span>;
     } else if (type === 'card') {
       const statusPrefix = stat?.prefix || 'Balanced';
+      // For Bounds, show archetype name + "via" + bound name (e.g., "Equity via Reckoning")
+      const transArchetype = trans?.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
+      const isBound = trans?.type === 'Bound';
+
       return (
         <span className={houseColors?.text || 'text-zinc-300'}>
           <ClickableTerm type="status" id={draw.status} className={STATUS_COLORS[draw.status]?.split(' ')[0]}>
             {statusPrefix}
           </ClickableTerm>
           {' '}
-          <ClickableTerm type="card" id={draw.transient}>{trans?.name}</ClickableTerm>
+          {isBound && transArchetype ? (
+            <>
+              <ClickableTerm type="card" id={trans.archetype}>{transArchetype.name}</ClickableTerm>
+              {' via '}
+              <ClickableTerm type="card" id={draw.transient}>{trans?.name}</ClickableTerm>
+            </>
+          ) : (
+            <ClickableTerm type="card" id={draw.transient}>{trans?.name}</ClickableTerm>
+          )}
           {' in your '}
           <ClickableTerm type={isReflect ? "house" : "card"} id={isReflect ? house : draw.position}>
             {posLabel}
