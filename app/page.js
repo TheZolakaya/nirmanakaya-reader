@@ -43,6 +43,12 @@ import {
   SUGGESTIONS,
   STARTERS,
   LOADING_PHRASES,
+  // Prompt Builder (First Contact Mode)
+  USER_LEVELS,
+  buildSystemPrompt,
+  buildUserMessage,
+  getAPIConfig,
+  parseFirstContactResponse,
   // Corrections
   DIAGONAL_PAIRS,
   VERTICAL_PAIRS,
@@ -96,7 +102,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.39.5";
+const VERSION = "0.40.0";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -193,6 +199,9 @@ export default function NirmanakaReader() {
   const [threadContexts, setThreadContexts] = useState({}); // {key: 'context text'}
   const [threadLoading, setThreadLoading] = useState({}); // {key: true/false}
   const [collapsedThreads, setCollapsedThreads] = useState({}); // {threadKey: true/false}
+
+  // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
+  const [userLevel, setUserLevel] = useState(0); // Default to First Contact Mode
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
@@ -358,36 +367,57 @@ export default function NirmanakaReader() {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     const isReflect = spreadType === 'reflect';
     const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
-    const drawText = formatDrawForAI(drawsToUse, spreadType, currentSpreadKey, false); // Never send traditional names to API
-    const spreadName = isReflect ? REFLECT_SPREADS[reflectSpreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
     const safeQuestion = sanitizeForAPI(questionToUse);
 
-    // Build teleological data for Words to the Whys section
-    const teleologicalPrompt = buildReadingTeleologicalPrompt(drawsToUse);
+    // Check if First Contact Mode (Level 0)
+    const isFirstContact = userLevel === USER_LEVELS.FIRST_CONTACT;
 
-    const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const letterTone = VOICE_LETTER_TONE[stance.voice];
+    let systemPrompt, userMessage;
 
-    // Build mode header based on reading mode (reflect/discover/forge)
-    const modeHeader = buildModeHeader(spreadType);
-    const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
-    const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
+    if (isFirstContact) {
+      // First Contact Mode: Use simplified prompts from promptBuilder
+      systemPrompt = buildSystemPrompt(userLevel);
+      userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel);
+    } else {
+      // Standard Mode: Full prompts with all features
+      const drawText = formatDrawForAI(drawsToUse, spreadType, currentSpreadKey, false);
+      const spreadName = isReflect ? REFLECT_SPREADS[reflectSpreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
+      const teleologicalPrompt = buildReadingTeleologicalPrompt(drawsToUse);
+      const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
+      const letterTone = VOICE_LETTER_TONE[stance.voice];
+      const modeHeader = buildModeHeader(spreadType);
+
+      systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
+      userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
+    }
 
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514" })
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: userMessage }],
+          system: systemPrompt,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          isFirstContact
+        })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Apply mode-aware post-processing, filter prohibited terms, and parse
-      const isForgeExplicit = spreadType === 'forge';
-      const modeProcessed = postProcessModeTransitions(data.reading, spreadType, isForgeExplicit);
-      const filteredReading = filterProhibitedTerms(modeProcessed);
-      const parsed = parseReadingResponse(filteredReading, drawsToUse);
-      setParsedReading(parsed);
+      // Parse response based on mode
+      if (isFirstContact) {
+        // First Contact: Simple response, no section parsing needed
+        const parsed = parseFirstContactResponse(data.reading);
+        setParsedReading(parsed);
+      } else {
+        // Standard: Full parsing with mode transitions and filtering
+        const isForgeExplicit = spreadType === 'forge';
+        const modeProcessed = postProcessModeTransitions(data.reading, spreadType, isForgeExplicit);
+        const filteredReading = filterProhibitedTerms(modeProcessed);
+        const parsed = parseReadingResponse(filteredReading, drawsToUse);
+        setParsedReading(parsed);
+      }
       setTokenUsage(data.usage);
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);
@@ -396,6 +426,15 @@ export default function NirmanakaReader() {
   const performReading = async () => {
     const actualQuestion = question.trim() || (spreadType === 'forge' ? 'Forging intention' : 'General reading');
     setQuestion(actualQuestion);
+
+    // First Contact Mode: Always 1 card, always Discover mode
+    if (userLevel === USER_LEVELS.FIRST_CONTACT) {
+      const newDraws = generateSpread(1, false);
+      setDraws(newDraws);
+      await performReadingWithDraws(newDraws, actualQuestion);
+      return;
+    }
+
     const isReflect = spreadType === 'reflect';
     const isForge = spreadType === 'forge';
     // Forge mode always draws 1 card
@@ -1564,8 +1603,20 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Header */}
         <div className="text-center mb-4 md:mb-6 mobile-header relative">
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
-          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
+          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
+            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
+          </p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
+          {/* Dev level switcher - only in alpha */}
+          <div className="absolute top-0 right-0 flex items-center gap-1">
+            <span className="text-[0.5rem] text-zinc-600">L{userLevel}</span>
+            <button
+              onClick={() => setUserLevel(prev => prev === 0 ? 1 : 0)}
+              className="text-[0.5rem] text-zinc-600 hover:text-zinc-400 px-1"
+            >
+              [{userLevel === 0 ? 'Pro' : 'Simple'}]
+            </button>
+          </div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -1582,7 +1633,59 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Controls */}
         {!draws && (
           <>
-            {/* Reading Configuration Box */}
+            {/* First Contact Mode - Simplified UI */}
+            {userLevel === USER_LEVELS.FIRST_CONTACT && (
+              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 mb-6 max-w-lg mx-auto">
+                <div className="text-center mb-6">
+                  <p className="text-zinc-400 text-sm">Ask a question or share what's on your mind</p>
+                </div>
+
+                {/* Simple question input */}
+                <div className="mb-4">
+                  <textarea
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    placeholder="What would you like clarity on?"
+                    className="w-full p-4 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
+                    rows={3}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        performReading();
+                      }
+                    }}
+                  />
+                </div>
+
+                {/* Simple read button */}
+                <button
+                  onClick={performReading}
+                  disabled={loading}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
+                >
+                  {loading ? 'Reading...' : 'Get a Reading'}
+                </button>
+
+                {/* Subtle spark suggestions */}
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  {SUGGESTIONS.slice(0, 3).map((suggestion, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setQuestion(suggestion)}
+                      className="text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1 rounded bg-zinc-800/50 hover:bg-zinc-700/50 transition-colors"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+
+                {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
+              </div>
+            )}
+
+            {/* Standard Mode - Full UI */}
+            {userLevel !== USER_LEVELS.FIRST_CONTACT && (
+            <>
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
               {/* Unified Help Button - top right */}
               <button
@@ -1968,6 +2071,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 </button>
               </div>
             </div>
+            </>
+            )}
           </>
         )}
 
@@ -1990,8 +2095,63 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Error */}
         {error && <div className="bg-red-950/30 border border-red-900/50 rounded-xl p-4 my-4 text-red-400 text-sm">{error}</div>}
 
-        {/* Signatures Display - THE READING (comes first) */}
-        {draws && !loading && (() => {
+        {/* First Contact Reading Output - Simplified display */}
+        {draws && !loading && parsedReading?.firstContact && userLevel === USER_LEVELS.FIRST_CONTACT && (
+          <div className="max-w-lg mx-auto mb-8">
+            {/* Simple card display */}
+            <div className="bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-6 mb-4">
+              <div className="text-center mb-4">
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">Pattern Emerged</span>
+              </div>
+              {(() => {
+                const draw = draws[0];
+                const trans = getComponent(draw.transient);
+                const stat = STATUSES[draw.status];
+                const statusColor = stat.id === 1 ? 'text-emerald-400' :
+                                   stat.id === 2 ? 'text-red-400' :
+                                   stat.id === 3 ? 'text-blue-400' : 'text-purple-400';
+                return (
+                  <div className="text-center">
+                    <div className={`text-2xl font-light mb-2 ${statusColor}`}>
+                      {stat.prefix ? `${stat.prefix} ` : ''}{trans.name}
+                    </div>
+                    <div className="text-xs text-zinc-500">
+                      {stat.name} — {stat.desc}
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* The reading response */}
+            <div className="bg-zinc-900/30 rounded-xl border border-zinc-800/50 p-6">
+              <div className="text-zinc-300 text-base leading-relaxed whitespace-pre-wrap">
+                {parsedReading.firstContact}
+              </div>
+            </div>
+
+            {/* Simple actions */}
+            <div className="flex justify-center gap-3 mt-6">
+              <button
+                onClick={resetReading}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
+              >
+                Ask Another Question
+              </button>
+            </div>
+
+            {/* Token usage (dev info) */}
+            {showTokenUsage && tokenUsage && (
+              <div className="text-center mt-4 text-[0.625rem] text-zinc-600">
+                {tokenUsage.input_tokens} in / {tokenUsage.output_tokens} out
+                {' '}(~${((tokenUsage.input_tokens * 0.25 + tokenUsage.output_tokens * 1.25) / 1000000).toFixed(4)})
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Signatures Display - THE READING (comes first) - Standard Mode only */}
+        {draws && !loading && !parsedReading?.firstContact && (() => {
           // Signatures default to EXPANDED (only true = collapsed)
           const isSignaturesCollapsed = collapsedSections['signatures'] === true;
 

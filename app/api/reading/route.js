@@ -1,8 +1,18 @@
 // app/api/reading/route.js
 // Handles readings and follow-up conversations
+// Supports First Contact mode (isFirstContact=true) for Level 0 users
 
 export async function POST(request) {
-  const { messages, system, model } = await request.json();
+  const { messages, system, model, isFirstContact, max_tokens } = await request.json();
+
+  // First Contact mode uses Haiku with minimal tokens
+  const effectiveModel = isFirstContact
+    ? "claude-haiku-4-5-20251001"
+    : (model || "claude-sonnet-4-20250514");
+
+  const effectiveMaxTokens = isFirstContact
+    ? 300
+    : (max_tokens || 4000);
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -13,21 +23,21 @@ export async function POST(request) {
         "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: model || "claude-sonnet-4-20250514",
-        max_tokens: 4000,
+        model: effectiveModel,
+        max_tokens: effectiveMaxTokens,
         system: system,
         messages: messages
       })
     });
 
     const data = await response.json();
-    
+
     if (data.error) {
       return Response.json({ error: data.error.message }, { status: 500 });
     }
 
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
-    return Response.json({ reading: text, usage: data.usage });
+    return Response.json({ reading: text, usage: data.usage, isFirstContact });
 
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
