@@ -29,10 +29,16 @@ const ReadingSection = ({
   onToggleCollapse, // callback to toggle collapse
   isCorrectionCollapsed, // whether nested correction is collapsed
   onToggleCorrectionCollapse, // callback to toggle correction collapse
-  // Thread results (display only, input UI removed)
+  // Thread input and results
   threadData, // array of thread items for this card
   collapsedThreads, // map of collapsed thread states
   setCollapsedThreads, // setter for collapsed threads
+  threadOperation, // current operation for this section ('reflect' | 'forge' | null)
+  threadContext, // text input value for this section
+  onSetThreadOperation, // callback to set operation
+  onSetThreadContext, // callback to set context
+  onContinueThread, // callback to trigger thread continuation
+  threadLoading, // whether thread is loading
   onGlossaryClick, // callback for glossary term clicks (for tooltip)
   whyMoment, // parsed Why moment { recognition, question, isBalanced }
 }) => {
@@ -227,6 +233,92 @@ const ReadingSection = ({
               </button>
             );
           })}
+        </div>
+      )}
+
+      {/* Reflect/Forge Input UI - collapsible, only when section not collapsed */}
+      {!isCollapsed && onContinueThread && (
+        <div className="mt-4 pt-4 border-t border-zinc-700/30">
+          {/* Collapsed state: show [▶ Reflect] [▶ Forge] buttons */}
+          {!threadOperation && (
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={(e) => { e.stopPropagation(); onSetThreadOperation('reflect'); }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              >
+                <span className="text-[0.5rem] text-red-500">▶</span> Reflect
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); onSetThreadOperation('forge'); }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              >
+                <span className="text-[0.5rem] text-red-500">▶</span> Forge
+              </button>
+            </div>
+          )}
+
+          {/* Expanded state: full input panel */}
+          {threadOperation && (
+            <div className="max-w-sm mx-auto">
+              <div className="flex justify-center gap-3 mb-3">
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation('reflect'); }}
+                  className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                    threadOperation === 'reflect'
+                      ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                  }`}
+                >
+                  ↩ Reflect
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation('forge'); }}
+                  className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                    threadOperation === 'forge'
+                      ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                  }`}
+                >
+                  ⚡ Forge
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation(null); }}
+                  className="px-2 py-2 rounded-lg text-xs text-zinc-500 hover:text-zinc-300 transition-all"
+                  title="Cancel"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <textarea
+                value={threadContext || ''}
+                onChange={(e) => onSetThreadContext(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                placeholder={threadOperation === 'reflect' ? "What are you inquiring about?" : "What are you declaring or creating?"}
+                rows={2}
+                className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-3"
+              />
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onContinueThread(); }}
+                disabled={!threadOperation || threadLoading}
+                className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                  threadOperation && !threadLoading
+                    ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50'
+                    : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'
+                }`}
+              >
+                {threadLoading ? (
+                  <>
+                    <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                    Drawing...
+                  </>
+                ) : (
+                  'Continue'
+                )}
+              </button>
+            </div>
+          )}
         </div>
       )}
 
