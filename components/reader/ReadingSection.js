@@ -8,6 +8,7 @@ import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent, getFullCorrection, getCorrectionText, getCorrectionTargetId } from '../../lib/corrections.js';
 import { renderWithHotlinks, processBracketHotlinks } from '../../lib/hotlinks.js';
 import ThreadedCard from './ThreadedCard.js';
+import WhyMoment from './WhyMoment.js';
 
 const ReadingSection = ({
   type, // 'summary' | 'card' | 'letter' | 'path' | 'words-to-whys'
@@ -33,6 +34,7 @@ const ReadingSection = ({
   collapsedThreads, // map of collapsed thread states
   setCollapsedThreads, // setter for collapsed threads
   onGlossaryClick, // callback for glossary term clicks (for tooltip)
+  whyMoment, // parsed Why moment { recognition, question, isBalanced }
 }) => {
   const trans = draw ? getComponent(draw.transient) : null;
   const stat = draw ? STATUSES[draw.status] : null;
@@ -313,6 +315,15 @@ const ReadingSection = ({
           </div>
         </div>
       ))}
+
+      {/* Why Moment - only for card sections with a parsed Why moment */}
+      {!isCollapsed && type === 'card' && whyMoment && (
+        <WhyMoment
+          recognition={whyMoment.recognition}
+          question={whyMoment.question}
+          isBalanced={whyMoment.isBalanced}
+        />
+      )}
 
       {/* Nested Rebalancer (Correction) - only for card sections with corrections, and only when card is not collapsed */}
       {!isCollapsed && type === 'card' && correction && (() => {

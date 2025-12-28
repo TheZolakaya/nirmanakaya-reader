@@ -2286,6 +2286,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
                     onGlossaryClick={handleGlossaryClick}
+                    whyMoment={card.whyMoment}
                   />
                 </div>
               );
