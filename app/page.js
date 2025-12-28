@@ -75,6 +75,9 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
 
+// Import content filter for prohibited terms
+import { filterProhibitedTerms } from '../lib/contentFilter.js';
+
 // Import React components
 import ClickableTermContext from '../components/shared/ClickableTermContext.js';
 import InfoModal from '../components/shared/InfoModal.js';
@@ -88,7 +91,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.37.1";
+const VERSION = "0.38.0";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -174,8 +177,9 @@ export default function NirmanakaReader() {
   const [sparkPlaceholder, setSparkPlaceholder] = useState('');
   const [showSparkSuggestions, setShowSparkSuggestions] = useState(false); // Show starters + spark suggestions
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
-  const [useHaiku, setUseHaiku] = useState(false); // Model toggle: false = Sonnet, true = Haiku
-  const [showTokenUsage, setShowTokenUsage] = useState(false); // Show token costs
+  const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
+  const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
+  const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
 
   // Thread state for Reflect/Forge operations (Phase 2)
@@ -209,6 +213,8 @@ export default function NirmanakaReader() {
           if (!loadedStance.seriousness) loadedStance.seriousness = 'balanced';
           setStance(loadedStance);
         }
+        // Load voice preview preference (default true if not set)
+        if (prefs.showVoicePreview !== undefined) setShowVoicePreview(prefs.showVoicePreview);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -237,14 +243,15 @@ export default function NirmanakaReader() {
     const prefs = {
       spreadType,
       spreadKey,
-      stance
+      stance,
+      showVoicePreview
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance]);
+  }, [spreadType, spreadKey, stance, showVoicePreview]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -367,8 +374,9 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Parse the structured response
-      const parsed = parseReadingResponse(data.reading, drawsToUse);
+      // Filter prohibited terms and parse the structured response
+      const filteredReading = filterProhibitedTerms(data.reading);
+      const parsed = parseReadingResponse(filteredReading, drawsToUse);
       setParsedReading(parsed);
       setTokenUsage(data.usage);
     } catch (e) { setError(`Error: ${e.message}`); }
@@ -559,10 +567,10 @@ Interpret this new card as the architecture's response to their declared directi
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Add to thread
+      // Add to thread (filter prohibited terms)
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: stripSignature(data.reading),
+        interpretation: stripSignature(filterProhibitedTerms(data.reading)),
         operation: operation,
         context: userInput
       };
@@ -704,10 +712,10 @@ Interpret this new card as the architecture's response to their declared directi
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Create new thread item
+      // Create new thread item (filter prohibited terms)
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: stripSignature(data.reading),
+        interpretation: stripSignature(filterProhibitedTerms(data.reading)),
         operation: operation,
         context: userInput,
         children: []
@@ -866,7 +874,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         ...prev,
         [sectionKey]: {
           ...(prev[sectionKey] || {}),
-          [expansionType]: stripSignature(data.reading)
+          [expansionType]: stripSignature(filterProhibitedTerms(data.reading))
         }
       }));
 
@@ -923,7 +931,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setFollowUpMessages([...messages, { role: 'assistant', content: stripSignature(data.reading) }]);
+      setFollowUpMessages([...messages, { role: 'assistant', content: stripSignature(filterProhibitedTerms(data.reading)) }]);
       setFollowUp('');
 
       // Accumulate token usage
@@ -1745,15 +1753,24 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   </div>
                 </div>
 
-                {/* Voice Preview */}
-                <div className="text-center mt-3 mb-4">
-                  <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                    <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                  </p>
-                </div>
+                {/* Voice Preview (toggleable) */}
+                {showVoicePreview && (
+                  <div className="text-center mt-3 mb-4">
+                    <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
+                      <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                    </p>
+                  </div>
+                )}
 
-                {/* Voice Configuration Button */}
-                <div className="flex justify-center">
+                {/* Voice Configuration Button + Preview Toggle */}
+                <div className="flex justify-center gap-2">
+                  <button
+                    onClick={() => setShowVoicePreview(!showVoicePreview)}
+                    className={`px-3 py-2 text-xs transition-all rounded-lg border ${showVoicePreview ? 'text-cyan-400 bg-cyan-900/20 border-cyan-700/50 hover:bg-cyan-900/30' : 'text-zinc-500 bg-zinc-800/50 border-zinc-700/50 hover:text-zinc-300'}`}
+                    title={showVoicePreview ? 'Hide voice preview' : 'Show voice preview'}
+                  >
+                    {showVoicePreview ? 'Preview ON' : 'Preview OFF'}
+                  </button>
                   <button
                     onClick={() => setShowLandingFineTune(!showLandingFineTune)}
                     className="px-4 py-2 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-800/50 hover:bg-zinc-800 border border-zinc-700/50 rounded-lg transition-all flex items-center gap-2"
@@ -1952,7 +1969,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               {/* Metadata line ABOVE buttons */}
               <div className="text-center mb-3">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
-                  {spreadType === 'reflect' ? `Reflect • ${REFLECT_SPREADS[spreadKey]?.name}` : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
+                  {spreadType === 'reflect' ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}` : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
                 </span>
               </div>
               {/* Action buttons row */}
@@ -2201,7 +2218,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 onExpand={handleExpand}
                 showTraditional={showTraditional}
                 spreadType={spreadType}
-                spreadKey={spreadKey}
+                spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
                 setSelectedInfo={setSelectedInfo}
                 isCollapsed={isSummaryCollapsed}
                 onToggleCollapse={() => toggleCollapse('summary', false)}
@@ -2238,7 +2255,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     onExpand={handleExpand}
                     showTraditional={showTraditional}
                     spreadType={spreadType}
-                    spreadKey={spreadKey}
+                    spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
                     setSelectedInfo={setSelectedInfo}
                     onHeaderClick={() => {
                       // Expand signatures section if collapsed
@@ -2503,7 +2520,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   onExpand={handleExpand}
                   showTraditional={showTraditional}
                   spreadType={spreadType}
-                  spreadKey={spreadKey}
+                  spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
                   setSelectedInfo={setSelectedInfo}
                   isCollapsed={isLetterCollapsed}
                   onToggleCollapse={() => toggleCollapse('letter', false)}
