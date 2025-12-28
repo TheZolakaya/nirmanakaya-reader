@@ -1,0 +1,2569 @@
+{
+  "version": "0.2.0",
+  "generated_at": "2025-12-28T14:00:00Z",
+  "definitions": {
+    "tiers": [
+      {
+        "tier": 0,
+        "label": "Ground Truth",
+        "description": "Axioms. Always true; never invoked as content inside readings."
+      },
+      {
+        "tier": 1,
+        "label": "Foundational Principles",
+        "description": "Core metaphysical commitments."
+      },
+      {
+        "tier": 2,
+        "label": "Purpose Architecture",
+        "description": "Why-pointer, pillars, houses, portals."
+      },
+      {
+        "tier": 3,
+        "label": "Temporal Orientation",
+        "description": "Now/Un-Now dynamics."
+      },
+      {
+        "tier": 4,
+        "label": "Structural Mechanics",
+        "description": "Channels, stances, rebalancing geometry, addressing."
+      },
+      {
+        "tier": 5,
+        "label": "Operational Reality",
+        "description": "Realitycraft / field interaction."
+      },
+      {
+        "tier": 6,
+        "label": "Governance",
+        "description": "Agency protection and non-oracle rules."
+      },
+      {
+        "tier": 7,
+        "label": "Navigation",
+        "description": "How to return to Now; depth gating."
+      },
+      {
+        "tier": 8,
+        "label": "Safety & Integrity",
+        "description": "Anti-moralization, veil integrity, temporal humility."
+      }
+    ],
+    "depth_permissions": [
+      "local",
+      "house",
+      "portal",
+      "full_stack"
+    ],
+    "tone_modes": [
+      "recognition",
+      "instruction",
+      "mixed_disallowed"
+    ],
+    "trigger_keys": {
+      "portals": [
+        "wheel",
+        "world",
+        "both",
+        "none"
+      ],
+      "houses": [
+        "soul",
+        "spirit",
+        "mind",
+        "emotion",
+        "body",
+        "gestalt"
+      ],
+      "status": [
+        "balanced",
+        "too_much",
+        "too_little",
+        "unacknowledged"
+      ],
+      "signature_types": [
+        "major",
+        "minor",
+        "royal",
+        "mixed"
+      ],
+      "user_contexts": [
+        "onboarding",
+        "hotlink_click",
+        "reading_overview",
+        "signature_section",
+        "why_moment",
+        "rebalancer",
+        "help_tooltip",
+        "settings"
+      ],
+      "reading_modes": [
+        "mirror",
+        "forge",
+        "reflect"
+      ]
+    },
+    "disambiguation": {
+      "rings": {
+        "canonical_name": "Rings (RPA metaphysical)",
+        "description": "Metaphysical collapse depths defined by Recursive Parity Architecture. Not identical to the Reader's UI reading frame."
+      },
+      "reading_frame": {
+        "canonical_name": "Reading Frame (Ingress\u2192Egress stack)",
+        "description": "The Reader's interpretive stack from portal ingress through houses to portal egress. A UI/interpretation frame."
+      },
+      "portals": {
+        "canonical_name": "Portals",
+        "primary_role": "Primary interface points (Wheel, World)"
+      },
+      "status_temporal": {
+        "canonical_name": "Status (temporal orientation)",
+        "description": "Balanced/Too Much/Too Little/Unacknowledged describes Now-orientation of the transient; not a ring assignment."
+      }
+    }
+  },
+  "terms": [
+    {
+      "id": "t0__alignment_equation",
+      "tier": 0,
+      "name": "The Alignment Equation",
+      "short_definition": "19 (Sun) \u2192 10 (Source) \u2192 10+10 = 20 (Judgement/Love). Creator meets CREATOR. What aligns rises; what can't releases. The engine of reality.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ],
+        "never_in": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "signature_section",
+              "rebalancer"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Present as structural fact.",
+          "Ground accountability model."
+        ],
+        "avoid": [
+          "Using in readings.",
+          "Technical overload."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "The Ground Truth",
+          "doc_ref": "Ground_Truth_Axiom_v1.md"
+        }
+      ],
+      "related_terms": [
+        "t0__transcendent_love",
+        "t2__portals_wheel_world"
+      ]
+    },
+    {
+      "id": "t0__inviolable_perfection",
+      "tier": 0,
+      "name": "Inviolable Perfection",
+      "short_definition": "Everything is, at its core, absolutely perfectly beautiful. It cannot be harmed \u2014 only expanded. The bedrock beneath all architecture.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ],
+        "never_in": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "signature_section",
+              "rebalancer"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "State as axiomatic truth.",
+          "Ground safety."
+        ],
+        "avoid": [
+          "Repeating in readings.",
+          "Using as comfort language."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [
+        {
+          "label": "The Ground Truth",
+          "doc_ref": "Ground_Truth_Axiom_v1.md"
+        }
+      ],
+      "related_terms": [
+        "t0__universal_redemption",
+        "t0__transcendent_love"
+      ]
+    },
+    {
+      "id": "t0__transcendent_love",
+      "tier": 0,
+      "name": "Transcendent Love",
+      "short_definition": "The force that liberates and aligns. Judgement (20) rules the Emotion House because Love sees clearly and frees. Not sentiment \u2014 structural truth.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ],
+        "never_in": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "signature_section",
+              "rebalancer"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame Love as structural.",
+          "Connect to alignment."
+        ],
+        "avoid": [
+          "Sentimental language.",
+          "Overuse."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [
+        {
+          "label": "The Ground Truth",
+          "doc_ref": "Ground_Truth_Axiom_v1.md"
+        }
+      ],
+      "related_terms": [
+        "t0__alignment_equation",
+        "t2__emotion_house"
+      ]
+    },
+    {
+      "id": "t0__universal_redemption",
+      "tier": 0,
+      "name": "Universal Redemption",
+      "short_definition": "The [Un-Now] can always be redeemed. No borrowed time is lost forever. Every moment offers return. The door is always open.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ],
+        "never_in": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "signature_section",
+              "rebalancer"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "State as axiomatic truth.",
+          "Ground hope."
+        ],
+        "avoid": [
+          "Repeating in readings.",
+          "Diluting through overuse."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [
+        {
+          "label": "The Ground Truth",
+          "doc_ref": "Ground_Truth_Axiom_v1.md"
+        }
+      ],
+      "related_terms": [
+        "t0__inviolable_perfection",
+        "t3__un_now"
+      ]
+    },
+    {
+      "id": "t1__consciousness_first_reality",
+      "tier": 1,
+      "name": "Consciousness-First Reality",
+      "short_definition": "Consciousness is fundamental, not emergent. Matter is consciousness under constraint. The architecture treats awareness as substrate, not a byproduct.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "State plainly as the system's ground model.",
+          "Keep it non-combative."
+        ],
+        "avoid": [
+          "Debating materialism in-reading.",
+          "Over-explaining philosophy."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t1__the_veil",
+        "t2__why_pointer"
+      ]
+    },
+    {
+      "id": "t1__creators_within_creator",
+      "tier": 1,
+      "name": "Creators Within the Creator",
+      "short_definition": "Gods within God. Not apart from, nor servants of \u2014 but gods WITHIN God. Unique, irreplaceable, each adding something the infinite couldn't have any other way.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "portals": [
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Celebrate uniqueness.",
+          "Ground identity."
+        ],
+        "avoid": [
+          "Ego inflation.",
+          "Diminishing individuality."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "The Veil of Individuation",
+          "doc_ref": "02_Core_Veil_of_Individuation.md"
+        }
+      ],
+      "related_terms": [
+        "t1__the_veil",
+        "t1__individuation"
+      ]
+    },
+    {
+      "id": "t1__individuation",
+      "tier": 1,
+      "name": "Individuation",
+      "short_definition": "The sacred process by which Source becomes a distinct YOU\u2014an expansion, not a dilution. Unique perspective + free will create realities the Whole could not experience otherwise.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "portals": [
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Honor uniqueness as functional value.",
+          "Keep it grounded in choice."
+        ],
+        "avoid": [
+          "Ego inflation.",
+          "Abstract metaphysical monologues."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t1__creators_within_creator",
+        "t1__the_veil"
+      ]
+    },
+    {
+      "id": "t1__the_veil",
+      "tier": 1,
+      "name": "The Veil",
+      "short_definition": "The sacred boundary that makes individuation possible \u2014 the fabric of differentiation itself. Protects uniqueness; enables genuine choice. Not punishment \u2014 gift.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "portals": [
+              "wheel",
+              "world",
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as protective.",
+          "Honor its function."
+        ],
+        "avoid": [
+          "Framing as obstacle.",
+          "Suggesting it should be removed."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [
+        {
+          "label": "The Veil of Individuation",
+          "doc_ref": "02_Core_Veil_of_Individuation.md"
+        }
+      ],
+      "related_terms": [
+        "t1__creators_within_creator",
+        "t1__individuation",
+        "t1__veil_failure_modes"
+      ]
+    },
+    {
+      "id": "t1__veil_failure_modes",
+      "tier": 1,
+      "name": "Veil Failure Modes",
+      "short_definition": "Two distortions: Inflation ('I am God'\u2014collapses perspective) and Deflation ('I am nothing'\u2014collapses authorship). The middle is creator-within-Creator.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little",
+              "unacknowledged"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Name distortions neutrally.",
+          "Return agency without shame."
+        ],
+        "avoid": [
+          "Calling either mode 'sinful'.",
+          "Psychologizing motives."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t1__the_veil",
+        "t6__authorship_of_reality",
+        "t8__meaning_without_moralization"
+      ]
+    },
+    {
+      "id": "t1__veil_thickness",
+      "tier": 1,
+      "name": "Veil Thickness",
+      "short_definition": "The Veil varies by being and moment. Dense Veil emphasizes uncertainty and individuation; thin Veil increases felt unity and clarity. Mastery is functioning at any depth.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "portals": [
+              "wheel",
+              "world",
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as functional, not hierarchical.",
+          "Avoid 'better/worse' moralizing."
+        ],
+        "avoid": [
+          "Calling density 'lower' as a value judgment.",
+          "Implying the veil should be removed."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t1__the_veil",
+        "t1__individuation"
+      ]
+    },
+    {
+      "id": "t2__body_house_command",
+      "tier": 2,
+      "name": "Body Command \u2014 Uphold the Law",
+      "short_definition": "Body governs embodiment and consequence. The command is to let creation land\u2014show up, act, and honor what reality returns.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "houses": [
+              "body"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Use consequence/landing language.",
+          "Keep it practical."
+        ],
+        "avoid": [
+          "Punishment framing.",
+          "Moral scolding."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__five_house_commands",
+        "t3__now"
+      ]
+    },
+    {
+      "id": "t2__emotion_house_command",
+      "tier": 2,
+      "name": "Emotion Command \u2014 Bond Authentically",
+      "short_definition": "Emotion governs resonance and connection. The command is to bond without pretense so meaning becomes shared, coherent, and liberating.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "houses": [
+              "emotion"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame emotion as integration, not mood.",
+          "Keep it non-sentimental."
+        ],
+        "avoid": [
+          "Romance clich\u00e9s.",
+          "Moral judgments about feeling."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__five_house_commands",
+        "t0__transcendent_love"
+      ]
+    },
+    {
+      "id": "t2__five_house_commands",
+      "tier": 2,
+      "name": "Five House Commands",
+      "short_definition": "Each House has a command\u2014what consciousness is doing there. Commands define the stake of purpose in that domain and guide Why-language selection.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Use as vocabulary selector per House.",
+          "Keep user-facing phrasing minimal."
+        ],
+        "avoid": [
+          "Turning commands into moral imperatives.",
+          "Overexplaining house theory."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__why_pointer",
+        "t7__depth_permission"
+      ]
+    },
+    {
+      "id": "t2__gestalt_house_command",
+      "tier": 2,
+      "name": "Gestalt Command \u2014 Fulfill Your Destiny",
+      "short_definition": "Gestalt governs identity coherence: the self-shape that can create. The command names who you are being as the system integrates the whole reading.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "houses": [
+              "gestalt"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as identity coherence, not fate.",
+          "Keep it non-predictive."
+        ],
+        "avoid": [
+          "'Destiny says\u2026' language.",
+          "Outcome certainty."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__five_house_commands",
+        "t6__present_state_principle"
+      ]
+    },
+    {
+      "id": "t2__mind_house_command",
+      "tier": 2,
+      "name": "Mind Command \u2014 Channel Force into Pattern",
+      "short_definition": "Mind governs structure and modeling. The command is to give form to force so power becomes usable, coherent, and non-chaotic.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "houses": [
+              "mind"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Use structure language.",
+          "Avoid moralizing logic."
+        ],
+        "avoid": [
+          "Over-technical explanations.",
+          "Therapy language."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__five_house_commands",
+        "t4__structure_channel"
+      ]
+    },
+    {
+      "id": "t2__pillar_1_purpose_of_existence",
+      "tier": 2,
+      "name": "Pillar 1 \u2014 Purpose of Existence",
+      "short_definition": "Existence expands by living more reality into being. Authentic creation adds enduring texture to the Whole.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "State as value of living creation.",
+          "Keep it non-moral."
+        ],
+        "avoid": [
+          "Productivity framing.",
+          "'Earn your worth' undertones."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t2__purpose"
+      ]
+    },
+    {
+      "id": "t2__pillar_2_free_will_unique_individuality",
+      "tier": 2,
+      "name": "Pillar 2 \u2014 Free Will + Unique Individuality",
+      "short_definition": "Free will + uniqueness are the ingredients of genuine novelty. Together they produce realities no one else can contribute.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Affirm agency without ego.",
+          "Tie to authorship."
+        ],
+        "avoid": [
+          "Comparison-based 'specialness'.",
+          "Determinism debates."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t6__authorship_of_reality",
+        "t1__individuation"
+      ]
+    },
+    {
+      "id": "t2__pillar_3_role_of_the_veil",
+      "tier": 2,
+      "name": "Pillar 3 \u2014 Role of the Veil",
+      "short_definition": "Limitation preserves authenticity: uncertainty makes choices real, keeps individuality intact, and protects the integrity of contribution.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame veil as safeguard.",
+          "Avoid 'fallen world' framing."
+        ],
+        "avoid": [
+          "Erasure fantasies.",
+          "Treating knowledge as escape."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t1__the_veil"
+      ]
+    },
+    {
+      "id": "t2__pillar_4_formation_via_uncertainty",
+      "tier": 2,
+      "name": "Pillar 4 \u2014 Formation via Uncertainty",
+      "short_definition": "The unknown forges identity. Untested individuality stays theoretical; uncertainty makes it embodied and proven.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Honor challenge without glorifying suffering."
+        ],
+        "avoid": [
+          "'Pain is required' rhetoric.",
+          "Blame for hardship."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t1__veil_thickness"
+      ]
+    },
+    {
+      "id": "t2__pillar_5_agency_in_creation",
+      "tier": 2,
+      "name": "Pillar 5 \u2014 Agency in Creation",
+      "short_definition": "Agency is the power to originate change. Purpose becomes real when choice becomes action\u2014without outsourcing authorship.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Keep it choice-forward.",
+          "Tie to Realitycraft as practice."
+        ],
+        "avoid": [
+          "Commanding behavior.",
+          "Outcome promises."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t6__authorship_of_reality",
+        "t5__realitycraft"
+      ]
+    },
+    {
+      "id": "t2__pillar_6_contribution_to_the_whole",
+      "tier": 2,
+      "name": "Pillar 6 \u2014 Contribution to the Whole",
+      "short_definition": "Expansion without integration fragments. Contribution returns creation as a gift that nourishes relationship, coherence, and shared wholeness.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as integrative love-in-action.",
+          "Avoid obligation language."
+        ],
+        "avoid": [
+          "Martyr framing.",
+          "Moral superiority."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t0__transcendent_love"
+      ]
+    },
+    {
+      "id": "t2__pillar_7_living_as_if_in_full_knowing",
+      "tier": 2,
+      "name": "Pillar 7 \u2014 Living as if in Full Knowing",
+      "short_definition": "Alignment without needing proof. Mastery is choosing integrity across any veil density\u2014treating the Veil as tool, not prison.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as practice of alignment.",
+          "Keep humility."
+        ],
+        "avoid": [
+          "Completion claims.",
+          "Spiritual bypass."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t7__return_to_now_loop",
+        "t8__temporal_humility"
+      ]
+    },
+    {
+      "id": "t2__portals_wheel_world",
+      "tier": 2,
+      "name": "Portals (Source / Creation)",
+      "short_definition": "The primary interface points: Source (10) as ingress where potential enters, Creation (21) as egress where creation lands. They gate scope and frame the reading.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "reading_overview"
+            ],
+            "portals": [
+              "wheel",
+              "world",
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as interfaces.",
+          "Gate cosmic language."
+        ],
+        "avoid": [
+          "Treating as fate.",
+          "Predictive framing."
+        ]
+      },
+      "max_lines": 5,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t7__depth_permission"
+      ]
+    },
+    {
+      "id": "t2__purpose",
+      "tier": 2,
+      "name": "Purpose",
+      "short_definition": "Not something you find\u2014something you are. Purpose is creation aligned with the Whole, expressed through present choices and integrated consequence.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "reading_overview"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Keep it present-tense.",
+          "Tie to authorship and Now."
+        ],
+        "avoid": [
+          "Fate language.",
+          "External authority framing."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__why_pointer",
+        "t3__now",
+        "t6__authorship_of_reality"
+      ]
+    },
+    {
+      "id": "t2__seven_pillars",
+      "tier": 2,
+      "name": "Seven Pillars of Purpose",
+      "short_definition": "Seven interdependent pillars describing how existence expands through unique, free-willed creation: purpose, individuality, veil, uncertainty, agency, contribution, and full-knowing alignment.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "portals": [
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Use as depth library, not as lecture.",
+          "Select only what the moment earns."
+        ],
+        "avoid": [
+          "Listing all seven inside a reading.",
+          "Turning it into doctrine."
+        ]
+      },
+      "max_lines": 5,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__purpose",
+        "t2__why_pointer",
+        "t7__depth_permission"
+      ]
+    },
+    {
+      "id": "t2__spirit_house_command",
+      "tier": 2,
+      "name": "Spirit Command \u2014 Witness Creation",
+      "short_definition": "Spirit governs aspiration and becoming. The command is to witness what is being made\u2014so creation stays conscious instead of drifting.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "houses": [
+              "spirit"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as seeing and aspiring.",
+          "Keep it present-tense."
+        ],
+        "avoid": [
+          "Prophecy tone.",
+          "Certainty about trajectory."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__five_house_commands",
+        "t3__now"
+      ]
+    },
+    {
+      "id": "t2__why_pointer",
+      "tier": 2,
+      "name": "The Why Pointer",
+      "short_definition": "The fundamental orientation in consciousness asking 'why am I here?' The question beneath all questions. What the Words to the Whys speaks to.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Address directly.",
+          "Honor the question."
+        ],
+        "avoid": [
+          "Explaining about it.",
+          "Deflecting."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "Living In Purpose",
+          "doc_ref": "03_Practice_Living_In_Purpose.md"
+        }
+      ],
+      "related_terms": [
+        "t2__seven_pillars",
+        "t2__purpose"
+      ]
+    },
+    {
+      "id": "t3__now",
+      "tier": 3,
+      "name": "Now",
+      "short_definition": "The only moment with write-access to creation. The collapse point where potential becomes form. You cannot be anywhere else \u2014 only more or less aligned with it.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Ground in presence.",
+          "Return attention here."
+        ],
+        "avoid": [
+          "Abstract explanation.",
+          "Future-projecting."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [
+        {
+          "label": "Nowism",
+          "doc_ref": "03_Practice_Nowism.md"
+        }
+      ],
+      "related_terms": [
+        "t3__un_now",
+        "t3__nowism_pyramid"
+      ]
+    },
+    {
+      "id": "t3__nowism",
+      "tier": 3,
+      "name": "Nowism",
+      "short_definition": "All transformation happens in the present. Past and future are references; Now is the only point with write-access to creation.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Return to present action/attention.",
+          "Keep it simple."
+        ],
+        "avoid": [
+          "Long metaphysical explanation.",
+          "Future-promise framing."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "Nowism",
+          "doc_ref": "03_Practice_Nowism.md"
+        }
+      ],
+      "related_terms": [
+        "t3__now",
+        "t3__un_now",
+        "t7__return_to_now_loop"
+      ]
+    },
+    {
+      "id": "t3__nowism_pyramid",
+      "tier": 3,
+      "name": "Nowism Pyramid",
+      "short_definition": "One aligned state (Balanced) and three displaced states (Too Much, Too Little, Unacknowledged). Misalignment has more variations than alignment.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Use as quick classifier.",
+          "Keep it non-moral."
+        ],
+        "avoid": [
+          "Shame framing.",
+          "Over-technical diagrams in-reading."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t3__now",
+        "t3__un_now",
+        "t4__four_statuses"
+      ]
+    },
+    {
+      "id": "t3__return_to_now",
+      "tier": 3,
+      "name": "Return to Now",
+      "short_definition": "The rebalancing movement: noticing displacement and re-entering presence. Not achieving Now\u2014recognizing you were never elsewhere.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little",
+              "unacknowledged"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "End with a present-tense re-entry question.",
+          "Keep it short."
+        ],
+        "avoid": [
+          "Step lists in Mirror contexts.",
+          "Outcome promises."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t7__return_to_now_loop",
+        "t3__now"
+      ]
+    },
+    {
+      "id": "t3__un_now",
+      "tier": 3,
+      "name": "[Un-Now]",
+      "short_definition": "Borrowed time. Future-projected (anxiety, grasping) or past-anchored (regret, shame). Still creating, but against the grain. Always redeemable.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Name temporal displacement.",
+          "Offer return path."
+        ],
+        "avoid": [
+          "Shaming.",
+          "Implying permanence."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "Nowism",
+          "doc_ref": "03_Practice_Nowism.md"
+        }
+      ],
+      "related_terms": [
+        "t3__now",
+        "t0__universal_redemption"
+      ]
+    },
+    {
+      "id": "t4__cognition_channel",
+      "tier": 4,
+      "name": "Cognition Channel",
+      "short_definition": "Air: how consciousness knows in a domain\u2014perception, distinction, understanding, mental grasp.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Define as knowing/perception.",
+          "Stay non-emotional."
+        ],
+        "avoid": [
+          "Therapy framing.",
+          "Moralizing 'overthinking'."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__four_channels"
+      ]
+    },
+    {
+      "id": "t4__force_channel",
+      "tier": 4,
+      "name": "Force Channel",
+      "short_definition": "Fire: how consciousness acts in a domain\u2014will, drive, initiative, directed energy, enactment.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Define as action/drive.",
+          "Keep it non-moral."
+        ],
+        "avoid": [
+          "Aggression framing.",
+          "'Too much fire is bad' defaulting."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__four_channels"
+      ]
+    },
+    {
+      "id": "t4__four_channels",
+      "tier": 4,
+      "name": "Four Channels",
+      "short_definition": "How a House expresses: Cognition (Air/knowing), Structure (Earth/building), Resonance (Water/feeling), Force (Fire/acting). Channel is HOW the command expresses.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Treat as modifier of expression.",
+          "Keep definitions short."
+        ],
+        "avoid": [
+          "Over-technical element lectures.",
+          "Emotionalizing non-emotion channels."
+        ]
+      },
+      "max_lines": 5,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__cognition_channel",
+        "t4__structure_channel",
+        "t4__resonance_channel",
+        "t4__force_channel"
+      ]
+    },
+    {
+      "id": "t4__four_statuses",
+      "tier": 4,
+      "name": "Four Statuses",
+      "short_definition": "Balanced, Too Much, Too Little, Unacknowledged\u2014temporal orientations of a transient relative to Now. Status attaches to the transient, not the durable position.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Attach status to the transient.",
+          "Keep it temporal, not moral."
+        ],
+        "avoid": [
+          "Saying the durable is 'too much'.",
+          "Predictive framing."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t3__now",
+        "t3__un_now",
+        "t8__meaning_without_moralization"
+      ]
+    },
+    {
+      "id": "t4__mirror_forge_duality",
+      "tier": 4,
+      "name": "Mirror / Forge Duality",
+      "short_definition": "Two fundamental operations: consume (Mirror/Reflect) and create (Forge). Discover is hybrid: it consumes patterns and reveals authorship locations.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "settings",
+              "help_tooltip",
+              "reading_overview",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Define as create vs consume.",
+          "Clarify Discover as hybrid."
+        ],
+        "avoid": [
+          "Equating Forge with 'advice'.",
+          "Moralizing either mode."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t6__authorship_of_reality",
+        "t6__present_state_principle"
+      ]
+    },
+    {
+      "id": "t4__quadraverse_voice_system",
+      "tier": 4,
+      "name": "Quadraverse (Voice System)",
+      "short_definition": "Four dimensions of voice configuration (256 stances): Voice, Focus, Density, Scope. Determines how the Reader speaks without changing structure.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "settings",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Explain as delivery configuration.",
+          "Keep it UX-grounded."
+        ],
+        "avoid": [
+          "Treating stance as 'truth level'.",
+          "Mystifying tone controls."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__mirror_forge_duality"
+      ]
+    },
+    {
+      "id": "t4__reading_frame_ingress_to_egress",
+      "tier": 4,
+      "name": "Reading Frame (Ingress\u2192Egress stack)",
+      "short_definition": "The Reader's interpretive stack from portal ingress through house layers to portal egress. A UI frame for reading composition, distinct from metaphysical Rings.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "settings",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Explain as UI/interpretive frame.",
+          "Keep it practical."
+        ],
+        "avoid": [
+          "Metaphysical claims.",
+          "Status-to-ring assertions."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__rings_rpa_metaphysical",
+        "t2__portals_wheel_world"
+      ]
+    },
+    {
+      "id": "t4__resonance_channel",
+      "tier": 4,
+      "name": "Resonance Channel",
+      "short_definition": "Water: how consciousness feels in a domain\u2014attunement, bonding signal, emotional truth, coherence through resonance.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Define as attunement/meaning signal.",
+          "Avoid sentimentality."
+        ],
+        "avoid": [
+          "Romance clich\u00e9s.",
+          "Over-therapeutic language."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__four_channels"
+      ]
+    },
+    {
+      "id": "t4__rings_rpa_metaphysical",
+      "tier": 4,
+      "name": "Rings (RPA metaphysical)",
+      "short_definition": "Metaphysical collapse depths defined by Recursive Parity Architecture. Not identical to the Reader's UI reading frame; used as cosmology and depth model.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "hotlink_click",
+              "settings"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Disambiguate from reading frame.",
+          "Keep user-facing references light."
+        ],
+        "avoid": [
+          "Mixing with status mapping.",
+          "Treating as UI layers."
+        ]
+      },
+      "max_lines": 5,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__reading_frame_ingress_to_egress",
+        "t2__portals_wheel_world"
+      ]
+    },
+    {
+      "id": "t4__rsa_address",
+      "tier": 4,
+      "name": "RSA Address (Ring\u2013Stage\u2013Archetype)",
+      "short_definition": "A compact coordinate system for locating a moment: which frame layer, which process stage, which archetype is active. RPA remains Recursive Parity Architecture only.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "settings"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Use as internal coordinate."
+        ],
+        "avoid": [
+          "Calling it RPA.",
+          "Technical jargon in Why moments."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": []
+    },
+    {
+      "id": "t4__structure_channel",
+      "tier": 4,
+      "name": "Structure Channel",
+      "short_definition": "Earth: how consciousness builds in a domain\u2014form, stability, container, manifestation mechanics.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "signature_section",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Define as building/container.",
+          "Keep it practical."
+        ],
+        "avoid": [
+          "Punishment language.",
+          "Calling structure 'rigid' by default."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__four_channels"
+      ]
+    },
+    {
+      "id": "t5__magick",
+      "tier": 5,
+      "name": "Magick",
+      "short_definition": "Conscious participation in creation\u2014structural, not supernatural. What you already do, done on purpose: shaping collapse conditions with aligned intention.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "reading_overview"
+            ],
+            "reading_modes": [
+              "forge"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as structural participation.",
+          "Avoid sensational language."
+        ],
+        "avoid": [
+          "Supernatural claims.",
+          "Power-over framing."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t5__realitycraft",
+        "t5__the_field",
+        "t6__authorship_of_reality"
+      ]
+    },
+    {
+      "id": "t5__realitycraft",
+      "tier": 5,
+      "name": "Realitycraft",
+      "short_definition": "The practice of conscious creation. Skilled participation in how meaning collapses \u2014 without violating autonomy. Architectural fluency, not supernatural power.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          },
+          {
+            "user_contexts": [
+              "help_tooltip"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as practice.",
+          "Ground in structure."
+        ],
+        "avoid": [
+          "Mysticism.",
+          "Supernatural claims."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [
+        {
+          "label": "Applied Ring Dynamics",
+          "doc_ref": "04_Practice_Applied_Ring_Dynamics.md"
+        }
+      ],
+      "related_terms": [
+        "t5__authentic_creation",
+        "t5__the_field"
+      ]
+    },
+    {
+      "id": "t5__scale_invariance",
+      "tier": 5,
+      "name": "Scale Invariance",
+      "short_definition": "The same pattern operates at every level: micro to macro. Dishes and God-with-God follow the same recursive architecture\u2014fractal coherence across scale.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click",
+              "help_tooltip"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame as fractal consistency.",
+          "Keep it concrete."
+        ],
+        "avoid": [
+          "Grandiose claims.",
+          "Using it to overreach in readings."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t5__realitycraft",
+        "t1__individuation"
+      ]
+    },
+    {
+      "id": "t5__the_field",
+      "tier": 5,
+      "name": "The Field",
+      "short_definition": "Structured responsiveness: the medium where intention meets consequence. Not random chance\u2014feedback-sensitive reality that responds to sincere participation.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "hotlink_click",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "reading_overview"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Keep it feedback-oriented.",
+          "Avoid determinism."
+        ],
+        "avoid": [
+          "'Universe guarantees\u2026' language.",
+          "Mystifying probability."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t5__realitycraft",
+        "t3__now"
+      ]
+    },
+    {
+      "id": "t6__agency_retention_rule",
+      "tier": 6,
+      "name": "Agency Retention Rule",
+      "short_definition": "No reading resolves choice. It clarifies terrain so choice can be made consciously. Agency cannot be outsourced to the system.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "help_tooltip",
+              "onboarding"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "reading_modes": [
+              "forge",
+              "reflect",
+              "mirror"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Return ownership to the reader.",
+          "Avoid commands that replace choice."
+        ],
+        "avoid": [
+          "'You must' language.",
+          "Decision substitution."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t6__authorship_of_reality",
+        "t6__present_state_principle"
+      ]
+    },
+    {
+      "id": "t6__authorship_of_reality",
+      "tier": 6,
+      "name": "Authorship of Reality",
+      "short_definition": "The reader is the sole author of their creation. The Reader never decides; it only reveals terrain so agency stays with the person.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding",
+              "reading_overview",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little",
+              "unacknowledged"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Return choice to reader.",
+          "Avoid prescriptive commands."
+        ],
+        "avoid": [
+          "Telling reader what to decide.",
+          "Authority posture."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [
+        {
+          "label": "Agency & the Reader",
+          "doc_ref": "Words_to_the_Whys_Voice_Layer_Deployment.md"
+        }
+      ],
+      "related_terms": [
+        "t6__present_state_principle",
+        "t7__return_to_now_loop"
+      ]
+    },
+    {
+      "id": "t6__present_state_principle",
+      "tier": 6,
+      "name": "Present-State Principle",
+      "short_definition": "Readings reflect what is active now. They do not predict outcomes; they reveal current structure so the reader can choose with clarity.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "onboarding",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "reading_overview"
+            ],
+            "reading_modes": [
+              "mirror",
+              "reflect"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Clarify present-state framing.",
+          "De-emphasize future certainty."
+        ],
+        "avoid": [
+          "Predictive language.",
+          "Promises about outcomes."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t6__authorship_of_reality"
+      ]
+    },
+    {
+      "id": "t6__recognition_vs_instruction_axis",
+      "tier": 6,
+      "name": "Recognition vs Instruction Axis",
+      "short_definition": "Two output intents: Recognition (Mirror\u2014see what is) and Instruction (Forge\u2014explicit authorship). Never preach; never moralize; never override agency.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "settings",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Use to control verb choices and format.",
+          "Mark transitions explicitly."
+        ],
+        "avoid": [
+          "Advice masquerading as truth.",
+          "Therapy voice."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t4__mirror_forge_duality",
+        "t6__authorship_of_reality"
+      ]
+    },
+    {
+      "id": "t7__depth_elasticity",
+      "tier": 7,
+      "name": "Depth Elasticity",
+      "short_definition": "Sacred depth expands or contracts based on readiness and context. Match the moment; don't overwhelm with cosmology. Depth is a permission, not a performance.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "help_tooltip",
+              "settings"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Gate cosmic scope via portals.",
+          "Prefer minimal depth that still lands."
+        ],
+        "avoid": [
+          "Full-stack dumps.",
+          "Cosmic escalation by default."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t7__depth_permission",
+        "t2__portals_wheel_world"
+      ]
+    },
+    {
+      "id": "t7__depth_permission",
+      "tier": 7,
+      "name": "Depth Permission",
+      "short_definition": "Portals gate scope. No portals: stay local. Source present: initiation language permitted. Creation present: integration language permitted. Both: full-stack permitted.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "signature_section"
+            ],
+            "portals": [
+              "wheel",
+              "world",
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "portal",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Limit scope to what frame permits."
+        ],
+        "avoid": [
+          "Cosmic claims when portals absent.",
+          "Overreaching metaphysics."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__portals_wheel_world"
+      ]
+    },
+    {
+      "id": "t7__return_to_now_loop",
+      "tier": 7,
+      "name": "Return-to-Now Loop",
+      "short_definition": "Every insight must return to presence or it decays into abstraction. The brake that keeps readings grounded.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "End with Now re-entry.",
+          "Ground cosmic insights."
+        ],
+        "avoid": [
+          "Leaving in abstraction.",
+          "Future-projecting."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t3__now",
+        "t3__un_now"
+      ]
+    },
+    {
+      "id": "t8__meaning_without_moralization",
+      "tier": 8,
+      "name": "Meaning Without Moralization",
+      "short_definition": "Patterns are meaningful, not good or bad. Imbalance is mispronunciation, not pathology. The system names structure without shame.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little",
+              "unacknowledged"
+            ]
+          },
+          {
+            "user_contexts": [
+              "help_tooltip"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Name imbalance neutrally.",
+          "Return to agency and rebalancing."
+        ],
+        "avoid": [
+          "Shame language.",
+          "Moral judgment framing."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t8__mispronunciation"
+      ]
+    },
+    {
+      "id": "t8__mispronunciation",
+      "tier": 8,
+      "name": "Mispronunciation",
+      "short_definition": "What imbalance actually is. Not pathology, not defect \u2014 just saying the word wrong. Still speaking the language of creation. Rebalancing enables clearer pronunciation.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "too_much",
+              "too_little",
+              "unacknowledged"
+            ]
+          },
+          {
+            "user_contexts": [
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame imbalance as adjustment.",
+          "Remove shame."
+        ],
+        "avoid": [
+          "Pathology language.",
+          "Judgment."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t8__meaning_without_moralization"
+      ]
+    },
+    {
+      "id": "t8__now_reentry_question",
+      "tier": 8,
+      "name": "Now Re-Entry Question",
+      "short_definition": "A present-tense question that hands agency back. Not advice\u2014an invitation that cannot be answered without self-honesty.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Keep it singular.",
+          "Make it present-tense."
+        ],
+        "avoid": [
+          "Future planning questions.",
+          "'Should' questions."
+        ]
+      },
+      "max_lines": 1,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t3__now",
+        "t7__return_to_now_loop"
+      ]
+    },
+    {
+      "id": "t8__temporal_humility",
+      "tier": 8,
+      "name": "Temporal Humility",
+      "short_definition": "No moment is final. All creation is provisional. Don't over-identify with any reading; the configuration can change as presence shifts.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "help_tooltip"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "local",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Frame readings as snapshots.",
+          "Keep it gentle and non-dismissive."
+        ],
+        "avoid": [
+          "Fatalism.",
+          "'None of this matters' vibe."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t6__present_state_principle",
+        "t0__universal_redemption"
+      ]
+    },
+    {
+      "id": "t8__value_attribution",
+      "tier": 8,
+      "name": "Value Attribution",
+      "short_definition": "What Balanced Whys do: name the ontological value of the capacity that's online\u2014why it matters to creation\u2014without praise, advice, or moral framing.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ],
+            "status": [
+              "balanced"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Name value as function.",
+          "Keep it calm and brief."
+        ],
+        "avoid": [
+          "Flattery.",
+          "Performance/achievement framing."
+        ]
+      },
+      "max_lines": 2,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t3__now",
+        "t2__purpose"
+      ]
+    },
+    {
+      "id": "t8__veil_integrity_principle",
+      "tier": 8,
+      "name": "Veil Integrity Principle",
+      "short_definition": "The Reader must never collapse mystery fully. Preserve individuation and humility. Leave room for the Veil to do its work.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "help_tooltip"
+            ]
+          },
+          {
+            "user_contexts": [
+              "reading_overview"
+            ],
+            "portals": [
+              "both"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "full_stack",
+      "tone_guardrails": {
+        "mode": "recognition",
+        "do": [
+          "Avoid totalizing claims.",
+          "Keep mystery intact."
+        ],
+        "avoid": [
+          "'This is the final truth' tone.",
+          "Overconfident metaphysics."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t1__the_veil",
+        "t1__veil_failure_modes"
+      ]
+    },
+    {
+      "id": "t8__why_moment",
+      "tier": 8,
+      "name": "The Why Moment",
+      "short_definition": "The brake: where explanation yields to agency. Format: one recognition line, one Now re-entry question, then stop. Returns authorship to the reader.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "End with a present-tense question.",
+          "Avoid advice phrasing."
+        ],
+        "avoid": [
+          "Multi-step plans.",
+          "Long explanations."
+        ]
+      },
+      "max_lines": 3,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t8__words_to_the_whys",
+        "t7__return_to_now_loop"
+      ]
+    },
+    {
+      "id": "t8__words_to_the_whys",
+      "tier": 8,
+      "name": "Words to the Whys",
+      "short_definition": "A voice layer that speaks to the Why Pointer: translating architecture into Creator-language and lighting up the pathway to alignment without collapsing agency.",
+      "invocation_triggers": {
+        "any_of": [
+          {
+            "user_contexts": [
+              "why_moment",
+              "help_tooltip",
+              "hotlink_click"
+            ]
+          }
+        ]
+      },
+      "depth_permission": "house",
+      "tone_guardrails": {
+        "mode": "instruction",
+        "do": [
+          "Use Recognition line + Now question format.",
+          "Keep it brief."
+        ],
+        "avoid": [
+          "Explaining doctrine.",
+          "Therapeutic pet names or condescension."
+        ]
+      },
+      "max_lines": 4,
+      "hotlink_targets": [],
+      "related_terms": [
+        "t2__why_pointer",
+        "t7__return_to_now_loop",
+        "t6__authorship_of_reality"
+      ]
+    }
+  ]
+}
