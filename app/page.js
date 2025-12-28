@@ -78,6 +78,10 @@ import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
 // Import content filter for prohibited terms
 import { filterProhibitedTerms } from '../lib/contentFilter.js';
 
+// Import mode system for governance
+import { buildModeHeader } from '../lib/modePrompts.js';
+import { postProcessModeTransitions } from '../lib/modeTransition.js';
+
 // Import React components
 import ClickableTermContext from '../components/shared/ClickableTermContext.js';
 import InfoModal from '../components/shared/InfoModal.js';
@@ -91,7 +95,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.38.0";
+const VERSION = "0.39.0";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -362,7 +366,10 @@ export default function NirmanakaReader() {
 
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
     const letterTone = VOICE_LETTER_TONE[stance.voice];
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\nLetter tone for this stance: ${letterTone}`;
+
+    // Build mode header based on reading mode (reflect/discover/forge)
+    const modeHeader = buildModeHeader(spreadType);
+    const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\nLetter tone for this stance: ${letterTone}`;
     const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
 
     try {
@@ -374,8 +381,10 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Filter prohibited terms and parse the structured response
-      const filteredReading = filterProhibitedTerms(data.reading);
+      // Apply mode-aware post-processing, filter prohibited terms, and parse
+      const isForgeExplicit = spreadType === 'forge';
+      const modeProcessed = postProcessModeTransitions(data.reading, spreadType, isForgeExplicit);
+      const filteredReading = filterProhibitedTerms(modeProcessed);
       const parsed = parseReadingResponse(filteredReading, drawsToUse);
       setParsedReading(parsed);
       setTokenUsage(data.usage);
