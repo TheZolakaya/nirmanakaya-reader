@@ -230,8 +230,8 @@ const ReadingSection = ({
         </div>
       )}
 
-      {/* Thread Results for Summary/Letter - just results, no input UI */}
-      {(type === 'summary' || type === 'letter') && threadData && threadData.length > 0 && !isCollapsed && (
+      {/* Thread Results for Summary/Letter/Path/Words-to-Whys - just results, no input UI */}
+      {(type === 'summary' || type === 'letter' || type === 'path' || type === 'words-to-whys') && threadData && threadData.length > 0 && !isCollapsed && (
         <div className="border-t border-zinc-700/50 mt-5 pt-5">
           <div className="space-y-4">
             {threadData.map((threadItem, threadIndex) => {
@@ -239,56 +239,73 @@ const ReadingSection = ({
               const threadTrans = getComponent(threadItem.draw.transient);
               const threadStat = STATUSES[threadItem.draw.status];
               const statusPrefix = threadStat.prefix || 'Balanced';
+              const threadKey = `${type}:${threadIndex}`;
+              const isThreadCollapsed = collapsedThreads?.[threadKey] === true;
+              const operationLabel = isReflect ? 'Reflecting' : 'Forging';
+
               return (
-                <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
-                      {isReflect ? '↩ Reflect' : '⚡ Forge'}
+                <div key={threadIndex} className="ml-4 border-l-2 border-zinc-700/50 pl-4">
+                  {/* Thread header with collapse toggle */}
+                  <div
+                    className={`text-xs mb-2 flex items-center gap-2 cursor-pointer ${isReflect ? 'text-sky-400' : 'text-orange-400'}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCollapsedThreads?.(prev => ({ ...prev, [threadKey]: !isThreadCollapsed }));
+                    }}
+                  >
+                    <span
+                      className={`transition-transform duration-200 ${isThreadCollapsed ? 'text-red-500' : 'text-emerald-500'}`}
+                      style={{ transform: isThreadCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)', display: 'inline-block' }}
+                    >
+                      ▼
                     </span>
+                    <span className="text-zinc-600">↳</span>
+                    <span>{operationLabel}{threadItem.context ? `: "${threadItem.context}"` : ''}</span>
                   </div>
-                  {threadItem.context && (
-                    <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
-                      "{threadItem.context}"
+
+                  {/* Thread content - collapsible */}
+                  {!isThreadCollapsed && (
+                    <div className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span
+                          className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedInfo?.({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
+                          }}
+                        >
+                          {threadStat.name}
+                        </span>
+                        <span className="text-sm font-medium text-zinc-200">
+                          <span
+                            className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedInfo?.({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
+                            }}
+                          >
+                            {statusPrefix}
+                          </span>
+                          {statusPrefix && ' '}
+                          <span
+                            className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedInfo?.({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) });
+                            }}
+                          >
+                            {threadTrans.name}
+                          </span>
+                        </span>
+                      </div>
+                      {showTraditional && threadTrans && (
+                        <div className="text-xs text-zinc-500 mb-2">{threadTrans.traditional}</div>
+                      )}
+                      <div className="text-scaled-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
+                        {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                      </div>
                     </div>
                   )}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedInfo?.({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
-                      }}
-                    >
-                      {threadStat.name}
-                    </span>
-                    <span className="text-sm font-medium text-zinc-200">
-                      <span
-                        className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedInfo?.({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] });
-                        }}
-                      >
-                        {statusPrefix}
-                      </span>
-                      {statusPrefix && ' '}
-                      <span
-                        className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedInfo?.({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) });
-                        }}
-                      >
-                        {threadTrans.name}
-                      </span>
-                    </span>
-                  </div>
-                  {showTraditional && threadTrans && (
-                    <div className="text-xs text-zinc-500 mb-2">{threadTrans.traditional}</div>
-                  )}
-                  <div className="text-scaled-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                    {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
-                  </div>
                 </div>
               );
             })}

@@ -483,6 +483,14 @@ export default function NirmanakaReader() {
     const newStatusPrefix = newStat.prefix || 'Balanced';
     const newCardName = `${newStatusPrefix} ${newTrans.name}`;
 
+    // Get correction info if new card is imbalanced
+    const newCorrection = newDraw.status !== 1 ? getFullCorrection(newDraw.transient, newDraw.status) : null;
+    const correctionInfo = newCorrection ? `
+REBALANCER: This card is imbalanced (${newStat.name}). Include a rebalancer section.
+Correction archetype: ${getComponent(getCorrectionTargetId(newCorrection, newTrans))?.name || 'Unknown'}
+Correction type: ${newDraw.status === 2 ? 'DIAGONAL (Too Much)' : newDraw.status === 3 ? 'VERTICAL (Too Little)' : 'REDUCTION (Unacknowledged)'}
+` : '';
+
     if (operation === 'reflect') {
       // REFLECT: User is INQUIRING - architecture responds to their QUESTION with a new card
       systemPrompt = `${BASE_SYSTEM}
@@ -499,11 +507,15 @@ Your job:
 - This is a SUB-READING: the drawn card speaks directly to their inquiry
 - Be specific about how the new card addresses their question
 - The card IS the architecture speaking back to them
+- If the card is IMBALANCED, include a REBALANCER section with the correction path
 
 Output structure:
 1. Brief acknowledgment of their question (1-2 sentences)
 2. "The architecture responds with [Card Name]..."
-3. How this card answers or illuminates their inquiry (2-3 paragraphs)`;
+3. How this card answers or illuminates their inquiry (2-3 paragraphs)
+4. If imbalanced: "REBALANCER:" followed by the correction path (1-2 paragraphs)
+
+Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
@@ -520,7 +532,7 @@ NEW CARD DRAWN IN RESPONSE: ${newCardName}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
-
+${correctionInfo}
 Interpret this new card as the architecture's response to their question.`;
 
     } else {
@@ -540,10 +552,14 @@ Your job:
 - This is a SUB-READING: what does this new card reveal about the path they've declared?
 - The new card might affirm, complicate, deepen, or redirect their stated intention
 - Be specific about how the new card speaks to what they said they're doing
+- If the card is IMBALANCED, include a REBALANCER section with the correction path
 
 Output structure:
 1. Brief acknowledgment of their direction (1-2 sentences)
-2. The new card's message in context of their declaration (2-3 paragraphs)`;
+2. The new card's message in context of their declaration (2-3 paragraphs)
+3. If imbalanced: "REBALANCER:" followed by the correction path (1-2 paragraphs)
+
+Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
@@ -560,7 +576,7 @@ NEW CARD DRAWN IN RESPONSE: ${newCardName}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
-
+${correctionInfo}
 Interpret this new card as the architecture's response to their declared direction.`;
     }
 
@@ -1773,7 +1789,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 )}
 
                 {/* Voice Configuration Button + Preview Toggle */}
-                <div className="flex justify-center gap-2">
+                <div className="flex justify-center gap-2 mt-4">
                   <button
                     onClick={() => setShowVoicePreview(!showVoicePreview)}
                     className={`px-3 py-2 text-xs transition-all rounded-lg border ${showVoicePreview ? 'text-cyan-400 bg-cyan-900/20 border-cyan-700/50 hover:bg-cyan-900/30' : 'text-zinc-500 bg-zinc-800/50 border-zinc-700/50 hover:text-zinc-300'}`}
