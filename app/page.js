@@ -88,7 +88,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.36.7";
+const VERSION = "0.36.8";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
