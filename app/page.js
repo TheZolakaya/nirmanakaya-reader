@@ -435,8 +435,9 @@ export default function NirmanakaReader() {
     const isSummary = threadKey === 'summary';
     const isLetter = threadKey === 'letter';
     const isPath = threadKey === 'path';
+    const isWordsToWhys = threadKey === 'words-to-whys';
     const isUnified = threadKey === 'unified';
-    const isSection = isSummary || isLetter || isPath || isUnified;
+    const isSection = isSummary || isLetter || isPath || isWordsToWhys || isUnified;
     let parentContent, parentLabel;
 
     if (isUnified) {
@@ -456,6 +457,10 @@ export default function NirmanakaReader() {
       if (!parsedReading?.rebalancerSummary) return;
       parentContent = parsedReading.rebalancerSummary;
       parentLabel = 'Path to Balance';
+    } else if (isWordsToWhys) {
+      if (!parsedReading?.wordsToWhys) return;
+      parentContent = parsedReading.wordsToWhys;
+      parentLabel = 'Words to the Whys';
     } else {
       const parentDraw = draws[threadKey];
       const parentCard = parsedReading.cards.find(c => c.index === threadKey);
