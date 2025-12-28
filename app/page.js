@@ -81,6 +81,7 @@ import { filterProhibitedTerms } from '../lib/contentFilter.js';
 // Import mode system for governance
 import { buildModeHeader } from '../lib/modePrompts.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
+import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
 
 // Import React components
 import ClickableTermContext from '../components/shared/ClickableTermContext.js';
@@ -369,7 +370,7 @@ export default function NirmanakaReader() {
 
     // Build mode header based on reading mode (reflect/discover/forge)
     const modeHeader = buildModeHeader(spreadType);
-    const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\nLetter tone for this stance: ${letterTone}`;
+    const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
     const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
 
     try {
