@@ -88,7 +88,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.37.0";
+const VERSION = "0.37.1";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -417,10 +417,16 @@ export default function NirmanakaReader() {
     const isSummary = threadKey === 'summary';
     const isLetter = threadKey === 'letter';
     const isPath = threadKey === 'path';
-    const isSection = isSummary || isLetter || isPath;
+    const isUnified = threadKey === 'unified';
+    const isSection = isSummary || isLetter || isPath || isUnified;
     let parentContent, parentLabel;
 
-    if (isSummary) {
+    if (isUnified) {
+      // Unified continuation - uses the full reading overview
+      if (!parsedReading?.summary) return;
+      parentContent = parsedReading.summary + (parsedReading.letter ? '\n\n' + parsedReading.letter : '');
+      parentLabel = 'Full Reading';
+    } else if (isSummary) {
       if (!parsedReading?.summary) return;
       parentContent = parsedReading.summary;
       parentLabel = 'Overview';
@@ -2562,7 +2568,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   <textarea
                     value={threadContexts['unified'] || ''}
                     onChange={(e) => setThreadContexts(prev => ({ ...prev, unified: e.target.value }))}
-                    placeholder="Add context (optional)..."
+                    placeholder="What are you exploring or creating?"
                     rows={2}
                     className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-4"
                   />
