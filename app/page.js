@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 // Import data and utilities from lib
 import {
@@ -102,7 +103,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 
 // REMEMBER: Update this when making changes
-const VERSION = "0.40.1";
+const VERSION = "0.40.2";
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -214,6 +215,23 @@ export default function NirmanakaReader() {
 
   // Load preferences from localStorage on init (URL params override)
   useEffect(() => {
+    // Check for admin config first (from /admin panel)
+    try {
+      const adminConfig = sessionStorage.getItem('adminConfig');
+      if (adminConfig) {
+        const config = JSON.parse(adminConfig);
+        console.log('Admin config loaded:', config);
+        setUserLevel(config.level);
+        setShowTokenUsage(config.debug?.showTokens ?? true);
+        // Clear after reading so refresh goes to normal mode
+        sessionStorage.removeItem('adminConfig');
+        // Skip normal preference loading when in admin mode
+        return;
+      }
+    } catch (e) {
+      console.warn('Failed to load admin config:', e);
+    }
+
     // First, load saved preferences from localStorage
     try {
       const saved = localStorage.getItem('nirmanakaya_prefs');
@@ -2125,8 +2143,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
             {/* The reading response */}
             <div className="bg-zinc-900/30 rounded-xl border border-zinc-800/50 p-6">
-              <div className="text-zinc-300 text-base leading-relaxed whitespace-pre-wrap">
-                {parsedReading.firstContact}
+              <div className="text-zinc-300 text-base leading-relaxed">
+                <ReactMarkdown
+                  components={{
+                    strong: ({node, ...props}) => <strong className="text-white font-semibold" {...props} />,
+                    p: ({node, ...props}) => <span {...props} />
+                  }}
+                >
+                  {parsedReading.firstContact}
+                </ReactMarkdown>
               </div>
             </div>
 
@@ -2428,8 +2453,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys, Letter) */}
-        {parsedReading && !loading && (
+        {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys, Letter) - hide in First Contact mode */}
+        {parsedReading && !loading && !parsedReading.firstContact && (
           <div className="space-y-2">
             {/* Signature Sections with nested Rebalancers - collapsed by default */}
             {parsedReading.cards.map((card) => {
@@ -3026,8 +3051,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>
         )}
 
-        {/* Follow-up Input */}
-        {parsedReading && !loading && (
+        {/* Follow-up Input - hide in First Contact mode */}
+        {parsedReading && !loading && !parsedReading.firstContact && (
           <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
@@ -3064,8 +3089,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>
         )}
 
-        {/* Adjust Stance - at the bottom */}
-        {parsedReading && !loading && (
+        {/* Adjust Stance - at the bottom - hide in First Contact mode */}
+        {parsedReading && !loading && !parsedReading.firstContact && (
           <div className="mt-6 relative">
             <div className="flex items-center gap-2">
               <button

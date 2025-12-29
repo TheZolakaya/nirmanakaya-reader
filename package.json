@@ -1,6 +1,6 @@
 {
   "name": "nirmanakaya-reader",
-  "version": "0.40.1",
+  "version": "0.40.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,11 +10,12 @@
   "dependencies": {
     "next": "14.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
     "postcss": "^8.4.0",
-    "autoprefixer": "^10.4.0"
+    "tailwindcss": "^3.4.0"
   }
 }
