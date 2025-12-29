@@ -51,7 +51,7 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100 p-8">
-      <h1 className="text-2xl font-light tracking-widest mb-2">NIRMANAKAYA ADMIN</h1>
+      <h1 className="text-2xl font-light tracking-widest mb-2">NIRMANAKAYA ADMIN PANEL</h1>
       <p className="text-zinc-500 text-sm mb-8">Test any feature configuration without earning it through the unlock system.</p>
 
       {/* Mode Selection */}
