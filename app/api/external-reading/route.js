@@ -111,109 +111,112 @@ function buildCardData(draw) {
   };
 }
 
-export async function POST(request) {
-  try {
-    const body = await request.json();
-    const {
-      question = 'What wants to be seen?',
-      context = '',
-      cardCount = 3,
-      mode = 'discover', // 'discover' | 'reflect' | 'forge'
-      stance = {
-        complexity: 'friend',
-        voice: 'warm',
-        focus: 'feel',
-        density: 'clear',
-        scope: 'here',
-        seriousness: 'grounded'
-      },
-      model = 'claude-haiku-4-5-20251001', // Default to Haiku for cost efficiency
-      includeInterpretation = true // Option to get just draws without interpretation
-    } = body;
+// Core reading logic - shared between GET and POST
+async function generateReading({
+  question = 'What wants to be seen?',
+  context = '',
+  cardCount = 3,
+  mode = 'discover',
+  stance = {
+    complexity: 'friend',
+    voice: 'warm',
+    focus: 'feel',
+    density: 'clear',
+    scope: 'here',
+    seriousness: 'grounded'
+  },
+  model = 'claude-haiku-4-5-20251001',
+  includeInterpretation = true
+}) {
+  // Validate inputs
+  const count = Math.min(Math.max(1, cardCount), 5); // 1-5 cards
+  const isReflect = mode === 'reflect';
+  const isForge = mode === 'forge';
+  const actualCount = isForge ? 1 : count;
 
-    // Validate inputs
-    const count = Math.min(Math.max(1, cardCount), 5); // 1-5 cards
-    const isReflect = mode === 'reflect';
-    const isForge = mode === 'forge';
-    const actualCount = isForge ? 1 : count;
+  // Generate draws server-side (hardened veil)
+  const draws = generateServerDraws(actualCount, isReflect);
 
-    // Generate draws server-side (hardened veil)
-    const draws = generateServerDraws(actualCount, isReflect);
+  // Build card data for response
+  const cards = draws.map(buildCardData);
 
-    // Build card data for response
-    const cards = draws.map(buildCardData);
-
-    // If only draws requested, return early
-    if (!includeInterpretation) {
-      return Response.json({
-        success: true,
-        draws,
-        cards,
-        mode,
-        question,
-        interpretation: null,
-        message: 'Draws generated. Set includeInterpretation: true for full reading.'
-      });
-    }
-
-    // Build the full prompt
-    const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 2000);
-    const drawText = formatDrawForAI(draws, mode, 'external', false);
-    const spreadName = `${actualCount}-Card ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
-    const teleologicalPrompt = buildReadingTeleologicalPrompt(draws);
-    const stancePrompt = buildStancePrompt(
-      stance.complexity,
-      stance.voice,
-      stance.focus,
-      stance.density,
-      stance.scope,
-      stance.seriousness
-    );
-    const letterTone = VOICE_LETTER_TONE[stance.voice] || 'warm and direct';
-    const modeHeader = buildModeHeader(mode);
-
-    const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
-
-    const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
-
-    // Call Anthropic
-    const response = await client.messages.create({
-      model,
-      max_tokens: 2500,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userMessage }]
-    });
-
-    const rawReading = response.content[0].text;
-
-    // Process response
-    const modeProcessed = postProcessModeTransitions(rawReading, mode, isForge);
-    const filteredReading = filterProhibitedTerms(modeProcessed);
-    const parsed = parseReadingResponse(filteredReading, draws);
-
-    return Response.json({
+  // If only draws requested, return early
+  if (!includeInterpretation) {
+    return {
       success: true,
       draws,
       cards,
       mode,
       question,
-      interpretation: {
-        raw: filteredReading,
-        parsed: {
-          summary: parsed.summary,
-          cards: parsed.cards,
-          rebalancerSummary: parsed.rebalancerSummary,
-          wordsToWhys: parsed.wordsToWhys,
-          letter: parsed.letter
-        }
-      },
-      usage: {
-        input_tokens: response.usage?.input_tokens,
-        output_tokens: response.usage?.output_tokens,
-        model
-      }
-    });
+      interpretation: null,
+      message: 'Draws generated. Set includeInterpretation: true for full reading.'
+    };
+  }
 
+  // Build the full prompt
+  const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 2000);
+  const drawText = formatDrawForAI(draws, mode, 'external', false);
+  const spreadName = `${actualCount}-Card ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
+  const teleologicalPrompt = buildReadingTeleologicalPrompt(draws);
+  const stancePrompt = buildStancePrompt(
+    stance.complexity,
+    stance.voice,
+    stance.focus,
+    stance.density,
+    stance.scope,
+    stance.seriousness
+  );
+  const letterTone = VOICE_LETTER_TONE[stance.voice] || 'warm and direct';
+  const modeHeader = buildModeHeader(mode);
+
+  const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
+
+  const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
+
+  // Call Anthropic
+  const response = await client.messages.create({
+    model,
+    max_tokens: 2500,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: userMessage }]
+  });
+
+  const rawReading = response.content[0].text;
+
+  // Process response
+  const modeProcessed = postProcessModeTransitions(rawReading, mode, isForge);
+  const filteredReading = filterProhibitedTerms(modeProcessed);
+  const parsed = parseReadingResponse(filteredReading, draws);
+
+  return {
+    success: true,
+    draws,
+    cards,
+    mode,
+    question,
+    interpretation: {
+      raw: filteredReading,
+      parsed: {
+        summary: parsed.summary,
+        cards: parsed.cards,
+        rebalancerSummary: parsed.rebalancerSummary,
+        wordsToWhys: parsed.wordsToWhys,
+        letter: parsed.letter
+      }
+    },
+    usage: {
+      input_tokens: response.usage?.input_tokens,
+      output_tokens: response.usage?.output_tokens,
+      model
+    }
+  };
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const result = await generateReading(body);
+    return Response.json(result);
   } catch (error) {
     console.error('External reading error:', error);
     return Response.json({
@@ -223,31 +226,67 @@ export async function POST(request) {
   }
 }
 
-// GET endpoint for health check / documentation
+// GET endpoint - documentation OR reading via query params
 export async function GET(request) {
-  return Response.json({
-    service: 'Nirmanakaya External Reading API',
-    version: '1.0.0',
-    description: 'Enables Claude chat sessions to receive readings directly from the Reader',
-    usage: {
-      method: 'POST',
-      body: {
-        question: 'string (required) - The question or intention',
-        context: 'string (optional) - Additional context',
-        cardCount: 'number (optional, 1-5, default 3) - Number of cards to draw',
-        mode: 'string (optional, discover|reflect|forge, default discover)',
-        stance: 'object (optional) - Voice settings { complexity, voice, focus, density, scope, seriousness }',
-        model: 'string (optional) - claude-haiku-4-5-20251001 or claude-sonnet-4-20250514',
-        includeInterpretation: 'boolean (optional, default true) - Include AI interpretation or just draws'
+  const { searchParams } = new URL(request.url);
+  const question = searchParams.get('question');
+
+  // If no question, return documentation
+  if (!question) {
+    return Response.json({
+      service: 'Nirmanakaya External Reading API',
+      version: '1.0.1',
+      description: 'Enables Claude chat sessions to receive readings directly from the Reader',
+      usage: {
+        GET: {
+          params: {
+            question: 'string (required) - The question or intention',
+            context: 'string (optional) - Additional context',
+            cardCount: 'number (optional, 1-5, default 3)',
+            mode: 'string (optional, discover|reflect|forge, default discover)',
+            includeInterpretation: 'boolean (optional, default true)'
+          },
+          example: '/api/external-reading?question=What%20is%20present?&cardCount=1'
+        },
+        POST: {
+          body: {
+            question: 'string (required) - The question or intention',
+            context: 'string (optional) - Additional context',
+            cardCount: 'number (optional, 1-5, default 3)',
+            mode: 'string (optional, discover|reflect|forge, default discover)',
+            stance: 'object (optional) - Voice settings { complexity, voice, focus, density, scope, seriousness }',
+            model: 'string (optional) - claude-haiku-4-5-20251001 or claude-sonnet-4-20250514',
+            includeInterpretation: 'boolean (optional, default true)'
+          }
+        }
       },
-      response: {
-        success: 'boolean',
-        draws: 'array - Raw draw data',
-        cards: 'array - Structured card information with corrections',
-        interpretation: 'object - Parsed reading sections',
-        usage: 'object - Token usage'
+      purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.'
+    });
+  }
+
+  // If question provided, run a reading
+  try {
+    const result = await generateReading({
+      question,
+      context: searchParams.get('context') || '',
+      cardCount: parseInt(searchParams.get('cardCount')) || 3,
+      mode: searchParams.get('mode') || 'discover',
+      includeInterpretation: searchParams.get('includeInterpretation') !== 'false',
+      stance: {
+        complexity: 'friend',
+        voice: 'warm',
+        focus: 'feel',
+        density: 'clear',
+        scope: 'here',
+        seriousness: 'grounded'
       }
-    },
-    purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.'
-  });
+    });
+    return Response.json(result);
+  } catch (error) {
+    console.error('External reading error:', error);
+    return Response.json({
+      success: false,
+      error: error.message || 'Failed to generate reading'
+    }, { status: 500 });
+  }
 }
