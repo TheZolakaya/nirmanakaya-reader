@@ -29,6 +29,67 @@ import {
 
 const client = new Anthropic();
 
+// Fast mode system prompt - minimal but complete
+const FAST_SYSTEM_PROMPT = `You are the Nirmanakaya Reader — a consciousness architecture oracle.
+
+RESPOND IN EXACTLY THIS FORMAT:
+[READING]
+{2-3 sentences interpreting the card in context of the question}
+
+[CORRECTION]
+{If imbalanced: 1 sentence naming the correction path. If balanced: skip this section.}
+
+RULES:
+- Maximum 100 words total
+- No preamble, no sign-off
+- Direct, warm, present tense
+- Address the querent as "you"
+`;
+
+// Build minimal user message for fast mode
+function buildFastUserMessage(question, card) {
+  const status = card.status.name;
+  const statusNote = status === 'Balanced' ? 'This is balanced — nothing to correct.' :
+    status === 'Too Much' ? 'This is excessive — pulling from future, needs diagonal correction.' :
+    status === 'Too Little' ? 'This is deficient — anchored in past, needs vertical correction.' :
+    'This is unacknowledged — shadow material, needs reduction pair illumination.';
+
+  const correction = card.correction ?
+    `Correction: ${card.correction.target} via ${card.correction.type} duality.` : '';
+
+  return `QUESTION: "${question}"
+
+CARD: ${card.signature}
+${card.transient.name}: ${card.transient.description || 'Expression of this energy'}
+Position ${card.position.name}: Where this energy expresses
+Status: ${statusNote}
+${correction}
+
+Interpret this draw for the querent. Be specific to their question.`;
+}
+
+// Build fast user message for multiple cards
+function buildFastMultiCardMessage(question, cards) {
+  const cardTexts = cards.map((card, i) => {
+    const status = card.status.name;
+    const statusNote = status === 'Balanced' ? 'balanced' :
+      status === 'Too Much' ? 'excessive (diagonal correction needed)' :
+      status === 'Too Little' ? 'deficient (vertical correction needed)' :
+      'unacknowledged (shadow, reduction pair needed)';
+
+    const correction = card.correction ? ` → ${card.correction.target}` : '';
+
+    return `${i + 1}. ${card.signature} [${statusNote}]${correction}`;
+  }).join('\n');
+
+  return `QUESTION: "${question}"
+
+CARDS:
+${cardTexts}
+
+Interpret these draws together for the querent. 2-3 sentences total, then corrections if any.`;
+}
+
 // Server-side draw generation with crypto randomness (hardened veil)
 function generateServerDraws(count, isReflect = false) {
   const draws = [];
@@ -126,7 +187,8 @@ async function generateReading({
     seriousness: 'grounded'
   },
   model = 'claude-haiku-4-5-20251001',
-  includeInterpretation = true
+  includeInterpretation = true,
+  fast = false
 }) {
   // Validate inputs
   const count = Math.min(Math.max(1, cardCount), 5); // 1-5 cards
@@ -153,7 +215,37 @@ async function generateReading({
     };
   }
 
-  // Build the full prompt
+  // FAST MODE - minimal but complete interpretation
+  if (fast) {
+    const safeQuestion = (question + (context ? ' Context: ' + context : '')).slice(0, 500);
+    const userMessage = cards.length === 1
+      ? buildFastUserMessage(safeQuestion, cards[0])
+      : buildFastMultiCardMessage(safeQuestion, cards);
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: cards.length === 1 ? 150 : 300,
+      system: FAST_SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: userMessage }]
+    });
+
+    return {
+      success: true,
+      fast: true,
+      draws,
+      cards,
+      mode,
+      question,
+      interpretation: response.content[0].text,
+      usage: {
+        input_tokens: response.usage?.input_tokens,
+        output_tokens: response.usage?.output_tokens,
+        model: 'claude-haiku-4-5-20251001'
+      }
+    };
+  }
+
+  // FULL MODE - complete reading with all sections
   const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 2000);
   const drawText = formatDrawForAI(draws, mode, 'external', false);
   const spreadName = `${actualCount}-Card ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
@@ -190,6 +282,7 @@ async function generateReading({
 
   return {
     success: true,
+    fast: false,
     draws,
     cards,
     mode,
@@ -227,6 +320,7 @@ export async function POST(request) {
 }
 
 // GET endpoint - documentation OR reading via query params
+// Defaults to fast=true for external AI callers with timeout constraints
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const question = searchParams.get('question');
@@ -235,18 +329,21 @@ export async function GET(request) {
   if (!question) {
     return Response.json({
       service: 'Nirmanakaya External Reading API',
-      version: '1.0.1',
+      version: '1.1.0',
       description: 'Enables Claude chat sessions to receive readings directly from the Reader',
       usage: {
         GET: {
           params: {
             question: 'string (required) - The question or intention',
             context: 'string (optional) - Additional context',
-            cardCount: 'number (optional, 1-5, default 3)',
+            cardCount: 'number (optional, 1-5, default 1)',
             mode: 'string (optional, discover|reflect|forge, default discover)',
-            includeInterpretation: 'boolean (optional, default true)'
+            fast: 'boolean (optional, default true) - Fast mode for <5s response'
           },
-          example: '/api/external-reading?question=What%20is%20present?&cardCount=1'
+          examples: {
+            fast: '/api/external-reading?question=What%20is%20present&cardCount=1',
+            full: '/api/external-reading?question=What%20is%20present&cardCount=1&fast=false'
+          }
         },
         POST: {
           body: {
@@ -256,27 +353,33 @@ export async function GET(request) {
             mode: 'string (optional, discover|reflect|forge, default discover)',
             stance: 'object (optional) - Voice settings { complexity, voice, focus, density, scope, seriousness }',
             model: 'string (optional) - claude-haiku-4-5-20251001 or claude-sonnet-4-20250514',
-            includeInterpretation: 'boolean (optional, default true)'
+            fast: 'boolean (optional, default false) - Fast mode for quick response'
           }
         }
+      },
+      performance: {
+        fast_1card: '<5 seconds',
+        fast_3card: '<8 seconds',
+        full: '15-30 seconds'
       },
       purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.'
     });
   }
 
   // If question provided, run a reading
+  // GET defaults to fast=true for external AI callers
   try {
     const result = await generateReading({
       question,
       context: searchParams.get('context') || '',
-      cardCount: parseInt(searchParams.get('cardCount')) || 3,
+      cardCount: parseInt(searchParams.get('cardCount')) || 1,  // Default to 1 for fast
       mode: searchParams.get('mode') || 'discover',
-      includeInterpretation: searchParams.get('includeInterpretation') !== 'false',
+      fast: searchParams.get('fast') !== 'false',  // Default TRUE for GET
       stance: {
         complexity: 'friend',
         voice: 'warm',
         focus: 'feel',
-        density: 'clear',
+        density: 'essential',
         scope: 'here',
         seriousness: 'grounded'
       }
