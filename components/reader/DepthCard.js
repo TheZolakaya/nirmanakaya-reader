@@ -3,6 +3,7 @@
 // Handles both main card and nested Rebalancer
 
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
@@ -239,10 +240,11 @@ const DepthCard = ({
   };
 
   const content = getContent(depth);
-  const showArchitecture = depth === DEPTH.WADE || depth === DEPTH.SWIM || depth === DEPTH.DEEP;
-  const showMirror = depth === DEPTH.WADE || depth === DEPTH.SWIM || depth === DEPTH.DEEP;
   const canGoDeeper = depth !== DEPTH.DEEP && depth !== DEPTH.COLLAPSED;
   const canGoShallower = depth !== DEPTH.COLLAPSED;
+
+  // State for card architecture section (collapsed by default)
+  const [isArchCollapsed, setIsArchCollapsed] = useState(true);
 
   return (
     <div className={`rounded-xl border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
@@ -328,10 +330,12 @@ const DepthCard = ({
         </div>
       )}
 
-      {/* Expansion Buttons - appear at every depth level */}
+      {/* Expansion Buttons - appear at every depth level (excluding architecture - it's its own section) */}
       {depth !== DEPTH.COLLAPSED && onExpand && (
         <div className="flex gap-2 flex-wrap mb-4">
-          {Object.entries(EXPANSION_PROMPTS).map(([key, { label }]) => {
+          {Object.entries(EXPANSION_PROMPTS)
+            .filter(([key]) => key !== 'architecture') // Architecture is its own section now
+            .map(([key, { label }]) => {
             const isThisExpanding = isExpanding && expanding?.type === key;
             const hasExpansion = !!sectionExpansions[key];
             const isExpandingOther = isExpanding && !isThisExpanding;
@@ -381,13 +385,6 @@ const DepthCard = ({
         );
       })}
 
-      {/* Architecture Box - always visible at Wade/Swim/Deep */}
-      {showArchitecture && (
-        <ArchitectureBox
-          content={cardData.architecture || 'Architecture details loading...'}
-          className="mb-4"
-        />
-      )}
 
       {/* Rebalancer Section (always visible for imbalanced cards) */}
       {depth !== DEPTH.COLLAPSED && !isBalanced && (
@@ -560,6 +557,49 @@ const DepthCard = ({
                 </div>
               )}
             </>
+          )}
+        </div>
+      )}
+
+      {/* Card Architecture Section - visible at all depths, collapsed by default */}
+      {depth !== DEPTH.COLLAPSED && cardData.architecture && (
+        <div className="mt-4 rounded-lg border-2 border-violet-500/30 bg-violet-950/20 p-4">
+          {/* Architecture Header - clickable to expand */}
+          <div
+            className={`flex items-center gap-2 cursor-pointer group ${!isArchCollapsed ? 'mb-4' : ''}`}
+            onClick={(e) => { e.stopPropagation(); setIsArchCollapsed(!isArchCollapsed); }}
+          >
+            <span
+              className={`text-xs transition-transform duration-200 cursor-pointer ${isArchCollapsed ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
+              style={{ transform: isArchCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+            >
+              ▼
+            </span>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-violet-500/30 text-violet-300">
+              ⚙
+            </span>
+            <span className="text-sm font-medium text-violet-400">
+              Architecture
+            </span>
+            {isArchCollapsed && (
+              <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
+                tap to explore
+              </span>
+            )}
+          </div>
+
+          {/* Architecture Content - expanded, with markdown for bold labels */}
+          {!isArchCollapsed && (
+            <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content">
+              <ReactMarkdown
+                components={{
+                  p: ({ children }) => <p className="mb-1">{children}</p>,
+                  strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
+                }}
+              >
+                {cardData.architecture}
+              </ReactMarkdown>
+            </div>
           )}
         </div>
       )}

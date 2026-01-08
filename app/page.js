@@ -166,7 +166,8 @@ export default function NirmanakaReader() {
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [letterDepth, setLetterDepth] = useState('surface'); // 'surface' | 'wade' | 'swim'
-  const [pathDepth, setPathDepth] = useState('surface'); // 'surface' | 'wade' | 'swim'
+  const [pathDepth, setPathDepth] = useState('surface'); // 'surface' | 'wade' | 'swim' | 'deep'
+  const [summaryDepth, setSummaryDepth] = useState('surface'); // 'surface' | 'wade' | 'swim' | 'deep'
 
   // Toggle collapse state for a section
   // defaultCollapsed: true for sections that start collapsed, false for sections that start expanded
@@ -2764,10 +2765,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 {renderWithHotlinks(letterContent, setSelectedInfo)}
               </div>
 
-              {/* Expansion buttons */}
+              {/* Expansion buttons (excluding architecture - cards have that as own section) */}
               {handleExpand && (
                 <div className="flex gap-2 flex-wrap mb-4">
-                  {Object.entries(EXPANSION_PROMPTS).map(([key, { label }]) => {
+                  {Object.entries(EXPANSION_PROMPTS)
+                    .filter(([key]) => key !== 'architecture')
+                    .map(([key, { label }]) => {
                     const isThisExpanding = isExpanding && expanding?.type === key;
                     const hasExpansion = !!sectionExpansions[key];
                     const isExpandingOther = isExpanding && !isThisExpanding;
@@ -2822,35 +2825,121 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Overview (Summary) - after Letter */}
+        {/* Overview (Summary) - after Letter, with depth navigation */}
         {parsedReading && !loading && parsedReading.summary && !parsedReading.firstContact && (() => {
           const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
+          const summary = parsedReading.summary;
+          const hasDepthLevels = typeof summary === 'object' && (summary.surface || summary.wade || summary.swim || summary.deep);
+          const summaryContent = getSummaryContent(summary, summaryDepth);
+          const summaryExpansions = expansions['summary'] || {};
+          const isSummaryExpanding = expanding?.section === 'summary';
+
           return (
-            <div className="mb-6">
-              <ReadingSection
-                type="summary"
-                content={getSummaryContent(parsedReading.summary)}
-                question={question}
-                expansions={expansions}
-                expanding={expanding}
-                onExpand={handleExpand}
-                showTraditional={showTraditional}
-                spreadType={spreadType}
-                spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
-                setSelectedInfo={setSelectedInfo}
-                isCollapsed={isSummaryCollapsed}
-                onToggleCollapse={() => toggleCollapse('summary', false)}
-                threadData={threadData['summary'] || []}
-                collapsedThreads={collapsedThreads}
-                setCollapsedThreads={setCollapsedThreads}
-                threadOperation={threadOperations['summary']}
-                threadContext={threadContexts['summary']}
-                onSetThreadOperation={(op) => setThreadOperations(prev => ({ ...prev, summary: op }))}
-                onSetThreadContext={(ctx) => setThreadContexts(prev => ({ ...prev, summary: ctx }))}
-                onContinueThread={() => continueThread('summary')}
-                threadLoading={threadLoading['summary']}
-                onGlossaryClick={handleGlossaryClick}
-              />
+            <div className="mb-6 rounded-xl border-2 border-amber-500/50 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(69, 26, 3, 0.4), rgba(120, 53, 15, 0.2))'}}>
+              <div className="p-5">
+                {/* Summary Header - clickable for collapse */}
+                <div
+                  className={`flex items-center justify-between cursor-pointer ${!isSummaryCollapsed ? 'mb-4' : ''}`}
+                  onClick={() => toggleCollapse('summary', false)}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`text-xs transition-transform duration-200 ${isSummaryCollapsed ? 'text-red-500' : 'text-amber-500'}`} style={{ transform: isSummaryCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>
+                      ▼
+                    </span>
+                    <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">Overview</span>
+                  </div>
+                  {/* Depth navigation buttons */}
+                  {hasDepthLevels && !isSummaryCollapsed && (
+                    <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                      {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                        const hasContent = typeof summary === 'object' && summary[level];
+                        if (!hasContent && level !== 'surface') return null;
+                        const isActive = summaryDepth === level;
+                        return (
+                          <button
+                            key={level}
+                            onClick={() => setSummaryDepth(level)}
+                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? 'bg-amber-500 text-white'
+                                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                            }`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Summary Content - collapsible */}
+                {!isSummaryCollapsed && (
+                  <>
+                    <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
+                      {renderWithHotlinks(summaryContent, setSelectedInfo)}
+                    </div>
+
+                    {/* Summary Expansion Buttons (excluding architecture) */}
+                    <div className="flex gap-2 flex-wrap mb-4">
+                      {Object.entries(EXPANSION_PROMPTS)
+                        .filter(([key]) => key !== 'architecture')
+                        .map(([key, { label }]) => {
+                        const isThisExpanding = isSummaryExpanding && expanding?.type === key;
+                        const hasExpansion = !!summaryExpansions[key];
+                        const isExpandingOther = expanding && !isThisExpanding;
+
+                        return (
+                          <button
+                            key={key}
+                            onClick={(e) => { e.stopPropagation(); handleExpand('summary', key); }}
+                            disabled={expanding}
+                            className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                              hasExpansion
+                                ? 'bg-amber-800/50 text-amber-200 border border-amber-600/50'
+                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+                            } ${isExpandingOther ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          >
+                            {isThisExpanding ? (
+                              <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                            ) : null}
+                            {label}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Expansion content display - collapsible */}
+                    {Object.entries(summaryExpansions).map(([expType, content]) => {
+                      if (!content) return null;
+                      const expKey = `summary-exp-${expType}`;
+                      const isExpCollapsed = collapsedSections[expKey] === true;
+                      return (
+                        <div key={expType} className="mb-3 rounded-lg border border-zinc-700/50 overflow-hidden bg-zinc-900/60">
+                          <div
+                            className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-800/50 transition-colors"
+                            onClick={() => toggleCollapse(expKey, true)}
+                          >
+                            <span
+                              className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-amber-400'}`}
+                              style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                            >
+                              ▼
+                            </span>
+                            <span className="text-xs text-zinc-400 uppercase tracking-wider">{EXPANSION_PROMPTS[expType]?.label}</span>
+                            {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
+                          </div>
+                          {!isExpCollapsed && (
+                            <div className="px-3 pb-3 text-zinc-300 text-sm whitespace-pre-wrap border-t border-zinc-700/30">
+                              {renderWithHotlinks(content, setSelectedInfo)}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </>
+                )}
+              </div>
             </div>
           );
         })()}
@@ -2892,9 +2981,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             })}
 
 
-            {/* Path to Balance - Only when 2+ imbalanced, collapsed by default */}
-            {/* Now uses parsedReading.path with depth levels (surface, wade, swim) */}
-            {(parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.rebalancerSummary) && (() => {
+            {/* Path to Balance - ALWAYS shown (holistic synthesis), collapsed by default */}
+            {/* Uses parsedReading.path with depth levels (surface, wade, swim, deep) */}
+            {(parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.path?.deep || parsedReading.rebalancerSummary) && (() => {
               const path = parsedReading.path || {};
               const hasDepthLevels = path.surface || path.wade || path.swim || path.deep;
               const pathContent = hasDepthLevels
@@ -2970,9 +3059,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           </div>
                         )}
 
-                        {/* Path Expansion Buttons */}
+                        {/* Path Expansion Buttons (excluding architecture - has own section) */}
                         <div className="flex gap-2 flex-wrap">
-                          {Object.entries(EXPANSION_PROMPTS).map(([key, { label }]) => {
+                          {Object.entries(EXPANSION_PROMPTS)
+                            .filter(([key]) => key !== 'architecture')
+                            .map(([key, { label }]) => {
                             const isThisExpanding = isPathExpanding && expanding?.type === key;
                             const hasExpansion = !!pathExpansions[key];
                             const isExpandingOther = expanding && !isThisExpanding;

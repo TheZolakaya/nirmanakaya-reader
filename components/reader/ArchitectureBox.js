@@ -3,10 +3,12 @@
 // Visible at Wade/Swim levels, collapsed by default
 
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 const ArchitectureBox = ({
   content,
   isRebalancer = false,
+  label = null,
   className = ''
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -21,7 +23,8 @@ const ArchitectureBox = ({
     ? 'text-emerald-400'
     : 'text-zinc-400';
 
-  const iconColor = isExpanded ? 'text-emerald-500' : 'text-zinc-500';
+  const iconColor = isExpanded ? 'text-emerald-500' : 'text-red-500';
+  const displayLabel = label || (isRebalancer ? '⚙ Rebalancer Architecture' : '⚙ Architecture');
 
   return (
     <div className={`rounded-lg border ${bgColor} overflow-hidden animate-fadeIn ${className}`}>
@@ -35,16 +38,28 @@ const ArchitectureBox = ({
           ▼
         </span>
         <span className={`text-xs font-medium ${headerColor}`}>
-          {isRebalancer ? '📐 Rebalancer Architecture' : '📐 Architecture'}
+          {displayLabel}
         </span>
+        {!isExpanded && (
+          <span className="ml-auto text-[0.6rem] text-zinc-600 uppercase tracking-wider">
+            tap to expand
+          </span>
+        )}
       </button>
 
-      {/* Content - collapsible */}
+      {/* Content - collapsible, with markdown support for bold labels */}
       {isExpanded && (
         <div className="px-3 pb-3 pt-1 border-t border-zinc-700/30 animate-fadeIn">
-          <pre className="text-xs text-zinc-400 font-mono whitespace-pre-wrap leading-relaxed">
-            {content}
-          </pre>
+          <div className="text-xs text-zinc-400 font-mono leading-relaxed">
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p className="mb-1">{children}</p>,
+                strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
         </div>
       )}
     </div>
