@@ -620,10 +620,10 @@ const DepthCard = ({
 
           {/* Architecture Content - expanded, with markdown for bold labels */}
           {!isArchCollapsed && (
-            <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content">
+            <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content space-y-2">
               <ReactMarkdown
                 components={{
-                  p: ({ children }) => <p className="mb-1">{children}</p>,
+                  p: ({ children }) => <p className="mb-2">{children}</p>,
                   strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
                 }}
               >
