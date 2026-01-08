@@ -239,10 +239,14 @@ export default function NirmanakaReader() {
   useEffect(() => {
     if (!draws || !parsedReading?._onDemand || synthesisLoaded || synthesisLoading) return;
 
-    // Check if all cards are loaded
+    // Check if all cards are loaded AND have actual content (not just placeholders)
     const allCardsLoaded = draws.every((_, i) => cardLoaded[i]);
-    if (allCardsLoaded && draws.length > 0) {
-      // All cards loaded, trigger synthesis
+    const allCardsHaveContent = parsedReading.cards?.every(card =>
+      card && (card.wade || card.surface || card.swim || card.deep) && !card._notLoaded
+    );
+
+    if (allCardsLoaded && allCardsHaveContent && draws.length > 0) {
+      // All cards loaded with real content, trigger synthesis
       loadSynthesis(draws, question, systemPromptCache);
     }
   }, [cardLoaded, draws, parsedReading, synthesisLoaded, synthesisLoading]);
@@ -549,6 +553,12 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
+      // Validate that we got actual content (not just empty strings)
+      const hasContent = data.cardData && (data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
+      if (!hasContent) {
+        throw new Error('Card generation returned empty content. Please try again.');
+      }
+
       // Update the specific card in parsedReading
       setParsedReading(prev => {
         if (!prev) return prev;
@@ -665,6 +675,15 @@ export default function NirmanakaReader() {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
+
+      // Validate that we got actual synthesis content
+      const hasSummary = data.summary && (data.summary.wade || data.summary.swim || data.summary.deep);
+      const hasPath = data.path && (data.path.wade || data.path.swim || data.path.deep);
+
+      if (!hasSummary && !hasPath) {
+        console.warn('Synthesis returned empty content:', data);
+        throw new Error('Synthesis generation returned empty content. Please try refreshing.');
+      }
 
       // Update parsedReading with summary and path
       setParsedReading(prev => ({

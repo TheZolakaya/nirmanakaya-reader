@@ -414,8 +414,18 @@ const DepthCard = ({
             >
               Load card content →
             </button>
+          ) : onRequestLoad ? (
+            <div className="flex items-center gap-2">
+              <span className="text-zinc-500 italic">Content unavailable.</span>
+              <button
+                onClick={() => onRequestLoad?.()}
+                className="text-amber-400 hover:text-amber-300 underline decoration-dotted text-sm"
+              >
+                Retry →
+              </button>
+            </div>
           ) : (
-            <span className="text-zinc-500 italic">Content loading...</span>
+            <span className="text-zinc-500 italic">Content unavailable</span>
           )}
         </div>
         </>
@@ -555,7 +565,7 @@ const DepthCard = ({
                     ))}
                   </div>
                 ) : (
-                  <span className="text-emerald-500/50 italic">Content loading...</span>
+                  <span className="text-emerald-500/50 italic">Rebalancer content generating...</span>
                 )}
               </div>
 
@@ -615,7 +625,7 @@ const DepthCard = ({
                     className="border-0 bg-transparent p-0"
                   />
                 ) : (
-                  <span className="text-cyan-500/50 italic text-sm">Content loading...</span>
+                  <span className="text-cyan-500/50 italic text-sm">Mirror generating...</span>
                 )}
               </div>
 
@@ -660,7 +670,7 @@ const DepthCard = ({
                         ))}
                       </div>
                     ) : (
-                      <span className="text-cyan-500/50 italic">Content loading...</span>
+                      <span className="text-cyan-500/50 italic">Why content generating...</span>
                     )}
                   </div>
 
