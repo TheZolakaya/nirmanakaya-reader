@@ -1,6 +1,6 @@
 // app/api/letter/route.js
-// On-demand generation for Letter section only
-// First call in the progressive loading flow
+// On-demand generation for Letter section
+// Supports WADE baseline generation OR progressive deepening
 // Uses Anthropic prompt caching for efficiency
 
 export async function POST(request) {
@@ -11,13 +11,19 @@ export async function POST(request) {
     spreadKey,
     stance,
     system,          // Base system prompt (for caching)
-    model
+    model,
+    // Progressive deepening params
+    targetDepth,     // 'wade' | 'swim' | 'deep' (default: wade)
+    previousContent  // { wade: '...', swim: '...' } - content to build on
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
+  const depth = targetDepth || 'wade';
 
-  // Build letter-specific user message
-  const userMessage = buildLetterMessage(question, draws, spreadType, spreadKey);
+  // Build user message based on mode
+  const userMessage = previousContent && Object.keys(previousContent).length > 0
+    ? buildDeepenMessage(question, draws, spreadType, spreadKey, depth, previousContent)
+    : buildBaselineMessage(question, draws, spreadType, spreadKey);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -27,6 +33,9 @@ export async function POST(request) {
       cache_control: { type: "ephemeral" }
     }
   ];
+
+  // Adjust max tokens based on depth
+  const maxTokens = depth === 'deep' ? 800 : depth === 'swim' ? 500 : 400;
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -39,7 +48,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: effectiveModel,
-        max_tokens: 1200, // Letter needs ~800-1000 tokens
+        max_tokens: maxTokens,
         system: systemWithCache,
         messages: [{ role: 'user', content: userMessage }]
       })
@@ -54,7 +63,7 @@ export async function POST(request) {
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
 
     // Parse the letter sections from response
-    const parsedLetter = parseLetterResponse(text);
+    const parsedLetter = parseLetterResponse(text, depth, previousContent);
 
     return Response.json({
       letter: parsedLetter,
@@ -70,8 +79,8 @@ export async function POST(request) {
   }
 }
 
-// Build the user message for letter-only generation
-function buildLetterMessage(question, draws, spreadType, spreadKey) {
+// Build baseline message - generates WADE only (initial load)
+function buildBaselineMessage(question, draws, spreadType, spreadKey) {
   const cardCount = draws.length;
   const spreadName = spreadKey || `${cardCount}-card`;
 
@@ -97,58 +106,85 @@ READING TYPE: ${spreadType.toUpperCase()} (${spreadName})
 CARDS DRAWN (overview for letter context):
 ${cardNames}
 
-Generate ONLY the LETTER section using the DEEP-FIRST model:
-1. Write DEEP first (full personal address, warm, welcoming)
-2. Condense DEEP → SWIM (same warmth, tightened)
-3. Condense SWIM → WADE (same feeling, more essential)
-4. Distill WADE → SURFACE (the heart of the welcome)
+Generate ONLY the Letter at WADE depth.
 
 The Letter is a warm, personal address to the querent. It:
 - Welcomes them to the reading
-- Acknowledges their question
-- Sets the tone for what they'll discover
-- Does NOT interpret the cards yet (that comes later)
+- Acknowledges their question with genuine curiosity
+- Hints at the themes the cards suggest (but doesn't interpret yet)
+- Sets the tone for discovery
 
-Respond with these markers IN THIS ORDER:
+WADE depth means: 3-4 substantive sentences. Not a quick summary, but not exhaustive either. Warm, engaging, specific to THEIR question and cards.
 
-[LETTER:DEEP]
-(COMPLETE welcome with no word limits - full warm transmission)
+Respond with JUST the content (no markers needed). Write directly to the querent in second person.`;
+}
 
-[LETTER:SWIM]
-(CONDENSE above to ONE paragraph)
+// Build deepening message - generates SWIM or DEEP that builds on previous
+function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth, previousContent) {
+  const ARCHETYPES = getArchetypes();
+  const BOUNDS = getBounds();
+  const AGENTS = getAgents();
+  const STATUSES = getStatuses();
 
-[LETTER:WADE]
-(CONDENSE to 3-4 sentences)
+  const cardNames = draws.map((draw, i) => {
+    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
+                  AGENTS[draw.transient - 61];
+    const stat = STATUSES[draw.status];
+    const statusPrefix = stat?.prefix || 'Balanced';
+    return `Card ${i + 1}: ${statusPrefix} ${trans?.name || 'Unknown'}`;
+  }).join('\n');
 
-[LETTER:SURFACE]
-(DISTILL to 1-2 sentences - the heart of the welcome)
+  const depthInstructions = targetDepth === 'deep'
+    ? `DEEP depth: Full transmission with no limits. Poetic, warm, encompassing. Add philosophical depth, emotional resonance, and personal connection that SWIM didn't explore.`
+    : `SWIM depth: One rich paragraph. Add emotional nuance, deeper acknowledgment, and warmth that WADE introduced but didn't fully develop.`;
 
-CRITICAL: Each level MUST be shorter than the one before. SURFACE must be dramatically shorter than DEEP. Do NOT copy content.`;
+  return `QUESTION: "${question}"
+
+READING TYPE: ${spreadType.toUpperCase()}
+
+CARDS DRAWN:
+${cardNames}
+
+PREVIOUS CONTENT (what the querent has already read):
+${previousContent.wade ? `WADE: ${previousContent.wade}` : ''}
+${previousContent.swim ? `SWIM: ${previousContent.swim}` : ''}
+
+Now generate the Letter at ${targetDepth.toUpperCase()} depth.
+
+${depthInstructions}
+
+CRITICAL RULES:
+1. DO NOT repeat what's in the previous content
+2. ADD new dimensions, feelings, insights
+3. BUILD ON what came before - reference it, deepen it
+4. Each depth should feel like a natural progression, not a rewrite
+
+Respond with JUST the content (no markers). Write directly to the querent.`;
 }
 
 // Parse the letter response into structured data
-function parseLetterResponse(text) {
-  const extractSection = (marker) => {
-    // Match content after [MARKER] until next [WORD:WORD] pattern or end
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
-    const match = text.match(regex);
-    if (!match) return '';
-    // Clean up: remove markdown artifacts throughout content
-    let content = match[1].trim();
-    content = content.replace(/^---+\s*\n?/gm, ''); // Remove horizontal rules at start of lines
-    content = content.replace(/\n---+\s*$/g, ''); // Remove trailing ---
-    content = content.replace(/^#{1,3}\s*$/gm, ''); // Remove empty markdown headers (just ## or ###)
-    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, ''); // Remove markdown headers with text
-    content = content.replace(/\n{3,}/g, '\n\n'); // Collapse multiple newlines
-    return content.trim();
+function parseLetterResponse(text, depth, previousContent) {
+  // Clean up the response
+  let content = text.trim();
+  content = content.replace(/^---+\s*\n?/gm, '');
+  content = content.replace(/\n---+\s*$/g, '');
+  content = content.replace(/^#{1,3}\s*$/gm, '');
+  content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
+  content = content.replace(/\n{3,}/g, '\n\n');
+  content = content.trim();
+
+  // Build result with previous content preserved + new content
+  const result = {
+    wade: previousContent?.wade || '',
+    swim: previousContent?.swim || '',
+    deep: previousContent?.deep || ''
   };
 
-  return {
-    surface: extractSection('LETTER:SURFACE'),
-    wade: extractSection('LETTER:WADE'),
-    swim: extractSection('LETTER:SWIM'),
-    deep: extractSection('LETTER:DEEP')
-  };
+  // Set the newly generated content at the target depth
+  result[depth] = content;
+
+  return result;
 }
 
 // Minimal card data for API route

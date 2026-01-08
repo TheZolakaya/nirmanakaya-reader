@@ -114,6 +114,14 @@ const getSummaryContent = (summary, depth = 'surface') => {
   return summary[depth] || summary.surface || summary.wade || summary.swim || summary.deep || '';
 };
 
+// Helper to extract letter content from either string (legacy) or object (new depth format)
+const getLetterContent = (letter, depth = 'wade') => {
+  if (!letter) return '';
+  if (typeof letter === 'string') return letter;
+  // New format: { wade, swim, deep } - no surface for letter
+  return letter[depth] || letter.wade || letter.swim || letter.deep || '';
+};
+
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
   1: {
@@ -685,7 +693,7 @@ export default function NirmanakaReader() {
     if (isUnified) {
       // Unified continuation - uses the full reading overview
       if (!parsedReading?.summary) return;
-      parentContent = getSummaryContent(parsedReading.summary) + (parsedReading.letter ? '\n\n' + parsedReading.letter : '');
+      parentContent = getSummaryContent(parsedReading.summary) + (parsedReading.letter ? '\n\n' + getLetterContent(parsedReading.letter) : '');
       parentLabel = 'Full Reading';
     } else if (isSummary) {
       if (!parsedReading?.summary) return;
@@ -693,7 +701,7 @@ export default function NirmanakaReader() {
       parentLabel = 'Overview';
     } else if (isLetter) {
       if (!parsedReading?.letter) return;
-      parentContent = parsedReading.letter;
+      parentContent = getLetterContent(parsedReading.letter);
       parentLabel = 'Letter';
     } else if (isPath) {
       // New structure: path has surface/wade
@@ -1186,7 +1194,7 @@ Interpret this new card as the architecture's response to their declared directi
       sectionContext = 'the summary of the reading';
     } else if (sectionKey === 'letter') {
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for letter
-      sectionContent = parsedReading.letter;
+      sectionContent = getLetterContent(parsedReading.letter);
       sectionContext = 'the closing letter';
     } else if (sectionKey.startsWith('card-') || sectionKey.startsWith('card:')) {
       const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
@@ -1231,7 +1239,7 @@ Interpret this new card as the architecture's response to their declared directi
     
     // Pass the original stance to expansion
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nFORMATTING: Use short paragraphs with blank lines between them. Never write walls of text. Each paragraph should be 2-4 sentences max.`;
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nCRITICAL FORMATTING RULES:\n1. NEVER write walls of text\n2. Each paragraph must be 2-4 sentences MAX\n3. Put TWO blank lines between each paragraph (this is required for rendering)\n4. Break your response into 3-5 distinct paragraphs\n5. Each paragraph should explore ONE aspect or dimension`;
     const userMessage = `QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
@@ -3000,8 +3008,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
                     </div>
                     {!isExpCollapsed && (
-                      <div className="px-3 pb-3 text-zinc-300 text-sm whitespace-pre-wrap border-t border-zinc-700/30">
-                        {renderWithHotlinks(content, setSelectedInfo)}
+                      <div className="px-3 pb-3 text-zinc-300 text-sm border-t border-zinc-700/30">
+                        {content.split(/\n\n+/).map((para, idx) => (
+                          <p key={idx} className="mb-3 last:mb-0">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                          </p>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -3120,8 +3132,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                             {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
                           </div>
                           {!isExpCollapsed && (
-                            <div className="px-3 pb-3 text-zinc-300 text-sm whitespace-pre-wrap border-t border-zinc-700/30">
-                              {renderWithHotlinks(content, setSelectedInfo)}
+                            <div className="px-3 pb-3 text-zinc-300 text-sm border-t border-zinc-700/30">
+                              {content.split(/\n\n+/).map((para, idx) => (
+                                <p key={idx} className="mb-3 last:mb-0">
+                                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                                </p>
+                              ))}
                             </div>
                           )}
                         </div>
