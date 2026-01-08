@@ -79,6 +79,7 @@ const DepthCard = ({
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
   const [isWhyCollapsed, setIsWhyCollapsed] = useState(true);
   const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.SURFACE);
+  const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
 
   const trans = getComponent(draw.transient);
   const stat = STATUSES[draw.status];
@@ -352,25 +353,33 @@ const DepthCard = ({
         </div>
       )}
 
-      {/* Expansion Content Display */}
-      {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).map(([key, expansionContent]) => (
-        expansionContent && (
-          <div key={key} className="mb-4 p-3 bg-zinc-800/30 rounded-lg border border-zinc-700/30 animate-fadeIn">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-zinc-500 uppercase tracking-wider">{EXPANSION_PROMPTS[key]?.label}</span>
-              <button
-                onClick={(e) => { e.stopPropagation(); onExpand(sectionKey, key); }}
-                className="text-xs text-zinc-500 hover:text-zinc-300"
+      {/* Expansion Content Display - collapsible, never deleted */}
+      {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).map(([key, expansionContent]) => {
+        if (!expansionContent) return null;
+        const isExpCollapsed = collapsedExpansions[key] === true;
+        return (
+          <div key={key} className="mb-4 rounded-lg border border-zinc-700/30 overflow-hidden animate-fadeIn bg-zinc-800/30">
+            <div
+              className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-700/20 transition-colors"
+              onClick={(e) => { e.stopPropagation(); setCollapsedExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
+            >
+              <span
+                className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-violet-400'}`}
+                style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
               >
-                ✕
-              </button>
+                ▼
+              </span>
+              <span className="text-xs text-zinc-400 uppercase tracking-wider">{EXPANSION_PROMPTS[key]?.label}</span>
+              {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
             </div>
-            <div className="text-sm text-zinc-300 whitespace-pre-wrap">
-              {renderWithHotlinks(expansionContent, setSelectedInfo)}
-            </div>
+            {!isExpCollapsed && (
+              <div className="px-3 pb-3 text-sm text-zinc-300 whitespace-pre-wrap border-t border-zinc-700/30">
+                {renderWithHotlinks(expansionContent, setSelectedInfo)}
+              </div>
+            )}
           </div>
-        )
-      ))}
+        );
+      })}
 
       {/* Architecture Box - always visible at Wade/Swim/Deep */}
       {showArchitecture && (

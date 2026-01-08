@@ -991,16 +991,19 @@ Interpret this new card as the architecture's response to their declared directi
     
     // Otherwise, fetch the expansion
     setExpanding({ section: sectionKey, type: expansionType });
-    
+
     // Build context for the expansion request
-    const drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Never send traditional names to API
+    // For card-specific sections, only include that card's draw (fixes scope leakage)
+    let drawText = '';
     let sectionContent = '';
     let sectionContext = '';
-    
+
     if (sectionKey === 'summary') {
+      drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for summary
       sectionContent = getSummaryContent(parsedReading.summary);
       sectionContext = 'the summary of the reading';
     } else if (sectionKey === 'letter') {
+      drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for letter
       sectionContent = parsedReading.letter;
       sectionContext = 'the closing letter';
     } else if (sectionKey.startsWith('card-') || sectionKey.startsWith('card:')) {
@@ -1008,20 +1011,24 @@ Interpret this new card as the architecture's response to their declared directi
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const draw = draws[cardIndex];
       const trans = getComponent(draw.transient);
-      // New structure: use wade or surface content
+      const stat = STATUSES[draw.status];
+      // SCOPED: Only send this specific card's draw info (prevents mixing with other cards)
+      drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\n${cardSection?.architecture || ''}`;
       sectionContent = cardSection?.wade || cardSection?.surface || cardSection?.content || '';
-      sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1})`;
+      sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
     } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:')) {
       const cardIndex = parseInt(sectionKey.split(':')[1]);
-      // New structure: rebalancer is nested in card
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const rebalancer = cardSection?.rebalancer;
       const draw = draws[cardIndex];
       const trans = getComponent(draw.transient);
+      const stat = STATUSES[draw.status];
+      // SCOPED: Only send this specific card's draw info
+      drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nRebalancer Architecture: ${rebalancer?.architecture || ''}`;
       sectionContent = rebalancer?.wade || rebalancer?.surface || '';
-      sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1})`;
+      sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
     } else if (sectionKey === 'path') {
-      // New structure: path has surface/wade
+      drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for path synthesis
       sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
       sectionContext = 'the Path to Balance section (synthesis of all corrections)';
     }
@@ -1511,6 +1518,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       if (whyContent) {
         md += `#### Words to the Whys\n\n${whyContent}\n\n`;
       }
+
+      // Card expansions (Unpack, Clarify, Example, Architecture)
+      const cardExpansions = expansions[`card-${card.index}`] || {};
+      Object.entries(cardExpansions).forEach(([expType, content]) => {
+        if (content) {
+          const label = EXPANSION_PROMPTS[expType]?.label || expType;
+          md += `#### ${label}\n\n${content}\n\n`;
+        }
+      });
     });
 
     // Path to Balance (new structure with depths - use deep first)
@@ -1531,6 +1547,25 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     const letterContent = parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : null);
     if (letterContent) {
       md += `---\n\n## Letter\n\n${letterContent}\n\n`;
+      // Letter expansions
+      const letterExpansions = expansions['letter'] || {};
+      Object.entries(letterExpansions).forEach(([expType, content]) => {
+        if (content) {
+          const label = EXPANSION_PROMPTS[expType]?.label || expType;
+          md += `### ${label}\n\n${content}\n\n`;
+        }
+      });
+    }
+
+    // Summary expansions
+    const summaryExpansions = expansions['summary'] || {};
+    if (Object.keys(summaryExpansions).length > 0) {
+      Object.entries(summaryExpansions).forEach(([expType, content]) => {
+        if (content) {
+          const label = EXPANSION_PROMPTS[expType]?.label || expType;
+          md += `### Overview ${label}\n\n${content}\n\n`;
+        }
+      });
     }
 
     md += `---\n\n*Generated by Nirmanakaya Consciousness Architecture Reader*\n`;
@@ -1653,6 +1688,20 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       // Export uses deep (richest) content with fallback chain
       const cardContent = card.deep || card.swim || card.wade || card.surface || card.content || '';
 
+      // Card expansions (Unpack, Clarify, Example, Architecture)
+      const cardExpansions = expansions[`card-${card.index}`] || {};
+      let expansionsHtml = '';
+      Object.entries(cardExpansions).forEach(([expType, content]) => {
+        if (content) {
+          const label = EXPANSION_PROMPTS[expType]?.label || expType;
+          expansionsHtml += `
+            <div class="expansion">
+              <span class="expansion-badge">${label}</span>
+              <div class="expansion-content">${escapeHtml(content)}</div>
+            </div>`;
+        }
+      });
+
       signaturesHtml += `
         <div class="signature">
           <div class="signature-header">
@@ -1665,10 +1714,39 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           <div class="signature-name">${statusPhrase}</div>
           ${archDetails}
           <div class="signature-content">${escapeHtml(cardContent)}</div>
+          ${expansionsHtml}
           ${rebalancerHtml}
           ${whyHtml}
           ${threadsHtml}
         </div>`;
+    });
+
+    // Build letter expansions HTML
+    const letterExpansions = expansions['letter'] || {};
+    let letterExpansionsHtml = '';
+    Object.entries(letterExpansions).forEach(([expType, content]) => {
+      if (content) {
+        const label = EXPANSION_PROMPTS[expType]?.label || expType;
+        letterExpansionsHtml += `
+          <div class="expansion" style="margin-left: 0;">
+            <span class="expansion-badge">${label}</span>
+            <div class="expansion-content">${escapeHtml(content)}</div>
+          </div>`;
+      }
+    });
+
+    // Build summary expansions HTML
+    const summaryExpansions = expansions['summary'] || {};
+    let summaryExpansionsHtml = '';
+    Object.entries(summaryExpansions).forEach(([expType, content]) => {
+      if (content) {
+        const label = EXPANSION_PROMPTS[expType]?.label || expType;
+        summaryExpansionsHtml += `
+          <div class="expansion" style="margin-left: 0;">
+            <span class="expansion-badge">${label}</span>
+            <div class="expansion-content">${escapeHtml(content)}</div>
+          </div>`;
+      }
     });
 
     const html = `<!DOCTYPE html>
@@ -1731,6 +1809,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     .mirror-content { color: #a5f3fc; font-style: italic; font-size: 0.875rem; line-height: 1.6; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(6, 182, 212, 0.3); }
     .why-label { display: block; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: #22d3ee; margin-bottom: 0.5rem; }
     .why-content { color: #cffafe; font-size: 0.875rem; line-height: 1.6; }
+    .expansion { margin-top: 1rem; padding: 1rem; background: rgba(63, 63, 70, 0.3); border: 1px solid rgba(113, 113, 122, 0.4); border-radius: 0.5rem; margin-left: 1rem; }
+    .expansion-badge { display: inline-block; background: rgba(113, 113, 122, 0.3); color: #a1a1aa; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .expansion-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
   </style>
 </head>
 <body>
@@ -1748,6 +1829,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     <div class="summary-box">
       <span class="summary-badge">Overview</span>
       <div class="summary">${escapeHtml(getSummaryContent(parsedReading.summary))}</div>
+      ${summaryExpansionsHtml}
       ${renderSectionThreads('summary')}
     </div>
   </div>` : ''}
@@ -1779,6 +1861,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     <div class="letter-box">
       <span class="letter-badge">Letter</span>
       <div class="letter">${escapeHtml(parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : ''))}</div>
+      ${letterExpansionsHtml}
       ${renderSectionThreads('letter')}
     </div>
   </div>` : ''}
@@ -2705,28 +2788,36 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 </div>
               )}
 
-              {/* Expansion content display */}
-              {Object.entries(sectionExpansions).map(([expType, content]) => content && (
-                <div key={expType} className="mb-3 bg-zinc-900/60 rounded-lg p-3 border border-zinc-700/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-medium text-violet-400 uppercase tracking-wider">
-                      {EXPANSION_PROMPTS[expType]?.label || expType}
-                    </span>
-                    <button
-                      onClick={() => setExpansions(prev => ({
-                        ...prev,
-                        [letterSectionKey]: { ...prev[letterSectionKey], [expType]: null }
-                      }))}
-                      className="text-zinc-500 hover:text-zinc-300 text-xs"
+              {/* Expansion content display - collapsible, never deleted */}
+              {Object.entries(sectionExpansions).map(([expType, content]) => {
+                if (!content) return null;
+                const expKey = `letter-exp-${expType}`;
+                const isExpCollapsed = collapsedSections[expKey] === true;
+                return (
+                  <div key={expType} className="mb-3 rounded-lg border border-zinc-700/50 overflow-hidden bg-zinc-900/60">
+                    <div
+                      className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-800/50 transition-colors"
+                      onClick={() => toggleCollapse(expKey, true)}
                     >
-                      ✕
-                    </button>
+                      <span
+                        className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-violet-400'}`}
+                        style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                      >
+                        ▼
+                      </span>
+                      <span className="text-xs font-medium text-violet-400 uppercase tracking-wider">
+                        {EXPANSION_PROMPTS[expType]?.label || expType}
+                      </span>
+                      {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
+                    </div>
+                    {!isExpCollapsed && (
+                      <div className="px-3 pb-3 text-zinc-300 text-sm whitespace-pre-wrap border-t border-zinc-700/30">
+                        {renderWithHotlinks(content, setSelectedInfo)}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-zinc-300 text-sm whitespace-pre-wrap">
-                    {renderWithHotlinks(content, setSelectedInfo)}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           );
         })()}
