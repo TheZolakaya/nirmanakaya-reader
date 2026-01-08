@@ -106,6 +106,14 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
+// Helper to extract summary content from either string (legacy) or object (new depth format)
+const getSummaryContent = (summary, depth = 'surface') => {
+  if (!summary) return '';
+  if (typeof summary === 'string') return summary;
+  // New format: { surface, wade, swim, deep }
+  return summary[depth] || summary.surface || summary.wade || summary.swim || summary.deep || '';
+};
+
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
   1: {
@@ -504,11 +512,11 @@ export default function NirmanakaReader() {
     if (isUnified) {
       // Unified continuation - uses the full reading overview
       if (!parsedReading?.summary) return;
-      parentContent = parsedReading.summary + (parsedReading.letter ? '\n\n' + parsedReading.letter : '');
+      parentContent = getSummaryContent(parsedReading.summary) + (parsedReading.letter ? '\n\n' + parsedReading.letter : '');
       parentLabel = 'Full Reading';
     } else if (isSummary) {
       if (!parsedReading?.summary) return;
-      parentContent = parsedReading.summary;
+      parentContent = getSummaryContent(parsedReading.summary);
       parentLabel = 'Overview';
     } else if (isLetter) {
       if (!parsedReading?.letter) return;
@@ -543,7 +551,7 @@ export default function NirmanakaReader() {
 
       // Overview/Summary
       if (parsedReading?.summary) {
-        parts.push(`OVERVIEW:\n${parsedReading.summary}`);
+        parts.push(`OVERVIEW:\n${getSummaryContent(parsedReading.summary)}`);
       }
 
       // Letter (use current depth or best available)
@@ -773,7 +781,7 @@ Interpret this new card as the architecture's response to their declared directi
     // Build comprehensive reading context for follow-up grounding
     const buildReadingContext = () => {
       const parts = [];
-      if (parsedReading?.summary) parts.push(`OVERVIEW:\n${parsedReading.summary}`);
+      if (parsedReading?.summary) parts.push(`OVERVIEW:\n${getSummaryContent(parsedReading.summary)}`);
       if (parsedReading?.letter) {
         const letter = parsedReading.letter;
         const letterContent = letter[letterDepth] || letter.swim || letter.wade || letter.surface;
@@ -990,7 +998,7 @@ Interpret this new card as the architecture's response to their declared directi
     let sectionContext = '';
     
     if (sectionKey === 'summary') {
-      sectionContent = parsedReading.summary;
+      sectionContent = getSummaryContent(parsedReading.summary);
       sectionContext = 'the summary of the reading';
     } else if (sectionKey === 'letter') {
       sectionContent = parsedReading.letter;
@@ -1086,7 +1094,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     // Build context from parsed reading
     let readingContext = '';
     if (parsedReading) {
-      readingContext = `PREVIOUS READING:\n\nSummary: ${parsedReading.summary}\n\n`;
+      readingContext = `PREVIOUS READING:\n\nSummary: ${getSummaryContent(parsedReading.summary)}\n\n`;
       parsedReading.cards.forEach((card, i) => {
         // New structure: use wade or surface content
         const cardContent = card.wade || card.surface || card.content || '';
@@ -1379,8 +1387,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       slug = slugify(question.trim());
     }
     // Priority 2: Summary/overview
-    else if (parsedReading?.summary && parsedReading.summary.trim().length > 10) {
-      slug = slugify(parsedReading.summary.trim());
+    else if (parsedReading?.summary && getSummaryContent(parsedReading.summary).trim().length > 10) {
+      slug = slugify(getSummaryContent(parsedReading.summary).trim());
     }
     // Priority 3: Fallback
     else {
@@ -1410,7 +1418,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
 
     // Summary
     if (parsedReading.summary) {
-      md += `## Summary\n\n${parsedReading.summary}\n\n`;
+      md += `## Summary\n\n${getSummaryContent(parsedReading.summary)}\n\n`;
     }
 
     // Cards with rebalancers (new structure)
@@ -1700,7 +1708,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
   <div class="section">
     <div class="summary-box">
       <span class="summary-badge">Overview</span>
-      <div class="summary">${escapeHtml(parsedReading.summary)}</div>
+      <div class="summary">${escapeHtml(getSummaryContent(parsedReading.summary))}</div>
       ${renderSectionThreads('summary')}
     </div>
   </div>` : ''}
@@ -2691,7 +2699,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             <div className="mb-6">
               <ReadingSection
                 type="summary"
-                content={parsedReading.summary}
+                content={getSummaryContent(parsedReading.summary)}
                 question={question}
                 expansions={expansions}
                 expanding={expanding}
