@@ -97,6 +97,7 @@ import ThreadedCard from '../components/reader/ThreadedCard.js';
 import ReadingSection from '../components/reader/ReadingSection.js';
 import StanceSelector from '../components/reader/StanceSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
+import DepthCard from '../components/reader/DepthCard.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 
 // NOTE: All data constants have been extracted to /lib modules.
@@ -202,7 +203,7 @@ export default function NirmanakaReader() {
   const [collapsedThreads, setCollapsedThreads] = useState({}); // {threadKey: true/false}
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
-  const [userLevel, setUserLevel] = useState(0); // Default to First Contact Mode
+  const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
@@ -397,16 +398,17 @@ export default function NirmanakaReader() {
       systemPrompt = buildSystemPrompt(userLevel);
       userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel);
     } else {
-      // Standard Mode: Full prompts with all features
-      const drawText = formatDrawForAI(drawsToUse, spreadType, currentSpreadKey, false);
-      const spreadName = isReflect ? REFLECT_SPREADS[reflectSpreadKey].name : `${RANDOM_SPREADS[spreadKey].name} Emergent`;
-      const teleologicalPrompt = buildReadingTeleologicalPrompt(drawsToUse);
-      const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-      const letterTone = VOICE_LETTER_TONE[stance.voice];
-      const modeHeader = buildModeHeader(spreadType);
-
-      systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
-      userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card (where N matches the card number — use [CORRECTION:3] for Card 3, [CORRECTION:5] for Card 5, etc.), [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS] (REQUIRED - teleological grounding), [LETTER]. Each marker on its own line.`;
+      // Standard Mode: Use buildSystemPrompt and buildUserMessage for consistent marker format
+      systemPrompt = buildSystemPrompt(userLevel, {
+        spreadType,
+        stance,
+        letterTone: VOICE_LETTER_TONE[stance.voice]
+      });
+      userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel, {
+        spreadType,
+        spreadKey,
+        reflectSpreadKey
+      });
     }
 
     try {
@@ -511,8 +513,10 @@ export default function NirmanakaReader() {
       parentContent = parsedReading.letter;
       parentLabel = 'Letter';
     } else if (isPath) {
-      if (!parsedReading?.rebalancerSummary) return;
-      parentContent = parsedReading.rebalancerSummary;
+      // New structure: path has surface/wade
+      const pathContent = parsedReading?.path?.wade || parsedReading?.rebalancerSummary;
+      if (!pathContent) return;
+      parentContent = pathContent;
       parentLabel = 'Path to Balance';
     } else if (isWordsToWhys) {
       if (!parsedReading?.wordsToWhys) return;
@@ -905,17 +909,21 @@ Interpret this new card as the architecture's response to their declared directi
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const draw = draws[cardIndex];
       const trans = getComponent(draw.transient);
-      sectionContent = cardSection?.content || '';
+      // New structure: use wade or surface content
+      sectionContent = cardSection?.wade || cardSection?.surface || cardSection?.content || '';
       sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1})`;
-    } else if (sectionKey.startsWith('correction:')) {
+    } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:')) {
       const cardIndex = parseInt(sectionKey.split(':')[1]);
-      const corrSection = parsedReading.corrections.find(c => c.cardIndex === cardIndex);
+      // New structure: rebalancer is nested in card
+      const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
+      const rebalancer = cardSection?.rebalancer;
       const draw = draws[cardIndex];
       const trans = getComponent(draw.transient);
-      sectionContent = corrSection?.content || '';
-      sectionContext = `the correction path for ${trans.name} (Signature ${cardIndex + 1})`;
+      sectionContent = rebalancer?.wade || rebalancer?.surface || '';
+      sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1})`;
     } else if (sectionKey === 'path') {
-      sectionContent = parsedReading.rebalancerSummary;
+      // New structure: path has surface/wade
+      sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
       sectionContext = 'the Path to Balance section (synthesis of all corrections)';
     }
 
@@ -989,10 +997,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     if (parsedReading) {
       readingContext = `PREVIOUS READING:\n\nSummary: ${parsedReading.summary}\n\n`;
       parsedReading.cards.forEach((card, i) => {
-        readingContext += `Signature ${card.index + 1}: ${card.content}\n\n`;
-      });
-      parsedReading.corrections.forEach(corr => {
-        readingContext += `Correction ${corr.cardIndex + 1}: ${corr.content}\n\n`;
+        // New structure: use wade or surface content
+        const cardContent = card.wade || card.surface || card.content || '';
+        readingContext += `Signature ${card.index + 1}: ${cardContent}\n\n`;
+        // New structure: rebalancer is nested in card
+        if (card.rebalancer) {
+          const rebalancerContent = card.rebalancer.wade || card.rebalancer.surface || '';
+          readingContext += `Rebalancer ${card.index + 1}: ${rebalancerContent}\n\n`;
+        }
       });
     }
     
@@ -1310,13 +1322,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       md += `## Summary\n\n${parsedReading.summary}\n\n`;
     }
 
-    // Cards with corrections
+    // Cards with rebalancers (new structure)
     md += `## Signatures\n\n`;
     parsedReading.cards.forEach((card) => {
       const draw = draws[card.index];
       const trans = getComponent(draw.transient);
       const stat = STATUSES[draw.status];
-      const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
+      // New structure: rebalancer is nested in card
+      const rebalancer = card.rebalancer;
 
       const context = isReflect && spreadConfig
         ? spreadConfig.positions?.[card.index]?.name
@@ -1340,19 +1353,23 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         md += `> **Role:** ${trans.role} | **Channel:** ${trans.channel} | **Associated Archetype:** ${assocArchetype?.name} (${assocArchetype?.traditional})\n\n`;
       }
 
-      md += `${card.content}\n\n`;
+      // New structure: use wade or surface content
+      const cardContent = card.wade || card.surface || card.content || '';
+      md += `${cardContent}\n\n`;
 
-      if (correction) {
+      if (rebalancer) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
-        md += `#### Correction: ${corrText || 'See below'}\n\n`;
-        md += `${correction.content}\n\n`;
+        md += `#### Rebalancer: ${corrText || 'See below'}\n\n`;
+        const rebalancerContent = rebalancer.wade || rebalancer.surface || '';
+        md += `${rebalancerContent}\n\n`;
       }
     });
 
-    // Rebalancer Summary
-    if (parsedReading.rebalancerSummary) {
-      md += `---\n\n## ◈ Path to Balance\n\n${parsedReading.rebalancerSummary}\n\n`;
+    // Path to Balance (new structure)
+    const pathContent = parsedReading.path?.wade || parsedReading.rebalancerSummary;
+    if (pathContent) {
+      md += `---\n\n## ◈ Path to Balance\n\n${pathContent}\n\n`;
     }
 
     // Letter
@@ -1430,7 +1447,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const draw = draws[card.index];
       const trans = getComponent(draw.transient);
       const stat = STATUSES[draw.status];
-      const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
+      // New structure: rebalancer is nested in card
+      const rebalancer = card.rebalancer;
       const context = isReflect && spreadConfig ? spreadConfig.positions?.[card.index]?.name : `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
@@ -1445,19 +1463,22 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         archDetails = `<div class="arch-details">Role: ${trans.role} • Channel: ${trans.channel} • Associated: ${assoc?.name}</div>`;
       }
 
-      let correctionHtml = '';
-      if (correction) {
+      let rebalancerHtml = '';
+      if (rebalancer) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
-        correctionHtml = `
+        const rebalancerContent = rebalancer.wade || rebalancer.surface || '';
+        rebalancerHtml = `
           <div class="rebalancer">
             <span class="rebalancer-badge">Rebalancer</span>
             <div class="rebalancer-header">${trans.name} → ${corrText || ''}</div>
-            <div class="rebalancer-content">${escapeHtml(correction.content)}</div>
+            <div class="rebalancer-content">${escapeHtml(rebalancerContent)}</div>
           </div>`;
       }
 
       const threadsHtml = renderSectionThreads(card.index);
+      // New structure: use wade or surface content
+      const cardContent = card.wade || card.surface || card.content || '';
 
       signaturesHtml += `
         <div class="signature">
@@ -1470,8 +1491,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>
           <div class="signature-name">${statusPhrase}</div>
           ${archDetails}
-          <div class="signature-content">${escapeHtml(card.content)}</div>
-          ${correctionHtml}
+          <div class="signature-content">${escapeHtml(cardContent)}</div>
+          ${rebalancerHtml}
           ${threadsHtml}
         </div>`;
     });
@@ -1557,11 +1578,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     ${signaturesHtml}
   </div>
 
-  ${parsedReading.rebalancerSummary ? `
+  ${(parsedReading.path?.wade || parsedReading.rebalancerSummary) ? `
   <div class="section">
     <div class="path-box">
       <span class="path-badge">◈ Path to Balance</span>
-      <div class="path-content">${escapeHtml(parsedReading.rebalancerSummary)}</div>
+      <div class="path-content">${escapeHtml(parsedReading.path?.wade || parsedReading.rebalancerSummary)}</div>
       ${renderSectionThreads('path')}
     </div>
   </div>` : ''}
@@ -2415,8 +2436,21 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Question + Overview - after signatures, before interpretations */}
-        {parsedReading && !loading && parsedReading.summary && (() => {
+        {/* Letter - First thing user sees (moved from end of reading) */}
+        {parsedReading && !loading && parsedReading.letter && !parsedReading.firstContact && (
+          <div className="mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-violet-400">✉</span>
+              <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
+            </div>
+            <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm">
+              {renderWithHotlinks(parsedReading.letter, setSelectedInfo)}
+            </div>
+          </div>
+        )}
+
+        {/* Question + Summary - after Letter */}
+        {parsedReading && !loading && parsedReading.summary && !parsedReading.firstContact && (() => {
           const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
           return (
             <div className="mb-6">
@@ -2453,65 +2487,31 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys, Letter) - hide in First Contact mode */}
+        {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys) - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
           <div className="space-y-2">
-            {/* Signature Sections with nested Rebalancers - collapsed by default */}
+            {/* Signature Sections with nested Rebalancers - using new DepthCard component */}
             {parsedReading.cards.map((card) => {
-              const correction = parsedReading.corrections.find(c => c.cardIndex === card.index);
-              const cardSectionKey = `card:${card.index}`;
-              const corrSectionKey = `correction:${card.index}`;
-              // Default: cards collapsed, corrections collapsed
-              const isCardCollapsed = collapsedSections[cardSectionKey] !== false; // true by default
-              const isCorrCollapsed = collapsedSections[corrSectionKey] !== false; // true by default
+              // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
               return (
                 <div key={`card-group-${card.index}`} id={`content-${card.index}`}>
-                  <ReadingSection
-                    type="card"
-                    index={card.index}
-                    content={card.content}
+                  <DepthCard
+                    cardData={card}
                     draw={draws[card.index]}
-                    question={question}
-                    expansions={expansions}
-                    expanding={expanding}
-                    onExpand={handleExpand}
                     showTraditional={showTraditional}
+                    setSelectedInfo={setSelectedInfo}
                     spreadType={spreadType}
                     spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
-                    setSelectedInfo={setSelectedInfo}
-                    onHeaderClick={() => {
-                      // Expand signatures section if collapsed
-                      if (collapsedSections['signatures'] === true) {
-                        setCollapsedSections(prev => ({ ...prev, signatures: false }));
-                      }
-                      // Scroll to the card
-                      setTimeout(() => {
-                        document.getElementById(`card-${card.index}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      }, 50);
-                    }}
-                    correction={correction}
-                    isCollapsed={isCardCollapsed}
-                    onToggleCollapse={() => toggleCollapse(cardSectionKey, true)}
-                    isCorrectionCollapsed={isCorrCollapsed}
-                    onToggleCorrectionCollapse={() => toggleCollapse(corrSectionKey, true)}
-                    threadData={threadData[card.index] || []}
-                    collapsedThreads={collapsedThreads}
-                    setCollapsedThreads={setCollapsedThreads}
-                    threadOperation={threadOperations[card.index]}
-                    threadContext={threadContexts[card.index]}
-                    onSetThreadOperation={(op) => setThreadOperations(prev => ({ ...prev, [card.index]: op }))}
-                    onSetThreadContext={(ctx) => setThreadContexts(prev => ({ ...prev, [card.index]: ctx }))}
-                    onContinueThread={() => continueThread(card.index)}
-                    threadLoading={threadLoading[card.index]}
-                    onGlossaryClick={handleGlossaryClick}
-                    whyMoment={card.whyMoment}
                   />
                 </div>
               );
             })}
 
-            {/* Rebalancer Summary - Only when 2+ imbalanced, collapsed by default */}
-            {parsedReading.rebalancerSummary && (() => {
+
+            {/* Path to Balance - Only when 2+ imbalanced, collapsed by default */}
+            {/* Now uses parsedReading.path.wade (new structure) */}
+            {(parsedReading.path?.wade || parsedReading.rebalancerSummary) && (() => {
+              const pathContent = parsedReading.path?.wade || parsedReading.rebalancerSummary;
               const pathExpansions = expansions['path'] || {};
               const isPathExpanding = expanding?.section === 'path';
               const isPathCollapsed = collapsedSections['path'] !== false; // true by default
@@ -2535,7 +2535,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     {!isPathCollapsed && (
                       <>
                         <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
-                          {renderWithHotlinks(parsedReading.rebalancerSummary, setSelectedInfo)}
+                          {renderWithHotlinks(pathContent, setSelectedInfo)}
                         </div>
 
                         {/* Path Expansion Buttons */}
@@ -2869,36 +2869,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
               );
             })()}
 
-            {/* Letter Section - expanded by default, collapsible */}
-            {parsedReading.letter && (() => {
-              const isLetterCollapsed = collapsedSections['letter'] === true; // expanded by default
-              return (
-                <ReadingSection
-                  type="letter"
-                  content={parsedReading.letter}
-                  question={question}
-                  expansions={expansions}
-                  expanding={expanding}
-                  onExpand={handleExpand}
-                  showTraditional={showTraditional}
-                  spreadType={spreadType}
-                  spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
-                  setSelectedInfo={setSelectedInfo}
-                  isCollapsed={isLetterCollapsed}
-                  onToggleCollapse={() => toggleCollapse('letter', false)}
-                  threadData={threadData['letter'] || []}
-                  collapsedThreads={collapsedThreads}
-                  setCollapsedThreads={setCollapsedThreads}
-                  threadOperation={threadOperations['letter']}
-                  threadContext={threadContexts['letter']}
-                  onSetThreadOperation={(op) => setThreadOperations(prev => ({ ...prev, letter: op }))}
-                  onSetThreadContext={(ctx) => setThreadContexts(prev => ({ ...prev, letter: ctx }))}
-                  onContinueThread={() => continueThread('letter')}
-                  threadLoading={threadLoading['letter']}
-                  onGlossaryClick={handleGlossaryClick}
-                />
-              );
-            })()}
+            {/* Letter now renders at top of reading - see line ~2419 */}
 
             {/* Unified Reflect/Forge Section - ONE set of buttons at the bottom */}
             <div className="mt-6 pt-4 border-t border-zinc-800/50">
