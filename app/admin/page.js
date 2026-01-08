@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { VERSION } from '../../lib/version.js';
 
 export default function AdminPanel() {
   const router = useRouter();
@@ -78,7 +79,7 @@ export default function AdminPanel() {
           </button>
         </div>
         <p className="text-xs text-zinc-600 mt-2">
-          {mode === 'fullMonty' && 'All features enabled (current v0.39.5 experience)'}
+          {mode === 'fullMonty' && `All features enabled (current v${VERSION} experience)`}
           {mode === 'levelSim' && 'Pick a level to see that experience'}
           {mode === 'firstContact' && 'Force Level 0 experience (simplified UI, plain English)'}
         </p>
