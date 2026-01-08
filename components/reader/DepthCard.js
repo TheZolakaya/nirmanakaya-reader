@@ -385,6 +385,8 @@ const DepthCard = ({
       {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).map(([key, expansionContent]) => {
         if (!expansionContent) return null;
         const isExpCollapsed = collapsedExpansions[key] === true;
+        // Split content into paragraphs for proper formatting
+        const paragraphs = expansionContent.split(/\n\n+/).filter(p => p.trim());
         return (
           <div key={key} className="mb-4 rounded-lg border border-zinc-700/30 overflow-hidden animate-fadeIn bg-zinc-800/30">
             <div
@@ -401,8 +403,12 @@ const DepthCard = ({
               {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
             </div>
             {!isExpCollapsed && (
-              <div className="px-3 pb-3 text-sm text-zinc-300 whitespace-pre-wrap border-t border-zinc-700/30">
-                {renderWithHotlinks(expansionContent, setSelectedInfo)}
+              <div className="px-3 pb-3 text-sm text-zinc-300 border-t border-zinc-700/30 space-y-3">
+                {paragraphs.map((para, i) => (
+                  <p key={i} className="whitespace-pre-wrap">
+                    {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                  </p>
+                ))}
               </div>
             )}
           </div>
