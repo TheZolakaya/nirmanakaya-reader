@@ -1091,20 +1091,59 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     setFollowUpLoading(true); setError('');
     const drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Never send traditional names to API
     
-    // Build context from parsed reading
+    // Build comprehensive context from parsed reading (includes Letter, Path, Words to Whys)
     let readingContext = '';
     if (parsedReading) {
-      readingContext = `PREVIOUS READING:\n\nSummary: ${getSummaryContent(parsedReading.summary)}\n\n`;
+      readingContext = `PREVIOUS READING:\n\n`;
+
+      // Overview/Summary
+      if (parsedReading.summary) {
+        readingContext += `OVERVIEW: ${getSummaryContent(parsedReading.summary)}\n\n`;
+      }
+
+      // Letter (use current depth or best available)
+      if (parsedReading.letter) {
+        const letter = parsedReading.letter;
+        const letterContent = letter[letterDepth] || letter.swim || letter.wade || letter.surface;
+        if (letterContent) {
+          readingContext += `LETTER:\n${letterContent}\n\n`;
+        }
+      }
+
+      // Cards with Words to Whys and Rebalancers
       parsedReading.cards.forEach((card, i) => {
-        // New structure: use wade or surface content
+        const draw = draws[i];
+        const trans = getComponent(draw.transient);
+        const stat = STATUSES[draw.status];
         const cardContent = card.wade || card.surface || card.content || '';
-        readingContext += `Signature ${card.index + 1}: ${cardContent}\n\n`;
-        // New structure: rebalancer is nested in card
+        readingContext += `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}\n`;
+
+        // Words to the Whys for this card
+        if (card.why) {
+          const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+          if (whyContent) {
+            readingContext += `\nWHY THIS CARD: ${whyContent}\n`;
+          }
+        }
+
+        // Rebalancer for this card
         if (card.rebalancer) {
           const rebalancerContent = card.rebalancer.wade || card.rebalancer.surface || '';
-          readingContext += `Rebalancer ${card.index + 1}: ${rebalancerContent}\n\n`;
+          if (rebalancerContent) {
+            readingContext += `\nREBALANCER: ${rebalancerContent}\n`;
+          }
         }
+        readingContext += '\n';
       });
+
+      // Path to Balance (global synthesis)
+      if (parsedReading.path) {
+        const path = parsedReading.path;
+        const pathContent = path[pathDepth] || path.swim || path.wade || path.surface;
+        if (pathContent) {
+          readingContext += `PATH TO BALANCE:\n${pathContent}\n\n`;
+        }
+      }
     }
     
     // Pass stance to follow-up
@@ -1464,13 +1503,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         md += `${rebalancerContent}\n\n`;
       }
 
-      // Mirror and Words to the Why
+      // Mirror and Words to the Whys
       if (card.mirror) {
         md += `#### The Mirror\n\n${card.mirror}\n\n`;
       }
       const whyContent = card.why?.deep || card.why?.swim || card.why?.wade || card.why?.surface;
       if (whyContent) {
-        md += `#### Words to the Why\n\n${whyContent}\n\n`;
+        md += `#### Words to the Whys\n\n${whyContent}\n\n`;
       }
     });
 
@@ -1593,13 +1632,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>`;
       }
 
-      // The Why section (Mirror + Words to the Why)
+      // The Why section (Mirror + Words to the Whys)
       let whyHtml = '';
       if (card.mirror || card.why) {
         const mirrorContent = card.mirror ? `<div class="mirror-content">${escapeHtml(card.mirror)}</div>` : '';
         // WHY already has deep as first fallback
         const whyContent = card.why?.deep || card.why?.swim || card.why?.wade || card.why?.surface;
-        const wordsContent = whyContent ? `<div class="why-content"><span class="why-label">Words to the Why</span>${escapeHtml(whyContent)}</div>` : '';
+        const wordsContent = whyContent ? `<div class="why-content"><span class="why-label">Words to the Whys</span>${escapeHtml(whyContent)}</div>` : '';
         if (mirrorContent || wordsContent) {
           whyHtml = `
             <div class="the-why">
