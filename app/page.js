@@ -1491,15 +1491,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         md += `> **Role:** ${trans.role} | **Channel:** ${trans.channel} | **Associated Archetype:** ${assocArchetype?.name} (${assocArchetype?.traditional})\n\n`;
       }
 
-      // New structure: use swim (richest) content
-      const cardContent = card.swim || card.wade || card.surface || card.content || '';
+      // New structure: use deep (richest) content with full fallback chain
+      const cardContent = card.deep || card.swim || card.wade || card.surface || card.content || '';
       md += `${cardContent}\n\n`;
 
       if (rebalancer) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
         md += `#### Rebalancer: ${corrText || 'See below'}\n\n`;
-        const rebalancerContent = rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
+        const rebalancerContent = rebalancer.deep || rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
         md += `${rebalancerContent}\n\n`;
       }
 
@@ -1513,8 +1513,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       }
     });
 
-    // Path to Balance (new structure with depths)
-    const pathContent = parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary;
+    // Path to Balance (new structure with depths - use deep first)
+    const pathContent = parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary;
     if (pathContent) {
       md += `---\n\n## ◈ Path to Balance\n\n${pathContent}\n\n`;
       if (parsedReading.path?.architecture) {
