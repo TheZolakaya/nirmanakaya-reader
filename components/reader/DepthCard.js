@@ -333,8 +333,13 @@ const DepthCard = ({
 
       {/* Main Content */}
       {depth !== DEPTH.COLLAPSED && (
-        <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
-          {isLoading ? (
+        <>
+          {/* Card name reminder */}
+          <div className="text-xs text-zinc-500 mb-3 italic">
+            Reading for {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
+          </div>
+          <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
+            {isLoading ? (
             <div className="flex items-center gap-2 text-zinc-500">
               <span className="animate-pulse">●</span>
               <span className="italic">Generating depths...</span>
@@ -358,6 +363,7 @@ const DepthCard = ({
             <span className="text-zinc-500 italic">Content loading...</span>
           )}
         </div>
+        </>
       )}
 
       {/* Expansion Buttons - appear at every depth level (excluding architecture - it's its own section) */}
@@ -480,6 +486,10 @@ const DepthCard = ({
           {/* Rebalancer Content */}
           {rebalancerDepth !== DEPTH.COLLAPSED && (
             <>
+              {/* Card name reminder */}
+              <div className="text-xs text-emerald-400/60 mb-3 italic">
+                Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
+              </div>
               <div className="leading-relaxed text-sm mb-4 text-emerald-100/90 animate-fadeIn">
                 {getRebalancerContent(rebalancerDepth) ? (
                   <div className="space-y-3">
@@ -536,6 +546,10 @@ const DepthCard = ({
           {/* THE WHY Content - expanded */}
           {!isWhyCollapsed && (
             <>
+              {/* Card name reminder */}
+              <div className="text-xs text-cyan-400/60 mb-3 italic">
+                Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} appeared
+              </div>
               {/* THE MIRROR - single poetic reflection, no depth navigation */}
               <div className="mb-4">
                 <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">The Mirror</div>
