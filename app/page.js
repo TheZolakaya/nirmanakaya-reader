@@ -706,14 +706,17 @@ export default function NirmanakaReader() {
       parentContent = parsedReading.wordsToWhys;
       parentLabel = 'Words to the Whys';
     } else {
-      const parentDraw = draws[threadKey];
-      const parentCard = parsedReading.cards.find(c => c.index === threadKey);
+      // Card thread key is "card-N" format - extract the index
+      const cardIndex = parseInt(threadKey.replace('card-', ''));
+      const parentDraw = draws[cardIndex];
+      const parentCard = parsedReading.cards.find(c => c.index === cardIndex);
       if (!parentDraw || !parentCard) return;
       const parentTrans = getComponent(parentDraw.transient);
       const parentStat = STATUSES[parentDraw.status];
       const parentStatusPrefix = parentStat.prefix || 'Balanced';
       parentLabel = `${parentStatusPrefix} ${parentTrans.name}`;
-      parentContent = parentCard.content;
+      // Use best available content from card
+      parentContent = parentCard.wade || parentCard.swim || parentCard.surface || parentCard.deep || '';
     }
 
     setThreadLoading(prev => ({ ...prev, [threadKey]: true }));

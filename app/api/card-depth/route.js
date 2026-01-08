@@ -42,7 +42,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: effectiveModel,
-        max_tokens: 5000, // Imbalanced cards need more: 4 reading + arch + mirror + 5 why + 5 rebalancer = 16 sections
+        max_tokens: 6000, // Imbalanced cards need more: 4 reading + arch + mirror + 5 why + 5 rebalancer = 16 sections
         system: systemWithCache,
         messages: [{ role: 'user', content: userMessage }]
       })
