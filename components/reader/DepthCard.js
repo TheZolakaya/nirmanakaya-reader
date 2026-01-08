@@ -42,8 +42,17 @@ const AnimatedContent = ({ isVisible, children }) => {
   );
 };
 
+// WHY depth levels (includes DEEP)
+const WHY_DEPTH = {
+  COLLAPSED: 'collapsed',
+  SURFACE: 'surface',
+  WADE: 'wade',
+  SWIM: 'swim',
+  DEEP: 'deep'
+};
+
 const DepthCard = ({
-  cardData,  // { index, surface, wade, swim, architecture, mirror, rebalancer }
+  cardData,  // { index, surface, wade, swim, architecture, mirror, rebalancer, why }
   draw,      // { transient, status, position }
   showTraditional = false,
   setSelectedInfo,
@@ -67,6 +76,8 @@ const DepthCard = ({
 }) => {
   const [depth, setDepth] = useState(DEPTH.COLLAPSED);
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
+  const [isWhyCollapsed, setIsWhyCollapsed] = useState(true);
+  const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.SURFACE);
 
   const trans = getComponent(draw.transient);
   const stat = STATUSES[draw.status];
@@ -352,15 +363,6 @@ const DepthCard = ({
         </div>
       )}
 
-      {/* Mirror Section */}
-      {showMirror && cardData.mirror && (
-        <MirrorSection
-          content={cardData.mirror}
-          isBalanced={isBalanced}
-          className="mb-4"
-        />
-      )}
-
       {/* Architecture Box */}
       {showArchitecture && cardData.architecture && (
         <ArchitectureBox
@@ -439,6 +441,100 @@ const DepthCard = ({
                   content={cardData.rebalancer.architecture}
                   isRebalancer={true}
                 />
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* THE WHY Group - collapsed by default, contains Mirror + Words to the Why */}
+      {depth !== DEPTH.COLLAPSED && (cardData.mirror || cardData.why) && (
+        <div className="mt-4 rounded-lg border-2 border-cyan-500/30 bg-cyan-950/20 p-4">
+          {/* THE WHY Header - clickable to expand */}
+          <div
+            className={`flex items-center gap-2 cursor-pointer group ${!isWhyCollapsed ? 'mb-4' : ''}`}
+            onClick={(e) => { e.stopPropagation(); setIsWhyCollapsed(!isWhyCollapsed); }}
+          >
+            <span
+              className={`text-xs transition-transform duration-200 cursor-pointer ${isWhyCollapsed ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
+              style={{ transform: isWhyCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+            >
+              ▼
+            </span>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/30 text-cyan-300">
+              The Why
+            </span>
+            <span className="text-sm font-medium text-cyan-400">
+              Teleological Reflection
+            </span>
+            {isWhyCollapsed && (
+              <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
+                tap to explore
+              </span>
+            )}
+          </div>
+
+          {/* THE WHY Content - expanded */}
+          {!isWhyCollapsed && (
+            <>
+              {/* THE MIRROR - single poetic reflection, no depth navigation */}
+              {cardData.mirror && (
+                <div className="mb-4">
+                  <MirrorSection
+                    content={cardData.mirror}
+                    isBalanced={isBalanced}
+                    className="border-0 bg-transparent p-0"
+                  />
+                </div>
+              )}
+
+              {/* WORDS TO THE WHY - 4 depth levels */}
+              {cardData.why && (cardData.why.surface || cardData.why.wade || cardData.why.swim || cardData.why.deep) && (
+                <div className="border-t border-cyan-700/30 pt-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider">
+                      Words to the Why
+                    </span>
+                    {/* Depth navigation buttons for WHY */}
+                    <div className="flex gap-1">
+                      {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                        const hasContent = cardData.why[level];
+                        if (!hasContent) return null;
+                        const isActive = whyDepth === level;
+                        return (
+                          <button
+                            key={level}
+                            onClick={(e) => { e.stopPropagation(); setWhyDepth(level); }}
+                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? 'bg-cyan-500 text-white'
+                                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                            }`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* WHY Content at current depth */}
+                  <div className="text-sm text-cyan-100/90 whitespace-pre-wrap mb-4">
+                    {cardData.why[whyDepth] ? (
+                      renderWithHotlinks(cardData.why[whyDepth], setSelectedInfo)
+                    ) : (
+                      <span className="text-cyan-500/50 italic">Content loading...</span>
+                    )}
+                  </div>
+
+                  {/* WHY Architecture Box - collapsed */}
+                  {cardData.why.architecture && (
+                    <ArchitectureBox
+                      content={cardData.why.architecture}
+                      label="Why Architecture"
+                    />
+                  )}
+                </div>
               )}
             </>
           )}
