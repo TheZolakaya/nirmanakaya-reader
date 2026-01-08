@@ -213,11 +213,30 @@ export default function NirmanakaReader() {
   const [threadLoading, setThreadLoading] = useState({}); // {key: true/false}
   const [collapsedThreads, setCollapsedThreads] = useState({}); // {threadKey: true/false}
 
+  // On-demand depth generation state
+  const [cardLoaded, setCardLoaded] = useState({}); // {0: true, 1: false, ...} - which cards have content
+  const [cardLoading, setCardLoading] = useState({}); // {0: true, ...} - which cards are currently loading
+  const [synthesisLoaded, setSynthesisLoaded] = useState(false); // Whether summary/path have been fetched
+  const [synthesisLoading, setSynthesisLoading] = useState(false); // Whether synthesis is currently loading
+  const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
+
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
+
+  // Watch for all cards loaded to trigger synthesis
+  useEffect(() => {
+    if (!draws || !parsedReading?._onDemand || synthesisLoaded || synthesisLoading) return;
+
+    // Check if all cards are loaded
+    const allCardsLoaded = draws.every((_, i) => cardLoaded[i]);
+    if (allCardsLoaded && draws.length > 0) {
+      // All cards loaded, trigger synthesis
+      loadSynthesis(draws, question, systemPromptCache);
+    }
+  }, [cardLoaded, draws, parsedReading, synthesisLoaded, synthesisLoading]);
 
   // Re-interpret with current stance (same draws)
   const reinterpret = async () => {
@@ -395,6 +414,8 @@ export default function NirmanakaReader() {
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    // Reset on-demand state
+    setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     const isReflect = spreadType === 'reflect';
     const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
     const safeQuestion = sanitizeForAPI(questionToUse);
@@ -402,57 +423,207 @@ export default function NirmanakaReader() {
     // Check if First Contact Mode (Level 0)
     const isFirstContact = userLevel === USER_LEVELS.FIRST_CONTACT;
 
-    let systemPrompt, userMessage;
-
     if (isFirstContact) {
-      // First Contact Mode: Use simplified prompts from promptBuilder
-      systemPrompt = buildSystemPrompt(userLevel);
-      userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel);
-    } else {
-      // Standard Mode: Use buildSystemPrompt and buildUserMessage for consistent marker format
-      systemPrompt = buildSystemPrompt(userLevel, {
-        spreadType,
-        stance,
-        letterTone: VOICE_LETTER_TONE[stance.voice]
-      });
-      userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel, {
-        spreadType,
-        spreadKey,
-        reflectSpreadKey
-      });
+      // First Contact Mode: Use simplified single-call approach (unchanged)
+      const systemPrompt = buildSystemPrompt(userLevel);
+      const userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel);
+      try {
+        const res = await fetch('/api/reading', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: userMessage }],
+            system: systemPrompt,
+            model: "claude-haiku-4-5-20251001",
+            isFirstContact: true,
+            max_tokens: 300
+          })
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        const parsed = parseFirstContactResponse(data.reading);
+        setParsedReading(parsed);
+        setTokenUsage(data.usage);
+      } catch (e) { setError(`Error: ${e.message}`); }
+      setLoading(false);
+      return;
     }
 
+    // Standard Mode: On-demand depth generation
+    // Phase 1: Fetch Letter only (card content loaded on-demand)
+    const systemPrompt = buildSystemPrompt(userLevel, {
+      spreadType,
+      stance,
+      letterTone: VOICE_LETTER_TONE[stance.voice]
+    });
+    // Cache system prompt for on-demand calls
+    setSystemPromptCache(systemPrompt);
+
     try {
-      const res = await fetch('/api/reading', {
+      const res = await fetch('/api/letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [{ role: 'user', content: userMessage }],
+          question: safeQuestion,
+          draws: drawsToUse,
+          spreadType,
+          spreadKey: currentSpreadKey,
+          stance,
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
-          isFirstContact,
-          max_tokens: isFirstContact ? 300 : 8000 // Haiku max is 8192
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Parse response based on mode
-      if (isFirstContact) {
-        // First Contact: Simple response, no section parsing needed
-        const parsed = parseFirstContactResponse(data.reading);
-        setParsedReading(parsed);
-      } else {
-        // Standard: Full parsing with mode transitions and filtering
-        const isForgeExplicit = spreadType === 'forge';
-        const modeProcessed = postProcessModeTransitions(data.reading, spreadType, isForgeExplicit);
-        const filteredReading = filterProhibitedTerms(modeProcessed);
-        const parsed = parseReadingResponse(filteredReading, drawsToUse);
-        setParsedReading(parsed);
-      }
+      // Create initial parsed reading with letter and card placeholders
+      const cardPlaceholders = drawsToUse.map((_, i) => ({
+        index: i,
+        surface: null, // Not yet loaded
+        wade: null,
+        swim: null,
+        deep: null,
+        architecture: null,
+        mirror: null,
+        why: null,
+        rebalancer: null,
+        _notLoaded: true // Flag indicating on-demand fetch needed
+      }));
+
+      setParsedReading({
+        letter: data.letter,
+        summary: null, // Not yet loaded (needs all cards first)
+        cards: cardPlaceholders,
+        path: null, // Not yet loaded (needs all cards first)
+        corrections: [],
+        rebalancerSummary: null,
+        wordsToWhys: null,
+        _onDemand: true // Flag indicating on-demand mode
+      });
       setTokenUsage(data.usage);
+
+      // Auto-load ALL cards in parallel immediately for better UX
+      // This uses the on-demand architecture but loads everything upfront
+      setTimeout(() => {
+        drawsToUse.forEach((_, i) => {
+          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt);
+        });
+      }, 100);
+
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);
+  };
+
+  // On-demand: Load a single card's depth content
+  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse) => {
+    if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
+
+    setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
+
+    try {
+      const letterContent = letterData?.swim || letterData?.wade || letterData?.surface || '';
+      const res = await fetch('/api/card-depth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cardIndex,
+          draw: drawsToUse[cardIndex],
+          question: questionToUse,
+          spreadType,
+          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          stance,
+          system: systemPromptToUse || systemPromptCache,
+          letterContent,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Update the specific card in parsedReading
+      setParsedReading(prev => {
+        if (!prev) return prev;
+        const newCards = [...prev.cards];
+        newCards[cardIndex] = {
+          ...newCards[cardIndex],
+          ...data.cardData,
+          _notLoaded: false
+        };
+        return { ...prev, cards: newCards };
+      });
+
+      setCardLoaded(prev => ({ ...prev, [cardIndex]: true }));
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
+          cache_creation_input_tokens: (prev.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0),
+          cache_read_input_tokens: (prev.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0)
+        } : data.usage);
+      }
+
+      // Synthesis check is handled by useEffect watching cardLoaded state
+
+    } catch (e) {
+      setError(`Error loading card ${cardIndex + 1}: ${e.message}`);
+    }
+
+    setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
+  };
+
+  // On-demand: Load Summary + Path to Balance (after all cards loaded)
+  const loadSynthesis = async (drawsToUse, questionToUse, systemPromptToUse) => {
+    if (synthesisLoaded || synthesisLoading) return;
+
+    setSynthesisLoading(true);
+
+    try {
+      // Get current card data from parsedReading
+      const currentCards = parsedReading?.cards || [];
+
+      const res = await fetch('/api/synthesis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: questionToUse,
+          draws: drawsToUse,
+          cards: currentCards,
+          letter: parsedReading?.letter,
+          spreadType,
+          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          system: systemPromptToUse || systemPromptCache,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Update parsedReading with summary and path
+      setParsedReading(prev => ({
+        ...prev,
+        summary: data.summary,
+        path: data.path
+      }));
+
+      setSynthesisLoaded(true);
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
+          cache_creation_input_tokens: (prev.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0),
+          cache_read_input_tokens: (prev.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0)
+        } : data.usage);
+      }
+
+    } catch (e) {
+      setError(`Error loading synthesis: ${e.message}`);
+    }
+
+    setSynthesisLoading(false);
   };
 
   const performReading = async () => {
@@ -2955,6 +3126,16 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {parsedReading.cards.map((card) => {
               // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
               const cardSectionKey = `card-${card.index}`;
+              const isCardLoading = cardLoading[card.index];
+              const isCardLoaded = cardLoaded[card.index] || !card._notLoaded;
+
+              // On-demand loading trigger
+              const triggerCardLoad = () => {
+                if (!isCardLoaded && !isCardLoading && parsedReading._onDemand) {
+                  loadCardDepth(card.index, draws, question, parsedReading.letter, systemPromptCache);
+                }
+              };
+
               return (
                 <div key={`card-group-${card.index}`} id={`content-${card.index}`}>
                   <DepthCard
@@ -2979,11 +3160,33 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
                     question={question}
+                    // On-demand loading props
+                    isLoading={isCardLoading}
+                    isNotLoaded={card._notLoaded && !isCardLoaded}
+                    onRequestLoad={triggerCardLoad}
                   />
                 </div>
               );
             })}
 
+            {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
+            {parsedReading._onDemand && synthesisLoading && (
+              <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
+                <div className="flex items-center gap-3 text-zinc-400">
+                  <span className="animate-pulse text-amber-500">●</span>
+                  <span className="text-sm italic">Synthesizing reading overview and path...</span>
+                </div>
+              </div>
+            )}
+
+            {/* Synthesis Not Yet Available - shows when cards still loading */}
+            {parsedReading._onDemand && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
+              <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
+                <div className="flex items-center gap-3 text-zinc-500">
+                  <span className="text-sm">Overview and Path will appear after all cards are loaded</span>
+                </div>
+              </div>
+            )}
 
             {/* Path to Balance - ALWAYS shown (holistic synthesis), collapsed by default */}
             {/* Uses parsedReading.path with depth levels (surface, wade, swim, deep) */}

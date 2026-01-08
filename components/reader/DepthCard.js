@@ -74,7 +74,11 @@ const DepthCard = ({
   threadLoading = false,
   collapsedThreads = {},
   setCollapsedThreads,
-  question = ''
+  question = '',
+  // On-demand loading props
+  isLoading = false,
+  isNotLoaded = false,
+  onRequestLoad
 }) => {
   const [depth, setDepth] = useState(DEPTH.COLLAPSED);
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
@@ -145,6 +149,10 @@ const DepthCard = ({
   const handleCardClick = () => {
     if (depth === DEPTH.COLLAPSED) {
       setDepth(DEPTH.SURFACE);
+      // Trigger on-demand load if content not yet fetched
+      if (isNotLoaded && onRequestLoad) {
+        onRequestLoad();
+      }
     }
   };
 
@@ -153,6 +161,10 @@ const DepthCard = ({
     e.stopPropagation();
     if (depth === DEPTH.COLLAPSED) {
       setDepth(DEPTH.SURFACE);
+      // Trigger on-demand load if content not yet fetched
+      if (isNotLoaded && onRequestLoad) {
+        onRequestLoad();
+      }
     } else {
       setDepth(DEPTH.COLLAPSED);
     }
@@ -322,8 +334,20 @@ const DepthCard = ({
       {/* Main Content */}
       {depth !== DEPTH.COLLAPSED && (
         <div className="leading-relaxed text-sm mb-4 whitespace-pre-wrap text-zinc-300 animate-fadeIn">
-          {content ? (
+          {isLoading ? (
+            <div className="flex items-center gap-2 text-zinc-500">
+              <span className="animate-pulse">●</span>
+              <span className="italic">Generating depths...</span>
+            </div>
+          ) : content ? (
             renderWithHotlinks(content, setSelectedInfo)
+          ) : isNotLoaded ? (
+            <button
+              onClick={() => onRequestLoad?.()}
+              className="text-amber-400 hover:text-amber-300 underline decoration-dotted"
+            >
+              Load card content →
+            </button>
           ) : (
             <span className="text-zinc-500 italic">Content loading...</span>
           )}
