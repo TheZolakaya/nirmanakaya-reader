@@ -537,8 +537,65 @@ export default function NirmanakaReader() {
 
     setThreadLoading(prev => ({ ...prev, [threadKey]: true }));
 
-    // Get Overview context (always include for grounding)
-    const overviewContext = parsedReading?.summary || '';
+    // Build comprehensive reading context for follow-up grounding
+    const buildReadingContext = () => {
+      const parts = [];
+
+      // Overview/Summary
+      if (parsedReading?.summary) {
+        parts.push(`OVERVIEW:\n${parsedReading.summary}`);
+      }
+
+      // Letter (use current depth or best available)
+      if (parsedReading?.letter) {
+        const letter = parsedReading.letter;
+        const letterContent = letter[letterDepth] || letter.swim || letter.wade || letter.surface;
+        if (letterContent) {
+          parts.push(`LETTER:\n${letterContent}`);
+        }
+      }
+
+      // Cards with their interpretations and Words to the Whys
+      if (parsedReading?.cards) {
+        parsedReading.cards.forEach((card, i) => {
+          const draw = draws[i];
+          const trans = getComponent(draw.transient);
+          const stat = STATUSES[draw.status];
+          const cardContent = card.wade || card.swim || card.surface;
+          if (cardContent) {
+            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
+            // Add Words to the Whys for this card
+            if (card.why) {
+              const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+              if (whyContent) {
+                cardSection += `\n\nWHY THIS CARD (Teleological): ${whyContent}`;
+              }
+            }
+            // Add Rebalancer if present
+            if (card.rebalancer) {
+              const rebalContent = card.rebalancer.wade || card.rebalancer.swim || card.rebalancer.surface;
+              if (rebalContent) {
+                cardSection += `\n\nREBALANCER: ${rebalContent}`;
+              }
+            }
+            parts.push(cardSection);
+          }
+        });
+      }
+
+      // Path to Balance (global synthesis)
+      if (parsedReading?.path) {
+        const path = parsedReading.path;
+        const pathContent = path[pathDepth] || path.swim || path.wade || path.surface;
+        if (pathContent) {
+          parts.push(`PATH TO BALANCE (Global Synthesis):\n${pathContent}`);
+        }
+      }
+
+      return parts.join('\n\n---\n\n');
+    };
+
+    const fullReadingContext = buildReadingContext();
     const safeQuestion = sanitizeForAPI(question);
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
 
@@ -587,8 +644,8 @@ Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-READING OVERVIEW:
-${overviewContext}
+FULL READING CONTEXT:
+${fullReadingContext}
 
 SECTION BEING DISCUSSED: ${parentLabel}
 ${parentContent}
@@ -631,8 +688,8 @@ Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-READING OVERVIEW:
-${overviewContext}
+FULL READING CONTEXT:
+${fullReadingContext}
 
 SECTION THEY'RE FORGING FROM: ${parentLabel}
 ${parentContent}
@@ -713,8 +770,40 @@ Interpret this new card as the architecture's response to their declared directi
     const parentStatusPrefix = parentTrans ? (parentStat.prefix || 'Balanced') : '';
     const parentCardName = parentTrans ? `${parentStatusPrefix} ${parentTrans.name}` : 'Previous Response';
 
-    // Get Overview context
-    const overviewContext = parsedReading?.summary || '';
+    // Build comprehensive reading context for follow-up grounding
+    const buildReadingContext = () => {
+      const parts = [];
+      if (parsedReading?.summary) parts.push(`OVERVIEW:\n${parsedReading.summary}`);
+      if (parsedReading?.letter) {
+        const letter = parsedReading.letter;
+        const letterContent = letter[letterDepth] || letter.swim || letter.wade || letter.surface;
+        if (letterContent) parts.push(`LETTER:\n${letterContent}`);
+      }
+      if (parsedReading?.cards) {
+        parsedReading.cards.forEach((card, i) => {
+          const draw = draws[i];
+          const trans = getComponent(draw.transient);
+          const stat = STATUSES[draw.status];
+          const cardContent = card.wade || card.swim || card.surface;
+          if (cardContent) {
+            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
+            if (card.why) {
+              const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+              if (whyContent) cardSection += `\n\nWHY THIS CARD: ${whyContent}`;
+            }
+            parts.push(cardSection);
+          }
+        });
+      }
+      if (parsedReading?.path) {
+        const path = parsedReading.path;
+        const pathContent = path[pathDepth] || path.swim || path.wade || path.surface;
+        if (pathContent) parts.push(`PATH TO BALANCE:\n${pathContent}`);
+      }
+      return parts.join('\n\n---\n\n');
+    };
+
+    const fullReadingContext = buildReadingContext();
     const safeQuestion = sanitizeForAPI(question);
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
 
@@ -744,8 +833,8 @@ Your job:
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-READING OVERVIEW:
-${overviewContext}
+FULL READING CONTEXT:
+${fullReadingContext}
 
 CARD BEING DISCUSSED: ${parentCardName}
 ${parentThreadItem.interpretation}
@@ -776,8 +865,8 @@ Your job:
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-READING OVERVIEW:
-${overviewContext}
+FULL READING CONTEXT:
+${fullReadingContext}
 
 CARD THEY'RE FORGING FROM: ${parentCardName}
 ${parentThreadItem.interpretation}
@@ -1386,8 +1475,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       }
     }
 
-    // Letter (new structure with depths)
-    const letterContent = parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : null);
+    // Letter (new structure with depths, now includes deep)
+    const letterContent = parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : null);
     if (letterContent) {
       md += `---\n\n## Letter\n\n${letterContent}\n\n`;
     }
@@ -1482,7 +1571,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       if (rebalancer) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
-        const rebalancerContent = rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
+        const rebalancerContent = rebalancer.deep || rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
         rebalancerHtml = `
           <div class="rebalancer">
             <span class="rebalancer-badge">Rebalancer</span>
@@ -1495,6 +1584,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       let whyHtml = '';
       if (card.mirror || card.why) {
         const mirrorContent = card.mirror ? `<div class="mirror-content">${escapeHtml(card.mirror)}</div>` : '';
+        // WHY already has deep as first fallback
         const whyContent = card.why?.deep || card.why?.swim || card.why?.wade || card.why?.surface;
         const wordsContent = whyContent ? `<div class="why-content"><span class="why-label">Words to the Why</span>${escapeHtml(whyContent)}</div>` : '';
         if (mirrorContent || wordsContent) {
@@ -1508,8 +1598,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       }
 
       const threadsHtml = renderSectionThreads(card.index);
-      // New structure: use swim (richest) content
-      const cardContent = card.swim || card.wade || card.surface || card.content || '';
+      // Export uses deep (richest) content with fallback chain
+      const cardContent = card.deep || card.swim || card.wade || card.surface || card.content || '';
 
       signaturesHtml += `
         <div class="signature">
@@ -1615,20 +1705,20 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     ${signaturesHtml}
   </div>
 
-  ${(parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary) ? `
+  ${(parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary) ? `
   <div class="section">
     <div class="path-box">
       <span class="path-badge">◈ Path to Balance</span>
-      <div class="path-content">${escapeHtml(parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary)}</div>
+      <div class="path-content">${escapeHtml(parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary)}</div>
       ${renderSectionThreads('path')}
     </div>
   </div>` : ''}
 
-  ${(parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' && parsedReading.letter)) ? `
+  ${(parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' && parsedReading.letter)) ? `
   <div class="section">
     <div class="letter-box">
       <span class="letter-badge">Letter</span>
-      <div class="letter">${escapeHtml(parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : ''))}</div>
+      <div class="letter">${escapeHtml(parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : ''))}</div>
       ${renderSectionThreads('letter')}
     </div>
   </div>` : ''}
@@ -2481,8 +2571,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           const isLegacy = typeof letter === 'string';
           const letterContent = isLegacy
             ? letter
-            : letter[letterDepth] || letter.swim || letter.wade || letter.surface || '';
-          const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim);
+            : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
+          const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim || letter.deep);
           const letterSectionKey = 'letter';
           const sectionExpansions = expansions[letterSectionKey] || {};
           const isExpanding = expanding?.section === letterSectionKey;
@@ -2503,12 +2593,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   <span className="text-violet-400">✉</span>
                   <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
                 </div>
-                {/* Depth navigation buttons */}
+                {/* Depth navigation buttons (includes DEEP) */}
                 {hasDepthLevels && (
                   <div className="flex gap-1">
-                    {['surface', 'wade', 'swim'].map((level) => {
+                    {['surface', 'wade', 'swim', 'deep'].map((level) => {
                       const hasContent = letter[level];
-                      if (!hasContent) return null;
+                      if (!hasContent && level !== 'surface') return null;
                       const isActive = letterDepth === level;
                       return (
                         <button
@@ -2655,9 +2745,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {/* Now uses parsedReading.path with depth levels (surface, wade, swim) */}
             {(parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.rebalancerSummary) && (() => {
               const path = parsedReading.path || {};
-              const hasDepthLevels = path.surface || path.wade || path.swim;
+              const hasDepthLevels = path.surface || path.wade || path.swim || path.deep;
               const pathContent = hasDepthLevels
-                ? (path[pathDepth] || path.swim || path.wade || path.surface)
+                ? (path[pathDepth] || path.deep || path.swim || path.wade || path.surface)
                 : parsedReading.rebalancerSummary;
               const pathExpansions = expansions['path'] || {};
               const isPathExpanding = expanding?.section === 'path';
@@ -2679,12 +2769,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         <span className="text-lg">◈</span>
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
-                      {/* Depth navigation buttons */}
+                      {/* Depth navigation buttons (includes DEEP) */}
                       {hasDepthLevels && !isPathCollapsed && (
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                          {['surface', 'wade', 'swim'].map((level) => {
+                          {['surface', 'wade', 'swim', 'deep'].map((level) => {
                             const hasContent = path[level];
-                            if (!hasContent) return null;
+                            if (!hasContent && level !== 'surface') return null;
                             const isActive = pathDepth === level;
                             return (
                               <button
