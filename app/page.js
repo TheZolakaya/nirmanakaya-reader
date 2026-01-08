@@ -1475,6 +1475,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       }
     }
 
+    // Full Architecture (global reading architecture)
+    if (parsedReading.fullArchitecture) {
+      md += `---\n\n## ⚙ Full Architecture\n\n${parsedReading.fullArchitecture}\n\n`;
+    }
+
     // Letter (new structure with depths, now includes deep)
     const letterContent = parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : null);
     if (letterContent) {
@@ -1711,6 +1716,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       <span class="path-badge">◈ Path to Balance</span>
       <div class="path-content">${escapeHtml(parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary)}</div>
       ${renderSectionThreads('path')}
+    </div>
+  </div>` : ''}
+
+  ${parsedReading.fullArchitecture ? `
+  <div class="section">
+    <div style="background: linear-gradient(to bottom right, rgba(76, 29, 149, 0.2), rgba(139, 92, 246, 0.1)); border: 2px solid rgba(139, 92, 246, 0.4); border-radius: 0.75rem; padding: 1.25rem;">
+      <span style="display: inline-block; color: #a78bfa; font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">⚙ Full Architecture</span>
+      <div style="color: #d4d4d8; font-size: 0.875rem; font-family: monospace; white-space: pre-wrap; line-height: 1.6;">${escapeHtml(parsedReading.fullArchitecture)}</div>
     </div>
   </div>` : ''}
 
@@ -2985,6 +2998,32 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 </div>
               );
             })()}
+
+            {/* FULL ARCHITECTURE - Global reading architecture, collapsed by default */}
+            {parsedReading.fullArchitecture && (
+              <div className="mb-6 rounded-xl border-2 border-violet-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(76, 29, 149, 0.2), rgba(139, 92, 246, 0.1))'}}>
+                <div className="p-5">
+                  <div
+                    className={`flex items-center justify-between cursor-pointer ${collapsedSections['full-architecture'] === false ? 'mb-4' : ''}`}
+                    onClick={() => toggleCollapse('full-architecture', true)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className={`text-xs transition-transform duration-200 ${collapsedSections['full-architecture'] !== false ? 'text-red-500' : 'text-violet-500'}`} style={{ transform: collapsedSections['full-architecture'] !== false ? 'rotate(-90deg)' : 'rotate(0deg)' }}>
+                        ▼
+                      </span>
+                      <span className="text-lg">⚙</span>
+                      <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Full Architecture</span>
+                    </div>
+                  </div>
+
+                  {collapsedSections['full-architecture'] === false && (
+                    <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm font-mono">
+                      {renderWithHotlinks(parsedReading.fullArchitecture, setSelectedInfo)}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Words to the Whys is now per-card inside THE WHY group in DepthCard */}
 
