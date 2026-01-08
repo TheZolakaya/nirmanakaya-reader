@@ -1,9 +1,10 @@
 // === UNIVERSAL INFO MODAL COMPONENT ===
-// Modal popup for displaying card, channel, house, status, and role information
+// Modal popup for displaying card, channel, house, status, role, AND glossary concept information
 
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { CHANNELS, HOUSES, ROLES, STATUS_INFO, HOUSE_COLORS, STATUS_COLORS, CHANNEL_COLORS } from '../../lib/constants.js';
 import { getAssociatedCards } from '../../lib/corrections.js';
+import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import ClickableTermContext from './ClickableTermContext.js';
 
 const InfoModal = ({ info, onClose, setSelectedInfo }) => {
@@ -64,7 +65,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
-            {component.extended || component.description}
+            {renderWithHotlinks(component.extended || component.description, setSelectedInfo)}
           </p>
 
           {associatedArchetype && (
@@ -138,7 +139,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{channel.extended}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(channel.extended, setSelectedInfo)}</p>
         </>
       );
     }
@@ -163,7 +164,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{status.extended}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(status.extended, setSelectedInfo)}</p>
         </>
       );
     }
@@ -191,7 +192,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{house.extended}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(house.extended, setSelectedInfo)}</p>
 
           <div className="border-t border-zinc-700/50 pt-4">
             <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">Members</p>
@@ -229,7 +230,80 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{role.extended}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(role.extended, setSelectedInfo)}</p>
+        </>
+      );
+    }
+
+    // GLOSSARY CONCEPTS - framework terms, operations, relationships, etc.
+    if (type === 'glossary') {
+      const glossary = data;
+      if (!glossary) return null;
+
+      // Determine badge color based on glossary type
+      const getTypeColor = (gType) => {
+        switch(gType) {
+          case 'archetype': return 'bg-amber-500/20 text-amber-300';
+          case 'bound': return 'bg-blue-500/20 text-blue-300';
+          case 'agent': return 'bg-violet-500/20 text-violet-300';
+          case 'status': return 'bg-emerald-500/20 text-emerald-300';
+          case 'house': return 'bg-rose-500/20 text-rose-300';
+          case 'channel': return 'bg-sky-500/20 text-sky-300';
+          case 'ring': return 'bg-indigo-500/20 text-indigo-300';
+          case 'concept': return 'bg-violet-500/20 text-violet-300';
+          case 'operation': return 'bg-orange-500/20 text-orange-300';
+          case 'relationship': return 'bg-pink-500/20 text-pink-300';
+          case 'phase': return 'bg-teal-500/20 text-teal-300';
+          case 'function': return 'bg-lime-500/20 text-lime-300';
+          case 'pillar': return 'bg-yellow-500/20 text-yellow-300';
+          case 'role': return 'bg-fuchsia-500/20 text-fuchsia-300';
+          default: return 'bg-zinc-500/20 text-zinc-300';
+        }
+      };
+
+      const typeLabel = glossary.type ? glossary.type.charAt(0).toUpperCase() + glossary.type.slice(1) : 'Concept';
+
+      return (
+        <>
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-zinc-100">{glossary.name}</h3>
+              {glossary.traditional && (
+                <p className="text-sm text-zinc-500">{glossary.traditional}</p>
+              )}
+            </div>
+            <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-xl">×</button>
+          </div>
+
+          <div className="mb-4">
+            <span className={`text-xs px-2 py-1 rounded-full ${getTypeColor(glossary.type)}`}>
+              {typeLabel}
+            </span>
+            {glossary.element && (
+              <span className="text-xs text-zinc-500 ml-2">{glossary.element}</span>
+            )}
+            {glossary.position !== undefined && (
+              <span className="text-xs text-zinc-500 ml-2">Position {glossary.position}</span>
+            )}
+          </div>
+
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
+            {renderWithHotlinks(glossary.short || glossary.description || '', setSelectedInfo)}
+          </p>
+
+          {glossary.verb && (
+            <div className="border-t border-zinc-700/50 pt-4 mb-4">
+              <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Core Verb</p>
+              <p className="text-sm text-violet-300 font-medium">{glossary.verb}</p>
+            </div>
+          )}
+
+          {glossary.command && (
+            <div className="border-t border-zinc-700/50 pt-4">
+              <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Command</p>
+              <p className="text-sm text-amber-300 italic">"{glossary.command}"</p>
+            </div>
+          )}
         </>
       );
     }
