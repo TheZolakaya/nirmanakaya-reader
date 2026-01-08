@@ -109,13 +109,14 @@ The Letter is a warm, personal address to the querent. It:
 - Sets the tone for what they'll discover
 - Does NOT interpret the cards yet (that comes later)
 
-Respond with these markers, each on its own line:
-[LETTER:SURFACE] 1-2 sentences. Heart of the welcome.
-[LETTER:WADE] 3-4 sentences. Warm context.
-[LETTER:SWIM] Full paragraph. Rich personal address.
-[LETTER:DEEP] No limits. Complete welcome transmission.
+Respond with these markers IN THIS ORDER (DEEP first, then condense down):
 
-CRITICAL: Generate DEEP first as source of truth, then condense DOWN. Each shallower level preserves the SAME warmth — just tighter.`;
+[LETTER:DEEP] No limits. Complete welcome transmission. WRITE THIS FIRST.
+[LETTER:SWIM] Condense DEEP to full paragraph.
+[LETTER:WADE] Condense SWIM to 3-4 sentences.
+[LETTER:SURFACE] Distill to 1-2 sentences essence.
+
+CRITICAL: Generate in the order listed — DEEP first, then condense DOWN to SURFACE.`;
 }
 
 // Parse the letter response into structured data

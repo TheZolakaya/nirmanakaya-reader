@@ -120,20 +120,20 @@ Use the DEEP-FIRST model for both:
 3. Condense SWIM → WADE (same insight, more essential)
 4. Distill WADE → SURFACE (the essence)
 
-Respond with these markers, each on its own line:
+Respond with these markers IN THIS ORDER (DEEP first, then condense down):
 
-[SUMMARY:SURFACE] 1-2 sentences. Core synthesis.
-[SUMMARY:WADE] 3-4 sentences. Pattern overview.
-[SUMMARY:SWIM] Full paragraph. Rich analysis.
-[SUMMARY:DEEP] No limits. Complete overview.
+[SUMMARY:DEEP] No limits. Complete overview. WRITE THIS FIRST.
+[SUMMARY:SWIM] Condense DEEP to full paragraph.
+[SUMMARY:WADE] Condense SWIM to 3-4 sentences.
+[SUMMARY:SURFACE] Distill to 1-2 sentences essence.
 
-[PATH:SURFACE] 1-2 sentences. The way forward.
-[PATH:WADE] 3-4 sentences. Balance roadmap.
-[PATH:SWIM] Full paragraph. Rich guidance.
-[PATH:DEEP] No limits. Complete path transmission.
+[PATH:DEEP] No limits. Complete path transmission. WRITE THIS FIRST.
+[PATH:SWIM] Condense DEEP to full paragraph.
+[PATH:WADE] Condense SWIM to 3-4 sentences.
+[PATH:SURFACE] Distill to 1-2 sentences essence.
 [PATH:ARCHITECTURE] Structural analysis of the path.
 
-CRITICAL: Generate DEEP first for each section, then condense DOWN. Each shallower level preserves the SAME meaning — just tighter.`;
+CRITICAL: Generate in the order listed above — DEEP first, then condense DOWN to SURFACE.`;
 }
 
 // Parse the synthesis response into structured data
