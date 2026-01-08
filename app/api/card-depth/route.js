@@ -167,10 +167,13 @@ function parseCardDepthResponse(text, n, isImbalanced) {
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
-    // Clean up: remove trailing markdown headers and horizontal rules
+    // Clean up: remove markdown artifacts throughout content
     let content = match[1].trim();
-    content = content.replace(/\n---+\s*$/g, '');
-    content = content.replace(/\n#{1,3}\s+[A-Z].*$/gi, '');
+    content = content.replace(/^---+\s*\n?/gm, ''); // Remove horizontal rules at start of lines
+    content = content.replace(/\n---+\s*$/g, ''); // Remove trailing ---
+    content = content.replace(/^#{1,3}\s*$/gm, ''); // Remove empty markdown headers (just ## or ###)
+    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, ''); // Remove markdown headers with text
+    content = content.replace(/\n{3,}/g, '\n\n'); // Collapse multiple newlines
     return content.trim();
   };
 
