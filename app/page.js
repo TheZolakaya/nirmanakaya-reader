@@ -995,8 +995,8 @@ Interpret this new card as the architecture's response to their declared directi
     } else if (sectionKey === 'letter') {
       sectionContent = parsedReading.letter;
       sectionContext = 'the closing letter';
-    } else if (sectionKey.startsWith('card:')) {
-      const cardIndex = parseInt(sectionKey.split(':')[1]);
+    } else if (sectionKey.startsWith('card-') || sectionKey.startsWith('card:')) {
+      const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const draw = draws[cardIndex];
       const trans = getComponent(draw.transient);

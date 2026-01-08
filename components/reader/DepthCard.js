@@ -279,15 +279,35 @@ const DepthCard = ({
             </ClickableTerm>
           </span>
 
-          {/* Depth indicator or tap hint */}
+          {/* Depth navigation buttons (upper right) or tap hint */}
           {depth === DEPTH.COLLAPSED ? (
             <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
               tap to explore
             </span>
-          ) : depthLabel[depth] && (
-            <span className="ml-auto text-[0.6rem] text-zinc-500 uppercase tracking-wider">
-              {depthLabel[depth]}
-            </span>
+          ) : (
+            <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
+              {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                const hasContent = level === 'surface' ? (cardData.surface || cardData.wade || cardData.swim || cardData.deep)
+                  : level === 'wade' ? (cardData.wade || cardData.swim || cardData.deep)
+                  : level === 'swim' ? (cardData.swim || cardData.deep)
+                  : cardData.deep;
+                if (!hasContent && level !== 'surface') return null;
+                const isActive = depth === level;
+                return (
+                  <button
+                    key={level}
+                    onClick={(e) => { e.stopPropagation(); setDepth(level); }}
+                    className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                      isActive
+                        ? 'bg-amber-500 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                    }`}
+                  >
+                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                  </button>
+                );
+              })}
+            </div>
           )}
         </div>
 
@@ -352,43 +372,16 @@ const DepthCard = ({
         )
       ))}
 
-      {/* Depth navigation - horizontal buttons */}
-      {depth !== DEPTH.COLLAPSED && (
-        <div className="flex gap-1 mb-4">
-          {['surface', 'wade', 'swim', 'deep'].map((level) => {
-            const hasContent = level === 'surface' ? (cardData.surface || cardData.wade || cardData.swim || cardData.deep)
-              : level === 'wade' ? (cardData.wade || cardData.swim || cardData.deep)
-              : level === 'swim' ? (cardData.swim || cardData.deep)
-              : cardData.deep;
-            if (!hasContent && level !== 'surface') return null;
-            const isActive = depth === level;
-            return (
-              <button
-                key={level}
-                onClick={(e) => { e.stopPropagation(); setDepth(level); }}
-                className={`px-2.5 py-1 text-xs rounded transition-colors ${
-                  isActive
-                    ? 'bg-amber-500 text-white'
-                    : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                }`}
-              >
-                {level.charAt(0).toUpperCase() + level.slice(1)}
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Architecture Box */}
-      {showArchitecture && cardData.architecture && (
+      {/* Architecture Box - always visible at Wade/Swim/Deep */}
+      {showArchitecture && (
         <ArchitectureBox
-          content={cardData.architecture}
+          content={cardData.architecture || 'Architecture details loading...'}
           className="mb-4"
         />
       )}
 
-      {/* Rebalancer Section (for imbalanced cards) */}
-      {depth !== DEPTH.COLLAPSED && cardData.rebalancer && (
+      {/* Rebalancer Section (always visible for imbalanced cards) */}
+      {depth !== DEPTH.COLLAPSED && !isBalanced && (
         <div className="mt-4 ml-4 rounded-lg border-2 border-emerald-500/30 bg-emerald-950/20 p-4">
           {/* Rebalancer Header */}
           <div
@@ -408,15 +401,37 @@ const DepthCard = ({
             <span className="text-sm font-medium text-emerald-400">
               How to Rebalance
             </span>
-            {/* Depth indicator or tap hint */}
+            {/* Depth navigation buttons (upper right) or tap hint */}
             {rebalancerDepth === DEPTH.COLLAPSED ? (
               <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
                 tap to explore
               </span>
-            ) : depthLabel[rebalancerDepth] && (
-              <span className="ml-auto text-[0.6rem] text-zinc-500 uppercase tracking-wider">
-                {depthLabel[rebalancerDepth]}
-              </span>
+            ) : (
+              <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
+                {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                  const r = cardData.rebalancer || {};
+                  const hasContent = level === 'surface' ? (r.surface || r.wade || r.swim || r.deep)
+                    : level === 'wade' ? (r.wade || r.swim || r.deep)
+                    : level === 'swim' ? (r.swim || r.deep)
+                    : r.deep;
+                  // Always show Surface button, others only if content exists
+                  if (!hasContent && level !== 'surface') return null;
+                  const isActive = rebalancerDepth === level;
+                  return (
+                    <button
+                      key={level}
+                      onClick={(e) => { e.stopPropagation(); setRebalancerDepth(level); }}
+                      className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                        isActive
+                          ? 'bg-emerald-500 text-white'
+                          : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                      }`}
+                    >
+                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                    </button>
+                  );
+                })}
+              </div>
             )}
           </div>
 
@@ -431,34 +446,8 @@ const DepthCard = ({
                 )}
               </div>
 
-              {/* Rebalancer depth navigation - horizontal buttons */}
-              <div className="flex gap-1 mb-4">
-                {['surface', 'wade', 'swim', 'deep'].map((level) => {
-                  const r = cardData.rebalancer;
-                  const hasContent = level === 'surface' ? (r.surface || r.wade || r.swim || r.deep)
-                    : level === 'wade' ? (r.wade || r.swim || r.deep)
-                    : level === 'swim' ? (r.swim || r.deep)
-                    : r.deep;
-                  if (!hasContent && level !== 'surface') return null;
-                  const isActive = rebalancerDepth === level;
-                  return (
-                    <button
-                      key={level}
-                      onClick={(e) => { e.stopPropagation(); setRebalancerDepth(level); }}
-                      className={`px-2.5 py-1 text-xs rounded transition-colors ${
-                        isActive
-                          ? 'bg-emerald-500 text-white'
-                          : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                      }`}
-                    >
-                      {level.charAt(0).toUpperCase() + level.slice(1)}
-                    </button>
-                  );
-                })}
-              </div>
-
               {/* Rebalancer Architecture */}
-              {(rebalancerDepth === DEPTH.WADE || rebalancerDepth === DEPTH.SWIM || rebalancerDepth === DEPTH.DEEP) && cardData.rebalancer.architecture && (
+              {(rebalancerDepth === DEPTH.WADE || rebalancerDepth === DEPTH.SWIM || rebalancerDepth === DEPTH.DEEP) && cardData.rebalancer?.architecture && (
                 <ArchitectureBox
                   content={cardData.rebalancer.architecture}
                   isRebalancer={true}
@@ -469,8 +458,8 @@ const DepthCard = ({
         </div>
       )}
 
-      {/* THE WHY Group - collapsed by default, contains Mirror + Words to the Why */}
-      {depth !== DEPTH.COLLAPSED && (cardData.mirror || cardData.why) && (
+      {/* THE WHY Group - always visible when card expanded, collapsed by default */}
+      {depth !== DEPTH.COLLAPSED && (
         <div className="mt-4 rounded-lg border-2 border-cyan-500/30 bg-cyan-950/20 p-4">
           {/* THE WHY Header - clickable to expand */}
           <div
@@ -500,15 +489,18 @@ const DepthCard = ({
           {!isWhyCollapsed && (
             <>
               {/* THE MIRROR - single poetic reflection, no depth navigation */}
-              {cardData.mirror && (
-                <div className="mb-4">
+              <div className="mb-4">
+                <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">The Mirror</div>
+                {cardData.mirror ? (
                   <MirrorSection
                     content={cardData.mirror}
                     isBalanced={isBalanced}
                     className="border-0 bg-transparent p-0"
                   />
-                </div>
-              )}
+                ) : (
+                  <span className="text-cyan-500/50 italic text-sm">Content loading...</span>
+                )}
+              </div>
 
               {/* WORDS TO THE WHY - 4 depth levels */}
               {cardData.why && (cardData.why.surface || cardData.why.wade || cardData.why.swim || cardData.why.deep) && (
