@@ -1,6 +1,6 @@
 // app/api/synthesis/route.js
 // On-demand generation for Summary + Path to Balance
-// Called AFTER all cards are loaded (needs card content for synthesis)
+// Supports WADE baseline generation OR progressive deepening
 // Uses Anthropic prompt caching for efficiency
 
 export async function POST(request) {
@@ -12,13 +12,22 @@ export async function POST(request) {
     spreadType,
     spreadKey,
     system,
-    model
+    model,
+    // Progressive deepening params
+    targetDepth,     // 'wade' | 'swim' | 'deep' (default: wade)
+    previousContent  // { summary: {...}, path: {...} } - content to build on
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
+  const depth = targetDepth || 'wade';
 
-  // Build synthesis user message with card context
-  const userMessage = buildSynthesisMessage(question, draws, cards, letter, spreadType, spreadKey);
+  // Determine if this is baseline generation or progressive deepening
+  const isDeepening = previousContent && Object.keys(previousContent).length > 0;
+
+  // Build synthesis user message
+  const userMessage = isDeepening
+    ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent)
+    : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -28,6 +37,9 @@ export async function POST(request) {
       cache_control: { type: "ephemeral" }
     }
   ];
+
+  // Adjust max tokens based on what we're generating
+  const maxTokens = isDeepening ? 1500 : 1500;
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -40,7 +52,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: effectiveModel,
-        max_tokens: 2500, // Summary + Path needs ~2000 tokens
+        max_tokens: maxTokens,
         system: systemWithCache,
         messages: [{ role: 'user', content: userMessage }]
       })
@@ -55,7 +67,9 @@ export async function POST(request) {
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
 
     // Parse the synthesis sections from response
-    const parsed = parseSynthesisResponse(text);
+    const parsed = isDeepening
+      ? parseDeepenResponse(text, depth, previousContent)
+      : parseBaselineResponse(text);
 
     return Response.json({
       summary: parsed.summary,
@@ -72,8 +86,8 @@ export async function POST(request) {
   }
 }
 
-// Build the user message for synthesis generation
-function buildSynthesisMessage(question, draws, cards, letter, spreadType, spreadKey) {
+// Build baseline message - generates WADE for summary + path (initial load)
+function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey) {
   const ARCHETYPES = getArchetypes();
   const BOUNDS = getBounds();
   const AGENTS = getAgents();
@@ -91,12 +105,12 @@ function buildSynthesisMessage(question, draws, cards, letter, spreadType, sprea
     const isImbalanced = draw.status !== 1;
 
     return `CARD ${i + 1}: ${cardName}
-Reading: ${card.swim || card.wade || card.surface || '(no content)'}
-${isImbalanced && card.rebalancer ? `Rebalancer: ${card.rebalancer.swim || card.rebalancer.wade || card.rebalancer.surface || ''}` : ''}
-Why: ${card.why?.swim || card.why?.wade || card.why?.surface || ''}`;
+Reading: ${card.wade || card.surface || '(loading)'}
+${isImbalanced && card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : ''}
+Why: ${card.why?.wade || card.why?.surface || ''}`;
   }).join('\n\n');
 
-  const letterContext = letter?.swim || letter?.wade || letter?.surface || '';
+  const letterContext = typeof letter === 'string' ? letter : (letter?.wade || letter?.swim || letter?.deep || '');
 
   return `QUESTION: "${question}"
 
@@ -108,81 +122,141 @@ ${letterContext}
 ALL CARDS (for synthesis):
 ${cardSummaries}
 
-Now generate the SUMMARY (Overview) and PATH TO BALANCE sections.
+Generate WADE level content for SUMMARY and PATH TO BALANCE.
+
+WADE means: 3-4 substantive sentences per section. Real insight, not fluff.
 
 These are HOLISTIC sections that synthesize ALL the cards together:
 - SUMMARY: What do these cards, taken together, reveal about the question?
-- PATH TO BALANCE: For any imbalanced cards, how can they find balance? What's the aggregate path forward?
+- PATH TO BALANCE: For any imbalanced cards, what's the aggregate path forward?
 
-Use the DEEP-FIRST model for both:
-1. Write DEEP first (full synthesis, complete picture)
-2. Condense DEEP → SWIM (same insight, tightened)
-3. Condense SWIM → WADE (same insight, more essential)
-4. Distill WADE → SURFACE (the essence)
-
-Respond with these markers IN THIS ORDER:
-
-[SUMMARY:DEEP]
-(Write the COMPLETE overview with no word limits - full transmission)
-
-[SUMMARY:SWIM]
-(Now CONDENSE the above to ONE paragraph - keep same meaning, fewer words)
+Respond with these markers:
 
 [SUMMARY:WADE]
-(CONDENSE further to exactly 3-4 sentences)
-
-[SUMMARY:SURFACE]
-(DISTILL to exactly 1-2 sentences - the absolute essence)
-
-[PATH:DEEP]
-(Write the COMPLETE path with no word limits - full transmission)
-
-[PATH:SWIM]
-(CONDENSE to ONE paragraph)
+(3-4 sentences: The unified insight from all these cards together)
 
 [PATH:WADE]
-(CONDENSE to exactly 3-4 sentences)
-
-[PATH:SURFACE]
-(DISTILL to exactly 1-2 sentences)
+(3-4 sentences: The aggregate correction path)
 
 [PATH:ARCHITECTURE]
-(Structural analysis)
+(Structural analysis of how the corrections work together)
 
-CRITICAL: Each level MUST be shorter than the one before it. SURFACE must be dramatically shorter than DEEP. Do NOT copy content between levels.`;
+CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear synthesis.`;
 }
 
-// Parse the synthesis response into structured data
-function parseSynthesisResponse(text) {
+// Build deepening message - generates SWIM or DEEP that builds on previous
+function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent) {
+  const ARCHETYPES = getArchetypes();
+  const BOUNDS = getBounds();
+  const AGENTS = getAgents();
+  const STATUSES = getStatuses();
+
+  const cardNames = cards.map((card, i) => {
+    const draw = draws[i];
+    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
+                  AGENTS[draw.transient - 61];
+    const stat = STATUSES[draw.status];
+    return `${stat?.prefix || 'Balanced'} ${trans?.name}`;
+  }).join(', ');
+
+  const depthInstructions = targetDepth === 'deep'
+    ? `DEEP depth: Full transmission. Go into the philosophy, psychology, and practical implications of how all these patterns work together. Add examples and dimensions that SWIM introduced but didn't fully explore.`
+    : `SWIM depth: One rich paragraph per section. Add psychological depth and practical implications that WADE introduced but didn't fully develop.`;
+
+  // Build previous content display
+  let previousDisplay = '';
+  if (previousContent.summary?.wade) previousDisplay += `Summary WADE: ${previousContent.summary.wade}\n`;
+  if (previousContent.summary?.swim) previousDisplay += `Summary SWIM: ${previousContent.summary.swim}\n`;
+  if (previousContent.path?.wade) previousDisplay += `Path WADE: ${previousContent.path.wade}\n`;
+  if (previousContent.path?.swim) previousDisplay += `Path SWIM: ${previousContent.path.swim}\n`;
+
+  return `QUESTION: "${question}"
+
+CARDS: ${cardNames}
+
+PREVIOUS CONTENT (what the querent has already read):
+${previousDisplay}
+
+Now generate ${targetDepth.toUpperCase()} level content for SUMMARY and PATH.
+
+${depthInstructions}
+
+CRITICAL RULES:
+1. DO NOT repeat what's in the previous content
+2. ADD new dimensions, interconnections, practical implications
+3. BUILD ON what came before - deepen it, don't restate it
+4. Show how patterns CONNECT in ways the earlier level didn't reveal
+
+Respond with these markers:
+
+[SUMMARY:${targetDepth.toUpperCase()}]
+(Build on previous synthesis - reveal deeper interconnections)
+
+[PATH:${targetDepth.toUpperCase()}]
+(Deepen the path - add practical dimensions)`;
+}
+
+// Parse baseline response (WADE for summary + path)
+function parseBaselineResponse(text) {
   const extractSection = (marker) => {
-    // Match content after [MARKER] until next [WORD:WORD] pattern or end
-    // Also strip any trailing markdown headers like "## PATH TO BALANCE"
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
-    // Clean up: remove markdown artifacts throughout content
     let content = match[1].trim();
-    content = content.replace(/^---+\s*\n?/gm, ''); // Remove horizontal rules at start of lines
-    content = content.replace(/\n---+\s*$/g, ''); // Remove trailing ---
-    content = content.replace(/^#{1,3}\s*$/gm, ''); // Remove empty markdown headers (just ## or ###)
-    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, ''); // Remove markdown headers with text
-    content = content.replace(/\n{3,}/g, '\n\n'); // Collapse multiple newlines
+    content = content.replace(/^---+\s*\n?/gm, '');
+    content = content.replace(/\n---+\s*$/g, '');
+    content = content.replace(/^#{1,3}\s*$/gm, '');
+    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
+    content = content.replace(/\n{3,}/g, '\n\n');
     return content.trim();
   };
 
   return {
     summary: {
-      surface: extractSection('SUMMARY:SURFACE'),
       wade: extractSection('SUMMARY:WADE'),
-      swim: extractSection('SUMMARY:SWIM'),
-      deep: extractSection('SUMMARY:DEEP')
+      swim: '', // Not generated yet
+      deep: ''  // Not generated yet
     },
     path: {
-      surface: extractSection('PATH:SURFACE'),
       wade: extractSection('PATH:WADE'),
-      swim: extractSection('PATH:SWIM'),
-      deep: extractSection('PATH:DEEP'),
+      swim: '',
+      deep: '',
       architecture: extractSection('PATH:ARCHITECTURE')
+    }
+  };
+}
+
+// Parse deepen response (SWIM or DEEP)
+function parseDeepenResponse(text, depth, previousContent) {
+  const extractSection = (marker) => {
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
+    const match = text.match(regex);
+    if (!match) return '';
+    let content = match[1].trim();
+    content = content.replace(/^---+\s*\n?/gm, '');
+    content = content.replace(/\n---+\s*$/g, '');
+    content = content.replace(/^#{1,3}\s*$/gm, '');
+    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
+    content = content.replace(/\n{3,}/g, '\n\n');
+    return content.trim();
+  };
+
+  const depthMarker = depth.toUpperCase();
+  const newSummary = extractSection(`SUMMARY:${depthMarker}`);
+  const newPath = extractSection(`PATH:${depthMarker}`);
+
+  return {
+    summary: {
+      wade: previousContent?.summary?.wade || '',
+      swim: depth === 'swim' ? newSummary : (previousContent?.summary?.swim || ''),
+      deep: depth === 'deep' ? newSummary : (previousContent?.summary?.deep || '')
+    },
+    path: {
+      wade: previousContent?.path?.wade || '',
+      swim: depth === 'swim' ? newPath : (previousContent?.path?.swim || ''),
+      deep: depth === 'deep' ? newPath : (previousContent?.path?.deep || ''),
+      architecture: previousContent?.path?.architecture || ''
     }
   };
 }

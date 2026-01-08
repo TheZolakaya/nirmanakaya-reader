@@ -224,6 +224,7 @@ export default function NirmanakaReader() {
   // On-demand depth generation state
   const [cardLoaded, setCardLoaded] = useState({}); // {0: true, 1: false, ...} - which cards have content
   const [cardLoading, setCardLoading] = useState({}); // {0: true, ...} - which cards are currently loading
+  const [cardLoadingDeeper, setCardLoadingDeeper] = useState({}); // {0: true, ...} - which cards are loading deeper content
   const [synthesisLoaded, setSynthesisLoaded] = useState(false); // Whether summary/path have been fetched
   const [synthesisLoading, setSynthesisLoading] = useState(false); // Whether synthesis is currently loading
   const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
@@ -579,6 +580,63 @@ export default function NirmanakaReader() {
     }
 
     setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
+  };
+
+  // Progressive deepening: Load SWIM or DEEP for a card (builds on previous content)
+  const loadDeeperContent = async (cardIndex, targetDepth, previousContent) => {
+    if (cardLoadingDeeper[cardIndex]) return; // Already loading
+
+    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: true }));
+
+    try {
+      const letterContent = getLetterContent(parsedReading?.letter);
+      const res = await fetch('/api/card-depth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cardIndex,
+          draw: draws[cardIndex],
+          question,
+          spreadType,
+          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          stance,
+          system: systemPromptCache,
+          letterContent,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          // Progressive deepening params
+          targetDepth,
+          previousContent
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Update the specific card in parsedReading with new deeper content
+      setParsedReading(prev => {
+        if (!prev) return prev;
+        const newCards = [...prev.cards];
+        newCards[cardIndex] = {
+          ...newCards[cardIndex],
+          ...data.cardData
+        };
+        return { ...prev, cards: newCards };
+      });
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
+          cache_creation_input_tokens: (prev.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0),
+          cache_read_input_tokens: (prev.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0)
+        } : data.usage);
+      }
+
+    } catch (e) {
+      setError(`Error loading deeper content for card ${cardIndex + 1}: ${e.message}`);
+    }
+
+    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: false }));
   };
 
   // On-demand: Load Summary + Path to Balance (after all cards loaded)
@@ -3195,6 +3253,9 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     isLoading={isCardLoading}
                     isNotLoaded={card._notLoaded && !isCardLoaded}
                     onRequestLoad={triggerCardLoad}
+                    // Progressive deepening props
+                    onLoadDeeper={loadDeeperContent}
+                    isLoadingDeeper={!!cardLoadingDeeper[card.index]}
                   />
                 </div>
               );

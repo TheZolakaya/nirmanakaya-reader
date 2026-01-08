@@ -1,6 +1,6 @@
 // app/api/card-depth/route.js
 // On-demand depth generation for a single card
-// Generates FULL depth chain (DEEP first, condense down) for one card at a time
+// Supports WADE baseline generation OR progressive deepening
 // Uses Anthropic prompt caching for efficiency
 
 export async function POST(request) {
@@ -13,14 +13,23 @@ export async function POST(request) {
     stance,         // Voice/style settings
     system,         // Base system prompt (for caching)
     letterContent,  // Letter content for context
-    model           // Model to use
+    model,
+    // Progressive deepening params
+    targetDepth,    // 'wade' | 'swim' | 'deep' (default: wade)
+    previousContent // { wade: '...', swim: '...' } - content to build on
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
+  const depth = targetDepth || 'wade';
   const n = cardIndex + 1; // 1-indexed for markers
 
+  // Determine if this is baseline generation or progressive deepening
+  const isDeepening = previousContent && Object.keys(previousContent).length > 0;
+
   // Build card-specific user message
-  const userMessage = buildCardDepthMessage(n, draw, question, spreadType, letterContent);
+  const userMessage = isDeepening
+    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent)
+    : buildBaselineMessage(n, draw, question, spreadType, letterContent);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -30,6 +39,11 @@ export async function POST(request) {
       cache_control: { type: "ephemeral" }
     }
   ];
+
+  // Adjust max tokens based on what we're generating
+  // Baseline (WADE for all sections) needs ~2000 tokens
+  // Deepening (SWIM or DEEP for specific section) needs ~1500 tokens
+  const maxTokens = isDeepening ? 1500 : 3500;
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -42,7 +56,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: effectiveModel,
-        max_tokens: 6000, // Imbalanced cards need more: 4 reading + arch + mirror + 5 why + 5 rebalancer = 16 sections
+        max_tokens: maxTokens,
         system: systemWithCache,
         messages: [{ role: 'user', content: userMessage }]
       })
@@ -57,7 +71,9 @@ export async function POST(request) {
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
 
     // Parse the card sections from response
-    const parsedCard = parseCardDepthResponse(text, n, draw.status !== 1);
+    const parsedCard = isDeepening
+      ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent)
+      : parseBaselineResponse(text, n, draw.status !== 1);
 
     return Response.json({
       cardData: parsedCard,
@@ -74,9 +90,8 @@ export async function POST(request) {
   }
 }
 
-// Build the user message for single-card depth generation
-function buildCardDepthMessage(n, draw, question, spreadType, letterContent) {
-  // Import card data inline (can't import in API routes easily)
+// Build baseline message - generates WADE for all sections (initial load)
+function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   const ARCHETYPES = getArchetypes();
   const BOUNDS = getBounds();
   const AGENTS = getAgents();
@@ -92,7 +107,7 @@ function buildCardDepthMessage(n, draw, question, spreadType, letterContent) {
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is for Card ${n} in a ${spreadType.toUpperCase()} reading.
+CONTEXT: This is Card ${n} in a ${spreadType.toUpperCase()} reading.
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
 CARD ${n}: ${cardName}
@@ -101,105 +116,174 @@ Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
-Generate the FULL DEPTH CHAIN for this card using the DEEP-FIRST model:
-1. Write DEEP first (full transmission, no limits)
-2. Condense DEEP → SWIM (same insight, tightened)
-3. Condense SWIM → WADE (same insight, more essential)
-4. Distill WADE → SURFACE (absolute essence)
+Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
 
-Respond with these markers IN THIS ORDER:
-
-[CARD:${n}:DEEP]
-(COMPLETE reading with no word limits - full transmission)
-
-[CARD:${n}:SWIM]
-(CONDENSE above to ONE paragraph)
+Respond with these markers:
 
 [CARD:${n}:WADE]
-(CONDENSE to 3-4 sentences)
-
-[CARD:${n}:SURFACE]
-(DISTILL to 1-2 sentences - absolute essence)
+(3-4 sentences: What does this card reveal about their question? Be specific.)
 
 [CARD:${n}:ARCHITECTURE]
-(Use **bold labels**, blank lines between sections)
+(Use **bold labels**, show the derivation chain)
 
 [CARD:${n}:MIRROR]
-(Single poetic line)
-
-[CARD:${n}:WHY:DEEP]
-(Why this card appeared - complete transmission)
-
-[CARD:${n}:WHY:SWIM]
-(CONDENSE to one paragraph)
+(Single poetic line reflecting their situation)
 
 [CARD:${n}:WHY:WADE]
-(CONDENSE to 2-3 sentences)
-
-[CARD:${n}:WHY:SURFACE]
-(DISTILL to 1 sentence)
-
-[CARD:${n}:WHY:ARCHITECTURE]
-(Teleological grounding)
+(3-4 sentences: Why did THIS card appear for THIS question?)
 ${isImbalanced ? `
-[CARD:${n}:REBALANCER:DEEP]
-(Complete rebalancing transmission)
-
-[CARD:${n}:REBALANCER:SWIM]
-(CONDENSE to one paragraph)
-
 [CARD:${n}:REBALANCER:WADE]
-(CONDENSE to 2-3 sentences)
-
-[CARD:${n}:REBALANCER:SURFACE]
-(DISTILL to 1 sentence)
+(3-4 sentences: The specific correction needed and how to apply it)
 
 [CARD:${n}:REBALANCER:ARCHITECTURE]
 (Correction derivation)` : ''}
 
-CRITICAL: Each level MUST be shorter than the one before. SURFACE must be dramatically shorter than DEEP. Do NOT copy content.`;
+CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.`;
 }
 
-// Parse the card depth response into structured data
-function parseCardDepthResponse(text, n, isImbalanced) {
+// Build deepening message - generates SWIM or DEEP that builds on previous
+function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent) {
+  const ARCHETYPES = getArchetypes();
+  const BOUNDS = getBounds();
+  const AGENTS = getAgents();
+  const STATUSES = getStatuses();
+
+  const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
+                draw.transient < 61 ? BOUNDS[draw.transient - 21] :
+                AGENTS[draw.transient - 61];
+  const stat = STATUSES[draw.status];
+  const statusPrefix = stat?.prefix || 'Balanced';
+  const cardName = `${statusPrefix} ${trans?.name || 'Unknown'}`;
+  const isImbalanced = draw.status !== 1;
+
+  const depthInstructions = targetDepth === 'deep'
+    ? `DEEP depth: Full transmission with no limits. Go into the philosophy, the psychology, the practical implications. Add examples, nuances, dimensions that SWIM introduced but didn't fully explore.`
+    : `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
+
+  // Build previous content display
+  let previousDisplay = '';
+  if (previousContent.reading?.wade) previousDisplay += `Reading WADE: ${previousContent.reading.wade}\n`;
+  if (previousContent.reading?.swim) previousDisplay += `Reading SWIM: ${previousContent.reading.swim}\n`;
+  if (previousContent.why?.wade) previousDisplay += `Why WADE: ${previousContent.why.wade}\n`;
+  if (previousContent.why?.swim) previousDisplay += `Why SWIM: ${previousContent.why.swim}\n`;
+  if (isImbalanced && previousContent.rebalancer?.wade) previousDisplay += `Rebalancer WADE: ${previousContent.rebalancer.wade}\n`;
+  if (isImbalanced && previousContent.rebalancer?.swim) previousDisplay += `Rebalancer SWIM: ${previousContent.rebalancer.swim}\n`;
+
+  return `QUESTION: "${question}"
+
+CONTEXT: This is Card ${n} in a ${spreadType.toUpperCase()} reading.
+
+CARD ${n}: ${cardName}
+Status: ${stat?.name || 'Balanced'}
+
+PREVIOUS CONTENT (what the querent has already read):
+${previousDisplay}
+
+Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
+
+${depthInstructions}
+
+CRITICAL RULES:
+1. DO NOT repeat what's in the previous content
+2. ADD new dimensions, feelings, practical implications
+3. BUILD ON what came before - deepen it, don't restate it
+4. Each section should feel like a natural progression
+5. Introduce NEW angles that make the previous content richer
+
+Respond with these markers:
+
+[CARD:${n}:${targetDepth.toUpperCase()}]
+(Build on previous reading - add new dimensions)
+
+[CARD:${n}:WHY:${targetDepth.toUpperCase()}]
+(Deepen why this card appeared - new angles)
+${isImbalanced ? `
+[CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
+(Deepen the correction - new practical dimensions)` : ''}`;
+}
+
+// Parse baseline response (WADE for all sections)
+function parseBaselineResponse(text, n, isImbalanced) {
   const extractSection = (marker) => {
-    // Match content after [MARKER] until next [WORD:N:WORD] or [WORD:WORD] pattern or end
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
-    // Clean up: remove markdown artifacts throughout content
     let content = match[1].trim();
-    content = content.replace(/^---+\s*\n?/gm, ''); // Remove horizontal rules at start of lines
-    content = content.replace(/\n---+\s*$/g, ''); // Remove trailing ---
-    content = content.replace(/^#{1,3}\s*$/gm, ''); // Remove empty markdown headers (just ## or ###)
-    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, ''); // Remove markdown headers with text
-    content = content.replace(/\n{3,}/g, '\n\n'); // Collapse multiple newlines
+    content = content.replace(/^---+\s*\n?/gm, '');
+    content = content.replace(/\n---+\s*$/g, '');
+    content = content.replace(/^#{1,3}\s*$/gm, '');
+    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
+    content = content.replace(/\n{3,}/g, '\n\n');
     return content.trim();
   };
 
   const cardData = {
-    surface: extractSection(`CARD:${n}:SURFACE`),
     wade: extractSection(`CARD:${n}:WADE`),
-    swim: extractSection(`CARD:${n}:SWIM`),
-    deep: extractSection(`CARD:${n}:DEEP`),
+    swim: '', // Not generated yet - will be filled by deepening
+    deep: '', // Not generated yet
     architecture: extractSection(`CARD:${n}:ARCHITECTURE`),
     mirror: extractSection(`CARD:${n}:MIRROR`),
     why: {
-      surface: extractSection(`CARD:${n}:WHY:SURFACE`),
       wade: extractSection(`CARD:${n}:WHY:WADE`),
-      swim: extractSection(`CARD:${n}:WHY:SWIM`),
-      deep: extractSection(`CARD:${n}:WHY:DEEP`),
-      architecture: extractSection(`CARD:${n}:WHY:ARCHITECTURE`)
+      swim: '',
+      deep: '',
+      architecture: extractSection(`CARD:${n}:WHY:ARCHITECTURE`) || ''
     }
   };
 
   if (isImbalanced) {
     cardData.rebalancer = {
-      surface: extractSection(`CARD:${n}:REBALANCER:SURFACE`),
       wade: extractSection(`CARD:${n}:REBALANCER:WADE`),
-      swim: extractSection(`CARD:${n}:REBALANCER:SWIM`),
-      deep: extractSection(`CARD:${n}:REBALANCER:DEEP`),
+      swim: '',
+      deep: '',
       architecture: extractSection(`CARD:${n}:REBALANCER:ARCHITECTURE`)
+    };
+  }
+
+  return cardData;
+}
+
+// Parse deepen response (SWIM or DEEP for all sections)
+function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
+  const extractSection = (marker) => {
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
+    const match = text.match(regex);
+    if (!match) return '';
+    let content = match[1].trim();
+    content = content.replace(/^---+\s*\n?/gm, '');
+    content = content.replace(/\n---+\s*$/g, '');
+    content = content.replace(/^#{1,3}\s*$/gm, '');
+    content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
+    content = content.replace(/\n{3,}/g, '\n\n');
+    return content.trim();
+  };
+
+  const depthMarker = depth.toUpperCase();
+  const newContent = extractSection(`CARD:${n}:${depthMarker}`);
+  const newWhy = extractSection(`CARD:${n}:WHY:${depthMarker}`);
+
+  // Merge with previous content
+  const cardData = {
+    wade: previousContent?.reading?.wade || '',
+    swim: depth === 'swim' ? newContent : (previousContent?.reading?.swim || ''),
+    deep: depth === 'deep' ? newContent : (previousContent?.reading?.deep || ''),
+    architecture: previousContent?.architecture || '',
+    mirror: previousContent?.mirror || '',
+    why: {
+      wade: previousContent?.why?.wade || '',
+      swim: depth === 'swim' ? newWhy : (previousContent?.why?.swim || ''),
+      deep: depth === 'deep' ? newWhy : (previousContent?.why?.deep || ''),
+      architecture: previousContent?.why?.architecture || ''
+    }
+  };
+
+  if (isImbalanced) {
+    const newRebalancer = extractSection(`CARD:${n}:REBALANCER:${depthMarker}`);
+    cardData.rebalancer = {
+      wade: previousContent?.rebalancer?.wade || '',
+      swim: depth === 'swim' ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
+      deep: depth === 'deep' ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
+      architecture: previousContent?.rebalancer?.architecture || ''
     };
   }
 

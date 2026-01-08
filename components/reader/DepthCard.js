@@ -78,7 +78,10 @@ const DepthCard = ({
   // On-demand loading props
   isLoading = false,
   isNotLoaded = false,
-  onRequestLoad
+  onRequestLoad,
+  // Progressive deepening props
+  onLoadDeeper,        // (cardIndex, targetDepth, previousContent) => Promise
+  isLoadingDeeper = false
 }) => {
   const [depth, setDepth] = useState(DEPTH.COLLAPSED);
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
@@ -170,11 +173,40 @@ const DepthCard = ({
     }
   };
 
-  const goDeeper = (e) => {
+  const goDeeper = async (e) => {
     e.stopPropagation();
-    if (depth === DEPTH.SURFACE) setDepth(DEPTH.WADE);
-    else if (depth === DEPTH.WADE) setDepth(DEPTH.SWIM);
-    else if (depth === DEPTH.SWIM) setDepth(DEPTH.DEEP);
+
+    // Determine target depth
+    let targetDepth = null;
+    if (depth === DEPTH.SURFACE) targetDepth = DEPTH.WADE;
+    else if (depth === DEPTH.WADE) targetDepth = DEPTH.SWIM;
+    else if (depth === DEPTH.SWIM) targetDepth = DEPTH.DEEP;
+
+    if (!targetDepth) return;
+
+    // Check if content exists at target depth
+    const hasContent = cardData[targetDepth] && cardData[targetDepth].trim();
+
+    if (hasContent) {
+      // Content exists, just switch to it
+      setDepth(targetDepth);
+    } else if (onLoadDeeper && !isLoadingDeeper) {
+      // Need to fetch content - build previousContent for API
+      const previousContent = {
+        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+        architecture: cardData.architecture || '',
+        mirror: cardData.mirror || ''
+      };
+
+      // Call the API to generate deeper content
+      await onLoadDeeper(cardData.index, targetDepth, previousContent);
+      setDepth(targetDepth);
+    } else {
+      // No loader available, just switch (content may be empty but UI will show something)
+      setDepth(targetDepth);
+    }
   };
 
   const goShallower = (e) => {
@@ -301,24 +333,46 @@ const DepthCard = ({
             </span>
           ) : (
             <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
-              {['surface', 'wade', 'swim', 'deep'].map((level) => {
-                const hasContent = level === 'surface' ? (cardData.surface || cardData.wade || cardData.swim || cardData.deep)
-                  : level === 'wade' ? (cardData.wade || cardData.swim || cardData.deep)
-                  : level === 'swim' ? (cardData.swim || cardData.deep)
+              {['wade', 'swim', 'deep'].map((level) => {
+                const hasContent = level === 'wade' ? cardData.wade
+                  : level === 'swim' ? cardData.swim
                   : cardData.deep;
-                if (!hasContent && level !== 'surface') return null;
                 const isActive = depth === level;
+                const isThisLoading = isLoadingDeeper && !hasContent && depth !== level;
+
+                const handleClick = async (e) => {
+                  e.stopPropagation();
+                  if (hasContent) {
+                    setDepth(level);
+                  } else if (onLoadDeeper && !isLoadingDeeper) {
+                    // Need to load deeper content
+                    const previousContent = {
+                      reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                      why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                      rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                      architecture: cardData.architecture || '',
+                      mirror: cardData.mirror || ''
+                    };
+                    await onLoadDeeper(cardData.index, level, previousContent);
+                    setDepth(level);
+                  }
+                };
+
                 return (
                   <button
                     key={level}
-                    onClick={(e) => { e.stopPropagation(); setDepth(level); }}
+                    onClick={handleClick}
+                    disabled={isLoadingDeeper}
                     className={`px-2 py-0.5 text-xs rounded transition-colors ${
                       isActive
                         ? 'bg-amber-500 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                    }`}
+                        : hasContent
+                          ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                          : 'bg-zinc-800/50 text-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-500 border border-dashed border-zinc-700'
+                    } ${isLoadingDeeper ? 'opacity-50 cursor-wait' : ''}`}
                   >
-                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                    {isThisLoading ? '...' : level.charAt(0).toUpperCase() + level.slice(1)}
+                    {!hasContent && !isThisLoading && <span className="ml-0.5 opacity-60">+</span>}
                   </button>
                 );
               })}
