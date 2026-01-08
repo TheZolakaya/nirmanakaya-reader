@@ -139,9 +139,16 @@ CRITICAL: Generate DEEP first for each section, then condense DOWN. Each shallow
 // Parse the synthesis response into structured data
 function parseSynthesisResponse(text) {
   const extractSection = (marker) => {
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]|$)`, 'i');
+    // Match content after [MARKER] until next [WORD:WORD] pattern or end
+    // Also strip any trailing markdown headers like "## PATH TO BALANCE"
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
-    return match ? match[1].trim() : '';
+    if (!match) return '';
+    // Clean up: remove trailing markdown headers and horizontal rules
+    let content = match[1].trim();
+    content = content.replace(/\n---+\s*$/g, ''); // Remove trailing ---
+    content = content.replace(/\n#{1,3}\s+[A-Z].*$/gi, ''); // Remove trailing markdown headers
+    return content.trim();
   };
 
   return {

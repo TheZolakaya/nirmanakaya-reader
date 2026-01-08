@@ -121,9 +121,15 @@ CRITICAL: Generate DEEP first as source of truth, then condense DOWN. Each shall
 // Parse the letter response into structured data
 function parseLetterResponse(text) {
   const extractSection = (marker) => {
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]|$)`, 'i');
+    // Match content after [MARKER] until next [WORD:WORD] pattern or end
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
-    return match ? match[1].trim() : '';
+    if (!match) return '';
+    // Clean up: remove trailing markdown headers and horizontal rules
+    let content = match[1].trim();
+    content = content.replace(/\n---+\s*$/g, '');
+    content = content.replace(/\n#{1,3}\s+[A-Z].*$/gi, '');
+    return content.trim();
   };
 
   return {
