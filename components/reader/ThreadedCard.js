@@ -92,9 +92,13 @@ const ThreadedCard = ({
             <div className="text-xs text-zinc-500 mb-2">{threadTrans.traditional}</div>
           )}
 
-          {/* Interpretation with hotlinks */}
-          <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-            {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+          {/* Interpretation with hotlinks - split into paragraphs */}
+          <div className="text-sm leading-relaxed text-zinc-300 space-y-3">
+            {(threadItem.interpretation || '').split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+              <p key={i} className="whitespace-pre-wrap">
+                {renderWithHotlinks(para.trim(), setSelectedInfo)}
+              </p>
+            ))}
           </div>
 
           {/* Recursive nested threads */}

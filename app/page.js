@@ -1014,7 +1014,9 @@ Your job:
 - Acknowledge their question briefly
 - Interpret the NEW CARD as the architecture's answer to what they asked
 - This is a SUB-READING: the drawn card speaks directly to their inquiry
-- The card IS the architecture speaking back to them`;
+- The card IS the architecture speaking back to them
+
+FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
@@ -1046,7 +1048,9 @@ The user has declared an intention. A new card has been drawn as the architectur
 Your job:
 - Acknowledge their declared direction briefly
 - Interpret the NEW CARD as the architecture's response to their assertion
-- This is a SUB-READING of the new card against their declared direction`;
+- This is a SUB-READING of the new card against their declared direction
+
+FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
