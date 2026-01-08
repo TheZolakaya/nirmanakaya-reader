@@ -107,11 +107,11 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // VERSION is now imported from lib/version.js - update it there when releasing
 
 // Helper to extract summary content from either string (legacy) or object (new depth format)
-const getSummaryContent = (summary, depth = 'surface') => {
+const getSummaryContent = (summary, depth = 'wade') => {
   if (!summary) return '';
   if (typeof summary === 'string') return summary;
-  // New format: { surface, wade, swim, deep }
-  return summary[depth] || summary.surface || summary.wade || summary.swim || summary.deep || '';
+  // New format: { wade, swim, deep } - no more surface
+  return summary[depth] || summary.wade || summary.swim || summary.deep || '';
 };
 
 // Helper to extract letter content from either string (legacy) or object (new depth format)
@@ -173,9 +173,9 @@ export default function NirmanakaReader() {
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
-  const [letterDepth, setLetterDepth] = useState('surface'); // 'surface' | 'wade' | 'swim'
-  const [pathDepth, setPathDepth] = useState('surface'); // 'surface' | 'wade' | 'swim' | 'deep'
-  const [summaryDepth, setSummaryDepth] = useState('surface'); // 'surface' | 'wade' | 'swim' | 'deep'
+  const [letterDepth, setLetterDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
+  const [pathDepth, setPathDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
+  const [summaryDepth, setSummaryDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
 
   // Toggle collapse state for a section
   // defaultCollapsed: true for sections that start collapsed, false for sections that start expanded
@@ -2985,12 +2985,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   <span className="text-violet-400">✉</span>
                   <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
                 </div>
-                {/* Depth navigation buttons (includes DEEP) */}
+                {/* Depth navigation buttons (no more surface) */}
                 {hasDepthLevels && (
                   <div className="flex gap-1">
-                    {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                    {['wade', 'swim', 'deep'].map((level) => {
                       const hasContent = letter[level];
-                      if (!hasContent && level !== 'surface') return null;
                       const isActive = letterDepth === level;
                       return (
                         <button
@@ -2999,10 +2998,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           className={`px-2 py-0.5 text-xs rounded transition-colors ${
                             isActive
                               ? 'bg-violet-500 text-white'
-                              : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                              : hasContent
+                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
                           }`}
                         >
                           {level.charAt(0).toUpperCase() + level.slice(1)}
+                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                         </button>
                       );
                     })}
@@ -3107,9 +3109,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   {/* Depth navigation buttons */}
                   {hasDepthLevels && !isSummaryCollapsed && (
                     <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                      {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                      {['wade', 'swim', 'deep'].map((level) => {
                         const hasContent = typeof summary === 'object' && summary[level];
-                        if (!hasContent && level !== 'surface') return null;
                         const isActive = summaryDepth === level;
                         return (
                           <button
@@ -3118,10 +3119,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                             className={`px-2 py-0.5 text-xs rounded transition-colors ${
                               isActive
                                 ? 'bg-amber-500 text-white'
-                                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : hasContent
+                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
                             }`}
                           >
                             {level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                           </button>
                         );
                       })}
@@ -3308,12 +3312,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         <span className="text-lg">◈</span>
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
-                      {/* Depth navigation buttons (includes DEEP) */}
+                      {/* Depth navigation buttons (no more surface) */}
                       {hasDepthLevels && !isPathCollapsed && (
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                          {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                          {['wade', 'swim', 'deep'].map((level) => {
                             const hasContent = path[level];
-                            if (!hasContent && level !== 'surface') return null;
                             const isActive = pathDepth === level;
                             return (
                               <button
@@ -3322,10 +3325,13 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                 className={`px-2 py-0.5 text-xs rounded transition-colors ${
                                   isActive
                                     ? 'bg-emerald-500 text-white'
-                                    : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                    : hasContent
+                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
                                 }`}
                               >
                                 {level.charAt(0).toUpperCase() + level.slice(1)}
+                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                               </button>
                             );
                           })}

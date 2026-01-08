@@ -151,7 +151,7 @@ const DepthCard = ({
 
   const handleCardClick = () => {
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.SURFACE);
+      setDepth(DEPTH.WADE); // Start at WADE (we no longer generate SURFACE)
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -163,7 +163,7 @@ const DepthCard = ({
   const toggleCollapse = (e) => {
     e.stopPropagation();
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.SURFACE);
+      setDepth(DEPTH.WADE); // Start at WADE (we no longer generate SURFACE)
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -176,10 +176,9 @@ const DepthCard = ({
   const goDeeper = async (e) => {
     e.stopPropagation();
 
-    // Determine target depth
+    // Determine target depth (no more SURFACE)
     let targetDepth = null;
-    if (depth === DEPTH.SURFACE) targetDepth = DEPTH.WADE;
-    else if (depth === DEPTH.WADE) targetDepth = DEPTH.SWIM;
+    if (depth === DEPTH.WADE) targetDepth = DEPTH.SWIM;
     else if (depth === DEPTH.SWIM) targetDepth = DEPTH.DEEP;
 
     if (!targetDepth) return;
@@ -213,13 +212,12 @@ const DepthCard = ({
     e.stopPropagation();
     if (depth === DEPTH.DEEP) setDepth(DEPTH.SWIM);
     else if (depth === DEPTH.SWIM) setDepth(DEPTH.WADE);
-    else if (depth === DEPTH.WADE) setDepth(DEPTH.SURFACE);
-    else if (depth === DEPTH.SURFACE) setDepth(DEPTH.COLLAPSED);
+    else if (depth === DEPTH.WADE) setDepth(DEPTH.COLLAPSED); // Skip SURFACE
   };
 
   const handleRebalancerClick = () => {
     if (rebalancerDepth === DEPTH.COLLAPSED) {
-      setRebalancerDepth(DEPTH.SURFACE);
+      setRebalancerDepth(DEPTH.WADE); // Start at WADE
     }
   };
 
@@ -227,7 +225,7 @@ const DepthCard = ({
   const toggleRebalancerCollapse = (e) => {
     e.stopPropagation();
     if (rebalancerDepth === DEPTH.COLLAPSED) {
-      setRebalancerDepth(DEPTH.SURFACE);
+      setRebalancerDepth(DEPTH.WADE); // Start at WADE
     } else {
       setRebalancerDepth(DEPTH.COLLAPSED);
     }
@@ -235,8 +233,7 @@ const DepthCard = ({
 
   const rebalancerGoDeeper = (e) => {
     e.stopPropagation();
-    if (rebalancerDepth === DEPTH.SURFACE) setRebalancerDepth(DEPTH.WADE);
-    else if (rebalancerDepth === DEPTH.WADE) setRebalancerDepth(DEPTH.SWIM);
+    if (rebalancerDepth === DEPTH.WADE) setRebalancerDepth(DEPTH.SWIM);
     else if (rebalancerDepth === DEPTH.SWIM) setRebalancerDepth(DEPTH.DEEP);
   };
 
@@ -244,8 +241,7 @@ const DepthCard = ({
     e.stopPropagation();
     if (rebalancerDepth === DEPTH.DEEP) setRebalancerDepth(DEPTH.SWIM);
     else if (rebalancerDepth === DEPTH.SWIM) setRebalancerDepth(DEPTH.WADE);
-    else if (rebalancerDepth === DEPTH.WADE) setRebalancerDepth(DEPTH.SURFACE);
-    else if (rebalancerDepth === DEPTH.SURFACE) setRebalancerDepth(DEPTH.COLLAPSED);
+    else if (rebalancerDepth === DEPTH.WADE) setRebalancerDepth(DEPTH.COLLAPSED);
   };
 
   // Styling
@@ -397,6 +393,11 @@ const DepthCard = ({
             <div className="flex items-center gap-2 text-zinc-500">
               <span className="animate-pulse">●</span>
               <span className="italic">Generating depths...</span>
+            </div>
+          ) : isLoadingDeeper ? (
+            <div className="flex items-center gap-2 text-zinc-500">
+              <span className="animate-pulse">●</span>
+              <span className="italic">Deepening content...</span>
             </div>
           ) : content ? (
             <div className="space-y-3">
