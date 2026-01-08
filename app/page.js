@@ -1227,7 +1227,7 @@ Interpret this new card as the architecture's response to their declared directi
     
     // Pass the original stance to expansion
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.`;
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nFORMATTING: Use short paragraphs with blank lines between them. Never write walls of text. Each paragraph should be 2-4 sentences max.`;
     const userMessage = `QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
