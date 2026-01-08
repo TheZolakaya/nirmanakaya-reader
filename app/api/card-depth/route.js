@@ -107,28 +107,57 @@ Generate the FULL DEPTH CHAIN for this card using the DEEP-FIRST model:
 3. Condense SWIM → WADE (same insight, more essential)
 4. Distill WADE → SURFACE (absolute essence)
 
-Respond with these markers IN THIS ORDER (DEEP first, then condense down):
+Respond with these markers IN THIS ORDER:
 
-[CARD:${n}:DEEP] No limits. Full expression. WRITE THIS FIRST.
-[CARD:${n}:SWIM] Condense DEEP to full paragraph.
-[CARD:${n}:WADE] Condense SWIM to 3-4 sentences.
-[CARD:${n}:SURFACE] Distill to 1-2 sentences essence.
-[CARD:${n}:ARCHITECTURE] Use markdown with **bold labels** and blank lines between sections.
-[CARD:${n}:MIRROR] Single poetic line reflecting the core insight.
+[CARD:${n}:DEEP]
+(COMPLETE reading with no word limits - full transmission)
 
-[CARD:${n}:WHY:DEEP] Why this card - complete transmission. WRITE THIS FIRST.
-[CARD:${n}:WHY:SWIM] Condense to full paragraph.
-[CARD:${n}:WHY:WADE] Condense to 2-3 sentences.
-[CARD:${n}:WHY:SURFACE] Distill to 1 sentence.
-[CARD:${n}:WHY:ARCHITECTURE] Teleological grounding.
+[CARD:${n}:SWIM]
+(CONDENSE above to ONE paragraph)
+
+[CARD:${n}:WADE]
+(CONDENSE to 3-4 sentences)
+
+[CARD:${n}:SURFACE]
+(DISTILL to 1-2 sentences - absolute essence)
+
+[CARD:${n}:ARCHITECTURE]
+(Use **bold labels**, blank lines between sections)
+
+[CARD:${n}:MIRROR]
+(Single poetic line)
+
+[CARD:${n}:WHY:DEEP]
+(Why this card appeared - complete transmission)
+
+[CARD:${n}:WHY:SWIM]
+(CONDENSE to one paragraph)
+
+[CARD:${n}:WHY:WADE]
+(CONDENSE to 2-3 sentences)
+
+[CARD:${n}:WHY:SURFACE]
+(DISTILL to 1 sentence)
+
+[CARD:${n}:WHY:ARCHITECTURE]
+(Teleological grounding)
 ${isImbalanced ? `
-[CARD:${n}:REBALANCER:DEEP] Complete rebalancing transmission. WRITE THIS FIRST.
-[CARD:${n}:REBALANCER:SWIM] Condense to full paragraph.
-[CARD:${n}:REBALANCER:WADE] Condense to 2-3 sentences.
-[CARD:${n}:REBALANCER:SURFACE] Distill to 1 sentence.
-[CARD:${n}:REBALANCER:ARCHITECTURE] Correction derivation.` : ''}
+[CARD:${n}:REBALANCER:DEEP]
+(Complete rebalancing transmission)
 
-CRITICAL: Generate in the order listed — DEEP first for each section, then condense DOWN to SURFACE.`;
+[CARD:${n}:REBALANCER:SWIM]
+(CONDENSE to one paragraph)
+
+[CARD:${n}:REBALANCER:WADE]
+(CONDENSE to 2-3 sentences)
+
+[CARD:${n}:REBALANCER:SURFACE]
+(DISTILL to 1 sentence)
+
+[CARD:${n}:REBALANCER:ARCHITECTURE]
+(Correction derivation)` : ''}
+
+CRITICAL: Each level MUST be shorter than the one before. SURFACE must be dramatically shorter than DEEP. Do NOT copy content.`;
 }
 
 // Parse the card depth response into structured data

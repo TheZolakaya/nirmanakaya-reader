@@ -120,20 +120,36 @@ Use the DEEP-FIRST model for both:
 3. Condense SWIM → WADE (same insight, more essential)
 4. Distill WADE → SURFACE (the essence)
 
-Respond with these markers IN THIS ORDER (DEEP first, then condense down):
+Respond with these markers IN THIS ORDER:
 
-[SUMMARY:DEEP] No limits. Complete overview. WRITE THIS FIRST.
-[SUMMARY:SWIM] Condense DEEP to full paragraph.
-[SUMMARY:WADE] Condense SWIM to 3-4 sentences.
-[SUMMARY:SURFACE] Distill to 1-2 sentences essence.
+[SUMMARY:DEEP]
+(Write the COMPLETE overview with no word limits - full transmission)
 
-[PATH:DEEP] No limits. Complete path transmission. WRITE THIS FIRST.
-[PATH:SWIM] Condense DEEP to full paragraph.
-[PATH:WADE] Condense SWIM to 3-4 sentences.
-[PATH:SURFACE] Distill to 1-2 sentences essence.
-[PATH:ARCHITECTURE] Structural analysis of the path.
+[SUMMARY:SWIM]
+(Now CONDENSE the above to ONE paragraph - keep same meaning, fewer words)
 
-CRITICAL: Generate in the order listed above — DEEP first, then condense DOWN to SURFACE.`;
+[SUMMARY:WADE]
+(CONDENSE further to exactly 3-4 sentences)
+
+[SUMMARY:SURFACE]
+(DISTILL to exactly 1-2 sentences - the absolute essence)
+
+[PATH:DEEP]
+(Write the COMPLETE path with no word limits - full transmission)
+
+[PATH:SWIM]
+(CONDENSE to ONE paragraph)
+
+[PATH:WADE]
+(CONDENSE to exactly 3-4 sentences)
+
+[PATH:SURFACE]
+(DISTILL to exactly 1-2 sentences)
+
+[PATH:ARCHITECTURE]
+(Structural analysis)
+
+CRITICAL: Each level MUST be shorter than the one before it. SURFACE must be dramatically shorter than DEEP. Do NOT copy content between levels.`;
 }
 
 // Parse the synthesis response into structured data
