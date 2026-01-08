@@ -1337,7 +1337,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     
     // Pass stance to follow-up
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.`;
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.\n\nFORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
     
     const messages = [
       ...followUpMessages,
@@ -3617,7 +3617,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {followUpMessages.map((msg, i) => (
               <div key={i} className={`rounded-xl p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
                 {msg.role === 'user' && <div className="text-[0.625rem] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
-                <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm">{msg.content}</div>
+                <div className="text-zinc-300 leading-relaxed text-sm space-y-3">
+                  {msg.content.split(/\n\n+/).filter(p => p.trim()).map((para, pi) => (
+                    <p key={pi} className="whitespace-pre-wrap">{para.trim()}</p>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
