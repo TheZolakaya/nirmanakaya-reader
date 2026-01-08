@@ -333,14 +333,20 @@ const DepthCard = ({
 
       {/* Main Content */}
       {depth !== DEPTH.COLLAPSED && (
-        <div className="leading-relaxed text-sm mb-4 whitespace-pre-wrap text-zinc-300 animate-fadeIn">
+        <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
           {isLoading ? (
             <div className="flex items-center gap-2 text-zinc-500">
               <span className="animate-pulse">●</span>
               <span className="italic">Generating depths...</span>
             </div>
           ) : content ? (
-            renderWithHotlinks(content, setSelectedInfo)
+            <div className="space-y-3">
+              {content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                <p key={i} className="whitespace-pre-wrap">
+                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                </p>
+              ))}
+            </div>
           ) : isNotLoaded ? (
             <button
               onClick={() => onRequestLoad?.()}
@@ -474,9 +480,15 @@ const DepthCard = ({
           {/* Rebalancer Content */}
           {rebalancerDepth !== DEPTH.COLLAPSED && (
             <>
-              <div className="leading-relaxed text-sm mb-4 whitespace-pre-wrap text-emerald-100/90 animate-fadeIn">
+              <div className="leading-relaxed text-sm mb-4 text-emerald-100/90 animate-fadeIn">
                 {getRebalancerContent(rebalancerDepth) ? (
-                  renderWithHotlinks(getRebalancerContent(rebalancerDepth), setSelectedInfo)
+                  <div className="space-y-3">
+                    {getRebalancerContent(rebalancerDepth).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                      <p key={i} className="whitespace-pre-wrap">
+                        {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                      </p>
+                    ))}
+                  </div>
                 ) : (
                   <span className="text-emerald-500/50 italic">Content loading...</span>
                 )}
@@ -569,9 +581,15 @@ const DepthCard = ({
                   </div>
 
                   {/* WHY Content at current depth */}
-                  <div className="text-sm text-cyan-100/90 whitespace-pre-wrap mb-4">
+                  <div className="text-sm text-cyan-100/90 mb-4">
                     {cardData.why[whyDepth] ? (
-                      renderWithHotlinks(cardData.why[whyDepth], setSelectedInfo)
+                      <div className="space-y-3">
+                        {cardData.why[whyDepth].split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                          <p key={i} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                          </p>
+                        ))}
+                      </div>
                     ) : (
                       <span className="text-cyan-500/50 italic">Content loading...</span>
                     )}

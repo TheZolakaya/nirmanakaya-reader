@@ -2943,8 +2943,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   </div>
                 )}
               </div>
-              <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
-                {renderWithHotlinks(letterContent, setSelectedInfo)}
+              <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
+                {letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                  <p key={i} className="whitespace-pre-wrap">
+                    {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                  </p>
+                ))}
               </div>
 
               {/* Expansion buttons (excluding architecture - cards have that as own section) */}
@@ -3058,8 +3062,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                 {/* Summary Content - collapsible */}
                 {!isSummaryCollapsed && (
                   <>
-                    <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
-                      {renderWithHotlinks(summaryContent, setSelectedInfo)}
+                    <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
+                      {summaryContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                        <p key={i} className="whitespace-pre-wrap">
+                          {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                        </p>
+                      ))}
                     </div>
 
                     {/* Summary Expansion Buttons (excluding architecture) */}
@@ -3251,8 +3259,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     {/* Path Content - collapsible */}
                     {!isPathCollapsed && (
                       <>
-                        <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm mb-4">
-                          {renderWithHotlinks(pathContent, setSelectedInfo)}
+                        <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
+                          {pathContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                            <p key={i} className="whitespace-pre-wrap">
+                              {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                            </p>
+                          ))}
                         </div>
 
                         {/* Path Architecture Box - collapsed by default */}
