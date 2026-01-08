@@ -5,6 +5,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
+import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import ArchitectureBox from './ArchitectureBox.js';
@@ -47,7 +48,22 @@ const DepthCard = ({
   showTraditional = false,
   setSelectedInfo,
   spreadType = 'discover',
-  spreadKey = 'one'
+  spreadKey = 'one',
+  // Expansion props
+  onExpand,
+  expansions = {},
+  expanding,
+  // Thread props
+  threadData = [],
+  threadOperation,
+  threadContext,
+  onSetThreadOperation,
+  onSetThreadContext,
+  onContinueThread,
+  threadLoading = false,
+  collapsedThreads = {},
+  setCollapsedThreads,
+  question = ''
 }) => {
   const [depth, setDepth] = useState(DEPTH.COLLAPSED);
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
@@ -113,6 +129,16 @@ const DepthCard = ({
     }
   };
 
+  // Triangle click toggles collapse state
+  const toggleCollapse = (e) => {
+    e.stopPropagation();
+    if (depth === DEPTH.COLLAPSED) {
+      setDepth(DEPTH.SURFACE);
+    } else {
+      setDepth(DEPTH.COLLAPSED);
+    }
+  };
+
   const goDeeper = (e) => {
     e.stopPropagation();
     if (depth === DEPTH.SURFACE) setDepth(DEPTH.WADE);
@@ -129,6 +155,16 @@ const DepthCard = ({
   const handleRebalancerClick = () => {
     if (rebalancerDepth === DEPTH.COLLAPSED) {
       setRebalancerDepth(DEPTH.SURFACE);
+    }
+  };
+
+  // Rebalancer triangle click toggles collapse state
+  const toggleRebalancerCollapse = (e) => {
+    e.stopPropagation();
+    if (rebalancerDepth === DEPTH.COLLAPSED) {
+      setRebalancerDepth(DEPTH.SURFACE);
+    } else {
+      setRebalancerDepth(DEPTH.COLLAPSED);
     }
   };
 
@@ -166,6 +202,19 @@ const DepthCard = ({
     [DEPTH.SWIM]: 'Swim'
   };
 
+  // Expansion handling
+  const sectionKey = `card-${cardData.index}`;
+  const sectionExpansions = expansions[sectionKey] || {};
+  const isExpanding = expanding?.section === sectionKey;
+
+  const getButtonStyle = (hasExpansion, isThisExpanding, isExpandingOther) => {
+    return `text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+      hasExpansion
+        ? 'bg-zinc-700 text-zinc-200 border border-zinc-600'
+        : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+    } ${isExpandingOther ? 'opacity-50 cursor-not-allowed' : ''}`;
+  };
+
   const content = getContent(depth);
   const showArchitecture = depth === DEPTH.WADE || depth === DEPTH.SWIM;
   const showMirror = depth === DEPTH.WADE || depth === DEPTH.SWIM;
@@ -180,9 +229,10 @@ const DepthCard = ({
         onClick={handleCardClick}
       >
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Collapse chevron */}
+          {/* Collapse chevron - click to toggle */}
           <span
-            className={`text-xs transition-transform duration-200 ${depth === DEPTH.COLLAPSED ? 'text-zinc-500 group-hover:text-zinc-400' : 'text-emerald-500'}`}
+            onClick={toggleCollapse}
+            className={`text-xs transition-transform duration-200 cursor-pointer ${depth === DEPTH.COLLAPSED ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
             style={{ transform: depth === DEPTH.COLLAPSED ? 'rotate(-90deg)' : 'rotate(0deg)' }}
           >
             ▼
@@ -235,6 +285,51 @@ const DepthCard = ({
         </div>
       )}
 
+      {/* Expansion Buttons - appear at every depth level */}
+      {depth !== DEPTH.COLLAPSED && onExpand && (
+        <div className="flex gap-2 flex-wrap mb-4">
+          {Object.entries(EXPANSION_PROMPTS).map(([key, { label }]) => {
+            const isThisExpanding = isExpanding && expanding?.type === key;
+            const hasExpansion = !!sectionExpansions[key];
+            const isExpandingOther = isExpanding && !isThisExpanding;
+
+            return (
+              <button
+                key={key}
+                onClick={(e) => { e.stopPropagation(); onExpand(sectionKey, key); }}
+                disabled={isExpanding}
+                className={getButtonStyle(hasExpansion, isThisExpanding, isExpandingOther)}
+              >
+                {isThisExpanding && (
+                  <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                )}
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Expansion Content Display */}
+      {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).map(([key, expansionContent]) => (
+        expansionContent && (
+          <div key={key} className="mb-4 p-3 bg-zinc-800/30 rounded-lg border border-zinc-700/30 animate-fadeIn">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-zinc-500 uppercase tracking-wider">{EXPANSION_PROMPTS[key]?.label}</span>
+              <button
+                onClick={(e) => { e.stopPropagation(); onExpand(sectionKey, key); }}
+                className="text-xs text-zinc-500 hover:text-zinc-300"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="text-sm text-zinc-300 whitespace-pre-wrap">
+              {renderWithHotlinks(expansionContent, setSelectedInfo)}
+            </div>
+          </div>
+        )
+      ))}
+
       {/* Depth navigation */}
       {depth !== DEPTH.COLLAPSED && (
         <div className="flex items-center gap-3 mb-4">
@@ -283,7 +378,8 @@ const DepthCard = ({
             onClick={handleRebalancerClick}
           >
             <span
-              className={`text-xs transition-transform duration-200 ${rebalancerDepth === DEPTH.COLLAPSED ? 'text-zinc-500 group-hover:text-zinc-400' : 'text-emerald-500'}`}
+              onClick={toggleRebalancerCollapse}
+              className={`text-xs transition-transform duration-200 cursor-pointer ${rebalancerDepth === DEPTH.COLLAPSED ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
               style={{ transform: rebalancerDepth === DEPTH.COLLAPSED ? 'rotate(-90deg)' : 'rotate(0deg)' }}
             >
               ▼
@@ -345,6 +441,92 @@ const DepthCard = ({
                 />
               )}
             </>
+          )}
+        </div>
+      )}
+
+      {/* Reflect/Forge Buttons - at bottom of card when expanded */}
+      {depth !== DEPTH.COLLAPSED && onContinueThread && (
+        <div className="mt-4 pt-4 border-t border-zinc-700/30">
+          {/* Collapsed state: show [▶ Reflect] [▶ Forge] buttons */}
+          {!threadOperation && (
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={(e) => { e.stopPropagation(); onSetThreadOperation('reflect'); }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              >
+                <span className="text-[0.5rem] text-red-500">▶</span> Reflect
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); onSetThreadOperation('forge'); }}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              >
+                <span className="text-[0.5rem] text-red-500">▶</span> Forge
+              </button>
+            </div>
+          )}
+
+          {/* Expanded state: full input panel */}
+          {threadOperation && (
+            <div className="max-w-sm mx-auto">
+              <div className="flex justify-center gap-3 mb-3">
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation('reflect'); }}
+                  className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                    threadOperation === 'reflect'
+                      ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                  }`}
+                >
+                  ↩ Reflect
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation('forge'); }}
+                  className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                    threadOperation === 'forge'
+                      ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
+                  }`}
+                >
+                  ⚡ Forge
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSetThreadOperation(null); }}
+                  className="px-2 py-2 rounded-lg text-xs text-zinc-500 hover:text-zinc-300 transition-all"
+                  title="Cancel"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <textarea
+                value={threadContext || ''}
+                onChange={(e) => onSetThreadContext(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                placeholder={threadOperation === 'reflect' ? "What are you inquiring about?" : "What are you declaring or creating?"}
+                rows={2}
+                className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-3"
+              />
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onContinueThread(); }}
+                disabled={!threadOperation || threadLoading}
+                className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                  threadOperation && !threadLoading
+                    ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50'
+                    : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'
+                }`}
+              >
+                {threadLoading ? (
+                  <>
+                    <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                    Drawing...
+                  </>
+                ) : (
+                  'Continue'
+                )}
+              </button>
+            </div>
           )}
         </div>
       )}

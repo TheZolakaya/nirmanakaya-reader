@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown';
 
 // Import data and utilities from lib
 import {
+  // Version
+  VERSION,
   // Core data
   ARCHETYPES,
   BOUNDS,
@@ -102,9 +104,7 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 
 // NOTE: All data constants have been extracted to /lib modules.
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
-
-// REMEMBER: Update this when making changes
-const VERSION = "0.40.3";
+// VERSION is now imported from lib/version.js - update it there when releasing
 
 // Discover mode descriptions by position count
 const DISCOVER_DESCRIPTIONS = {
@@ -1639,23 +1639,16 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         {/* Floating Text Size Slider - fixed position */}
         <TextSizeSlider />
 
-        {/* Header */}
-        <div className="text-center mb-4 md:mb-6 mobile-header relative">
+        {/* Header - click to scroll to top */}
+        <div
+          className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
-          {/* Dev level switcher - only in alpha */}
-          <div className="absolute top-0 right-0 flex items-center gap-1">
-            <span className="text-[0.5rem] text-zinc-600">L{userLevel}</span>
-            <button
-              onClick={() => setUserLevel(prev => prev === 0 ? 1 : 0)}
-              className="text-[0.5rem] text-zinc-600 hover:text-zinc-400 px-1"
-            >
-              [{userLevel === 0 ? 'Pro' : 'Simple'}]
-            </button>
-          </div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -2436,7 +2429,15 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           );
         })()}
 
-        {/* Letter - First thing user sees (moved from end of reading) */}
+        {/* Your Question - shows after visual spread */}
+        {parsedReading && !loading && !parsedReading.firstContact && question && (
+          <div className="bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8">
+            <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
+            <div className="text-zinc-300 text-sm">{question}</div>
+          </div>
+        )}
+
+        {/* Letter - after Question */}
         {parsedReading && !loading && parsedReading.letter && !parsedReading.firstContact && (
           <div className="mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -2449,16 +2450,11 @@ Respond directly with the expanded content. No section markers needed. Keep it f
           </div>
         )}
 
-        {/* Question + Summary - after Letter */}
+        {/* Overview (Summary) - after Letter */}
         {parsedReading && !loading && parsedReading.summary && !parsedReading.firstContact && (() => {
           const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
           return (
             <div className="mb-6">
-              {/* Your Question */}
-              <div className="bg-zinc-800/50 rounded-xl p-4 mb-4 mx-8">
-                <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
-                <div className="text-zinc-300 text-sm">{question}</div>
-              </div>
               <ReadingSection
                 type="summary"
                 content={parsedReading.summary}
@@ -2493,6 +2489,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {/* Signature Sections with nested Rebalancers - using new DepthCard component */}
             {parsedReading.cards.map((card) => {
               // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
+              const cardSectionKey = `card-${card.index}`;
               return (
                 <div key={`card-group-${card.index}`} id={`content-${card.index}`}>
                   <DepthCard
@@ -2502,6 +2499,21 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     setSelectedInfo={setSelectedInfo}
                     spreadType={spreadType}
                     spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
+                    // Expansion props
+                    onExpand={handleExpand}
+                    expansions={expansions}
+                    expanding={expanding}
+                    // Thread props
+                    threadData={threadData[cardSectionKey] || []}
+                    threadOperation={threadOperations[cardSectionKey]}
+                    threadContext={threadContexts[cardSectionKey]}
+                    onSetThreadOperation={(op) => setThreadOperations(prev => ({ ...prev, [cardSectionKey]: op }))}
+                    onSetThreadContext={(ctx) => setThreadContexts(prev => ({ ...prev, [cardSectionKey]: ctx }))}
+                    onContinueThread={() => continueThread(cardSectionKey)}
+                    threadLoading={threadLoading[cardSectionKey]}
+                    collapsedThreads={collapsedThreads}
+                    setCollapsedThreads={setCollapsedThreads}
+                    question={question}
                   />
                 </div>
               );
