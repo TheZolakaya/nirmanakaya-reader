@@ -430,7 +430,8 @@ export default function NirmanakaReader() {
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
-          isFirstContact
+          isFirstContact,
+          max_tokens: isFirstContact ? 300 : 8000 // Haiku max is 8192
         })
       });
       const data = await res.json();
@@ -721,7 +722,8 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          max_tokens: 8000
         })
       });
       const data = await res.json();
@@ -898,7 +900,8 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          max_tokens: 8000
         })
       });
       const data = await res.json();
@@ -1068,7 +1071,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514" })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514", max_tokens: 2000 })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -1172,7 +1175,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
         body: JSON.stringify({
           messages: [{ role: 'user', content: contextMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          max_tokens: 2000
         })
       });
       const data = await res.json();
