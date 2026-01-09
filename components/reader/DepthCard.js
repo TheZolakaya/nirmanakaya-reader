@@ -533,14 +533,14 @@ const DepthCard = ({
             return (
               <button
                 key={key}
-                onClick={(e) => { e.stopPropagation(); onExpand(sectionKey, key); }}
-                disabled={isExpanding}
+                onClick={(e) => { e.stopPropagation(); if (!hasExpansion) onExpand(sectionKey, key); }}
+                disabled={isExpanding || hasExpansion}
                 className={getButtonStyle(hasExpansion, isThisExpanding, isExpandingOther)}
               >
                 {isThisExpanding && (
                   <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
                 )}
-                {label}
+                {hasExpansion ? `✓ ${label}` : label}
               </button>
             );
           })}
