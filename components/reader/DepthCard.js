@@ -492,7 +492,7 @@ const DepthCard = ({
             <div className="space-y-3">
               {ensureParagraphBreaks(content).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                 <p key={i} className="whitespace-pre-wrap">
-                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                  {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                 </p>
               ))}
             </div>
@@ -572,7 +572,7 @@ const DepthCard = ({
               <div className="px-3 pb-3 text-sm text-zinc-300 border-t border-zinc-700/30 space-y-3">
                 {paragraphs.map((para, i) => (
                   <p key={i} className="whitespace-pre-wrap">
-                    {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                    {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                   </p>
                 ))}
               </div>
@@ -678,7 +678,7 @@ const DepthCard = ({
                   <div className="space-y-3">
                     {ensureParagraphBreaks(getRebalancerContent(rebalancerDepth)).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                       <p key={i} className="whitespace-pre-wrap">
-                        {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                        {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                       </p>
                     ))}
                   </div>
@@ -812,7 +812,7 @@ const DepthCard = ({
                       <div className="space-y-3">
                         {ensureParagraphBreaks(cardData.why[whyDepth]).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                           <p key={i} className="whitespace-pre-wrap">
-                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                           </p>
                         ))}
                       </div>
@@ -1012,7 +1012,7 @@ const DepthCard = ({
                     <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
                       {ensureParagraphBreaks(threadItem.interpretation).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                         <p key={i} className="whitespace-pre-wrap">
-                          {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                          {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                         </p>
                       ))}
                     </div>

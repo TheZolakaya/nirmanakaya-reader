@@ -97,7 +97,7 @@ const ThreadedCard = ({
           <div className="text-sm leading-relaxed text-zinc-300 space-y-3">
             {ensureParagraphBreaks(threadItem.interpretation || '').split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
               <p key={i} className="whitespace-pre-wrap">
-                {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
               </p>
             ))}
           </div>

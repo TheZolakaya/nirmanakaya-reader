@@ -207,7 +207,7 @@ const ReadingSection = ({
         <div className={`leading-relaxed text-scaled-sm mb-4 whitespace-pre-wrap ${getContentStyle()}`}>
           {type === 'words-to-whys' && onGlossaryClick
             ? processBracketHotlinks(content, onGlossaryClick)
-            : renderWithHotlinks(content, setSelectedInfo)}
+            : renderWithHotlinks(content, setSelectedInfo, showTraditional)}
         </div>
       )}
 
@@ -394,7 +394,7 @@ const ReadingSection = ({
                         <div className="text-xs text-zinc-500 mb-2">{threadTrans.traditional}</div>
                       )}
                       <div className="text-scaled-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                        {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                        {renderWithHotlinks(threadItem.interpretation, setSelectedInfo, showTraditional)}
                       </div>
                     </div>
                   )}
@@ -420,7 +420,7 @@ const ReadingSection = ({
             </button>
           </div>
           <div className="text-scaled-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-            {renderWithHotlinks(expContent, setSelectedInfo)}
+            {renderWithHotlinks(expContent, setSelectedInfo, showTraditional)}
           </div>
         </div>
       ))}
@@ -489,7 +489,7 @@ const ReadingSection = ({
             {/* Rebalancer Content - collapsible */}
             {!isCorrectionCollapsed && (
               <div className="leading-relaxed text-scaled-sm mb-4 whitespace-pre-wrap text-emerald-100/90">
-                {renderWithHotlinks(correction.content, setSelectedInfo)}
+                {renderWithHotlinks(correction.content, setSelectedInfo, showTraditional)}
               </div>
             )}
 
@@ -537,7 +537,7 @@ const ReadingSection = ({
                   </button>
                 </div>
                 <div className="text-scaled-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-                  {renderWithHotlinks(expContent, setSelectedInfo)}
+                  {renderWithHotlinks(expContent, setSelectedInfo, showTraditional)}
                 </div>
               </div>
             ))}

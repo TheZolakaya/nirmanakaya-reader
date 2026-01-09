@@ -7,7 +7,7 @@ import { getAssociatedCards } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import ClickableTermContext from './ClickableTermContext.js';
 
-const InfoModal = ({ info, onClose, setSelectedInfo }) => {
+const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
   if (!info) return null;
 
   const { type, id, data } = info;
@@ -65,7 +65,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
-            {renderWithHotlinks(component.extended || component.description, setSelectedInfo)}
+            {renderWithHotlinks(component.extended || component.description, setSelectedInfo, showTraditional)}
           </p>
 
           {associatedArchetype && (
@@ -139,7 +139,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(channel.extended, setSelectedInfo)}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(channel.extended, setSelectedInfo, showTraditional)}</p>
         </>
       );
     }
@@ -164,7 +164,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(status.extended, setSelectedInfo)}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(status.extended, setSelectedInfo, showTraditional)}</p>
         </>
       );
     }
@@ -192,7 +192,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(house.extended, setSelectedInfo)}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(house.extended, setSelectedInfo, showTraditional)}</p>
 
           <div className="border-t border-zinc-700/50 pt-4">
             <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">Members</p>
@@ -230,7 +230,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
             </span>
           </div>
 
-          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(role.extended, setSelectedInfo)}</p>
+          <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(role.extended, setSelectedInfo, showTraditional)}</p>
         </>
       );
     }
@@ -288,7 +288,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo }) => {
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
-            {renderWithHotlinks(glossary.short || glossary.description || '', setSelectedInfo)}
+            {renderWithHotlinks(glossary.short || glossary.description || '', setSelectedInfo, showTraditional)}
           </p>
 
           {glossary.verb && (

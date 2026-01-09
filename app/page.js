@@ -3273,7 +3273,7 @@ CRITICAL FORMATTING RULES:
                 ) : letterContent ? (
                   letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                     <p key={i} className="whitespace-pre-wrap">
-                      {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                      {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                     </p>
                   ))
                 ) : (
@@ -3333,7 +3333,7 @@ CRITICAL FORMATTING RULES:
                       <div className="px-3 pb-3 text-zinc-300 text-sm border-t border-zinc-700/30">
                         {content.split(/\n\n+/).map((para, idx) => (
                           <p key={idx} className="mb-3 last:mb-0">
-                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                           </p>
                         ))}
                       </div>
@@ -3411,7 +3411,7 @@ CRITICAL FORMATTING RULES:
                       ) : summaryContent ? (
                         ensureParagraphBreaks(summaryContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                           <p key={i} className="whitespace-pre-wrap">
-                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                           </p>
                         ))
                       ) : (
@@ -3472,7 +3472,7 @@ CRITICAL FORMATTING RULES:
                             <div className="px-3 pb-3 text-zinc-300 text-sm border-t border-zinc-700/30">
                               {content.split(/\n\n+/).map((para, idx) => (
                                 <p key={idx} className="mb-3 last:mb-0">
-                                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                                  {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                                 </p>
                               ))}
                             </div>
@@ -3640,7 +3640,7 @@ CRITICAL FORMATTING RULES:
                           ) : pathContent ? (
                             ensureParagraphBreaks(pathContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                               <p key={i} className="whitespace-pre-wrap">
-                                {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                                {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                               </p>
                             ))
                           ) : (
@@ -3726,7 +3726,7 @@ CRITICAL FORMATTING RULES:
                             <div className="text-sm leading-relaxed text-zinc-400 space-y-3">
                               {expContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                                 <p key={i} className="whitespace-pre-wrap">
-                                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                                  {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
                                 </p>
                               ))}
                             </div>
@@ -3845,7 +3845,7 @@ CRITICAL FORMATTING RULES:
                                     <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
                                   )}
                                   <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                                    {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                                    {renderWithHotlinks(threadItem.interpretation, setSelectedInfo, showTraditional)}
                                   </div>
                                 </div>
                               );
@@ -3878,7 +3878,7 @@ CRITICAL FORMATTING RULES:
 
                   {collapsedSections['full-architecture'] === false && (
                     <div className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm font-mono">
-                      {renderWithHotlinks(parsedReading.fullArchitecture, setSelectedInfo)}
+                      {renderWithHotlinks(parsedReading.fullArchitecture, setSelectedInfo, showTraditional)}
                     </div>
                   )}
                 </div>
@@ -4021,7 +4021,7 @@ CRITICAL FORMATTING RULES:
                           <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
                         )}
                         <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                          {renderWithHotlinks(threadItem.interpretation, setSelectedInfo)}
+                          {renderWithHotlinks(threadItem.interpretation, setSelectedInfo, showTraditional)}
                         </div>
                       </div>
                     );
@@ -4278,7 +4278,7 @@ CRITICAL FORMATTING RULES:
       </div>
 
       {/* Info Modal */}
-      <InfoModal info={selectedInfo} onClose={() => setSelectedInfo(null)} setSelectedInfo={setSelectedInfo} />
+      <InfoModal info={selectedInfo} onClose={() => setSelectedInfo(null)} setSelectedInfo={setSelectedInfo} showTraditional={showTraditional} />
 
       {/* Glossary Tooltip */}
       {glossaryTooltip && (
