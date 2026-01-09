@@ -413,10 +413,6 @@ const DepthCard = ({
             <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
               tap to explore
             </span>
-          ) : isLoadingDeeper ? (
-            <span className="ml-auto text-xs text-rose-400 font-medium">
-              <LoadingDots message="Looking deeper into the field" />
-            </span>
           ) : (
             <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
               {['wade', 'swim', 'deep'].map((level) => {
@@ -447,13 +443,14 @@ const DepthCard = ({
                   <button
                     key={level}
                     onClick={handleClick}
+                    disabled={isLoadingDeeper}
                     className={`px-2 py-0.5 text-xs rounded transition-colors ${
                       isActive
                         ? 'bg-amber-500 text-white'
                         : hasContent
                           ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
                           : 'bg-zinc-800/50 text-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-500 border border-dashed border-zinc-700'
-                    }`}
+                    } ${isLoadingDeeper ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {level.charAt(0).toUpperCase() + level.slice(1)}
                     {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -481,11 +478,6 @@ const DepthCard = ({
             <div className="flex items-center gap-2 text-zinc-500">
               <span className="animate-pulse">●</span>
               <span className="italic">Generating depths...</span>
-            </div>
-          ) : isLoadingDeeper ? (
-            <div className="flex items-center gap-2 text-rose-400 font-medium">
-              <span className="animate-spin">◌</span>
-              <LoadingDots message="One moment while I look deeper into the field" />
             </div>
           ) : content ? (
             <div className="space-y-3">
@@ -607,10 +599,6 @@ const DepthCard = ({
               <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
                 tap to explore
               </span>
-            ) : isLoadingDeeper ? (
-              <span className="ml-auto text-xs text-rose-400 font-medium">
-                <LoadingDots message="Looking deeper into the field" />
-              </span>
             ) : (
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
                 {['wade', 'swim', 'deep'].map((level) => {
@@ -623,6 +611,7 @@ const DepthCard = ({
                   return (
                     <button
                       key={level}
+                      disabled={isLoadingDeeper}
                       onClick={async (e) => {
                         e.stopPropagation();
                         if (hasContent) {
@@ -649,7 +638,7 @@ const DepthCard = ({
                           : hasContent
                             ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
                             : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
-                      }`}
+                      } ${isLoadingDeeper ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       {level.charAt(0).toUpperCase() + level.slice(1)}
                       {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -668,12 +657,7 @@ const DepthCard = ({
                 Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
               </div>
               <div className="leading-relaxed text-sm mb-4 text-emerald-100/90 animate-fadeIn">
-                {isLoadingDeeper ? (
-                  <div className="flex items-center gap-2 text-rose-400 font-medium">
-                    <span className="animate-spin">◌</span>
-                    <LoadingDots message="One moment while I look deeper into the field" />
-                  </div>
-                ) : getRebalancerContent(rebalancerDepth) ? (
+                {getRebalancerContent(rebalancerDepth) ? (
                   <div className="space-y-3">
                     {ensureParagraphBreaks(getRebalancerContent(rebalancerDepth)).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                       <p key={i} className="whitespace-pre-wrap">
@@ -755,61 +739,51 @@ const DepthCard = ({
                     <span className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider">
                       Words to the Whys
                     </span>
-                    {/* Depth navigation buttons for WHY - replaced with loading animation when loading */}
-                    {isLoadingDeeper ? (
-                      <span className="text-xs text-rose-400 font-medium">
-                        <LoadingDots message="Looking deeper into the field" />
-                      </span>
-                    ) : (
-                      <div className="flex gap-1">
-                        {['wade', 'swim', 'deep'].map((level) => {
-                          const hasContent = hasContentValue(cardData.why[level]);
-                          const isActive = whyDepth === level;
-                          return (
-                            <button
-                              key={level}
-                              onClick={async (e) => {
-                                e.stopPropagation();
-                                if (hasContent) {
-                                  setWhyDepth(level);
-                                } else if (onLoadDeeper && !isLoadingDeeper) {
-                                  // Need to load deeper content for WHY
-                                  const previousContent = {
-                                    reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                    why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                    rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
-                                    architecture: cardData.architecture || '',
-                                    mirror: cardData.mirror || ''
-                                  };
-                                  await onLoadDeeper(cardData.index, level, previousContent);
-                                  setWhyDepth(level);
-                                }
-                              }}
-                              className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                                isActive
-                                  ? 'bg-cyan-500 text-white'
-                                  : hasContent
-                                    ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                    : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
-                              }`}
-                            >
-                              {level.charAt(0).toUpperCase() + level.slice(1)}
-                              {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
+                    {/* Depth navigation buttons for WHY */}
+                    <div className="flex gap-1">
+                      {['wade', 'swim', 'deep'].map((level) => {
+                        const hasContent = hasContentValue(cardData.why[level]);
+                        const isActive = whyDepth === level;
+                        return (
+                          <button
+                            key={level}
+                            disabled={isLoadingDeeper}
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              if (hasContent) {
+                                setWhyDepth(level);
+                              } else if (onLoadDeeper && !isLoadingDeeper) {
+                                // Need to load deeper content for WHY
+                                const previousContent = {
+                                  reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                                  why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                  rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                  architecture: cardData.architecture || '',
+                                  mirror: cardData.mirror || ''
+                                };
+                                await onLoadDeeper(cardData.index, level, previousContent);
+                                setWhyDepth(level);
+                              }
+                            }}
+                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? 'bg-cyan-500 text-white'
+                                : hasContent
+                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
+                            } ${isLoadingDeeper ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* WHY Content at current depth */}
                   <div className="text-sm text-cyan-100/90 mb-4">
-                    {isLoadingDeeper ? (
-                      <div className="flex items-center gap-2 text-rose-400 font-medium">
-                        <span className="animate-spin">◌</span>
-                        <LoadingDots message="One moment while I look deeper into the field" />
-                      </div>
-                    ) : cardData.why[whyDepth] ? (
+                    {cardData.why[whyDepth] ? (
                       <div className="space-y-3">
                         {ensureParagraphBreaks(cardData.why[whyDepth]).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                           <p key={i} className="whitespace-pre-wrap">

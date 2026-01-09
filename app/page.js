@@ -3409,12 +3409,7 @@ CRITICAL FORMATTING RULES:
                 {!isSummaryCollapsed && (
                   <>
                     <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                      {synthesisLoadingDeeper ? (
-                        <div className="flex items-center gap-2 text-amber-400">
-                          <span className="animate-spin">◌</span>
-                          <LoadingDots message="One moment while I look deeper into the field" />
-                        </div>
-                      ) : summaryContent ? (
+                      {summaryContent ? (
                         ensureParagraphBreaks(summaryContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                           <p key={i} className="whitespace-pre-wrap">
                             {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
@@ -3638,12 +3633,7 @@ CRITICAL FORMATTING RULES:
                     {!isPathCollapsed && (
                       <>
                         <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                          {synthesisLoadingDeeper ? (
-                            <div className="flex items-center gap-2 text-emerald-400">
-                              <span className="animate-spin">◌</span>
-                              <LoadingDots message="One moment while I look deeper into the field" />
-                            </div>
-                          ) : pathContent ? (
+                          {pathContent ? (
                             ensureParagraphBreaks(pathContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                               <p key={i} className="whitespace-pre-wrap">
                                 {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
