@@ -809,16 +809,30 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Update the specific card in parsedReading with new deeper content
-      setParsedReading(prev => {
-        if (!prev) return prev;
-        const newCards = [...prev.cards];
-        newCards[cardIndex] = {
-          ...newCards[cardIndex],
-          ...data.cardData
-        };
-        return { ...prev, cards: newCards };
-      });
+      // Update rawParsedReading first (always store raw content)
+      const updatedRaw = {
+        ...rawParsedReading,
+        cards: rawParsedReading?.cards?.map((card, i) =>
+          i === cardIndex ? { ...card, ...data.cardData } : card
+        ) || []
+      };
+      setRawParsedReading(updatedRaw);
+
+      // If persona is active, translate the updated reading
+      if (persona !== 'none') {
+        setTranslating(true);
+        const translated = await translateReading(updatedRaw);
+        if (translated) {
+          setParsedReading(translated);
+        } else {
+          // Fallback to raw if translation failed
+          setParsedReading(updatedRaw);
+        }
+        setTranslating(false);
+      } else {
+        // No persona - show raw
+        setParsedReading(updatedRaw);
+      }
 
       // Accumulate token usage
       if (data.usage) {
@@ -875,28 +889,32 @@ export default function NirmanakaReader() {
 
       setSynthesisLoaded(true);
 
-      // Update parsedReading and store raw for persona translation
-      setParsedReading(prev => {
-        const completeReading = {
-          ...prev,
-          summary: data.summary,
-          path: data.path
-        };
-        // Store as raw for potential re-translation
-        setRawParsedReading(completeReading);
+      // Build complete reading
+      const completeReading = {
+        ...parsedReading,
+        summary: data.summary,
+        path: data.path
+      };
 
-        // Auto-translate if persona is selected (initial reading flow)
-        if (persona !== 'none') {
-          setTimeout(async () => {
-            const translated = await translateReading(completeReading);
-            if (translated) {
-              setParsedReading(translated);
-            }
-          }, 100);
+      // Store as raw for potential re-translation
+      setRawParsedReading(completeReading);
+
+      // If persona is selected, translate BEFORE showing the reading
+      if (persona !== 'none') {
+        // Don't show raw - go straight to translation
+        setTranslating(true);
+        const translated = await translateReading(completeReading);
+        if (translated) {
+          setParsedReading(translated);
+        } else {
+          // Fallback to raw if translation failed
+          setParsedReading(completeReading);
         }
-
-        return completeReading;
-      });
+        setTranslating(false);
+      } else {
+        // No persona - show raw immediately
+        setParsedReading(completeReading);
+      }
 
       // Accumulate token usage
       if (data.usage) {
@@ -954,11 +972,26 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Update parsedReading with new letter content
-      setParsedReading(prev => ({
-        ...prev,
+      // Update rawParsedReading first
+      const updatedRaw = {
+        ...rawParsedReading,
         letter: data.letter
-      }));
+      };
+      setRawParsedReading(updatedRaw);
+
+      // If persona is active, translate the updated reading
+      if (persona !== 'none') {
+        setTranslating(true);
+        const translated = await translateReading(updatedRaw);
+        if (translated) {
+          setParsedReading(translated);
+        } else {
+          setParsedReading(updatedRaw);
+        }
+        setTranslating(false);
+      } else {
+        setParsedReading(updatedRaw);
+      }
 
       setLetterDepth(targetDepth);
 
@@ -1027,18 +1060,33 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Merge new content with existing
-      setParsedReading(prev => ({
-        ...prev,
+      // Update rawParsedReading first
+      const updatedRaw = {
+        ...rawParsedReading,
         summary: {
-          ...prev.summary,
+          ...rawParsedReading?.summary,
           ...data.summary
         },
         path: {
-          ...prev.path,
+          ...rawParsedReading?.path,
           ...data.path
         }
-      }));
+      };
+      setRawParsedReading(updatedRaw);
+
+      // If persona is active, translate the updated reading
+      if (persona !== 'none') {
+        setTranslating(true);
+        const translated = await translateReading(updatedRaw);
+        if (translated) {
+          setParsedReading(translated);
+        } else {
+          setParsedReading(updatedRaw);
+        }
+        setTranslating(false);
+      } else {
+        setParsedReading(updatedRaw);
+      }
 
       setSummaryDepth(targetDepth);
       setPathDepth(targetDepth);
@@ -2844,6 +2892,22 @@ CRITICAL FORMATTING RULES:
                   </div>
                 </div>
 
+                {/* Persona Selector - Always visible */}
+                <div className="mt-4 mb-4">
+                  <PersonaSelector
+                    persona={persona}
+                    setPersona={setPersona}
+                    humor={humor}
+                    setHumor={setHumor}
+                    register={register}
+                    setRegister={setRegister}
+                    roastMode={roastMode}
+                    setRoastMode={setRoastMode}
+                    directMode={directMode}
+                    setDirectMode={setDirectMode}
+                  />
+                </div>
+
                 {/* Voice Preview (toggleable) */}
                 {showVoicePreview && (
                   <div className="text-center mt-3 mb-4">
@@ -2867,12 +2931,12 @@ CRITICAL FORMATTING RULES:
                     className="px-4 py-2 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-800/50 hover:bg-zinc-800 border border-zinc-700/50 rounded-lg transition-all flex items-center gap-2"
                   >
                     <span className="text-zinc-500">⚙</span>
-                    <span>Voice Configuration</span>
+                    <span>Stance Config</span>
                     <span className="text-zinc-600">{showLandingFineTune ? '▾' : '▸'}</span>
                   </button>
                 </div>
 
-                {/* Fine-tune panel */}
+                {/* Stance Config panel (hidden by default) */}
                 {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
                     {/* Complexity Selector */}
@@ -2923,22 +2987,6 @@ CRITICAL FORMATTING RULES:
                       setShowCustomize={() => {}}
                       gridOnly={true}
                     />
-
-                    {/* Persona Translation Layer */}
-                    <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                      <PersonaSelector
-                        persona={persona}
-                        setPersona={setPersona}
-                        humor={humor}
-                        setHumor={setHumor}
-                        register={register}
-                        setRegister={setRegister}
-                        roastMode={roastMode}
-                        setRoastMode={setRoastMode}
-                        directMode={directMode}
-                        setDirectMode={setDirectMode}
-                      />
-                    </div>
 
                     {/* Model Toggle */}
                     <div className="mt-3 pt-2 border-t border-zinc-700/50">
