@@ -96,9 +96,10 @@ function buildBaselineMessage(question, draws, cards, letter, spreadType, spread
   // Build card summaries for synthesis context
   const cardSummaries = cards.map((card, i) => {
     const draw = draws[i];
-    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                  AGENTS[draw.transient - 61];
+    // BOUNDS and AGENTS are keyed directly by transient value
+    const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 62 ? BOUNDS[draw.transient] :
+                  AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const statusPrefix = stat?.prefix || 'Balanced';
     const cardName = `${statusPrefix} ${trans?.name || 'Unknown'}`;
@@ -155,9 +156,10 @@ function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKe
 
   const cardNames = cards.map((card, i) => {
     const draw = draws[i];
-    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                  AGENTS[draw.transient - 61];
+    // BOUNDS and AGENTS are keyed directly by transient value
+    const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 62 ? BOUNDS[draw.transient] :
+                  AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     return `${stat?.prefix || 'Balanced'} ${trans?.name}`;
   }).join(', ');

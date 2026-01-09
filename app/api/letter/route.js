@@ -91,9 +91,10 @@ function buildBaselineMessage(question, draws, spreadType, spreadKey) {
   const STATUSES = getStatuses();
 
   const cardNames = draws.map((draw, i) => {
-    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                  AGENTS[draw.transient - 61];
+    // BOUNDS and AGENTS are keyed directly by transient value
+    const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 62 ? BOUNDS[draw.transient] :
+                  AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const statusPrefix = stat?.prefix || 'Balanced';
     return `Card ${i + 1}: ${statusPrefix} ${trans?.name || 'Unknown'}`;
@@ -129,9 +130,10 @@ function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth,
   const STATUSES = getStatuses();
 
   const cardNames = draws.map((draw, i) => {
-    const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                  draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                  AGENTS[draw.transient - 61];
+    // BOUNDS and AGENTS are keyed directly by transient value
+    const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                  draw.transient < 62 ? BOUNDS[draw.transient] :
+                  AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const statusPrefix = stat?.prefix || 'Balanced';
     return `Card ${i + 1}: ${statusPrefix} ${trans?.name || 'Unknown'}`;

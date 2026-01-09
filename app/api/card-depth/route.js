@@ -335,9 +335,9 @@ function generateArchitectureText(draw) {
     const statusPrefix = stat?.prefix ? `${stat.prefix} ` : '';
 
     lines.push(`**Signature:** ${statusPrefix}${arch.name}`);
-    lines.push(`**Position:** ${arch.name} (Position ${transient} — ${arch.house})`);
+    lines.push(`**House:** ${arch.house}`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**House:** ${arch.house}${arch.channel ? ` | **Channel:** ${arch.channel}` : ''}`);
+    if (arch.channel) lines.push(`**Channel:** ${arch.channel}`);
     lines.push(`**Card Type:** Archetype (Major)`);
 
     // Add correction if imbalanced
@@ -368,11 +368,11 @@ function generateArchitectureText(draw) {
     const associatedArch = ARCHETYPES[bound.archetype];
 
     lines.push(`**Signature:** ${statusPrefix}${bound.name}`);
-    lines.push(`**Position:** ${bound.name} (Position ${transient} — ${bound.channel})`);
+    lines.push(`**Channel:** ${bound.channel}`);
+    lines.push(`**Number:** ${bound.number} of 10`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**Channel:** ${bound.channel} | **Number:** ${bound.number}`);
     lines.push(`**Card Type:** Bound (Minor ${bound.number})`);
-    lines.push(`**Associated Archetype:** ${associatedArch.name} (${bound.archetype}) — ${associatedArch.house} House`);
+    lines.push(`**Expresses:** ${associatedArch.name} — ${associatedArch.house} House`);
 
     // Bound corrections use channel crossing
     if (status !== 1) {
@@ -400,11 +400,11 @@ function generateArchitectureText(draw) {
     const associatedArch = ARCHETYPES[agent.archetype];
 
     lines.push(`**Signature:** ${statusPrefix}${agent.name}`);
-    lines.push(`**Position:** ${agent.name} (Position ${transient} — ${agent.channel})`);
+    lines.push(`**Channel:** ${agent.channel}`);
+    lines.push(`**Role:** ${agent.role}`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**Channel:** ${agent.channel} | **Role:** ${agent.role}`);
     lines.push(`**Card Type:** Agent (Court)`);
-    lines.push(`**Associated Archetype:** ${associatedArch.name} (${agent.archetype}) — ${associatedArch.house} House`);
+    lines.push(`**Embodies:** ${associatedArch.name} — ${associatedArch.house} House`);
 
     // Agent corrections follow the archetype's correction
     if (status !== 1) {
