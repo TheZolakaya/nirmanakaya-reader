@@ -65,6 +65,7 @@ import {
   getCorrectionText,
   getCorrectionTargetId,
   // Utilities
+  ensureParagraphBreaks,
   shuffleArray,
   generateSpread,
   encodeDraws,
@@ -1207,7 +1208,7 @@ Interpret this new card as the architecture's response to their declared directi
       // Add to thread (filter prohibited terms)
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: stripSignature(filterProhibitedTerms(data.reading)),
+        interpretation: ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading))),
         operation: operation,
         context: userInput
       };
@@ -1389,7 +1390,7 @@ Interpret this new card as the architecture's response to their declared directi
       // Create new thread item (filter prohibited terms)
       const newThreadItem = {
         draw: newDraw, // both reflect and forge draw a new card
-        interpretation: stripSignature(filterProhibitedTerms(data.reading)),
+        interpretation: ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading))),
         operation: operation,
         context: userInput,
         children: []
@@ -1557,11 +1558,14 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
+      // Post-process to ensure paragraph breaks (AI often ignores formatting instructions)
+      const formattedContent = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
+
       setExpansions(prev => ({
         ...prev,
         [sectionKey]: {
           ...(prev[sectionKey] || {}),
-          [expansionType]: stripSignature(filterProhibitedTerms(data.reading))
+          [expansionType]: formattedContent
         }
       }));
 
@@ -1668,7 +1672,9 @@ CRITICAL FORMATTING RULES:
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setFollowUpMessages([...messages, { role: 'assistant', content: stripSignature(filterProhibitedTerms(data.reading)) }]);
+      // Post-process to ensure paragraph breaks
+      const formattedResponse = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
+      setFollowUpMessages([...messages, { role: 'assistant', content: formattedResponse }]);
       setFollowUp('');
 
       // Accumulate token usage
@@ -3403,7 +3409,7 @@ CRITICAL FORMATTING RULES:
                           <LoadingDots message="One moment while I look deeper into the field" />
                         </div>
                       ) : summaryContent ? (
-                        summaryContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                        ensureParagraphBreaks(summaryContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                           <p key={i} className="whitespace-pre-wrap">
                             {renderWithHotlinks(para.trim(), setSelectedInfo)}
                           </p>
@@ -3632,7 +3638,7 @@ CRITICAL FORMATTING RULES:
                               <LoadingDots message="One moment while I look deeper into the field" />
                             </div>
                           ) : pathContent ? (
-                            pathContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                            ensureParagraphBreaks(pathContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                               <p key={i} className="whitespace-pre-wrap">
                                 {renderWithHotlinks(para.trim(), setSelectedInfo)}
                               </p>

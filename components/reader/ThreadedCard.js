@@ -4,6 +4,7 @@
 import { STATUSES, STATUS_INFO, STATUS_COLORS } from '../../lib/constants.js';
 import { getComponent } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
+import { ensureParagraphBreaks } from '../../lib/utils.js';
 
 const ThreadedCard = ({
   threadItem,
@@ -94,7 +95,7 @@ const ThreadedCard = ({
 
           {/* Interpretation with hotlinks - split into paragraphs */}
           <div className="text-sm leading-relaxed text-zinc-300 space-y-3">
-            {(threadItem.interpretation || '').split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+            {ensureParagraphBreaks(threadItem.interpretation || '').split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
               <p key={i} className="whitespace-pre-wrap">
                 {renderWithHotlinks(para.trim(), setSelectedInfo)}
               </p>
