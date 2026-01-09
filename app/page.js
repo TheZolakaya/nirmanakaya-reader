@@ -1826,7 +1826,7 @@ CRITICAL FORMATTING RULES:
 
         {correctionText && draw.status !== 1 && (
           <div className="border-t border-zinc-700/30 pt-3 mt-3">
-            <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Correction</div>
+            <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Rebalancer</div>
             <div className="text-sm text-zinc-300">
               → <span 
                 className={correctionTargetId !== null ? "cursor-pointer hover:text-zinc-100 transition-colors" : ""}
