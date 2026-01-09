@@ -106,12 +106,36 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
+// Progressive loading dots animation component
+const LoadingDots = ({ message = "Looking deeper into the field", color = "current" }) => {
+  const [dots, setDots] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      <span className="italic">{message}</span>
+      <span className="w-4 text-left">{dots}</span>
+    </span>
+  );
+};
+
 // Helper to extract summary content from either string (legacy) or object (new depth format)
 const getSummaryContent = (summary, depth = 'wade') => {
   if (!summary) return '';
   if (typeof summary === 'string') return summary;
   // New format: { wade, swim, deep } - no more surface
-  return summary[depth] || summary.wade || summary.swim || summary.deep || '';
+  // Use explicit null check to avoid empty string fallback issues
+  if (summary[depth] != null && summary[depth] !== '') return summary[depth];
+  if (summary.wade != null && summary.wade !== '') return summary.wade;
+  if (summary.swim != null && summary.swim !== '') return summary.swim;
+  if (summary.deep != null && summary.deep !== '') return summary.deep;
+  return '';
 };
 
 // Helper to extract letter content from either string (legacy) or object (new depth format)
@@ -119,7 +143,12 @@ const getLetterContent = (letter, depth = 'wade') => {
   if (!letter) return '';
   if (typeof letter === 'string') return letter;
   // New format: { wade, swim, deep } - no surface for letter
-  return letter[depth] || letter.wade || letter.swim || letter.deep || '';
+  // Use explicit null check to avoid empty string fallback issues
+  if (letter[depth] != null && letter[depth] !== '') return letter[depth];
+  if (letter.wade != null && letter.wade !== '') return letter.wade;
+  if (letter.swim != null && letter.swim !== '') return letter.swim;
+  if (letter.deep != null && letter.deep !== '') return letter.deep;
+  return '';
 };
 
 // Discover mode descriptions by position count
@@ -915,25 +944,43 @@ export default function NirmanakaReader() {
 
     if (isUnified) {
       // Unified continuation - uses the full reading overview
-      if (!parsedReading?.summary) return;
+      if (!parsedReading?.summary) {
+        setError('No reading content available for continuation.');
+        return;
+      }
       parentContent = getSummaryContent(parsedReading.summary) + (parsedReading.letter ? '\n\n' + getLetterContent(parsedReading.letter) : '');
       parentLabel = 'Full Reading';
     } else if (isSummary) {
-      if (!parsedReading?.summary) return;
+      if (!parsedReading?.summary) {
+        setError('No summary content available.');
+        return;
+      }
       parentContent = getSummaryContent(parsedReading.summary);
       parentLabel = 'Overview';
     } else if (isLetter) {
-      if (!parsedReading?.letter) return;
+      if (!parsedReading?.letter) {
+        setError('No letter content available.');
+        return;
+      }
       parentContent = getLetterContent(parsedReading.letter);
       parentLabel = 'Letter';
     } else if (isPath) {
-      // New structure: path has surface/wade
-      const pathContent = parsedReading?.path?.wade || parsedReading?.rebalancerSummary;
-      if (!pathContent) return;
+      // New structure: path has surface/wade - use proper null check
+      const path = parsedReading?.path;
+      const pathContent = (path?.wade && path.wade !== '') ? path.wade
+        : (path?.swim && path.swim !== '') ? path.swim
+        : parsedReading?.rebalancerSummary;
+      if (!pathContent) {
+        setError('No path content available.');
+        return;
+      }
       parentContent = pathContent;
       parentLabel = 'Path to Balance';
     } else if (isWordsToWhys) {
-      if (!parsedReading?.wordsToWhys) return;
+      if (!parsedReading?.wordsToWhys) {
+        setError('No Words to the Whys content available.');
+        return;
+      }
       parentContent = parsedReading.wordsToWhys;
       parentLabel = 'Words to the Whys';
     } else {
@@ -941,7 +988,10 @@ export default function NirmanakaReader() {
       const cardIndex = parseInt(threadKey.replace('card-', ''));
       const parentDraw = draws[cardIndex];
       const parentCard = parsedReading.cards.find(c => c.index === cardIndex);
-      if (!parentDraw || !parentCard) return;
+      if (!parentDraw || !parentCard) {
+        setError('Card not found.');
+        return;
+      }
       const parentTrans = getComponent(parentDraw.transient);
       const parentStat = STATUSES[parentDraw.status];
       const parentStatusPrefix = parentStat.prefix || 'Balanced';
@@ -3177,14 +3227,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   </div>
                 )}
                 {letterLoadingDeeper && (
-                  <span className="text-xs text-violet-400 animate-pulse">Looking deeper into the field...</span>
+                  <span className="text-xs text-violet-400"><LoadingDots message="Looking deeper into the field" /></span>
                 )}
               </div>
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
                 {letterLoadingDeeper ? (
                   <div className="flex items-center gap-2 text-violet-400">
-                    <span className="animate-pulse">●</span>
-                    <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                    <span className="animate-spin">◌</span>
+                    <LoadingDots message="One moment while I look deeper into the field" />
                   </div>
                 ) : letterContent ? (
                   letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
@@ -3311,7 +3361,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     </div>
                   )}
                   {synthesisLoadingDeeper && !isSummaryCollapsed && (
-                    <span className="text-xs text-amber-400 animate-pulse">Looking deeper into the field...</span>
+                    <span className="text-xs text-amber-400"><LoadingDots message="Looking deeper into the field" /></span>
                   )}
                 </div>
 
@@ -3321,8 +3371,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
                       {synthesisLoadingDeeper ? (
                         <div className="flex items-center gap-2 text-amber-400">
-                          <span className="animate-pulse">●</span>
-                          <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                          <span className="animate-spin">◌</span>
+                          <LoadingDots message="One moment while I look deeper into the field" />
                         </div>
                       ) : summaryContent ? (
                         summaryContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
@@ -3480,9 +3530,19 @@ Respond directly with the expanded content. No section markers needed. Keep it f
             {(parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.path?.deep || parsedReading.rebalancerSummary) && (() => {
               const path = parsedReading.path || {};
               const hasDepthLevels = path.surface || path.wade || path.swim || path.deep;
-              const pathContent = hasDepthLevels
-                ? (path[pathDepth] || path.deep || path.swim || path.wade || path.surface)
-                : parsedReading.rebalancerSummary;
+              // Use explicit null check to avoid empty string fallback issues
+              const getPathContent = () => {
+                if (hasDepthLevels) {
+                  // Try requested depth first, then fallback in order: wade -> swim -> deep -> surface
+                  if (path[pathDepth] != null && path[pathDepth] !== '') return path[pathDepth];
+                  if (path.wade != null && path.wade !== '') return path.wade;
+                  if (path.swim != null && path.swim !== '') return path.swim;
+                  if (path.deep != null && path.deep !== '') return path.deep;
+                  return path.surface || '';
+                }
+                return parsedReading.rebalancerSummary || '';
+              };
+              const pathContent = getPathContent();
               const pathExpansions = expansions['path'] || {};
               const isPathExpanding = expanding?.section === 'path';
               const isPathCollapsed = collapsedSections['path'] !== false; // true by default
@@ -3530,7 +3590,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         </div>
                       )}
                       {synthesisLoadingDeeper && !isPathCollapsed && (
-                        <span className="text-xs text-emerald-400 animate-pulse">Looking deeper into the field...</span>
+                        <span className="text-xs text-emerald-400"><LoadingDots message="Looking deeper into the field" /></span>
                       )}
                     </div>
 
@@ -3540,8 +3600,8 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
                           {synthesisLoadingDeeper ? (
                             <div className="flex items-center gap-2 text-emerald-400">
-                              <span className="animate-pulse">●</span>
-                              <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                              <span className="animate-spin">◌</span>
+                              <LoadingDots message="One moment while I look deeper into the field" />
                             </div>
                           ) : pathContent ? (
                             pathContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
@@ -3565,8 +3625,22 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                               <span className="text-xs font-medium text-emerald-500/70 uppercase tracking-wider">Architecture</span>
                             </div>
                             {!isPathArchCollapsed && (
-                              <div className="px-3 pb-3 text-xs text-zinc-400 whitespace-pre-wrap font-mono">
-                                {renderWithHotlinks(path.architecture, setSelectedInfo)}
+                              <div className="px-3 pb-3 text-xs text-zinc-400 font-mono">
+                                {/* Split on newlines and render each line with markdown for bold labels */}
+                                {path.architecture.split('\n').map((line, i) => (
+                                  <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
+                                    {line.trim() ? (
+                                      <ReactMarkdown
+                                        components={{
+                                          p: ({ children }) => <span>{children}</span>,
+                                          strong: ({ children }) => <strong className="text-emerald-300 font-semibold">{children}</strong>
+                                        }}
+                                      >
+                                        {line}
+                                      </ReactMarkdown>
+                                    ) : null}
+                                  </div>
+                                ))}
                               </div>
                             )}
                           </div>
@@ -3615,8 +3689,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                 ×
                               </button>
                             </div>
-                            <div className="text-sm leading-relaxed whitespace-pre-wrap text-zinc-400">
-                              {renderWithHotlinks(expContent, setSelectedInfo)}
+                            <div className="text-sm leading-relaxed text-zinc-400 space-y-3">
+                              {expContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                                <p key={i} className="whitespace-pre-wrap">
+                                  {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                                </p>
+                              ))}
                             </div>
                           </div>
                         ))}

@@ -1,6 +1,6 @@
 # Nirmanakaya Reader - Backlog
 
-Last updated: 2026-01-08 (v0.51.2)
+Last updated: 2026-01-08 (v0.51.3)
 
 ## Rollback Safety
 - **Tag `v0.50.0-stable`** exists for rollback if needed (before progressive depth changes)
@@ -9,58 +9,54 @@ Last updated: 2026-01-08 (v0.51.2)
 
 ## BUGS
 
-### B1: WADE and SWIM depths not formatted (wall of text)
-- **Status:** Open
-- **Severity:** High
-- **Affects:** Letter, Overview, Path to Balance, Cards
-- **Note:** DEEP is formatted correctly - issue is with WADE/SWIM only
-
-### B2: Path to Balance defaults to SWIM instead of WADE
-- **Status:** Open
-- **Severity:** Medium
-
-### B3: Loading animation inconsistency and needs improvement
-- **Status:** Open
-- **Severity:** Medium
-- **Details:**
-  - Path to Balance: loading message covers depth buttons (good behavior)
-  - Cards: don't have this behavior (should match Path)
-  - Need: Progressive dots animation (. .. ... ....) or progress bar
-  - Current flashing text builds anxiety without progress indication
-
-### B4: Architecture sections have bolding but no carriage returns
-- **Status:** Open
-- **Severity:** Medium
-- **Details:** Hard to read without line breaks
-
-### B5: Rebalancer ("How to Rebalance") section issues
-- **Status:** Open
-- **Severity:** High
-- **Details:**
-  - Deep button doesn't change content from Swim (not loading/generating)
-  - Needs formatting treatment across all depths (same wall of text issue)
-
-### B6: Expansion buttons have no formatting applied (wall of text)
-- **Status:** Open
-- **Severity:** Medium
-- **Affects:** Unpack, Clarify, Example
-
-### B7: Reflect and Forge operations show processing then disappear with no results
-- **Status:** Open
-- **Severity:** Critical
+(All bugs from v0.51.2 have been addressed in v0.51.3)
 
 ---
 
 ## FEATURE REQUESTS
 
-### FR1: Card context reminder in sub-sections
-- **Status:** Open
-- **Priority:** Medium
-- **Details:** Repeat transient status, card name, and position beneath each sub-section title when expanded. Provides context as users drill into nested content.
+(None pending)
 
 ---
 
-## COMPLETED (Recent)
+## COMPLETED (v0.51.3)
+
+- B1: WADE and SWIM depths now properly formatted (paragraph splitting)
+  - Added formatting instructions to all APIs (card-depth, synthesis, letter)
+  - Added EXPANSION_PROMPTS formatting instructions
+  - Fixed Path expansion content paragraph rendering
+
+- B2: Path to Balance now defaults to WADE correctly
+  - Fixed empty string fallback logic in getSummaryContent, getLetterContent
+  - Fixed getPathContent to use proper null checks
+
+- B3: Loading animations improved with progressive dots
+  - Added LoadingDots component with animated "..."
+  - Updated all loading messages across page.js and DepthCard.js
+  - Changed spinner icon to animated circle
+
+- B4: Architecture sections now have proper line breaks
+  - Updated DepthCard.js architecture rendering to split on newlines
+  - Updated Path architecture rendering in page.js
+  - Updated ArchitectureBox.js component
+
+- B5: Rebalancer Deep button now triggers on-demand loading
+  - Added onLoadDeeper call to Rebalancer depth buttons
+  - Fixed getRebalancerContent fallback logic with proper null checks
+
+- B6: Expansion buttons formatting fixed
+  - Path expansion content now splits paragraphs correctly
+
+- B7: Reflect/Forge error handling improved
+  - Added error messages for missing content cases
+  - Fixed path content null/empty string check
+
+- FR1: Card context reminder added to sub-sections
+  - Added "Structure of [Card Name]" to Architecture section
+
+---
+
+## COMPLETED (Previous Versions)
 
 - v0.51.2: Depth buttons now trigger API calls for deeper content
 - v0.51.2: Removed SURFACE from all depth button arrays

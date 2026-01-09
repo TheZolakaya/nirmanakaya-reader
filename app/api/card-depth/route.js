@@ -118,6 +118,8 @@ Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
 Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
 
+FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
+
 Respond with these markers:
 
 [CARD:${n}:WADE]
@@ -189,6 +191,8 @@ CRITICAL RULES:
 3. BUILD ON what came before - deepen it, don't restate it
 4. Each section should feel like a natural progression
 5. Introduce NEW angles that make the previous content richer
+
+FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 Respond with these markers:
 

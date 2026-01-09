@@ -116,6 +116,8 @@ The Letter is a warm, personal address to the querent. It:
 
 WADE depth means: 3-4 substantive sentences. Not a quick summary, but not exhaustive either. Warm, engaging, specific to THEIR question and cards.
 
+FORMATTING: Use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
+
 Respond with JUST the content (no markers needed). Write directly to the querent in second person.`;
 }
 
@@ -159,6 +161,8 @@ CRITICAL RULES:
 2. ADD new dimensions, feelings, insights
 3. BUILD ON what came before - reference it, deepen it
 4. Each depth should feel like a natural progression, not a rewrite
+
+FORMATTING: Use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 Respond with JUST the content (no markers). Write directly to the querent.`;
 }

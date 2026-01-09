@@ -141,6 +141,8 @@ Respond with these markers:
 [PATH:ARCHITECTURE]
 (Structural analysis of how the corrections work together)
 
+FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
+
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear synthesis.`;
 }
 
@@ -187,6 +189,8 @@ CRITICAL RULES:
 2. ADD new dimensions, interconnections, practical implications
 3. BUILD ON what came before - deepen it, don't restate it
 4. Show how patterns CONNECT in ways the earlier level didn't reveal
+
+FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 Respond with these markers:
 

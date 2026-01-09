@@ -51,14 +51,21 @@ const ArchitectureBox = ({
       {isExpanded && (
         <div className="px-3 pb-3 pt-1 border-t border-zinc-700/30 animate-fadeIn">
           <div className="text-xs text-zinc-400 font-mono leading-relaxed">
-            <ReactMarkdown
-              components={{
-                p: ({ children }) => <p className="mb-1">{children}</p>,
-                strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
-              }}
-            >
-              {content}
-            </ReactMarkdown>
+            {/* Split on newlines and render each line with markdown for bold labels */}
+            {content.split('\n').map((line, i) => (
+              <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
+                {line.trim() ? (
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children }) => <span>{children}</span>,
+                      strong: ({ children }) => <strong className={isRebalancer ? 'text-emerald-300 font-semibold' : 'text-violet-300 font-semibold'}>{children}</strong>
+                    }}
+                  >
+                    {line}
+                  </ReactMarkdown>
+                ) : null}
+              </div>
+            ))}
           </div>
         </div>
       )}

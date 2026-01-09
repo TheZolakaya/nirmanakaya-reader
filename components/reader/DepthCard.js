@@ -44,6 +44,25 @@ const AnimatedContent = ({ isVisible, children }) => {
   );
 };
 
+// Progressive loading dots animation component
+const LoadingDots = ({ message = "Looking deeper into the field" }) => {
+  const [dots, setDots] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      <span className="italic">{message}</span>
+      <span className="w-4 text-left">{dots}</span>
+    </span>
+  );
+};
+
 // WHY depth levels (includes DEEP)
 const WHY_DEPTH = {
   COLLAPSED: 'collapsed',
@@ -124,28 +143,75 @@ const DepthCard = ({
   );
 
   // Get content for current depth (with fallback chain, now includes DEEP)
+  // Helper to check for actual content (not empty string)
+  const hasContentValue = (val) => val != null && val !== '';
+
   const getContent = (d) => {
-    // Try requested depth first, then fall back to other available content
+    // Try requested depth first, then fall back in order: wade -> swim -> deep -> surface
     switch (d) {
-      case DEPTH.SURFACE: return cardData.surface || cardData.wade || cardData.swim || cardData.deep;
-      case DEPTH.WADE: return cardData.wade || cardData.swim || cardData.deep || cardData.surface;
-      case DEPTH.SWIM: return cardData.swim || cardData.deep || cardData.wade || cardData.surface;
-      case DEPTH.DEEP: return cardData.deep || cardData.swim || cardData.wade || cardData.surface;
-      default: return cardData.surface || cardData.wade || cardData.swim || cardData.deep;
+      case DEPTH.SURFACE:
+        if (hasContentValue(cardData.surface)) return cardData.surface;
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        if (hasContentValue(cardData.swim)) return cardData.swim;
+        if (hasContentValue(cardData.deep)) return cardData.deep;
+        return '';
+      case DEPTH.WADE:
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        if (hasContentValue(cardData.swim)) return cardData.swim;
+        if (hasContentValue(cardData.deep)) return cardData.deep;
+        return '';
+      case DEPTH.SWIM:
+        if (hasContentValue(cardData.swim)) return cardData.swim;
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        if (hasContentValue(cardData.deep)) return cardData.deep;
+        return '';
+      case DEPTH.DEEP:
+        if (hasContentValue(cardData.deep)) return cardData.deep;
+        if (hasContentValue(cardData.swim)) return cardData.swim;
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        return '';
+      default:
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        if (hasContentValue(cardData.swim)) return cardData.swim;
+        if (hasContentValue(cardData.deep)) return cardData.deep;
+        return '';
     }
   };
 
-  // Get rebalancer content for current depth (with fallback chain, now includes DEEP)
+  // Get rebalancer content for current depth (with proper null check to avoid empty string fallback)
   const getRebalancerContent = (d) => {
     if (!cardData.rebalancer) return null;
     const r = cardData.rebalancer;
-    // Try requested depth first, then fall back to other available content
+    // Helper to check for actual content (not empty string)
+    const hasContent = (val) => val != null && val !== '';
+    // Try requested depth first, then fall back in order: wade -> swim -> deep -> surface
     switch (d) {
-      case DEPTH.SURFACE: return r.surface || r.wade || r.swim || r.deep;
-      case DEPTH.WADE: return r.wade || r.swim || r.deep || r.surface;
-      case DEPTH.SWIM: return r.swim || r.deep || r.wade || r.surface;
-      case DEPTH.DEEP: return r.deep || r.swim || r.wade || r.surface;
-      default: return r.surface || r.wade || r.swim || r.deep;
+      case DEPTH.SURFACE:
+        if (hasContent(r.surface)) return r.surface;
+        if (hasContent(r.wade)) return r.wade;
+        if (hasContent(r.swim)) return r.swim;
+        if (hasContent(r.deep)) return r.deep;
+        return null;
+      case DEPTH.WADE:
+        if (hasContent(r.wade)) return r.wade;
+        if (hasContent(r.swim)) return r.swim;
+        if (hasContent(r.deep)) return r.deep;
+        return null;
+      case DEPTH.SWIM:
+        if (hasContent(r.swim)) return r.swim;
+        if (hasContent(r.wade)) return r.wade;
+        if (hasContent(r.deep)) return r.deep;
+        return null;
+      case DEPTH.DEEP:
+        if (hasContent(r.deep)) return r.deep;
+        if (hasContent(r.swim)) return r.swim;
+        if (hasContent(r.wade)) return r.wade;
+        return null;
+      default:
+        if (hasContent(r.wade)) return r.wade;
+        if (hasContent(r.swim)) return r.swim;
+        if (hasContent(r.deep)) return r.deep;
+        return null;
     }
   };
 
@@ -396,8 +462,8 @@ const DepthCard = ({
             </div>
           ) : isLoadingDeeper ? (
             <div className="flex items-center gap-2 text-zinc-400">
-              <span className="animate-pulse">●</span>
-              <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+              <span className="animate-spin">◌</span>
+              <LoadingDots message="One moment while I look deeper into the field" />
             </div>
           ) : content ? (
             <div className="space-y-3">
@@ -523,21 +589,43 @@ const DepthCard = ({
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
                 {['wade', 'swim', 'deep'].map((level) => {
                   const r = cardData.rebalancer || {};
-                  const hasContent = level === 'wade' ? (r.wade || r.swim || r.deep)
-                    : level === 'swim' ? (r.swim || r.deep)
-                    : r.deep;
+                  // Use proper null check for hasContent
+                  const hasContent = level === 'wade' ? hasContentValue(r.wade)
+                    : level === 'swim' ? hasContentValue(r.swim)
+                    : hasContentValue(r.deep);
                   const isActive = rebalancerDepth === level;
+                  const isThisLoading = isLoadingDeeper && !hasContent && rebalancerDepth !== level;
                   return (
                     <button
                       key={level}
-                      onClick={(e) => { e.stopPropagation(); setRebalancerDepth(level); }}
+                      disabled={isLoadingDeeper}
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        if (hasContent) {
+                          setRebalancerDepth(level);
+                        } else if (onLoadDeeper && !isLoadingDeeper) {
+                          // Need to load deeper content for rebalancer
+                          const previousContent = {
+                            reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                            why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                            rebalancer: { wade: r.wade || '', swim: r.swim || '' },
+                            architecture: cardData.architecture || '',
+                            mirror: cardData.mirror || ''
+                          };
+                          await onLoadDeeper(cardData.index, level, previousContent);
+                          setRebalancerDepth(level);
+                        } else {
+                          // No loader available, just switch
+                          setRebalancerDepth(level);
+                        }
+                      }}
                       className={`px-2 py-0.5 text-xs rounded transition-colors ${
                         isActive
                           ? 'bg-emerald-500 text-white'
                           : hasContent
                             ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                            : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
-                      }`}
+                            : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
+                      } ${isThisLoading ? 'animate-pulse' : ''}`}
                     >
                       {level.charAt(0).toUpperCase() + level.slice(1)}
                       {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -719,16 +807,29 @@ const DepthCard = ({
 
           {/* Architecture Content - expanded, with markdown for bold labels */}
           {!isArchCollapsed && (
-            <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content space-y-2">
-              <ReactMarkdown
-                components={{
-                  p: ({ children }) => <p className="mb-2">{children}</p>,
-                  strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
-                }}
-              >
-                {cardData.architecture}
-              </ReactMarkdown>
-            </div>
+            <>
+              {/* Card context reminder */}
+              <div className="text-xs text-violet-400/60 mb-3 italic">
+                Structure of {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
+              </div>
+              <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content">
+                {/* Split on newlines and render each line with markdown for bold labels */}
+                {cardData.architecture.split('\n').map((line, i) => (
+                <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
+                  {line.trim() ? (
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => <span>{children}</span>,
+                        strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
+                      }}
+                    >
+                      {line}
+                    </ReactMarkdown>
+                  ) : null}
+                </div>
+              ))}
+              </div>
+            </>
           )}
         </div>
       )}
