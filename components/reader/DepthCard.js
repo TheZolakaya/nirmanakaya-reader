@@ -415,7 +415,7 @@ const DepthCard = ({
               tap to explore
             </span>
           ) : isLoadingDeeper ? (
-            <span className="ml-auto text-xs text-amber-400">
+            <span className="ml-auto text-xs text-rose-400 font-medium">
               <LoadingDots message="Looking deeper into the field" />
             </span>
           ) : (
@@ -484,7 +484,7 @@ const DepthCard = ({
               <span className="italic">Generating depths...</span>
             </div>
           ) : isLoadingDeeper ? (
-            <div className="flex items-center gap-2 text-zinc-400">
+            <div className="flex items-center gap-2 text-rose-400 font-medium">
               <span className="animate-spin">◌</span>
               <LoadingDots message="One moment while I look deeper into the field" />
             </div>
@@ -609,7 +609,7 @@ const DepthCard = ({
                 tap to explore
               </span>
             ) : isLoadingDeeper ? (
-              <span className="ml-auto text-xs text-emerald-400">
+              <span className="ml-auto text-xs text-rose-400 font-medium">
                 <LoadingDots message="Looking deeper into the field" />
               </span>
             ) : (
@@ -670,7 +670,7 @@ const DepthCard = ({
               </div>
               <div className="leading-relaxed text-sm mb-4 text-emerald-100/90 animate-fadeIn">
                 {isLoadingDeeper ? (
-                  <div className="flex items-center gap-2 text-emerald-400">
+                  <div className="flex items-center gap-2 text-rose-400 font-medium">
                     <span className="animate-spin">◌</span>
                     <LoadingDots message="One moment while I look deeper into the field" />
                   </div>
@@ -756,7 +756,7 @@ const DepthCard = ({
                     </span>
                     {/* Depth navigation buttons for WHY - replaced with loading animation when loading */}
                     {isLoadingDeeper ? (
-                      <span className="text-xs text-cyan-400">
+                      <span className="text-xs text-rose-400 font-medium">
                         <LoadingDots message="Looking deeper into the field" />
                       </span>
                     ) : (
@@ -804,7 +804,7 @@ const DepthCard = ({
                   {/* WHY Content at current depth */}
                   <div className="text-sm text-cyan-100/90 mb-4">
                     {isLoadingDeeper ? (
-                      <div className="flex items-center gap-2 text-cyan-400">
+                      <div className="flex items-center gap-2 text-rose-400 font-medium">
                         <span className="animate-spin">◌</span>
                         <LoadingDots message="One moment while I look deeper into the field" />
                       </div>
