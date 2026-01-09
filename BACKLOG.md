@@ -1,6 +1,6 @@
 # Nirmanakaya Reader - Backlog
 
-Last updated: 2026-01-08 (v0.51.4)
+Last updated: 2026-01-08 (v0.51.5)
 
 ## Rollback Safety
 - **Tag `v0.50.0-stable`** exists for rollback if needed (before progressive depth changes)
@@ -17,6 +17,20 @@ Last updated: 2026-01-08 (v0.51.4)
 
 - FR1: Section headers (Reading, The Why, etc.) clickable with definition popups
 - FR2: Core framework terms in popups (archetype, status) should be clickable with definitions
+
+---
+
+## COMPLETED (v0.51.5)
+
+- Wall of text fix: ensureParagraphBreaks utility in lib/utils.js
+  - Applied to all content: cards, expansions, rebalancer, WHY, threads, follow-up
+  - Processes each chunk individually even if some have breaks
+  - Breaks long blocks into ~3 sentence paragraphs
+
+- Loading animations: All depth sections now show consistent animation
+  - Buttons replaced with LoadingDots when loading deeper
+  - Applied to main card, Words to Whys, and Rebalancer sections
+  - Content area shows loading indicator during fetch
 
 ---
 
