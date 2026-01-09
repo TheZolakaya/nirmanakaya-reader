@@ -3,7 +3,6 @@
 // Handles both main card and nested Rebalancer
 
 import { useState, useRef, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
@@ -692,6 +691,8 @@ const DepthCard = ({
                 <ArchitectureBox
                   content={cardData.rebalancer.architecture}
                   isRebalancer={true}
+                  setSelectedInfo={setSelectedInfo}
+                  showTraditional={showTraditional}
                 />
               )}
             </>
@@ -826,6 +827,8 @@ const DepthCard = ({
                     <ArchitectureBox
                       content={cardData.why.architecture}
                       label="Why Architecture"
+                      setSelectedInfo={setSelectedInfo}
+                      showTraditional={showTraditional}
                     />
                   )}
                 </div>
@@ -862,7 +865,7 @@ const DepthCard = ({
             )}
           </div>
 
-          {/* Architecture Content - expanded, with markdown for bold labels */}
+          {/* Architecture Content - expanded, with hotlinks */}
           {!isArchCollapsed && (
             <>
               {/* Card context reminder */}
@@ -870,19 +873,10 @@ const DepthCard = ({
                 Structure of {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
               </div>
               <div className="text-xs text-zinc-400 font-mono leading-relaxed architecture-content">
-                {/* Split on newlines and render each line with markdown for bold labels */}
+                {/* Split on newlines and render each line with hotlinks */}
                 {cardData.architecture.split('\n').map((line, i) => (
                 <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
-                  {line.trim() ? (
-                    <ReactMarkdown
-                      components={{
-                        p: ({ children }) => <span>{children}</span>,
-                        strong: ({ children }) => <strong className="text-violet-300 font-semibold">{children}</strong>
-                      }}
-                    >
-                      {line}
-                    </ReactMarkdown>
-                  ) : null}
+                  {line.trim() ? renderWithHotlinks(line, setSelectedInfo, showTraditional) : null}
                 </div>
               ))}
               </div>

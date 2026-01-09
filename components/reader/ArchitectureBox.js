@@ -3,13 +3,15 @@
 // Visible at Wade/Swim levels, collapsed by default
 
 import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { renderWithHotlinks } from '../../lib/hotlinks.js';
 
 const ArchitectureBox = ({
   content,
   isRebalancer = false,
   label = null,
-  className = ''
+  className = '',
+  setSelectedInfo = null,
+  showTraditional = false
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -47,23 +49,14 @@ const ArchitectureBox = ({
         )}
       </button>
 
-      {/* Content - collapsible, with markdown support for bold labels */}
+      {/* Content - collapsible, with markdown support for bold labels and hotlinks */}
       {isExpanded && (
         <div className="px-3 pb-3 pt-1 border-t border-zinc-700/30 animate-fadeIn">
-          <div className="text-xs text-zinc-400 font-mono leading-relaxed">
-            {/* Split on newlines and render each line with markdown for bold labels */}
+          <div className={`text-xs text-zinc-400 font-mono leading-relaxed ${isRebalancer ? 'architecture-rebalancer' : 'architecture-content'}`}>
+            {/* Split on newlines and render each line with hotlinks */}
             {content.split('\n').map((line, i) => (
               <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
-                {line.trim() ? (
-                  <ReactMarkdown
-                    components={{
-                      p: ({ children }) => <span>{children}</span>,
-                      strong: ({ children }) => <strong className={isRebalancer ? 'text-emerald-300 font-semibold' : 'text-violet-300 font-semibold'}>{children}</strong>
-                    }}
-                  >
-                    {line}
-                  </ReactMarkdown>
-                ) : null}
+                {line.trim() ? renderWithHotlinks(line, setSelectedInfo, showTraditional) : null}
               </div>
             ))}
           </div>
