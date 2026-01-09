@@ -3271,12 +3271,7 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                {letterLoadingDeeper ? (
-                  <div className="flex items-center gap-2 text-violet-400">
-                    <span className="animate-spin">◌</span>
-                    <LoadingDots message="One moment while I look deeper into the field" />
-                  </div>
-                ) : letterContent ? (
+                {letterContent ? (
                   letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                     <p key={i} className="whitespace-pre-wrap">
                       {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
