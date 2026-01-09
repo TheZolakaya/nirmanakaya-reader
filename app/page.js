@@ -256,13 +256,15 @@ export default function NirmanakaReader() {
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
 
-  // === PERSONA TRANSLATION LAYER (Stage 2) ===
-  // Persona layer transforms readings into different voices without changing meaning
+  // === PERSONA VOICE SYSTEM V2 (One-Pass) ===
+  // Voice is baked into generation - no separate translation layer
   const [persona, setPersona] = useState('none'); // 'none' | 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
-  const [humor, setHumor] = useState(5); // 1-10: Comic to Serious
-  const [register, setRegister] = useState(5); // 1-10: Street to Sophisticated
+  const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
+  const [register, setRegister] = useState(5); // 1-10: Unhinged Street to Oracle
+  const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
   const [roastMode, setRoastMode] = useState(false); // Loving but savage
   const [directMode, setDirectMode] = useState(false); // No softening
+  // Legacy translation state (kept for potential fallback, will be removed in future)
   const [translating, setTranslating] = useState(false); // Translation in progress
   const [rawParsedReading, setRawParsedReading] = useState(null); // Original untranslated reading
   const [translationUsage, setTranslationUsage] = useState(null); // Separate token tracking for translation
@@ -467,6 +469,7 @@ export default function NirmanakaReader() {
         if (prefs.persona !== undefined) setPersona(prefs.persona);
         if (prefs.humor !== undefined) setHumor(prefs.humor);
         if (prefs.register !== undefined) setRegister(prefs.register);
+        if (prefs.creator !== undefined) setCreator(prefs.creator);
         if (prefs.roastMode !== undefined) setRoastMode(prefs.roastMode);
         if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
       }
@@ -499,10 +502,11 @@ export default function NirmanakaReader() {
       spreadKey,
       stance,
       showVoicePreview,
-      // Persona layer settings
+      // Persona layer settings (V2)
       persona,
       humor,
       register,
+      creator,
       roastMode,
       directMode
     };
@@ -511,7 +515,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, roastMode, directMode]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -652,10 +656,18 @@ export default function NirmanakaReader() {
 
     // Standard Mode: On-demand depth generation
     // Phase 1: Fetch Letter only (card content loaded on-demand)
+    // V2: Include persona params for one-pass voice integration
     const systemPrompt = buildSystemPrompt(userLevel, {
       spreadType,
       stance,
-      letterTone: VOICE_LETTER_TONE[stance.voice]
+      letterTone: VOICE_LETTER_TONE[stance.voice],
+      // Persona Voice V2 params
+      persona,
+      humor,
+      register,
+      creator,
+      roastMode,
+      directMode
     });
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
@@ -809,30 +821,14 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Update rawParsedReading first (always store raw content)
-      const updatedRaw = {
-        ...rawParsedReading,
-        cards: rawParsedReading?.cards?.map((card, i) =>
+      // V2: Voice is baked into generation - no translation needed
+      const updatedReading = {
+        ...parsedReading,
+        cards: parsedReading?.cards?.map((card, i) =>
           i === cardIndex ? { ...card, ...data.cardData } : card
         ) || []
       };
-      setRawParsedReading(updatedRaw);
-
-      // If persona is active, translate the updated reading
-      if (persona !== 'none') {
-        setTranslating(true);
-        const translated = await translateReading(updatedRaw);
-        if (translated) {
-          setParsedReading(translated);
-        } else {
-          // Fallback to raw if translation failed
-          setParsedReading(updatedRaw);
-        }
-        setTranslating(false);
-      } else {
-        // No persona - show raw
-        setParsedReading(updatedRaw);
-      }
+      setParsedReading(updatedReading);
 
       // Accumulate token usage
       if (data.usage) {
@@ -896,25 +892,8 @@ export default function NirmanakaReader() {
         path: data.path
       };
 
-      // Store as raw for potential re-translation
-      setRawParsedReading(completeReading);
-
-      // If persona is selected, translate BEFORE showing the reading
-      if (persona !== 'none') {
-        // Don't show raw - go straight to translation
-        setTranslating(true);
-        const translated = await translateReading(completeReading);
-        if (translated) {
-          setParsedReading(translated);
-        } else {
-          // Fallback to raw if translation failed
-          setParsedReading(completeReading);
-        }
-        setTranslating(false);
-      } else {
-        // No persona - show raw immediately
-        setParsedReading(completeReading);
-      }
+      // V2: Voice is baked into generation - update reading directly
+      setParsedReading(completeReading);
 
       // Accumulate token usage
       if (data.usage) {
@@ -972,27 +951,12 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Update rawParsedReading first
-      const updatedRaw = {
-        ...rawParsedReading,
+      // V2: Voice is baked into generation - update reading directly
+      const updatedReading = {
+        ...parsedReading,
         letter: data.letter
       };
-      setRawParsedReading(updatedRaw);
-
-      // If persona is active, translate the updated reading
-      if (persona !== 'none') {
-        setTranslating(true);
-        const translated = await translateReading(updatedRaw);
-        if (translated) {
-          setParsedReading(translated);
-        } else {
-          setParsedReading(updatedRaw);
-        }
-        setTranslating(false);
-      } else {
-        setParsedReading(updatedRaw);
-      }
-
+      setParsedReading(updatedReading);
       setLetterDepth(targetDepth);
 
       // Accumulate token usage
@@ -1060,34 +1024,19 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Update rawParsedReading first
-      const updatedRaw = {
-        ...rawParsedReading,
+      // V2: Voice is baked into generation - update reading directly
+      const updatedReading = {
+        ...parsedReading,
         summary: {
-          ...rawParsedReading?.summary,
+          ...parsedReading?.summary,
           ...data.summary
         },
         path: {
-          ...rawParsedReading?.path,
+          ...parsedReading?.path,
           ...data.path
         }
       };
-      setRawParsedReading(updatedRaw);
-
-      // If persona is active, translate the updated reading
-      if (persona !== 'none') {
-        setTranslating(true);
-        const translated = await translateReading(updatedRaw);
-        if (translated) {
-          setParsedReading(translated);
-        } else {
-          setParsedReading(updatedRaw);
-        }
-        setTranslating(false);
-      } else {
-        setParsedReading(updatedRaw);
-      }
-
+      setParsedReading(updatedReading);
       setSummaryDepth(targetDepth);
       setPathDepth(targetDepth);
 
@@ -2901,6 +2850,8 @@ CRITICAL FORMATTING RULES:
                     setHumor={setHumor}
                     register={register}
                     setRegister={setRegister}
+                    creator={creator}
+                    setCreator={setCreator}
                     roastMode={roastMode}
                     setRoastMode={setRoastMode}
                     directMode={directMode}
@@ -4443,7 +4394,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                 )}
 
-                {/* Persona Translation Layer - Post-Reading */}
+                {/* Voice Settings - Post-Reading (locked) */}
                 <div className="mt-4 pt-3 border-t border-zinc-800/50">
                   <PersonaSelector
                     persona={persona}
@@ -4452,14 +4403,14 @@ CRITICAL FORMATTING RULES:
                     setHumor={setHumor}
                     register={register}
                     setRegister={setRegister}
+                    creator={creator}
+                    setCreator={setCreator}
                     roastMode={roastMode}
                     setRoastMode={setRoastMode}
                     directMode={directMode}
                     setDirectMode={setDirectMode}
-                    onRetranslate={retranslate}
-                    translating={translating}
                     compact={true}
-                    hasReading={!!rawParsedReading}
+                    hasReading={!!parsedReading}
                   />
                 </div>
 

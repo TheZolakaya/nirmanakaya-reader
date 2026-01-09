@@ -1,8 +1,8 @@
 // === PERSONA SELECTOR COMPONENT ===
-// UI for selecting and customizing the persona translation layer
-// Stage 2 voice transformation - translates readings into different personas
+// UI for selecting and customizing persona voice settings
+// V2: One-pass voice integration - voice baked into generation
 
-import { PERSONAS } from '../../lib/personas.js';
+import { PERSONAS, HUMOR_LEVELS, REGISTER_LEVELS, CREATOR_LEVELS } from '../../lib/personas.js';
 
 const PersonaSelector = ({
   persona,
@@ -11,55 +11,47 @@ const PersonaSelector = ({
   setHumor,
   register,
   setRegister,
+  creator,
+  setCreator,
   roastMode,
   setRoastMode,
   directMode,
   setDirectMode,
-  onRetranslate = null,
-  translating = false,
   compact = false,
   hasReading = false
 }) => {
 
-  // Slider labels based on value
-  const getHumorLabel = (val) => {
-    if (val <= 2) return 'Comic';
-    if (val <= 4) return 'Playful';
-    if (val <= 6) return 'Balanced';
-    if (val <= 8) return 'Earnest';
-    return 'Sacred';
-  };
-
-  const getRegisterLabel = (val) => {
-    if (val <= 2) return 'Street';
-    if (val <= 4) return 'Casual';
-    if (val <= 6) return 'Clear';
-    if (val <= 8) return 'Elevated';
-    return 'Professor';
-  };
+  // True 10-level labels
+  const getHumorLabel = (val) => HUMOR_LEVELS[val] || 'Balanced';
+  const getRegisterLabel = (val) => REGISTER_LEVELS[val] || 'Clear';
+  const getCreatorLabel = (val) => CREATOR_LEVELS[val] || 'Balanced';
 
   // Compact mode for post-reading (smaller, inline)
   if (compact) {
     return (
       <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
-        {/* Header with current persona */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-xs text-zinc-500">
-            Who reads this to you?
+        {/* Header */}
+        <div className="text-xs text-zinc-500 mb-3">
+          Voice settings {hasReading && <span className="text-amber-600/60">(locked for this reading)</span>}
+        </div>
+
+        {/* Creator slider - ALWAYS shows (works independently of persona) */}
+        <div className="mb-3 pb-3 border-b border-zinc-800/50">
+          <div className="flex items-center gap-2 px-2">
+            <span className="text-xs text-amber-600/80 w-14 font-medium">Creator</span>
+            <span className="text-[10px] text-zinc-600 w-12 text-right">Witness</span>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={creator}
+              onChange={(e) => setCreator(parseInt(e.target.value))}
+              disabled={hasReading}
+              className="flex-1 accent-amber-500 h-1"
+            />
+            <span className="text-[10px] text-zinc-600 w-12">Author</span>
+            <span className="text-[10px] text-amber-500/80 w-16 text-right">{getCreatorLabel(creator)}</span>
           </div>
-          {onRetranslate && persona !== 'none' && hasReading && (
-            <button
-              onClick={onRetranslate}
-              disabled={translating}
-              className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
-                translating
-                  ? 'bg-zinc-800 text-zinc-500 cursor-wait'
-                  : 'bg-amber-900/50 text-amber-400 hover:bg-amber-900/70'
-              }`}
-            >
-              {translating ? 'Translating...' : 'Re-translate'}
-            </button>
-          )}
         </div>
 
         {/* Persona buttons - compact row */}
@@ -69,12 +61,12 @@ const PersonaSelector = ({
               key={p.key}
               onClick={() => setPersona(p.key)}
               title={p.desc}
-              disabled={translating}
+              disabled={hasReading}
               className={`px-2 py-1.5 rounded-md text-xs transition-all ${
                 persona === p.key
                   ? 'bg-[#2e1065] text-amber-400 border border-amber-800/50'
                   : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
-              } ${translating ? 'opacity-50 cursor-wait' : ''}`}
+              } ${hasReading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {p.name}
             </button>
@@ -87,35 +79,35 @@ const PersonaSelector = ({
             {/* Humor slider */}
             <div className="flex items-center gap-2 px-2">
               <span className="text-xs text-zinc-500 w-14">Humor</span>
-              <span className="text-[10px] text-zinc-600 w-10 text-right">Comic</span>
+              <span className="text-[10px] text-zinc-600 w-12 text-right">Unhinged</span>
               <input
                 type="range"
                 min="1"
                 max="10"
                 value={humor}
                 onChange={(e) => setHumor(parseInt(e.target.value))}
-                disabled={translating}
+                disabled={hasReading}
                 className="flex-1 accent-amber-500 h-1"
               />
-              <span className="text-[10px] text-zinc-600 w-10">Serious</span>
-              <span className="text-[10px] text-amber-500/80 w-14 text-right">{getHumorLabel(humor)}</span>
+              <span className="text-[10px] text-zinc-600 w-10">Sacred</span>
+              <span className="text-[10px] text-amber-500/80 w-16 text-right">{getHumorLabel(humor)}</span>
             </div>
 
             {/* Register slider */}
             <div className="flex items-center gap-2 px-2">
               <span className="text-xs text-zinc-500 w-14">Register</span>
-              <span className="text-[10px] text-zinc-600 w-10 text-right">Street</span>
+              <span className="text-[10px] text-zinc-600 w-12 text-right">Unhinged</span>
               <input
                 type="range"
                 min="1"
                 max="10"
                 value={register}
                 onChange={(e) => setRegister(parseInt(e.target.value))}
-                disabled={translating}
+                disabled={hasReading}
                 className="flex-1 accent-amber-500 h-1"
               />
-              <span className="text-[10px] text-zinc-600 w-10">Fancy</span>
-              <span className="text-[10px] text-amber-500/80 w-14 text-right">{getRegisterLabel(register)}</span>
+              <span className="text-[10px] text-zinc-600 w-10">Oracle</span>
+              <span className="text-[10px] text-amber-500/80 w-16 text-right">{getRegisterLabel(register)}</span>
             </div>
 
             {/* Checkboxes */}
@@ -125,7 +117,7 @@ const PersonaSelector = ({
                   type="checkbox"
                   checked={roastMode}
                   onChange={(e) => setRoastMode(e.target.checked)}
-                  disabled={translating}
+                  disabled={hasReading}
                   className="accent-amber-500 w-3 h-3"
                 />
                 Roast Mode
@@ -135,7 +127,7 @@ const PersonaSelector = ({
                   type="checkbox"
                   checked={directMode}
                   onChange={(e) => setDirectMode(e.target.checked)}
-                  disabled={translating}
+                  disabled={hasReading}
                   className="accent-amber-500 w-3 h-3"
                 />
                 Direct Mode
@@ -150,6 +142,30 @@ const PersonaSelector = ({
   // Full mode for pre-reading selection
   return (
     <div className="flex flex-col items-center persona-selector">
+      {/* Creator slider - ALWAYS shows first (works independently of persona) */}
+      <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 max-w-md mx-auto w-full mb-4">
+        <div className="flex items-center gap-2 px-2">
+          <span className="text-xs text-amber-600/80 w-16 font-medium">Creator</span>
+          <span className="text-[10px] text-zinc-600 w-14 text-right">Witness</span>
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={creator}
+            onChange={(e) => setCreator(parseInt(e.target.value))}
+            className="flex-1 accent-amber-500"
+          />
+          <span className="text-[10px] text-zinc-600 w-14">Author</span>
+          <span className="text-xs text-amber-500/80 w-20 text-right">{getCreatorLabel(creator)}</span>
+        </div>
+        <div className="text-center text-[0.625rem] text-zinc-600 mt-2">
+          {creator <= 3 ? 'Observation language: "The field shows..."' :
+           creator <= 6 ? 'Balanced observation and agency' :
+           creator <= 8 ? 'Agency language: "You\'re shaping..."' :
+           'Full authorship: "You ARE the field"'}
+        </div>
+      </div>
+
       {/* Label */}
       <div className="text-xs text-zinc-500 mb-2">
         Who reads this to you?
@@ -184,7 +200,7 @@ const PersonaSelector = ({
           {/* Humor slider */}
           <div className="flex items-center gap-2 mb-3 px-2">
             <span className="text-xs text-amber-600/80 w-16 font-medium">Humor</span>
-            <span className="text-[10px] text-zinc-600 w-12 text-right">Comic</span>
+            <span className="text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
             <input
               type="range"
               min="1"
@@ -193,14 +209,14 @@ const PersonaSelector = ({
               onChange={(e) => setHumor(parseInt(e.target.value))}
               className="flex-1 accent-amber-500"
             />
-            <span className="text-[10px] text-zinc-600 w-12">Serious</span>
-            <span className="text-xs text-amber-500/80 w-16 text-right">{getHumorLabel(humor)}</span>
+            <span className="text-[10px] text-zinc-600 w-12">Sacred</span>
+            <span className="text-xs text-amber-500/80 w-20 text-right">{getHumorLabel(humor)}</span>
           </div>
 
           {/* Register slider */}
           <div className="flex items-center gap-2 mb-3 px-2">
             <span className="text-xs text-amber-600/80 w-16 font-medium">Register</span>
-            <span className="text-[10px] text-zinc-600 w-12 text-right">Street</span>
+            <span className="text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
             <input
               type="range"
               min="1"
@@ -209,8 +225,8 @@ const PersonaSelector = ({
               onChange={(e) => setRegister(parseInt(e.target.value))}
               className="flex-1 accent-amber-500"
             />
-            <span className="text-[10px] text-zinc-600 w-12">Fancy</span>
-            <span className="text-xs text-amber-500/80 w-16 text-right">{getRegisterLabel(register)}</span>
+            <span className="text-[10px] text-zinc-600 w-12">Oracle</span>
+            <span className="text-xs text-amber-500/80 w-20 text-right">{getRegisterLabel(register)}</span>
           </div>
 
           {/* Checkboxes */}
@@ -223,7 +239,7 @@ const PersonaSelector = ({
                 className="accent-amber-500"
               />
               Roast Mode
-              <span className="text-[10px] text-zinc-600" title="Loving but savage. The roast IS the love.">(savage)</span>
+              <span className="text-[10px] text-zinc-600" title="Best friend who's HAD IT. Read them for filth.">(savage)</span>
             </label>
             <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
               <input
@@ -233,7 +249,7 @@ const PersonaSelector = ({
                 className="accent-amber-500"
               />
               Direct Mode
-              <span className="text-[10px] text-zinc-600" title="No softening. Clean truth, delivered straight.">(unfiltered)</span>
+              <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
             </label>
           </div>
         </div>
