@@ -107,13 +107,15 @@ ${cardNames}
 
 Generate ONLY the Letter at WADE depth.
 
-The Letter is a warm, personal address to the querent. It:
-- Welcomes them to the reading
-- Acknowledges their question with genuine curiosity
+The Letter opens the reading. It:
+- Addresses the querent directly
+- Acknowledges their question
 - Hints at the themes the cards suggest (but doesn't interpret yet)
-- Sets the tone for discovery
+- Sets up what's to come
 
-WADE depth means: 3-4 substantive sentences. Not a quick summary, but not exhaustive either. Warm, engaging, specific to THEIR question and cards.
+WADE depth means: 3-4 substantive sentences. Specific to THEIR question and cards.
+
+IMPORTANT: Match the voice/persona specified in the system prompt. If humor or register settings are specified, apply them fully here.
 
 FORMATTING: Use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 

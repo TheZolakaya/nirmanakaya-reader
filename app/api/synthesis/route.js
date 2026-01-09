@@ -142,7 +142,8 @@ Respond with these markers:
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
-CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear synthesis.`;
+CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear synthesis.
+VOICE: Match the humor/register/persona specified in the system prompt throughout.`;
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous

@@ -134,6 +134,7 @@ ${isImbalanced ? `
 (3-4 sentences: The specific correction needed and how to apply it)` : ''}
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
+VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
 NOTE: Architecture section will be generated separately - do not include it.`;
 }
 
