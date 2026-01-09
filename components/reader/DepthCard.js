@@ -86,7 +86,7 @@ const DepthCard = ({
   const [depth, setDepth] = useState(DEPTH.COLLAPSED);
   const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
   const [isWhyCollapsed, setIsWhyCollapsed] = useState(true);
-  const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.SURFACE);
+  const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.WADE); // Default to WADE (no more SURFACE)
   const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
 
   const trans = getComponent(draw.transient);
@@ -395,9 +395,9 @@ const DepthCard = ({
               <span className="italic">Generating depths...</span>
             </div>
           ) : isLoadingDeeper ? (
-            <div className="flex items-center gap-2 text-zinc-500">
+            <div className="flex items-center gap-2 text-zinc-400">
               <span className="animate-pulse">●</span>
-              <span className="italic">Deepening content...</span>
+              <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
             </div>
           ) : content ? (
             <div className="space-y-3">
@@ -521,14 +521,11 @@ const DepthCard = ({
               </span>
             ) : (
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
-                {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                {['wade', 'swim', 'deep'].map((level) => {
                   const r = cardData.rebalancer || {};
-                  const hasContent = level === 'surface' ? (r.surface || r.wade || r.swim || r.deep)
-                    : level === 'wade' ? (r.wade || r.swim || r.deep)
+                  const hasContent = level === 'wade' ? (r.wade || r.swim || r.deep)
                     : level === 'swim' ? (r.swim || r.deep)
                     : r.deep;
-                  // Always show Surface button, others only if content exists
-                  if (!hasContent && level !== 'surface') return null;
                   const isActive = rebalancerDepth === level;
                   return (
                     <button
@@ -537,10 +534,13 @@ const DepthCard = ({
                       className={`px-2 py-0.5 text-xs rounded transition-colors ${
                         isActive
                           ? 'bg-emerald-500 text-white'
-                          : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                          : hasContent
+                            ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                            : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
                       }`}
                     >
                       {level.charAt(0).toUpperCase() + level.slice(1)}
+                      {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                     </button>
                   );
                 })}
@@ -629,8 +629,8 @@ const DepthCard = ({
                 )}
               </div>
 
-              {/* WORDS TO THE WHY - 4 depth levels */}
-              {cardData.why && (cardData.why.surface || cardData.why.wade || cardData.why.swim || cardData.why.deep) && (
+              {/* WORDS TO THE WHY - 3 depth levels (no more surface) */}
+              {cardData.why && (cardData.why.wade || cardData.why.swim || cardData.why.deep) && (
                 <div className="border-t border-cyan-700/30 pt-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider">
@@ -638,9 +638,8 @@ const DepthCard = ({
                     </span>
                     {/* Depth navigation buttons for WHY */}
                     <div className="flex gap-1">
-                      {['surface', 'wade', 'swim', 'deep'].map((level) => {
+                      {['wade', 'swim', 'deep'].map((level) => {
                         const hasContent = cardData.why[level];
-                        if (!hasContent) return null;
                         const isActive = whyDepth === level;
                         return (
                           <button
@@ -649,10 +648,13 @@ const DepthCard = ({
                             className={`px-2 py-0.5 text-xs rounded transition-colors ${
                               isActive
                                 ? 'bg-cyan-500 text-white'
-                                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : hasContent
+                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
                             }`}
                           >
                             {level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                           </button>
                         );
                       })}
@@ -670,7 +672,7 @@ const DepthCard = ({
                         ))}
                       </div>
                     ) : (
-                      <span className="text-cyan-500/50 italic">Why content generating...</span>
+                      <span className="text-cyan-500/50 italic">Tap a depth level above to view content</span>
                     )}
                   </div>
 

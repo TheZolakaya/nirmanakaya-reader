@@ -227,6 +227,8 @@ export default function NirmanakaReader() {
   const [cardLoadingDeeper, setCardLoadingDeeper] = useState({}); // {0: true, ...} - which cards are loading deeper content
   const [synthesisLoaded, setSynthesisLoaded] = useState(false); // Whether summary/path have been fetched
   const [synthesisLoading, setSynthesisLoading] = useState(false); // Whether synthesis is currently loading
+  const [letterLoadingDeeper, setLetterLoadingDeeper] = useState(false); // Whether letter is loading deeper content
+  const [synthesisLoadingDeeper, setSynthesisLoadingDeeper] = useState(false); // Whether synthesis is loading deeper
   const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
@@ -709,6 +711,150 @@ export default function NirmanakaReader() {
     }
 
     setSynthesisLoading(false);
+  };
+
+  // Progressive deepening: Load SWIM or DEEP for Letter
+  const loadDeeperLetter = async (targetDepth) => {
+    if (letterLoadingDeeper) return;
+
+    const letter = parsedReading?.letter;
+    if (!letter) return;
+
+    // Check if content already exists at target depth
+    if (letter[targetDepth]) {
+      setLetterDepth(targetDepth);
+      return;
+    }
+
+    setLetterLoadingDeeper(true);
+
+    try {
+      const previousContent = {
+        wade: letter.wade || '',
+        swim: letter.swim || ''
+      };
+
+      const res = await fetch('/api/letter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question,
+          draws,
+          spreadType,
+          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          stance,
+          system: systemPromptCache,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          targetDepth,
+          previousContent
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Update parsedReading with new letter content
+      setParsedReading(prev => ({
+        ...prev,
+        letter: data.letter
+      }));
+
+      setLetterDepth(targetDepth);
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
+          cache_creation_input_tokens: (prev.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0),
+          cache_read_input_tokens: (prev.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0)
+        } : data.usage);
+      }
+
+    } catch (e) {
+      setError(`Error loading deeper letter content: ${e.message}`);
+    }
+
+    setLetterLoadingDeeper(false);
+  };
+
+  // Progressive deepening: Load SWIM or DEEP for Synthesis (Summary + Path)
+  const loadDeeperSynthesis = async (targetDepth) => {
+    if (synthesisLoadingDeeper) return;
+
+    const summary = parsedReading?.summary;
+    const path = parsedReading?.path;
+
+    // Check if content already exists at target depth
+    if (summary?.[targetDepth] && path?.[targetDepth]) {
+      setSummaryDepth(targetDepth);
+      setPathDepth(targetDepth);
+      return;
+    }
+
+    setSynthesisLoadingDeeper(true);
+
+    try {
+      const previousContent = {
+        summary: {
+          wade: summary?.wade || '',
+          swim: summary?.swim || ''
+        },
+        path: {
+          wade: path?.wade || '',
+          swim: path?.swim || ''
+        }
+      };
+
+      const res = await fetch('/api/synthesis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question,
+          draws,
+          cards: parsedReading?.cards || [],
+          letter: parsedReading?.letter,
+          spreadType,
+          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          system: systemPromptCache,
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          targetDepth,
+          previousContent
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Merge new content with existing
+      setParsedReading(prev => ({
+        ...prev,
+        summary: {
+          ...prev.summary,
+          ...data.summary
+        },
+        path: {
+          ...prev.path,
+          ...data.path
+        }
+      }));
+
+      setSummaryDepth(targetDepth);
+      setPathDepth(targetDepth);
+
+      // Accumulate token usage
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
+          cache_creation_input_tokens: (prev.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0),
+          cache_read_input_tokens: (prev.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0)
+        } : data.usage);
+      }
+
+    } catch (e) {
+      setError(`Error loading deeper synthesis content: ${e.message}`);
+    }
+
+    setSynthesisLoadingDeeper(false);
   };
 
   const performReading = async () => {
@@ -3005,7 +3151,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
                 </div>
                 {/* Depth navigation buttons (no more surface) */}
-                {hasDepthLevels && (
+                {hasDepthLevels && !letterLoadingDeeper && (
                   <div className="flex gap-1">
                     {['wade', 'swim', 'deep'].map((level) => {
                       const hasContent = letter[level];
@@ -3013,13 +3159,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       return (
                         <button
                           key={level}
-                          onClick={() => setLetterDepth(level)}
+                          onClick={() => loadDeeperLetter(level)}
+                          disabled={letterLoadingDeeper}
                           className={`px-2 py-0.5 text-xs rounded transition-colors ${
                             isActive
                               ? 'bg-violet-500 text-white'
                               : hasContent
                                 ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
+                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
                           }`}
                         >
                           {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -3029,13 +3176,25 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     })}
                   </div>
                 )}
+                {letterLoadingDeeper && (
+                  <span className="text-xs text-violet-400 animate-pulse">Looking deeper into the field...</span>
+                )}
               </div>
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                {letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
-                  <p key={i} className="whitespace-pre-wrap">
-                    {renderWithHotlinks(para.trim(), setSelectedInfo)}
-                  </p>
-                ))}
+                {letterLoadingDeeper ? (
+                  <div className="flex items-center gap-2 text-violet-400">
+                    <span className="animate-pulse">●</span>
+                    <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                  </div>
+                ) : letterContent ? (
+                  letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                    <p key={i} className="whitespace-pre-wrap">
+                      {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                    </p>
+                  ))
+                ) : (
+                  <span className="text-zinc-500 italic">Letter content unavailable</span>
+                )}
               </div>
 
               {/* Expansion buttons (excluding architecture - cards have that as own section) */}
@@ -3126,7 +3285,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                     <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">Overview</span>
                   </div>
                   {/* Depth navigation buttons */}
-                  {hasDepthLevels && !isSummaryCollapsed && (
+                  {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && (
                     <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                       {['wade', 'swim', 'deep'].map((level) => {
                         const hasContent = typeof summary === 'object' && summary[level];
@@ -3134,13 +3293,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         return (
                           <button
                             key={level}
-                            onClick={() => setSummaryDepth(level)}
+                            onClick={() => loadDeeperSynthesis(level)}
+                            disabled={synthesisLoadingDeeper}
                             className={`px-2 py-0.5 text-xs rounded transition-colors ${
                               isActive
                                 ? 'bg-amber-500 text-white'
                                 : hasContent
                                   ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
                             }`}
                           >
                             {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -3150,17 +3310,29 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                       })}
                     </div>
                   )}
+                  {synthesisLoadingDeeper && !isSummaryCollapsed && (
+                    <span className="text-xs text-amber-400 animate-pulse">Looking deeper into the field...</span>
+                  )}
                 </div>
 
                 {/* Summary Content - collapsible */}
                 {!isSummaryCollapsed && (
                   <>
                     <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                      {summaryContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
-                        <p key={i} className="whitespace-pre-wrap">
-                          {renderWithHotlinks(para.trim(), setSelectedInfo)}
-                        </p>
-                      ))}
+                      {synthesisLoadingDeeper ? (
+                        <div className="flex items-center gap-2 text-amber-400">
+                          <span className="animate-pulse">●</span>
+                          <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                        </div>
+                      ) : summaryContent ? (
+                        summaryContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                          <p key={i} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                          </p>
+                        ))
+                      ) : (
+                        <span className="text-zinc-500 italic">Overview content unavailable</span>
+                      )}
                     </div>
 
                     {/* Summary Expansion Buttons (excluding architecture) */}
@@ -3332,7 +3504,7 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
                       {/* Depth navigation buttons (no more surface) */}
-                      {hasDepthLevels && !isPathCollapsed && (
+                      {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && (
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                           {['wade', 'swim', 'deep'].map((level) => {
                             const hasContent = path[level];
@@ -3340,13 +3512,14 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                             return (
                               <button
                                 key={level}
-                                onClick={() => setPathDepth(level)}
+                                onClick={() => loadDeeperSynthesis(level)}
+                                disabled={synthesisLoadingDeeper}
                                 className={`px-2 py-0.5 text-xs rounded transition-colors ${
                                   isActive
                                     ? 'bg-emerald-500 text-white'
                                     : hasContent
                                       ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
+                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
                                 }`}
                               >
                                 {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -3356,17 +3529,29 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                           })}
                         </div>
                       )}
+                      {synthesisLoadingDeeper && !isPathCollapsed && (
+                        <span className="text-xs text-emerald-400 animate-pulse">Looking deeper into the field...</span>
+                      )}
                     </div>
 
                     {/* Path Content - collapsible */}
                     {!isPathCollapsed && (
                       <>
                         <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                          {pathContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
-                            <p key={i} className="whitespace-pre-wrap">
-                              {renderWithHotlinks(para.trim(), setSelectedInfo)}
-                            </p>
-                          ))}
+                          {synthesisLoadingDeeper ? (
+                            <div className="flex items-center gap-2 text-emerald-400">
+                              <span className="animate-pulse">●</span>
+                              <span className="italic animate-pulse">One moment while I look deeper into the field...</span>
+                            </div>
+                          ) : pathContent ? (
+                            pathContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                              <p key={i} className="whitespace-pre-wrap">
+                                {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                              </p>
+                            ))
+                          ) : (
+                            <span className="text-zinc-500 italic">Path content unavailable</span>
+                          )}
                         </div>
 
                         {/* Path Architecture Box - collapsed by default */}
