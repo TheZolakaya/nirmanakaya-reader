@@ -72,7 +72,12 @@ import {
   decodeDraws,
   sanitizeForAPI,
   formatDrawForAI,
-  parseReadingResponse
+  parseReadingResponse,
+  // Persona Translation Layer
+  reconstructReadingText,
+  validateMarkerPreservation,
+  parseTranslatedReading,
+  DEFAULT_PERSONA_SETTINGS
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -99,6 +104,7 @@ import InfoModal from '../components/shared/InfoModal.js';
 import ThreadedCard from '../components/reader/ThreadedCard.js';
 import ReadingSection from '../components/reader/ReadingSection.js';
 import StanceSelector from '../components/reader/StanceSelector.js';
+import PersonaSelector from '../components/reader/PersonaSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
@@ -250,6 +256,17 @@ export default function NirmanakaReader() {
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
 
+  // === PERSONA TRANSLATION LAYER (Stage 2) ===
+  // Persona layer transforms readings into different voices without changing meaning
+  const [persona, setPersona] = useState('none'); // 'none' | 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
+  const [humor, setHumor] = useState(5); // 1-10: Comic to Serious
+  const [register, setRegister] = useState(5); // 1-10: Street to Sophisticated
+  const [roastMode, setRoastMode] = useState(false); // Loving but savage
+  const [directMode, setDirectMode] = useState(false); // No softening
+  const [translating, setTranslating] = useState(false); // Translation in progress
+  const [rawParsedReading, setRawParsedReading] = useState(null); // Original untranslated reading
+  const [translationUsage, setTranslationUsage] = useState(null); // Separate token tracking for translation
+
   // Thread state for Reflect/Forge operations (Phase 2)
   const [threadData, setThreadData] = useState({}); // {cardIndex: [{draw, interpretation, operation, context, children}, ...]}
   const [threadOperations, setThreadOperations] = useState({}); // {key: 'reflect' | 'forge' | null} - key can be cardIndex or threadPath
@@ -295,6 +312,109 @@ export default function NirmanakaReader() {
     await performReadingWithDraws(draws, question);
   };
 
+  // === PERSONA TRANSLATION FUNCTIONS ===
+
+  // Translate the current reading into the selected persona voice
+  const translateReading = async (readingToTranslate) => {
+    if (!readingToTranslate || persona === 'none') return null;
+
+    setTranslating(true);
+    setTranslationUsage(null);
+
+    try {
+      // Reconstruct the reading text with section markers
+      const readingText = reconstructReadingText(readingToTranslate);
+      if (!readingText) {
+        console.warn('No reading text to translate');
+        setTranslating(false);
+        return null;
+      }
+
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: readingText,
+          persona,
+          humor,
+          register,
+          roastMode,
+          directMode
+        })
+      });
+
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      // Track translation token usage separately
+      if (data.usage) {
+        setTranslationUsage(data.usage);
+      }
+
+      // Validate marker preservation
+      const validation = validateMarkerPreservation(readingText, data.translated);
+      if (!validation.valid) {
+        console.warn('Translation marker preservation issue:', validation);
+        // Fall back to raw reading if markers were lost
+        setTranslating(false);
+        return null;
+      }
+
+      // Parse the translated text back into structured format
+      const translatedParsed = parseTranslatedReading(data.translated, readingToTranslate);
+
+      // Merge translated content with original structure (preserving non-text fields)
+      const mergedReading = {
+        ...readingToTranslate,
+        cards: readingToTranslate.cards.map((card, i) => ({
+          ...card,
+          wade: translatedParsed.cards[i]?.wade || card.wade,
+          swim: translatedParsed.cards[i]?.swim || card.swim,
+          deep: translatedParsed.cards[i]?.deep || card.deep,
+          surface: translatedParsed.cards[i]?.surface || card.surface
+        })),
+        letter: {
+          ...readingToTranslate.letter,
+          wade: translatedParsed.letter?.wade || readingToTranslate.letter?.wade,
+          swim: translatedParsed.letter?.swim || readingToTranslate.letter?.swim,
+          deep: translatedParsed.letter?.deep || readingToTranslate.letter?.deep,
+          surface: translatedParsed.letter?.surface || readingToTranslate.letter?.surface
+        },
+        _translated: true,
+        _persona: persona
+      };
+
+      setTranslating(false);
+      return mergedReading;
+
+    } catch (e) {
+      console.error('Translation error:', e);
+      setError(`Translation error: ${e.message}`);
+      setTranslating(false);
+      return null;
+    }
+  };
+
+  // Re-translate with current persona settings (called when settings change after reading)
+  const retranslate = async () => {
+    if (!rawParsedReading) return;
+
+    if (persona === 'none') {
+      // Switch back to raw reading
+      setParsedReading(rawParsedReading);
+      setTranslationUsage(null);
+      return;
+    }
+
+    const translated = await translateReading(rawParsedReading);
+    if (translated) {
+      setParsedReading(translated);
+    } else {
+      // Fall back to raw if translation failed
+      setParsedReading(rawParsedReading);
+    }
+  };
+
   // Load preferences from localStorage on init (URL params override)
   useEffect(() => {
     // Check for admin config first (from /admin panel)
@@ -329,6 +449,12 @@ export default function NirmanakaReader() {
         }
         // Load voice preview preference (default true if not set)
         if (prefs.showVoicePreview !== undefined) setShowVoicePreview(prefs.showVoicePreview);
+        // Load persona layer preferences
+        if (prefs.persona !== undefined) setPersona(prefs.persona);
+        if (prefs.humor !== undefined) setHumor(prefs.humor);
+        if (prefs.register !== undefined) setRegister(prefs.register);
+        if (prefs.roastMode !== undefined) setRoastMode(prefs.roastMode);
+        if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -358,14 +484,20 @@ export default function NirmanakaReader() {
       spreadType,
       spreadKey,
       stance,
-      showVoicePreview
+      showVoicePreview,
+      // Persona layer settings
+      persona,
+      humor,
+      register,
+      roastMode,
+      directMode
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, roastMode, directMode]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -465,6 +597,8 @@ export default function NirmanakaReader() {
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    // Reset persona translation state
+    setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to default (wade)
@@ -725,14 +859,30 @@ export default function NirmanakaReader() {
         throw new Error('Synthesis generation returned empty content. Please try refreshing.');
       }
 
-      // Update parsedReading with summary and path
-      setParsedReading(prev => ({
-        ...prev,
-        summary: data.summary,
-        path: data.path
-      }));
-
       setSynthesisLoaded(true);
+
+      // Update parsedReading and store raw for persona translation
+      setParsedReading(prev => {
+        const completeReading = {
+          ...prev,
+          summary: data.summary,
+          path: data.path
+        };
+        // Store as raw for potential re-translation
+        setRawParsedReading(completeReading);
+
+        // Auto-translate if persona is selected (initial reading flow)
+        if (persona !== 'none') {
+          setTimeout(async () => {
+            const translated = await translateReading(completeReading);
+            if (translated) {
+              setParsedReading(translated);
+            }
+          }, 100);
+        }
+
+        return completeReading;
+      });
 
       // Accumulate token usage
       if (data.usage) {
@@ -2760,6 +2910,22 @@ CRITICAL FORMATTING RULES:
                       gridOnly={true}
                     />
 
+                    {/* Persona Translation Layer */}
+                    <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                      <PersonaSelector
+                        persona={persona}
+                        setPersona={setPersona}
+                        humor={humor}
+                        setHumor={setHumor}
+                        register={register}
+                        setRegister={setRegister}
+                        roastMode={roastMode}
+                        setRoastMode={setRoastMode}
+                        directMode={directMode}
+                        setDirectMode={setDirectMode}
+                      />
+                    </div>
+
                     {/* Model Toggle */}
                     <div className="mt-3 pt-2 border-t border-zinc-700/50">
                       <label className="flex items-center justify-center gap-2 cursor-pointer">
@@ -3532,6 +3698,17 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
+            {/* Translation Loading Indicator - shows when persona translation in progress */}
+            {translating && (
+              <div className="mb-6 rounded-xl border-2 border-amber-600/40 p-5 bg-amber-900/20">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-amber-400 animate-pulse">
+                    Finding your {persona.charAt(0).toUpperCase() + persona.slice(1)} voice...
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Synthesis Not Yet Available - shows when cards still loading */}
             {parsedReading._onDemand && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
               <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
@@ -4204,6 +4381,26 @@ CRITICAL FORMATTING RULES:
                     </div>
                 )}
 
+                {/* Persona Translation Layer - Post-Reading */}
+                <div className="mt-4 pt-3 border-t border-zinc-800/50">
+                  <PersonaSelector
+                    persona={persona}
+                    setPersona={setPersona}
+                    humor={humor}
+                    setHumor={setHumor}
+                    register={register}
+                    setRegister={setRegister}
+                    roastMode={roastMode}
+                    setRoastMode={setRoastMode}
+                    directMode={directMode}
+                    setDirectMode={setDirectMode}
+                    onRetranslate={retranslate}
+                    translating={translating}
+                    compact={true}
+                    hasReading={!!rawParsedReading}
+                  />
+                </div>
+
                 {/* Model Toggle */}
                 <div className="mt-4 pt-3 border-t border-zinc-800/50">
                   <label className="flex items-center justify-center gap-2 cursor-pointer">
@@ -4247,6 +4444,14 @@ CRITICAL FORMATTING RULES:
               (tokenUsage.input_tokens * (useHaiku ? 0.001 : 0.003) / 1000) +
               (tokenUsage.output_tokens * (useHaiku ? 0.005 : 0.015) / 1000)
             ).toFixed(4)} ({useHaiku ? 'Haiku' : 'Sonnet'})
+            {translationUsage && (
+              <span className="ml-2 text-amber-600/60">
+                + Translation: {translationUsage.input_tokens?.toLocaleString()} in / {translationUsage.output_tokens?.toLocaleString()} out • ${(
+                  (translationUsage.input_tokens * 0.001 / 1000) +
+                  (translationUsage.output_tokens * 0.005 / 1000)
+                ).toFixed(4)} (Haiku)
+              </span>
+            )}
           </div>
         )}
 
