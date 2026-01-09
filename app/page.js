@@ -839,7 +839,8 @@ export default function NirmanakaReader() {
         },
         path: {
           wade: path?.wade || '',
-          swim: path?.swim || ''
+          swim: path?.swim || '',
+          architecture: path?.architecture || ''
         }
       };
 
