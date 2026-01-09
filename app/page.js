@@ -380,6 +380,20 @@ export default function NirmanakaReader() {
           deep: translatedParsed.letter?.deep || readingToTranslate.letter?.deep,
           surface: translatedParsed.letter?.surface || readingToTranslate.letter?.surface
         },
+        summary: readingToTranslate.summary ? {
+          ...readingToTranslate.summary,
+          wade: translatedParsed.summary?.wade || readingToTranslate.summary?.wade,
+          swim: translatedParsed.summary?.swim || readingToTranslate.summary?.swim,
+          deep: translatedParsed.summary?.deep || readingToTranslate.summary?.deep,
+          surface: translatedParsed.summary?.surface || readingToTranslate.summary?.surface
+        } : null,
+        path: readingToTranslate.path ? {
+          ...readingToTranslate.path,
+          wade: translatedParsed.path?.wade || readingToTranslate.path?.wade,
+          swim: translatedParsed.path?.swim || readingToTranslate.path?.swim,
+          deep: translatedParsed.path?.deep || readingToTranslate.path?.deep,
+          surface: translatedParsed.path?.surface || readingToTranslate.path?.surface
+        } : null,
         _translated: true,
         _persona: persona
       };
