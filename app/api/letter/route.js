@@ -3,6 +3,9 @@
 // Supports WADE baseline generation OR progressive deepening
 // Uses Anthropic prompt caching for efficiency
 
+import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
+import { STATUSES } from '../../../lib/constants.js';
+
 export async function POST(request) {
   const {
     question,
@@ -85,19 +88,14 @@ function buildBaselineMessage(question, draws, spreadType, spreadKey) {
   const spreadName = spreadKey || `${cardCount}-card`;
 
   // Build minimal card overview for context
-  const ARCHETYPES = getArchetypes();
-  const BOUNDS = getBounds();
-  const AGENTS = getAgents();
-  const STATUSES = getStatuses();
-
+  // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
   const cardNames = draws.map((draw, i) => {
-    // BOUNDS and AGENTS are keyed directly by transient value
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                   draw.transient < 62 ? BOUNDS[draw.transient] :
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
-    const statusPrefix = stat?.prefix || 'Balanced';
-    return `Card ${i + 1}: ${statusPrefix} ${trans?.name || 'Unknown'}`;
+    const prefix = stat?.prefix || '';
+    return `Card ${i + 1}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   return `QUESTION: "${question}"
@@ -124,19 +122,14 @@ Respond with JUST the content (no markers needed). Write directly to the querent
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
 function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth, previousContent) {
-  const ARCHETYPES = getArchetypes();
-  const BOUNDS = getBounds();
-  const AGENTS = getAgents();
-  const STATUSES = getStatuses();
-
+  // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
   const cardNames = draws.map((draw, i) => {
-    // BOUNDS and AGENTS are keyed directly by transient value
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                   draw.transient < 62 ? BOUNDS[draw.transient] :
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
-    const statusPrefix = stat?.prefix || 'Balanced';
-    return `Card ${i + 1}: ${statusPrefix} ${trans?.name || 'Unknown'}`;
+    const prefix = stat?.prefix || '';
+    return `Card ${i + 1}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   const depthInstructions = targetDepth === 'deep'
@@ -193,61 +186,4 @@ function parseLetterResponse(text, depth, previousContent) {
   return result;
 }
 
-// Minimal card data for API route
-function getStatuses() {
-  return {
-    1: { name: 'Balanced', desc: 'In harmonious expression', prefix: '' },
-    2: { name: 'Too Much', desc: 'Overexpressed, projecting forward', prefix: 'Excessive' },
-    3: { name: 'Too Little', desc: 'Underexpressed, anchored in past', prefix: 'Deficient' },
-    4: { name: 'Unacknowledged', desc: 'Shadow aspect, denied', prefix: 'Shadow' }
-  };
-}
-
-function getArchetypes() {
-  return [
-    { name: 'Potential', traditional: 'The Fool' },
-    { name: 'Will', traditional: 'The Magician' },
-    { name: 'Awareness', traditional: 'The High Priestess' },
-    { name: 'Creation', traditional: 'The Empress' },
-    { name: 'Authority', traditional: 'The Emperor' },
-    { name: 'Tradition', traditional: 'The Hierophant' },
-    { name: 'Connection', traditional: 'The Lovers' },
-    { name: 'Movement', traditional: 'The Chariot' },
-    { name: 'Power', traditional: 'Strength' },
-    { name: 'Solitude', traditional: 'The Hermit' },
-    { name: 'Fortune', traditional: 'Wheel of Fortune' },
-    { name: 'Balance', traditional: 'Justice' },
-    { name: 'Surrender', traditional: 'The Hanged Man' },
-    { name: 'Transformation', traditional: 'Death' },
-    { name: 'Harmony', traditional: 'Temperance' },
-    { name: 'Bondage', traditional: 'The Devil' },
-    { name: 'Liberation', traditional: 'The Tower' },
-    { name: 'Hope', traditional: 'The Star' },
-    { name: 'Illusion', traditional: 'The Moon' },
-    { name: 'Joy', traditional: 'The Sun' },
-    { name: 'Reckoning', traditional: 'Judgement' }
-  ];
-}
-
-function getBounds() {
-  const channels = ['Intent', 'Cognition', 'Resonance', 'Structure'];
-  const bounds = [];
-  for (let c = 0; c < 4; c++) {
-    for (let n = 1; n <= 10; n++) {
-      bounds.push({ name: `${channels[c]} ${n}`, traditional: `${n} of ${['Wands', 'Swords', 'Cups', 'Pentacles'][c]}` });
-    }
-  }
-  return bounds;
-}
-
-function getAgents() {
-  const channels = ['Intent', 'Cognition', 'Resonance', 'Structure'];
-  const roles = ['Presence', 'Practice', 'Catalyst', 'Source'];
-  const agents = [];
-  for (let c = 0; c < 4; c++) {
-    for (let r = 0; r < 4; r++) {
-      agents.push({ name: `${roles[r]} of ${channels[c]}`, traditional: `${['Page', 'Knight', 'Queen', 'King'][r]} of ${['Wands', 'Swords', 'Cups', 'Pentacles'][c]}` });
-    }
-  }
-  return agents;
-}
+// Card data imported from lib/archetypes.js and lib/constants.js
