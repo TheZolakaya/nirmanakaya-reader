@@ -853,6 +853,19 @@ const DepthCard = ({
           {/* Architecture Content - expanded, with hotlinks */}
           {!isArchCollapsed && (
             <>
+              {/* Card Definition - first */}
+              <div className="mb-4 pb-3 border-b border-violet-700/30">
+                <div className="text-sm font-medium text-violet-300 mb-1">
+                  {trans.name}
+                  {showTraditional && trans.traditional && (
+                    <span className="text-violet-500/70 font-normal ml-2">[{trans.traditional}]</span>
+                  )}
+                </div>
+                <div className="text-xs text-zinc-400 leading-relaxed">
+                  {trans.extended || trans.description}
+                </div>
+              </div>
+
               {/* Card context reminder */}
               <div className="text-xs text-violet-400/60 mb-3 italic">
                 Structure of {statusPrefix ? `${statusPrefix} ` : ''}{trans.name}
