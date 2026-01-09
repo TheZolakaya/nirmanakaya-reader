@@ -44,21 +44,41 @@ const AnimatedContent = ({ isVisible, children }) => {
   );
 };
 
-// Progressive loading dots animation component
+// Progressive loading animation - dots build up to signal "still working"
 const LoadingDots = ({ message = "Looking deeper into the field" }) => {
   const [dots, setDots] = useState('');
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  // Rotating messages to add personality and signal progress
+  const messages = [
+    message,
+    "Consulting the field",
+    "Weaving patterns",
+    "Finding connections",
+    "Almost there"
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDots(prev => prev.length >= 3 ? '' : prev + '.');
-    }, 400);
-    return () => clearInterval(interval);
+    // Build dots progressively up to 15, then reset
+    const dotInterval = setInterval(() => {
+      setDots(prev => prev.length >= 15 ? '' : prev + '.');
+    }, 300);
+
+    // Rotate messages every ~4.5 seconds
+    const messageInterval = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % messages.length);
+    }, 4500);
+
+    return () => {
+      clearInterval(dotInterval);
+      clearInterval(messageInterval);
+    };
   }, []);
 
   return (
     <span className="inline-flex items-center gap-1">
-      <span className="italic">{message}</span>
-      <span className="w-4 text-left">{dots}</span>
+      <span className="italic">{messages[messageIndex]}</span>
+      <span className="min-w-[2ch] text-left opacity-60">{dots}</span>
     </span>
   );
 };
@@ -727,22 +747,40 @@ const DepthCard = ({
                     {/* Depth navigation buttons for WHY */}
                     <div className="flex gap-1">
                       {['wade', 'swim', 'deep'].map((level) => {
-                        const hasContent = cardData.why[level];
+                        const hasContent = hasContentValue(cardData.why[level]);
                         const isActive = whyDepth === level;
+                        const isThisLoading = isLoadingDeeper && !hasContent && whyDepth !== level;
                         return (
                           <button
                             key={level}
-                            onClick={(e) => { e.stopPropagation(); setWhyDepth(level); }}
+                            disabled={isLoadingDeeper}
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              if (hasContent) {
+                                setWhyDepth(level);
+                              } else if (onLoadDeeper && !isLoadingDeeper) {
+                                // Need to load deeper content for WHY
+                                const previousContent = {
+                                  reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                                  why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                  rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                  architecture: cardData.architecture || '',
+                                  mirror: cardData.mirror || ''
+                                };
+                                await onLoadDeeper(cardData.index, level, previousContent);
+                                setWhyDepth(level);
+                              }
+                            }}
                             className={`px-2 py-0.5 text-xs rounded transition-colors ${
                               isActive
                                 ? 'bg-cyan-500 text-white'
                                 : hasContent
                                   ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'
-                            }`}
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
+                            } ${isLoadingDeeper ? 'opacity-50 cursor-wait' : ''}`}
                           >
-                            {level.charAt(0).toUpperCase() + level.slice(1)}
-                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                            {isThisLoading ? '...' : level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && !isThisLoading && <span className="ml-0.5 opacity-60">+</span>}
                           </button>
                         );
                       })}
@@ -892,6 +930,12 @@ const DepthCard = ({
                 value={threadContext || ''}
                 onChange={(e) => onSetThreadContext(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey && threadOperation && !threadLoading) {
+                    e.preventDefault();
+                    onContinueThread();
+                  }
+                }}
                 placeholder={threadOperation === 'reflect' ? "What are you inquiring about?" : "What are you declaring or creating?"}
                 rows={2}
                 className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-3"
@@ -915,6 +959,47 @@ const DepthCard = ({
                   'Continue'
                 )}
               </button>
+            </div>
+          )}
+
+          {/* Thread Results - Reflect/Forge responses */}
+          {threadData && threadData.length > 0 && (
+            <div className="mt-4 space-y-4">
+              {threadData.map((threadItem, threadIndex) => {
+                const isReflectItem = threadItem.operation === 'reflect';
+                const itemTrans = getComponent(threadItem.draw.transient);
+                const itemStat = STATUSES[threadItem.draw.status];
+                const itemStatusPrefix = itemStat.prefix || 'Balanced';
+                return (
+                  <div key={threadIndex} className={`rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflectItem ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
+                        {isReflectItem ? '↩ Reflect' : '⚡ Forge'}
+                      </span>
+                    </div>
+                    {threadItem.context && (
+                      <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflectItem ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
+                        "{threadItem.context}"
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_COLORS[threadItem.draw.status]}`}>
+                        {itemStat.name}
+                      </span>
+                      <span className="text-sm font-medium text-zinc-200">
+                        {itemStatusPrefix}{itemStatusPrefix && ' '}<span className="text-amber-300/90">{itemTrans.name}</span>
+                      </span>
+                    </div>
+                    <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
+                      {threadItem.interpretation.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                        <p key={i} className="whitespace-pre-wrap">
+                          {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

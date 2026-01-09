@@ -106,21 +106,41 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
-// Progressive loading dots animation component
+// Progressive loading animation - dots build up to signal "still working"
 const LoadingDots = ({ message = "Looking deeper into the field", color = "current" }) => {
   const [dots, setDots] = useState('');
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  // Rotating messages to add personality and signal progress
+  const messages = [
+    message,
+    "Consulting the field",
+    "Weaving patterns",
+    "Finding connections",
+    "Almost there"
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDots(prev => prev.length >= 3 ? '' : prev + '.');
-    }, 400);
-    return () => clearInterval(interval);
+    // Build dots progressively up to 15, then reset
+    const dotInterval = setInterval(() => {
+      setDots(prev => prev.length >= 15 ? '' : prev + '.');
+    }, 300);
+
+    // Rotate messages every ~4.5 seconds (every 15 dots)
+    const messageInterval = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % messages.length);
+    }, 4500);
+
+    return () => {
+      clearInterval(dotInterval);
+      clearInterval(messageInterval);
+    };
   }, []);
 
   return (
     <span className="inline-flex items-center gap-1">
-      <span className="italic">{message}</span>
-      <span className="w-4 text-left">{dots}</span>
+      <span className="italic">{messages[messageIndex]}</span>
+      <span className="min-w-[2ch] text-left opacity-60">{dots}</span>
     </span>
   );
 };
@@ -1524,7 +1544,9 @@ ${sectionContent}
 EXPANSION REQUEST:
 ${expansionPrompt}
 
-Respond directly with the expanded content. No section markers needed. Keep it focused on this specific section AND relevant to their question: "${question}"`;
+Respond directly with the expanded content. No section markers needed. Keep it focused on this specific section AND relevant to their question: "${question}"
+
+REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them. Never write a wall of text.`;
 
     try {
       const res = await fetch('/api/reading', {
@@ -1618,14 +1640,20 @@ Respond directly with the expanded content. No section markers needed. Keep it f
     
     // Pass stance to follow-up
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.\n\nFORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
-    
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.
+
+CRITICAL FORMATTING RULES:
+1. Write SHORT paragraphs (2-3 sentences MAX each)
+2. Put a BLANK LINE between each paragraph
+3. Break your response into 3-5 distinct paragraphs
+4. NEVER write a wall of text - readers need visual breathing room`;
+
     const messages = [
       ...followUpMessages,
       { role: 'user', content: followUp }
     ];
-    
-    const contextMessage = `THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}`;
+
+    const contextMessage = `THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
     
     try {
       const res = await fetch('/api/reading', {
@@ -3734,6 +3762,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                                 value={threadContexts['path'] || ''}
                                 onChange={(e) => setThreadContexts(prev => ({ ...prev, path: e.target.value }))}
                                 onClick={(e) => e.stopPropagation()}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' && !e.shiftKey && threadOperations['path'] && !threadLoading['path']) {
+                                    e.preventDefault();
+                                    continueThread('path');
+                                  }
+                                }}
                                 placeholder={threadOperations['path'] === 'reflect' ? "What are you inquiring about?" : "What are you declaring?"}
                                 rows={2}
                                 className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 resize-none mb-3"
@@ -3902,6 +3936,12 @@ Respond directly with the expanded content. No section markers needed. Keep it f
                   <textarea
                     value={threadContexts['unified'] || ''}
                     onChange={(e) => setThreadContexts(prev => ({ ...prev, unified: e.target.value }))}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey && threadOperations['unified'] && !threadLoading['unified']) {
+                        e.preventDefault();
+                        continueThread('unified');
+                      }
+                    }}
                     placeholder="What are you exploring or creating?"
                     rows={2}
                     className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-4"

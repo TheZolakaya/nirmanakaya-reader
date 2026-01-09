@@ -1,6 +1,6 @@
 # Nirmanakaya Reader - Backlog
 
-Last updated: 2026-01-08 (v0.51.3)
+Last updated: 2026-01-08 (v0.51.4)
 
 ## Rollback Safety
 - **Tag `v0.50.0-stable`** exists for rollback if needed (before progressive depth changes)
@@ -9,50 +9,64 @@ Last updated: 2026-01-08 (v0.51.3)
 
 ## BUGS
 
-(All bugs from v0.51.2 have been addressed in v0.51.3)
+(All bugs from v0.51.4 have been addressed)
 
 ---
 
 ## FEATURE REQUESTS
 
-(None pending)
+- FR1: Section headers (Reading, The Why, etc.) clickable with definition popups
+- FR2: Core framework terms in popups (archetype, status) should be clickable with definitions
+
+---
+
+## COMPLETED (v0.51.4)
+
+- B1: Words to the Whys depth buttons now trigger on-demand loading
+  - Added async onClick with onLoadDeeper call for Swim/Deep buttons
+  - Added loading state and visual feedback
+
+- B2: Expansion content (Unpack/Clarify/Example) formatting improved
+  - Strengthened FORMAT REQUIREMENT in EXPANSION_PROMPTS
+  - Added REMINDER at end of expansion requests
+  - AI now explicitly instructed to use short paragraphs
+
+- B3: Reflect/Forge now displays responses
+  - Added thread results rendering section to DepthCard.js
+  - Results show with proper styling (sky for Reflect, orange for Forge)
+  - Includes context quote and new card interpretation
+
+- B4: Enter key now submits Reflect/Forge input
+  - Added onKeyDown handler to all Reflect/Forge textareas
+  - Works in DepthCard, Path section, and Unified section
+
+- B5: Follow-up question responses now properly formatted
+  - Strengthened CRITICAL FORMATTING RULES in system prompt
+  - Added REMINDER about short paragraphs in context message
+
+- FR3: Loading animation improved
+  - Dots now build up to 15 then reset (vs 3)
+  - Messages rotate: "Consulting the field", "Weaving patterns", etc.
+  - Better visual signal that work is ongoing
+
+- Hotlinks now case-sensitive + bracket notation
+  - Changed from case-insensitive to case-sensitive matching
+  - Added support for [Term] bracket markers
+  - AI instructed to use [Balanced], [Too Much], etc. for framework terms
+  - Reduces false positives ("potential" vs "[Potential]")
 
 ---
 
 ## COMPLETED (v0.51.3)
 
 - B1: WADE and SWIM depths now properly formatted (paragraph splitting)
-  - Added formatting instructions to all APIs (card-depth, synthesis, letter)
-  - Added EXPANSION_PROMPTS formatting instructions
-  - Fixed Path expansion content paragraph rendering
-
 - B2: Path to Balance now defaults to WADE correctly
-  - Fixed empty string fallback logic in getSummaryContent, getLetterContent
-  - Fixed getPathContent to use proper null checks
-
 - B3: Loading animations improved with progressive dots
-  - Added LoadingDots component with animated "..."
-  - Updated all loading messages across page.js and DepthCard.js
-  - Changed spinner icon to animated circle
-
 - B4: Architecture sections now have proper line breaks
-  - Updated DepthCard.js architecture rendering to split on newlines
-  - Updated Path architecture rendering in page.js
-  - Updated ArchitectureBox.js component
-
 - B5: Rebalancer Deep button now triggers on-demand loading
-  - Added onLoadDeeper call to Rebalancer depth buttons
-  - Fixed getRebalancerContent fallback logic with proper null checks
-
 - B6: Expansion buttons formatting fixed
-  - Path expansion content now splits paragraphs correctly
-
 - B7: Reflect/Forge error handling improved
-  - Added error messages for missing content cases
-  - Fixed path content null/empty string check
-
 - FR1: Card context reminder added to sub-sections
-  - Added "Structure of [Card Name]" to Architecture section
 
 ---
 
