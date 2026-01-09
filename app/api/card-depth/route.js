@@ -97,9 +97,9 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   const AGENTS = getAgents();
   const STATUSES = getStatuses();
 
-  const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                AGENTS[draw.transient - 61];
+  const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                draw.transient < 62 ? BOUNDS[draw.transient - 22] :
+                AGENTS[draw.transient - 62];
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
   const cardName = `${statusPrefix} ${trans?.name || 'Unknown'}`;
@@ -150,9 +150,9 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   const AGENTS = getAgents();
   const STATUSES = getStatuses();
 
-  const trans = draw.transient < 21 ? ARCHETYPES[draw.transient] :
-                draw.transient < 61 ? BOUNDS[draw.transient - 21] :
-                AGENTS[draw.transient - 61];
+  const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
+                draw.transient < 62 ? BOUNDS[draw.transient - 22] :
+                AGENTS[draw.transient - 62];
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
   const cardName = `${statusPrefix} ${trans?.name || 'Unknown'}`;
@@ -306,52 +306,107 @@ function getStatuses() {
 
 function getArchetypes() {
   // Return minimal archetype data needed for card names
+  // MUST MATCH lib/archetypes.js exactly!
   return [
-    { name: 'Potential', traditional: 'The Fool' },
-    { name: 'Will', traditional: 'The Magician' },
-    { name: 'Awareness', traditional: 'The High Priestess' },
-    { name: 'Creation', traditional: 'The Empress' },
-    { name: 'Authority', traditional: 'The Emperor' },
-    { name: 'Tradition', traditional: 'The Hierophant' },
-    { name: 'Connection', traditional: 'The Lovers' },
-    { name: 'Movement', traditional: 'The Chariot' },
-    { name: 'Power', traditional: 'Strength' },
-    { name: 'Solitude', traditional: 'The Hermit' },
-    { name: 'Fortune', traditional: 'Wheel of Fortune' },
-    { name: 'Balance', traditional: 'Justice' },
-    { name: 'Surrender', traditional: 'The Hanged Man' },
-    { name: 'Transformation', traditional: 'Death' },
-    { name: 'Harmony', traditional: 'Temperance' },
-    { name: 'Bondage', traditional: 'The Devil' },
-    { name: 'Liberation', traditional: 'The Tower' },
-    { name: 'Hope', traditional: 'The Star' },
-    { name: 'Illusion', traditional: 'The Moon' },
-    { name: 'Joy', traditional: 'The Sun' },
-    { name: 'Reckoning', traditional: 'Judgement' }
+    { name: 'Potential', traditional: 'The Fool' },           // 0 - Gestalt
+    { name: 'Will', traditional: 'The Magician' },            // 1 - Gestalt
+    { name: 'Wisdom', traditional: 'The High Priestess' },    // 2 - Spirit/Cognition
+    { name: 'Nurturing', traditional: 'The Empress' },        // 3 - Spirit/Structure
+    { name: 'Order', traditional: 'The Emperor' },            // 4 - Mind/Intent
+    { name: 'Culture', traditional: 'The Hierophant' },       // 5 - Mind/Resonance
+    { name: 'Compassion', traditional: 'The Lovers' },        // 6 - Emotion/Resonance
+    { name: 'Drive', traditional: 'The Chariot' },            // 7 - Emotion/Intent
+    { name: 'Fortitude', traditional: 'Strength' },           // 8 - Body/Structure
+    { name: 'Discipline', traditional: 'The Hermit' },        // 9 - Body/Cognition
+    { name: 'Source', traditional: 'Wheel of Fortune' },      // 10 - Portal
+    { name: 'Equity', traditional: 'Justice' },               // 11 - Body/Resonance
+    { name: 'Sacrifice', traditional: 'The Hanged Man' },     // 12 - Body/Intent
+    { name: 'Change', traditional: 'Death' },                 // 13 - Emotion/Cognition
+    { name: 'Balance', traditional: 'Temperance' },           // 14 - Emotion/Structure
+    { name: 'Abstraction', traditional: 'The Devil' },        // 15 - Mind/Cognition
+    { name: 'Breakthrough', traditional: 'The Tower' },       // 16 - Mind/Structure
+    { name: 'Inspiration', traditional: 'The Star' },         // 17 - Spirit/Intent
+    { name: 'Imagination', traditional: 'The Moon' },         // 18 - Spirit/Resonance
+    { name: 'Actualization', traditional: 'The Sun' },        // 19 - Gestalt
+    { name: 'Awareness', traditional: 'Judgement' },          // 20 - Gestalt
+    { name: 'Creation', traditional: 'The World' }            // 21 - Portal
   ];
 }
 
 function getBounds() {
   // Return minimal bounds data (40 cards)
-  const channels = ['Intent', 'Cognition', 'Resonance', 'Structure'];
-  const bounds = [];
-  for (let c = 0; c < 4; c++) {
-    for (let n = 1; n <= 10; n++) {
-      bounds.push({ name: `${channels[c]} ${n}`, traditional: `${n} of ${['Wands', 'Swords', 'Cups', 'Pentacles'][c]}` });
-    }
-  }
-  return bounds;
+  // MUST MATCH lib/archetypes.js exactly!
+  return [
+    // Intent Channel (Wands) - indices 0-9
+    { name: 'Activation', traditional: 'Ace of Wands' },
+    { name: 'Orientation', traditional: '2 of Wands' },
+    { name: 'Assertion', traditional: '3 of Wands' },
+    { name: 'Alignment', traditional: '4 of Wands' },
+    { name: 'Dedication', traditional: '5 of Wands' },
+    { name: 'Recognition', traditional: '6 of Wands' },
+    { name: 'Resolve', traditional: '7 of Wands' },
+    { name: 'Command', traditional: '8 of Wands' },
+    { name: 'Resilience', traditional: '9 of Wands' },
+    { name: 'Realization', traditional: '10 of Wands' },
+    // Cognition Channel (Swords) - indices 10-19
+    { name: 'Perception', traditional: 'Ace of Swords' },
+    { name: 'Reflection', traditional: '2 of Swords' },
+    { name: 'Calculation', traditional: '3 of Swords' },
+    { name: 'Repose', traditional: '4 of Swords' },
+    { name: 'Discernment', traditional: '5 of Swords' },
+    { name: 'Guidance', traditional: '6 of Swords' },
+    { name: 'Reconciliation', traditional: '7 of Swords' },
+    { name: 'Immersion', traditional: '8 of Swords' },
+    { name: 'Rumination', traditional: '9 of Swords' },
+    { name: 'Conclusion', traditional: '10 of Swords' },
+    // Resonance Channel (Cups) - indices 20-29
+    { name: 'Openness', traditional: 'Ace of Cups' },
+    { name: 'Rapport', traditional: '2 of Cups' },
+    { name: 'Communion', traditional: '3 of Cups' },
+    { name: 'Reverie', traditional: '4 of Cups' },
+    { name: 'Reckoning', traditional: '5 of Cups' },
+    { name: 'Reciprocity', traditional: '6 of Cups' },
+    { name: 'Allure', traditional: '7 of Cups' },
+    { name: 'Departure', traditional: '8 of Cups' },
+    { name: 'Contentment', traditional: '9 of Cups' },
+    { name: 'Fulfillment', traditional: '10 of Cups' },
+    // Structure Channel (Pentacles) - indices 30-39
+    { name: 'Foundation', traditional: 'Ace of Pentacles' },
+    { name: 'Adaptation', traditional: '2 of Pentacles' },
+    { name: 'Collaboration', traditional: '3 of Pentacles' },
+    { name: 'Conservation', traditional: '4 of Pentacles' },
+    { name: 'Disruption', traditional: '5 of Pentacles' },
+    { name: 'Circulation', traditional: '6 of Pentacles' },
+    { name: 'Cultivation', traditional: '7 of Pentacles' },
+    { name: 'Refinement', traditional: '8 of Pentacles' },
+    { name: 'Flourishing', traditional: '9 of Pentacles' },
+    { name: 'Legacy', traditional: '10 of Pentacles' }
+  ];
 }
 
 function getAgents() {
   // Return minimal agents data (16 cards)
-  const channels = ['Intent', 'Cognition', 'Resonance', 'Structure'];
-  const roles = ['Presence', 'Practice', 'Catalyst', 'Source'];
-  const agents = [];
-  for (let c = 0; c < 4; c++) {
-    for (let r = 0; r < 4; r++) {
-      agents.push({ name: `${roles[r]} of ${channels[c]}`, traditional: `${['Page', 'Knight', 'Queen', 'King'][r]} of ${['Wands', 'Swords', 'Cups', 'Pentacles'][c]}` });
-    }
-  }
-  return agents;
+  // MUST MATCH lib/archetypes.js exactly!
+  return [
+    // Intent Channel - indices 0-3
+    { name: 'Initiate of Intent', traditional: 'Page of Wands' },
+    { name: 'Catalyst of Intent', traditional: 'Knight of Wands' },
+    { name: 'Steward of Intent', traditional: 'Queen of Wands' },
+    { name: 'Executor of Intent', traditional: 'King of Wands' },
+    // Cognition Channel - indices 4-7
+    { name: 'Initiate of Cognition', traditional: 'Page of Swords' },
+    { name: 'Catalyst of Cognition', traditional: 'Knight of Swords' },
+    { name: 'Steward of Cognition', traditional: 'Queen of Swords' },
+    { name: 'Executor of Cognition', traditional: 'King of Swords' },
+    // Resonance Channel - indices 8-11
+    { name: 'Initiate of Resonance', traditional: 'Page of Cups' },
+    { name: 'Catalyst of Resonance', traditional: 'Knight of Cups' },
+    { name: 'Steward of Resonance', traditional: 'Queen of Cups' },
+    { name: 'Executor of Resonance', traditional: 'King of Cups' },
+    // Structure Channel - indices 12-15
+    { name: 'Initiate of Structure', traditional: 'Page of Pentacles' },
+    { name: 'Catalyst of Structure', traditional: 'Knight of Pentacles' },
+    { name: 'Steward of Structure', traditional: 'Queen of Pentacles' },
+    { name: 'Executor of Structure', traditional: 'King of Pentacles' }
+  ];
 }
