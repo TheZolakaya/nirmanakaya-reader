@@ -107,44 +107,6 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
-// Progressive loading animation - dots build up to signal "still working"
-const LoadingDots = ({ message = "Looking deeper into the field", color = "current" }) => {
-  const [dots, setDots] = useState('');
-  const [messageIndex, setMessageIndex] = useState(0);
-
-  // Rotating messages to add personality and signal progress
-  const messages = [
-    message,
-    "Consulting the field",
-    "Weaving patterns",
-    "Finding connections",
-    "Almost there"
-  ];
-
-  useEffect(() => {
-    // Build dots progressively up to 15, then reset
-    const dotInterval = setInterval(() => {
-      setDots(prev => prev.length >= 15 ? '' : prev + '.');
-    }, 300);
-
-    // Rotate messages every ~4.5 seconds (every 15 dots)
-    const messageInterval = setInterval(() => {
-      setMessageIndex(prev => (prev + 1) % messages.length);
-    }, 4500);
-
-    return () => {
-      clearInterval(dotInterval);
-      clearInterval(messageInterval);
-    };
-  }, []);
-
-  return (
-    <span className="inline-flex items-center gap-1">
-      <span className="italic">{messages[messageIndex]}</span>
-      <span className="min-w-[2ch] text-left opacity-60">{dots}</span>
-    </span>
-  );
-};
 
 // Helper to extract summary content from either string (legacy) or object (new depth format)
 const getSummaryContent = (summary, depth = 'wade') => {
@@ -3267,7 +3229,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
                 {letterLoadingDeeper && (
-                  <span className="text-xs text-violet-400"><LoadingDots message="Looking deeper into the field" /></span>
+                  <span className="text-xs text-violet-400 font-medium animate-pulse">Loading...</span>
                 )}
               </div>
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
@@ -3396,7 +3358,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                   )}
                   {synthesisLoadingDeeper && !isSummaryCollapsed && (
-                    <span className="text-xs text-amber-400"><LoadingDots message="Looking deeper into the field" /></span>
+                    <span className="text-xs text-amber-400 font-medium animate-pulse">Loading...</span>
                   )}
                 </div>
 
@@ -3539,9 +3501,8 @@ CRITICAL FORMATTING RULES:
             {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
             {parsedReading._onDemand && synthesisLoading && (
               <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
-                <div className="flex items-center gap-3 text-zinc-400">
-                  <span className="animate-pulse text-amber-500">●</span>
-                  <span className="text-sm italic">Synthesizing reading overview and path...</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-amber-400 font-medium animate-pulse">Synthesizing reading overview and path...</span>
                 </div>
               </div>
             )}
@@ -3620,7 +3581,7 @@ CRITICAL FORMATTING RULES:
                         </div>
                       )}
                       {synthesisLoadingDeeper && !isPathCollapsed && (
-                        <span className="text-xs text-emerald-400"><LoadingDots message="Looking deeper into the field" /></span>
+                        <span className="text-xs text-emerald-400 font-medium animate-pulse">Loading...</span>
                       )}
                     </div>
 

@@ -44,45 +44,6 @@ const AnimatedContent = ({ isVisible, children }) => {
   );
 };
 
-// Progressive loading animation - dots build up to signal "still working"
-const LoadingDots = ({ message = "Looking deeper into the field" }) => {
-  const [dots, setDots] = useState('');
-  const [messageIndex, setMessageIndex] = useState(0);
-
-  // Rotating messages to add personality and signal progress
-  const messages = [
-    message,
-    "Consulting the field",
-    "Weaving patterns",
-    "Finding connections",
-    "Almost there"
-  ];
-
-  useEffect(() => {
-    // Build dots progressively up to 15, then reset
-    const dotInterval = setInterval(() => {
-      setDots(prev => prev.length >= 15 ? '' : prev + '.');
-    }, 300);
-
-    // Rotate messages every ~4.5 seconds
-    const messageInterval = setInterval(() => {
-      setMessageIndex(prev => (prev + 1) % messages.length);
-    }, 4500);
-
-    return () => {
-      clearInterval(dotInterval);
-      clearInterval(messageInterval);
-    };
-  }, []);
-
-  return (
-    <span className="inline-flex items-center gap-1">
-      <span className="italic">{messages[messageIndex]}</span>
-      <span className="min-w-[2ch] text-left opacity-60">{dots}</span>
-    </span>
-  );
-};
-
 // WHY depth levels (includes DEEP)
 const WHY_DEPTH = {
   COLLAPSED: 'collapsed',
@@ -198,40 +159,24 @@ const DepthCard = ({
     }
   };
 
-  // Get rebalancer content for current depth (with proper null check to avoid empty string fallback)
+  // Get rebalancer content for current depth (exact match only - no fallback)
   const getRebalancerContent = (d) => {
     if (!cardData.rebalancer) return null;
     const r = cardData.rebalancer;
     // Helper to check for actual content (not empty string)
     const hasContent = (val) => val != null && val !== '';
-    // Try requested depth first, then fall back in order: wade -> swim -> deep -> surface
+    // Return exact depth content only - no fallback to avoid UI/content mismatch
     switch (d) {
       case DEPTH.SURFACE:
-        if (hasContent(r.surface)) return r.surface;
-        if (hasContent(r.wade)) return r.wade;
-        if (hasContent(r.swim)) return r.swim;
-        if (hasContent(r.deep)) return r.deep;
-        return null;
+        return hasContent(r.surface) ? r.surface : null;
       case DEPTH.WADE:
-        if (hasContent(r.wade)) return r.wade;
-        if (hasContent(r.swim)) return r.swim;
-        if (hasContent(r.deep)) return r.deep;
-        return null;
+        return hasContent(r.wade) ? r.wade : null;
       case DEPTH.SWIM:
-        if (hasContent(r.swim)) return r.swim;
-        if (hasContent(r.wade)) return r.wade;
-        if (hasContent(r.deep)) return r.deep;
-        return null;
+        return hasContent(r.swim) ? r.swim : null;
       case DEPTH.DEEP:
-        if (hasContent(r.deep)) return r.deep;
-        if (hasContent(r.swim)) return r.swim;
-        if (hasContent(r.wade)) return r.wade;
-        return null;
+        return hasContent(r.deep) ? r.deep : null;
       default:
-        if (hasContent(r.wade)) return r.wade;
-        if (hasContent(r.swim)) return r.swim;
-        if (hasContent(r.deep)) return r.deep;
-        return null;
+        return hasContent(r.wade) ? r.wade : null;
     }
   };
 
@@ -301,9 +246,19 @@ const DepthCard = ({
     else if (depth === DEPTH.WADE) setDepth(DEPTH.COLLAPSED); // Skip SURFACE
   };
 
+  // Find first available rebalancer depth (wade preferred, then swim, then deep)
+  const getFirstRebalancerDepth = () => {
+    const r = cardData.rebalancer;
+    if (!r) return DEPTH.WADE;
+    if (hasContentValue(r.wade)) return DEPTH.WADE;
+    if (hasContentValue(r.swim)) return DEPTH.SWIM;
+    if (hasContentValue(r.deep)) return DEPTH.DEEP;
+    return DEPTH.WADE; // Default to wade if nothing exists yet
+  };
+
   const handleRebalancerClick = () => {
     if (rebalancerDepth === DEPTH.COLLAPSED) {
-      setRebalancerDepth(DEPTH.WADE); // Start at WADE
+      setRebalancerDepth(getFirstRebalancerDepth());
     }
   };
 
@@ -311,7 +266,7 @@ const DepthCard = ({
   const toggleRebalancerCollapse = (e) => {
     e.stopPropagation();
     if (rebalancerDepth === DEPTH.COLLAPSED) {
-      setRebalancerDepth(DEPTH.WADE); // Start at WADE
+      setRebalancerDepth(getFirstRebalancerDepth());
     } else {
       setRebalancerDepth(DEPTH.COLLAPSED);
     }
@@ -414,8 +369,8 @@ const DepthCard = ({
               tap to explore
             </span>
           ) : isLoadingDeeper ? (
-            <span className="ml-auto text-xs text-rose-400 font-medium">
-              <LoadingDots message="Looking deeper into the field" />
+            <span className="ml-auto text-xs text-amber-400 font-medium animate-pulse">
+              Loading...
             </span>
           ) : (
             <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
@@ -478,9 +433,8 @@ const DepthCard = ({
           </div>
           <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
             {isLoading ? (
-            <div className="flex items-center gap-2 text-zinc-500">
-              <span className="animate-pulse">●</span>
-              <span className="italic">Generating depths...</span>
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400 font-medium animate-pulse">Loading...</span>
             </div>
           ) : content ? (
             <div className="space-y-3">
@@ -603,8 +557,8 @@ const DepthCard = ({
                 tap to explore
               </span>
             ) : isLoadingDeeper ? (
-              <span className="ml-auto text-xs text-rose-400 font-medium">
-                <LoadingDots message="Looking deeper into the field" />
+              <span className="ml-auto text-xs text-emerald-400 font-medium animate-pulse">
+                Loading...
               </span>
             ) : (
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
@@ -747,8 +701,8 @@ const DepthCard = ({
                     </span>
                     {/* Depth navigation buttons for WHY */}
                     {isLoadingDeeper ? (
-                      <span className="text-xs text-rose-400 font-medium">
-                        <LoadingDots message="Looking deeper into the field" />
+                      <span className="text-xs text-cyan-400 font-medium animate-pulse">
+                        Loading...
                       </span>
                     ) : (
                       <div className="flex gap-1">
