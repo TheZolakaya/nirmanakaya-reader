@@ -3827,19 +3827,10 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {!isPathArchCollapsed && (
                               <div className="px-3 pb-3 text-xs text-zinc-400 font-mono">
-                                {/* Split on newlines and render each line with markdown for bold labels */}
+                                {/* Split on newlines and render each line with hotlinks */}
                                 {path.architecture.split('\n').map((line, i) => (
                                   <div key={i} className={line.trim() ? 'mb-1.5' : 'mb-2'}>
-                                    {line.trim() ? (
-                                      <ReactMarkdown
-                                        components={{
-                                          p: ({ children }) => <span>{children}</span>,
-                                          strong: ({ children }) => <strong className="text-emerald-300 font-semibold">{children}</strong>
-                                        }}
-                                      >
-                                        {line}
-                                      </ReactMarkdown>
-                                    ) : null}
+                                    {line.trim() ? renderWithHotlinks(line, setSelectedInfo, showTraditional) : null}
                                   </div>
                                 ))}
                               </div>
