@@ -107,6 +107,30 @@ import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
+// Pulsating loader with cycling messages
+const PulsatingLoader = ({ color = 'text-amber-400' }) => {
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  const messages = [
+    "Consulting the field...",
+    "Weaving patterns...",
+    "Finding connections...",
+    "Almost there..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % messages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={`font-medium animate-pulse ${color}`}>
+      {messages[messageIndex]}
+    </span>
+  );
+};
 
 // Helper to extract summary content from either string (legacy) or object (new depth format)
 const getSummaryContent = (summary, depth = 'wade') => {
@@ -3229,7 +3253,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
                 {letterLoadingDeeper && (
-                  <span className="text-xs text-violet-400 font-medium animate-pulse">Loading...</span>
+                  <span className="text-xs"><PulsatingLoader color="text-violet-400" /></span>
                 )}
               </div>
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
@@ -3358,7 +3382,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                   )}
                   {synthesisLoadingDeeper && !isSummaryCollapsed && (
-                    <span className="text-xs text-amber-400 font-medium animate-pulse">Loading...</span>
+                    <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>
                   )}
                 </div>
 
@@ -3502,7 +3526,7 @@ CRITICAL FORMATTING RULES:
             {parsedReading._onDemand && synthesisLoading && (
               <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-amber-400 font-medium animate-pulse">Synthesizing reading overview and path...</span>
+                  <span className="text-sm"><PulsatingLoader color="text-amber-400" /></span>
                 </div>
               </div>
             )}
@@ -3581,7 +3605,7 @@ CRITICAL FORMATTING RULES:
                         </div>
                       )}
                       {synthesisLoadingDeeper && !isPathCollapsed && (
-                        <span className="text-xs text-emerald-400 font-medium animate-pulse">Loading...</span>
+                        <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>
                       )}
                     </div>
 

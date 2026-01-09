@@ -44,6 +44,31 @@ const AnimatedContent = ({ isVisible, children }) => {
   );
 };
 
+// Pulsating loader with cycling messages
+const PulsatingLoader = ({ color = 'text-amber-400' }) => {
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  const messages = [
+    "Consulting the field...",
+    "Weaving patterns...",
+    "Finding connections...",
+    "Almost there..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % messages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={`font-medium animate-pulse ${color}`}>
+      {messages[messageIndex]}
+    </span>
+  );
+};
+
 // WHY depth levels (includes DEEP)
 const WHY_DEPTH = {
   COLLAPSED: 'collapsed',
@@ -369,9 +394,7 @@ const DepthCard = ({
               tap to explore
             </span>
           ) : isLoadingDeeper ? (
-            <span className="ml-auto text-xs text-amber-400 font-medium animate-pulse">
-              Loading...
-            </span>
+            <span className="ml-auto text-xs"><PulsatingLoader color="text-amber-400" /></span>
           ) : (
             <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
               {['wade', 'swim', 'deep'].map((level) => {
@@ -434,7 +457,7 @@ const DepthCard = ({
           <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
             {isLoading ? (
             <div className="flex items-center gap-2">
-              <span className="text-amber-400 font-medium animate-pulse">Loading...</span>
+              <PulsatingLoader color="text-amber-400" />
             </div>
           ) : content ? (
             <div className="space-y-3">
@@ -557,9 +580,7 @@ const DepthCard = ({
                 tap to explore
               </span>
             ) : isLoadingDeeper ? (
-              <span className="ml-auto text-xs text-emerald-400 font-medium animate-pulse">
-                Loading...
-              </span>
+              <span className="ml-auto text-xs"><PulsatingLoader color="text-emerald-400" /></span>
             ) : (
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
                 {['wade', 'swim', 'deep'].map((level) => {
@@ -701,9 +722,7 @@ const DepthCard = ({
                     </span>
                     {/* Depth navigation buttons for WHY */}
                     {isLoadingDeeper ? (
-                      <span className="text-xs text-cyan-400 font-medium animate-pulse">
-                        Loading...
-                      </span>
+                      <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>
                     ) : (
                       <div className="flex gap-1">
                         {['wade', 'swim', 'deep'].map((level) => {
