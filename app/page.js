@@ -481,6 +481,8 @@ export default function NirmanakaReader() {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
+    // Reset depth states to default (wade)
+    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade');
     const isReflect = spreadType === 'reflect';
     const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
     const safeQuestion = sanitizeForAPI(questionToUse);
@@ -1695,6 +1697,10 @@ CRITICAL FORMATTING RULES:
     setShowMidReadingStance(false);
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
+    // Reset on-demand state
+    setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
+    // Reset depth states to default (wade)
+    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade');
     hasAutoInterpreted.current = false;
     window.history.replaceState({}, '', window.location.pathname);
   };
