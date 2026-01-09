@@ -114,6 +114,11 @@ const DepthCard = ({
   const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.WADE); // Default to WADE (no more SURFACE)
   const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
 
+  // Independent loading states for each section
+  const [cardLoadingDeeper, setCardLoadingDeeper] = useState(false);
+  const [rebalancerLoadingDeeper, setRebalancerLoadingDeeper] = useState(false);
+  const [whyLoadingDeeper, setWhyLoadingDeeper] = useState(false);
+
   const trans = getComponent(draw.transient);
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
@@ -393,7 +398,7 @@ const DepthCard = ({
             <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
               tap to explore
             </span>
-          ) : isLoadingDeeper ? (
+          ) : cardLoadingDeeper ? (
             <span className="ml-auto text-xs"><PulsatingLoader color="text-amber-400" /></span>
           ) : (
             <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
@@ -407,8 +412,9 @@ const DepthCard = ({
                   e.stopPropagation();
                   if (hasContent) {
                     setDepth(level);
-                  } else if (onLoadDeeper && !isLoadingDeeper) {
+                  } else if (onLoadDeeper && !cardLoadingDeeper) {
                     // Need to load deeper content
+                    setCardLoadingDeeper(true);
                     const previousContent = {
                       reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
                       why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
@@ -417,6 +423,7 @@ const DepthCard = ({
                       mirror: cardData.mirror || ''
                     };
                     await onLoadDeeper(cardData.index, level, previousContent);
+                    setCardLoadingDeeper(false);
                     setDepth(level);
                   }
                 };
@@ -579,7 +586,7 @@ const DepthCard = ({
               <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
                 tap to explore
               </span>
-            ) : isLoadingDeeper ? (
+            ) : rebalancerLoadingDeeper ? (
               <span className="ml-auto text-xs"><PulsatingLoader color="text-emerald-400" /></span>
             ) : (
               <div className="ml-auto flex gap-1" onClick={(e) => e.stopPropagation()}>
@@ -597,8 +604,9 @@ const DepthCard = ({
                         e.stopPropagation();
                         if (hasContent) {
                           setRebalancerDepth(level);
-                        } else if (onLoadDeeper && !isLoadingDeeper) {
+                        } else if (onLoadDeeper && !rebalancerLoadingDeeper) {
                           // Need to load deeper content for rebalancer
+                          setRebalancerLoadingDeeper(true);
                           const previousContent = {
                             reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
                             why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
@@ -607,6 +615,7 @@ const DepthCard = ({
                             mirror: cardData.mirror || ''
                           };
                           await onLoadDeeper(cardData.index, level, previousContent);
+                          setRebalancerLoadingDeeper(false);
                           setRebalancerDepth(level);
                         } else {
                           // No loader available, just switch
@@ -721,7 +730,7 @@ const DepthCard = ({
                       Words to the Whys
                     </span>
                     {/* Depth navigation buttons for WHY */}
-                    {isLoadingDeeper ? (
+                    {whyLoadingDeeper ? (
                       <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>
                     ) : (
                       <div className="flex gap-1">
@@ -735,8 +744,9 @@ const DepthCard = ({
                                 e.stopPropagation();
                                 if (hasContent) {
                                   setWhyDepth(level);
-                                } else if (onLoadDeeper && !isLoadingDeeper) {
+                                } else if (onLoadDeeper && !whyLoadingDeeper) {
                                   // Need to load deeper content for WHY
+                                  setWhyLoadingDeeper(true);
                                   const previousContent = {
                                     reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
                                     why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
@@ -745,6 +755,7 @@ const DepthCard = ({
                                     mirror: cardData.mirror || ''
                                   };
                                   await onLoadDeeper(cardData.index, level, previousContent);
+                                  setWhyLoadingDeeper(false);
                                   setWhyDepth(level);
                                 }
                               }}
