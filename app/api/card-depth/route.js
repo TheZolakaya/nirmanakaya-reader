@@ -44,9 +44,11 @@ export async function POST(request) {
   ];
 
   // Adjust max tokens based on what we're generating
-  // Baseline (WADE for all sections) needs ~2000 tokens
-  // Deepening (SWIM or DEEP for specific section) needs ~1500 tokens
-  const maxTokens = isDeepening ? 1500 : 3500;
+  // Baseline (WADE for all sections) needs ~3500 tokens
+  // DEEP needs more room than SWIM for full transmission
+  const maxTokens = isDeepening
+    ? (depth === 'deep' ? 3000 : 2000)  // DEEP gets 3000, SWIM gets 2000
+    : 3500;  // Baseline (WADE) stays at 3500
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -104,6 +106,23 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
 
+  // Calculate correction target for imbalanced cards
+  let correctionTarget = null;
+  let correctionType = null;
+  if (draw.status !== 1 && draw.transient < 22) {
+    if (draw.status === 2) {
+      correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
+      correctionType = 'DIAGONAL';
+    } else if (draw.status === 3) {
+      correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
+      correctionType = 'VERTICAL';
+    } else if (draw.status === 4) {
+      const reductionId = REDUCTION_PAIRS[draw.transient];
+      correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
+      correctionType = 'REDUCTION';
+    }
+  }
+
   return `QUESTION: "${question}"
 
 CONTEXT: This is Card ${n} in a ${spreadType.toUpperCase()} reading.
@@ -130,8 +149,10 @@ Respond with these markers:
 [CARD:${n}:WHY:WADE]
 (3-4 sentences: Why did THIS card appear for THIS question?)
 ${isImbalanced ? `
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+
 [CARD:${n}:REBALANCER:WADE]
-(3-4 sentences: The specific correction needed and how to apply it)` : ''}
+(3-4 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
@@ -149,8 +170,32 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
 
+  // Calculate correction target for imbalanced cards
+  let correctionTarget = null;
+  let correctionType = null;
+  if (draw.status !== 1 && draw.transient < 22) {
+    // Archetype correction
+    if (draw.status === 2) {
+      correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
+      correctionType = 'DIAGONAL';
+    } else if (draw.status === 3) {
+      correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
+      correctionType = 'VERTICAL';
+    } else if (draw.status === 4) {
+      const reductionId = REDUCTION_PAIRS[draw.transient];
+      correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
+      correctionType = 'REDUCTION';
+    }
+  }
+  // TODO: Add Bound and Agent correction lookups if needed
+
   const depthInstructions = targetDepth === 'deep'
-    ? `DEEP depth: Full transmission with no limits. Go into the philosophy, the psychology, the practical implications. Add examples, nuances, dimensions that SWIM introduced but didn't fully explore.`
+    ? `DEEP depth: Full transmission with NO limits.
+       - Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications
+       - Why section: 3-4 paragraphs on deeper teleological meaning
+       - Rebalancer (if imbalanced): 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it
+
+       DEEP is the fullest expression. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`
     : `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
 
   // Build previous content display
@@ -193,8 +238,10 @@ Respond with these markers:
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
 (Deepen why this card appeared - new angles)
 ${isImbalanced ? `
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction - new practical dimensions)` : ''}`;
+(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}`;
 }
 
 // Parse baseline response (WADE for all sections)

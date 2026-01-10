@@ -12,6 +12,16 @@ Last updated: 2026-01-10 (v0.55.9)
 ### B1: AI Ignoring Pre-Calculated Corrections ⭐ CRITICAL
 **Status:** Spec ready → `dev/BUG_FIX_Correction_Enforcement.md`
 
+### B2: Rebalancer DEEP Too Short + Missing Correction Target ⭐ HIGH
+**Status:** Spec ready → `dev/BUG_FIX_Rebalancer_Depth.md`
+
+**Issues:**
+1. Clicking "Deep" on rebalancer returns only 2 sentences instead of full transmission
+2. Correction target not passed to deepening prompts
+3. maxTokens too low for DEEP (1500 → should be 3000)
+
+**Files:** `app/api/card-depth/route.js`
+
 **Issue:** AI calculates its own corrections instead of using provided ones. Results in wrong correction targets (e.g., Minor correcting a Major).
 
 **Example:** Too Much Imagination (Major 18) → AI suggested Reflection (Minor/Bound) instead of Nurturing (Major 3)
