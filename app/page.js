@@ -77,7 +77,9 @@ import {
   reconstructReadingText,
   validateMarkerPreservation,
   parseTranslatedReading,
-  DEFAULT_PERSONA_SETTINGS
+  DEFAULT_PERSONA_SETTINGS,
+  // Personas
+  PERSONAS
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -2873,6 +2875,30 @@ CRITICAL FORMATTING RULES:
                 {/* Advanced Config panel (hidden by default) */}
                 {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
+                    {/* Interpreter Voice Selector */}
+                    <div className="mb-3 pb-3 border-b border-zinc-700/50">
+                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Interpreter Voice</div>
+                      <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
+                        {PERSONAS.map(p => (
+                          <button
+                            key={p.key}
+                            onClick={() => setPersona(p.key)}
+                            title={p.desc}
+                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+                              persona === p.key
+                                ? 'bg-[#2e1065] text-amber-400'
+                                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                            }`}
+                          >
+                            {p.name}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="text-center text-[0.625rem] text-zinc-500 mt-1.5">
+                        {PERSONAS.find(p => p.key === persona)?.desc || ''}
+                      </div>
+                    </div>
+
                     {/* Voice Preview */}
                     <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
                       <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
@@ -4319,6 +4345,30 @@ CRITICAL FORMATTING RULES:
 
                 {showFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50 space-y-3">
+                    {/* Interpreter Voice Selector */}
+                    <div className="pb-3 border-b border-zinc-700/50">
+                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Interpreter Voice</div>
+                      <div className="flex flex-wrap gap-1 justify-center">
+                        {PERSONAS.map(p => (
+                          <button
+                            key={p.key}
+                            onClick={() => setPersona(p.key)}
+                            title={p.desc}
+                            className={`px-2 py-1.5 rounded-md text-xs transition-all ${
+                              persona === p.key
+                                ? 'bg-[#2e1065] text-amber-400 border border-amber-800/50'
+                                : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
+                            }`}
+                          >
+                            {p.name}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="text-center text-[0.625rem] text-zinc-500 mt-1.5">
+                        {PERSONAS.find(p => p.key === persona)?.desc || ''}
+                      </div>
+                    </div>
+
                     {/* Delivery Presets Row */}
                     <div className="w-full max-w-lg mx-auto">
                       <div className="flex gap-1.5 justify-center flex-nowrap">
