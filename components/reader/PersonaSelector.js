@@ -18,8 +18,7 @@ const PersonaSelector = ({
   directMode,
   setDirectMode,
   compact = false,
-  hasReading = false,
-  showPersonaButtons = false
+  hasReading = false
 }) => {
 
   // True 10-level labels
@@ -36,28 +35,26 @@ const PersonaSelector = ({
           Voice settings {hasReading && <span className="text-amber-600/60">(locked for this reading)</span>}
         </div>
 
-        {/* Persona buttons - compact row (only if showPersonaButtons) */}
-        {showPersonaButtons && (
-          <div className="flex flex-wrap gap-1 justify-center mb-3">
-            {PERSONAS.map(p => (
-              <button
-                key={p.key}
-                onClick={() => setPersona(p.key)}
-                title={p.desc}
-                disabled={hasReading}
-                className={`px-2 py-1.5 rounded-md text-xs transition-all ${
-                  persona === p.key
-                    ? 'bg-[#2e1065] text-amber-400 border border-amber-800/50'
-                    : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
-                } ${hasReading ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                {p.name}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Persona buttons - compact row */}
+        <div className="flex flex-wrap gap-1 justify-center mb-3">
+          {PERSONAS.map(p => (
+            <button
+              key={p.key}
+              onClick={() => setPersona(p.key)}
+              title={p.desc}
+              disabled={hasReading}
+              className={`px-2 py-1.5 rounded-md text-xs transition-all ${
+                persona === p.key
+                  ? 'bg-[#2e1065] text-amber-400 border border-amber-800/50'
+                  : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
+              } ${hasReading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {p.name}
+            </button>
+          ))}
+        </div>
 
-        {/* All sliders - always visible */}
+        {/* All sliders */}
         <div className="space-y-2 border-t border-zinc-800/50 pt-3">
           {/* Humor slider */}
           <div className="flex items-center gap-2 px-2">
@@ -141,40 +138,35 @@ const PersonaSelector = ({
   // Full mode for pre-reading selection
   return (
     <div className="flex flex-col items-center persona-selector">
-      {/* Persona buttons (only if showPersonaButtons) */}
-      {showPersonaButtons && (
-        <>
-          {/* Label */}
-          <div className="text-xs text-zinc-500 mb-2">
-            Who reads this to you?
-          </div>
+      {/* Label */}
+      <div className="text-xs text-zinc-500 mb-2">
+        Who reads this to you?
+      </div>
 
-          {/* Persona buttons - horizontal row */}
-          <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0 mb-2">
-            {PERSONAS.map(p => (
-              <button
-                key={p.key}
-                onClick={() => setPersona(p.key)}
-                title={p.desc}
-                className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                  persona === p.key
-                    ? 'bg-[#2e1065] text-amber-400'
-                    : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
-                }`}
-              >
-                {p.name}
-              </button>
-            ))}
-          </div>
+      {/* Persona buttons - horizontal row */}
+      <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0 mb-2">
+        {PERSONAS.map(p => (
+          <button
+            key={p.key}
+            onClick={() => setPersona(p.key)}
+            title={p.desc}
+            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+              persona === p.key
+                ? 'bg-[#2e1065] text-amber-400'
+                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+            }`}
+          >
+            {p.name}
+          </button>
+        ))}
+      </div>
 
-          {/* Show persona description */}
-          <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mb-3">
-            {PERSONAS.find(p => p.key === persona)?.desc || ''}
-          </div>
-        </>
-      )}
+      {/* Show persona description */}
+      <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mb-3">
+        {PERSONAS.find(p => p.key === persona)?.desc || ''}
+      </div>
 
-      {/* Voice sliders - ALWAYS visible */}
+      {/* Voice sliders */}
       <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 max-w-md mx-auto w-full">
         {/* Humor slider */}
         <div className="flex items-center gap-2 mb-3 px-2">
