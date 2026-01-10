@@ -5,6 +5,7 @@ import { ARCHETYPES } from '../../lib/archetypes.js';
 import { CHANNELS, HOUSES, ROLES, STATUS_INFO, HOUSE_COLORS, STATUS_COLORS, CHANNEL_COLORS } from '../../lib/constants.js';
 import { getAssociatedCards } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
+import { getGlossaryEntry } from '../../lib/glossary.js';
 import ClickableTermContext from './ClickableTermContext.js';
 
 const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
@@ -18,6 +19,23 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
       {children}
     </ClickableTermContext>
   );
+
+  // Clickable glossary term (for fundamental terms like "House", "Archetype", etc.)
+  const GlossaryTerm = ({ slug, children, className = "" }) => {
+    const entry = getGlossaryEntry(slug);
+    if (!entry) return <span className={className}>{children}</span>;
+    return (
+      <span
+        className={`cursor-pointer hover:underline decoration-dotted underline-offset-2 text-violet-300/90 ${className}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setSelectedInfo({ type: 'glossary', id: slug, data: entry });
+        }}
+      >
+        {children}
+      </span>
+    );
+  };
 
   // Render based on type
   const renderContent = () => {
@@ -40,26 +58,28 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
           </div>
 
           <div className="mb-4">
-            <span className={`text-xs px-2 py-1 rounded-full ${
-              isArchetype ? 'bg-amber-500/20 text-amber-300' :
-              isBound ? 'bg-blue-500/20 text-blue-300' :
-              'bg-violet-500/20 text-violet-300'
-            }`}>
-              {component.type}
-            </span>
+            <GlossaryTerm slug={component.type.toLowerCase()}>
+              <span className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${
+                isArchetype ? 'bg-amber-500/20 text-amber-300' :
+                isBound ? 'bg-blue-500/20 text-blue-300' :
+                'bg-violet-500/20 text-violet-300'
+              }`}>
+                {component.type}
+              </span>
+            </GlossaryTerm>
             {isArchetype && (
               <span className="text-xs text-zinc-500 ml-2">
-                <ClickableTerm type="house" id={component.house}>{component.house}</ClickableTerm> House • {component.function}
+                <ClickableTerm type="house" id={component.house}>{component.house}</ClickableTerm> <GlossaryTerm slug="house">House</GlossaryTerm> • {component.function}
               </span>
             )}
             {isBound && (
               <span className="text-xs text-zinc-500 ml-2">
-                <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> • {component.number <= 5 ? 'Inner' : 'Outer'} Bound
+                <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> • {component.number <= 5 ? 'Inner' : 'Outer'} <GlossaryTerm slug="bound">Bound</GlossaryTerm>
               </span>
             )}
             {isAgent && (
               <span className="text-xs text-zinc-500 ml-2">
-                <ClickableTerm type="role" id={component.role}>{component.role}</ClickableTerm> • <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm>
+                <ClickableTerm type="role" id={component.role}>{component.role}</ClickableTerm> • <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> <GlossaryTerm slug="channel">Channel</GlossaryTerm>
               </span>
             )}
           </div>
@@ -134,9 +154,11 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
           </div>
 
           <div className="mb-4">
-            <span className={`text-xs px-2 py-1 rounded-full bg-opacity-20 ${CHANNEL_COLORS[id]}`}>
-              Channel
-            </span>
+            <GlossaryTerm slug="channel">
+              <span className={`text-xs px-2 py-1 rounded-full bg-opacity-20 cursor-pointer hover:opacity-80 ${CHANNEL_COLORS[id]}`}>
+                Channel
+              </span>
+            </GlossaryTerm>
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(channel.extended, setSelectedInfo, showTraditional)}</p>
@@ -159,9 +181,11 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
           </div>
 
           <div className="mb-4">
-            <span className={`text-xs px-2 py-1 rounded-full ${STATUS_COLORS[id]}`}>
-              Status
-            </span>
+            <GlossaryTerm slug="status">
+              <span className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${STATUS_COLORS[id]}`}>
+                Status
+              </span>
+            </GlossaryTerm>
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(status.extended, setSelectedInfo, showTraditional)}</p>
@@ -187,9 +211,11 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
           </div>
 
           <div className="mb-4">
-            <span className={`text-xs px-2 py-1 rounded-full ${houseColors?.bg} ${houseColors?.text}`}>
-              House
-            </span>
+            <GlossaryTerm slug="house">
+              <span className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${houseColors?.bg} ${houseColors?.text}`}>
+                House
+              </span>
+            </GlossaryTerm>
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(house.extended, setSelectedInfo, showTraditional)}</p>
@@ -225,9 +251,11 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
           </div>
 
           <div className="mb-4">
-            <span className="text-xs px-2 py-1 rounded-full bg-violet-500/20 text-violet-300">
-              Agent Role
-            </span>
+            <GlossaryTerm slug="agent">
+              <span className="text-xs px-2 py-1 rounded-full bg-violet-500/20 text-violet-300 cursor-pointer hover:opacity-80">
+                Agent Role
+              </span>
+            </GlossaryTerm>
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{renderWithHotlinks(role.extended, setSelectedInfo, showTraditional)}</p>

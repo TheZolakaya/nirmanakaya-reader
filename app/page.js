@@ -2859,37 +2859,26 @@ CRITICAL FORMATTING RULES:
                   />
                 </div>
 
-                {/* Voice Preview (toggleable) */}
-                {showVoicePreview && (
-                  <div className="text-center mt-3 mb-4">
-                    <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                      <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                    </p>
-                  </div>
-                )}
-
-                {/* Voice Configuration Button + Preview Toggle */}
-                <div className="flex justify-center gap-2 mt-4">
-                  <button
-                    onClick={() => setShowVoicePreview(!showVoicePreview)}
-                    className={`px-3 py-2 text-xs transition-all rounded-lg border ${showVoicePreview ? 'text-cyan-400 bg-cyan-900/20 border-cyan-700/50 hover:bg-cyan-900/30' : 'text-zinc-500 bg-zinc-800/50 border-zinc-700/50 hover:text-zinc-300'}`}
-                    title={showVoicePreview ? 'Hide voice preview' : 'Show voice preview'}
-                  >
-                    {showVoicePreview ? 'Preview ON' : 'Preview OFF'}
-                  </button>
+                {/* Advanced Config toggle */}
+                <div className="flex justify-center mt-4">
                   <button
                     onClick={() => setShowLandingFineTune(!showLandingFineTune)}
-                    className="px-4 py-2 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-800/50 hover:bg-zinc-800 border border-zinc-700/50 rounded-lg transition-all flex items-center gap-2"
+                    className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
                   >
-                    <span className="text-zinc-500">⚙</span>
-                    <span>Stance Config</span>
-                    <span className="text-zinc-600">{showLandingFineTune ? '▾' : '▸'}</span>
+                    <span>{showLandingFineTune ? '▾' : '▸'}</span>
+                    <span>Advanced</span>
                   </button>
                 </div>
 
-                {/* Stance Config panel (hidden by default) */}
+                {/* Advanced Config panel (hidden by default) */}
                 {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
+                    {/* Voice Preview */}
+                    <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
+                      <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
+                        <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                      </p>
+                    </div>
                     {/* Complexity Selector */}
                     <div className="mb-3">
                       <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
@@ -4297,96 +4286,8 @@ CRITICAL FORMATTING RULES:
 
             {showMidReadingStance && (
               <div className="mt-3 bg-zinc-900/30 rounded-xl border border-zinc-800/30 p-4">
-                {/* Delivery Presets Row */}
-                <div className="mb-4 w-full max-w-lg mx-auto">
-                  <div className="flex flex-col items-center">
-                    {/* All 5 stance buttons on one row - no wrap */}
-                    <div className="flex gap-1.5 justify-center flex-nowrap">
-                      {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                        const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                        return (
-                          <button
-                            key={key}
-                            onClick={() => applyDeliveryPreset(key)}
-                            className={`px-2 py-1.5 rounded-lg text-[0.6875rem] transition-all whitespace-nowrap ${
-                              isActive
-                                ? 'bg-[#2e1065] text-amber-400'
-                                : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
-                            }`}
-                          >
-                            {preset.name}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    {/* Config toggle - centered */}
-                    <div className="flex justify-center w-full text-[0.625rem] text-zinc-500 mt-1.5">
-                      <button
-                        onClick={() => setShowFineTune(!showFineTune)}
-                        className="hover:text-zinc-300 transition-colors flex items-center gap-1"
-                      >
-                        <span>{showFineTune ? '▾' : '▸'}</span>
-                        <span>Config</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {showFineTune && (
-                    <div className="mt-3 space-y-3">
-                      {/* Complexity Selector - centered */}
-                      <div className="text-center">
-                        <div className="text-[0.625rem] text-zinc-500 mb-2">Speak to me like...</div>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                          {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                            <button
-                              key={key}
-                              onClick={() => setStance({ ...stance, complexity: key })}
-                              className={`px-2 py-1 rounded text-xs transition-all ${
-                                stance.complexity === key
-                                  ? 'bg-zinc-700 text-zinc-100'
-                                  : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
-                              }`}
-                            >
-                              {opt.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Seriousness/Tone Selector */}
-                      <div className="text-center">
-                        <div className="text-[0.625rem] text-zinc-500 mb-2">Tone</div>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                          {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                            <button
-                              key={key}
-                              onClick={() => setStance({ ...stance, seriousness: key })}
-                              className={`px-2 py-1 rounded text-xs transition-all capitalize ${
-                                stance.seriousness === key
-                                  ? 'bg-zinc-700 text-zinc-100'
-                                  : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
-                              }`}
-                            >
-                              {key}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Stance Grid */}
-                      <StanceSelector
-                        stance={stance}
-                        setStance={setStance}
-                        showCustomize={true}
-                        setShowCustomize={() => {}}
-                        compact={true}
-                      />
-                    </div>
-                )}
-
                 {/* Voice Settings - Post-Reading (locked) */}
-                <div className="mt-4 pt-3 border-t border-zinc-800/50">
+                <div>
                   <PersonaSelector
                     persona={persona}
                     setPersona={setPersona}
@@ -4405,27 +4306,113 @@ CRITICAL FORMATTING RULES:
                   />
                 </div>
 
-                {/* Model Toggle */}
-                <div className="mt-4 pt-3 border-t border-zinc-800/50">
-                  <label className="flex items-center justify-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={useHaiku}
-                      onChange={(e) => setUseHaiku(e.target.checked)}
-                      className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                    />
-                    <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
-                  </label>
-                  <label className="flex items-center justify-center gap-2 cursor-pointer mt-2">
-                    <input
-                      type="checkbox"
-                      checked={showTokenUsage}
-                      onChange={(e) => setShowTokenUsage(e.target.checked)}
-                      className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                    />
-                    <span className="text-xs text-zinc-400">Show token usage</span>
-                  </label>
+                {/* Advanced Config toggle */}
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => setShowFineTune(!showFineTune)}
+                    className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
+                  >
+                    <span>{showFineTune ? '▾' : '▸'}</span>
+                    <span>Advanced</span>
+                  </button>
                 </div>
+
+                {showFineTune && (
+                  <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50 space-y-3">
+                    {/* Delivery Presets Row */}
+                    <div className="w-full max-w-lg mx-auto">
+                      <div className="flex gap-1.5 justify-center flex-nowrap">
+                        {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                          const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                          return (
+                            <button
+                              key={key}
+                              onClick={() => applyDeliveryPreset(key)}
+                              className={`px-2 py-1.5 rounded-lg text-[0.6875rem] transition-all whitespace-nowrap ${
+                                isActive
+                                  ? 'bg-[#2e1065] text-amber-400'
+                                  : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                              }`}
+                            >
+                              {preset.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Complexity Selector - centered */}
+                    <div className="text-center">
+                      <div className="text-[0.625rem] text-zinc-500 mb-2">Speak to me like...</div>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
+                          <button
+                            key={key}
+                            onClick={() => setStance({ ...stance, complexity: key })}
+                            className={`px-2 py-1 rounded text-xs transition-all ${
+                              stance.complexity === key
+                                ? 'bg-zinc-700 text-zinc-100'
+                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                            }`}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Seriousness/Tone Selector */}
+                    <div className="text-center">
+                      <div className="text-[0.625rem] text-zinc-500 mb-2">Tone</div>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
+                          <button
+                            key={key}
+                            onClick={() => setStance({ ...stance, seriousness: key })}
+                            className={`px-2 py-1 rounded text-xs transition-all capitalize ${
+                              stance.seriousness === key
+                                ? 'bg-zinc-700 text-zinc-100'
+                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                            }`}
+                          >
+                            {key}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Stance Grid */}
+                    <StanceSelector
+                      stance={stance}
+                      setStance={setStance}
+                      showCustomize={true}
+                      setShowCustomize={() => {}}
+                      compact={true}
+                    />
+
+                    {/* Model Toggle */}
+                    <div className="pt-3 border-t border-zinc-700/50">
+                      <label className="flex items-center justify-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={useHaiku}
+                          onChange={(e) => setUseHaiku(e.target.checked)}
+                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
+                      </label>
+                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-2">
+                        <input
+                          type="checkbox"
+                          checked={showTokenUsage}
+                          onChange={(e) => setShowTokenUsage(e.target.checked)}
+                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-xs text-zinc-400">Show token usage</span>
+                      </label>
+                    </div>
+                  </div>
+                )}
 
                 {/* Re-interpret Button */}
                 <div className="mt-3 pt-3 border-t border-zinc-800/50">
