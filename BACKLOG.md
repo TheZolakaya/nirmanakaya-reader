@@ -10,10 +10,24 @@ Last updated: 2026-01-10 (v0.55.9)
 ## BUGS
 
 ### B1: AI Ignoring Pre-Calculated Corrections ⭐ CRITICAL
-**Status:** Spec ready → `dev/BUG_FIX_Correction_Enforcement.md`
+**Status:** Spec ready → `dev/BUG_FIX_Correction_Enforcement_COMPLETE.md`
 
-### B2: Rebalancer DEEP Too Short + Missing Correction Target ⭐ HIGH
-**Status:** Spec ready → `dev/BUG_FIX_Rebalancer_Depth.md`
+**Root cause:** AI has partial framework knowledge and attempts to calculate corrections itself, getting them wrong. The correction name only appears in the header, not prominently in the prompt where the AI generates content.
+
+**Evidence:**
+- Formation (Unacknowledged) → Header says "Command" → AI discusses "Recognition"
+- Imagination (Too Much) → Should be Nurturing → AI suggests Reflection
+
+**Fix (4 parts):**
+1. Inject REBALANCER TARGET prominently into formatDrawForAI() and buildDeepenMessage()
+2. Add warning box to FORMAT_INSTRUCTIONS
+3. Add correction reference tables to BASE_SYSTEM
+4. Post-processing validation (future)
+
+**Reference:** `lib/BOUND_CORRECTIONS_LOOKUP.md` contains complete Bound correction table
+
+### B2: Rebalancer DEEP Too Short ⭐ HIGH
+**Status:** Merged into B1 - same root cause
 
 **Issues:**
 1. Clicking "Deep" on rebalancer returns only 2 sentences instead of full transmission

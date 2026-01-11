@@ -109,17 +109,37 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   // Calculate correction target for imbalanced cards
   let correctionTarget = null;
   let correctionType = null;
-  if (draw.status !== 1 && draw.transient < 22) {
-    if (draw.status === 2) {
-      correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
-      correctionType = 'DIAGONAL';
-    } else if (draw.status === 3) {
-      correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
-      correctionType = 'VERTICAL';
-    } else if (draw.status === 4) {
-      const reductionId = REDUCTION_PAIRS[draw.transient];
-      correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
-      correctionType = 'REDUCTION';
+  if (draw.status !== 1) {
+    if (draw.transient < 22) {
+      // Archetype correction
+      if (draw.status === 2) {
+        correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
+        correctionType = 'DIAGONAL';
+      } else if (draw.status === 3) {
+        correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
+        correctionType = 'VERTICAL';
+      } else if (draw.status === 4) {
+        const reductionId = REDUCTION_PAIRS[draw.transient];
+        correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
+        correctionType = 'REDUCTION';
+      }
+    } else if (draw.transient < 62) {
+      // Bound correction - use channel crossing + number mirror
+      const bound = BOUNDS[draw.transient];
+      const CHANNEL_CROSSINGS = {
+        2: { Intent: 'Cognition', Cognition: 'Intent', Resonance: 'Structure', Structure: 'Resonance' },
+        3: { Intent: 'Resonance', Cognition: 'Structure', Resonance: 'Intent', Structure: 'Cognition' },
+        4: { Intent: 'Structure', Cognition: 'Resonance', Resonance: 'Cognition', Structure: 'Intent' }
+      };
+      const targetChannel = CHANNEL_CROSSINGS[draw.status]?.[bound.channel];
+      const targetNumber = 11 - bound.number;
+      if (targetChannel) {
+        const targetBound = Object.values(BOUNDS).find(b => b.channel === targetChannel && b.number === targetNumber);
+        if (targetBound) {
+          correctionTarget = targetBound.name;
+          correctionType = draw.status === 2 ? 'DIAGONAL' : draw.status === 3 ? 'VERTICAL' : 'REDUCTION';
+        }
+      }
     }
   }
 
@@ -173,21 +193,40 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   // Calculate correction target for imbalanced cards
   let correctionTarget = null;
   let correctionType = null;
-  if (draw.status !== 1 && draw.transient < 22) {
-    // Archetype correction
-    if (draw.status === 2) {
-      correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
-      correctionType = 'DIAGONAL';
-    } else if (draw.status === 3) {
-      correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
-      correctionType = 'VERTICAL';
-    } else if (draw.status === 4) {
-      const reductionId = REDUCTION_PAIRS[draw.transient];
-      correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
-      correctionType = 'REDUCTION';
+  if (draw.status !== 1) {
+    if (draw.transient < 22) {
+      // Archetype correction
+      if (draw.status === 2) {
+        correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
+        correctionType = 'DIAGONAL';
+      } else if (draw.status === 3) {
+        correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
+        correctionType = 'VERTICAL';
+      } else if (draw.status === 4) {
+        const reductionId = REDUCTION_PAIRS[draw.transient];
+        correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
+        correctionType = 'REDUCTION';
+      }
+    } else if (draw.transient < 62) {
+      // Bound correction - use channel crossing + number mirror
+      const bound = BOUNDS[draw.transient];
+      const CHANNEL_CROSSINGS = {
+        2: { Intent: 'Cognition', Cognition: 'Intent', Resonance: 'Structure', Structure: 'Resonance' },  // Too Much - diagonal
+        3: { Intent: 'Resonance', Cognition: 'Structure', Resonance: 'Intent', Structure: 'Cognition' },  // Too Little - vertical
+        4: { Intent: 'Structure', Cognition: 'Resonance', Resonance: 'Cognition', Structure: 'Intent' }   // Unacknowledged - reduction
+      };
+      const targetChannel = CHANNEL_CROSSINGS[draw.status]?.[bound.channel];
+      const targetNumber = 11 - bound.number;
+      if (targetChannel) {
+        const targetBound = Object.values(BOUNDS).find(b => b.channel === targetChannel && b.number === targetNumber);
+        if (targetBound) {
+          correctionTarget = targetBound.name;
+          correctionType = draw.status === 2 ? 'DIAGONAL' : draw.status === 3 ? 'VERTICAL' : 'REDUCTION';
+        }
+      }
     }
+    // Agent corrections follow archetype (already handled via archetype lookup in generateArchitectureText)
   }
-  // TODO: Add Bound and Agent correction lookups if needed
 
   const depthInstructions = targetDepth === 'deep'
     ? `DEEP depth: Full transmission with NO limits.
