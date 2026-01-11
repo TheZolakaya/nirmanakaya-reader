@@ -2819,32 +2819,8 @@ CRITICAL FORMATTING RULES:
                 {/* Header */}
                 <div className="text-zinc-600 text-[0.625rem] tracking-widest uppercase mb-3 text-center">── Interpreter Voice ──</div>
 
-                {/* Voice presets - centered */}
-                <div className="w-full max-w-lg mx-auto">
-                  <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
-                    {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                      const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                      const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
-                      return (
-                        <button
-                          key={key}
-                          onClick={() => applyDeliveryPreset(key)}
-                          className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                            isActive
-                              ? 'bg-[#2e1065] text-amber-400'
-                              : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
-                          }`}
-                        >
-                          <span className="sm:hidden">{mobileNames[key]}</span>
-                          <span className="hidden sm:inline">{preset.name}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
                 {/* Persona Selector - Always visible */}
-                <div className="mt-4 mb-4">
+                <div className="mb-4">
                   <PersonaSelector
                     persona={persona}
                     setPersona={setPersona}
@@ -2875,6 +2851,33 @@ CRITICAL FORMATTING RULES:
                 {/* Advanced Config panel (hidden by default) */}
                 {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
+                    {/* Delivery Presets - moved here from top level */}
+                    <div className="mb-3 pb-3 border-b border-zinc-700/50">
+                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
+                      <div className="w-full max-w-lg mx-auto">
+                        <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
+                          {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                            const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                            const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
+                            return (
+                              <button
+                                key={key}
+                                onClick={() => applyDeliveryPreset(key)}
+                                className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+                                  isActive
+                                    ? 'bg-[#2e1065] text-amber-400'
+                                    : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                                }`}
+                              >
+                                <span className="sm:hidden">{mobileNames[key]}</span>
+                                <span className="hidden sm:inline">{preset.name}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Voice Preview */}
                     <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
                       <p className="text-zinc-400 text-sm italic leading-relaxed px-4">

@@ -111,31 +111,64 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   const prefix = stat?.prefix || '';
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
+  const isBalanced = draw.status === 1;
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
   let correctionType = null;
   if (draw.status !== 1) {
-    const trans = getComponent(draw.transient);
+    const transComponent = getComponent(draw.transient);
     let correction = null;
 
-    if (trans.type === 'Archetype') {
+    if (transComponent.type === 'Archetype') {
       correction = getArchetypeCorrection(draw.transient, draw.status);
       if (correction) {
         correctionTarget = ARCHETYPES[correction.target]?.name;
         correctionType = correction.type.toUpperCase();
       }
-    } else if (trans.type === 'Bound') {
-      correction = getBoundCorrection(trans, draw.status);
+    } else if (transComponent.type === 'Bound') {
+      correction = getBoundCorrection(transComponent, draw.status);
       if (correction && correction.targetBound) {
         correctionTarget = correction.targetBound.name;
         correctionType = correction.type.toUpperCase();
       }
-    } else if (trans.type === 'Agent') {
-      correction = getAgentCorrection(trans, draw.status);
+    } else if (transComponent.type === 'Agent') {
+      correction = getAgentCorrection(transComponent, draw.status);
       if (correction && correction.targetAgent) {
         correctionTarget = correction.targetAgent.name;
         correctionType = correction.type.toUpperCase();
+      }
+    }
+  }
+
+  // Calculate growth target for balanced cards
+  let growthTarget = null;
+  let growthType = null;
+  let growthIsSelf = false;
+  if (isBalanced) {
+    const transComponent = getComponent(draw.transient);
+    let correction = null;
+
+    if (transComponent.type === 'Archetype') {
+      correction = getArchetypeCorrection(draw.transient, draw.status);
+      if (correction) {
+        growthTarget = ARCHETYPES[correction.target]?.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
+      }
+    } else if (transComponent.type === 'Bound') {
+      correction = getBoundCorrection(transComponent, draw.status);
+      if (correction && correction.targetBound) {
+        growthTarget = correction.targetBound.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
+      }
+    } else if (transComponent.type === 'Agent') {
+      correction = getAgentCorrection(transComponent, draw.status);
+      if (correction && correction.targetAgent) {
+        growthTarget = correction.targetAgent.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
       }
     }
   }
@@ -170,6 +203,13 @@ ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionTyp
 
 [CARD:${n}:REBALANCER:WADE]
 (3-4 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
+${isBalanced ? `
+GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
+This is a COMPLETION POINT - ${trans?.name || 'this signature'} in balance IS the destination. There is no external growth target.` : `
+GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
+
+[CARD:${n}:GROWTH:WADE]
+(3-4 sentences: ${growthIsSelf ? `Describe this as a completion point - balanced ${trans?.name || 'this signature'} needs nothing external, it IS the destination. Frame as "rest here" and "you have arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
@@ -186,6 +226,7 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   const prefix = stat?.prefix || '';
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
+  const isBalanced = draw.status === 1;
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -215,11 +256,44 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
     }
   }
 
+  // Calculate growth target for balanced cards
+  let growthTarget = null;
+  let growthType = null;
+  let growthIsSelf = false;
+  if (isBalanced) {
+    const transComponent = getComponent(draw.transient);
+    let correction = null;
+
+    if (transComponent.type === 'Archetype') {
+      correction = getArchetypeCorrection(draw.transient, draw.status);
+      if (correction) {
+        growthTarget = ARCHETYPES[correction.target]?.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
+      }
+    } else if (transComponent.type === 'Bound') {
+      correction = getBoundCorrection(transComponent, draw.status);
+      if (correction && correction.targetBound) {
+        growthTarget = correction.targetBound.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
+      }
+    } else if (transComponent.type === 'Agent') {
+      correction = getAgentCorrection(transComponent, draw.status);
+      if (correction && correction.targetAgent) {
+        growthTarget = correction.targetAgent.name;
+        growthType = correction.type.toUpperCase();
+        growthIsSelf = correction.isSelf;
+      }
+    }
+  }
+
   const depthInstructions = targetDepth === 'deep'
     ? `DEEP depth: Full transmission with NO limits.
        - Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications
        - Why section: 3-4 paragraphs on deeper teleological meaning
        - Rebalancer (if imbalanced): 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it
+       - Growth (if balanced): 3-4 paragraphs on the developmental invitation and how to engage it
 
        DEEP is the fullest expression. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`
     : `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
@@ -232,6 +306,8 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   if (previousContent.why?.swim) previousDisplay += `Why SWIM: ${previousContent.why.swim}\n`;
   if (isImbalanced && previousContent.rebalancer?.wade) previousDisplay += `Rebalancer WADE: ${previousContent.rebalancer.wade}\n`;
   if (isImbalanced && previousContent.rebalancer?.swim) previousDisplay += `Rebalancer SWIM: ${previousContent.rebalancer.swim}\n`;
+  if (isBalanced && previousContent.growth?.wade) previousDisplay += `Growth WADE: ${previousContent.growth.wade}\n`;
+  if (isBalanced && previousContent.growth?.swim) previousDisplay += `Growth SWIM: ${previousContent.growth.swim}\n`;
 
   return `QUESTION: "${question}"
 
@@ -267,7 +343,12 @@ ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
 
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}`;
+(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}
+${isBalanced ? `
+${growthIsSelf ? `This is a COMPLETION POINT - ${trans?.name || 'this signature'} in balance IS the destination.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
+
+[CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
+(${growthIsSelf ? `Deepen the completion point experience - what it means to rest here, to have arrived.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what completion feels like.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}`;
 }
 
 // Parse baseline response (WADE for all sections)
@@ -287,6 +368,7 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
 
   // Generate Architecture server-side (no AI hallucination)
   const architectureText = generateArchitectureText(draw);
+  const isBalanced = draw.status === 1;
 
   const cardData = {
     wade: extractSection(`CARD:${n}:WADE`),
@@ -311,6 +393,16 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
     };
   }
 
+  // Add growth section for balanced cards
+  if (isBalanced) {
+    cardData.growth = {
+      wade: extractSection(`CARD:${n}:GROWTH:WADE`),
+      swim: '',
+      deep: '',
+      architecture: '' // No AI architecture for growth
+    };
+  }
+
   return cardData;
 }
 
@@ -332,6 +424,7 @@ function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
   const depthMarker = depth.toUpperCase();
   const newContent = extractSection(`CARD:${n}:${depthMarker}`);
   const newWhy = extractSection(`CARD:${n}:WHY:${depthMarker}`);
+  const isBalanced = !isImbalanced;
 
   // Merge with previous content
   const cardData = {
@@ -355,6 +448,17 @@ function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
       swim: depth === 'swim' ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
       deep: depth === 'deep' ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
       architecture: previousContent?.rebalancer?.architecture || ''
+    };
+  }
+
+  // Add growth section for balanced cards
+  if (isBalanced) {
+    const newGrowth = extractSection(`CARD:${n}:GROWTH:${depthMarker}`);
+    cardData.growth = {
+      wade: previousContent?.growth?.wade || '',
+      swim: depth === 'swim' ? newGrowth : (previousContent?.growth?.swim || ''),
+      deep: depth === 'deep' ? newGrowth : (previousContent?.growth?.deep || ''),
+      architecture: '' // No AI architecture for growth
     };
   }
 
