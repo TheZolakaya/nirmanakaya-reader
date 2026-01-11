@@ -5,6 +5,12 @@
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
 import { STATUSES } from '../../../lib/constants.js';
+import {
+  getArchetypeCorrection,
+  getBoundCorrection,
+  getAgentCorrection,
+  getComponent
+} from '../../../lib/corrections.js';
 
 export async function POST(request) {
   const {
@@ -106,39 +112,30 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
 
-  // Calculate correction target for imbalanced cards
+  // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
   let correctionType = null;
   if (draw.status !== 1) {
-    if (draw.transient < 22) {
-      // Archetype correction
-      if (draw.status === 2) {
-        correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
-        correctionType = 'DIAGONAL';
-      } else if (draw.status === 3) {
-        correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
-        correctionType = 'VERTICAL';
-      } else if (draw.status === 4) {
-        const reductionId = REDUCTION_PAIRS[draw.transient];
-        correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
-        correctionType = 'REDUCTION';
+    const trans = getComponent(draw.transient);
+    let correction = null;
+
+    if (trans.type === 'Archetype') {
+      correction = getArchetypeCorrection(draw.transient, draw.status);
+      if (correction) {
+        correctionTarget = ARCHETYPES[correction.target]?.name;
+        correctionType = correction.type.toUpperCase();
       }
-    } else if (draw.transient < 62) {
-      // Bound correction - use channel crossing + number mirror
-      const bound = BOUNDS[draw.transient];
-      const CHANNEL_CROSSINGS = {
-        2: { Intent: 'Cognition', Cognition: 'Intent', Resonance: 'Structure', Structure: 'Resonance' },
-        3: { Intent: 'Resonance', Cognition: 'Structure', Resonance: 'Intent', Structure: 'Cognition' },
-        4: { Intent: 'Structure', Cognition: 'Resonance', Resonance: 'Cognition', Structure: 'Intent' }
-      };
-      const targetChannel = CHANNEL_CROSSINGS[draw.status]?.[bound.channel];
-      const targetNumber = 11 - bound.number;
-      if (targetChannel) {
-        const targetBound = Object.values(BOUNDS).find(b => b.channel === targetChannel && b.number === targetNumber);
-        if (targetBound) {
-          correctionTarget = targetBound.name;
-          correctionType = draw.status === 2 ? 'DIAGONAL' : draw.status === 3 ? 'VERTICAL' : 'REDUCTION';
-        }
+    } else if (trans.type === 'Bound') {
+      correction = getBoundCorrection(trans, draw.status);
+      if (correction && correction.targetBound) {
+        correctionTarget = correction.targetBound.name;
+        correctionType = correction.type.toUpperCase();
+      }
+    } else if (trans.type === 'Agent') {
+      correction = getAgentCorrection(trans, draw.status);
+      if (correction && correction.targetAgent) {
+        correctionTarget = correction.targetAgent.name;
+        correctionType = correction.type.toUpperCase();
       }
     }
   }
@@ -190,42 +187,32 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
 
-  // Calculate correction target for imbalanced cards
+  // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
   let correctionType = null;
   if (draw.status !== 1) {
-    if (draw.transient < 22) {
-      // Archetype correction
-      if (draw.status === 2) {
-        correctionTarget = ARCHETYPES[DIAGONAL_PAIRS[draw.transient]]?.name;
-        correctionType = 'DIAGONAL';
-      } else if (draw.status === 3) {
-        correctionTarget = ARCHETYPES[VERTICAL_PAIRS[draw.transient]]?.name;
-        correctionType = 'VERTICAL';
-      } else if (draw.status === 4) {
-        const reductionId = REDUCTION_PAIRS[draw.transient];
-        correctionTarget = reductionId !== null ? ARCHETYPES[reductionId]?.name : null;
-        correctionType = 'REDUCTION';
+    const transComponent = getComponent(draw.transient);
+    let correction = null;
+
+    if (transComponent.type === 'Archetype') {
+      correction = getArchetypeCorrection(draw.transient, draw.status);
+      if (correction) {
+        correctionTarget = ARCHETYPES[correction.target]?.name;
+        correctionType = correction.type.toUpperCase();
       }
-    } else if (draw.transient < 62) {
-      // Bound correction - use channel crossing + number mirror
-      const bound = BOUNDS[draw.transient];
-      const CHANNEL_CROSSINGS = {
-        2: { Intent: 'Cognition', Cognition: 'Intent', Resonance: 'Structure', Structure: 'Resonance' },  // Too Much - diagonal
-        3: { Intent: 'Resonance', Cognition: 'Structure', Resonance: 'Intent', Structure: 'Cognition' },  // Too Little - vertical
-        4: { Intent: 'Structure', Cognition: 'Resonance', Resonance: 'Cognition', Structure: 'Intent' }   // Unacknowledged - reduction
-      };
-      const targetChannel = CHANNEL_CROSSINGS[draw.status]?.[bound.channel];
-      const targetNumber = 11 - bound.number;
-      if (targetChannel) {
-        const targetBound = Object.values(BOUNDS).find(b => b.channel === targetChannel && b.number === targetNumber);
-        if (targetBound) {
-          correctionTarget = targetBound.name;
-          correctionType = draw.status === 2 ? 'DIAGONAL' : draw.status === 3 ? 'VERTICAL' : 'REDUCTION';
-        }
+    } else if (transComponent.type === 'Bound') {
+      correction = getBoundCorrection(transComponent, draw.status);
+      if (correction && correction.targetBound) {
+        correctionTarget = correction.targetBound.name;
+        correctionType = correction.type.toUpperCase();
+      }
+    } else if (transComponent.type === 'Agent') {
+      correction = getAgentCorrection(transComponent, draw.status);
+      if (correction && correction.targetAgent) {
+        correctionTarget = correction.targetAgent.name;
+        correctionType = correction.type.toUpperCase();
       }
     }
-    // Agent corrections follow archetype (already handled via archetype lookup in generateArchitectureText)
   }
 
   const depthInstructions = targetDepth === 'deep'
@@ -375,31 +362,18 @@ function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
 }
 
 // Card data imported from lib/archetypes.js and lib/constants.js
-
-// Correction lookup tables
-const DIAGONAL_PAIRS = {
-  0: 19, 1: 20, 2: 17, 3: 18, 4: 15, 5: 16, 6: 13, 7: 14, 8: 11, 9: 12,
-  10: 1, 11: 8, 12: 9, 13: 6, 14: 7, 15: 4, 16: 5, 17: 2, 18: 3, 19: 0, 20: 1, 21: 0
-};
-const VERTICAL_PAIRS = {
-  0: 20, 1: 19, 2: 18, 3: 17, 4: 16, 5: 15, 6: 14, 7: 13, 8: 12, 9: 11,
-  10: 19, 11: 9, 12: 8, 13: 7, 14: 6, 15: 5, 16: 4, 17: 3, 18: 2, 19: 1, 20: 0, 21: 20
-};
-const REDUCTION_PAIRS = {
-  0: null, 1: null, 2: 11, 3: 12, 4: 13, 5: 14, 6: 15, 7: 16, 8: 17, 9: 18,
-  10: null, 11: 2, 12: 3, 13: 4, 14: 5, 15: 6, 16: 7, 17: 8, 18: 9, 19: null, 20: null, 21: null
-};
+// Corrections imported from lib/corrections.js
 
 // Generate Architecture section SERVER-SIDE (no AI hallucination)
 function generateArchitectureText(draw) {
-  // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const transient = draw.transient;
   const status = draw.status;
   const stat = STATUSES[status];
+  const trans = getComponent(transient);
 
   let lines = [];
 
-  if (transient < 22) {
+  if (trans.type === 'Archetype') {
     // ARCHETYPE
     const arch = ARCHETYPES[transient];
     const statusPrefix = stat?.prefix ? `${stat.prefix} ` : '';
@@ -410,28 +384,22 @@ function generateArchitectureText(draw) {
     if (arch.channel) lines.push(`**Channel:** ${arch.channel}`);
     lines.push(`**Card Type:** Archetype (Major)`);
 
-    // Add correction if imbalanced
-    if (status !== 1) {
-      let correction = null;
-      let corrType = '';
-      if (status === 2) {
-        correction = DIAGONAL_PAIRS[transient];
-        corrType = 'DIAGONAL';
-      } else if (status === 3) {
-        correction = VERTICAL_PAIRS[transient];
-        corrType = 'VERTICAL';
-      } else if (status === 4) {
-        correction = REDUCTION_PAIRS[transient];
-        corrType = 'REDUCTION';
-      }
-      if (correction !== null && correction !== undefined) {
-        const targetArch = ARCHETYPES[correction];
-        lines.push(`**Path back:** → ${targetArch.name} (${correction}) via ${corrType} correction`);
+    // Add correction using canonical function
+    const correction = getArchetypeCorrection(transient, status);
+    if (correction) {
+      const targetArch = ARCHETYPES[correction.target];
+      const corrType = correction.type.toUpperCase();
+      if (correction.isSelf) {
+        lines.push(`**Growth:** → ${targetArch.name} (self - completion point)`);
+      } else if (status === 1) {
+        lines.push(`**Growth opportunity:** → ${targetArch.name} via ${corrType}`);
+      } else {
+        lines.push(`**Path back:** → ${targetArch.name} via ${corrType} correction`);
       }
     }
 
-  } else if (transient < 62) {
-    // BOUND - BOUNDS is keyed by transient directly
+  } else if (trans.type === 'Bound') {
+    // BOUND
     const bound = BOUNDS[transient];
     const statusPrefix = stat?.prefix ? `${stat.prefix} ` : '';
     const associatedArch = ARCHETYPES[bound.archetype];
@@ -443,27 +411,21 @@ function generateArchitectureText(draw) {
     lines.push(`**Card Type:** Bound (Minor ${bound.number})`);
     lines.push(`**Expresses:** ${associatedArch.name} — ${associatedArch.house} House`);
 
-    // Bound corrections use channel crossing
-    if (status !== 1) {
-      const CHANNEL_CROSSINGS = {
-        2: { Intent: 'Structure', Cognition: 'Resonance', Resonance: 'Cognition', Structure: 'Intent' },
-        3: { Intent: 'Resonance', Cognition: 'Structure', Resonance: 'Intent', Structure: 'Cognition' },
-        4: { Intent: 'Cognition', Cognition: 'Intent', Resonance: 'Structure', Structure: 'Resonance' }
-      };
-      const targetChannel = CHANNEL_CROSSINGS[status]?.[bound.channel];
-      const targetNumber = 11 - bound.number;
-      if (targetChannel) {
-        // Find target bound by searching BOUNDS object values
-        const targetBound = Object.values(BOUNDS).find(b => b.channel === targetChannel && b.number === targetNumber);
-        if (targetBound) {
-          const corrType = status === 2 ? 'DIAGONAL' : status === 3 ? 'VERTICAL' : 'REDUCTION';
-          lines.push(`**Path back:** → ${targetBound.name} (${bound.channel}→${targetChannel}, ${bound.number}→${targetNumber}) via ${corrType} correction`);
-        }
+    // Bound corrections use canonical function with polarity flip
+    const correction = getBoundCorrection(trans, status);
+    if (correction && correction.targetBound) {
+      const corrType = correction.type.toUpperCase();
+      if (correction.isSelf) {
+        lines.push(`**Growth:** → ${correction.targetBound.name} (self - completion point)`);
+      } else if (status === 1) {
+        lines.push(`**Growth opportunity:** → ${correction.targetBound.name} via ${corrType}`);
+      } else {
+        lines.push(`**Path back:** → ${correction.targetBound.name} via ${corrType} correction`);
       }
     }
 
-  } else {
-    // AGENT - AGENTS is keyed by transient directly
+  } else if (trans.type === 'Agent') {
+    // AGENT
     const agent = AGENTS[transient];
     const statusPrefix = stat?.prefix ? `${stat.prefix} ` : '';
     const associatedArch = ARCHETYPES[agent.archetype];
@@ -475,28 +437,16 @@ function generateArchitectureText(draw) {
     lines.push(`**Card Type:** Agent (Court)`);
     lines.push(`**Embodies:** ${associatedArch.name} — ${associatedArch.house} House`);
 
-    // Agent corrections follow the archetype's correction
-    if (status !== 1) {
-      let correction = null;
-      let corrType = '';
-      if (status === 2) {
-        correction = DIAGONAL_PAIRS[agent.archetype];
-        corrType = 'DIAGONAL';
-      } else if (status === 3) {
-        correction = VERTICAL_PAIRS[agent.archetype];
-        corrType = 'VERTICAL';
-      } else if (status === 4) {
-        correction = REDUCTION_PAIRS[agent.archetype];
-        corrType = 'REDUCTION';
-      }
-      if (correction !== null && correction !== undefined) {
-        // Find the Agent that embodies the target archetype
-        const targetAgent = Object.values(AGENTS).find(a => a.archetype === correction);
-        if (targetAgent) {
-          lines.push(`**Path back:** → ${targetAgent.name} via ${corrType} correction (follows ${ARCHETYPES[correction].name})`);
-        } else {
-          lines.push(`**Path back:** → ${ARCHETYPES[correction].name} (${correction}) via ${corrType} correction`);
-        }
+    // Agent corrections use canonical function with polarity flip
+    const correction = getAgentCorrection(trans, status);
+    if (correction && correction.targetAgent) {
+      const corrType = correction.type.toUpperCase();
+      if (correction.isSelf) {
+        lines.push(`**Growth:** → ${correction.targetAgent.name} (self - completion point)`);
+      } else if (status === 1) {
+        lines.push(`**Growth opportunity:** → ${correction.targetAgent.name} via ${corrType}`);
+      } else {
+        lines.push(`**Path back:** → ${correction.targetAgent.name} via ${corrType} correction`);
       }
     }
   }
