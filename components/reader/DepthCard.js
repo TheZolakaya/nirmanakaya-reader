@@ -133,6 +133,22 @@ const DepthCard = ({
   const [growthLoadingDeeper, setGrowthLoadingDeeper] = useState(false); // For balanced cards' Growth Opportunity
   const [whyLoadingDeeper, setWhyLoadingDeeper] = useState(false);
 
+  // Mobile detection for abbreviated depth labels (FR20)
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 480);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile-aware depth labels: S/W/Sw/D on mobile, full text on desktop
+  const getDepthLabel = (level) => {
+    if (!isMobile) return level.charAt(0).toUpperCase() + level.slice(1);
+    const abbrev = { shallow: 'S', wade: 'W', swim: 'Sw', deep: 'D' };
+    return abbrev[level] || level.charAt(0).toUpperCase();
+  };
+
   const trans = getComponent(draw.transient);
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
@@ -521,6 +537,7 @@ const DepthCard = ({
                   <button
                     key={level}
                     onClick={handleClick}
+                    title={level.charAt(0).toUpperCase() + level.slice(1)}
                     className={`px-2 py-0.5 text-xs rounded transition-colors ${
                       isActive
                         ? 'bg-amber-500 text-white'
@@ -529,7 +546,7 @@ const DepthCard = ({
                           : 'bg-zinc-800/50 text-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-500 border border-dashed border-zinc-700'
                     }`}
                   >
-                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                    {getDepthLabel(level)}
                     {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                   </button>
                 );
@@ -719,6 +736,7 @@ const DepthCard = ({
                           setRebalancerDepth(level);
                         }
                       }}
+                      title={level.charAt(0).toUpperCase() + level.slice(1)}
                       className={`px-2 py-0.5 text-xs rounded transition-colors ${
                         isActive
                           ? 'bg-emerald-500 text-white'
@@ -727,7 +745,7 @@ const DepthCard = ({
                             : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
                       }`}
                     >
-                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                      {getDepthLabel(level)}
                       {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                     </button>
                   );
@@ -841,6 +859,7 @@ const DepthCard = ({
                           setGrowthDepth(level);
                         }
                       }}
+                      title={level.charAt(0).toUpperCase() + level.slice(1)}
                       className={`px-2 py-0.5 text-xs rounded transition-colors ${
                         isActive
                           ? 'bg-teal-500 text-white'
@@ -849,7 +868,7 @@ const DepthCard = ({
                             : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-teal-500/50'
                       }`}
                     >
-                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                      {getDepthLabel(level)}
                       {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                     </button>
                   );
@@ -987,6 +1006,7 @@ const DepthCard = ({
                                   setWhyDepth(level);
                                 }
                               }}
+                              title={level.charAt(0).toUpperCase() + level.slice(1)}
                               className={`px-2 py-0.5 text-xs rounded transition-colors ${
                                 isActive
                                   ? 'bg-cyan-500 text-white'
@@ -995,7 +1015,7 @@ const DepthCard = ({
                                     : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
                               }`}
                             >
-                              {level.charAt(0).toUpperCase() + level.slice(1)}
+                              {getDepthLabel(level)}
                               {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
                             </button>
                           );

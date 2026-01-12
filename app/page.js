@@ -270,6 +270,7 @@ export default function NirmanakaReader() {
   const [sparkPlaceholder, setSparkPlaceholder] = useState('');
   const [showSparkSuggestions, setShowSparkSuggestions] = useState(false); // Show starters + spark suggestions
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
+  const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
@@ -2347,10 +2348,13 @@ CRITICAL FORMATTING RULES:
     if (!parsedReading || !draws) return;
 
     const isReflect = spreadType === 'reflect';
+    const isExplore = spreadType === 'explore';
     const spreadName = isReflect
-      ? `Reflect • ${REFLECT_SPREADS[spreadKey]?.name}`
-      : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`;
-    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+      ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}`
+      : isExplore
+        ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
+        : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`;
+    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
 
     const escapeHtml = (text) => text
       .replace(/&/g, '&amp;')
@@ -2801,8 +2805,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
 
-              {/* Mode Toggle - centered */}
-              <div className="flex justify-center items-center mb-4">
+              {/* Mode Toggle - centered with right padding for help button on mobile */}
+              <div className="flex justify-center items-center mb-4 pr-8 sm:pr-0">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
@@ -2955,42 +2959,50 @@ CRITICAL FORMATTING RULES:
                 ) : null}
               </div>
 
-              {/* Interpreter Voice Section */}
+              {/* Interpreter Voice Section - Collapsed by default (FR22) */}
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                {/* Header */}
-                <div className="text-zinc-600 text-[0.625rem] tracking-widest uppercase mb-3 text-center">── Interpreter Voice ──</div>
+                {/* Collapsible Header */}
+                <button
+                  onClick={() => setShowVoicePanel(!showVoicePanel)}
+                  className="w-full flex items-center justify-center gap-2 text-zinc-500 hover:text-zinc-400 transition-colors py-1"
+                >
+                  <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
+                  <span className="text-[0.625rem] tracking-widest uppercase">Voice Settings</span>
+                </button>
 
-                {/* Persona Selector - Always visible */}
-                <div className="mb-4">
-                  <PersonaSelector
-                    persona={persona}
-                    setPersona={setPersona}
-                    humor={humor}
-                    setHumor={setHumor}
-                    register={register}
-                    setRegister={setRegister}
-                    creator={creator}
-                    setCreator={setCreator}
-                    roastMode={roastMode}
-                    setRoastMode={setRoastMode}
-                    directMode={directMode}
-                    setDirectMode={setDirectMode}
-                  />
-                </div>
+                {/* Voice Panel Content - Hidden by default */}
+                {showVoicePanel && (
+                  <>
+                    {/* Persona Selector */}
+                    <div className="mt-3 mb-4">
+                      <PersonaSelector
+                        persona={persona}
+                        setPersona={setPersona}
+                        humor={humor}
+                        setHumor={setHumor}
+                        register={register}
+                        setRegister={setRegister}
+                        creator={creator}
+                        setCreator={setCreator}
+                        roastMode={roastMode}
+                        setRoastMode={setRoastMode}
+                        directMode={directMode}
+                        setDirectMode={setDirectMode}
+                      />
+                    </div>
 
-                {/* Advanced Config toggle */}
-                <div className="flex justify-center mt-4">
-                  <button
-                    onClick={() => setShowLandingFineTune(!showLandingFineTune)}
-                    className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
-                  >
-                    <span>{showLandingFineTune ? '▾' : '▸'}</span>
-                    <span>Advanced</span>
-                  </button>
-                </div>
-
-                {/* Advanced Config panel (hidden by default) */}
-                {showLandingFineTune && (
+                    {/* Advanced Config toggle */}
+                    <div className="flex justify-center mt-4">
+                      <button
+                        onClick={() => setShowLandingFineTune(!showLandingFineTune)}
+                        className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
+                      >
+                        <span>{showLandingFineTune ? '▾' : '▸'}</span>
+                        <span>Advanced</span>
+                      </button>
+                    </div>
+                    {/* Advanced Config panel (hidden by default) */}
+                    {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
                     {/* Delivery Presets - moved here from top level */}
                     <div className="mb-3 pb-3 border-b border-zinc-700/50">
@@ -3096,6 +3108,8 @@ CRITICAL FORMATTING RULES:
                       </label>
                     </div>
                   </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -3287,7 +3301,11 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               {/* Metadata line ABOVE buttons */}
               <div className="text-center mb-3">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
-                  {spreadType === 'reflect' ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}` : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
+                  {spreadType === 'reflect'
+                    ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}`
+                    : spreadType === 'explore'
+                      ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
+                      : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
                 </span>
               </div>
               {/* Action buttons row */}
@@ -3824,6 +3842,23 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys) - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
           <div className="space-y-2">
+            {/* Explore Mode: Original Input Display (B14) */}
+            {spreadType === 'explore' && dtpInput && (
+              <div className="mb-6 rounded-xl border border-amber-600/30 bg-amber-950/20 p-5">
+                <div className="text-amber-400 text-xs uppercase tracking-wider mb-2">What's Active</div>
+                <div className="text-zinc-300 text-sm leading-relaxed italic mb-3">"{dtpInput}"</div>
+                {dtpTokens && dtpTokens.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {dtpTokens.map((token, i) => (
+                      <span key={i} className="px-2 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full">
+                        {token}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Signature Sections with nested Rebalancers - using new DepthCard component */}
             {parsedReading.cards.map((card) => {
               // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
