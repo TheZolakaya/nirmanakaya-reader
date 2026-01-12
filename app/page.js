@@ -223,7 +223,7 @@ export default function NirmanakaReader() {
   const [followUp, setFollowUp] = useState('');
   const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'explore'
   const [dtpInput, setDtpInput] = useState(''); // DTP (Explore mode) text input
-  const [dtpResponse, setDtpResponse] = useState(null); // DTP response: { tokens, readings, synthesis }
+  const [dtpTokens, setDtpTokens] = useState(null); // DTP tokens array for Explore mode
   const [spreadKey, setSpreadKey] = useState('three');
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
@@ -632,7 +632,7 @@ export default function NirmanakaReader() {
     catch { prompt('Copy this link:', shareUrl); }
   };
 
-  const performReadingWithDraws = async (drawsToUse, questionToUse = question) => {
+  const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     // Reset persona translation state
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
@@ -640,6 +640,8 @@ export default function NirmanakaReader() {
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to default (shallow)
     setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow');
+    // Store tokens for DTP mode (used by card generation)
+    setDtpTokens(tokens);
     const isReflect = spreadType === 'reflect';
     const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
     const safeQuestion = sanitizeForAPI(questionToUse);
@@ -711,6 +713,7 @@ export default function NirmanakaReader() {
       // Create initial parsed reading with letter and card placeholders
       const cardPlaceholders = drawsToUse.map((_, i) => ({
         index: i,
+        token: tokens ? tokens[i] : null, // DTP mode: token for this card
         surface: null, // Not yet loaded
         wade: null,
         swim: null,
@@ -738,7 +741,8 @@ export default function NirmanakaReader() {
       // This uses the on-demand architecture but loads everything upfront
       setTimeout(() => {
         drawsToUse.forEach((_, i) => {
-          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt);
+          const cardToken = tokens ? tokens[i] : null;
+          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt, cardToken);
         });
       }, 100);
 
@@ -747,7 +751,7 @@ export default function NirmanakaReader() {
   };
 
   // On-demand: Load a single card's depth content
-  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse) => {
+  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null) => {
     if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
 
     setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
@@ -766,6 +770,7 @@ export default function NirmanakaReader() {
           stance,
           system: systemPromptToUse || systemPromptCache,
           letterContent,
+          token, // DTP mode: token context for this card
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
@@ -819,6 +824,8 @@ export default function NirmanakaReader() {
 
     try {
       const letterContent = getLetterContent(parsedReading?.letter);
+      // Get token from card state for DTP mode
+      const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -831,6 +838,7 @@ export default function NirmanakaReader() {
           stance,
           system: systemPromptCache,
           letterContent,
+          token: cardToken, // DTP mode: token context for this card
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
           // Progressive deepening params
           targetDepth,
@@ -1111,24 +1119,22 @@ export default function NirmanakaReader() {
     await performReadingWithDraws(newDraws, actualQuestion);
   };
 
-  // DTP (Explore mode) reading - token extraction + interpretation
+  // DTP (Explore mode) reading - token extraction then standard card flow
   const performDTPReading = async (input) => {
     setLoading(true);
     setError('');
-    setDtpResponse(null);
 
     // Generate 5 draws (unique positions guaranteed)
     const newDraws = generateDTPDraws();
-    setDraws(newDraws);
 
     try {
+      // Step 1: Call DTP API to extract tokens only
       const response = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           isDTP: true,
-          dtpInput: input,
-          draws: newDraws
+          dtpInput: input
         })
       });
 
@@ -1140,18 +1146,26 @@ export default function NirmanakaReader() {
         return;
       }
 
-      if (data.isDTP) {
-        // Store the DTP response
-        setDtpResponse({
-          tokens: data.tokens || [],
-          readings: data.readings || [],
-          synthesis: data.synthesis || '',
-          draws: data.draws || newDraws
-        });
+      const tokens = data.tokens || [];
+      if (tokens.length === 0) {
+        setError('No tokens could be extracted from your input. Please try describing what\'s active more specifically.');
+        setLoading(false);
+        return;
+      }
+
+      // Track token extraction usage
+      if (data.usage) {
         setTokenUsage(data.usage);
       }
 
-      setLoading(false);
+      // Step 2: Slice draws to match token count and use standard flow
+      const usedDraws = newDraws.slice(0, tokens.length);
+      setDraws(usedDraws);
+
+      // Step 3: Use standard reading flow with tokens
+      // Note: performReadingWithDraws will handle the rest
+      await performReadingWithDraws(usedDraws, input, tokens);
+
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -1245,7 +1259,9 @@ export default function NirmanakaReader() {
       const parentTrans = getComponent(parentDraw.transient);
       const parentStat = STATUSES[parentDraw.status];
       const parentStatusPrefix = parentStat.prefix || 'Balanced';
-      parentLabel = `${parentStatusPrefix} ${parentTrans.name}`;
+      // Include token context if this is a DTP reading
+      const tokenContext = parentCard.token ? ` (Regarding: ${parentCard.token})` : '';
+      parentLabel = `${parentStatusPrefix} ${parentTrans.name}${tokenContext}`;
       // Use best available content from card
       parentContent = parentCard.wade || parentCard.swim || parentCard.surface || parentCard.deep || '';
     }
@@ -1278,7 +1294,9 @@ export default function NirmanakaReader() {
           const stat = STATUSES[draw.status];
           const cardContent = card.wade || card.swim || card.surface;
           if (cardContent) {
-            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
+            // Include token context for DTP readings
+            const cardTokenLabel = card.token ? ` (Regarding: ${card.token})` : '';
+            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}${cardTokenLabel}\n${cardContent}`;
             // Add Words to the Whys for this card
             if (card.why) {
               const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
@@ -1923,7 +1941,7 @@ CRITICAL FORMATTING RULES:
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
     // Clear DTP state
-    setDtpInput(''); setDtpResponse(null);
+    setDtpInput(''); setDtpTokens(null);
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
     // Reset on-demand state
@@ -3197,81 +3215,6 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {/* Error */}
         {error && <div className="bg-red-950/30 border border-red-900/50 rounded-xl p-4 my-4 text-red-400 text-sm">{error}</div>}
 
-        {/* DTP (Explore) Reading Output */}
-        {dtpResponse && !loading && (
-          <div className="max-w-4xl mx-auto mb-8">
-            {/* Header with token count */}
-            <div className="text-center mb-6">
-              <span className="text-xs text-zinc-500 uppercase tracking-wider">
-                Explore • {dtpResponse.tokens.length} token{dtpResponse.tokens.length !== 1 ? 's' : ''} extracted
-              </span>
-            </div>
-
-            {/* Action buttons */}
-            <div className="flex justify-center gap-2 items-center mb-6">
-              <button onClick={resetReading} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#052e23] hover:bg-[#064e3b] border border-emerald-700/50">New Reading</button>
-            </div>
-
-            {/* Token readings */}
-            <div className="space-y-6">
-              {dtpResponse.readings.map((reading, idx) => {
-                const draw = dtpResponse.draws[reading.drawIndex ?? idx];
-                const trans = draw ? getComponent(draw.transient) : null;
-                const pos = draw ? ARCHETYPES[draw.position] : null;
-                const stat = draw ? STATUSES[draw.status] : null;
-                const statusColor = stat?.id === 1 ? 'border-emerald-600/50 bg-emerald-950/20' :
-                                   stat?.id === 2 ? 'border-red-600/50 bg-red-950/20' :
-                                   stat?.id === 3 ? 'border-blue-600/50 bg-blue-950/20' : 'border-purple-600/50 bg-purple-950/20';
-
-                return (
-                  <div key={idx} className={`rounded-xl border ${statusColor} p-6`}>
-                    {/* Token header */}
-                    <div className="text-amber-400 text-sm font-medium mb-3 uppercase tracking-wider">
-                      Regarding: {reading.token}
-                    </div>
-
-                    {/* Three-line sentence */}
-                    {reading.threeLine && (
-                      <div className="text-zinc-400 text-sm italic mb-4">
-                        {reading.threeLine}
-                      </div>
-                    )}
-
-                    {/* Card info */}
-                    {trans && (
-                      <div className="text-zinc-500 text-xs mb-4">
-                        {stat?.prefix ? `${stat.prefix} ` : ''}{trans.name} in {pos?.name || 'Unknown'} — {stat?.name}
-                      </div>
-                    )}
-
-                    {/* Interpretation */}
-                    <div className="text-zinc-300 text-base leading-relaxed">
-                      <ReactMarkdown>{reading.interpretation || ''}</ReactMarkdown>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Synthesis */}
-            {dtpResponse.synthesis && (
-              <div className="mt-8 rounded-xl border border-zinc-700/50 bg-zinc-900/30 p-6">
-                <div className="text-zinc-400 text-xs uppercase tracking-wider mb-3">Synthesis</div>
-                <div className="text-zinc-300 text-base leading-relaxed">
-                  <ReactMarkdown>{dtpResponse.synthesis}</ReactMarkdown>
-                </div>
-              </div>
-            )}
-
-            {/* Token usage */}
-            {showTokenUsage && tokenUsage && (
-              <div className="mt-4 text-center text-xs text-zinc-600">
-                Tokens: {tokenUsage.input_tokens?.toLocaleString()} in / {tokenUsage.output_tokens?.toLocaleString()} out
-              </div>
-            )}
-          </div>
-        )}
-
         {/* First Contact Reading Output - Simplified display */}
         {draws && !loading && parsedReading?.firstContact && userLevel === USER_LEVELS.FIRST_CONTACT && (
           <div className="max-w-lg mx-auto mb-8">
@@ -3891,12 +3834,18 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               // On-demand loading trigger
               const triggerCardLoad = () => {
                 if (!isCardLoaded && !isCardLoading && parsedReading._onDemand) {
-                  loadCardDepth(card.index, draws, question, parsedReading.letter, systemPromptCache);
+                  loadCardDepth(card.index, draws, question, parsedReading.letter, systemPromptCache, card.token);
                 }
               };
 
               return (
                 <div key={`card-group-${card.index}`} id={`content-${card.index}`}>
+                  {/* Token label for DTP (Explore) mode */}
+                  {card.token && (
+                    <div className="text-amber-400 text-sm font-medium uppercase tracking-wider mb-2 ml-4">
+                      Regarding: {card.token}
+                    </div>
+                  )}
                   <DepthCard
                     cardData={card}
                     draw={draws[card.index]}
