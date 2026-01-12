@@ -110,6 +110,7 @@ import StanceSelector from '../components/reader/StanceSelector.js';
 import PersonaSelector from '../components/reader/PersonaSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
+import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 
 // NOTE: All data constants have been extracted to /lib modules.
@@ -237,6 +238,15 @@ export default function NirmanakaReader() {
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+
+  // Mobile detection for depth stepper
+  const [isMobileDepth, setIsMobileDepth] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobileDepth(window.innerWidth < 480);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Toggle collapse state for a section
   // defaultCollapsed: true for sections that start collapsed, false for sections that start expanded
@@ -2768,62 +2778,65 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
-              {/* Unified Help Button - top right */}
-              <button
-                onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
-                className="help-trigger absolute top-3 right-3 sm:top-4 sm:right-4 w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-xs flex items-center justify-center transition-all z-10"
-              >
-                ?
-              </button>
-              {helpPopover === 'unified' && (
-                <div className="help-popover-content absolute top-12 right-2 sm:right-4 z-50 w-80 sm:w-96">
-                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                    <div className="space-y-4 text-sm">
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
-                        <div className="space-y-2">
-                          <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
-                        <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
-                      </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
-                        <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
-                      </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
-                        <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Mode Toggle - centered with right padding for help button on mobile */}
-              <div className="flex justify-center items-center mb-4 pr-10 sm:pr-0">
+              {/* Mode Toggle with Help Button as sibling - no overlap */}
+              <div className="flex items-center justify-center gap-2 mb-4">
+                {/* Mode tabs */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
-                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
                   <button onClick={() => { setSpreadType('discover'); setSpreadKey('three'); }}
-                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
                   <button onClick={() => { setSpreadType('forge'); }}
-                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
                   <button onClick={() => { setSpreadType('explore'); }}
-                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Explore
                   </button>
+                </div>
+
+                {/* Help Button - sibling, not absolute */}
+                <div className="relative flex-shrink-0">
+                  <button
+                    onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
+                    className="help-trigger w-8 h-8 sm:w-7 sm:h-7 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-sm sm:text-xs flex items-center justify-center transition-all"
+                  >
+                    ?
+                  </button>
+                  {helpPopover === 'unified' && (
+                    <div className="help-popover-content absolute top-10 right-0 z-50 w-80 sm:w-96">
+                      <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                        <div className="space-y-4 text-sm">
+                          <div>
+                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
+                            <div className="space-y-2">
+                              <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
+                              <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
+                              <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
+                              <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
+                            <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
+                          </div>
+                          <div>
+                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
+                            <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
+                          </div>
+                          <div>
+                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
+                            <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -3138,7 +3151,7 @@ CRITICAL FORMATTING RULES:
                       placeholder="Describe what's active for you right now...
 
 Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl px-4 py-5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
                       rows={4}
                     />
                   ) : (
@@ -3582,37 +3595,57 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 </div>
                 {/* Depth navigation buttons */}
                 {hasDepthLevels && !letterLoadingDeeper && (
-                  <div className="flex gap-1">
-                    {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                      // Shallow derives from wade, so has content if wade does
-                      const hasContent = level === 'shallow' ? letter.wade : letter[level];
-                      const isActive = letterDepth === level;
-                      return (
-                        <button
-                          key={level}
-                          onClick={() => {
-                            // Shallow and Wade don't need API calls
-                            if (level === 'shallow' || level === 'wade') {
-                              setLetterDepth(level);
-                            } else {
-                              loadDeeperLetter(level);
-                            }
-                          }}
-                          disabled={letterLoadingDeeper}
-                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                            isActive
-                              ? 'bg-violet-500 text-white'
-                              : hasContent
-                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
-                          }`}
-                        >
-                          {level.charAt(0).toUpperCase() + level.slice(1)}
-                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                        </button>
-                      );
-                    })}
-                  </div>
+                  isMobileDepth ? (
+                    <div className="w-48">
+                      <MobileDepthStepper
+                        currentDepth={letterDepth}
+                        onDepthChange={(newDepth) => {
+                          if (newDepth === 'shallow' || newDepth === 'wade') {
+                            setLetterDepth(newDepth);
+                          } else {
+                            loadDeeperLetter(newDepth);
+                          }
+                        }}
+                        hasContent={{
+                          shallow: !!letter.wade,
+                          wade: !!letter.wade,
+                          swim: !!letter.swim,
+                          deep: !!letter.deep
+                        }}
+                        accentColor="violet"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex gap-1">
+                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                        const hasContent = level === 'shallow' ? letter.wade : letter[level];
+                        const isActive = letterDepth === level;
+                        return (
+                          <button
+                            key={level}
+                            onClick={() => {
+                              if (level === 'shallow' || level === 'wade') {
+                                setLetterDepth(level);
+                              } else {
+                                loadDeeperLetter(level);
+                              }
+                            }}
+                            disabled={letterLoadingDeeper}
+                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? 'bg-violet-500 text-white'
+                                : hasContent
+                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
+                            }`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )
                 )}
                 {letterLoadingDeeper && (
                   <span className="text-xs"><PulsatingLoader color="text-violet-400" /></span>
@@ -3719,36 +3752,58 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   </div>
                   {/* Depth navigation buttons */}
                   {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && (
-                    <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                        // Shallow derives from wade, so has content if wade does
-                        const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
-                        const isActive = summaryDepth === level;
-                        return (
-                          <button
-                            key={level}
-                            onClick={() => {
-                              // Shallow and Wade don't need API calls
-                              if (level === 'shallow' || level === 'wade') {
-                                setSummaryDepth(level);
+                    <div onClick={(e) => e.stopPropagation()}>
+                      {isMobileDepth ? (
+                        <div className="w-48">
+                          <MobileDepthStepper
+                            currentDepth={summaryDepth}
+                            onDepthChange={(newDepth) => {
+                              if (newDepth === 'shallow' || newDepth === 'wade') {
+                                setSummaryDepth(newDepth);
                               } else {
-                                loadDeeperSynthesis(level);
+                                loadDeeperSynthesis(newDepth);
                               }
                             }}
-                            disabled={synthesisLoadingDeeper}
-                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                              isActive
-                                ? 'bg-amber-500 text-white'
-                                : hasContent
-                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
-                            }`}
-                          >
-                            {level.charAt(0).toUpperCase() + level.slice(1)}
-                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                          </button>
-                        );
-                      })}
+                            hasContent={{
+                              shallow: typeof summary === 'object' && !!summary.wade,
+                              wade: typeof summary === 'object' && !!summary.wade,
+                              swim: typeof summary === 'object' && !!summary.swim,
+                              deep: typeof summary === 'object' && !!summary.deep
+                            }}
+                            accentColor="amber"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex gap-1">
+                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                            const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
+                            const isActive = summaryDepth === level;
+                            return (
+                              <button
+                                key={level}
+                                onClick={() => {
+                                  if (level === 'shallow' || level === 'wade') {
+                                    setSummaryDepth(level);
+                                  } else {
+                                    loadDeeperSynthesis(level);
+                                  }
+                                }}
+                                disabled={synthesisLoadingDeeper}
+                                className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                                  isActive
+                                    ? 'bg-amber-500 text-white'
+                                    : hasContent
+                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
+                                }`}
+                              >
+                                {level.charAt(0).toUpperCase() + level.slice(1)}
+                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   )}
                   {synthesisLoadingDeeper && !isSummaryCollapsed && (
@@ -3991,36 +4046,58 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       </div>
                       {/* Depth navigation buttons */}
                       {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && (
-                        <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                            // Shallow derives from wade, so has content if wade does
-                            const hasContent = level === 'shallow' ? path.wade : path[level];
-                            const isActive = pathDepth === level;
-                            return (
-                              <button
-                                key={level}
-                                onClick={() => {
-                                  // Shallow and Wade don't need API calls
-                                  if (level === 'shallow' || level === 'wade') {
-                                    setPathDepth(level);
+                        <div onClick={(e) => e.stopPropagation()}>
+                          {isMobileDepth ? (
+                            <div className="w-48">
+                              <MobileDepthStepper
+                                currentDepth={pathDepth}
+                                onDepthChange={(newDepth) => {
+                                  if (newDepth === 'shallow' || newDepth === 'wade') {
+                                    setPathDepth(newDepth);
                                   } else {
-                                    loadDeeperSynthesis(level);
+                                    loadDeeperSynthesis(newDepth);
                                   }
                                 }}
-                                disabled={synthesisLoadingDeeper}
-                                className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                                  isActive
-                                    ? 'bg-emerald-500 text-white'
-                                    : hasContent
-                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
-                                }`}
-                              >
-                                {level.charAt(0).toUpperCase() + level.slice(1)}
-                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                              </button>
-                            );
-                          })}
+                                hasContent={{
+                                  shallow: !!path.wade,
+                                  wade: !!path.wade,
+                                  swim: !!path.swim,
+                                  deep: !!path.deep
+                                }}
+                                accentColor="emerald"
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex gap-1">
+                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                                const hasContent = level === 'shallow' ? path.wade : path[level];
+                                const isActive = pathDepth === level;
+                                return (
+                                  <button
+                                    key={level}
+                                    onClick={() => {
+                                      if (level === 'shallow' || level === 'wade') {
+                                        setPathDepth(level);
+                                      } else {
+                                        loadDeeperSynthesis(level);
+                                      }
+                                    }}
+                                    disabled={synthesisLoadingDeeper}
+                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                                      isActive
+                                        ? 'bg-emerald-500 text-white'
+                                        : hasContent
+                                          ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                          : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
+                                    }`}
+                                  >
+                                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                                    {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       )}
                       {synthesisLoadingDeeper && !isPathCollapsed && (

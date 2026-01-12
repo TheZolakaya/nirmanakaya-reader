@@ -143,17 +143,17 @@ const PersonaSelector = ({
         Who reads this to you?
       </div>
 
-      {/* Persona buttons - 2-row grid on mobile, single row on desktop */}
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 w-full px-1 sm:px-0 mb-2">
+      {/* Persona buttons - always 2 rows of 3 for readability */}
+      <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1 mb-2">
         {PERSONAS.map(p => (
           <button
             key={p.key}
             onClick={() => setPersona(p.key)}
             title={p.desc}
-            className={`px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center ${
+            className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center ${
               persona === p.key
-                ? 'bg-[#2e1065] text-amber-400'
-                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
             }`}
           >
             {p.name}
@@ -185,7 +185,7 @@ const PersonaSelector = ({
               className="flex-1 accent-amber-500"
             />
             <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Sacred</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getHumorLabel(humor)}</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getHumorLabel(humor)}</span>
           </div>
         </div>
 
@@ -206,7 +206,7 @@ const PersonaSelector = ({
               className="flex-1 accent-amber-500"
             />
             <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Oracle</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getRegisterLabel(register)}</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getRegisterLabel(register)}</span>
           </div>
         </div>
 
@@ -227,7 +227,7 @@ const PersonaSelector = ({
               className="flex-1 accent-amber-500"
             />
             <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Creator</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getCreatorLabel(creator)}</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getCreatorLabel(creator)}</span>
           </div>
         </div>
 
