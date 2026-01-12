@@ -205,11 +205,11 @@ ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionTyp
 (3-4 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
-This is a COMPLETION POINT - ${trans?.name || 'this signature'} in balance IS the destination. There is no external growth target.` : `
+This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
 GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:WADE]
-(3-4 sentences: ${growthIsSelf ? `Describe this as a completion point - balanced ${trans?.name || 'this signature'} needs nothing external, it IS the destination. Frame as "rest here" and "you have arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
+(3-4 sentences: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
@@ -345,10 +345,10 @@ ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionTyp
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
 (Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}
 ${isBalanced ? `
-${growthIsSelf ? `This is a COMPLETION POINT - ${trans?.name || 'this signature'} in balance IS the destination.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
+${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
-(${growthIsSelf ? `Deepen the completion point experience - what it means to rest here, to have arrived.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what completion feels like.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}`;
+(${growthIsSelf ? `Deepen the recursion experience - what it means to keep leaning in, to go even deeper here. MORE of this energy, not rest.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what recursive growth feels like — the loop is the path.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}`;
 }
 
 // Parse baseline response (WADE for all sections)
@@ -494,7 +494,7 @@ function generateArchitectureText(draw) {
       const targetArch = ARCHETYPES[correction.target];
       const corrType = correction.type.toUpperCase();
       if (correction.isSelf) {
-        lines.push(`**Growth:** → ${targetArch.name} (self - completion point)`);
+        lines.push(`**Growth:** → ${targetArch.name} (self - recursion point)`);
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${targetArch.name} via ${corrType}`);
       } else {
@@ -520,7 +520,7 @@ function generateArchitectureText(draw) {
     if (correction && correction.targetBound) {
       const corrType = correction.type.toUpperCase();
       if (correction.isSelf) {
-        lines.push(`**Growth:** → ${correction.targetBound.name} (self - completion point)`);
+        lines.push(`**Growth:** → ${correction.targetBound.name} (self - recursion point)`);
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${correction.targetBound.name} via ${corrType}`);
       } else {
@@ -546,7 +546,7 @@ function generateArchitectureText(draw) {
     if (correction && correction.targetAgent) {
       const corrType = correction.type.toUpperCase();
       if (correction.isSelf) {
-        lines.push(`**Growth:** → ${correction.targetAgent.name} (self - completion point)`);
+        lines.push(`**Growth:** → ${correction.targetAgent.name} (self - recursion point)`);
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${correction.targetAgent.name} via ${corrType}`);
       } else {

@@ -141,11 +141,18 @@ const PulsatingLoader = ({ color = 'text-amber-400' }) => {
 };
 
 // Helper to extract summary content from either string (legacy) or object (new depth format)
-const getSummaryContent = (summary, depth = 'wade') => {
+const getSummaryContent = (summary, depth = 'shallow') => {
   if (!summary) return '';
   if (typeof summary === 'string') return summary;
-  // New format: { wade, swim, deep } - no more surface
+  // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
+  if (depth === 'shallow') {
+    // Extract first 1-2 sentences from wade
+    const wadeContent = summary.wade || summary.surface || '';
+    if (!wadeContent) return '';
+    const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+    return sentences.slice(0, 2).join(' ');
+  }
   if (summary[depth] != null && summary[depth] !== '') return summary[depth];
   if (summary.wade != null && summary.wade !== '') return summary.wade;
   if (summary.swim != null && summary.swim !== '') return summary.swim;
@@ -154,11 +161,18 @@ const getSummaryContent = (summary, depth = 'wade') => {
 };
 
 // Helper to extract letter content from either string (legacy) or object (new depth format)
-const getLetterContent = (letter, depth = 'wade') => {
+const getLetterContent = (letter, depth = 'shallow') => {
   if (!letter) return '';
   if (typeof letter === 'string') return letter;
-  // New format: { wade, swim, deep } - no surface for letter
+  // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
+  if (depth === 'shallow') {
+    // Extract first 1-2 sentences from wade
+    const wadeContent = letter.wade || '';
+    if (!wadeContent) return '';
+    const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+    return sentences.slice(0, 2).join(' ');
+  }
   if (letter[depth] != null && letter[depth] !== '') return letter[depth];
   if (letter.wade != null && letter.wade !== '') return letter.wade;
   if (letter.swim != null && letter.swim !== '') return letter.swim;
@@ -217,9 +231,9 @@ export default function NirmanakaReader() {
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
-  const [letterDepth, setLetterDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
-  const [pathDepth, setPathDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
-  const [summaryDepth, setSummaryDepth] = useState('wade'); // 'wade' | 'swim' | 'deep' (no more surface)
+  const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
 
   // Toggle collapse state for a section
   // defaultCollapsed: true for sections that start collapsed, false for sections that start expanded
@@ -621,8 +635,8 @@ export default function NirmanakaReader() {
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
-    // Reset depth states to default (wade)
-    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade');
+    // Reset depth states to default (shallow)
+    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow');
     const isReflect = spreadType === 'reflect';
     const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
     const safeQuestion = sanitizeForAPI(questionToUse);
@@ -1849,8 +1863,8 @@ CRITICAL FORMATTING RULES:
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
-    // Reset depth states to default (wade)
-    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade');
+    // Reset depth states to default (shallow)
+    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow');
     hasAutoInterpreted.current = false;
     window.history.replaceState({}, '', window.location.pathname);
   };
@@ -2164,6 +2178,15 @@ CRITICAL FORMATTING RULES:
         md += `${rebalancerContent}\n\n`;
       }
 
+      // Growth Opportunity (for balanced cards)
+      if (card.growth) {
+        const fullCorr = getFullCorrection(draw.transient, draw.status);
+        const corrText = getCorrectionText(fullCorr, trans, draw.status);
+        md += `#### Growth Opportunity: ${corrText || 'See below'}\n\n`;
+        const growthContent = card.growth.deep || card.growth.swim || card.growth.wade || '';
+        md += `${growthContent}\n\n`;
+      }
+
       // Mirror and Words to the Whys
       if (card.mirror) {
         md += `#### The Mirror\n\n${card.mirror}\n\n`;
@@ -2321,6 +2344,20 @@ CRITICAL FORMATTING RULES:
           </div>`;
       }
 
+      // Growth Opportunity section (for balanced cards)
+      let growthHtml = '';
+      if (card.growth) {
+        const fullCorr = getFullCorrection(draw.transient, draw.status);
+        const corrText = getCorrectionText(fullCorr, trans, draw.status);
+        const growthContent = card.growth.deep || card.growth.swim || card.growth.wade || '';
+        growthHtml = `
+          <div class="growth-opportunity" style="border-color: rgba(20, 184, 166, 0.4); background: rgba(17, 94, 89, 0.2);">
+            <span class="growth-badge" style="background: rgba(20, 184, 166, 0.3); color: rgb(94, 234, 212);">Growth</span>
+            <div class="growth-header" style="color: rgb(94, 234, 212);">${trans.name} → ${corrText || ''}</div>
+            <div class="growth-content">${escapeHtml(growthContent)}</div>
+          </div>`;
+      }
+
       // The Why section (Mirror + Words to the Whys)
       let whyHtml = '';
       if (card.mirror || card.why) {
@@ -2370,6 +2407,7 @@ CRITICAL FORMATTING RULES:
           <div class="signature-content">${escapeHtml(cardContent)}</div>
           ${expansionsHtml}
           ${rebalancerHtml}
+          ${growthHtml}
           ${whyHtml}
           ${threadsHtml}
         </div>`;
@@ -3376,9 +3414,17 @@ CRITICAL FORMATTING RULES:
           // Handle both legacy (string) and new (object) formats
           const letter = parsedReading.letter;
           const isLegacy = typeof letter === 'string';
+          // Helper to get shallow content (first 1-2 sentences from wade)
+          const getShallowContent = (wadeContent) => {
+            if (!wadeContent) return '';
+            const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+            return sentences.slice(0, 2).join(' ');
+          };
           const letterContent = isLegacy
             ? letter
-            : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
+            : letterDepth === 'shallow'
+              ? getShallowContent(letter.wade || letter.surface || '')
+              : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
           const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim || letter.deep);
           const letterSectionKey = 'letter';
           const sectionExpansions = expansions[letterSectionKey] || {};
@@ -3400,16 +3446,24 @@ CRITICAL FORMATTING RULES:
                   <span className="text-violet-400">✉</span>
                   <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
                 </div>
-                {/* Depth navigation buttons (no more surface) */}
+                {/* Depth navigation buttons */}
                 {hasDepthLevels && !letterLoadingDeeper && (
                   <div className="flex gap-1">
-                    {['wade', 'swim', 'deep'].map((level) => {
-                      const hasContent = letter[level];
+                    {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                      // Shallow derives from wade, so has content if wade does
+                      const hasContent = level === 'shallow' ? letter.wade : letter[level];
                       const isActive = letterDepth === level;
                       return (
                         <button
                           key={level}
-                          onClick={() => loadDeeperLetter(level)}
+                          onClick={() => {
+                            // Shallow and Wade don't need API calls
+                            if (level === 'shallow' || level === 'wade') {
+                              setLetterDepth(level);
+                            } else {
+                              loadDeeperLetter(level);
+                            }
+                          }}
                           disabled={letterLoadingDeeper}
                           className={`px-2 py-0.5 text-xs rounded transition-colors ${
                             isActive
@@ -3532,13 +3586,21 @@ CRITICAL FORMATTING RULES:
                   {/* Depth navigation buttons */}
                   {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && (
                     <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                      {['wade', 'swim', 'deep'].map((level) => {
-                        const hasContent = typeof summary === 'object' && summary[level];
+                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                        // Shallow derives from wade, so has content if wade does
+                        const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
                         const isActive = summaryDepth === level;
                         return (
                           <button
                             key={level}
-                            onClick={() => loadDeeperSynthesis(level)}
+                            onClick={() => {
+                              // Shallow and Wade don't need API calls
+                              if (level === 'shallow' || level === 'wade') {
+                                setSummaryDepth(level);
+                              } else {
+                                loadDeeperSynthesis(level);
+                              }
+                            }}
                             disabled={synthesisLoadingDeeper}
                             className={`px-2 py-0.5 text-xs rounded transition-colors ${
                               isActive
@@ -3733,6 +3795,13 @@ CRITICAL FORMATTING RULES:
               // Use explicit null check to avoid empty string fallback issues
               const getPathContent = () => {
                 if (hasDepthLevels) {
+                  // Handle shallow depth - derive from wade content
+                  if (pathDepth === 'shallow') {
+                    const wadeContent = path.wade || path.surface || '';
+                    if (!wadeContent) return '';
+                    const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+                    return sentences.slice(0, 2).join(' ');
+                  }
                   // Try requested depth first, then fallback in order: wade -> swim -> deep -> surface
                   if (path[pathDepth] != null && path[pathDepth] !== '') return path[pathDepth];
                   if (path.wade != null && path.wade !== '') return path.wade;
@@ -3763,16 +3832,24 @@ CRITICAL FORMATTING RULES:
                         <span className="text-lg">◈</span>
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
-                      {/* Depth navigation buttons (no more surface) */}
+                      {/* Depth navigation buttons */}
                       {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && (
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                          {['wade', 'swim', 'deep'].map((level) => {
-                            const hasContent = path[level];
+                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                            // Shallow derives from wade, so has content if wade does
+                            const hasContent = level === 'shallow' ? path.wade : path[level];
                             const isActive = pathDepth === level;
                             return (
                               <button
                                 key={level}
-                                onClick={() => loadDeeperSynthesis(level)}
+                                onClick={() => {
+                                  // Shallow and Wade don't need API calls
+                                  if (level === 'shallow' || level === 'wade') {
+                                    setPathDepth(level);
+                                  } else {
+                                    loadDeeperSynthesis(level);
+                                  }
+                                }}
                                 disabled={synthesisLoadingDeeper}
                                 className={`px-2 py-0.5 text-xs rounded transition-colors ${
                                   isActive
