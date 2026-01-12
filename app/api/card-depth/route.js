@@ -17,7 +17,7 @@ export async function POST(request) {
     cardIndex,      // Which card (0-indexed)
     draw,           // The card draw data {transient, status, position}
     question,       // Original question
-    spreadType,     // 'discover' | 'reflect' | 'forge'
+    spreadType,     // 'discover' | 'reflect' | 'forge' | 'explore'
     spreadKey,      // Spread name
     stance,         // Voice/style settings
     system,         // Base system prompt (for caching)
@@ -25,7 +25,9 @@ export async function POST(request) {
     model,
     // Progressive deepening params
     targetDepth,    // 'wade' | 'swim' | 'deep' (default: wade)
-    previousContent // { wade: '...', swim: '...' } - content to build on
+    previousContent, // { wade: '...', swim: '...' } - content to build on
+    // DTP token context (optional)
+    token           // e.g., "Fear" - the user's token this card is reading
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -37,8 +39,8 @@ export async function POST(request) {
 
   // Build card-specific user message
   const userMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent)
-    : buildBaselineMessage(n, draw, question, spreadType, letterContent);
+    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent, token)
+    : buildBaselineMessage(n, draw, question, spreadType, letterContent, token);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -102,7 +104,7 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for all sections (initial load)
-function buildBaselineMessage(n, draw, question, spreadType, letterContent) {
+function buildBaselineMessage(n, draw, question, spreadType, letterContent, token = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -213,11 +215,18 @@ GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'grow
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
-NOTE: Architecture section will be generated separately - do not include it.`;
+NOTE: Architecture section will be generated separately - do not include it.${token ? `
+
+TOKEN CONTEXT (DTP MODE):
+This reading is regarding the user's named reality object: "${token}"
+Weave this context naturally throughout your interpretation.
+Instead of generic statements like "There's pressure in how you hold authority"
+Say: "There's pressure in how you hold authority as it relates to ${token}"
+The token "${token}" should appear naturally woven into your interpretations.` : ''}`;
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent) {
+function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent, token = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -348,7 +357,12 @@ ${isBalanced ? `
 ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
-(${growthIsSelf ? `Deepen the recursion experience - what it means to keep leaning in, to go even deeper here. MORE of this energy, not rest.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what recursive growth feels like — the loop is the path.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}`;
+(${growthIsSelf ? `Deepen the recursion experience - what it means to keep leaning in, to go even deeper here. MORE of this energy, not rest.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what recursive growth feels like — the loop is the path.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}${token ? `
+
+TOKEN CONTEXT (DTP MODE):
+This reading is regarding the user's named reality object: "${token}"
+Continue weaving this context naturally throughout your deeper interpretation.
+The token "${token}" should appear naturally woven into all sections.` : ''}`;
 }
 
 // Parse baseline response (WADE for all sections)

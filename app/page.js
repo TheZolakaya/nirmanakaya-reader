@@ -68,6 +68,7 @@ import {
   ensureParagraphBreaks,
   shuffleArray,
   generateSpread,
+  generateDTPDraws,
   encodeDraws,
   decodeDraws,
   sanitizeForAPI,
@@ -220,7 +221,9 @@ const FORGE_DESCRIPTION = {
 export default function NirmanakaReader() {
   const [question, setQuestion] = useState('');
   const [followUp, setFollowUp] = useState('');
-  const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge'
+  const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'explore'
+  const [dtpInput, setDtpInput] = useState(''); // DTP (Explore mode) text input
+  const [dtpResponse, setDtpResponse] = useState(null); // DTP response: { tokens, readings, synthesis }
   const [spreadKey, setSpreadKey] = useState('three');
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
@@ -1074,6 +1077,19 @@ export default function NirmanakaReader() {
   };
 
   const performReading = async () => {
+    // DTP (Explore) mode uses dtpInput instead of question
+    const isExplore = spreadType === 'explore';
+
+    if (isExplore) {
+      const actualInput = dtpInput.trim();
+      if (!actualInput) {
+        setError('Please describe what\'s active for you before reading.');
+        return;
+      }
+      await performDTPReading(actualInput);
+      return;
+    }
+
     const actualQuestion = question.trim() || (spreadType === 'forge' ? 'Forging intention' : 'General reading');
     setQuestion(actualQuestion);
 
@@ -1093,6 +1109,53 @@ export default function NirmanakaReader() {
     const newDraws = generateSpread(count, isReflect);
     setDraws(newDraws);
     await performReadingWithDraws(newDraws, actualQuestion);
+  };
+
+  // DTP (Explore mode) reading - token extraction + interpretation
+  const performDTPReading = async (input) => {
+    setLoading(true);
+    setError('');
+    setDtpResponse(null);
+
+    // Generate 5 draws (unique positions guaranteed)
+    const newDraws = generateDTPDraws();
+    setDraws(newDraws);
+
+    try {
+      const response = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          isDTP: true,
+          dtpInput: input,
+          draws: newDraws
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        setError(data.error);
+        setLoading(false);
+        return;
+      }
+
+      if (data.isDTP) {
+        // Store the DTP response
+        setDtpResponse({
+          tokens: data.tokens || [],
+          readings: data.readings || [],
+          synthesis: data.synthesis || '',
+          draws: data.draws || newDraws
+        });
+        setTokenUsage(data.usage);
+      }
+
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
   };
 
   // Generate a single random draw for thread continuation
@@ -1859,6 +1922,8 @@ CRITICAL FORMATTING RULES:
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
+    // Clear DTP state
+    setDtpInput(''); setDtpResponse(null);
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
     // Reset on-demand state
@@ -2698,6 +2763,7 @@ CRITICAL FORMATTING RULES:
                           <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
                           <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
                           <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
                         </div>
                       </div>
                       <div>
@@ -2732,13 +2798,17 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
+                  <button onClick={() => { setSpreadType('explore'); }}
+                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    Explore
+                  </button>
                 </div>
               </div>
 
               {/* Spread Selection - changes based on mode */}
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-4 relative">
-                {spreadType === 'forge' ? (
-                  /* Forge mode - no position selector needed */
+                {spreadType === 'forge' || spreadType === 'explore' ? (
+                  /* Forge/Explore mode - no position selector needed */
                   null
                 ) : spreadType === 'reflect' ? (
                   <>
@@ -2847,6 +2917,21 @@ CRITICAL FORMATTING RULES:
                     </div>
                     <div className="text-zinc-500 text-xs">
                       <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'explore' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Explore • Direct Token Protocol
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      Describe what's active. Each token gets its own card.
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
                     </div>
                   </div>
                 ) : null}
@@ -3011,22 +3096,35 @@ CRITICAL FORMATTING RULES:
                   <span className="hidden sm:inline">Spark</span>
                 </button>
 
-                {/* Question textarea */}
+                {/* Question textarea - switches to DTP input for Explore mode */}
                 <div className="relative flex-1">
-                  <textarea
-                    value={question}
-                    onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                    placeholder={sparkPlaceholder || (
-                      spreadType === 'forge'
-                        ? "What are you forging? Declare your intention..."
-                        : spreadType === 'reflect'
-                          ? "What area of life are you examining?"
-                          : "Name your question or declare your intent..."
-                    )}
-                    className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                    rows={3}
-                  />
+                  {spreadType === 'explore' ? (
+                    <textarea
+                      value={dtpInput}
+                      onChange={(e) => { setDtpInput(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
+                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                      placeholder="Describe what's active for you right now...
+
+Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
+                      rows={4}
+                    />
+                  ) : (
+                    <textarea
+                      value={question}
+                      onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
+                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                      placeholder={sparkPlaceholder || (
+                        spreadType === 'forge'
+                          ? "What are you forging? Declare your intention..."
+                          : spreadType === 'reflect'
+                            ? "What area of life are you examining?"
+                            : "Name your question or declare your intent..."
+                      )}
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                      rows={3}
+                    />
+                  )}
                 </div>
               </div>
 
@@ -3071,7 +3169,7 @@ CRITICAL FORMATTING RULES:
                   disabled={loading}
                   className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#052e23] hover:bg-[#064e3b] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-xl transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
-                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : 'Discover →')}
+                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
               </div>
             </div>
@@ -3098,6 +3196,81 @@ CRITICAL FORMATTING RULES:
 
         {/* Error */}
         {error && <div className="bg-red-950/30 border border-red-900/50 rounded-xl p-4 my-4 text-red-400 text-sm">{error}</div>}
+
+        {/* DTP (Explore) Reading Output */}
+        {dtpResponse && !loading && (
+          <div className="max-w-4xl mx-auto mb-8">
+            {/* Header with token count */}
+            <div className="text-center mb-6">
+              <span className="text-xs text-zinc-500 uppercase tracking-wider">
+                Explore • {dtpResponse.tokens.length} token{dtpResponse.tokens.length !== 1 ? 's' : ''} extracted
+              </span>
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex justify-center gap-2 items-center mb-6">
+              <button onClick={resetReading} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#052e23] hover:bg-[#064e3b] border border-emerald-700/50">New Reading</button>
+            </div>
+
+            {/* Token readings */}
+            <div className="space-y-6">
+              {dtpResponse.readings.map((reading, idx) => {
+                const draw = dtpResponse.draws[reading.drawIndex ?? idx];
+                const trans = draw ? getComponent(draw.transient) : null;
+                const pos = draw ? ARCHETYPES[draw.position] : null;
+                const stat = draw ? STATUSES[draw.status] : null;
+                const statusColor = stat?.id === 1 ? 'border-emerald-600/50 bg-emerald-950/20' :
+                                   stat?.id === 2 ? 'border-red-600/50 bg-red-950/20' :
+                                   stat?.id === 3 ? 'border-blue-600/50 bg-blue-950/20' : 'border-purple-600/50 bg-purple-950/20';
+
+                return (
+                  <div key={idx} className={`rounded-xl border ${statusColor} p-6`}>
+                    {/* Token header */}
+                    <div className="text-amber-400 text-sm font-medium mb-3 uppercase tracking-wider">
+                      Regarding: {reading.token}
+                    </div>
+
+                    {/* Three-line sentence */}
+                    {reading.threeLine && (
+                      <div className="text-zinc-400 text-sm italic mb-4">
+                        {reading.threeLine}
+                      </div>
+                    )}
+
+                    {/* Card info */}
+                    {trans && (
+                      <div className="text-zinc-500 text-xs mb-4">
+                        {stat?.prefix ? `${stat.prefix} ` : ''}{trans.name} in {pos?.name || 'Unknown'} — {stat?.name}
+                      </div>
+                    )}
+
+                    {/* Interpretation */}
+                    <div className="text-zinc-300 text-base leading-relaxed">
+                      <ReactMarkdown>{reading.interpretation || ''}</ReactMarkdown>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Synthesis */}
+            {dtpResponse.synthesis && (
+              <div className="mt-8 rounded-xl border border-zinc-700/50 bg-zinc-900/30 p-6">
+                <div className="text-zinc-400 text-xs uppercase tracking-wider mb-3">Synthesis</div>
+                <div className="text-zinc-300 text-base leading-relaxed">
+                  <ReactMarkdown>{dtpResponse.synthesis}</ReactMarkdown>
+                </div>
+              </div>
+            )}
+
+            {/* Token usage */}
+            {showTokenUsage && tokenUsage && (
+              <div className="mt-4 text-center text-xs text-zinc-600">
+                Tokens: {tokenUsage.input_tokens?.toLocaleString()} in / {tokenUsage.output_tokens?.toLocaleString()} out
+              </div>
+            )}
+          </div>
+        )}
 
         {/* First Contact Reading Output - Simplified display */}
         {draws && !loading && parsedReading?.firstContact && userLevel === USER_LEVELS.FIRST_CONTACT && (
