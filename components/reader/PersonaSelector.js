@@ -143,14 +143,14 @@ const PersonaSelector = ({
         Who reads this to you?
       </div>
 
-      {/* Persona buttons - horizontal row */}
-      <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0 mb-2">
+      {/* Persona buttons - 2-row grid on mobile, single row on desktop */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 w-full px-1 sm:px-0 mb-2">
         {PERSONAS.map(p => (
           <button
             key={p.key}
             onClick={() => setPersona(p.key)}
             title={p.desc}
-            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden truncate ${
+            className={`px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center ${
               persona === p.key
                 ? 'bg-[#2e1065] text-amber-400'
                 : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
@@ -168,52 +168,67 @@ const PersonaSelector = ({
 
       {/* Voice sliders */}
       <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 max-w-md mx-auto w-full">
-        {/* Humor slider */}
-        <div className="flex items-center gap-2 mb-3 px-2">
-          <span className="text-xs text-zinc-500 w-16">Humor</span>
-          <span className="text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={humor}
-            onChange={(e) => setHumor(parseInt(e.target.value))}
-            className="flex-1 accent-amber-500"
-          />
-          <span className="text-[10px] text-zinc-600 w-12">Sacred</span>
-          <span className="text-xs text-amber-500/80 w-20 text-right">{getHumorLabel(humor)}</span>
+        {/* Humor slider - stacked on mobile, inline on desktop */}
+        <div className="mb-3 px-2">
+          <div className="flex items-center justify-between mb-1 sm:mb-0">
+            <span className="text-xs text-zinc-500">Humor</span>
+            <span className="text-xs text-amber-500/80 sm:hidden">{getHumorLabel(humor)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={humor}
+              onChange={(e) => setHumor(parseInt(e.target.value))}
+              className="flex-1 accent-amber-500"
+            />
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Sacred</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getHumorLabel(humor)}</span>
+          </div>
         </div>
 
-        {/* Register slider */}
-        <div className="flex items-center gap-2 mb-3 px-2">
-          <span className="text-xs text-zinc-500 w-16">Register</span>
-          <span className="text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={register}
-            onChange={(e) => setRegister(parseInt(e.target.value))}
-            className="flex-1 accent-amber-500"
-          />
-          <span className="text-[10px] text-zinc-600 w-12">Oracle</span>
-          <span className="text-xs text-amber-500/80 w-20 text-right">{getRegisterLabel(register)}</span>
+        {/* Register slider - stacked on mobile, inline on desktop */}
+        <div className="mb-3 px-2">
+          <div className="flex items-center justify-between mb-1 sm:mb-0">
+            <span className="text-xs text-zinc-500">Register</span>
+            <span className="text-xs text-amber-500/80 sm:hidden">{getRegisterLabel(register)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={register}
+              onChange={(e) => setRegister(parseInt(e.target.value))}
+              className="flex-1 accent-amber-500"
+            />
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Oracle</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getRegisterLabel(register)}</span>
+          </div>
         </div>
 
-        {/* Agency slider */}
-        <div className="flex items-center gap-2 mb-3 px-2">
-          <span className="text-xs text-amber-600/80 w-16 font-medium">Agency</span>
-          <span className="text-[10px] text-zinc-600 w-14 text-right">Witness</span>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={creator}
-            onChange={(e) => setCreator(parseInt(e.target.value))}
-            className="flex-1 accent-amber-500"
-          />
-          <span className="text-[10px] text-zinc-600 w-12">Creator</span>
-          <span className="text-xs text-amber-500/80 w-20 text-right">{getCreatorLabel(creator)}</span>
+        {/* Agency slider - stacked on mobile, inline on desktop */}
+        <div className="mb-3 px-2">
+          <div className="flex items-center justify-between mb-1 sm:mb-0">
+            <span className="text-xs text-amber-600/80 font-medium">Agency</span>
+            <span className="text-xs text-amber-500/80 sm:hidden">{getCreatorLabel(creator)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Witness</span>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={creator}
+              onChange={(e) => setCreator(parseInt(e.target.value))}
+              className="flex-1 accent-amber-500"
+            />
+            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Creator</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getCreatorLabel(creator)}</span>
+          </div>
         </div>
 
         {/* Agency hint */}
