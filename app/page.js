@@ -3587,69 +3587,69 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
           return (
             <div className="mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
-              <div className="flex items-center justify-between mb-3">
+              <div className={`flex items-center justify-between ${isMobileDepth ? 'mb-1' : 'mb-3'}`}>
                 <div className="flex items-center gap-2">
                   <span className="text-violet-400">✉</span>
                   <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
                 </div>
-                {/* Depth navigation buttons */}
-                {hasDepthLevels && !letterLoadingDeeper && (
-                  isMobileDepth ? (
-                    <div className="w-48">
-                      <MobileDepthStepper
-                        currentDepth={letterDepth}
-                        onDepthChange={(newDepth) => {
-                          if (newDepth === 'shallow' || newDepth === 'wade') {
-                            setLetterDepth(newDepth);
-                          } else {
-                            loadDeeperLetter(newDepth);
-                          }
-                        }}
-                        hasContent={{
-                          shallow: !!letter.wade,
-                          wade: !!letter.wade,
-                          swim: !!letter.swim,
-                          deep: !!letter.deep
-                        }}
-                        accentColor="violet"
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex gap-1">
-                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                        const hasContent = level === 'shallow' ? letter.wade : letter[level];
-                        const isActive = letterDepth === level;
-                        return (
-                          <button
-                            key={level}
-                            onClick={() => {
-                              if (level === 'shallow' || level === 'wade') {
-                                setLetterDepth(level);
-                              } else {
-                                loadDeeperLetter(level);
-                              }
-                            }}
-                            disabled={letterLoadingDeeper}
-                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                              isActive
-                                ? 'bg-violet-500 text-white'
-                                : hasContent
-                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
-                            }`}
-                          >
-                            {level.charAt(0).toUpperCase() + level.slice(1)}
-                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )
+                {/* Depth navigation - desktop inline, mobile below */}
+                {hasDepthLevels && !letterLoadingDeeper && !isMobileDepth && (
+                  <div className="flex gap-1">
+                    {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                      const hasContent = level === 'shallow' ? letter.wade : letter[level];
+                      const isActive = letterDepth === level;
+                      return (
+                        <button
+                          key={level}
+                          onClick={() => {
+                            if (level === 'shallow' || level === 'wade') {
+                              setLetterDepth(level);
+                            } else {
+                              loadDeeperLetter(level);
+                            }
+                          }}
+                          disabled={letterLoadingDeeper}
+                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                            isActive
+                              ? 'bg-violet-500 text-white'
+                              : hasContent
+                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
+                          }`}
+                        >
+                          {level.charAt(0).toUpperCase() + level.slice(1)}
+                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
                 )}
                 {letterLoadingDeeper && (
                   <span className="text-xs"><PulsatingLoader color="text-violet-400" /></span>
                 )}
               </div>
+              {/* Mobile Depth Stepper - under title, centered */}
+              {hasDepthLevels && !letterLoadingDeeper && isMobileDepth && (
+                <div className="mb-3">
+                  <MobileDepthStepper
+                    currentDepth={letterDepth}
+                    onDepthChange={(newDepth) => {
+                      if (newDepth === 'shallow' || newDepth === 'wade') {
+                        setLetterDepth(newDepth);
+                      } else {
+                        loadDeeperLetter(newDepth);
+                      }
+                    }}
+                    hasContent={{
+                      shallow: !!letter.wade,
+                      wade: !!letter.wade,
+                      swim: !!letter.swim,
+                      deep: !!letter.deep
+                    }}
+                    accentColor="violet"
+                  />
+                </div>
+              )}
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
                 {letterContent ? (
                   letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
@@ -3740,7 +3740,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               <div className="p-5">
                 {/* Summary Header - clickable for collapse */}
                 <div
-                  className={`flex items-center justify-between cursor-pointer ${!isSummaryCollapsed ? 'mb-4' : ''}`}
+                  className={`flex items-center justify-between cursor-pointer ${!isSummaryCollapsed ? (isMobileDepth ? 'mb-1' : 'mb-4') : ''}`}
                   onClick={() => toggleCollapse('summary', false)}
                 >
                   <div className="flex items-center gap-3">
@@ -3749,66 +3749,65 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     </span>
                     <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">Overview</span>
                   </div>
-                  {/* Depth navigation buttons */}
-                  {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && (
-                    <div onClick={(e) => e.stopPropagation()}>
-                      {isMobileDepth ? (
-                        <div className="w-48">
-                          <MobileDepthStepper
-                            currentDepth={summaryDepth}
-                            onDepthChange={(newDepth) => {
-                              if (newDepth === 'shallow' || newDepth === 'wade') {
-                                setSummaryDepth(newDepth);
+                  {/* Depth navigation - desktop inline, mobile below */}
+                  {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                    <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                        const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
+                        const isActive = summaryDepth === level;
+                        return (
+                          <button
+                            key={level}
+                            onClick={() => {
+                              if (level === 'shallow' || level === 'wade') {
+                                setSummaryDepth(level);
                               } else {
-                                loadDeeperSynthesis(newDepth);
+                                loadDeeperSynthesis(level);
                               }
                             }}
-                            hasContent={{
-                              shallow: typeof summary === 'object' && !!summary.wade,
-                              wade: typeof summary === 'object' && !!summary.wade,
-                              swim: typeof summary === 'object' && !!summary.swim,
-                              deep: typeof summary === 'object' && !!summary.deep
-                            }}
-                            accentColor="amber"
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex gap-1">
-                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                            const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
-                            const isActive = summaryDepth === level;
-                            return (
-                              <button
-                                key={level}
-                                onClick={() => {
-                                  if (level === 'shallow' || level === 'wade') {
-                                    setSummaryDepth(level);
-                                  } else {
-                                    loadDeeperSynthesis(level);
-                                  }
-                                }}
-                                disabled={synthesisLoadingDeeper}
-                                className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                                  isActive
-                                    ? 'bg-amber-500 text-white'
-                                    : hasContent
-                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
-                                }`}
-                              >
-                                {level.charAt(0).toUpperCase() + level.slice(1)}
-                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
+                            disabled={synthesisLoadingDeeper}
+                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? 'bg-amber-500 text-white'
+                                : hasContent
+                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
+                            }`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                   {synthesisLoadingDeeper && !isSummaryCollapsed && (
                     <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>
                   )}
                 </div>
+
+                {/* Mobile Depth Stepper - under title, centered */}
+                {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && isMobileDepth && (
+                  <div className="mb-3">
+                    <MobileDepthStepper
+                      currentDepth={summaryDepth}
+                      onDepthChange={(newDepth) => {
+                        if (newDepth === 'shallow' || newDepth === 'wade') {
+                          setSummaryDepth(newDepth);
+                        } else {
+                          loadDeeperSynthesis(newDepth);
+                        }
+                      }}
+                      hasContent={{
+                        shallow: typeof summary === 'object' && !!summary.wade,
+                        wade: typeof summary === 'object' && !!summary.wade,
+                        swim: typeof summary === 'object' && !!summary.swim,
+                        deep: typeof summary === 'object' && !!summary.deep
+                      }}
+                      accentColor="amber"
+                    />
+                  </div>
+                )}
 
                 {/* Summary Content - collapsible */}
                 {!isSummaryCollapsed && (
@@ -4033,7 +4032,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   <div className="p-5">
                     {/* Path Header - clickable for collapse */}
                     <div
-                      className={`flex items-center justify-between cursor-pointer ${!isPathCollapsed ? 'mb-4' : ''}`}
+                      className={`flex items-center justify-between cursor-pointer ${!isPathCollapsed ? (isMobileDepth ? 'mb-1' : 'mb-4') : ''}`}
                       onClick={() => toggleCollapse('path', true)}
                     >
                       <div className="flex items-center gap-3">
@@ -4043,66 +4042,65 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         <span className="text-lg">◈</span>
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
-                      {/* Depth navigation buttons */}
-                      {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && (
-                        <div onClick={(e) => e.stopPropagation()}>
-                          {isMobileDepth ? (
-                            <div className="w-48">
-                              <MobileDepthStepper
-                                currentDepth={pathDepth}
-                                onDepthChange={(newDepth) => {
-                                  if (newDepth === 'shallow' || newDepth === 'wade') {
-                                    setPathDepth(newDepth);
+                      {/* Depth navigation - desktop inline, mobile below */}
+                      {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                        <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                            const hasContent = level === 'shallow' ? path.wade : path[level];
+                            const isActive = pathDepth === level;
+                            return (
+                              <button
+                                key={level}
+                                onClick={() => {
+                                  if (level === 'shallow' || level === 'wade') {
+                                    setPathDepth(level);
                                   } else {
-                                    loadDeeperSynthesis(newDepth);
+                                    loadDeeperSynthesis(level);
                                   }
                                 }}
-                                hasContent={{
-                                  shallow: !!path.wade,
-                                  wade: !!path.wade,
-                                  swim: !!path.swim,
-                                  deep: !!path.deep
-                                }}
-                                accentColor="emerald"
-                              />
-                            </div>
-                          ) : (
-                            <div className="flex gap-1">
-                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                                const hasContent = level === 'shallow' ? path.wade : path[level];
-                                const isActive = pathDepth === level;
-                                return (
-                                  <button
-                                    key={level}
-                                    onClick={() => {
-                                      if (level === 'shallow' || level === 'wade') {
-                                        setPathDepth(level);
-                                      } else {
-                                        loadDeeperSynthesis(level);
-                                      }
-                                    }}
-                                    disabled={synthesisLoadingDeeper}
-                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                                      isActive
-                                        ? 'bg-emerald-500 text-white'
-                                        : hasContent
-                                          ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                          : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
-                                    }`}
-                                  >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}
-                                    {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
+                                disabled={synthesisLoadingDeeper}
+                                className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                                  isActive
+                                    ? 'bg-emerald-500 text-white'
+                                    : hasContent
+                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
+                                }`}
+                              >
+                                {level.charAt(0).toUpperCase() + level.slice(1)}
+                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                              </button>
+                            );
+                          })}
                         </div>
                       )}
                       {synthesisLoadingDeeper && !isPathCollapsed && (
                         <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>
                       )}
                     </div>
+
+                    {/* Mobile Depth Stepper - under title, centered */}
+                    {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && isMobileDepth && (
+                      <div className="mb-3">
+                        <MobileDepthStepper
+                          currentDepth={pathDepth}
+                          onDepthChange={(newDepth) => {
+                            if (newDepth === 'shallow' || newDepth === 'wade') {
+                              setPathDepth(newDepth);
+                            } else {
+                              loadDeeperSynthesis(newDepth);
+                            }
+                          }}
+                          hasContent={{
+                            shallow: !!path.wade,
+                            wade: !!path.wade,
+                            swim: !!path.swim,
+                            deep: !!path.deep
+                          }}
+                          accentColor="emerald"
+                        />
+                      </div>
+                    )}
 
                     {/* Path Content - collapsible */}
                     {!isPathCollapsed && (

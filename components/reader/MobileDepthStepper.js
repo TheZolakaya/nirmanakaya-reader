@@ -1,6 +1,6 @@
 // === MOBILE DEPTH STEPPER COMPONENT ===
-// Stepper navigation for depth selection on mobile
-// Fixed-position arrows with centered depth label and dot indicator
+// Compact stepper navigation for depth selection on mobile
+// Smaller arrows, centered depth label, positioned under section title
 
 const MobileDepthStepper = ({
   currentDepth,        // 'shallow' | 'wade' | 'swim' | 'deep'
@@ -23,14 +23,6 @@ const MobileDepthStepper = ({
     violet: 'text-violet-500'
   };
 
-  const bgColors = {
-    amber: 'bg-amber-500',
-    emerald: 'bg-emerald-500',
-    teal: 'bg-teal-500',
-    cyan: 'bg-cyan-500',
-    violet: 'bg-violet-500'
-  };
-
   const handleLeft = () => {
     if (canLeft) {
       onDepthChange(depths[idx - 1]);
@@ -44,31 +36,31 @@ const MobileDepthStepper = ({
   };
 
   return (
-    <div className="flex items-center w-full py-1">
-      {/* LEFT ARROW - fixed width, never moves */}
+    <div className="flex items-center justify-center gap-3 py-2">
+      {/* LEFT ARROW - compact */}
       <button
         onClick={handleLeft}
         disabled={!canLeft}
-        className={`w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg transition-all ${
+        className={`w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-md transition-all ${
           canLeft
-            ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white active:bg-zinc-600'
-            : 'bg-zinc-800/50 text-zinc-600 cursor-not-allowed'
+            ? 'bg-zinc-800/80 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 active:bg-zinc-600'
+            : 'bg-zinc-800/30 text-zinc-700 cursor-not-allowed'
         }`}
         aria-label="Previous depth"
       >
-        <span className="text-lg">◀</span>
+        <span className="text-xs">◀</span>
       </button>
 
       {/* CENTER - depth name + dots */}
-      <div className="flex-1 text-center min-w-0">
-        <div className={`font-medium text-base ${textColors[accentColor]}`}>
+      <div className="text-center min-w-[80px]">
+        <div className={`text-xs font-medium ${textColors[accentColor]}`}>
           {currentDepth.charAt(0).toUpperCase() + currentDepth.slice(1)}
         </div>
-        <div className="flex justify-center gap-2 mt-1">
+        <div className="flex justify-center gap-1.5 mt-0.5">
           {depths.map((d, i) => (
             <span
               key={d}
-              className={`text-sm transition-colors ${
+              className={`text-[8px] transition-colors ${
                 i === idx ? textColors[accentColor] : 'text-zinc-600'
               }`}
             >
@@ -78,19 +70,19 @@ const MobileDepthStepper = ({
         </div>
       </div>
 
-      {/* RIGHT ARROW - fixed width, never moves */}
+      {/* RIGHT ARROW - compact */}
       <button
         onClick={handleRight}
         disabled={!canRight}
-        className={`w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg transition-all ${
+        className={`w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-md transition-all ${
           canRight
-            ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white active:bg-zinc-600'
-            : 'bg-zinc-800/50 text-zinc-600 cursor-not-allowed'
+            ? 'bg-zinc-800/80 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 active:bg-zinc-600'
+            : 'bg-zinc-800/30 text-zinc-700 cursor-not-allowed'
         }`}
         aria-label={needsGen ? "Generate next depth" : "Next depth"}
       >
-        <span className="text-lg">
-          ▶{needsGen && <span className="text-[10px] align-super opacity-70">+</span>}
+        <span className="text-xs">
+          ▶{needsGen && <span className="text-[8px] align-super opacity-70">+</span>}
         </span>
       </button>
     </div>
