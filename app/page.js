@@ -2698,6 +2698,45 @@ CRITICAL FORMATTING RULES:
         {/* Floating Text Size Slider - fixed position */}
         <TextSizeSlider />
 
+        {/* Floating Help Button - below text sizer */}
+        <div className="fixed top-14 right-3 z-50">
+          <button
+            onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
+            className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
+          >
+            ?
+          </button>
+          {helpPopover === 'unified' && (
+            <div className="help-popover-content absolute top-full mt-2 right-0 z-50 w-80 sm:w-96">
+              <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                <div className="space-y-4 text-sm">
+                  <div>
+                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
+                    <div className="space-y-2">
+                      <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
+                      <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
+                      <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
+                      <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
+                    <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
+                  </div>
+                  <div>
+                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
+                    <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
+                  </div>
+                  <div>
+                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
+                    <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Header - click to scroll to top */}
         <div
           className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
@@ -2778,65 +2817,25 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
-              {/* Mode Toggle with Help Button as sibling - no overlap */}
-              <div className="flex items-center justify-center gap-2 mb-4">
-                {/* Mode tabs */}
+              {/* Mode Toggle - centered, help button is now floating */}
+              <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
-                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
                   <button onClick={() => { setSpreadType('discover'); setSpreadKey('three'); }}
-                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
                   <button onClick={() => { setSpreadType('forge'); }}
-                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
                   <button onClick={() => { setSpreadType('explore'); }}
-                    className={`mode-tab px-2 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.8125rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Explore
                   </button>
-                </div>
-
-                {/* Help Button - sibling, not absolute */}
-                <div className="relative flex-shrink-0">
-                  <button
-                    onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
-                    className="help-trigger w-8 h-8 sm:w-7 sm:h-7 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-sm sm:text-xs flex items-center justify-center transition-all"
-                  >
-                    ?
-                  </button>
-                  {helpPopover === 'unified' && (
-                    <div className="help-popover-content absolute top-10 right-0 z-50 w-80 sm:w-96">
-                      <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                        <div className="space-y-4 text-sm">
-                          <div>
-                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
-                            <div className="space-y-2">
-                              <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
-                              <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
-                              <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
-                              <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
-                            <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
-                          </div>
-                          <div>
-                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
-                            <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
-                          </div>
-                          <div>
-                            <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
-                            <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -3151,8 +3150,8 @@ CRITICAL FORMATTING RULES:
                       placeholder="Describe what's active for you right now...
 
 Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl px-4 py-5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
-                      rows={4}
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
+                      rows={5}
                     />
                   ) : (
                     <textarea
