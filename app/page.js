@@ -2806,22 +2806,22 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - centered with right padding for help button on mobile */}
-              <div className="flex justify-center items-center mb-4 pr-8 sm:pr-0">
+              <div className="flex justify-center items-center mb-4 pr-10 sm:pr-0">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   <button onClick={() => { setSpreadType('reflect'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
                   <button onClick={() => { setSpreadType('discover'); setSpreadKey('three'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
                   <button onClick={() => { setSpreadType('forge'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
                   <button onClick={() => { setSpreadType('explore'); }}
-                    className={`mode-tab px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.9375rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-2.5 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-[0.875rem] sm:text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Explore
                   </button>
                 </div>
