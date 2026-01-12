@@ -557,8 +557,8 @@ const DepthCard = ({
         )}
       </div>
 
-      {/* Mobile Depth Stepper - under title, centered */}
-      {isMobile && depth !== DEPTH.COLLAPSED && !cardLoadingDeeper && (
+      {/* Mobile Depth Stepper - under title, left-justified */}
+      {isMobile && depth !== DEPTH.COLLAPSED && (
         <div className="mb-3" onClick={(e) => e.stopPropagation()}>
           <MobileDepthStepper
             currentDepth={depth}
@@ -594,6 +594,7 @@ const DepthCard = ({
               deep: !!cardData.deep
             }}
             accentColor="amber"
+            loading={cardLoadingDeeper}
           />
         </div>
       )}
@@ -792,8 +793,8 @@ const DepthCard = ({
             )}
           </div>
 
-          {/* Mobile Depth Stepper - under title, centered */}
-          {isMobile && rebalancerDepth !== DEPTH.COLLAPSED && !rebalancerLoadingDeeper && (
+          {/* Mobile Depth Stepper - under title, left-justified */}
+          {isMobile && rebalancerDepth !== DEPTH.COLLAPSED && (
             <div className="mb-3" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const r = cardData.rebalancer || {};
@@ -831,6 +832,7 @@ const DepthCard = ({
                     }}
                     hasContent={hasContentObj}
                     accentColor="emerald"
+                    loading={rebalancerLoadingDeeper}
                   />
                 );
               })()}
@@ -960,8 +962,8 @@ const DepthCard = ({
             )}
           </div>
 
-          {/* Mobile Depth Stepper - under title, centered */}
-          {isMobile && growthDepth !== DEPTH.COLLAPSED && !growthLoadingDeeper && (
+          {/* Mobile Depth Stepper - under title, left-justified */}
+          {isMobile && growthDepth !== DEPTH.COLLAPSED && (
             <div className="mb-3" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const g = cardData.growth || {};
@@ -999,6 +1001,7 @@ const DepthCard = ({
                     }}
                     hasContent={hasContentObj}
                     accentColor="teal"
+                    loading={growthLoadingDeeper}
                   />
                 );
               })()}
@@ -1155,8 +1158,8 @@ const DepthCard = ({
                     )}
                   </div>
 
-                  {/* Mobile Depth Stepper - under title, centered */}
-                  {isMobile && !whyLoadingDeeper && (
+                  {/* Mobile Depth Stepper - under title, left-justified */}
+                  {isMobile && (
                     <div className="mb-3">
                       {(() => {
                         const hasContentObj = {
@@ -1191,6 +1194,7 @@ const DepthCard = ({
                             }}
                             hasContent={hasContentObj}
                             accentColor="cyan"
+                            loading={whyLoadingDeeper}
                           />
                         );
                       })()}

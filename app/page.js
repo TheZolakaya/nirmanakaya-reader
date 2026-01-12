@@ -3628,8 +3628,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   <span className="text-xs"><PulsatingLoader color="text-violet-400" /></span>
                 )}
               </div>
-              {/* Mobile Depth Stepper - under title, centered */}
-              {hasDepthLevels && !letterLoadingDeeper && isMobileDepth && (
+              {/* Mobile Depth Stepper - under title, left-justified */}
+              {hasDepthLevels && isMobileDepth && (
                 <div className="mb-3">
                   <MobileDepthStepper
                     currentDepth={letterDepth}
@@ -3647,6 +3647,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       deep: !!letter.deep
                     }}
                     accentColor="violet"
+                    loading={letterLoadingDeeper}
                   />
                 </div>
               )}
@@ -3786,8 +3787,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   )}
                 </div>
 
-                {/* Mobile Depth Stepper - under title, centered */}
-                {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && isMobileDepth && (
+                {/* Mobile Depth Stepper - under title, left-justified */}
+                {hasDepthLevels && !isSummaryCollapsed && isMobileDepth && (
                   <div className="mb-3">
                     <MobileDepthStepper
                       currentDepth={summaryDepth}
@@ -3805,6 +3806,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         deep: typeof summary === 'object' && !!summary.deep
                       }}
                       accentColor="amber"
+                      loading={synthesisLoadingDeeper}
                     />
                   </div>
                 )}
@@ -3909,6 +3911,13 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     ))}
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Regarding header - show question context for non-Explore modes */}
+            {spreadType !== 'explore' && question && (
+              <div className="text-amber-400 text-sm font-medium uppercase tracking-wider mb-4 ml-1">
+                Regarding: {question.length > 60 ? question.substring(0, 60) + '...' : question}
               </div>
             )}
 
@@ -4079,8 +4088,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       )}
                     </div>
 
-                    {/* Mobile Depth Stepper - under title, centered */}
-                    {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && isMobileDepth && (
+                    {/* Mobile Depth Stepper - under title, left-justified */}
+                    {hasDepthLevels && !isPathCollapsed && isMobileDepth && (
                       <div className="mb-3">
                         <MobileDepthStepper
                           currentDepth={pathDepth}
@@ -4098,6 +4107,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             deep: !!path.deep
                           }}
                           accentColor="emerald"
+                          loading={synthesisLoadingDeeper}
                         />
                       </div>
                     )}
