@@ -2891,6 +2891,28 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
+          {/* Help Links */}
+          <div className="flex justify-center gap-3 mt-2 text-xs" onClick={(e) => e.stopPropagation()}>
+            <a
+              href="/guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-600 hover:text-amber-400 transition-colors"
+              title="Reader Guide"
+            >
+              Guide
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a
+              href="/about"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-600 hover:text-amber-400 transition-colors"
+              title="What is this?"
+            >
+              About
+            </a>
+          </div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
@@ -3758,7 +3780,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               <div className={`flex items-center justify-between ${isMobileDepth ? 'mb-1' : 'mb-3'}`}>
                 <div className="flex items-center gap-2">
                   <span className="text-violet-400">✉</span>
-                  <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Letter</span>
+                  <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Introduction</span>
                 </div>
                 {/* Depth navigation - desktop inline, mobile below */}
                 {hasDepthLevels && !letterLoadingDeeper && !isMobileDepth && (
@@ -3827,7 +3849,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     </p>
                   ))
                 ) : (
-                  <span className="text-zinc-500 italic">Letter content unavailable</span>
+                  <span className="text-zinc-500 italic">Introduction content unavailable</span>
                 )}
               </div>
 
@@ -3895,172 +3917,6 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           );
         })()}
 
-        {/* Overview (Summary) - after Letter, with depth navigation */}
-        {parsedReading && !loading && parsedReading.summary && !parsedReading.firstContact && (() => {
-          const isSummaryCollapsed = collapsedSections['summary'] === true; // expanded by default
-          const summary = parsedReading.summary;
-          const hasDepthLevels = typeof summary === 'object' && (summary.surface || summary.wade || summary.swim || summary.deep);
-          const summaryContent = getSummaryContent(summary, summaryDepth);
-          const summaryExpansions = expansions['summary'] || {};
-          const isSummaryExpanding = expanding?.section === 'summary';
-
-          return (
-            <div id="depth-section-summary" className="mb-6 rounded-xl border-2 border-amber-500/50 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(69, 26, 3, 0.4), rgba(120, 53, 15, 0.2))'}}>
-              <div className="p-5">
-                {/* Summary Header - clickable for collapse */}
-                <div
-                  className={`flex items-center justify-between cursor-pointer ${!isSummaryCollapsed ? (isMobileDepth ? 'mb-1' : 'mb-4') : ''}`}
-                  onClick={() => toggleCollapse('summary', false)}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className={`text-xs transition-transform duration-200 ${isSummaryCollapsed ? 'text-red-500' : 'text-amber-500'}`} style={{ transform: isSummaryCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>
-                      ▼
-                    </span>
-                    <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">Overview</span>
-                  </div>
-                  {/* Depth navigation - desktop inline, mobile below */}
-                  {hasDepthLevels && !isSummaryCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
-                    <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                      {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                        const hasContent = typeof summary === 'object' && (level === 'shallow' ? summary.wade : summary[level]);
-                        const isActive = summaryDepth === level;
-                        return (
-                          <button
-                            key={level}
-                            onClick={() => {
-                              if (level === 'shallow' || level === 'wade') {
-                                setSummaryDepth(level);
-                              } else {
-                                loadDeeperSynthesis(level, 'summary');
-                              }
-                            }}
-                            disabled={synthesisLoadingDeeper}
-                            className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                              isActive
-                                ? 'bg-amber-500 text-white'
-                                : hasContent
-                                  ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                  : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-amber-500/50'
-                            }`}
-                          >
-                            {level.charAt(0).toUpperCase() + level.slice(1)}
-                            {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {synthesisLoadingDeeper && !isSummaryCollapsed && (
-                    <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>
-                  )}
-                </div>
-
-                {/* Mobile Depth Stepper - under title, left-justified */}
-                {hasDepthLevels && !isSummaryCollapsed && isMobileDepth && (
-                  <div className="mb-3">
-                    <MobileDepthStepper
-                      currentDepth={summaryDepth}
-                      onDepthChange={(newDepth) => {
-                        if (newDepth === 'shallow' || newDepth === 'wade') {
-                          setSummaryDepth(newDepth);
-                        } else {
-                          loadDeeperSynthesis(newDepth, 'summary');
-                        }
-                      }}
-                      hasContent={{
-                        shallow: typeof summary === 'object' && !!summary.wade,
-                        wade: typeof summary === 'object' && !!summary.wade,
-                        swim: typeof summary === 'object' && !!summary.swim,
-                        deep: typeof summary === 'object' && !!summary.deep
-                      }}
-                      accentColor="amber"
-                      loading={synthesisLoadingDeeper}
-                    />
-                  </div>
-                )}
-
-                {/* Summary Content - collapsible */}
-                {!isSummaryCollapsed && (
-                  <>
-                    <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
-                      {summaryContent ? (
-                        ensureParagraphBreaks(summaryContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
-                          <p key={i} className="whitespace-pre-wrap">
-                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
-                          </p>
-                        ))
-                      ) : (
-                        <span className="text-zinc-500 italic">Overview content unavailable</span>
-                      )}
-                    </div>
-
-                    {/* Summary Expansion Buttons (excluding architecture) */}
-                    <div className="flex gap-2 flex-wrap mb-4">
-                      {Object.entries(EXPANSION_PROMPTS)
-                        .filter(([key]) => key !== 'architecture')
-                        .map(([key, { label }]) => {
-                        const isThisExpanding = isSummaryExpanding && expanding?.type === key;
-                        const hasExpansion = !!summaryExpansions[key];
-                        const isExpandingOther = expanding && !isThisExpanding;
-
-                        return (
-                          <button
-                            key={key}
-                            onClick={(e) => { e.stopPropagation(); handleExpand('summary', key); }}
-                            disabled={expanding}
-                            className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                              hasExpansion
-                                ? 'bg-amber-800/50 text-amber-200 border border-amber-600/50'
-                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
-                            } ${isExpandingOther ? 'opacity-50 cursor-not-allowed' : ''}`}
-                          >
-                            {isThisExpanding ? (
-                              <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
-                            ) : null}
-                            {label}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Expansion content display - collapsible */}
-                    {Object.entries(summaryExpansions).map(([expType, content]) => {
-                      if (!content) return null;
-                      const expKey = `summary-exp-${expType}`;
-                      const isExpCollapsed = collapsedSections[expKey] === true;
-                      return (
-                        <div key={expType} className="mb-3 rounded-lg border border-zinc-700/50 overflow-hidden bg-zinc-900/60">
-                          <div
-                            className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-800/50 transition-colors"
-                            onClick={() => toggleCollapse(expKey, true)}
-                          >
-                            <span
-                              className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-amber-400'}`}
-                              style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
-                            >
-                              ▼
-                            </span>
-                            <span className="text-xs text-zinc-400 uppercase tracking-wider">{EXPANSION_PROMPTS[expType]?.label}</span>
-                            {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
-                          </div>
-                          {!isExpCollapsed && (
-                            <div className="px-3 pb-3 text-zinc-300 text-sm border-t border-zinc-700/30">
-                              {content.split(/\n\n+/).map((para, idx) => (
-                                <p key={idx} className="mb-3 last:mb-0">
-                                  {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
-                                </p>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </>
-                )}
-              </div>
-            </div>
-          );
-        })()}
 
         {/* Parsed Reading Sections (Individual Cards, Path, Words to the Whys) - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
@@ -5202,7 +5058,37 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         )}
 
         {/* Footer */}
-        <p className="text-center text-zinc-800 text-[0.625rem] mt-8 tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+        <footer className="border-t border-zinc-800/30 mt-8 pt-4 pb-2">
+          <div className="flex justify-center gap-4 text-xs text-zinc-600 mb-2">
+            <a
+              href="/guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              Guide
+            </a>
+            <span className="text-zinc-800">•</span>
+            <a
+              href="/about"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              About
+            </a>
+            <span className="text-zinc-800">•</span>
+            <a
+              href="https://nirmanakaya.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              Nirmanakaya.com
+            </a>
+          </div>
+          <p className="text-center text-zinc-800 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+        </footer>
       </div>
 
       {/* Info Modal */}
