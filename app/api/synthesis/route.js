@@ -1,5 +1,5 @@
 // app/api/synthesis/route.js
-// On-demand generation for Summary + Path to Balance
+// On-demand generation for Summary + Why This Appeared + Path (The Invitation)
 // Supports WADE baseline generation OR progressive deepening
 // Uses Anthropic prompt caching for efficiency
 
@@ -44,8 +44,8 @@ export async function POST(request) {
     }
   ];
 
-  // Adjust max tokens based on what we're generating
-  const maxTokens = isDeepening ? 1500 : 1500;
+  // Adjust max tokens based on what we're generating (now includes whyAppeared)
+  const maxTokens = isDeepening ? 2000 : 2000;
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -79,6 +79,7 @@ export async function POST(request) {
 
     return Response.json({
       summary: parsed.summary,
+      whyAppeared: parsed.whyAppeared,
       path: parsed.path,
       usage: {
         ...data.usage,
@@ -124,24 +125,28 @@ ${letterContext}
 ALL CARDS (for synthesis):
 ${cardSummaries}
 
-Generate WADE level content for SUMMARY and PATH TO BALANCE.
+Generate WADE level content for SUMMARY, WHY THIS APPEARED, and THE INVITATION.
 
 WADE means: 3-4 substantive sentences per section. Real insight, not fluff.
 
 These are HOLISTIC sections that synthesize ALL the cards together:
 - SUMMARY: What do these cards, taken together, reveal about the question?
-- PATH TO BALANCE: For any imbalanced cards, what's the aggregate path forward?
+- WHY THIS APPEARED: Why did THESE specific cards appear for THIS question? What needed to be seen?
+- THE INVITATION: What's the aggregate path forward? For imbalanced cards, the correction. For balanced cards, the growth opportunity.
 
 Respond with these markers:
 
 [SUMMARY:WADE]
 (3-4 sentences: The unified insight from all these cards together)
 
+[WHY_APPEARED:WADE]
+(3-4 sentences: The teleological significance - why this reading emerged for this moment)
+
 [PATH:WADE]
-(3-4 sentences: The aggregate correction path)
+(3-4 sentences: The aggregate invitation - corrections and growth opportunities woven together)
 
 [PATH:ARCHITECTURE]
-(Structural analysis of how the corrections work together)
+(Structural analysis of how the corrections and growth paths work together)
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
@@ -176,6 +181,8 @@ function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKe
   let previousDisplay = '';
   if (previousContent.summary?.wade) previousDisplay += `Summary WADE: ${previousContent.summary.wade}\n`;
   if (previousContent.summary?.swim) previousDisplay += `Summary SWIM: ${previousContent.summary.swim}\n`;
+  if (previousContent.whyAppeared?.wade) previousDisplay += `Why Appeared WADE: ${previousContent.whyAppeared.wade}\n`;
+  if (previousContent.whyAppeared?.swim) previousDisplay += `Why Appeared SWIM: ${previousContent.whyAppeared.swim}\n`;
   if (previousContent.path?.wade) previousDisplay += `Path WADE: ${previousContent.path.wade}\n`;
   if (previousContent.path?.swim) previousDisplay += `Path SWIM: ${previousContent.path.swim}\n`;
 
@@ -186,7 +193,7 @@ CARDS: ${cardNames}
 PREVIOUS CONTENT (what the querent has already read):
 ${previousDisplay}
 
-Now generate ${targetDepth.toUpperCase()} level content for SUMMARY and PATH.
+Now generate ${targetDepth.toUpperCase()} level content for SUMMARY, WHY THIS APPEARED, and THE INVITATION.
 
 ${depthInstructions}
 
@@ -203,8 +210,11 @@ Respond with these markers:
 [SUMMARY:${targetDepth.toUpperCase()}]
 (Build on previous synthesis - reveal deeper interconnections)
 
+[WHY_APPEARED:${targetDepth.toUpperCase()}]
+(Deepen the teleological closure - what deeper pattern called this reading forth?)
+
 [PATH:${targetDepth.toUpperCase()}]
-(Deepen the path - add practical dimensions)${tokens && tokens.length > 0 ? `
+(Deepen the invitation - add practical dimensions)${tokens && tokens.length > 0 ? `
 
 TOKEN CONTEXT (DTP MODE):
 This synthesis covers cards exploring: ${tokens.map(t => `"${t}"`).join(', ')}
@@ -234,6 +244,11 @@ function parseBaselineResponse(text) {
       swim: '', // Not generated yet
       deep: ''  // Not generated yet
     },
+    whyAppeared: {
+      wade: extractSection('WHY_APPEARED:WADE'),
+      swim: '', // Not generated yet
+      deep: ''  // Not generated yet
+    },
     path: {
       wade: extractSection('PATH:WADE'),
       swim: '',
@@ -260,6 +275,7 @@ function parseDeepenResponse(text, depth, previousContent) {
 
   const depthMarker = depth.toUpperCase();
   const newSummary = extractSection(`SUMMARY:${depthMarker}`);
+  const newWhyAppeared = extractSection(`WHY_APPEARED:${depthMarker}`);
   const newPath = extractSection(`PATH:${depthMarker}`);
 
   return {
@@ -267,6 +283,11 @@ function parseDeepenResponse(text, depth, previousContent) {
       wade: previousContent?.summary?.wade || '',
       swim: depth === 'swim' ? newSummary : (previousContent?.summary?.swim || ''),
       deep: depth === 'deep' ? newSummary : (previousContent?.summary?.deep || '')
+    },
+    whyAppeared: {
+      wade: previousContent?.whyAppeared?.wade || '',
+      swim: depth === 'swim' ? newWhyAppeared : (previousContent?.whyAppeared?.swim || ''),
+      deep: depth === 'deep' ? newWhyAppeared : (previousContent?.whyAppeared?.deep || '')
     },
     path: {
       wade: previousContent?.path?.wade || '',

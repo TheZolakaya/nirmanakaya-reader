@@ -162,6 +162,24 @@ const getSummaryContent = (summary, depth = 'shallow') => {
   return '';
 };
 
+// Helper to extract "Why This Reading Appeared" content at specified depth
+const getWhyAppearedContent = (whyAppeared, depth = 'shallow') => {
+  if (!whyAppeared) return '';
+  if (typeof whyAppeared === 'string') return whyAppeared;
+  // Format: { wade, swim, deep } - shallow derives from wade
+  if (depth === 'shallow') {
+    const wadeContent = whyAppeared.wade || '';
+    if (!wadeContent) return '';
+    const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+    return sentences.slice(0, 2).join(' ');
+  }
+  if (whyAppeared[depth] != null && whyAppeared[depth] !== '') return whyAppeared[depth];
+  if (whyAppeared.wade != null && whyAppeared.wade !== '') return whyAppeared.wade;
+  if (whyAppeared.swim != null && whyAppeared.swim !== '') return whyAppeared.swim;
+  if (whyAppeared.deep != null && whyAppeared.deep !== '') return whyAppeared.deep;
+  return '';
+};
+
 // Helper to extract letter content from either string (legacy) or object (new depth format)
 const getLetterContent = (letter, depth = 'shallow') => {
   if (!letter) return '';
@@ -238,6 +256,7 @@ export default function NirmanakaReader() {
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [whyAppearedDepth, setWhyAppearedDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
 
   // Mobile detection for depth stepper
   const [isMobileDepth, setIsMobileDepth] = useState(false);
@@ -650,7 +669,7 @@ export default function NirmanakaReader() {
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to default (shallow)
-    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow');
+    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
     // Store tokens for DTP mode (used by card generation)
     setDtpTokens(tokens);
     const isReflect = spreadType === 'reflect';
@@ -934,10 +953,11 @@ export default function NirmanakaReader() {
 
       setSynthesisLoaded(true);
 
-      // Build complete reading
+      // Build complete reading (now includes whyAppeared)
       const completeReading = {
         ...parsedReading,
         summary: data.summary,
+        whyAppeared: data.whyAppeared,
         path: data.path
       };
 
@@ -1030,11 +1050,13 @@ export default function NirmanakaReader() {
     if (synthesisLoadingDeeper) return;
 
     const summary = parsedReading?.summary;
+    const whyAppeared = parsedReading?.whyAppeared;
     const path = parsedReading?.path;
 
     // Check if content already exists at target depth
-    if (summary?.[targetDepth] && path?.[targetDepth]) {
+    if (summary?.[targetDepth] && whyAppeared?.[targetDepth] && path?.[targetDepth]) {
       setSummaryDepth(targetDepth);
+      setWhyAppearedDepth(targetDepth);
       setPathDepth(targetDepth);
       return;
     }
@@ -1046,6 +1068,10 @@ export default function NirmanakaReader() {
         summary: {
           wade: summary?.wade || '',
           swim: summary?.swim || ''
+        },
+        whyAppeared: {
+          wade: whyAppeared?.wade || '',
+          swim: whyAppeared?.swim || ''
         },
         path: {
           wade: path?.wade || '',
@@ -1076,12 +1102,16 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // V2: Voice is baked into generation - update reading directly
+      // V2: Voice is baked into generation - update reading directly (now includes whyAppeared)
       const updatedReading = {
         ...parsedReading,
         summary: {
           ...parsedReading?.summary,
           ...data.summary
+        },
+        whyAppeared: {
+          ...parsedReading?.whyAppeared,
+          ...data.whyAppeared
         },
         path: {
           ...parsedReading?.path,
@@ -1090,6 +1120,7 @@ export default function NirmanakaReader() {
       };
       setParsedReading(updatedReading);
       setSummaryDepth(targetDepth);
+      setWhyAppearedDepth(targetDepth);
       setPathDepth(targetDepth);
 
       // Accumulate token usage
@@ -1813,9 +1844,13 @@ Interpret this new card as the architecture's response to their declared directi
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for path synthesis
       sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
       sectionContext = 'the Path to Balance section (synthesis of all corrections)';
+    } else if (sectionKey === 'whyAppeared') {
+      drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for why appeared
+      sectionContent = getWhyAppearedContent(parsedReading.whyAppeared);
+      sectionContext = 'the "Why This Reading Appeared" section (teleological closure - why these specific cards emerged for this question)';
     }
 
-    // Custom prompts for Path section
+    // Custom prompts for Path and WhyAppeared sections
     let expansionPrompt;
     if (sectionKey === 'path') {
       const pathPrompts = {
@@ -1825,6 +1860,13 @@ Interpret this new card as the architecture's response to their declared directi
         example: "Give concrete real-world examples of how to apply this guidance. Specific scenarios someone might encounter — make it tangible."
       };
       expansionPrompt = pathPrompts[expansionType];
+    } else if (sectionKey === 'whyAppeared') {
+      const whyAppearedPrompts = {
+        unpack: "Expand on why this reading appeared with more depth. Go deeper on the teleological significance - what pattern in the querent's life called forth these specific cards at this specific moment?",
+        clarify: "Restate why this reading appeared in simpler, everyday language. Plain words, short sentences — make the teleological connection completely accessible.",
+        example: "Give concrete real-world examples of how this teleological pattern might be showing up in the querent's life. Specific scenarios that might have called forth this reading — make it tangible."
+      };
+      expansionPrompt = whyAppearedPrompts[expansionType];
     } else {
       expansionPrompt = EXPANSION_PROMPTS[expansionType].prompt;
     }
@@ -2031,7 +2073,7 @@ CRITICAL FORMATTING RULES:
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to default (shallow)
-    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow');
+    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
     hasAutoInterpreted.current = false;
     window.history.replaceState({}, '', window.location.pathname);
   };
@@ -4432,146 +4474,388 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Letter now renders at top of reading - see line ~2419 */}
 
-            {/* Unified Reflect/Forge Section - ONE set of buttons at the bottom */}
-            <div className="mt-6 pt-4 border-t border-zinc-800/50">
-              <div className="text-center mb-4">
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Continue exploring</span>
-              </div>
-
-              {/* Collapsed state: show [▶ Reflect] [▶ Forge] */}
-              {!threadOperations['unified'] && (
-                <div className="flex justify-center gap-3">
-                  <button
-                    onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
-                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
-                  >
-                    <span className="text-[0.625rem] text-red-500">▶</span> Reflect
-                  </button>
-                  <button
-                    onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
-                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
-                  >
-                    <span className="text-[0.625rem] text-red-500">▶</span> Forge
-                  </button>
+            {/* ═══════════════════════════════════════════════════════════════════
+                SYNTHESIS SECTION - The closing statement that ties everything together
+                Contains: Question/Input, The Reading, Why This Appeared, The Invitation
+                ═══════════════════════════════════════════════════════════════════ */}
+            {parsedReading && !loading && synthesisLoaded && (
+              <div className="mt-8 rounded-2xl border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
+                {/* Synthesis Header */}
+                <div className="px-6 py-4 border-b border-amber-500/20 bg-amber-950/30">
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="text-xl">◈</span>
+                    <span className="text-lg font-medium text-amber-400 uppercase tracking-wider">Synthesis</span>
+                  </div>
                 </div>
-              )}
 
-              {/* Expanded state: full panel */}
-              {threadOperations['unified'] && (
-                <div className="max-w-sm mx-auto">
-                  <div className="flex justify-center gap-4 mb-4">
-                    <button
-                      onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
-                      className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                        threadOperations['unified'] === 'reflect'
-                          ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
-                          : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
-                      }`}
-                    >
-                      ↩ Reflect
-                    </button>
-                    <button
-                      onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
-                      className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                        threadOperations['unified'] === 'forge'
-                          ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
-                          : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
-                      }`}
-                    >
-                      ⚡ Forge
-                    </button>
+                <div className="p-6 space-y-6">
+                  {/* ─────────────────────────────────────────────────────────────────
+                      SECTION 1: Your Question / Your Draw / Your Declaration / What's Active
+                      ───────────────────────────────────────────────────────────────── */}
+                  <div className="pb-5 border-b border-zinc-700/50">
+                    <div className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">
+                      {spreadType === 'reflect' ? 'Your Question' :
+                       spreadType === 'discover' ? 'Your Draw' :
+                       spreadType === 'forge' ? 'Your Declaration' :
+                       'What\'s Active'}
+                    </div>
+                    <div className="text-zinc-200 text-sm leading-relaxed">
+                      {spreadType === 'discover' ? (
+                        `A blind draw of ${draws.length} card${draws.length > 1 ? 's' : ''}`
+                      ) : spreadType === 'explore' ? (
+                        <div>
+                          <div className="mb-2">{parsedReading?.originalInput || question}</div>
+                          {dtpTokens && dtpTokens.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 mt-2">
+                              {dtpTokens.map((token, i) => (
+                                <span key={i} className="px-2 py-0.5 rounded-full bg-amber-900/30 text-amber-400/80 text-xs border border-amber-500/20">
+                                  {token}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        `"${question}"`
+                      )}
+                    </div>
                   </div>
 
-                  <textarea
-                    value={threadContexts['unified'] || ''}
-                    onChange={(e) => setThreadContexts(prev => ({ ...prev, unified: e.target.value }))}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey && threadOperations['unified'] && !threadLoading['unified']) {
-                        e.preventDefault();
-                        continueThread('unified');
-                      }
-                    }}
-                    placeholder="What are you exploring or creating?"
-                    rows={2}
-                    className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors resize-none mb-4"
-                  />
+                  {/* ─────────────────────────────────────────────────────────────────
+                      SECTION 2: The Reading (Summary)
+                      ───────────────────────────────────────────────────────────────── */}
+                  {parsedReading.summary && (() => {
+                    const summary = parsedReading.summary;
+                    const hasDepthLevels = typeof summary === 'object' && (summary.wade || summary.swim || summary.deep);
+                    const summaryContent = getSummaryContent(summary, summaryDepth);
+                    const summaryExpansions = expansions['summary'] || {};
+                    const isSummaryExpanding = expanding?.section === 'summary';
+                    const isSynthSummaryCollapsed = collapsedSections['synth-reading'] === true; // expanded by default
 
-                  <button
-                    onClick={() => continueThread('unified')}
-                    disabled={!threadOperations['unified'] || threadLoading['unified']}
-                    className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-                      threadOperations['unified'] && !threadLoading['unified']
-                        ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50'
-                        : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'
-                    }`}
-                  >
-                    {threadLoading['unified'] ? (
-                      <>
-                        <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
-                        Drawing...
-                      </>
-                    ) : (
-                      'Continue'
-                    )}
-                  </button>
-                </div>
-              )}
-
-              {/* Unified Thread Results */}
-              {threadData['unified'] && threadData['unified'].length > 0 && (
-                <div className="mt-5 space-y-4">
-                  {threadData['unified'].map((threadItem, threadIndex) => {
-                    const isReflect = threadItem.operation === 'reflect';
-                    const trans = getComponent(threadItem.draw.transient);
-                    const stat = STATUSES[threadItem.draw.status];
-                    const statusPrefix = stat.prefix || 'Balanced';
                     return (
-                      <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
-                            {isReflect ? '↩ Reflect' : '⚡ Forge'}
-                          </span>
+                      <div className="pb-5 border-b border-zinc-700/50">
+                        {/* Header */}
+                        <div
+                          className={`flex items-center justify-between cursor-pointer ${!isSynthSummaryCollapsed ? 'mb-3' : ''}`}
+                          onClick={() => toggleCollapse('synth-reading', false)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs transition-transform duration-200 ${isSynthSummaryCollapsed ? 'text-red-500' : 'text-amber-500'}`} style={{ transform: isSynthSummaryCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
+                            <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">The Reading</span>
+                          </div>
+                          {/* Depth navigation */}
+                          {hasDepthLevels && !isSynthSummaryCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                                const hasContent = level === 'shallow' ? summary.wade : summary[level];
+                                const isActive = summaryDepth === level;
+                                return (
+                                  <button
+                                    key={level}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setSummaryDepth(level) : loadDeeperSynthesis(level)}
+                                    disabled={synthesisLoadingDeeper}
+                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-amber-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
+                                  >
+                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                          {synthesisLoadingDeeper && !isSynthSummaryCollapsed && <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>}
                         </div>
-                        {threadItem.context && (
-                          <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>
-                            "{threadItem.context}"
+                        {/* Mobile Depth Stepper */}
+                        {hasDepthLevels && !isSynthSummaryCollapsed && isMobileDepth && (
+                          <div className="mb-3">
+                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingDeeper} />
                           </div>
                         )}
-                        <div className="flex items-center gap-2 mb-2">
-                          <span
-                            className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
-                            onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}
-                          >
-                            {stat.name}
-                          </span>
-                          <span className="text-sm font-medium text-zinc-200">
-                            <span
-                              className="cursor-pointer hover:underline decoration-dotted underline-offset-2"
-                              onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}
-                            >
-                              {statusPrefix}
-                            </span>
-                            {statusPrefix && ' '}
-                            <span
-                              className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90"
-                              onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
-                            >
-                              {trans.name}
-                            </span>
-                          </span>
-                        </div>
-                        {showTraditional && trans && (
-                          <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>
+                        {/* Content */}
+                        {!isSynthSummaryCollapsed && (
+                          <>
+                            <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-3">
+                              {summaryContent ? ensureParagraphBreaks(summaryContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                                <p key={i} className="whitespace-pre-wrap">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>
+                              )) : <span className="text-zinc-500 italic">Loading...</span>}
+                            </div>
+                            {/* Expansion Buttons */}
+                            <div className="flex gap-2 flex-wrap">
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                                <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('summary', key); }} disabled={isSummaryExpanding}
+                                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${summaryExpansions[key] ? 'bg-amber-900/40 text-amber-300 border border-amber-500/40' : isSummaryExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
+                                  {isSummaryExpanding && expanding?.type === key ? 'Expanding...' : label}
+                                </button>
+                              ))}
+                            </div>
+                            {/* Expansion Results */}
+                            {Object.entries(summaryExpansions).map(([expKey, content]) => (
+                              <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30">
+                                <div className="text-xs font-medium text-amber-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
+                                <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
+                              </div>
+                            ))}
+                          </>
                         )}
-                        <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">
-                          {renderWithHotlinks(threadItem.interpretation, setSelectedInfo, showTraditional)}
-                        </div>
                       </div>
                     );
-                  })}
+                  })()}
+
+                  {/* ─────────────────────────────────────────────────────────────────
+                      SECTION 3: Why This Reading Appeared
+                      ───────────────────────────────────────────────────────────────── */}
+                  {parsedReading.whyAppeared && (() => {
+                    const whyAppeared = parsedReading.whyAppeared;
+                    const hasDepthLevels = typeof whyAppeared === 'object' && (whyAppeared.wade || whyAppeared.swim || whyAppeared.deep);
+                    const whyAppearedContent = getWhyAppearedContent(whyAppeared, whyAppearedDepth);
+                    const whyExpansions = expansions['whyAppeared'] || {};
+                    const isWhyExpanding = expanding?.section === 'whyAppeared';
+                    const isSynthWhyCollapsed = collapsedSections['synth-why'] === true; // expanded by default
+
+                    if (!whyAppearedContent) return null;
+
+                    return (
+                      <div className="pb-5 border-b border-zinc-700/50">
+                        {/* Header */}
+                        <div
+                          className={`flex items-center justify-between cursor-pointer ${!isSynthWhyCollapsed ? 'mb-3' : ''}`}
+                          onClick={() => toggleCollapse('synth-why', false)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs transition-transform duration-200 ${isSynthWhyCollapsed ? 'text-red-500' : 'text-cyan-500'}`} style={{ transform: isSynthWhyCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
+                            <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Why This Reading Appeared</span>
+                          </div>
+                          {/* Depth navigation */}
+                          {hasDepthLevels && !isSynthWhyCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                                const hasContent = level === 'shallow' ? whyAppeared.wade : whyAppeared[level];
+                                const isActive = whyAppearedDepth === level;
+                                return (
+                                  <button
+                                    key={level}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setWhyAppearedDepth(level) : loadDeeperSynthesis(level)}
+                                    disabled={synthesisLoadingDeeper}
+                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-cyan-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
+                                  >
+                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                          {synthesisLoadingDeeper && !isSynthWhyCollapsed && <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>}
+                        </div>
+                        {/* Mobile Depth Stepper */}
+                        {hasDepthLevels && !isSynthWhyCollapsed && isMobileDepth && (
+                          <div className="mb-3">
+                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingDeeper} />
+                          </div>
+                        )}
+                        {/* Content */}
+                        {!isSynthWhyCollapsed && (
+                          <>
+                            <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-3">
+                              {whyAppearedContent ? ensureParagraphBreaks(whyAppearedContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                                <p key={i} className="whitespace-pre-wrap">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>
+                              )) : <span className="text-zinc-500 italic">Loading...</span>}
+                            </div>
+                            {/* Expansion Buttons */}
+                            <div className="flex gap-2 flex-wrap">
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                                <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('whyAppeared', key); }} disabled={isWhyExpanding}
+                                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${whyExpansions[key] ? 'bg-cyan-900/40 text-cyan-300 border border-cyan-500/40' : isWhyExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
+                                  {isWhyExpanding && expanding?.type === key ? 'Expanding...' : label}
+                                </button>
+                              ))}
+                            </div>
+                            {/* Expansion Results */}
+                            {Object.entries(whyExpansions).map(([expKey, content]) => (
+                              <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30">
+                                <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
+                                <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
+                              </div>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* ─────────────────────────────────────────────────────────────────
+                      SECTION 4: The Invitation (Path to Balance)
+                      ───────────────────────────────────────────────────────────────── */}
+                  {parsedReading.path && (() => {
+                    const path = parsedReading.path;
+                    const hasDepthLevels = path.wade || path.swim || path.deep;
+                    const getPathContent = () => {
+                      if (pathDepth === 'shallow') {
+                        const wadeContent = path.wade || '';
+                        if (!wadeContent) return '';
+                        const sentences = wadeContent.split(/(?<=[.!?])\s+/);
+                        return sentences.slice(0, 2).join(' ');
+                      }
+                      if (path[pathDepth]) return path[pathDepth];
+                      return path.wade || path.swim || path.deep || '';
+                    };
+                    const pathContent = getPathContent();
+                    const pathExpansions = expansions['path'] || {};
+                    const isPathExpanding = expanding?.section === 'path';
+                    const isSynthPathCollapsed = collapsedSections['synth-invitation'] === true; // expanded by default
+
+                    return (
+                      <div className="pb-5">
+                        {/* Header */}
+                        <div
+                          className={`flex items-center justify-between cursor-pointer ${!isSynthPathCollapsed ? 'mb-3' : ''}`}
+                          onClick={() => toggleCollapse('synth-invitation', false)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs transition-transform duration-200 ${isSynthPathCollapsed ? 'text-red-500' : 'text-emerald-500'}`} style={{ transform: isSynthPathCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
+                            <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">The Invitation</span>
+                          </div>
+                          {/* Depth navigation */}
+                          {hasDepthLevels && !isSynthPathCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                                const hasContent = level === 'shallow' ? path.wade : path[level];
+                                const isActive = pathDepth === level;
+                                return (
+                                  <button
+                                    key={level}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setPathDepth(level) : loadDeeperSynthesis(level)}
+                                    disabled={synthesisLoadingDeeper}
+                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-emerald-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
+                                  >
+                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                          {synthesisLoadingDeeper && !isSynthPathCollapsed && <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>}
+                        </div>
+                        {/* Mobile Depth Stepper */}
+                        {hasDepthLevels && !isSynthPathCollapsed && isMobileDepth && (
+                          <div className="mb-3">
+                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingDeeper} />
+                          </div>
+                        )}
+                        {/* Content */}
+                        {!isSynthPathCollapsed && (
+                          <>
+                            <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-3">
+                              {pathContent ? ensureParagraphBreaks(pathContent).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                                <p key={i} className="whitespace-pre-wrap">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>
+                              )) : <span className="text-zinc-500 italic">Loading...</span>}
+                            </div>
+                            {/* Expansion Buttons */}
+                            <div className="flex gap-2 flex-wrap">
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                                <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('path', key); }} disabled={isPathExpanding}
+                                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${pathExpansions[key] ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-500/40' : isPathExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
+                                  {isPathExpanding && expanding?.type === key ? 'Expanding...' : label}
+                                </button>
+                              ))}
+                            </div>
+                            {/* Expansion Results */}
+                            {Object.entries(pathExpansions).map(([expKey, content]) => (
+                              <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30">
+                                <div className="text-xs font-medium text-emerald-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
+                                <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
+                              </div>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* ─────────────────────────────────────────────────────────────────
+                      Thread Continuation - Reflect / Forge buttons at bottom of Synthesis
+                      ───────────────────────────────────────────────────────────────── */}
+                  <div className="pt-5 border-t border-zinc-700/50">
+                    {/* Collapsed state: show [▶ Reflect] [▶ Forge] */}
+                    {!threadOperations['unified'] && (
+                      <div className="flex justify-center gap-3">
+                        <button
+                          onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
+                          className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                        >
+                          <span className="text-[0.625rem] text-red-500">▶</span> Reflect
+                        </button>
+                        <button
+                          onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
+                          className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                        >
+                          <span className="text-[0.625rem] text-red-500">▶</span> Forge
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Expanded state: full panel */}
+                    {threadOperations['unified'] && (
+                      <div className="max-w-sm mx-auto">
+                        <div className="flex justify-center gap-4 mb-4">
+                          <button
+                            onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
+                            className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${threadOperations['unified'] === 'reflect' ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                          >↩ Reflect</button>
+                          <button
+                            onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
+                            className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${threadOperations['unified'] === 'forge' ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                          >⚡ Forge</button>
+                        </div>
+                        <textarea
+                          value={threadContexts['unified'] || ''}
+                          onChange={(e) => setThreadContexts(prev => ({ ...prev, unified: e.target.value }))}
+                          onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && threadOperations['unified'] && !threadLoading['unified']) { e.preventDefault(); continueThread('unified'); }}}
+                          placeholder="What are you exploring or creating?"
+                          rows={2}
+                          className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 resize-none mb-4"
+                        />
+                        <button
+                          onClick={() => continueThread('unified')}
+                          disabled={!threadOperations['unified'] || threadLoading['unified']}
+                          className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['unified'] && !threadLoading['unified'] ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
+                        >
+                          {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Thread Results */}
+                    {threadData['unified'] && threadData['unified'].length > 0 && (
+                      <div className="mt-5 space-y-4">
+                        {threadData['unified'].map((threadItem, threadIndex) => {
+                          const isReflect = threadItem.operation === 'reflect';
+                          const trans = getComponent(threadItem.draw.transient);
+                          const stat = STATUSES[threadItem.draw.status];
+                          const statusPrefix = stat.prefix || 'Balanced';
+                          return (
+                            <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                              <div className="flex items-center gap-2 mb-3">
+                                <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>{isReflect ? '↩ Reflect' : '⚡ Forge'}</span>
+                              </div>
+                              {threadItem.context && <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>"{threadItem.context}"</div>}
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`} onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}>{stat.name}</span>
+                                <span className="text-sm font-medium text-zinc-200">
+                                  <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2" onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}>{statusPrefix}</span>
+                                  {statusPrefix && ' '}
+                                  <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-amber-300/90" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}>{trans.name}</span>
+                                </span>
+                              </div>
+                              {showTraditional && trans && <div className="text-xs text-zinc-500 mb-2">{trans.traditional}</div>}
+                              <div className="text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap">{renderWithHotlinks(threadItem.interpretation, setSelectedInfo, showTraditional)}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
             <div ref={messagesEndRef} />
           </div>
