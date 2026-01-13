@@ -27,7 +27,8 @@ export async function POST(request) {
     targetDepth,    // 'wade' | 'swim' | 'deep' (default: wade)
     previousContent, // { wade: '...', swim: '...' } - content to build on
     // DTP token context (optional)
-    token           // e.g., "Fear" - the user's token this card is reading
+    token,          // e.g., "Fear" - the user's token this card is reading
+    originalInput   // e.g., "I'm worried about my marriage" - full question for grounding
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -39,8 +40,8 @@ export async function POST(request) {
 
   // Build card-specific user message
   const userMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent, token)
-    : buildBaselineMessage(n, draw, question, spreadType, letterContent, token);
+    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent, token, originalInput)
+    : buildBaselineMessage(n, draw, question, spreadType, letterContent, token, originalInput);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -104,7 +105,7 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for all sections (initial load)
-function buildBaselineMessage(n, draw, question, spreadType, letterContent, token = null) {
+function buildBaselineMessage(n, draw, question, spreadType, letterContent, token = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -218,15 +219,18 @@ VOICE: Match the humor/register/persona specified in the system prompt throughou
 NOTE: Architecture section will be generated separately - do not include it.${token ? `
 
 TOKEN CONTEXT (DTP MODE):
-This reading is regarding the user's named reality object: "${token}"
-Weave this context naturally throughout your interpretation.
-Instead of generic statements like "There's pressure in how you hold authority"
-Say: "There's pressure in how you hold authority as it relates to ${token}"
-The token "${token}" should appear naturally woven into your interpretations.` : ''}`;
+FOCUS: This reading is regarding "${token}"
+${originalInput ? `CONTEXT: "${originalInput}"` : ''}
+
+The token is your lens. The context is your ground.
+Don't interpret "${token}" generically — interpret it as it lives in THIS specific situation.
+Instead of: "There's pressure in how you hold authority"
+Say: "There's pressure in how you hold authority as it relates to ${token}${originalInput ? ` — given that ${originalInput}` : ''}"
+The token "${token}" should appear naturally woven into your interpretations, grounded in the specific situation.` : ''}`;
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent, token = null) {
+function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent, token = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -360,9 +364,11 @@ ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'}
 (${growthIsSelf ? `Deepen the recursion experience - what it means to keep leaning in, to go even deeper here. MORE of this energy, not rest.${targetDepth === 'deep' ? ' For DEEP: Full transmission on what recursive growth feels like — the loop is the path.' : ''}` : `Deepen the developmental invitation toward ${growthTarget} - new angles on growth.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore the growth path philosophically, psychologically, practically. At least 3-4 paragraphs.' : ''}`})` : ''}${token ? `
 
 TOKEN CONTEXT (DTP MODE):
-This reading is regarding the user's named reality object: "${token}"
-Continue weaving this context naturally throughout your deeper interpretation.
-The token "${token}" should appear naturally woven into all sections.` : ''}`;
+FOCUS: This reading is regarding "${token}"
+${originalInput ? `CONTEXT: "${originalInput}"` : ''}
+
+Continue grounding all interpretations in this specific context.
+The token "${token}" should appear naturally woven into all sections, grounded in the specific situation.` : ''}`;
 }
 
 // Parse baseline response (WADE for all sections)

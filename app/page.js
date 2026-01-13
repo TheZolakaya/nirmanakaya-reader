@@ -744,7 +744,9 @@ export default function NirmanakaReader() {
         corrections: [],
         rebalancerSummary: null,
         wordsToWhys: null,
-        _onDemand: true // Flag indicating on-demand mode
+        _onDemand: true, // Flag indicating on-demand mode
+        // DTP mode: Store original input for grounded interpretations
+        originalInput: tokens && tokens.length > 0 ? questionToUse : null
       });
       setTokenUsage(data.usage);
 
@@ -753,7 +755,9 @@ export default function NirmanakaReader() {
       setTimeout(() => {
         drawsToUse.forEach((_, i) => {
           const cardToken = tokens ? tokens[i] : null;
-          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt, cardToken);
+          // Pass originalInput for DTP mode grounded interpretations
+          const originalInputForCard = tokens && tokens.length > 0 ? safeQuestion : null;
+          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt, cardToken, originalInputForCard);
         });
       }, 100);
 
@@ -762,7 +766,7 @@ export default function NirmanakaReader() {
   };
 
   // On-demand: Load a single card's depth content
-  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null) => {
+  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {
     if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
 
     setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
@@ -782,6 +786,7 @@ export default function NirmanakaReader() {
           system: systemPromptToUse || systemPromptCache,
           letterContent,
           token, // DTP mode: token context for this card
+          originalInput, // DTP mode: full question context for grounded interpretations
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
         })
       });
@@ -837,6 +842,8 @@ export default function NirmanakaReader() {
       const letterContent = getLetterContent(parsedReading?.letter);
       // Get token from card state for DTP mode
       const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
+      // Get originalInput for grounded DTP interpretations
+      const originalInput = parsedReading?.originalInput || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -850,6 +857,7 @@ export default function NirmanakaReader() {
           system: systemPromptCache,
           letterContent,
           token: cardToken, // DTP mode: token context for this card
+          originalInput, // DTP mode: full question context for grounded interpretations
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
           // Progressive deepening params
           targetDepth,
@@ -906,7 +914,10 @@ export default function NirmanakaReader() {
           spreadType,
           spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
           system: systemPromptToUse || systemPromptCache,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          // DTP mode: pass tokens and originalInput for grounded synthesis
+          tokens: dtpTokens,
+          originalInput: parsedReading?.originalInput
         })
       });
       const data = await res.json();
@@ -1056,7 +1067,10 @@ export default function NirmanakaReader() {
           system: systemPromptCache,
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
           targetDepth,
-          previousContent
+          previousContent,
+          // DTP mode: pass tokens and originalInput for grounded synthesis
+          tokens: dtpTokens,
+          originalInput: parsedReading?.originalInput
         })
       });
       const data = await res.json();
@@ -1360,6 +1374,32 @@ Correction archetype: ${getComponent(getCorrectionTargetId(newCorrection, newTra
 Correction type: ${newDraw.status === 2 ? 'DIAGONAL (Too Much)' : newDraw.status === 3 ? 'VERTICAL (Too Little)' : 'REDUCTION (Unacknowledged)'}
 ` : '';
 
+    // Build DTP context for Explore mode threads
+    const dtpContext = (() => {
+      if (spreadType !== 'explore') return '';
+      // For card threads, use the specific token
+      const cardIndex = parseInt(threadKey.replace('card-', ''));
+      if (!isNaN(cardIndex)) {
+        const parentCard = parsedReading?.cards?.find(c => c.index === cardIndex);
+        if (parentCard?.token) {
+          return `
+DTP CONTEXT:
+FOCUS: This thread is exploring "${parentCard.token}"
+${parsedReading?.originalInput ? `ORIGINAL SITUATION: "${parsedReading.originalInput}"` : ''}
+Ground your response in this specific context — interpret the new card as it relates to "${parentCard.token}" in this situation.`;
+        }
+      }
+      // For section threads in Explore mode, include overall context
+      if (parsedReading?.originalInput && dtpTokens?.length > 0) {
+        return `
+DTP CONTEXT:
+TOKENS IN THIS READING: ${dtpTokens.map(t => `"${t}"`).join(', ')}
+ORIGINAL SITUATION: "${parsedReading.originalInput}"
+Ground your response in this specific context.`;
+      }
+      return '';
+    })();
+
     if (operation === 'reflect') {
       // REFLECT: User is INQUIRING - architecture responds to their QUESTION with a new card
       systemPrompt = `${BASE_SYSTEM}
@@ -1401,7 +1441,7 @@ NEW CARD DRAWN IN RESPONSE: ${newCardName}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
-${correctionInfo}
+${correctionInfo}${dtpContext}
 Interpret this new card as the architecture's response to their question.`;
 
     } else {
@@ -1445,7 +1485,7 @@ NEW CARD DRAWN IN RESPONSE: ${newCardName}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
-${correctionInfo}
+${correctionInfo}${dtpContext}
 Interpret this new card as the architecture's response to their declared direction.`;
     }
 
@@ -1792,6 +1832,39 @@ Interpret this new card as the architecture's response to their declared directi
     // Pass the original stance to expansion
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nCRITICAL FORMATTING RULES:\n1. NEVER write walls of text\n2. Each paragraph must be 2-4 sentences MAX\n3. Put TWO blank lines between each paragraph (this is required for rendering)\n4. Break your response into 3-5 distinct paragraphs\n5. Each paragraph should explore ONE aspect or dimension`;
+
+    // Build DTP context for Explore mode expansions
+    const expansionDtpContext = (() => {
+      if (spreadType !== 'explore') return '';
+      // For card expansions, include the specific token
+      if (sectionKey.startsWith('card-') || sectionKey.startsWith('card:')) {
+        const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
+        const cardSection = parsedReading?.cards?.find(c => c.index === cardIndex);
+        if (cardSection?.token) {
+          return `
+DTP CONTEXT: This expansion is regarding "${cardSection.token}"${parsedReading?.originalInput ? ` in the context of "${parsedReading.originalInput}"` : ''}
+Ground your expansion in this specific situation.`;
+        }
+      }
+      // For rebalancer expansions, include the card's token
+      if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:')) {
+        const cardIndex = parseInt(sectionKey.split(':')[1]);
+        const cardSection = parsedReading?.cards?.find(c => c.index === cardIndex);
+        if (cardSection?.token) {
+          return `
+DTP CONTEXT: This rebalancer expansion is for the "${cardSection.token}" card${parsedReading?.originalInput ? ` in the context of "${parsedReading.originalInput}"` : ''}
+Ground your expansion in this specific situation.`;
+        }
+      }
+      // For section expansions in Explore mode
+      if (parsedReading?.originalInput && dtpTokens?.length > 0) {
+        return `
+DTP CONTEXT: This reading explores ${dtpTokens.map(t => `"${t}"`).join(', ')}
+ORIGINAL SITUATION: "${parsedReading.originalInput}"
+Ground your expansion in this specific context.`;
+      }
+      return '';
+    })();
     const userMessage = `QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
@@ -1802,7 +1875,7 @@ ${sectionContent}
 
 EXPANSION REQUEST:
 ${expansionPrompt}
-
+${expansionDtpContext}
 Respond directly with the expanded content. No section markers needed. Keep it focused on this specific section AND relevant to their question: "${question}"
 
 REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them. Never write a wall of text.`;
@@ -3931,7 +4004,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               // On-demand loading trigger
               const triggerCardLoad = () => {
                 if (!isCardLoaded && !isCardLoading && parsedReading._onDemand) {
-                  loadCardDepth(card.index, draws, question, parsedReading.letter, systemPromptCache, card.token);
+                  loadCardDepth(card.index, draws, question, parsedReading.letter, systemPromptCache, card.token, parsedReading.originalInput);
                 }
               };
 

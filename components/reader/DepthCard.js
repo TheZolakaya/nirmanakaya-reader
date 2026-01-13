@@ -704,6 +704,12 @@ const DepthCard = ({
         );
       })}
 
+      {/* CONTEXT label for Explore mode - shows above Rebalancer/Growth */}
+      {spreadType === 'explore' && cardData.token && depth !== DEPTH.COLLAPSED && (
+        <div className="text-xs text-amber-400/70 uppercase tracking-wider mb-2 mt-4 pt-4 border-t border-zinc-800/50 ml-4">
+          Context: {cardData.token}
+        </div>
+      )}
 
       {/* Rebalancer Section (always visible for imbalanced cards) */}
       {depth !== DEPTH.COLLAPSED && !isBalanced && (

@@ -18,7 +18,10 @@ export async function POST(request) {
     model,
     // Progressive deepening params
     targetDepth,     // 'wade' | 'swim' | 'deep' (default: wade)
-    previousContent  // { summary: {...}, path: {...} } - content to build on
+    previousContent, // { summary: {...}, path: {...} } - content to build on
+    // DTP token context (optional)
+    tokens,          // Array of tokens for DTP mode
+    originalInput    // Full question for grounding
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -29,8 +32,8 @@ export async function POST(request) {
 
   // Build synthesis user message
   const userMessage = isDeepening
-    ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent)
-    : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey);
+    ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent, tokens, originalInput)
+    : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -90,7 +93,7 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for summary + path (initial load)
-function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey) {
+function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens = null, originalInput = null) {
   // Build card summaries for synthesis context
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
   const cardSummaries = cards.map((card, i) => {
@@ -143,11 +146,17 @@ Respond with these markers:
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear synthesis.
-VOICE: Match the humor/register/persona specified in the system prompt throughout.`;
+VOICE: Match the humor/register/persona specified in the system prompt throughout.${tokens && tokens.length > 0 ? `
+
+TOKEN CONTEXT (DTP MODE):
+This synthesis covers cards exploring: ${tokens.map(t => `"${t}"`).join(', ')}
+${originalInput ? `CONTEXT: "${originalInput}"` : ''}
+
+Ground your synthesis in this specific situation. Show how the token themes interconnect within the context of the querent's original input.` : ''}`;
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent) {
+function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent, tokens = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
   const cardNames = cards.map((card, i) => {
     const draw = draws[i];
@@ -195,7 +204,13 @@ Respond with these markers:
 (Build on previous synthesis - reveal deeper interconnections)
 
 [PATH:${targetDepth.toUpperCase()}]
-(Deepen the path - add practical dimensions)`;
+(Deepen the path - add practical dimensions)${tokens && tokens.length > 0 ? `
+
+TOKEN CONTEXT (DTP MODE):
+This synthesis covers cards exploring: ${tokens.map(t => `"${t}"`).join(', ')}
+${originalInput ? `CONTEXT: "${originalInput}"` : ''}
+
+Continue grounding deeper synthesis in this specific situation.` : ''}`;
 }
 
 // Parse baseline response (WADE for summary + path)
