@@ -2090,7 +2090,13 @@ CRITICAL FORMATTING RULES:
     setFollowUpLoading(false);
   };
 
-  const resetReading = () => {
+  const resetReading = (skipConfirm = false) => {
+    // Warn user if they have an active reading
+    if (!skipConfirm && parsedReading) {
+      if (!window.confirm('Start a new reading? Your current reading will be cleared.')) {
+        return;
+      }
+    }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
