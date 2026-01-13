@@ -1129,6 +1129,29 @@ export default function NirmanakaReader() {
       // Only update the requesting section's depth
       setDepthForSection(section, targetDepth);
 
+      // Scroll restoration: keep the section in view after content loads
+      // Uses scroll anchoring - find the element closest to current viewport
+      requestAnimationFrame(() => {
+        // Try to find the section that's currently visible in viewport
+        const candidates = section === 'summary' 
+          ? ['depth-section-summary', 'depth-synth-reading']
+          : section === 'whyAppeared' 
+          ? ['depth-synth-why']
+          : ['depth-section-path', 'depth-synth-path'];
+        
+        for (const id of candidates) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            // If element is near viewport (within 500px), scroll to it
+            if (rect.top > -500 && rect.top < window.innerHeight + 500) {
+              el.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+              break;
+            }
+          }
+        }
+      });
+
       // Accumulate token usage
       if (data.usage) {
         setTokenUsage(prev => prev ? {
@@ -3858,7 +3881,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           const isSummaryExpanding = expanding?.section === 'summary';
 
           return (
-            <div className="mb-6 rounded-xl border-2 border-amber-500/50 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(69, 26, 3, 0.4), rgba(120, 53, 15, 0.2))'}}>
+            <div id="depth-section-summary" className="mb-6 rounded-xl border-2 border-amber-500/50 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(69, 26, 3, 0.4), rgba(120, 53, 15, 0.2))'}}>
               <div className="p-5">
                 {/* Summary Header - clickable for collapse */}
                 <div
@@ -4158,7 +4181,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               const isPathArchCollapsed = collapsedSections['path-architecture'] !== false; // collapsed by default
 
               return (
-                <div className="mb-6 rounded-xl border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
+                <div id="depth-section-path" className="mb-6 rounded-xl border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
                   <div className="p-5">
                     {/* Path Header - clickable for collapse */}
                     <div
@@ -4539,7 +4562,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     const isSynthSummaryCollapsed = collapsedSections['synth-reading'] === true; // expanded by default
 
                     return (
-                      <div className="pb-5 border-b border-zinc-700/50">
+                      <div id="depth-synth-reading" className="pb-5 border-b border-zinc-700/50">
                         {/* Header */}
                         <div
                           className={`flex items-center justify-between cursor-pointer ${!isSynthSummaryCollapsed ? 'mb-3' : ''}`}
@@ -4620,7 +4643,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     if (!whyAppearedContent) return null;
 
                     return (
-                      <div className="pb-5 border-b border-zinc-700/50">
+                      <div id="depth-synth-why" className="pb-5 border-b border-zinc-700/50">
                         {/* Header */}
                         <div
                           className={`flex items-center justify-between cursor-pointer ${!isSynthWhyCollapsed ? 'mb-3' : ''}`}
@@ -4709,7 +4732,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     const isSynthPathCollapsed = collapsedSections['synth-invitation'] === true; // expanded by default
 
                     return (
-                      <div className="pb-5">
+                      <div id="depth-synth-path" className="pb-5">
                         {/* Header */}
                         <div
                           className={`flex items-center justify-between cursor-pointer ${!isSynthPathCollapsed ? 'mb-3' : ''}`}
