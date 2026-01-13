@@ -3691,11 +3691,35 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           );
         })()}
 
-        {/* Your Question - shows after visual spread */}
-        {parsedReading && !loading && !parsedReading.firstContact && question && (
+        {/* Your Question - shows after visual spread (non-Explore modes) */}
+        {parsedReading && !loading && !parsedReading.firstContact && question && spreadType !== 'explore' && (
           <div className="bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8">
             <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
             <div className="text-zinc-300 text-sm">{question}</div>
+          </div>
+        )}
+
+        {/* What's Active - shows after visual spread (Explore mode only) */}
+        {parsedReading && !loading && !parsedReading.firstContact && spreadType === 'explore' && dtpInput && (
+          <div id="whats-active-top" className="bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8 border border-amber-600/30">
+            <div className="text-[0.625rem] text-amber-400 tracking-wider mb-2">WHAT'S ACTIVE</div>
+            <div className="text-zinc-300 text-sm italic mb-3">"{dtpInput}"</div>
+            {dtpTokens && dtpTokens.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {dtpTokens.map((token, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      const el = document.getElementById(`content-${i}`);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className="px-2 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full hover:bg-amber-500/40 transition-colors cursor-pointer"
+                  >
+                    {token}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -4043,15 +4067,22 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           <div className="space-y-2">
             {/* Explore Mode: Original Input Display (B14) */}
             {spreadType === 'explore' && dtpInput && (
-              <div className="mb-6 rounded-xl border border-amber-600/30 bg-amber-950/20 p-5">
+              <div id="whats-active-cards" className="mb-6 rounded-xl border border-amber-600/30 bg-amber-950/20 p-5">
                 <div className="text-amber-400 text-xs uppercase tracking-wider mb-2">What's Active</div>
                 <div className="text-zinc-300 text-sm leading-relaxed italic mb-3">"{dtpInput}"</div>
                 {dtpTokens && dtpTokens.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {dtpTokens.map((token, i) => (
-                      <span key={i} className="px-2 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full">
+                      <button
+                        key={i}
+                        onClick={() => {
+                          const el = document.getElementById(`content-${i}`);
+                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                        className="px-2 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full hover:bg-amber-500/40 transition-colors cursor-pointer"
+                      >
                         {token}
-                      </span>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -4081,11 +4112,17 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
               return (
                 <div key={`card-group-${card.index}`} id={`content-${card.index}`}>
-                  {/* Token label for DTP (Explore) mode */}
+                  {/* Token label for DTP (Explore) mode - clickable to jump back to What's Active */}
                   {card.token && (
-                    <div className="text-amber-400 text-sm font-medium uppercase tracking-wider mb-2 ml-4">
-                      Regarding: {card.token}
-                    </div>
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById('whats-active-cards');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="text-amber-400 text-sm font-medium uppercase tracking-wider mb-2 ml-4 hover:text-amber-300 transition-colors cursor-pointer flex items-center gap-1"
+                    >
+                      <span className="text-xs">↑</span> Regarding: {card.token}
+                    </button>
                   )}
                   <DepthCard
                     cardData={card}
