@@ -4544,16 +4544,23 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 SYNTHESIS SECTION - The closing statement that ties everything together
                 Contains: Question/Input, The Reading, Why This Appeared, The Invitation
                 ═══════════════════════════════════════════════════════════════════ */}
-            {parsedReading && !loading && synthesisLoaded && (
+            {parsedReading && !loading && synthesisLoaded && (() => {
+              const isSynthesisCollapsed = collapsedSections['synthesis'] === true; // expanded by default
+              return (
               <div className="mt-8 rounded-2xl border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
-                {/* Synthesis Header */}
-                <div className="px-6 py-4 border-b border-amber-500/20 bg-amber-950/30">
+                {/* Synthesis Header - clickable for collapse */}
+                <div 
+                  className="px-6 py-4 border-b border-amber-500/20 bg-amber-950/30 cursor-pointer hover:bg-amber-950/40 transition-colors"
+                  onClick={() => toggleCollapse('synthesis', false)}
+                >
                   <div className="flex items-center justify-center gap-3">
+                    <span className={`text-sm transition-transform duration-200 ${isSynthesisCollapsed ? 'text-red-500' : 'text-amber-500'}`} style={{ transform: isSynthesisCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
                     <span className="text-xl">◈</span>
                     <span className="text-lg font-medium text-amber-400 uppercase tracking-wider">Synthesis</span>
                   </div>
                 </div>
 
+                {!isSynthesisCollapsed && (
                 <div className="p-6 space-y-6">
                   {/* ─────────────────────────────────────────────────────────────────
                       SECTION 1: Your Question / Your Draw / Your Declaration / What's Active
@@ -4920,8 +4927,10 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     )}
                   </div>
                 </div>
+                )}
               </div>
-            )}
+              );
+            })()}
 
             <div ref={messagesEndRef} />
           </div>
