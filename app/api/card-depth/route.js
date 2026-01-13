@@ -4,6 +4,7 @@
 // Uses Anthropic prompt caching for efficiency
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
+import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { STATUSES } from '../../../lib/constants.js';
 import {
   getArchetypeCorrection,
@@ -40,8 +41,8 @@ export async function POST(request) {
 
   // Build card-specific user message
   const userMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, letterContent, depth, previousContent, token, originalInput)
-    : buildBaselineMessage(n, draw, question, spreadType, letterContent, token, originalInput);
+    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput)
+    : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput);
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -105,7 +106,7 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for all sections (initial load)
-function buildBaselineMessage(n, draw, question, spreadType, letterContent, token = null, originalInput = null) {
+function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -115,6 +116,13 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent, toke
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
+
+  // Get position context for Reflect mode
+  const isReflect = spreadType === 'reflect';
+  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+  const position = spreadConfig?.positions?.[n - 1]; // n is 1-indexed
+  const positionName = position?.name || `Position ${n}`;
+  const positionLens = position?.lens || '';
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -178,10 +186,11 @@ function buildBaselineMessage(n, draw, question, spreadType, letterContent, toke
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} in a ${spreadType.toUpperCase()} reading.
+CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionLens ? `
+POSITION LENS: ${positionLens}` : ''}
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
-CARD ${n}: ${cardName}
+CARD ${n} — ${positionName}: ${cardName}
 Traditional Name: ${trans?.traditional || 'N/A'}
 Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
@@ -230,7 +239,7 @@ The token "${token}" should appear naturally woven into your interpretations, gr
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(n, draw, question, spreadType, letterContent, targetDepth, previousContent, token = null, originalInput = null) {
+function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -240,6 +249,12 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
   const cardName = `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
+
+  // Get position context for Reflect mode
+  const isReflect = spreadType === 'reflect';
+  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+  const position = spreadConfig?.positions?.[n - 1]; // n is 1-indexed
+  const positionName = position?.name || `Position ${n}`;
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -324,9 +339,9 @@ function buildDeepenMessage(n, draw, question, spreadType, letterContent, target
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} in a ${spreadType.toUpperCase()} reading.
+CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.
 
-CARD ${n}: ${cardName}
+CARD ${n} — ${positionName}: ${cardName}
 Status: ${stat?.name || 'Balanced'}
 
 PREVIOUS CONTENT (what the querent has already read):
