@@ -2092,7 +2092,7 @@ CRITICAL FORMATTING RULES:
 
   const resetReading = (skipConfirm = false) => {
     // Warn user if they have an active reading
-    if (!skipConfirm && parsedReading) {
+    if (!skipConfirm && draws) {
       if (!window.confirm('Start a new reading? Your current reading will be cleared.')) {
         return;
       }
