@@ -1045,19 +1045,26 @@ export default function NirmanakaReader() {
     setLetterLoadingDeeper(false);
   };
 
-  // Progressive deepening: Load SWIM or DEEP for Synthesis (Summary + Path)
-  const loadDeeperSynthesis = async (targetDepth) => {
+  // Progressive deepening: Load SWIM or DEEP for Synthesis (Summary + WhyAppeared + Path)
+  // section: 'summary' | 'whyAppeared' | 'path' - which section is requesting the depth change
+  const loadDeeperSynthesis = async (targetDepth, section = 'summary') => {
     if (synthesisLoadingDeeper) return;
 
     const summary = parsedReading?.summary;
     const whyAppeared = parsedReading?.whyAppeared;
     const path = parsedReading?.path;
 
-    // Check if content already exists at target depth
+    // Helper to set depth for a specific section only
+    const setDepthForSection = (sec, depth) => {
+      if (sec === 'summary') setSummaryDepth(depth);
+      else if (sec === 'whyAppeared') setWhyAppearedDepth(depth);
+      else if (sec === 'path') setPathDepth(depth);
+    };
+
+    // Check if content already exists at target depth for all sections
+    // If so, just update the requesting section's depth (content already loaded)
     if (summary?.[targetDepth] && whyAppeared?.[targetDepth] && path?.[targetDepth]) {
-      setSummaryDepth(targetDepth);
-      setWhyAppearedDepth(targetDepth);
-      setPathDepth(targetDepth);
+      setDepthForSection(section, targetDepth);
       return;
     }
 
@@ -1119,9 +1126,8 @@ export default function NirmanakaReader() {
         }
       };
       setParsedReading(updatedReading);
-      setSummaryDepth(targetDepth);
-      setWhyAppearedDepth(targetDepth);
-      setPathDepth(targetDepth);
+      // Only update the requesting section's depth
+      setDepthForSection(section, targetDepth);
 
       // Accumulate token usage
       if (data.usage) {
@@ -3878,7 +3884,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               if (level === 'shallow' || level === 'wade') {
                                 setSummaryDepth(level);
                               } else {
-                                loadDeeperSynthesis(level);
+                                loadDeeperSynthesis(level, 'summary');
                               }
                             }}
                             disabled={synthesisLoadingDeeper}
@@ -3911,7 +3917,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         if (newDepth === 'shallow' || newDepth === 'wade') {
                           setSummaryDepth(newDepth);
                         } else {
-                          loadDeeperSynthesis(newDepth);
+                          loadDeeperSynthesis(newDepth, 'summary');
                         }
                       }}
                       hasContent={{
@@ -4179,7 +4185,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                   if (level === 'shallow' || level === 'wade') {
                                     setPathDepth(level);
                                   } else {
-                                    loadDeeperSynthesis(level);
+                                    loadDeeperSynthesis(level, 'path');
                                   }
                                 }}
                                 disabled={synthesisLoadingDeeper}
@@ -4212,7 +4218,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             if (newDepth === 'shallow' || newDepth === 'wade') {
                               setPathDepth(newDepth);
                             } else {
-                              loadDeeperSynthesis(newDepth);
+                              loadDeeperSynthesis(newDepth, 'path');
                             }
                           }}
                           hasContent={{
@@ -4552,7 +4558,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                 return (
                                   <button
                                     key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setSummaryDepth(level) : loadDeeperSynthesis(level)}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setSummaryDepth(level) : loadDeeperSynthesis(level, 'summary')}
                                     disabled={synthesisLoadingDeeper}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-amber-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
@@ -4567,7 +4573,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthSummaryCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d, 'summary')} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingDeeper} />
                           </div>
                         )}
                         {/* Content */}
@@ -4633,7 +4639,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                 return (
                                   <button
                                     key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setWhyAppearedDepth(level) : loadDeeperSynthesis(level)}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setWhyAppearedDepth(level) : loadDeeperSynthesis(level, 'whyAppeared')}
                                     disabled={synthesisLoadingDeeper}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-cyan-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
@@ -4648,7 +4654,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthWhyCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d, 'whyAppeared')} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingDeeper} />
                           </div>
                         )}
                         {/* Content */}
@@ -4722,7 +4728,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                 return (
                                   <button
                                     key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setPathDepth(level) : loadDeeperSynthesis(level)}
+                                    onClick={() => level === 'shallow' || level === 'wade' ? setPathDepth(level) : loadDeeperSynthesis(level, 'path')}
                                     disabled={synthesisLoadingDeeper}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-emerald-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
@@ -4737,7 +4743,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthPathCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d)} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d, 'path')} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingDeeper} />
                           </div>
                         )}
                         {/* Content */}
