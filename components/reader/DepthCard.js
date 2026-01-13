@@ -5,6 +5,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
+import { REFLECT_SPREADS } from '../../lib/spreads.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
@@ -156,9 +157,10 @@ const DepthCard = ({
   const isBalanced = draw.status === 1;
   const isReflect = spreadType === 'reflect';
 
-  // Get position/frame label
+  // Get position/frame label - use spread position names for Reflect mode
+  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
   const posLabel = isReflect
-    ? `Position ${cardData.index + 1}`
+    ? (spreadConfig?.positions?.[cardData.index]?.name || `Position ${cardData.index + 1}`)
     : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Position ${cardData.index + 1}`);
 
   // Get house for coloring
