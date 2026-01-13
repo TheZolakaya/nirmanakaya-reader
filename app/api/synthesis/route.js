@@ -231,7 +231,8 @@ Continue grounding deeper synthesis in this specific situation.` : ''}`;
 // Parse baseline response (WADE for summary + path)
 function parseBaselineResponse(text) {
   const extractSection = (marker) => {
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
+    // Match markers that may include underscores (like WHY_APPEARED)
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z_]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
     let content = match[1].trim();
@@ -240,6 +241,8 @@ function parseBaselineResponse(text) {
     content = content.replace(/^#{1,3}\s*$/gm, '');
     content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
     content = content.replace(/\n{3,}/g, '\n\n');
+    // Strip any leftover marker references
+    content = content.replace(/\[?[A-Z_]+:(SHALLOW|WADE|SWIM|DEEP|ARCHITECTURE)\]?/gi, '');
     return content.trim();
   };
 
@@ -266,7 +269,8 @@ function parseBaselineResponse(text) {
 // Parse deepen response (SWIM or DEEP)
 function parseDeepenResponse(text, depth, previousContent) {
   const extractSection = (marker) => {
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
+    // Match markers that may include underscores (like WHY_APPEARED)
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[[A-Z_]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
     let content = match[1].trim();
@@ -275,6 +279,8 @@ function parseDeepenResponse(text, depth, previousContent) {
     content = content.replace(/^#{1,3}\s*$/gm, '');
     content = content.replace(/^#{1,3}\s+[A-Z].*$/gim, '');
     content = content.replace(/\n{3,}/g, '\n\n');
+    // Strip any leftover marker references
+    content = content.replace(/\[?[A-Z_]+:(SHALLOW|WADE|SWIM|DEEP|ARCHITECTURE)\]?/gi, '');
     return content.trim();
   };
 
