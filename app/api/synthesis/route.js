@@ -107,9 +107,14 @@ function buildBaselineMessage(question, draws, cards, letter, spreadType, spread
     const cardName = `${statusPrefix}${statusPrefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
     const isImbalanced = draw.status !== 1;
 
+    // For balanced cards, include growth opportunity. For imbalanced, include rebalancer.
+    const correctionInfo = isImbalanced
+      ? (card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : '')
+      : (card.growth ? `Growth Opportunity: ${card.growth.wade || card.growth.surface || ''}` : '');
+
     return `CARD ${i + 1}: ${cardName}
 Reading: ${card.wade || card.surface || '(loading)'}
-${isImbalanced && card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : ''}
+${correctionInfo}
 Why: ${card.why?.wade || card.why?.surface || ''}`;
   }).join('\n\n');
 
