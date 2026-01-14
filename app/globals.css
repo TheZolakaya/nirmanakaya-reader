@@ -62,7 +62,7 @@ body {
   animation: rainbow-cycle 8s ease-in-out infinite;
 }
 
-/* Staggered fade in/out for cosmic taglines */
+/* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }
   10%, 30% { opacity: 1; }
@@ -72,6 +72,18 @@ body {
 .animate-tagline-fade {
   opacity: 0;
   animation: tagline-fade 7.5s ease-in-out infinite;
+}
+
+/* Staggered fade in/out for cosmic taglines (4 lines, 10s cycle) */
+@keyframes tagline-fade-4 {
+  0%, 100% { opacity: 0; }
+  5%, 20% { opacity: 1; }
+  25% { opacity: 0; }
+}
+
+.animate-tagline-fade-4 {
+  opacity: 0;
+  animation: tagline-fade-4 10s ease-in-out infinite;
 }
 
 /* Smooth expand/collapse for depth cards */

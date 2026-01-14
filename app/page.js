@@ -3048,16 +3048,19 @@ CRITICAL FORMATTING RULES:
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
-                  {/* Cosmic tagline - staggered fade in/out */}
+                  {/* Cosmic tagline - staggered fade in/out (4 lines, 10s cycle) */}
                   <div className="mb-2 h-8 relative">
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '0s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '0s' }}>
                       You are a creator
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '2.5s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '2.5s' }}>
                       Within The Creator
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '5s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '5s' }}>
                       Expanding Creation
+                    </p>
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '7.5s' }}>
+                      Consciousness is Primary
                     </p>
                   </div>
 
