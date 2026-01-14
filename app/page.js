@@ -3040,15 +3040,8 @@ CRITICAL FORMATTING RULES:
         <source src={backgrounds[selectedBackground].src} type="video/mp4" />
       </video>
       )}
-      {/* Dark overlay for readability */}
-      {contentDim > 0 && (
-        <div
-          className="fixed inset-0 bg-black z-[5] pointer-events-none"
-          style={{ opacity: contentDim / 100 }}
-        />
-      )}
       {/* Main content overlay */}
-      <div className="relative z-10">
+      <div className="relative z-10" style={{ backgroundColor: `rgba(0, 0, 0, ${contentDim / 100})` }}>
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
         {/* Floating Controls - only show when logged in */}
