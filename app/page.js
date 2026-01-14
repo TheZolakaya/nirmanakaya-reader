@@ -855,7 +855,8 @@ export default function NirmanakaReader() {
             system: systemPrompt,
             model: "claude-haiku-4-5-20251001",
             isFirstContact: true,
-            max_tokens: 300
+            max_tokens: 300,
+            userId: currentUser?.id
           })
         });
         const data = await res.json();
@@ -1382,7 +1383,8 @@ export default function NirmanakaReader() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           isDTP: true,
-          dtpInput: input
+          dtpInput: input,
+          userId: currentUser?.id
         })
       });
 
@@ -1729,7 +1731,8 @@ Interpret this new card as the architecture's response to their declared directi
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
-          max_tokens: 8000
+          max_tokens: 8000,
+          userId: currentUser?.id
         })
       });
       const data = await res.json();
@@ -1922,7 +1925,8 @@ Interpret this new card as the architecture's response to their declared directi
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
-          max_tokens: 8000
+          max_tokens: 8000,
+          userId: currentUser?.id
         })
       });
       const data = await res.json();
@@ -2138,7 +2142,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514", max_tokens: 2000 })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514", max_tokens: 2000, userId: currentUser?.id })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -2252,7 +2256,8 @@ CRITICAL FORMATTING RULES:
           messages: [{ role: 'user', content: contextMessage }],
           system: systemPrompt,
           model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
-          max_tokens: 2000
+          max_tokens: 2000,
+          userId: currentUser?.id
         })
       });
       const data = await res.json();

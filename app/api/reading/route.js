@@ -8,6 +8,75 @@ import { ARCHETYPES } from '../../../lib/archetypes.js';
 import { STATUSES } from '../../../lib/constants.js';
 import { getComponent } from '../../../lib/corrections.js';
 import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
+import { createClient } from '@supabase/supabase-js';
+
+// Server-side Supabase client for ban/throttle checks
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseAdmin = supabaseUrl && supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : null;
+
+// Check if user can make a reading (server-side)
+async function checkUserAccess(userId) {
+  if (!supabaseAdmin || !userId) return { canRead: true };
+
+  const { data: profile } = await supabaseAdmin
+    .from('profiles')
+    .select('is_banned, daily_token_limit, tokens_used_today, last_token_reset')
+    .eq('id', userId)
+    .single();
+
+  if (!profile) return { canRead: true };
+
+  // Check ban
+  if (profile.is_banned) {
+    return { canRead: false, reason: 'Account suspended' };
+  }
+
+  // Check daily limit
+  if (profile.daily_token_limit !== null) {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Reset if new day
+    if (profile.last_token_reset !== today) {
+      await supabaseAdmin
+        .from('profiles')
+        .update({ tokens_used_today: 0, last_token_reset: today })
+        .eq('id', userId);
+      return { canRead: true };
+    }
+
+    if (profile.tokens_used_today >= profile.daily_token_limit) {
+      return { canRead: false, reason: 'Daily token limit reached. Try again tomorrow.' };
+    }
+  }
+
+  return { canRead: true };
+}
+
+// Record token usage after successful reading
+async function recordUsage(userId, tokensUsed) {
+  if (!supabaseAdmin || !userId) return;
+
+  const { data: profile } = await supabaseAdmin
+    .from('profiles')
+    .select('tokens_used_today, last_token_reset')
+    .eq('id', userId)
+    .single();
+
+  if (!profile) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  const newCount = profile.last_token_reset === today
+    ? (profile.tokens_used_today || 0) + tokensUsed
+    : tokensUsed;
+
+  await supabaseAdmin
+    .from('profiles')
+    .update({ tokens_used_today: newCount, last_token_reset: today })
+    .eq('id', userId);
+}
 
 // Build DTP system prompt for token extraction ONLY
 // Card interpretations happen through standard card-depth flow
@@ -35,7 +104,15 @@ CRITICAL: Return ONLY the JSON object with the tokens array. No interpretation, 
 }
 
 export async function POST(request) {
-  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws } = await request.json();
+  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, userId } = await request.json();
+
+  // Check if user is banned or throttled (if userId provided)
+  if (userId) {
+    const { canRead, reason } = await checkUserAccess(userId);
+    if (!canRead) {
+      return Response.json({ error: reason }, { status: 403 });
+    }
+  }
 
   // DTP mode handling - extract tokens only
   // Card interpretations happen through standard card-depth flow
@@ -84,6 +161,12 @@ export async function POST(request) {
         jsonText = jsonText.trim();
 
         const dtpResponse = JSON.parse(jsonText);
+
+        // Record token usage
+        if (userId && data.usage) {
+          const totalTokens = (data.usage.input_tokens || 0) + (data.usage.output_tokens || 0);
+          await recordUsage(userId, totalTokens);
+        }
 
         // Return only tokens - card generation happens through standard flow
         return Response.json({
@@ -149,6 +232,13 @@ export async function POST(request) {
     }
 
     const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
+
+    // Record token usage
+    if (userId && data.usage) {
+      const totalTokens = (data.usage.input_tokens || 0) + (data.usage.output_tokens || 0);
+      await recordUsage(userId, totalTokens);
+    }
+
     // Include cache stats in usage for monitoring
     return Response.json({
       reading: text,
