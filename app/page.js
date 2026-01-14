@@ -3061,6 +3061,13 @@ CRITICAL FORMATTING RULES:
               >
                 {showBgControls ? "✕" : "◐"}
               </button>
+              <a
+                href="mailto:chriscrilly@gmail.com?subject=Nirmanakaya Feedback"
+                className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-amber-400 text-xs font-medium flex items-center justify-center transition-all"
+                title="Send feedback"
+              >
+                ✉
+              </a>
               {showBgControls && (
                 <>
                   <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
