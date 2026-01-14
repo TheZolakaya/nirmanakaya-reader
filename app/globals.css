@@ -62,6 +62,18 @@ body {
   animation: rainbow-cycle 8s ease-in-out infinite;
 }
 
+/* Staggered fade in/out for cosmic taglines */
+@keyframes tagline-fade {
+  0%, 100% { opacity: 0; }
+  10%, 30% { opacity: 1; }
+  40% { opacity: 0; }
+}
+
+.animate-tagline-fade {
+  opacity: 0;
+  animation: tagline-fade 7.5s ease-in-out infinite;
+}
+
 /* Smooth expand/collapse for depth cards */
 .depth-content {
   transition: all 0.3s ease-out;

@@ -3048,21 +3048,21 @@ CRITICAL FORMATTING RULES:
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
-                  {/* Cosmic tagline - tighter to title */}
-                  <div className="mb-4 space-y-0.5">
-                    <p className="text-zinc-300 text-lg sm:text-xl font-light tracking-wide">
+                  {/* Cosmic tagline - staggered fade in/out */}
+                  <div className="mb-2 h-8 relative">
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '0s' }}>
                       You are a creator
                     </p>
-                    <p className="text-zinc-200 text-lg sm:text-xl font-light tracking-wide">
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '2.5s' }}>
                       Within The Creator
                     </p>
-                    <p className="text-zinc-100 text-lg sm:text-xl font-light tracking-wide">
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade" style={{ animationDelay: '5s' }}>
                       Expanding Creation
                     </p>
                   </div>
 
                   {/* Title with rainbow cycling animation */}
-                  <h1 className="text-4xl sm:text-5xl font-extralight tracking-widest mb-1 drop-shadow-lg">
+                  <h1 className="text-4xl sm:text-5xl font-extralight tracking-widest mb-0.5 drop-shadow-lg">
                     {'NIRMANAKAYA'.split('').map((letter, i) => (
                       <span
                         key={i}
@@ -3076,7 +3076,7 @@ CRITICAL FORMATTING RULES:
                       </span>
                     ))}
                   </h1>
-                  <p className="text-zinc-400/80 text-xs tracking-widest uppercase mb-8">
+                  <p className="text-black/70 text-[0.65rem] tracking-widest uppercase mb-8 font-medium">
                     Discovered through the math of faith
                   </p>
 
