@@ -3148,8 +3148,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
             </div>
-            {/* Auth button - bottom of stack (so dropdown has room) */}
-            <div className="fixed top-[6.25rem] right-3 z-50" onClick={(e) => e.stopPropagation()}>
+            {/* Auth button - bottom of stack (below all background controls) */}
+            <div className="fixed top-56 right-3 z-50" onClick={(e) => e.stopPropagation()}>
               <AuthButton onAuthChange={setCurrentUser} />
             </div>
           </>
