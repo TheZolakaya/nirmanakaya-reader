@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { setReadingPublic, getUser } from '../../lib/supabase';
 
-export default function ShareReadingButton({ reading, readingId }) {
+export default function ShareReadingButton({ reading, readingId, fallbackUrl }) {
   const [sharing, setSharing] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [copied, setCopied] = useState(false);
@@ -26,18 +26,13 @@ export default function ShareReadingButton({ reading, readingId }) {
           setShareUrl(url);
           setShowModal(true);
         }
-      } else {
-        // Not authenticated - create a temporary share via URL params
-        // This is a fallback that encodes the reading in the URL
-        const encoded = encodeURIComponent(JSON.stringify({
-          question: reading.question,
-          mode: reading.mode,
-          cards: reading.cards?.slice(0, 3), // Limit for URL length
-          timestamp: new Date().toISOString()
-        }));
-        const url = `${window.location.origin}/?shared=${encoded}`;
-        setShareUrl(url);
+      } else if (fallbackUrl) {
+        // Use pre-computed share URL if available
+        setShareUrl(fallbackUrl);
         setShowModal(true);
+      } else {
+        // No fallback URL available
+        console.warn('No share URL available - reading must be saved first');
       }
     } catch (e) {
       console.error('Share failed:', e);

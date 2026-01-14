@@ -114,6 +114,7 @@ const DepthCard = ({
   collapsedThreads = {},
   setCollapsedThreads,
   question = '',
+  sectionKey = '',  // For thread scroll targeting
   // On-demand loading props
   isLoading = false,
   isNotLoaded = false,
@@ -437,9 +438,9 @@ const DepthCard = ({
   };
 
   // Expansion handling
-  const sectionKey = `card-${cardData.index}`;
-  const sectionExpansions = expansions[sectionKey] || {};
-  const isExpanding = expanding?.section === sectionKey;
+  const expansionKey = `card-${cardData.index}`;
+  const sectionExpansions = expansions[expansionKey] || {};
+  const isExpanding = expanding?.section === expansionKey;
 
   const getButtonStyle = (hasExpansion, isThisExpanding, isExpandingOther) => {
     return `text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
@@ -1398,14 +1399,14 @@ const DepthCard = ({
 
           {/* Thread Results - Reflect/Forge responses */}
           {threadData && threadData.length > 0 && (
-            <div className="mt-4 space-y-4">
+            <div className="mt-4 space-y-4" data-thread-key={sectionKey}>
               {threadData.map((threadItem, threadIndex) => {
                 const isReflectItem = threadItem.operation === 'reflect';
                 const itemTrans = getComponent(threadItem.draw.transient);
                 const itemStat = STATUSES[threadItem.draw.status];
                 const itemStatusPrefix = itemStat.prefix || 'Balanced';
                 return (
-                  <div key={threadIndex} className={`rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                  <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                     <div className="flex items-center gap-2 mb-3">
                       <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflectItem ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
                         {isReflectItem ? '↩ Reflect' : '⚡ Forge'}

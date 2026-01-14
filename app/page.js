@@ -1714,6 +1714,17 @@ Interpret this new card as the architecture's response to their declared directi
       setThreadOperations(prev => ({ ...prev, [threadKey]: null }));
       setThreadContexts(prev => ({ ...prev, [threadKey]: '' }));
 
+      // Scroll to the new thread item after it renders
+      requestAnimationFrame(() => {
+        const threadContainer = document.querySelector(`[data-thread-key="${threadKey}"]`);
+        if (threadContainer) {
+          const lastThread = threadContainer.querySelector('.thread-item:last-child');
+          if (lastThread) {
+            lastThread.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+
       // Accumulate token usage
       if (data.usage) {
         setTokenUsage(prev => prev ? {
@@ -3701,6 +3712,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     cards: draws?.slice(0, 3)
                   }}
                   readingId={savedReadingId}
+                  fallbackUrl={shareUrl}
                 />
               </div>
               <button
@@ -3768,6 +3780,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         cards: draws?.slice(0, 3)
                       }}
                       readingId={savedReadingId}
+                      fallbackUrl={shareUrl}
                     />
                     <button onClick={exportToHTML} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">Export</button>
                   </>
@@ -4283,6 +4296,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
                     question={question}
+                    sectionKey={cardSectionKey}
                     // On-demand loading props
                     isLoading={isCardLoading}
                     isNotLoaded={card._notLoaded && !isCardLoaded}
@@ -4579,14 +4593,14 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
                         {/* Thread Results for Path */}
                         {threadData['path'] && threadData['path'].length > 0 && (
-                          <div className="border-t border-emerald-700/50 mt-5 pt-5 space-y-4">
+                          <div className="border-t border-emerald-700/50 mt-5 pt-5 space-y-4" data-thread-key="path">
                             {threadData['path'].map((threadItem, threadIndex) => {
                               const isReflect = threadItem.operation === 'reflect';
                               const trans = getComponent(threadItem.draw.transient);
                               const stat = STATUSES[threadItem.draw.status];
                               const statusPrefix = stat.prefix || 'Balanced';
                               return (
-                                <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                                <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                                   <div className="flex items-center gap-2 mb-3">
                                     <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
                                       {isReflect ? '↩ Reflect' : '⚡ Forge'}
@@ -5035,14 +5049,14 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
                     {/* Thread Results */}
                     {threadData['unified'] && threadData['unified'].length > 0 && (
-                      <div className="mt-5 space-y-4">
+                      <div className="mt-5 space-y-4" data-thread-key="unified">
                         {threadData['unified'].map((threadItem, threadIndex) => {
                           const isReflect = threadItem.operation === 'reflect';
                           const trans = getComponent(threadItem.draw.transient);
                           const stat = STATUSES[threadItem.draw.status];
                           const statusPrefix = stat.prefix || 'Balanced';
                           return (
-                            <div key={threadIndex} className={`rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                            <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                               <div className="flex items-center gap-2 mb-3">
                                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>{isReflect ? '↩ Reflect' : '⚡ Forge'}</span>
                               </div>
