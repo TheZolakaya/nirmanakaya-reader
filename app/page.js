@@ -443,6 +443,7 @@ export default function NirmanakaReader() {
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
+  const [cardOpacity, setCardOpacity] = useState(100); // Card/content opacity (0-100)
   const [selectedBackground, setSelectedBackground] = useState(3); // Which background video (0 = none, 3 = cosmos)
   const backgrounds = [
     { id: "none", src: null, label: "None" },
@@ -675,6 +676,7 @@ export default function NirmanakaReader() {
         if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
+        if (prefs.cardOpacity !== undefined) setCardOpacity(prefs.cardOpacity);
         if (prefs.selectedBackground !== undefined) setSelectedBackground(prefs.selectedBackground);
       }
     } catch (e) {
@@ -716,6 +718,7 @@ export default function NirmanakaReader() {
       // Background settings
       animatedBackground,
       backgroundOpacity,
+      cardOpacity,
       selectedBackground
     };
     try {
@@ -723,7 +726,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, selectedBackground]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, cardOpacity, selectedBackground]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3038,7 +3041,7 @@ CRITICAL FORMATTING RULES:
       </video>
       )}
       {/* Main content overlay */}
-      <div className="relative z-10">
+      <div className="relative z-10" style={{ opacity: cardOpacity / 100 }}>
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
         {/* Floating Controls - only show when logged in */}
@@ -3084,6 +3087,18 @@ CRITICAL FORMATTING RULES:
                         title={bg.label}
                       />
                     ))}
+                  </div>
+                  {/* Card opacity slider */}
+                  <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
+                    <span className="text-zinc-500 text-xs">◧</span>
+                    <input
+                      type="range"
+                      min="30"
+                      max="100"
+                      value={cardOpacity}
+                      onChange={(e) => setCardOpacity(Number(e.target.value))}
+                      className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
                   </div>
                 </>
               )}
