@@ -149,8 +149,13 @@ const PulsatingLoader = ({ color = 'text-amber-400' }) => {
 };
 
 // Helper to extract summary content from either string (legacy) or object (new depth format)
-const getSummaryContent = (summary, depth = 'shallow') => {
-  if (!summary) return '';
+const getSummaryContent = (summaryInput, depth = 'shallow') => {
+  if (!summaryInput) return '';
+  // Parse JSON strings from saved readings
+  let summary = summaryInput;
+  if (typeof summary === 'string' && summary.startsWith('{')) {
+    try { summary = JSON.parse(summary); } catch (e) { return summary; }
+  }
   if (typeof summary === 'string') return summary;
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
@@ -169,8 +174,13 @@ const getSummaryContent = (summary, depth = 'shallow') => {
 };
 
 // Helper to extract "Why This Reading Appeared" content at specified depth
-const getWhyAppearedContent = (whyAppeared, depth = 'shallow') => {
-  if (!whyAppeared) return '';
+const getWhyAppearedContent = (whyInput, depth = 'shallow') => {
+  if (!whyInput) return '';
+  // Parse JSON strings from saved readings
+  let whyAppeared = whyInput;
+  if (typeof whyAppeared === 'string' && whyAppeared.startsWith('{')) {
+    try { whyAppeared = JSON.parse(whyAppeared); } catch (e) { return whyAppeared; }
+  }
   if (typeof whyAppeared === 'string') return whyAppeared;
   // Format: { wade, swim, deep } - shallow derives from wade
   if (depth === 'shallow') {
@@ -187,8 +197,13 @@ const getWhyAppearedContent = (whyAppeared, depth = 'shallow') => {
 };
 
 // Helper to extract letter content from either string (legacy) or object (new depth format)
-const getLetterContent = (letter, depth = 'shallow') => {
-  if (!letter) return '';
+const getLetterContent = (letterInput, depth = 'shallow') => {
+  if (!letterInput) return '';
+  // Parse JSON strings from saved readings
+  let letter = letterInput;
+  if (typeof letter === 'string' && letter.startsWith('{')) {
+    try { letter = JSON.parse(letter); } catch (e) { return letter; }
+  }
   if (typeof letter === 'string') return letter;
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
@@ -4042,7 +4057,11 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {/* Letter - after Question */}
         {parsedReading && !loading && parsedReading.letter && !parsedReading.firstContact && (() => {
           // Handle both legacy (string) and new (object) formats
-          const letter = parsedReading.letter;
+          // Also handle JSON strings that need parsing (from saved readings)
+          let letter = parsedReading.letter;
+          if (typeof letter === 'string' && letter.startsWith('{')) {
+            try { letter = JSON.parse(letter); } catch (e) { /* keep as string */ }
+          }
           const isLegacy = typeof letter === 'string';
           // Helper to get shallow content (first 1-2 sentences from wade)
           const getShallowContent = (wadeContent) => {
