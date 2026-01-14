@@ -86,6 +86,18 @@ body {
   animation: tagline-fade-4 10s ease-in-out infinite;
 }
 
+/* Special animation for "Consciousness is Primary" - holds longer, fades slower */
+@keyframes tagline-fade-4-hold {
+  0%, 100% { opacity: 0; }
+  5%, 28% { opacity: 1; }   /* Holds ~2.3s vs 1.5s for others */
+  40% { opacity: 0; }       /* Slower fade out - 1.2s vs 0.5s */
+}
+
+.animate-tagline-fade-4-hold {
+  opacity: 0;
+  animation: tagline-fade-4-hold 10s ease-in-out infinite;
+}
+
 /* Smooth expand/collapse for depth cards */
 .depth-content {
   transition: all 0.3s ease-out;

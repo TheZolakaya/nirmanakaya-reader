@@ -2932,47 +2932,49 @@ CRITICAL FORMATTING RULES:
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
-        {/* Floating Text Size Slider - fixed position */}
-        <TextSizeSlider />
-
-        {/* Floating Help Button - below text sizer */}
-        <div className="fixed top-14 right-3 z-50">
-          <button
-            onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
-            className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
-          >
-            ?
-          </button>
-          {helpPopover === 'unified' && (
-            <div className="help-popover-content absolute top-full mt-2 right-0 z-50 w-80 sm:w-96">
-              <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
-                <div className="space-y-4 text-sm">
-                  <div>
-                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
-                    <div className="space-y-2">
-                      <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
-                      <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
-                      <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
-                      <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
+        {/* Floating Text Size Slider & Help Button - only show when logged in */}
+        {currentUser && (
+          <>
+            <TextSizeSlider />
+            <div className="fixed top-14 right-3 z-50">
+              <button
+                onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
+                className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
+              >
+                ?
+              </button>
+              {helpPopover === 'unified' && (
+                <div className="help-popover-content absolute top-full mt-2 right-0 z-50 w-80 sm:w-96">
+                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                    <div className="space-y-4 text-sm">
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
+                        <div className="space-y-2">
+                          <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
+                        <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
+                        <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
+                      </div>
+                      <div>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
+                        <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
-                    <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
-                  </div>
-                  <div>
-                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
-                    <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
-                  </div>
-                  <div>
-                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
-                    <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
 
         {/* Header - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
@@ -3059,7 +3061,7 @@ CRITICAL FORMATTING RULES:
                     <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '5s' }}>
                       Expanding Creation
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '7.5s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4-hold" style={{ animationDelay: '7.5s' }}>
                       Consciousness is Primary
                     </p>
                   </div>
