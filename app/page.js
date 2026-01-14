@@ -447,9 +447,11 @@ export default function NirmanakaReader() {
   const backgrounds = [
     { id: "none", src: null, label: "None" },
     { id: "ocean", src: "/video/background.mp4", label: "Ocean" },
+    { id: "ocean2", src: "/video/ocean2.mp4", label: "Deep Ocean" },
     { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
-    { id: "aurora", src: "/video/aurora.mp4", label: "Aurora" },
-    { id: "nebula", src: "/video/nebula.mp4", label: "Nebula" },
+    { id: "rainbow", src: "/video/rainbow.mp4", label: "Rainbow" },
+    { id: "forest", src: "/video/forest.mp4", label: "Forest" },
+    { id: "violet", src: "/video/violet.mp4", label: "Violet" },
   ];
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
@@ -3028,7 +3030,7 @@ CRITICAL FORMATTING RULES:
         loop
         muted
         playsInline
-        ref={(el) => { if (el) el.playbackRate = 0.25; }}
+        ref={(el) => { if (el) el.playbackRate = 1.0; }}
         className="fixed inset-0 w-full h-full object-cover z-0"
         style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
       >
