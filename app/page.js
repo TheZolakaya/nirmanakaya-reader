@@ -2970,11 +2970,19 @@ CRITICAL FORMATTING RULES:
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
-        {/* Floating Text Size Slider & Help Button - only show when logged in */}
+        {/* Floating Controls - only show when logged in */}
         {currentUser && (
           <>
-            <TextSizeSlider />
+            {/* Auth button - top of stack */}
+            <div className="fixed top-3 right-3 z-50" onClick={(e) => e.stopPropagation()}>
+              <AuthButton onAuthChange={setCurrentUser} />
+            </div>
+            {/* Text size slider - below auth */}
             <div className="fixed top-14 right-3 z-50">
+              <TextSizeSlider />
+            </div>
+            {/* Help button - below text size */}
+            <div className="fixed top-[6.25rem] right-3 z-50">
               <button
                 onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
                 className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
@@ -3020,10 +3028,6 @@ CRITICAL FORMATTING RULES:
           className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          {/* Auth button - top right */}
-          <div className="absolute top-0 right-0" onClick={(e) => e.stopPropagation()}>
-            <AuthButton onAuthChange={setCurrentUser} />
-          </div>
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}

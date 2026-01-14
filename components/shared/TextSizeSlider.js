@@ -50,7 +50,7 @@ const TextSizeSlider = () => {
   };
 
   return (
-    <div ref={containerRef} className="fixed top-3 right-3 z-50">
+    <div ref={containerRef} className="relative">
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
