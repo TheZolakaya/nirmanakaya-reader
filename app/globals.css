@@ -74,28 +74,28 @@ body {
   animation: tagline-fade 7.5s ease-in-out infinite;
 }
 
-/* Staggered fade in/out for cosmic taglines (4 lines, 10s cycle) */
+/* Staggered fade in/out for cosmic taglines (4 lines, 12s cycle) */
 @keyframes tagline-fade-4 {
   0%, 100% { opacity: 0; }
-  5%, 20% { opacity: 1; }
-  25% { opacity: 0; }
+  4%, 17% { opacity: 1; }
+  21% { opacity: 0; }
 }
 
 .animate-tagline-fade-4 {
   opacity: 0;
-  animation: tagline-fade-4 10s ease-in-out infinite;
+  animation: tagline-fade-4 12s ease-in-out infinite;
 }
 
 /* Special animation for "Consciousness is Primary" - holds longer, fades slower */
 @keyframes tagline-fade-4-hold {
   0%, 100% { opacity: 0; }
-  5%, 28% { opacity: 1; }   /* Holds ~2.3s vs 1.5s for others */
-  40% { opacity: 0; }       /* Slower fade out - 1.2s vs 0.5s */
+  4%, 22% { opacity: 1; }   /* Holds ~2.2s vs 1.6s for others */
+  30% { opacity: 0; }       /* Slower fade out - completes just as cycle restarts */
 }
 
 .animate-tagline-fade-4-hold {
   opacity: 0;
-  animation: tagline-fade-4-hold 10s ease-in-out infinite;
+  animation: tagline-fade-4-hold 12s ease-in-out infinite;
 }
 
 /* Smooth expand/collapse for depth cards */
