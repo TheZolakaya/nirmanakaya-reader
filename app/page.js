@@ -3026,21 +3026,39 @@ CRITICAL FORMATTING RULES:
         {/* Controls */}
         {!draws && (
           <>
-            {/* Auth Gate - Require sign-in to do readings */}
+            {/* Auth Gate - Cosmic Landing */}
             {!currentUser ? (
-              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-8 mb-6 max-w-lg mx-auto text-center">
-                <h2 className="text-xl font-light text-zinc-100 mb-3">Welcome to Nirmanakaya</h2>
-                <p className="text-zinc-400 text-sm mb-6">
-                  Sign in to explore consciousness architecture and save your readings.
+              <div className="max-w-2xl mx-auto text-center py-8 px-4">
+                {/* Cosmic tagline */}
+                <div className="mb-8 space-y-1">
+                  <p className="text-zinc-400 text-lg sm:text-xl font-light tracking-wide">
+                    You are a creator...
+                  </p>
+                  <p className="text-zinc-300 text-lg sm:text-xl font-light tracking-wide">
+                    Within The Creator...
+                  </p>
+                  <p className="text-zinc-200 text-lg sm:text-xl font-light tracking-wide">
+                    Expanding Creation.
+                  </p>
+                </div>
+
+                {/* Title */}
+                <h1 className="text-4xl sm:text-5xl font-extralight text-amber-400 tracking-widest mb-3">
+                  NIRMANAKAYA
+                </h1>
+                <p className="text-zinc-500 text-sm italic mb-10">
+                  Discovered through the math of faith
                 </p>
+
+                {/* Sign in */}
                 <button
                   onClick={() => setAuthModalOpen(true)}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all shadow-lg shadow-amber-900/20"
                 >
-                  Sign In to Begin
+                  Enter
                 </button>
-                <p className="text-zinc-600 text-xs mt-4">
-                  Free to use. Your readings are private and saved to your account.
+                <p className="text-zinc-600 text-xs mt-6">
+                  Free to explore. Your readings are private.
                 </p>
               </div>
             ) : (
