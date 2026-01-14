@@ -4,6 +4,7 @@
 // Uses Haiku for cost efficiency (translation is simpler than generation)
 
 import { buildTranslationSystemPrompt } from '../../../lib/personas.js';
+import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 
 export async function POST(request) {
   const { content, persona, humor, register, roastMode, directMode } = await request.json();
@@ -35,7 +36,7 @@ export async function POST(request) {
   ];
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,6 +7,7 @@
 import { ARCHETYPES } from '../../../lib/archetypes.js';
 import { STATUSES } from '../../../lib/constants.js';
 import { getComponent } from '../../../lib/corrections.js';
+import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
 
 // Build DTP system prompt for token extraction ONLY
 // Card interpretations happen through standard card-depth flow
@@ -45,7 +46,7 @@ export async function POST(request) {
     ];
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +126,7 @@ export async function POST(request) {
   ];
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

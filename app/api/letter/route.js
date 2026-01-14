@@ -4,6 +4,7 @@
 // Uses Anthropic prompt caching for efficiency
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
+import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { STATUSES } from '../../../lib/constants.js';
 
 export async function POST(request) {
@@ -41,7 +42,7 @@ export async function POST(request) {
   const maxTokens = depth === 'deep' ? 800 : depth === 'swim' ? 500 : 400;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

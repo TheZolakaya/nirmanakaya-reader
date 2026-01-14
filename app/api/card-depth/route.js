@@ -12,6 +12,7 @@ import {
   getAgentCorrection,
   getComponent
 } from '../../../lib/corrections.js';
+import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 
 export async function POST(request) {
   const {
@@ -61,7 +62,7 @@ export async function POST(request) {
     : 3500;  // Baseline (WADE) stays at 3500
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
