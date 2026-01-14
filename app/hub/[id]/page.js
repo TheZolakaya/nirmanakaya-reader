@@ -207,7 +207,13 @@ export default function DiscussionPage({ params }) {
           </div>
 
           <div className="text-sm text-zinc-500">
-            Posted by {discussion.profiles?.display_name || 'Anonymous'}
+            Posted by{' '}
+            <Link
+              href={`/profile/${discussion.user_id}`}
+              className="hover:text-amber-400 transition-colors"
+            >
+              {discussion.profiles?.display_name || 'Anonymous'}
+            </Link>
           </div>
         </div>
 
@@ -238,7 +244,12 @@ export default function DiscussionPage({ params }) {
                       </ReactMarkdown>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-zinc-500">
-                      <span>{reply.profiles?.display_name || 'Anonymous'}</span>
+                      <Link
+                        href={`/profile/${reply.user_id}`}
+                        className="hover:text-amber-400 transition-colors"
+                      >
+                        {reply.profiles?.display_name || 'Anonymous'}
+                      </Link>
                       <span>{formatRelative(reply.created_at)}</span>
                     </div>
                   </div>

@@ -201,7 +201,13 @@ export default function HubPage() {
                       {discussion.content.length > 150 ? '...' : ''}
                     </p>
                     <div className="flex items-center gap-4 mt-2 text-xs text-zinc-600">
-                      <span>{discussion.profiles?.display_name || 'Anonymous'}</span>
+                      <Link
+                        href={`/profile/${discussion.user_id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="hover:text-amber-400 transition-colors"
+                      >
+                        {discussion.profiles?.display_name || 'Anonymous'}
+                      </Link>
                       <span className="flex items-center gap-1">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

@@ -1,13 +1,13 @@
 # Nirmanakaya Reader - Backlog
 
-Last updated: 2026-01-13 (v0.66.0)
+Last updated: 2026-01-14 (v0.67.0)
 
 ---
 
 ## SOCIAL & COMMUNITY (New - Jan 2026)
 
 ### FR18: Profile Pages ⭐ HIGH (Foundation for other social features)
-**Status:** Design ready
+**Status:** IN PROGRESS (v0.67.0)
 
 User profile pages at `/profile/[userId]`
 
@@ -375,6 +375,168 @@ When doing stack traces, the mini map DRAWS LINES between connected positions:
 - "You're not just reading cards - you're mapping the geometry of your psyche"
 
 **Reference:** Full 22-card pentagram map (see image in conversation Jan 2026)
+
+---
+
+### FR24: Interpretation Weight Hierarchy ⭐ MEDIUM 🧠 THEORY→PRACTICE
+**Status:** Concept - needs integration design
+
+Even in small readings (1-7 cards), the FULL architecture's significance rules should inform interpretation weight.
+
+**Hierarchy (most to least significant):**
+1. **Wheel (10) / World (21)** positions - apex observer & foundation
+2. **Soul House Majors** (Fool, Magician, etc.) - governors/rulers of the whole system
+3. **Other Majors** - archetypal weight
+4. **Minors** (Bounds/Agents) - supporting signatures
+
+**Ruler Dynamics:**
+- When a card lands in a position, check: what RULES that position?
+- Cards in houses ruled by Soul House positions show what's "folding into" that governor
+- Example: If something lands in a Mind House position, and that position is ruled by a Soul House archetype, the interpretation should note the cascade
+
+**Home Position Resonance:**
+- When a transient lands in/near its home position = amplified significance
+- When a transient is far from home = displacement/projection dynamics
+
+**Integration Challenge:**
+How do we bake this into current smaller readings without overwhelming users?
+- AI prompt adjustments to weight interpretations?
+- Visual indicators of significance level?
+- Separate "Architecture Weight" section?
+
+**Goal:** Even a 1-card reading should whisper the full architecture's wisdom.
+
+---
+
+### FR25: Reading Analytics & Charts ⭐ MEDIUM 📊 DATA
+**Status:** Concept - Jan 2026
+
+Personal analytics dashboard showing patterns across your reading history.
+
+**Data Points to Track:**
+- Card frequency (how often you draw each card)
+- Status distribution (% Balanced vs imbalanced over time)
+- Mode usage (Reflect vs Discover vs Forge vs Explore)
+- Spread type preferences
+- Time patterns (when you read most)
+
+**Visualization Ideas:**
+- "Your Most Drawn Cards" - ranked list with frequency
+- "Status Trends" - line chart over time
+- "Card Heatmap" - visual of all 77 cards showing draw frequency
+- "Channel Balance" - pie chart of Intent/Cognition/Resonance/Structure
+- "House Activity" - which houses dominate your readings
+
+**Achievement Integration:**
+- Charts feed into achievement system
+- "You've drawn Emperor 15 times - most of any card"
+- "Your readings lean 60% Reflect - try Forge!"
+
+**Profile Integration:**
+- Optional public display on profile
+- "See their reading patterns"
+- Discussion starter: "Anyone else drawing Tower constantly?"
+
+**Why This Matters:**
+- Systemic patterns become visible
+- Users can identify recurring themes
+- Gamification hook - users want to "complete" their chart
+- Discussion fodder - "Why am I always in Too Little?"
+
+**Dependencies:** FR18 (Profile Pages), existing readings table
+
+---
+
+### FR26: Nirmanapedia (Community-Managed Corpus) ⭐ LARGE 📚 COMMUNITY
+**Status:** Concept - Jan 2026
+
+Community-driven documentation and knowledge base for the system.
+
+**Core Features:**
+- User-submitted definitions and clarifications
+- Card renaming suggestions (with voting?)
+- Documentation rewrites and improvements
+- Examples and use cases from real readings
+- Moderation/approval workflow
+
+**Content Types:**
+- **Card Annotations** - Add notes/examples to any card
+- **Definition Proposals** - Suggest clearer definitions for terms
+- **Usage Examples** - "Here's how Emperor manifested in my reading"
+- **Corrections/Clarifications** - Point out inconsistencies or errors
+- **New Connections** - "Did you know Lovers and Tower share..."
+
+**Workflow Ideas:**
+- Submit → Review → Approve/Reject/Edit
+- Community voting on changes?
+- Version history (track definition evolution)
+- Attribution (contributor credit)
+
+**Integration Points:**
+- Hotlinks could pull from community definitions
+- Learning popups show community examples
+- Profile badges for contributors
+- "This definition contributed by @user"
+
+**Why This Matters:**
+- Distributes corpus maintenance workload
+- Creates ownership and investment
+- Collective intelligence improves the system
+- Users become teachers
+- Living documentation that evolves
+
+**Moderation Concerns:**
+- Who approves changes?
+- How to handle conflicting definitions?
+- Quality control without bottlenecking?
+- Canon vs community interpretation distinction?
+
+**Dependencies:** FR18 (Profile Pages), FR20 (Achievements for contributors)
+
+---
+
+### FR27: Admin Dashboard & Usage Controls ⭐ HIGH 🔧 OPERATIONS
+**Status:** Concept - Jan 2026
+
+Admin site for monitoring usage, costs, and user management.
+
+**Usage Monitoring:**
+- Total token usage (daily/weekly/monthly)
+- Per-user token consumption
+- Cost tracking (estimated API spend)
+- Top users by usage
+- Usage trends over time
+
+**User Controls:**
+- View all users and their stats
+- Set per-user token caps (daily/monthly)
+- Throttle specific users (rate limiting)
+- Disable/enable accounts
+- Usage alerts (notify when user hits threshold)
+
+**Tier System (Future):**
+- Free tier: X tokens/month
+- Premium tier: Higher limits
+- Admin override for special cases
+
+**Dashboard Views:**
+- Overview: Total users, total tokens, estimated cost
+- User list: Sortable by usage, join date, last active
+- Individual user: Full usage history, readings count
+- Alerts: Users approaching limits
+
+**Security:**
+- Admin-only access (check user role in profiles table)
+- Audit log of admin actions
+- Protected routes
+
+**Existing Data:**
+- `readings` table already has: input_tokens, output_tokens, estimated_cost
+- Just need aggregation queries and UI
+
+**Route:** `/admin/dashboard` (expand existing `/admin`)
+
+**Dependencies:** None - can build on existing data
 
 ---
 

@@ -117,6 +117,14 @@ export default function AuthButton({ onAuthChange }) {
             </div>
 
             <a
+              href={`/profile/${user.id}`}
+              className="block px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 transition-colors"
+              onClick={() => setShowMenu(false)}
+            >
+              My Profile
+            </a>
+
+            <a
               href="/journal"
               className="block px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 transition-colors"
               onClick={() => setShowMenu(false)}
