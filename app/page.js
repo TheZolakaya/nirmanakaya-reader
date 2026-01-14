@@ -94,7 +94,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton } from '../components/reading';
-import { getReading } from '../lib/supabase';
+import { getReading, getUser, supabase } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -285,6 +285,32 @@ export default function NirmanakaReader() {
       setAuthModalOpen(true);
       // Clean up URL
       window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+  // Check for existing auth session on page load (for OAuth redirect)
+  useEffect(() => {
+    async function checkExistingSession() {
+      console.log('[Page] Checking for existing session...');
+      const { user } = await getUser();
+      console.log('[Page] getUser returned:', user?.email || 'null');
+      if (user) {
+        setCurrentUser(user);
+      }
+    }
+
+    // Also listen for auth state changes
+    if (supabase) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        console.log('[Page] Auth state changed:', event, session?.user?.email);
+        setCurrentUser(session?.user ?? null);
+      });
+
+      checkExistingSession();
+
+      return () => subscription.unsubscribe();
+    } else {
+      checkExistingSession();
     }
   }, []);
 
