@@ -443,6 +443,14 @@ export default function NirmanakaReader() {
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
+  const [selectedBackground, setSelectedBackground] = useState(1); // Which background video (0 = none)
+  const backgrounds = [
+    { id: "none", src: null, label: "None" },
+    { id: "ocean", src: "/video/background.mp4", label: "Ocean" },
+    { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
+    { id: "aurora", src: "/video/aurora.mp4", label: "Aurora" },
+    { id: "nebula", src: "/video/nebula.mp4", label: "Nebula" },
+  ];
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
@@ -665,6 +673,7 @@ export default function NirmanakaReader() {
         if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
+        if (prefs.selectedBackground !== undefined) setSelectedBackground(prefs.selectedBackground);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -701,14 +710,18 @@ export default function NirmanakaReader() {
       register,
       creator,
       roastMode,
-      directMode
+      directMode,
+      // Background settings
+      animatedBackground,
+      backgroundOpacity,
+      selectedBackground
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, selectedBackground]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3008,8 +3021,9 @@ CRITICAL FORMATTING RULES:
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       {/* Background Video */}
-      {animatedBackground && (
+      {animatedBackground && backgrounds[selectedBackground]?.src && (
       <video
+        key={backgrounds[selectedBackground].id}
         autoPlay
         loop
         muted
@@ -3017,7 +3031,7 @@ CRITICAL FORMATTING RULES:
         className="fixed inset-0 w-full h-full object-cover z-0"
         style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
       >
-        <source src="/video/background.mp4" type="video/mp4" />
+        <source src={backgrounds[selectedBackground].src} type="video/mp4" />
       </video>
       )}
       {/* Main content overlay */}
@@ -3041,17 +3055,34 @@ CRITICAL FORMATTING RULES:
                 {animatedBackground ? "▶" : "◼"}
               </button>
               {animatedBackground && (
-                <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
-                  <span className="text-zinc-500 text-xs">◐</span>
-                  <input
-                    type="range"
-                    min="5"
-                    max="60"
-                    value={backgroundOpacity}
-                    onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
-                    className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
-                  />
-                </div>
+                <>
+                  <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
+                    <span className="text-zinc-500 text-xs">◐</span>
+                    <input
+                      type="range"
+                      min="5"
+                      max="60"
+                      value={backgroundOpacity}
+                      onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
+                      className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    />
+                  </div>
+                  {/* Background selector dots */}
+                  <div className="flex items-center gap-1.5 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-zinc-700/50">
+                    {backgrounds.map((bg, idx) => (
+                      <button
+                        key={bg.id}
+                        onClick={() => setSelectedBackground(idx)}
+                        className={`w-3 h-3 rounded-full transition-all ${
+                          selectedBackground === idx
+                            ? 'bg-cyan-400 ring-1 ring-cyan-400/50 ring-offset-1 ring-offset-zinc-900'
+                            : bg.src ? 'bg-zinc-600 hover:bg-zinc-500' : 'bg-zinc-700 hover:bg-zinc-600 border border-zinc-500'
+                        }`}
+                        title={bg.label}
+                      />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
             {/* Help button - middle */}
