@@ -12,30 +12,39 @@ export default function AuthButton({ onAuthChange }) {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    // Wait a moment for Supabase to restore session from localStorage
-    const timer = setTimeout(() => {
-      checkUser();
-    }, 100);
+    console.log('[AuthButton] Mounted on:', window.location.href);
 
-    // Listen for auth changes
+    // Check localStorage directly
+    const keys = Object.keys(localStorage).filter(k => k.includes('supabase'));
+    console.log('[AuthButton] Supabase localStorage keys:', keys);
+
+    // Listen for auth changes FIRST
+    let subscription;
     if (supabase) {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-        console.log('Auth state changed:', _event, session?.user?.email);
+      const result = supabase.auth.onAuthStateChange((_event, session) => {
+        console.log('[AuthButton] onAuthStateChange:', _event, session?.user?.email);
         setUser(session?.user ?? null);
+        setLoading(false);
         onAuthChange?.(session?.user ?? null);
       });
-
-      return () => {
-        clearTimeout(timer);
-        subscription.unsubscribe();
-      };
+      subscription = result.data.subscription;
     }
 
-    return () => clearTimeout(timer);
+    // Then check current session after a delay
+    const timer = setTimeout(() => {
+      checkUser();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      subscription?.unsubscribe();
+    };
   }, []);
 
   async function checkUser() {
+    console.log('[AuthButton] checkUser() called');
     const { user } = await getUser();
+    console.log('[AuthButton] getUser() returned:', user?.email || 'null');
     setUser(user);
     setLoading(false);
     onAuthChange?.(user);
