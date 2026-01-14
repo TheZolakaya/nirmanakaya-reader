@@ -443,7 +443,7 @@ export default function NirmanakaReader() {
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
-  const [selectedBackground, setSelectedBackground] = useState(1); // Which background video (0 = none)
+  const [selectedBackground, setSelectedBackground] = useState(3); // Which background video (0 = none, 3 = cosmos)
   const backgrounds = [
     { id: "none", src: null, label: "None" },
     { id: "ocean", src: "/video/background.mp4", label: "Ocean" },
@@ -3165,6 +3165,16 @@ CRITICAL FORMATTING RULES:
             >
               About
             </a>
+            <span className="text-zinc-700">•</span>
+            <a
+              href="/council"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-600 hover:text-amber-400 transition-colors"
+              title="The AI Council"
+            >
+              Council
+            </a>
           </div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
@@ -5475,6 +5485,15 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               className="hover:text-zinc-400 transition-colors"
             >
               About
+            </a>
+            <span className="text-zinc-800">•</span>
+            <a
+              href="/council"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              Council
             </a>
             <span className="text-zinc-800">•</span>
             <a
