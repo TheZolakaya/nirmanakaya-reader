@@ -52,7 +52,8 @@ export default function AuthButton({ onAuthChange }) {
 
     // Check unread posts if user is logged in
     if (user) {
-      const { count } = await getUnreadCount();
+      const { count, error } = await getUnreadCount();
+      console.log('[AuthButton] getUnreadCount:', count, error);
       setUnreadCount(count);
     }
   }

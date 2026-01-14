@@ -100,12 +100,15 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     setIsSaving(true);
-    const { error } = await updateProfile({
+    const { data, error } = await updateProfile({
       display_name: editName,
       bio: editBio
     });
 
-    if (!error) {
+    if (error) {
+      console.error('Failed to update profile:', error);
+      alert('Failed to save profile. Please try again.');
+    } else {
       setProfile(prev => ({
         ...prev,
         display_name: editName,
