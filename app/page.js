@@ -3028,7 +3028,7 @@ CRITICAL FORMATTING RULES:
         loop
         muted
         playsInline
-        ref={(el) => { if (el) el.playbackRate = 0.5; }}
+        ref={(el) => { if (el) el.playbackRate = 0.25; }}
         className="fixed inset-0 w-full h-full object-cover z-0"
         style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
       >
