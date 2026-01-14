@@ -3003,6 +3003,19 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-30"
+        style={{ pointerEvents: "none" }}
+      >
+        <source src="/video/background.mp4" type="video/mp4" />
+      </video>
+      {/* Main content overlay */}
+      <div className="relative z-10">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
         {/* Floating Controls - only show when logged in */}
@@ -5436,6 +5449,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         }}
         initialMode={authModalMode}
       />
+      </div> {/* Close z-10 wrapper */}
     </div>
   );
 }
