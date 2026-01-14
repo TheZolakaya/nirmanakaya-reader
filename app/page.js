@@ -2981,7 +2981,7 @@ CRITICAL FORMATTING RULES:
             <div className="fixed top-14 right-3 z-50">
               <button
                 onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
-                className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
+                className="help-trigger w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
               >
                 ?
               </button>

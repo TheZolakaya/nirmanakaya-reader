@@ -8,7 +8,8 @@ import {
   getUserPublicReadings,
   getUserDiscussions,
   getUser,
-  updateProfile
+  updateProfile,
+  ensureProfile
 } from '../../../lib/supabase';
 
 export default function ProfilePage() {
@@ -43,12 +44,30 @@ export default function ProfilePage() {
         setCurrentUser(user);
 
         // Get profile data
-        const { data: profileData, error: profileError } = await getPublicProfile(userId);
-        if (profileError) {
-          setError('Profile not found');
-          setIsLoading(false);
-          return;
+        let profileData;
+        const isOwn = user?.id === userId;
+
+        if (isOwn) {
+          // Own profile - ensure it exists (create if needed)
+          const { data, error } = await ensureProfile();
+          if (error) {
+            console.error('Error ensuring profile:', error);
+            setError('Failed to load profile');
+            setIsLoading(false);
+            return;
+          }
+          profileData = data;
+        } else {
+          // Someone else's profile
+          const { data, error: profileError } = await getPublicProfile(userId);
+          if (profileError || !data) {
+            setError('Profile not found');
+            setIsLoading(false);
+            return;
+          }
+          profileData = data;
         }
+
         setProfile(profileData);
         setEditName(profileData?.display_name || '');
         setEditBio(profileData?.bio || '');
