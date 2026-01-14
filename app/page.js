@@ -1587,39 +1587,45 @@ Ground your response in this specific context.`;
 
     if (operation === 'reflect') {
       // REFLECT: User is INQUIRING - architecture responds to their QUESTION with a new card
+      // The new card should be interpreted IN THE CONTEXT OF the parent card they're reflecting on
       systemPrompt = `${BASE_SYSTEM}
 
 ${stancePrompt}
 
 OPERATION: REFLECT (Inquiry/Question)
-The user is asking a question, exploring, or seeking clarity about this reading.
+The user is asking a question while engaging with a specific part of their reading.
 A new card has been drawn as the architecture's RESPONSE to their inquiry.
+
+CRITICAL: The new card speaks to their question IN THE CONTEXT OF what they were reflecting on.
+- The parent section (${parentLabel}) is the GROUND
+- Their question arises FROM that ground
+- The new card illuminates their question WITHOUT abandoning that context
+- Connect the new card back to the original card/section being discussed
 
 Your job:
 - Acknowledge their question briefly
-- Interpret the NEW CARD as the architecture's answer to what they asked
-- This is a SUB-READING: the drawn card speaks directly to their inquiry
-- Be specific about how the new card addresses their question
-- The card IS the architecture speaking back to them
+- Interpret the NEW CARD as the architecture's answer, but ALWAYS in relation to ${parentLabel}
+- Show how the new card speaks to their inquiry about ${parentLabel}
+- The new card is a LENS on their question, not a replacement for the original context
 - If the card is IMBALANCED, include a REBALANCER section with the correction path
 
 Output structure:
-1. Brief acknowledgment of their question (1-2 sentences)
+1. Brief acknowledgment connecting their question to ${parentLabel} (1-2 sentences)
 2. "The architecture responds with [Card Name]..."
-3. How this card answers or illuminates their inquiry (2-3 paragraphs)
+3. How this new card illuminates their question ABOUT ${parentLabel} (2-3 paragraphs)
 4. If imbalanced: "REBALANCER:" followed by the correction path (1-2 paragraphs)
 
 Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-FULL READING CONTEXT:
-${fullReadingContext}
-
-SECTION BEING DISCUSSED: ${parentLabel}
+PARENT CARD/SECTION BEING REFLECTED ON: ${parentLabel}
 ${parentContent}
 
-USER'S INQUIRY/QUESTION:
+FULL READING CONTEXT (for background):
+${fullReadingContext}
+
+USER'S INQUIRY/QUESTION (about ${parentLabel}):
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}
@@ -1627,7 +1633,10 @@ Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
 ${correctionInfo}${dtpContext}
-Interpret this new card as the architecture's response to their question.`;
+
+IMPORTANT: Interpret this new card as the architecture's response to their question ABOUT ${parentLabel}.
+The new card should illuminate their inquiry while staying grounded in the original card they were reflecting on.
+Do NOT interpret the new card in isolation - it speaks to their question about ${parentLabel}.`;
 
     } else {
       // FORGE: User is ASSERTING - architecture responds to their DECLARATION with a new card
