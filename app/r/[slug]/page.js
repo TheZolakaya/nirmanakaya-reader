@@ -1,15 +1,146 @@
 'use client';
 
 // === SHARED READING PAGE ===
-// Public view of a shared reading
+// Public view of a shared reading - shows ALL content the reader unlocked
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { getPublicReading } from '../../../lib/supabase';
 import { getComponent } from '../../../lib/corrections';
-import { STATUSES, HOUSE_COLORS } from '../../../lib/constants';
+import { STATUSES, HOUSE_COLORS, CHANNELS } from '../../../lib/constants';
 import { ARCHETYPES } from '../../../lib/archetypes';
+
+// Helper to safely get content from depth objects
+function getDepthContent(obj) {
+  if (!obj) return null;
+  if (typeof obj === 'string') {
+    // Try to parse if it looks like JSON
+    if (obj.startsWith('{') && obj.endsWith('}')) {
+      try {
+        const parsed = JSON.parse(obj);
+        return parsed.deep || parsed.swim || parsed.wade || parsed.surface || null;
+      } catch {
+        return obj;
+      }
+    }
+    return obj;
+  }
+  // Return deepest available content
+  return obj.deep || obj.swim || obj.wade || obj.surface || null;
+}
+
+// Helper to get all depth levels that have content
+function getAllDepths(obj) {
+  if (!obj) return [];
+  if (typeof obj === 'string') {
+    if (obj.startsWith('{') && obj.endsWith('}')) {
+      try {
+        obj = JSON.parse(obj);
+      } catch {
+        return [{ depth: 'surface', content: obj }];
+      }
+    } else {
+      return [{ depth: 'surface', content: obj }];
+    }
+  }
+
+  const depths = [];
+  if (obj.surface) depths.push({ depth: 'Surface', content: obj.surface });
+  if (obj.wade) depths.push({ depth: 'Wade', content: obj.wade });
+  if (obj.swim) depths.push({ depth: 'Swim', content: obj.swim });
+  if (obj.deep) depths.push({ depth: 'Deep', content: obj.deep });
+  return depths;
+}
+
+// Collapsible section component
+function CollapsibleSection({ title, badge, children, defaultOpen = true, color = 'amber' }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  const colorClasses = {
+    amber: 'text-amber-400/70',
+    cyan: 'text-cyan-400/70',
+    emerald: 'text-emerald-400/70',
+    violet: 'text-violet-400/70',
+    rose: 'text-rose-400/70'
+  };
+
+  return (
+    <div className="mb-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 w-full text-left mb-2"
+      >
+        <span className={`text-xs ${colorClasses[color]} uppercase tracking-wide`}>
+          {isOpen ? '▼' : '▶'} {title}
+        </span>
+        {badge && (
+          <span className="text-xs text-zinc-600">{badge}</span>
+        )}
+      </button>
+      {isOpen && children}
+    </div>
+  );
+}
+
+// Markdown renderer component
+function MarkdownContent({ content, className = '' }) {
+  if (!content) return null;
+  return (
+    <div className={`text-sm text-zinc-300 leading-relaxed ${className}`}>
+      <ReactMarkdown
+        components={{
+          p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
+          strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>,
+          em: ({ children }) => <em className="text-zinc-400">{children}</em>,
+          a: ({ href, children }) => (
+            <a href={href} className="text-amber-400 hover:text-amber-300 underline" target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          ),
+          ul: ({ children }) => <ul className="list-disc list-inside mb-3 space-y-1">{children}</ul>,
+          ol: ({ children }) => <ol className="list-decimal list-inside mb-3 space-y-1">{children}</ol>,
+          li: ({ children }) => <li className="text-zinc-300">{children}</li>
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
+// Depth tabs component for showing multiple depth levels
+function DepthContent({ depths, showTabs = true }) {
+  const [activeDepth, setActiveDepth] = useState(0);
+
+  if (!depths || depths.length === 0) return null;
+
+  // If only one depth, just show it
+  if (depths.length === 1 || !showTabs) {
+    return <MarkdownContent content={depths[depths.length - 1]?.content} />;
+  }
+
+  return (
+    <div>
+      <div className="flex gap-2 mb-3">
+        {depths.map((d, i) => (
+          <button
+            key={d.depth}
+            onClick={() => setActiveDepth(i)}
+            className={`text-xs px-2 py-1 rounded transition-colors ${
+              activeDepth === i
+                ? 'bg-zinc-700 text-zinc-200'
+                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+            }`}
+          >
+            {d.depth}
+          </button>
+        ))}
+      </div>
+      <MarkdownContent content={depths[activeDepth]?.content} />
+    </div>
+  );
+}
 
 export default function SharedReadingPage({ params }) {
   const [reading, setReading] = useState(null);
@@ -119,15 +250,29 @@ export default function SharedReadingPage({ params }) {
           </div>
         )}
 
+        {/* Letter / Introduction */}
+        {reading.letter && (
+          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+            <CollapsibleSection title="Introduction" color="cyan">
+              <DepthContent depths={getAllDepths(reading.letter)} />
+            </CollapsibleSection>
+          </div>
+        )}
+
         {/* Cards drawn */}
         {reading.cards && Array.isArray(reading.cards) && (
           <div className="mb-8">
-            <div className="text-sm text-zinc-400 mb-4">Cards Drawn</div>
-            <div className="space-y-4">
+            <div className="text-sm text-zinc-400 mb-4">Cards Drawn ({reading.cards.length})</div>
+            <div className="space-y-6">
               {reading.cards.map((card, i) => {
                 const trans = getComponent(card.transient);
                 const status = STATUSES[card.status];
                 const interpretation = card.interpretation;
+                const hasExpansions = interpretation?.unpack || interpretation?.clarify || interpretation?.example;
+                const hasGrowth = interpretation?.growth && getDepthContent(interpretation.growth);
+                const hasWhy = interpretation?.why && getDepthContent(interpretation.why);
+                const hasMirror = interpretation?.mirror;
+                const hasRebalancer = interpretation?.rebalancer && getDepthContent(interpretation.rebalancer);
 
                 return (
                   <div
@@ -135,47 +280,92 @@ export default function SharedReadingPage({ params }) {
                     className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-xl"
                   >
                     {/* Card header */}
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-start justify-between mb-4">
                       <div>
-                        <div className={`text-lg font-medium ${getCardColor(trans)}`}>
+                        <div className={`text-xl font-medium ${getCardColor(trans)}`}>
                           {trans?.name || `Card ${card.transient}`}
                         </div>
-                        <div className="text-xs text-zinc-500 mt-0.5">
+                        <div className="text-xs text-zinc-500 mt-1">
                           {status?.name || 'Unknown'} • {trans?.type || 'Card'}
+                          {trans?.channel !== undefined && ` • ${CHANNELS[trans.channel]?.name || ''}`}
                         </div>
                       </div>
-                      <div className="text-xs text-zinc-600">
+                      <div className="text-xs text-zinc-600 bg-zinc-800/50 px-2 py-1 rounded">
                         #{i + 1}
                       </div>
                     </div>
 
-                    {/* Interpretation */}
-                    {interpretation && (interpretation.wade || interpretation.surface) && (
-                      <div className="text-sm text-zinc-300 leading-relaxed">
-                        <ReactMarkdown
-                          components={{
-                            p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-                            strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>
-                          }}
-                        >
-                          {interpretation.wade || interpretation.surface}
-                        </ReactMarkdown>
+                    {/* Main Interpretation */}
+                    {interpretation && (
+                      <CollapsibleSection title="Reading" color="amber">
+                        <DepthContent depths={getAllDepths(interpretation)} />
+                      </CollapsibleSection>
+                    )}
+
+                    {/* Expansions */}
+                    {hasExpansions && (
+                      <div className="border-t border-zinc-800/50 pt-4 mt-4">
+                        {interpretation.unpack && (
+                          <CollapsibleSection title="Unpack" color="violet" defaultOpen={false}>
+                            <MarkdownContent content={getDepthContent(interpretation.unpack)} />
+                          </CollapsibleSection>
+                        )}
+                        {interpretation.clarify && (
+                          <CollapsibleSection title="Clarify" color="violet" defaultOpen={false}>
+                            <MarkdownContent content={getDepthContent(interpretation.clarify)} />
+                          </CollapsibleSection>
+                        )}
+                        {interpretation.example && (
+                          <CollapsibleSection title="Example" color="violet" defaultOpen={false}>
+                            <MarkdownContent content={getDepthContent(interpretation.example)} />
+                          </CollapsibleSection>
+                        )}
                       </div>
                     )}
 
-                    {/* Rebalancer if present */}
-                    {interpretation?.rebalancer && (interpretation.rebalancer.wade || interpretation.rebalancer.surface) && (
-                      <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                        <div className="text-xs text-emerald-400/70 mb-2">Path to Balance</div>
-                        <div className="text-sm text-zinc-400 leading-relaxed">
-                          <ReactMarkdown
-                            components={{
-                              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>
-                            }}
-                          >
-                            {interpretation.rebalancer.wade || interpretation.rebalancer.surface}
-                          </ReactMarkdown>
-                        </div>
+                    {/* Growth */}
+                    {hasGrowth && (
+                      <div className="border-t border-zinc-800/50 pt-4 mt-4">
+                        <CollapsibleSection title="Growth Opportunity" color="emerald">
+                          <DepthContent depths={getAllDepths(interpretation.growth)} />
+                        </CollapsibleSection>
+                      </div>
+                    )}
+
+                    {/* The Why / Mirror */}
+                    {(hasWhy || hasMirror) && (
+                      <div className="border-t border-zinc-800/50 pt-4 mt-4">
+                        {hasMirror && (
+                          <div className="mb-4 p-3 bg-cyan-950/20 border border-cyan-800/30 rounded-lg">
+                            <div className="text-xs text-cyan-400/70 mb-2">🪞 The Mirror</div>
+                            <div className="text-sm text-cyan-300/90 italic">
+                              {interpretation.mirror}
+                            </div>
+                          </div>
+                        )}
+                        {hasWhy && (
+                          <CollapsibleSection title="Words to the Whys" color="cyan">
+                            <DepthContent depths={getAllDepths(interpretation.why)} />
+                          </CollapsibleSection>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Rebalancer / Path to Balance */}
+                    {hasRebalancer && (
+                      <div className="border-t border-zinc-800/50 pt-4 mt-4">
+                        <CollapsibleSection title="Path to Balance" color="emerald">
+                          <DepthContent depths={getAllDepths(interpretation.rebalancer)} />
+                        </CollapsibleSection>
+                      </div>
+                    )}
+
+                    {/* Architecture */}
+                    {interpretation?.architecture && (
+                      <div className="border-t border-zinc-800/50 pt-4 mt-4">
+                        <CollapsibleSection title="Architecture" color="rose" defaultOpen={false}>
+                          <MarkdownContent content={interpretation.architecture} />
+                        </CollapsibleSection>
                       </div>
                     )}
                   </div>
@@ -185,38 +375,71 @@ export default function SharedReadingPage({ params }) {
           </div>
         )}
 
-        {/* Letter */}
-        {reading.letter && (
+        {/* Synthesis Section */}
+        {reading.synthesis && (
           <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
-            <div className="text-xs text-cyan-400/70 mb-3 uppercase tracking-wide">The Letter</div>
-            <div className="text-sm text-zinc-300 leading-relaxed">
-              <ReactMarkdown
-                components={{
-                  p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-                  strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>
-                }}
-              >
-                {typeof reading.letter === 'object'
-                  ? (reading.letter.wade || reading.letter.surface || '')
-                  : reading.letter}
-              </ReactMarkdown>
+            <div className="text-lg font-light text-amber-400 mb-6 text-center">Synthesis</div>
+
+            {/* The Reading / Summary */}
+            {reading.synthesis.summary && getDepthContent(reading.synthesis.summary) && (
+              <CollapsibleSection title="The Reading" color="amber">
+                <DepthContent depths={getAllDepths(reading.synthesis.summary)} />
+              </CollapsibleSection>
+            )}
+
+            {/* Why This Reading Appeared */}
+            {reading.synthesis.whyAppeared && getDepthContent(reading.synthesis.whyAppeared) && (
+              <CollapsibleSection title="Why This Reading Appeared" color="cyan">
+                <DepthContent depths={getAllDepths(reading.synthesis.whyAppeared)} />
+              </CollapsibleSection>
+            )}
+
+            {/* The Invitation / Path */}
+            {reading.synthesis.path && getDepthContent(reading.synthesis.path) && (
+              <CollapsibleSection title="The Invitation" color="emerald">
+                <DepthContent depths={getAllDepths(reading.synthesis.path)} />
+              </CollapsibleSection>
+            )}
+          </div>
+        )}
+
+        {/* Thread Continuations */}
+        {reading.threads && reading.threads.length > 0 && (
+          <div className="mb-8">
+            <div className="text-sm text-zinc-400 mb-4">Thread Continuations</div>
+            <div className="space-y-4">
+              {reading.threads.map((thread, i) => (
+                <div key={i} className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className={`text-xs px-2 py-1 rounded ${
+                      thread.type === 'reflect' ? 'bg-blue-900/30 text-blue-400' :
+                      thread.type === 'forge' ? 'bg-amber-900/30 text-amber-400' :
+                      'bg-zinc-800 text-zinc-400'
+                    }`}>
+                      {thread.type === 'reflect' ? '↩ Reflect' : thread.type === 'forge' ? '⚡ Forge' : thread.type}
+                    </span>
+                    {thread.input && (
+                      <span className="text-zinc-500 text-sm italic">"{thread.input}"</span>
+                    )}
+                  </div>
+                  <MarkdownContent content={thread.response} />
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Summary */}
-        {reading.synthesis?.summary && (reading.synthesis.summary.wade || reading.synthesis.summary.surface) && (
-          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
-            <div className="text-xs text-amber-400/70 mb-3 uppercase tracking-wide">Summary</div>
-            <div className="text-sm text-zinc-300 leading-relaxed">
-              <ReactMarkdown
-                components={{
-                  p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-                  strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>
-                }}
-              >
-                {reading.synthesis.summary.wade || reading.synthesis.summary.surface}
-              </ReactMarkdown>
+        {/* Follow-up Conversation */}
+        {reading.followUps && reading.followUps.length > 0 && (
+          <div className="mb-8">
+            <div className="text-sm text-zinc-400 mb-4">Follow-up Conversation</div>
+            <div className="space-y-3">
+              {reading.followUps.map((followUp, i) => (
+                <div key={i} className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+                  <div className="text-xs text-zinc-500 mb-2">Q: {followUp.question}</div>
+                  <MarkdownContent content={followUp.response} />
+                </div>
+              ))}
             </div>
           </div>
         )}
