@@ -306,6 +306,27 @@ select {
     0 4px 6px -4px rgba(0, 0, 0, 0.2);
 }
 
+/* Content pane dimming - uses --content-dim CSS variable from parent */
+.content-pane {
+  position: relative;
+}
+
+.content-pane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: var(--content-dim, 0);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.content-pane > * {
+  position: relative;
+  z-index: 2;
+}
+
 /* Typography scale */
 .reading-content {
   font-size: var(--text-sm);

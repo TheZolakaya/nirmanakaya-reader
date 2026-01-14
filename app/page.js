@@ -3042,7 +3042,7 @@ CRITICAL FORMATTING RULES:
       </video>
       )}
       {/* Main content overlay */}
-      <div className="relative z-10" style={{ backgroundColor: `rgba(0, 0, 0, ${contentDim / 100})` }}>
+      <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
         
         {/* Floating Controls - only show when logged in */}
@@ -3292,7 +3292,7 @@ CRITICAL FORMATTING RULES:
             <>
             {/* First Contact Mode - Simplified UI */}
             {userLevel === USER_LEVELS.FIRST_CONTACT && (
-              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 mb-6 max-w-lg mx-auto">
+              <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 mb-6 max-w-lg mx-auto">
                 <div className="text-center mb-6">
                   <p className="text-zinc-400 text-sm">Ask a question or share what's on your mind</p>
                 </div>
@@ -3343,7 +3343,7 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Full UI */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
-            <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
               {/* Mode Toggle - centered, help button is now floating */}
               <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
@@ -3774,7 +3774,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {draws && !loading && parsedReading?.firstContact && userLevel === USER_LEVELS.FIRST_CONTACT && (
           <div className="max-w-lg mx-auto mb-8">
             {/* Simple card display */}
-            <div className="bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-6 mb-4">
+            <div className="content-pane bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-6 mb-4">
               <div className="text-center mb-4">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider">Pattern Emerged</span>
               </div>
@@ -3799,7 +3799,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
 
             {/* The reading response */}
-            <div className="bg-zinc-900/30 rounded-xl border border-zinc-800/50 p-6">
+            <div className="content-pane bg-zinc-900/30 rounded-xl border border-zinc-800/50 p-6">
               <div className="text-zinc-300 text-base leading-relaxed">
                 <ReactMarkdown
                   components={{
@@ -3934,7 +3934,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               </div>
 
               {/* Collapsible Signatures Section */}
-              <div className="rounded-xl border border-zinc-800/50 bg-zinc-900/30 overflow-hidden">
+              <div className="content-pane rounded-xl border border-zinc-800/50 bg-zinc-900/30 overflow-hidden">
                 {/* Signatures Header - clickable */}
                 <div
                   className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-zinc-800/30 transition-colors"
@@ -3965,7 +3965,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Architecture Panel */}
             {showArchitecture && (
-              <div className="mt-6 bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-4">
+              <div className="content-pane mt-6 bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-4">
                 <div className="text-xs text-zinc-500 uppercase tracking-wider mb-4">Architecture Details</div>
                 
                 <div className="space-y-4 mb-6">
@@ -4307,7 +4307,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 const expKey = `letter-exp-${expType}`;
                 const isExpCollapsed = collapsedSections[expKey] === true;
                 return (
-                  <div key={expType} className="mb-3 rounded-lg border border-zinc-700/50 overflow-hidden bg-zinc-900/60">
+                  <div key={expType} className="content-pane mb-3 rounded-lg border border-zinc-700/50 overflow-hidden bg-zinc-900/60">
                     <div
                       className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-800/50 transition-colors"
                       onClick={() => toggleCollapse(expKey, true)}
@@ -5319,7 +5319,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             )}
 
             {showMidReadingStance && (
-              <div className="mt-3 bg-zinc-900/30 rounded-xl border border-zinc-800/30 p-4">
+              <div className="content-pane mt-3 bg-zinc-900/30 rounded-xl border border-zinc-800/30 p-4">
                 {/* Voice Settings - Post-Reading (locked) */}
                 <div>
                   <PersonaSelector
