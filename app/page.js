@@ -2974,7 +2974,8 @@ CRITICAL FORMATTING RULES:
           )}
         </div>
 
-        {/* Header - click to scroll to top */}
+        {/* Header - click to scroll to top (hidden on cosmic landing) */}
+        {currentUser && (
         <div
           className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -3022,26 +3023,28 @@ CRITICAL FORMATTING RULES:
             </div>
           )}
         </div>
+        )}
 
         {/* Controls */}
         {!draws && (
           <>
             {/* Auth Gate - Cosmic Landing */}
             {!currentUser ? (
-              <div className="relative min-h-[80vh] flex items-center justify-center -mx-4 sm:-mx-6 -mt-4">
-                {/* Galaxy video background */}
+              <div className="fixed inset-0 z-40 flex items-center justify-center">
+                {/* Galaxy video background - fullscreen */}
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-50"
+                  className="absolute inset-0 w-full h-full object-cover opacity-70"
                 >
                   <source src="/galaxy.mp4" type="video/mp4" />
                 </video>
 
-                {/* Gradient overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/50 to-zinc-950/90" />
+                {/* Subtle vignette overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-transparent to-zinc-950/60" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
