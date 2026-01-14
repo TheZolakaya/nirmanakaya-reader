@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin } from '../../../lib/supabase';
+import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin, toggleReaction, getDiscussionReactions, getReplyReactions, REACTION_EMOJIS } from '../../../lib/supabase';
 
 const TOPIC_COLORS = {
   general: 'text-zinc-400',
@@ -27,6 +27,8 @@ export default function DiscussionPage({ params }) {
   const [replyContent, setReplyContent] = useState('');
   const [posting, setPosting] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [discussionReactions, setDiscussionReactions] = useState([]);
+  const [replyReactions, setReplyReactions] = useState({}); // { replyId: [reactions] }
 
   useEffect(() => {
     async function loadData() {
@@ -41,6 +43,22 @@ export default function DiscussionPage({ params }) {
       }
       setDiscussion(data);
       setLoading(false);
+
+      // Load reactions for discussion
+      const { data: discReactions } = await getDiscussionReactions(params.id);
+      setDiscussionReactions(discReactions || []);
+
+      // Load reactions for all replies
+      if (data.replies?.length > 0) {
+        const replyReactionsMap = {};
+        await Promise.all(
+          data.replies.map(async (reply) => {
+            const { data: reactions } = await getReplyReactions(reply.id);
+            replyReactionsMap[reply.id] = reactions || [];
+          })
+        );
+        setReplyReactions(replyReactionsMap);
+      }
     }
     loadData();
   }, [params.id]);
@@ -120,6 +138,84 @@ export default function DiscussionPage({ params }) {
     if (diffHours < 24) return `${diffHours}h ago`;
     if (diffDays < 7) return `${diffDays}d ago`;
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  async function handleReaction(emoji, discussionId = null, replyId = null) {
+    if (!user) {
+      window.dispatchEvent(new Event('open-auth-modal'));
+      return;
+    }
+
+    const { action, error } = await toggleReaction({
+      discussionId,
+      replyId,
+      emoji
+    });
+
+    if (error) {
+      console.error('Failed to toggle reaction:', error);
+      return;
+    }
+
+    // Update local state
+    if (discussionId) {
+      if (action === 'added') {
+        setDiscussionReactions(prev => [...prev, { emoji, user_id: user.id }]);
+      } else {
+        setDiscussionReactions(prev =>
+          prev.filter(r => !(r.emoji === emoji && r.user_id === user.id))
+        );
+      }
+    } else if (replyId) {
+      if (action === 'added') {
+        setReplyReactions(prev => ({
+          ...prev,
+          [replyId]: [...(prev[replyId] || []), { emoji, user_id: user.id }]
+        }));
+      } else {
+        setReplyReactions(prev => ({
+          ...prev,
+          [replyId]: (prev[replyId] || []).filter(r => !(r.emoji === emoji && r.user_id === user.id))
+        }));
+      }
+    }
+  }
+
+  // Reaction bar component
+  function ReactionBar({ reactions, discussionId = null, replyId = null }) {
+    // Count reactions by emoji
+    const counts = {};
+    REACTION_EMOJIS.forEach(emoji => {
+      counts[emoji] = reactions.filter(r => r.emoji === emoji).length;
+    });
+
+    // Check if current user has reacted with each emoji
+    const userReacted = {};
+    REACTION_EMOJIS.forEach(emoji => {
+      userReacted[emoji] = reactions.some(r => r.emoji === emoji && r.user_id === user?.id);
+    });
+
+    return (
+      <div className="flex items-center gap-1 mt-2">
+        {REACTION_EMOJIS.map(emoji => (
+          <button
+            key={emoji}
+            onClick={() => handleReaction(emoji, discussionId, replyId)}
+            className={`px-2 py-1 rounded-md text-sm transition-all ${
+              userReacted[emoji]
+                ? 'bg-amber-600/30 border border-amber-500/50'
+                : 'bg-zinc-800/50 border border-zinc-700/50 hover:bg-zinc-700/50'
+            }`}
+            title={user ? (userReacted[emoji] ? 'Remove reaction' : 'Add reaction') : 'Sign in to react'}
+          >
+            <span>{emoji}</span>
+            {counts[emoji] > 0 && (
+              <span className="ml-1 text-zinc-400 text-xs">{counts[emoji]}</span>
+            )}
+          </button>
+        ))}
+      </div>
+    );
   }
 
   if (loading) {
@@ -216,6 +312,8 @@ export default function DiscussionPage({ params }) {
               {discussion.profiles?.display_name || 'Anonymous'}
             </Link>
           </div>
+
+          <ReactionBar reactions={discussionReactions} discussionId={params.id} />
         </div>
 
         {/* Reply divider */}
@@ -253,6 +351,7 @@ export default function DiscussionPage({ params }) {
                       </Link>
                       <span>{formatRelative(reply.created_at)}</span>
                     </div>
+                    <ReactionBar reactions={replyReactions[reply.id] || []} replyId={reply.id} />
                   </div>
                   {(user?.id === reply.user_id || userIsAdmin) && (
                     <button

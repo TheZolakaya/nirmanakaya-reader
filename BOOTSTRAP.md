@@ -74,3 +74,4 @@ Key functions in `lib/supabase.js`:
 - Chris prefers concise communication
 - Push to prod after major fixes
 - Add backlog items to the Nirmanakaya_Book backlog, not local files
+- **SQL runs**: Always provide a single, ready-to-copy SQL block. No explanations mixed in. Chris is juggling a lot - make it dead simple.

@@ -134,6 +134,54 @@ CREATE POLICY "Users can delete own replies" ON discussion_replies
   FOR DELETE USING (auth.uid() = user_id OR is_admin());
 
 -- ============================================
+-- REACTIONS TABLE
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS reactions (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
+  discussion_id uuid REFERENCES discussions(id) ON DELETE CASCADE,
+  reply_id uuid REFERENCES discussion_replies(id) ON DELETE CASCADE,
+  emoji text NOT NULL DEFAULT '👍',
+  created_at timestamptz DEFAULT now(),
+  -- Must have either discussion_id or reply_id, not both
+  CHECK (
+    (discussion_id IS NOT NULL AND reply_id IS NULL) OR
+    (discussion_id IS NULL AND reply_id IS NOT NULL)
+  )
+);
+
+-- Partial unique indexes for one reaction per user per item per emoji
+CREATE UNIQUE INDEX IF NOT EXISTS idx_reactions_user_discussion_emoji
+  ON reactions(user_id, discussion_id, emoji)
+  WHERE discussion_id IS NOT NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_reactions_user_reply_emoji
+  ON reactions(user_id, reply_id, emoji)
+  WHERE reply_id IS NOT NULL;
+
+-- Enable RLS
+ALTER TABLE reactions ENABLE ROW LEVEL SECURITY;
+
+-- Policies for reactions
+DROP POLICY IF EXISTS "Anyone can view reactions" ON reactions;
+CREATE POLICY "Anyone can view reactions" ON reactions
+  FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Authenticated users can add reactions" ON reactions;
+CREATE POLICY "Authenticated users can add reactions" ON reactions
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can remove own reactions" ON reactions;
+CREATE POLICY "Users can remove own reactions" ON reactions
+  FOR DELETE USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_reactions_discussion_id ON reactions(discussion_id);
+CREATE INDEX IF NOT EXISTS idx_reactions_reply_id ON reactions(reply_id);
+CREATE INDEX IF NOT EXISTS idx_reactions_user_id ON reactions(user_id);
+
+-- ============================================
 -- DONE!
 -- ============================================
 -- Reply counts will now auto-update when
@@ -141,4 +189,5 @@ CREATE POLICY "Users can delete own replies" ON discussion_replies
 -- Profiles auto-created on signup.
 -- Existing reply counts fixed.
 -- Admins can delete any discussion/reply.
+-- Reactions table for emoji responses.
 -- ============================================
