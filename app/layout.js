@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Nirmanakaya Reader',
+  title: 'Nirmanakaya',
   description: 'Consciousness Architecture Reading System',
 };
 

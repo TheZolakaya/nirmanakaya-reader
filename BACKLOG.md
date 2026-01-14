@@ -1,6 +1,125 @@
 # Nirmanakaya Reader - Backlog
 
-Last updated: 2026-01-11 (v0.57.0)
+Last updated: 2026-01-13 (v0.66.0)
+
+---
+
+## SOCIAL & COMMUNITY (New - Jan 2026)
+
+### FR18: Profile Pages ⭐ HIGH (Foundation for other social features)
+**Status:** Design ready
+
+User profile pages at `/profile/[userId]`
+
+**Features:**
+- Display name (editable)
+- Custom avatar (upload OR pick from presets)
+- Default to Google avatar if OAuth
+- Bio/about section (optional)
+- Public readings list
+- Discussion post history
+- Achievement badges display
+
+**Dependencies:** None - this is the foundation
+
+---
+
+### FR19: Custom Avatars ⭐ MEDIUM
+**Status:** Design ready
+
+**Options:**
+- Upload custom image (Supabase Storage)
+- Pick from preset icons (themed to system - archetypes, channels)
+- Default to Google profile pic if OAuth
+
+**Dependencies:** FR18 (Profile Pages)
+
+---
+
+### FR20: Achievement/Badge System ⭐ LARGE
+**Status:** Concept - needs design
+
+Gamification with meaningful achievements tied to the architecture.
+
+**Achievement Categories:**
+
+*Card Collection:*
+- "Mind Reader" - Drew all 5 Mind House archetypes
+- "Channel Surfer" - Drew cards from all 4 channels in one reading
+- "Major Completionist" - Drew all 21 Archetypes (over time)
+- "Bound Master" - Drew all 40 Bounds
+- "Agent Academy" - Drew all 16 Agents
+
+*Status Achievements:*
+- "Perfectly Balanced" - Got all Balanced cards in a reading
+- "Shadow Work" - Got an Unacknowledged card and explored it to Deep
+- "Course Corrector" - Followed a rebalancer path
+
+*Mode/Spread Achievements:*
+- "Full Spectrum" - Used all 4 modes
+- "Deep Diver" - Went to Deep depth on every section
+- "Thread Weaver" - Did Reflect AND Forge threads on same reading
+- "Question Master" - Asked 10 follow-up questions
+
+*Learning Achievements:*
+- "Scholar" / "Student of the Deck" - Viewed learning popup on all 77 cards
+- "Architecture Nerd" - Viewed Architecture panel on 20+ cards
+- "Mirror Gazer" - Read The Mirror on 10 readings
+- "Why Seeker" - Explored Words to the Whys to Deep 5 times
+- "Example Collector" - Hit Example expansion on 25 cards
+
+*Social Achievements:*
+- "First Words" - Posted first discussion
+- "Community Builder" - Got 5 replies on a post
+- "Generous Reader" - Shared 5 readings publicly
+
+**Implementation:**
+- Database table for user achievements
+- Achievement checking logic on reading complete
+- Badge display on profiles
+- Mini-badges next to names in Hub
+
+**Dependencies:** FR18 (Profile Pages)
+
+---
+
+### FR21: Embed Readings/Cards in Discussions ⭐ MEDIUM
+**Status:** Concept
+
+Allow users to embed a reading or specific card into a Hub discussion post.
+
+**Features:**
+- "Attach Reading" button when creating discussion
+- Select from your saved readings
+- Renders as expandable card in the post
+- Also allow embedding single card for discussion
+
+**Use case:** "Hey everyone, got this wild draw, what do you think?"
+
+**Dependencies:** Hub (exists), Saved readings (exists)
+
+---
+
+### FR22: Simple Inbox Messaging ⭐ MEDIUM
+**Status:** Concept
+
+Async messaging between users (NOT real-time IM).
+
+**Features:**
+- Inbox page at `/inbox`
+- "Send message" button on profile pages
+- Notification indicator in avatar menu
+- Read/unread status
+- Simple threaded replies
+
+**Why not real-time:**
+- No WebSocket complexity
+- Works like old-school forum PMs
+- Simpler to build and maintain
+
+**Dependencies:** FR18 (Profile Pages)
+
+---
 
 ## Rollback Safety
 - **Tag `v0.50.0-stable`** exists for rollback if needed (before progressive depth changes)
@@ -176,12 +295,86 @@ Add contextual reading frames that ground the architecture in specific life situ
 
 ---
 
-### FR13: The Ariadne Thread (Recursive Diagnostic) ⭐ LARGE
-**Status:** Spec complete → `Canon Candidates/Life_Domain_Spreads_Proposal_v2.md` (Part V)
+### FR13: The Ariadne Thread (Recursive Diagnostic) ⭐ LARGE 🔥 MAJOR
+**Status:** Design evolved - Jan 2026
 
-Recursive diagnostic mode that traces imbalance chains. Follow the correction path until loop closes or user stops.
+Recursive diagnostic that traces imbalance chains through the architecture. Name confirmed: ARIADNE THREAD (keeper!)
 
-**Rename consideration:** Chris may want to rename "Ariadne Thread" — awaiting decision.
+**The Core Insight:**
+In a full 22-card reading, you can trace WHY a card is imbalanced by following positions:
+- Too Much Chariot in Fool position → look at Chariot position
+- Find Unacknowledged Lovers there → look at Lovers position
+- Find Too Little Fool there → LOOP BACK TO START
+
+The chain either LOOPS (circular systemic pattern) or TERMINATES (transient in home position = root).
+
+**Integration Approach (NEW):**
+NOT a separate mode - integrates INTO existing readings alongside Reflect/Forge:
+
+1. User sees imbalanced card in their reading
+2. Clicks **Ariadne** button (new thread type)
+3. System checks: Is that transient's home position already pulled?
+   - YES → Show connection immediately
+   - NO → Pull new card for that position
+4. Continue tracing until LOOP or TERMINUS
+5. Visual sub-window shows chain building in real-time
+6. ROOT CAUSE section appears when pattern completes
+
+**Visual Display:**
+```
+┌─────────────────────────────────────┐
+│         ARIADNE THREAD              │
+│  ┌─────┐    ┌─────┐    ┌─────┐     │
+│  │Fool │ ←─ │Char.│ ←─ │Lover│     │
+│  │TooLi│    │TooMu│    │Unack│     │
+│  └──┬──┘    └─────┘    └─────┘     │
+│     └─────── LOOP ─────────┘       │
+├─────────────────────────────────────┤
+│ ROOT CAUSE: [AI-generated insight] │
+└─────────────────────────────────────┘
+```
+
+**Why This Matters:**
+- Transforms readings from descriptive to DIAGNOSTIC
+- Automates what only "maestros" could do manually
+- Shows interconnected patterns, not isolated cards
+- Finds the MINOTAUR (root cause) in the labyrinth
+
+**Spec:** `Canon Candidates/Life_Domain_Spreads_Proposal_v2.md` (Part V)
+
+---
+
+### FR23: Mini Pentagram Position Indicator ⭐ MEDIUM 🔥 VISUAL
+**Status:** Concept - Jan 2026
+
+**Tagline:** "What if consciousness had a shape?"
+
+Each card in a reading displays a mini pentagram showing its HOME POSITION in the architecture.
+
+**Features:**
+- Small pentagram icon on each card
+- Home position lights up (which house/location)
+- Wheel (top) and World (bottom) positions marked
+- Soul/Gestalt center indicated
+
+**Ariadne Integration:**
+When doing stack traces, the mini map DRAWS LINES between connected positions:
+- Visual learners SEE the shape of their issue
+- Connections animate as the thread traces
+- The geometry teaches the system while you use it
+
+**Weight Hierarchy (for interpretation emphasis):**
+- Soul House Majors > Other Majors > Minors
+- Wheel/World positions carry special significance
+- Cards in houses ruled by Soul positions show "fold-in" dynamics
+
+**Why This Matters:**
+- Makes the architecture VISIBLE, not just conceptual
+- Teaches users the system through interaction
+- Transforms abstract readings into spatial understanding
+- "You're not just reading cards - you're mapping the geometry of your psyche"
+
+**Reference:** Full 22-card pentagram map (see image in conversation Jan 2026)
 
 ---
 
