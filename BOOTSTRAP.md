@@ -69,9 +69,14 @@ Key functions in `lib/supabase.js`:
 - `getUnreadCount()` - For notification badge
 - `updateLastHubVisit()` - Marks hub as read
 
+## Project Stage
+
+**Friends & Family** - Limited audience, early testing. Not public yet.
+
 ## User Preferences
 
 - Chris prefers concise communication
-- Push to prod after major fixes
+- **Always push to all branches** (alpha, main, prod) after commits - we're in friends & family, no staged rollouts needed
+- **Always bump version** (`lib/version.js` + `package.json`) when committing features
 - Add backlog items to the Nirmanakaya_Book backlog, not local files
 - **SQL runs**: Always provide a single, ready-to-copy SQL block. No explanations mixed in. Chris is juggling a lot - make it dead simple.
