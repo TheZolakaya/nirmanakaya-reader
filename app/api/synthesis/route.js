@@ -36,10 +36,12 @@ export async function POST(request) {
     : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput);
 
   // Convert system prompt to cached format for 90% input token savings
+  // Guard against empty system prompt (can happen when loading saved readings)
+  const effectiveSystem = system || 'You are the Nirmanakaya Reader — a consciousness architecture oracle. Generate synthesis content for this reading.';
   const systemWithCache = [
     {
       type: "text",
-      text: system,
+      text: effectiveSystem,
       cache_control: { type: "ephemeral" }
     }
   ];
