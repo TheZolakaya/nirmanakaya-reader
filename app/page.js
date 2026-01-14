@@ -2973,16 +2973,12 @@ CRITICAL FORMATTING RULES:
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
           <>
-            {/* Auth button - top of stack */}
-            <div className="fixed top-3 right-3 z-50" onClick={(e) => e.stopPropagation()}>
-              <AuthButton onAuthChange={setCurrentUser} />
-            </div>
-            {/* Text size slider - below auth */}
-            <div className="fixed top-14 right-3 z-50">
+            {/* Text size slider - top of stack */}
+            <div className="fixed top-3 right-3 z-50">
               <TextSizeSlider />
             </div>
-            {/* Help button - below text size */}
-            <div className="fixed top-[6.25rem] right-3 z-50">
+            {/* Help button - middle */}
+            <div className="fixed top-14 right-3 z-50">
               <button
                 onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
                 className="help-trigger w-9 h-9 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
@@ -2997,27 +2993,31 @@ CRITICAL FORMATTING RULES:
                         <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
                         <div className="space-y-2">
                           <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Dynamic positions. The system chooses what to show you.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declaration mode. State an intention, draw one card, iterate.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">Direct Token Protocol. Name what's active, each token gets its own card.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Randomized positions. What the architecture reveals as most active right now.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declare intentions into a randomized position. Shape rather than observe.</span></div>
+                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">DTP algorithm. Recursive diagnostic that traces signature chains.</span></div>
                         </div>
                       </div>
                       <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Positions</div>
-                        <p className="text-zinc-400 text-xs">In Reflect, positions are semantic lenses you choose. In Discover, they're depth levels — how many signatures the system reveals.</p>
+                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spreads</div>
+                        <div className="space-y-2">
+                          <div><span className="text-zinc-200 font-medium">Single:</span> <span className="text-zinc-400 text-xs">One position, deep focus</span></div>
+                          <div><span className="text-zinc-200 font-medium">Triad:</span> <span className="text-zinc-400 text-xs">Three positions, triangulated view</span></div>
+                          <div><span className="text-zinc-200 font-medium">Pentad:</span> <span className="text-zinc-400 text-xs">Five positions, comprehensive spread</span></div>
+                          <div><span className="text-zinc-200 font-medium">Septad:</span> <span className="text-zinc-400 text-xs">Seven positions, full diagnostic</span></div>
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Voice</div>
-                        <p className="text-zinc-400 text-xs">Presets shape how the reading speaks to you — from quick and direct to deep and expansive.</p>
-                      </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spark</div>
-                        <p className="text-zinc-400 text-xs">Click Spark to see prompt suggestions if you need inspiration for your question.</p>
+                      <div className="pt-2 border-t border-zinc-700">
+                        <a href="/guide" className="text-amber-400 hover:text-amber-300 text-xs">Full Guide →</a>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
+            </div>
+            {/* Auth button - bottom of stack (so dropdown has room) */}
+            <div className="fixed top-[6.25rem] right-3 z-50" onClick={(e) => e.stopPropagation()}>
+              <AuthButton onAuthChange={setCurrentUser} />
             </div>
           </>
         )}
