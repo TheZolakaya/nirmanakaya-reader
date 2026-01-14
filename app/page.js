@@ -3142,8 +3142,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
             </div>
-            {/* Auth button - bottom of stack (below all background controls) */}
-            <div className="fixed top-56 right-3 z-50" onClick={(e) => e.stopPropagation()}>
+            {/* Auth button - below help button */}
+            <div className="fixed top-24 right-3 z-50" onClick={(e) => e.stopPropagation()}>
               <AuthButton onAuthChange={setCurrentUser} />
             </div>
           </>
