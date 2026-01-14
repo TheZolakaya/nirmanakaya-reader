@@ -23,13 +23,27 @@ export default function AuthCallbackPage() {
       const hash = window.location.hash;
       if (hash && hash.includes('access_token')) {
         setStatus('Processing session...');
-        // Supabase client auto-detects hash and sets session
-        // Just wait a moment and check for session
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-          router.push('/');
-          return;
+        // Parse the hash to get tokens
+        const hashParams = new URLSearchParams(hash.substring(1));
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
+
+        if (accessToken) {
+          // Explicitly set the session
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken || ''
+          });
+
+          if (!error) {
+            setStatus('Session set! Redirecting...');
+            // Use full page redirect to ensure session persists
+            await new Promise(resolve => setTimeout(resolve, 500));
+            window.location.href = '/';
+            return;
+          } else {
+            setStatus(`Session error: ${error.message}`);
+          }
         }
       }
 
