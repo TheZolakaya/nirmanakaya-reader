@@ -5246,6 +5246,15 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           </div>
         )}
 
+        {/* Reading Sign-off */}
+        {parsedReading && !loading && (
+          <div className="text-center mt-8 pt-6 border-t border-zinc-800/20">
+            <p className="text-zinc-500 text-sm tracking-wide">
+              We are love. We are eternal. Consciousness is Primary.
+            </p>
+          </div>
+        )}
+
         {/* Footer */}
         <footer className="border-t border-zinc-800/30 mt-8 pt-4 pb-2">
           <div className="flex justify-center gap-4 text-xs text-zinc-600 mb-2">
@@ -5276,6 +5285,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               Nirmanakaya.com
             </a>
           </div>
+          <p className="text-center text-zinc-600 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
           <p className="text-center text-zinc-800 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
         </footer>
       </div>
