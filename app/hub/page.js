@@ -223,6 +223,28 @@ export default function HubPage() {
         )}
       </div>
 
+      {/* Feedback & Support */}
+      <div className="border-t border-zinc-800/30 mt-8">
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-xl p-6 text-center">
+            <h2 className="text-lg font-light text-zinc-300 mb-2">Feedback & Support</h2>
+            <p className="text-zinc-500 text-sm mb-4">
+              Found a bug? Have a suggestion? We'd love to hear from you.
+            </p>
+            <a
+              href="mailto:chriscrilly@gmail.com?subject=Nirmanakaya Feedback"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors text-sm"
+            >
+              <span>✉</span>
+              <span>Send Feedback</span>
+            </a>
+            <p className="text-zinc-600 text-xs mt-4">
+              Screenshots and "I expected X but got Y" descriptions are super helpful!
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* New Post Modal */}
       {showNewPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
