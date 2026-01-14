@@ -3048,31 +3048,42 @@ CRITICAL FORMATTING RULES:
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
-                  {/* Cosmic tagline */}
-                  <div className="mb-8 space-y-1">
+                  {/* Cosmic tagline - tighter to title */}
+                  <div className="mb-4 space-y-0.5">
                     <p className="text-zinc-300 text-lg sm:text-xl font-light tracking-wide">
-                      You are a creator...
+                      You are a creator
                     </p>
                     <p className="text-zinc-200 text-lg sm:text-xl font-light tracking-wide">
-                      Within The Creator...
+                      Within The Creator
                     </p>
                     <p className="text-zinc-100 text-lg sm:text-xl font-light tracking-wide">
-                      Expanding Creation.
+                      Expanding Creation
                     </p>
                   </div>
 
-                  {/* Title */}
-                  <h1 className="text-4xl sm:text-5xl font-extralight text-amber-400 tracking-widest mb-3 drop-shadow-lg">
-                    NIRMANAKAYA
+                  {/* Title with rainbow cycling animation */}
+                  <h1 className="text-4xl sm:text-5xl font-extralight tracking-widest mb-1 drop-shadow-lg">
+                    {'NIRMANAKAYA'.split('').map((letter, i) => (
+                      <span
+                        key={i}
+                        className="inline-block animate-rainbow-cycle"
+                        style={{
+                          animationDelay: `${i * 0.15}s`,
+                          textShadow: '0 0 20px currentColor'
+                        }}
+                      >
+                        {letter}
+                      </span>
+                    ))}
                   </h1>
-                  <p className="text-zinc-400 text-sm italic mb-10">
+                  <p className="text-zinc-400/80 text-xs tracking-widest uppercase mb-8">
                     Discovered through the math of faith
                   </p>
 
                   {/* Sign in */}
                   <button
                     onClick={() => setAuthModalOpen(true)}
-                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all shadow-lg shadow-amber-900/30"
+                    className="px-8 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-white/20 hover:border-white/30 transition-all shadow-lg"
                   >
                     Enter
                   </button>

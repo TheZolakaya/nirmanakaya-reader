@@ -44,6 +44,24 @@ body {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+/* Rainbow color cycling for cosmic title */
+@keyframes rainbow-cycle {
+  0%, 100% { color: #f0f0f0; }
+  10% { color: #a78bfa; }
+  20% { color: #818cf8; }
+  30% { color: #60a5fa; }
+  40% { color: #38bdf8; }
+  50% { color: #2dd4bf; }
+  60% { color: #4ade80; }
+  70% { color: #a3e635; }
+  80% { color: #facc15; }
+  90% { color: #fb923c; }
+}
+
+.animate-rainbow-cycle {
+  animation: rainbow-cycle 8s ease-in-out infinite;
+}
+
 /* Smooth expand/collapse for depth cards */
 .depth-content {
   transition: all 0.3s ease-out;
