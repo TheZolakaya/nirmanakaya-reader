@@ -3096,6 +3096,11 @@ CRITICAL FORMATTING RULES:
                     Free to explore. Your readings are private.
                   </p>
                 </div>
+
+                {/* Version indicator */}
+                <div className="fixed bottom-3 right-3 text-white/30 text-[0.6rem] font-mono">
+                  v{VERSION}
+                </div>
               </div>
             ) : (
             <>
