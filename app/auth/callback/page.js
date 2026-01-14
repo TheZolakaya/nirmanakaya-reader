@@ -36,11 +36,17 @@ export default function AuthCallbackPage() {
           });
 
           if (!error) {
-            setStatus('Session set! Redirecting...');
-            // Use full page redirect to ensure session persists
-            await new Promise(resolve => setTimeout(resolve, 500));
-            window.location.href = '/';
-            return;
+            // Verify session was stored
+            const { data: { session: verifySession } } = await supabase.auth.getSession();
+            if (verifySession) {
+              setStatus(`Session verified for ${verifySession.user?.email}! Redirecting...`);
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              window.location.href = window.location.origin + '/';
+              return;
+            } else {
+              setStatus('Session set but not persisted - check localStorage');
+              await new Promise(resolve => setTimeout(resolve, 3000));
+            }
           } else {
             setStatus(`Session error: ${error.message}`);
           }
