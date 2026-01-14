@@ -3028,38 +3028,55 @@ CRITICAL FORMATTING RULES:
           <>
             {/* Auth Gate - Cosmic Landing */}
             {!currentUser ? (
-              <div className="max-w-2xl mx-auto text-center py-8 px-4">
-                {/* Cosmic tagline */}
-                <div className="mb-8 space-y-1">
-                  <p className="text-zinc-400 text-lg sm:text-xl font-light tracking-wide">
-                    You are a creator...
+              <div className="relative min-h-[80vh] flex items-center justify-center -mx-4 sm:-mx-6 -mt-4">
+                {/* Galaxy video background */}
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover opacity-50"
+                >
+                  <source src="/galaxy.mp4" type="video/mp4" />
+                </video>
+
+                {/* Gradient overlay for text readability */}
+                <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/50 to-zinc-950/90" />
+
+                {/* Content */}
+                <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
+                  {/* Cosmic tagline */}
+                  <div className="mb-8 space-y-1">
+                    <p className="text-zinc-300 text-lg sm:text-xl font-light tracking-wide">
+                      You are a creator...
+                    </p>
+                    <p className="text-zinc-200 text-lg sm:text-xl font-light tracking-wide">
+                      Within The Creator...
+                    </p>
+                    <p className="text-zinc-100 text-lg sm:text-xl font-light tracking-wide">
+                      Expanding Creation.
+                    </p>
+                  </div>
+
+                  {/* Title */}
+                  <h1 className="text-4xl sm:text-5xl font-extralight text-amber-400 tracking-widest mb-3 drop-shadow-lg">
+                    NIRMANAKAYA
+                  </h1>
+                  <p className="text-zinc-400 text-sm italic mb-10">
+                    Discovered through the math of faith
                   </p>
-                  <p className="text-zinc-300 text-lg sm:text-xl font-light tracking-wide">
-                    Within The Creator...
-                  </p>
-                  <p className="text-zinc-200 text-lg sm:text-xl font-light tracking-wide">
-                    Expanding Creation.
+
+                  {/* Sign in */}
+                  <button
+                    onClick={() => setAuthModalOpen(true)}
+                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all shadow-lg shadow-amber-900/30"
+                  >
+                    Enter
+                  </button>
+                  <p className="text-zinc-500 text-xs mt-6">
+                    Free to explore. Your readings are private.
                   </p>
                 </div>
-
-                {/* Title */}
-                <h1 className="text-4xl sm:text-5xl font-extralight text-amber-400 tracking-widest mb-3">
-                  NIRMANAKAYA
-                </h1>
-                <p className="text-zinc-500 text-sm italic mb-10">
-                  Discovered through the math of faith
-                </p>
-
-                {/* Sign in */}
-                <button
-                  onClick={() => setAuthModalOpen(true)}
-                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all shadow-lg shadow-amber-900/20"
-                >
-                  Enter
-                </button>
-                <p className="text-zinc-600 text-xs mt-6">
-                  Free to explore. Your readings are private.
-                </p>
               </div>
             ) : (
             <>
