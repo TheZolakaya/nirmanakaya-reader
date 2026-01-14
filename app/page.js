@@ -1,5 +1,6 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
 // Import data and utilities from lib
@@ -89,6 +90,11 @@ import { renderWithHotlinks, processBracketHotlinks } from '../lib/hotlinks.js';
 // Import glossary utilities
 import { getGlossaryEntry } from '../lib/glossary.js';
 import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
+
+// Import auth components
+import { AuthButton, AuthModal } from '../components/auth';
+import { SaveReadingButton, ShareReadingButton } from '../components/reading';
+import { getReading } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -257,6 +263,87 @@ export default function NirmanakaReader() {
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [whyAppearedDepth, setWhyAppearedDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+
+  // Auth state
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [savedReadingId, setSavedReadingId] = useState(null);
+
+  // Listen for auth modal open event
+  useEffect(() => {
+    const handleOpenAuth = () => setAuthModalOpen(true);
+    window.addEventListener('open-auth-modal', handleOpenAuth);
+    return () => window.removeEventListener('open-auth-modal', handleOpenAuth);
+  }, []);
+
+  // Load saved reading from URL param (?load=readingId)
+  useEffect(() => {
+    async function loadSavedReading() {
+      const params = new URLSearchParams(window.location.search);
+      const loadId = params.get('load');
+      if (!loadId) return;
+
+      try {
+        const { data, error } = await getReading(loadId);
+        if (error || !data) {
+          console.error('Failed to load saved reading:', error);
+          return;
+        }
+
+        // Restore state from saved reading
+        setQuestion(data.question || '');
+        setSpreadType(data.mode || 'discover');
+        if (data.spread_type) {
+          if (data.mode === 'reflect') {
+            setReflectSpreadKey(data.spread_type);
+          } else {
+            setSpreadKey(data.spread_type);
+          }
+        }
+
+        // Restore draws (cards array contains both draw data and interpretations)
+        if (data.cards && Array.isArray(data.cards)) {
+          const restoredDraws = data.cards.map(card => ({
+            position: card.position,
+            transient: card.transient,
+            status: card.status
+          }));
+          setDraws(restoredDraws);
+
+          // Restore parsed reading from saved interpretations
+          const restoredCards = data.cards.map((card, i) => card.interpretation || {
+            index: i,
+            surface: null,
+            wade: null,
+            swim: null,
+            deep: null,
+            architecture: null,
+            mirror: null,
+            rebalancer: null,
+            why: { surface: null, wade: null, swim: null, deep: null, architecture: null }
+          });
+
+          setParsedReading({
+            cards: restoredCards,
+            letter: data.letter || { surface: null, wade: null, swim: null, deep: null },
+            summary: data.synthesis?.summary || { surface: null, wade: null, swim: null, deep: null },
+            path: data.synthesis?.path || { surface: null, wade: null, swim: null, deep: null, architecture: null },
+            fullArchitecture: data.synthesis?.fullArchitecture || null,
+            _restored: true // Flag to indicate this was restored from saved
+          });
+        }
+
+        setSavedReadingId(data.id);
+
+        // Clear the URL param after loading
+        window.history.replaceState({}, '', window.location.pathname);
+      } catch (e) {
+        console.error('Error loading saved reading:', e);
+      }
+    }
+
+    loadSavedReading();
+  }, []);
 
   // Mobile detection for depth stepper
   const [isMobileDepth, setIsMobileDepth] = useState(false);
@@ -2892,6 +2979,10 @@ CRITICAL FORMATTING RULES:
           className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
+          {/* Auth button - top right */}
+          <div className="absolute top-0 right-0" onClick={(e) => e.stopPropagation()}>
+            <AuthButton onAuthChange={setCurrentUser} />
+          </div>
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 text-zinc-100">NIRMANAKAYA</h1>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
@@ -2935,6 +3026,25 @@ CRITICAL FORMATTING RULES:
         {/* Controls */}
         {!draws && (
           <>
+            {/* Auth Gate - Require sign-in to do readings */}
+            {!currentUser ? (
+              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-8 mb-6 max-w-lg mx-auto text-center">
+                <h2 className="text-xl font-light text-zinc-100 mb-3">Welcome to Nirmanakaya</h2>
+                <p className="text-zinc-400 text-sm mb-6">
+                  Sign in to explore consciousness architecture and save your readings.
+                </p>
+                <button
+                  onClick={() => setAuthModalOpen(true)}
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
+                >
+                  Sign In to Begin
+                </button>
+                <p className="text-zinc-600 text-xs mt-4">
+                  Free to use. Your readings are private and saved to your account.
+                </p>
+              </div>
+            ) : (
+            <>
             {/* First Contact Mode - Simplified UI */}
             {userLevel === USER_LEVELS.FIRST_CONTACT && (
               <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 mb-6 max-w-lg mx-auto">
@@ -3391,6 +3501,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
             </>
             )}
+            </>
+            )}
           </>
         )}
 
@@ -3456,7 +3568,31 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
 
             {/* Simple actions */}
-            <div className="flex justify-center gap-3 mt-6">
+            <div className="flex flex-col items-center gap-3 mt-6">
+              <div className="flex gap-2">
+                <SaveReadingButton
+                  reading={{
+                    question,
+                    mode: 'firstContact',
+                    cards: draws.map((draw, i) => ({
+                      ...draw,
+                      interpretation: null // First Contact doesn't have card interpretations
+                    })),
+                    synthesis: { firstContactResponse: parsedReading?.firstContact },
+                    letter: parsedReading?.firstContact,
+                    tokenUsage
+                  }}
+                  onSave={(saved) => setSavedReadingId(saved?.id)}
+                />
+                <ShareReadingButton
+                  reading={{
+                    question,
+                    mode: 'firstContact',
+                    cards: draws?.slice(0, 3)
+                  }}
+                  readingId={savedReadingId}
+                />
+              </div>
               <button
                 onClick={resetReading}
                 className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
@@ -3493,9 +3629,38 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 </span>
               </div>
               {/* Action buttons row */}
-              <div className="flex justify-center gap-2 items-center relative mb-4">
+              <div className="flex justify-center gap-2 items-center relative mb-4 flex-wrap">
                 {parsedReading && !loading && (
-                  <button onClick={exportToHTML} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">Export</button>
+                  <>
+                    <SaveReadingButton
+                      reading={{
+                        question,
+                        mode: spreadType,
+                        spreadType: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+                        cards: draws.map((draw, i) => ({
+                          ...draw,
+                          interpretation: parsedReading?.cards?.[i] || null
+                        })),
+                        synthesis: {
+                          summary: parsedReading?.summary,
+                          path: parsedReading?.path,
+                          fullArchitecture: parsedReading?.fullArchitecture
+                        },
+                        letter: parsedReading?.letter,
+                        tokenUsage
+                      }}
+                      onSave={(saved) => setSavedReadingId(saved?.id)}
+                    />
+                    <ShareReadingButton
+                      reading={{
+                        question,
+                        mode: spreadType,
+                        cards: draws?.slice(0, 3)
+                      }}
+                      readingId={savedReadingId}
+                    />
+                    <button onClick={exportToHTML} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">Export</button>
+                  </>
                 )}
                 <button onClick={() => setShowTraditional(!showTraditional)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
                 <button onClick={() => setShowArchitecture(!showArchitecture)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
@@ -5108,6 +5273,12 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           onClose={() => setGlossaryTooltip(null)}
         />
       )}
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+      />
     </div>
   );
 }
