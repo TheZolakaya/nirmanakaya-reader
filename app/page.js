@@ -3050,49 +3050,49 @@ CRITICAL FORMATTING RULES:
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl mx-auto text-center py-16 px-4">
-                  {/* Cosmic tagline - staggered fade in/out (4 lines, 12s cycle) */}
-                  <div className="mb-2 h-8 relative">
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '0s' }}>
+                  {/* Cosmic tagline - staggered fade in/out (4 lines, 14s cycle) */}
+                  <div className="mb-3 h-10 relative">
+                    <p className="absolute inset-0 text-zinc-100 text-xl sm:text-2xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '0s' }}>
                       You are a creator
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '3s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-xl sm:text-2xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '3.5s' }}>
                       Within The Creator
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '6s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-xl sm:text-2xl font-light tracking-wide animate-tagline-fade-4" style={{ animationDelay: '7s' }}>
                       Expanding Creation
                     </p>
-                    <p className="absolute inset-0 text-zinc-100 text-lg sm:text-xl font-light tracking-wide animate-tagline-fade-4-hold" style={{ animationDelay: '9s' }}>
+                    <p className="absolute inset-0 text-zinc-100 text-xl sm:text-2xl font-light tracking-wide animate-tagline-fade-4-hold" style={{ animationDelay: '10.5s' }}>
                       Consciousness is Primary
                     </p>
                   </div>
 
                   {/* Title with rainbow cycling animation */}
-                  <h1 className="text-4xl sm:text-5xl font-extralight tracking-widest mb-0.5 drop-shadow-lg">
+                  <h1 className="text-5xl sm:text-6xl font-extralight tracking-widest mb-1 drop-shadow-lg">
                     {'NIRMANAKAYA'.split('').map((letter, i) => (
                       <span
                         key={i}
                         className="inline-block animate-rainbow-cycle"
                         style={{
                           animationDelay: `${i * 0.15}s`,
-                          textShadow: '0 0 20px currentColor'
+                          textShadow: '0 0 25px currentColor'
                         }}
                       >
                         {letter}
                       </span>
                     ))}
                   </h1>
-                  <p className="text-black/70 text-[0.5rem] sm:text-[0.65rem] tracking-widest uppercase mb-8 font-medium">
+                  <p className="text-black/70 text-[0.625rem] sm:text-[0.8rem] tracking-widest uppercase mb-10 font-medium">
                     Discovered through the math of faith
                   </p>
 
                   {/* Sign in */}
                   <button
                     onClick={() => setAuthModalOpen(true)}
-                    className="px-8 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-white/20 hover:border-white/30 transition-all shadow-lg"
+                    className="px-10 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white text-lg font-medium hover:bg-white/20 hover:border-white/30 transition-all shadow-lg"
                   >
                     Enter
                   </button>
-                  <p className="text-zinc-500 text-xs mt-6">
+                  <p className="text-zinc-500 text-sm mt-6">
                     Free to explore. Your readings are private.
                   </p>
                 </div>
