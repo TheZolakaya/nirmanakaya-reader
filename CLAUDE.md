@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Bootstrap**: See `BOOTSTRAP.md` for session preferences, git workflow, and key file locations.
+
 ## Project Overview
 
 Nirmanakaya Reader is a consciousness architecture reading system built with Next.js. It generates AI-interpreted readings based on a proprietary system of archetypes, bounds, and agents - analogous to a tarot deck but with its own unique metaphysical framework.
