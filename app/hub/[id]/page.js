@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser } from '../../../lib/supabase';
+import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin } from '../../../lib/supabase';
 
 const TOPIC_COLORS = {
   general: 'text-zinc-400',
@@ -147,6 +147,7 @@ export default function DiscussionPage({ params }) {
   }
 
   const isAuthor = user?.id === discussion.user_id;
+  const userIsAdmin = isAdmin(user);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
@@ -161,7 +162,7 @@ export default function DiscussionPage({ params }) {
             </Link>
             <span className="text-zinc-400 text-sm">Back to Hub</span>
           </div>
-          {isAuthor && (
+          {(isAuthor || userIsAdmin) && (
             <button
               onClick={handleDeleteDiscussion}
               disabled={deleting}
@@ -253,7 +254,7 @@ export default function DiscussionPage({ params }) {
                       <span>{formatRelative(reply.created_at)}</span>
                     </div>
                   </div>
-                  {user?.id === reply.user_id && (
+                  {(user?.id === reply.user_id || userIsAdmin) && (
                     <button
                       onClick={() => handleDeleteReply(reply.id)}
                       className="text-zinc-600 hover:text-rose-400 transition-colors"

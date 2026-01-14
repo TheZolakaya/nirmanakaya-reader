@@ -96,10 +96,49 @@ SET reply_count = (
 );
 
 -- ============================================
+-- ADMIN FUNCTIONALITY
+-- ============================================
+
+-- Add is_admin column to profiles
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS is_admin boolean DEFAULT false;
+
+-- Set admin flag for specific users (by email)
+UPDATE profiles p
+SET is_admin = true
+FROM auth.users u
+WHERE p.id = u.id
+AND u.email = 'chriscrilly@gmail.com';
+
+-- Helper function to check if current user is admin
+CREATE OR REPLACE FUNCTION is_admin()
+RETURNS boolean AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM profiles
+    WHERE id = auth.uid()
+    AND is_admin = true
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Update delete policies to allow admins
+
+-- Discussions: allow admin delete
+DROP POLICY IF EXISTS "Users can delete own discussions" ON discussions;
+CREATE POLICY "Users can delete own discussions" ON discussions
+  FOR DELETE USING (auth.uid() = user_id OR is_admin());
+
+-- Replies: allow admin delete
+DROP POLICY IF EXISTS "Users can delete own replies" ON discussion_replies;
+CREATE POLICY "Users can delete own replies" ON discussion_replies
+  FOR DELETE USING (auth.uid() = user_id OR is_admin());
+
+-- ============================================
 -- DONE!
 -- ============================================
 -- Reply counts will now auto-update when
 -- replies are added or removed.
 -- Profiles auto-created on signup.
 -- Existing reply counts fixed.
+-- Admins can delete any discussion/reply.
 -- ============================================
