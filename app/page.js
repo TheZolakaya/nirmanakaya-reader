@@ -266,6 +266,7 @@ export default function NirmanakaReader() {
 
   // Auth state
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState('signin');
   const [currentUser, setCurrentUser] = useState(null);
   const [savedReadingId, setSavedReadingId] = useState(null);
 
@@ -274,6 +275,17 @@ export default function NirmanakaReader() {
     const handleOpenAuth = () => setAuthModalOpen(true);
     window.addEventListener('open-auth-modal', handleOpenAuth);
     return () => window.removeEventListener('open-auth-modal', handleOpenAuth);
+  }, []);
+
+  // Check for password reset URL param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reset_password') === 'true') {
+      setAuthModalMode('reset');
+      setAuthModalOpen(true);
+      // Clean up URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
   }, []);
 
   // Load saved reading from URL param (?load=readingId)
@@ -5346,7 +5358,11 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
       {/* Auth Modal */}
       <AuthModal
         isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
+        onClose={() => {
+          setAuthModalOpen(false);
+          setAuthModalMode('signin');
+        }}
+        initialMode={authModalMode}
       />
     </div>
   );

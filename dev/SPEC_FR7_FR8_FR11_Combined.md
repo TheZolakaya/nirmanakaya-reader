@@ -83,10 +83,22 @@ Per the canonical document:
 - **6 Gestalt/Portal Archetypes** → Self (completion points — different messaging)
 
 **For self-referential growth (Gestalt/Portal):**
+
+NOT "rest here" — that's wrong. Gestalt archetypes returning to themselves means:
+- **Continue investing in this energy**
+- **Keep leaning in**
+- **The loop IS the growth**
+- **You grow by becoming MORE of what you already are**
+
 ```
-"[Signature] in balance is a completion point. There is no external 
-growth target — you ARE the destination. Rest here."
+WRONG: "Rest here. You've arrived. This is the destination."
+
+RIGHT: "Balanced [Will] grows by investing further in [Will]. 
+The architecture isn't pointing you elsewhere — it's saying 
+go deeper here. More of this. The loop is the path."
 ```
+
+Gestalt signatures don't rest. They recurse. They intensify. The fact that Will points to Will when balanced doesn't mean "stop" — it means "this is what wants more of your attention."
 
 ---
 
