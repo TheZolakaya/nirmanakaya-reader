@@ -12,18 +12,26 @@ export default function AuthButton({ onAuthChange }) {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    // Check current user
-    checkUser();
+    // Wait a moment for Supabase to restore session from localStorage
+    const timer = setTimeout(() => {
+      checkUser();
+    }, 100);
 
     // Listen for auth changes
     if (supabase) {
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        console.log('Auth state changed:', _event, session?.user?.email);
         setUser(session?.user ?? null);
         onAuthChange?.(session?.user ?? null);
       });
 
-      return () => subscription.unsubscribe();
+      return () => {
+        clearTimeout(timer);
+        subscription.unsubscribe();
+      };
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   async function checkUser() {
