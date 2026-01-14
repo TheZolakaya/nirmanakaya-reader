@@ -94,7 +94,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton } from '../components/reading';
-import { getReading, getUser, supabase } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -864,6 +864,17 @@ export default function NirmanakaReader() {
         const parsed = parseFirstContactResponse(data.reading);
         setParsedReading(parsed);
         setTokenUsage(data.usage);
+
+        // Auto-save First Contact reading
+        saveReading({
+          question: safeQuestion,
+          mode: 'first-contact',
+          spreadType: '1-card',
+          cards: drawsToUse,
+          synthesis: parsed?.letter || null,
+          letter: parsed?.letter || null,
+          tokenUsage: data.usage
+        }).catch(err => console.log('[AutoSave] Failed:', err));
       } catch (e) { setError(`Error: ${e.message}`); }
       setLoading(false);
       return;
@@ -932,6 +943,17 @@ export default function NirmanakaReader() {
         originalInput: tokens && tokens.length > 0 ? questionToUse : null
       });
       setTokenUsage(data.usage);
+
+      // Auto-save reading to database
+      saveReading({
+        question: questionToUse,
+        mode: spreadType,
+        spreadType: `${drawsToUse.length}-card`,
+        cards: drawsToUse,
+        synthesis: null,
+        letter: data.letter,
+        tokenUsage: data.usage
+      }).catch(err => console.log('[AutoSave] Failed:', err));
 
       // Auto-load ALL cards in parallel immediately for better UX
       // This uses the on-demand architecture but loads everything upfront
