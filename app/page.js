@@ -457,7 +457,7 @@ export default function NirmanakaReader() {
   const [synthesisLoaded, setSynthesisLoaded] = useState(false); // Whether summary/path have been fetched
   const [synthesisLoading, setSynthesisLoading] = useState(false); // Whether synthesis is currently loading
   const [letterLoadingDeeper, setLetterLoadingDeeper] = useState(false); // Whether letter is loading deeper content
-  const [synthesisLoadingDeeper, setSynthesisLoadingDeeper] = useState(false); // Whether synthesis is loading deeper
+  const [synthesisLoadingSection, setSynthesisLoadingSection] = useState(null); // Which synthesis section is loading deeper ('summary' | 'whyAppeared' | 'path' | null)
   const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
@@ -1173,7 +1173,7 @@ export default function NirmanakaReader() {
   // Progressive deepening: Load SWIM or DEEP for Synthesis (Summary + WhyAppeared + Path)
   // section: 'summary' | 'whyAppeared' | 'path' - which section is requesting the depth change
   const loadDeeperSynthesis = async (targetDepth, section = 'summary') => {
-    if (synthesisLoadingDeeper) return;
+    if (synthesisLoadingSection) return;
 
     const summary = parsedReading?.summary;
     const whyAppeared = parsedReading?.whyAppeared;
@@ -1193,7 +1193,7 @@ export default function NirmanakaReader() {
       return;
     }
 
-    setSynthesisLoadingDeeper(true);
+    setSynthesisLoadingSection(section);
 
     try {
       const previousContent = {
@@ -1291,7 +1291,7 @@ export default function NirmanakaReader() {
       setError(`Error loading deeper synthesis content: ${e.message}`);
     }
 
-    setSynthesisLoadingDeeper(false);
+    setSynthesisLoadingSection(null);
   };
 
   const performReading = async () => {
@@ -4370,7 +4370,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">Path to Balance</span>
                       </div>
                       {/* Depth navigation - desktop inline, mobile below */}
-                      {hasDepthLevels && !isPathCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                      {hasDepthLevels && !isPathCollapsed && synthesisLoadingSection !== 'path' && !isMobileDepth && (
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                           {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                             const hasContent = level === 'shallow' ? path.wade : path[level];
@@ -4385,7 +4385,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                     loadDeeperSynthesis(level, 'path');
                                   }
                                 }}
-                                disabled={synthesisLoadingDeeper}
+                                disabled={synthesisLoadingSection === 'path'}
                                 className={`px-2 py-0.5 text-xs rounded transition-colors ${
                                   isActive
                                     ? 'bg-emerald-500 text-white'
@@ -4401,7 +4401,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                           })}
                         </div>
                       )}
-                      {synthesisLoadingDeeper && !isPathCollapsed && (
+                      {synthesisLoadingSection === 'path' && !isPathCollapsed && (
                         <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>
                       )}
                     </div>
@@ -4425,7 +4425,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             deep: !!path.deep
                           }}
                           accentColor="emerald"
-                          loading={synthesisLoadingDeeper}
+                          loading={synthesisLoadingSection === 'path'}
                         />
                       </div>
                     )}
@@ -4754,7 +4754,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">The Reading</span>
                           </div>
                           {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthSummaryCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                          {hasDepthLevels && !isSynthSummaryCollapsed && synthesisLoadingSection !== 'summary' && !isMobileDepth && (
                             <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                               {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                                 const hasContent = level === 'shallow' ? summary.wade : summary[level];
@@ -4763,7 +4763,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                   <button
                                     key={level}
                                     onClick={() => level === 'shallow' || level === 'wade' ? setSummaryDepth(level) : loadDeeperSynthesis(level, 'summary')}
-                                    disabled={synthesisLoadingDeeper}
+                                    disabled={synthesisLoadingSection === 'summary'}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-amber-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
                                     {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -4772,12 +4772,12 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               })}
                             </div>
                           )}
-                          {synthesisLoadingDeeper && !isSynthSummaryCollapsed && <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>}
+                          {synthesisLoadingSection === 'summary' && !isSynthSummaryCollapsed && <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>}
                         </div>
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthSummaryCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d, 'summary')} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d, 'summary')} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingSection === 'summary'} />
                           </div>
                         )}
                         {/* Content */}
@@ -4835,7 +4835,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Why This Reading Appeared</span>
                           </div>
                           {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthWhyCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                          {hasDepthLevels && !isSynthWhyCollapsed && synthesisLoadingSection !== 'whyAppeared' && !isMobileDepth && (
                             <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                               {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                                 const hasContent = level === 'shallow' ? whyAppeared.wade : whyAppeared[level];
@@ -4844,7 +4844,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                   <button
                                     key={level}
                                     onClick={() => level === 'shallow' || level === 'wade' ? setWhyAppearedDepth(level) : loadDeeperSynthesis(level, 'whyAppeared')}
-                                    disabled={synthesisLoadingDeeper}
+                                    disabled={synthesisLoadingSection === 'whyAppeared'}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-cyan-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
                                     {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -4853,12 +4853,12 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               })}
                             </div>
                           )}
-                          {synthesisLoadingDeeper && !isSynthWhyCollapsed && <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>}
+                          {synthesisLoadingSection === 'whyAppeared' && !isSynthWhyCollapsed && <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>}
                         </div>
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthWhyCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d, 'whyAppeared')} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d, 'whyAppeared')} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingSection === 'whyAppeared'} />
                           </div>
                         )}
                         {/* Content */}
@@ -4924,7 +4924,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">The Invitation</span>
                           </div>
                           {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthPathCollapsed && !synthesisLoadingDeeper && !isMobileDepth && (
+                          {hasDepthLevels && !isSynthPathCollapsed && synthesisLoadingSection !== 'path' && !isMobileDepth && (
                             <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                               {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                                 const hasContent = level === 'shallow' ? path.wade : path[level];
@@ -4933,7 +4933,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                   <button
                                     key={level}
                                     onClick={() => level === 'shallow' || level === 'wade' ? setPathDepth(level) : loadDeeperSynthesis(level, 'path')}
-                                    disabled={synthesisLoadingDeeper}
+                                    disabled={synthesisLoadingSection === 'path'}
                                     className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-emerald-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
                                   >
                                     {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
@@ -4942,12 +4942,12 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               })}
                             </div>
                           )}
-                          {synthesisLoadingDeeper && !isSynthPathCollapsed && <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>}
+                          {synthesisLoadingSection === 'path' && !isSynthPathCollapsed && <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>}
                         </div>
                         {/* Mobile Depth Stepper */}
                         {hasDepthLevels && !isSynthPathCollapsed && isMobileDepth && (
                           <div className="mb-3">
-                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d, 'path')} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingDeeper} />
+                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d, 'path')} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingSection === 'path'} />
                           </div>
                         )}
                         {/* Content */}
