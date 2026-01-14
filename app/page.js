@@ -441,6 +441,8 @@ export default function NirmanakaReader() {
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
+  const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
+  const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
@@ -661,6 +663,8 @@ export default function NirmanakaReader() {
         if (prefs.creator !== undefined) setCreator(prefs.creator);
         if (prefs.roastMode !== undefined) setRoastMode(prefs.roastMode);
         if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
+        if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
+        if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -704,7 +708,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3004,16 +3008,18 @@ CRITICAL FORMATTING RULES:
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       {/* Background Video */}
+      {animatedBackground && (
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="fixed inset-0 w-full h-full object-cover z-0 opacity-30"
-        style={{ pointerEvents: "none" }}
+        className="fixed inset-0 w-full h-full object-cover z-0"
+        style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
       >
         <source src="/video/background.mp4" type="video/mp4" />
       </video>
+      )}
       {/* Main content overlay */}
       <div className="relative z-10">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
@@ -3024,6 +3030,29 @@ CRITICAL FORMATTING RULES:
             {/* Text size slider - top of stack */}
             <div className="fixed top-3 right-3 z-50">
               <TextSizeSlider />
+            </div>
+            {/* Background toggle and opacity */}
+            <div className="fixed top-24 right-3 z-50 flex flex-col items-end gap-1">
+              <button
+                onClick={() => setAnimatedBackground(!animatedBackground)}
+                className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
+                title={animatedBackground ? "Disable animated background" : "Enable animated background"}
+              >
+                {animatedBackground ? "▶" : "◼"}
+              </button>
+              {animatedBackground && (
+                <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
+                  <span className="text-zinc-500 text-xs">◐</span>
+                  <input
+                    type="range"
+                    min="5"
+                    max="60"
+                    value={backgroundOpacity}
+                    onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
+                    className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                  />
+                </div>
+              )}
             </div>
             {/* Help button - middle */}
             <div className="fixed top-14 right-3 z-50">
