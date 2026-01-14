@@ -3081,7 +3081,7 @@ CRITICAL FORMATTING RULES:
                       </span>
                     ))}
                   </h1>
-                  <p className="text-black/70 text-[0.65rem] tracking-widest uppercase mb-8 font-medium">
+                  <p className="text-black/70 text-[0.5rem] sm:text-[0.65rem] tracking-widest uppercase mb-8 font-medium">
                     Discovered through the math of faith
                   </p>
 
