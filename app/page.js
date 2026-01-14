@@ -442,6 +442,7 @@ export default function NirmanakaReader() {
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
+  const [showBgControls, setShowBgControls] = useState(false); // Show/hide background controls panel
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
   const [contentDim, setContentDim] = useState(0); // Dark overlay behind content (0-100)
   const [selectedBackground, setSelectedBackground] = useState(3); // Which background video (0 = none, 3 = cosmos)
@@ -3026,7 +3027,7 @@ CRITICAL FORMATTING RULES:
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       {/* Background Video */}
-      {animatedBackground && backgrounds[selectedBackground]?.src && (
+      {backgrounds[selectedBackground]?.src && (
       <video
         key={backgrounds[selectedBackground].id}
         autoPlay
@@ -3051,16 +3052,16 @@ CRITICAL FORMATTING RULES:
             <div className="fixed top-3 right-3 z-50">
               <TextSizeSlider />
             </div>
-            {/* Background toggle and opacity */}
-            <div className="fixed top-24 right-3 z-50 flex flex-col items-end gap-1">
+            {/* Background controls - upper left */}
+            <div className="fixed top-3 left-3 z-50 flex flex-col items-start gap-1">
               <button
-                onClick={() => setAnimatedBackground(!animatedBackground)}
+                onClick={() => setShowBgControls(!showBgControls)}
                 className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
-                title={animatedBackground ? "Disable animated background" : "Enable animated background"}
+                title={showBgControls ? "Hide background controls" : "Show background controls"}
               >
-                {animatedBackground ? "▶" : "◼"}
+                {showBgControls ? "✕" : "◐"}
               </button>
-              {animatedBackground && (
+              {showBgControls && (
                 <>
                   <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
                     <span className="text-zinc-500 text-xs">◐</span>
