@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussions, createDiscussion, getUser } from '../../lib/supabase';
+import { getDiscussions, createDiscussion, getUser, updateLastHubVisit, ensureProfile } from '../../lib/supabase';
 
 const TOPIC_TYPES = [
   { value: 'general', label: 'General', color: 'text-zinc-400' },
@@ -35,6 +35,12 @@ export default function HubPage() {
     async function loadData() {
       const { user } = await getUser();
       setUser(user);
+
+      // Ensure profile exists and mark hub as visited
+      if (user) {
+        await ensureProfile();
+        await updateLastHubVisit();
+      }
 
       const { data, error } = await getDiscussions({ topicType: filter });
       if (error) {

@@ -9,7 +9,8 @@ import {
   getUserDiscussions,
   getUser,
   updateProfile,
-  ensureProfile
+  ensureProfile,
+  updateNotificationPrefs
 } from '../../../lib/supabase';
 
 export default function ProfilePage() {
@@ -30,6 +31,9 @@ export default function ProfilePage() {
   const [editName, setEditName] = useState('');
   const [editBio, setEditBio] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+
+  // Notification preferences
+  const [notifyPref, setNotifyPref] = useState('all'); // 'all' | 'replies' | 'none'
 
   const isOwnProfile = currentUser?.id === userId;
 
@@ -71,6 +75,7 @@ export default function ProfilePage() {
         setProfile(profileData);
         setEditName(profileData?.display_name || '');
         setEditBio(profileData?.bio || '');
+        setNotifyPref(profileData?.notification_prefs || 'all');
 
         // Get public readings
         const { data: readingsData } = await getUserPublicReadings(userId);
@@ -109,6 +114,11 @@ export default function ProfilePage() {
       setIsEditing(false);
     }
     setIsSaving(false);
+  };
+
+  const handleNotifyChange = async (newPref) => {
+    setNotifyPref(newPref);
+    await updateNotificationPrefs(newPref);
   };
 
   const formatDate = (dateString) => {
@@ -269,6 +279,46 @@ export default function ProfilePage() {
               <div className="text-xs text-zinc-500">Discussions</div>
             </div>
           </div>
+
+          {/* Notification Preferences - only for own profile */}
+          {isOwnProfile && (
+            <div className="mt-6 pt-6 border-t border-zinc-800">
+              <h3 className="text-sm text-zinc-400 mb-3">Notification Badge</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => handleNotifyChange('all')}
+                  className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                    notifyPref === 'all'
+                      ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-300 border border-zinc-700'
+                  }`}
+                >
+                  All Posts
+                </button>
+                <button
+                  onClick={() => handleNotifyChange('replies')}
+                  className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                    notifyPref === 'replies'
+                      ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-300 border border-zinc-700'
+                  }`}
+                >
+                  Replies Only
+                </button>
+                <button
+                  onClick={() => handleNotifyChange('none')}
+                  className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                    notifyPref === 'none'
+                      ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-300 border border-zinc-700'
+                  }`}
+                >
+                  None
+                </button>
+              </div>
+              <p className="text-xs text-zinc-600 mt-2">Controls the badge on your avatar showing unread community posts</p>
+            </div>
+          )}
         </div>
 
         {/* Tabs */}

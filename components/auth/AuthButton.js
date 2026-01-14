@@ -4,12 +4,13 @@
 // Sign in/out button with user menu
 
 import { useState, useEffect } from 'react';
-import { supabase, signOut, getUser } from '../../lib/supabase';
+import { supabase, signOut, getUser, getUnreadCount } from '../../lib/supabase';
 
 export default function AuthButton({ onAuthChange }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     console.log('[AuthButton] Mounted on:', window.location.href);
@@ -48,6 +49,12 @@ export default function AuthButton({ onAuthChange }) {
     setUser(user);
     setLoading(false);
     onAuthChange?.(user);
+
+    // Check unread posts if user is logged in
+    if (user) {
+      const { count } = await getUnreadCount();
+      setUnreadCount(count);
+    }
   }
 
   async function handleSignOut() {
@@ -84,7 +91,7 @@ export default function AuthButton({ onAuthChange }) {
     <div className="relative">
       <button
         onClick={() => setShowMenu(!showMenu)}
-        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+        className="flex items-center gap-2 hover:opacity-80 transition-opacity relative"
       >
         {user.user_metadata?.avatar_url ? (
           <img
@@ -96,6 +103,12 @@ export default function AuthButton({ onAuthChange }) {
           <div className="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white text-sm font-medium">
             {(user.email?.[0] || 'U').toUpperCase()}
           </div>
+        )}
+        {/* Unread indicator */}
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-[10px] text-white font-bold">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
         )}
       </button>
 
