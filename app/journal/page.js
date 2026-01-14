@@ -126,7 +126,10 @@ export default function JournalPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
             </Link>
-            <h1 className="text-xl font-light">Your Journal</h1>
+            <div>
+              <h1 className="text-xl font-light">Your Journal</h1>
+              <p className="text-xs text-zinc-600 italic">Nirmanakaya — discovered through the math of faith</p>
+            </div>
           </div>
           <div className="text-sm text-zinc-500">
             {readings.length} reading{readings.length !== 1 ? 's' : ''}

@@ -98,6 +98,7 @@ export default function SharedReadingPage({ params }) {
             <div>
               <div className="text-xs text-zinc-500">Shared Reading</div>
               <h1 className="text-lg font-light">{getModeLabel(reading.mode)} Reading</h1>
+              <p className="text-xs text-zinc-600 italic">Nirmanakaya — discovered through the math of faith</p>
             </div>
           </div>
           <div className="text-xs text-zinc-500">

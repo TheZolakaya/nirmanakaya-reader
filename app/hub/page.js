@@ -111,7 +111,7 @@ export default function HubPage() {
             </Link>
             <div>
               <h1 className="text-xl font-light">Community Hub</h1>
-              <p className="text-xs text-zinc-500">Ring 5-6 Discussions</p>
+              <p className="text-xs text-zinc-600 italic">Nirmanakaya — discovered through the math of faith</p>
             </div>
           </div>
           {user && (
