@@ -191,25 +191,25 @@ export default function HubPage() {
         <div className="flex justify-center gap-2 mt-3 text-xs">
           <Link
             href="/"
-            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Reader
           </Link>
           <Link
             href="/guide"
-            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Guide
           </Link>
           <Link
             href="/about"
-            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             About
           </Link>
           <Link
             href="/council"
-            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Council
           </Link>

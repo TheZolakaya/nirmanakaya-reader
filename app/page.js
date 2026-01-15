@@ -3368,25 +3368,25 @@ CRITICAL FORMATTING RULES:
           <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
-              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Community
             </a>
             <a
               href="/guide"
-              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Guide
             </a>
             <a
               href="/about"
-              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               About
             </a>
             <a
               href="/council"
-              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Council
             </a>
