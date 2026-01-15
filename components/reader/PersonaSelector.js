@@ -32,7 +32,7 @@ const PersonaSelector = ({
       <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-xs text-zinc-500 mb-3">
-          Voice settings {hasReading && <span className="text-amber-600/60">(locked for this reading)</span>}
+          Voice settings {hasReading && <span className="text-amber-600/60">(change & re-interpret)</span>}
         </div>
 
         {/* Persona buttons - compact row */}
@@ -42,12 +42,11 @@ const PersonaSelector = ({
               key={p.key}
               onClick={() => setPersona(p.key)}
               title={p.desc}
-              disabled={hasReading}
               className={`px-2 py-1.5 rounded-md text-xs transition-all ${
                 persona === p.key
                   ? 'bg-[#2e1065] text-amber-400 border border-amber-800/50'
                   : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
-              } ${hasReading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              }`}
             >
               {p.name}
             </button>
@@ -66,7 +65,6 @@ const PersonaSelector = ({
               max="10"
               value={humor}
               onChange={(e) => setHumor(parseInt(e.target.value))}
-              disabled={hasReading}
               className="flex-1 accent-amber-500 h-1"
             />
             <span className="text-[10px] text-zinc-600 w-10">Sacred</span>
@@ -83,7 +81,6 @@ const PersonaSelector = ({
               max="10"
               value={register}
               onChange={(e) => setRegister(parseInt(e.target.value))}
-              disabled={hasReading}
               className="flex-1 accent-amber-500 h-1"
             />
             <span className="text-[10px] text-zinc-600 w-10">Oracle</span>
@@ -100,7 +97,6 @@ const PersonaSelector = ({
               max="10"
               value={creator}
               onChange={(e) => setCreator(parseInt(e.target.value))}
-              disabled={hasReading}
               className="flex-1 accent-amber-500 h-1"
             />
             <span className="text-[10px] text-zinc-600 w-10">Creator</span>
@@ -114,7 +110,6 @@ const PersonaSelector = ({
                 type="checkbox"
                 checked={roastMode}
                 onChange={(e) => setRoastMode(e.target.checked)}
-                disabled={hasReading}
                 className="accent-amber-500 w-3 h-3"
               />
               Roast Mode
@@ -124,7 +119,6 @@ const PersonaSelector = ({
                 type="checkbox"
                 checked={directMode}
                 onChange={(e) => setDirectMode(e.target.checked)}
-                disabled={hasReading}
                 className="accent-amber-500 w-3 h-3"
               />
               Direct Mode
