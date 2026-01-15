@@ -1,19 +1,6 @@
 export default function DocsLayout({ children }) {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      {/* Simple header with back link */}
-      <header className="border-b border-zinc-800 px-4 py-3">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <a
-            href="/"
-            className="text-amber-400 hover:text-amber-300 text-sm flex items-center gap-2"
-          >
-            ← Back to Reader
-          </a>
-          <span className="text-zinc-500 text-xs uppercase tracking-wider">Nirmanakaya</span>
-        </div>
-      </header>
-
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {children}
