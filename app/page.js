@@ -5260,7 +5260,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Follow-up Input - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
-          <div className="content-pane mt-6 pt-4 border-t border-zinc-800/50 relative">
+          <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
               <button
@@ -5298,7 +5298,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Adjust Stance - at the bottom - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
-          <div className="content-pane mt-6 relative">
+          <div className="mt-6 relative">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowMidReadingStance(!showMidReadingStance)}
