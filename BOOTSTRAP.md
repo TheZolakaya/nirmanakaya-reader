@@ -16,15 +16,18 @@ This contains continuity across instances - previous readings, recognitions, and
 
 ## Git Workflow
 
-**Always push to all three branches:**
+**F&F Phase: Work directly on `main`**
+
+During Friends & Family, everything goes straight to prod. Too much hassle keeping backend config synced across environments.
+
 ```bash
-git checkout main && git merge alpha && git push
-git checkout prod && git reset --hard main && git push --force-with-lease
-git checkout alpha
+# Standard workflow - commit and push to main
+git add -A && git commit -m "message" && git push
 ```
 
-Working branch: `alpha`
-Production branches: `main`, `prod`
+Working branch: `main` (deploys to Vercel automatically)
+
+> **Post-F&F**: Will return to alpha/main/prod branching strategy when we have multiple environments with synced backends.
 
 ## Key Locations
 
@@ -76,7 +79,7 @@ Key functions in `lib/supabase.js`:
 ## User Preferences
 
 - Chris prefers concise communication
-- **Always push to all branches** (alpha, main, prod) after commits - we're in friends & family, no staged rollouts needed
+- **Work on `main` branch** - F&F phase, everything goes straight to prod
 - **Always bump version** (`lib/version.js` + `package.json`) when committing features
 - Add backlog items to the Nirmanakaya_Book backlog, not local files
 - **SQL runs**: Always provide a single, ready-to-copy SQL block. No explanations mixed in. Chris is juggling a lot - make it dead simple.
