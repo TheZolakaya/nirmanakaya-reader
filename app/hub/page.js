@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { getDiscussions, createDiscussion, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
+import { VERSION } from '../../lib/version';
 
 const TOPIC_TYPES = [
   { value: 'general', label: 'General', color: 'text-zinc-400' },
@@ -179,7 +180,39 @@ export default function HubPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
-      {/* Header */}
+      {/* Main NIRMANAKAYA header */}
+      <div className="text-center py-6 border-b border-zinc-800/30">
+        <Link href="/" className="inline-block">
+          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 bg-gradient-to-r from-amber-200 via-rose-300 to-violet-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity">NIRMANAKAYA</h1>
+        </Link>
+        <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
+        <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
+        {/* Help Links */}
+        <div className="flex justify-center gap-3 mt-2 text-xs">
+          <Link
+            href="/guide"
+            className="text-zinc-600 hover:text-amber-400 transition-colors"
+          >
+            Guide
+          </Link>
+          <span className="text-zinc-700">•</span>
+          <Link
+            href="/about"
+            className="text-zinc-600 hover:text-amber-400 transition-colors"
+          >
+            About
+          </Link>
+          <span className="text-zinc-700">•</span>
+          <Link
+            href="/council"
+            className="text-zinc-600 hover:text-amber-400 transition-colors"
+          >
+            Council
+          </Link>
+        </div>
+      </div>
+
+      {/* Hub Header */}
       <div className="border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -189,8 +222,8 @@ export default function HubPage() {
               </svg>
             </Link>
             <div>
-              <h1 className="text-xl font-light">Community Hub</h1>
-              <p className="text-xs text-zinc-600 italic">Nirmanakaya — discovered through the math of faith</p>
+              <h2 className="text-xl font-light">Community Hub</h2>
+              <p className="text-xs text-zinc-600 italic">Discovered through the math of faith</p>
             </div>
           </div>
           {user && (
