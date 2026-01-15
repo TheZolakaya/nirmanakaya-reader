@@ -3364,34 +3364,29 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
-          {/* Help Links */}
-          <div className="flex justify-center gap-3 mt-2 text-xs" onClick={(e) => e.stopPropagation()}>
+          {/* Nav Links */}
+          <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
+            <a
+              href="/hub"
+              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            >
+              Community
+            </a>
             <a
               href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-600 hover:text-amber-400 transition-colors"
-              title="Reader Guide"
+              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Guide
             </a>
-            <span className="text-zinc-700">•</span>
             <a
               href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-600 hover:text-amber-400 transition-colors"
-              title="What is this?"
+              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               About
             </a>
-            <span className="text-zinc-700">•</span>
             <a
               href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-600 hover:text-amber-400 transition-colors"
-              title="The AI Council"
+              className="content-pane px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Council
             </a>

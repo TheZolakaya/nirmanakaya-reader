@@ -187,25 +187,29 @@ export default function HubPage() {
         </Link>
         <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
         <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
-        {/* Help Links */}
-        <div className="flex justify-center gap-3 mt-2 text-xs">
+        {/* Nav Links */}
+        <div className="flex justify-center gap-2 mt-3 text-xs">
+          <Link
+            href="/"
+            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Reader
+          </Link>
           <Link
             href="/guide"
-            className="text-zinc-600 hover:text-amber-400 transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Guide
           </Link>
-          <span className="text-zinc-700">•</span>
           <Link
             href="/about"
-            className="text-zinc-600 hover:text-amber-400 transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             About
           </Link>
-          <span className="text-zinc-700">•</span>
           <Link
             href="/council"
-            className="text-zinc-600 hover:text-amber-400 transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Council
           </Link>
