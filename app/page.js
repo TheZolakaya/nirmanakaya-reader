@@ -3777,7 +3777,8 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {/* Question textarea - switches to DTP input for Explore mode */}
-                <div className="content-pane relative flex-1 rounded-lg overflow-hidden">
+                <div className="relative flex-1">
+                  <div className="content-pane rounded-lg overflow-hidden">
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
@@ -3805,6 +3806,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       rows={3}
                     />
                   )}
+                  </div>
                 </div>
               </div>
 
