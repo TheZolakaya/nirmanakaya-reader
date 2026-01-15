@@ -113,6 +113,16 @@ export async function POST(request) {
       ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent)
       : parseBaselineResponse(text, n, draw.status !== 1, draw);
 
+    // Check if parsing produced empty results (model returned unexpected format)
+    const hasContent = parsedCard.wade || parsedCard.surface || parsedCard.swim || parsedCard.deep;
+    if (!hasContent) {
+      console.error('Parsing failed - no content extracted. First 1000 chars of response:', text.substring(0, 1000));
+      return Response.json({
+        error: 'Model response could not be parsed. The AI may be overloaded - please try again.',
+        debug: text.substring(0, 500) // Include snippet for debugging
+      }, { status: 500 });
+    }
+
     return Response.json({
       cardData: parsedCard,
       cardIndex,
