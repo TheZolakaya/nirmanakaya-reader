@@ -66,6 +66,10 @@ body {
   animation: rainbow-cycle 32s ease-in-out infinite;
 }
 
+.animate-rainbow-cycle-header {
+  animation: rainbow-cycle 16s ease-in-out infinite;
+}
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }

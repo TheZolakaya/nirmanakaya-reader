@@ -3852,7 +3852,7 @@ CRITICAL FORMATTING RULES:
                 {/* Spark button */}
                 <button
                   onClick={handleSpark}
-                  className="flex-shrink-0 px-3 py-2 rounded-lg bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center gap-1.5 text-xs transition-colors border border-purple-800/50"
+                  className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-[#1a0a3e] text-amber-400 hover:bg-[#2e1065] flex items-center gap-1.5 text-xs transition-colors border border-purple-900/50 self-center"
                   title="Get a spark prompt"
                 >
                   <span>✨</span>
