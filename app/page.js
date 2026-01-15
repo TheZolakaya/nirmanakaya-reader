@@ -3240,18 +3240,6 @@ CRITICAL FORMATTING RULES:
               </a>
               {showBgControls && (
                 <>
-                  {/* Background opacity slider */}
-                  <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
-                    <span className="text-zinc-500 text-xs">◐</span>
-                    <input
-                      type="range"
-                      min="5"
-                      max="60"
-                      value={backgroundOpacity}
-                      onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
-                      className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
-                    />
-                  </div>
                   {/* Background selector with nudge buttons */}
                   <div
                     className="flex items-center gap-1 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-1.5 py-1 border border-zinc-700/50 relative"
@@ -3292,6 +3280,18 @@ CRITICAL FORMATTING RULES:
                         {getCurrentBackground().label}
                       </div>
                     )}
+                  </div>
+                  {/* Background opacity slider */}
+                  <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
+                    <span className="text-zinc-500 text-xs">◐</span>
+                    <input
+                      type="range"
+                      min="5"
+                      max="60"
+                      value={backgroundOpacity}
+                      onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
+                      className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    />
                   </div>
                   {/* Content dim slider */}
                   <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
