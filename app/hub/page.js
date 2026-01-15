@@ -12,12 +12,14 @@ import { VERSION } from '../../lib/version';
 
 const TOPIC_TYPES = [
   { value: 'general', label: 'General', color: 'text-zinc-400' },
-  { value: 'archetype', label: 'Archetypes', color: 'text-amber-400' },
-  { value: 'bound', label: 'Bounds', color: 'text-cyan-400' },
-  { value: 'agent', label: 'Agents', color: 'text-emerald-400' },
   { value: 'reading', label: 'Readings', color: 'text-rose-400' },
+  { value: 'feedback', label: 'Feedback & Support', color: 'text-orange-400' },
+  { value: 'math', label: 'The Math', color: 'text-cyan-400' },
+  { value: 'nowism', label: 'Nowism', color: 'text-emerald-400' },
+  { value: 'consciousness', label: 'Materialism vs. CiP', color: 'text-fuchsia-400' },
   { value: 'concept', label: 'Concepts', color: 'text-violet-400' },
-  { value: 'feedback', label: 'Feedback & Support', color: 'text-orange-400' }
+  { value: 'signature', label: 'Signatures', color: 'text-amber-400' },
+  { value: 'terminology', label: 'Terminology', color: 'text-teal-400' }
 ];
 
 export default function HubPage() {
@@ -247,7 +249,7 @@ export default function HubPage() {
           <div className="flex gap-2 overflow-x-auto pb-1">
             <button
               onClick={() => setFilter(null)}
-              className={`px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
                 filter === null
                   ? 'bg-zinc-700 text-zinc-200'
                   : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
@@ -259,7 +261,7 @@ export default function HubPage() {
               <button
                 key={topic.value}
                 onClick={() => setFilter(topic.value)}
-                className={`px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
                   filter === topic.value
                     ? 'bg-zinc-700 text-zinc-200'
                     : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
