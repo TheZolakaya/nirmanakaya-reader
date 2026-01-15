@@ -3129,7 +3129,7 @@ CRITICAL FORMATTING RULES:
                     <input
                       type="range"
                       min="0"
-                      max="80"
+                      max="100"
                       value={contentDim}
                       onChange={(e) => setContentDim(Number(e.target.value))}
                       className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-500"

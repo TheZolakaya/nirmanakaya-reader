@@ -458,7 +458,7 @@ const DepthCard = ({
   const [isArchCollapsed, setIsArchCollapsed] = useState(true);
 
   return (
-    <div className={`rounded-xl border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
+    <div className={`content-pane rounded-xl border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
       {/* Card Header - always visible */}
       <div
         className={`flex flex-col gap-1 cursor-pointer group ${depth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
