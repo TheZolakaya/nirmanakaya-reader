@@ -3930,7 +3930,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 <button
                   onClick={performReading}
                   disabled={loading}
-                  className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#052e23] hover:bg-[#064e3b] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
+                  className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
                   {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
@@ -4103,7 +4103,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 )}
                 <button onClick={() => setShowTraditional(!showTraditional)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
                 <button onClick={() => setShowArchitecture(!showArchitecture)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
-                <button onClick={() => { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); }} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#052e23] hover:bg-[#064e3b] border border-emerald-700/50">New</button>
+                <button onClick={() => { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); }} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50">New</button>
                 <button
                   onClick={() => setHelpPopover(helpPopover === 'actions' ? null : 'actions')}
                   className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
@@ -4903,7 +4903,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               <button
                                 onClick={(e) => { e.stopPropagation(); continueThread('path'); }}
                                 disabled={!threadOperations['path'] || threadLoading['path']}
-                                className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['path'] && !threadLoading['path'] ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
+                                className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['path'] && !threadLoading['path'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                               >
                                 {threadLoading['path'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
                               </button>
@@ -5360,7 +5360,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         <button
                           onClick={() => continueThread('unified')}
                           disabled={!threadOperations['unified'] || threadLoading['unified']}
-                          className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['unified'] && !threadLoading['unified'] ? 'bg-[#052e23] text-[#f59e0b] hover:bg-[#064e3b] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
+                          className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['unified'] && !threadLoading['unified'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                         >
                           {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
                         </button>
@@ -5646,7 +5646,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 <div className="mt-3 pt-3 border-t border-zinc-800/50">
                   <button
                     onClick={reinterpret}
-                    className="w-full bg-[#052e23] hover:bg-[#064e3b] text-[#f59e0b] py-2 rounded-lg text-sm transition-colors border border-emerald-700/50"
+                    className="w-full bg-[#021810] hover:bg-[#052e23] text-[#f59e0b] py-2 rounded-lg text-sm transition-colors border border-emerald-700/50"
                   >
                     Re-interpret with new settings
                   </button>
