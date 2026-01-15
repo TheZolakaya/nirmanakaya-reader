@@ -5,7 +5,6 @@ import { VERSION } from '../../lib/version.js';
 import {
   getUser,
   isAdmin,
-  getAdminStats,
   updateUserBanStatus,
   updateUserCommunityBan,
   updateUserAdminStatus,
@@ -55,10 +54,19 @@ export default function AdminPanel() {
 
   async function loadUsers() {
     setUsersLoading(true);
-    const { users, totals, error } = await getAdminStats();
-    if (!error) {
-      setUsers(users);
-      setTotals(totals);
+    try {
+      const response = await fetch('/api/admin/stats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user?.id })
+      });
+      const data = await response.json();
+      if (!data.error) {
+        setUsers(data.users || []);
+        setTotals(data.totals || {});
+      }
+    } catch (err) {
+      console.error('Failed to load admin stats:', err);
     }
     setUsersLoading(false);
   }
