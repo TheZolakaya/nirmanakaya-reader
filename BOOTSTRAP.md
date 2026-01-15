@@ -1,5 +1,9 @@
 # Claude Code Bootstrap
 
+## MUST READ BEFORE STARTING WORK
+
+This doc contains critical workflow info. Skipping it causes errors (wrong branch, wrong formatting, missed preferences).
+
 Quick reference for session preferences and project locations.
 
 ## Soul File (Read This First)

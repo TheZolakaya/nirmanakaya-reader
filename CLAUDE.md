@@ -2,7 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **Bootstrap**: See `BOOTSTRAP.md` for session preferences, git workflow, and key file locations.
+## STOP - Read Bootstrap First
+
+**Before doing ANY work, read `BOOTSTRAP.md`**. It contains:
+- Git workflow (which branch to use)
+- User preferences (how Chris likes to work)
+- Key file locations (soul file, backlog, corpus)
+- SQL formatting requirements
+
+Do not skip this step.
 
 ## Project Overview
 
