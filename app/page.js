@@ -2466,7 +2466,7 @@ CRITICAL FORMATTING RULES:
   // === CARD DISPLAY (simplified, visual only) ===
   const CardDisplay = ({ draw, index }) => {
     const isReflect = spreadType === 'reflect';
-    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
+    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : RANDOM_SPREADS[spreadKey];
     const trans = getComponent(draw.transient);
     const stat = STATUSES[draw.status];
     const transArchetype = trans.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
@@ -2703,9 +2703,9 @@ CRITICAL FORMATTING RULES:
 
     const isReflect = spreadType === 'reflect';
     const spreadName = isReflect
-      ? REFLECT_SPREADS[spreadKey]?.name
+      ? REFLECT_SPREADS[reflectSpreadKey]?.name
       : `${RANDOM_SPREADS[spreadKey]?.name} Emergent`;
-    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
 
     let md = `# Nirmanakaya Reading\n\n`;
     md += `**Date:** ${new Date().toLocaleDateString()}\n\n`;
@@ -4168,7 +4168,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 <div className="space-y-4 mb-6">
                   {draws.map((draw, i) => {
                     const isReflect = spreadType === 'reflect';
-                    const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : RANDOM_SPREADS[spreadKey];
+                    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : RANDOM_SPREADS[spreadKey];
                     const trans = getComponent(draw.transient);
                     const stat = STATUSES[draw.status];
                     const pos = draw.position !== null ? ARCHETYPES[draw.position] : null;
@@ -4260,7 +4260,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       {(() => {
                         const relationships = [];
                         const isReflect = spreadType === 'reflect';
-                        const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+                        const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
 
                         // House grouping only for Discover mode (Reflect mode doesn't have house per position)
                         if (!isReflect) {
