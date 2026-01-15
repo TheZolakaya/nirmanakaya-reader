@@ -5,8 +5,8 @@ import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
 import { VERSION } from '../../../lib/version';
 
 export const metadata = {
-  title: 'Why Nirmanakaya Isn\'t Tarot | Nirmanakaya',
-  description: 'The difference between fortune-telling and consciousness navigation.',
+  title: 'What Is Nirmanakaya? | Nirmanakaya',
+  description: 'A complete introduction to the consciousness architecture - the map, the math, and the invitation.',
 };
 
 export default function AboutPage() {
