@@ -69,11 +69,33 @@ export async function POST(request) {
 
     const data = await response.json();
 
+    // Check for Anthropic API errors (credit issues, rate limits, etc.)
     if (data.error) {
-      return Response.json({ error: data.error.message }, { status: 500 });
+      const errorType = data.error.type || 'unknown';
+      const errorMsg = data.error.message || 'Unknown API error';
+      console.error('Anthropic API error:', errorType, errorMsg);
+      return Response.json({
+        error: `API Error (${errorType}): ${errorMsg}`
+      }, { status: 500 });
     }
 
-    const text = data.content?.map(item => item.text || "").join("\n") || "No response received.";
+    // Check for empty or invalid response
+    if (!data.content || !Array.isArray(data.content) || data.content.length === 0) {
+      console.error('Empty API response:', JSON.stringify(data).substring(0, 500));
+      return Response.json({
+        error: 'API returned empty response. This may indicate a service issue.'
+      }, { status: 500 });
+    }
+
+    const text = data.content?.map(item => item.text || "").join("\n") || "";
+
+    // Check if we actually got any text content
+    if (!text.trim()) {
+      console.error('API response had no text content');
+      return Response.json({
+        error: 'API returned no text content. Please try again.'
+      }, { status: 500 });
+    }
 
     // Parse the synthesis sections from response
     const parsed = isDeepening
