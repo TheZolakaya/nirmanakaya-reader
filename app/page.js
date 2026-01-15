@@ -3325,7 +3325,7 @@ CRITICAL FORMATTING RULES:
                 </div>
 
                 {/* Simple question input */}
-                <div className="content-pane mb-4">
+                <div className="content-pane mb-4 rounded-xl">
                   <textarea
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
@@ -3695,7 +3695,7 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {/* Question textarea - switches to DTP input for Explore mode */}
-                <div className="content-pane relative flex-1">
+                <div className="content-pane relative flex-1 rounded-xl">
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
