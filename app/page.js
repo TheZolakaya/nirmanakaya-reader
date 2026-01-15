@@ -3866,7 +3866,6 @@ CRITICAL FORMATTING RULES:
 
                 {/* Question textarea - switches to DTP input for Explore mode */}
                 <div className="relative flex-1">
-                  <div className="content-pane rounded-lg overflow-hidden">
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
@@ -3875,7 +3874,7 @@ CRITICAL FORMATTING RULES:
                       placeholder="Describe what's active for you right now...
 
 Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
+                      className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
                       rows={5}
                     />
                   ) : (
@@ -3890,11 +3889,10 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             ? "What area of life are you examining?"
                             : "Name your question or declare your intent..."
                       )}
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                      className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
                       rows={3}
                     />
                   )}
-                  </div>
                 </div>
               </div>
 
