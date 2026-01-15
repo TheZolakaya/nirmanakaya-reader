@@ -246,7 +246,7 @@ export default function HubPage() {
       {/* Filters */}
       <div className="border-b border-zinc-800/30">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilter(null)}
               className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
