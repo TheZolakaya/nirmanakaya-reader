@@ -4160,7 +4160,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Your Question - shows after visual spread (non-Explore modes) */}
         {parsedReading && !loading && !parsedReading.firstContact && question && spreadType !== 'explore' && (
-          <div className="bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8">
+          <div className="content-pane bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8">
             <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
             <div className="text-zinc-300 text-sm">{question}</div>
           </div>
@@ -4168,7 +4168,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* What's Active - shows after visual spread (Explore mode only) */}
         {parsedReading && !loading && !parsedReading.firstContact && spreadType === 'explore' && dtpInput && (
-          <div id="whats-active-top" className="bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8 border border-amber-600/30">
+          <div id="whats-active-top" className="content-pane bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8 border border-amber-600/30">
             <div className="text-[0.625rem] text-amber-400 tracking-wider mb-2">WHAT'S ACTIVE</div>
             <div className="text-zinc-300 text-sm italic mb-3">"{dtpInput}"</div>
             {dtpTokens && dtpTokens.length > 0 && (
@@ -4225,7 +4225,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           };
 
           return (
-            <div className="mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
+            <div className="content-pane mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
               <div className={`flex items-center justify-between ${isMobileDepth ? 'mb-1' : 'mb-3'}`}>
                 <div className="flex items-center gap-2">
                   <span className="text-violet-400">✉</span>
@@ -4524,7 +4524,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               const isPathArchCollapsed = collapsedSections['path-architecture'] !== false; // collapsed by default
 
               return (
-                <div id="depth-section-path" className="mb-6 rounded-xl border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
+                <div id="depth-section-path" className="content-pane mb-6 rounded-xl border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
                   <div className="p-5">
                     {/* Path Header - clickable for collapse */}
                     <div
@@ -4853,7 +4853,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             {parsedReading && !loading && synthesisLoaded && (() => {
               const isSynthesisCollapsed = collapsedSections['synthesis'] === true; // expanded by default
               return (
-              <div className="mt-8 rounded-2xl border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
+              <div className="content-pane mt-8 rounded-2xl border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
                 {/* Synthesis Header - clickable for collapse */}
                 <div 
                   className="px-6 py-4 border-b border-amber-500/20 bg-amber-950/30 cursor-pointer hover:bg-amber-950/40 transition-colors"
@@ -5244,7 +5244,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Follow-up Messages */}
         {followUpMessages.length > 0 && (
-          <div className="space-y-4 mt-6">
+          <div className="content-pane space-y-4 mt-6">
             {followUpMessages.map((msg, i) => (
               <div key={i} className={`rounded-xl p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
                 {msg.role === 'user' && <div className="text-[0.625rem] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
@@ -5260,7 +5260,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Follow-up Input - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
-          <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
+          <div className="content-pane mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
               <button
@@ -5298,7 +5298,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Adjust Stance - at the bottom - hide in First Contact mode */}
         {parsedReading && !loading && !parsedReading.firstContact && (
-          <div className="mt-6 relative">
+          <div className="content-pane mt-6 relative">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowMidReadingStance(!showMidReadingStance)}
