@@ -445,16 +445,60 @@ export default function NirmanakaReader() {
   const [showBgControls, setShowBgControls] = useState(false); // Show/hide background controls panel
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
   const [contentDim, setContentDim] = useState(0); // Dark overlay behind content (0-100)
-  const [selectedBackground, setSelectedBackground] = useState(3); // Which background video (0 = none, 3 = cosmos)
-  const backgrounds = [
-    { id: "none", src: null, label: "None" },
+  const [backgroundType, setBackgroundType] = useState('video'); // 'video' or 'image'
+  const [selectedVideo, setSelectedVideo] = useState(0); // Index into videoBackgrounds (0 = cosmos default)
+  const [selectedImage, setSelectedImage] = useState(0); // Index into imageBackgrounds
+  const [showBgLabel, setShowBgLabel] = useState(false); // Show label on hover
+
+  const videoBackgrounds = [
+    { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
     { id: "ocean", src: "/video/background.mp4", label: "Ocean" },
     { id: "ocean2", src: "/video/ocean2.mp4", label: "Deep Ocean" },
-    { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
     { id: "rainbow", src: "/video/rainbow.mp4", label: "Rainbow" },
     { id: "forest", src: "/video/forest.mp4", label: "Forest" },
     { id: "violet", src: "/video/violet.mp4", label: "Violet" },
   ];
+
+  const imageBackgrounds = [
+    { id: "deep-ocean-1", src: "/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_1.png", label: "Deep Ocean 1" },
+    { id: "deep-ocean-2", src: "/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_3.png", label: "Deep Ocean 2" },
+    { id: "cosmic-1", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_0.png", label: "Cosmic 1" },
+    { id: "cosmic-2", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_1.png", label: "Cosmic 2" },
+    { id: "cosmic-3", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_2.png", label: "Cosmic 3" },
+    { id: "forest", src: "/images/Zolakaya_imaginary_green_Lucious_fractal_garden_calm_forest_w_ff789520-3ec5-437d-b2da-d378d9a837f2_0.png", label: "Forest" },
+    { id: "violet-1", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_0.png", label: "Violet 1" },
+    { id: "violet-2", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_2.png", label: "Violet 2" },
+    { id: "violet-3", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_3.png", label: "Violet 3" },
+    { id: "tunnel-1", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_0.png", label: "Tunnel 1" },
+    { id: "tunnel-2", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png", label: "Tunnel 2" },
+  ];
+
+  // Helper to get current background
+  const getCurrentBackground = () => {
+    if (backgroundType === 'video') {
+      return videoBackgrounds[selectedVideo] || videoBackgrounds[0];
+    }
+    return imageBackgrounds[selectedImage] || imageBackgrounds[0];
+  };
+
+  // Nudge functions
+  const nudgeBackground = (direction) => {
+    if (backgroundType === 'video') {
+      setSelectedVideo((prev) => {
+        const next = prev + direction;
+        if (next < 0) return videoBackgrounds.length - 1;
+        if (next >= videoBackgrounds.length) return 0;
+        return next;
+      });
+    } else {
+      setSelectedImage((prev) => {
+        const next = prev + direction;
+        if (next < 0) return imageBackgrounds.length - 1;
+        if (next >= imageBackgrounds.length) return 0;
+        return next;
+      });
+    }
+  };
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
@@ -718,7 +762,9 @@ export default function NirmanakaReader() {
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
-        if (prefs.selectedBackground !== undefined) setSelectedBackground(prefs.selectedBackground);
+        if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
+        if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
+        if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -760,14 +806,16 @@ export default function NirmanakaReader() {
       animatedBackground,
       backgroundOpacity,
       contentDim,
-      selectedBackground
+      backgroundType,
+      selectedVideo,
+      selectedImage
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, selectedBackground]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, backgroundType, selectedVideo, selectedImage]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3135,20 +3183,33 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      {/* Background Video */}
-      {backgrounds[selectedBackground]?.src && (
-      <video
-        key={backgrounds[selectedBackground].id}
-        autoPlay
-        loop
-        muted
-        playsInline
-        ref={(el) => { if (el) el.playbackRate = 1.0; }}
-        className="fixed inset-0 w-full h-full object-cover z-0"
-        style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
-      >
-        <source src={backgrounds[selectedBackground].src} type="video/mp4" />
-      </video>
+      {/* Background - Video or Image */}
+      {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
+        <video
+          key={videoBackgrounds[selectedVideo].id}
+          autoPlay
+          loop
+          muted
+          playsInline
+          ref={(el) => { if (el) el.playbackRate = 1.0; }}
+          className="fixed inset-0 w-full h-full object-cover z-0"
+          style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
+        >
+          <source src={videoBackgrounds[selectedVideo].src} type="video/mp4" />
+        </video>
+      )}
+      {backgroundType === 'image' && imageBackgrounds[selectedImage]?.src && (
+        <div
+          key={imageBackgrounds[selectedImage].id}
+          className="fixed inset-0 w-full h-full z-0"
+          style={{
+            backgroundImage: `url(${imageBackgrounds[selectedImage].src})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            pointerEvents: "none",
+            opacity: backgroundOpacity / 100
+          }}
+        />
       )}
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
@@ -3179,6 +3240,7 @@ CRITICAL FORMATTING RULES:
               </a>
               {showBgControls && (
                 <>
+                  {/* Background opacity slider */}
                   <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
                     <span className="text-zinc-500 text-xs">◐</span>
                     <input
@@ -3190,20 +3252,46 @@ CRITICAL FORMATTING RULES:
                       className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
                     />
                   </div>
-                  {/* Background selector dots */}
-                  <div className="flex items-center gap-1.5 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-zinc-700/50">
-                    {backgrounds.map((bg, idx) => (
-                      <button
-                        key={bg.id}
-                        onClick={() => setSelectedBackground(idx)}
-                        className={`w-3 h-3 rounded-full transition-all ${
-                          selectedBackground === idx
-                            ? 'bg-cyan-400 ring-1 ring-cyan-400/50 ring-offset-1 ring-offset-zinc-900'
-                            : bg.src ? 'bg-zinc-600 hover:bg-zinc-500' : 'bg-zinc-700 hover:bg-zinc-600 border border-zinc-500'
-                        }`}
-                        title={bg.label}
-                      />
-                    ))}
+                  {/* Background selector with nudge buttons */}
+                  <div
+                    className="flex items-center gap-1 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-1.5 py-1 border border-zinc-700/50 relative"
+                    onMouseEnter={() => setShowBgLabel(true)}
+                    onMouseLeave={() => setShowBgLabel(false)}
+                  >
+                    {/* Left nudge */}
+                    <button
+                      onClick={() => nudgeBackground(-1)}
+                      className="w-6 h-6 rounded flex items-center justify-center text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-all"
+                      title="Previous"
+                    >
+                      ‹
+                    </button>
+                    {/* Static/Movie toggle */}
+                    <button
+                      onClick={() => setBackgroundType(backgroundType === 'video' ? 'image' : 'video')}
+                      className={`px-2 py-0.5 rounded text-xs font-medium transition-all ${
+                        backgroundType === 'video'
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                          : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                      }`}
+                      title={backgroundType === 'video' ? 'Switch to static images' : 'Switch to movies'}
+                    >
+                      {backgroundType === 'video' ? 'Movie' : 'Static'}
+                    </button>
+                    {/* Right nudge */}
+                    <button
+                      onClick={() => nudgeBackground(1)}
+                      className="w-6 h-6 rounded flex items-center justify-center text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-all"
+                      title="Next"
+                    >
+                      ›
+                    </button>
+                    {/* Hover label */}
+                    {showBgLabel && (
+                      <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-zinc-800 border border-zinc-700 rounded text-xs text-zinc-300 whitespace-nowrap">
+                        {getCurrentBackground().label}
+                      </div>
+                    )}
                   </div>
                   {/* Content dim slider */}
                   <div className="flex items-center gap-2 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-2 py-1 border border-zinc-700/50">
