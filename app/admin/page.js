@@ -185,8 +185,8 @@ export default function AdminPanel() {
       {/* USERS TAB */}
       {activeTab === 'users' && (
         <div>
-          {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {/* Stats Cards - Row 1: Core */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
               <div className="text-2xl font-light text-amber-400">{totals.userCount || 0}</div>
               <div className="text-xs text-zinc-500 uppercase tracking-wide">Users</div>
@@ -202,6 +202,30 @@ export default function AdminPanel() {
             <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
               <div className="text-2xl font-light text-rose-400">${(totals.totalCost || 0).toFixed(2)}</div>
               <div className="text-xs text-zinc-500 uppercase tracking-wide">Est. Cost</div>
+            </div>
+          </div>
+
+          {/* Stats Cards - Row 2: Engagement */}
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mb-8">
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-violet-400">{totals.totalReflects || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Reflects</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-orange-400">{totals.totalForges || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Forges</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-teal-400">{totals.totalExpansions || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Expansions</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-blue-400">{totals.totalDiscussions || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Posts</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-pink-400">{totals.totalReplies || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Replies</div>
             </div>
           </div>
 
@@ -233,22 +257,48 @@ export default function AdminPanel() {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex gap-6 text-sm">
-                    <div>
-                      <div className="text-zinc-400">{u.readingCount}</div>
-                      <div className="text-xs text-zinc-600">readings</div>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <div className="flex gap-4">
+                      <div>
+                        <div className="text-zinc-400">{u.readingCount}</div>
+                        <div className="text-xs text-zinc-600">readings</div>
+                      </div>
+                      <div>
+                        <div className="text-zinc-400">{(u.totalTokens / 1000).toFixed(0)}k</div>
+                        <div className="text-xs text-zinc-600">tokens</div>
+                      </div>
+                      <div>
+                        <div className="text-zinc-400">${u.totalCost?.toFixed(2) || '0.00'}</div>
+                        <div className="text-xs text-zinc-600">cost</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-zinc-400">{(u.totalTokens / 1000).toFixed(0)}k</div>
-                      <div className="text-xs text-zinc-600">tokens</div>
+                    <div className="flex gap-4">
+                      <div>
+                        <div className="text-violet-400">{u.totalReflects || 0}</div>
+                        <div className="text-xs text-zinc-600">reflects</div>
+                      </div>
+                      <div>
+                        <div className="text-orange-400">{u.totalForges || 0}</div>
+                        <div className="text-xs text-zinc-600">forges</div>
+                      </div>
+                      <div>
+                        <div className="text-teal-400">{(u.totalClarifies || 0) + (u.totalUnpacks || 0) + (u.totalExamples || 0)}</div>
+                        <div className="text-xs text-zinc-600">expand</div>
+                      </div>
+                      <div>
+                        <div className="text-cyan-400 capitalize">{u.maxDepthReached || 'surface'}</div>
+                        <div className="text-xs text-zinc-600">depth</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-zinc-400">${u.totalCost.toFixed(2)}</div>
-                      <div className="text-xs text-zinc-600">cost</div>
-                    </div>
-                    <div>
-                      <div className="text-zinc-400">{u.tokens_used_today || 0}</div>
-                      <div className="text-xs text-zinc-600">today</div>
+                    <div className="flex gap-4">
+                      <div>
+                        <div className="text-blue-400">{u.discussionCount || 0}</div>
+                        <div className="text-xs text-zinc-600">posts</div>
+                      </div>
+                      <div>
+                        <div className="text-pink-400">{u.replyCount || 0}</div>
+                        <div className="text-xs text-zinc-600">replies</div>
+                      </div>
                     </div>
                   </div>
 

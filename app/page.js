@@ -94,7 +94,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading, updateReadingTelemetry } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -458,6 +458,46 @@ export default function NirmanakaReader() {
   const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
+
+  // === TELEMETRY TRACKING ===
+  const [telemetry, setTelemetry] = useState({
+    reflectCount: 0,
+    forgeCount: 0,
+    maxDepth: 'surface',
+    clarifyCount: 0,
+    unpackCount: 0,
+    exampleCount: 0
+  });
+
+  // Helper to update telemetry
+  const updateTelemetry = (key, value) => {
+    setTelemetry(prev => {
+      if (key === 'maxDepth') {
+        // Only upgrade depth, never downgrade
+        const depthOrder = ['surface', 'wade', 'swim', 'deep'];
+        const currentIndex = depthOrder.indexOf(prev.maxDepth);
+        const newIndex = depthOrder.indexOf(value);
+        if (newIndex > currentIndex) {
+          return { ...prev, maxDepth: value };
+        }
+        return prev;
+      }
+      // For counts, increment
+      return { ...prev, [key]: (prev[key] || 0) + 1 };
+    });
+  };
+
+  // Reset telemetry when starting new reading
+  const resetTelemetry = () => {
+    setTelemetry({
+      reflectCount: 0,
+      forgeCount: 0,
+      maxDepth: 'surface',
+      clarifyCount: 0,
+      unpackCount: 0,
+      exampleCount: 0
+    });
+  };
 
   // === PERSONA VOICE SYSTEM V2 (One-Pass) ===
   // Voice is baked into generation - no separate translation layer
@@ -833,6 +873,8 @@ export default function NirmanakaReader() {
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to default (shallow)
     setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
+    // Reset telemetry for new reading
+    resetTelemetry();
     // Store tokens for DTP mode (used by card generation)
     setDtpTokens(tokens);
     const isReflect = spreadType === 'reflect';
@@ -873,7 +915,11 @@ export default function NirmanakaReader() {
           cards: drawsToUse,
           synthesis: parsed?.letter || null,
           letter: parsed?.letter || null,
-          tokenUsage: data.usage
+          tokenUsage: data.usage,
+          // Telemetry (initial values - will be updated later)
+          ...telemetry
+        }).then(result => {
+          if (result?.data?.id) setSavedReadingId(result.data.id);
         }).catch(err => console.log('[AutoSave] Failed:', err));
       } catch (e) { setError(`Error: ${e.message}`); }
       setLoading(false);
@@ -952,7 +998,11 @@ export default function NirmanakaReader() {
         cards: drawsToUse,
         synthesis: null,
         letter: data.letter,
-        tokenUsage: data.usage
+        tokenUsage: data.usage,
+        // Telemetry (initial values - will be updated later)
+        ...telemetry
+      }).then(result => {
+        if (result?.data?.id) setSavedReadingId(result.data.id);
       }).catch(err => console.log('[AutoSave] Failed:', err));
 
       // Auto-load ALL cards in parallel immediately for better UX
@@ -1040,6 +1090,9 @@ export default function NirmanakaReader() {
   // Progressive deepening: Load SWIM or DEEP for a card (builds on previous content)
   const loadDeeperContent = async (cardIndex, targetDepth, previousContent) => {
     if (cardLoadingDeeper[cardIndex]) return; // Already loading
+
+    // Track depth telemetry
+    updateTelemetry('maxDepth', targetDepth);
 
     setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: true }));
 
@@ -1174,6 +1227,9 @@ export default function NirmanakaReader() {
     const letter = parsedReading?.letter;
     if (!letter) return;
 
+    // Track depth telemetry
+    updateTelemetry('maxDepth', targetDepth);
+
     // Check if content already exists at target depth
     if (letter[targetDepth]) {
       setLetterDepth(targetDepth);
@@ -1235,6 +1291,9 @@ export default function NirmanakaReader() {
   // section: 'summary' | 'whyAppeared' | 'path' - which section is requesting the depth change
   const loadDeeperSynthesis = async (targetDepth, section = 'summary') => {
     if (synthesisLoadingSection) return;
+
+    // Track depth telemetry
+    updateTelemetry('maxDepth', targetDepth);
 
     const summary = parsedReading?.summary;
     const whyAppeared = parsedReading?.whyAppeared;
@@ -1462,6 +1521,13 @@ export default function NirmanakaReader() {
   const continueThread = async (threadKey) => {
     const operation = threadOperations[threadKey];
     if (!operation) return;
+
+    // Track telemetry for reflect/forge
+    if (operation === 'reflect') {
+      updateTelemetry('reflectCount');
+    } else if (operation === 'forge') {
+      updateTelemetry('forgeCount');
+    }
 
     const userInput = sanitizeForAPI(threadContexts[threadKey] || '');
     if (!userInput.trim()) {
@@ -2043,6 +2109,15 @@ Interpret this new card as the architecture's response to their declared directi
     // Otherwise, fetch the expansion
     setExpanding({ section: sectionKey, type: expansionType });
 
+    // Track telemetry for expansions
+    if (expansionType === 'clarify') {
+      updateTelemetry('clarifyCount');
+    } else if (expansionType === 'unpack') {
+      updateTelemetry('unpackCount');
+    } else if (expansionType === 'example') {
+      updateTelemetry('exampleCount');
+    }
+
     // Build context for the expansion request
     // For card-specific sections, only include that card's draw (fixes scope leakage)
     let drawText = '';
@@ -2307,6 +2382,11 @@ CRITICAL FORMATTING RULES:
         return;
       }
     }
+    // Save telemetry before resetting (fire and forget)
+    if (savedReadingId) {
+      updateReadingTelemetry(savedReadingId, telemetry).catch(err => console.log('[Telemetry] Failed to save:', err));
+      setSavedReadingId(null);
+    }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
@@ -2317,6 +2397,8 @@ CRITICAL FORMATTING RULES:
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
+    // Reset telemetry
+    resetTelemetry();
     // Reset depth states to default (shallow)
     setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
     hasAutoInterpreted.current = false;
@@ -5281,11 +5363,13 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               )}
             </div>
             <div className="flex gap-2 items-center">
-              <input type="text" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
-                placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
-                disabled={followUpLoading}
-                className="flex-1 min-w-0 bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
+              <div className="content-pane flex-1 min-w-0 rounded-lg overflow-hidden">
+                <input type="text" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
+                  placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
+                  disabled={followUpLoading}
+                  className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
+              </div>
               <button onClick={sendFollowUp} disabled={followUpLoading || !followUp.trim()}
                 className="flex-shrink-0 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-900 disabled:text-zinc-700 border border-zinc-600 px-6 py-3 rounded-lg transition-all flex items-center justify-center min-w-[52px] text-zinc-200">
                 {followUpLoading ? (
