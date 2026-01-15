@@ -16,8 +16,8 @@ export default function CouncilPage() {
 
   return (
     <>
-      {/* Main NIRMANAKAYA header */}
-      <div className="text-center py-6 border-b border-zinc-800/30">
+      {/* Fixed NIRMANAKAYA header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-zinc-950 text-center py-6 border-b border-zinc-800/30">
         <Link href="/" className="inline-block">
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 bg-gradient-to-r from-amber-200 via-rose-300 to-violet-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity">NIRMANAKAYA</h1>
         </Link>
@@ -52,7 +52,7 @@ export default function CouncilPage() {
         </div>
       </div>
 
-      <article className="prose-invert">
+      <article className="prose-invert pt-36">
         <MarkdownRenderer content={content} />
       </article>
     </>
