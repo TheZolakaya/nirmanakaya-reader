@@ -206,7 +206,7 @@ export default function AdminPanel() {
           </div>
 
           {/* Stats Cards - Row 2: Engagement */}
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mb-8">
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mb-4">
             <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
               <div className="text-xl font-light text-violet-400">{totals.totalReflects || 0}</div>
               <div className="text-xs text-zinc-500 uppercase tracking-wide">Reflects</div>
@@ -226,6 +226,46 @@ export default function AdminPanel() {
             <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
               <div className="text-xl font-light text-pink-400">{totals.totalReplies || 0}</div>
               <div className="text-xs text-zinc-500 uppercase tracking-wide">Replies</div>
+            </div>
+          </div>
+
+          {/* Stats Cards - Row 3: Reading Modes */}
+          <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-sky-400">{totals.modeCounts?.reflect || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Reflect Mode</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-lime-400">{totals.modeCounts?.discover || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Discover Mode</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-amber-400">{totals.modeCounts?.forge || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Forge Mode</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-fuchsia-400">{totals.modeCounts?.explore || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Explore Mode</div>
+            </div>
+          </div>
+
+          {/* Stats Cards - Row 4: Spread Types */}
+          <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.single || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Single</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.triad || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Triad</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.pentad || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Pentad</div>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
+              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.septad || 0}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Septad</div>
             </div>
           </div>
 
@@ -299,6 +339,13 @@ export default function AdminPanel() {
                         <div className="text-pink-400">{u.replyCount || 0}</div>
                         <div className="text-xs text-zinc-600">replies</div>
                       </div>
+                    </div>
+                    {/* Mode breakdown */}
+                    <div className="flex gap-2 text-xs">
+                      <span className="text-sky-400" title="Reflect mode">{u.modes?.reflect || 0}R</span>
+                      <span className="text-lime-400" title="Discover mode">{u.modes?.discover || 0}D</span>
+                      <span className="text-amber-400" title="Forge mode">{u.modes?.forge || 0}F</span>
+                      <span className="text-fuchsia-400" title="Explore mode">{u.modes?.explore || 0}E</span>
                     </div>
                   </div>
 

@@ -60,13 +60,19 @@ export async function POST(request) {
 
   // Aggregate by user
   const userStats = {};
+  const modeCounts = { reflect: 0, discover: 0, forge: 0, explore: 0 };
+  const spreadCounts = { single: 0, triad: 0, pentad: 0, septad: 0 };
+
   (readings || []).forEach(r => {
     if (!userStats[r.user_id]) {
       userStats[r.user_id] = {
         totalTokens: 0, totalCost: 0, readingCount: 0,
         totalReflects: 0, totalForges: 0, totalClarifies: 0, totalUnpacks: 0, totalExamples: 0,
         maxDepthReached: 'surface',
-        discussionCount: 0, replyCount: 0
+        discussionCount: 0, replyCount: 0,
+        // Mode and spread breakdowns per user
+        modes: { reflect: 0, discover: 0, forge: 0, explore: 0 },
+        spreads: { single: 0, triad: 0, pentad: 0, septad: 0 }
       };
     }
     userStats[r.user_id].totalTokens += (r.input_tokens || 0) + (r.output_tokens || 0);
@@ -84,6 +90,18 @@ export async function POST(request) {
     const readingDepth = depthOrder.indexOf(r.max_depth || 'surface');
     if (readingDepth > currentMax) {
       userStats[r.user_id].maxDepthReached = r.max_depth;
+    }
+    // Track modes
+    const mode = (r.mode || '').toLowerCase();
+    if (modeCounts[mode] !== undefined) {
+      modeCounts[mode]++;
+      userStats[r.user_id].modes[mode]++;
+    }
+    // Track spreads
+    const spread = (r.spread_type || '').toLowerCase();
+    if (spreadCounts[spread] !== undefined) {
+      spreadCounts[spread]++;
+      userStats[r.user_id].spreads[spread]++;
     }
   });
 
@@ -122,6 +140,9 @@ export async function POST(request) {
     totalUnpacks: userStats[p.id]?.totalUnpacks || 0,
     totalExamples: userStats[p.id]?.totalExamples || 0,
     maxDepthReached: userStats[p.id]?.maxDepthReached || 'surface',
+    // Modes and spreads per user
+    modes: userStats[p.id]?.modes || { reflect: 0, discover: 0, forge: 0, explore: 0 },
+    spreads: userStats[p.id]?.spreads || { single: 0, triad: 0, pentad: 0, septad: 0 },
     // Community
     discussionCount: userStats[p.id]?.discussionCount || 0,
     replyCount: userStats[p.id]?.replyCount || 0
@@ -137,6 +158,9 @@ export async function POST(request) {
     totalReflects: Object.values(userStats).reduce((sum, u) => sum + u.totalReflects, 0),
     totalForges: Object.values(userStats).reduce((sum, u) => sum + u.totalForges, 0),
     totalExpansions: Object.values(userStats).reduce((sum, u) => sum + u.totalClarifies + u.totalUnpacks + u.totalExamples, 0),
+    // Mode and spread totals
+    modeCounts,
+    spreadCounts,
     // Community totals
     totalDiscussions: (discussions || []).length,
     totalReplies: (replies || []).length
