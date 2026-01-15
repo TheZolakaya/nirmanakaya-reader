@@ -70,7 +70,7 @@ export default function ShareReadingButton({ reading, readingId, fallbackUrl }) 
             onClick={() => setShowModal(false)}
           />
 
-          <div className="relative bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl w-full max-w-md p-6">
+          <div className="relative bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl w-full max-w-md p-6">
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-300 transition-colors"

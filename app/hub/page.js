@@ -166,7 +166,7 @@ export default function HubPage() {
       {/* Main content */}
       <div className="max-w-4xl mx-auto px-4 py-6">
         {!user && (
-          <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/30 rounded-xl text-center">
+          <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/30 rounded-lg text-center">
             <p className="text-amber-400/80 text-sm mb-2">Sign in to join the conversation</p>
             <button
               onClick={() => window.dispatchEvent(new Event('open-auth-modal'))}
@@ -188,7 +188,7 @@ export default function HubPage() {
               <Link
                 key={discussion.id}
                 href={`/hub/${discussion.id}`}
-                className="block p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl hover:border-zinc-700/50 transition-colors"
+                className="block p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-lg hover:border-zinc-700/50 transition-colors"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
@@ -237,7 +237,7 @@ export default function HubPage() {
             className="absolute inset-0 bg-black/70"
             onClick={() => setShowNewPost(false)}
           />
-          <div className="relative bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl w-full max-w-lg p-6">
+          <div className="relative bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl w-full max-w-lg p-6">
             <button
               onClick={() => setShowNewPost(false)}
               className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-300 transition-colors"

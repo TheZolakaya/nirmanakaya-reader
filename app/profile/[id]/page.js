@@ -180,7 +180,7 @@ export default function ProfilePage() {
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Profile Header */}
-        <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 mb-8">
+        <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-6">
             {/* Avatar */}
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0">

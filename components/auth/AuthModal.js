@@ -144,7 +144,7 @@ export default function AuthModal({ isOpen, onClose, initialMode }) {
       />
 
       {/* Modal */}
-      <div className="relative bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl w-full max-w-md p-6">
+      <div className="relative bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl w-full max-w-md p-6">
         {/* Close button */}
         <button
           onClick={onClose}

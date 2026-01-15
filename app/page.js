@@ -2379,7 +2379,7 @@ CRITICAL FORMATTING RULES:
     return (
       <div 
         id={`card-${index}`}
-        className={`rounded-xl border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group`}
+        className={`rounded-lg border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group`}
         onClick={scrollToContent}
       >
         <div className="mb-3 flex justify-between items-start">
@@ -3148,7 +3148,7 @@ CRITICAL FORMATTING RULES:
               </button>
               {helpPopover === 'unified' && (
                 <div className="help-popover-content absolute top-full mt-2 right-0 z-50 w-80 sm:w-96">
-                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                  <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
                     <div className="space-y-4 text-sm">
                       <div>
                         <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
@@ -3228,7 +3228,7 @@ CRITICAL FORMATTING RULES:
           </div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
-              <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+              <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
                 <p className="text-zinc-300 text-sm leading-relaxed">
                   The Nirmanakaya is both mirror and forge. Bring a question or declare an intention —
                   the draw finds what's ready to be seen. Where you are, what's moving, what might need attention.
@@ -3301,7 +3301,7 @@ CRITICAL FORMATTING RULES:
                   {/* Sign in */}
                   <button
                     onClick={() => setAuthModalOpen(true)}
-                    className="px-10 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white text-lg font-medium hover:bg-white/20 hover:border-white/30 transition-all shadow-lg"
+                    className="px-10 py-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white text-lg font-medium hover:bg-white/20 hover:border-white/30 transition-all shadow-lg"
                   >
                     Enter
                   </button>
@@ -3319,18 +3319,18 @@ CRITICAL FORMATTING RULES:
             <>
             {/* First Contact Mode - Simplified UI */}
             {userLevel === USER_LEVELS.FIRST_CONTACT && (
-              <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 mb-6 max-w-lg mx-auto">
+              <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto">
                 <div className="text-center mb-6">
                   <p className="text-zinc-400 text-sm">Ask a question or share what's on your mind</p>
                 </div>
 
                 {/* Simple question input */}
-                <div className="content-pane mb-4 rounded-xl">
+                <div className="content-pane mb-4 rounded-lg">
                   <textarea
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="What would you like clarity on?"
-                    className="w-full p-4 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
+                    className="w-full p-4 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
                     rows={3}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
@@ -3345,7 +3345,7 @@ CRITICAL FORMATTING RULES:
                 <button
                   onClick={performReading}
                   disabled={loading}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
+                  className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Reading...' : 'Get a Reading'}
                 </button>
@@ -3370,7 +3370,7 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Full UI */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-4 sm:p-6 mb-6 relative">
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative">
               {/* Mode Toggle - centered, help button is now floating */}
               <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
@@ -3569,7 +3569,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                     {/* Advanced Config panel (hidden by default) */}
                     {showLandingFineTune && (
-                  <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50">
+                  <div className="mt-3 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
                     {/* Delivery Presets - moved here from top level */}
                     <div className="mb-3 pb-3 border-b border-zinc-700/50">
                       <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
@@ -3687,7 +3687,7 @@ CRITICAL FORMATTING RULES:
                 {/* Spark button */}
                 <button
                   onClick={handleSpark}
-                  className="flex-shrink-0 px-3 py-2 rounded-xl bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center gap-1.5 text-xs transition-colors border border-purple-800/50"
+                  className="flex-shrink-0 px-3 py-2 rounded-lg bg-[#2e1065] text-amber-400 hover:bg-[#3b1f6e] flex items-center gap-1.5 text-xs transition-colors border border-purple-800/50"
                   title="Get a spark prompt"
                 >
                   <span>✨</span>
@@ -3695,7 +3695,7 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {/* Question textarea - switches to DTP input for Explore mode */}
-                <div className="content-pane relative flex-1 rounded-xl">
+                <div className="content-pane relative flex-1 rounded-lg">
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
@@ -3704,7 +3704,7 @@ CRITICAL FORMATTING RULES:
                       placeholder="Describe what's active for you right now...
 
 Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
                       rows={5}
                     />
                   ) : (
@@ -3719,7 +3719,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                             ? "What area of life are you examining?"
                             : "Name your question or declare your intent..."
                       )}
-                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-xl p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                      className="w-full bg-zinc-800/60 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800/80 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
                       rows={3}
                     />
                   )}
@@ -3728,7 +3728,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
               {/* Spark suggestions panel - shown when Spark is clicked */}
               {showSparkSuggestions && !question.trim() && (
-                <div className="mt-3 p-3 bg-zinc-900/50 rounded-xl border border-zinc-800/50">
+                <div className="mt-3 p-3 bg-zinc-900/50 rounded-lg border border-zinc-800/50">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-zinc-500">Tap to insert, or click Spark for more</span>
                     <button
@@ -3765,7 +3765,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 <button
                   onClick={performReading}
                   disabled={loading}
-                  className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#052e23] hover:bg-[#064e3b] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-xl transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
+                  className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#052e23] hover:bg-[#064e3b] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
                   {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
@@ -3795,13 +3795,13 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         )}
 
         {/* Error */}
-        {error && <div className="bg-red-950/30 border border-red-900/50 rounded-xl p-4 my-4 text-red-400 text-sm">{error}</div>}
+        {error && <div className="bg-red-950/30 border border-red-900/50 rounded-lg p-4 my-4 text-red-400 text-sm">{error}</div>}
 
         {/* First Contact Reading Output - Simplified display */}
         {draws && !loading && parsedReading?.firstContact && userLevel === USER_LEVELS.FIRST_CONTACT && (
           <div className="max-w-lg mx-auto mb-8">
             {/* Simple card display */}
-            <div className="content-pane bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-6 mb-4">
+            <div className="content-pane bg-zinc-900/50 rounded-lg border border-zinc-800/50 p-6 mb-4">
               <div className="text-center mb-4">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider">Pattern Emerged</span>
               </div>
@@ -3826,7 +3826,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
 
             {/* The reading response */}
-            <div className="content-pane bg-zinc-900/30 rounded-xl border border-zinc-800/50 p-6">
+            <div className="content-pane bg-zinc-900/30 rounded-lg border border-zinc-800/50 p-6">
               <div className="text-zinc-300 text-base leading-relaxed">
                 <ReactMarkdown
                   components={{
@@ -3868,7 +3868,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               </div>
               <button
                 onClick={resetReading}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
               >
                 Ask Another Question
               </button>
@@ -3947,7 +3947,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 </button>
                 {helpPopover === 'actions' && (
                   <div className="absolute top-full right-0 mt-2 z-50 w-64">
-                    <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-3 shadow-xl text-xs">
+                    <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 shadow-xl text-xs">
                       <div className="space-y-1.5 text-zinc-400">
                         <p><span className="text-zinc-200">Export</span> — Download as HTML file</p>
                         <p><span className="text-zinc-200">Traditional</span> — Toggle traditional tarot names</p>
@@ -3961,7 +3961,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               </div>
 
               {/* Collapsible Signatures Section */}
-              <div className="content-pane rounded-xl border border-zinc-800/50 bg-zinc-900/30 overflow-hidden">
+              <div className="content-pane rounded-lg border border-zinc-800/50 bg-zinc-900/30 overflow-hidden">
                 {/* Signatures Header - clickable */}
                 <div
                   className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-zinc-800/30 transition-colors"
@@ -3992,7 +3992,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Architecture Panel */}
             {showArchitecture && (
-              <div className="content-pane mt-6 bg-zinc-900/50 rounded-xl border border-zinc-800/50 p-4">
+              <div className="content-pane mt-6 bg-zinc-900/50 rounded-lg border border-zinc-800/50 p-4">
                 <div className="text-xs text-zinc-500 uppercase tracking-wider mb-4">Architecture Details</div>
                 
                 <div className="space-y-4 mb-6">
@@ -4160,7 +4160,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Your Question - shows after visual spread (non-Explore modes) */}
         {parsedReading && !loading && !parsedReading.firstContact && question && spreadType !== 'explore' && (
-          <div className="content-pane bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8">
+          <div className="content-pane bg-zinc-800/50 rounded-lg p-4 mb-6 mx-8">
             <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
             <div className="text-zinc-300 text-sm">{question}</div>
           </div>
@@ -4168,7 +4168,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* What's Active - shows after visual spread (Explore mode only) */}
         {parsedReading && !loading && !parsedReading.firstContact && spreadType === 'explore' && dtpInput && (
-          <div id="whats-active-top" className="content-pane bg-zinc-800/50 rounded-xl p-4 mb-6 mx-8 border border-amber-600/30">
+          <div id="whats-active-top" className="content-pane bg-zinc-800/50 rounded-lg p-4 mb-6 mx-8 border border-amber-600/30">
             <div className="text-[0.625rem] text-amber-400 tracking-wider mb-2">WHAT'S ACTIVE</div>
             <div className="text-zinc-300 text-sm italic mb-3">"{dtpInput}"</div>
             {dtpTokens && dtpTokens.length > 0 && (
@@ -4225,7 +4225,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           };
 
           return (
-            <div className="content-pane mb-6 rounded-xl border-2 border-violet-500/40 bg-violet-950/20 p-5">
+            <div className="content-pane mb-6 rounded-lg border-2 border-violet-500/40 bg-violet-950/20 p-5">
               <div className={`flex items-center justify-between ${isMobileDepth ? 'mb-1' : 'mb-3'}`}>
                 <div className="flex items-center gap-2">
                   <span className="text-violet-400">✉</span>
@@ -4372,7 +4372,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           <div className="space-y-2">
             {/* Explore Mode: Original Input Display (B14) */}
             {spreadType === 'explore' && dtpInput && (
-              <div id="whats-active-cards" className="mb-6 rounded-xl border border-amber-600/30 bg-amber-950/20 p-5">
+              <div id="whats-active-cards" className="mb-6 rounded-lg border border-amber-600/30 bg-amber-950/20 p-5">
                 <div className="text-amber-400 text-xs uppercase tracking-wider mb-2">What's Active</div>
                 <div className="text-zinc-300 text-sm leading-relaxed italic mb-3">"{dtpInput}"</div>
                 {dtpTokens && dtpTokens.length > 0 && (
@@ -4466,7 +4466,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
             {parsedReading._onDemand && synthesisLoading && (
-              <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
+              <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
                 <div className="flex items-center gap-3">
                   <span className="text-sm"><PulsatingLoader color="text-amber-400" /></span>
                 </div>
@@ -4475,7 +4475,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Translation Loading Indicator - shows when persona translation in progress */}
             {translating && (
-              <div className="mb-6 rounded-xl border-2 border-amber-600/40 p-5 bg-amber-900/20">
+              <div className="mb-6 rounded-lg border-2 border-amber-600/40 p-5 bg-amber-900/20">
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-amber-400 animate-pulse">
                     Finding your {persona.charAt(0).toUpperCase() + persona.slice(1)} voice...
@@ -4486,7 +4486,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* Synthesis Not Yet Available - shows when cards still loading */}
             {parsedReading._onDemand && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
-              <div className="mb-6 rounded-xl border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
+              <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
                 <div className="flex items-center gap-3 text-zinc-500">
                   <span className="text-sm">Overview and Path will appear after all cards are loaded</span>
                 </div>
@@ -4524,7 +4524,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               const isPathArchCollapsed = collapsedSections['path-architecture'] !== false; // collapsed by default
 
               return (
-                <div id="depth-section-path" className="content-pane mb-6 rounded-xl border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
+                <div id="depth-section-path" className="content-pane mb-6 rounded-lg border-2 border-emerald-500/60 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15))'}}>
                   <div className="p-5">
                     {/* Path Header - clickable for collapse */}
                     <div
@@ -4818,7 +4818,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
             {/* FULL ARCHITECTURE - Global reading architecture, collapsed by default */}
             {parsedReading.fullArchitecture && (
-              <div className="mb-6 rounded-xl border-2 border-violet-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(76, 29, 149, 0.2), rgba(139, 92, 246, 0.1))'}}>
+              <div className="mb-6 rounded-lg border-2 border-violet-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom right, rgba(76, 29, 149, 0.2), rgba(139, 92, 246, 0.1))'}}>
                 <div className="p-5">
                   <div
                     className={`flex items-center justify-between cursor-pointer ${collapsedSections['full-architecture'] === false ? 'mb-4' : ''}`}
@@ -4853,7 +4853,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             {parsedReading && !loading && synthesisLoaded && (() => {
               const isSynthesisCollapsed = collapsedSections['synthesis'] === true; // expanded by default
               return (
-              <div className="content-pane mt-8 rounded-2xl border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
+              <div className="content-pane mt-8 rounded-lg border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
                 {/* Synthesis Header - clickable for collapse */}
                 <div 
                   className="px-6 py-4 border-b border-amber-500/20 bg-amber-950/30 cursor-pointer hover:bg-amber-950/40 transition-colors"
@@ -5246,7 +5246,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {followUpMessages.length > 0 && (
           <div className="content-pane space-y-4 mt-6">
             {followUpMessages.map((msg, i) => (
-              <div key={i} className={`rounded-xl p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
+              <div key={i} className={`rounded-lg p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
                 {msg.role === 'user' && <div className="text-[0.625rem] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
                 <div className="text-zinc-300 leading-relaxed text-sm space-y-3">
                   {msg.content.split(/\n\n+/).filter(p => p.trim()).map((para, pi) => (
@@ -5271,7 +5271,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               </button>
               {helpPopover === 'followup' && (
                 <div className="absolute top-8 left-0 z-50 w-72">
-                  <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-3 shadow-xl">
+                  <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 shadow-xl">
                     <p className="text-zinc-400 text-xs leading-relaxed">
                       Ask anything — dig deeper, challenge it, ask about a specific part, or take the conversation wherever you need.
                     </p>
@@ -5285,9 +5285,9 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
                 placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
                 disabled={followUpLoading}
-                className="flex-1 min-w-0 bg-zinc-900/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
+                className="flex-1 min-w-0 bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
               <button onClick={sendFollowUp} disabled={followUpLoading || !followUp.trim()}
-                className="flex-shrink-0 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-900 disabled:text-zinc-700 border border-zinc-600 px-6 py-3 rounded-xl transition-all flex items-center justify-center min-w-[52px] text-zinc-200">
+                className="flex-shrink-0 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-900 disabled:text-zinc-700 border border-zinc-600 px-6 py-3 rounded-lg transition-all flex items-center justify-center min-w-[52px] text-zinc-200">
                 {followUpLoading ? (
                   <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-300 rounded-full animate-spin"></div>
                 ) : '→'}
@@ -5302,7 +5302,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowMidReadingStance(!showMidReadingStance)}
-                className={`flex-1 text-left px-4 py-3 rounded-xl transition-all ${
+                className={`flex-1 text-left px-4 py-3 rounded-lg transition-all ${
                   showMidReadingStance
                     ? 'bg-zinc-800/50 border border-zinc-700/50'
                     : 'bg-zinc-900/30 border border-zinc-800/30 hover:bg-zinc-900/50 hover:border-zinc-700/50'
@@ -5331,7 +5331,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
             {helpPopover === 'stance' && (
               <div className="absolute top-full right-0 mt-2 z-50 w-72">
-                <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 shadow-xl">
+                <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
                   <p className="text-zinc-400 text-xs leading-relaxed">
                     Stances shape how the reading speaks to you — from quick and direct to deep and expansive. Use Config to customize voice, focus, density, scope, and tone.
                   </p>
@@ -5346,7 +5346,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             )}
 
             {showMidReadingStance && (
-              <div className="content-pane mt-3 bg-zinc-900/30 rounded-xl border border-zinc-800/30 p-4">
+              <div className="content-pane mt-3 bg-zinc-900/30 rounded-lg border border-zinc-800/30 p-4">
                 {/* Voice Settings - Post-Reading (locked) */}
                 <div>
                   <PersonaSelector
@@ -5379,7 +5379,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 </div>
 
                 {showFineTune && (
-                  <div className="mt-3 bg-zinc-900/50 rounded-xl p-3 border border-zinc-800/50 space-y-3">
+                  <div className="mt-3 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50 space-y-3">
                     {/* Delivery Presets Row */}
                     <div className="w-full max-w-lg mx-auto">
                       <div className="flex gap-1.5 justify-center flex-nowrap">

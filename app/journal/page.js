@@ -144,7 +144,7 @@ export default function JournalPage() {
             <div className="text-zinc-600 mb-4">No saved readings yet</div>
             <Link
               href="/"
-              className="inline-block px-6 py-3 rounded-xl bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
+              className="inline-block px-6 py-3 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
             >
               Create your first reading
             </Link>
@@ -154,7 +154,7 @@ export default function JournalPage() {
             {readings.map(reading => (
               <div
                 key={reading.id}
-                className="bg-zinc-900/50 border border-zinc-800/50 rounded-xl overflow-hidden hover:border-zinc-700/50 transition-colors"
+                className="bg-zinc-900/50 border border-zinc-800/50 rounded-lg overflow-hidden hover:border-zinc-700/50 transition-colors"
               >
                 {/* Reading header - always visible */}
                 <div

@@ -29,7 +29,7 @@ const PersonaSelector = ({
   // Compact mode for post-reading (smaller, inline)
   if (compact) {
     return (
-      <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
+      <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-xs text-zinc-500 mb-3">
           Voice settings {hasReading && <span className="text-amber-600/60">(locked for this reading)</span>}
@@ -167,7 +167,7 @@ const PersonaSelector = ({
       </div>
 
       {/* Voice sliders */}
-      <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 max-w-md mx-auto w-full">
+      <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 max-w-md mx-auto w-full">
         {/* Humor slider - stacked on mobile, inline on desktop */}
         <div className="mb-3 px-2">
           <div className="flex items-center justify-between mb-1 sm:mb-0">

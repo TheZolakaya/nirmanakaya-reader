@@ -206,7 +206,7 @@ export default function SharedReadingPage({ params }) {
           <div className="text-zinc-500 mb-4">{error}</div>
           <Link
             href="/"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
+            className="inline-block px-6 py-3 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
           >
             Create your own reading
           </Link>
@@ -242,7 +242,7 @@ export default function SharedReadingPage({ params }) {
       <div className="max-w-3xl mx-auto px-4 py-8">
         {/* Question */}
         {reading.question && (
-          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
             <div className="text-xs text-amber-400/70 mb-2 uppercase tracking-wide">The Question</div>
             <div className="text-lg text-zinc-200 italic">
               "{reading.question}"
@@ -252,7 +252,7 @@ export default function SharedReadingPage({ params }) {
 
         {/* Letter / Introduction */}
         {reading.letter && (
-          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
             <CollapsibleSection title="Introduction" color="cyan">
               <DepthContent depths={getAllDepths(reading.letter)} />
             </CollapsibleSection>
@@ -277,7 +277,7 @@ export default function SharedReadingPage({ params }) {
                 return (
                   <div
                     key={i}
-                    className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-xl"
+                    className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-lg"
                   >
                     {/* Card header */}
                     <div className="flex items-start justify-between mb-4">
@@ -377,7 +377,7 @@ export default function SharedReadingPage({ params }) {
 
         {/* Synthesis Section */}
         {reading.synthesis && (
-          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+          <div className="mb-8 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
             <div className="text-lg font-light text-amber-400 mb-6 text-center">Synthesis</div>
 
             {/* The Reading / Summary */}
@@ -409,7 +409,7 @@ export default function SharedReadingPage({ params }) {
             <div className="text-sm text-zinc-400 mb-4">Thread Continuations</div>
             <div className="space-y-4">
               {reading.threads.map((thread, i) => (
-                <div key={i} className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+                <div key={i} className="p-5 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
                   <div className="flex items-center gap-2 mb-3">
                     <span className={`text-xs px-2 py-1 rounded ${
                       thread.type === 'reflect' ? 'bg-blue-900/30 text-blue-400' :
@@ -435,7 +435,7 @@ export default function SharedReadingPage({ params }) {
             <div className="text-sm text-zinc-400 mb-4">Follow-up Conversation</div>
             <div className="space-y-3">
               {reading.followUps.map((followUp, i) => (
-                <div key={i} className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+                <div key={i} className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
                   <div className="text-xs text-zinc-500 mb-2">Q: {followUp.question}</div>
                   <MarkdownContent content={followUp.response} />
                 </div>
@@ -451,7 +451,7 @@ export default function SharedReadingPage({ params }) {
           </div>
           <Link
             href="/"
-            className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
+            className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium hover:from-amber-500 hover:to-amber-400 transition-all"
           >
             Create Your Own Reading
           </Link>

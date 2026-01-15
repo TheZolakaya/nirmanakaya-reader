@@ -170,7 +170,7 @@ const ReadingSection = ({
   const isCollapsible = onToggleCollapse !== undefined;
 
   return (
-    <div className={`rounded-xl border-2 p-5 mb-5 reading-card ${getSectionStyle()}`}>
+    <div className={`rounded-lg border-2 p-5 mb-5 reading-card ${getSectionStyle()}`}>
       {/* Section Header */}
       <div
         className={`flex flex-col gap-1 ${!isCollapsed ? 'mb-3' : ''} ${isCollapsible ? 'cursor-pointer group' : ''}`}

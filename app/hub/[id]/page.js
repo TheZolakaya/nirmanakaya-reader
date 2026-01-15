@@ -233,7 +233,7 @@ export default function DiscussionPage({ params }) {
           <div className="text-zinc-500 mb-4">{error}</div>
           <Link
             href="/hub"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
+            className="inline-block px-6 py-3 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
           >
             Back to Hub
           </Link>
@@ -329,7 +329,7 @@ export default function DiscussionPage({ params }) {
             {discussion.replies.map(reply => (
               <div
                 key={reply.id}
-                className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl"
+                className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-lg"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
@@ -372,7 +372,7 @@ export default function DiscussionPage({ params }) {
 
         {/* Reply form */}
         {user ? (
-          <div className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl">
+          <div className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-lg">
             <textarea
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
@@ -391,7 +391,7 @@ export default function DiscussionPage({ params }) {
             </div>
           </div>
         ) : (
-          <div className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-xl text-center">
+          <div className="p-4 bg-zinc-900/50 border border-zinc-800/50 rounded-lg text-center">
             <p className="text-zinc-500 text-sm mb-3">Sign in to reply</p>
             <button
               onClick={() => window.dispatchEvent(new Event('open-auth-modal'))}

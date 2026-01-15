@@ -68,7 +68,7 @@ const StanceSelector = ({ stance, setStance, showCustomize, setShowCustomize, co
   // Compact mode for mid-reading stance changes
   if (compact) {
     return (
-      <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
+      <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
         {/* Current stance display */}
         <div className="mb-4 pb-3 border-b border-zinc-800/50 max-w-xl mx-auto">
           <div className="flex items-center justify-between mb-2">
@@ -140,7 +140,7 @@ const StanceSelector = ({ stance, setStance, showCustomize, setShowCustomize, co
 
       {/* Custom sliders */}
       {showCustomize && (
-        <div className="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800/50 max-w-xl mx-auto mt-3 w-full">
+        <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 max-w-xl mx-auto mt-3 w-full">
           <DimensionRow label="Voice" dimension="voice" options={['wonder', 'warm', 'direct', 'grounded']} />
           <DimensionRow label="Focus" dimension="focus" options={['do', 'feel', 'see', 'build']} />
           <DimensionRow label="Density" dimension="density" options={['luminous', 'rich', 'clear', 'essential']} />
