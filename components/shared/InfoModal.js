@@ -8,7 +8,7 @@ import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { getGlossaryEntry } from '../../lib/glossary.js';
 import ClickableTermContext from './ClickableTermContext.js';
 
-const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
+const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack, onGoBack }) => {
   if (!info) return null;
 
   const { type, id, data } = info;
@@ -342,7 +342,25 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional }) => {
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-zinc-900 rounded-lg border border-zinc-700 max-w-md w-full max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-        <div className="p-5">
+        {/* Navigation bar - shows back button when there's history */}
+        {canGoBack && (
+          <div className="flex items-center gap-2 px-5 pt-3">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onGoBack();
+              }}
+              className="flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              title="Go back to previous card"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+          </div>
+        )}
+        <div className={canGoBack ? "p-5 pt-2" : "p-5"}>
           {renderContent()}
         </div>
       </div>

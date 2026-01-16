@@ -428,6 +428,7 @@ export default function NirmanakaReader() {
   const [shareUrl, setShareUrl] = useState('');
   const [isSharedReading, setIsSharedReading] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState(null); // {type: 'card'|'channel'|'status'|'house', id: ..., data: ...}
+  const [infoHistory, setInfoHistory] = useState([]); // Stack of previous selectedInfo values for back navigation
   const [glossaryTooltip, setGlossaryTooltip] = useState(null); // {entry, position: {x, y}}
   const [showMidReadingStance, setShowMidReadingStance] = useState(false);
   const [showFineTune, setShowFineTune] = useState(false);
@@ -2151,6 +2152,30 @@ Interpret this new card as the architecture's response to their declared directi
         y: rect.top
       }
     });
+  };
+
+  // Info modal navigation - wraps setSelectedInfo to track history
+  const navigateToInfo = (newInfo) => {
+    if (selectedInfo) {
+      // Push current info to history stack before showing new one
+      setInfoHistory(prev => [...prev, selectedInfo]);
+    }
+    setSelectedInfo(newInfo);
+  };
+
+  const infoGoBack = () => {
+    if (infoHistory.length > 0) {
+      // Pop the last item from history and show it
+      const newHistory = [...infoHistory];
+      const prevInfo = newHistory.pop();
+      setInfoHistory(newHistory);
+      setSelectedInfo(prevInfo);
+    }
+  };
+
+  const closeInfoModal = () => {
+    setSelectedInfo(null);
+    setInfoHistory([]);
   };
 
   const handleExpand = async (sectionKey, expansionType, remove = false) => {
@@ -5750,7 +5775,14 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
       </div>
 
       {/* Info Modal */}
-      <InfoModal info={selectedInfo} onClose={() => setSelectedInfo(null)} setSelectedInfo={setSelectedInfo} showTraditional={showTraditional} />
+      <InfoModal
+        info={selectedInfo}
+        onClose={closeInfoModal}
+        setSelectedInfo={navigateToInfo}
+        showTraditional={showTraditional}
+        canGoBack={infoHistory.length > 0}
+        onGoBack={infoGoBack}
+      />
 
       {/* Glossary Tooltip */}
       {glossaryTooltip && (
