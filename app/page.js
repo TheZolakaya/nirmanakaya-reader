@@ -3254,8 +3254,22 @@ CRITICAL FORMATTING RULES:
     URL.revokeObjectURL(url);
   };
 
+  // Handle clicks on main wrapper - exit help mode if click is not on a help element
+  const handleMainClick = (e) => {
+    if (!helpMode) return;
+    // Check if click was on an element with data-help attribute
+    const helpElement = e.target.closest('[data-help]');
+    if (!helpElement) {
+      // Clicked on non-help element - exit help mode
+      exitHelpMode();
+    }
+  };
+
   return (
-    <div className={`min-h-screen bg-zinc-950 text-zinc-100 ${helpMode ? 'cursor-help' : ''}`}>
+    <div
+      className={`min-h-screen bg-zinc-950 text-zinc-100 ${helpMode ? 'cursor-help' : ''}`}
+      onClick={handleMainClick}
+    >
       {/* Background - Video or Image */}
       {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
         <video
