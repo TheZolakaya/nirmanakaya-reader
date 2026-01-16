@@ -79,6 +79,17 @@ export default function DiscussionPage({ params }) {
         reply_count: (prev.reply_count || 0) + 1
       }));
       setReplyContent('');
+
+      // Send notification to discussion owner (async, don't block UI)
+      fetch('/api/email/reply-notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          discussionId: params.id,
+          replyContent: replyContent.trim(),
+          replyAuthorId: user?.id
+        })
+      }).catch(err => console.error('Reply notification failed:', err));
     }
     setPosting(false);
   }

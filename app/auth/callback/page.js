@@ -7,6 +7,31 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../../lib/supabase';
 
+// Send welcome email for new users
+async function sendWelcomeEmailIfNew(userId) {
+  const welcomeSentKey = `nirmanakaya_welcome_sent_${userId}`;
+
+  // Check if we've already sent welcome email for this user
+  if (localStorage.getItem(welcomeSentKey)) {
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/email/welcome', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId })
+    });
+
+    if (response.ok) {
+      // Mark as sent so we don't send again
+      localStorage.setItem(welcomeSentKey, 'true');
+    }
+  } catch (err) {
+    console.error('Failed to send welcome email:', err);
+  }
+}
+
 export default function AuthCallbackPage() {
   const router = useRouter();
   const [status, setStatus] = useState('Signing you in...');
@@ -40,6 +65,10 @@ export default function AuthCallbackPage() {
             const { data: { session: verifySession } } = await supabase.auth.getSession();
             if (verifySession) {
               setStatus(`Session verified for ${verifySession.user?.email}! Redirecting...`);
+
+              // Send welcome email for new users (async, don't wait)
+              sendWelcomeEmailIfNew(verifySession.user.id);
+
               await new Promise(resolve => setTimeout(resolve, 1000));
               window.location.href = window.location.origin + '/';
               return;
@@ -67,6 +96,13 @@ export default function AuthCallbackPage() {
             router.push('/?reset_password=true');
             return;
           }
+
+          // Get session to send welcome email
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user?.id) {
+            sendWelcomeEmailIfNew(session.user.id);
+          }
+
           router.push('/');
           return;
         } else {
@@ -78,6 +114,9 @@ export default function AuthCallbackPage() {
       // Final check - maybe session was set automatically
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
+        // Send welcome email for new users
+        sendWelcomeEmailIfNew(session.user.id);
+
         router.push('/');
         return;
       }

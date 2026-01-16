@@ -93,7 +93,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
-import { SaveReadingButton, ShareReadingButton } from '../components/reading';
+import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
 import { getReading, getUser, supabase, saveReading, updateReadingTelemetry } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
@@ -967,7 +967,17 @@ export default function NirmanakaReader() {
           // Telemetry (initial values - will be updated later)
           ...telemetry
         }).then(result => {
-          if (result?.data?.id) setSavedReadingId(result.data.id);
+          if (result?.data?.id) {
+            setSavedReadingId(result.data.id);
+            // Send reading email (async, respects user preferences)
+            if (user?.id) {
+              fetch('/api/email/reading', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: user.id, readingId: result.data.id })
+              }).catch(err => console.log('[Email] Failed:', err));
+            }
+          }
         }).catch(err => console.log('[AutoSave] Failed:', err));
       } catch (e) { setError(`Error: ${e.message}`); }
       setLoading(false);
@@ -1050,7 +1060,17 @@ export default function NirmanakaReader() {
         // Telemetry (initial values - will be updated later)
         ...telemetry
       }).then(result => {
-        if (result?.data?.id) setSavedReadingId(result.data.id);
+        if (result?.data?.id) {
+          setSavedReadingId(result.data.id);
+          // Send reading email (async, respects user preferences)
+          if (user?.id) {
+            fetch('/api/email/reading', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId: user.id, readingId: result.data.id })
+            }).catch(err => console.log('[Email] Failed:', err));
+          }
+        }
       }).catch(err => console.log('[AutoSave] Failed:', err));
 
       // Auto-load ALL cards in parallel immediately for better UX
@@ -4030,6 +4050,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   readingId={savedReadingId}
                   fallbackUrl={shareUrl}
                 />
+                <EmailReadingButton readingId={savedReadingId} />
               </div>
               <button
                 onClick={resetReading}
@@ -4098,6 +4119,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       readingId={savedReadingId}
                       fallbackUrl={shareUrl}
                     />
+                    <EmailReadingButton readingId={savedReadingId} />
                     <button onClick={exportToHTML} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">Export</button>
                   </>
                 )}

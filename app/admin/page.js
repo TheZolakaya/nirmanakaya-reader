@@ -36,6 +36,13 @@ export default function AdminPanel() {
   const [editingLimit, setEditingLimit] = useState(null);
   const [limitValue, setLimitValue] = useState('');
 
+  // Broadcast tab state
+  const [broadcastSubject, setBroadcastSubject] = useState('');
+  const [broadcastBody, setBroadcastBody] = useState('');
+  const [subscriberCount, setSubscriberCount] = useState(0);
+  const [broadcastSending, setBroadcastSending] = useState(false);
+  const [broadcastResult, setBroadcastResult] = useState(null);
+
   useEffect(() => {
     async function checkAdmin() {
       const { user } = await getUser();
@@ -142,6 +149,57 @@ export default function AdminPanel() {
     loadUsers();
   }
 
+  async function loadSubscriberCount() {
+    try {
+      const response = await fetch(`/api/admin/broadcast?adminEmail=${encodeURIComponent(user?.email)}`);
+      const data = await response.json();
+      if (!data.error) {
+        setSubscriberCount(data.subscriberCount || 0);
+      }
+    } catch (err) {
+      console.error('Failed to load subscriber count:', err);
+    }
+  }
+
+  async function handleSendBroadcast() {
+    if (!broadcastSubject.trim() || !broadcastBody.trim()) {
+      alert('Please enter both subject and body');
+      return;
+    }
+
+    if (!confirm(`Send this email to ${subscriberCount} subscribers?`)) {
+      return;
+    }
+
+    setBroadcastSending(true);
+    setBroadcastResult(null);
+
+    try {
+      const response = await fetch('/api/admin/broadcast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: broadcastSubject,
+          body: broadcastBody,
+          adminEmail: user?.email
+        })
+      });
+      const data = await response.json();
+
+      if (data.error) {
+        setBroadcastResult({ error: data.error });
+      } else {
+        setBroadcastResult({ success: true, sent: data.sent, failed: data.failed });
+        setBroadcastSubject('');
+        setBroadcastBody('');
+      }
+    } catch (err) {
+      setBroadcastResult({ error: err.message });
+    }
+
+    setBroadcastSending(false);
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-900 text-zinc-100 flex items-center justify-center">
@@ -179,6 +237,12 @@ export default function AdminPanel() {
           className={`px-4 py-2 rounded-t transition-all ${activeTab === 'testing' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
         >
           Testing
+        </button>
+        <button
+          onClick={() => { setActiveTab('broadcast'); loadSubscriberCount(); }}
+          className={`px-4 py-2 rounded-t transition-all ${activeTab === 'broadcast' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
+        >
+          Broadcast
         </button>
       </div>
 
@@ -538,6 +602,73 @@ export default function AdminPanel() {
           >
             Open Reader with Config →
           </button>
+        </div>
+      )}
+
+      {/* BROADCAST TAB */}
+      {activeTab === 'broadcast' && (
+        <div>
+          <div className="mb-6">
+            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50 inline-block">
+              <div className="text-2xl font-light text-emerald-400">{subscriberCount}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Subscribers (opted in to updates)</div>
+            </div>
+          </div>
+
+          <div className="max-w-2xl">
+            <div className="mb-4">
+              <label className="block text-sm text-zinc-500 uppercase tracking-wide mb-2">Subject</label>
+              <input
+                type="text"
+                value={broadcastSubject}
+                onChange={(e) => setBroadcastSubject(e.target.value)}
+                placeholder="e.g., Nirmanakaya Reader v0.74 - New Features!"
+                className="w-full bg-zinc-800 text-zinc-100 px-4 py-2 rounded border border-zinc-700 focus:border-amber-600 focus:outline-none"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm text-zinc-500 uppercase tracking-wide mb-2">Body (supports **bold** and *italic*)</label>
+              <textarea
+                value={broadcastBody}
+                onChange={(e) => setBroadcastBody(e.target.value)}
+                placeholder="Write your update message here...
+
+Use **bold** for emphasis and *italic* for subtle highlights.
+
+Double line breaks create new paragraphs."
+                rows={12}
+                className="w-full bg-zinc-800 text-zinc-100 px-4 py-3 rounded border border-zinc-700 focus:border-amber-600 focus:outline-none font-mono text-sm"
+              />
+            </div>
+
+            {broadcastResult && (
+              <div className={`mb-4 p-4 rounded ${broadcastResult.error ? 'bg-red-900/50 border border-red-700' : 'bg-emerald-900/50 border border-emerald-700'}`}>
+                {broadcastResult.error ? (
+                  <p className="text-red-300">Error: {broadcastResult.error}</p>
+                ) : (
+                  <p className="text-emerald-300">Sent successfully! {broadcastResult.sent} delivered, {broadcastResult.failed} failed.</p>
+                )}
+              </div>
+            )}
+
+            <button
+              onClick={handleSendBroadcast}
+              disabled={broadcastSending || subscriberCount === 0}
+              className={`px-6 py-3 rounded text-lg transition-all ${
+                broadcastSending || subscriberCount === 0
+                  ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                  : 'bg-emerald-700 hover:bg-emerald-600 text-white'
+              }`}
+            >
+              {broadcastSending ? 'Sending...' : `Send to ${subscriberCount} Subscribers`}
+            </button>
+
+            <p className="text-xs text-zinc-600 mt-4">
+              This will send an email to all users who have opted in to receive updates.
+              Each email includes an unsubscribe link.
+            </p>
+          </div>
         </div>
       )}
 

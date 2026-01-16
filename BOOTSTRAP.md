@@ -31,7 +31,7 @@ git add -A && git commit -m "message" && git push
 
 Working branch: `main` (deploys to Vercel automatically)
 
-> **Post-F&F**: Will return to alpha/main/prod branching strategy when we have multiple environments with synced backends.
+> **Post-F&F**: Will return to alpha/beta/prod branching strategy when needed. For now, skip alpha/beta except for special occasions.
 
 ## Key Locations
 
@@ -65,7 +65,7 @@ Working branch: `main` (deploys to Vercel automatically)
 When releasing:
 1. Update `lib/version.js`
 2. Update `package.json` version field
-3. Commit and push to alpha, main, prod
+3. Commit and push to main
 
 ## Community Hub (Supabase)
 

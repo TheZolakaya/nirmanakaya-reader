@@ -10,7 +10,9 @@ import {
   getUser,
   updateProfile,
   ensureProfile,
-  updateNotificationPrefs
+  updateNotificationPrefs,
+  getEmailPrefs,
+  updateEmailPrefs
 } from '../../../lib/supabase';
 
 export default function ProfilePage() {
@@ -34,6 +36,13 @@ export default function ProfilePage() {
 
   // Notification preferences
   const [notifyPref, setNotifyPref] = useState('all'); // 'all' | 'replies' | 'none'
+
+  // Email preferences
+  const [emailPrefs, setEmailPrefs] = useState({
+    email_readings: true,
+    email_replies: true,
+    email_updates: true
+  });
 
   const isOwnProfile = currentUser?.id === userId;
 
@@ -76,6 +85,18 @@ export default function ProfilePage() {
         setEditName(profileData?.display_name || '');
         setEditBio(profileData?.bio || '');
         setNotifyPref(profileData?.notification_prefs || 'all');
+
+        // Load email preferences for own profile
+        if (user?.id === userId) {
+          const { data: emailData } = await getEmailPrefs();
+          if (emailData) {
+            setEmailPrefs({
+              email_readings: emailData.email_readings !== false,
+              email_replies: emailData.email_replies !== false,
+              email_updates: emailData.email_updates !== false
+            });
+          }
+        }
 
         // Get public readings
         const { data: readingsData } = await getUserPublicReadings(userId);
@@ -122,6 +143,12 @@ export default function ProfilePage() {
   const handleNotifyChange = async (newPref) => {
     setNotifyPref(newPref);
     await updateNotificationPrefs(newPref);
+  };
+
+  const handleEmailPrefChange = async (key, value) => {
+    const newPrefs = { ...emailPrefs, [key]: value };
+    setEmailPrefs(newPrefs);
+    await updateEmailPrefs({ [key]: value });
   };
 
   const formatDate = (dateString) => {
@@ -320,6 +347,46 @@ export default function ProfilePage() {
                 </button>
               </div>
               <p className="text-xs text-zinc-600 mt-2">Controls the badge on your avatar showing unread community posts</p>
+            </div>
+          )}
+
+          {/* Email Preferences - only for own profile */}
+          {isOwnProfile && (
+            <div className="mt-6 pt-6 border-t border-zinc-800">
+              <h3 className="text-sm text-zinc-400 mb-3">Email Notifications</h3>
+              <div className="space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={emailPrefs.email_readings}
+                    onChange={(e) => handleEmailPrefChange('email_readings', e.target.checked)}
+                    className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-0"
+                  />
+                  <span className="text-sm text-zinc-300 group-hover:text-zinc-200">Reading results</span>
+                  <span className="text-xs text-zinc-600">Receive your reading interpretations via email</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={emailPrefs.email_replies}
+                    onChange={(e) => handleEmailPrefChange('email_replies', e.target.checked)}
+                    className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-0"
+                  />
+                  <span className="text-sm text-zinc-300 group-hover:text-zinc-200">Forum replies</span>
+                  <span className="text-xs text-zinc-600">Get notified when someone replies to your posts</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={emailPrefs.email_updates}
+                    onChange={(e) => handleEmailPrefChange('email_updates', e.target.checked)}
+                    className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-0"
+                  />
+                  <span className="text-sm text-zinc-300 group-hover:text-zinc-200">Version updates</span>
+                  <span className="text-xs text-zinc-600">Announcements about new features and changes</span>
+                </label>
+              </div>
+              <p className="text-xs text-zinc-600 mt-3">You can also unsubscribe via links in any email we send</p>
             </div>
           )}
         </div>
