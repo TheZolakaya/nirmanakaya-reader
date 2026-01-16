@@ -19,8 +19,8 @@ export default function ShareReadingButton({ reading, readingId, fallbackUrl }) 
       const { user } = await getUser();
 
       if (user && readingId) {
-        // Make reading public and get share slug
-        const { data, error } = await setReadingPublic(readingId, true);
+        // Make reading public and update content (so shared view has full data)
+        const { data, error } = await setReadingPublic(readingId, true, reading);
         if (!error && data?.share_slug) {
           const url = `${window.location.origin}/r/${data.share_slug}`;
           setShareUrl(url);
