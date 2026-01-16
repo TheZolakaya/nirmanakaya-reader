@@ -60,6 +60,16 @@ Working branch: `main` (deploys to Vercel automatically)
 - **Supabase Dashboard**: User manages directly
 - **Feedback Email**: chriscrilly@gmail.com
 
+## Environment Variables
+
+Required in `.env.local`:
+- `ANTHROPIC_API_KEY` - Claude API access
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anon/public key
+- `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key (for admin operations like email APIs)
+- `RESEND_API_KEY` - Resend email service
+- `EMAIL_FROM` - Sender address (ZolaKaya@nirmanakaya.com)
+
 ## Version Bumping
 
 When releasing:
