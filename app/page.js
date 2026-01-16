@@ -3312,7 +3312,8 @@ CRITICAL FORMATTING RULES:
             {/* Background controls - upper left */}
             <div className="fixed top-3 left-3 z-50 flex flex-col items-start gap-1">
               <button
-                onClick={() => setShowBgControls(!showBgControls)}
+                data-help="bg-toggle"
+                onClick={(e) => { if (!handleHelpClick('bg-toggle', e)) setShowBgControls(!showBgControls); }}
                 className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
                 title={showBgControls ? "Hide background controls" : "Show background controls"}
               >
@@ -3326,7 +3327,7 @@ CRITICAL FORMATTING RULES:
                 ✉
               </a>
               {showBgControls && (
-                <>
+                <div data-help="bg-controls" onClick={(e) => handleHelpClick('bg-controls', e)}>
                   {/* Background selector with nudge buttons */}
                   <div
                     className="flex items-center gap-1 bg-zinc-900/80 backdrop-blur-sm rounded-lg px-1.5 py-1 border border-zinc-700/50 relative"
@@ -3392,7 +3393,7 @@ CRITICAL FORMATTING RULES:
                       className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
                     />
                   </div>
-                </>
+                </div>
               )}
             </div>
             {/* Help button - middle */}
@@ -3460,24 +3461,32 @@ CRITICAL FORMATTING RULES:
           <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
+              onClick={(e) => handleHelpClick('nav-hub', e)}
+              data-help="nav-hub"
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Community
             </a>
             <a
               href="/guide"
+              onClick={(e) => handleHelpClick('nav-guide', e)}
+              data-help="nav-guide"
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Guide
             </a>
             <a
               href="/about"
+              onClick={(e) => handleHelpClick('nav-about', e)}
+              data-help="nav-about"
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               About
             </a>
             <a
               href="/council"
+              onClick={(e) => handleHelpClick('nav-council', e)}
+              data-help="nav-council"
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Council
@@ -3662,24 +3671,30 @@ CRITICAL FORMATTING RULES:
                 ) : spreadType === 'reflect' ? (
                   <>
                     {/* Position count selector for Reflect mode */}
-                    <div className="flex gap-1 justify-center mb-3">
-                      {[1, 2, 3, 4, 5, 6].map((count) => (
-                        <button
-                          key={count}
-                          onClick={() => {
-                            setReflectCardCount(count);
-                            // Auto-select first spread for this count
-                            setReflectSpreadKey(SPREADS_BY_COUNT[count][0]);
-                          }}
-                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                            reflectCardCount === count
-                              ? 'bg-[#2e1065] text-amber-400'
-                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                          }`}
-                        >
-                          {count}
-                        </button>
-                      ))}
+                    <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
+                      {[1, 2, 3, 4, 5, 6].map((count) => {
+                        const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
+                        return (
+                          <button
+                            key={count}
+                            data-help={helpKey}
+                            onClick={(e) => {
+                              if (!handleHelpClick(helpKey, e)) {
+                                setReflectCardCount(count);
+                                // Auto-select first spread for this count
+                                setReflectSpreadKey(SPREADS_BY_COUNT[count][0]);
+                              }
+                            }}
+                            className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                              reflectCardCount === count
+                                ? 'bg-[#2e1065] text-amber-400'
+                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            }`}
+                          >
+                            {count}
+                          </button>
+                        );
+                      })}
                     </div>
                     {/* Spread options for selected count */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
@@ -3688,7 +3703,8 @@ CRITICAL FORMATTING RULES:
                         return (
                           <button
                             key={spreadId}
-                            onClick={() => setReflectSpreadKey(spreadId)}
+                            data-help="spread-selector"
+                            onClick={(e) => { if (!handleHelpClick('spread-selector', e)) setReflectSpreadKey(spreadId); }}
                             className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
                               reflectSpreadKey === spreadId
                                 ? 'bg-[#2e1065] text-amber-400'
@@ -3703,20 +3719,24 @@ CRITICAL FORMATTING RULES:
                   </>
                 ) : (
                   /* Discover mode - simple position count as numbers */
-                  <div className="flex gap-1 justify-center">
-                    {Object.entries(RANDOM_SPREADS).map(([key, value]) => (
-                      <button
-                        key={key}
-                        onClick={() => setSpreadKey(key)}
-                        className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                          spreadKey === key
-                            ? 'bg-[#2e1065] text-amber-400'
-                            : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                        }`}
-                      >
-                        {value.count}
-                      </button>
-                    ))}
+                  <div className="flex gap-1 justify-center" data-help="spread-selector">
+                    {Object.entries(RANDOM_SPREADS).map(([key, value]) => {
+                      const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
+                      return (
+                        <button
+                          key={key}
+                          data-help={helpKey}
+                          onClick={(e) => { if (!handleHelpClick(helpKey, e)) setSpreadKey(key); }}
+                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                            spreadKey === key
+                              ? 'bg-[#2e1065] text-amber-400'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                          }`}
+                        >
+                          {value.count}
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -3833,7 +3853,11 @@ CRITICAL FORMATTING RULES:
                     {showLandingFineTune && (
                   <div className="mt-3 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
                     {/* Delivery Presets - moved here from top level */}
-                    <div className="mb-3 pb-3 border-b border-zinc-700/50">
+                    <div
+                      className="mb-3 pb-3 border-b border-zinc-700/50"
+                      data-help="delivery-preset"
+                      onClick={(e) => handleHelpClick('delivery-preset', e)}
+                    >
                       <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
                       <div className="w-full max-w-lg mx-auto">
                         <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
@@ -3843,7 +3867,7 @@ CRITICAL FORMATTING RULES:
                             return (
                               <button
                                 key={key}
-                                onClick={() => applyDeliveryPreset(key)}
+                                onClick={(e) => { if (!helpMode) applyDeliveryPreset(key); }}
                                 className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
                                   isActive
                                     ? 'bg-[#2e1065] text-amber-400'
@@ -3866,13 +3890,17 @@ CRITICAL FORMATTING RULES:
                       </p>
                     </div>
                     {/* Complexity Selector */}
-                    <div className="mb-3">
+                    <div
+                      className="mb-3"
+                      data-help="voice-complexity"
+                      onClick={(e) => handleHelpClick('voice-complexity', e)}
+                    >
                       <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
                       <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
                         {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
                             <button
                               key={key}
-                              onClick={() => setStance({ ...stance, complexity: key })}
+                              onClick={(e) => { if (!helpMode) setStance({ ...stance, complexity: key }); }}
                               className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
                                 stance.complexity === key
                                   ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
@@ -3886,13 +3914,17 @@ CRITICAL FORMATTING RULES:
                     </div>
 
                     {/* Seriousness/Tone Selector */}
-                    <div className="mb-3">
+                    <div
+                      className="mb-3"
+                      data-help="voice-tone"
+                      onClick={(e) => handleHelpClick('voice-tone', e)}
+                    >
                       <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
                       <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
                         {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
                           <button
                             key={key}
-                            onClick={() => setStance({ ...stance, seriousness: key })}
+                            onClick={(e) => { if (!helpMode) setStance({ ...stance, seriousness: key }); }}
                             className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
                               stance.seriousness === key
                                 ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
@@ -3906,13 +3938,19 @@ CRITICAL FORMATTING RULES:
                     </div>
 
                     {/* Stance Grid - only the 4x4 grid */}
-                    <StanceSelector
-                      stance={stance}
-                      setStance={setStance}
-                      showCustomize={true}
-                      setShowCustomize={() => {}}
-                      gridOnly={true}
-                    />
+                    <div
+                      data-help="stance-selector"
+                      onClick={(e) => handleHelpClick('stance-selector', e)}
+                    >
+                      <StanceSelector
+                        stance={stance}
+                        setStance={setStance}
+                        showCustomize={true}
+                        setShowCustomize={() => {}}
+                        gridOnly={true}
+                        disabled={helpMode}
+                      />
+                    </div>
 
                     {/* Model Toggle */}
                     <div className="mt-3 pt-2 border-t border-zinc-700/50">
@@ -3958,7 +3996,11 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {/* Question textarea - switches to DTP input for Explore mode */}
-                <div className="relative flex-1">
+                <div
+                  className="relative flex-1"
+                  data-help="question-input"
+                  onClick={(e) => handleHelpClick('question-input', e)}
+                >
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
@@ -4189,22 +4231,43 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       }}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
                     />
-                    <ShareReadingButton
-                      reading={{
-                        question,
-                        mode: spreadType,
-                        cards: draws?.slice(0, 3)
-                      }}
-                      readingId={savedReadingId}
-                      fallbackUrl={shareUrl}
-                    />
-                    <EmailReadingButton readingId={savedReadingId} />
-                    <button onClick={exportToHTML} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">Export</button>
+                    <div data-help="action-share" onClick={(e) => handleHelpClick('action-share', e)}>
+                      <ShareReadingButton
+                        reading={{
+                          question,
+                          mode: spreadType,
+                          cards: draws?.slice(0, 3)
+                        }}
+                        readingId={savedReadingId}
+                        fallbackUrl={shareUrl}
+                        disabled={helpMode}
+                      />
+                    </div>
+                    <div data-help="action-email" onClick={(e) => handleHelpClick('action-email', e)}>
+                      <EmailReadingButton readingId={savedReadingId} disabled={helpMode} />
+                    </div>
+                    <button
+                      data-help="action-export"
+                      onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
+                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                    >Export</button>
                   </>
                 )}
-                <button onClick={() => setShowTraditional(!showTraditional)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
-                <button onClick={() => setShowArchitecture(!showArchitecture)} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50">{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
-                <button onClick={() => { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); }} className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50">New</button>
+                <button
+                  data-help="action-traditional"
+                  onClick={(e) => { if (!handleHelpClick('action-traditional', e)) setShowTraditional(!showTraditional); }}
+                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                >{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
+                <button
+                  data-help="action-architecture"
+                  onClick={(e) => { if (!handleHelpClick('action-architecture', e)) setShowArchitecture(!showArchitecture); }}
+                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                >{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
+                <button
+                  data-help="action-new"
+                  onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); } }}
+                  className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50"
+                >New</button>
                 <button
                   onClick={() => setHelpPopover(helpPopover === 'actions' ? null : 'actions')}
                   className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
@@ -5546,15 +5609,19 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 </div>
               )}
             </div>
-            <div className="flex gap-2 items-center">
+            <div
+              className="flex gap-2 items-center"
+              data-help="followup-input"
+              onClick={(e) => handleHelpClick('followup-input', e)}
+            >
               <div className="content-pane flex-1 min-w-0 rounded-lg overflow-hidden">
                 <input type="text" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
                   placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
-                  disabled={followUpLoading}
+                  disabled={followUpLoading || helpMode}
                   className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
               </div>
-              <button onClick={sendFollowUp} disabled={followUpLoading || !followUp.trim()}
+              <button onClick={(e) => { if (!helpMode) sendFollowUp(); }} disabled={followUpLoading || !followUp.trim() || helpMode}
                 className="flex-shrink-0 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-900 disabled:text-zinc-700 border border-zinc-600 px-6 py-3 rounded-lg transition-all flex items-center justify-center min-w-[52px] text-zinc-200">
                 {followUpLoading ? (
                   <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-300 rounded-full animate-spin"></div>
@@ -5569,7 +5636,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           <div className="mt-6 relative">
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setShowMidReadingStance(!showMidReadingStance)}
+                data-help="stance-adjust"
+                onClick={(e) => { if (!handleHelpClick('stance-adjust', e)) setShowMidReadingStance(!showMidReadingStance); }}
                 className={`flex-1 text-left px-4 py-3 rounded-lg transition-all ${
                   showMidReadingStance
                     ? 'bg-zinc-800/50 border border-zinc-700/50'
