@@ -118,6 +118,8 @@ import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
+import HelpTooltip from '../components/shared/HelpTooltip.js';
+import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
 
 // NOTE: All data constants have been extracted to /lib modules.
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
@@ -430,6 +432,8 @@ export default function NirmanakaReader() {
   const [selectedInfo, setSelectedInfo] = useState(null); // {type: 'card'|'channel'|'status'|'house', id: ..., data: ...}
   const [infoHistory, setInfoHistory] = useState([]); // Stack of previous selectedInfo values for back navigation
   const [glossaryTooltip, setGlossaryTooltip] = useState(null); // {entry, position: {x, y}}
+  const [helpMode, setHelpMode] = useState(false); // Interactive help mode
+  const [helpTooltip, setHelpTooltip] = useState(null); // {helpKey, position}
   const [showMidReadingStance, setShowMidReadingStance] = useState(false);
   const [showFineTune, setShowFineTune] = useState(false);
   const [helpPopover, setHelpPopover] = useState(null); // 'dynamicLens' | 'fixedLayout' | 'stance' | null
@@ -2178,6 +2182,30 @@ Interpret this new card as the architecture's response to their declared directi
     setInfoHistory([]);
   };
 
+  // Help Mode handlers
+  const enterHelpMode = () => {
+    setHelpMode(true);
+    setShowVoicePanel(true);      // Auto-open voice settings (often missed)
+    setShowLandingFineTune(true); // Show advanced config too
+  };
+
+  const exitHelpMode = () => {
+    setHelpMode(false);
+    setHelpTooltip(null);
+  };
+
+  const handleHelpClick = (helpKey, event) => {
+    if (!helpMode) return false;
+    event.stopPropagation();
+    event.preventDefault();
+    const rect = event.currentTarget.getBoundingClientRect();
+    setHelpTooltip({
+      helpKey,
+      position: { x: Math.min(rect.left, window.innerWidth - 300), y: rect.bottom + 8 }
+    });
+    return true; // Indicate help was shown
+  };
+
   const handleExpand = async (sectionKey, expansionType, remove = false) => {
     // If removing, just clear that expansion
     if (remove) {
@@ -3227,7 +3255,7 @@ CRITICAL FORMATTING RULES:
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <div className={`min-h-screen bg-zinc-950 text-zinc-100 ${helpMode ? 'cursor-help' : ''}`}>
       {/* Background - Video or Image */}
       {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
         <video
@@ -3356,8 +3384,13 @@ CRITICAL FORMATTING RULES:
             {/* Help button - middle */}
             <div className="fixed top-14 right-3 z-50">
               <button
-                onClick={() => setHelpPopover(helpPopover === 'unified' ? null : 'unified')}
-                className="help-trigger w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[#f59e0b] hover:text-[#fbbf24] text-sm font-medium flex items-center justify-center transition-all"
+                onClick={() => helpMode ? exitHelpMode() : enterHelpMode()}
+                className={`help-trigger w-8 h-8 rounded-lg backdrop-blur-sm text-sm font-medium flex items-center justify-center transition-all ${
+                  helpMode
+                    ? 'bg-amber-500 text-black border border-amber-400 shadow-lg shadow-amber-500/30'
+                    : 'bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 text-[#f59e0b] hover:text-[#fbbf24]'
+                }`}
+                title={helpMode ? 'Exit help mode' : 'Enter help mode'}
               >
                 ?
               </button>
@@ -3584,19 +3617,23 @@ CRITICAL FORMATTING RULES:
               {/* Mode Toggle - centered, help button is now floating */}
               <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
-                  <button onClick={() => { setSpreadType('reflect'); }}
+                  <button onClick={(e) => { if (!handleHelpClick('mode-reflect', e)) setSpreadType('reflect'); }}
+                    data-help="mode-reflect"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Reflect
                   </button>
-                  <button onClick={() => { setSpreadType('discover'); setSpreadKey('three'); }}
+                  <button onClick={(e) => { if (!handleHelpClick('mode-discover', e)) { setSpreadType('discover'); setSpreadKey('three'); } }}
+                    data-help="mode-discover"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Discover
                   </button>
-                  <button onClick={() => { setSpreadType('forge'); }}
+                  <button onClick={(e) => { if (!handleHelpClick('mode-forge', e)) setSpreadType('forge'); }}
+                    data-help="mode-forge"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Forge
                   </button>
-                  <button onClick={() => { setSpreadType('explore'); }}
+                  <button onClick={(e) => { if (!handleHelpClick('mode-explore', e)) setSpreadType('explore'); }}
+                    data-help="mode-explore"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
                     Explore
                   </button>
@@ -3739,7 +3776,8 @@ CRITICAL FORMATTING RULES:
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
                 {/* Collapsible Header */}
                 <button
-                  onClick={() => setShowVoicePanel(!showVoicePanel)}
+                  onClick={(e) => { if (!handleHelpClick('voice-panel', e)) setShowVoicePanel(!showVoicePanel); }}
+                  data-help="voice-panel"
                   className="w-full flex items-center justify-center gap-2 text-zinc-500 hover:text-zinc-400 transition-colors py-1"
                 >
                   <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
@@ -3896,7 +3934,8 @@ CRITICAL FORMATTING RULES:
               <div className="flex gap-2">
                 {/* Spark button */}
                 <button
-                  onClick={handleSpark}
+                  onClick={(e) => { if (!handleHelpClick('spark-button', e)) handleSpark(); }}
+                  data-help="spark-button"
                   className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-[#1a0a3e] text-amber-400 hover:bg-[#2e1065] flex items-center gap-1.5 text-xs transition-colors border border-purple-900/50 self-center"
                   title="Get a spark prompt"
                 >
@@ -3973,7 +4012,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               {/* Action button below input */}
               <div className="mt-3">
                 <button
-                  onClick={performReading}
+                  onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
+                  data-help="get-reading"
                   disabled={loading}
                   className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
@@ -5790,6 +5830,17 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           entry={glossaryTooltip.entry}
           position={glossaryTooltip.position}
           onClose={() => setGlossaryTooltip(null)}
+        />
+      )}
+
+      {/* Help Mode Overlay & Tooltip */}
+      <HelpModeOverlay active={helpMode} onExit={exitHelpMode} />
+      {helpTooltip && (
+        <HelpTooltip
+          helpKey={helpTooltip.helpKey}
+          position={helpTooltip.position}
+          onClose={() => setHelpTooltip(null)}
+          onNavigate={(key) => setHelpTooltip({ ...helpTooltip, helpKey: key })}
         />
       )}
 
