@@ -102,10 +102,17 @@ export async function POST(request) {
       return Response.json({ error: 'Email service not configured' }, { status: 500 });
     }
 
-    // Resend confirmations
+    // Resend confirmations (with rate limiting - Resend allows 2/sec)
     const results = { sent: 0, failed: 0, errors: [] };
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    for (const user of targetUsers) {
+    for (let i = 0; i < targetUsers.length; i++) {
+      const user = targetUsers[i];
+
+      // Add delay between requests to respect Resend's 2/sec rate limit
+      if (i > 0) {
+        await delay(600); // 600ms = ~1.6 requests/sec to be safe
+      }
       try {
         // Generate a new confirmation link via Supabase
         const { data, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
