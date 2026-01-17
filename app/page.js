@@ -296,7 +296,24 @@ export default function NirmanakaReader() {
     modelsForAdmins: ['haiku', 'sonnet', 'opus'],
     modelsForUsers: ['sonnet'],
     defaultModelAdmin: 'sonnet',
-    defaultModelUser: 'sonnet'
+    defaultModelUser: 'sonnet',
+    defaultVoice: {
+      preset: 'kind',
+      persona: 'friend',
+      humor: 5,
+      register: 5,
+      creator: 5,
+      roastMode: false,
+      directMode: false,
+      complexity: 'guide',
+      seriousness: 'light',
+      voice: 'warm',
+      focus: 'feel',
+      density: 'essential',
+      scope: 'here'
+    },
+    defaultMode: 'reflect',
+    defaultSpread: 'triad'
   });
 
   // Listen for auth modal open event
@@ -360,6 +377,9 @@ export default function NirmanakaReader() {
       fetchFeatureConfig();
     }
   }, []);
+
+  // Config defaults applied after state declarations (see below)
+  const [configApplied, setConfigApplied] = useState(false);
 
   // Load saved reading from URL param (?load=readingId)
   useEffect(() => {
@@ -639,6 +659,38 @@ export default function NirmanakaReader() {
   const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
   const [roastMode, setRoastMode] = useState(false); // Loving but savage
   const [directMode, setDirectMode] = useState(false); // No softening
+
+  // Apply config defaults to voice settings when config is loaded
+  useEffect(() => {
+    if (featureConfig?.defaultVoice && !configApplied) {
+      const dv = featureConfig.defaultVoice;
+      // Apply voice defaults
+      if (dv.persona) setPersona(dv.persona);
+      if (dv.humor) setHumor(dv.humor);
+      if (dv.register) setRegister(dv.register);
+      if (dv.creator) setCreator(dv.creator);
+      if (dv.roastMode !== undefined) setRoastMode(dv.roastMode);
+      if (dv.directMode !== undefined) setDirectMode(dv.directMode);
+      // Apply stance defaults (includes preset values)
+      setStance(prev => ({
+        complexity: dv.complexity || prev.complexity,
+        seriousness: dv.seriousness || prev.seriousness,
+        voice: dv.voice || prev.voice,
+        focus: dv.focus || prev.focus,
+        density: dv.density || prev.density,
+        scope: dv.scope || prev.scope
+      }));
+      // Apply mode/spread defaults
+      if (featureConfig.defaultMode) setSpreadType(featureConfig.defaultMode);
+      if (featureConfig.defaultSpread) {
+        const spreadMap = { single: 'one', triad: 'three', pentad: 'five', septad: 'seven' };
+        setSpreadKey(spreadMap[featureConfig.defaultSpread] || 'three');
+      }
+      setConfigApplied(true);
+      console.log('[Config] Applied voice defaults:', dv);
+    }
+  }, [featureConfig, configApplied]);
+
   // Legacy translation state (kept for potential fallback, will be removed in future)
   const [translating, setTranslating] = useState(false); // Translation in progress
   const [rawParsedReading, setRawParsedReading] = useState(null); // Original untranslated reading
@@ -3437,37 +3489,6 @@ CRITICAL FORMATTING RULES:
             opacity: backgroundOpacity / 100
           }}
         />
-      )}
-      {/* Auth Gate - require sign-in to use the reader */}
-      {authChecked && !currentUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm">
-          <div className="max-w-md mx-auto px-6 text-center">
-            {/* Logo/Title */}
-            <h1 className="text-3xl font-light tracking-wide text-amber-400 mb-2">
-              Nirmanakaya
-            </h1>
-            <p className="text-zinc-500 text-sm mb-8">Consciousness Architecture Reader</p>
-
-            {/* Sign-in prompt */}
-            <div className="bg-zinc-900/80 rounded-xl p-8 border border-zinc-800/50">
-              <p className="text-zinc-300 mb-6">
-                Sign in to begin your reading
-              </p>
-              <button
-                onClick={() => setAuthModalOpen(true)}
-                className="w-full px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors"
-              >
-                Sign In
-              </button>
-              <p className="text-xs text-zinc-600 mt-4">
-                Free to use. Your readings are saved to your journal.
-              </p>
-            </div>
-
-            {/* Version */}
-            <p className="text-xs text-zinc-700 mt-6">v{VERSION}</p>
-          </div>
-        </div>
       )}
 
       {/* Main content overlay */}

@@ -329,6 +329,7 @@ export default function AdminPanel() {
   });
   const [configLoading, setConfigLoading] = useState(false);
   const [configSaved, setConfigSaved] = useState(false);
+  const [configWarning, setConfigWarning] = useState(null);
   const [configSection, setConfigSection] = useState('access'); // access | voice | reading | background
 
   useEffect(() => {
@@ -563,6 +564,7 @@ export default function AdminPanel() {
   async function saveFeatureConfig() {
     setConfigLoading(true);
     setConfigSaved(false);
+    setConfigWarning(null);
     try {
       const response = await fetch('/api/admin/config', {
         method: 'POST',
@@ -572,10 +574,14 @@ export default function AdminPanel() {
       const data = await response.json();
       if (data.success) {
         setConfigSaved(true);
-        setTimeout(() => setConfigSaved(false), 2000);
+        if (data.warning) {
+          setConfigWarning(data.warning);
+        }
+        setTimeout(() => setConfigSaved(false), 3000);
       }
     } catch (err) {
       console.error('Failed to save config:', err);
+      setConfigWarning('Failed to save: ' + err.message);
     }
     setConfigLoading(false);
   }
@@ -1761,6 +1767,11 @@ export default function AdminPanel() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Saved
+                </span>
+              )}
+              {configWarning && (
+                <span className="text-amber-400 text-xs">
+                  {configWarning}
                 </span>
               )}
               <p className="text-xs text-zinc-600 ml-auto">

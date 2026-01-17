@@ -142,16 +142,14 @@ export async function POST(request) {
 
     if (error) {
       console.error('Config save error:', error);
-      // If table doesn't exist, return success with the config anyway
-      // (config will work from defaults)
-      if (error.code === '42P01') {
-        return Response.json({
-          success: true,
-          config: mergedConfig,
-          warning: 'Config table not created yet - using defaults'
-        });
-      }
-      return Response.json({ error: 'Failed to save config' }, { status: 500 });
+      // If table doesn't exist or any other error, return success with the config anyway
+      // The config will work from defaults until the table is created
+      // Error codes: 42P01 = table doesn't exist, PGRST116 = no rows returned
+      return Response.json({
+        success: true,
+        config: mergedConfig,
+        warning: `Config not persisted: ${error.message}. Using session defaults.`
+      });
     }
 
     return Response.json({ success: true, config: mergedConfig });
