@@ -114,19 +114,19 @@ const UserRow = ({
       {/* Expanded Details */}
       {expanded && (
         <div className="border-t border-zinc-700/30 bg-zinc-900/50">
-          {/* Detailed Stats */}
-          <div className="p-4 grid grid-cols-3 sm:grid-cols-6 gap-3">
+          {/* Time-based Reading Stats */}
+          <div className="p-4 grid grid-cols-3 sm:grid-cols-5 gap-3">
             <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-violet-400 font-medium">{u.totalReflects || 0}</div>
-              <div className="text-[10px] text-zinc-600">reflects</div>
+              <div className="text-lime-400 font-medium">{u.readingsToday || 0}</div>
+              <div className="text-[10px] text-zinc-600">today</div>
             </div>
             <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-orange-400 font-medium">{u.totalForges || 0}</div>
-              <div className="text-[10px] text-zinc-600">forges</div>
+              <div className="text-sky-400 font-medium">{u.readingsThisWeek || 0}</div>
+              <div className="text-[10px] text-zinc-600">this week</div>
             </div>
             <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-teal-400 font-medium">{(u.totalClarifies || 0) + (u.totalUnpacks || 0) + (u.totalExamples || 0)}</div>
-              <div className="text-[10px] text-zinc-600">expansions</div>
+              <div className="text-violet-400 font-medium">{u.readingsThisMonth || 0}</div>
+              <div className="text-[10px] text-zinc-600">30 days</div>
             </div>
             <div className="text-center p-2 bg-zinc-800/50 rounded">
               <div className="text-blue-400 font-medium">{u.discussionCount || 0}</div>
@@ -135,10 +135,6 @@ const UserRow = ({
             <div className="text-center p-2 bg-zinc-800/50 rounded">
               <div className="text-pink-400 font-medium">{u.replyCount || 0}</div>
               <div className="text-[10px] text-zinc-600">replies</div>
-            </div>
-            <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-cyan-400 font-medium capitalize">{u.maxDepthReached || 'surface'}</div>
-              <div className="text-[10px] text-zinc-600">depth</div>
             </div>
           </div>
 
@@ -699,19 +695,26 @@ export default function AdminPanel() {
               <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Overview</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <StatCard value={totals.userCount || 0} label="Total Users" color="text-amber-400" size="large" highlight />
-                <StatCard value={totals.totalReadings || 0} label="Readings" color="text-cyan-400" size="large" highlight />
+                <StatCard value={totals.totalReadings || 0} label="All Readings" color="text-cyan-400" size="large" highlight />
                 <StatCard value={`${((totals.totalTokens || 0) / 1000000).toFixed(2)}M`} label="Tokens Used" color="text-emerald-400" size="large" highlight />
                 <StatCard value={`$${(totals.totalCost || 0).toFixed(2)}`} label="Estimated Cost" color="text-rose-400" size="large" highlight />
               </div>
             </section>
 
-            {/* Engagement Stats */}
+            {/* Reading Activity (Time-based) */}
             <section>
-              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Engagement</h2>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                <StatCard value={totals.totalReflects || 0} label="Reflects" color="text-violet-400" />
-                <StatCard value={totals.totalForges || 0} label="Forges" color="text-orange-400" />
-                <StatCard value={totals.totalExpansions || 0} label="Expansions" color="text-teal-400" />
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Reading Activity</h2>
+              <div className="grid grid-cols-3 gap-3">
+                <StatCard value={totals.readingsToday || 0} label="Today" color="text-lime-400" size="large" highlight />
+                <StatCard value={totals.readingsThisWeek || 0} label="This Week" color="text-sky-400" size="large" highlight />
+                <StatCard value={totals.readingsThisMonth || 0} label="Last 30 Days" color="text-violet-400" size="large" highlight />
+              </div>
+            </section>
+
+            {/* Community Stats */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Community</h2>
+              <div className="grid grid-cols-2 gap-3">
                 <StatCard value={totals.totalDiscussions || 0} label="Hub Posts" color="text-blue-400" />
                 <StatCard value={totals.totalReplies || 0} label="Replies" color="text-pink-400" />
               </div>

@@ -9,6 +9,25 @@ const supabaseAdmin = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null;
 
+// Time boundaries for filtering
+function getTimeBoundaries() {
+  const now = new Date();
+  const todayStart = new Date(now);
+  todayStart.setHours(0, 0, 0, 0);
+
+  const weekAgo = new Date(now);
+  weekAgo.setDate(weekAgo.getDate() - 7);
+
+  const monthAgo = new Date(now);
+  monthAgo.setDate(monthAgo.getDate() - 30);
+
+  return {
+    today: todayStart.toISOString(),
+    week: weekAgo.toISOString(),
+    month: monthAgo.toISOString()
+  };
+}
+
 export async function POST(request) {
   if (!supabaseAdmin) {
     return Response.json({ error: 'Supabase not configured' }, { status: 500 });
@@ -39,12 +58,16 @@ export async function POST(request) {
     return Response.json({ error: profileError.message }, { status: 500 });
   }
 
-  // Get all readings with service role (bypasses RLS) - include telemetry
+  // Get all readings - only select columns that definitely exist
+  // The readings table has: id, user_id, question, mode, spread_type, cards, synthesis, letter, created_at, updated_at, is_public, share_slug
+  // Token columns may exist from migration: input_tokens, output_tokens, total_tokens, estimated_cost
   const { data: readings, error: readingsError } = await supabaseAdmin
     .from('readings')
-    .select('user_id, input_tokens, output_tokens, estimated_cost, mode, spread_type, reflect_count, forge_count, max_depth, clarify_count, unpack_count, example_count');
+    .select('id, user_id, created_at, mode, spread_type, input_tokens, output_tokens, estimated_cost')
+    .order('created_at', { ascending: false });
 
   if (readingsError) {
+    console.error('[Stats] Readings query error:', readingsError.message);
     return Response.json({ error: readingsError.message }, { status: 500 });
   }
 
@@ -58,50 +81,73 @@ export async function POST(request) {
     .from('discussion_replies')
     .select('user_id');
 
-  // Aggregate by user
+  // Time boundaries
+  const times = getTimeBoundaries();
+
+  // Aggregate by user with time-based counts
   const userStats = {};
   const modeCounts = { reflect: 0, discover: 0, forge: 0, explore: 0 };
   const spreadCounts = { single: 0, triad: 0, pentad: 0, septad: 0 };
 
+  // Site-wide time-based totals
+  let readingsToday = 0;
+  let readingsThisWeek = 0;
+  let readingsThisMonth = 0;
+
   (readings || []).forEach(r => {
     if (!userStats[r.user_id]) {
       userStats[r.user_id] = {
-        totalTokens: 0, totalCost: 0, readingCount: 0,
-        totalReflects: 0, totalForges: 0, totalClarifies: 0, totalUnpacks: 0, totalExamples: 0,
-        maxDepthReached: 'surface',
-        discussionCount: 0, replyCount: 0,
-        // Mode and spread breakdowns per user
+        totalTokens: 0,
+        totalCost: 0,
+        readingCount: 0,
+        readingsToday: 0,
+        readingsThisWeek: 0,
+        readingsThisMonth: 0,
+        discussionCount: 0,
+        replyCount: 0,
         modes: { reflect: 0, discover: 0, forge: 0, explore: 0 },
-        spreads: { single: 0, triad: 0, pentad: 0, septad: 0 }
+        spreads: { single: 0, triad: 0, pentad: 0, septad: 0 },
+        lastReadingAt: null
       };
     }
-    userStats[r.user_id].totalTokens += (r.input_tokens || 0) + (r.output_tokens || 0);
-    userStats[r.user_id].totalCost += r.estimated_cost || 0;
-    userStats[r.user_id].readingCount += 1;
-    // Telemetry
-    userStats[r.user_id].totalReflects += r.reflect_count || 0;
-    userStats[r.user_id].totalForges += r.forge_count || 0;
-    userStats[r.user_id].totalClarifies += r.clarify_count || 0;
-    userStats[r.user_id].totalUnpacks += r.unpack_count || 0;
-    userStats[r.user_id].totalExamples += r.example_count || 0;
-    // Track max depth reached across all readings
-    const depthOrder = ['surface', 'wade', 'swim', 'deep'];
-    const currentMax = depthOrder.indexOf(userStats[r.user_id].maxDepthReached);
-    const readingDepth = depthOrder.indexOf(r.max_depth || 'surface');
-    if (readingDepth > currentMax) {
-      userStats[r.user_id].maxDepthReached = r.max_depth;
+
+    const stats = userStats[r.user_id];
+    stats.totalTokens += (r.input_tokens || 0) + (r.output_tokens || 0);
+    stats.totalCost += r.estimated_cost || 0;
+    stats.readingCount += 1;
+
+    // Track last reading
+    if (!stats.lastReadingAt || r.created_at > stats.lastReadingAt) {
+      stats.lastReadingAt = r.created_at;
     }
+
+    // Time-based counts
+    const readingTime = r.created_at;
+    if (readingTime >= times.today) {
+      stats.readingsToday += 1;
+      readingsToday += 1;
+    }
+    if (readingTime >= times.week) {
+      stats.readingsThisWeek += 1;
+      readingsThisWeek += 1;
+    }
+    if (readingTime >= times.month) {
+      stats.readingsThisMonth += 1;
+      readingsThisMonth += 1;
+    }
+
     // Track modes
     const mode = (r.mode || '').toLowerCase();
     if (modeCounts[mode] !== undefined) {
       modeCounts[mode]++;
-      userStats[r.user_id].modes[mode]++;
+      stats.modes[mode]++;
     }
+
     // Track spreads
     const spread = (r.spread_type || '').toLowerCase();
     if (spreadCounts[spread] !== undefined) {
       spreadCounts[spread]++;
-      userStats[r.user_id].spreads[spread]++;
+      stats.spreads[spread]++;
     }
   });
 
@@ -133,17 +179,12 @@ export async function POST(request) {
     totalTokens: userStats[p.id]?.totalTokens || 0,
     totalCost: userStats[p.id]?.totalCost || 0,
     readingCount: userStats[p.id]?.readingCount || 0,
-    // Telemetry
-    totalReflects: userStats[p.id]?.totalReflects || 0,
-    totalForges: userStats[p.id]?.totalForges || 0,
-    totalClarifies: userStats[p.id]?.totalClarifies || 0,
-    totalUnpacks: userStats[p.id]?.totalUnpacks || 0,
-    totalExamples: userStats[p.id]?.totalExamples || 0,
-    maxDepthReached: userStats[p.id]?.maxDepthReached || 'surface',
-    // Modes and spreads per user
+    readingsToday: userStats[p.id]?.readingsToday || 0,
+    readingsThisWeek: userStats[p.id]?.readingsThisWeek || 0,
+    readingsThisMonth: userStats[p.id]?.readingsThisMonth || 0,
+    lastReadingAt: userStats[p.id]?.lastReadingAt || null,
     modes: userStats[p.id]?.modes || { reflect: 0, discover: 0, forge: 0, explore: 0 },
     spreads: userStats[p.id]?.spreads || { single: 0, triad: 0, pentad: 0, septad: 0 },
-    // Community
     discussionCount: userStats[p.id]?.discussionCount || 0,
     replyCount: userStats[p.id]?.replyCount || 0
   }));
@@ -154,10 +195,10 @@ export async function POST(request) {
     totalTokens: Object.values(userStats).reduce((sum, u) => sum + u.totalTokens, 0),
     totalCost: Object.values(userStats).reduce((sum, u) => sum + u.totalCost, 0),
     totalReadings: Object.values(userStats).reduce((sum, u) => sum + u.readingCount, 0),
-    // Telemetry totals
-    totalReflects: Object.values(userStats).reduce((sum, u) => sum + u.totalReflects, 0),
-    totalForges: Object.values(userStats).reduce((sum, u) => sum + u.totalForges, 0),
-    totalExpansions: Object.values(userStats).reduce((sum, u) => sum + u.totalClarifies + u.totalUnpacks + u.totalExamples, 0),
+    // Time-based totals
+    readingsToday,
+    readingsThisWeek,
+    readingsThisMonth,
     // Mode and spread totals
     modeCounts,
     spreadCounts,
