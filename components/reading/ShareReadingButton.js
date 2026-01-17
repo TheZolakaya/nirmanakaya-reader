@@ -6,22 +6,33 @@
 import { useState } from 'react';
 import { setReadingPublic, getUser } from '../../lib/supabase';
 
-export default function ShareReadingButton({ reading, readingId, fallbackUrl }) {
+export default function ShareReadingButton({ reading, readingId, fallbackUrl, disabled }) {
   const [sharing, setSharing] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Check if sharing is possible
+  const needsSave = !readingId && !fallbackUrl;
+  const isDisabled = sharing || disabled || needsSave;
 
   async function handleShare() {
+    if (isDisabled) return;
+
     setSharing(true);
+    setError(null);
 
     try {
       const { user } = await getUser();
 
       if (user && readingId) {
         // Make reading public and update content (so shared view has full data)
-        const { data, error } = await setReadingPublic(readingId, true, reading);
-        if (!error && data?.share_slug) {
+        const { data, error: shareError } = await setReadingPublic(readingId, true, reading);
+        if (shareError) {
+          console.error('Share error:', shareError);
+          setError('Failed to share');
+        } else if (data?.share_slug) {
           const url = `${window.location.origin}/r/${data.share_slug}`;
           setShareUrl(url);
           setShowModal(true);
@@ -30,16 +41,27 @@ export default function ShareReadingButton({ reading, readingId, fallbackUrl }) 
         // Use pre-computed share URL if available
         setShareUrl(fallbackUrl);
         setShowModal(true);
+      } else if (!user) {
+        // User not signed in
+        setError('Sign in to share');
       } else {
-        // No fallback URL available
-        console.warn('No share URL available - reading must be saved first');
+        // No readingId and no fallback - need to save first
+        setError('Save first');
       }
     } catch (e) {
       console.error('Share failed:', e);
+      setError('Failed to share');
     } finally {
       setSharing(false);
     }
   }
+
+  // Build tooltip text
+  const getTooltip = () => {
+    if (error) return error;
+    if (needsSave) return 'Save reading first to enable sharing';
+    return 'Share this reading';
+  };
 
   async function copyToClipboard() {
     try {
@@ -55,11 +77,17 @@ export default function ShareReadingButton({ reading, readingId, fallbackUrl }) 
     <>
       <button
         onClick={handleShare}
-        disabled={sharing}
-        className="flex items-center gap-1 px-2 py-1 rounded text-xs bg-zinc-800/50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300 transition-colors"
-        title="Share this reading"
+        disabled={isDisabled}
+        className={`flex items-center gap-1 px-2 py-1 rounded text-xs transition-colors ${
+          error
+            ? 'bg-red-800/50 text-red-400'
+            : needsSave
+            ? 'bg-zinc-800/30 text-zinc-600 cursor-not-allowed'
+            : 'bg-zinc-800/50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
+        }`}
+        title={getTooltip()}
       >
-        {sharing ? 'Sharing...' : 'Share'}
+        {sharing ? 'Sharing...' : error ? 'Error' : 'Share'}
       </button>
 
       {/* Share Modal */}

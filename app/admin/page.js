@@ -85,19 +85,23 @@ const UserRow = ({
             <div className="text-[11px] text-zinc-500 font-mono truncate mt-0.5">{u.id}</div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="hidden sm:flex items-center gap-6 text-sm">
-            <div className="text-center">
+          {/* Quick Stats - Time-based readings */}
+          <div className="hidden sm:flex items-center gap-4 text-sm">
+            <div className="text-center min-w-[40px]">
+              <div className="text-lime-400 font-medium tabular-nums">{u.readingsToday || 0}</div>
+              <div className="text-[10px] text-zinc-600">24h</div>
+            </div>
+            <div className="text-center min-w-[40px]">
+              <div className="text-sky-400 font-medium tabular-nums">{u.readingsThisWeek || 0}</div>
+              <div className="text-[10px] text-zinc-600">7d</div>
+            </div>
+            <div className="text-center min-w-[40px]">
+              <div className="text-violet-400 font-medium tabular-nums">{u.readingsThisMonth || 0}</div>
+              <div className="text-[10px] text-zinc-600">30d</div>
+            </div>
+            <div className="text-center min-w-[40px] border-l border-zinc-700 pl-4">
               <div className="text-cyan-400 font-medium tabular-nums">{u.readingCount}</div>
-              <div className="text-[10px] text-zinc-600">reads</div>
-            </div>
-            <div className="text-center">
-              <div className="text-emerald-400 font-medium tabular-nums">{(u.totalTokens / 1000).toFixed(0)}k</div>
-              <div className="text-[10px] text-zinc-600">tokens</div>
-            </div>
-            <div className="text-center">
-              <div className="text-rose-400 font-medium tabular-nums">${u.totalCost?.toFixed(2) || '0.00'}</div>
-              <div className="text-[10px] text-zinc-600">cost</div>
+              <div className="text-[10px] text-zinc-600">total</div>
             </div>
           </div>
 
@@ -114,19 +118,15 @@ const UserRow = ({
       {/* Expanded Details */}
       {expanded && (
         <div className="border-t border-zinc-700/30 bg-zinc-900/50">
-          {/* Time-based Reading Stats */}
-          <div className="p-4 grid grid-cols-3 sm:grid-cols-5 gap-3">
+          {/* Usage & Community Stats */}
+          <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-lime-400 font-medium">{u.readingsToday || 0}</div>
-              <div className="text-[10px] text-zinc-600">today</div>
+              <div className="text-emerald-400 font-medium">{(u.totalTokens / 1000).toFixed(0)}k</div>
+              <div className="text-[10px] text-zinc-600">tokens</div>
             </div>
             <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-sky-400 font-medium">{u.readingsThisWeek || 0}</div>
-              <div className="text-[10px] text-zinc-600">this week</div>
-            </div>
-            <div className="text-center p-2 bg-zinc-800/50 rounded">
-              <div className="text-violet-400 font-medium">{u.readingsThisMonth || 0}</div>
-              <div className="text-[10px] text-zinc-600">30 days</div>
+              <div className="text-rose-400 font-medium">${u.totalCost?.toFixed(2) || '0.00'}</div>
+              <div className="text-[10px] text-zinc-600">cost</div>
             </div>
             <div className="text-center p-2 bg-zinc-800/50 rounded">
               <div className="text-blue-400 font-medium">{u.discussionCount || 0}</div>
@@ -701,12 +701,12 @@ export default function AdminPanel() {
               </div>
             </section>
 
-            {/* Reading Activity (Time-based) */}
+            {/* Reading Activity (Time-based - rolling windows) */}
             <section>
               <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Reading Activity</h2>
               <div className="grid grid-cols-3 gap-3">
-                <StatCard value={totals.readingsToday || 0} label="Today" color="text-lime-400" size="large" highlight />
-                <StatCard value={totals.readingsThisWeek || 0} label="This Week" color="text-sky-400" size="large" highlight />
+                <StatCard value={totals.readingsToday || 0} label="Last 24h" color="text-lime-400" size="large" highlight />
+                <StatCard value={totals.readingsThisWeek || 0} label="Last 7 Days" color="text-sky-400" size="large" highlight />
                 <StatCard value={totals.readingsThisMonth || 0} label="Last 30 Days" color="text-violet-400" size="large" highlight />
               </div>
             </section>

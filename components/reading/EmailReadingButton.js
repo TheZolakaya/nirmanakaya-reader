@@ -6,13 +6,17 @@
 import { useState } from 'react';
 import { getUser } from '../../lib/supabase';
 
-export default function EmailReadingButton({ readingId }) {
+export default function EmailReadingButton({ readingId, disabled }) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(null);
 
+  // Determine if button should be disabled and why
+  const needsSave = !readingId;
+  const isDisabled = sending || sent || needsSave || disabled;
+
   async function handleEmail() {
-    if (!readingId) return;
+    if (needsSave || disabled) return;
 
     setSending(true);
     setError(null);
@@ -54,20 +58,39 @@ export default function EmailReadingButton({ readingId }) {
     }
   }
 
+  // Build tooltip text based on state
+  const getTooltip = () => {
+    if (error) return error;
+    if (sent) return 'Email sent!';
+    if (needsSave) return 'Save reading first to enable email';
+    return 'Email this reading to yourself';
+  };
+
+  // Build button text based on state
+  const getButtonText = () => {
+    if (sending) return 'Sending...';
+    if (sent) return 'Sent!';
+    if (error) return 'Error';
+    if (needsSave) return 'Email';
+    return 'Email';
+  };
+
   return (
     <button
       onClick={handleEmail}
-      disabled={sending || sent || !readingId}
+      disabled={isDisabled}
       className={`flex items-center gap-1 px-2 py-1 rounded text-xs transition-colors ${
         sent
           ? 'bg-emerald-800/50 text-emerald-400'
           : error
           ? 'bg-red-800/50 text-red-400'
+          : needsSave
+          ? 'bg-zinc-800/30 text-zinc-600 cursor-not-allowed'
           : 'bg-zinc-800/50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
       }`}
-      title={error || (sent ? 'Email sent!' : 'Email this reading to yourself')}
+      title={getTooltip()}
     >
-      {sending ? 'Sending...' : sent ? 'Sent!' : error ? 'Error' : 'Email'}
+      {getButtonText()}
     </button>
   );
 }

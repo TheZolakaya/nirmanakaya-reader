@@ -9,20 +9,24 @@ const supabaseAdmin = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null;
 
-// Time boundaries for filtering
+// Time boundaries for filtering (rolling windows)
 function getTimeBoundaries() {
   const now = new Date();
-  const todayStart = new Date(now);
-  todayStart.setHours(0, 0, 0, 0);
 
+  // Last 24 hours (rolling)
+  const dayAgo = new Date(now);
+  dayAgo.setHours(dayAgo.getHours() - 24);
+
+  // Last 7 days (rolling)
   const weekAgo = new Date(now);
   weekAgo.setDate(weekAgo.getDate() - 7);
 
+  // Last 30 days (rolling)
   const monthAgo = new Date(now);
   monthAgo.setDate(monthAgo.getDate() - 30);
 
   return {
-    today: todayStart.toISOString(),
+    day: dayAgo.toISOString(),
     week: weekAgo.toISOString(),
     month: monthAgo.toISOString()
   };
@@ -121,9 +125,9 @@ export async function POST(request) {
       stats.lastReadingAt = r.created_at;
     }
 
-    // Time-based counts
+    // Time-based counts (rolling windows)
     const readingTime = r.created_at;
-    if (readingTime >= times.today) {
+    if (readingTime >= times.day) {
       stats.readingsToday += 1;
       readingsToday += 1;
     }

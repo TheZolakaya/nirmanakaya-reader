@@ -4465,7 +4465,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     })),
                     synthesis: { firstContactResponse: parsedReading?.firstContact },
                     letter: parsedReading?.firstContact,
-                    tokenUsage
+                    tokenUsage,
+                    threadData // Include thread data for cloud saves
                   }}
                   onSave={(saved) => setSavedReadingId(saved?.id)}
                 />
@@ -4473,7 +4474,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   reading={{
                     question,
                     mode: 'firstContact',
-                    cards: draws?.slice(0, 3)
+                    cards: draws // Include all cards, not just first 3
                   }}
                   readingId={savedReadingId}
                   fallbackUrl={shareUrl}
@@ -4534,7 +4535,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                           fullArchitecture: parsedReading?.fullArchitecture
                         },
                         letter: parsedReading?.letter,
-                        tokenUsage
+                        tokenUsage,
+                        threadData // Include thread data for cloud saves
                       }}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
                     />
@@ -4543,7 +4545,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         reading={{
                           question,
                           mode: spreadType,
-                          cards: draws?.slice(0, 3)
+                          cards: draws // Include all cards, not just first 3
                         }}
                         readingId={savedReadingId}
                         fallbackUrl={shareUrl}
