@@ -45,6 +45,13 @@ export default function AdminPanel() {
   const [broadcastSending, setBroadcastSending] = useState(false);
   const [broadcastResult, setBroadcastResult] = useState(null);
 
+  // Resend confirmations state
+  const [unconfirmedUsers, setUnconfirmedUsers] = useState([]);
+  const [confirmedCount, setConfirmedCount] = useState(0);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendResult, setResendResult] = useState(null);
+  const [sendingTo, setSendingTo] = useState(null); // track which user is being sent to
+
   useEffect(() => {
     async function checkAdmin() {
       const { user } = await getUser();
@@ -164,6 +171,48 @@ export default function AdminPanel() {
     }
   }
 
+  async function loadUnconfirmedUsers() {
+    setResendLoading(true);
+    try {
+      const response = await fetch(`/api/admin/resend-confirmations?adminEmail=${encodeURIComponent(user?.email)}`);
+      const data = await response.json();
+      if (!data.error) {
+        setUnconfirmedUsers(data.unconfirmedUsers || []);
+        setConfirmedCount(data.confirmedCount || 0);
+      }
+    } catch (err) {
+      console.error('Failed to load unconfirmed users:', err);
+    }
+    setResendLoading(false);
+  }
+
+  async function handleResendConfirmation(userId = null, resendAll = false) {
+    setSendingTo(userId || 'all');
+    setResendResult(null);
+    try {
+      const response = await fetch('/api/admin/resend-confirmations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          adminEmail: user?.email,
+          userId,
+          resendAll
+        })
+      });
+      const data = await response.json();
+      if (data.error && !data.sent) {
+        setResendResult({ error: data.error });
+      } else {
+        setResendResult({ success: true, sent: data.sent, failed: data.failed, errors: data.errors });
+        // Refresh the list
+        loadUnconfirmedUsers();
+      }
+    } catch (err) {
+      setResendResult({ error: err.message });
+    }
+    setSendingTo(null);
+  }
+
   async function handleSendBroadcast() {
     if (!broadcastSubject.trim() || !broadcastBody.trim()) {
       alert('Please enter both subject and body');
@@ -248,7 +297,7 @@ export default function AdminPanel() {
           Testing
         </button>
         <button
-          onClick={() => { setActiveTab('broadcast'); loadSubscriberCount(); }}
+          onClick={() => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }}
           className={`px-4 py-2 rounded-t transition-all ${activeTab === 'broadcast' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
         >
           Broadcast
@@ -709,6 +758,107 @@ Double line breaks create new paragraphs."
                 ? 'F&F Mode: Sending to all users with email addresses. Use for important beta updates.'
                 : 'Standard: Sending only to users who opted in. Each email includes an unsubscribe link.'
               }
+            </p>
+          </div>
+
+          {/* Resend Confirmations Section */}
+          <div className="mt-12 pt-8 border-t border-zinc-700">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-medium text-zinc-300">Resend Confirmation Emails</h2>
+              <button
+                onClick={loadUnconfirmedUsers}
+                disabled={resendLoading}
+                className="text-xs text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+              >
+                {resendLoading ? 'Loading...' : 'Refresh'}
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="flex gap-4 mb-6">
+              <div className="bg-zinc-800/50 rounded-lg p-4 border border-rose-600/30">
+                <div className="text-2xl font-light text-rose-400">{unconfirmedUsers.length}</div>
+                <div className="text-xs text-zinc-500 uppercase tracking-wide">Unconfirmed</div>
+              </div>
+              <div className="bg-zinc-800/50 rounded-lg p-4 border border-emerald-600/30">
+                <div className="text-2xl font-light text-emerald-400">{confirmedCount}</div>
+                <div className="text-xs text-zinc-500 uppercase tracking-wide">Confirmed</div>
+              </div>
+            </div>
+
+            {/* Result message */}
+            {resendResult && (
+              <div className={`mb-4 p-4 rounded ${resendResult.error ? 'bg-red-900/50 border border-red-700' : 'bg-emerald-900/50 border border-emerald-700'}`}>
+                {resendResult.error ? (
+                  <p className="text-red-300">Error: {resendResult.error}</p>
+                ) : (
+                  <div>
+                    <p className="text-emerald-300">Sent {resendResult.sent} confirmation{resendResult.sent !== 1 ? 's' : ''}, {resendResult.failed} failed.</p>
+                    {resendResult.errors?.length > 0 && (
+                      <div className="mt-2 text-xs text-red-300">
+                        {resendResult.errors.map((e, i) => (
+                          <p key={i}>{e.email}: {e.error}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Unconfirmed users list */}
+            {unconfirmedUsers.length > 0 ? (
+              <div className="space-y-2">
+                {/* Resend All button */}
+                <div className="mb-4">
+                  <button
+                    onClick={() => {
+                      if (confirm(`Send confirmation emails to ALL ${unconfirmedUsers.length} unconfirmed users?`)) {
+                        handleResendConfirmation(null, true);
+                      }
+                    }}
+                    disabled={sendingTo !== null}
+                    className={`px-4 py-2 rounded transition-all ${
+                      sendingTo !== null
+                        ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                        : 'bg-rose-700 hover:bg-rose-600 text-white'
+                    }`}
+                  >
+                    {sendingTo === 'all' ? 'Sending...' : `Resend to All ${unconfirmedUsers.length} Users`}
+                  </button>
+                </div>
+
+                {/* Individual users */}
+                {unconfirmedUsers.map(u => (
+                  <div key={u.id} className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50 flex items-center justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm text-zinc-300 truncate">{u.email}</div>
+                      <div className="text-xs text-zinc-600">
+                        Signed up: {new Date(u.created_at).toLocaleDateString()} · {u.provider}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleResendConfirmation(u.id, false)}
+                      disabled={sendingTo !== null}
+                      className={`px-3 py-1 text-xs rounded transition-all ${
+                        sendingTo !== null
+                          ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                          : 'bg-violet-700 hover:bg-violet-600 text-white'
+                      }`}
+                    >
+                      {sendingTo === u.id ? 'Sending...' : 'Resend'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-zinc-500 text-center py-8">
+                {resendLoading ? 'Loading...' : 'All users are confirmed!'}
+              </div>
+            )}
+
+            <p className="text-xs text-zinc-600 mt-4">
+              Sends confirmation emails from ZolaKaya@nirmanakaya.com via Resend. Users click the link to verify their email.
             </p>
           </div>
         </div>
