@@ -81,7 +81,10 @@ import {
   parseTranslatedReading,
   DEFAULT_PERSONA_SETTINGS,
   // Personas
-  PERSONAS
+  PERSONAS,
+  HUMOR_LEVELS,
+  REGISTER_LEVELS,
+  CREATOR_LEVELS
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -3941,211 +3944,291 @@ CRITICAL FORMATTING RULES:
                 ) : null}
               </div>
 
-              {/* Interpreter Voice Section - Delivery presets always visible (FR22 updated) */}
+              {/* Voice Section - Three Tier Structure */}
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                {/* Quick Voice Presets - Always Visible */}
-                <div
-                  className="mb-3"
-                  data-help="delivery-preset"
-                  onClick={(e) => handleHelpClick('delivery-preset', e)}
-                >
-                  <div className="text-[0.625rem] text-zinc-500 mb-2 text-center tracking-wide">READING VOICE</div>
-                  <div className="w-full max-w-lg mx-auto">
-                    <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
-                      {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                        const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                        const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
-                        return (
-                          <button
-                            key={key}
-                            onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                              isActive
-                                ? 'bg-[#2e1065] text-amber-400 ring-1 ring-amber-500/30'
-                                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
-                            }`}
-                            title={preset.preview || preset.name}
-                          >
-                            <span className="sm:hidden">{mobileNames[key]}</span>
-                            <span className="hidden sm:inline">{preset.name}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
+
+                {/* TIER 1: Persona Selector - ALWAYS visible */}
+                <div className="mb-3">
+                  <div className="text-xs text-zinc-500 mb-2 text-center">Who reads this to you?</div>
+                  <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1">
+                    {PERSONAS.map(p => {
+                      const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
+                      return (
+                        <button
+                          key={p.key}
+                          onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
+                          data-help={`persona-${p.key}`}
+                          title={p.desc}
+                          className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
+                            persona === p.key
+                              ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                              : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
+                          }`}
+                        >
+                          <span>{icons[p.key]}</span>
+                          <span>{p.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {/* Persona description */}
+                  <div className="text-center text-[0.625rem] text-zinc-500 mt-2">
+                    {PERSONAS.find(p => p.key === persona)?.desc || ''}
                   </div>
                 </div>
 
-                {/* Collapsible Header for Advanced Settings */}
+                {/* TIER 2: Fine-tune Voice - ALWAYS available (collapsed) */}
                 <button
-                  onClick={(e) => { if (!handleHelpClick('voice-panel', e)) setShowVoicePanel(!showVoicePanel); }}
-                  data-help="voice-panel"
+                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                  data-help="fine-tune-voice"
                   className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
                 >
                   <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
                   <span className="text-[0.5625rem] tracking-widest uppercase">Fine-tune Voice</span>
                 </button>
 
-                {/* Voice Panel Content - Hidden by default */}
                 {showVoicePanel && (
-                  <>
-                    {/* Persona Selector */}
-                    <div className="mt-3 mb-4">
-                      <PersonaSelector
-                        persona={persona}
-                        setPersona={setPersona}
-                        humor={humor}
-                        setHumor={setHumor}
-                        register={register}
-                        setRegister={setRegister}
-                        creator={creator}
-                        setCreator={setCreator}
-                        roastMode={roastMode}
-                        setRoastMode={setRoastMode}
-                        directMode={directMode}
-                        setDirectMode={setDirectMode}
-                      />
-                    </div>
-
-                    {/* Advanced Config toggle */}
-                    <div className="flex justify-center mt-4">
-                      <button
-                        onClick={() => setShowLandingFineTune(!showLandingFineTune)}
-                        className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
-                      >
-                        <span>{showLandingFineTune ? '▾' : '▸'}</span>
-                        <span>Advanced</span>
-                      </button>
-                    </div>
-                    {/* Advanced Config panel (hidden by default) */}
-                    {showLandingFineTune && (
-                  <div className="mt-3 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
-                    {/* Delivery Presets - moved here from top level */}
-                    <div
-                      className="mb-3 pb-3 border-b border-zinc-700/50"
-                      data-help="delivery-preset"
-                      onClick={(e) => handleHelpClick('delivery-preset', e)}
-                    >
-                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
-                      <div className="w-full max-w-lg mx-auto">
-                        <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
-                          {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                            const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                            const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
-                            return (
-                              <button
-                                key={key}
-                                onClick={(e) => { if (!helpMode) applyDeliveryPreset(key); }}
-                                className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                                  isActive
-                                    ? 'bg-[#2e1065] text-amber-400'
-                                    : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
-                                }`}
-                              >
-                                <span className="sm:hidden">{mobileNames[key]}</span>
-                                <span className="hidden sm:inline">{preset.name}</span>
-                              </button>
-                            );
-                          })}
-                        </div>
+                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mt-2">
+                    {/* Humor slider */}
+                    <div className="mb-3 px-2">
+                      <div className="flex items-center justify-between mb-1 sm:mb-0">
+                        <span className="text-xs text-zinc-500">Humor</span>
+                        <span className="text-xs text-amber-500/80 sm:hidden">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={humor}
+                          onChange={(e) => setHumor(parseInt(e.target.value))}
+                          className="flex-1 accent-amber-500"
+                        />
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Sacred</span>
+                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
                       </div>
                     </div>
 
-                    {/* Voice Preview */}
-                    <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                      <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                        <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                      </p>
-                    </div>
-                    {/* Complexity Selector */}
-                    <div
-                      className="mb-3"
-                      data-help="voice-complexity"
-                      onClick={(e) => handleHelpClick('voice-complexity', e)}
-                    >
-                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
-                      <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                        {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                            <button
-                              key={key}
-                              onClick={(e) => { if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                              className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
-                                stance.complexity === key
-                                  ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                  : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                              }`}
-                            >
-                              {opt.label}
-                            </button>
-                        ))}
+                    {/* Register slider */}
+                    <div className="mb-3 px-2">
+                      <div className="flex items-center justify-between mb-1 sm:mb-0">
+                        <span className="text-xs text-zinc-500">Register</span>
+                        <span className="text-xs text-amber-500/80 sm:hidden">{REGISTER_LEVELS[register] || 'Clear'}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={register}
+                          onChange={(e) => setRegister(parseInt(e.target.value))}
+                          className="flex-1 accent-amber-500"
+                        />
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Oracle</span>
+                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{REGISTER_LEVELS[register] || 'Clear'}</span>
                       </div>
                     </div>
 
-                    {/* Seriousness/Tone Selector */}
-                    <div
-                      className="mb-3"
-                      data-help="voice-tone"
-                      onClick={(e) => handleHelpClick('voice-tone', e)}
-                    >
-                      <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
-                      <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                        {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                          <button
-                            key={key}
-                            onClick={(e) => { if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                            className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
-                              stance.seriousness === key
-                                ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                            }`}
-                          >
-                            {key}
-                          </button>
-                        ))}
+                    {/* Agency slider */}
+                    <div className="mb-3 px-2">
+                      <div className="flex items-center justify-between mb-1 sm:mb-0">
+                        <span className="text-xs text-amber-600/80 font-medium">Agency</span>
+                        <span className="text-xs text-amber-500/80 sm:hidden">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Witness</span>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={creator}
+                          onChange={(e) => setCreator(parseInt(e.target.value))}
+                          className="flex-1 accent-amber-500"
+                        />
+                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Creator</span>
+                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
                       </div>
                     </div>
 
-                    {/* Stance Grid - only the 4x4 grid */}
-                    <div
-                      data-help="stance-selector"
-                      onClick={(e) => handleHelpClick('stance-selector', e)}
-                    >
-                      <StanceSelector
-                        stance={stance}
-                        setStance={setStance}
-                        showCustomize={true}
-                        setShowCustomize={() => {}}
-                        gridOnly={true}
-                        disabled={helpMode}
-                      />
+                    {/* Agency hint */}
+                    <div className="text-center text-[0.625rem] text-zinc-600 mb-3 pb-3 border-b border-zinc-800/50">
+                      {creator <= 3 ? 'Observation: "The field shows..."' :
+                       creator <= 6 ? 'Balanced observation and agency' :
+                       creator <= 8 ? 'Agency: "You\'re shaping..."' :
+                       'Full authorship: "You ARE the field"'}
                     </div>
 
-                    {/* Model Selector + Token Display */}
-                    <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                      {getAvailableModels().length > 1 && (
-                        <div className="flex items-center justify-center gap-2 mb-1.5">
-                          <span className="text-[0.625rem] text-zinc-500">Model:</span>
-                          <select
-                            value={selectedModel}
-                            onChange={(e) => setSelectedModel(e.target.value)}
-                            className="text-[0.625rem] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
-                          >
-                            {getAvailableModels().map(m => (
-                              <option key={m} value={m}>{getModelLabel(m)}</option>
-                            ))}
-                          </select>
-                        </div>
-                      )}
-                      <label className="flex items-center justify-center gap-2 cursor-pointer">
+                    {/* Checkboxes */}
+                    <div className="flex justify-center gap-6">
+                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
                         <input
                           type="checkbox"
-                          checked={showTokenUsage}
-                          onChange={(e) => setShowTokenUsage(e.target.checked)}
-                          className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                          checked={roastMode}
+                          onChange={(e) => setRoastMode(e.target.checked)}
+                          className="accent-amber-500"
                         />
-                        <span className="text-[0.625rem] text-zinc-400">Show token usage</span>
+                        Roast Mode
+                        <span className="text-[10px] text-zinc-600" title="Best friend who's HAD IT. Read them for filth.">(savage)</span>
+                      </label>
+                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
+                        <input
+                          type="checkbox"
+                          checked={directMode}
+                          onChange={(e) => setDirectMode(e.target.checked)}
+                          className="accent-amber-500"
+                        />
+                        Direct Mode
+                        <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
                       </label>
                     </div>
                   </div>
+                )}
+
+                {/* TIER 3: Advanced Voice Settings - Only when admin enables */}
+                {showAdvancedVoice && (
+                  <>
+                    <button
+                      onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
+                      data-help="advanced-voice"
+                      className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1 mt-2"
+                    >
+                      <span className="text-xs">{showLandingFineTune ? '▾' : '▸'}</span>
+                      <span className="text-[0.5625rem] tracking-widest uppercase">Advanced</span>
+                    </button>
+
+                    {showLandingFineTune && (
+                      <div className="mt-2 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
+                        {/* Delivery Presets */}
+                        <div
+                          className="mb-3 pb-3 border-b border-zinc-700/50"
+                          data-help="delivery-preset"
+                          onClick={(e) => handleHelpClick('delivery-preset', e)}
+                        >
+                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
+                          <div className="w-full max-w-lg mx-auto">
+                            <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
+                              {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                                const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                                const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
+                                return (
+                                  <button
+                                    key={key}
+                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
+                                    className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+                                      isActive
+                                        ? 'bg-[#2e1065] text-amber-400 ring-1 ring-amber-500/30'
+                                        : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                                    }`}
+                                    title={preset.preview || preset.name}
+                                  >
+                                    <span className="sm:hidden">{mobileNames[key]}</span>
+                                    <span className="hidden sm:inline">{preset.name}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Voice Preview */}
+                        <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
+                          <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
+                            <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                          </p>
+                        </div>
+
+                        {/* Complexity Selector */}
+                        <div
+                          className="mb-3"
+                          data-help="voice-complexity"
+                          onClick={(e) => handleHelpClick('voice-complexity', e)}
+                        >
+                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
+                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
+                            {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
+                              <button
+                                key={key}
+                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
+                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
+                                  stance.complexity === key
+                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
+                                }`}
+                              >
+                                {opt.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Seriousness/Tone Selector */}
+                        <div
+                          className="mb-3"
+                          data-help="voice-tone"
+                          onClick={(e) => handleHelpClick('voice-tone', e)}
+                        >
+                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
+                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
+                            {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
+                              <button
+                                key={key}
+                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
+                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
+                                  stance.seriousness === key
+                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
+                                }`}
+                              >
+                                {key}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Stance Grid - only the 4x4 grid */}
+                        <div
+                          data-help="stance-selector"
+                          onClick={(e) => handleHelpClick('stance-selector', e)}
+                        >
+                          <StanceSelector
+                            stance={stance}
+                            setStance={setStance}
+                            showCustomize={true}
+                            setShowCustomize={() => {}}
+                            gridOnly={true}
+                            disabled={helpMode}
+                          />
+                        </div>
+
+                        {/* Model Selector + Token Display */}
+                        <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                          {getAvailableModels().length > 1 && (
+                            <div className="flex items-center justify-center gap-2 mb-1.5">
+                              <span className="text-[0.625rem] text-zinc-500">Model:</span>
+                              <select
+                                value={selectedModel}
+                                onChange={(e) => setSelectedModel(e.target.value)}
+                                className="text-[0.625rem] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                              >
+                                {getAvailableModels().map(m => (
+                                  <option key={m} value={m}>{getModelLabel(m)}</option>
+                                ))}
+                              </select>
+                            </div>
+                          )}
+                          <label className="flex items-center justify-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={showTokenUsage}
+                              onChange={(e) => setShowTokenUsage(e.target.checked)}
+                              className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                            />
+                            <span className="text-[0.625rem] text-zinc-400">Show token usage</span>
+                          </label>
+                        </div>
+                      </div>
                     )}
                   </>
                 )}
@@ -4251,9 +4334,9 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
             </>
             )}
-            </>
-            )}
           </>
+        )}
+        </>
         )}
 
         {/* Loading */}
