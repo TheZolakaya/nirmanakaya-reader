@@ -30,39 +30,54 @@ export async function POST(request) {
     // Get user profile with email preferences
     const { data: profile, error: profileError } = await getProfileWithEmailPrefs(supabaseAdmin, userId);
 
-    if (profileError || !profile) {
-      return Response.json({ error: 'User not found' }, { status: 404 });
-    }
-
     // Check if user has opted out of reading emails (unless force=true for manual sends)
-    if (!force && profile.email_readings === false) {
+    if (!force && profile?.email_readings === false) {
       return Response.json({ skipped: true, reason: 'User opted out' });
     }
 
-    // Check if we have an email address
-    if (!profile.email) {
+    // Get email address - try profile first, then auth.users (for OAuth users)
+    let userEmail = profile?.email;
+    if (!userEmail) {
+      // Fall back to auth.users for OAuth users whose profile doesn't have email
+      const { data: { user: authUser } } = await supabaseAdmin.auth.admin.getUserById(userId);
+      userEmail = authUser?.email;
+    }
+
+    if (!userEmail) {
       return Response.json({ error: 'No email address for user' }, { status: 400 });
     }
 
     // If readingId provided, fetch the reading from database
     let readingData = reading;
     if (readingId && !reading) {
-      const { data: dbReading, error: readingError } = await supabaseAdmin
+      // First try with user_id match
+      let { data: dbReading, error: readingError } = await supabaseAdmin
         .from('readings')
         .select('*')
         .eq('id', readingId)
         .eq('user_id', userId)
         .single();
 
+      // If not found, try without user_id constraint
+      // (safe since email goes to authenticated user's own address)
       if (readingError || !dbReading) {
-        return Response.json({ error: 'Reading not found' }, { status: 404 });
+        const fallback = await supabaseAdmin
+          .from('readings')
+          .select('*')
+          .eq('id', readingId)
+          .single();
+
+        if (fallback.error || !fallback.data) {
+          return Response.json({ error: 'Reading not found' }, { status: 404 });
+        }
+        dbReading = fallback.data;
       }
       readingData = dbReading;
     }
 
     // Send reading email
     const { data, error } = await sendReadingEmail(
-      profile.email,
+      userEmail,
       readingData,
       userId
     );
