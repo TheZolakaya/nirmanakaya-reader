@@ -833,21 +833,35 @@ Double line breaks create new paragraphs."
                   <div key={u.id} className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50 flex items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="text-sm text-zinc-300 truncate">{u.email}</div>
-                      <div className="text-xs text-zinc-600">
-                        Signed up: {new Date(u.created_at).toLocaleDateString()} · {u.provider}
+                      <div className="text-xs text-zinc-600 flex flex-wrap gap-x-3 gap-y-0.5">
+                        <span>Signed up: {new Date(u.created_at).toLocaleDateString()}</span>
+                        <span>· {u.provider}</span>
+                        {u.confirmation_sent_at && (
+                          <span className="text-amber-600">· Sent: {new Date(u.confirmation_sent_at).toLocaleDateString()}</span>
+                        )}
+                        {u.confirmation_resent_at && (
+                          <span className="text-emerald-500">· Resent: {new Date(u.confirmation_resent_at).toLocaleDateString()}</span>
+                        )}
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleResendConfirmation(u.id, false)}
-                      disabled={sendingTo !== null}
-                      className={`px-3 py-1 text-xs rounded transition-all ${
-                        sendingTo !== null
-                          ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
-                          : 'bg-violet-700 hover:bg-violet-600 text-white'
-                      }`}
-                    >
-                      {sendingTo === u.id ? 'Sending...' : 'Resend'}
-                    </button>
+                    <div className="flex items-center gap-2">
+                      {u.confirmation_resent_at && (
+                        <span className="text-xs text-emerald-500" title={`Last resent: ${new Date(u.confirmation_resent_at).toLocaleString()}`}>✓</span>
+                      )}
+                      <button
+                        onClick={() => handleResendConfirmation(u.id, false)}
+                        disabled={sendingTo !== null}
+                        className={`px-3 py-1 text-xs rounded transition-all ${
+                          sendingTo !== null
+                            ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                            : u.confirmation_resent_at
+                              ? 'bg-zinc-700 hover:bg-violet-700 text-zinc-400 hover:text-white'
+                              : 'bg-violet-700 hover:bg-violet-600 text-white'
+                        }`}
+                      >
+                        {sendingTo === u.id ? 'Sending...' : u.confirmation_resent_at ? 'Resend Again' : 'Resend'}
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

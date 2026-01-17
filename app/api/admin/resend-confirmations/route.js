@@ -53,6 +53,8 @@ export async function GET(request) {
         id: u.id,
         email: u.email,
         created_at: u.created_at,
+        confirmation_sent_at: u.confirmation_sent_at,
+        confirmation_resent_at: u.user_metadata?.confirmation_resent_at || null,
         provider: u.app_metadata?.provider || 'email'
       }))
     });
@@ -180,6 +182,13 @@ export async function POST(request) {
           results.errors.push({ email: user.email, error: emailError.message });
         } else {
           results.sent++;
+          // Track when we resent the confirmation
+          await supabaseAdmin.auth.admin.updateUserById(user.id, {
+            user_metadata: {
+              ...user.user_metadata,
+              confirmation_resent_at: new Date().toISOString()
+            }
+          });
         }
       } catch (err) {
         results.failed++;
