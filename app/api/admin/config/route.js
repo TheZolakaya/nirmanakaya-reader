@@ -23,7 +23,28 @@ const DEFAULT_CONFIG = {
 
   // Default model selection
   defaultModelAdmin: 'sonnet',
-  defaultModelUser: 'sonnet'
+  defaultModelUser: 'sonnet',
+
+  // Default voice settings
+  defaultVoice: {
+    complexity: 'guide',     // friend | guide | elder | oracle
+    tone: 50,                // 0-100 (playful to profound)
+    focus: 50,               // 0-100 (poetic to practical)
+    density: 50,             // 0-100 (sparse to rich)
+    scope: 50                // 0-100 (personal to cosmic)
+  },
+
+  // Default reading settings
+  defaultMode: 'reflect',     // reflect | discover | forge | explore
+  defaultSpread: 'triad',     // single | triad | pentad | septad
+
+  // Default background settings
+  defaultBackground: {
+    type: 'video',           // video | image | solid
+    videoId: 'default',      // video identifier
+    opacity: 0.4,            // 0-1
+    dimContent: 0.3          // 0-1
+  }
 };
 
 // GET - Fetch current config

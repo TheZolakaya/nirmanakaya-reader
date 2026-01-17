@@ -296,10 +296,26 @@ export default function AdminPanel() {
     modelsForAdmins: ['haiku', 'sonnet', 'opus'],
     modelsForUsers: ['sonnet'],
     defaultModelAdmin: 'sonnet',
-    defaultModelUser: 'sonnet'
+    defaultModelUser: 'sonnet',
+    defaultVoice: {
+      complexity: 'guide',
+      tone: 50,
+      focus: 50,
+      density: 50,
+      scope: 50
+    },
+    defaultMode: 'reflect',
+    defaultSpread: 'triad',
+    defaultBackground: {
+      type: 'video',
+      videoId: 'default',
+      opacity: 0.4,
+      dimContent: 0.3
+    }
   });
   const [configLoading, setConfigLoading] = useState(false);
   const [configSaved, setConfigSaved] = useState(false);
+  const [configSection, setConfigSection] = useState('access'); // access | voice | reading | background
 
   useEffect(() => {
     async function checkAdmin() {
@@ -1037,115 +1053,477 @@ export default function AdminPanel() {
 
         {/* CONFIG TAB */}
         {activeTab === 'config' && (
-          <div className="max-w-2xl space-y-6">
-            {/* Advanced Voice */}
-            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
-              <h3 className="text-sm font-medium text-amber-400 mb-2">Advanced Voice Settings</h3>
-              <p className="text-xs text-zinc-500 mb-4">Control who can see fine-tune voice options</p>
-              <div className="flex gap-2">
-                {['admins', 'everyone'].map(opt => (
-                  <button
-                    key={opt}
-                    onClick={() => setFeatureConfig(prev => ({ ...prev, advancedVoiceFor: opt }))}
-                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
-                      featureConfig.advancedVoiceFor === opt
-                        ? 'bg-amber-500 text-zinc-900'
-                        : 'bg-zinc-700/50 text-zinc-400 hover:bg-zinc-600/50'
-                    }`}
-                  >
-                    {opt === 'admins' ? 'Admins Only' : 'Everyone'}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* Models for Admins */}
-            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
-              <h3 className="text-sm font-medium text-violet-400 mb-2">Models for Admins</h3>
-              <p className="text-xs text-zinc-500 mb-4">Which models can admins select?</p>
-              <div className="flex gap-2 mb-4">
-                {['haiku', 'sonnet', 'opus'].map(model => (
-                  <button
-                    key={model}
-                    onClick={() => toggleModelForAdmins(model)}
-                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
-                      featureConfig.modelsForAdmins?.includes(model)
-                        ? 'bg-violet-500 text-white'
-                        : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
-                    }`}
-                  >
-                    {model}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500">Default:</span>
-                <select
-                  value={featureConfig.defaultModelAdmin}
-                  onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelAdmin: e.target.value }))}
-                  className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
+          <div className="space-y-6">
+            {/* Config Sub-nav */}
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { id: 'access', label: 'Access & Models', icon: '🔐' },
+                { id: 'voice', label: 'Voice Defaults', icon: '🎙' },
+                { id: 'reading', label: 'Reading Defaults', icon: '🃏' },
+                { id: 'background', label: 'Background', icon: '🎨' },
+              ].map(section => (
+                <button
+                  key={section.id}
+                  onClick={() => setConfigSection(section.id)}
+                  className={`px-4 py-2 rounded-lg text-sm transition-all ${
+                    configSection === section.id
+                      ? 'bg-amber-500 text-zinc-900 font-medium'
+                      : 'bg-zinc-800/50 text-zinc-400 hover:bg-zinc-700/50'
+                  }`}
                 >
-                  {featureConfig.modelsForAdmins?.map(m => (
-                    <option key={m} value={m}>{m}</option>
-                  ))}
-                </select>
-              </div>
-            </section>
+                  <span className="mr-2">{section.icon}</span>
+                  {section.label}
+                </button>
+              ))}
+            </div>
 
-            {/* Models for Users */}
-            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
-              <h3 className="text-sm font-medium text-cyan-400 mb-2">Models for Users</h3>
-              <p className="text-xs text-zinc-500 mb-4">Which models can regular users select?</p>
-              <div className="flex gap-2 mb-4">
-                {['haiku', 'sonnet', 'opus'].map(model => (
-                  <button
-                    key={model}
-                    onClick={() => toggleModelForUsers(model)}
-                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
-                      featureConfig.modelsForUsers?.includes(model)
-                        ? 'bg-cyan-500 text-white'
-                        : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
-                    }`}
-                  >
-                    {model}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500">Default:</span>
-                <select
-                  value={featureConfig.defaultModelUser}
-                  onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelUser: e.target.value }))}
-                  className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
-                >
-                  {featureConfig.modelsForUsers?.map(m => (
-                    <option key={m} value={m}>{m}</option>
-                  ))}
-                </select>
-              </div>
-            </section>
+            {/* ACCESS & MODELS SECTION */}
+            {configSection === 'access' && (
+              <div className="max-w-2xl space-y-6">
+                {/* Advanced Voice Visibility */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-amber-400 mb-2">Advanced Voice Settings Visibility</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Control who can see fine-tune voice sliders</p>
+                  <div className="flex gap-2">
+                    {['admins', 'everyone'].map(opt => (
+                      <button
+                        key={opt}
+                        onClick={() => setFeatureConfig(prev => ({ ...prev, advancedVoiceFor: opt }))}
+                        className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                          featureConfig.advancedVoiceFor === opt
+                            ? 'bg-amber-500 text-zinc-900'
+                            : 'bg-zinc-700/50 text-zinc-400 hover:bg-zinc-600/50'
+                        }`}
+                      >
+                        {opt === 'admins' ? 'Admins Only' : 'Everyone'}
+                      </button>
+                    ))}
+                  </div>
+                </section>
 
-            {/* Cost Reference */}
-            <section className="p-4 bg-zinc-900/50 rounded-lg border border-zinc-800/50">
-              <div className="text-xs text-zinc-500 mb-3">Cost Reference (per 1M tokens)</div>
-              <div className="grid grid-cols-3 gap-4 text-sm">
-                <div>
-                  <span className="text-emerald-400 font-medium">Haiku</span>
-                  <div className="text-xs text-zinc-500">$1 in / $5 out</div>
-                </div>
-                <div>
-                  <span className="text-cyan-400 font-medium">Sonnet</span>
-                  <div className="text-xs text-zinc-500">$3 in / $15 out</div>
-                </div>
-                <div>
-                  <span className="text-violet-400 font-medium">Opus</span>
-                  <div className="text-xs text-zinc-500">$15 in / $75 out</div>
-                </div>
-              </div>
-            </section>
+                {/* Models for Admins */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-violet-400 mb-2">Models for Admins</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Which models can admins select?</p>
+                  <div className="flex gap-2 mb-4">
+                    {['haiku', 'sonnet', 'opus'].map(model => (
+                      <button
+                        key={model}
+                        onClick={() => toggleModelForAdmins(model)}
+                        className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                          featureConfig.modelsForAdmins?.includes(model)
+                            ? 'bg-violet-500 text-white'
+                            : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
+                        }`}
+                      >
+                        {model}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-zinc-500">Default:</span>
+                    <select
+                      value={featureConfig.defaultModelAdmin}
+                      onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelAdmin: e.target.value }))}
+                      className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
+                    >
+                      {featureConfig.modelsForAdmins?.map(m => (
+                        <option key={m} value={m}>{m}</option>
+                      ))}
+                    </select>
+                  </div>
+                </section>
 
-            {/* Save */}
-            <div className="flex items-center gap-4">
+                {/* Models for Users */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-cyan-400 mb-2">Models for Users</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Which models can regular users select?</p>
+                  <div className="flex gap-2 mb-4">
+                    {['haiku', 'sonnet', 'opus'].map(model => (
+                      <button
+                        key={model}
+                        onClick={() => toggleModelForUsers(model)}
+                        className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                          featureConfig.modelsForUsers?.includes(model)
+                            ? 'bg-cyan-500 text-white'
+                            : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
+                        }`}
+                      >
+                        {model}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-zinc-500">Default:</span>
+                    <select
+                      value={featureConfig.defaultModelUser}
+                      onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelUser: e.target.value }))}
+                      className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
+                    >
+                      {featureConfig.modelsForUsers?.map(m => (
+                        <option key={m} value={m}>{m}</option>
+                      ))}
+                    </select>
+                  </div>
+                </section>
+
+                {/* Cost Reference */}
+                <section className="p-4 bg-zinc-900/50 rounded-lg border border-zinc-800/50">
+                  <div className="text-xs text-zinc-500 mb-3">Cost Reference (per 1M tokens)</div>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <span className="text-emerald-400 font-medium">Haiku</span>
+                      <div className="text-xs text-zinc-500">$1 in / $5 out</div>
+                    </div>
+                    <div>
+                      <span className="text-cyan-400 font-medium">Sonnet</span>
+                      <div className="text-xs text-zinc-500">$3 in / $15 out</div>
+                    </div>
+                    <div>
+                      <span className="text-violet-400 font-medium">Opus</span>
+                      <div className="text-xs text-zinc-500">$15 in / $75 out</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {/* VOICE DEFAULTS SECTION */}
+            {configSection === 'voice' && (
+              <div className="max-w-2xl space-y-6">
+                {/* Complexity */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-rose-400 mb-2">Default Complexity</h3>
+                  <p className="text-xs text-zinc-500 mb-4">How the reader speaks to new users</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {[
+                      { id: 'friend', label: 'Friend', desc: 'Casual, accessible' },
+                      { id: 'guide', label: 'Guide', desc: 'Balanced depth' },
+                      { id: 'elder', label: 'Elder', desc: 'Philosophical' },
+                      { id: 'oracle', label: 'Oracle', desc: 'Full framework' },
+                    ].map(level => (
+                      <button
+                        key={level.id}
+                        onClick={() => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, complexity: level.id }
+                        }))}
+                        className={`p-3 rounded-lg text-left transition-all ${
+                          featureConfig.defaultVoice?.complexity === level.id
+                            ? 'bg-rose-500/20 border-2 border-rose-500/50'
+                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        }`}
+                      >
+                        <div className={`text-sm font-medium ${
+                          featureConfig.defaultVoice?.complexity === level.id ? 'text-rose-400' : 'text-zinc-300'
+                        }`}>{level.label}</div>
+                        <div className="text-[10px] text-zinc-500">{level.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Voice Sliders */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
+                  <div>
+                    <h3 className="text-sm font-medium text-violet-400 mb-1">Default Voice Fine-Tuning</h3>
+                    <p className="text-xs text-zinc-500">Starting position for all voice sliders</p>
+                  </div>
+
+                  {/* Tone */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Tone</span>
+                      <span className="text-zinc-500">
+                        {(featureConfig.defaultVoice?.tone || 50) < 30 ? 'Playful' :
+                         (featureConfig.defaultVoice?.tone || 50) > 70 ? 'Profound' : 'Balanced'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-600 w-14">Playful</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={featureConfig.defaultVoice?.tone || 50}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, tone: parseInt(e.target.value) }
+                        }))}
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500/50 via-zinc-600 to-violet-500/50"
+                      />
+                      <span className="text-[10px] text-zinc-600 w-14 text-right">Profound</span>
+                    </div>
+                  </div>
+
+                  {/* Focus */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Focus</span>
+                      <span className="text-zinc-500">
+                        {(featureConfig.defaultVoice?.focus || 50) < 30 ? 'Poetic' :
+                         (featureConfig.defaultVoice?.focus || 50) > 70 ? 'Practical' : 'Balanced'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-600 w-14">Poetic</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={featureConfig.defaultVoice?.focus || 50}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, focus: parseInt(e.target.value) }
+                        }))}
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-pink-500/50 via-zinc-600 to-teal-500/50"
+                      />
+                      <span className="text-[10px] text-zinc-600 w-14 text-right">Practical</span>
+                    </div>
+                  </div>
+
+                  {/* Density */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Density</span>
+                      <span className="text-zinc-500">
+                        {(featureConfig.defaultVoice?.density || 50) < 30 ? 'Sparse' :
+                         (featureConfig.defaultVoice?.density || 50) > 70 ? 'Rich' : 'Balanced'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-600 w-14">Sparse</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={featureConfig.defaultVoice?.density || 50}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, density: parseInt(e.target.value) }
+                        }))}
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-sky-500/50 via-zinc-600 to-orange-500/50"
+                      />
+                      <span className="text-[10px] text-zinc-600 w-14 text-right">Rich</span>
+                    </div>
+                  </div>
+
+                  {/* Scope */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Scope</span>
+                      <span className="text-zinc-500">
+                        {(featureConfig.defaultVoice?.scope || 50) < 30 ? 'Personal' :
+                         (featureConfig.defaultVoice?.scope || 50) > 70 ? 'Cosmic' : 'Balanced'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-zinc-600 w-14">Personal</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={featureConfig.defaultVoice?.scope || 50}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, scope: parseInt(e.target.value) }
+                        }))}
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-emerald-500/50 via-zinc-600 to-indigo-500/50"
+                      />
+                      <span className="text-[10px] text-zinc-600 w-14 text-right">Cosmic</span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {/* READING DEFAULTS SECTION */}
+            {configSection === 'reading' && (
+              <div className="max-w-2xl space-y-6">
+                {/* Default Mode */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-sky-400 mb-2">Default Reading Mode</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Which mode is selected when users first arrive</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {[
+                      { id: 'reflect', label: 'Reflect', desc: 'Mirror what exists', color: 'sky' },
+                      { id: 'discover', label: 'Discover', desc: 'Find authorship', color: 'lime' },
+                      { id: 'forge', label: 'Forge', desc: 'Set intention', color: 'amber' },
+                      { id: 'explore', label: 'Explore', desc: 'Threaded inquiry', color: 'fuchsia' },
+                    ].map(m => (
+                      <button
+                        key={m.id}
+                        onClick={() => setFeatureConfig(prev => ({ ...prev, defaultMode: m.id }))}
+                        className={`p-3 rounded-lg text-left transition-all ${
+                          featureConfig.defaultMode === m.id
+                            ? `bg-${m.color}-500/20 border-2 border-${m.color}-500/50`
+                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        }`}
+                      >
+                        <div className={`text-sm font-medium ${
+                          featureConfig.defaultMode === m.id ? `text-${m.color}-400` : 'text-zinc-300'
+                        }`}>{m.label}</div>
+                        <div className="text-[10px] text-zinc-500">{m.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Default Spread */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-emerald-400 mb-2">Default Spread Size</h3>
+                  <p className="text-xs text-zinc-500 mb-4">How many cards to draw by default</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {[
+                      { id: 'single', label: 'Single', desc: '1 card', cards: 1 },
+                      { id: 'triad', label: 'Triad', desc: '3 cards', cards: 3 },
+                      { id: 'pentad', label: 'Pentad', desc: '5 cards', cards: 5 },
+                      { id: 'septad', label: 'Septad', desc: '7 cards', cards: 7 },
+                    ].map(s => (
+                      <button
+                        key={s.id}
+                        onClick={() => setFeatureConfig(prev => ({ ...prev, defaultSpread: s.id }))}
+                        className={`p-3 rounded-lg text-left transition-all ${
+                          featureConfig.defaultSpread === s.id
+                            ? 'bg-emerald-500/20 border-2 border-emerald-500/50'
+                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className={`text-sm font-medium ${
+                            featureConfig.defaultSpread === s.id ? 'text-emerald-400' : 'text-zinc-300'
+                          }`}>{s.label}</div>
+                          <div className="flex gap-0.5">
+                            {Array.from({ length: s.cards }).map((_, i) => (
+                              <div key={i} className={`w-1.5 h-2.5 rounded-sm ${
+                                featureConfig.defaultSpread === s.id ? 'bg-emerald-500/50' : 'bg-zinc-600'
+                              }`} />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="text-[10px] text-zinc-500">{s.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {/* BACKGROUND DEFAULTS SECTION */}
+            {configSection === 'background' && (
+              <div className="max-w-2xl space-y-6">
+                {/* Background Type */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-fuchsia-400 mb-2">Default Background Type</h3>
+                  <p className="text-xs text-zinc-500 mb-4">What users see behind the reader</p>
+                  <div className="flex gap-2">
+                    {[
+                      { id: 'video', label: 'Video', desc: 'Ambient motion' },
+                      { id: 'image', label: 'Image', desc: 'Static background' },
+                      { id: 'solid', label: 'Solid', desc: 'Dark gradient' },
+                    ].map(t => (
+                      <button
+                        key={t.id}
+                        onClick={() => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultBackground: { ...prev.defaultBackground, type: t.id }
+                        }))}
+                        className={`flex-1 p-3 rounded-lg text-center transition-all ${
+                          featureConfig.defaultBackground?.type === t.id
+                            ? 'bg-fuchsia-500/20 border-2 border-fuchsia-500/50'
+                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        }`}
+                      >
+                        <div className={`text-sm font-medium ${
+                          featureConfig.defaultBackground?.type === t.id ? 'text-fuchsia-400' : 'text-zinc-300'
+                        }`}>{t.label}</div>
+                        <div className="text-[10px] text-zinc-500">{t.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Background Video Selection */}
+                {featureConfig.defaultBackground?.type === 'video' && (
+                  <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                    <h3 className="text-sm font-medium text-violet-400 mb-2">Default Video</h3>
+                    <p className="text-xs text-zinc-500 mb-4">Which ambient video plays by default</p>
+                    <select
+                      value={featureConfig.defaultBackground?.videoId || 'default'}
+                      onChange={(e) => setFeatureConfig(prev => ({
+                        ...prev,
+                        defaultBackground: { ...prev.defaultBackground, videoId: e.target.value }
+                      }))}
+                      className="w-full bg-zinc-700/50 border border-zinc-600/50 rounded-lg px-4 py-3 text-zinc-300"
+                    >
+                      <option value="default">Default (Cosmos)</option>
+                      <option value="aurora">Aurora</option>
+                      <option value="ocean">Ocean</option>
+                      <option value="forest">Forest</option>
+                      <option value="fire">Fire</option>
+                      <option value="clouds">Clouds</option>
+                    </select>
+                  </section>
+                )}
+
+                {/* Opacity & Dim Sliders */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
+                  <div>
+                    <h3 className="text-sm font-medium text-orange-400 mb-1">Visual Settings</h3>
+                    <p className="text-xs text-zinc-500">Background opacity and content dimming</p>
+                  </div>
+
+                  {/* Background Opacity */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Background Opacity</span>
+                      <span className="text-zinc-500">{Math.round((featureConfig.defaultBackground?.opacity || 0.4) * 100)}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={(featureConfig.defaultBackground?.opacity || 0.4) * 100}
+                      onChange={(e) => setFeatureConfig(prev => ({
+                        ...prev,
+                        defaultBackground: { ...prev.defaultBackground, opacity: parseInt(e.target.value) / 100 }
+                      }))}
+                      className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-zinc-800 to-zinc-500"
+                    />
+                    <div className="flex justify-between text-[10px] text-zinc-600 mt-1">
+                      <span>Subtle</span>
+                      <span>Visible</span>
+                    </div>
+                  </div>
+
+                  {/* Content Dim */}
+                  <div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Content Dimming</span>
+                      <span className="text-zinc-500">{Math.round((featureConfig.defaultBackground?.dimContent || 0.3) * 100)}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={(featureConfig.defaultBackground?.dimContent || 0.3) * 100}
+                      onChange={(e) => setFeatureConfig(prev => ({
+                        ...prev,
+                        defaultBackground: { ...prev.defaultBackground, dimContent: parseInt(e.target.value) / 100 }
+                      }))}
+                      className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-zinc-800 to-zinc-500"
+                    />
+                    <div className="flex justify-between text-[10px] text-zinc-600 mt-1">
+                      <span>No dim</span>
+                      <span>Heavy dim</span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {/* Save Button (always visible) */}
+            <div className="max-w-2xl flex items-center gap-4 pt-4 border-t border-zinc-800/50">
               <button
                 onClick={saveFeatureConfig}
                 disabled={configLoading}
@@ -1155,7 +1533,7 @@ export default function AdminPanel() {
                     : 'bg-amber-500 hover:bg-amber-400 text-zinc-900'
                 }`}
               >
-                {configLoading ? 'Saving...' : 'Save Configuration'}
+                {configLoading ? 'Saving...' : 'Save All Configuration'}
               </button>
               {configSaved && (
                 <span className="text-emerald-400 text-sm flex items-center gap-1">
@@ -1165,11 +1543,10 @@ export default function AdminPanel() {
                   Saved
                 </span>
               )}
+              <p className="text-xs text-zinc-600 ml-auto">
+                Changes apply to new users and reset sessions
+              </p>
             </div>
-
-            <p className="text-xs text-zinc-600">
-              Config requires site_config table in Supabase. Settings use defaults until table exists.
-            </p>
           </div>
         )}
       </main>
