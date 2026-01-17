@@ -40,6 +40,8 @@ export default function AdminPanel() {
   const [broadcastSubject, setBroadcastSubject] = useState('');
   const [broadcastBody, setBroadcastBody] = useState('');
   const [subscriberCount, setSubscriberCount] = useState(0);
+  const [allUsersCount, setAllUsersCount] = useState(0);
+  const [includeAll, setIncludeAll] = useState(false); // F&F mode
   const [broadcastSending, setBroadcastSending] = useState(false);
   const [broadcastResult, setBroadcastResult] = useState(null);
 
@@ -155,6 +157,7 @@ export default function AdminPanel() {
       const data = await response.json();
       if (!data.error) {
         setSubscriberCount(data.subscriberCount || 0);
+        setAllUsersCount(data.allUsersCount || 0);
       }
     } catch (err) {
       console.error('Failed to load subscriber count:', err);
@@ -167,7 +170,12 @@ export default function AdminPanel() {
       return;
     }
 
-    if (!confirm(`Send this email to ${subscriberCount} subscribers?`)) {
+    const recipientCount = includeAll ? allUsersCount : subscriberCount;
+    const confirmMsg = includeAll
+      ? `Send this email to ALL ${allUsersCount} users with email addresses? (F&F Mode)`
+      : `Send this email to ${subscriberCount} opted-in subscribers?`;
+
+    if (!confirm(confirmMsg)) {
       return;
     }
 
@@ -181,7 +189,8 @@ export default function AdminPanel() {
         body: JSON.stringify({
           subject: broadcastSubject,
           body: broadcastBody,
-          adminEmail: user?.email
+          adminEmail: user?.email,
+          includeAll
         })
       });
       const data = await response.json();
@@ -608,11 +617,35 @@ export default function AdminPanel() {
       {/* BROADCAST TAB */}
       {activeTab === 'broadcast' && (
         <div>
-          <div className="mb-6">
-            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50 inline-block">
+          {/* Stats Cards */}
+          <div className="flex gap-4 mb-6">
+            <div className={`bg-zinc-800/50 rounded-lg p-4 border ${!includeAll ? 'border-emerald-600/50 ring-2 ring-emerald-600/30' : 'border-zinc-700/50'}`}>
               <div className="text-2xl font-light text-emerald-400">{subscriberCount}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Subscribers (opted in to updates)</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">Opted-in Subscribers</div>
             </div>
+            <div className={`bg-zinc-800/50 rounded-lg p-4 border ${includeAll ? 'border-amber-600/50 ring-2 ring-amber-600/30' : 'border-zinc-700/50'}`}>
+              <div className="text-2xl font-light text-amber-400">{allUsersCount}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide">All Users (F&F)</div>
+            </div>
+          </div>
+
+          {/* F&F Mode Toggle */}
+          <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/50 rounded-lg">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeAll}
+                onChange={(e) => setIncludeAll(e.target.checked)}
+                className="w-5 h-5 rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
+              />
+              <div>
+                <span className="text-amber-400 font-medium">Friends & Family Mode</span>
+                <p className="text-xs text-zinc-500 mt-0.5">
+                  Send to ALL {allUsersCount} users with email addresses, regardless of opt-in status.
+                  Use sparingly during early beta.
+                </p>
+              </div>
+            </label>
           </div>
 
           <div className="max-w-2xl">
@@ -654,19 +687,28 @@ Double line breaks create new paragraphs."
 
             <button
               onClick={handleSendBroadcast}
-              disabled={broadcastSending || subscriberCount === 0}
+              disabled={broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)}
               className={`px-6 py-3 rounded text-lg transition-all ${
-                broadcastSending || subscriberCount === 0
+                broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)
                   ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
-                  : 'bg-emerald-700 hover:bg-emerald-600 text-white'
+                  : includeAll
+                    ? 'bg-amber-700 hover:bg-amber-600 text-white'
+                    : 'bg-emerald-700 hover:bg-emerald-600 text-white'
               }`}
             >
-              {broadcastSending ? 'Sending...' : `Send to ${subscriberCount} Subscribers`}
+              {broadcastSending
+                ? 'Sending...'
+                : includeAll
+                  ? `Send to ALL ${allUsersCount} Users (F&F)`
+                  : `Send to ${subscriberCount} Subscribers`
+              }
             </button>
 
             <p className="text-xs text-zinc-600 mt-4">
-              This will send an email to all users who have opted in to receive updates.
-              Each email includes an unsubscribe link.
+              {includeAll
+                ? 'F&F Mode: Sending to all users with email addresses. Use for important beta updates.'
+                : 'Standard: Sending only to users who opted in. Each email includes an unsubscribe link.'
+              }
             </p>
           </div>
         </div>

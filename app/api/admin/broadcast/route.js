@@ -1,5 +1,5 @@
 // app/api/admin/broadcast/route.js
-// Admin endpoint to send broadcast emails to all opted-in users
+// Admin endpoint to send broadcast emails to users
 
 import { createClient } from '@supabase/supabase-js';
 import { sendBroadcast } from '../../../../lib/email.js';
@@ -15,7 +15,7 @@ const ADMIN_EMAILS = ['chriscrilly@gmail.com'];
 
 export async function POST(request) {
   try {
-    const { subject, body, adminEmail } = await request.json();
+    const { subject, body, adminEmail, includeAll } = await request.json();
 
     // Verify admin
     if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
@@ -30,15 +30,15 @@ export async function POST(request) {
       return Response.json({ error: 'Server not configured' }, { status: 500 });
     }
 
-    // Get all users opted in to updates
-    const { data: recipients, error: recipientsError } = await getUsersForBroadcast(supabaseAdmin);
+    // Get users - includeAll=true for F&F mode (all users with email)
+    const { data: recipients, error: recipientsError } = await getUsersForBroadcast(supabaseAdmin, includeAll);
 
     if (recipientsError) {
       return Response.json({ error: 'Failed to fetch recipients' }, { status: 500 });
     }
 
     if (!recipients || recipients.length === 0) {
-      return Response.json({ error: 'No recipients opted in' }, { status: 400 });
+      return Response.json({ error: includeAll ? 'No users with email found' : 'No recipients opted in' }, { status: 400 });
     }
 
     // Convert markdown-ish body to basic HTML
@@ -71,7 +71,7 @@ export async function POST(request) {
   }
 }
 
-// GET endpoint to fetch subscriber count
+// GET endpoint to fetch recipient counts
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const adminEmail = searchParams.get('adminEmail');
@@ -85,11 +85,16 @@ export async function GET(request) {
     return Response.json({ error: 'Server not configured' }, { status: 500 });
   }
 
-  const { data: recipients, error } = await getUsersForBroadcast(supabaseAdmin);
+  // Get both counts
+  const { data: optedIn, error: optedInError } = await getUsersForBroadcast(supabaseAdmin, false);
+  const { data: allUsers, error: allError } = await getUsersForBroadcast(supabaseAdmin, true);
 
-  if (error) {
-    return Response.json({ error: 'Failed to fetch count' }, { status: 500 });
+  if (optedInError || allError) {
+    return Response.json({ error: 'Failed to fetch counts' }, { status: 500 });
   }
 
-  return Response.json({ subscriberCount: recipients?.length || 0 });
+  return Response.json({
+    subscriberCount: optedIn?.length || 0,
+    allUsersCount: allUsers?.length || 0
+  });
 }
