@@ -297,21 +297,9 @@ export default function NirmanakaReader() {
     modelsForUsers: ['sonnet'],
     defaultModelAdmin: 'sonnet',
     defaultModelUser: 'sonnet',
-    defaultVoice: {
-      preset: 'kind',
-      persona: 'friend',
-      humor: 5,
-      register: 5,
-      creator: 5,
-      roastMode: false,
-      directMode: false,
-      complexity: 'guide',
-      seriousness: 'light',
-      voice: 'warm',
-      focus: 'feel',
-      density: 'essential',
-      scope: 'here'
-    },
+    // NOTE: defaultVoice intentionally omitted here to prevent race condition
+    // The useEffect that applies voice defaults should only run AFTER
+    // the API returns the actual config from the database
     defaultMode: 'reflect',
     defaultSpread: 'triad'
   });
