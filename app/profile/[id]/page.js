@@ -57,9 +57,7 @@ export default function ProfilePage() {
         // Get current user
         const { user } = await getUser();
         setCurrentUser(user);
-        const adminStatus = isAdmin(user);
-        console.log('Profile page - user:', user?.email, 'isAdmin:', adminStatus);
-        setUserIsAdmin(adminStatus);
+        setUserIsAdmin(isAdmin(user));
 
         // Get profile data
         let profileData;

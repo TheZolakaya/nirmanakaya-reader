@@ -4,7 +4,7 @@
 // Sign in/out button with user menu
 
 import { useState, useEffect } from 'react';
-import { supabase, signOut, getUser, getUnreadCount } from '../../lib/supabase';
+import { supabase, signOut, getUser, getUnreadCount, isAdmin } from '../../lib/supabase';
 
 export default function AuthButton({ onAuthChange }) {
   const [user, setUser] = useState(null);
@@ -129,6 +129,16 @@ export default function AuthButton({ onAuthChange }) {
               </p>
               <p className="text-xs text-zinc-500 truncate">{user.email}</p>
             </div>
+
+            {isAdmin(user) && (
+              <a
+                href="/admin"
+                className="block px-3 py-2 text-sm text-amber-400 hover:bg-zinc-800 transition-colors"
+                onClick={() => setShowMenu(false)}
+              >
+                Admin
+              </a>
+            )}
 
             <a
               href={`/profile/${user.id}`}
