@@ -5178,8 +5178,9 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             {/* ═══════════════════════════════════════════════════════════════════
                 SYNTHESIS SECTION - The closing statement that ties everything together
                 Contains: Question/Input, The Reading, Why This Appeared, The Invitation
+                Shows when we have content (not gated by synthesisLoaded anymore)
                 ═══════════════════════════════════════════════════════════════════ */}
-            {parsedReading && !loading && synthesisLoaded && (() => {
+            {parsedReading && !loading && (() => {
               const isSynthesisCollapsed = collapsedSections['synthesis'] === true; // expanded by default
               return (
               <div className="content-pane mt-8 rounded-lg border-2 border-amber-500/40 overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(30, 20, 10, 0.6), rgba(20, 15, 10, 0.8))'}}>
