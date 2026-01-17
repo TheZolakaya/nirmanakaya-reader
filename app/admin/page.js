@@ -298,6 +298,7 @@ export default function AdminPanel() {
     defaultModelAdmin: 'sonnet',
     defaultModelUser: 'sonnet',
     defaultVoice: {
+      preset: 'kind',
       complexity: 'guide',
       tone: 50,
       focus: 50,
@@ -1191,10 +1192,44 @@ export default function AdminPanel() {
             {/* VOICE DEFAULTS SECTION */}
             {configSection === 'voice' && (
               <div className="max-w-2xl space-y-6">
+                {/* Delivery Preset */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-amber-400 mb-2">Default Delivery Preset</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Quick voice configuration for the overall tone</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                    {[
+                      { id: 'clear', label: 'Clear', desc: 'Direct & concise', icon: '💎' },
+                      { id: 'kind', label: 'Kind', desc: 'Gentle & supportive', icon: '💜' },
+                      { id: 'playful', label: 'Playful', desc: 'Light & engaging', icon: '✨' },
+                      { id: 'wise', label: 'Wise', desc: 'Elder wisdom', icon: '🦉' },
+                      { id: 'oracle', label: 'Oracle', desc: 'Full depth', icon: '🔮' },
+                    ].map(preset => (
+                      <button
+                        key={preset.id}
+                        onClick={() => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, preset: preset.id }
+                        }))}
+                        className={`p-3 rounded-lg text-center transition-all ${
+                          featureConfig.defaultVoice?.preset === preset.id
+                            ? 'bg-amber-500/20 border-2 border-amber-500/50'
+                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        }`}
+                      >
+                        <div className="text-lg mb-1">{preset.icon}</div>
+                        <div className={`text-sm font-medium ${
+                          featureConfig.defaultVoice?.preset === preset.id ? 'text-amber-400' : 'text-zinc-300'
+                        }`}>{preset.label}</div>
+                        <div className="text-[10px] text-zinc-500">{preset.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
                 {/* Complexity */}
                 <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
                   <h3 className="text-sm font-medium text-rose-400 mb-2">Default Complexity</h3>
-                  <p className="text-xs text-zinc-500 mb-4">How the reader speaks to new users</p>
+                  <p className="text-xs text-zinc-500 mb-4">Vocabulary depth and framework terminology</p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {[
                       { id: 'friend', label: 'Friend', desc: 'Casual, accessible' },

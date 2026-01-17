@@ -27,6 +27,7 @@ const DEFAULT_CONFIG = {
 
   // Default voice settings
   defaultVoice: {
+    preset: 'kind',          // clear | kind | playful | wise | oracle
     complexity: 'guide',     // friend | guide | elder | oracle
     tone: 50,                // 0-100 (playful to profound)
     focus: 50,               // 0-100 (poetic to practical)
