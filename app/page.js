@@ -94,7 +94,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -286,6 +286,14 @@ export default function NirmanakaReader() {
   const [authModalMode, setAuthModalMode] = useState('signin');
   const [currentUser, setCurrentUser] = useState(null);
   const [savedReadingId, setSavedReadingId] = useState(null);
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [featureConfig, setFeatureConfig] = useState({
+    advancedVoiceFor: 'everyone',
+    modelsForAdmins: ['haiku', 'sonnet', 'opus'],
+    modelsForUsers: ['sonnet'],
+    defaultModelAdmin: 'sonnet',
+    defaultModelUser: 'sonnet'
+  });
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -313,6 +321,20 @@ export default function NirmanakaReader() {
       console.log('[Page] getUser returned:', user?.email || 'null');
       if (user) {
         setCurrentUser(user);
+        setUserIsAdmin(isAdmin(user));
+      }
+    }
+
+    // Fetch feature config
+    async function fetchFeatureConfig() {
+      try {
+        const res = await fetch('/api/admin/config');
+        const data = await res.json();
+        if (data.config) {
+          setFeatureConfig(data.config);
+        }
+      } catch (err) {
+        console.log('[Config] Using defaults');
       }
     }
 
@@ -321,13 +343,16 @@ export default function NirmanakaReader() {
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         console.log('[Page] Auth state changed:', event, session?.user?.email);
         setCurrentUser(session?.user ?? null);
+        setUserIsAdmin(session?.user ? isAdmin(session.user) : false);
       });
 
       checkExistingSession();
+      fetchFeatureConfig();
 
       return () => subscription.unsubscribe();
     } else {
       checkExistingSession();
+      fetchFeatureConfig();
     }
   }, []);
 
@@ -366,17 +391,39 @@ export default function NirmanakaReader() {
           setDraws(restoredDraws);
 
           // Restore parsed reading from saved interpretations
-          const restoredCards = data.cards.map((card, i) => card.interpretation || {
-            index: i,
-            surface: null,
-            wade: null,
-            swim: null,
-            deep: null,
-            architecture: null,
-            mirror: null,
-            rebalancer: null,
-            why: { surface: null, wade: null, swim: null, deep: null, architecture: null }
+          // Check if card has actual content
+          const hasContent = (card) => card?.interpretation &&
+            (card.interpretation.wade || card.interpretation.surface || card.interpretation.swim || card.interpretation.deep);
+
+          const restoredCards = data.cards.map((card, i) => {
+            if (hasContent(card)) {
+              return { ...card.interpretation, index: i, _notLoaded: false };
+            }
+            return {
+              index: i,
+              surface: null,
+              wade: null,
+              swim: null,
+              deep: null,
+              architecture: null,
+              mirror: null,
+              rebalancer: null,
+              why: { surface: null, wade: null, swim: null, deep: null, architecture: null },
+              _notLoaded: true // Mark as needing load
+            };
           });
+
+          // Check if any cards need loading (enables on-demand fetch)
+          const anyCardsNeedLoad = restoredCards.some(c => c._notLoaded);
+
+          // Build system prompt for on-demand fetching if needed
+          if (anyCardsNeedLoad) {
+            const systemPrompt = buildSystemPrompt(userLevel, {
+              spreadType: data.mode || 'discover',
+              stance
+            });
+            setSystemPromptCache(systemPrompt);
+          }
 
           setParsedReading({
             cards: restoredCards,
@@ -384,7 +431,8 @@ export default function NirmanakaReader() {
             summary: data.synthesis?.summary || { surface: null, wade: null, swim: null, deep: null },
             path: data.synthesis?.path || { surface: null, wade: null, swim: null, deep: null, architecture: null },
             fullArchitecture: data.synthesis?.fullArchitecture || null,
-            _restored: true // Flag to indicate this was restored from saved
+            _restored: true,
+            _onDemand: anyCardsNeedLoad // Enable on-demand loading if content missing
           });
         }
 
@@ -504,9 +552,39 @@ export default function NirmanakaReader() {
       });
     }
   };
-  const [useHaiku, setUseHaiku] = useState(true); // Model toggle: false = Sonnet, true = Haiku (default ON)
+  const [selectedModel, setSelectedModel] = useState('sonnet'); // 'haiku', 'sonnet', or 'opus'
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
+
+  // Model helpers - determine available models based on config and admin status
+  const getAvailableModels = () => {
+    return userIsAdmin ? (featureConfig.modelsForAdmins || ['sonnet']) : (featureConfig.modelsForUsers || ['sonnet']);
+  };
+  const getModelId = (model) => {
+    const modelIds = {
+      haiku: 'claude-haiku-4-5-20251001',
+      sonnet: 'claude-sonnet-4-20250514',
+      opus: 'claude-opus-4-20250514'
+    };
+    return modelIds[model] || modelIds.sonnet;
+  };
+  const getModelPricing = (model) => {
+    // Per 1M tokens: { input, output }
+    const pricing = {
+      haiku: { input: 1.00, output: 5.00 },
+      sonnet: { input: 3.00, output: 15.00 },
+      opus: { input: 15.00, output: 75.00 }
+    };
+    return pricing[model] || pricing.sonnet;
+  };
+  const getModelLabel = (model) => {
+    const labels = { haiku: 'Haiku (fast)', sonnet: 'Sonnet', opus: 'Opus (best)' };
+    return labels[model] || model;
+  };
+  const showAdvancedVoice = featureConfig.advancedVoiceFor === 'everyone' || (featureConfig.advancedVoiceFor === 'admins' && userIsAdmin);
+
+  // Legacy compatibility: useHaiku derived from selectedModel
+  const useHaiku = selectedModel === 'haiku';
 
   // === TELEMETRY TRACKING ===
   const [telemetry, setTelemetry] = useState({
@@ -599,6 +677,63 @@ export default function NirmanakaReader() {
       loadSynthesis(draws, question, systemPromptCache);
     }
   }, [cardLoaded, draws, parsedReading, synthesisLoaded, synthesisLoading]);
+
+  // Save card interpretations to database when all cards are loaded
+  const [contentSaved, setContentSaved] = useState(false);
+  useEffect(() => {
+    if (!savedReadingId || !draws || !parsedReading?._onDemand || contentSaved) return;
+    if (parsedReading._restored) return; // Don't re-save restored readings
+
+    // Check if all cards have content
+    const allCardsHaveContent = parsedReading.cards?.every(card =>
+      card && (card.wade || card.surface || card.swim || card.deep) && !card._notLoaded
+    );
+
+    if (allCardsHaveContent && draws.length > 0) {
+      // Build cards array with both draw data and interpretations
+      const cardsWithContent = draws.map((draw, i) => ({
+        ...draw,
+        interpretation: parsedReading.cards[i]
+      }));
+
+      // Update saved reading with card interpretations
+      updateReadingContent(savedReadingId, {
+        cards: cardsWithContent,
+        synthesis: parsedReading.summary || parsedReading.path ? {
+          summary: parsedReading.summary,
+          path: parsedReading.path,
+          fullArchitecture: parsedReading.fullArchitecture
+        } : undefined
+      }).then(result => {
+        if (result?.data) {
+          setContentSaved(true);
+          console.log('[AutoSave] Card interpretations saved');
+        }
+      }).catch(err => console.log('[AutoSave] Failed to save interpretations:', err));
+    }
+  }, [cardLoaded, draws, parsedReading, savedReadingId, contentSaved]);
+
+  // Save synthesis to database when it loads
+  const [synthesisSaved, setSynthesisSaved] = useState(false);
+  useEffect(() => {
+    if (!savedReadingId || !parsedReading?._onDemand || !synthesisLoaded || synthesisSaved) return;
+    if (parsedReading._restored) return; // Don't re-save restored readings
+
+    if (parsedReading.summary || parsedReading.path) {
+      updateReadingContent(savedReadingId, {
+        synthesis: {
+          summary: parsedReading.summary,
+          path: parsedReading.path,
+          fullArchitecture: parsedReading.fullArchitecture
+        }
+      }).then(result => {
+        if (result?.data) {
+          setSynthesisSaved(true);
+          console.log('[AutoSave] Synthesis saved');
+        }
+      }).catch(err => console.log('[AutoSave] Failed to save synthesis:', err));
+    }
+  }, [synthesisLoaded, parsedReading, savedReadingId, synthesisSaved]);
 
   // Re-interpret with current stance (same draws)
   const reinterpret = async () => {
@@ -1018,7 +1153,7 @@ export default function NirmanakaReader() {
           spreadKey: currentSpreadKey,
           stance,
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: getModelId(selectedModel)
         })
       });
       const data = await res.json();
@@ -1115,7 +1250,7 @@ export default function NirmanakaReader() {
           letterContent,
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514"
+          model: getModelId(selectedModel)
         })
       });
       const data = await res.json();
@@ -1189,7 +1324,7 @@ export default function NirmanakaReader() {
           letterContent,
           token: cardToken, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           // Progressive deepening params
           targetDepth,
           previousContent
@@ -1245,7 +1380,7 @@ export default function NirmanakaReader() {
           spreadType,
           spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
           system: systemPromptToUse || systemPromptCache,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
           originalInput: parsedReading?.originalInput
@@ -1327,7 +1462,7 @@ export default function NirmanakaReader() {
           spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
           stance,
           system: systemPromptCache,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           targetDepth,
           previousContent
         })
@@ -1416,7 +1551,7 @@ export default function NirmanakaReader() {
           spreadType,
           spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
           system: systemPromptCache,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           targetDepth,
           previousContent,
           // DTP mode: pass tokens and originalInput for grounded synthesis
@@ -1891,7 +2026,7 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           max_tokens: 8000,
           userId: currentUser?.id
         })
@@ -2085,7 +2220,7 @@ Interpret this new card as the architecture's response to their declared directi
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           max_tokens: 8000,
           userId: currentUser?.id
         })
@@ -2360,7 +2495,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514", max_tokens: 2000, userId: currentUser?.id })
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -2473,7 +2608,7 @@ CRITICAL FORMATTING RULES:
         body: JSON.stringify({
           messages: [{ role: 'user', content: contextMessage }],
           system: systemPrompt,
-          model: useHaiku ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-20250514",
+          model: getModelId(selectedModel),
           max_tokens: 2000,
           userId: currentUser?.id
         })
@@ -2517,7 +2652,7 @@ CRITICAL FORMATTING RULES:
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
     // Reset on-demand state
-    setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
+    setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false); setContentSaved(false); setSynthesisSaved(false);
     // Reset telemetry
     resetTelemetry();
     // Reset depth states to default (shallow)
@@ -2766,7 +2901,7 @@ CRITICAL FORMATTING RULES:
       slug = 'reading';
     }
 
-    const modelName = useHaiku ? 'haiku' : 'sonnet';
+    const modelName = selectedModel;
     return `nirmanakaya-${slug}-${date}-${modelName}.${extension}`;
   };
 
@@ -3235,11 +3370,11 @@ CRITICAL FORMATTING RULES:
   <div class="section">
     <div style="text-align: center; color: #52525b; font-size: 0.75rem;">
       Tokens: ${tokenUsage.input_tokens?.toLocaleString()} in / ${tokenUsage.output_tokens?.toLocaleString()} out •
-      Cost: $${((tokenUsage.input_tokens * (useHaiku ? 0.001 : 0.003) / 1000) + (tokenUsage.output_tokens * (useHaiku ? 0.005 : 0.015) / 1000)).toFixed(4)}
+      Cost: $${((tokenUsage.input_tokens * getModelPricing(selectedModel).input / 1000000) + (tokenUsage.output_tokens * getModelPricing(selectedModel).output / 1000000)).toFixed(4)}
     </div>
   </div>` : ''}
 
-  <p class="footer">Generated by Nirmanakaya • ${useHaiku ? 'Haiku' : 'Sonnet'}</p>
+  <p class="footer">Generated by Nirmanakaya • ${getModelLabel(selectedModel).split(' ')[0]}</p>
 </body>
 </html>`;
 
@@ -3806,16 +3941,48 @@ CRITICAL FORMATTING RULES:
                 ) : null}
               </div>
 
-              {/* Interpreter Voice Section - Collapsed by default (FR22) */}
+              {/* Interpreter Voice Section - Delivery presets always visible (FR22 updated) */}
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
-                {/* Collapsible Header */}
+                {/* Quick Voice Presets - Always Visible */}
+                <div
+                  className="mb-3"
+                  data-help="delivery-preset"
+                  onClick={(e) => handleHelpClick('delivery-preset', e)}
+                >
+                  <div className="text-[0.625rem] text-zinc-500 mb-2 text-center tracking-wide">READING VOICE</div>
+                  <div className="w-full max-w-lg mx-auto">
+                    <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
+                      {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                        const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                        const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
+                        return (
+                          <button
+                            key={key}
+                            onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
+                            className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
+                              isActive
+                                ? 'bg-[#2e1065] text-amber-400 ring-1 ring-amber-500/30'
+                                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                            }`}
+                            title={preset.preview || preset.name}
+                          >
+                            <span className="sm:hidden">{mobileNames[key]}</span>
+                            <span className="hidden sm:inline">{preset.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Collapsible Header for Advanced Settings */}
                 <button
                   onClick={(e) => { if (!handleHelpClick('voice-panel', e)) setShowVoicePanel(!showVoicePanel); }}
                   data-help="voice-panel"
-                  className="w-full flex items-center justify-center gap-2 text-zinc-500 hover:text-zinc-400 transition-colors py-1"
+                  className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
                 >
                   <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
-                  <span className="text-[0.625rem] tracking-widest uppercase">Voice Settings</span>
+                  <span className="text-[0.5625rem] tracking-widest uppercase">Fine-tune Voice</span>
                 </button>
 
                 {/* Voice Panel Content - Hidden by default */}
@@ -3952,18 +4119,23 @@ CRITICAL FORMATTING RULES:
                       />
                     </div>
 
-                    {/* Model Toggle */}
+                    {/* Model Selector + Token Display */}
                     <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                      {getAvailableModels().length > 1 && (
+                        <div className="flex items-center justify-center gap-2 mb-1.5">
+                          <span className="text-[0.625rem] text-zinc-500">Model:</span>
+                          <select
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="text-[0.625rem] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                          >
+                            {getAvailableModels().map(m => (
+                              <option key={m} value={m}>{getModelLabel(m)}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
                       <label className="flex items-center justify-center gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={useHaiku}
-                          onChange={(e) => setUseHaiku(e.target.checked)}
-                          className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                        />
-                        <span className="text-[0.625rem] text-zinc-400">Use Haiku (faster)</span>
-                      </label>
-                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-1.5">
                         <input
                           type="checkbox"
                           checked={showTokenUsage}
@@ -5788,18 +5960,23 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       compact={true}
                     />
 
-                    {/* Model Toggle */}
+                    {/* Model Selector + Token Display */}
                     <div className="pt-3 border-t border-zinc-700/50">
+                      {getAvailableModels().length > 1 && (
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <span className="text-xs text-zinc-500">Model:</span>
+                          <select
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="text-xs px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                          >
+                            {getAvailableModels().map(m => (
+                              <option key={m} value={m}>{getModelLabel(m)}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
                       <label className="flex items-center justify-center gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={useHaiku}
-                          onChange={(e) => setUseHaiku(e.target.checked)}
-                          className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                        />
-                        <span className="text-xs text-zinc-400">Use Haiku (faster)</span>
-                      </label>
-                      <label className="flex items-center justify-center gap-2 cursor-pointer mt-2">
                         <input
                           type="checkbox"
                           checked={showTokenUsage}
@@ -5830,9 +6007,9 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {showTokenUsage && tokenUsage && parsedReading && (
           <div className="text-center text-zinc-500 text-[0.625rem] mt-4">
             Tokens: {tokenUsage.input_tokens?.toLocaleString()} in / {tokenUsage.output_tokens?.toLocaleString()} out • Cost: ${(
-              (tokenUsage.input_tokens * (useHaiku ? 0.001 : 0.003) / 1000) +
-              (tokenUsage.output_tokens * (useHaiku ? 0.005 : 0.015) / 1000)
-            ).toFixed(4)} ({useHaiku ? 'Haiku' : 'Sonnet'})
+              (tokenUsage.input_tokens * getModelPricing(selectedModel).input / 1000000) +
+              (tokenUsage.output_tokens * getModelPricing(selectedModel).output / 1000000)
+            ).toFixed(4)} ({getModelLabel(selectedModel).split(' ')[0]})
             {translationUsage && (
               <span className="ml-2 text-amber-600/60">
                 + Translation: {translationUsage.input_tokens?.toLocaleString()} in / {translationUsage.output_tokens?.toLocaleString()} out • ${(

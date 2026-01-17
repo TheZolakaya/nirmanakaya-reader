@@ -236,12 +236,24 @@ export default function JournalPage() {
                       <div className="mb-4">
                         <div className="text-xs text-zinc-400 mb-2">Letter:</div>
                         <div className="text-sm text-zinc-400 bg-zinc-800/30 rounded p-3 max-h-32 overflow-hidden relative">
-                          {typeof reading.letter === 'object'
-                            ? (reading.letter.wade || reading.letter.surface || 'No letter content')
-                            : reading.letter.slice(0, 300)}
-                          {(typeof reading.letter === 'string' && reading.letter.length > 300) && (
-                            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-800/50 to-transparent" />
-                          )}
+                          {(() => {
+                            // Parse letter if it's a JSON string
+                            let letter = reading.letter;
+                            if (typeof letter === 'string') {
+                              try {
+                                letter = JSON.parse(letter);
+                              } catch {
+                                // Not JSON, use as-is
+                              }
+                            }
+                            // Extract content from object or use string directly
+                            const content = typeof letter === 'object'
+                              ? (letter.wade || letter.surface || letter.swim || letter.deep || 'No letter content')
+                              : letter;
+                            const text = typeof content === 'string' ? content.slice(0, 300) : 'No letter content';
+                            return text;
+                          })()}
+                          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-800/50 to-transparent" />
                         </div>
                       </div>
                     )}

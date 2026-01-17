@@ -14,6 +14,243 @@ import {
 
 const SUPER_ADMIN_EMAIL = 'chriscrilly@gmail.com';
 
+// Stat Card Component
+const StatCard = ({ value, label, color = 'text-zinc-300', size = 'normal', highlight = false }) => (
+  <div className={`
+    rounded-lg p-4 transition-all
+    ${highlight ? 'bg-zinc-800/80 border-2' : 'bg-zinc-800/40 border'}
+    ${highlight ? `border-${color.replace('text-', '')}/50` : 'border-zinc-700/30'}
+  `}>
+    <div className={`${size === 'large' ? 'text-3xl' : 'text-xl'} font-light ${color} tabular-nums`}>
+      {value}
+    </div>
+    <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">{label}</div>
+  </div>
+);
+
+// User Row Component
+const UserRow = ({
+  user: u,
+  isSuperAdmin,
+  editingLimit,
+  setEditingLimit,
+  limitValue,
+  setLimitValue,
+  onBanToggle,
+  onCommunityBanToggle,
+  onAdminToggle,
+  onSetLimit,
+  onResetTokens,
+  onDelete,
+  deletingId
+}) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div className="bg-zinc-800/40 rounded-lg border border-zinc-700/30 overflow-hidden hover:border-zinc-600/50 transition-all">
+      {/* Main Row */}
+      <div
+        className="p-4 cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-center gap-4">
+          {/* User Identity */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-medium text-zinc-100 truncate">
+                {u.display_name || 'Anonymous'}
+              </span>
+              {u.is_admin && (
+                <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded font-medium">
+                  ADMIN
+                </span>
+              )}
+              {u.is_banned && (
+                <span className="text-[10px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded font-medium">
+                  BANNED
+                </span>
+              )}
+              {u.community_banned && (
+                <span className="text-[10px] bg-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded font-medium">
+                  HUB BAN
+                </span>
+              )}
+            </div>
+            <div className="text-[11px] text-zinc-500 font-mono truncate mt-0.5">{u.id}</div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="hidden sm:flex items-center gap-6 text-sm">
+            <div className="text-center">
+              <div className="text-cyan-400 font-medium tabular-nums">{u.readingCount}</div>
+              <div className="text-[10px] text-zinc-600">reads</div>
+            </div>
+            <div className="text-center">
+              <div className="text-emerald-400 font-medium tabular-nums">{(u.totalTokens / 1000).toFixed(0)}k</div>
+              <div className="text-[10px] text-zinc-600">tokens</div>
+            </div>
+            <div className="text-center">
+              <div className="text-rose-400 font-medium tabular-nums">${u.totalCost?.toFixed(2) || '0.00'}</div>
+              <div className="text-[10px] text-zinc-600">cost</div>
+            </div>
+          </div>
+
+          {/* Expand Arrow */}
+          <svg
+            className={`w-5 h-5 text-zinc-500 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Expanded Details */}
+      {expanded && (
+        <div className="border-t border-zinc-700/30 bg-zinc-900/50">
+          {/* Detailed Stats */}
+          <div className="p-4 grid grid-cols-3 sm:grid-cols-6 gap-3">
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-violet-400 font-medium">{u.totalReflects || 0}</div>
+              <div className="text-[10px] text-zinc-600">reflects</div>
+            </div>
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-orange-400 font-medium">{u.totalForges || 0}</div>
+              <div className="text-[10px] text-zinc-600">forges</div>
+            </div>
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-teal-400 font-medium">{(u.totalClarifies || 0) + (u.totalUnpacks || 0) + (u.totalExamples || 0)}</div>
+              <div className="text-[10px] text-zinc-600">expansions</div>
+            </div>
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-blue-400 font-medium">{u.discussionCount || 0}</div>
+              <div className="text-[10px] text-zinc-600">posts</div>
+            </div>
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-pink-400 font-medium">{u.replyCount || 0}</div>
+              <div className="text-[10px] text-zinc-600">replies</div>
+            </div>
+            <div className="text-center p-2 bg-zinc-800/50 rounded">
+              <div className="text-cyan-400 font-medium capitalize">{u.maxDepthReached || 'surface'}</div>
+              <div className="text-[10px] text-zinc-600">depth</div>
+            </div>
+          </div>
+
+          {/* Mode Breakdown */}
+          <div className="px-4 pb-3">
+            <div className="flex items-center gap-4 text-xs">
+              <span className="text-zinc-500">Modes:</span>
+              <span className="text-sky-400">{u.modes?.reflect || 0} Reflect</span>
+              <span className="text-lime-400">{u.modes?.discover || 0} Discover</span>
+              <span className="text-amber-400">{u.modes?.forge || 0} Forge</span>
+              <span className="text-fuchsia-400">{u.modes?.explore || 0} Explore</span>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="p-4 border-t border-zinc-700/30 bg-zinc-800/30">
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Token Limit */}
+              {editingLimit === u.id ? (
+                <div className="flex items-center gap-1">
+                  <input
+                    type="number"
+                    value={limitValue}
+                    onChange={(e) => setLimitValue(e.target.value)}
+                    placeholder="∞"
+                    className="w-20 px-2 py-1.5 text-xs bg-zinc-700 rounded border border-zinc-600 focus:outline-none focus:border-amber-500"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onSetLimit(u.id); }}
+                    className="px-2 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-500 rounded text-white"
+                  >
+                    Set
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setEditingLimit(null); setLimitValue(''); }}
+                    className="px-2 py-1.5 text-xs bg-zinc-600 hover:bg-zinc-500 rounded"
+                  >
+                    ×
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setEditingLimit(u.id); setLimitValue(u.daily_token_limit?.toString() || ''); }}
+                  className="px-3 py-1.5 text-xs bg-zinc-700 hover:bg-zinc-600 rounded transition-colors"
+                >
+                  Limit: {u.daily_token_limit ?? '∞'}
+                </button>
+              )}
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onResetTokens(u.id); }}
+                className="px-3 py-1.5 text-xs bg-zinc-700 hover:bg-zinc-600 rounded transition-colors"
+              >
+                Reset Daily
+              </button>
+
+              <div className="w-px h-6 bg-zinc-700 mx-1" />
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onCommunityBanToggle(u.id, u.community_banned); }}
+                className={`px-3 py-1.5 text-xs rounded transition-colors ${
+                  u.community_banned
+                    ? 'bg-orange-600 hover:bg-orange-500 text-white'
+                    : 'bg-zinc-700 hover:bg-orange-600/80 text-zinc-300 hover:text-white'
+                }`}
+              >
+                {u.community_banned ? 'Unban Hub' : 'Ban Hub'}
+              </button>
+
+              <button
+                onClick={(e) => { e.stopPropagation(); onBanToggle(u.id, u.is_banned); }}
+                className={`px-3 py-1.5 text-xs rounded transition-colors ${
+                  u.is_banned
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white'
+                    : 'bg-zinc-700 hover:bg-rose-600/80 text-zinc-300 hover:text-white'
+                }`}
+              >
+                {u.is_banned ? 'Unban' : 'Ban All'}
+              </button>
+
+              {isSuperAdmin && (
+                <>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onAdminToggle(u.id, u.is_admin); }}
+                    className={`px-3 py-1.5 text-xs rounded transition-colors ${
+                      u.is_admin
+                        ? 'bg-amber-600 hover:bg-amber-500 text-white'
+                        : 'bg-zinc-700 hover:bg-amber-600/80 text-zinc-300 hover:text-white'
+                    }`}
+                  >
+                    {u.is_admin ? 'Remove Admin' : 'Make Admin'}
+                  </button>
+
+                  <div className="w-px h-6 bg-zinc-700 mx-1" />
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (confirm(`DELETE ${u.display_name || u.id}?\n\nThis will permanently remove:\n• All readings\n• All posts & replies\n• Profile data\n• Auth account\n\nThis cannot be undone!`)) {
+                        onDelete(u.id);
+                      }
+                    }}
+                    disabled={deletingId === u.id}
+                    className="px-3 py-1.5 text-xs bg-red-900/50 hover:bg-red-700 text-red-300 hover:text-white rounded transition-colors disabled:opacity-50"
+                  >
+                    {deletingId === u.id ? 'Deleting...' : 'Delete User'}
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function AdminPanel() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('users');
@@ -35,13 +272,14 @@ export default function AdminPanel() {
   const [usersLoading, setUsersLoading] = useState(false);
   const [editingLimit, setEditingLimit] = useState(null);
   const [limitValue, setLimitValue] = useState('');
+  const [deletingId, setDeletingId] = useState(null);
 
   // Broadcast tab state
   const [broadcastSubject, setBroadcastSubject] = useState('');
   const [broadcastBody, setBroadcastBody] = useState('');
   const [subscriberCount, setSubscriberCount] = useState(0);
   const [allUsersCount, setAllUsersCount] = useState(0);
-  const [includeAll, setIncludeAll] = useState(false); // F&F mode
+  const [includeAll, setIncludeAll] = useState(false);
   const [broadcastSending, setBroadcastSending] = useState(false);
   const [broadcastResult, setBroadcastResult] = useState(null);
 
@@ -50,7 +288,18 @@ export default function AdminPanel() {
   const [confirmedCount, setConfirmedCount] = useState(0);
   const [resendLoading, setResendLoading] = useState(false);
   const [resendResult, setResendResult] = useState(null);
-  const [sendingTo, setSendingTo] = useState(null); // track which user is being sent to
+  const [sendingTo, setSendingTo] = useState(null);
+
+  // Feature config state
+  const [featureConfig, setFeatureConfig] = useState({
+    advancedVoiceFor: 'everyone',
+    modelsForAdmins: ['haiku', 'sonnet', 'opus'],
+    modelsForUsers: ['sonnet'],
+    defaultModelAdmin: 'sonnet',
+    defaultModelUser: 'sonnet'
+  });
+  const [configLoading, setConfigLoading] = useState(false);
+  const [configSaved, setConfigSaved] = useState(false);
 
   useEffect(() => {
     async function checkAdmin() {
@@ -158,6 +407,26 @@ export default function AdminPanel() {
     loadUsers();
   }
 
+  async function handleDeleteUser(userId) {
+    setDeletingId(userId);
+    try {
+      const response = await fetch('/api/admin/delete-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ adminEmail: user?.email, userId })
+      });
+      const data = await response.json();
+      if (data.error) {
+        alert('Failed to delete: ' + data.error);
+      } else {
+        loadUsers();
+      }
+    } catch (err) {
+      alert('Delete failed: ' + err.message);
+    }
+    setDeletingId(null);
+  }
+
   async function loadSubscriberCount() {
     try {
       const response = await fetch(`/api/admin/broadcast?adminEmail=${encodeURIComponent(user?.email)}`);
@@ -193,18 +462,13 @@ export default function AdminPanel() {
       const response = await fetch('/api/admin/resend-confirmations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          adminEmail: user?.email,
-          userId,
-          resendAll
-        })
+        body: JSON.stringify({ adminEmail: user?.email, userId, resendAll })
       });
       const data = await response.json();
       if (data.error && !data.sent) {
         setResendResult({ error: data.error });
       } else {
         setResendResult({ success: true, sent: data.sent, failed: data.failed, errors: data.errors });
-        // Refresh the list
         loadUnconfirmedUsers();
       }
     } catch (err) {
@@ -219,14 +483,11 @@ export default function AdminPanel() {
       return;
     }
 
-    const recipientCount = includeAll ? allUsersCount : subscriberCount;
     const confirmMsg = includeAll
       ? `Send this email to ALL ${allUsersCount} users with email addresses? (F&F Mode)`
       : `Send this email to ${subscriberCount} opted-in subscribers?`;
 
-    if (!confirm(confirmMsg)) {
-      return;
-    }
+    if (!confirm(confirmMsg)) return;
 
     setBroadcastSending(true);
     setBroadcastResult(null);
@@ -254,13 +515,66 @@ export default function AdminPanel() {
     } catch (err) {
       setBroadcastResult({ error: err.message });
     }
-
     setBroadcastSending(false);
+  }
+
+  async function loadFeatureConfig() {
+    setConfigLoading(true);
+    try {
+      const response = await fetch('/api/admin/config');
+      const data = await response.json();
+      if (data.config) setFeatureConfig(data.config);
+    } catch (err) {
+      console.error('Failed to load config:', err);
+    }
+    setConfigLoading(false);
+  }
+
+  async function saveFeatureConfig() {
+    setConfigLoading(true);
+    setConfigSaved(false);
+    try {
+      const response = await fetch('/api/admin/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ adminEmail: user?.email, config: featureConfig })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setConfigSaved(true);
+        setTimeout(() => setConfigSaved(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to save config:', err);
+    }
+    setConfigLoading(false);
+  }
+
+  function toggleModelForAdmins(model) {
+    setFeatureConfig(prev => {
+      const current = prev.modelsForAdmins || [];
+      if (current.includes(model)) {
+        if (current.length === 1) return prev;
+        return { ...prev, modelsForAdmins: current.filter(m => m !== model) };
+      }
+      return { ...prev, modelsForAdmins: [...current, model] };
+    });
+  }
+
+  function toggleModelForUsers(model) {
+    setFeatureConfig(prev => {
+      const current = prev.modelsForUsers || [];
+      if (current.includes(model)) {
+        if (current.length === 1) return prev;
+        return { ...prev, modelsForUsers: current.filter(m => m !== model) };
+      }
+      return { ...prev, modelsForUsers: [...current, model] };
+    });
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-900 text-zinc-100 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
         <div className="text-zinc-500">Loading...</div>
       </div>
     );
@@ -268,7 +582,7 @@ export default function AdminPanel() {
 
   if (!userIsAdmin) {
     return (
-      <div className="min-h-screen bg-zinc-900 text-zinc-100 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
         <div className="text-center">
           <div className="text-zinc-500 mb-4">Admin access required</div>
           <a href="/" className="text-amber-400 hover:text-amber-300">← Back to Reader</a>
@@ -278,617 +592,587 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-zinc-100 p-8">
-      {/* Header with back link */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-light tracking-widest mb-1">NIRMANAKAYA ADMIN</h1>
-          <p className="text-zinc-500 text-sm">v{VERSION} {isSuperAdmin && <span className="text-amber-400 ml-2">Super Admin</span>}</p>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Header */}
+      <header className="border-b border-zinc-800/50 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">N</span>
+            </div>
+            <div>
+              <h1 className="text-lg font-medium tracking-wide">Admin Console</h1>
+              <div className="flex items-center gap-2 text-xs text-zinc-500">
+                <span>v{VERSION}</span>
+                {isSuperAdmin && (
+                  <span className="text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded text-[10px] font-medium">
+                    SUPER ADMIN
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <a
+            href="/"
+            className="flex items-center gap-2 text-zinc-400 hover:text-amber-400 text-sm transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Reader
+          </a>
         </div>
-        <a href="/" className="flex items-center gap-2 text-amber-400 hover:text-amber-300 text-sm transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Reader
-        </a>
-      </div>
+      </header>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-8 border-b border-zinc-800 pb-2">
-        <button
-          onClick={() => setActiveTab('users')}
-          className={`px-4 py-2 rounded-t transition-all ${activeTab === 'users' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
-        >
-          Users & Stats
-        </button>
-        <button
-          onClick={() => setActiveTab('testing')}
-          className={`px-4 py-2 rounded-t transition-all ${activeTab === 'testing' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
-        >
-          Testing
-        </button>
-        <button
-          onClick={() => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }}
-          className={`px-4 py-2 rounded-t transition-all ${activeTab === 'broadcast' ? 'bg-zinc-800 text-amber-400' : 'text-zinc-500 hover:text-zinc-300'}`}
-        >
-          Broadcast
-        </button>
-      </div>
-
-      {/* USERS TAB */}
-      {activeTab === 'users' && (
-        <div>
-          {/* Stats Cards - Row 1: Core */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
-              <div className="text-2xl font-light text-amber-400">{totals.userCount || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Users</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
-              <div className="text-2xl font-light text-cyan-400">{totals.totalReadings || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Readings</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
-              <div className="text-2xl font-light text-emerald-400">{((totals.totalTokens || 0) / 1000000).toFixed(2)}M</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Tokens</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
-              <div className="text-2xl font-light text-rose-400">${(totals.totalCost || 0).toFixed(2)}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Est. Cost</div>
-            </div>
-          </div>
-
-          {/* Stats Cards - Row 2: Engagement */}
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mb-4">
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-violet-400">{totals.totalReflects || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Reflects</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-orange-400">{totals.totalForges || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Forges</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-teal-400">{totals.totalExpansions || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Expansions</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-blue-400">{totals.totalDiscussions || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Posts</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-pink-400">{totals.totalReplies || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Replies</div>
-            </div>
-          </div>
-
-          {/* Stats Cards - Row 3: Reading Modes */}
-          <div className="grid grid-cols-4 gap-4 mb-4">
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-sky-400">{totals.modeCounts?.reflect || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Reflect Mode</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-lime-400">{totals.modeCounts?.discover || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Discover Mode</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-amber-400">{totals.modeCounts?.forge || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Forge Mode</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-fuchsia-400">{totals.modeCounts?.explore || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Explore Mode</div>
-            </div>
-          </div>
-
-          {/* Stats Cards - Row 4: Spread Types */}
-          <div className="grid grid-cols-4 gap-4 mb-8">
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.single || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Single</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.triad || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Triad</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.pentad || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Pentad</div>
-            </div>
-            <div className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50">
-              <div className="text-xl font-light text-zinc-300">{totals.spreadCounts?.septad || 0}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Septad</div>
-            </div>
-          </div>
-
-          {/* User List */}
-          <div className="mb-4 flex justify-between items-center">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide">User Management</h2>
-            <button
-              onClick={loadUsers}
-              disabled={usersLoading}
-              className="text-xs text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
-            >
-              {usersLoading ? 'Loading...' : 'Refresh'}
-            </button>
-          </div>
-
-          <div className="space-y-2">
-            {users.map(u => (
-              <div key={u.id} className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  {/* User Info */}
-                  <div className="flex-1 min-w-[200px]">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium">{u.display_name || 'Anonymous'}</span>
-                      {u.is_admin && <span className="text-xs bg-amber-600/20 text-amber-400 px-2 py-0.5 rounded">Admin</span>}
-                      {u.is_banned && <span className="text-xs bg-rose-600/20 text-rose-400 px-2 py-0.5 rounded">Banned</span>}
-                      {u.community_banned && <span className="text-xs bg-orange-600/20 text-orange-400 px-2 py-0.5 rounded">Hub Banned</span>}
-                    </div>
-                    <div className="text-xs text-zinc-500">{u.id}</div>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="flex flex-wrap gap-4 text-sm">
-                    <div className="flex gap-4">
-                      <div>
-                        <div className="text-zinc-400">{u.readingCount}</div>
-                        <div className="text-xs text-zinc-600">readings</div>
-                      </div>
-                      <div>
-                        <div className="text-zinc-400">{(u.totalTokens / 1000).toFixed(0)}k</div>
-                        <div className="text-xs text-zinc-600">tokens</div>
-                      </div>
-                      <div>
-                        <div className="text-zinc-400">${u.totalCost?.toFixed(2) || '0.00'}</div>
-                        <div className="text-xs text-zinc-600">cost</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div>
-                        <div className="text-violet-400">{u.totalReflects || 0}</div>
-                        <div className="text-xs text-zinc-600">reflects</div>
-                      </div>
-                      <div>
-                        <div className="text-orange-400">{u.totalForges || 0}</div>
-                        <div className="text-xs text-zinc-600">forges</div>
-                      </div>
-                      <div>
-                        <div className="text-teal-400">{(u.totalClarifies || 0) + (u.totalUnpacks || 0) + (u.totalExamples || 0)}</div>
-                        <div className="text-xs text-zinc-600">expand</div>
-                      </div>
-                      <div>
-                        <div className="text-cyan-400 capitalize">{u.maxDepthReached || 'surface'}</div>
-                        <div className="text-xs text-zinc-600">depth</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div>
-                        <div className="text-blue-400">{u.discussionCount || 0}</div>
-                        <div className="text-xs text-zinc-600">posts</div>
-                      </div>
-                      <div>
-                        <div className="text-pink-400">{u.replyCount || 0}</div>
-                        <div className="text-xs text-zinc-600">replies</div>
-                      </div>
-                    </div>
-                    {/* Mode breakdown */}
-                    <div className="flex gap-2 text-xs">
-                      <span className="text-sky-400" title="Reflect mode">{u.modes?.reflect || 0}R</span>
-                      <span className="text-lime-400" title="Discover mode">{u.modes?.discover || 0}D</span>
-                      <span className="text-amber-400" title="Forge mode">{u.modes?.forge || 0}F</span>
-                      <span className="text-fuchsia-400" title="Explore mode">{u.modes?.explore || 0}E</span>
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex flex-wrap gap-2">
-                    {/* Daily Limit */}
-                    {editingLimit === u.id ? (
-                      <div className="flex gap-1">
-                        <input
-                          type="number"
-                          value={limitValue}
-                          onChange={(e) => setLimitValue(e.target.value)}
-                          placeholder="∞"
-                          className="w-20 px-2 py-1 text-xs bg-zinc-700 rounded border border-zinc-600 focus:outline-none focus:border-amber-600"
-                        />
-                        <button
-                          onClick={() => handleSetLimit(u.id)}
-                          className="px-2 py-1 text-xs bg-emerald-700 hover:bg-emerald-600 rounded"
-                        >
-                          Set
-                        </button>
-                        <button
-                          onClick={() => { setEditingLimit(null); setLimitValue(''); }}
-                          className="px-2 py-1 text-xs bg-zinc-700 hover:bg-zinc-600 rounded"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => { setEditingLimit(u.id); setLimitValue(u.daily_token_limit?.toString() || ''); }}
-                        className="px-2 py-1 text-xs bg-zinc-700 hover:bg-zinc-600 rounded"
-                        title="Set daily token limit"
-                      >
-                        Limit: {u.daily_token_limit ?? '∞'}
-                      </button>
-                    )}
-
-                    <button
-                      onClick={() => handleResetTokens(u.id)}
-                      className="px-2 py-1 text-xs bg-zinc-700 hover:bg-zinc-600 rounded"
-                      title="Reset today's token count"
-                    >
-                      Reset Daily
-                    </button>
-
-                    <button
-                      onClick={() => handleCommunityBanToggle(u.id, u.community_banned)}
-                      className={`px-2 py-1 text-xs rounded ${u.community_banned ? 'bg-orange-700 hover:bg-orange-600' : 'bg-zinc-700 hover:bg-zinc-600'}`}
-                    >
-                      {u.community_banned ? 'Unban Hub' : 'Ban Hub'}
-                    </button>
-
-                    <button
-                      onClick={() => handleBanToggle(u.id, u.is_banned)}
-                      className={`px-2 py-1 text-xs rounded ${u.is_banned ? 'bg-rose-700 hover:bg-rose-600' : 'bg-zinc-700 hover:bg-zinc-600'}`}
-                    >
-                      {u.is_banned ? 'Unban' : 'Ban'}
-                    </button>
-
-                    {isSuperAdmin && (
-                      <button
-                        onClick={() => handleAdminToggle(u.id, u.is_admin)}
-                        className={`px-2 py-1 text-xs rounded ${u.is_admin ? 'bg-amber-700 hover:bg-amber-600' : 'bg-zinc-700 hover:bg-zinc-600'}`}
-                      >
-                        {u.is_admin ? 'Remove Admin' : 'Make Admin'}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+      <nav className="border-b border-zinc-800/50 bg-zinc-900/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex gap-1">
+            {[
+              { id: 'users', label: 'Users & Stats', onClick: () => setActiveTab('users') },
+              { id: 'testing', label: 'Testing', onClick: () => setActiveTab('testing') },
+              { id: 'broadcast', label: 'Broadcast', onClick: () => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }},
+              { id: 'config', label: 'Config', onClick: () => { setActiveTab('config'); loadFeatureConfig(); }},
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={tab.onClick}
+                className={`px-4 py-3 text-sm font-medium transition-colors relative ${
+                  activeTab === tab.id
+                    ? 'text-amber-400'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                {tab.label}
+                {activeTab === tab.id && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-400" />
+                )}
+              </button>
             ))}
           </div>
         </div>
-      )}
+      </nav>
 
-      {/* TESTING TAB */}
-      {activeTab === 'testing' && (
-        <div>
-          {/* Mode Selection */}
-          <div className="mb-8">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide mb-3">Mode</h2>
-            <div className="flex gap-3 flex-wrap">
-              <button
-                onClick={() => setMode('fullMonty')}
-                className={`px-4 py-2 rounded transition-all ${mode === 'fullMonty' ? 'bg-amber-600 text-zinc-900' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'}`}
-              >
-                Full Monty
-              </button>
-              <button
-                onClick={() => setMode('levelSim')}
-                className={`px-4 py-2 rounded transition-all ${mode === 'levelSim' ? 'bg-amber-600 text-zinc-900' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'}`}
-              >
-                Level Simulator
-              </button>
-              <button
-                onClick={() => setMode('firstContact')}
-                className={`px-4 py-2 rounded transition-all ${mode === 'firstContact' ? 'bg-amber-600 text-zinc-900' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'}`}
-              >
-                First Contact
-              </button>
-            </div>
-            <p className="text-xs text-zinc-600 mt-2">
-              {mode === 'fullMonty' && `All features enabled (current v${VERSION} experience)`}
-              {mode === 'levelSim' && 'Pick a level to see that experience'}
-              {mode === 'firstContact' && 'Force Level 0 experience (simplified UI, plain English)'}
-            </p>
-          </div>
-
-          {/* Level Selector (only if levelSim) */}
-          {mode === 'levelSim' && (
-            <div className="mb-8">
-              <h2 className="text-sm text-zinc-500 uppercase tracking-wide mb-3">Select Level</h2>
-              <select
-                value={level}
-                onChange={(e) => setLevel(parseInt(e.target.value))}
-                className="bg-zinc-800 text-zinc-100 px-4 py-2 rounded w-full max-w-md border border-zinc-700 focus:border-amber-600 focus:outline-none"
-              >
-                {LEVELS.map(l => (
-                  <option key={l.value} value={l.value}>
-                    {l.label} — {l.desc}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* State Override */}
-          <div className="mb-8">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide mb-3">State Override</h2>
-            <div className="flex gap-4 items-center flex-wrap">
-              <div className="flex items-center gap-2">
-                <label className="text-sm text-zinc-400">Reading Count:</label>
-                <input
-                  type="number"
-                  value={readingCount}
-                  onChange={(e) => setReadingCount(parseInt(e.target.value) || 0)}
-                  className="bg-zinc-800 text-zinc-100 px-3 py-1 rounded w-24 border border-zinc-700 focus:border-amber-600 focus:outline-none"
-                />
+      {/* Content */}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {/* USERS TAB */}
+        {activeTab === 'users' && (
+          <div className="space-y-8">
+            {/* Core Stats */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Overview</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <StatCard value={totals.userCount || 0} label="Total Users" color="text-amber-400" size="large" highlight />
+                <StatCard value={totals.totalReadings || 0} label="Readings" color="text-cyan-400" size="large" highlight />
+                <StatCard value={`${((totals.totalTokens || 0) / 1000000).toFixed(2)}M`} label="Tokens Used" color="text-emerald-400" size="large" highlight />
+                <StatCard value={`$${(totals.totalCost || 0).toFixed(2)}`} label="Estimated Cost" color="text-rose-400" size="large" highlight />
               </div>
-              <button
-                onClick={resetProgress}
-                className="px-4 py-2 bg-red-900 hover:bg-red-800 rounded text-sm transition-all"
-              >
-                Reset All Progress
-              </button>
-            </div>
-          </div>
+            </section>
 
-          {/* Debug Options */}
-          <div className="mb-8">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide mb-3">Debug</h2>
-            <div className="flex gap-6 flex-wrap">
-              <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={showTokens}
-                  onChange={(e) => setShowTokens(e.target.checked)}
-                  className="rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
-                />
-                Show token counts
-              </label>
-              <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={showPrompt}
-                  onChange={(e) => setShowPrompt(e.target.checked)}
-                  className="rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
-                />
-                Show raw prompt
-              </label>
-            </div>
-          </div>
+            {/* Engagement Stats */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Engagement</h2>
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                <StatCard value={totals.totalReflects || 0} label="Reflects" color="text-violet-400" />
+                <StatCard value={totals.totalForges || 0} label="Forges" color="text-orange-400" />
+                <StatCard value={totals.totalExpansions || 0} label="Expansions" color="text-teal-400" />
+                <StatCard value={totals.totalDiscussions || 0} label="Hub Posts" color="text-blue-400" />
+                <StatCard value={totals.totalReplies || 0} label="Replies" color="text-pink-400" />
+              </div>
+            </section>
 
-          {/* Config Summary */}
-          <div className="mb-8 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide mb-2">Config Summary</h2>
-            <div className="text-sm text-zinc-300 space-y-1">
-              <p><span className="text-zinc-500">Mode:</span> {mode === 'fullMonty' ? 'Full Monty (Level 16)' : mode === 'firstContact' ? 'First Contact (Level 0)' : `Level ${level}`}</p>
-              <p><span className="text-zinc-500">Reading Count:</span> {readingCount}</p>
-              <p><span className="text-zinc-500">Show Tokens:</span> {showTokens ? 'Yes' : 'No'}</p>
-              <p><span className="text-zinc-500">Show Prompt:</span> {showPrompt ? 'Yes' : 'No'}</p>
-            </div>
-          </div>
-
-          {/* Launch */}
-          <button
-            onClick={launch}
-            className="px-6 py-3 bg-green-700 hover:bg-green-600 rounded text-lg transition-all"
-          >
-            Open Reader with Config →
-          </button>
-        </div>
-      )}
-
-      {/* BROADCAST TAB */}
-      {activeTab === 'broadcast' && (
-        <div>
-          {/* Stats Cards */}
-          <div className="flex gap-4 mb-6">
-            <div className={`bg-zinc-800/50 rounded-lg p-4 border ${!includeAll ? 'border-emerald-600/50 ring-2 ring-emerald-600/30' : 'border-zinc-700/50'}`}>
-              <div className="text-2xl font-light text-emerald-400">{subscriberCount}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">Opted-in Subscribers</div>
-            </div>
-            <div className={`bg-zinc-800/50 rounded-lg p-4 border ${includeAll ? 'border-amber-600/50 ring-2 ring-amber-600/30' : 'border-zinc-700/50'}`}>
-              <div className="text-2xl font-light text-amber-400">{allUsersCount}</div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide">All Users (F&F)</div>
-            </div>
-          </div>
-
-          {/* F&F Mode Toggle */}
-          <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/50 rounded-lg">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={includeAll}
-                onChange={(e) => setIncludeAll(e.target.checked)}
-                className="w-5 h-5 rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
-              />
+            {/* Mode & Spread Stats */}
+            <section className="grid sm:grid-cols-2 gap-6">
               <div>
-                <span className="text-amber-400 font-medium">Friends & Family Mode</span>
-                <p className="text-xs text-zinc-500 mt-0.5">
-                  Send to ALL {allUsersCount} users with email addresses, regardless of opt-in status.
-                  Use sparingly during early beta.
-                </p>
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Reading Modes</h2>
+                <div className="grid grid-cols-4 gap-3">
+                  <StatCard value={totals.modeCounts?.reflect || 0} label="Reflect" color="text-sky-400" />
+                  <StatCard value={totals.modeCounts?.discover || 0} label="Discover" color="text-lime-400" />
+                  <StatCard value={totals.modeCounts?.forge || 0} label="Forge" color="text-amber-400" />
+                  <StatCard value={totals.modeCounts?.explore || 0} label="Explore" color="text-fuchsia-400" />
+                </div>
               </div>
-            </label>
+              <div>
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Spread Types</h2>
+                <div className="grid grid-cols-4 gap-3">
+                  <StatCard value={totals.spreadCounts?.single || 0} label="Single" />
+                  <StatCard value={totals.spreadCounts?.triad || 0} label="Triad" />
+                  <StatCard value={totals.spreadCounts?.pentad || 0} label="Pentad" />
+                  <StatCard value={totals.spreadCounts?.septad || 0} label="Septad" />
+                </div>
+              </div>
+            </section>
+
+            {/* User List */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider font-medium">User Management</h2>
+                <button
+                  onClick={loadUsers}
+                  disabled={usersLoading}
+                  className="text-xs text-zinc-500 hover:text-amber-400 disabled:opacity-50 transition-colors"
+                >
+                  {usersLoading ? 'Loading...' : 'Refresh'}
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                {users.map(u => (
+                  <UserRow
+                    key={u.id}
+                    user={u}
+                    isSuperAdmin={isSuperAdmin}
+                    editingLimit={editingLimit}
+                    setEditingLimit={setEditingLimit}
+                    limitValue={limitValue}
+                    setLimitValue={setLimitValue}
+                    onBanToggle={handleBanToggle}
+                    onCommunityBanToggle={handleCommunityBanToggle}
+                    onAdminToggle={handleAdminToggle}
+                    onSetLimit={handleSetLimit}
+                    onResetTokens={handleResetTokens}
+                    onDelete={handleDeleteUser}
+                    deletingId={deletingId}
+                  />
+                ))}
+              </div>
+            </section>
           </div>
+        )}
 
-          <div className="max-w-2xl">
-            <div className="mb-4">
-              <label className="block text-sm text-zinc-500 uppercase tracking-wide mb-2">Subject</label>
-              <input
-                type="text"
-                value={broadcastSubject}
-                onChange={(e) => setBroadcastSubject(e.target.value)}
-                placeholder="e.g., Nirmanakaya Reader v0.74 - New Features!"
-                className="w-full bg-zinc-800 text-zinc-100 px-4 py-2 rounded border border-zinc-700 focus:border-amber-600 focus:outline-none"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-sm text-zinc-500 uppercase tracking-wide mb-2">Body (supports **bold** and *italic*)</label>
-              <textarea
-                value={broadcastBody}
-                onChange={(e) => setBroadcastBody(e.target.value)}
-                placeholder="Write your update message here...
-
-Use **bold** for emphasis and *italic* for subtle highlights.
-
-Double line breaks create new paragraphs."
-                rows={12}
-                className="w-full bg-zinc-800 text-zinc-100 px-4 py-3 rounded border border-zinc-700 focus:border-amber-600 focus:outline-none font-mono text-sm"
-              />
-            </div>
-
-            {broadcastResult && (
-              <div className={`mb-4 p-4 rounded ${broadcastResult.error ? 'bg-red-900/50 border border-red-700' : 'bg-emerald-900/50 border border-emerald-700'}`}>
-                {broadcastResult.error ? (
-                  <p className="text-red-300">Error: {broadcastResult.error}</p>
-                ) : (
-                  <p className="text-emerald-300">Sent successfully! {broadcastResult.sent} delivered, {broadcastResult.failed} failed.</p>
-                )}
+        {/* TESTING TAB */}
+        {activeTab === 'testing' && (
+          <div className="max-w-2xl space-y-8">
+            {/* Mode Selection */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Test Mode</h2>
+              <div className="flex gap-2 flex-wrap">
+                {[
+                  { id: 'fullMonty', label: 'Full Monty', desc: `All features (v${VERSION})` },
+                  { id: 'levelSim', label: 'Level Simulator', desc: 'Pick specific level' },
+                  { id: 'firstContact', label: 'First Contact', desc: 'Level 0 experience' },
+                ].map(m => (
+                  <button
+                    key={m.id}
+                    onClick={() => setMode(m.id)}
+                    className={`px-4 py-3 rounded-lg transition-all ${
+                      mode === m.id
+                        ? 'bg-amber-500 text-zinc-900'
+                        : 'bg-zinc-800/50 text-zinc-300 hover:bg-zinc-700/50'
+                    }`}
+                  >
+                    <div className="font-medium">{m.label}</div>
+                    <div className={`text-xs mt-0.5 ${mode === m.id ? 'text-zinc-700' : 'text-zinc-500'}`}>
+                      {m.desc}
+                    </div>
+                  </button>
+                ))}
               </div>
+            </section>
+
+            {/* Level Selector */}
+            {mode === 'levelSim' && (
+              <section>
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Select Level</h2>
+                <select
+                  value={level}
+                  onChange={(e) => setLevel(parseInt(e.target.value))}
+                  className="w-full bg-zinc-800/50 text-zinc-100 px-4 py-3 rounded-lg border border-zinc-700/50 focus:border-amber-500 focus:outline-none"
+                >
+                  {LEVELS.map(l => (
+                    <option key={l.value} value={l.value}>
+                      {l.label} — {l.desc}
+                    </option>
+                  ))}
+                </select>
+              </section>
             )}
 
-            <button
-              onClick={handleSendBroadcast}
-              disabled={broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)}
-              className={`px-6 py-3 rounded text-lg transition-all ${
-                broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)
-                  ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
-                  : includeAll
-                    ? 'bg-amber-700 hover:bg-amber-600 text-white'
-                    : 'bg-emerald-700 hover:bg-emerald-600 text-white'
-              }`}
-            >
-              {broadcastSending
-                ? 'Sending...'
-                : includeAll
-                  ? `Send to ALL ${allUsersCount} Users (F&F)`
-                  : `Send to ${subscriberCount} Subscribers`
-              }
-            </button>
+            {/* State Override */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">State Override</h2>
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <label className="text-sm text-zinc-400">Reading Count:</label>
+                  <input
+                    type="number"
+                    value={readingCount}
+                    onChange={(e) => setReadingCount(parseInt(e.target.value) || 0)}
+                    className="w-24 bg-zinc-800/50 text-zinc-100 px-3 py-2 rounded-lg border border-zinc-700/50 focus:border-amber-500 focus:outline-none"
+                  />
+                </div>
+                <button
+                  onClick={resetProgress}
+                  className="px-4 py-2 bg-red-900/50 hover:bg-red-800/50 text-red-300 rounded-lg text-sm transition-colors"
+                >
+                  Reset All Progress
+                </button>
+              </div>
+            </section>
 
-            <p className="text-xs text-zinc-600 mt-4">
-              {includeAll
-                ? 'F&F Mode: Sending to all users with email addresses. Use for important beta updates.'
-                : 'Standard: Sending only to users who opted in. Each email includes an unsubscribe link.'
-              }
-            </p>
-          </div>
+            {/* Debug Options */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Debug</h2>
+              <div className="flex gap-6 flex-wrap">
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showTokens}
+                    onChange={(e) => setShowTokens(e.target.checked)}
+                    className="w-4 h-4 rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
+                  />
+                  <span className="text-zinc-300">Show token counts</span>
+                </label>
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showPrompt}
+                    onChange={(e) => setShowPrompt(e.target.checked)}
+                    className="w-4 h-4 rounded bg-zinc-800 border-zinc-600 text-amber-500 focus:ring-amber-500"
+                  />
+                  <span className="text-zinc-300">Show raw prompt</span>
+                </label>
+              </div>
+            </section>
 
-          {/* Resend Confirmations Section */}
-          <div className="mt-12 pt-8 border-t border-zinc-700">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-medium text-zinc-300">Resend Confirmation Emails</h2>
+            {/* Summary & Launch */}
+            <section className="p-4 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-3 font-medium">Config Summary</h2>
+              <div className="text-sm text-zinc-300 space-y-1 mb-4">
+                <p><span className="text-zinc-500">Mode:</span> {mode === 'fullMonty' ? 'Full Monty (Level 16)' : mode === 'firstContact' ? 'First Contact (Level 0)' : `Level ${level}`}</p>
+                <p><span className="text-zinc-500">Reading Count:</span> {readingCount}</p>
+                <p><span className="text-zinc-500">Debug:</span> {[showTokens && 'Tokens', showPrompt && 'Prompt'].filter(Boolean).join(', ') || 'None'}</p>
+              </div>
               <button
-                onClick={loadUnconfirmedUsers}
-                disabled={resendLoading}
-                className="text-xs text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+                onClick={launch}
+                className="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-medium transition-colors"
               >
-                {resendLoading ? 'Loading...' : 'Refresh'}
+                Open Reader with Config →
               </button>
-            </div>
+            </section>
+          </div>
+        )}
 
-            {/* Stats */}
-            <div className="flex gap-4 mb-6">
-              <div className="bg-zinc-800/50 rounded-lg p-4 border border-rose-600/30">
-                <div className="text-2xl font-light text-rose-400">{unconfirmedUsers.length}</div>
-                <div className="text-xs text-zinc-500 uppercase tracking-wide">Unconfirmed</div>
+        {/* BROADCAST TAB */}
+        {activeTab === 'broadcast' && (
+          <div className="space-y-8">
+            {/* Subscriber Stats */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Recipients</h2>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setIncludeAll(false)}
+                  className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                    !includeAll
+                      ? 'border-emerald-500/50 bg-emerald-500/10'
+                      : 'border-zinc-700/30 bg-zinc-800/30 hover:border-zinc-600/50'
+                  }`}
+                >
+                  <div className="text-3xl font-light text-emerald-400 mb-1">{subscriberCount}</div>
+                  <div className="text-xs text-zinc-500 uppercase tracking-wider">Opted-in Subscribers</div>
+                </button>
+                <button
+                  onClick={() => setIncludeAll(true)}
+                  className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                    includeAll
+                      ? 'border-amber-500/50 bg-amber-500/10'
+                      : 'border-zinc-700/30 bg-zinc-800/30 hover:border-zinc-600/50'
+                  }`}
+                >
+                  <div className="text-3xl font-light text-amber-400 mb-1">{allUsersCount}</div>
+                  <div className="text-xs text-zinc-500 uppercase tracking-wider">All Users (F&F)</div>
+                </button>
               </div>
-              <div className="bg-zinc-800/50 rounded-lg p-4 border border-emerald-600/30">
-                <div className="text-2xl font-light text-emerald-400">{confirmedCount}</div>
-                <div className="text-xs text-zinc-500 uppercase tracking-wide">Confirmed</div>
-              </div>
-            </div>
+              {includeAll && (
+                <div className="mt-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-300">
+                  F&F Mode: Sending to all users regardless of opt-in status. Use sparingly.
+                </div>
+              )}
+            </section>
 
-            {/* Result message */}
-            {resendResult && (
-              <div className={`mb-4 p-4 rounded ${resendResult.error ? 'bg-red-900/50 border border-red-700' : 'bg-emerald-900/50 border border-emerald-700'}`}>
-                {resendResult.error ? (
-                  <p className="text-red-300">Error: {resendResult.error}</p>
-                ) : (
-                  <div>
-                    <p className="text-emerald-300">Sent {resendResult.sent} confirmation{resendResult.sent !== 1 ? 's' : ''}, {resendResult.failed} failed.</p>
-                    {resendResult.errors?.length > 0 && (
-                      <div className="mt-2 text-xs text-red-300">
-                        {resendResult.errors.map((e, i) => (
-                          <p key={i}>{e.email}: {e.error}</p>
-                        ))}
-                      </div>
-                    )}
+            {/* Compose */}
+            <section className="max-w-2xl">
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Compose</h2>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  value={broadcastSubject}
+                  onChange={(e) => setBroadcastSubject(e.target.value)}
+                  placeholder="Subject line..."
+                  className="w-full bg-zinc-800/50 text-zinc-100 px-4 py-3 rounded-lg border border-zinc-700/50 focus:border-amber-500 focus:outline-none"
+                />
+                <textarea
+                  value={broadcastBody}
+                  onChange={(e) => setBroadcastBody(e.target.value)}
+                  placeholder="Message body... (supports **bold** and *italic*)"
+                  rows={10}
+                  className="w-full bg-zinc-800/50 text-zinc-100 px-4 py-3 rounded-lg border border-zinc-700/50 focus:border-amber-500 focus:outline-none font-mono text-sm"
+                />
+
+                {broadcastResult && (
+                  <div className={`p-4 rounded-lg ${
+                    broadcastResult.error
+                      ? 'bg-red-900/30 border border-red-700/50 text-red-300'
+                      : 'bg-emerald-900/30 border border-emerald-700/50 text-emerald-300'
+                  }`}>
+                    {broadcastResult.error
+                      ? `Error: ${broadcastResult.error}`
+                      : `Sent successfully! ${broadcastResult.sent} delivered, ${broadcastResult.failed} failed.`
+                    }
                   </div>
                 )}
-              </div>
-            )}
 
-            {/* Unconfirmed users list */}
-            {unconfirmedUsers.length > 0 ? (
-              <div className="space-y-2">
-                {/* Resend All button */}
-                <div className="mb-4">
+                <button
+                  onClick={handleSendBroadcast}
+                  disabled={broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)}
+                  className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                    broadcastSending || (includeAll ? allUsersCount === 0 : subscriberCount === 0)
+                      ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                      : includeAll
+                        ? 'bg-amber-600 hover:bg-amber-500 text-white'
+                        : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                  }`}
+                >
+                  {broadcastSending
+                    ? 'Sending...'
+                    : `Send to ${includeAll ? allUsersCount : subscriberCount} ${includeAll ? 'Users' : 'Subscribers'}`
+                  }
+                </button>
+              </div>
+            </section>
+
+            {/* Resend Confirmations */}
+            <section className="border-t border-zinc-800/50 pt-8">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider font-medium">Unconfirmed Users</h2>
+                <button
+                  onClick={loadUnconfirmedUsers}
+                  disabled={resendLoading}
+                  className="text-xs text-zinc-500 hover:text-amber-400 disabled:opacity-50 transition-colors"
+                >
+                  {resendLoading ? 'Loading...' : 'Refresh'}
+                </button>
+              </div>
+
+              <div className="flex gap-3 mb-6">
+                <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-lg">
+                  <div className="text-2xl font-light text-rose-400">{unconfirmedUsers.length}</div>
+                  <div className="text-xs text-zinc-500 uppercase tracking-wider">Unconfirmed</div>
+                </div>
+                <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                  <div className="text-2xl font-light text-emerald-400">{confirmedCount}</div>
+                  <div className="text-xs text-zinc-500 uppercase tracking-wider">Confirmed</div>
+                </div>
+              </div>
+
+              {resendResult && (
+                <div className={`mb-4 p-4 rounded-lg ${
+                  resendResult.error
+                    ? 'bg-red-900/30 border border-red-700/50 text-red-300'
+                    : 'bg-emerald-900/30 border border-emerald-700/50 text-emerald-300'
+                }`}>
+                  {resendResult.error
+                    ? `Error: ${resendResult.error}`
+                    : `Sent ${resendResult.sent} confirmation(s), ${resendResult.failed} failed.`
+                  }
+                </div>
+              )}
+
+              {unconfirmedUsers.length > 0 ? (
+                <div className="space-y-2">
                   <button
                     onClick={() => {
-                      if (confirm(`Send confirmation emails to ALL ${unconfirmedUsers.length} unconfirmed users?`)) {
+                      if (confirm(`Send to ALL ${unconfirmedUsers.length} unconfirmed users?`)) {
                         handleResendConfirmation(null, true);
                       }
                     }}
                     disabled={sendingTo !== null}
-                    className={`px-4 py-2 rounded transition-all ${
+                    className={`mb-4 px-4 py-2 rounded-lg text-sm transition-colors ${
                       sendingTo !== null
                         ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
-                        : 'bg-rose-700 hover:bg-rose-600 text-white'
+                        : 'bg-rose-600 hover:bg-rose-500 text-white'
                     }`}
                   >
-                    {sendingTo === 'all' ? 'Sending...' : `Resend to All ${unconfirmedUsers.length} Users`}
+                    {sendingTo === 'all' ? 'Sending...' : `Resend to All ${unconfirmedUsers.length}`}
                   </button>
-                </div>
 
-                {/* Individual users */}
-                {unconfirmedUsers.map(u => (
-                  <div key={u.id} className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50 flex items-center justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm text-zinc-300 truncate">{u.email}</div>
-                      <div className="text-xs text-zinc-600 flex flex-wrap gap-x-3 gap-y-0.5">
-                        <span>Signed up: {new Date(u.created_at).toLocaleDateString()}</span>
-                        <span>· {u.provider}</span>
-                        {u.confirmation_sent_at && (
-                          <span className="text-amber-600">· Sent: {new Date(u.confirmation_sent_at).toLocaleDateString()}</span>
-                        )}
-                        {u.confirmation_resent_at && (
-                          <span className="text-emerald-500">· Resent: {new Date(u.confirmation_resent_at).toLocaleDateString()}</span>
-                        )}
+                  {unconfirmedUsers.map(u => (
+                    <div key={u.id} className="flex items-center justify-between gap-4 p-3 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                      <div className="min-w-0">
+                        <div className="text-sm text-zinc-300 truncate">{u.email}</div>
+                        <div className="text-xs text-zinc-600 flex gap-2">
+                          <span>{new Date(u.created_at).toLocaleDateString()}</span>
+                          <span>•</span>
+                          <span>{u.provider}</span>
+                          {u.confirmation_resent_at && (
+                            <>
+                              <span>•</span>
+                              <span className="text-emerald-500">Resent {new Date(u.confirmation_resent_at).toLocaleDateString()}</span>
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {u.confirmation_resent_at && (
-                        <span className="text-xs text-emerald-500" title={`Last resent: ${new Date(u.confirmation_resent_at).toLocaleString()}`}>✓</span>
-                      )}
                       <button
                         onClick={() => handleResendConfirmation(u.id, false)}
                         disabled={sendingTo !== null}
-                        className={`px-3 py-1 text-xs rounded transition-all ${
+                        className={`px-3 py-1.5 text-xs rounded transition-colors ${
                           sendingTo !== null
                             ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
-                            : u.confirmation_resent_at
-                              ? 'bg-zinc-700 hover:bg-violet-700 text-zinc-400 hover:text-white'
-                              : 'bg-violet-700 hover:bg-violet-600 text-white'
+                            : 'bg-violet-600 hover:bg-violet-500 text-white'
                         }`}
                       >
-                        {sendingTo === u.id ? 'Sending...' : u.confirmation_resent_at ? 'Resend Again' : 'Resend'}
+                        {sendingTo === u.id ? 'Sending...' : 'Resend'}
                       </button>
                     </div>
-                  </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-zinc-500">
+                  {resendLoading ? 'Loading...' : 'All users confirmed!'}
+                </div>
+              )}
+            </section>
+          </div>
+        )}
+
+        {/* CONFIG TAB */}
+        {activeTab === 'config' && (
+          <div className="max-w-2xl space-y-6">
+            {/* Advanced Voice */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-2">Advanced Voice Settings</h3>
+              <p className="text-xs text-zinc-500 mb-4">Control who can see fine-tune voice options</p>
+              <div className="flex gap-2">
+                {['admins', 'everyone'].map(opt => (
+                  <button
+                    key={opt}
+                    onClick={() => setFeatureConfig(prev => ({ ...prev, advancedVoiceFor: opt }))}
+                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                      featureConfig.advancedVoiceFor === opt
+                        ? 'bg-amber-500 text-zinc-900'
+                        : 'bg-zinc-700/50 text-zinc-400 hover:bg-zinc-600/50'
+                    }`}
+                  >
+                    {opt === 'admins' ? 'Admins Only' : 'Everyone'}
+                  </button>
                 ))}
               </div>
-            ) : (
-              <div className="text-zinc-500 text-center py-8">
-                {resendLoading ? 'Loading...' : 'All users are confirmed!'}
-              </div>
-            )}
+            </section>
 
-            <p className="text-xs text-zinc-600 mt-4">
-              Sends confirmation emails from ZolaKaya@nirmanakaya.com via Resend. Users click the link to verify their email.
+            {/* Models for Admins */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-violet-400 mb-2">Models for Admins</h3>
+              <p className="text-xs text-zinc-500 mb-4">Which models can admins select?</p>
+              <div className="flex gap-2 mb-4">
+                {['haiku', 'sonnet', 'opus'].map(model => (
+                  <button
+                    key={model}
+                    onClick={() => toggleModelForAdmins(model)}
+                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                      featureConfig.modelsForAdmins?.includes(model)
+                        ? 'bg-violet-500 text-white'
+                        : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
+                    }`}
+                  >
+                    {model}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-zinc-500">Default:</span>
+                <select
+                  value={featureConfig.defaultModelAdmin}
+                  onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelAdmin: e.target.value }))}
+                  className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
+                >
+                  {featureConfig.modelsForAdmins?.map(m => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
+            </section>
+
+            {/* Models for Users */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-cyan-400 mb-2">Models for Users</h3>
+              <p className="text-xs text-zinc-500 mb-4">Which models can regular users select?</p>
+              <div className="flex gap-2 mb-4">
+                {['haiku', 'sonnet', 'opus'].map(model => (
+                  <button
+                    key={model}
+                    onClick={() => toggleModelForUsers(model)}
+                    className={`px-4 py-2 rounded-lg text-sm capitalize transition-colors ${
+                      featureConfig.modelsForUsers?.includes(model)
+                        ? 'bg-cyan-500 text-white'
+                        : 'bg-zinc-700/50 text-zinc-500 hover:bg-zinc-600/50'
+                    }`}
+                  >
+                    {model}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-zinc-500">Default:</span>
+                <select
+                  value={featureConfig.defaultModelUser}
+                  onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultModelUser: e.target.value }))}
+                  className="bg-zinc-700/50 border-none rounded px-2 py-1 text-zinc-300"
+                >
+                  {featureConfig.modelsForUsers?.map(m => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
+            </section>
+
+            {/* Cost Reference */}
+            <section className="p-4 bg-zinc-900/50 rounded-lg border border-zinc-800/50">
+              <div className="text-xs text-zinc-500 mb-3">Cost Reference (per 1M tokens)</div>
+              <div className="grid grid-cols-3 gap-4 text-sm">
+                <div>
+                  <span className="text-emerald-400 font-medium">Haiku</span>
+                  <div className="text-xs text-zinc-500">$1 in / $5 out</div>
+                </div>
+                <div>
+                  <span className="text-cyan-400 font-medium">Sonnet</span>
+                  <div className="text-xs text-zinc-500">$3 in / $15 out</div>
+                </div>
+                <div>
+                  <span className="text-violet-400 font-medium">Opus</span>
+                  <div className="text-xs text-zinc-500">$15 in / $75 out</div>
+                </div>
+              </div>
+            </section>
+
+            {/* Save */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={saveFeatureConfig}
+                disabled={configLoading}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  configLoading
+                    ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                    : 'bg-amber-500 hover:bg-amber-400 text-zinc-900'
+                }`}
+              >
+                {configLoading ? 'Saving...' : 'Save Configuration'}
+              </button>
+              {configSaved && (
+                <span className="text-emerald-400 text-sm flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Saved
+                </span>
+              )}
+            </div>
+
+            <p className="text-xs text-zinc-600">
+              Config requires site_config table in Supabase. Settings use defaults until table exists.
             </p>
           </div>
-        </div>
-      )}
-
+        )}
+      </main>
     </div>
   );
 }
