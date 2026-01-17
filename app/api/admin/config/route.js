@@ -81,6 +81,7 @@ export async function GET(request) {
   try {
     if (!supabaseAdmin) {
       // Return defaults if no database
+      console.log('[Config GET] No supabaseAdmin, returning defaults');
       return Response.json({ config: DEFAULT_CONFIG });
     }
 
@@ -91,13 +92,17 @@ export async function GET(request) {
       .eq('key', CONFIG_KEY)
       .single();
 
+    console.log('[Config GET] Query result:', { data: data ? 'found' : 'null', error: error?.message });
+
     if (error || !data) {
       // Return defaults if not found
+      console.log('[Config GET] Error or no data, returning defaults');
       return Response.json({ config: DEFAULT_CONFIG });
     }
 
     // Merge with defaults to ensure all keys exist
     const config = { ...DEFAULT_CONFIG, ...data.value };
+    console.log('[Config GET] Returning saved config, persona:', config.defaultVoice?.persona);
     return Response.json({ config });
 
   } catch (err) {
