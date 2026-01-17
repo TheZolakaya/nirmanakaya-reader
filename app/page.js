@@ -288,6 +288,7 @@ export default function NirmanakaReader() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState('signin');
   const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false); // Track if auth check is complete
   const [savedReadingId, setSavedReadingId] = useState(null);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [featureConfig, setFeatureConfig] = useState({
@@ -326,6 +327,7 @@ export default function NirmanakaReader() {
         setCurrentUser(user);
         setUserIsAdmin(isAdmin(user));
       }
+      setAuthChecked(true); // Mark auth check as complete
     }
 
     // Fetch feature config
@@ -3436,6 +3438,38 @@ CRITICAL FORMATTING RULES:
           }}
         />
       )}
+      {/* Auth Gate - require sign-in to use the reader */}
+      {authChecked && !currentUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm">
+          <div className="max-w-md mx-auto px-6 text-center">
+            {/* Logo/Title */}
+            <h1 className="text-3xl font-light tracking-wide text-amber-400 mb-2">
+              Nirmanakaya
+            </h1>
+            <p className="text-zinc-500 text-sm mb-8">Consciousness Architecture Reader</p>
+
+            {/* Sign-in prompt */}
+            <div className="bg-zinc-900/80 rounded-xl p-8 border border-zinc-800/50">
+              <p className="text-zinc-300 mb-6">
+                Sign in to begin your reading
+              </p>
+              <button
+                onClick={() => setAuthModalOpen(true)}
+                className="w-full px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors"
+              >
+                Sign In
+              </button>
+              <p className="text-xs text-zinc-600 mt-4">
+                Free to use. Your readings are saved to your journal.
+              </p>
+            </div>
+
+            {/* Version */}
+            <p className="text-xs text-zinc-700 mt-6">v{VERSION}</p>
+          </div>
+        </div>
+      )}
+
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
