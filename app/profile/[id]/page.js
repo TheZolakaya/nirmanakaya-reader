@@ -12,7 +12,8 @@ import {
   ensureProfile,
   updateNotificationPrefs,
   getEmailPrefs,
-  updateEmailPrefs
+  updateEmailPrefs,
+  isAdmin
 } from '../../../lib/supabase';
 
 export default function ProfilePage() {
@@ -24,6 +25,7 @@ export default function ProfilePage() {
   const [readings, setReadings] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('readings');
@@ -55,6 +57,7 @@ export default function ProfilePage() {
         // Get current user
         const { user } = await getUser();
         setCurrentUser(user);
+        setUserIsAdmin(isAdmin(user));
 
         // Get profile data
         let profileData;
@@ -199,9 +202,16 @@ export default function ProfilePage() {
             </svg>
             Back to Reader
           </Link>
-          <Link href="/hub" className="text-zinc-400 hover:text-zinc-300 text-sm">
-            Hub
-          </Link>
+          <div className="flex items-center gap-4">
+            {userIsAdmin && (
+              <Link href="/admin" className="text-amber-400 hover:text-amber-300 text-sm">
+                Admin
+              </Link>
+            )}
+            <Link href="/hub" className="text-zinc-400 hover:text-zinc-300 text-sm">
+              Hub
+            </Link>
+          </div>
         </div>
       </header>
 
