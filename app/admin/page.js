@@ -299,11 +299,18 @@ export default function AdminPanel() {
     defaultModelUser: 'sonnet',
     defaultVoice: {
       preset: 'kind',
+      persona: 'friend',
+      humor: 50,
+      register: 50,
+      agency: 50,
+      roastMode: false,
+      directMode: false,
       complexity: 'guide',
-      tone: 50,
-      focus: 50,
-      density: 50,
-      scope: 50
+      seriousness: 'light',
+      voice: 'warm',
+      focus: 'feel',
+      density: 'essential',
+      scope: 'here'
     },
     defaultMode: 'reflect',
     defaultSpread: 'triad',
@@ -1192,183 +1199,340 @@ export default function AdminPanel() {
             {/* VOICE DEFAULTS SECTION */}
             {configSection === 'voice' && (
               <div className="max-w-2xl space-y-6">
-                {/* Delivery Preset */}
+                {/* Persona */}
                 <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
-                  <h3 className="text-sm font-medium text-amber-400 mb-2">Default Delivery Preset</h3>
-                  <p className="text-xs text-zinc-500 mb-4">Quick voice configuration for the overall tone</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  <h3 className="text-sm font-medium text-violet-400 mb-2">Who reads this to you?</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Default persona for the reader's voice</p>
+                  <div className="grid grid-cols-3 gap-2">
                     {[
-                      { id: 'clear', label: 'Clear', desc: 'Direct & concise', icon: '💎' },
-                      { id: 'kind', label: 'Kind', desc: 'Gentle & supportive', icon: '💜' },
-                      { id: 'playful', label: 'Playful', desc: 'Light & engaging', icon: '✨' },
-                      { id: 'wise', label: 'Wise', desc: 'Elder wisdom', icon: '🦉' },
-                      { id: 'oracle', label: 'Oracle', desc: 'Full depth', icon: '🔮' },
-                    ].map(preset => (
+                      { id: 'none', label: 'None' },
+                      { id: 'friend', label: 'Friend' },
+                      { id: 'therapist', label: 'Therapist' },
+                      { id: 'spiritualist', label: 'Spiritualist' },
+                      { id: 'scientist', label: 'Scientist' },
+                      { id: 'coach', label: 'Coach' },
+                    ].map(persona => (
                       <button
-                        key={preset.id}
+                        key={persona.id}
                         onClick={() => setFeatureConfig(prev => ({
                           ...prev,
-                          defaultVoice: { ...prev.defaultVoice, preset: preset.id }
+                          defaultVoice: { ...prev.defaultVoice, persona: persona.id }
                         }))}
-                        className={`p-3 rounded-lg text-center transition-all ${
-                          featureConfig.defaultVoice?.preset === preset.id
-                            ? 'bg-amber-500/20 border-2 border-amber-500/50'
-                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
+                        className={`py-3 px-4 rounded-lg text-sm font-medium transition-all ${
+                          featureConfig.defaultVoice?.persona === persona.id
+                            ? 'bg-violet-600 text-white'
+                            : 'bg-zinc-700/50 text-zinc-300 hover:bg-zinc-700'
                         }`}
                       >
-                        <div className="text-lg mb-1">{preset.icon}</div>
-                        <div className={`text-sm font-medium ${
-                          featureConfig.defaultVoice?.preset === preset.id ? 'text-amber-400' : 'text-zinc-300'
-                        }`}>{preset.label}</div>
-                        <div className="text-[10px] text-zinc-500">{preset.desc}</div>
+                        {persona.label}
                       </button>
                     ))}
                   </div>
+                  <p className="text-xs text-zinc-600 mt-3 text-center italic">
+                    {featureConfig.defaultVoice?.persona === 'friend' && 'Warm, direct, like your best friend'}
+                    {featureConfig.defaultVoice?.persona === 'therapist' && 'Reflective, supportive, holding space'}
+                    {featureConfig.defaultVoice?.persona === 'spiritualist' && 'Mystical, connected, transcendent'}
+                    {featureConfig.defaultVoice?.persona === 'scientist' && 'Analytical, precise, evidence-based'}
+                    {featureConfig.defaultVoice?.persona === 'coach' && 'Motivating, action-oriented, empowering'}
+                    {featureConfig.defaultVoice?.persona === 'none' && 'Neutral voice, no persona'}
+                  </p>
                 </section>
 
-                {/* Complexity */}
-                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
-                  <h3 className="text-sm font-medium text-rose-400 mb-2">Default Complexity</h3>
-                  <p className="text-xs text-zinc-500 mb-4">Vocabulary depth and framework terminology</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {[
-                      { id: 'friend', label: 'Friend', desc: 'Casual, accessible' },
-                      { id: 'guide', label: 'Guide', desc: 'Balanced depth' },
-                      { id: 'elder', label: 'Elder', desc: 'Philosophical' },
-                      { id: 'oracle', label: 'Oracle', desc: 'Full framework' },
-                    ].map(level => (
-                      <button
-                        key={level.id}
-                        onClick={() => setFeatureConfig(prev => ({
-                          ...prev,
-                          defaultVoice: { ...prev.defaultVoice, complexity: level.id }
-                        }))}
-                        className={`p-3 rounded-lg text-left transition-all ${
-                          featureConfig.defaultVoice?.complexity === level.id
-                            ? 'bg-rose-500/20 border-2 border-rose-500/50'
-                            : 'bg-zinc-700/30 border border-zinc-700/50 hover:bg-zinc-700/50'
-                        }`}
-                      >
-                        <div className={`text-sm font-medium ${
-                          featureConfig.defaultVoice?.complexity === level.id ? 'text-rose-400' : 'text-zinc-300'
-                        }`}>{level.label}</div>
-                        <div className="text-[10px] text-zinc-500">{level.desc}</div>
-                      </button>
-                    ))}
-                  </div>
-                </section>
-
-                {/* Voice Sliders */}
+                {/* Main Voice Sliders */}
                 <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
                   <div>
-                    <h3 className="text-sm font-medium text-violet-400 mb-1">Default Voice Fine-Tuning</h3>
-                    <p className="text-xs text-zinc-500">Starting position for all voice sliders</p>
+                    <h3 className="text-sm font-medium text-amber-400 mb-1">Fine-Tune Voice</h3>
+                    <p className="text-xs text-zinc-500">Main voice control sliders</p>
                   </div>
 
-                  {/* Tone */}
+                  {/* Humor */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
-                      <span className="text-zinc-400">Tone</span>
-                      <span className="text-zinc-500">
-                        {(featureConfig.defaultVoice?.tone || 50) < 30 ? 'Playful' :
-                         (featureConfig.defaultVoice?.tone || 50) > 70 ? 'Profound' : 'Balanced'}
+                      <span className="text-zinc-300 font-medium">Humor</span>
+                      <span className="text-amber-400">
+                        {(featureConfig.defaultVoice?.humor || 50) < 30 ? 'Unhinged' :
+                         (featureConfig.defaultVoice?.humor || 50) > 70 ? 'Sacred' : 'Balanced'}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-zinc-600 w-14">Playful</span>
+                      <span className="text-[10px] text-zinc-500 w-16">Unhinged</span>
                       <input
                         type="range"
                         min="0"
                         max="100"
-                        value={featureConfig.defaultVoice?.tone || 50}
+                        value={featureConfig.defaultVoice?.humor || 50}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
-                          defaultVoice: { ...prev.defaultVoice, tone: parseInt(e.target.value) }
+                          defaultVoice: { ...prev.defaultVoice, humor: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500/50 via-zinc-600 to-violet-500/50"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
                       />
-                      <span className="text-[10px] text-zinc-600 w-14 text-right">Profound</span>
+                      <span className="text-[10px] text-zinc-500 w-16 text-right">Sacred</span>
                     </div>
                   </div>
 
-                  {/* Focus */}
+                  {/* Register */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
-                      <span className="text-zinc-400">Focus</span>
-                      <span className="text-zinc-500">
-                        {(featureConfig.defaultVoice?.focus || 50) < 30 ? 'Poetic' :
-                         (featureConfig.defaultVoice?.focus || 50) > 70 ? 'Practical' : 'Balanced'}
+                      <span className="text-zinc-300 font-medium">Register</span>
+                      <span className="text-amber-400">
+                        {(featureConfig.defaultVoice?.register || 50) < 30 ? 'Chaos' :
+                         (featureConfig.defaultVoice?.register || 50) > 70 ? 'Oracle' : 'Polished'}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-zinc-600 w-14">Poetic</span>
+                      <span className="text-[10px] text-zinc-500 w-16">Chaos</span>
                       <input
                         type="range"
                         min="0"
                         max="100"
-                        value={featureConfig.defaultVoice?.focus || 50}
+                        value={featureConfig.defaultVoice?.register || 50}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
-                          defaultVoice: { ...prev.defaultVoice, focus: parseInt(e.target.value) }
+                          defaultVoice: { ...prev.defaultVoice, register: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-pink-500/50 via-zinc-600 to-teal-500/50"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
                       />
-                      <span className="text-[10px] text-zinc-600 w-14 text-right">Practical</span>
+                      <span className="text-[10px] text-zinc-500 w-16 text-right">Oracle</span>
                     </div>
                   </div>
 
-                  {/* Density */}
+                  {/* Agency */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
-                      <span className="text-zinc-400">Density</span>
-                      <span className="text-zinc-500">
-                        {(featureConfig.defaultVoice?.density || 50) < 30 ? 'Sparse' :
-                         (featureConfig.defaultVoice?.density || 50) > 70 ? 'Rich' : 'Balanced'}
+                      <span className="text-amber-400 font-medium">Agency</span>
+                      <span className="text-amber-400">
+                        {(featureConfig.defaultVoice?.agency || 50) < 30 ? 'Witness' :
+                         (featureConfig.defaultVoice?.agency || 50) > 70 ? 'Creator' : 'Receptive'}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-zinc-600 w-14">Sparse</span>
+                      <span className="text-[10px] text-zinc-500 w-16">Witness</span>
                       <input
                         type="range"
                         min="0"
                         max="100"
-                        value={featureConfig.defaultVoice?.density || 50}
+                        value={featureConfig.defaultVoice?.agency || 50}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
-                          defaultVoice: { ...prev.defaultVoice, density: parseInt(e.target.value) }
+                          defaultVoice: { ...prev.defaultVoice, agency: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-sky-500/50 via-zinc-600 to-orange-500/50"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
                       />
-                      <span className="text-[10px] text-zinc-600 w-14 text-right">Rich</span>
+                      <span className="text-[10px] text-zinc-500 w-16 text-right">Creator</span>
                     </div>
-                  </div>
-
-                  {/* Scope */}
-                  <div>
-                    <div className="flex justify-between text-xs mb-2">
-                      <span className="text-zinc-400">Scope</span>
-                      <span className="text-zinc-500">
-                        {(featureConfig.defaultVoice?.scope || 50) < 30 ? 'Personal' :
-                         (featureConfig.defaultVoice?.scope || 50) > 70 ? 'Cosmic' : 'Balanced'}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-zinc-600 w-14">Personal</span>
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={featureConfig.defaultVoice?.scope || 50}
-                        onChange={(e) => setFeatureConfig(prev => ({
-                          ...prev,
-                          defaultVoice: { ...prev.defaultVoice, scope: parseInt(e.target.value) }
-                        }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-emerald-500/50 via-zinc-600 to-indigo-500/50"
-                      />
-                      <span className="text-[10px] text-zinc-600 w-14 text-right">Cosmic</span>
-                    </div>
+                    <p className="text-[10px] text-zinc-600 text-center mt-1">Balanced observation and agency</p>
                   </div>
                 </section>
+
+                {/* Special Modes */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-rose-400 mb-4">Special Modes</h3>
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={featureConfig.defaultVoice?.roastMode || false}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, roastMode: e.target.checked }
+                        }))}
+                        className="w-5 h-5 rounded bg-zinc-700 border-zinc-600 text-rose-500 focus:ring-rose-500"
+                      />
+                      <div>
+                        <span className="text-zinc-300 font-medium">Roast Mode</span>
+                        <span className="text-zinc-600 text-xs ml-2">(savage)</span>
+                      </div>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={featureConfig.defaultVoice?.directMode || false}
+                        onChange={(e) => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, directMode: e.target.checked }
+                        }))}
+                        className="w-5 h-5 rounded bg-zinc-700 border-zinc-600 text-violet-500 focus:ring-violet-500"
+                      />
+                      <div>
+                        <span className="text-zinc-300 font-medium">Direct Mode</span>
+                        <span className="text-zinc-600 text-xs ml-2">(unfiltered)</span>
+                      </div>
+                    </label>
+                  </div>
+                </section>
+
+                {/* Advanced Voice Settings - Collapsible */}
+                <details className="group">
+                  <summary className="p-4 bg-zinc-800/30 rounded-lg border border-zinc-700/30 cursor-pointer text-sm text-zinc-400 hover:text-zinc-300 list-none flex items-center justify-between">
+                    <span>Advanced Voice Settings</span>
+                    <svg className="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="mt-2 p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
+                    {/* Reading Voice Preset */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Reading Voice</div>
+                      <div className="flex gap-1 p-1 bg-zinc-900/50 rounded-lg">
+                        {['clear', 'kind', 'playful', 'wise', 'oracle'].map(preset => (
+                          <button
+                            key={preset}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, preset }
+                            }))}
+                            className={`flex-1 py-2 px-2 rounded-md text-xs font-medium capitalize transition-all ${
+                              featureConfig.defaultVoice?.preset === preset
+                                ? 'bg-violet-600 text-white'
+                                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+                            }`}
+                          >
+                            {preset}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Complexity - "Speak to me like..." */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Speak to me like...</div>
+                      <div className="grid grid-cols-5 gap-1">
+                        {['friend', 'guide', 'teacher', 'mentor', 'master'].map(level => (
+                          <button
+                            key={level}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, complexity: level }
+                            }))}
+                            className={`py-2 px-2 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.complexity === level
+                                ? 'bg-rose-500/30 text-rose-400 border border-rose-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {level}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Seriousness (Tone) */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Tone</div>
+                      <div className="grid grid-cols-5 gap-1">
+                        {['playful', 'light', 'balanced', 'earnest', 'grave'].map(tone => (
+                          <button
+                            key={tone}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, seriousness: tone }
+                            }))}
+                            className={`py-2 px-2 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.seriousness === tone
+                                ? 'bg-amber-500/30 text-amber-400 border border-amber-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {tone}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Voice */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Voice</div>
+                      <div className="grid grid-cols-4 gap-1">
+                        {['wonder', 'warm', 'direct', 'grounded'].map(v => (
+                          <button
+                            key={v}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, voice: v }
+                            }))}
+                            className={`py-2 px-3 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.voice === v
+                                ? 'bg-cyan-500/30 text-cyan-400 border border-cyan-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {v}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Focus */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Focus</div>
+                      <div className="grid grid-cols-4 gap-1">
+                        {['do', 'feel', 'see', 'build'].map(f => (
+                          <button
+                            key={f}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, focus: f }
+                            }))}
+                            className={`py-2 px-3 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.focus === f
+                                ? 'bg-emerald-500/30 text-emerald-400 border border-emerald-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {f}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Density */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Density</div>
+                      <div className="grid grid-cols-4 gap-1">
+                        {['luminous', 'rich', 'clear', 'essential'].map(d => (
+                          <button
+                            key={d}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, density: d }
+                            }))}
+                            className={`py-2 px-3 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.density === d
+                                ? 'bg-violet-500/30 text-violet-400 border border-violet-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {d}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Scope */}
+                    <div>
+                      <div className="text-xs text-zinc-400 mb-2">Scope</div>
+                      <div className="grid grid-cols-4 gap-1">
+                        {['resonant', 'patterned', 'connected', 'here'].map(s => (
+                          <button
+                            key={s}
+                            onClick={() => setFeatureConfig(prev => ({
+                              ...prev,
+                              defaultVoice: { ...prev.defaultVoice, scope: s }
+                            }))}
+                            className={`py-2 px-3 rounded text-xs capitalize transition-all ${
+                              featureConfig.defaultVoice?.scope === s
+                                ? 'bg-pink-500/30 text-pink-400 border border-pink-500/50'
+                                : 'bg-zinc-700/30 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/50'
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </details>
               </div>
             )}
 

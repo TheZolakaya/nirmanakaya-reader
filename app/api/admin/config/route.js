@@ -25,14 +25,42 @@ const DEFAULT_CONFIG = {
   defaultModelAdmin: 'sonnet',
   defaultModelUser: 'sonnet',
 
-  // Default voice settings
+  // Default voice settings (matches app/page.js voice panel)
   defaultVoice: {
+    // === READING VOICE (top bar) ===
     preset: 'kind',          // clear | kind | playful | wise | oracle
-    complexity: 'guide',     // friend | guide | elder | oracle
-    tone: 50,                // 0-100 (playful to profound)
-    focus: 50,               // 0-100 (poetic to practical)
-    density: 50,             // 0-100 (sparse to rich)
-    scope: 50                // 0-100 (personal to cosmic)
+
+    // === FINE-TUNE VOICE section ===
+    // Persona - "Who reads this to you?"
+    persona: 'friend',       // none | friend | therapist | spiritualist | scientist | coach
+
+    // Sliders (0-100)
+    humor: 50,               // unhinged (0) to sacred (100)
+    register: 50,            // chaos (0) to oracle (100)
+    agency: 50,              // witness (0) to creator (100)
+
+    // Special modes
+    roastMode: false,        // savage mode
+    directMode: false,       // unfiltered mode
+
+    // === ADVANCED section ===
+    // Complexity - "Speak to me like..."
+    complexity: 'guide',     // friend | guide | teacher | mentor | master
+
+    // Tone
+    seriousness: 'light',    // playful | light | balanced | earnest | grave
+
+    // Voice
+    voice: 'warm',           // wonder | warm | direct | grounded
+
+    // Focus
+    focus: 'feel',           // do | feel | see | build
+
+    // Density
+    density: 'essential',    // luminous | rich | clear | essential
+
+    // Scope
+    scope: 'here'            // resonant | patterned | connected | here
   },
 
   // Default reading settings
