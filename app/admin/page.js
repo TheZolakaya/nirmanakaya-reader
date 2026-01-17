@@ -1285,17 +1285,21 @@ export default function AdminPanel() {
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Unhinged</span>
-                      <input
-                        type="range"
-                        min="1"
-                        max="10"
-                        value={featureConfig.defaultVoice?.humor || 5}
-                        onChange={(e) => setFeatureConfig(prev => ({
-                          ...prev,
-                          defaultVoice: { ...prev.defaultVoice, humor: parseInt(e.target.value) }
-                        }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
-                      />
+                      <div className="flex-1 relative h-5 flex items-center">
+                        <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={featureConfig.defaultVoice?.humor || 5}
+                          onChange={(e) => setFeatureConfig(prev => ({
+                            ...prev,
+                            defaultVoice: { ...prev.defaultVoice, humor: parseInt(e.target.value) }
+                          }))}
+                          className="absolute inset-0 w-full accent-amber-500 cursor-pointer"
+                          style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                        />
+                      </div>
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Sacred</span>
                     </div>
                   </div>
@@ -1310,17 +1314,21 @@ export default function AdminPanel() {
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Chaos</span>
-                      <input
-                        type="range"
-                        min="1"
-                        max="10"
-                        value={featureConfig.defaultVoice?.register || 5}
-                        onChange={(e) => setFeatureConfig(prev => ({
-                          ...prev,
-                          defaultVoice: { ...prev.defaultVoice, register: parseInt(e.target.value) }
-                        }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
-                      />
+                      <div className="flex-1 relative h-5 flex items-center">
+                        <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={featureConfig.defaultVoice?.register || 5}
+                          onChange={(e) => setFeatureConfig(prev => ({
+                            ...prev,
+                            defaultVoice: { ...prev.defaultVoice, register: parseInt(e.target.value) }
+                          }))}
+                          className="absolute inset-0 w-full accent-amber-500 cursor-pointer"
+                          style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                        />
+                      </div>
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Oracle</span>
                     </div>
                   </div>
@@ -1328,24 +1336,28 @@ export default function AdminPanel() {
                   {/* Agency (Creator) - 1-10 scale */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
-                      <span className="text-amber-400 font-medium">Agency</span>
+                      <span className="text-zinc-300 font-medium">Agency</span>
                       <span className="text-amber-400 font-medium">
                         {CREATOR_LEVELS[featureConfig.defaultVoice?.creator || 5]}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Witness</span>
-                      <input
-                        type="range"
-                        min="1"
-                        max="10"
-                        value={featureConfig.defaultVoice?.creator || 5}
-                        onChange={(e) => setFeatureConfig(prev => ({
-                          ...prev,
-                          defaultVoice: { ...prev.defaultVoice, creator: parseInt(e.target.value) }
-                        }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
-                      />
+                      <div className="flex-1 relative h-5 flex items-center">
+                        <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={featureConfig.defaultVoice?.creator || 5}
+                          onChange={(e) => setFeatureConfig(prev => ({
+                            ...prev,
+                            defaultVoice: { ...prev.defaultVoice, creator: parseInt(e.target.value) }
+                          }))}
+                          className="absolute inset-0 w-full accent-amber-500 cursor-pointer"
+                          style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                        />
+                      </div>
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Creator</span>
                     </div>
                     <p className="text-[10px] text-zinc-600 text-center mt-1">

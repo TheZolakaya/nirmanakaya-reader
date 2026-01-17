@@ -3988,67 +3988,76 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {showVoicePanel && (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mt-2">
+                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mt-2 max-w-sm mx-auto">
                     {/* Humor slider */}
-                    <div className="mb-3 px-2">
-                      <div className="flex items-center justify-between mb-1 sm:mb-0">
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-1">
                         <span className="text-xs text-zinc-500">Humor</span>
-                        <span className="text-xs text-amber-500/80 sm:hidden">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
+                        <span className="text-xs text-amber-500/80">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={humor}
-                          onChange={(e) => setHumor(parseInt(e.target.value))}
-                          className="flex-1 accent-amber-500"
-                        />
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Sacred</span>
-                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
+                        <span className="text-[10px] text-zinc-600 w-16 text-right">Unhinged</span>
+                        <div className="flex-1 relative h-5 flex items-center">
+                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                          <input
+                            type="range"
+                            min="1"
+                            max="10"
+                            value={humor}
+                            onChange={(e) => setHumor(parseInt(e.target.value))}
+                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
+                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                          />
+                        </div>
+                        <span className="text-[10px] text-zinc-600 w-12">Sacred</span>
                       </div>
                     </div>
 
                     {/* Register slider */}
-                    <div className="mb-3 px-2">
-                      <div className="flex items-center justify-between mb-1 sm:mb-0">
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-1">
                         <span className="text-xs text-zinc-500">Register</span>
-                        <span className="text-xs text-amber-500/80 sm:hidden">{REGISTER_LEVELS[register] || 'Clear'}</span>
+                        <span className="text-xs text-amber-500/80">{REGISTER_LEVELS[register] || 'Clear'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={register}
-                          onChange={(e) => setRegister(parseInt(e.target.value))}
-                          className="flex-1 accent-amber-500"
-                        />
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Oracle</span>
-                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{REGISTER_LEVELS[register] || 'Clear'}</span>
+                        <span className="text-[10px] text-zinc-600 w-16 text-right">Chaos</span>
+                        <div className="flex-1 relative h-5 flex items-center">
+                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                          <input
+                            type="range"
+                            min="1"
+                            max="10"
+                            value={register}
+                            onChange={(e) => setRegister(parseInt(e.target.value))}
+                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
+                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                          />
+                        </div>
+                        <span className="text-[10px] text-zinc-600 w-12">Oracle</span>
                       </div>
                     </div>
 
                     {/* Agency slider */}
-                    <div className="mb-3 px-2">
-                      <div className="flex items-center justify-between mb-1 sm:mb-0">
-                        <span className="text-xs text-amber-600/80 font-medium">Agency</span>
-                        <span className="text-xs text-amber-500/80 sm:hidden">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs text-zinc-500">Agency</span>
+                        <span className="text-xs text-amber-500/80">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Witness</span>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={creator}
-                          onChange={(e) => setCreator(parseInt(e.target.value))}
-                          className="flex-1 accent-amber-500"
-                        />
-                        <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Creator</span>
-                        <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
+                        <span className="text-[10px] text-zinc-600 w-16 text-right">Witness</span>
+                        <div className="flex-1 relative h-5 flex items-center">
+                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                          <input
+                            type="range"
+                            min="1"
+                            max="10"
+                            value={creator}
+                            onChange={(e) => setCreator(parseInt(e.target.value))}
+                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
+                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                          />
+                        </div>
+                        <span className="text-[10px] text-zinc-600 w-12">Creator</span>
                       </div>
                     </div>
 
@@ -4061,7 +4070,7 @@ CRITICAL FORMATTING RULES:
                     </div>
 
                     {/* Checkboxes */}
-                    <div className="flex justify-center gap-6">
+                    <div className="flex justify-center gap-6 mb-3">
                       <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
                         <input
                           type="checkbox"
@@ -4083,23 +4092,21 @@ CRITICAL FORMATTING RULES:
                         <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
                       </label>
                     </div>
-                  </div>
-                )}
 
-                {/* TIER 3: Advanced Voice Settings - Only when admin enables */}
-                {showAdvancedVoice && (
-                  <>
-                    <button
-                      onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                      data-help="advanced-voice"
-                      className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1 mt-2"
-                    >
-                      <span className="text-xs">{showLandingFineTune ? '▾' : '▸'}</span>
-                      <span className="text-[0.5625rem] tracking-widest uppercase">Advanced</span>
-                    </button>
+                    {/* TIER 3: Advanced Voice Settings - Inside Fine-tune panel */}
+                    {showAdvancedVoice && (
+                      <>
+                        <button
+                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
+                          data-help="advanced-voice"
+                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1 border-t border-zinc-800/50 pt-3"
+                        >
+                          <span className="text-xs">{showLandingFineTune ? '▾' : '▸'}</span>
+                          <span className="text-[0.5625rem] tracking-widest uppercase">Advanced</span>
+                        </button>
 
-                    {showLandingFineTune && (
-                      <div className="mt-2 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
+                        {showLandingFineTune && (
+                          <div className="mt-2 pt-2">
                         {/* Delivery Presets */}
                         <div
                           className="mb-3 pb-3 border-b border-zinc-700/50"
@@ -4231,6 +4238,8 @@ CRITICAL FORMATTING RULES:
                       </div>
                     )}
                   </>
+                )}
+                  </div>
                 )}
               </div>
             </div>
