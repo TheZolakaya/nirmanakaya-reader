@@ -34,10 +34,10 @@ const DEFAULT_CONFIG = {
     // Persona - "Who reads this to you?"
     persona: 'friend',       // none | friend | therapist | spiritualist | scientist | coach
 
-    // Sliders (0-100)
-    humor: 50,               // unhinged (0) to sacred (100)
-    register: 50,            // chaos (0) to oracle (100)
-    agency: 50,              // witness (0) to creator (100)
+    // Sliders (1-10 scale matching HUMOR_LEVELS, REGISTER_LEVELS, CREATOR_LEVELS)
+    humor: 5,                // 1=Unhinged → 10=Sacred
+    register: 5,             // 1=Chaos → 10=Oracle
+    creator: 5,              // 1=Witness → 10=Creator
 
     // Special modes
     roastMode: false,        // savage mode

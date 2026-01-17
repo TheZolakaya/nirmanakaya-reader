@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { VERSION } from '../../lib/version.js';
 import {
+  HUMOR_LEVELS,
+  REGISTER_LEVELS,
+  CREATOR_LEVELS,
+  DELIVERY_PRESETS
+} from '../../lib/index.js';
+import {
   getUser,
   isAdmin,
   updateUserBanStatus,
@@ -300,9 +306,9 @@ export default function AdminPanel() {
     defaultVoice: {
       preset: 'kind',
       persona: 'friend',
-      humor: 50,
-      register: 50,
-      agency: 50,
+      humor: 5,        // 1-10 scale
+      register: 5,     // 1-10 scale
+      creator: 5,      // 1-10 scale (was "agency")
       roastMode: false,
       directMode: false,
       complexity: 'guide',
@@ -1205,12 +1211,12 @@ export default function AdminPanel() {
                   <p className="text-xs text-zinc-500 mb-4">Default persona for the reader's voice</p>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { id: 'none', label: 'None' },
-                      { id: 'friend', label: 'Friend' },
-                      { id: 'therapist', label: 'Therapist' },
-                      { id: 'spiritualist', label: 'Spiritualist' },
-                      { id: 'scientist', label: 'Scientist' },
-                      { id: 'coach', label: 'Coach' },
+                      { id: 'none', label: '○ None', icon: '○' },
+                      { id: 'friend', label: '👋 Friend', icon: '👋' },
+                      { id: 'therapist', label: '💭 Therapist', icon: '💭' },
+                      { id: 'spiritualist', label: '✨ Spiritualist', icon: '✨' },
+                      { id: 'scientist', label: '🔬 Scientist', icon: '🔬' },
+                      { id: 'coach', label: '🎯 Coach', icon: '🎯' },
                     ].map(persona => (
                       <button
                         key={persona.id}
@@ -1238,90 +1244,116 @@ export default function AdminPanel() {
                   </p>
                 </section>
 
-                {/* Main Voice Sliders */}
+                {/* Reading Voice Presets - NOW PROMINENT (not in collapsible) */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-cyan-400 mb-2">Reading Voice Preset</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Quick delivery style selection</p>
+                  <div className="flex gap-1 p-1 bg-zinc-900/50 rounded-lg">
+                    {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => (
+                      <button
+                        key={key}
+                        onClick={() => setFeatureConfig(prev => ({
+                          ...prev,
+                          defaultVoice: { ...prev.defaultVoice, preset: key }
+                        }))}
+                        className={`flex-1 py-3 px-2 rounded-md text-sm font-medium capitalize transition-all ${
+                          featureConfig.defaultVoice?.preset === key
+                            ? 'bg-cyan-600 text-white'
+                            : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+                        }`}
+                      >
+                        {preset.name}
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Main Voice Sliders - 1-10 scale with proper labels */}
                 <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
                   <div>
                     <h3 className="text-sm font-medium text-amber-400 mb-1">Fine-Tune Voice</h3>
-                    <p className="text-xs text-zinc-500">Main voice control sliders</p>
+                    <p className="text-xs text-zinc-500">Main voice control sliders (1-10)</p>
                   </div>
 
-                  {/* Humor */}
+                  {/* Humor - 1-10 scale */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
                       <span className="text-zinc-300 font-medium">Humor</span>
-                      <span className="text-amber-400">
-                        {(featureConfig.defaultVoice?.humor || 50) < 30 ? 'Unhinged' :
-                         (featureConfig.defaultVoice?.humor || 50) > 70 ? 'Sacred' : 'Balanced'}
+                      <span className="text-amber-400 font-medium">
+                        {HUMOR_LEVELS[featureConfig.defaultVoice?.humor || 5]}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Unhinged</span>
                       <input
                         type="range"
-                        min="0"
-                        max="100"
-                        value={featureConfig.defaultVoice?.humor || 50}
+                        min="1"
+                        max="10"
+                        value={featureConfig.defaultVoice?.humor || 5}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
                           defaultVoice: { ...prev.defaultVoice, humor: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
                       />
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Sacred</span>
                     </div>
                   </div>
 
-                  {/* Register */}
+                  {/* Register - 1-10 scale */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
                       <span className="text-zinc-300 font-medium">Register</span>
-                      <span className="text-amber-400">
-                        {(featureConfig.defaultVoice?.register || 50) < 30 ? 'Chaos' :
-                         (featureConfig.defaultVoice?.register || 50) > 70 ? 'Oracle' : 'Polished'}
+                      <span className="text-amber-400 font-medium">
+                        {REGISTER_LEVELS[featureConfig.defaultVoice?.register || 5]}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Chaos</span>
                       <input
                         type="range"
-                        min="0"
-                        max="100"
-                        value={featureConfig.defaultVoice?.register || 50}
+                        min="1"
+                        max="10"
+                        value={featureConfig.defaultVoice?.register || 5}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
                           defaultVoice: { ...prev.defaultVoice, register: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
                       />
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Oracle</span>
                     </div>
                   </div>
 
-                  {/* Agency */}
+                  {/* Agency (Creator) - 1-10 scale */}
                   <div>
                     <div className="flex justify-between text-xs mb-2">
                       <span className="text-amber-400 font-medium">Agency</span>
-                      <span className="text-amber-400">
-                        {(featureConfig.defaultVoice?.agency || 50) < 30 ? 'Witness' :
-                         (featureConfig.defaultVoice?.agency || 50) > 70 ? 'Creator' : 'Receptive'}
+                      <span className="text-amber-400 font-medium">
+                        {CREATOR_LEVELS[featureConfig.defaultVoice?.creator || 5]}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-[10px] text-zinc-500 w-16">Witness</span>
                       <input
                         type="range"
-                        min="0"
-                        max="100"
-                        value={featureConfig.defaultVoice?.agency || 50}
+                        min="1"
+                        max="10"
+                        value={featureConfig.defaultVoice?.creator || 5}
                         onChange={(e) => setFeatureConfig(prev => ({
                           ...prev,
-                          defaultVoice: { ...prev.defaultVoice, agency: parseInt(e.target.value) }
+                          defaultVoice: { ...prev.defaultVoice, creator: parseInt(e.target.value) }
                         }))}
-                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gradient-to-r from-amber-500 via-zinc-600 to-zinc-400"
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer accent-amber-500"
                       />
                       <span className="text-[10px] text-zinc-500 w-16 text-right">Creator</span>
                     </div>
-                    <p className="text-[10px] text-zinc-600 text-center mt-1">Balanced observation and agency</p>
+                    <p className="text-[10px] text-zinc-600 text-center mt-1">
+                      {(featureConfig.defaultVoice?.creator || 5) <= 3 ? 'Observation: "The field shows..."' :
+                       (featureConfig.defaultVoice?.creator || 5) <= 6 ? 'Balanced observation and agency' :
+                       (featureConfig.defaultVoice?.creator || 5) <= 8 ? 'Agency: "You\'re shaping..."' :
+                       'Full authorship: "You ARE the field"'}
+                    </p>
                   </div>
                 </section>
 
@@ -1371,29 +1403,6 @@ export default function AdminPanel() {
                     </svg>
                   </summary>
                   <div className="mt-2 p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 space-y-5">
-                    {/* Reading Voice Preset */}
-                    <div>
-                      <div className="text-xs text-zinc-400 mb-2">Reading Voice</div>
-                      <div className="flex gap-1 p-1 bg-zinc-900/50 rounded-lg">
-                        {['clear', 'kind', 'playful', 'wise', 'oracle'].map(preset => (
-                          <button
-                            key={preset}
-                            onClick={() => setFeatureConfig(prev => ({
-                              ...prev,
-                              defaultVoice: { ...prev.defaultVoice, preset }
-                            }))}
-                            className={`flex-1 py-2 px-2 rounded-md text-xs font-medium capitalize transition-all ${
-                              featureConfig.defaultVoice?.preset === preset
-                                ? 'bg-violet-600 text-white'
-                                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
-                            }`}
-                          >
-                            {preset}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
                     {/* Complexity - "Speak to me like..." */}
                     <div>
                       <div className="text-xs text-zinc-400 mb-2">Speak to me like...</div>
