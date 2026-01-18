@@ -118,7 +118,10 @@ import {
   MODE_COLORS,
   MODE_DESCRIPTIONS,
   getLevelInfo,
-  legacyFromLevel
+  legacyFromLevel,
+  isModeEnabled,
+  getMaxCardsForMode,
+  isCardCountEnabled
 } from '../lib/complexity.js';
 
 // Import React components
@@ -3992,57 +3995,100 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
             <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative">
-              {/* UI Toggle - Admin only for now */}
+              {/* Complexity Slider - Admin only for now */}
+              {userIsAdmin && useComplexitySlider && (
+                <div className="mb-4 px-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-zinc-500">Complexity Level</span>
+                    <span className="text-xs text-amber-400 font-medium">
+                      {complexityLevel} / {featureConfig.maxUserLevel || 20}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max={featureConfig.maxUserLevel || 20}
+                    value={complexityLevel}
+                    onChange={(e) => setComplexityLevel(parseInt(e.target.value))}
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700"
+                    style={{
+                      background: `linear-gradient(to right, rgb(251, 191, 36) 0%, rgb(251, 191, 36) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) 100%)`
+                    }}
+                  />
+                  <div className="flex justify-between text-[9px] text-zinc-600 mt-1">
+                    <span>Reflect 1</span>
+                    <span>Forge 5</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Admin toggle for complexity slider */}
               {userIsAdmin && (
                 <div className="absolute top-2 right-2">
                   <button
                     onClick={() => setUseComplexitySlider(!useComplexitySlider)}
                     className={`px-2 py-1 rounded text-[10px] font-medium transition-all ${
                       useComplexitySlider
-                        ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                         : 'bg-zinc-700/50 text-zinc-500 border border-zinc-700'
                     }`}
-                    title="Toggle between old UI and new complexity slider"
+                    title="Toggle complexity slider"
                   >
-                    {useComplexitySlider ? '20-Level' : 'Classic'}
+                    {useComplexitySlider ? `Lv ${complexityLevel}` : 'Unlock'}
                   </button>
                 </div>
               )}
 
-              {/* Complexity Slider (New UI) */}
-              {useComplexitySlider ? (
-                <div className="mb-4">
-                  <ComplexitySlider
-                    level={complexityLevel}
-                    setLevel={setComplexityLevel}
-                    maxLevel={featureConfig.maxUserLevel || 20}
-                    showElements={featureConfig.showElementLabels !== false}
-                  />
-                </div>
-              ) : (
-              <>
-              {/* Mode Toggle - centered, help button is now floating */}
+              {/* Mode Toggle - with complexity-based disabled states */}
               <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
-                  <button onClick={(e) => { if (!handleHelpClick('mode-reflect', e)) setSpreadType('reflect'); }}
+                  {/* Reflect - always enabled at level 1+ */}
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
+                    disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
                     data-help="mode-reflect"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                      useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
+                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
+                        : spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}>
                     Reflect
                   </button>
-                  <button onClick={(e) => { if (!handleHelpClick('mode-discover', e)) { setSpreadType('discover'); setSpreadKey('three'); } }}
+                  {/* Discover - enabled at level 6+ */}
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
+                    disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
                     data-help="mode-discover"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                      useComplexitySlider && !isModeEnabled('discover', complexityLevel)
+                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
+                        : spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}>
                     Discover
                   </button>
-                  <button onClick={(e) => { if (!handleHelpClick('mode-forge', e)) setSpreadType('forge'); }}
-                    data-help="mode-forge"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
-                    Forge
-                  </button>
-                  <button onClick={(e) => { if (!handleHelpClick('mode-explore', e)) setSpreadType('explore'); }}
+                  {/* Explore - enabled at level 11+ */}
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('mode-explore', e) && (!useComplexitySlider || isModeEnabled('explore', complexityLevel))) setSpreadType('explore'); }}
+                    disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                      useComplexitySlider && !isModeEnabled('explore', complexityLevel)
+                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
+                        : spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}>
                     Explore
+                  </button>
+                  {/* Forge - enabled at level 16+ */}
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('mode-forge', e) && (!useComplexitySlider || isModeEnabled('forge', complexityLevel))) setSpreadType('forge'); }}
+                    disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
+                    data-help="mode-forge"
+                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                      useComplexitySlider && !isModeEnabled('forge', complexityLevel)
+                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
+                        : spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}>
+                    Forge
                   </button>
                 </div>
               </div>
@@ -4058,21 +4104,25 @@ CRITICAL FORMATTING RULES:
                     <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
+                        const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
                         return (
                           <button
                             key={count}
                             data-help={helpKey}
+                            disabled={isDisabled}
                             onClick={(e) => {
-                              if (!handleHelpClick(helpKey, e)) {
+                              if (!isDisabled && !handleHelpClick(helpKey, e)) {
                                 setReflectCardCount(count);
                                 // Auto-select first spread for this count
                                 setReflectSpreadKey(SPREADS_BY_COUNT[count][0]);
                               }
                             }}
                             className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                              reflectCardCount === count
-                                ? 'bg-[#2e1065] text-amber-400'
-                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                              isDisabled
+                                ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
+                                : reflectCardCount === count
+                                  ? 'bg-[#2e1065] text-amber-400'
+                                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                             }`}
                           >
                             {count}
@@ -4106,15 +4156,19 @@ CRITICAL FORMATTING RULES:
                   <div className="flex gap-1 justify-center" data-help="spread-selector">
                     {Object.entries(RANDOM_SPREADS).map(([key, value]) => {
                       const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
+                      const isDisabled = useComplexitySlider && !isCardCountEnabled('discover', value.count, complexityLevel);
                       return (
                         <button
                           key={key}
                           data-help={helpKey}
-                          onClick={(e) => { if (!handleHelpClick(helpKey, e)) setSpreadKey(key); }}
+                          disabled={isDisabled}
+                          onClick={(e) => { if (!isDisabled && !handleHelpClick(helpKey, e)) setSpreadKey(key); }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                            spreadKey === key
-                              ? 'bg-[#2e1065] text-amber-400'
-                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            isDisabled
+                              ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
+                              : spreadKey === key
+                                ? 'bg-[#2e1065] text-amber-400'
+                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                           }`}
                         >
                           {value.count}
@@ -4189,8 +4243,6 @@ CRITICAL FORMATTING RULES:
                   </div>
                 ) : null}
               </div>
-              </>
-              )}
 
               {/* Voice Section - Three Tier Structure */}
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
