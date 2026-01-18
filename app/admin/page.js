@@ -9,6 +9,14 @@ import {
   DELIVERY_PRESETS
 } from '../../lib/index.js';
 import {
+  MODES,
+  ELEMENTS,
+  ELEMENT_SYMBOLS,
+  MODE_COLORS,
+  MODE_DESCRIPTIONS,
+  getLevelInfo
+} from '../../lib/complexity.js';
+import {
   getUser,
   isAdmin,
   updateUserBanStatus,
@@ -316,6 +324,10 @@ export default function AdminPanel() {
     },
     defaultMode: 'reflect',
     defaultSpread: 'triad',
+    // Complexity slider settings
+    maxUserLevel: 10,
+    defaultComplexityLevel: 3,
+    showElementLabels: true,
     defaultBackground: {
       type: 'video',
       videoId: 'default',
@@ -1634,6 +1646,112 @@ export default function AdminPanel() {
                       </button>
                     ))}
                   </div>
+                </section>
+
+                {/* Complexity Slider System */}
+                <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                  <h3 className="text-sm font-medium text-rose-400 mb-2">Complexity Slider (20 Levels)</h3>
+                  <p className="text-xs text-zinc-500 mb-4">Progressive disclosure system: 4 modes × 5 elements</p>
+
+                  {/* Max User Level Slider */}
+                  <div className="mb-6">
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Max Level for Users</span>
+                      <span className="text-rose-400 font-medium">Level {featureConfig.maxUserLevel || 10}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max="20"
+                      value={featureConfig.maxUserLevel || 10}
+                      onChange={(e) => setFeatureConfig(prev => ({ ...prev, maxUserLevel: parseInt(e.target.value) }))}
+                      className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700"
+                      style={{ background: `linear-gradient(to right, rgb(244, 63, 94) 0%, rgb(244, 63, 94) ${((featureConfig.maxUserLevel || 10) / 20) * 100}%, rgb(63, 63, 70) ${((featureConfig.maxUserLevel || 10) / 20) * 100}%, rgb(63, 63, 70) 100%)` }}
+                    />
+                    <div className="flex justify-between text-[10px] text-zinc-600 mt-1">
+                      <span>1 (Reflect/Earth)</span>
+                      <span>20 (Forge/Gestalt)</span>
+                    </div>
+                  </div>
+
+                  {/* Level Preview */}
+                  <div className="mb-6 p-4 bg-zinc-900/50 rounded-lg">
+                    <div className="text-xs text-zinc-500 mb-3">Users can access:</div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {MODES.map((mode, modeIndex) => {
+                        const startLevel = modeIndex * 5 + 1;
+                        const endLevel = Math.min((modeIndex + 1) * 5, featureConfig.maxUserLevel || 10);
+                        const isFullyLocked = startLevel > (featureConfig.maxUserLevel || 10);
+                        const isPartiallyLocked = endLevel < (modeIndex + 1) * 5 && !isFullyLocked;
+                        return (
+                          <div key={mode} className={`p-2 rounded text-center ${isFullyLocked ? 'opacity-30' : ''}`}>
+                            <div className={`text-xs font-medium capitalize ${
+                              mode === 'reflect' ? 'text-violet-400' :
+                              mode === 'discover' ? 'text-cyan-400' :
+                              mode === 'explore' ? 'text-amber-400' :
+                              'text-rose-400'
+                            }`}>{mode}</div>
+                            <div className="text-[10px] text-zinc-500">
+                              {isFullyLocked ? 'Locked' : `Levels ${startLevel}-${endLevel}`}
+                              {isPartiallyLocked && ' (partial)'}
+                            </div>
+                            <div className="flex justify-center gap-0.5 mt-1">
+                              {ELEMENTS.map((el, elIndex) => {
+                                const level = startLevel + elIndex;
+                                const isAccessible = level <= (featureConfig.maxUserLevel || 10);
+                                return (
+                                  <span
+                                    key={el}
+                                    className={`text-[10px] ${isAccessible ? 'opacity-100' : 'opacity-20'}`}
+                                    title={`${el} (Level ${level})`}
+                                  >
+                                    {ELEMENT_SYMBOLS[el]}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Default Complexity Level */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-zinc-400">Default Starting Level</span>
+                      <span className="text-amber-400 font-medium">
+                        Level {featureConfig.defaultComplexityLevel || 3}
+                        {(() => {
+                          const info = getLevelInfo(featureConfig.defaultComplexityLevel || 3);
+                          return ` (${info.mode}/${info.element})`;
+                        })()}
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max={featureConfig.maxUserLevel || 10}
+                      value={Math.min(featureConfig.defaultComplexityLevel || 3, featureConfig.maxUserLevel || 10)}
+                      onChange={(e) => setFeatureConfig(prev => ({ ...prev, defaultComplexityLevel: parseInt(e.target.value) }))}
+                      className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700"
+                      style={{ background: `linear-gradient(to right, rgb(251, 191, 36) 0%, rgb(251, 191, 36) ${((featureConfig.defaultComplexityLevel || 3) / (featureConfig.maxUserLevel || 10)) * 100}%, rgb(63, 63, 70) ${((featureConfig.defaultComplexityLevel || 3) / (featureConfig.maxUserLevel || 10)) * 100}%, rgb(63, 63, 70) 100%)` }}
+                    />
+                  </div>
+
+                  {/* Show Element Labels Toggle */}
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={featureConfig.showElementLabels !== false}
+                      onChange={(e) => setFeatureConfig(prev => ({ ...prev, showElementLabels: e.target.checked }))}
+                      className="w-4 h-4 rounded bg-zinc-700 border-zinc-600 text-rose-500 focus:ring-rose-500"
+                    />
+                    <div>
+                      <span className="text-sm text-zinc-300">Show element labels</span>
+                      <span className="text-zinc-600 text-xs ml-2">(Earth, Water, Air, Fire, Gestalt)</span>
+                    </div>
+                  </label>
                 </section>
               </div>
             )}

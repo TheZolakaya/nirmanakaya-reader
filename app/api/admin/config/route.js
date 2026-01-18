@@ -67,6 +67,11 @@ const DEFAULT_CONFIG = {
   defaultMode: 'reflect',     // reflect | discover | forge | explore
   defaultSpread: 'triad',     // single | triad | pentad | septad
 
+  // Complexity slider settings (20-level system)
+  maxUserLevel: 10,           // Users can access levels 1-10 by default
+  defaultComplexityLevel: 3,  // Default to level 3 (Reflect/Air/3 cards)
+  showElementLabels: true,    // Show Earth/Water/Air/Fire/Gestalt labels
+
   // Default background settings
   defaultBackground: {
     type: 'video',           // video | image | solid

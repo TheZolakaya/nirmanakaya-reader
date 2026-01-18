@@ -110,6 +110,17 @@ import { buildModeHeader } from '../lib/modePrompts.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
 import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
 
+// Import complexity system
+import {
+  MODES as COMPLEXITY_MODES,
+  ELEMENTS,
+  ELEMENT_SYMBOLS,
+  MODE_COLORS,
+  MODE_DESCRIPTIONS,
+  getLevelInfo,
+  legacyFromLevel
+} from '../lib/complexity.js';
+
 // Import React components
 import ClickableTermContext from '../components/shared/ClickableTermContext.js';
 import InfoModal from '../components/shared/InfoModal.js';
@@ -150,6 +161,167 @@ const PulsatingLoader = ({ color = 'text-amber-400' }) => {
     <span className={`font-medium animate-pulse ${color}`}>
       {messages[messageIndex]}
     </span>
+  );
+};
+
+// Complexity Slider Component - 20 level progressive disclosure
+const ComplexitySlider = ({ level, setLevel, maxLevel = 20, showElements = true }) => {
+  const info = getLevelInfo(level);
+  const modeColor = info.mode === 'reflect' ? 'violet' :
+                    info.mode === 'discover' ? 'cyan' :
+                    info.mode === 'explore' ? 'amber' : 'rose';
+
+  return (
+    <div className="w-full max-w-lg mx-auto">
+      {/* Mode labels */}
+      <div className="flex justify-between mb-2">
+        {COMPLEXITY_MODES.map((mode, i) => {
+          const modeStart = i * 5 + 1;
+          const modeEnd = (i + 1) * 5;
+          const isActive = level >= modeStart && level <= modeEnd;
+          const isLocked = modeStart > maxLevel;
+          return (
+            <button
+              key={mode}
+              onClick={() => !isLocked && setLevel(modeStart)}
+              disabled={isLocked}
+              className={`px-2 py-1 rounded text-[10px] font-medium uppercase tracking-wider transition-all ${
+                isActive
+                  ? mode === 'reflect' ? 'bg-violet-500/30 text-violet-300' :
+                    mode === 'discover' ? 'bg-cyan-500/30 text-cyan-300' :
+                    mode === 'explore' ? 'bg-amber-500/30 text-amber-300' :
+                    'bg-rose-500/30 text-rose-300'
+                  : isLocked
+                    ? 'text-zinc-600 cursor-not-allowed'
+                    : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              {mode}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Slider track */}
+      <div className="relative h-10 flex items-center">
+        {/* Background track with mode sections */}
+        <div className="absolute inset-x-0 h-2 rounded-full overflow-hidden flex">
+          {COMPLEXITY_MODES.map((mode, i) => (
+            <div
+              key={mode}
+              className={`flex-1 ${
+                mode === 'reflect' ? 'bg-violet-900/50' :
+                mode === 'discover' ? 'bg-cyan-900/50' :
+                mode === 'explore' ? 'bg-amber-900/50' :
+                'bg-rose-900/50'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Fill track */}
+        <div
+          className={`absolute left-0 h-2 rounded-full transition-all ${
+            info.mode === 'reflect' ? 'bg-violet-500' :
+            info.mode === 'discover' ? 'bg-cyan-500' :
+            info.mode === 'explore' ? 'bg-amber-500' :
+            'bg-rose-500'
+          }`}
+          style={{ width: `${(level / 20) * 100}%` }}
+        />
+
+        {/* Tick marks */}
+        <div className="absolute inset-x-0 flex justify-between px-0">
+          {Array.from({ length: 20 }).map((_, i) => {
+            const tickLevel = i + 1;
+            const isLocked = tickLevel > maxLevel;
+            const isModeStart = tickLevel % 5 === 1;
+            return (
+              <div
+                key={i}
+                className={`w-0.5 rounded-full transition-all ${
+                  isModeStart ? 'h-3' : 'h-1.5'
+                } ${
+                  tickLevel <= level ? 'bg-white/50' :
+                  isLocked ? 'bg-zinc-700' : 'bg-zinc-600'
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        {/* Range input */}
+        <input
+          type="range"
+          min="1"
+          max={maxLevel}
+          value={Math.min(level, maxLevel)}
+          onChange={(e) => setLevel(parseInt(e.target.value))}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        />
+
+        {/* Current position indicator */}
+        <div
+          className={`absolute w-5 h-5 rounded-full border-2 transition-all -translate-x-1/2 pointer-events-none ${
+            info.mode === 'reflect' ? 'bg-violet-500 border-violet-300' :
+            info.mode === 'discover' ? 'bg-cyan-500 border-cyan-300' :
+            info.mode === 'explore' ? 'bg-amber-500 border-amber-300' :
+            'bg-rose-500 border-rose-300'
+          }`}
+          style={{ left: `${((level - 1) / 19) * 100}%` }}
+        />
+      </div>
+
+      {/* Element indicators */}
+      {showElements && (
+        <div className="flex justify-between mt-1 px-0">
+          {Array.from({ length: 20 }).map((_, i) => {
+            const tickLevel = i + 1;
+            const el = ELEMENTS[(tickLevel - 1) % 5];
+            const isSelected = tickLevel === level;
+            const isLocked = tickLevel > maxLevel;
+            return (
+              <span
+                key={i}
+                className={`text-[9px] transition-all ${
+                  isSelected ? 'text-white scale-150' :
+                  isLocked ? 'text-zinc-700' : 'text-zinc-500'
+                }`}
+                title={`${el} (Level ${tickLevel})`}
+              >
+                {ELEMENT_SYMBOLS[el]}
+              </span>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Current selection info */}
+      <div className={`mt-4 p-3 rounded-lg text-center ${
+        info.mode === 'reflect' ? 'bg-violet-500/10 border border-violet-500/30' :
+        info.mode === 'discover' ? 'bg-cyan-500/10 border border-cyan-500/30' :
+        info.mode === 'explore' ? 'bg-amber-500/10 border border-amber-500/30' :
+        'bg-rose-500/10 border border-rose-500/30'
+      }`}>
+        <div className="flex items-center justify-center gap-3 text-sm">
+          <span className={`font-medium capitalize ${
+            info.mode === 'reflect' ? 'text-violet-300' :
+            info.mode === 'discover' ? 'text-cyan-300' :
+            info.mode === 'explore' ? 'text-amber-300' :
+            'text-rose-300'
+          }`}>
+            {info.mode}
+          </span>
+          <span className="text-zinc-500">•</span>
+          <span className="text-zinc-300">{info.cardCount} card{info.cardCount > 1 ? 's' : ''}</span>
+          <span className="text-zinc-500">•</span>
+          <span className="text-zinc-400 capitalize flex items-center gap-1">
+            {ELEMENT_SYMBOLS[info.element]} {info.element}
+          </span>
+        </div>
+        <div className="text-xs text-zinc-500 mt-1">{MODE_DESCRIPTIONS[info.mode]}</div>
+      </div>
+    </div>
   );
 };
 
@@ -272,6 +444,8 @@ export default function NirmanakaReader() {
   const [spreadKey, setSpreadKey] = useState('three');
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
+  const [complexityLevel, setComplexityLevel] = useState(3); // 1-20 complexity level
+  const [useComplexitySlider, setUseComplexitySlider] = useState(false); // Toggle between old UI and new complexity slider
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -3818,6 +3992,35 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
             <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative">
+              {/* UI Toggle - Admin only for now */}
+              {userIsAdmin && (
+                <div className="absolute top-2 right-2">
+                  <button
+                    onClick={() => setUseComplexitySlider(!useComplexitySlider)}
+                    className={`px-2 py-1 rounded text-[10px] font-medium transition-all ${
+                      useComplexitySlider
+                        ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                        : 'bg-zinc-700/50 text-zinc-500 border border-zinc-700'
+                    }`}
+                    title="Toggle between old UI and new complexity slider"
+                  >
+                    {useComplexitySlider ? '20-Level' : 'Classic'}
+                  </button>
+                </div>
+              )}
+
+              {/* Complexity Slider (New UI) */}
+              {useComplexitySlider ? (
+                <div className="mb-4">
+                  <ComplexitySlider
+                    level={complexityLevel}
+                    setLevel={setComplexityLevel}
+                    maxLevel={featureConfig.maxUserLevel || 20}
+                    showElements={featureConfig.showElementLabels !== false}
+                  />
+                </div>
+              ) : (
+              <>
               {/* Mode Toggle - centered, help button is now floating */}
               <div className="flex justify-center mb-4">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
@@ -3986,6 +4189,8 @@ CRITICAL FORMATTING RULES:
                   </div>
                 ) : null}
               </div>
+              </>
+              )}
 
               {/* Voice Section - Three Tier Structure */}
               <div className="mt-4 pt-4 border-t border-zinc-800/50">
