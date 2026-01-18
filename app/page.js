@@ -1155,11 +1155,11 @@ export default function NirmanakaReader() {
           if (result?.data?.id) {
             setSavedReadingId(result.data.id);
             // Send reading email (async, respects user preferences)
-            if (user?.id) {
+            if (currentUser?.id) {
               fetch('/api/email/reading', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: user.id, readingId: result.data.id })
+                body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
               }).catch(err => console.log('[Email] Failed:', err));
             }
           }
@@ -1248,11 +1248,11 @@ export default function NirmanakaReader() {
         if (result?.data?.id) {
           setSavedReadingId(result.data.id);
           // Send reading email (async, respects user preferences)
-          if (user?.id) {
+          if (currentUser?.id) {
             fetch('/api/email/reading', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId: user.id, readingId: result.data.id })
+              body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
             }).catch(err => console.log('[Email] Failed:', err));
           }
         }
