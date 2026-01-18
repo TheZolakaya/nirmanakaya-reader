@@ -91,7 +91,18 @@ Interpret these draws together for the querent. 2-3 sentences total, then correc
 }
 
 // Server-side draw generation with crypto randomness (hardened veil)
-function generateServerDraws(count, isReflect = false) {
+// If fixedDraw is provided and ALLOW_FIXED_DRAW=true, uses specified draws instead
+function generateServerDraws(count, isReflect = false, fixedDraw = null) {
+  // Check for fixed draw mode (testing/admin only)
+  if (fixedDraw && process.env.ALLOW_FIXED_DRAW === 'true') {
+    return fixedDraw.map(d => ({
+      position: d.position,
+      transient: d.transient,
+      status: d.status,
+      isFixed: true
+    }));
+  }
+
   const draws = [];
   const usedTransients = new Set();
   const usedPositions = new Set();
@@ -122,7 +133,7 @@ function generateServerDraws(count, isReflect = false) {
     const statusBytes = randomBytes(1);
     const status = (statusBytes[0] % 4) + 1;
 
-    draws.push({ position, transient, status });
+    draws.push({ position, transient, status, isFixed: false });
   }
 
   return draws;
@@ -188,16 +199,30 @@ async function generateReading({
   },
   model = 'claude-haiku-4-5-20251001',
   includeInterpretation = true,
-  fast = false
+  fast = false,
+  fixedDraw = null,
+  voiceConfig = null
 }) {
+  // If voiceConfig provided, map it to stance format
+  // voiceConfig uses different field names than internal stance
+  const effectiveStance = voiceConfig ? {
+    complexity: voiceConfig.speakLike?.toLowerCase() || stance.complexity,
+    voice: voiceConfig.voice?.toLowerCase() || stance.voice,
+    focus: voiceConfig.focus?.toLowerCase() || stance.focus,
+    density: voiceConfig.density?.toLowerCase() || stance.density,
+    scope: voiceConfig.scope?.toLowerCase() || stance.scope,
+    seriousness: voiceConfig.tone?.toLowerCase() || stance.seriousness,
+    directMode: voiceConfig.directMode || false
+  } : stance;
+
   // Validate inputs
   const count = Math.min(Math.max(1, cardCount), 5); // 1-5 cards
   const isReflect = mode === 'reflect';
   const isForge = mode === 'forge';
-  const actualCount = isForge ? 1 : count;
+  const actualCount = fixedDraw ? fixedDraw.length : (isForge ? 1 : count);
 
-  // Generate draws server-side (hardened veil)
-  const draws = generateServerDraws(actualCount, isReflect);
+  // Generate draws server-side (hardened veil) or use fixed draw if allowed
+  const draws = generateServerDraws(actualCount, isReflect, fixedDraw);
 
   // Build card data for response
   const cards = draws.map(buildCardData);
@@ -216,8 +241,9 @@ async function generateReading({
   }
 
   // FAST MODE - minimal but complete interpretation
+  // Increased limit from 500 to 2000 chars for fast mode
   if (fast) {
-    const safeQuestion = (question + (context ? ' Context: ' + context : '')).slice(0, 500);
+    const safeQuestion = (question + (context ? ' Context: ' + context : '')).slice(0, 2000);
     const userMessage = cards.length === 1
       ? buildFastUserMessage(safeQuestion, cards[0])
       : buildFastMultiCardMessage(safeQuestion, cards);
@@ -229,13 +255,26 @@ async function generateReading({
       messages: [{ role: 'user', content: userMessage }]
     });
 
+    // Build voiceConfigUsed for fast mode response
+    const voiceConfigUsed = voiceConfig ? {
+      delivery: voiceConfig.delivery || null,
+      speakLike: effectiveStance.complexity,
+      tone: effectiveStance.seriousness,
+      voice: effectiveStance.voice,
+      focus: effectiveStance.focus,
+      density: effectiveStance.density,
+      scope: effectiveStance.scope,
+      directMode: effectiveStance.directMode || false
+    } : null;
+
     return {
       success: true,
       fast: true,
-      draws,
+      draws: draws.map(d => ({ ...d, isFixed: d.isFixed || false })),
       cards,
       mode,
       question,
+      voiceConfigUsed,
       interpretation: response.content[0].text,
       usage: {
         input_tokens: response.usage?.input_tokens,
@@ -246,22 +285,28 @@ async function generateReading({
   }
 
   // FULL MODE - complete reading with all sections
-  const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 2000);
+  // Increased limit from 2000 to 12000 chars to support longer questions/context
+  const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 12000);
   const drawText = formatDrawForAI(draws, mode, 'external', false);
   const spreadName = `${actualCount}-Card ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
   const teleologicalPrompt = buildReadingTeleologicalPrompt(draws);
   const stancePrompt = buildStancePrompt(
-    stance.complexity,
-    stance.voice,
-    stance.focus,
-    stance.density,
-    stance.scope,
-    stance.seriousness
+    effectiveStance.complexity,
+    effectiveStance.voice,
+    effectiveStance.focus,
+    effectiveStance.density,
+    effectiveStance.scope,
+    effectiveStance.seriousness
   );
-  const letterTone = VOICE_LETTER_TONE[stance.voice] || 'warm and direct';
+  const letterTone = VOICE_LETTER_TONE[effectiveStance.voice] || 'warm and direct';
   const modeHeader = buildModeHeader(mode);
 
-  const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
+  // Add direct mode instruction if enabled
+  const directModePrompt = effectiveStance.directMode
+    ? '\n\nDIRECT MODE: Skip interpretive layers. Speak from the architecture itself. Structure-citing, derived prose. The card as subject, position named, status applied, correction cited. No metaphor unless it emerges from the structure. The framework speaks through you.'
+    : '';
+
+  const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}${directModePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
 
   const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
 
@@ -280,13 +325,26 @@ async function generateReading({
   const filteredReading = filterProhibitedTerms(modeProcessed);
   const parsed = parseReadingResponse(filteredReading, draws);
 
+  // Build voiceConfigUsed for response
+  const voiceConfigUsed = {
+    delivery: voiceConfig?.delivery || null,
+    speakLike: effectiveStance.complexity,
+    tone: effectiveStance.seriousness,
+    voice: effectiveStance.voice,
+    focus: effectiveStance.focus,
+    density: effectiveStance.density,
+    scope: effectiveStance.scope,
+    directMode: effectiveStance.directMode || false
+  };
+
   return {
     success: true,
     fast: false,
-    draws,
+    draws: draws.map(d => ({ ...d, isFixed: d.isFixed || false })),
     cards,
     mode,
     question,
+    voiceConfigUsed,
     interpretation: {
       raw: filteredReading,
       parsed: {
@@ -329,12 +387,12 @@ export async function GET(request) {
   if (!question) {
     return Response.json({
       service: 'Nirmanakaya External Reading API',
-      version: '1.1.0',
-      description: 'Enables Claude chat sessions to receive readings directly from the Reader',
+      version: '2.0.0',
+      description: 'Enables Claude chat sessions to receive readings directly from the Reader. Supports voice testing infrastructure.',
       usage: {
         GET: {
           params: {
-            question: 'string (required) - The question or intention',
+            question: 'string (required) - The question or intention (up to 12,000 chars)',
             context: 'string (optional) - Additional context',
             cardCount: 'number (optional, 1-5, default 1)',
             mode: 'string (optional, discover|reflect|forge, default discover)',
@@ -347,22 +405,48 @@ export async function GET(request) {
         },
         POST: {
           body: {
-            question: 'string (required) - The question or intention',
+            question: 'string (required) - The question or intention (up to 12,000 chars)',
             context: 'string (optional) - Additional context',
             cardCount: 'number (optional, 1-5, default 3)',
             mode: 'string (optional, discover|reflect|forge, default discover)',
             stance: 'object (optional) - Voice settings { complexity, voice, focus, density, scope, seriousness }',
             model: 'string (optional) - claude-haiku-4-5-20251001 or claude-sonnet-4-20250514',
-            fast: 'boolean (optional, default false) - Fast mode for quick response'
+            fast: 'boolean (optional, default false) - Fast mode for quick response',
+            fixedDraw: 'array (optional, requires ALLOW_FIXED_DRAW=true) - Fixed draws for testing [{ transient: 0-77, position: 0-21, status: 1-4 }]',
+            voiceConfig: 'object (optional) - Full voice config override { delivery, speakLike, tone, voice, focus, density, scope, directMode }'
+          },
+          voiceConfigOptions: {
+            delivery: 'Clear | Kind | Playful | Wise | Oracle',
+            speakLike: 'Friend | Guide | Teacher | Mentor | Master',
+            tone: 'Playful | Light | Balanced | Earnest | Grave',
+            voice: 'Wonder | Warm | Direct | Grounded',
+            focus: 'Do | Feel | See | Build',
+            density: 'Luminous | Rich | Clear | Essential',
+            scope: 'Resonant | Patterned | Connected | Here',
+            directMode: 'boolean - Skip interpretive layers, speak from architecture'
+          },
+          statusCodes: {
+            '1': 'Balanced',
+            '2': 'Too Little (vertical correction)',
+            '3': 'Too Much (diagonal correction)',
+            '4': 'Unacknowledged (reduction pair)'
           }
         }
+      },
+      response: {
+        draws: 'Array of draw objects with isFixed flag',
+        cards: 'Array of card data with transient, position, status, correction',
+        voiceConfigUsed: 'The effective voice config that was applied',
+        interpretation: 'The reading interpretation (raw and parsed)',
+        usage: 'Token usage stats'
       },
       performance: {
         fast_1card: '<5 seconds',
         fast_3card: '<8 seconds',
         full: '15-30 seconds'
       },
-      purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.'
+      purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.',
+      testing: 'Set ALLOW_FIXED_DRAW=true in env to enable fixedDraw parameter for voice testing.'
     });
   }
 

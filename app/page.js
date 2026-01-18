@@ -3410,6 +3410,11 @@ CRITICAL FORMATTING RULES:
         }
       });
 
+      // Only render signature-content div if there's actual content
+      const signatureContentHtml = cardContent.trim()
+        ? `<div class="signature-content">${escapeHtml(cardContent)}</div>`
+        : '';
+
       signaturesHtml += `
         <div class="signature">
           <div class="signature-header">
@@ -3421,7 +3426,7 @@ CRITICAL FORMATTING RULES:
           </div>
           <div class="signature-name">${statusPhrase}</div>
           ${archDetails}
-          <div class="signature-content">${escapeHtml(cardContent)}</div>
+          ${signatureContentHtml}
           ${expansionsHtml}
           ${rebalancerHtml}
           ${growthHtml}
