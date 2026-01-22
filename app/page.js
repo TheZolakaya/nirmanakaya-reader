@@ -457,6 +457,7 @@ export default function NirmanakaReader() {
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
+  const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
@@ -1298,8 +1299,8 @@ export default function NirmanakaReader() {
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
-    // Reset depth states to default (shallow)
-    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
+    // Reset depth states to user's chosen default
+    setLetterDepth(defaultDepth); setPathDepth(defaultDepth); setSummaryDepth(defaultDepth); setWhyAppearedDepth(defaultDepth);
     // Reset telemetry for new reading
     resetTelemetry();
     // Store tokens for DTP mode (used by card generation)
@@ -2894,8 +2895,8 @@ CRITICAL FORMATTING RULES:
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false); setContentSaved(false); setSynthesisSaved(false);
     // Reset telemetry
     resetTelemetry();
-    // Reset depth states to default (shallow)
-    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
+    // Reset depth states to user's chosen default
+    setLetterDepth(defaultDepth); setPathDepth(defaultDepth); setSummaryDepth(defaultDepth); setWhyAppearedDepth(defaultDepth);
     hasAutoInterpreted.current = false;
     window.history.replaceState({}, '', window.location.pathname);
   };
@@ -4588,6 +4589,39 @@ CRITICAL FORMATTING RULES:
                 onClose={() => setShowGlistener(false)}
               />
             )}
+
+            {/* Default Depth Selector */}
+            <div className="flex items-center justify-end gap-2 mb-2">
+              <span className="text-xs text-zinc-500">Start at:</span>
+              <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
+                <button
+                  onClick={() => {
+                    setDefaultDepth('shallow');
+                    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
+                  }}
+                  className={`px-3 py-1 text-xs transition-colors ${
+                    defaultDepth === 'shallow'
+                      ? 'bg-amber-600/80 text-white'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  Shallow
+                </button>
+                <button
+                  onClick={() => {
+                    setDefaultDepth('wade');
+                    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
+                  }}
+                  className={`px-3 py-1 text-xs transition-colors ${
+                    defaultDepth === 'wade'
+                      ? 'bg-amber-600/80 text-white'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  Wade
+                </button>
+              </div>
+            </div>
 
             {/* Question Input Section */}
             <div className="relative mb-3 mt-4">
