@@ -97,7 +97,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -134,6 +134,7 @@ import PersonaSelector from '../components/reader/PersonaSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
+import Glistener from '../components/reader/Glistener.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 import HelpTooltip from '../components/shared/HelpTooltip.js';
 import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
@@ -468,6 +469,9 @@ export default function NirmanakaReader() {
   const [authChecked, setAuthChecked] = useState(false); // Track if auth check is complete
   const [savedReadingId, setSavedReadingId] = useState(null);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  // Glistener state
+  const [showGlistener, setShowGlistener] = useState(false);
+  const [userReadingCount, setUserReadingCount] = useState(0);
   const [featureConfig, setFeatureConfig] = useState({
     advancedVoiceFor: 'everyone',
     modelsForAdmins: ['haiku', 'sonnet', 'opus'],
@@ -542,6 +546,19 @@ export default function NirmanakaReader() {
       fetchFeatureConfig();
     }
   }, []);
+
+  // Fetch user's reading count for Glistener gating
+  useEffect(() => {
+    async function fetchReadingCount() {
+      if (currentUser?.id) {
+        const count = await getUserReadingCount(currentUser.id);
+        setUserReadingCount(count);
+      } else {
+        setUserReadingCount(0);
+      }
+    }
+    fetchReadingCount();
+  }, [currentUser]);
 
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
@@ -4548,6 +4565,29 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
             </div>
+
+            {/* Glistener - Pre-reading emergence ritual (temporarily ungated for testing) */}
+            {!showGlistener && spreadType !== 'explore' && (
+              <div className="mb-4">
+                <button
+                  onClick={() => setShowGlistener(true)}
+                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
+                >
+                  <span className="text-amber-500/60">◇</span>
+                  <span>Don't have words yet? Try a Glisten</span>
+                </button>
+              </div>
+            )}
+
+            {showGlistener && (
+              <Glistener
+                onTransfer={(crystal) => {
+                  setQuestion(crystal);
+                  setShowGlistener(false);
+                }}
+                onClose={() => setShowGlistener(false)}
+              />
+            )}
 
             {/* Question Input Section */}
             <div className="relative mb-3 mt-4">
