@@ -4618,8 +4618,8 @@ CRITICAL FORMATTING RULES:
                   onClick={() => setShowGlistener(true)}
                   className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
                 >
-                  <span className="text-amber-500/60">◇</span>
-                  <span>Don't have words yet? Try a Glisten</span>
+                  <span className="text-amber-500">◇</span>
+                  <span>Don't have words yet? Try a <strong className="font-semibold">Glisten</strong></span>
                 </button>
               ) : (
                 <div /> /* Empty div to maintain spacing when Glistener hidden */
@@ -4739,7 +4739,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                           setDraws(newDraws);
                           performReadingWithDraws(newDraws, question.trim() || 'General reading');
                         }}
-                        className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-zinc-700/50 text-sm font-medium transition-colors"
+                        className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-amber-500/50 text-sm font-medium transition-colors"
                         title={`${count}-card general reading`}
                       >
                         {count}
