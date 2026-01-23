@@ -1554,12 +1554,12 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - centered horizontally, pushed further toward Gestalt to avoid card overlap
+    // House label - centered horizontally, small offset toward map center
     const labelConfig = {
-        mind: { x: 0, y: 180, rotation: -45 },       // centered, below (toward Gestalt)
-        emotion: { x: 0, y: 180, rotation: 45 },     // centered, below (toward Gestalt)
-        body: { x: 0, y: -180, rotation: 45 },       // centered, above (toward Gestalt)
-        spirit: { x: 0, y: -180, rotation: -45 }     // centered, above (toward Gestalt)
+        mind: { x: 0, y: 50, rotation: -45 },        // just below house
+        emotion: { x: 0, y: 50, rotation: 45 },      // just below house
+        body: { x: 0, y: -50, rotation: 45 },        // just above house
+        spirit: { x: 0, y: -50, rotation: -45 }      // just above house
     };
     const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
