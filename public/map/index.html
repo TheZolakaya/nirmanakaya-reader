@@ -16,14 +16,62 @@
         .canvas-container {
             width: 100%;
             height: 100%;
-            overflow: auto;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .map-wrapper {
+            transform-origin: center center;
+            transition: transform 0.2s ease-out;
         }
 
         .map {
             position: relative;
             width: 1800px;
             height: 1850px;
-            margin: 0 auto;
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 600;
+        }
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .zoom-btn:hover {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: scale(1.05);
+        }
+        .zoom-btn:active {
+            transform: scale(0.95);
+        }
+        .zoom-level {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #888;
+            font-family: monospace;
         }
 
         /* ============================================
@@ -300,8 +348,18 @@
 <body>
     <a href="/" class="back-button">← Reader</a>
 
-    <div class="canvas-container">
-        <div class="map" id="map"></div>
+    <div class="canvas-container" id="canvas-container">
+        <div class="map-wrapper" id="map-wrapper">
+            <div class="map" id="map"></div>
+        </div>
+    </div>
+
+    <!-- Zoom controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()" title="Zoom in">+</button>
+        <div class="zoom-level" id="zoom-level">100%</div>
+        <button class="zoom-btn" onclick="zoomOut()" title="Zoom out">−</button>
+        <button class="zoom-btn" onclick="zoomFit()" title="Fit to screen" style="font-size: 1rem;">⊡</button>
     </div>
 
     <div class="modal" id="modal" onclick="closeModal()">
@@ -1158,18 +1216,75 @@ function setupDragging() {
 }
 
 // ============================================
+// ZOOM FUNCTIONALITY
+// ============================================
+let currentZoom = 1;
+const MIN_ZOOM = 0.2;
+const MAX_ZOOM = 2;
+const ZOOM_STEP = 0.15;
+
+function updateZoom() {
+    const wrapper = document.getElementById('map-wrapper');
+    wrapper.style.transform = `scale(${currentZoom})`;
+    document.getElementById('zoom-level').textContent = Math.round(currentZoom * 100) + '%';
+}
+
+function zoomIn() {
+    currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
+    updateZoom();
+}
+
+function zoomOut() {
+    currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
+    updateZoom();
+}
+
+function zoomFit() {
+    const container = document.getElementById('canvas-container');
+    const mapWidth = CONFIG.mapWidth;
+    const mapHeight = CONFIG.mapHeight;
+
+    // Calculate scale to fit both dimensions with some padding
+    const padding = 40;
+    const scaleX = (container.clientWidth - padding) / mapWidth;
+    const scaleY = (container.clientHeight - padding) / mapHeight;
+
+    currentZoom = Math.min(scaleX, scaleY, 1); // Don't zoom larger than 100%
+    updateZoom();
+}
+
+function zoomTo(level) {
+    currentZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, level));
+    updateZoom();
+}
+
+// Mouse wheel zoom
+document.getElementById('canvas-container').addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+    currentZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, currentZoom + delta));
+    updateZoom();
+}, { passive: false });
+
+// ============================================
 // INITIALIZE
 // ============================================
 render();
 createDevPanel();
 setupDragging();
 
-// Center the view on load
+// Fit map to screen on initial load
 setTimeout(() => {
-    const container = document.querySelector('.canvas-container');
-    container.scrollLeft = cx - window.innerWidth/2;
-    container.scrollTop = 50;
+    zoomFit();
 }, 50);
+
+// Re-fit on window resize
+window.addEventListener('resize', () => {
+    // Only auto-fit if we're below 100%
+    if (currentZoom < 1) {
+        zoomFit();
+    }
+});
 </script>
 </body>
 </html>
