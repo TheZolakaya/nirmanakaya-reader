@@ -192,11 +192,12 @@
             color: #445;
         }
         .label.house-name {
-            font-size: 1.1rem;
+            font-size: 1.6rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            letter-spacing: 0.25em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
             text-align: center;
+            font-weight: 400;
         }
         /* House-specific label colors - lighter versions of house backgrounds */
         .label.house-name.spirit { color: #E88B8B; }   /* Light Red */
@@ -1272,11 +1273,19 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - centered below the diamond (bottom tip is at y + size/2 * sqrt(2) ≈ y + 198)
+    // House label - positioned between house and Gestalt, rotated to match house angle
+    // Gestalt center is at (cx, 540), so labels point toward that center
+    const labelConfig = {
+        mind: { x: 180, y: 100, rotation: -45 },      // toward center (lower-right of Mind)
+        emotion: { x: -180, y: 100, rotation: 45 },   // toward center (lower-left of Emotion)
+        body: { x: 180, y: -140, rotation: 45 },      // toward center (upper-right of Body)
+        spirit: { x: -180, y: -140, rotation: -45 }   // toward center (upper-left of Spirit)
+    };
+    const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
-        left: house.x + 'px',
-        top: (house.y + 210) + 'px',
-        transform: 'translateX(-50%)'
+        left: (house.x + cfg.x) + 'px',
+        top: (house.y + cfg.y) + 'px',
+        transform: `translateX(-50%) rotate(${cfg.rotation}deg)`
     });
     label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
     map.appendChild(label);
