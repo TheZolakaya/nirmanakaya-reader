@@ -4752,30 +4752,26 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 )}
               </div>
 
-              {/* Action row - Quick buttons (Discover only) + main action button */}
+              {/* Action row - Quick buttons + main action button */}
               <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">
-                {/* Quick reading buttons - left side (Discover mode only) */}
-                {spreadType === 'discover' ? (
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-zinc-500">Quick:</span>
-                    {[1, 2, 3].map(count => (
-                      <button
-                        key={count}
-                        onClick={() => {
-                          const newDraws = generateSpread(count, false);
-                          setDraws(newDraws);
-                          performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                        }}
-                        className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-amber-500/50 text-sm font-medium transition-colors"
-                        title={`${count}-card general reading`}
-                      >
-                        {count}
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div /> /* Spacer for non-Discover modes */
-                )}
+                {/* Quick reading buttons - left side (all modes) */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-zinc-500">Quick:</span>
+                  {[1, 2, 3].map(count => (
+                    <button
+                      key={count}
+                      onClick={() => {
+                        const newDraws = generateSpread(count, false);
+                        setDraws(newDraws);
+                        performReadingWithDraws(newDraws, question.trim() || 'General reading');
+                      }}
+                      className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-amber-500/50 text-sm font-medium transition-colors"
+                      title={`${count}-card general reading`}
+                    >
+                      {count}
+                    </button>
+                  ))}
+                </div>
 
                 {/* Main action button - right side */}
                 <button
