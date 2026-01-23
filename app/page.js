@@ -1145,6 +1145,9 @@ export default function NirmanakaReader() {
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
+        // Reading defaults
+        if (prefs.defaultDepth !== undefined) setDefaultDepth(prefs.defaultDepth);
+        if (prefs.defaultExpanded !== undefined) setDefaultExpanded(prefs.defaultExpanded);
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -1188,14 +1191,17 @@ export default function NirmanakaReader() {
       contentDim,
       backgroundType,
       selectedVideo,
-      selectedImage
+      selectedImage,
+      // Reading defaults
+      defaultDepth,
+      defaultExpanded
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, backgroundType, selectedVideo, selectedImage]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, backgroundType, selectedVideo, selectedImage, defaultDepth, defaultExpanded]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
