@@ -234,7 +234,8 @@ CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} re
 POSITION LENS: ${positionLens}` : ''}
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
-CARD ${n} — ${positionName}: ${cardName}
+THE CARD: ${cardName}
+IN POSITION: ${positionName}
 Traditional Name: ${trans?.traditional || 'N/A'}
 Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
@@ -242,7 +243,11 @@ Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
 Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
 
-⚠️ POSITION CONTEXT IS MANDATORY: Your interpretation MUST explicitly mention "${positionName}" at least once. This card landed in the ${positionName} position - that context shapes the entire meaning. Say "${cardName} in ${positionName}" or "in your ${positionName}". The position is WHERE, the card is WHAT.
+⚠️ POSITION CONTEXT IS MANDATORY:
+- THE CARD (what was drawn): ${cardName}
+- THE POSITION (where it landed): ${positionName}
+Your interpretation MUST say "${cardName} in ${positionName}" or "in your ${positionName}".
+DO NOT reverse these - ${cardName} is the card, ${positionName} is the position it landed in.
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 
@@ -397,7 +402,8 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
 
 CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.
 
-CARD ${n} — ${positionName}: ${cardName}
+THE CARD: ${cardName}
+IN POSITION: ${positionName}
 Status: ${stat?.name || 'Balanced'}
 
 PREVIOUS CONTENT (what the querent has already read):
@@ -407,7 +413,10 @@ Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
 
 ${depthInstructions}
 
-⚠️ POSITION CONTEXT IS MANDATORY: Your interpretation MUST continue to mention "${positionName}" explicitly. This card is in the ${positionName} position - that context shapes everything. The position is WHERE, the card is WHAT. Weave it naturally into your deepened content.
+⚠️ POSITION CONTEXT IS MANDATORY:
+- THE CARD (what was drawn): ${cardName}
+- THE POSITION (where it landed): ${positionName}
+Say "${cardName} in ${positionName}" - DO NOT reverse these. Weave naturally into your deepened content.
 
 CRITICAL RULES:
 1. DO NOT repeat what's in the previous content
