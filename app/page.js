@@ -44,8 +44,6 @@ import {
   BASE_SYSTEM,
   FORMAT_INSTRUCTIONS,
   EXPANSION_PROMPTS,
-  SUGGESTIONS,
-  STARTERS,
   LOADING_PHRASES,
   // Prompt Builder (First Contact Mode)
   USER_LEVELS,
@@ -702,8 +700,6 @@ export default function NirmanakaReader() {
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
   const [loadingPhraseVisible, setLoadingPhraseVisible] = useState(true);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
-  const [sparkPlaceholder, setSparkPlaceholder] = useState('');
-  const [showSparkSuggestions, setShowSparkSuggestions] = useState(false); // Show starters + spark suggestions
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
@@ -1279,13 +1275,6 @@ export default function NirmanakaReader() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [helpPopover]);
-
-  // Spark: toggle suggestions panel and show random suggestion
-  const handleSpark = () => {
-    const randomSuggestion = SUGGESTIONS[Math.floor(Math.random() * SUGGESTIONS.length)];
-    setSparkPlaceholder(randomSuggestion);
-    setShowSparkSuggestions(true);
-  };
 
   // Strip trailing signatures from API responses (e.g., "A.", "[A]", "— A")
   const stripSignature = (text) => {
@@ -4722,86 +4711,59 @@ CRITICAL FORMATTING RULES:
 
             {/* Question Input Section */}
             <div className="relative mb-3 mt-4">
-              {/* Input row with Spark button on left */}
-              <div className="flex gap-2">
-                {/* Spark button */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('spark-button', e)) handleSpark(); }}
-                  data-help="spark-button"
-                  className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-[#1a0a3e] text-amber-400 hover:bg-[#2e1065] flex items-center gap-1.5 text-xs transition-colors border border-purple-900/50 self-center"
-                  title="Get a spark prompt"
-                >
-                  <span>✨</span>
-                  <span className="hidden sm:inline">Spark</span>
-                </button>
-
-                {/* Question textarea - switches to DTP input for Explore mode */}
-                <div
-                  className="relative flex-1"
-                  data-help="question-input"
-                  onClick={(e) => handleHelpClick('question-input', e)}
-                >
-                  {spreadType === 'explore' ? (
-                    <textarea
-                      value={dtpInput}
-                      onChange={(e) => { setDtpInput(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
-                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                      placeholder="Describe what's active for you right now...
+              {/* Centered textarea */}
+              <div
+                className="relative max-w-2xl mx-auto"
+                data-help="question-input"
+                onClick={(e) => handleHelpClick('question-input', e)}
+              >
+                {spreadType === 'explore' ? (
+                  <textarea
+                    value={dtpInput}
+                    onChange={(e) => setDtpInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                    placeholder="Describe what's active for you right now...
 
 Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                      className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
-                      rows={5}
-                    />
-                  ) : (
-                    <textarea
-                      value={question}
-                      onChange={(e) => { setQuestion(e.target.value); setSparkPlaceholder(''); setShowSparkSuggestions(false); }}
-                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                      placeholder={sparkPlaceholder || (
-                        spreadType === 'forge'
-                          ? "What are you forging? Declare your intention..."
-                          : spreadType === 'reflect'
-                            ? "What area of life are you examining?"
-                            : "Name your question or declare your intent..."
-                      )}
-                      className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                      rows={3}
-                    />
-                  )}
-                </div>
+                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
+                    rows={5}
+                  />
+                ) : (
+                  <textarea
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                    placeholder={
+                      spreadType === 'forge'
+                        ? "What are you forging? Declare your intention..."
+                        : spreadType === 'reflect'
+                          ? "What area of life are you examining?"
+                          : "Name your question or declare your intent..."
+                    }
+                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                    rows={3}
+                  />
+                )}
               </div>
 
-              {/* Spark suggestions panel - shown when Spark is clicked */}
-              {showSparkSuggestions && !question.trim() && (
-                <div className="mt-3 p-3 bg-zinc-900/50 rounded-lg border border-zinc-800/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-zinc-500">Tap to insert, or click Spark for more</span>
+              {/* Quick reading buttons - below textarea, right aligned */}
+              {spreadType === 'discover' && (
+                <div className="flex items-center justify-end gap-3 mt-3 max-w-2xl mx-auto">
+                  <span className="text-xs text-zinc-500">Quick:</span>
+                  {[1, 2, 3].map(count => (
                     <button
-                      onClick={() => setShowSparkSuggestions(false)}
-                      className="text-xs text-zinc-600 hover:text-zinc-400"
+                      key={count}
+                      onClick={() => {
+                        const newDraws = generateSpread(count, false);
+                        setDraws(newDraws);
+                        performReadingWithDraws(newDraws, question.trim() || 'General reading');
+                      }}
+                      className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-zinc-700/50 text-sm font-medium transition-colors"
+                      title={`${count}-card general reading`}
                     >
-                      ✕
+                      {count}
                     </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {STARTERS.map((starter, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => { setQuestion(starter); setShowSparkSuggestions(false); }}
-                        className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/80 border border-zinc-700/50 transition-all"
-                      >
-                        {starter}
-                      </button>
-                    ))}
-                    {sparkPlaceholder && (
-                      <button
-                        onClick={() => { setQuestion(sparkPlaceholder); setShowSparkSuggestions(false); }}
-                        className="text-[0.6875rem] sm:text-xs px-3 py-1.5 rounded-full bg-[#2e1065]/50 text-amber-400 hover:bg-[#2e1065] border border-purple-800/50 transition-all"
-                      >
-                        {sparkPlaceholder}
-                      </button>
-                    )}
-                  </div>
+                  ))}
                 </div>
               )}
 
