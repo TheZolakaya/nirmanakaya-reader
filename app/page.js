@@ -4050,7 +4050,7 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Full UI */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative max-w-2xl mx-auto">
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto">
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4301,7 +4301,7 @@ CRITICAL FORMATTING RULES:
               </div>
 
               {/* Voice Section - Three Tier Structure */}
-              <div className="mt-4 pt-4 border-t border-zinc-800/50">
+              <div className="mt-2 pt-2 border-t border-zinc-800/50">
 
                 {/* TIER 1: Persona Selector - ALWAYS visible */}
                 <div className="mb-3">
@@ -4725,34 +4725,37 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 )}
               </div>
 
-              {/* Quick reading buttons - below textarea, right aligned */}
-              {spreadType === 'discover' && (
-                <div className="flex items-center justify-end gap-3 mt-3 max-w-2xl mx-auto">
-                  <span className="text-xs text-zinc-500">Quick:</span>
-                  {[1, 2, 3].map(count => (
-                    <button
-                      key={count}
-                      onClick={() => {
-                        const newDraws = generateSpread(count, false);
-                        setDraws(newDraws);
-                        performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                      }}
-                      className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-zinc-700/50 text-sm font-medium transition-colors"
-                      title={`${count}-card general reading`}
-                    >
-                      {count}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {/* Action row - Quick buttons (Discover only) + main action button */}
+              <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">
+                {/* Quick reading buttons - left side (Discover mode only) */}
+                {spreadType === 'discover' ? (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-zinc-500">Quick:</span>
+                    {[1, 2, 3].map(count => (
+                      <button
+                        key={count}
+                        onClick={() => {
+                          const newDraws = generateSpread(count, false);
+                          setDraws(newDraws);
+                          performReadingWithDraws(newDraws, question.trim() || 'General reading');
+                        }}
+                        className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-zinc-700/50 text-sm font-medium transition-colors"
+                        title={`${count}-card general reading`}
+                      >
+                        {count}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div /> /* Spacer for non-Discover modes */
+                )}
 
-              {/* Action button below input */}
-              <div className="mt-3 max-w-2xl mx-auto flex justify-center">
+                {/* Main action button - right side */}
                 <button
                   onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
                   data-help="get-reading"
                   disabled={loading}
-                  className="px-8 py-3 min-h-[48px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
+                  className="px-6 py-2 min-h-[40px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-sm text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
                   {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
