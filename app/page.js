@@ -844,8 +844,28 @@ export default function NirmanakaReader() {
   const [directMode, setDirectMode] = useState(false); // No softening
 
   // Apply config defaults to voice settings when config is loaded
+  // ONLY if no saved preferences exist in localStorage (first-time users)
   useEffect(() => {
     if (featureConfig?.defaultVoice && !configApplied) {
+      // Check if user has saved preferences - if so, don't override them
+      let hasSavedPrefs = false;
+      try {
+        const saved = localStorage.getItem('nirmanakaya_prefs');
+        if (saved) {
+          const prefs = JSON.parse(saved);
+          // If any voice-related pref exists, user has customized their settings
+          hasSavedPrefs = prefs.persona !== undefined || prefs.humor !== undefined ||
+                          prefs.register !== undefined || prefs.stance !== undefined;
+        }
+      } catch (e) { /* ignore */ }
+
+      if (hasSavedPrefs) {
+        // User has saved preferences, skip applying config defaults
+        setConfigApplied(true);
+        console.log('[Config] Skipping defaults - user has saved preferences');
+        return;
+      }
+
       const dv = featureConfig.defaultVoice;
       // Apply voice defaults
       if (dv.persona) setPersona(dv.persona);
