@@ -124,8 +124,17 @@
         .card {
             position: absolute;
             cursor: pointer;
-            transition: transform 0.2s ease, z-index 0.2s;
+            transition: transform 0.2s ease, z-index 0.2s, opacity 0.4s ease;
             isolation: isolate;  /* Create stacking context for element-bg */
+        }
+        /* Training mode: cards start hidden and fade in */
+        .card.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .card.revealed {
+            opacity: 1;
+            pointer-events: auto;
         }
         .card:hover {
             z-index: 200;
@@ -683,6 +692,7 @@
         <div class="zoom-level" id="zoom-level">100%</div>
         <button class="zoom-btn" onclick="zoomOut()" title="Zoom out">−</button>
         <button class="zoom-btn" onclick="zoomFit()" title="Fit to screen" style="font-size: 1rem;">⊡</button>
+        <button class="zoom-btn" onclick="startRevealSequence()" title="Play reveal sequence" style="font-size: 1rem; margin-top: 12px;">▶</button>
     </div>
 
     <!-- Info Modal (card details with navigation) -->
@@ -802,6 +812,14 @@ const ELEMENT_COLORS = {
     Resonance: '#3D6A99',   // Water - Blue
     Structure: '#8B6B3D',   // Earth - Brown
     null: '#6B4D8A'         // Quintessence - Purple (Gestalt/Portal)
+};
+
+// Gestalt archetypes govern peripheral houses - use their governing house's channel
+const GESTALT_ARCHETYPE_CHANNELS = {
+    0: 'Intent',      // Potential (Fool) governs Spirit → Fire/Red
+    1: 'Structure',   // Will (Magician) governs Body → Earth/Brown
+    19: 'Cognition',  // Revelation (Sun) governs Mind → Air/Green
+    20: 'Resonance'   // Awareness (Judgement) governs Emotion → Water/Blue
 };
 
 // Bounds data (numeric cards) - matches lib/archetypes.js
@@ -1016,6 +1034,9 @@ const HOUSE_BOUNDS = {
 // Which house to render bounds/agents for (null = all houses)
 const POSITION_HOUSE = null;  // Set to 'mind', 'emotion', 'body', 'spirit', 'gestalt' to position one at a time
 
+// Training/Sequence mode: cards appear one at a time
+let SEQUENCE_MODE = false;  // Controlled by button - starts false so cards show normally
+
 // Gestalt center: (901, 540) - DONE (Aces and 10s only, no agents)
 const GESTALT_OFFSETS = {
     bounds: {
@@ -1183,7 +1204,8 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
         // For archetypes/portals, channelOrId is the archetype ID
         resolvedCardId = channelOrId;
         const archData = ARCHETYPES[channelOrId];
-        channel = archData?.channel;
+        // Check for Gestalt archetype governing colors first, then fall back to archetype's own channel
+        channel = GESTALT_ARCHETYPE_CHANNELS[channelOrId] || archData?.channel;
         description = archData?.desc || '';
         displayType = type === 'portal' ? 'Portal' : 'Archetype';
     } else if (type === 'bound') {
@@ -1217,6 +1239,16 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
 
     card.innerHTML = `${bgHtml}<img src="${src}" alt="${title}">${labelHtml}`;
     card.onclick = () => openInfoModal(src, title, subtitle, displayType, channel, description, resolvedCardId);
+
+    // Add data attributes for sequence targeting
+    card.dataset.cardType = type;
+    if (resolvedCardId !== null) card.dataset.cardId = resolvedCardId;
+
+    // In sequence mode, cards start hidden
+    if (SEQUENCE_MODE) {
+        card.classList.add('hidden');
+    }
+
     return card;
 }
 
@@ -1591,6 +1623,60 @@ function render() {
         renderHouse(map, name);
     });
     // Title moved to fixed HTML header at top of page
+}
+
+// ============================================
+// SEQUENCE MODE: Animated card reveal
+// ============================================
+function startRevealSequence() {
+    const ARCHETYPE_DELAY = 250;  // ms between each archetype
+    const BOUND_REVEAL_DELAY = 500;  // ms after last archetype before bounds
+
+    // First, hide ALL cards
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => {
+        card.classList.add('hidden');
+        card.classList.remove('revealed');
+    });
+
+    // Archetype reveal order: 0-21
+    const archetypeOrder = [];
+    for (let i = 0; i <= 21; i++) {
+        archetypeOrder.push(i);
+    }
+
+    // Find and reveal archetypes in order
+    let delay = 500;  // Initial delay before starting
+    archetypeOrder.forEach((id) => {
+        setTimeout(() => {
+            const card = document.querySelector(`.card[data-card-id="${id}"]`);
+            if (card) {
+                card.classList.remove('hidden');
+                card.classList.add('revealed');
+            }
+        }, delay);
+        delay += ARCHETYPE_DELAY;
+    });
+
+    // After all archetypes, reveal bounds and agents
+    setTimeout(() => {
+        const bounds = document.querySelectorAll('.card.bound.hidden');
+        const agents = document.querySelectorAll('.card.agent.hidden');
+
+        // Reveal all bounds at once
+        bounds.forEach(card => {
+            card.classList.remove('hidden');
+            card.classList.add('revealed');
+        });
+
+        // Reveal all agents slightly after
+        setTimeout(() => {
+            agents.forEach(card => {
+                card.classList.remove('hidden');
+                card.classList.add('revealed');
+            });
+        }, 300);
+    }, delay + BOUND_REVEAL_DELAY);
 }
 
 // ============================================
