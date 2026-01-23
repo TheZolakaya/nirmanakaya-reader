@@ -135,6 +135,9 @@ import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import Glistener from '../components/reader/Glistener.js';
+import CardImage from '../components/reader/CardImage.js';
+import Minimap from '../components/reader/Minimap.js';
+import { getHomeArchetype, getCardType } from '../lib/cardImages.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 import HelpTooltip from '../components/shared/HelpTooltip.js';
 import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
@@ -688,6 +691,7 @@ export default function NirmanakaReader() {
   const [isSharedReading, setIsSharedReading] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState(null); // {type: 'card'|'channel'|'status'|'house', id: ..., data: ...}
   const [infoHistory, setInfoHistory] = useState([]); // Stack of previous selectedInfo values for back navigation
+  const minimapRestoreRef = useRef(null); // Callback to restore minimap when going back from info
   const [glossaryTooltip, setGlossaryTooltip] = useState(null); // {entry, position: {x, y}}
   const [helpMode, setHelpMode] = useState(false); // Interactive help mode
   const [helpTooltip, setHelpTooltip] = useState(null); // {helpKey, position}
@@ -2543,12 +2547,27 @@ Interpret this new card as the architecture's response to their declared directi
     setSelectedInfo(newInfo);
   };
 
+  // Navigate to info from a minimap, with back support to restore the minimap
+  const navigateFromMinimap = (info, restoreCallback) => {
+    minimapRestoreRef.current = restoreCallback;
+    setInfoHistory(prev => [...prev, { type: 'minimap-restore' }]);
+    setSelectedInfo(info);
+  };
+
   const infoGoBack = () => {
     if (infoHistory.length > 0) {
       // Pop the last item from history and show it
       const newHistory = [...infoHistory];
       const prevInfo = newHistory.pop();
       setInfoHistory(newHistory);
+
+      // Handle minimap restore - call the stored callback instead of showing info
+      if (prevInfo?.type === 'minimap-restore') {
+        setSelectedInfo(null);
+        minimapRestoreRef.current?.();
+        return;
+      }
+
       setSelectedInfo(prevInfo);
     }
   };
@@ -3872,6 +3891,14 @@ CRITICAL FORMATTING RULES:
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Council
+            </a>
+            <a
+              href="/map"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            >
+              Map
             </a>
           </div>
           {helpPopover === 'intro' && (
@@ -5438,6 +5465,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     draw={draws[card.index]}
                     showTraditional={showTraditional}
                     setSelectedInfo={setSelectedInfo}
+                    navigateFromMinimap={navigateFromMinimap}
                     spreadType={spreadType}
                     spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
                     // Default depth setting (shallow or wade)
@@ -5762,6 +5790,19 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                               const trans = getComponent(threadItem.draw.transient);
                               const stat = STATUSES[threadItem.draw.status];
                               const statusPrefix = stat.prefix || 'Balanced';
+
+                              // Get correction info for imbalanced cards
+                              const itemIsImbalanced = threadItem.draw.status !== 1;
+                              const itemCorrection = itemIsImbalanced ? getFullCorrection(threadItem.draw.transient, threadItem.draw.status, trans) : null;
+                              const itemCorrectionTargetId = itemIsImbalanced ? getCorrectionTargetId(itemCorrection, trans) : null;
+                              const itemCorrectionCard = itemCorrectionTargetId !== null ? getComponent(itemCorrectionTargetId) : null;
+                              const itemHomeArchetype = getHomeArchetype(threadItem.draw.transient);
+                              const itemCorrectionArchetype = itemCorrectionTargetId !== null ? getHomeArchetype(itemCorrectionTargetId) : null;
+                              const itemCardType = getCardType(threadItem.draw.transient);
+                              const itemBoundIsInner = itemCardType === 'bound' && trans?.number <= 5;
+                              const itemCorrectionCardType = itemCorrectionTargetId !== null ? getCardType(itemCorrectionTargetId) : null;
+                              const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
+
                               return (
                                 <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                                   <div className="flex items-center gap-2 mb-3">
@@ -5774,7 +5815,54 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                                       "{threadItem.context}"
                                     </div>
                                   )}
-                                  <div className="flex items-center gap-2 mb-2">
+                                  {/* Card image and minimap for thread draw */}
+                                  <div className="flex items-center justify-center gap-4 mb-3">
+                                    <div className="flex flex-col items-center">
+                                      <CardImage
+                                        transient={threadItem.draw.transient}
+                                        status={threadItem.draw.status}
+                                        cardName={trans?.name}
+                                        size="default"
+                                        showFrame={true}
+                                        onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                      />
+                                      <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
+                                        {trans?.name}
+                                      </span>
+                                    </div>
+
+                                    {/* Minimap with correction path for imbalanced cards */}
+                                    {itemIsImbalanced && itemCorrectionArchetype !== null && (
+                                      <div className="flex flex-col items-center">
+                                        <span className="text-xs mb-1 text-emerald-400/60">Path to Balance</span>
+                                        <div
+                                          className="rounded-lg flex items-center justify-center overflow-hidden"
+                                          style={{
+                                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 46, 22, 0.3) 100%)',
+                                            border: '1px solid rgba(16, 185, 129, 0.3)',
+                                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)',
+                                            width: '120px',
+                                            height: '120px'
+                                          }}
+                                        >
+                                          <Minimap
+                                            fromId={itemHomeArchetype}
+                                            toId={itemCorrectionArchetype}
+                                            size="md"
+                                            singleMode={true}
+                                            fromCardType={itemCardType}
+                                            boundIsInner={itemBoundIsInner}
+                                            toCardType={itemCorrectionCardType}
+                                            toBoundIsInner={itemCorrectionBoundIsInner}
+                                          />
+                                        </div>
+                                        <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-emerald-300 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: itemCorrectionTargetId, data: itemCorrectionCard })}>
+                                          {itemCorrectionCard?.name}
+                                        </span>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center justify-center gap-2 mb-2">
                                     <span
                                       className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`}
                                       onClick={(e) => {
@@ -6219,13 +6307,73 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                           const trans = getComponent(threadItem.draw.transient);
                           const stat = STATUSES[threadItem.draw.status];
                           const statusPrefix = stat.prefix || 'Balanced';
+
+                          // Get correction info for imbalanced cards
+                          const itemIsImbalanced = threadItem.draw.status !== 1;
+                          const itemCorrection = itemIsImbalanced ? getFullCorrection(threadItem.draw.transient, threadItem.draw.status, trans) : null;
+                          const itemCorrectionTargetId = itemIsImbalanced ? getCorrectionTargetId(itemCorrection, trans) : null;
+                          const itemCorrectionCard = itemCorrectionTargetId !== null ? getComponent(itemCorrectionTargetId) : null;
+                          const itemHomeArchetype = getHomeArchetype(threadItem.draw.transient);
+                          const itemCorrectionArchetype = itemCorrectionTargetId !== null ? getHomeArchetype(itemCorrectionTargetId) : null;
+                          const itemCardType = getCardType(threadItem.draw.transient);
+                          const itemBoundIsInner = itemCardType === 'bound' && trans?.number <= 5;
+                          const itemCorrectionCardType = itemCorrectionTargetId !== null ? getCardType(itemCorrectionTargetId) : null;
+                          const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
+
                           return (
                             <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                               <div className="flex items-center gap-2 mb-3">
                                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>{isReflect ? '↩ Reflect' : '⚡ Forge'}</span>
                               </div>
                               {threadItem.context && <div className={`text-xs italic mb-3 pl-3 border-l-2 ${isReflect ? 'border-sky-500/50 text-sky-300/70' : 'border-orange-500/50 text-orange-300/70'}`}>"{threadItem.context}"</div>}
-                              <div className="flex items-center gap-2 mb-2">
+                              {/* Card image and minimap for thread draw */}
+                              <div className="flex items-center justify-center gap-4 mb-3">
+                                <div className="flex flex-col items-center">
+                                  <CardImage
+                                    transient={threadItem.draw.transient}
+                                    status={threadItem.draw.status}
+                                    cardName={trans?.name}
+                                    size="default"
+                                    showFrame={true}
+                                    onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                  />
+                                  <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
+                                    {trans?.name}
+                                  </span>
+                                </div>
+
+                                {/* Minimap with correction path for imbalanced cards */}
+                                {itemIsImbalanced && itemCorrectionArchetype !== null && (
+                                  <div className="flex flex-col items-center">
+                                    <span className="text-xs mb-1 text-emerald-400/60">Path to Balance</span>
+                                    <div
+                                      className="rounded-lg flex items-center justify-center overflow-hidden"
+                                      style={{
+                                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 46, 22, 0.3) 100%)',
+                                        border: '1px solid rgba(16, 185, 129, 0.3)',
+                                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)',
+                                        width: '120px',
+                                        height: '120px'
+                                      }}
+                                    >
+                                      <Minimap
+                                        fromId={itemHomeArchetype}
+                                        toId={itemCorrectionArchetype}
+                                        size="md"
+                                        singleMode={true}
+                                        fromCardType={itemCardType}
+                                        boundIsInner={itemBoundIsInner}
+                                        toCardType={itemCorrectionCardType}
+                                        toBoundIsInner={itemCorrectionBoundIsInner}
+                                      />
+                                    </div>
+                                    <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-emerald-300 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: itemCorrectionTargetId, data: itemCorrectionCard })}>
+                                      {itemCorrectionCard?.name}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex items-center justify-center gap-2 mb-2">
                                 <span className={`text-xs px-2 py-0.5 rounded-full cursor-pointer hover:ring-1 hover:ring-white/30 ${STATUS_COLORS[threadItem.draw.status]}`} onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}>{stat.name}</span>
                                 <span className="text-sm font-medium text-zinc-200">
                                   <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2" onClick={() => setSelectedInfo({ type: 'status', id: threadItem.draw.status, data: STATUS_INFO[threadItem.draw.status] })}>{statusPrefix}</span>
@@ -6565,6 +6713,15 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               className="hover:text-zinc-400 transition-colors"
             >
               Council
+            </a>
+            <span className="text-zinc-800">•</span>
+            <a
+              href="/map"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              Map
             </a>
             <span className="text-zinc-800">•</span>
             <a

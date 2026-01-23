@@ -7,12 +7,17 @@ import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../.
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { REFLECT_SPREADS } from '../../lib/spreads.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
-import { getComponent } from '../../lib/corrections.js';
+import { getComponent, getFullCorrection, getCorrectionTargetId, getBoundCorrection, getAgentCorrection } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { ensureParagraphBreaks } from '../../lib/utils.js';
+import { getGlossaryEntry } from '../../lib/glossary.js';
 import ArchitectureBox from './ArchitectureBox.js';
 import MirrorSection from './MirrorSection.js';
 import MobileDepthStepper from './MobileDepthStepper.js';
+import CardImage from './CardImage.js';
+import Minimap from './Minimap.js';
+import MinimapModal from './MinimapModal.js';
+import { getHomeArchetype, getCardType, getDetailedCardType } from '../../lib/cardImages.js';
 
 // Depth levels (now includes SHALLOW as default and DEEP for all sections)
 const DEPTH = {
@@ -97,6 +102,7 @@ const DepthCard = ({
   draw,      // { transient, status, position }
   showTraditional = false,
   setSelectedInfo,
+  navigateFromMinimap,    // For navigating to info from minimap with back support
   spreadType = 'discover',
   spreadKey = 'one',
   // Default depth setting (shallow or wade) - controls what depth cards open to
@@ -142,10 +148,17 @@ const DepthCard = ({
   const [growthLoadingDeeper, setGrowthLoadingDeeper] = useState(false); // For balanced cards' Growth Opportunity
   const [whyLoadingDeeper, setWhyLoadingDeeper] = useState(false);
 
-  // Mobile detection for abbreviated depth labels (FR20)
+  // Minimap modal state
+  const [showMinimapModal, setShowMinimapModal] = useState(false);
+  const [showRebalancerMinimapModal, setShowRebalancerMinimapModal] = useState(false);
+  const [showGrowthMinimapModal, setShowGrowthMinimapModal] = useState(false);
+  const [threadMinimapData, setThreadMinimapData] = useState(null); // Stores data for thread item minimap modal
+
+  // Mobile/narrow detection - triggers vertical layout when cards would wrap
+  // 720px = 3 cards (200px each) + connectors + padding
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 480);
+    const checkMobile = () => setIsMobile(window.innerWidth < 720);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -176,6 +189,86 @@ const DepthCard = ({
     : (draw.position !== null ? ARCHETYPES[draw.position]?.house : 'Gestalt');
   const houseColors = house ? HOUSE_COLORS[house] : null;
 
+  // Get the card's home archetype for minimap (bounds/agents map to their archetype)
+  const cardHomeArchetype = getHomeArchetype(draw.transient);
+  // Position is always an archetype (0-21) in Discover mode
+  const positionArchetype = !isReflect && draw.position !== null ? draw.position : null;
+
+  // Card type for minimap indicator (archetype, bound, or agent)
+  const cardTypeForMinimap = trans?.type?.toLowerCase() || 'archetype';
+  // For bounds, determine if inner (1-5) or outer (6-10)
+  const boundIsInner = cardTypeForMinimap === 'bound' && trans?.number <= 5;
+
+  // Correction data for rebalancer minimap (computed at component level for modal access)
+  const correction = !isBalanced ? getFullCorrection(draw.transient, draw.status) : null;
+  const correctionTargetId = correction ? getCorrectionTargetId(correction, trans) : null;
+  const correctionArchetype = correctionTargetId !== null ? getHomeArchetype(correctionTargetId) : null;
+  // Correction target card type (for showing bound/agent indicator on minimap)
+  const correctionCard = correctionTargetId !== null ? getComponent(correctionTargetId) : null;
+  const correctionCardType = correctionCard?.type?.toLowerCase() || 'archetype';
+  const correctionBoundIsInner = correctionCardType === 'bound' && correctionCard?.number <= 5;
+
+  // Growth type for balanced cards - determined by home archetype
+  // Gestalt archetypes (0, 1, 19, 20) and Portals (10, 21) have no lateral growth - they loop back to themselves
+  // Polarity Anchors: Compassion(6), Fortitude(8), Abstraction(15), Inspiration(17) - pure element expressions
+  // Transpose Pairs: Order(4)↔Wisdom(2), Nurturing(3)↔Sacrifice(12), Culture(5)↔Balance(14),
+  //                  Drive(7)↔Imagination(18), Discipline(9)↔Breakthrough(16), Equity(11)↔Change(13)
+  const GESTALT_ARCHETYPES = new Set([0, 1, 10, 19, 20, 21]); // Gestalt house + Portals - completion points
+  const POLARITY_ANCHOR_ARCHETYPES = new Set([6, 8, 15, 17]);
+  const TRANSPOSE_PAIR_ARCHETYPES = new Set([2, 3, 4, 5, 7, 9, 11, 12, 13, 14, 16, 18]);
+
+  const isGestaltCard = cardHomeArchetype !== null && GESTALT_ARCHETYPES.has(cardHomeArchetype);
+
+  const getGrowthType = (archetypeId) => {
+    if (GESTALT_ARCHETYPES.has(archetypeId)) {
+      // Gestalt cards loop back to themselves - the growth IS the embodiment
+      return { slug: 'self-expression', label: 'Self-Expression' };
+    }
+    if (POLARITY_ANCHOR_ARCHETYPES.has(archetypeId)) {
+      return { slug: 'polarity-anchor', label: 'Polarity Anchor' };
+    }
+    if (TRANSPOSE_PAIR_ARCHETYPES.has(archetypeId)) {
+      return { slug: 'transpose-pair', label: 'Transpose Pair' };
+    }
+    return { slug: 'growth-opportunity', label: 'Growth Opportunity' };
+  };
+  const growthType = cardHomeArchetype !== null ? getGrowthType(cardHomeArchetype) : null;
+
+  // Growth target: Use canonical lookup tables for Agents and Bounds
+  // For Gestalt cards: same card (embody this energy)
+  // For Agents: use AGENT_GROWTH_TARGETS via getAgentCorrection
+  // For Bounds: use BOUND_GROWTH_TARGETS via getBoundCorrection
+  // For Archetypes: position archetype
+  const getGrowthTargetId = () => {
+    if (isGestaltCard) return draw.transient;
+
+    // For Agents: use canonical lookup table
+    if (cardTypeForMinimap === 'agent') {
+      const agentCorrection = getAgentCorrection(trans, 1); // status=1 for balanced/growth
+      if (agentCorrection?.targetAgentId) {
+        return agentCorrection.targetAgentId;
+      }
+    }
+
+    // For Bounds: use canonical lookup table
+    if (cardTypeForMinimap === 'bound') {
+      const boundCorrection = getBoundCorrection(trans, 1); // status=1 for balanced/growth
+      if (boundCorrection?.targetId) {
+        return boundCorrection.targetId;
+      }
+    }
+
+    // Default for Archetypes: position archetype
+    return positionArchetype;
+  };
+  const growthTargetId = getGrowthTargetId();
+
+  // Display card type with inner/outer distinction for all types
+  const getDisplayCardType = () => {
+    const detailed = getDetailedCardType(draw.transient);
+    return detailed?.label || getCardType(draw.transient);
+  };
+
   // Helper to make terms clickable
   const ClickableTerm = ({ type, id, children, className = "" }) => (
     <span
@@ -192,6 +285,62 @@ const DepthCard = ({
       {children}
     </span>
   );
+
+  // Clickable glossary term (for framework concepts)
+  const GlossaryTerm = ({ slug, children, className = "" }) => {
+    const entry = getGlossaryEntry(slug);
+    if (!entry) return <span className={className}>{children}</span>;
+    return (
+      <span
+        className={`cursor-pointer hover:underline decoration-dotted underline-offset-2 ${className}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setSelectedInfo?.({ type: 'glossary', id: slug, data: entry });
+        }}
+      >
+        {children}
+      </span>
+    );
+  };
+
+  // Clickable card type label (opens glossary for the card type)
+  const ClickableCardType = ({ transientId, className = "" }) => {
+    const detailedType = getDetailedCardType(transientId);
+    if (!detailedType) return null;
+
+    // Get glossary slug from detailed card type
+    const getGlossarySlug = () => {
+      if (detailedType.type === 'BOUND') {
+        return detailedType.subtype === 'INNER' ? 'inner-bound' : 'outer-bound';
+      }
+      if (detailedType.type === 'AGENT') return 'agent';
+      if (detailedType.type === 'ARCHETYPE') {
+        if (detailedType.subtype === 'INGRESS') return 'ingress-portal';
+        if (detailedType.subtype === 'EGRESS') return 'egress-portal';
+        return detailedType.subtype === 'INNER' ? 'inner-archetype' : 'outer-archetype';
+      }
+      return null;
+    };
+
+    const slug = getGlossarySlug();
+    const entry = slug ? getGlossaryEntry(slug) : null;
+
+    if (!entry) {
+      return <span className={className}>({detailedType.label})</span>;
+    }
+
+    return (
+      <span
+        className={`cursor-pointer hover:underline decoration-dotted underline-offset-2 ${className}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setSelectedInfo?.({ type: 'glossary', id: slug, data: entry });
+        }}
+      >
+        ({detailedType.label})
+      </span>
+    );
+  };
 
   // Get content for current depth (with fallback chain, now includes DEEP)
   // Helper to check for actual content (not empty string)
@@ -466,12 +615,141 @@ const DepthCard = ({
 
   return (
     <div className={`content-pane rounded-lg border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
-      {/* Card Header - always visible */}
-      <div
-        className={`flex flex-col gap-1 cursor-pointer group ${depth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
-        onClick={handleCardClick}
-      >
-        <div className="flex items-center gap-2 flex-wrap">
+      {/* Card Header with Visual Layout - always visible */}
+      <div className={`${depth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}>
+        {/* Visual row: Card → Position → Minimap - responsive layout */}
+        {/* Desktop: horizontal flex row | Mobile: vertical stack */}
+        <div className={`mb-2 ${isMobile ? 'flex flex-col items-center gap-3' : 'flex items-start gap-2 flex-wrap'}`}>
+          {/* Drawn Card with Status above */}
+          <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <ClickableTerm type="status" id={draw.status} className={`text-xs mb-1 ${STATUS_COLORS[draw.status]?.split(' ')[0]}`}>
+              {statusPrefix}
+            </ClickableTerm>
+            <div className="w-[200px] h-[200px] flex items-center justify-center">
+              <CardImage
+                transient={draw.transient}
+                status={draw.status}
+                cardName={trans?.name}
+                size="compact"
+                showFrame={depth !== DEPTH.COLLAPSED}
+                onImageClick={() => {
+                  const data = getComponent(draw.transient);
+                  setSelectedInfo?.({ type: 'card', id: draw.transient, data });
+                }}
+              />
+            </div>
+            <ClickableTerm type="card" id={draw.transient} className="text-xs text-amber-300/90 mt-1 text-center max-w-[200px] truncate">
+              {trans?.name}
+            </ClickableTerm>
+            <ClickableCardType transientId={draw.transient} className="text-[0.65rem] text-zinc-500 uppercase tracking-wider" />
+          </div>
+
+          {/* Arrow connector - only in Discover mode with position */}
+          {!isReflect && positionArchetype !== null && (
+            <>
+              {/* Arrow with "in your" - single clickable unit, vertical on mobile, horizontal on desktop */}
+              {isMobile ? (
+                <GlossaryTerm slug="in-your" className="flex flex-col items-center py-1 cursor-pointer hover:opacity-80 transition-opacity">
+                  <span className="text-xs uppercase tracking-wider text-zinc-400 mb-1">in your</span>
+                  <span className="text-2xl text-zinc-300 font-light">↓</span>
+                </GlossaryTerm>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-[200px] mt-[18px] px-3">
+                  <GlossaryTerm slug="in-your" className="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity">
+                    <span className="text-3xl text-zinc-300 font-light">→</span>
+                    <span className="text-xs uppercase tracking-wider text-zinc-400 mt-1">in your</span>
+                  </GlossaryTerm>
+                </div>
+              )}
+
+              {/* Position Archetype Image */}
+              <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                {!isMobile && <span className="text-xs mb-1 text-transparent">.</span>}
+                <div className="w-[200px] h-[200px] flex items-center justify-center">
+                  <CardImage
+                    transient={positionArchetype}
+                    status={1}
+                    cardName={ARCHETYPES[positionArchetype]?.name}
+                    size="compact"
+                    showFrame={depth !== DEPTH.COLLAPSED}
+                    onImageClick={() => {
+                      const data = getComponent(positionArchetype);
+                      setSelectedInfo?.({ type: 'card', id: positionArchetype, data });
+                    }}
+                  />
+                </div>
+                <ClickableTerm type="card" id={positionArchetype} className="text-xs text-zinc-300 mt-1 text-center max-w-[200px] truncate">
+                  {posLabel}
+                </ClickableTerm>
+                <ClickableCardType transientId={positionArchetype} className="text-[0.65rem] text-zinc-500 uppercase tracking-wider" />
+              </div>
+
+              {/* Connector to minimap - equals sign (represents "this relationship = minimap") */}
+              {isMobile ? (
+                <div className="flex flex-col items-center py-1">
+                  <span className="text-2xl text-zinc-300 font-light">=</span>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-[200px] mt-[18px] px-3">
+                  <span className="text-3xl text-zinc-300 font-light">=</span>
+                </div>
+              )}
+
+              {/* Minimap - same square size as card containers (200x200) */}
+              <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                <span className="text-xs mb-1 text-zinc-400">
+                  <span className="text-amber-300/80">{trans?.name}</span>
+                  <span className="text-zinc-500"> → </span>
+                  <span className="text-zinc-300">{posLabel}</span>
+                </span>
+                <div
+                  className="rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:scale-105 hover:border-violet-400/60"
+                  style={{
+                    background: 'rgba(13, 13, 26, 0.85)',
+                    border: '1px solid rgba(107, 77, 138, 0.4)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(107, 77, 138, 0.1)',
+                    width: '200px',
+                    height: '200px'
+                  }}
+                  onClick={() => setShowMinimapModal(true)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && setShowMinimapModal(true)}
+                  title="Click to expand minimap"
+                >
+                  <Minimap
+                    fromId={cardHomeArchetype}
+                    toId={positionArchetype}
+                    size="card"
+                    singleMode={true}
+                    fromCardType={cardTypeForMinimap}
+                    boundIsInner={boundIsInner}
+                  />
+                </div>
+                <span className="text-xs text-zinc-500 mt-1 cursor-pointer hover:text-zinc-400" onClick={() => setShowMinimapModal(true)}>
+                  Click to expand
+                </span>
+                {!isMobile && <span className="text-[0.65rem] text-transparent">.</span>}
+              </div>
+            </>
+          )}
+
+          {/* Reflect mode: just show position label */}
+          {isReflect && (
+            <div className="flex items-center text-zinc-400">
+              <GlossaryTerm slug="in-your" className="text-sm">in your</GlossaryTerm>
+              <ClickableTerm type="house" id={house} className="text-sm ml-1">
+                {posLabel}
+              </ClickableTerm>
+            </div>
+          )}
+        </div>
+
+        {/* Controls row: collapse, badge, depth */}
+        <div
+          className="flex items-center gap-2 flex-wrap cursor-pointer group"
+          onClick={handleCardClick}
+        >
           {/* Collapse chevron - click to toggle */}
           <span
             onClick={toggleCollapse}
@@ -485,21 +763,6 @@ const DepthCard = ({
             Reading
           </span>
 
-          {/* Card label with clickable terms */}
-          <span className={houseColors?.text || 'text-zinc-300'}>
-            <ClickableTerm type="status" id={draw.status} className={STATUS_COLORS[draw.status]?.split(' ')[0]}>
-              {statusPrefix}
-            </ClickableTerm>
-            {' '}
-            <ClickableTerm type="card" id={draw.transient} className="text-amber-300/90">
-              {trans?.name}
-            </ClickableTerm>
-            {' in your '}
-            <ClickableTerm type={isReflect ? "house" : "card"} id={isReflect ? house : draw.position}>
-              {posLabel}
-            </ClickableTerm>
-          </span>
-
           {/* Depth navigation - desktop inline, mobile below */}
           {depth === DEPTH.COLLAPSED ? (
             <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
@@ -509,7 +772,7 @@ const DepthCard = ({
             <span className="ml-auto text-xs"><PulsatingLoader color="text-amber-400" /></span>
           ) : !isMobile && (
             /* Desktop: Button row inline */
-            <div className="ml-auto flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+            <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
               {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                 const hasContent = level === 'shallow' ? cardData.wade
                   : level === 'wade' ? cardData.wade
@@ -560,11 +823,11 @@ const DepthCard = ({
               })}
             </div>
           )}
-        </div>
 
-        {showTraditional && trans?.traditional && depth !== DEPTH.COLLAPSED && (
-          <span className="text-xs text-zinc-500 ml-6">{trans.traditional}</span>
-        )}
+          {showTraditional && trans?.traditional && depth !== DEPTH.COLLAPSED && (
+            <span className="text-xs text-zinc-500 ml-auto">{trans.traditional}</span>
+          )}
+        </div>
       </div>
 
       {/* Mobile Depth Stepper - under title, left-justified */}
@@ -726,7 +989,7 @@ const DepthCard = ({
         <div className="mt-4 ml-4 rounded-lg border-2 border-emerald-500/30 bg-emerald-950/20 p-4">
           {/* Rebalancer Header */}
           <div
-            className={`flex items-center gap-2 cursor-pointer group ${rebalancerDepth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
+            className={`flex flex-wrap items-center gap-2 cursor-pointer group ${rebalancerDepth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
             onClick={handleRebalancerClick}
           >
             <span
@@ -739,7 +1002,7 @@ const DepthCard = ({
             <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300">
               Rebalancer
             </span>
-            <span className="text-sm font-medium text-emerald-400">
+            <span className="text-sm font-medium text-emerald-400 flex-1 min-w-0">
               How to Rebalance
             </span>
             {/* Depth navigation - desktop inline, mobile below */}
@@ -751,7 +1014,7 @@ const DepthCard = ({
               <span className="ml-auto text-xs"><PulsatingLoader color="text-emerald-400" /></span>
             ) : !isMobile && (
               /* Desktop: Button row inline */
-              <div className="ml-auto flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+              <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
                 {(() => {
                   const r = cardData.rebalancer || {};
                   const hasContentObj = {
@@ -858,6 +1121,112 @@ const DepthCard = ({
           {/* Rebalancer Content */}
           {rebalancerDepth !== DEPTH.COLLAPSED && (
             <>
+              {/* Rebalancer Visual: Original Card → Minimap → Correction Card */}
+              {/* Responsive: vertical on mobile, horizontal on desktop */}
+              {(() => {
+                // Use component-level correction values
+                const correctionCard = correctionTargetId !== null ? getComponent(correctionTargetId) : null;
+
+                if (!correctionCard) return null;
+
+                return (
+                  <div className={`mb-4 ${isMobile ? 'flex flex-col items-center gap-3' : 'flex flex-wrap items-start justify-center gap-4'}`}>
+                    {/* Original Drawn Card */}
+                    <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                      <ClickableTerm type="status" id={draw.status} className={`text-xs mb-1 ${STATUS_COLORS[draw.status]?.split(' ')[0]}`}>
+                        {statusPrefix}
+                      </ClickableTerm>
+                      <div className="w-[200px] h-[200px] flex items-center justify-center">
+                        <CardImage
+                          transient={draw.transient}
+                          status={draw.status}
+                          cardName={trans?.name}
+                          size="compact"
+                          showFrame={true}
+                          onImageClick={() => {
+                            const data = getComponent(draw.transient);
+                            setSelectedInfo?.({ type: 'card', id: draw.transient, data });
+                          }}
+                        />
+                      </div>
+                      <ClickableTerm type="card" id={draw.transient} className="text-xs text-amber-300/90 mt-1 text-center max-w-[200px] truncate">
+                        {trans?.name}
+                      </ClickableTerm>
+                      <ClickableCardType transientId={draw.transient} className="text-[0.6rem] text-zinc-500 uppercase tracking-wider" />
+                    </div>
+
+                    {/* Minimap showing correction pathway */}
+                    {correctionArchetype !== null && (
+                      <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-xs mb-1 text-emerald-400/60">Path to Balance</span>
+                        <div
+                          className="w-[200px] h-[200px] rounded-lg flex items-center justify-center overflow-hidden cursor-pointer transition-all hover:scale-105 hover:border-emerald-400/60"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 46, 22, 0.3) 100%)',
+                            border: '1px solid rgba(16, 185, 129, 0.3)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)',
+                            width: '200px',
+                            height: '200px'
+                          }}
+                          onClick={() => setShowRebalancerMinimapModal(true)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === 'Enter' && setShowRebalancerMinimapModal(true)}
+                          title="Click to expand minimap"
+                        >
+                          <Minimap
+                            fromId={cardHomeArchetype}
+                            toId={correctionArchetype}
+                            size="card"
+                            singleMode={true}
+                            fromCardType={cardTypeForMinimap}
+                            boundIsInner={boundIsInner}
+                            toCardType={correctionCardType}
+                            toBoundIsInner={correctionBoundIsInner}
+                          />
+                        </div>
+                        <GlossaryTerm
+                          slug={correction.type === 'diagonal' ? 'diagonal-duality' :
+                                correction.type === 'vertical' ? 'vertical-duality' :
+                                correction.type === 'reduction' ? 'reduction-pair' : 'rebalancer'}
+                          className="text-xs text-emerald-300 mt-1 cursor-pointer hover:text-emerald-400"
+                          onClick={() => setShowRebalancerMinimapModal(true)}
+                        >
+                          {correction.type === 'diagonal' ? 'Diagonal Duality' :
+                           correction.type === 'vertical' ? 'Vertical Duality' :
+                           correction.type === 'reduction' ? 'Reduction Pair' : 'Rebalancer'}
+                        </GlossaryTerm>
+                        <span className="text-xs text-zinc-500 cursor-pointer hover:text-zinc-400" onClick={() => setShowRebalancerMinimapModal(true)}>
+                          Click to expand
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Correction Card */}
+                    <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                      <span className="text-xs mb-1 text-emerald-400/60">Rebalance with</span>
+                      <div className="w-[200px] h-[200px] flex items-center justify-center">
+                        <CardImage
+                          transient={correctionTargetId}
+                          status={1}
+                          cardName={correctionCard?.name}
+                          size="compact"
+                          showFrame={true}
+                          onImageClick={() => {
+                            const data = getComponent(correctionTargetId);
+                            setSelectedInfo?.({ type: 'card', id: correctionTargetId, data });
+                          }}
+                        />
+                      </div>
+                      <ClickableTerm type="card" id={correctionTargetId} className="text-xs text-emerald-300 mt-1 text-center max-w-[200px] truncate">
+                        {correctionCard?.name}
+                      </ClickableTerm>
+                      <ClickableCardType transientId={correctionTargetId} className="text-[0.6rem] text-zinc-600 uppercase tracking-wider" />
+                    </div>
+                  </div>
+                );
+              })()}
+
               {/* Card name reminder */}
               <div className="text-xs text-emerald-400/60 mb-3 italic">
                 Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}
@@ -895,7 +1264,7 @@ const DepthCard = ({
         <div className="mt-4 ml-4 rounded-lg border-2 border-teal-500/30 bg-teal-950/20 p-4">
           {/* Growth Header */}
           <div
-            className={`flex items-center gap-2 cursor-pointer group ${growthDepth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
+            className={`flex flex-wrap items-center gap-2 cursor-pointer group ${growthDepth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}
             onClick={handleGrowthClick}
           >
             <span
@@ -908,7 +1277,7 @@ const DepthCard = ({
             <span className="text-xs px-2 py-0.5 rounded-full bg-teal-500/30 text-teal-300">
               Growth
             </span>
-            <span className="text-sm font-medium text-teal-400">
+            <span className="text-sm font-medium text-teal-400 flex-1 min-w-0">
               Growth Opportunity
             </span>
             {/* Depth navigation - desktop inline, mobile below */}
@@ -920,7 +1289,7 @@ const DepthCard = ({
               <span className="ml-auto text-xs"><PulsatingLoader color="text-teal-400" /></span>
             ) : !isMobile && (
               /* Desktop: Button row inline */
-              <div className="ml-auto flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+              <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
                 {(() => {
                   const g = cardData.growth || {};
                   const hasContentObj = {
@@ -1027,6 +1396,116 @@ const DepthCard = ({
           {/* Growth Content */}
           {growthDepth !== DEPTH.COLLAPSED && (
             <>
+              {/* Growth Visual: Original Card → Minimap → Growth Target */}
+              {cardHomeArchetype !== null && positionArchetype !== null && (
+                <div className="flex flex-wrap items-start justify-center gap-4 mb-4">
+                  {/* Original Drawn Card */}
+                  <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                    <ClickableTerm type="status" id={draw.status} className={`text-xs mb-1 ${STATUS_COLORS[draw.status]?.split(' ')[0]}`}>
+                      {statusPrefix || 'Balanced'}
+                    </ClickableTerm>
+                    <div className="w-[200px] h-[200px] flex items-center justify-center">
+                      <CardImage
+                        transient={draw.transient}
+                        status={draw.status}
+                        cardName={trans?.name}
+                        size="compact"
+                        showFrame={true}
+                        onImageClick={() => {
+                          const data = getComponent(draw.transient);
+                          setSelectedInfo?.({ type: 'card', id: draw.transient, data });
+                        }}
+                      />
+                    </div>
+                    <ClickableTerm type="card" id={draw.transient} className="text-xs text-amber-300/90 mt-1 text-center max-w-[200px] truncate">
+                      {trans?.name}
+                    </ClickableTerm>
+                    <ClickableCardType transientId={draw.transient} className="text-[0.6rem] text-zinc-500 uppercase tracking-wider" />
+                  </div>
+
+                  {/* Minimap showing growth pathway */}
+                  {(() => {
+                    // For Agent cards, get the growth target Agent's card type info
+                    const growthTargetForMinimap = getComponent(growthTargetId);
+                    const growthTargetCardType = growthTargetForMinimap?.type?.toLowerCase() || null;
+                    const showGrowthTargetIndicator = cardTypeForMinimap === 'agent' && growthTargetCardType === 'agent';
+
+                    return (
+                      <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-xs mb-1 text-teal-400/60">Growth Path</span>
+                        <div
+                          className="w-[200px] h-[200px] rounded-lg flex items-center justify-center overflow-hidden cursor-pointer transition-all hover:scale-105 hover:border-teal-400/60"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(5, 46, 46, 0.3) 100%)',
+                            border: '1px solid rgba(20, 184, 166, 0.3)',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(20, 184, 166, 0.1)',
+                            width: '200px',
+                            height: '200px'
+                          }}
+                          onClick={() => setShowGrowthMinimapModal(true)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === 'Enter' && setShowGrowthMinimapModal(true)}
+                          title="Click to expand minimap"
+                        >
+                          <Minimap
+                            fromId={cardHomeArchetype}
+                            toId={positionArchetype}
+                            size="card"
+                            singleMode={true}
+                            fromCardType={cardTypeForMinimap}
+                            boundIsInner={boundIsInner}
+                            toCardType={showGrowthTargetIndicator ? 'agent' : null}
+                          />
+                        </div>
+                        <GlossaryTerm
+                          slug={growthType?.slug || 'growth-opportunity'}
+                          className="text-xs text-teal-300 mt-1 cursor-pointer hover:text-teal-400"
+                        >
+                          {growthType?.label || 'Growth Opportunity'}
+                        </GlossaryTerm>
+                        <span className="text-xs text-zinc-500 cursor-pointer hover:text-zinc-400" onClick={() => setShowGrowthMinimapModal(true)}>
+                          Click to expand
+                        </span>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Growth Target - for Gestalt: same card (embody), for Agents: Agent of position, for others: position archetype */}
+                  {(() => {
+                    const growthTargetCard = getComponent(growthTargetId);
+                    const growthTargetIsAgent = cardTypeForMinimap === 'agent' && growthTargetCard?.type === 'Agent';
+                    const growthTargetName = growthTargetCard?.name || ARCHETYPES[positionArchetype]?.name;
+                    const growthTargetLabel = isGestaltCard ? 'Self-Expression' : (growthTargetIsAgent ? 'Agent' : 'Position');
+
+                    return (
+                      <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-xs mb-1 text-teal-400/60">
+                          {isGestaltCard ? 'Embody This' : 'Growth Context'}
+                        </span>
+                        <div className="w-[200px] h-[200px] flex items-center justify-center">
+                          <CardImage
+                            transient={growthTargetId}
+                            status={1}
+                            cardName={growthTargetName}
+                            size="compact"
+                            showFrame={true}
+                            onImageClick={() => {
+                              const data = getComponent(growthTargetId);
+                              setSelectedInfo?.({ type: 'card', id: growthTargetId, data });
+                            }}
+                          />
+                        </div>
+                        <ClickableTerm type="card" id={growthTargetId} className="text-xs text-teal-300 mt-1 text-center max-w-[200px] truncate">
+                          {growthTargetName}
+                        </ClickableTerm>
+                        <ClickableCardType transientId={growthTargetId} className="text-[0.6rem] text-zinc-600 uppercase tracking-wider" />
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
+
               {/* Card name reminder */}
               <div className="text-xs text-teal-400/60 mb-3 italic">
                 Growth from {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}
@@ -1412,6 +1891,19 @@ const DepthCard = ({
                 const itemTrans = getComponent(threadItem.draw.transient);
                 const itemStat = STATUSES[threadItem.draw.status];
                 const itemStatusPrefix = itemStat.prefix || 'Balanced';
+
+                // Get correction info for imbalanced cards
+                const itemIsImbalanced = threadItem.draw.status !== 1;
+                const itemCorrection = itemIsImbalanced ? getFullCorrection(threadItem.draw.transient, threadItem.draw.status, itemTrans) : null;
+                const itemCorrectionTargetId = itemIsImbalanced ? getCorrectionTargetId(itemCorrection, itemTrans) : null;
+                const itemCorrectionCard = itemCorrectionTargetId !== null ? getComponent(itemCorrectionTargetId) : null;
+                const itemHomeArchetype = getHomeArchetype(threadItem.draw.transient);
+                const itemCorrectionArchetype = itemCorrectionTargetId !== null ? getHomeArchetype(itemCorrectionTargetId) : null;
+                const itemCardType = getCardType(threadItem.draw.transient);
+                const itemBoundIsInner = itemCardType === 'bound' && itemTrans?.number <= 5;
+                const itemCorrectionCardType = itemCorrectionTargetId !== null ? getCardType(itemCorrectionTargetId) : null;
+                const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
+
                 return (
                   <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                     <div className="flex items-center gap-2 mb-3">
@@ -1424,7 +1916,87 @@ const DepthCard = ({
                         "{threadItem.context}"
                       </div>
                     )}
-                    <div className="flex items-center gap-2 mb-2">
+                    {/* Card image and minimap for thread draw - responsive layout */}
+                    <div className={`mb-3 ${isMobile ? 'flex flex-col items-center gap-3' : 'flex items-center justify-center gap-4'}`}>
+                      <div className="flex flex-col items-center">
+                        <CardImage
+                          transient={threadItem.draw.transient}
+                          status={threadItem.draw.status}
+                          cardName={itemTrans?.name}
+                          size="default"
+                          showFrame={true}
+                          onImageClick={() => {
+                            const data = getComponent(threadItem.draw.transient);
+                            setSelectedInfo?.({ type: 'card', id: threadItem.draw.transient, data });
+                          }}
+                        />
+                        <ClickableTerm type="card" id={threadItem.draw.transient} className="text-xs text-amber-300/90 mt-1 text-center">
+                          {itemTrans?.name}
+                        </ClickableTerm>
+                        <ClickableCardType transientId={threadItem.draw.transient} className="text-[0.6rem] text-zinc-500 uppercase tracking-wider" />
+                      </div>
+
+                      {/* Minimap with correction path for imbalanced cards */}
+                      {itemIsImbalanced && itemCorrectionArchetype !== null && (
+                        <>
+                          <div className="flex flex-col items-center">
+                            <span className="text-xs mb-1 text-emerald-400/60">Path to Balance</span>
+                            <div
+                              className="rounded-lg flex items-center justify-center overflow-hidden cursor-pointer hover:scale-105 transition-transform"
+                              style={{
+                                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 46, 22, 0.3) 100%)',
+                                border: '1px solid rgba(16, 185, 129, 0.3)',
+                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)',
+                                width: '120px',
+                                height: '110px'
+                              }}
+                              onClick={() => setThreadMinimapData({
+                                fromId: itemHomeArchetype,
+                                toId: itemCorrectionArchetype,
+                                transient: threadItem.draw.transient,
+                                cardType: itemCardType,
+                                boundIsInner: itemBoundIsInner,
+                                toCardType: itemCorrectionCardType,
+                                toBoundIsInner: itemCorrectionBoundIsInner,
+                                toTransient: itemCorrectionTargetId
+                              })}
+                              title="Click to expand"
+                            >
+                              <Minimap
+                                fromId={itemHomeArchetype}
+                                toId={itemCorrectionArchetype}
+                                size="sm"
+                                singleMode={true}
+                                fromCardType={itemCardType}
+                                boundIsInner={itemBoundIsInner}
+                                toCardType={itemCorrectionCardType}
+                                toBoundIsInner={itemCorrectionBoundIsInner}
+                              />
+                            </div>
+                          </div>
+                          {/* Correction Card */}
+                          <div className="flex flex-col items-center">
+                            <span className="text-xs mb-1 text-emerald-400/60">Rebalance with</span>
+                            <CardImage
+                              transient={itemCorrectionTargetId}
+                              status={1}
+                              cardName={itemCorrectionCard?.name}
+                              size="default"
+                              showFrame={true}
+                              onImageClick={() => {
+                                const data = getComponent(itemCorrectionTargetId);
+                                setSelectedInfo?.({ type: 'card', id: itemCorrectionTargetId, data });
+                              }}
+                            />
+                            <ClickableTerm type="card" id={itemCorrectionTargetId} className="text-xs text-emerald-300 mt-1 text-center">
+                              {itemCorrectionCard?.name}
+                            </ClickableTerm>
+                            <ClickableCardType transientId={itemCorrectionTargetId} className="text-[0.6rem] text-zinc-600 uppercase tracking-wider" />
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-center gap-2 mb-2">
                       <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_COLORS[threadItem.draw.status]}`}>
                         {itemStat.name}
                       </span>
@@ -1445,6 +2017,84 @@ const DepthCard = ({
             </div>
           )}
         </div>
+      )}
+
+      {/* Minimap Modal - expandable view with description */}
+      <MinimapModal
+        isOpen={showMinimapModal}
+        onClose={() => setShowMinimapModal(false)}
+        fromId={cardHomeArchetype}
+        toId={positionArchetype}
+        transient={draw.transient}
+        cardType={cardTypeForMinimap}
+        boundIsInner={boundIsInner}
+        setSelectedInfo={setSelectedInfo}
+        colorTheme="violet"
+      />
+
+      {/* Rebalancer Minimap Modal - for correction pathway */}
+      {correctionArchetype !== null && (
+        <MinimapModal
+          isOpen={showRebalancerMinimapModal}
+          onClose={() => setShowRebalancerMinimapModal(false)}
+          onReopen={() => setShowRebalancerMinimapModal(true)}
+          fromId={cardHomeArchetype}
+          toId={correctionArchetype}
+          transient={draw.transient}
+          cardType={cardTypeForMinimap}
+          boundIsInner={boundIsInner}
+          setSelectedInfo={setSelectedInfo}
+          navigateFromMinimap={navigateFromMinimap}
+          colorTheme="emerald"
+          toCardType={correctionCardType}
+          toBoundIsInner={correctionBoundIsInner}
+          toTransient={correctionTargetId}
+        />
+      )}
+
+      {/* Growth Minimap Modal - for balanced cards growth pathway */}
+      {positionArchetype !== null && (() => {
+        // For Agent cards, get the growth target Agent's info for the modal
+        const growthTargetForModal = getComponent(growthTargetId);
+        const growthTargetIsAgent = cardTypeForMinimap === 'agent' && growthTargetForModal?.type === 'Agent';
+
+        return (
+          <MinimapModal
+            isOpen={showGrowthMinimapModal}
+            onClose={() => setShowGrowthMinimapModal(false)}
+            onReopen={() => setShowGrowthMinimapModal(true)}
+            fromId={cardHomeArchetype}
+            toId={positionArchetype}
+            transient={draw.transient}
+            cardType={cardTypeForMinimap}
+            boundIsInner={boundIsInner}
+            setSelectedInfo={setSelectedInfo}
+            navigateFromMinimap={navigateFromMinimap}
+            colorTheme="teal"
+            toCardType={growthTargetIsAgent ? 'agent' : null}
+            toTransient={growthTargetIsAgent ? growthTargetId : null}
+          />
+        );
+      })()}
+
+      {/* Thread Item Minimap Modal - for Reflect/Forge thread corrections */}
+      {threadMinimapData && (
+        <MinimapModal
+          isOpen={!!threadMinimapData}
+          onClose={() => setThreadMinimapData(null)}
+          onReopen={() => {}} // No reopen needed for thread items
+          fromId={threadMinimapData.fromId}
+          toId={threadMinimapData.toId}
+          transient={threadMinimapData.transient}
+          cardType={threadMinimapData.cardType}
+          boundIsInner={threadMinimapData.boundIsInner}
+          setSelectedInfo={setSelectedInfo}
+          navigateFromMinimap={navigateFromMinimap}
+          colorTheme="emerald"
+          toCardType={threadMinimapData.toCardType}
+          toBoundIsInner={threadMinimapData.toBoundIsInner}
+          toTransient={threadMinimapData.toTransient}
+        />
       )}
     </div>
   );

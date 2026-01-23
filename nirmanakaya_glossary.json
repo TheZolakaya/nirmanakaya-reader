@@ -4,7 +4,7 @@
     "description": "Nirmanakaya Glossary — hotlink popup definitions for all terms including framework concepts",
     "created": "2025-12-27",
     "updated": "2026-01-08",
-    "term_count": 179
+    "term_count": 191
   },
 
   "terms": {
@@ -471,13 +471,13 @@
 
     "inner-bound": {
       "name": "Inner Bound",
-      "type": "concept",
-      "short": "Numbers 1-5 (Ace through 5). The inward-facing, potential-holding, forming half of an Archetype's range. What the function IS at rest."
+      "type": "card-type",
+      "short": "Capacity at rest. Potential. The inhale. Inner Bounds (Ace–5) express capacity in its potential state — what's building, gathering, preparing. Like the inhale before speaking, the coil before the spring releases. Each Inner Bound parameterizes the internal range of its associated archetype. Inner Bounds suggest what's forming, not yet expressed."
     },
     "outer-bound": {
       "name": "Outer Bound",
-      "type": "concept",
-      "short": "Numbers 6-10. The outward-facing, expressed, gathered half of an Archetype's range. What the function DOES in action."
+      "type": "card-type",
+      "short": "Capacity expressed. Manifest. The exhale. Outer Bounds (6–10) express capacity in its manifest state — what's extending, releasing, completing. Like the exhale that carries the voice, the spring fully released. Each Outer Bound parameterizes the external range of its associated archetype. Outer Bounds suggest what's expressing, moving into form."
     },
 
     "activation": {
@@ -1147,6 +1147,26 @@
       "type": "card-type",
       "short": "The 22 major patterns of consciousness (positions 0-21). Not symbols to interpret but positions to derive — meanings come from where they sit in the structure, not from cultural associations."
     },
+    "inner-archetype": {
+      "name": "Inner Archetype",
+      "type": "card-type",
+      "short": "What you cultivate. The archetypal aspects of you that develop through inner work — your capacities before they meet the world. Inner Archetypes (0-9) point to what you're building, preparing, or holding. Something forming that hasn't yet reached outward."
+    },
+    "outer-archetype": {
+      "name": "Outer Archetype",
+      "type": "card-type",
+      "short": "What happens when you engage. The archetypal aspects of you that emerge through encounter — transformation, release, integration, expression. Outer Archetypes (11-20) point to something in motion — a process of engagement, consequence, or becoming."
+    },
+    "ingress-portal": {
+      "name": "Ingress Portal",
+      "type": "card-type",
+      "short": "The entry point. Source (10) marks where new energy, information, or circumstances enter your field. It's the threshold of arrival — what's coming in that wasn't there before."
+    },
+    "egress-portal": {
+      "name": "Egress Portal",
+      "type": "card-type",
+      "short": "The completion point. Creation (21) marks where integration becomes departure. It's the threshold of completion — what's ready to leave your field, fully realized and released into the world."
+    },
     "bound": {
       "name": "Bound",
       "type": "card-type",
@@ -1212,6 +1232,117 @@
       "name": "Rebalancer",
       "type": "concept",
       "short": "The correction pathway for an imbalanced card. Diagonal partner corrects Too Much, Vertical partner corrects Too Little, Reduction partner illuminates Unacknowledged."
+    },
+
+    "seed": {
+      "name": "Seed",
+      "type": "process-stage",
+      "character": "Yang-pure",
+      "season": "Spring",
+      "short": "Initiates the cycle — pure Yang energy, the spark that begins. Like spring, like the first breath in. The Seed doesn't know where things will go — it creates the conditions for something to happen."
+    },
+    "medium": {
+      "name": "Medium",
+      "type": "process-stage",
+      "character": "Yin-in-Yang",
+      "season": "Summer",
+      "short": "Carries and develops — the sustained work of becoming. Like summer, like the held breath. The Medium transmits energy from beginning toward completion."
+    },
+    "fruition": {
+      "name": "Fruition",
+      "type": "process-stage",
+      "character": "Yin-pure",
+      "season": "Autumn",
+      "short": "Completes the expression — pure Yin energy, the harvest of what was seeded. Like autumn, like the full exhale. Fruition is where potential becomes actual."
+    },
+    "feedback": {
+      "name": "Feedback",
+      "type": "process-stage",
+      "character": "Yang-in-Yin",
+      "season": "Winter",
+      "short": "Integrates and returns — the learning that feeds the next cycle. Like winter, like the pause before the next breath. Feedback closes the loop and prepares for new beginning."
+    },
+
+    "ingress": {
+      "name": "Ingress",
+      "type": "portal-type",
+      "archetype": "Source (10)",
+      "short": "Where potential enters the system — the portal of reception. Source governs the Gestalt House and marks where consciousness enters operation. The Turn: creation complete, operation begins."
+    },
+    "egress": {
+      "name": "Egress",
+      "type": "portal-type",
+      "archetype": "Creation (21)",
+      "short": "Where processed experience exits the system — the portal of contribution. Creation marks completion — the dance ends where it can begin again. Operation complete, cycle closes."
+    },
+
+    "in-your": {
+      "name": "In Your",
+      "type": "connector",
+      "short": "Where in consciousness this is happening. The Position is the domain — the room where this action expresses. The card tells you what's happening in that room.",
+      "medium": "The connector linking what's happening (the Bound) to where it's expressing (the Position). The Position is the archetypal aspect of you — the domain of consciousness where this pattern currently lives. Think of it as the room; the card tells you what's happening there. \"Your\" emphasizes ownership: this is your coordinate right now. A reflection of where you're standing."
+    },
+    "position": {
+      "name": "Position",
+      "type": "concept",
+      "short": "The domain of consciousness where a pattern is currently expressing. Think of it as the room; the card tells you what's happening in that room. Not imbalanced — just location. Your coordinate right now."
+    },
+
+    "vertical-duality": {
+      "name": "Vertical Duality",
+      "type": "rebalancer",
+      "status": "Too Little",
+      "mechanism": "Recursion",
+      "pattern": "Sum = 20",
+      "short": "Same archetypal aspect of you at two horizons. The vertical partner restores what's being withheld — like looking at yourself across time. When you're not reaching full capacity, recursion through the complementary pole provides what's missing."
+    },
+    "diagonal-duality": {
+      "name": "Diagonal Duality",
+      "type": "rebalancer",
+      "status": "Too Much",
+      "mechanism": "Polarity",
+      "pattern": "Sum = 19 or 21",
+      "short": "Creative tension between different archetypal aspects of you. The diagonal partner counterbalances excess — a different identity within your House that pulls you back to center. When you're pushing too hard, polarity applies counter-tension to moderate."
+    },
+    "reduction-pair": {
+      "name": "Reduction Pair",
+      "type": "rebalancer",
+      "status": "Unacknowledged",
+      "mechanism": "Reflection",
+      "pattern": "Same digit sum",
+      "short": "Maximum distance across the grid. The reduction partner illuminates what's operating unseen — different House, different Element, different Process Stage. The most distant mirror of your archetypal self shows what you can't see up close."
+    },
+    "growth-opportunity": {
+      "name": "Growth Opportunity",
+      "type": "rebalancer",
+      "status": "Balanced",
+      "mechanism": "Transpose or Polarity Anchor",
+      "pattern": "Lateral or vertical extension",
+      "short": "Balance isn't a destination — it's a launchpad. When this archetypal aspect of you is balanced, the channel is clear and can grow. Transpose Partners offer lateral extension; Polarity Anchors offer vertical reach. Where you're clear, extend further."
+    },
+    "transpose-pair": {
+      "name": "Transpose Pair",
+      "type": "growth",
+      "status": "Balanced",
+      "mechanism": "Lateral Reflection",
+      "pattern": "Reflection across unified aspect matrix",
+      "short": "Lateral growth through reflection. When balanced, your transpose partner offers extension — not rebalancing, but growth. What one embodies through one domain, the other embodies through its opposite. 12 archetypes form 6 transpose pairs: Order↔Wisdom, Nurturing↔Sacrifice, Culture↔Balance, Drive↔Imagination, Discipline↔Breakthrough, Equity↔Change."
+    },
+    "polarity-anchor": {
+      "name": "Polarity Anchor",
+      "type": "growth",
+      "status": "Balanced",
+      "mechanism": "Vertical Opposition",
+      "pattern": "Diagonal element (Channel = House element)",
+      "short": "Vertical growth through elemental opposition. These 4 pure expressions sit on the diagonal — where Channel and House share the same element. They can't transpose; instead they integrate their opposite element or get consumed by it. Compassion↔Abstraction (Water↔Air), Fortitude↔Inspiration (Earth↔Fire)."
+    },
+    "self-expression": {
+      "name": "Self-Expression",
+      "type": "growth",
+      "status": "Balanced",
+      "mechanism": "Recursion",
+      "pattern": "Gestalt/Portal archetypes loop back to themselves",
+      "short": "The growth is the staying. Gestalt archetypes (Potential, Will, Actualization, Awareness) and Portals (Source, Creation) don't point elsewhere when balanced — they intensify. Their Aces and 10s follow the same pattern. Keep investing in this energy. Go deeper here. The loop IS the path."
     }
   }
 }

@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmanakaya · The 78 Signatures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        body {
+            background: #f8f6f3;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .canvas-container {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .map {
+            position: relative;
+            width: 1800px;
+            height: 1850px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HOUSE BLOCKS (diamond-shaped backgrounds)
+           ============================================ */
+        .house-block {
+            position: absolute;
+            transform: rotate(45deg);
+            border-radius: 8px;
+            opacity: 0.9;
+        }
+
+        /* House colors - Darker/richer versions to offset from card elemental designators */
+        .house-block.spirit { background: #8A2F2F; }      /* Dark Red - Fire */
+        .house-block.mind { background: #2E5B2E; }        /* Dark Green - Air */
+        .house-block.emotion { background: #2A4A6B; }     /* Dark Blue - Water */
+        .house-block.body { background: #5C4728; }        /* Dark Brown - Earth */
+
+        /* ============================================
+           GESTALT CENTER (solid purple - Quintessence)
+           ============================================ */
+        .gestalt-block {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            transform: rotate(0deg);  /* Axis-aligned, not rotated */
+            background: #47335C;  /* Dark Purple - Quintessence */
+        }
+
+        /* ============================================
+           CARDS
+           ============================================ */
+        .card {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.2s ease, z-index 0.2s;
+            isolation: isolate;  /* Create stacking context for element-bg */
+        }
+        .card:hover {
+            z-index: 200;
+        }
+        .card.portal:hover,
+        .card.archetype:hover {
+            transform: scale(1.3);
+        }
+        /* Bounds/agents use CSS variable for rotation */
+        .card.bound,
+        .card.agent {
+            transform: rotate(var(--card-rotation, 0deg));
+        }
+        .card.bound:hover,
+        .card.agent:hover {
+            transform: rotate(var(--card-rotation, 0deg)) scale(1.3);
+        }
+        .card img {
+            display: block;  /* Remove inline baseline spacing */
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Elemental designator background */
+        .card .element-bg {
+            position: absolute;
+            inset: -6px;
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0.85;
+        }
+        .card.archetype .element-bg,
+        .card.portal .element-bg {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .card.bound .element-bg,
+        .card.agent .element-bg {
+            inset: -4px;
+            border-radius: 6px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Card sizes */
+        .card.portal { width: 120px; }  /* Same as archetypes */
+        .card.archetype { width: 120px; }
+        .card.bound { width: 45px; }
+        .card.agent { width: 50px; }
+
+        /* ============================================
+           LABELS
+           ============================================ */
+        .label {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            color: #555;
+            letter-spacing: 0.1em;
+            pointer-events: none;
+        }
+        .label.title {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: #445;
+        }
+        .label.house-name {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* Card name labels - white rounded boxes on the card */
+        .card-label {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            pointer-events: none;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 3px;
+            padding: 1px 4px;
+            color: #333;
+        }
+        .card.archetype .card-label,
+        .card.portal .card-label {
+            bottom: 6px;
+            font-size: 0.6rem;
+            letter-spacing: 0.03em;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .card.bound .card-label {
+            bottom: 3px;
+            font-size: 0.4rem;
+            font-weight: 600;
+            padding: 1px 3px;
+        }
+        .card.agent .card-label {
+            bottom: 3px;
+            font-size: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            padding: 1px 3px;
+        }
+
+        /* ============================================
+           MODAL (click to enlarge)
+           ============================================ */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .modal.active { display: flex; }
+        .modal img {
+            max-width: 80%;
+            max-height: 70%;
+            border-radius: 8px;
+        }
+        .modal-title {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #d4af37;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .modal-sub {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           DEV MODE - Draggable elements
+           ============================================ */
+        .dev-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.85);
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 500;
+            max-height: 90vh;
+            overflow-y: auto;
+            min-width: 280px;
+        }
+        .dev-panel h3 {
+            margin: 0 0 10px 0;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        .dev-panel .coord-line {
+            margin: 4px 0;
+            padding: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+        .dev-panel button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #d4af37;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .dev-panel button:hover {
+            background: #e5c048;
+        }
+        .dev-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 500;
+            font-family: monospace;
+        }
+        .dev-toggle:hover {
+            background: #555;
+        }
+
+        body.dev-mode .card.bound,
+        body.dev-mode .card.agent {
+            cursor: move;
+            outline: 2px dashed rgba(255,255,255,0.3);
+        }
+        body.dev-mode .card.bound:hover,
+        body.dev-mode .card.agent:hover {
+            outline-color: #00ff00;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <div class="map" id="map"></div>
+    </div>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+        <img id="modal-img" src="">
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-sub" id="modal-sub"></div>
+    </div>
+
+<script>
+// ============================================
+// CONFIGURATION
+// ============================================
+const CONFIG = {
+    mapWidth: 1800,
+    mapHeight: 1650,
+
+    // Card sizes
+    portalSize: 120,  // Same as archetypes
+    archetypeSize: 120,
+    boundSize: 45,
+    agentSize: 50,
+
+    // House diamond size
+    houseSize: 280,
+};
+
+const cx = CONFIG.mapWidth / 2;  // Center X
+
+// ============================================
+// DATA - Archetype names and traditional correspondences
+// ============================================
+const ARCHETYPES = {
+    0: { name: 'Potential', trad: 'The Fool', channel: 'Intent' },       // Governs Spirit (Fire)
+    1: { name: 'Will', trad: 'The Magician', channel: 'Structure' },     // Governs Body (Earth)
+    2: { name: 'Wisdom', trad: 'High Priestess', channel: 'Cognition' },
+    3: { name: 'Nurturing', trad: 'The Empress', channel: 'Structure' },
+    4: { name: 'Order', trad: 'The Emperor', channel: 'Intent' },
+    5: { name: 'Culture', trad: 'The Hierophant', channel: 'Resonance' },
+    6: { name: 'Compassion', trad: 'The Lovers', channel: 'Resonance' },
+    7: { name: 'Drive', trad: 'The Chariot', channel: 'Intent' },
+    8: { name: 'Fortitude', trad: 'Strength', channel: 'Structure' },
+    9: { name: 'Discipline', trad: 'The Hermit', channel: 'Cognition' },
+    10: { name: 'Source', trad: 'Wheel of Fortune', channel: null },
+    11: { name: 'Equity', trad: 'Justice', channel: 'Resonance' },
+    12: { name: 'Sacrifice', trad: 'Hanged Man', channel: 'Intent' },
+    13: { name: 'Change', trad: 'Death', channel: 'Structure' },
+    14: { name: 'Balance', trad: 'Temperance', channel: 'Cognition' },
+    15: { name: 'Abstraction', trad: 'The Devil', channel: 'Cognition' },
+    16: { name: 'Breakthrough', trad: 'The Tower', channel: 'Structure' },
+    17: { name: 'Inspiration', trad: 'The Star', channel: 'Intent' },
+    18: { name: 'Imagination', trad: 'The Moon', channel: 'Resonance' },
+    19: { name: 'Actualization', trad: 'The Sun', channel: 'Cognition' },   // Governs Mind (Air)
+    20: { name: 'Awareness', trad: 'Judgement', channel: 'Resonance' },    // Governs Emotion (Water)
+    21: { name: 'Creation', trad: 'The World', channel: null }             // Portal (Quintessence)
+};
+
+// Elemental Designator Colors (channel → element → color)
+const ELEMENT_COLORS = {
+    Intent: '#C44444',      // Fire - Red
+    Cognition: '#4A8B4A',   // Air - Green
+    Resonance: '#3D6A99',   // Water - Blue
+    Structure: '#8B6B3D',   // Earth - Brown
+    null: '#6B4D8A'         // Quintessence - Purple (Gestalt/Portal)
+};
+
+// ============================================
+// HOUSE DEFINITIONS
+// ============================================
+// Card offsets from house center (in local rotated coordinates)
+// Cleaned up from user's manual positioning
+const HOUSES = {
+    gestalt: {
+        archetypes: [0, 1, 19, 20],
+        x: cx + 1,
+        y: 540,
+        color: 'multi',
+        // Custom card offsets (archetypeOrder: 20, 19, 0, 1) - balanced spacing
+        cardOffsets: [
+            { x: -68, y: -40 },   // pos 0: id 20 (Awareness) - top left
+            { x: 68, y: -40 },    // pos 1: id 19 (Actualization) - top right
+            { x: -68, y: 97 },    // pos 2: id 0 (Potential) - bottom left
+            { x: 68, y: 97 }      // pos 3: id 1 (Will) - bottom right
+        ]
+    },
+    mind: {
+        archetypes: [4, 5, 15, 16],
+        x: cx - 450,
+        y: 735,
+        color: '#C9B545',  // Yellow/gold - upper left
+        groupRotation: -45,  // Counter-clockwise
+        // Custom card offsets (local coords): bottom-left, bottom-right, top-right, top-left
+        cardOffsets: [
+            { x: -68, y: 97 },   // pos 0: id 4 (Order) - bottom left
+            { x: 68, y: 97 },    // pos 1: id 5 (Culture) - bottom right
+            { x: 68, y: -40 },   // pos 2: id 15 (Abstraction) - top right
+            { x: -68, y: -40 }   // pos 3: id 16 (Breakthrough) - top left
+        ]
+    },
+    emotion: {
+        archetypes: [6, 7, 13, 14],
+        x: cx + 450,
+        y: 735,
+        color: '#C44444',  // Red - upper right
+        groupRotation: 45,  // Clockwise
+        // Custom card offsets (local coords)
+        cardOffsets: [
+            { x: -68, y: 97 },   // pos 0: id 6 (Compassion) - bottom left
+            { x: 68, y: 97 },    // pos 1: id 7 (Drive) - bottom right
+            { x: 68, y: -40 },   // pos 2: id 13 (Change) - top right
+            { x: -68, y: -40 }   // pos 3: id 14 (Balance) - top left
+        ]
+    },
+    body: {
+        archetypes: [8, 9, 11, 12],
+        x: cx - 450,
+        y: 1205,
+        color: '#3D6A99',  // Blue - lower left
+        groupRotation: 45,  // Clockwise
+        // Custom card offsets (local coords) - mirrored from emotion
+        cardOffsets: [
+            { x: 68, y: -40 },   // pos 0: id 8 (Fortitude) - top right
+            { x: -68, y: -40 },  // pos 1: id 9 (Discipline) - top left
+            { x: -68, y: 97 },   // pos 2: id 11 (Equity) - bottom left
+            { x: 68, y: 97 }     // pos 3: id 12 (Sacrifice) - bottom right
+        ]
+    },
+    spirit: {
+        archetypes: [2, 3, 17, 18],
+        x: cx + 450,
+        y: 1205,
+        color: '#D4707A',  // Pink/salmon - lower right
+        groupRotation: -45,  // Counter-clockwise
+        // Custom card offsets (local coords) - mirrored from mind
+        cardOffsets: [
+            { x: 68, y: -40 },   // pos 0: id 2 (Wisdom) - top right
+            { x: -68, y: -40 },  // pos 1: id 3 (Nurturing) - top left
+            { x: -68, y: 97 },   // pos 2: id 17 (Inspiration) - bottom left
+            { x: 68, y: 97 }     // pos 3: id 18 (Imagination) - bottom right
+        ]
+    }
+};
+
+const PORTALS = {
+    source: { archetype: 10, x: cx, y: 238 },
+    creation: { archetype: 21, x: cx, y: 1400 }
+};
+
+// Suit to Channel mapping for elemental colors
+const SUIT_CHANNELS = {
+    wands: 'Intent',      // Fire
+    swords: 'Cognition',  // Air
+    cups: 'Resonance',    // Water
+    pentacles: 'Structure' // Earth
+};
+
+const ALL_SUITS = ['wands', 'swords', 'cups', 'pentacles'];
+
+// Agent roles by house (each house owns one role across all suits)
+const HOUSE_ROLES = {
+    spirit: { role: 'page', name: 'Initiate' },
+    mind: { role: 'knight', name: 'Catalyst' },
+    emotion: { role: 'queen', name: 'Steward' },
+    body: { role: 'king', name: 'Executor' }
+};
+
+// Bound numbers by house (each house owns 2 numbers across all suits)
+const HOUSE_BOUNDS = {
+    gestalt: [1, 10],  // Aces and Tens
+    spirit: [2, 9],
+    mind: [3, 8],
+    emotion: [4, 7],
+    body: [5, 6]
+};
+
+// ============================================
+// HOUSE OFFSETS - Manually positioned per house
+// offset = CSS_position - house_center + cardSize/2
+// boundSize: 45, agentSize: 50
+// ============================================
+
+// Which house to render bounds/agents for (null = all houses)
+const POSITION_HOUSE = null;  // Set to 'mind', 'emotion', 'body', 'spirit', 'gestalt' to position one at a time
+
+// Gestalt center: (901, 540) - DONE (Aces and 10s only, no agents)
+const GESTALT_OFFSETS = {
+    bounds: {
+        'wands-inner': { x: -171, y: 99 },    // Ace of wands
+        'wands-outer': { x: -171, y: 35 },    // 10 of wands
+        'pentacles-inner': { x: 171, y: 101 },
+        'pentacles-outer': { x: 170, y: 32 },
+        'cups-inner': { x: -172, y: -36 },
+        'cups-outer': { x: -172, y: -103 },
+        'swords-inner': { x: 171, y: -43 },
+        'swords-outer': { x: 171, y: -110 }
+    }
+};
+
+// Mind center: (450, 680) - DONE
+const MIND_OFFSETS = {
+    bounds: {
+        'wands-inner': { x: -49, y: 191 },
+        'wands-outer': { x: -92, y: 149 },
+        'pentacles-inner': { x: -145, y: 98 },
+        'pentacles-outer': { x: -188, y: 54 },
+        'cups-inner': { x: 192, y: -49 },
+        'cups-outer': { x: 145, y: -95 },
+        'swords-inner': { x: 98, y: -141 },
+        'swords-outer': { x: 51, y: -187 }
+    },
+    agents: {
+        wands: { x: 71, y: 174 },
+        cups: { x: 168, y: 79 },
+        pentacles: { x: -172, y: -73 },
+        swords: { x: -75, y: -172 }
+    }
+};
+
+// Emotion center: (1350, 680) - DONE
+const EMOTION_OFFSETS = {
+    bounds: {
+        'wands-inner': { x: 55, y: 193 },
+        'wands-outer': { x: 101, y: 145 },
+        'pentacles-inner': { x: 149, y: 99 },
+        'pentacles-outer': { x: 190, y: 55 },
+        'cups-inner': { x: -188, y: -53 },
+        'cups-outer': { x: -142, y: -98 },
+        'swords-inner': { x: -92, y: -150 },
+        'swords-outer': { x: -49, y: -193 }
+    },
+    agents: {
+        wands: { x: -76, y: 174 },
+        cups: { x: -174, y: 72 },
+        pentacles: { x: 170, y: -75 },
+        swords: { x: 78, y: -169 }
+    }
+};
+
+// Body center: (450, 1220) - DONE
+const BODY_OFFSETS = {
+    bounds: {
+        'wands-inner': { x: 92, y: 150 },
+        'wands-outer': { x: 49, y: 197 },
+        'pentacles-inner': { x: 190, y: 58 },
+        'pentacles-outer': { x: 150, y: 99 },
+        'cups-inner': { x: -145, y: -94 },
+        'cups-outer': { x: -185, y: -53 },
+        'swords-inner': { x: -53, y: -189 },
+        'swords-outer': { x: -94, y: -147 }
+    },
+    agents: {
+        wands: { x: -81, y: 169 },
+        cups: { x: -176, y: 74 },
+        pentacles: { x: 171, y: -79 },
+        swords: { x: 79, y: -173 }
+    }
+};
+
+// Spirit center: (1350, 1220) - DONE
+const SPIRIT_OFFSETS = {
+    bounds: {
+        'wands-inner': { x: -90, y: 153 },
+        'wands-outer': { x: -47, y: 193 },
+        'pentacles-inner': { x: -189, y: 53 },
+        'pentacles-outer': { x: -145, y: 92 },
+        'cups-inner': { x: 152, y: -89 },
+        'cups-outer': { x: 195, y: -48 },
+        'swords-inner': { x: 53, y: -188 },
+        'swords-outer': { x: 97, y: -144 }
+    },
+    agents: {
+        wands: { x: 79, y: 170 },
+        cups: { x: 173, y: 76 },
+        pentacles: { x: -169, y: -77 },
+        swords: { x: -78, y: -171 }
+    }
+};
+
+// Get offsets for a house
+function getHouseOffsets(houseName) {
+    switch(houseName) {
+        case 'mind': return MIND_OFFSETS;
+        case 'emotion': return EMOTION_OFFSETS;
+        case 'body': return BODY_OFFSETS;
+        case 'spirit': return SPIRIT_OFFSETS;
+        case 'gestalt': return GESTALT_OFFSETS;
+        default: return MIND_OFFSETS;
+    }
+}
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+function createElement(tag, className, styles) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (styles) Object.assign(el.style, styles);
+    return el;
+}
+
+function getArchetypePath(id) {
+    const name = ARCHETYPES[id].name.toLowerCase();
+    return `archetypes/${String(id).padStart(2, '0')}_${name}.png`;
+}
+
+function getBoundPath(suit, num) {
+    return `bounds/${suit}/${suit}_${String(num).padStart(2, '0')}.png`;
+}
+
+function getAgentPath(suit, rank) {
+    return `agents/${suit}_${rank}.png`;
+}
+
+function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOrId = null, labelText = null) {
+    const card = createElement('div', `card ${type} ${extraClass}`.trim(), {
+        left: x + 'px',
+        top: y + 'px'
+    });
+
+    // Add elemental background
+    let bgHtml = '';
+    if (type === 'archetype' || type === 'portal') {
+        // For archetypes/portals, channelOrId is the archetype ID
+        const channel = ARCHETYPES[channelOrId]?.channel;
+        const bgColor = ELEMENT_COLORS[channel] || ELEMENT_COLORS[null];
+        bgHtml = `<div class="element-bg" style="background: ${bgColor};"></div>`;
+    } else if ((type === 'bound' || type === 'agent') && channelOrId) {
+        // For bounds/agents, channelOrId is the channel name directly
+        const bgColor = ELEMENT_COLORS[channelOrId] || ELEMENT_COLORS[null];
+        bgHtml = `<div class="element-bg" style="background: ${bgColor};"></div>`;
+    }
+
+    // Add label if provided (default to title for archetypes/portals)
+    const label = labelText !== null ? labelText : (type === 'archetype' || type === 'portal' ? title : '');
+    const labelHtml = label ? `<div class="card-label">${label}</div>` : '';
+
+    card.innerHTML = `${bgHtml}<img src="${src}" alt="${title}">${labelHtml}`;
+    card.onclick = () => openModal(src, title, subtitle);
+    return card;
+}
+
+// ============================================
+// RENDER FUNCTIONS
+// ============================================
+function renderPortals(map) {
+    // Source Portal (top)
+    const source = PORTALS.source;
+    const sourceCard = createCard(
+        'portal',
+        getArchetypePath(source.archetype),
+        ARCHETYPES[source.archetype].name,
+        ARCHETYPES[source.archetype].trad,
+        source.x - CONFIG.portalSize/2,
+        source.y,
+        '',
+        source.archetype  // Pass archetype ID for elemental color
+    );
+    map.appendChild(sourceCard);
+
+    // Creation Portal (bottom)
+    const creation = PORTALS.creation;
+    const creationCard = createCard(
+        'portal',
+        getArchetypePath(creation.archetype),
+        ARCHETYPES[creation.archetype].name,
+        ARCHETYPES[creation.archetype].trad,
+        creation.x - CONFIG.portalSize/2,
+        creation.y,
+        '',
+        creation.archetype  // Pass archetype ID for elemental color
+    );
+    map.appendChild(creationCard);
+}
+
+function renderGestalt(map) {
+    const g = HOUSES.gestalt;
+    const size = CONFIG.houseSize;  // Same absolute size as other houses
+
+    // Create the solid purple diamond background (Quintessence)
+    const block = createElement('div', 'gestalt-block', {
+        left: (g.x - size/2) + 'px',
+        top: (g.y - size/2) + 'px',
+        width: size + 'px',
+        height: size + 'px'
+    });
+    map.appendChild(block);
+
+    // Place 4 archetypes using custom offsets or default 2x2 grid
+    const cardW = CONFIG.archetypeSize;
+    const cardH = cardW * 1.5;
+    const gap = 6;
+    const containerSize = 400;  // Same as other houses for consistency
+
+    // Create group container for draggable cards (no rotation for gestalt)
+    const groupContainer = createElement('div', 'archetype-group archetype-group-gestalt', {
+        position: 'absolute',
+        left: (g.x - containerSize/2) + 'px',
+        top: (g.y - containerSize/2) + 'px',
+        width: containerSize + 'px',
+        height: containerSize + 'px'
+    });
+
+    // Archetypes order: 20, 19, 0, 1 for the 2x2 grid
+    const archetypeOrder = [20, 19, 0, 1];
+
+    archetypeOrder.forEach((id, i) => {
+        let cardX, cardY;
+
+        if (g.cardOffsets && g.cardOffsets[i]) {
+            // Use custom offset (from container center)
+            const offset = g.cardOffsets[i];
+            cardX = containerSize/2 + offset.x - cardW/2;
+            cardY = containerSize/2 + offset.y - cardH/2;
+        } else {
+            // Default 2x2 grid positioning
+            const gridW = cardW * 2 + gap;
+            const gridH = cardH * 2 + gap;
+            const col = i % 2;
+            const row = Math.floor(i / 2);
+            cardX = containerSize/2 - gridW/2 + col * (cardW + gap);
+            cardY = containerSize/2 - gridH/2 + row * (cardH + gap);
+        }
+
+        const card = createCard(
+            'archetype',
+            getArchetypePath(id),
+            ARCHETYPES[id].name,
+            ARCHETYPES[id].trad,
+            cardX,
+            cardY,
+            '',
+            id  // Pass archetype ID for elemental color
+        );
+        // Gestalt doesn't rotate, no counter-rotation needed
+        groupContainer.appendChild(card);
+    });
+
+    map.appendChild(groupContainer);
+
+    // Render Gestalt bounds (Aces and 10s) if not filtered out
+    if (POSITION_HOUSE === null || POSITION_HOUSE === 'gestalt') {
+        const boundSize = CONFIG.boundSize;
+        const houseBoundNums = HOUSE_BOUNDS.gestalt;  // [1, 10]
+
+        ALL_SUITS.forEach((suit) => {
+            const channel = SUIT_CHANNELS[suit];
+            const innerNum = houseBoundNums[0];  // 1 (Ace)
+            const outerNum = houseBoundNums[1];  // 10
+
+            const innerOffset = GESTALT_OFFSETS.bounds[`${suit}-inner`];
+            const outerOffset = GESTALT_OFFSETS.bounds[`${suit}-outer`];
+
+            // Ace
+            const aceCard = createCard(
+                'bound',
+                getBoundPath(suit, innerNum),
+                `Ace of ${suit}`,
+                '',
+                g.x + innerOffset.x - boundSize/2,
+                g.y + innerOffset.y - boundSize/2,
+                '',
+                channel,
+                'Ace'  // Label
+            );
+            aceCard.dataset.house = 'gestalt';
+            aceCard.dataset.suit = suit;
+            aceCard.dataset.num = innerNum;
+            aceCard.dataset.index = `bound-${suit}-${innerNum}`;
+            map.appendChild(aceCard);
+
+            // 10
+            const tenCard = createCard(
+                'bound',
+                getBoundPath(suit, outerNum),
+                `10 of ${suit}`,
+                '',
+                g.x + outerOffset.x - boundSize/2,
+                g.y + outerOffset.y - boundSize/2,
+                '',
+                channel,
+                '10'  // Label
+            );
+            tenCard.dataset.house = 'gestalt';
+            tenCard.dataset.suit = suit;
+            tenCard.dataset.num = outerNum;
+            tenCard.dataset.index = `bound-${suit}-${outerNum}`;
+            map.appendChild(tenCard);
+        });
+    }
+
+    // House label
+    const label = createElement('div', 'label house-name', {
+        left: (g.x - 25) + 'px',
+        top: (g.y + size/2 + 20) + 'px'
+    });
+    label.textContent = 'Gestalt';
+    map.appendChild(label);
+}
+
+function renderHouse(map, houseName) {
+    const house = HOUSES[houseName];
+    if (houseName === 'gestalt') return; // Skip gestalt (rendered separately)
+
+    const size = CONFIG.houseSize;
+
+    // Create diamond background
+    const diamond = createElement('div', `house-block ${houseName}`, {
+        left: (house.x - size/2) + 'px',
+        top: (house.y - size/2) + 'px',
+        width: size + 'px',
+        height: size + 'px'
+    });
+    map.appendChild(diamond);
+
+    // Place 4 archetypes in a rotated group container
+    const cardW = CONFIG.archetypeSize;
+    const cardH = cardW * 1.5;
+    const gap = 6;
+
+    // Container size - large enough to hold cards at custom offsets
+    const containerSize = 400;  // Generous size for custom positioning
+
+    // Create a container for the group (for rotation)
+    const rotation = house.groupRotation || 0;
+    const groupContainer = createElement('div', `archetype-group archetype-group-${houseName}`, {
+        position: 'absolute',
+        left: (house.x - containerSize/2) + 'px',
+        top: (house.y - containerSize/2) + 'px',
+        width: containerSize + 'px',
+        height: containerSize + 'px',
+        transform: `rotate(${rotation}deg)`,
+        transformOrigin: 'center center'
+    });
+
+    // Position cards using custom offsets or default 2x2 grid
+    house.archetypes.forEach((id, i) => {
+        let cardX, cardY;
+
+        if (house.cardOffsets && house.cardOffsets[i]) {
+            // Use custom offset (from container center)
+            const offset = house.cardOffsets[i];
+            cardX = containerSize/2 + offset.x - cardW/2;
+            cardY = containerSize/2 + offset.y - cardH/2;
+        } else {
+            // Default 2x2 grid positioning
+            const gridW = cardW * 2 + gap;
+            const gridH = cardH * 2 + gap;
+            const col = i % 2;
+            const row = Math.floor(i / 2);
+            cardX = containerSize/2 - gridW/2 + col * (cardW + gap);
+            cardY = containerSize/2 - gridH/2 + row * (cardH + gap);
+        }
+
+        const card = createCard(
+            'archetype',
+            getArchetypePath(id),
+            ARCHETYPES[id].name,
+            ARCHETYPES[id].trad,
+            cardX,
+            cardY,
+            '',
+            id  // Pass archetype ID for elemental color
+        );
+        groupContainer.appendChild(card);
+    });
+
+    map.appendChild(groupContainer);
+
+    // Only render bounds/agents for specific house if POSITION_HOUSE is set
+    if (POSITION_HOUSE !== null && houseName !== POSITION_HOUSE) {
+        // House label only for non-active houses
+        const label = createElement('div', 'label house-name', {
+            left: (house.x - 25) + 'px',
+            top: (house.y + size/2 + 20) + 'px'
+        });
+        label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
+        map.appendChild(label);
+        return;
+    }
+
+    const houseBoundNums = HOUSE_BOUNDS[houseName];
+    const houseRole = HOUSE_ROLES[houseName];
+    const offsets = getHouseOffsets(houseName);
+
+    const boundSize = CONFIG.boundSize;
+    const agentSize = CONFIG.agentSize;
+
+    // Place bounds using calculated offsets
+    ALL_SUITS.forEach((suit) => {
+        const channel = SUIT_CHANNELS[suit];
+        const innerNum = houseBoundNums[0];  // Lower number (closer to center)
+        const outerNum = houseBoundNums[1];  // Higher number (further from center)
+
+        const innerOffset = offsets.bounds[`${suit}-inner`];
+        const outerOffset = offsets.bounds[`${suit}-outer`];
+
+        // Inner bound (lower number, closer to center)
+        const innerCard = createCard(
+            'bound',
+            getBoundPath(suit, innerNum),
+            `${innerNum} of ${suit}`,
+            '',
+            house.x + innerOffset.x - boundSize/2,
+            house.y + innerOffset.y - boundSize/2,
+            '',
+            channel,
+            String(innerNum)  // Label
+        );
+        innerCard.dataset.house = houseName;
+        innerCard.dataset.suit = suit;
+        innerCard.dataset.num = innerNum;
+        innerCard.dataset.index = `bound-${suit}-${innerNum}`;
+        innerCard.style.setProperty('--card-rotation', `${rotation}deg`);
+        map.appendChild(innerCard);
+
+        // Outer bound (higher number, further from center)
+        const outerCard = createCard(
+            'bound',
+            getBoundPath(suit, outerNum),
+            `${outerNum} of ${suit}`,
+            '',
+            house.x + outerOffset.x - boundSize/2,
+            house.y + outerOffset.y - boundSize/2,
+            '',
+            channel,
+            String(outerNum)  // Label
+        );
+        outerCard.dataset.house = houseName;
+        outerCard.dataset.suit = suit;
+        outerCard.dataset.num = outerNum;
+        outerCard.dataset.index = `bound-${suit}-${outerNum}`;
+        outerCard.style.setProperty('--card-rotation', `${rotation}deg`);
+        map.appendChild(outerCard);
+    });
+
+    // Place agents at corners
+    ALL_SUITS.forEach((suit) => {
+        const channel = SUIT_CHANNELS[suit];
+        const agentOffset = offsets.agents[suit];
+
+        const agentCard = createCard(
+            'agent',
+            getAgentPath(suit, houseRole.role),
+            `${houseRole.name} of ${suit}`,
+            `${houseRole.role.charAt(0).toUpperCase() + houseRole.role.slice(1)}`,
+            house.x + agentOffset.x - agentSize/2,
+            house.y + agentOffset.y - agentSize/2,
+            '',
+            channel,
+            houseRole.name  // Label
+        );
+        agentCard.dataset.house = houseName;
+        agentCard.dataset.suit = suit;
+        agentCard.dataset.role = houseRole.role;
+        agentCard.dataset.index = `agent-${suit}`;
+        agentCard.style.setProperty('--card-rotation', `${rotation}deg`);
+        map.appendChild(agentCard);
+    });
+
+    // House label
+    const label = createElement('div', 'label house-name', {
+        left: (house.x - 25) + 'px',
+        top: (house.y + size/2 + 20) + 'px'
+    });
+    label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
+    map.appendChild(label);
+}
+
+function renderTitle(map) {
+    const title = createElement('div', 'label title', {
+        left: (cx - 200) + 'px',  // Offset for centering wider text
+        top: '950px'
+    });
+    title.textContent = 'Nirmanakaya';
+    map.appendChild(title);
+}
+
+// ============================================
+// MAIN RENDER
+// ============================================
+function render() {
+    const map = document.getElementById('map');
+
+    // Render in order (back to front)
+    renderPortals(map);
+    renderGestalt(map);
+
+    // Render the 4 peripheral houses
+    // Upper: mind (left), emotion (right)
+    // Lower: body (left), spirit (right)
+    ['mind', 'emotion', 'body', 'spirit'].forEach(name => {
+        renderHouse(map, name);
+    });
+
+    renderTitle(map);
+}
+
+// ============================================
+// MODAL FUNCTIONS
+// ============================================
+function openModal(src, title, subtitle) {
+    // Don't open modal if we just finished dragging
+    if (wasDragging) return;
+
+    document.getElementById('modal-img').src = src;
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-sub').textContent = subtitle || '';
+    document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// ============================================
+// DEV MODE - Draggable positioning
+// ============================================
+let devMode = true;
+let dragging = null;
+let dragInfo = null;
+let dragStart = { mouseX: 0, mouseY: 0, cardX: 0, cardY: 0 };
+let wasDragging = false;  // Track if we just finished dragging
+let movedCards = {};  // Accumulate all moved card positions
+
+function createDevPanel() {
+    // Skip dev panel if not positioning a specific house
+    if (POSITION_HOUSE === null) {
+        devMode = false;
+        return;
+    }
+
+    const toggle = createElement('div', 'dev-toggle');
+    toggle.textContent = 'Dev Mode: ON';
+    toggle.onclick = () => {
+        devMode = !devMode;
+        document.body.classList.toggle('dev-mode', devMode);
+        toggle.textContent = `Dev Mode: ${devMode ? 'ON' : 'OFF'}`;
+        panel.style.display = devMode ? 'block' : 'none';
+    };
+    document.body.appendChild(toggle);
+
+    const panel = createElement('div', 'dev-panel');
+    panel.id = 'dev-panel';
+    panel.innerHTML = `
+        <h3>Positioning: ${POSITION_HOUSE.toUpperCase()}</h3>
+        <div style="font-size:10px;margin-bottom:8px;color:#888;">
+            Center: (${HOUSES[POSITION_HOUSE].x}, ${HOUSES[POSITION_HOUSE].y})
+        </div>
+        <div id="coord-display">Drag bounds/agents to position them</div>
+        <button onclick="copyCoords()">Copy Offsets</button>
+        <button onclick="clearCoords()">Clear</button>
+    `;
+    document.body.appendChild(panel);
+    document.body.classList.add('dev-mode');
+}
+
+function updateCoordDisplay() {
+    const display = document.getElementById('coord-display');
+    const entries = Object.entries(movedCards);
+    if (entries.length === 0) {
+        display.innerHTML = 'Drag bounds/agents to position them';
+    } else {
+        display.innerHTML = entries.map(([key, pos]) =>
+            `<div class="coord-line">${key}: x=${pos.x}, y=${pos.y}</div>`
+        ).join('');
+    }
+}
+
+function copyCoords() {
+    const text = Object.entries(movedCards)
+        .map(([key, pos]) => `${key}: x=${pos.x}, y=${pos.y}`)
+        .join('\n');
+    navigator.clipboard.writeText(text);
+    alert('All coordinates copied!');
+}
+
+function clearCoords() {
+    movedCards = {};
+    updateCoordDisplay();
+}
+
+function setupDragging() {
+    const map = document.getElementById('map');
+
+    map.addEventListener('mousedown', (e) => {
+        if (!devMode) return;
+
+        const card = e.target.closest('.card.bound, .card.agent');
+        if (!card) return;
+
+        // Store initial mouse position and card's CSS left/top
+        dragStart.mouseX = e.clientX;
+        dragStart.mouseY = e.clientY;
+        dragStart.cardX = parseFloat(card.style.left) || 0;
+        dragStart.cardY = parseFloat(card.style.top) || 0;
+
+        dragging = card;
+        dragInfo = {
+            type: card.classList.contains('bound') ? 'bound' : 'agent',
+            house: card.dataset.house,
+            index: card.dataset.index
+        };
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+
+        // Calculate how far mouse has moved from start
+        const deltaX = e.clientX - dragStart.mouseX;
+        const deltaY = e.clientY - dragStart.mouseY;
+
+        // Mark that we actually dragged (moved more than a few pixels)
+        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+            wasDragging = true;
+        }
+
+        // Apply delta to original card position
+        const newX = dragStart.cardX + deltaX;
+        const newY = dragStart.cardY + deltaY;
+
+        dragging.style.left = newX + 'px';
+        dragging.style.top = newY + 'px';
+
+        // Update display
+        const display = document.getElementById('coord-display');
+        display.innerHTML = `${dragInfo.type} [${dragInfo.house}][${dragInfo.index}]: x=${Math.round(newX)}, y=${Math.round(newY)}`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        // Save final position as OFFSET if we actually dragged
+        if (dragging && wasDragging && dragInfo) {
+            const cssX = Math.round(parseFloat(dragging.style.left) || 0);
+            const cssY = Math.round(parseFloat(dragging.style.top) || 0);
+            const house = HOUSES[POSITION_HOUSE];
+            const cardSize = dragInfo.type === 'bound' ? CONFIG.boundSize : CONFIG.agentSize;
+
+            // Convert CSS position to offset: offset = CSS - houseCenter + cardSize/2
+            const offsetX = Math.round(cssX - house.x + cardSize/2);
+            const offsetY = Math.round(cssY - house.y + cardSize/2);
+
+            movedCards[dragInfo.index] = { x: offsetX, y: offsetY };
+            updateCoordDisplay();
+        }
+
+        dragging = null;
+        dragInfo = null;
+        // Reset wasDragging after a brief delay (after click event fires)
+        setTimeout(() => { wasDragging = false; }, 10);
+    });
+}
+
+// ============================================
+// INITIALIZE
+// ============================================
+render();
+createDevPanel();
+setupDragging();
+
+// Center the view on load
+setTimeout(() => {
+    const container = document.querySelector('.canvas-container');
+    container.scrollLeft = cx - window.innerWidth/2;
+    container.scrollTop = 50;
+}, 50);
+</script>
+</body>
+</html>

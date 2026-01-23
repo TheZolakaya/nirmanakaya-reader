@@ -6,6 +6,7 @@ import { CHANNELS, HOUSES, ROLES, STATUS_INFO, HOUSE_COLORS, STATUS_COLORS, CHAN
 import { getAssociatedCards } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { getGlossaryEntry } from '../../lib/glossary.js';
+import { getCardImagePath, getDetailedCardType } from '../../lib/cardImages.js';
 import ClickableTermContext from './ClickableTermContext.js';
 
 const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack, onGoBack }) => {
@@ -46,6 +47,8 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
       const isAgent = component.type === "Agent";
       const associatedArchetype = (isBound || isAgent) ? ARCHETYPES[component.archetype] : null;
       const associations = isArchetype ? getAssociatedCards(id) : null;
+      const cardImagePath = getCardImagePath(id);
+      const detailedType = getDetailedCardType(id);
 
       return (
         <>
@@ -57,24 +60,41 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
             <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300 text-xl">×</button>
           </div>
 
+          {/* Card Image - scaled to fit popup, constrained height to avoid scroll */}
+          {cardImagePath && (
+            <div className="flex justify-center mb-4">
+              <img
+                src={cardImagePath}
+                alt={component.name}
+                className="w-[95%] h-auto rounded-lg shadow-lg"
+                style={{ maxHeight: '35vh', objectFit: 'contain' }}
+              />
+            </div>
+          )}
+
           <div className="mb-4">
-            <GlossaryTerm slug={component.type.toLowerCase()}>
+            <GlossaryTerm slug={
+              // Use specific glossary slug based on detailed card type
+              isBound && detailedType?.subtype === 'INNER' ? 'inner-bound' :
+              isBound && detailedType?.subtype === 'OUTER' ? 'outer-bound' :
+              isArchetype && detailedType?.subtype === 'INNER' ? 'inner-archetype' :
+              isArchetype && detailedType?.subtype === 'OUTER' ? 'outer-archetype' :
+              isArchetype && detailedType?.subtype === 'INGRESS' ? 'ingress-portal' :
+              isArchetype && detailedType?.subtype === 'EGRESS' ? 'egress-portal' :
+              isAgent ? 'agent' :
+              component.type.toLowerCase()
+            }>
               <span className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${
                 isArchetype ? 'bg-amber-500/20 text-amber-300' :
                 isBound ? 'bg-blue-500/20 text-blue-300' :
                 'bg-violet-500/20 text-violet-300'
               }`}>
-                {component.type}
+                {detailedType?.label || component.type}
               </span>
             </GlossaryTerm>
-            {isArchetype && (
-              <span className="text-xs text-zinc-500 ml-2">
-                <ClickableTerm type="house" id={component.house}>{component.house}</ClickableTerm> <GlossaryTerm slug="house">House</GlossaryTerm> • {component.function}
-              </span>
-            )}
             {isBound && (
               <span className="text-xs text-zinc-500 ml-2">
-                <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> • {component.number <= 5 ? 'Inner' : 'Outer'} <GlossaryTerm slug="bound">Bound</GlossaryTerm>
+                <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> <GlossaryTerm slug="channel">Channel</GlossaryTerm>
               </span>
             )}
             {isAgent && (
@@ -82,21 +102,76 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
                 <ClickableTerm type="role" id={component.role}>{component.role}</ClickableTerm> • <ClickableTerm type="channel" id={component.channel}>{component.channel}</ClickableTerm> <GlossaryTerm slug="channel">Channel</GlossaryTerm>
               </span>
             )}
+            {/* Card type description */}
+            {detailedType?.descriptions?.short && (
+              <p className="text-xs text-zinc-400 mt-2 italic leading-relaxed">
+                {detailedType.descriptions.short}
+              </p>
+            )}
           </div>
 
           <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
             {renderWithHotlinks(component.extended || component.description, setSelectedInfo, showTraditional)}
           </p>
 
+          {/* Archetype metadata: House, Process Stage, Channel */}
+          {isArchetype && (
+            <div className="border-t border-zinc-700/50 pt-4 mb-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-400">
+                <span>
+                  <span className="text-zinc-500">House:</span>{' '}
+                  <ClickableTerm type="house" id={component.house}>
+                    <span className="text-amber-300/80">{component.house}</span>
+                  </ClickableTerm>
+                </span>
+                <span>
+                  <span className="text-zinc-500">Process:</span>{' '}
+                  <GlossaryTerm slug={component.function.toLowerCase()}>
+                    <span className="text-emerald-300/80">{component.function}</span>
+                  </GlossaryTerm>
+                </span>
+                {component.channel && (
+                  <span>
+                    <span className="text-zinc-500">Channel:</span>{' '}
+                    <ClickableTerm type="channel" id={component.channel}>
+                      <span className="text-sky-300/80">{component.channel}</span>
+                    </ClickableTerm>
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
           {associatedArchetype && (
             <div className="border-t border-zinc-700/50 pt-4 mb-4">
               <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
                 {isBound ? 'Expresses' : 'Embodies'}
               </p>
-              <p className="text-sm text-zinc-300">
+              <p className="text-sm text-zinc-300 mb-2">
                 <ClickableTerm type="card" id={component.archetype}>{associatedArchetype.name}</ClickableTerm>
                 <span className="text-zinc-500"> — {associatedArchetype.description}</span>
               </p>
+              {/* Archetype metadata: House, Process Stage, Channel */}
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-400">
+                <span>
+                  <span className="text-zinc-500">House:</span>{' '}
+                  <ClickableTerm type="house" id={associatedArchetype.house}>
+                    <span className="text-amber-300/80">{associatedArchetype.house}</span>
+                  </ClickableTerm>
+                </span>
+                <span>
+                  <span className="text-zinc-500">Process:</span>{' '}
+                  <GlossaryTerm slug={associatedArchetype.function.toLowerCase()}>
+                    <span className="text-emerald-300/80">{associatedArchetype.function}</span>
+                  </GlossaryTerm>
+                </span>
+                <span>
+                  <span className="text-zinc-500">Channel:</span>{' '}
+                  <ClickableTerm type="channel" id={component.channel}>
+                    <span className="text-sky-300/80">{component.channel}</span>
+                  </ClickableTerm>
+                </span>
+              </div>
             </div>
           )}
 
@@ -341,7 +416,27 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
-      <div className="bg-zinc-900 rounded-lg border border-zinc-700 max-w-md w-full max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+      <div
+        className="bg-zinc-900 rounded-lg border border-zinc-700 max-w-md w-full max-h-[80vh] overflow-y-auto info-modal-scroll"
+        onClick={e => e.stopPropagation()}
+        onWheel={e => e.stopPropagation()}
+        style={{ overscrollBehavior: 'contain' }}
+      >
+        <style jsx>{`
+          .info-modal-scroll::-webkit-scrollbar {
+            width: 6px;
+          }
+          .info-modal-scroll::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .info-modal-scroll::-webkit-scrollbar-thumb {
+            background: rgba(63, 63, 70, 0.5);
+            border-radius: 3px;
+          }
+          .info-modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(82, 82, 91, 0.7);
+          }
+        `}</style>
         {/* Navigation bar - shows back button when there's history */}
         {canGoBack && (
           <div className="flex items-center gap-2 px-5 pt-3">
