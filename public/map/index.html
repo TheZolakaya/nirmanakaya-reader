@@ -136,6 +136,30 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* Narration text for training mode */
+        .narration {
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: rgba(212, 175, 55, 0.9);
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.4;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            z-index: 500;
+        }
+        .narration.visible {
+            opacity: 1;
+        }
         .card:hover {
             z-index: 200;
         }
@@ -682,7 +706,9 @@
 
     <div class="canvas-container" id="canvas-container">
         <div class="map-wrapper" id="map-wrapper">
-            <div class="map" id="map"></div>
+            <div class="map" id="map">
+                <div class="narration" id="narration"></div>
+            </div>
         </div>
     </div>
 
@@ -1628,16 +1654,33 @@ function render() {
 // ============================================
 // SEQUENCE MODE: Animated card reveal
 // ============================================
-function startRevealSequence() {
-    const ARCHETYPE_DELAY = 250;  // ms between each archetype
-    const BOUND_REVEAL_DELAY = 500;  // ms after last archetype before bounds
+function showNarration(text) {
+    const narration = document.getElementById('narration');
+    narration.textContent = text;
+    narration.classList.add('visible');
+}
 
-    // First, hide ALL cards
+function hideNarration() {
+    const narration = document.getElementById('narration');
+    narration.classList.remove('visible');
+}
+
+function startRevealSequence() {
+    const ARCHETYPE_DELAY = 333;  // ms between each archetype
+    const BOUND_REVEAL_DELAY = 800;  // ms after last archetype before bounds
+
+    // First, hide ALL cards and reset narration
     const allCards = document.querySelectorAll('.card');
     allCards.forEach(card => {
         card.classList.add('hidden');
         card.classList.remove('revealed');
     });
+    hideNarration();
+
+    // Show opening narration
+    setTimeout(() => {
+        showNarration('The 22 Archetypes\n0 → 21');
+    }, 200);
 
     // Archetype reveal order: 0-21
     const archetypeOrder = [];
@@ -1646,7 +1689,7 @@ function startRevealSequence() {
     }
 
     // Find and reveal archetypes in order
-    let delay = 500;  // Initial delay before starting
+    let delay = 1200;  // Initial delay to let narration show
     archetypeOrder.forEach((id) => {
         setTimeout(() => {
             const card = document.querySelector(`.card[data-card-id="${id}"]`);
@@ -1658,25 +1701,36 @@ function startRevealSequence() {
         delay += ARCHETYPE_DELAY;
     });
 
-    // After all archetypes, reveal bounds and agents
+    // After all archetypes, show bounds narration then reveal
+    setTimeout(() => {
+        showNarration('The 40 Bounds\nAces through Tens');
+    }, delay);
+
     setTimeout(() => {
         const bounds = document.querySelectorAll('.card.bound.hidden');
-        const agents = document.querySelectorAll('.card.agent.hidden');
-
-        // Reveal all bounds at once
         bounds.forEach(card => {
             card.classList.remove('hidden');
             card.classList.add('revealed');
         });
-
-        // Reveal all agents slightly after
-        setTimeout(() => {
-            agents.forEach(card => {
-                card.classList.remove('hidden');
-                card.classList.add('revealed');
-            });
-        }, 300);
     }, delay + BOUND_REVEAL_DELAY);
+
+    // After bounds, show agents narration then reveal
+    setTimeout(() => {
+        showNarration('The 16 Agents\nInitiate · Catalyst · Steward · Executor');
+    }, delay + BOUND_REVEAL_DELAY + 800);
+
+    setTimeout(() => {
+        const agents = document.querySelectorAll('.card.agent.hidden');
+        agents.forEach(card => {
+            card.classList.remove('hidden');
+            card.classList.add('revealed');
+        });
+    }, delay + BOUND_REVEAL_DELAY + 1600);
+
+    // Hide narration at end
+    setTimeout(() => {
+        hideNarration();
+    }, delay + BOUND_REVEAL_DELAY + 3000);
 }
 
 // ============================================
