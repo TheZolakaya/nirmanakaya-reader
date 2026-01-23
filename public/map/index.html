@@ -1558,10 +1558,10 @@ function renderHouse(map, houseName) {
     // Inner edge agents are furthest from house center toward map center
     // Body/Spirit: inner edge is UP (negative y), Mind/Emotion: inner edge is DOWN (positive y)
     const labelConfig = {
-        mind: { x: 0, y: 50, rotation: -45 },        // just below house (inner edge)
-        emotion: { x: 0, y: 50, rotation: 45 },      // just below house (inner edge)
-        body: { x: 160, y: -165, rotation: 45 },      // inner edge: centered on house diagonal
-        spirit: { x: 0, y: -50, rotation: -45 }      // just above house (inner edge)
+        mind: { x: 160, y: 165, rotation: -45 },     // inner edge: down-right toward map center
+        emotion: { x: -160, y: 165, rotation: 45 },  // inner edge: down-left toward map center
+        body: { x: 160, y: -165, rotation: 45 },     // inner edge: up-right toward map center
+        spirit: { x: -160, y: -165, rotation: -45 }  // inner edge: up-left toward map center
     };
     const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
