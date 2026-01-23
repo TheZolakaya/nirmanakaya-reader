@@ -4617,32 +4617,33 @@ CRITICAL FORMATTING RULES:
             )}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
-            <div className="flex items-center justify-between gap-4 mb-2 max-w-2xl mx-auto">
+            <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
               {/* Glistener prompt - left side */}
               {!showGlistener && spreadType !== 'explore' ? (
                 <button
                   onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
+                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 sm:gap-2 shrink-0"
                 >
                   <span className="text-amber-500">◇</span>
-                  <span>Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
+                  <span className="hidden sm:inline">Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
+                  <strong className="sm:hidden font-semibold text-zinc-200">Glisten</strong>
                 </button>
               ) : (
                 <div /> /* Empty div to maintain spacing when Glistener hidden */
               )}
 
               {/* Selectors - right side */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
               {/* Depth selector */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-500">Start at:</span>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <span className="text-xs text-zinc-500 hidden sm:inline">Start at:</span>
                 <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
                   <button
                     onClick={() => {
                       setDefaultDepth('shallow');
                       setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
                     }}
-                    className={`px-3 py-1 text-xs transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
                       defaultDepth === 'shallow'
                         ? 'bg-amber-600/80 text-white'
                         : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
@@ -4655,7 +4656,7 @@ CRITICAL FORMATTING RULES:
                       setDefaultDepth('wade');
                       setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
                     }}
-                    className={`px-3 py-1 text-xs transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
                       defaultDepth === 'wade'
                         ? 'bg-amber-600/80 text-white'
                         : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
@@ -4666,12 +4667,12 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
               {/* Expansion toggle */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-500">Cards:</span>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <span className="text-xs text-zinc-500 hidden sm:inline">Cards:</span>
                 <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
                   <button
                     onClick={() => setDefaultExpanded(false)}
-                    className={`px-3 py-1 text-xs transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
                       !defaultExpanded
                         ? 'bg-amber-600/80 text-white'
                         : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
@@ -4681,7 +4682,7 @@ CRITICAL FORMATTING RULES:
                   </button>
                   <button
                     onClick={() => setDefaultExpanded(true)}
-                    className={`px-3 py-1 text-xs transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
                       defaultExpanded
                         ? 'bg-amber-600/80 text-white'
                         : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
