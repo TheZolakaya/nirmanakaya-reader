@@ -4619,7 +4619,7 @@ CRITICAL FORMATTING RULES:
                   className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
                 >
                   <span className="text-amber-500">◇</span>
-                  <span>Don't have words yet? Try a <strong className="font-semibold">Glisten</strong></span>
+                  <span>Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
                 </button>
               ) : (
                 <div /> /* Empty div to maintain spacing when Glistener hidden */
