@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nirmanakaya · The 78 Signatures</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -282,33 +283,122 @@
         }
 
         /* ============================================
-           MODAL (click to enlarge)
+           INFO MODAL (card details panel)
            ============================================ */
-        .modal {
+        .info-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0,0,0,0.85);
             z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .info-modal.active { display: flex; }
+        .info-panel {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .info-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .info-panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #f4f4f5;
+            margin: 0;
+        }
+        .info-panel-trad {
+            font-size: 0.875rem;
+            color: #71717a;
+            margin-top: 2px;
+        }
+        .info-panel-close {
+            color: #71717a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 4px;
+        }
+        .info-panel-close:hover { color: #d4d4d8; }
+        .info-panel-image {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .info-panel-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+        .info-panel-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            margin-bottom: 12px;
+        }
+        .info-panel-badge.archetype { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .info-panel-badge.bound { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .info-panel-badge.agent { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+        .info-panel-channel {
+            font-size: 0.75rem;
+            color: #71717a;
+            margin-left: 8px;
+        }
+        .info-panel-desc {
+            font-size: 0.875rem;
+            color: #d4d4d8;
+            line-height: 1.6;
+        }
+        .info-panel-hint {
+            font-size: 0.7rem;
+            color: #52525b;
+            text-align: center;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* ============================================
+           FULLSCREEN IMAGE MODAL
+           ============================================ */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1100;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             cursor: pointer;
         }
-        .modal.active { display: flex; }
-        .modal img {
-            max-width: 80%;
-            max-height: 70%;
+        .fullscreen-modal.active { display: flex; }
+        .fullscreen-modal img {
+            max-width: 90%;
+            max-height: 85%;
             border-radius: 8px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
         }
-        .modal-title {
+        .fullscreen-title {
             margin-top: 20px;
             font-size: 1.5rem;
             color: #d4af37;
             letter-spacing: 0.2em;
             text-transform: uppercase;
         }
-        .modal-sub {
+        .fullscreen-sub {
             font-size: 0.9rem;
             color: #888;
             margin-top: 8px;
@@ -491,10 +581,31 @@
         <button class="zoom-btn" onclick="zoomFit()" title="Fit to screen" style="font-size: 1rem;">⊡</button>
     </div>
 
-    <div class="modal" id="modal" onclick="closeModal()">
-        <img id="modal-img" src="">
-        <div class="modal-title" id="modal-title"></div>
-        <div class="modal-sub" id="modal-sub"></div>
+    <!-- Info Modal (card details) -->
+    <div class="info-modal" id="info-modal" onclick="closeInfoModal()">
+        <div class="info-panel" onclick="event.stopPropagation()">
+            <div class="info-panel-header">
+                <div>
+                    <h3 class="info-panel-title" id="info-title"></h3>
+                    <p class="info-panel-trad" id="info-trad"></p>
+                </div>
+                <span class="info-panel-close" onclick="closeInfoModal()">×</span>
+            </div>
+            <img class="info-panel-image" id="info-img" src="" onclick="openFullscreen()" title="Click for full-size image">
+            <div>
+                <span class="info-panel-badge" id="info-badge"></span>
+                <span class="info-panel-channel" id="info-channel"></span>
+            </div>
+            <p class="info-panel-desc" id="info-desc"></p>
+            <p class="info-panel-hint">Click image to view full-size</p>
+        </div>
+    </div>
+
+    <!-- Fullscreen Image Modal -->
+    <div class="fullscreen-modal" id="fullscreen-modal" onclick="closeFullscreen()">
+        <img id="fullscreen-img" src="">
+        <div class="fullscreen-title" id="fullscreen-title"></div>
+        <div class="fullscreen-sub" id="fullscreen-sub"></div>
     </div>
 
 <script>
@@ -521,28 +632,28 @@ const cx = CONFIG.mapWidth / 2;  // Center X
 // DATA - Archetype names and traditional correspondences
 // ============================================
 const ARCHETYPES = {
-    0: { name: 'Potential', trad: 'The Fool', channel: 'Intent' },       // Governs Spirit (Fire)
-    1: { name: 'Will', trad: 'The Magician', channel: 'Structure' },     // Governs Body (Earth)
-    2: { name: 'Wisdom', trad: 'High Priestess', channel: 'Cognition' },
-    3: { name: 'Nurturing', trad: 'The Empress', channel: 'Structure' },
-    4: { name: 'Order', trad: 'The Emperor', channel: 'Intent' },
-    5: { name: 'Culture', trad: 'The Hierophant', channel: 'Resonance' },
-    6: { name: 'Compassion', trad: 'The Lovers', channel: 'Resonance' },
-    7: { name: 'Drive', trad: 'The Chariot', channel: 'Intent' },
-    8: { name: 'Fortitude', trad: 'Strength', channel: 'Structure' },
-    9: { name: 'Discipline', trad: 'The Hermit', channel: 'Cognition' },
-    10: { name: 'Source', trad: 'Wheel of Fortune', channel: null },
-    11: { name: 'Equity', trad: 'Justice', channel: 'Resonance' },
-    12: { name: 'Sacrifice', trad: 'Hanged Man', channel: 'Intent' },
-    13: { name: 'Change', trad: 'Death', channel: 'Structure' },
-    14: { name: 'Balance', trad: 'Temperance', channel: 'Cognition' },
-    15: { name: 'Abstraction', trad: 'The Devil', channel: 'Cognition' },
-    16: { name: 'Breakthrough', trad: 'The Tower', channel: 'Structure' },
-    17: { name: 'Inspiration', trad: 'The Star', channel: 'Intent' },
-    18: { name: 'Imagination', trad: 'The Moon', channel: 'Resonance' },
-    19: { name: 'Actualization', trad: 'The Sun', channel: 'Cognition' },   // Governs Mind (Air)
-    20: { name: 'Awareness', trad: 'Judgement', channel: 'Resonance' },    // Governs Emotion (Water)
-    21: { name: 'Creation', trad: 'The World', channel: null }             // Portal (Quintessence)
+    0: { name: 'Potential', trad: 'The Fool', channel: null, desc: 'The seed state of all becoming. Not naivety but infinite potential — the moment before choice collapses possibility into actuality. Contains everything, committed to nothing yet.' },
+    1: { name: 'Will', trad: 'The Magician', channel: null, desc: 'The capacity to direct attention and energy toward chosen ends. Not force but focused intention — the ability to say "this, not that" and mean it.' },
+    2: { name: 'Wisdom', trad: 'The High Priestess', channel: 'Cognition', desc: "Deep knowing that precedes analysis. The capacity to recognize what matters before understanding why. Wisdom isn't accumulated knowledge — it's seeing through to essence." },
+    3: { name: 'Nurturing', trad: 'The Empress', channel: 'Structure', desc: 'Tending what needs to develop. Creating conditions for growth without forcing outcomes. The patient attention that allows emergence.' },
+    4: { name: 'Order', trad: 'The Emperor', channel: 'Intent', desc: 'The impulse to organize chaos into workable form. Not rigid control but functional architecture — creating containers that allow complexity to be navigated.' },
+    5: { name: 'Culture', trad: 'The Hierophant', channel: 'Resonance', desc: 'The transmission of meaning across time and between people. Rituals, languages, practices that carry wisdom forward. Living connection to what has proven valuable.' },
+    6: { name: 'Compassion', trad: 'The Lovers', channel: 'Resonance', desc: 'The capacity to feel with rather than just about. Genuine alignment between beings that recognizes shared experience. Connection that honors difference.' },
+    7: { name: 'Drive', trad: 'The Chariot', channel: 'Intent', desc: 'Energy channeled toward destination. Not aggression but focused motion — the capacity to maintain direction through resistance without being consumed.' },
+    8: { name: 'Fortitude', trad: 'Strength', channel: 'Structure', desc: 'The ability to bear what must be borne. Not hardness but resilient strength — capacity to hold form under pressure without breaking or becoming rigid.' },
+    9: { name: 'Discipline', trad: 'The Hermit', channel: 'Cognition', desc: "Solitary cultivation of capacity through repetition. The hermit's lamp illuminates through sustained attention, not flash. Intention transformed into embodied skill." },
+    10: { name: 'Source', trad: 'Wheel of Fortune', channel: null, desc: "The turning point where what was outside enters the system. Not fate but timing — recognizing what's arriving and how to meet it." },
+    11: { name: 'Equity', trad: 'Justice', channel: 'Resonance', desc: "Right relationship made manifest. Not punishment but recalibration — adjusting what's out of proportion until balance returns." },
+    12: { name: 'Sacrifice', trad: 'The Hanged Man', channel: 'Intent', desc: 'Conscious letting go of what no longer serves. Not loss but clearing — creating space by releasing grip. Revealing value hidden by habitual grasping.' },
+    13: { name: 'Change', trad: 'Death', channel: 'Structure', desc: 'The completion that allows new beginning. Not destruction but transformation — the moment when what was must fully end for what will be to emerge.' },
+    14: { name: 'Balance', trad: 'Temperance', channel: 'Cognition', desc: 'Continuous adjustment that maintains flow. Not static middle but active calibration — sensing when to add, when to subtract, how to blend.' },
+    15: { name: 'Abstraction', trad: 'The Devil', channel: 'Cognition', desc: 'Recognition of pattern stripped of content. Not temptation but clarity about mechanism — seeing how things work beneath surface appearance.' },
+    16: { name: 'Breakthrough', trad: 'The Tower', channel: 'Structure', desc: "Rapid dissolution of what couldn't hold. Not catastrophe but liberation — structures built on false premises collapse when truth arrives." },
+    17: { name: 'Inspiration', trad: 'The Star', channel: 'Intent', desc: "The draw toward what's genuinely desired. Not fantasy but orientation — knowing which star to steer by. Recognized, not given; remembered, not arrived." },
+    18: { name: 'Imagination', trad: 'The Moon', channel: 'Resonance', desc: 'Capacity to move through uncertainty without forcing clarity. The moon illuminates enough to walk, not enough to see everything. Trust the path that reveals itself.' },
+    19: { name: 'Actualization', trad: 'The Sun', channel: null, desc: 'Full expression of inherent nature. Not achievement but authenticity — allowing what you are to shine without dimming or distortion.' },
+    20: { name: 'Awareness', trad: 'Judgement', channel: null, desc: "The capacity to perceive from outside the system while remaining within it. Not judgment but recognition — seeing what's true across all layers." },
+    21: { name: 'Creation', trad: 'The World', channel: null, desc: 'The point of departure that is also arrival. Full integration that allows release into next becoming. Completion that opens rather than closes.' }
 };
 
 // Elemental Designator Colors (channel → element → color)
@@ -807,25 +918,38 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
         top: y + 'px'
     });
 
-    // Add elemental background
-    let bgHtml = '';
+    // Determine channel and description based on card type
+    let channel = null;
+    let description = '';
+    let displayType = type.charAt(0).toUpperCase() + type.slice(1);
+
     if (type === 'archetype' || type === 'portal') {
         // For archetypes/portals, channelOrId is the archetype ID
-        const channel = ARCHETYPES[channelOrId]?.channel;
-        const bgColor = ELEMENT_COLORS[channel] || ELEMENT_COLORS[null];
-        bgHtml = `<div class="element-bg" style="background: ${bgColor};"></div>`;
-    } else if ((type === 'bound' || type === 'agent') && channelOrId) {
-        // For bounds/agents, channelOrId is the channel name directly
-        const bgColor = ELEMENT_COLORS[channelOrId] || ELEMENT_COLORS[null];
-        bgHtml = `<div class="element-bg" style="background: ${bgColor};"></div>`;
+        const archData = ARCHETYPES[channelOrId];
+        channel = archData?.channel;
+        description = archData?.desc || '';
+        displayType = type === 'portal' ? 'Portal' : 'Archetype';
+    } else if (type === 'bound') {
+        channel = channelOrId;
+        description = `A ${channel} bound card expressing focused energy through numeric form.`;
+        displayType = 'Bound';
+    } else if (type === 'agent') {
+        channel = channelOrId;
+        description = `A ${channel} agent embodying active presence in the world.`;
+        displayType = 'Agent';
     }
+
+    // Add elemental background
+    let bgHtml = '';
+    const bgColor = ELEMENT_COLORS[channel] || ELEMENT_COLORS[null];
+    bgHtml = `<div class="element-bg" style="background: ${bgColor};"></div>`;
 
     // Add label if provided (default to title for archetypes/portals)
     const label = labelText !== null ? labelText : (type === 'archetype' || type === 'portal' ? title : '');
     const labelHtml = label ? `<div class="card-label">${label}</div>` : '';
 
     card.innerHTML = `${bgHtml}<img src="${src}" alt="${title}">${labelHtml}`;
-    card.onclick = () => openModal(src, title, subtitle);
+    card.onclick = () => openInfoModal(src, title, subtitle, displayType, channel, description);
     return card;
 }
 
@@ -1178,24 +1302,57 @@ function render() {
 }
 
 // ============================================
-// MODAL FUNCTIONS
+// MODAL FUNCTIONS (Two-stage: Info panel → Fullscreen)
 // ============================================
-function openModal(src, title, subtitle) {
+let currentCardInfo = null;  // Track current card for fullscreen
+
+function openInfoModal(src, title, subtitle, cardType, channel, description) {
     // Don't open modal if we just finished dragging
     if (wasDragging) return;
 
-    document.getElementById('modal-img').src = src;
-    document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-sub').textContent = subtitle || '';
-    document.getElementById('modal').classList.add('active');
+    currentCardInfo = { src, title, subtitle };
+
+    document.getElementById('info-img').src = src;
+    document.getElementById('info-title').textContent = title;
+    document.getElementById('info-trad').textContent = subtitle || '';
+    document.getElementById('info-desc').textContent = description || '';
+
+    // Set badge
+    const badge = document.getElementById('info-badge');
+    badge.textContent = cardType;
+    badge.className = 'info-panel-badge ' + cardType.toLowerCase();
+
+    // Set channel
+    const channelEl = document.getElementById('info-channel');
+    channelEl.textContent = channel ? `${channel} Channel` : '';
+
+    document.getElementById('info-modal').classList.add('active');
 }
 
-function closeModal() {
-    document.getElementById('modal').classList.remove('active');
+function closeInfoModal() {
+    document.getElementById('info-modal').classList.remove('active');
+}
+
+function openFullscreen() {
+    if (!currentCardInfo) return;
+    document.getElementById('fullscreen-img').src = currentCardInfo.src;
+    document.getElementById('fullscreen-title').textContent = currentCardInfo.title;
+    document.getElementById('fullscreen-sub').textContent = currentCardInfo.subtitle || '';
+    document.getElementById('fullscreen-modal').classList.add('active');
+}
+
+function closeFullscreen() {
+    document.getElementById('fullscreen-modal').classList.remove('active');
 }
 
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') {
+        if (document.getElementById('fullscreen-modal').classList.contains('active')) {
+            closeFullscreen();
+        } else {
+            closeInfoModal();
+        }
+    }
 });
 
 // ============================================
