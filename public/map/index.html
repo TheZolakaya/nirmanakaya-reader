@@ -1554,14 +1554,13 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - positioned between house and Gestalt, rotated to match house angle
-    // Gestalt center is at (cx, 540), so labels point toward that center
-    // Using translate(-50%, -50%) to center the label at its position point, then rotate
+    // House label - positioned on OUTER edge of house (away from Gestalt center)
+    // Like Gestalt's label but rotated: label sits outside the diamond, away from map center
     const labelConfig = {
-        mind: { x: 180, y: 80, rotation: -45 },      // toward center (lower-right of Mind)
-        emotion: { x: -180, y: 80, rotation: 45 },   // toward center (lower-left of Emotion)
-        body: { x: 180, y: -120, rotation: 45 },     // toward center (upper-right of Body)
-        spirit: { x: -180, y: -120, rotation: -45 }  // toward center (upper-left of Spirit)
+        mind: { x: -180, y: -80, rotation: -45 },    // outer edge (upper-left of Mind)
+        emotion: { x: 180, y: -80, rotation: 45 },   // outer edge (upper-right of Emotion)
+        body: { x: -180, y: 120, rotation: 45 },     // outer edge (lower-left of Body)
+        spirit: { x: 180, y: 120, rotation: -45 }    // outer edge (lower-right of Spirit)
     };
     const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
