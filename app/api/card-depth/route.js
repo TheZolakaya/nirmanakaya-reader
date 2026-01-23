@@ -242,6 +242,8 @@ Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
 Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
 
+⚠️ POSITION CONTEXT IS MANDATORY: Your interpretation MUST explicitly mention "${positionName}" at least once. This card landed in the ${positionName} position - that context shapes the entire meaning. Say "${cardName} in ${positionName}" or "in your ${positionName}". The position is WHERE, the card is WHAT.
+
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 
 Respond with these markers:
@@ -404,6 +406,8 @@ ${previousDisplay}
 Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
 
 ${depthInstructions}
+
+⚠️ POSITION CONTEXT IS MANDATORY: Your interpretation MUST continue to mention "${positionName}" explicitly. This card is in the ${positionName} position - that context shapes everything. The position is WHERE, the card is WHAT. Weave it naturally into your deepened content.
 
 CRITICAL RULES:
 1. DO NOT repeat what's in the previous content
