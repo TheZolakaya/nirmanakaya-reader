@@ -4632,19 +4632,6 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
 
-            {/* Glistener - Pre-reading emergence ritual (temporarily ungated for testing) */}
-            {!showGlistener && spreadType !== 'explore' && (
-              <div className="mb-4">
-                <button
-                  onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
-                >
-                  <span className="text-amber-500/60">◇</span>
-                  <span>Don't have words yet? Try a Glisten</span>
-                </button>
-              </div>
-            )}
-
             {showGlistener && (
               <Glistener
                 onTransfer={(crystal) => {
@@ -4655,8 +4642,23 @@ CRITICAL FORMATTING RULES:
               />
             )}
 
-            {/* Default Depth & Expansion Selectors */}
-            <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
+            <div className="flex items-center justify-between gap-4 mb-2">
+              {/* Glistener prompt - left side */}
+              {!showGlistener && spreadType !== 'explore' ? (
+                <button
+                  onClick={() => setShowGlistener(true)}
+                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
+                >
+                  <span className="text-amber-500/60">◇</span>
+                  <span>Don't have words yet? Try a Glisten</span>
+                </button>
+              ) : (
+                <div /> /* Empty div to maintain spacing when Glistener hidden */
+              )}
+
+              {/* Selectors - right side */}
+              <div className="flex items-center gap-4">
               {/* Depth selector */}
               <div className="flex items-center gap-2">
                 <span className="text-xs text-zinc-500">Start at:</span>
@@ -4714,6 +4716,7 @@ CRITICAL FORMATTING RULES:
                     Open
                   </button>
                 </div>
+              </div>
               </div>
             </div>
 
