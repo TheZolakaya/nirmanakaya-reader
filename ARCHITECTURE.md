@@ -1,6 +1,6 @@
 # Nirmanakaya Reader - Complete Architecture Reference
 
-**Version:** 0.74.10
+**Version:** 0.74.12
 **Last Updated:** 2026-01-23
 
 > **Note:** Keep this document updated when making architectural changes. Claude Code references this for debugging.
@@ -678,6 +678,13 @@ Generates interpretation for a single card. This is where most AI generation hap
 // ⚠️ IMPORTANT: draw.position can be undefined in some code paths
 // Always check: draw.position !== null && draw.position !== undefined
 // Bug fixed in v0.74.10
+
+// ⚠️ PROMPT FORMAT: Card vs Position must be unambiguous
+// Old format "CARD 1 — Position: CardName" caused AI to reverse them
+// New format (v0.74.12):
+//   THE CARD: CardName
+//   IN POSITION: PositionName
+// Plus explicit directive: "DO NOT reverse these"
 ```
 
 ### POST /api/reading
