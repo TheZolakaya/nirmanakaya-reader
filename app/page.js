@@ -2943,6 +2943,29 @@ CRITICAL FORMATTING RULES:
     const correctionText = getCorrectionText(correction, trans, draw.status);
     const correctionTargetId = getCorrectionTargetId(correction, trans);
 
+    // Growth Opportunity for balanced cards
+    const isBalanced = draw.status === 1;
+    const cardHomeArchetype = trans.archetype ?? draw.transient; // Archetype: its own ID, Bound/Agent: its archetype
+    const GESTALT_ARCHETYPES = new Set([0, 1, 10, 19, 20, 21]);
+    const isGestaltCard = GESTALT_ARCHETYPES.has(cardHomeArchetype);
+    const cardType = trans.type?.toLowerCase() || 'archetype';
+
+    const getGrowthTargetId = () => {
+      if (isGestaltCard) return draw.transient;
+      if (cardType === 'agent') {
+        const agentCorrection = getAgentCorrection(trans, 1);
+        if (agentCorrection?.targetAgentId) return agentCorrection.targetAgentId;
+      }
+      if (cardType === 'bound') {
+        const boundCorrection = getBoundCorrection(trans, 1);
+        if (boundCorrection?.targetId) return boundCorrection.targetId;
+      }
+      return draw.position;
+    };
+    const growthTargetId = isBalanced ? getGrowthTargetId() : null;
+    const growthTargetCard = growthTargetId !== null ? getComponent(growthTargetId) : null;
+    const growthTargetName = growthTargetCard?.name || (draw.position !== null ? ARCHETYPES[draw.position]?.name : null);
+
     const house = getCardHouse(draw, index);
     const houseColors = HOUSE_COLORS[house];
 
@@ -3057,10 +3080,24 @@ CRITICAL FORMATTING RULES:
           <div className="border-t border-zinc-700/30 pt-3 mt-3">
             <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Rebalancer</div>
             <div className="text-sm text-zinc-300">
-              → <span 
+              → <span
                 className={correctionTargetId !== null ? "cursor-pointer hover:text-zinc-100 transition-colors" : ""}
                 onClick={(e) => { e.stopPropagation(); correctionTargetId !== null && openCardInfo(correctionTargetId); }}
               >{correctionText}</span>
+            </div>
+          </div>
+        )}
+
+        {isBalanced && growthTargetName && (
+          <div className="border-t border-zinc-700/30 pt-3 mt-3">
+            <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+              {isGestaltCard ? 'Self-Expression' : 'Growth Opportunity'}
+            </div>
+            <div className="text-sm text-zinc-300">
+              → <span
+                className={growthTargetId !== null ? "cursor-pointer hover:text-zinc-100 transition-colors" : ""}
+                onClick={(e) => { e.stopPropagation(); growthTargetId !== null && openCardInfo(growthTargetId); }}
+              >{growthTargetName}</span>
             </div>
           </div>
         )}
