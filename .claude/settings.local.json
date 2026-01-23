@@ -23,7 +23,10 @@
       "Bash(powershell -Command:*)",
       "Bash(taskkill:*)",
       "Bash(netstat:*)",
-      "Bash(findstr:*)"
-    ]
+      "Bash(findstr:*)",
+      "Bash(Remove-Item -Recurse -Force .next)",
+      "Bash(npx next build)"
+    ],
+    "defaultMode": "bypassPermissions"
   }
 }
