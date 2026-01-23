@@ -458,6 +458,7 @@ export default function NirmanakaReader() {
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
+  const [defaultExpanded, setDefaultExpanded] = useState(false); // When true, nested sections start expanded
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
@@ -4590,36 +4591,65 @@ CRITICAL FORMATTING RULES:
               />
             )}
 
-            {/* Default Depth Selector */}
-            <div className="flex items-center justify-end gap-2 mb-2">
-              <span className="text-xs text-zinc-500">Start at:</span>
-              <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
-                <button
-                  onClick={() => {
-                    setDefaultDepth('shallow');
-                    setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
-                  }}
-                  className={`px-3 py-1 text-xs transition-colors ${
-                    defaultDepth === 'shallow'
-                      ? 'bg-amber-600/80 text-white'
-                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                  }`}
-                >
-                  Shallow
-                </button>
-                <button
-                  onClick={() => {
-                    setDefaultDepth('wade');
-                    setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
-                  }}
-                  className={`px-3 py-1 text-xs transition-colors ${
-                    defaultDepth === 'wade'
-                      ? 'bg-amber-600/80 text-white'
-                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                  }`}
-                >
-                  Wade
-                </button>
+            {/* Default Depth & Expansion Selectors */}
+            <div className="flex items-center justify-end gap-4 mb-2">
+              {/* Depth selector */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-500">Start at:</span>
+                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
+                  <button
+                    onClick={() => {
+                      setDefaultDepth('shallow');
+                      setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
+                    }}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      defaultDepth === 'shallow'
+                        ? 'bg-amber-600/80 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    Shallow
+                  </button>
+                  <button
+                    onClick={() => {
+                      setDefaultDepth('wade');
+                      setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
+                    }}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      defaultDepth === 'wade'
+                        ? 'bg-amber-600/80 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    Wade
+                  </button>
+                </div>
+              </div>
+              {/* Expansion toggle */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-500">Cards:</span>
+                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
+                  <button
+                    onClick={() => setDefaultExpanded(false)}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      !defaultExpanded
+                        ? 'bg-amber-600/80 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    Closed
+                  </button>
+                  <button
+                    onClick={() => setDefaultExpanded(true)}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      defaultExpanded
+                        ? 'bg-amber-600/80 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    Open
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -5410,6 +5440,10 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     setSelectedInfo={setSelectedInfo}
                     spreadType={spreadType}
                     spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
+                    // Default depth setting (shallow or wade)
+                    defaultDepth={defaultDepth}
+                    // Default expansion setting (cards start open or closed)
+                    defaultExpanded={defaultExpanded}
                     // Expansion props
                     onExpand={handleExpand}
                     expansions={expansions}

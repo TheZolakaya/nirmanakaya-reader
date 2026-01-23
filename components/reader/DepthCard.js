@@ -99,6 +99,10 @@ const DepthCard = ({
   setSelectedInfo,
   spreadType = 'discover',
   spreadKey = 'one',
+  // Default depth setting (shallow or wade) - controls what depth cards open to
+  defaultDepth = 'shallow',
+  // Default expansion setting - when true, card and nested sections start expanded
+  defaultExpanded = false,
   // Expansion props
   onExpand,
   expansions = {},
@@ -123,11 +127,13 @@ const DepthCard = ({
   onLoadDeeper,        // (cardIndex, targetDepth, previousContent) => Promise
   isLoadingDeeper = false
 }) => {
-  const [depth, setDepth] = useState(DEPTH.COLLAPSED);
-  const [rebalancerDepth, setRebalancerDepth] = useState(DEPTH.COLLAPSED);
-  const [growthDepth, setGrowthDepth] = useState(DEPTH.COLLAPSED); // For balanced cards' Growth Opportunity
-  const [isWhyCollapsed, setIsWhyCollapsed] = useState(true);
-  const [whyDepth, setWhyDepth] = useState(WHY_DEPTH.SHALLOW); // Default to SHALLOW (1-2 sentences)
+  // Initialize states based on defaultExpanded setting
+  const [depth, setDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED);
+  const [rebalancerDepth, setRebalancerDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED);
+  const [growthDepth, setGrowthDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED); // For balanced cards' Growth Opportunity
+  const [isWhyCollapsed, setIsWhyCollapsed] = useState(!defaultExpanded);
+  const [whyDepth, setWhyDepth] = useState(defaultDepth); // Use user's chosen default depth
+  const [isArchCollapsed, setIsArchCollapsed] = useState(!defaultExpanded); // Architecture section
   const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
 
   // Independent loading states for each section
@@ -255,7 +261,7 @@ const DepthCard = ({
 
   const handleCardClick = () => {
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.SHALLOW); // Start at SHALLOW (1-2 sentence summary)
+      setDepth(defaultDepth); // Start at user's chosen default depth (shallow or wade)
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -267,7 +273,7 @@ const DepthCard = ({
   const toggleCollapse = (e) => {
     e.stopPropagation();
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.SHALLOW); // Start at SHALLOW (1-2 sentence summary)
+      setDepth(defaultDepth); // Start at user's chosen default depth (shallow or wade)
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -321,15 +327,17 @@ const DepthCard = ({
     else if (depth === DEPTH.SHALLOW) setDepth(DEPTH.COLLAPSED);
   };
 
-  // Find first available rebalancer depth (shallow preferred - derived from wade)
+  // Find first available rebalancer depth (user's default preferred)
   const getFirstRebalancerDepth = () => {
     const r = cardData.rebalancer;
-    if (!r) return DEPTH.SHALLOW;
+    if (!r) return defaultDepth;
+    // Check if user's default depth content exists
+    if (defaultDepth === 'wade' && hasContentValue(r.wade)) return DEPTH.WADE;
     // Shallow is derived from wade, so if wade exists, shallow exists
-    if (hasContentValue(r.wade)) return DEPTH.SHALLOW;
+    if (hasContentValue(r.wade)) return defaultDepth;
     if (hasContentValue(r.swim)) return DEPTH.SWIM;
     if (hasContentValue(r.deep)) return DEPTH.DEEP;
-    return DEPTH.SHALLOW; // Default to shallow
+    return defaultDepth; // Default to user's chosen default
   };
 
   const handleRebalancerClick = () => {
@@ -387,15 +395,17 @@ const DepthCard = ({
     }
   };
 
-  // Find first available growth depth (shallow preferred - derived from wade)
+  // Find first available growth depth (user's default preferred)
   const getFirstGrowthDepth = () => {
     const g = cardData.growth;
-    if (!g) return DEPTH.SHALLOW;
+    if (!g) return defaultDepth;
+    // Check if user's default depth content exists
+    if (defaultDepth === 'wade' && hasContentValue(g.wade)) return DEPTH.WADE;
     // Shallow is derived from wade, so if wade exists, shallow exists
-    if (hasContentValue(g.wade)) return DEPTH.SHALLOW;
+    if (hasContentValue(g.wade)) return defaultDepth;
     if (hasContentValue(g.swim)) return DEPTH.SWIM;
     if (hasContentValue(g.deep)) return DEPTH.DEEP;
-    return DEPTH.SHALLOW; // Default to shallow
+    return defaultDepth; // Default to user's chosen default
   };
 
   const handleGrowthClick = () => {
@@ -453,9 +463,6 @@ const DepthCard = ({
   const content = getContent(depth);
   const canGoDeeper = depth !== DEPTH.DEEP && depth !== DEPTH.COLLAPSED;
   const canGoShallower = depth !== DEPTH.COLLAPSED;
-
-  // State for card architecture section (collapsed by default)
-  const [isArchCollapsed, setIsArchCollapsed] = useState(true);
 
   return (
     <div className={`content-pane rounded-lg border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
