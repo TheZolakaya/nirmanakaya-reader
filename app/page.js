@@ -699,7 +699,6 @@ export default function NirmanakaReader() {
   const [loadingPhrases, setLoadingPhrases] = useState([]);
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
   const [loadingPhraseVisible, setLoadingPhraseVisible] = useState(true);
-  const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
@@ -1242,13 +1241,6 @@ export default function NirmanakaReader() {
     return () => clearInterval(fadeInterval);
   }, [loading]);
 
-  // Suggestion pills - random rotation every 8 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSuggestionIndex(Math.floor(Math.random() * SUGGESTIONS.length));
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Warn before leaving if there's a reading
   useEffect(() => {
@@ -4050,19 +4042,6 @@ CRITICAL FORMATTING RULES:
                 >
                   {loading ? 'Reading...' : 'Get a Reading'}
                 </button>
-
-                {/* Subtle spark suggestions */}
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                  {SUGGESTIONS.slice(0, 3).map((suggestion, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setQuestion(suggestion)}
-                      className="text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1 rounded bg-zinc-800/50 hover:bg-zinc-700/50 transition-colors"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
 
                 {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
               </div>
