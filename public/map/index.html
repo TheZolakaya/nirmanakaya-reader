@@ -175,9 +175,39 @@
             color: #445;
         }
         .label.house-name {
-            font-size: 0.7rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            color: #666;
+            color: #555;
+            letter-spacing: 0.15em;
+        }
+        .label.house-name.rotated {
+            transform-origin: center center;
+        }
+
+        /* Top header - matches main reader */
+        .page-header {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            color: #445;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .page-header .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
         }
 
         /* Card name labels - white rounded boxes on the card */
@@ -348,6 +378,12 @@
 <body>
     <a href="/" class="back-button">← Reader</a>
 
+    <!-- Page header -->
+    <div class="page-header">
+        <h1>Nirmanakaya</h1>
+        <div class="subtitle">The 78 Signatures</div>
+    </div>
+
     <div class="canvas-container" id="canvas-container">
         <div class="map-wrapper" id="map-wrapper">
             <div class="map" id="map"></div>
@@ -504,7 +540,7 @@ const HOUSES = {
 
 const PORTALS = {
     source: { archetype: 10, x: cx, y: 238 },
-    creation: { archetype: 21, x: cx, y: 1400 }
+    creation: { archetype: 21, x: cx, y: 1320 }
 };
 
 // Suit to Channel mapping for elemental colors
@@ -849,10 +885,10 @@ function renderGestalt(map) {
         });
     }
 
-    // House label
+    // House label - centered below the house
     const label = createElement('div', 'label house-name', {
-        left: (g.x - 25) + 'px',
-        top: (g.y + size/2 + 20) + 'px'
+        left: (g.x - 40) + 'px',
+        top: (g.y + size/2 + 25) + 'px'
     });
     label.textContent = 'Gestalt';
     map.appendChild(label);
@@ -1018,22 +1054,25 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label
-    const label = createElement('div', 'label house-name', {
-        left: (house.x - 25) + 'px',
-        top: (house.y + size/2 + 20) + 'px'
+    // House label - positioned toward center, rotated to match house
+    // Mind (upper-left, -45°): label below inner agents, toward center
+    // Emotion (upper-right, +45°): label below inner agents, toward center
+    // Body (lower-left, +45°): label above inner agents, toward center
+    // Spirit (lower-right, -45°): label above inner agents, toward center
+    const labelOffsets = {
+        mind: { x: 130, y: 110, rotation: -45 },      // toward center-right, below
+        emotion: { x: -180, y: 110, rotation: 45 },   // toward center-left, below
+        body: { x: 130, y: -140, rotation: 45 },      // toward center-right, above
+        spirit: { x: -180, y: -140, rotation: -45 }   // toward center-left, above
+    };
+    const offset = labelOffsets[houseName];
+    const label = createElement('div', 'label house-name rotated', {
+        left: (house.x + offset.x) + 'px',
+        top: (house.y + offset.y) + 'px',
+        transform: `rotate(${offset.rotation}deg)`
     });
     label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
     map.appendChild(label);
-}
-
-function renderTitle(map) {
-    const title = createElement('div', 'label title', {
-        left: (cx - 200) + 'px',  // Offset for centering wider text
-        top: '950px'
-    });
-    title.textContent = 'Nirmanakaya';
-    map.appendChild(title);
 }
 
 // ============================================
@@ -1052,8 +1091,7 @@ function render() {
     ['mind', 'emotion', 'body', 'spirit'].forEach(name => {
         renderHouse(map, name);
     });
-
-    renderTitle(map);
+    // Title moved to fixed HTML header at top of page
 }
 
 // ============================================
