@@ -9,8 +9,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; height: 100%; overflow: hidden; }
         body {
-            background: #f8f6f3;
+            background: #0a0a0f;
             font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Video background - matches reader page */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.4;
         }
 
         .canvas-container {
@@ -24,7 +36,11 @@
 
         .map-wrapper {
             transform-origin: center center;
-            transition: transform 0.2s ease-out;
+            transition: transform 0.1s ease-out;
+            cursor: grab;
+        }
+        .map-wrapper:active {
+            cursor: grabbing;
         }
 
         .map {
@@ -175,10 +191,11 @@
             color: #445;
         }
         .label.house-name {
-            font-size: 1rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
-            color: #555;
-            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.2em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .label.house-name.rotated {
             transform-origin: center center;
@@ -186,8 +203,8 @@
 
         /* Top header - matches main reader */
         .page-header {
-            position: absolute;
-            top: 30px;
+            position: fixed;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -195,17 +212,18 @@
         }
         .page-header h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 300;
             letter-spacing: 0.35em;
-            color: #445;
+            color: rgba(255, 255, 255, 0.9);
             text-transform: uppercase;
             margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .page-header .subtitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
-            color: #888;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
             letter-spacing: 0.1em;
             margin-top: 4px;
         }
@@ -363,6 +381,53 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
+        /* Background toggle */
+        .bg-toggle-container {
+            position: fixed;
+            top: 58px;
+            left: 10px;
+            z-index: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bg-toggle-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.03em;
+        }
+        .bg-toggle {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            appearance: none;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .bg-toggle:checked {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        .bg-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #888;
+            transition: all 0.2s ease;
+        }
+        .bg-toggle:checked::before {
+            left: 18px;
+            background: #d4af37;
+        }
+
         body.dev-mode .card.bound,
         body.dev-mode .card.agent {
             cursor: move;
@@ -376,7 +441,18 @@
     </style>
 </head>
 <body>
+    <!-- Video background -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="/video/cosmos.mp4" type="video/mp4">
+    </video>
+
     <a href="/" class="back-button">← Reader</a>
+
+    <!-- Background toggle -->
+    <div class="bg-toggle-container">
+        <input type="checkbox" class="bg-toggle" id="bg-toggle" checked>
+        <label class="bg-toggle-label" for="bg-toggle">Background</label>
+    </div>
 
     <!-- Page header -->
     <div class="page-header">
@@ -1054,16 +1130,13 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - positioned toward center, rotated to match house
-    // Mind (upper-left, -45°): label below inner agents, toward center
-    // Emotion (upper-right, +45°): label below inner agents, toward center
-    // Body (lower-left, +45°): label above inner agents, toward center
-    // Spirit (lower-right, -45°): label above inner agents, toward center
+    // House label - positioned toward map center, rotated to match house
+    // Labels are placed between the house and Gestalt, angled to match house rotation
     const labelOffsets = {
-        mind: { x: 130, y: 110, rotation: -45 },      // toward center-right, below
-        emotion: { x: -180, y: 110, rotation: 45 },   // toward center-left, below
-        body: { x: 130, y: -140, rotation: 45 },      // toward center-right, above
-        spirit: { x: -180, y: -140, rotation: -45 }   // toward center-left, above
+        mind: { x: 220, y: 160, rotation: -45 },      // toward center, below-right
+        emotion: { x: -270, y: 160, rotation: 45 },   // toward center, below-left
+        body: { x: 220, y: -200, rotation: 45 },      // toward center, above-right
+        spirit: { x: -270, y: -200, rotation: -45 }   // toward center, above-left
     };
     const offset = labelOffsets[houseName];
     const label = createElement('div', 'label house-name rotated', {
@@ -1254,27 +1327,29 @@ function setupDragging() {
 }
 
 // ============================================
-// ZOOM FUNCTIONALITY
+// ZOOM & PAN FUNCTIONALITY
 // ============================================
 let currentZoom = 1;
+let panX = 0;
+let panY = 0;
 const MIN_ZOOM = 0.2;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.15;
 
-function updateZoom() {
+function updateTransform() {
     const wrapper = document.getElementById('map-wrapper');
-    wrapper.style.transform = `scale(${currentZoom})`;
+    wrapper.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
     document.getElementById('zoom-level').textContent = Math.round(currentZoom * 100) + '%';
 }
 
 function zoomIn() {
     currentZoom = Math.min(MAX_ZOOM, currentZoom + ZOOM_STEP);
-    updateZoom();
+    updateTransform();
 }
 
 function zoomOut() {
     currentZoom = Math.max(MIN_ZOOM, currentZoom - ZOOM_STEP);
-    updateZoom();
+    updateTransform();
 }
 
 function zoomFit() {
@@ -1288,12 +1363,14 @@ function zoomFit() {
     const scaleY = (container.clientHeight - padding) / mapHeight;
 
     currentZoom = Math.min(scaleX, scaleY, 1); // Don't zoom larger than 100%
-    updateZoom();
+    panX = 0;
+    panY = 0;
+    updateTransform();
 }
 
 function zoomTo(level) {
     currentZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, level));
-    updateZoom();
+    updateTransform();
 }
 
 // Mouse wheel zoom
@@ -1301,8 +1378,77 @@ document.getElementById('canvas-container').addEventListener('wheel', (e) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
     currentZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, currentZoom + delta));
-    updateZoom();
+    updateTransform();
 }, { passive: false });
+
+// ============================================
+// PAN/DRAG FUNCTIONALITY
+// ============================================
+let isPanning = false;
+let panStartX = 0;
+let panStartY = 0;
+let panStartPanX = 0;
+let panStartPanY = 0;
+
+const container = document.getElementById('canvas-container');
+
+// Mouse drag
+container.addEventListener('mousedown', (e) => {
+    // Only pan if clicking on container background, not on cards
+    if (e.target === container || e.target.classList.contains('map-wrapper') || e.target.classList.contains('map')) {
+        isPanning = true;
+        panStartX = e.clientX;
+        panStartY = e.clientY;
+        panStartPanX = panX;
+        panStartPanY = panY;
+        container.style.cursor = 'grabbing';
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isPanning) return;
+    const dx = e.clientX - panStartX;
+    const dy = e.clientY - panStartY;
+    panX = panStartPanX + dx;
+    panY = panStartPanY + dy;
+    updateTransform();
+});
+
+document.addEventListener('mouseup', () => {
+    if (isPanning) {
+        isPanning = false;
+        container.style.cursor = 'default';
+    }
+});
+
+// Touch drag (mobile)
+container.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        if (e.target === container || e.target.classList.contains('map-wrapper') || e.target.classList.contains('map')) {
+            isPanning = true;
+            panStartX = touch.clientX;
+            panStartY = touch.clientY;
+            panStartPanX = panX;
+            panStartPanY = panY;
+        }
+    }
+}, { passive: true });
+
+container.addEventListener('touchmove', (e) => {
+    if (!isPanning || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - panStartX;
+    const dy = touch.clientY - panStartY;
+    panX = panStartPanX + dx;
+    panY = panStartPanY + dy;
+    updateTransform();
+}, { passive: true });
+
+container.addEventListener('touchend', () => {
+    isPanning = false;
+});
 
 // ============================================
 // INITIALIZE
@@ -1322,6 +1468,16 @@ window.addEventListener('resize', () => {
     if (currentZoom < 1) {
         zoomFit();
     }
+});
+
+// ============================================
+// BACKGROUND TOGGLE
+// ============================================
+const bgToggle = document.getElementById('bg-toggle');
+const videoBg = document.querySelector('.video-background');
+
+bgToggle.addEventListener('change', () => {
+    videoBg.style.display = bgToggle.checked ? 'block' : 'none';
 });
 </script>
 </body>
