@@ -4071,7 +4071,7 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Full UI */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative">
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-6 relative max-w-2xl mx-auto">
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4632,12 +4632,12 @@ CRITICAL FORMATTING RULES:
             )}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
-            <div className="flex items-center justify-between gap-4 mb-2">
+            <div className="flex items-center justify-between gap-4 mb-2 max-w-2xl mx-auto">
               {/* Glistener prompt - left side */}
               {!showGlistener && spreadType !== 'explore' ? (
                 <button
                   onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 ml-4"
+                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2"
                 >
                   <span className="text-amber-500/60">◇</span>
                   <span>Don't have words yet? Try a Glisten</span>
@@ -4768,12 +4768,12 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               )}
 
               {/* Action button below input */}
-              <div className="mt-3">
+              <div className="mt-3 max-w-2xl mx-auto flex justify-center">
                 <button
                   onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
                   data-help="get-reading"
                   disabled={loading}
-                  className="w-full sm:w-auto sm:mx-auto sm:block px-8 py-3 min-h-[48px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
+                  className="px-8 py-3 min-h-[48px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-base text-[#f59e0b] font-medium border border-emerald-700/50"
                 >
                   {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
