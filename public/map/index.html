@@ -648,15 +648,6 @@
         body.dev-mode .card.agent:hover {
             outline-color: #00ff00;
         }
-        body.dev-mode .label.house-name {
-            cursor: move;
-            pointer-events: auto !important;
-            outline: 2px dashed rgba(212, 175, 55, 0.5);
-            padding: 5px 10px;
-        }
-        body.dev-mode .label.house-name:hover {
-            outline-color: #00ff00;
-        }
 
     </style>
 </head>
@@ -1024,7 +1015,6 @@ const HOUSE_BOUNDS = {
 
 // Which house to render bounds/agents for (null = all houses)
 const POSITION_HOUSE = null;  // Set to 'mind', 'emotion', 'body', 'spirit', 'gestalt' to position one at a time
-const POSITION_LABELS = false;  // Set to true to enable label dragging mode
 
 // Gestalt center: (901, 540) - DONE (Aces and 10s only, no agents)
 const GESTALT_OFFSETS = {
@@ -1564,31 +1554,23 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - positioned like Gestalt's label but rotated with the house
-    // Upper houses (Mind, Emotion): label BELOW the diamond
-    // Lower houses (Body, Spirit): label ABOVE the diamond
-    const isUpperHouse = houseName === 'mind' || houseName === 'emotion';
-    const diamondExtent = size * Math.sqrt(2) / 2; // Distance from center to diamond corner
-    const gap = 25;
-
-    const labelX = house.x; // Centered horizontally on house
-    const labelY = isUpperHouse
-        ? house.y + diamondExtent + gap   // Below for upper houses
-        : house.y - diamondExtent - gap;  // Above for lower houses
-
-    // Text rotation matches house groupRotation
-    const labelRotation = house.groupRotation || 0;
-
+    // House label - positioned between house and Gestalt, rotated to match house angle
+    // Gestalt center is at (cx, 540), so labels point toward that center
+    // Using translate(-50%, -50%) to center the label at its position point, then rotate
+    const labelConfig = {
+        mind: { x: 180, y: 80, rotation: -45 },      // toward center (lower-right of Mind)
+        emotion: { x: -180, y: 80, rotation: 45 },   // toward center (lower-left of Emotion)
+        body: { x: 180, y: -120, rotation: 45 },     // toward center (upper-right of Body)
+        spirit: { x: -180, y: -120, rotation: -45 }  // toward center (upper-left of Spirit)
+    };
+    const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
-        left: labelX + 'px',
-        top: labelY + 'px',
-        transform: `translate(-50%, -50%) rotate(${labelRotation}deg)`,
-        transformOrigin: 'center center',
-        cursor: 'move'  // Make it draggable
+        left: (house.x + cfg.x) + 'px',
+        top: (house.y + cfg.y) + 'px',
+        transform: `translate(-50%, -50%) rotate(${cfg.rotation}deg)`,
+        transformOrigin: 'center center'
     });
     label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
-    label.dataset.house = houseName;
-    label.style.pointerEvents = 'auto';  // Enable dragging
     map.appendChild(label);
 }
 
@@ -1884,8 +1866,8 @@ let wasDragging = false;  // Track if we just finished dragging
 let movedCards = {};  // Accumulate all moved card positions
 
 function createDevPanel() {
-    // Skip dev panel if not positioning anything
-    if (POSITION_HOUSE === null && !POSITION_LABELS) {
+    // Skip dev panel if not positioning a specific house
+    if (POSITION_HOUSE === null) {
         devMode = false;
         return;
     }
@@ -1902,15 +1884,13 @@ function createDevPanel() {
 
     const panel = createElement('div', 'dev-panel');
     panel.id = 'dev-panel';
-    const title = POSITION_LABELS ? 'Label Positioning' : `Positioning: ${POSITION_HOUSE?.toUpperCase()}`;
-    const subtitle = POSITION_LABELS
-        ? 'Drag house labels to position them'
-        : `Center: (${HOUSES[POSITION_HOUSE]?.x}, ${HOUSES[POSITION_HOUSE]?.y})`;
     panel.innerHTML = `
-        <h3>${title}</h3>
-        <div style="font-size:10px;margin-bottom:8px;color:#888;">${subtitle}</div>
-        <div id="coord-display">Drag to position</div>
-        <button onclick="copyCoords()">Copy Positions</button>
+        <h3>Positioning: ${POSITION_HOUSE.toUpperCase()}</h3>
+        <div style="font-size:10px;margin-bottom:8px;color:#888;">
+            Center: (${HOUSES[POSITION_HOUSE].x}, ${HOUSES[POSITION_HOUSE].y})
+        </div>
+        <div id="coord-display">Drag bounds/agents to position them</div>
+        <button onclick="copyCoords()">Copy Offsets</button>
         <button onclick="clearCoords()">Clear</button>
     `;
     document.body.appendChild(panel);
@@ -1948,27 +1928,6 @@ function setupDragging() {
     map.addEventListener('mousedown', (e) => {
         if (!devMode) return;
 
-        // Check for label first (if label positioning mode)
-        if (POSITION_LABELS) {
-            const label = e.target.closest('.label.house-name');
-            if (label) {
-                dragStart.mouseX = e.clientX;
-                dragStart.mouseY = e.clientY;
-                dragStart.cardX = parseFloat(label.style.left) || 0;
-                dragStart.cardY = parseFloat(label.style.top) || 0;
-
-                dragging = label;
-                dragInfo = {
-                    type: 'label',
-                    house: label.dataset.house,
-                    index: `label-${label.dataset.house}`
-                };
-                e.preventDefault();
-                return;
-            }
-        }
-
-        // Check for card (if house positioning mode)
         const card = e.target.closest('.card.bound, .card.agent');
         if (!card) return;
 
@@ -2008,28 +1967,22 @@ function setupDragging() {
 
         // Update display
         const display = document.getElementById('coord-display');
-        if (display) {
-            display.innerHTML = `${dragInfo.type} [${dragInfo.house}]: x=${Math.round(newX)}, y=${Math.round(newY)}`;
-        }
+        display.innerHTML = `${dragInfo.type} [${dragInfo.house}][${dragInfo.index}]: x=${Math.round(newX)}, y=${Math.round(newY)}`;
     });
 
     document.addEventListener('mouseup', () => {
-        // Save final position if we actually dragged
+        // Save final position as OFFSET if we actually dragged
         if (dragging && wasDragging && dragInfo) {
             const cssX = Math.round(parseFloat(dragging.style.left) || 0);
             const cssY = Math.round(parseFloat(dragging.style.top) || 0);
+            const house = HOUSES[POSITION_HOUSE];
+            const cardSize = dragInfo.type === 'bound' ? CONFIG.boundSize : CONFIG.agentSize;
 
-            if (dragInfo.type === 'label') {
-                // For labels, store absolute position
-                movedCards[dragInfo.index] = { x: cssX, y: cssY };
-            } else if (POSITION_HOUSE) {
-                // For cards, convert to offset from house center
-                const house = HOUSES[POSITION_HOUSE];
-                const cardSize = dragInfo.type === 'bound' ? CONFIG.boundSize : CONFIG.agentSize;
-                const offsetX = Math.round(cssX - house.x + cardSize/2);
-                const offsetY = Math.round(cssY - house.y + cardSize/2);
-                movedCards[dragInfo.index] = { x: offsetX, y: offsetY };
-            }
+            // Convert CSS position to offset: offset = CSS - houseCenter + cardSize/2
+            const offsetX = Math.round(cssX - house.x + cardSize/2);
+            const offsetY = Math.round(cssY - house.y + cardSize/2);
+
+            movedCards[dragInfo.index] = { x: offsetX, y: offsetY };
             updateCoordDisplay();
         }
 
