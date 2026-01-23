@@ -150,12 +150,23 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context for Reflect mode
+  // Get position context - different for Reflect vs Discover/Forge modes
   const isReflect = spreadType === 'reflect';
-  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
-  const position = spreadConfig?.positions?.[n - 1]; // n is 1-indexed
-  const positionName = position?.name || `Position ${n}`;
-  const positionLens = position?.lens || '';
+  let positionName;
+  let positionLens = '';
+
+  if (isReflect) {
+    // Reflect mode: positions are named slots from spread config
+    const spreadConfig = REFLECT_SPREADS[spreadKey];
+    const position = spreadConfig?.positions?.[n - 1];
+    positionName = position?.name || `Position ${n}`;
+    positionLens = position?.lens || '';
+  } else {
+    // Discover/Forge/Explore mode: position is an archetype from draw.position
+    positionName = draw.position !== null && draw.position !== undefined
+      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
+      : `Position ${n}`;
+  }
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -283,11 +294,21 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context for Reflect mode
+  // Get position context - different for Reflect vs Discover/Forge modes
   const isReflect = spreadType === 'reflect';
-  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
-  const position = spreadConfig?.positions?.[n - 1]; // n is 1-indexed
-  const positionName = position?.name || `Position ${n}`;
+  let positionName;
+
+  if (isReflect) {
+    // Reflect mode: positions are named slots from spread config
+    const spreadConfig = REFLECT_SPREADS[spreadKey];
+    const position = spreadConfig?.positions?.[n - 1];
+    positionName = position?.name || `Position ${n}`;
+  } else {
+    // Discover/Forge/Explore mode: position is an archetype from draw.position
+    positionName = draw.position !== null && draw.position !== undefined
+      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
+      : `Position ${n}`;
+  }
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
