@@ -127,6 +127,7 @@ const CardImage = ({
             relative rounded-lg overflow-hidden cursor-pointer
             transition-all duration-300 ease-out
             hover:scale-105 hover:z-10
+            mx-auto
             ${showFrame ? 'p-[3px]' : ''}
           `}
           style={showFrame ? {
