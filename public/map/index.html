@@ -1554,20 +1554,22 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - positioned between house and Gestalt, rotated to match house angle
-    // Gestalt center is at (cx, 540), so labels point toward that center
-    // Using translate(-50%, -50%) to center the label at its position point, then rotate
-    const labelConfig = {
-        mind: { x: 180, y: 80, rotation: -45 },      // toward center (lower-right of Mind)
-        emotion: { x: -180, y: 80, rotation: 45 },   // toward center (lower-left of Emotion)
-        body: { x: 180, y: -120, rotation: 45 },     // toward center (upper-right of Body)
-        spirit: { x: -180, y: -120, rotation: -45 }  // toward center (upper-left of Spirit)
-    };
-    const cfg = labelConfig[houseName];
+    // House label - positioned between house and Gestalt center
+    // Gestalt center: (cx, 540) = (901, 540)
+    // Calculate position ~30% of the way from house to Gestalt
+    const gestaltCenter = { x: cx, y: 540 };
+    const dx = gestaltCenter.x - house.x;
+    const dy = gestaltCenter.y - house.y;
+    const labelX = house.x + dx * 0.32;
+    const labelY = house.y + dy * 0.32;
+
+    // Rotation matches house diagonal angle
+    const labelRotation = house.groupRotation || 0;
+
     const label = createElement('div', `label house-name ${houseName}`, {
-        left: (house.x + cfg.x) + 'px',
-        top: (house.y + cfg.y) + 'px',
-        transform: `translate(-50%, -50%) rotate(${cfg.rotation}deg)`,
+        left: labelX + 'px',
+        top: labelY + 'px',
+        transform: `translate(-50%, -50%) rotate(${labelRotation}deg)`,
         transformOrigin: 'center center'
     });
     label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
