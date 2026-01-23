@@ -370,6 +370,109 @@
             margin-top: 16px;
             font-style: italic;
         }
+        /* Navigation back button */
+        .info-panel-nav {
+            margin-bottom: 12px;
+        }
+        .info-back-btn {
+            background: transparent;
+            border: 1px solid #3f3f46;
+            color: #a1a1aa;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+        .info-back-btn:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+        /* Archetype metadata section */
+        .info-archetype-meta {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .meta-row:last-child { margin-bottom: 0; }
+        .meta-label {
+            font-size: 0.75rem;
+            color: #71717a;
+            min-width: 65px;
+        }
+        .meta-value {
+            font-size: 0.85rem;
+            color: #d4d4d8;
+        }
+        .meta-value.clickable {
+            color: #d4af37;
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+        }
+        .meta-value.clickable:hover {
+            color: #fbbf24;
+            text-decoration-style: solid;
+        }
+        /* Associated archetype section */
+        .info-associated {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+        .associated-header {
+            font-size: 0.7rem;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+        .associated-card {
+            margin-bottom: 10px;
+        }
+        .associated-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4af37;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .associated-name:hover {
+            color: #fbbf24;
+            text-decoration: underline;
+        }
+        .associated-desc {
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+        .associated-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            font-size: 0.75rem;
+            padding-top: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .associated-meta .meta-label {
+            min-width: auto;
+        }
+        .associated-meta .meta-value {
+            font-size: 0.75rem;
+        }
 
         /* ============================================
            FULLSCREEN IMAGE MODAL
@@ -582,9 +685,13 @@
         <button class="zoom-btn" onclick="zoomFit()" title="Fit to screen" style="font-size: 1rem;">⊡</button>
     </div>
 
-    <!-- Info Modal (card details) -->
+    <!-- Info Modal (card details with navigation) -->
     <div class="info-modal" id="info-modal" onclick="closeInfoModal()">
         <div class="info-panel" onclick="event.stopPropagation()">
+            <!-- Back button (shown when there's history) -->
+            <div class="info-panel-nav" id="info-nav" style="display: none;">
+                <button class="info-back-btn" onclick="navigateBack()">← Back</button>
+            </div>
             <div class="info-panel-header">
                 <div>
                     <h3 class="info-panel-title" id="info-title"></h3>
@@ -593,11 +700,42 @@
                 <span class="info-panel-close" onclick="closeInfoModal()">×</span>
             </div>
             <img class="info-panel-image" id="info-img" src="" onclick="openFullscreen()" title="Click for full-size image">
-            <div>
+            <div class="info-panel-meta">
                 <span class="info-panel-badge" id="info-badge"></span>
                 <span class="info-panel-channel" id="info-channel"></span>
             </div>
+            <!-- Archetype metadata (for archetypes) -->
+            <div class="info-archetype-meta" id="info-archetype-meta" style="display: none;">
+                <div class="meta-row">
+                    <span class="meta-label">House:</span>
+                    <span class="meta-value clickable" id="info-house"></span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">Process:</span>
+                    <span class="meta-value" id="info-process"></span>
+                </div>
+                <div class="meta-row" id="info-channel-row" style="display: none;">
+                    <span class="meta-label">Channel:</span>
+                    <span class="meta-value clickable" id="info-arch-channel"></span>
+                </div>
+            </div>
             <p class="info-panel-desc" id="info-desc"></p>
+            <!-- Associated archetype section (for bounds/agents) -->
+            <div class="info-associated" id="info-associated" style="display: none;">
+                <div class="associated-header" id="associated-header">Expresses</div>
+                <div class="associated-card">
+                    <span class="associated-name clickable" id="associated-name"></span>
+                    <span class="associated-desc" id="associated-desc"></span>
+                </div>
+                <div class="associated-meta">
+                    <span class="meta-label">House:</span>
+                    <span class="meta-value" id="associated-house"></span>
+                    <span class="meta-label">Process:</span>
+                    <span class="meta-value" id="associated-process"></span>
+                    <span class="meta-label">Channel:</span>
+                    <span class="meta-value" id="associated-channel"></span>
+                </div>
+            </div>
             <p class="info-panel-hint">Click image to view full-size</p>
         </div>
     </div>
@@ -664,6 +802,100 @@ const ELEMENT_COLORS = {
     Resonance: '#3D6A99',   // Water - Blue
     Structure: '#8B6B3D',   // Earth - Brown
     null: '#6B4D8A'         // Quintessence - Purple (Gestalt/Portal)
+};
+
+// Bounds data (numeric cards) - matches lib/archetypes.js
+const BOUNDS = {
+    // Intent Channel (Wands)
+    22: { name: 'Activation', trad: 'Ace of Wands', channel: 'Intent', number: 1, archetype: 0, desc: 'Beginning of pure potential through Intent. The spark before direction.' },
+    23: { name: 'Orientation', trad: '2 of Wands', channel: 'Intent', number: 2, archetype: 17, desc: 'Decisive direction through aspiration. Choosing which star to steer by.' },
+    24: { name: 'Assertion', trad: '3 of Wands', channel: 'Intent', number: 3, archetype: 4, desc: 'Primal claim of structure through Intent. Expansive declaration outward.' },
+    25: { name: 'Alignment', trad: '4 of Wands', channel: 'Intent', number: 4, archetype: 7, desc: 'Peaceful momentum, stable drive. Intent finding its natural rhythm.' },
+    26: { name: 'Dedication', trad: '5 of Wands', channel: 'Intent', number: 5, archetype: 12, desc: 'Internal practical release through Intent. Testing commitment through engagement.' },
+    27: { name: 'Recognition', trad: '6 of Wands', channel: 'Intent', number: 6, archetype: 12, desc: 'External acknowledgment of sacrifice. Intent visible and honored.' },
+    28: { name: 'Resolve', trad: '7 of Wands', channel: 'Intent', number: 7, archetype: 7, desc: 'Gathered determination, harvested momentum. Defending chosen direction.' },
+    29: { name: 'Command', trad: '8 of Wands', channel: 'Intent', number: 8, archetype: 4, desc: 'Deep authority, threshold structure. Intent moving with unstoppable clarity.' },
+    30: { name: 'Resilience', trad: '9 of Wands', channel: 'Intent', number: 9, archetype: 17, desc: 'Abundant persistence through aspiration. Strength from continued hoping.' },
+    31: { name: 'Realization', trad: '10 of Wands', channel: 'Intent', number: 10, archetype: 0, desc: 'Completion of potential through Intent. Carrying what pure possibility became.' },
+    // Cognition Channel (Swords)
+    32: { name: 'Perception', trad: 'Ace of Swords', channel: 'Cognition', number: 1, archetype: 19, desc: 'Beginning of clear seeing. The first cut of clarity arising.' },
+    33: { name: 'Reflection', trad: '2 of Swords', channel: 'Cognition', number: 2, archetype: 2, desc: 'Decisive inner knowing. Mind holding truth before declaring it.' },
+    34: { name: 'Calculation', trad: '3 of Swords', channel: 'Cognition', number: 3, archetype: 15, desc: 'Primal analysis, expansive thought. Pattern recognition at work.' },
+    35: { name: 'Repose', trad: '4 of Swords', channel: 'Cognition', number: 4, archetype: 14, desc: 'Peaceful stability through cognition. Mind at rest, calibrating.' },
+    36: { name: 'Discernment', trad: '5 of Swords', channel: 'Cognition', number: 5, archetype: 9, desc: 'Internal practical cognition. Refining perception through careful distinction.' },
+    37: { name: 'Guidance', trad: '6 of Swords', channel: 'Cognition', number: 6, archetype: 9, desc: 'External direction through discipline. Mind finding passage, showing the way.' },
+    38: { name: 'Reconciliation', trad: '7 of Swords', channel: 'Cognition', number: 7, archetype: 14, desc: 'Gathering thoughts into alignment. Strategic mental integration.' },
+    39: { name: 'Immersion', trad: '8 of Swords', channel: 'Cognition', number: 8, archetype: 15, desc: 'Deep threshold of abstraction. Mind exploring its own depths.' },
+    40: { name: 'Plurality', trad: '9 of Swords', channel: 'Cognition', number: 9, archetype: 2, desc: 'Abundant knowing, many truths held. The fullness of perception.' },
+    41: { name: 'Clarity', trad: '10 of Swords', channel: 'Cognition', number: 10, archetype: 19, desc: 'Completion of cognition. Full seeing, nothing hidden.' },
+    // Resonance Channel (Cups)
+    42: { name: 'Receptivity', trad: 'Ace of Cups', channel: 'Resonance', number: 1, archetype: 20, desc: 'Beginning of felt awareness. Heart open, ready to receive.' },
+    43: { name: 'Merge', trad: '2 of Cups', channel: 'Resonance', number: 2, archetype: 18, desc: 'Decisive connection through vision. Two becoming one flow.' },
+    44: { name: 'Celebration', trad: '3 of Cups', channel: 'Resonance', number: 3, archetype: 5, desc: 'Primal joy through shared meaning. Community in celebration.' },
+    45: { name: 'Reverie', trad: '4 of Cups', channel: 'Resonance', number: 4, archetype: 6, desc: 'Peaceful connection, stable feeling. Sitting with what the heart knows.' },
+    46: { name: 'Reckoning', trad: '5 of Cups', channel: 'Resonance', number: 5, archetype: 11, desc: 'Internal accounting of fairness. The private felt-sense of what is owed.' },
+    47: { name: 'Reciprocity', trad: '6 of Cups', channel: 'Resonance', number: 6, archetype: 11, desc: 'External fair exchange. Giving and receiving in balance.' },
+    48: { name: 'Allure', trad: '7 of Cups', channel: 'Resonance', number: 7, archetype: 6, desc: 'Gathering emotional possibilities. The pull of what might be felt.' },
+    49: { name: 'Passage', trad: '8 of Cups', channel: 'Resonance', number: 8, archetype: 5, desc: 'Deep threshold of shared meaning. Walking toward what connects.' },
+    50: { name: 'Fulfillment', trad: '9 of Cups', channel: 'Resonance', number: 9, archetype: 18, desc: 'Abundant vision realized. Deep satisfaction in what was imagined.' },
+    51: { name: 'Completion', trad: '10 of Cups', channel: 'Resonance', number: 10, archetype: 20, desc: 'Emotional wholeness achieved. Full awareness of felt connection.' },
+    // Structure Channel (Pentacles)
+    52: { name: 'Initiation', trad: 'Ace of Pentacles', channel: 'Structure', number: 1, archetype: 1, desc: 'Beginning of directed form. The seed of what will be built.' },
+    53: { name: 'Flow', trad: '2 of Pentacles', channel: 'Structure', number: 2, archetype: 3, desc: 'Decisive cultivation through form. Balancing what grows with grace.' },
+    54: { name: 'Formation', trad: '3 of Pentacles', channel: 'Structure', number: 3, archetype: 16, desc: 'Primal structure emerging. Skilled work building something new.' },
+    55: { name: 'Preservation', trad: '4 of Pentacles', channel: 'Structure', number: 4, archetype: 13, desc: 'Peaceful stability through form. Holding what transformation produced.' },
+    56: { name: 'Steadfastness', trad: '5 of Pentacles', channel: 'Structure', number: 5, archetype: 8, desc: 'Internal practical strength. Persisting through material pressure.' },
+    57: { name: 'Support', trad: '6 of Pentacles', channel: 'Structure', number: 6, archetype: 8, desc: 'External strength shared. Resources flowing where needed.' },
+    58: { name: 'Harvest', trad: '7 of Pentacles', channel: 'Structure', number: 7, archetype: 13, desc: 'Gathering what transformation grew. Patient waiting rewarded.' },
+    59: { name: 'Commitment', trad: '8 of Pentacles', channel: 'Structure', number: 8, archetype: 16, desc: 'Deep threshold of new structure. Dedicated craft, persistent building.' },
+    60: { name: 'Flourishing', trad: '9 of Pentacles', channel: 'Structure', number: 9, archetype: 3, desc: 'Abundant growth achieved. Enjoying what careful tending produced.' },
+    61: { name: 'Achievement', trad: '10 of Pentacles', channel: 'Structure', number: 10, archetype: 1, desc: 'Completion of directed form. Legacy established through sustained will.' }
+};
+
+// Agents data (court cards) - matches lib/archetypes.js
+const AGENTS = {
+    62: { name: 'Initiate of Intent', trad: 'Page of Wands', channel: 'Intent', role: 'Initiate', archetype: 17, desc: 'Fresh enthusiasm for new direction. The spark before it knows where it is going.' },
+    63: { name: 'Catalyst of Intent', trad: 'Knight of Wands', channel: 'Intent', role: 'Catalyst', archetype: 4, desc: 'Intent in motion, charging forward. Action creating change through momentum.' },
+    64: { name: 'Steward of Intent', trad: 'Queen of Wands', channel: 'Intent', role: 'Steward', archetype: 7, desc: 'Mature direction held with warmth. Tending the fire without burning out.' },
+    65: { name: 'Executor of Intent', trad: 'King of Wands', channel: 'Intent', role: 'Executor', archetype: 12, desc: 'Mastery of directed will. Knowing when to release as well as push.' },
+    66: { name: 'Initiate of Cognition', trad: 'Page of Swords', channel: 'Cognition', role: 'Initiate', archetype: 2, desc: 'Fresh curiosity, eager to understand. Mental energy before focus.' },
+    67: { name: 'Catalyst of Cognition', trad: 'Knight of Swords', channel: 'Cognition', role: 'Catalyst', archetype: 15, desc: 'Thought in rapid motion. Cutting through to truth with speed.' },
+    68: { name: 'Steward of Cognition', trad: 'Queen of Swords', channel: 'Cognition', role: 'Steward', archetype: 14, desc: 'Clear perception held with discernment. Truth-telling tempered with wisdom.' },
+    69: { name: 'Executor of Cognition', trad: 'King of Swords', channel: 'Cognition', role: 'Executor', archetype: 9, desc: 'Mastery of mind. Authority from disciplined clarity.' },
+    70: { name: 'Initiate of Resonance', trad: 'Page of Cups', channel: 'Resonance', role: 'Initiate', archetype: 18, desc: 'Fresh emotional sensitivity. The heart discovering its capacity.' },
+    71: { name: 'Catalyst of Resonance', trad: 'Knight of Cups', channel: 'Resonance', role: 'Catalyst', archetype: 5, desc: 'Feeling in motion. Romantic pursuit of emotional truth.' },
+    72: { name: 'Steward of Resonance', trad: 'Queen of Cups', channel: 'Resonance', role: 'Steward', archetype: 6, desc: 'Deep emotional attunement. Holding space with compassionate presence.' },
+    73: { name: 'Executor of Resonance', trad: 'King of Cups', channel: 'Resonance', role: 'Executor', archetype: 11, desc: 'Mastery of emotion. Feeling deeply while maintaining equanimity.' },
+    74: { name: 'Initiate of Structure', trad: 'Page of Pentacles', channel: 'Structure', role: 'Initiate', archetype: 3, desc: 'Fresh engagement with material world. Learning how things grow.' },
+    75: { name: 'Catalyst of Structure', trad: 'Knight of Pentacles', channel: 'Structure', role: 'Catalyst', archetype: 16, desc: 'Steady progress through persistent effort. Slow but unstoppable.' },
+    76: { name: 'Steward of Structure', trad: 'Queen of Pentacles', channel: 'Structure', role: 'Steward', archetype: 13, desc: 'Nurturing material abundance. Creating conditions for sustainable growth.' },
+    77: { name: 'Executor of Structure', trad: 'King of Pentacles', channel: 'Structure', role: 'Executor', archetype: 8, desc: 'Mastery of material realm. Building that endures through generations.' }
+};
+
+// Archetype metadata (house, function) for associated archetype display
+const ARCHETYPE_META = {
+    0: { house: 'Gestalt', function: 'Seed' },
+    1: { house: 'Gestalt', function: 'Medium' },
+    2: { house: 'Spirit', function: 'Seed' },
+    3: { house: 'Spirit', function: 'Medium' },
+    4: { house: 'Mind', function: 'Seed' },
+    5: { house: 'Mind', function: 'Medium' },
+    6: { house: 'Emotion', function: 'Seed' },
+    7: { house: 'Emotion', function: 'Medium' },
+    8: { house: 'Body', function: 'Seed' },
+    9: { house: 'Body', function: 'Medium' },
+    10: { house: 'Portal', function: 'Ingress' },
+    11: { house: 'Body', function: 'Fruition' },
+    12: { house: 'Body', function: 'Feedback' },
+    13: { house: 'Emotion', function: 'Fruition' },
+    14: { house: 'Emotion', function: 'Feedback' },
+    15: { house: 'Mind', function: 'Fruition' },
+    16: { house: 'Mind', function: 'Feedback' },
+    17: { house: 'Spirit', function: 'Fruition' },
+    18: { house: 'Spirit', function: 'Feedback' },
+    19: { house: 'Gestalt', function: 'Fruition' },
+    20: { house: 'Gestalt', function: 'Feedback' },
+    21: { house: 'Portal', function: 'Egress' }
 };
 
 // ============================================
@@ -913,7 +1145,29 @@ function getAgentPath(suit, rank) {
     return `/map/agents/${suit}_${rank}.png`;
 }
 
-function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOrId = null, labelText = null) {
+// Get bound ID from suit and number
+function getBoundId(suit, number) {
+    const channel = SUIT_CHANNELS[suit];
+    for (const [id, data] of Object.entries(BOUNDS)) {
+        if (data.channel === channel && data.number === number) {
+            return parseInt(id);
+        }
+    }
+    return null;
+}
+
+// Get agent ID from suit and role
+function getAgentId(suit, roleName) {
+    const channel = SUIT_CHANNELS[suit];
+    for (const [id, data] of Object.entries(AGENTS)) {
+        if (data.channel === channel && data.role.toLowerCase() === roleName.toLowerCase()) {
+            return parseInt(id);
+        }
+    }
+    return null;
+}
+
+function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOrId = null, labelText = null, cardId = null) {
     const card = createElement('div', `card ${type} ${extraClass}`.trim(), {
         left: x + 'px',
         top: y + 'px'
@@ -923,20 +1177,32 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
     let channel = null;
     let description = '';
     let displayType = type.charAt(0).toUpperCase() + type.slice(1);
+    let resolvedCardId = cardId;
 
     if (type === 'archetype' || type === 'portal') {
         // For archetypes/portals, channelOrId is the archetype ID
+        resolvedCardId = channelOrId;
         const archData = ARCHETYPES[channelOrId];
         channel = archData?.channel;
         description = archData?.desc || '';
         displayType = type === 'portal' ? 'Portal' : 'Archetype';
     } else if (type === 'bound') {
         channel = channelOrId;
-        description = `A ${channel} bound card expressing focused energy through numeric form.`;
+        // Look up bound data by cardId if provided
+        if (cardId && BOUNDS[cardId]) {
+            description = BOUNDS[cardId].desc;
+        } else {
+            description = `A ${channel} bound card expressing focused energy through numeric form.`;
+        }
         displayType = 'Bound';
     } else if (type === 'agent') {
         channel = channelOrId;
-        description = `A ${channel} agent embodying active presence in the world.`;
+        // Look up agent data by cardId if provided
+        if (cardId && AGENTS[cardId]) {
+            description = AGENTS[cardId].desc;
+        } else {
+            description = `A ${channel} agent embodying active presence in the world.`;
+        }
         displayType = 'Agent';
     }
 
@@ -950,7 +1216,7 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
     const labelHtml = label ? `<div class="card-label">${label}</div>` : '';
 
     card.innerHTML = `${bgHtml}<img src="${src}" alt="${title}">${labelHtml}`;
-    card.onclick = () => openInfoModal(src, title, subtitle, displayType, channel, description);
+    card.onclick = () => openInfoModal(src, title, subtitle, displayType, channel, description, resolvedCardId);
     return card;
 }
 
@@ -1066,16 +1332,19 @@ function renderGestalt(map) {
             const outerOffset = GESTALT_OFFSETS.bounds[`${suit}-outer`];
 
             // Ace
+            const aceId = getBoundId(suit, innerNum);
+            const aceData = BOUNDS[aceId];
             const aceCard = createCard(
                 'bound',
                 getBoundPath(suit, innerNum),
-                `Ace of ${suit}`,
-                '',
+                aceData?.name || `Ace of ${suit}`,
+                aceData?.trad || '',
                 g.x + innerOffset.x - boundSize/2,
                 g.y + innerOffset.y - boundSize/2,
                 '',
                 channel,
-                'Ace'  // Label
+                'Ace',  // Label
+                aceId   // Card ID for full data
             );
             aceCard.dataset.house = 'gestalt';
             aceCard.dataset.suit = suit;
@@ -1084,16 +1353,19 @@ function renderGestalt(map) {
             map.appendChild(aceCard);
 
             // 10
+            const tenId = getBoundId(suit, outerNum);
+            const tenData = BOUNDS[tenId];
             const tenCard = createCard(
                 'bound',
                 getBoundPath(suit, outerNum),
-                `10 of ${suit}`,
-                '',
+                tenData?.name || `10 of ${suit}`,
+                tenData?.trad || '',
                 g.x + outerOffset.x - boundSize/2,
                 g.y + outerOffset.y - boundSize/2,
                 '',
                 channel,
-                '10'  // Label
+                '10',  // Label
+                tenId  // Card ID for full data
             );
             tenCard.dataset.house = 'gestalt';
             tenCard.dataset.suit = suit;
@@ -1211,16 +1483,19 @@ function renderHouse(map, houseName) {
         const outerOffset = offsets.bounds[`${suit}-outer`];
 
         // Inner bound (lower number, closer to center)
+        const innerId = getBoundId(suit, innerNum);
+        const innerData = BOUNDS[innerId];
         const innerCard = createCard(
             'bound',
             getBoundPath(suit, innerNum),
-            `${innerNum} of ${suit}`,
-            '',
+            innerData?.name || `${innerNum} of ${suit}`,
+            innerData?.trad || '',
             house.x + innerOffset.x - boundSize/2,
             house.y + innerOffset.y - boundSize/2,
             '',
             channel,
-            String(innerNum)  // Label
+            String(innerNum),  // Label
+            innerId  // Card ID for full data
         );
         innerCard.dataset.house = houseName;
         innerCard.dataset.suit = suit;
@@ -1230,16 +1505,19 @@ function renderHouse(map, houseName) {
         map.appendChild(innerCard);
 
         // Outer bound (higher number, further from center)
+        const outerId = getBoundId(suit, outerNum);
+        const outerData = BOUNDS[outerId];
         const outerCard = createCard(
             'bound',
             getBoundPath(suit, outerNum),
-            `${outerNum} of ${suit}`,
-            '',
+            outerData?.name || `${outerNum} of ${suit}`,
+            outerData?.trad || '',
             house.x + outerOffset.x - boundSize/2,
             house.y + outerOffset.y - boundSize/2,
             '',
             channel,
-            String(outerNum)  // Label
+            String(outerNum),  // Label
+            outerId  // Card ID for full data
         );
         outerCard.dataset.house = houseName;
         outerCard.dataset.suit = suit;
@@ -1254,16 +1532,19 @@ function renderHouse(map, houseName) {
         const channel = SUIT_CHANNELS[suit];
         const agentOffset = offsets.agents[suit];
 
+        const agentId = getAgentId(suit, houseRole.name);
+        const agentData = AGENTS[agentId];
         const agentCard = createCard(
             'agent',
             getAgentPath(suit, houseRole.role),
-            `${houseRole.name} of ${suit}`,
-            `${houseRole.role.charAt(0).toUpperCase() + houseRole.role.slice(1)}`,
+            agentData?.name || `${houseRole.name} of ${suit}`,
+            agentData?.trad || '',
             house.x + agentOffset.x - agentSize/2,
             house.y + agentOffset.y - agentSize/2,
             '',
             channel,
-            houseRole.name  // Label
+            houseRole.name,  // Label
+            agentId  // Card ID for full data
         );
         agentCard.dataset.house = houseName;
         agentCard.dataset.suit = suit;
@@ -1275,17 +1556,19 @@ function renderHouse(map, houseName) {
 
     // House label - positioned between house and Gestalt, rotated to match house angle
     // Gestalt center is at (cx, 540), so labels point toward that center
+    // Using translate(-50%, -50%) to center the label at its position point, then rotate
     const labelConfig = {
-        mind: { x: 180, y: 100, rotation: -45 },      // toward center (lower-right of Mind)
-        emotion: { x: -180, y: 100, rotation: 45 },   // toward center (lower-left of Emotion)
-        body: { x: 180, y: -140, rotation: 45 },      // toward center (upper-right of Body)
-        spirit: { x: -180, y: -140, rotation: -45 }   // toward center (upper-left of Spirit)
+        mind: { x: 180, y: 80, rotation: -45 },      // toward center (lower-right of Mind)
+        emotion: { x: -180, y: 80, rotation: 45 },   // toward center (lower-left of Emotion)
+        body: { x: 180, y: -120, rotation: 45 },     // toward center (upper-right of Body)
+        spirit: { x: -180, y: -120, rotation: -45 }  // toward center (upper-left of Spirit)
     };
     const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
         left: (house.x + cfg.x) + 'px',
         top: (house.y + cfg.y) + 'px',
-        transform: `translateX(-50%) rotate(${cfg.rotation}deg)`
+        transform: `translate(-50%, -50%) rotate(${cfg.rotation}deg)`,
+        transformOrigin: 'center center'
     });
     label.textContent = houseName.charAt(0).toUpperCase() + houseName.slice(1);
     map.appendChild(label);
@@ -1314,17 +1597,89 @@ function render() {
 // MODAL FUNCTIONS (Two-stage: Info panel → Fullscreen)
 // ============================================
 let currentCardInfo = null;  // Track current card for fullscreen
+let navigationHistory = [];  // Track navigation history for back button
 
-function openInfoModal(src, title, subtitle, cardType, channel, description) {
-    // Don't open modal if we just finished dragging
-    if (wasDragging) return;
+// Get card ID from image path
+function getCardIdFromPath(src) {
+    // Archetype: /map/archetypes/00_potential.png
+    const archMatch = src.match(/archetypes\/(\d+)_/);
+    if (archMatch) return parseInt(archMatch[1]);
 
-    currentCardInfo = { src, title, subtitle };
+    // Bound: /map/bounds/wands/wands_01.png
+    const boundMatch = src.match(/bounds\/(\w+)\/\w+_(\d+)/);
+    if (boundMatch) {
+        const suit = boundMatch[1];
+        const num = parseInt(boundMatch[2]);
+        // Find the bound ID
+        for (const [id, data] of Object.entries(BOUNDS)) {
+            if (data.number === num &&
+                data.channel === SUIT_CHANNELS[suit]) {
+                return parseInt(id);
+            }
+        }
+    }
+
+    // Agent: /map/agents/wands_page.png
+    const agentMatch = src.match(/agents\/(\w+)_(\w+)/);
+    if (agentMatch) {
+        const suit = agentMatch[1];
+        const role = agentMatch[2];
+        // Find the agent ID
+        for (const [id, data] of Object.entries(AGENTS)) {
+            if (data.channel === SUIT_CHANNELS[suit] &&
+                data.role.toLowerCase() === role) {
+                return parseInt(id);
+            }
+        }
+    }
+
+    return null;
+}
+
+// Open modal for a specific card by ID
+function openCardById(cardId) {
+    if (cardId === null || cardId === undefined) return;
+
+    let cardData, cardType, src;
+
+    if (cardId >= 0 && cardId <= 21) {
+        // Archetype
+        cardData = ARCHETYPES[cardId];
+        cardType = (cardId === 10 || cardId === 21) ? 'Portal' : 'Archetype';
+        src = getArchetypePath(cardId);
+    } else if (cardId >= 22 && cardId <= 61) {
+        // Bound
+        cardData = BOUNDS[cardId];
+        cardType = 'Bound';
+        const suit = Object.keys(SUIT_CHANNELS).find(s => SUIT_CHANNELS[s] === cardData.channel);
+        src = getBoundPath(suit, cardData.number);
+    } else if (cardId >= 62 && cardId <= 77) {
+        // Agent
+        cardData = AGENTS[cardId];
+        cardType = 'Agent';
+        const suit = Object.keys(SUIT_CHANNELS).find(s => SUIT_CHANNELS[s] === cardData.channel);
+        const role = cardData.role.toLowerCase();
+        src = getAgentPath(suit, role === 'initiate' ? 'page' : role === 'catalyst' ? 'knight' : role === 'steward' ? 'queen' : 'king');
+    }
+
+    if (cardData) {
+        displayCardInModal(cardId, cardData, cardType, src);
+    }
+}
+
+// Main modal display function
+function displayCardInModal(cardId, cardData, cardType, src) {
+    currentCardInfo = {
+        src,
+        title: cardData.name,
+        subtitle: cardData.trad,
+        cardId
+    };
 
     document.getElementById('info-img').src = src;
-    document.getElementById('info-title').textContent = title;
-    document.getElementById('info-trad').textContent = subtitle || '';
-    document.getElementById('info-desc').textContent = description || '';
+    document.getElementById('info-title').textContent = cardData.name;
+    document.getElementById('info-trad').textContent = cardData.trad || '';
+    document.getElementById('info-desc').textContent = cardData.desc || '';
 
     // Set badge
     const badge = document.getElementById('info-badge');
@@ -1333,13 +1688,149 @@ function openInfoModal(src, title, subtitle, cardType, channel, description) {
 
     // Set channel
     const channelEl = document.getElementById('info-channel');
+    channelEl.textContent = cardData.channel ? `${cardData.channel} Channel` : '';
+
+    // Handle archetype metadata section
+    const archetypeMetaEl = document.getElementById('info-archetype-meta');
+    const associatedEl = document.getElementById('info-associated');
+
+    if (cardType === 'Archetype' || cardType === 'Portal') {
+        // Show archetype metadata
+        const meta = ARCHETYPE_META[cardId];
+        if (meta) {
+            document.getElementById('info-house').textContent = meta.house;
+            document.getElementById('info-house').onclick = () => showHouseInfo(meta.house);
+            document.getElementById('info-process').textContent = meta.function;
+
+            // Show channel row if archetype has a channel
+            const channelRow = document.getElementById('info-channel-row');
+            if (cardData.channel) {
+                channelRow.style.display = 'flex';
+                document.getElementById('info-arch-channel').textContent = cardData.channel;
+                document.getElementById('info-arch-channel').onclick = () => showChannelInfo(cardData.channel);
+            } else {
+                channelRow.style.display = 'none';
+            }
+
+            archetypeMetaEl.style.display = 'block';
+        }
+        associatedEl.style.display = 'none';
+    } else {
+        // Hide archetype metadata, show associated archetype for bounds/agents
+        archetypeMetaEl.style.display = 'none';
+
+        const archetypeId = cardData.archetype;
+        if (archetypeId !== undefined && ARCHETYPES[archetypeId]) {
+            const assocArch = ARCHETYPES[archetypeId];
+            const assocMeta = ARCHETYPE_META[archetypeId];
+
+            // Set header based on card type
+            document.getElementById('associated-header').textContent =
+                cardType === 'Agent' ? 'Embodies' : 'Expresses';
+
+            // Set associated archetype info
+            const assocName = document.getElementById('associated-name');
+            assocName.textContent = assocArch.name;
+            assocName.onclick = () => navigateToCard(archetypeId);
+
+            document.getElementById('associated-desc').textContent = assocArch.desc || '';
+
+            // Set associated metadata
+            document.getElementById('associated-house').textContent = assocMeta?.house || '';
+            document.getElementById('associated-process').textContent = assocMeta?.function || '';
+            document.getElementById('associated-channel').textContent = assocArch.channel || 'Quintessence';
+
+            associatedEl.style.display = 'block';
+        } else {
+            associatedEl.style.display = 'none';
+        }
+    }
+
+    // Update back button visibility
+    const navEl = document.getElementById('info-nav');
+    navEl.style.display = navigationHistory.length > 0 ? 'block' : 'none';
+
+    document.getElementById('info-modal').classList.add('active');
+}
+
+// Navigate to a card (with history)
+function navigateToCard(cardId) {
+    // Save current card to history before navigating
+    if (currentCardInfo && currentCardInfo.cardId !== undefined) {
+        navigationHistory.push(currentCardInfo.cardId);
+    }
+    openCardById(cardId);
+}
+
+// Navigate back in history
+function navigateBack() {
+    if (navigationHistory.length > 0) {
+        const prevCardId = navigationHistory.pop();
+        openCardById(prevCardId);
+    }
+}
+
+// Show house info (placeholder - could expand later)
+function showHouseInfo(house) {
+    // For now, find first archetype in that house and show it
+    for (const [id, meta] of Object.entries(ARCHETYPE_META)) {
+        if (meta.house === house) {
+            navigateToCard(parseInt(id));
+            return;
+        }
+    }
+}
+
+// Show channel info (placeholder - could expand later)
+function showChannelInfo(channel) {
+    // Find first archetype with that channel
+    for (const [id, data] of Object.entries(ARCHETYPES)) {
+        if (data.channel === channel) {
+            navigateToCard(parseInt(id));
+            return;
+        }
+    }
+}
+
+// Legacy openInfoModal - now used by createCard
+function openInfoModal(src, title, subtitle, cardType, channel, description, cardId) {
+    // Don't open modal if we just finished dragging
+    if (wasDragging) return;
+
+    // Clear navigation history on fresh open
+    navigationHistory = [];
+
+    // If we have a cardId, use the new system
+    if (cardId !== undefined) {
+        openCardById(cardId);
+        return;
+    }
+
+    // Fallback for legacy calls without cardId
+    currentCardInfo = { src, title, subtitle };
+
+    document.getElementById('info-img').src = src;
+    document.getElementById('info-title').textContent = title;
+    document.getElementById('info-trad').textContent = subtitle || '';
+    document.getElementById('info-desc').textContent = description || '';
+
+    const badge = document.getElementById('info-badge');
+    badge.textContent = cardType;
+    badge.className = 'info-panel-badge ' + cardType.toLowerCase();
+
+    const channelEl = document.getElementById('info-channel');
     channelEl.textContent = channel ? `${channel} Channel` : '';
+
+    document.getElementById('info-archetype-meta').style.display = 'none';
+    document.getElementById('info-associated').style.display = 'none';
+    document.getElementById('info-nav').style.display = 'none';
 
     document.getElementById('info-modal').classList.add('active');
 }
 
 function closeInfoModal() {
     document.getElementById('info-modal').classList.remove('active');
+    navigationHistory = [];  // Clear history on close
 }
 
 function openFullscreen() {
