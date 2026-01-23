@@ -201,6 +201,20 @@
             transform-origin: center center;
         }
 
+        /* Rainbow color cycling - matches main reader */
+        @keyframes rainbow-cycle {
+            0%, 100% { color: #f0f0f0; }
+            10% { color: #a78bfa; }
+            20% { color: #818cf8; }
+            30% { color: #60a5fa; }
+            40% { color: #38bdf8; }
+            50% { color: #2dd4bf; }
+            60% { color: #4ade80; }
+            70% { color: #a3e635; }
+            80% { color: #facc15; }
+            90% { color: #fb923c; }
+        }
+
         /* Top header - matches main reader */
         .page-header {
             position: fixed;
@@ -215,10 +229,10 @@
             font-size: 1.8rem;
             font-weight: 300;
             letter-spacing: 0.35em;
-            color: rgba(255, 255, 255, 0.9);
             text-transform: uppercase;
             margin: 0;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            animation: rainbow-cycle 32s ease-in-out infinite;
         }
         .page-header .subtitle {
             font-family: 'Cormorant Garamond', serif;
@@ -1457,9 +1471,9 @@ render();
 createDevPanel();
 setupDragging();
 
-// Fit map to screen on initial load
+// Set initial zoom to 63%
 setTimeout(() => {
-    zoomFit();
+    zoomTo(0.63);
 }, 50);
 
 // Re-fit on window resize
