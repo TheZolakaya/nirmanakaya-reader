@@ -1554,12 +1554,14 @@ function renderHouse(map, houseName) {
         map.appendChild(agentCard);
     });
 
-    // House label - centered horizontally, small offset toward map center
+    // House label - positioned just beyond the inner-edge agents (toward map center)
+    // Inner edge agents are furthest from house center toward map center
+    // Body/Spirit: inner edge is UP (negative y), Mind/Emotion: inner edge is DOWN (positive y)
     const labelConfig = {
-        mind: { x: 0, y: 50, rotation: -45 },        // just below house
-        emotion: { x: 0, y: 50, rotation: 45 },      // just below house
-        body: { x: 0, y: -50, rotation: 45 },        // just above house
-        spirit: { x: 0, y: -50, rotation: -45 }      // just above house
+        mind: { x: 0, y: 50, rotation: -45 },        // just below house (inner edge)
+        emotion: { x: 0, y: 50, rotation: 45 },      // just below house (inner edge)
+        body: { x: 0, y: -200, rotation: 45 },       // just above swords agent at y:-173
+        spirit: { x: 0, y: -50, rotation: -45 }      // just above house (inner edge)
     };
     const cfg = labelConfig[houseName];
     const label = createElement('div', `label house-name ${houseName}`, {
