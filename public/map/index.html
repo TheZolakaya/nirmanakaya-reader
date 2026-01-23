@@ -603,15 +603,15 @@ function createElement(tag, className, styles) {
 
 function getArchetypePath(id) {
     const name = ARCHETYPES[id].name.toLowerCase();
-    return `archetypes/${String(id).padStart(2, '0')}_${name}.png`;
+    return `/map/archetypes/${String(id).padStart(2, '0')}_${name}.png`;
 }
 
 function getBoundPath(suit, num) {
-    return `bounds/${suit}/${suit}_${String(num).padStart(2, '0')}.png`;
+    return `/map/bounds/${suit}/${suit}_${String(num).padStart(2, '0')}.png`;
 }
 
 function getAgentPath(suit, rank) {
-    return `agents/${suit}_${rank}.png`;
+    return `/map/agents/${suit}_${rank}.png`;
 }
 
 function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOrId = null, labelText = null) {
