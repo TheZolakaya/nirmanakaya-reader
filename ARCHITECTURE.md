@@ -1,7 +1,9 @@
 # Nirmanakaya Reader - Complete Architecture Reference
 
-**Version:** 0.74.8
+**Version:** 0.74.10
 **Last Updated:** 2026-01-23
+
+> **Note:** Keep this document updated when making architectural changes. Claude Code references this for debugging.
 
 This document provides a comprehensive technical overview of the Nirmanakaya Reader codebase, with special emphasis on how interpretations are generated and prompts are built.
 
@@ -606,9 +608,83 @@ grave    → Full weight, sacred
 
 ## API Routes
 
+### Level 1+ Reading Flow (On-Demand Architecture)
+
+For Level 1+ users, readings use **on-demand loading** via multiple API endpoints:
+
+```
+User submits question
+       │
+       ▼
+POST /api/letter ──────────► Returns Letter content (WADE depth)
+       │
+       ▼
+POST /api/card-depth ──────► Returns card interpretations (per card)
+  (called for each card)     Supports progressive deepening (WADE→SWIM→DEEP)
+       │
+       ▼
+POST /api/synthesis ───────► Returns Path to Balance, Summary (optional)
+```
+
+### POST /api/letter
+
+**Source:** `app/api/letter/route.js`
+
+Generates the Letter section for readings.
+
+```javascript
+// Request body
+{
+  question: string,          // User's question
+  draws: [...],              // All draws for context
+  spreadType: string,        // 'discover' | 'reflect' | 'forge' | 'explore'
+  spreadKey: string,         // Spread name
+  stance: {...},             // Voice settings
+  system: string,            // System prompt (cached)
+  model: string,             // Model selection
+  targetDepth: string,       // 'wade' | 'swim' | 'deep' (for deepening)
+  previousContent: {...}     // Content to build on (for deepening)
+}
+```
+
+### POST /api/card-depth
+
+**Source:** `app/api/card-depth/route.js`
+
+Generates interpretation for a single card. This is where most AI generation happens.
+
+```javascript
+// Request body
+{
+  cardIndex: number,         // Which card (0-indexed)
+  draw: {                    // Single card draw data
+    transient: number,       // Card ID (0-77)
+    status: number,          // Status (1-4)
+    position: number         // Position archetype ID (0-21) ⚠️ CAN BE UNDEFINED
+  },
+  question: string,
+  spreadType: string,
+  spreadKey: string,
+  stance: {...},
+  system: string,            // System prompt (cached)
+  letterContent: string,     // Letter for context
+  model: string,
+  targetDepth: string,       // 'wade' | 'swim' | 'deep'
+  previousContent: {...},    // For deepening
+  token: string,             // DTP mode: the user's token
+  originalInput: string      // DTP mode: full question for grounding
+}
+
+// ⚠️ IMPORTANT: draw.position can be undefined in some code paths
+// Always check: draw.position !== null && draw.position !== undefined
+// Bug fixed in v0.74.10
+```
+
 ### POST /api/reading
 
 **Source:** `app/api/reading/route.js`
+
+Used for **Level 0 (First Contact)** readings and DTP token extraction.
 
 ```javascript
 // Request body
@@ -618,9 +694,10 @@ grave    → Full weight, sacred
   model: "sonnet|haiku",     // Model selection
   isFirstContact: boolean,   // Level 0 flag
   max_tokens: number,        // Output limit
-  isDTP: boolean,           // Direct Token Protocol mode
-  draws: [...],             // Pre-generated draws
-  userId: "uuid"            // For token tracking
+  isDTP: boolean,            // Direct Token Protocol mode
+  dtpInput: string,          // DTP: user input for token extraction
+  draws: [...],              // Pre-generated draws
+  userId: "uuid"             // For token tracking
 }
 
 // Features:

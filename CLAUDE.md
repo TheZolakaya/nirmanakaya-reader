@@ -33,6 +33,13 @@ No test framework is configured.
 
 ## Architecture
 
+**For deep technical understanding, see `ARCHITECTURE.md`** - comprehensive reference for:
+- Complete data flow diagrams
+- How prompts are built and what AI receives
+- API endpoint details with request/response formats
+- Voice/stance system configuration
+- Known gotchas and bug fixes
+
 ### Core Domain Concepts
 
 The system operates on three card types:
@@ -93,8 +100,16 @@ Level 0 uses minimal prompts and Claude Haiku. Level 1+ uses full system prompts
 
 ### API Routes
 
-- `POST /api/reading`: Main reading endpoint (supports `isFirstContact` flag)
+**Level 1+ (On-Demand Architecture):**
+- `POST /api/letter`: Generates Letter section
+- `POST /api/card-depth`: Generates individual card interpretations (main AI endpoint)
+- `POST /api/synthesis`: Generates Path to Balance, Summary
+
+**Level 0 / Special:**
+- `POST /api/reading`: First Contact mode + DTP token extraction
 - `POST /api/external-reading`: External API for third-party integrations
+
+See `ARCHITECTURE.md` for detailed request/response formats.
 
 ### Correction System
 
