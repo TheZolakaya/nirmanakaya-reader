@@ -4196,7 +4196,7 @@ CRITICAL FORMATTING RULES:
                               if (!isDisabled && !handleHelpClick(helpKey, e)) {
                                 setReflectCardCount(count);
                                 // Auto-select first spread for this count
-                                setReflectSpreadKey(SPREADS_BY_COUNT[count][0]);
+                                setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
                               }
                             }}
                             className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
