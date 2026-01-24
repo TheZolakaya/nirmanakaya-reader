@@ -1192,6 +1192,12 @@ function getAgentPath(suit, rank) {
     return `/map/agents/${suit}_${rank}.png`;
 }
 
+// Convert full path to thumbnail path
+// /map/archetypes/00_potential.png → /map/thumbs/archetypes/00_potential.png
+function getThumbPath(fullPath) {
+    return fullPath.replace('/map/', '/map/thumbs/');
+}
+
 // Get bound ID from suit and number
 function getBoundId(suit, number) {
     const channel = SUIT_CHANNELS[suit];
@@ -1263,7 +1269,9 @@ function createCard(type, src, title, subtitle, x, y, extraClass = '', channelOr
     const label = labelText !== null ? labelText : (type === 'archetype' || type === 'portal' ? title : '');
     const labelHtml = label ? `<div class="card-label">${label}</div>` : '';
 
-    card.innerHTML = `${bgHtml}<img src="${src}" alt="${title}">${labelHtml}`;
+    // Use thumbnail for display, keep full path for modal/fullscreen
+    const thumbSrc = getThumbPath(src);
+    card.innerHTML = `${bgHtml}<img src="${thumbSrc}" alt="${title}">${labelHtml}`;
     card.onclick = () => openInfoModal(src, title, subtitle, displayType, channel, description, resolvedCardId);
 
     // Add data attributes for sequence targeting
