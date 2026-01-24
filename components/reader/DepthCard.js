@@ -203,6 +203,23 @@ const DepthCard = ({
   const correction = !isBalanced ? getFullCorrection(draw.transient, draw.status) : null;
   const correctionTargetId = correction ? getCorrectionTargetId(correction, trans) : null;
   const correctionArchetype = correctionTargetId !== null ? getHomeArchetype(correctionTargetId) : null;
+
+  // DEBUG: Log correction calculation for troubleshooting
+  if (!isBalanced && correction) {
+    console.log('[DepthCard Debug]', {
+      card: trans?.name,
+      transient: draw.transient,
+      status: draw.status,
+      statusName: STATUSES[draw.status]?.name,
+      position: draw.position,
+      positionName: ARCHETYPES[draw.position]?.name,
+      correctionType: correction?.type,
+      correctionTarget: correction?.target,
+      correctionTargetId,
+      correctionArchetype,
+      correctionArchetypeName: ARCHETYPES[correctionArchetype]?.name
+    });
+  }
   // Correction target card type (for showing bound/agent indicator on minimap)
   const correctionCard = correctionTargetId !== null ? getComponent(correctionTargetId) : null;
   const correctionCardType = correctionCard?.type?.toLowerCase() || 'archetype';
