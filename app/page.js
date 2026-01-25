@@ -475,6 +475,8 @@ export default function NirmanakaReader() {
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
   const [userReadingCount, setUserReadingCount] = useState(0);
+  // Lounge online count
+  const [loungeOnlineCount, setLoungeOnlineCount] = useState(0);
   const [featureConfig, setFeatureConfig] = useState({
     advancedVoiceFor: 'everyone',
     modelsForAdmins: ['haiku', 'sonnet', 'opus'],
@@ -562,6 +564,18 @@ export default function NirmanakaReader() {
     }
     fetchReadingCount();
   }, [currentUser]);
+
+  // Track lounge online presence (General room: d094a308-ec46-40d8-8c4a-0cfa123f638d)
+  useEffect(() => {
+    const channel = supabase.channel('presence:d094a308-ec46-40d8-8c4a-0cfa123f638d')
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState();
+        const count = Object.values(state).flat().length;
+        setLoungeOnlineCount(count);
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, []);
 
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
@@ -3911,6 +3925,16 @@ CRITICAL FORMATTING RULES:
               className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
             >
               Community
+            </a>
+            <a
+              href="/lounge"
+              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-emerald-400 hover:border-emerald-600/30 transition-all flex items-center gap-1.5"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Lounge
+              {loungeOnlineCount > 0 && (
+                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
+              )}
             </a>
             <a
               href="/guide"

@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussions, createDiscussion, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
+import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 
 const TOPIC_TYPES = [
@@ -35,6 +35,15 @@ export default function HubPage() {
   const [posting, setPosting] = useState(false);
   // Track reactions state for replies (for optimistic updates)
   const [replyReactionsState, setReplyReactionsState] = useState({});
+  // Reddit-style features
+  const [sortBy, setSortBy] = useState('new'); // 'hot' | 'new' | 'top'
+  const [expandedThreads, setExpandedThreads] = useState({}); // { discussionId: true }
+  const [threadReplies, setThreadReplies] = useState({}); // { discussionId: [replies] }
+  const [loadingThread, setLoadingThread] = useState(null);
+  const [replyingTo, setReplyingTo] = useState(null); // discussionId being replied to
+  const [replyContent, setReplyContent] = useState('');
+  const [submittingReply, setSubmittingReply] = useState(false);
+  const [collapsedReplies, setCollapsedReplies] = useState({}); // { replyId: true }
 
   useEffect(() => {
     async function loadData() {
@@ -172,6 +181,80 @@ export default function HubPage() {
     }));
   }
 
+  // Toggle thread expansion - load all replies
+  async function toggleThread(discussionId) {
+    if (expandedThreads[discussionId]) {
+      // Collapse
+      setExpandedThreads(prev => ({ ...prev, [discussionId]: false }));
+      return;
+    }
+
+    // Expand - load all replies if not already loaded
+    if (!threadReplies[discussionId]) {
+      setLoadingThread(discussionId);
+      const { data } = await getDiscussion(discussionId);
+      if (data?.replies) {
+        setThreadReplies(prev => ({ ...prev, [discussionId]: data.replies }));
+      }
+      setLoadingThread(null);
+    }
+    setExpandedThreads(prev => ({ ...prev, [discussionId]: true }));
+  }
+
+  // Submit inline reply
+  async function handleInlineReply(discussionId) {
+    if (!replyContent.trim() || !user) return;
+
+    setSubmittingReply(true);
+    const { data, error } = await createReply(discussionId, replyContent.trim());
+
+    if (!error && data) {
+      // Add to thread replies
+      setThreadReplies(prev => ({
+        ...prev,
+        [discussionId]: [...(prev[discussionId] || []), data]
+      }));
+      // Update reply count
+      setDiscussions(prev => prev.map(d =>
+        d.id === discussionId
+          ? { ...d, reply_count: (d.reply_count || 0) + 1 }
+          : d
+      ));
+      setReplyContent('');
+      setReplyingTo(null);
+    }
+    setSubmittingReply(false);
+  }
+
+  // Toggle collapse reply
+  function toggleCollapseReply(replyId) {
+    setCollapsedReplies(prev => ({ ...prev, [replyId]: !prev[replyId] }));
+  }
+
+  // Calculate "hot" score (upvotes + recency)
+  function getHotScore(discussion) {
+    const upvotes = (discussion.reactions || []).filter(r => r.emoji === '👍').length;
+    const hoursSincePost = (Date.now() - new Date(discussion.created_at).getTime()) / 3600000;
+    return upvotes / Math.pow(hoursSincePost + 2, 1.5);
+  }
+
+  // Sort discussions
+  function getSortedDiscussions() {
+    const sorted = [...discussions];
+    switch (sortBy) {
+      case 'hot':
+        return sorted.sort((a, b) => getHotScore(b) - getHotScore(a));
+      case 'top':
+        const getScore = d => (d.reactions || []).filter(r => r.emoji === '👍').length;
+        return sorted.sort((a, b) => getScore(b) - getScore(a));
+      case 'new':
+      default:
+        return sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+  }
+
+  const sortedDiscussions = getSortedDiscussions();
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex items-center justify-center">
@@ -249,9 +332,31 @@ export default function HubPage() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* Sort tabs + Filters */}
       <div className="border-b border-zinc-800/30">
         <div className="max-w-4xl mx-auto px-4 py-3">
+          {/* Sort tabs - Reddit style */}
+          <div className="flex items-center gap-1 mb-3">
+            {[
+              { key: 'hot', label: 'Hot', icon: '🔥' },
+              { key: 'new', label: 'New', icon: '✨' },
+              { key: 'top', label: 'Top', icon: '⬆️' }
+            ].map(sort => (
+              <button
+                key={sort.key}
+                onClick={() => setSortBy(sort.key)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                  sortBy === sort.key
+                    ? 'bg-amber-600/20 text-amber-400 border border-amber-600/40'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+                }`}
+              >
+                <span>{sort.icon}</span>
+                {sort.label}
+              </button>
+            ))}
+          </div>
+          {/* Topic filters */}
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilter(null)}
@@ -301,10 +406,13 @@ export default function HubPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {discussions.map(discussion => {
+            {sortedDiscussions.map(discussion => {
               const reactionCounts = getReactionCounts(discussion.reactions);
               const topReplies = discussion.topReplies || [];
               const totalReplies = discussion.reply_count || 0;
+              const isExpanded = expandedThreads[discussion.id];
+              const allReplies = threadReplies[discussion.id] || [];
+              const upvotes = reactionCounts['👍'] || 0;
 
               return (
                 <div
@@ -360,8 +468,8 @@ export default function HubPage() {
                     </div>
                   </div>
 
-                  {/* Top 3 replies - always visible if they exist */}
-                  {topReplies.length > 0 && (
+                  {/* Top 3 replies - visible when NOT expanded */}
+                  {topReplies.length > 0 && !isExpanded && (
                     <div className="border-t border-zinc-800/50 bg-zinc-900/30">
                       <div className="p-4 space-y-3">
                         {topReplies.map(reply => {
@@ -410,19 +518,150 @@ export default function HubPage() {
                     </div>
                   )}
 
-                  {/* Footer - reply link or view more */}
-                  <div className="border-t border-zinc-800/50 px-4 py-2 flex items-center justify-between">
+                  {/* Expanded replies */}
+                  {isExpanded && allReplies.length > 0 && (
+                    <div className="border-t border-zinc-800/50 bg-zinc-900/30">
+                      <div className="p-4 space-y-3">
+                        {allReplies.map(reply => {
+                          const replyReactionCounts = getReactionCounts(reply.reactions);
+                          const isCollapsed = collapsedReplies[reply.id];
+                          return (
+                            <div key={reply.id} className="pl-4 border-l-2 border-zinc-700/50">
+                              <div className="flex items-start gap-2">
+                                <button
+                                  onClick={() => toggleCollapseReply(reply.id)}
+                                  className="text-zinc-600 hover:text-zinc-400 mt-1 text-xs"
+                                >
+                                  {isCollapsed ? '[+]' : '[-]'}
+                                </button>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 text-xs text-zinc-500">
+                                    <Link
+                                      href={`/profile/${reply.user_id}`}
+                                      className="font-medium text-zinc-400 hover:text-amber-400 transition-colors"
+                                    >
+                                      {reply.profiles?.display_name || 'Anonymous'}
+                                    </Link>
+                                    <span>•</span>
+                                    <span>{formatDate(reply.created_at)}</span>
+                                  </div>
+                                  {!isCollapsed && (
+                                    <>
+                                      <div className="text-zinc-300 text-sm mt-1 mb-2">
+                                        {reply.content}
+                                      </div>
+                                      <div className="flex items-center gap-1">
+                                        {REACTION_EMOJIS.map(emoji => {
+                                          const count = replyReactionCounts[emoji] || 0;
+                                          const reacted = userReacted(reply.reactions, emoji);
+                                          return (
+                                            <button
+                                              key={emoji}
+                                              onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, emoji)}
+                                              className={`px-1.5 py-0.5 rounded text-xs transition-all ${
+                                                reacted
+                                                  ? 'bg-amber-600/30 border border-amber-500/50'
+                                                  : 'bg-zinc-800/50 border border-zinc-700/50 hover:bg-zinc-700/50'
+                                              }`}
+                                            >
+                                              {emoji}
+                                              {count > 0 && <span className="ml-0.5 text-zinc-400">{count}</span>}
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Inline reply form */}
+                  {replyingTo === discussion.id && (
+                    <div className="border-t border-zinc-800/50 bg-zinc-800/30 p-4">
+                      <textarea
+                        value={replyContent}
+                        onChange={(e) => setReplyContent(e.target.value)}
+                        placeholder="What are your thoughts?"
+                        rows={3}
+                        className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-300 text-sm focus:outline-none focus:border-amber-600/50 resize-none"
+                        autoFocus
+                      />
+                      <div className="flex justify-end gap-2 mt-2">
+                        <button
+                          onClick={() => { setReplyingTo(null); setReplyContent(''); }}
+                          className="px-3 py-1.5 text-zinc-400 hover:text-zinc-200 text-sm transition-colors"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => handleInlineReply(discussion.id)}
+                          disabled={submittingReply || !replyContent.trim()}
+                          className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                        >
+                          {submittingReply ? 'Posting...' : 'Reply'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Footer - actions */}
+                  <div className="border-t border-zinc-800/50 px-4 py-2 flex items-center gap-4">
+                    {/* Upvote count */}
+                    <span className="text-sm text-zinc-500 flex items-center gap-1">
+                      <span className="text-amber-500">▲</span>
+                      {upvotes}
+                    </span>
+
+                    {/* Expand/collapse */}
+                    <button
+                      onClick={() => toggleThread(discussion.id)}
+                      className="text-zinc-400 hover:text-zinc-200 text-sm transition-colors flex items-center gap-1"
+                    >
+                      {loadingThread === discussion.id ? (
+                        <span className="animate-pulse">Loading...</span>
+                      ) : isExpanded ? (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                          </svg>
+                          Collapse
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
+                        </>
+                      )}
+                    </button>
+
+                    {/* Reply button */}
+                    {user && replyingTo !== discussion.id && (
+                      <button
+                        onClick={() => { setReplyingTo(discussion.id); toggleThread(discussion.id); }}
+                        className="text-zinc-400 hover:text-amber-400 text-sm transition-colors flex items-center gap-1"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                        </svg>
+                        Reply
+                      </button>
+                    )}
+
+                    {/* Full thread link */}
                     <Link
                       href={`/hub/${discussion.id}`}
-                      className="text-amber-400 hover:text-amber-300 text-sm transition-colors"
+                      className="text-zinc-500 hover:text-amber-400 text-sm transition-colors ml-auto"
                     >
-                      {totalReplies === 0
-                        ? 'Start discussion →'
-                        : `View ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'} →`}
+                      Full thread →
                     </Link>
-                    <span className="text-xs text-zinc-600">
-                      {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
-                    </span>
                   </div>
                 </div>
               );
