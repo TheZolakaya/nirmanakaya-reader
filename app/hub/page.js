@@ -512,8 +512,8 @@ export default function HubPage() {
           </div>
         )}
 
-        {/* Main NIRMANAKAYA header */}
-        <div className="content-pane text-center py-6 border-b border-zinc-800/30 bg-zinc-900/60 backdrop-blur-sm">
+        {/* Main NIRMANAKAYA header - FIXED */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/60 backdrop-blur-sm text-center py-6 border-b border-zinc-800/30">
           <Link href="/" className="inline-block">
             <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 hover:opacity-80 transition-opacity">
               <span className="rainbow-letter rainbow-letter-0">N</span>
@@ -552,6 +552,9 @@ export default function HubPage() {
             </a>
           </div>
         </div>
+
+        {/* Spacer for fixed header */}
+        <div className="pt-36"></div>
 
         {/* Sort tabs + New Post */}
         <div className="content-pane border-b border-zinc-800/30 bg-zinc-900/30 backdrop-blur-sm">
