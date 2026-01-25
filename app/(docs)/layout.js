@@ -1,6 +1,8 @@
+import DocsBackground from '../../components/shared/DocsBackground';
+
 export default function DocsLayout({ children }) {
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <DocsBackground>
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {children}
@@ -37,6 +39,6 @@ export default function DocsLayout({ children }) {
           </div>
         </div>
       </footer>
-    </div>
+    </DocsBackground>
   );
 }

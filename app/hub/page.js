@@ -503,6 +503,11 @@ export default function HubPage() {
                   )}
                 </button>
               </div>
+
+              {/* Version - sneaky placement */}
+              <div className="text-center pt-2 border-t border-zinc-800/30 mt-2">
+                <span className="text-[0.625rem] text-zinc-600">v{VERSION}</span>
+              </div>
             </div>
           </div>
         )}
@@ -525,7 +530,6 @@ export default function HubPage() {
             </h1>
           </Link>
           <p className="text-zinc-300 text-sm tracking-wide font-light">Community Hub</p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
           {/* Nav Links - rainbow hover colors, current section first */}
           <div className="flex justify-center gap-2 mt-3 text-xs">
             <Link href="/" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all">

@@ -882,7 +882,6 @@ export default function LoungePage() {
           </h1>
         </Link>
         <p className="text-zinc-300 text-sm tracking-wide font-light">The Lounge</p>
-        <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
         {/* Nav Links - rainbow hover colors */}
         <div className="flex justify-center gap-2 mt-3 text-xs">
           <Link
@@ -943,7 +942,7 @@ export default function LoungePage() {
             {/* Mobile room toggle */}
             <button
               onClick={() => setShowMobileRooms(!showMobileRooms)}
-              className="lg:hidden p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
+              className="md:hidden p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
             >
               <svg className="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -1070,6 +1069,11 @@ export default function LoungePage() {
                   )}
                 </button>
               </div>
+
+              {/* Version - sneaky placement (for mobile) */}
+              <div className="text-center pt-2 border-t border-zinc-800/30 mt-2 md:hidden">
+                <span className="text-[0.625rem] text-zinc-600">v{VERSION}</span>
+              </div>
             </div>
           </motion.div>
         )}
@@ -1077,8 +1081,8 @@ export default function LoungePage() {
 
       {/* Main content */}
       <div className="relative flex-1 flex overflow-hidden z-10">
-        {/* Room sidebar - desktop */}
-        <aside className="content-pane hidden lg:flex flex-col w-64 border-r border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm">
+        {/* Room sidebar - desktop/tablet */}
+        <aside className="content-pane hidden md:flex flex-col w-64 border-r border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm">
           <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Rooms</h2>
             {user && (
@@ -1116,7 +1120,7 @@ export default function LoungePage() {
               initial={{ x: -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
-              className="content-pane absolute inset-y-0 left-0 z-20 w-64 border-r border-zinc-800/50 bg-zinc-900/95 backdrop-blur-sm lg:hidden"
+              className="content-pane absolute inset-y-0 left-0 z-20 w-64 border-r border-zinc-800/50 bg-zinc-900/95 backdrop-blur-sm md:hidden"
             >
               <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
                 <div className="flex items-center gap-2">

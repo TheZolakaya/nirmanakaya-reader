@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
-import { VERSION } from '../../../lib/version';
 
 export const metadata = {
   title: 'The Council | Nirmanakaya',
@@ -34,7 +33,6 @@ export default function CouncilPage() {
           </h1>
         </Link>
         <p className="text-zinc-300 text-sm tracking-wide font-light">Council</p>
-        <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
         {/* Nav Links - rainbow hover colors */}
         <div className="flex justify-center gap-2 mt-3 text-xs">
           <Link
