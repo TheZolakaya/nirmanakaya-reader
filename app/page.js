@@ -3973,7 +3973,7 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           {/* Nav Links - rainbow hover colors */}
-          <div className="flex justify-center gap-2 mt-2 text-xs" onClick={(e) => e.stopPropagation()}>
+          <div className="flex justify-center gap-2 mt-5 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
@@ -4708,7 +4708,7 @@ CRITICAL FORMATTING RULES:
               {!showGlistener && spreadType !== 'explore' ? (
                 <button
                   onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 sm:gap-2 shrink-0"
+                  className="text-sm text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1 sm:gap-2 shrink-0"
                 >
                   <span className="text-amber-500">◇</span>
                   <span className="hidden sm:inline">Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
@@ -6811,8 +6811,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               Terms
             </a>
           </div>
-          <p className="text-center text-zinc-600 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
-          <p className="text-center text-zinc-800 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+          <p className="text-center text-zinc-400 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
+          <p className="text-center text-zinc-500 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
         </footer>
       </div>
 
