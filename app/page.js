@@ -4172,8 +4172,8 @@ CRITICAL FORMATTING RULES:
                   </div>
                 </div>
 
-                {/* Version indicator */}
-                <div className="fixed bottom-3 right-3 text-white/30 text-[0.6rem] font-mono">
+                {/* Version indicator - bottom left for deployment verification */}
+                <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
                   v{VERSION}
                 </div>
               </div>
