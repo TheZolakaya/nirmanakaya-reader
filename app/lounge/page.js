@@ -29,6 +29,7 @@ import {
 } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import { getCached, invalidateCache } from '../../lib/cache';
 
 // === BACKGROUND VIDEOS & IMAGES (shared with Reader) ===
 const videoBackgrounds = [
@@ -565,40 +566,69 @@ export default function LoungePage() {
     }
   }, [theme, backgroundType, backgroundOpacity, contentDim, selectedVideo, selectedImage]);
 
-  // Load initial data
+  // Load initial data with caching and parallel fetching
   useEffect(() => {
     async function init() {
       try {
-        const { user } = await getUser();
+        // Start user check and rooms fetch in parallel
+        const userPromise = getUser();
+
+        // Get cached rooms immediately (60 second TTL)
+        const { data: cachedRooms } = await getCached(
+          'chat_rooms',
+          async () => {
+            const { data } = await getChatRooms();
+            return data;
+          },
+          {
+            ttl: 60000,
+            onFresh: (freshRooms) => {
+              if (freshRooms?.length > 0) {
+                setRooms(freshRooms);
+              }
+            }
+          }
+        );
+
+        // Show cached rooms immediately
+        if (cachedRooms?.length > 0) {
+          setRooms(cachedRooms);
+          const defaultRoom = cachedRooms.find(r => r.is_default) || cachedRooms[0];
+          setActiveRoom(defaultRoom);
+        }
+
+        // Handle user auth
+        const { user } = await userPromise;
         setUser(user);
 
         if (user) {
-          const { data: profileData } = await getProfile();
-          setProfile(profileData);
+          // Load profile and room memberships in parallel
+          const [profileResult, myRoomsResult] = await Promise.allSettled([
+            getProfile(),
+            getMyRooms()
+          ]);
 
-          // Load user's room memberships (may fail if RLS not set up)
-          try {
-            const { data: myRoomsData, error: myRoomsError } = await getMyRooms();
-            if (myRoomsError) {
-              console.warn('Failed to load room memberships:', myRoomsError);
-            } else if (myRoomsData) {
-              const roleMap = {};
-              myRoomsData.forEach(r => { roleMap[r.id] = r.myRole; });
-              setMyRooms(roleMap);
-            }
-          } catch (e) {
-            console.warn('Room memberships unavailable:', e);
+          if (profileResult.status === 'fulfilled') {
+            setProfile(profileResult.value.data);
+          }
+
+          if (myRoomsResult.status === 'fulfilled' && myRoomsResult.value.data) {
+            const roleMap = {};
+            myRoomsResult.value.data.forEach(r => { roleMap[r.id] = r.myRole; });
+            setMyRooms(roleMap);
           }
         }
 
-        const { data: roomsData, error: roomsError } = await getChatRooms();
-        if (roomsError) {
-          console.error('Failed to load rooms:', roomsError);
-        } else if (roomsData?.length > 0) {
-          setRooms(roomsData);
-          // Select default room or first room
-          const defaultRoom = roomsData.find(r => r.is_default) || roomsData[0];
-          setActiveRoom(defaultRoom);
+        // Fetch fresh rooms if no cache
+        if (!cachedRooms) {
+          const { data: roomsData, error: roomsError } = await getChatRooms();
+          if (roomsError) {
+            console.error('Failed to load rooms:', roomsError);
+          } else if (roomsData?.length > 0) {
+            setRooms(roomsData);
+            const defaultRoom = roomsData.find(r => r.is_default) || roomsData[0];
+            setActiveRoom(defaultRoom);
+          }
         }
       } catch (e) {
         console.error('Failed to initialize lounge:', e);

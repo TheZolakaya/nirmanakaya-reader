@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import { getCached, invalidateCache } from '../../lib/cache';
 
 // Linkify URLs in text content
 function linkifyContent(text) {
@@ -132,19 +133,50 @@ export default function HubPage() {
     }
   }, []);
 
-  // Load discussions
+  // Load discussions with caching for faster initial render
   useEffect(() => {
     async function loadData() {
-      const { user } = await getUser();
+      // Start user check and discussions fetch in parallel
+      const userPromise = getUser();
+
+      // Try to show cached discussions immediately (30 second TTL)
+      const cacheKey = `discussions_${filter || 'all'}`;
+      const { data: cachedData, isStale } = await getCached(
+        cacheKey,
+        async () => {
+          const { data } = await getDiscussions({ topicType: filter });
+          return data;
+        },
+        {
+          ttl: 30000, // 30 seconds
+          onFresh: (freshData) => setDiscussions(freshData || [])
+        }
+      );
+
+      // Show cached data immediately
+      if (cachedData) {
+        setDiscussions(cachedData);
+        setLoading(false);
+      }
+
+      // Handle user auth (non-blocking for profile/visit updates)
+      const { user } = await userPromise;
       setUser(user);
       if (user) {
-        await ensureProfile();
-        await updateLastHubVisit();
+        // Run these in background - don't block UI
+        Promise.all([
+          ensureProfile(),
+          updateLastHubVisit()
+        ]).catch(() => {}); // Silently handle errors
       }
-      const { data, error } = await getDiscussions({ topicType: filter });
-      if (error) console.error('Failed to load discussions:', error);
-      setDiscussions(data || []);
-      setLoading(false);
+
+      // If no cache, fetch fresh
+      if (!cachedData) {
+        const { data, error } = await getDiscussions({ topicType: filter });
+        if (error) console.error('Failed to load discussions:', error);
+        setDiscussions(data || []);
+        setLoading(false);
+      }
     }
     loadData();
   }, [filter]);
@@ -188,6 +220,9 @@ export default function HubPage() {
       console.error('Failed to create discussion:', error);
       alert('Failed to create discussion');
     } else {
+      // Invalidate cache so next visit gets fresh data
+      invalidateCache(`discussions_${filter || 'all'}`);
+      invalidateCache('discussions_all');
       setDiscussions([{ ...data, profiles: { display_name: user?.email?.split('@')[0] } }, ...discussions]);
       setNewTitle('');
       setNewContent('');
