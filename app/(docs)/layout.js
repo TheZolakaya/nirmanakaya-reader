@@ -4,8 +4,8 @@ import TextSizeSlider from '../../components/shared/TextSizeSlider';
 export default function DocsLayout({ children }) {
   return (
     <DocsBackground>
-      {/* Text size slider - top right */}
-      <div className="fixed top-3 right-3 z-50">
+      {/* Text size slider - top right, above fixed headers */}
+      <div className="fixed top-3 right-3 z-[60]">
         <TextSizeSlider />
       </div>
 
