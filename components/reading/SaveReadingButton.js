@@ -57,7 +57,7 @@ export default function SaveReadingButton({ reading, onSave }) {
         flex items-center gap-1 px-2 py-1 rounded text-xs transition-colors
         ${saved
           ? 'bg-green-600/20 text-green-400'
-          : 'bg-zinc-800/50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
+          : 'bg-zinc-800/90 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
         }
         ${saving ? 'opacity-50 cursor-wait' : ''}
       `}

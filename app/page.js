@@ -5095,19 +5095,19 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     <button
                       data-help="action-export"
                       onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
-                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
                     >Export</button>
                   </>
                 )}
                 <button
                   data-help="action-traditional"
                   onClick={(e) => { if (!handleHelpClick('action-traditional', e)) setShowTraditional(!showTraditional); }}
-                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
                 >{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
                 <button
                   data-help="action-architecture"
                   onClick={(e) => { if (!handleHelpClick('action-architecture', e)) setShowArchitecture(!showArchitecture); }}
-                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/50"
+                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
                 >{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
                 <button
                   data-help="action-new"

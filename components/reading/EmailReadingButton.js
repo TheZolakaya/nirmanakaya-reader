@@ -86,7 +86,7 @@ export default function EmailReadingButton({ readingId, disabled }) {
           ? 'bg-red-800/50 text-red-400'
           : needsSave
           ? 'bg-zinc-800/30 text-zinc-600 cursor-not-allowed'
-          : 'bg-zinc-800/50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
+          : 'bg-zinc-800/90 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-300'
       }`}
       title={getTooltip()}
     >
