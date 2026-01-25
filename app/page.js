@@ -4024,9 +4024,22 @@ CRITICAL FORMATTING RULES:
                   >
                     Enter
                   </button>
-                  <p className="text-zinc-500 text-sm mt-6">
-                    Free to explore. Your readings are private.
+
+                  {/* App description for Google verification */}
+                  <p className="text-zinc-400 text-xs mt-6 max-w-sm mx-auto leading-relaxed">
+                    An AI oracle for exploring patterns of meaning.
+                    <br />
+                    <span className="text-zinc-500">We use your account only for sign-in. Your readings are private.</span>
                   </p>
+                </div>
+
+                {/* Footer with legal links */}
+                <div className="fixed bottom-4 left-0 right-0 text-center">
+                  <div className="text-zinc-500 text-[0.65rem] flex items-center justify-center gap-2">
+                    <a href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
+                    <span className="text-zinc-700">·</span>
+                    <a href="/terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
+                  </div>
                 </div>
 
                 {/* Version indicator */}
