@@ -3782,12 +3782,12 @@ CRITICAL FORMATTING RULES:
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
           <>
-            {/* Text size slider - top of stack */}
-            <div className="fixed top-3 right-3 z-50">
+            {/* Text size slider - below fixed header */}
+            <div className="fixed top-40 right-3 z-50">
               <TextSizeSlider />
             </div>
-            {/* Background controls toggle button - upper left */}
-            <div className="fixed top-3 left-3 z-50 flex items-center gap-1">
+            {/* Background controls toggle button - below fixed header */}
+            <div className="fixed top-40 left-3 z-50 flex items-center gap-1">
               <button
                 data-help="bg-toggle"
                 onClick={(e) => { if (!handleHelpClick('bg-toggle', e)) setShowBgControls(!showBgControls); }}
@@ -3807,12 +3807,12 @@ CRITICAL FORMATTING RULES:
               </a>
             </div>
 
-            {/* Floating Background Controls Panel */}
+            {/* Floating Background Controls Panel - below toggle button */}
             {showBgControls && (
               <div
                 data-help="bg-controls"
                 onClick={(e) => handleHelpClick('bg-controls', e)}
-                className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
+                className="fixed top-52 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
               >
                 <div className="p-4 border-b border-zinc-800/50">
                   <div className="flex items-center justify-between">
@@ -3943,8 +3943,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
             )}
-            {/* Help button - middle */}
-            <div className="fixed top-14 right-3 z-50">
+            {/* Help button - below text slider */}
+            <div className="fixed top-52 right-3 z-50">
               <button
                 onClick={() => helpMode ? exitHelpMode() : enterHelpMode()}
                 className={`help-trigger w-8 h-8 rounded-lg backdrop-blur-sm text-sm font-medium flex items-center justify-center transition-all ${
@@ -3987,7 +3987,7 @@ CRITICAL FORMATTING RULES:
               )}
             </div>
             {/* Auth button - below help button */}
-            <div className="fixed top-24 right-3 z-50" onClick={(e) => e.stopPropagation()}>
+            <div className="fixed top-64 right-3 z-50" onClick={(e) => e.stopPropagation()}>
               <AuthButton onAuthChange={setCurrentUser} />
             </div>
           </>
