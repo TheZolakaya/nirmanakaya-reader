@@ -4171,11 +4171,6 @@ CRITICAL FORMATTING RULES:
                     <a href="https://www.nirmanakaya.com/terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
                   </div>
                 </div>
-
-                {/* Version indicator - bottom left for deployment verification */}
-                <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
-                  v{VERSION}
-                </div>
               </div>
             ) : (
             <>
@@ -6932,6 +6927,11 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         }}
         initialMode={authModalMode}
       />
+
+      {/* Version indicator - always visible for deployment verification */}
+      <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
+        v{VERSION}
+      </div>
       </div> {/* Close z-10 wrapper */}
     </div>
   );
