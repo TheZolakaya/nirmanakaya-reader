@@ -326,6 +326,11 @@ select {
   z-index: 1;
 }
 
+/* Light theme: use white overlay for dimming */
+[data-theme="light"] .content-pane::before {
+  background-color: white;
+}
+
 .content-pane > * {
   position: relative;
   z-index: 2;

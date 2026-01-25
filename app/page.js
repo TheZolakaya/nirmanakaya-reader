@@ -720,6 +720,7 @@ export default function NirmanakaReader() {
   const [showBgControls, setShowBgControls] = useState(false); // Show/hide background controls panel
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
   const [contentDim, setContentDim] = useState(0); // Dark overlay behind content (0-100)
+  const [theme, setTheme] = useState('dark'); // 'dark' or 'light'
   const [backgroundType, setBackgroundType] = useState('video'); // 'video' or 'image'
   const [selectedVideo, setSelectedVideo] = useState(0); // Index into videoBackgrounds (0 = cosmos default)
   const [selectedImage, setSelectedImage] = useState(0); // Index into imageBackgrounds
@@ -1176,6 +1177,7 @@ export default function NirmanakaReader() {
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
+        if (prefs.theme !== undefined) setTheme(prefs.theme);
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
@@ -1223,6 +1225,7 @@ export default function NirmanakaReader() {
       animatedBackground,
       backgroundOpacity,
       contentDim,
+      theme,
       backgroundType,
       selectedVideo,
       selectedImage,
@@ -1235,7 +1238,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, backgroundType, selectedVideo, selectedImage, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, defaultDepth, defaultExpanded]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3725,7 +3728,8 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div
-      className={`min-h-screen bg-zinc-950 text-zinc-100 ${helpMode ? 'cursor-help' : ''}`}
+      className={`min-h-screen ${theme === 'light' ? 'bg-stone-100 text-zinc-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
+      data-theme={theme}
       onClick={handleMainClick}
     >
       {/* Background - Video or Image */}
@@ -3852,6 +3856,22 @@ CRITICAL FORMATTING RULES:
                       className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
                     />
                   </div>
+                  {/* Theme toggle */}
+                  <button
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    className="flex items-center justify-center w-8 h-8 bg-zinc-900/80 backdrop-blur-sm rounded-lg border border-zinc-700/50 hover:border-amber-600/50 transition-all"
+                    title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                  >
+                    {theme === 'dark' ? (
+                      <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                      </svg>
+                    )}
+                  </button>
                 </div>
               )}
             </div>
