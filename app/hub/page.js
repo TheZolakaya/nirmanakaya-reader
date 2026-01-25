@@ -54,8 +54,7 @@ const TOPIC_TYPES = [
   { value: 'nowism', label: 'Nowism', color: 'text-emerald-400' },
   { value: 'consciousness', label: 'Materialism vs. CiP', color: 'text-fuchsia-400' },
   { value: 'concept', label: 'Concepts', color: 'text-violet-400' },
-  { value: 'signature', label: 'Signatures', color: 'text-amber-400' },
-  { value: 'terminology', label: 'Terminology', color: 'text-teal-400' }
+  { value: 'signature', label: 'Signatures', color: 'text-amber-400' }
 ];
 
 // Background options (shared with Reader)
@@ -477,53 +476,46 @@ export default function HubPage() {
           </div>
         </div>
 
-        {/* Hub Header */}
-        <div className="content-pane border-b border-zinc-800/50 bg-zinc-900/40 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="text-zinc-400 hover:text-zinc-200 transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-              </Link>
-              <div>
-                <h2 className="text-xl font-light">Community Hub</h2>
-                <p className="text-xs text-zinc-500 italic">Discovered through the math of faith</p>
-              </div>
-            </div>
-            {user && (
-              <button
-                onClick={() => setShowNewPost(true)}
-                className="px-4 py-2 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors text-sm border border-amber-600/30"
-              >
-                New Post
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Sort tabs + Filters */}
+        {/* Sort tabs + Title + New Post */}
         <div className="content-pane border-b border-zinc-800/30 bg-zinc-900/30 backdrop-blur-sm">
           <div className="max-w-4xl mx-auto px-4 py-3">
-            <div className="flex items-center gap-1 mb-3">
-              {[
-                { key: 'hot', label: 'Hot', icon: '🔥' },
-                { key: 'new', label: 'New', icon: '✨' },
-                { key: 'top', label: 'Top', icon: '⬆️' }
-              ].map(sort => (
+            <div className="flex items-center justify-between mb-3">
+              {/* Sorting buttons */}
+              <div className="flex items-center gap-1">
+                {[
+                  { key: 'hot', label: 'Hot', icon: '🔥' },
+                  { key: 'new', label: 'New', icon: '✨' },
+                  { key: 'top', label: 'Top', icon: '⬆️' }
+                ].map(sort => (
+                  <button
+                    key={sort.key}
+                    onClick={() => setSortBy(sort.key)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                      sortBy === sort.key
+                        ? 'bg-amber-600/20 text-amber-400 border border-amber-600/40'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+                    }`}
+                  >
+                    <span>{sort.icon}</span>
+                    {sort.label}
+                  </button>
+                ))}
+              </div>
+              {/* Centered title */}
+              <div className="text-center">
+                <h2 className="text-lg font-light text-zinc-200">Community Hub</h2>
+              </div>
+              {/* New Post button */}
+              {user ? (
                 <button
-                  key={sort.key}
-                  onClick={() => setSortBy(sort.key)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
-                    sortBy === sort.key
-                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/40'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
-                  }`}
+                  onClick={() => setShowNewPost(true)}
+                  className="px-4 py-2 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors text-sm border border-amber-600/30"
                 >
-                  <span>{sort.icon}</span>
-                  {sort.label}
+                  New Post
                 </button>
-              ))}
+              ) : (
+                <div className="w-[90px]" /> // Spacer for centering
+              )}
             </div>
             <div className="flex flex-wrap gap-2">
               <button
@@ -667,73 +659,11 @@ export default function HubPage() {
                       </div>
                     </div>
 
-                    {/* Top 3 replies - visible when NOT expanded */}
-                    {topReplies.length > 0 && !isExpanded && (
-                      <div className="border-t border-zinc-800/50 bg-zinc-900/30">
-                        <div className="p-4 space-y-3">
-                          {topReplies.map(reply => {
-                            const replyReactionCounts = getReactionCounts(reply.reactions);
-                            return (
-                              <div key={reply.id} className="pl-4 border-l-2 border-zinc-700/50">
-                                <div className="text-zinc-300 text-sm mb-2 whitespace-pre-wrap">
-                                  {linkifyContent(reply.content.slice(0, 300))}
-                                  {reply.content.length > 300 ? '...' : ''}
-                                </div>
-                                <div className="flex items-center gap-2 mb-2 text-xs text-zinc-500">
-                                  <Link href={`/profile/${reply.user_id}`} className="hover:text-amber-400 transition-colors">
-                                    {reply.profiles?.display_name || 'Anonymous'}
-                                  </Link>
-                                  <span>•</span>
-                                  <span>{formatDate(reply.created_at)}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="flex items-center gap-1 bg-zinc-800/50 rounded px-1">
-                                    <button
-                                      onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👍')}
-                                      className={`p-0.5 rounded transition-all ${userReacted(reply.reactions, '👍') ? 'text-amber-400' : 'text-zinc-500 hover:text-amber-400'}`}
-                                    >
-                                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                                      </svg>
-                                    </button>
-                                    <span className={`text-xs font-medium ${(replyReactionCounts['👍'] || 0) > 0 ? 'text-amber-400' : 'text-zinc-500'}`}>
-                                      {replyReactionCounts['👍'] || 0}
-                                    </span>
-                                    <button
-                                      onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👎')}
-                                      className={`p-0.5 rounded transition-all ${userReacted(reply.reactions, '👎') ? 'text-indigo-400' : 'text-zinc-500 hover:text-indigo-400'}`}
-                                    >
-                                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                  {REACTION_EMOJIS.filter(e => e !== '👍' && e !== '👎').map(emoji => {
-                                    const count = replyReactionCounts[emoji] || 0;
-                                    const reacted = userReacted(reply.reactions, emoji);
-                                    return (
-                                      <button
-                                        key={emoji}
-                                        onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, emoji)}
-                                        className={`px-1.5 py-0.5 rounded text-xs transition-all ${reacted ? 'bg-amber-600/30 border border-amber-500/50' : 'bg-zinc-800/50 border border-zinc-700/50 hover:bg-zinc-700/50'}`}
-                                      >
-                                        {emoji}
-                                        {count > 0 && <span className="ml-0.5 text-zinc-400">{count}</span>}
-                                      </button>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Expanded replies */}
+                    {/* Replies section - only visible when expanded */}
                     {isExpanded && allReplies.length > 0 && (
                       <div className="border-t border-zinc-800/50 bg-zinc-900/30">
-                        <div className="p-4 space-y-3">
+                        {/* Scrollable container - shows ~5 replies at a time */}
+                        <div className="max-h-[500px] overflow-y-auto p-4 space-y-3">
                           {allReplies.map(reply => {
                             const replyReactionCounts = getReactionCounts(reply.reactions);
                             const isCollapsed = collapsedReplies[reply.id];
@@ -875,12 +805,6 @@ export default function HubPage() {
                           Reply
                         </button>
                       )}
-                      <Link
-                        href={`/hub/${discussion.id}`}
-                        className="text-zinc-500 hover:text-amber-400 text-sm transition-colors ml-auto"
-                      >
-                        Full thread →
-                      </Link>
                     </div>
                   </div>
                 );
