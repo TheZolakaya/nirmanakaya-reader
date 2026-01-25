@@ -3024,14 +3024,26 @@ CRITICAL FORMATTING RULES:
       document.getElementById(`content-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
+    // Get card image path for background
+    const cardImagePath = getCardImagePath(draw.transient);
+
     return (
-      <div 
+      <div
         id={`card-${index}`}
-        className={`rounded-lg border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group`}
+        className={`rounded-lg border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group relative overflow-hidden`}
         onClick={scrollToContent}
       >
-        <div className="mb-3 flex justify-between items-start">
-          <span 
+        {/* Card artwork background */}
+        {showCardImages && cardImagePath && (
+          <img
+            src={cardImagePath}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
+            aria-hidden="true"
+          />
+        )}
+        <div className="relative z-10 mb-3 flex justify-between items-start">
+          <span
             className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${STATUS_COLORS[draw.status]}`}
             onClick={(e) => { e.stopPropagation(); openStatusInfo(draw.status); }}
           >
@@ -3040,8 +3052,8 @@ CRITICAL FORMATTING RULES:
           <span className="text-zinc-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity">↓ read</span>
         </div>
 
-        <div className="mb-3">
-          <div 
+        <div className="relative z-10 mb-3">
+          <div
             className="text-xl text-zinc-100 font-semibold cursor-pointer hover:text-zinc-300 transition-colors"
             onClick={(e) => { e.stopPropagation(); openCardInfo(draw.transient); }}
             title="Click for details"
@@ -3057,15 +3069,15 @@ CRITICAL FORMATTING RULES:
           {showTraditional && <div className="text-sm text-zinc-500 mt-1">{trans.traditional}</div>}
         </div>
 
-        <div className="text-sm text-zinc-400 mb-3">
-          in your <span 
+        <div className="relative z-10 text-sm text-zinc-400 mb-3">
+          in your <span
             className={`font-medium cursor-pointer hover:underline decoration-dotted ${houseColors.text}`}
             onClick={(e) => { e.stopPropagation(); isReflect ? openHouseInfo(house) : openCardInfo(draw.position); }}
           >{contextLabel}</span>
           {contextSub && <span className="text-zinc-600 text-xs ml-1">({contextSub})</span>}
         </div>
 
-        <div className="border-t border-zinc-700/30 pt-3 space-y-1">
+        <div className="relative z-10 border-t border-zinc-700/30 pt-3 space-y-1">
           {trans.type === "Bound" && (
             <>
               <div className="text-sm">
@@ -3104,7 +3116,7 @@ CRITICAL FORMATTING RULES:
         </div>
 
         {correctionText && draw.status !== 1 && (
-          <div className="border-t border-zinc-700/30 pt-3 mt-3">
+          <div className="relative z-10 border-t border-zinc-700/30 pt-3 mt-3">
             <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Rebalancer</div>
             <div className="text-sm text-zinc-300">
               → <span
@@ -3116,7 +3128,7 @@ CRITICAL FORMATTING RULES:
         )}
 
         {isBalanced && growthTargetName && (
-          <div className="border-t border-zinc-700/30 pt-3 mt-3">
+          <div className="relative z-10 border-t border-zinc-700/30 pt-3 mt-3">
             <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
               {isGestaltCard ? 'Self-Expression' : 'Growth Opportunity'}
             </div>
