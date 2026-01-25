@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nirmanakaya · The 78 Signatures</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -253,32 +253,89 @@
             90% { color: #fb923c; }
         }
 
-        /* Top header - matches main reader */
+        /* Per-letter rainbow animation */
+        .rainbow-letter {
+            animation: rainbow-cycle 16s ease-in-out infinite;
+            display: inline-block;
+        }
+        .rainbow-letter-0 { animation-delay: 0s; }
+        .rainbow-letter-1 { animation-delay: -1s; }
+        .rainbow-letter-2 { animation-delay: -2s; }
+        .rainbow-letter-3 { animation-delay: -3s; }
+        .rainbow-letter-4 { animation-delay: -4s; }
+        .rainbow-letter-5 { animation-delay: -5s; }
+        .rainbow-letter-6 { animation-delay: -6s; }
+        .rainbow-letter-7 { animation-delay: -7s; }
+        .rainbow-letter-8 { animation-delay: -8s; }
+        .rainbow-letter-9 { animation-delay: -9s; }
+        .rainbow-letter-10 { animation-delay: -10s; }
+
+        /* Top header - matches main site */
         .page-header {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            right: 0;
             text-align: center;
-            z-index: 10;
+            z-index: 500;
+            padding: 1.5rem 0;
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(63, 63, 70, 0.3);
         }
         .page-header h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 0.35em;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 200;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
             margin: 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            animation: rainbow-cycle 32s ease-in-out infinite;
+        }
+        .page-header h1 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .page-header h1 a:hover {
+            opacity: 0.8;
         }
         .page-header .subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.1em;
-            margin-top: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.875rem;
+            color: #d4d4d8;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+            font-weight: 300;
         }
+        .page-header .version {
+            font-size: 0.625rem;
+            color: #71717a;
+            margin-top: 2px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+        }
+        .nav-links a {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            background: rgba(24, 24, 27, 0.9);
+            border: 1px solid rgba(82, 82, 91, 0.6);
+            color: #d4d4d8;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .nav-links a:hover {
+            border-color: rgba(var(--hover-color), 0.5);
+            color: rgb(var(--hover-color));
+        }
+        .nav-links a.nav-reader:hover { --hover-color: 251, 113, 133; }
+        .nav-links a.nav-community:hover { --hover-color: 251, 191, 36; }
+        .nav-links a.nav-guide:hover { --hover-color: 52, 211, 153; }
+        .nav-links a.nav-about:hover { --hover-color: 34, 211, 238; }
+        .nav-links a.nav-lounge:hover { --hover-color: 167, 139, 250; }
 
         /* Card name labels - white rounded boxes on the card */
         .card-label {
@@ -598,49 +655,131 @@
             background: #555;
         }
 
-        /* Back to Reader button */
-        .back-button {
+        /* Background controls panel */
+        .bg-controls-toggle {
             position: fixed;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #d4af37;
-            padding: 10px 18px;
-            border-radius: 6px;
+            top: 140px;
+            left: 12px;
+            z-index: 600;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(24, 24, 27, 0.9);
+            border: 1px solid rgba(82, 82, 91, 0.5);
+            color: #a1a1aa;
             cursor: pointer;
-            z-index: 600;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
-        }
-        .back-button:hover {
-            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
-            border-color: rgba(212, 175, 55, 0.6);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-
-        /* Background toggle */
-        .bg-toggle-container {
-            position: fixed;
-            top: 58px;
-            left: 10px;
-            z-index: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            transition: all 0.2s ease;
         }
-        .bg-toggle-label {
-            font-family: 'Cormorant Garamond', serif;
+        .bg-controls-toggle:hover {
+            color: #d4d4d8;
+            background: rgba(39, 39, 42, 0.9);
+        }
+        .bg-controls-panel {
+            position: fixed;
+            top: 180px;
+            left: 12px;
+            z-index: 600;
+            width: 280px;
+            background: rgba(24, 24, 27, 0.95);
+            border: 1px solid rgba(82, 82, 91, 0.5);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            display: none;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .bg-controls-panel.visible {
+            display: block;
+        }
+        .bg-controls-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(63, 63, 70, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .bg-controls-header h3 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #e4e4e7;
+            margin: 0;
+        }
+        .bg-controls-close {
+            background: none;
+            border: none;
+            color: #71717a;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 1rem;
+        }
+        .bg-controls-close:hover {
+            color: #d4d4d8;
+        }
+        .bg-controls-content {
+            padding: 16px;
+        }
+        .bg-control-row {
+            margin-bottom: 16px;
+        }
+        .bg-control-row:last-child {
+            margin-bottom: 0;
+        }
+        .bg-control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.03em;
+            color: #71717a;
         }
+        .bg-control-value {
+            color: #a1a1aa;
+        }
+        .bg-slider {
+            width: 100%;
+            height: 4px;
+            background: #3f3f46;
+            border-radius: 2px;
+            appearance: none;
+            cursor: pointer;
+        }
+        .bg-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #f59e0b;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Background controls toggle button */
+        .bg-controls-toggle {
+            position: fixed;
+            top: 120px;
+            left: 12px;
+            z-index: 500;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(24, 24, 27, 0.9);
+            border: 1px solid rgba(82, 82, 91, 0.5);
+            border-radius: 8px;
+            color: #a1a1aa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .bg-controls-toggle:hover {
+            color: #f59e0b;
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+
+        /* Legacy bg-toggle for backwards compat */
+        .bg-toggle-container { display: none; }
         .bg-toggle {
             position: relative;
             width: 36px;
@@ -690,18 +829,59 @@
         <source src="/video/cosmos.mp4" type="video/mp4">
     </video>
 
-    <a href="/" class="back-button">← Reader</a>
-
-    <!-- Background toggle -->
-    <div class="bg-toggle-container">
-        <input type="checkbox" class="bg-toggle" id="bg-toggle" checked>
-        <label class="bg-toggle-label" for="bg-toggle">Background</label>
+    <!-- Page header with navigation -->
+    <div class="page-header">
+        <h1 class="nirmanakaya-title">
+            <span class="rainbow-letter rainbow-letter-0">N</span><span class="rainbow-letter rainbow-letter-1">I</span><span class="rainbow-letter rainbow-letter-2">R</span><span class="rainbow-letter rainbow-letter-3">M</span><span class="rainbow-letter rainbow-letter-4">A</span><span class="rainbow-letter rainbow-letter-5">N</span><span class="rainbow-letter rainbow-letter-6">A</span><span class="rainbow-letter rainbow-letter-7">K</span><span class="rainbow-letter rainbow-letter-8">A</span><span class="rainbow-letter rainbow-letter-9">Y</span><span class="rainbow-letter rainbow-letter-10">A</span>
+        </h1>
+        <div class="subtitle">The 78 Signatures</div>
+        <nav class="nav-links">
+            <a href="/" class="nav-link" style="--hover-color: #fb7185;">Reader</a>
+            <a href="/hub" class="nav-link" style="--hover-color: #fbbf24;">Hub</a>
+            <a href="/lounge" class="nav-link" style="--hover-color: #34d399;">Lounge</a>
+            <a href="/guide" class="nav-link" style="--hover-color: #22d3ee;">Guide</a>
+            <a href="/about" class="nav-link" style="--hover-color: #a78bfa;">About</a>
+        </nav>
     </div>
 
-    <!-- Page header -->
-    <div class="page-header">
-        <h1>Nirmanakaya</h1>
-        <div class="subtitle">The 78 Signatures</div>
+    <!-- Background controls toggle button -->
+    <button class="bg-controls-toggle" id="bg-controls-toggle" title="Background Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+
+    <!-- Background controls panel -->
+    <div class="bg-controls-panel" id="bg-controls-panel">
+        <div class="bg-controls-header">
+            <h3>Background</h3>
+            <button class="bg-controls-close" id="bg-controls-close">×</button>
+        </div>
+        <div class="bg-controls-content">
+            <div class="bg-control-row">
+                <div class="bg-control-label">
+                    <span>Opacity</span>
+                    <span class="bg-control-value" id="opacity-value">40%</span>
+                </div>
+                <input type="range" class="bg-slider" id="opacity-slider" min="0" max="100" value="40">
+            </div>
+            <div class="bg-control-row">
+                <div class="bg-control-label">
+                    <span>Blur</span>
+                    <span class="bg-control-value" id="blur-value">0px</span>
+                </div>
+                <input type="range" class="bg-slider" id="blur-slider" min="0" max="20" value="0">
+            </div>
+            <div class="bg-control-row">
+                <div class="bg-control-label">
+                    <span>Video</span>
+                    <span class="bg-control-value">
+                        <input type="checkbox" id="video-toggle" checked style="cursor: pointer;">
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="canvas-container" id="canvas-container">
@@ -2286,13 +2466,51 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================
-// BACKGROUND TOGGLE
+// BACKGROUND CONTROLS PANEL
 // ============================================
-const bgToggle = document.getElementById('bg-toggle');
+const bgControlsToggle = document.getElementById('bg-controls-toggle');
+const bgControlsPanel = document.getElementById('bg-controls-panel');
+const bgControlsClose = document.getElementById('bg-controls-close');
 const videoBg = document.querySelector('.video-background');
+const opacitySlider = document.getElementById('opacity-slider');
+const opacityValue = document.getElementById('opacity-value');
+const blurSlider = document.getElementById('blur-slider');
+const blurValue = document.getElementById('blur-value');
+const videoToggle = document.getElementById('video-toggle');
 
-bgToggle.addEventListener('change', () => {
-    videoBg.style.display = bgToggle.checked ? 'block' : 'none';
+// Toggle panel visibility
+bgControlsToggle.addEventListener('click', () => {
+    bgControlsPanel.classList.toggle('visible');
+});
+
+bgControlsClose.addEventListener('click', () => {
+    bgControlsPanel.classList.remove('visible');
+});
+
+// Opacity control
+opacitySlider.addEventListener('input', () => {
+    const val = opacitySlider.value;
+    opacityValue.textContent = val + '%';
+    videoBg.style.opacity = val / 100;
+});
+
+// Blur control
+blurSlider.addEventListener('input', () => {
+    const val = blurSlider.value;
+    blurValue.textContent = val + 'px';
+    videoBg.style.filter = `blur(${val}px)`;
+});
+
+// Video toggle
+videoToggle.addEventListener('change', () => {
+    videoBg.style.display = videoToggle.checked ? 'block' : 'none';
+});
+
+// Close panel when clicking outside
+document.addEventListener('click', (e) => {
+    if (!bgControlsPanel.contains(e.target) && !bgControlsToggle.contains(e.target)) {
+        bgControlsPanel.classList.remove('visible');
+    }
 });
 </script>
 </body>
