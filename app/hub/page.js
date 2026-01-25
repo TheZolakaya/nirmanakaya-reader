@@ -210,6 +210,12 @@ export default function HubPage() {
             About
           </Link>
           <Link
+            href="/lounge"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Lounge
+          </Link>
+          <Link
             href="/council"
             className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
@@ -327,8 +333,8 @@ export default function HubPage() {
                       {discussion.title}
                     </h3>
                     <p className="text-zinc-400 text-sm mb-3">
-                      {discussion.content.slice(0, 200)}
-                      {discussion.content.length > 200 ? '...' : ''}
+                      {discussion.content.slice(0, 300)}
+                      {discussion.content.length > 300 ? '...' : ''}
                     </p>
 
                     {/* Reaction buttons for original post */}
@@ -363,8 +369,8 @@ export default function HubPage() {
                           return (
                             <div key={reply.id} className="pl-4 border-l-2 border-zinc-700/50">
                               <div className="text-zinc-300 text-sm mb-2">
-                                {reply.content.slice(0, 200)}
-                                {reply.content.length > 200 ? '...' : ''}
+                                {reply.content.slice(0, 300)}
+                                {reply.content.length > 300 ? '...' : ''}
                               </div>
                               <div className="flex items-center gap-2 mb-2 text-xs text-zinc-500">
                                 <Link
@@ -411,10 +417,8 @@ export default function HubPage() {
                       className="text-amber-400 hover:text-amber-300 text-sm transition-colors"
                     >
                       {totalReplies === 0
-                        ? 'Reply →'
-                        : totalReplies > 3
-                          ? `View all ${totalReplies} replies →`
-                          : 'Reply →'}
+                        ? 'Start discussion →'
+                        : `View ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'} →`}
                     </Link>
                     <span className="text-xs text-zinc-600">
                       {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
