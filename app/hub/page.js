@@ -9,6 +9,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 // Linkify URLs in text content
 function linkifyContent(text) {
@@ -378,6 +379,11 @@ export default function HubPage() {
 
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
+
+        {/* Text size slider - top right */}
+        <div className="fixed top-3 right-3 z-[60]">
+          <TextSizeSlider />
+        </div>
 
         {/* Background controls toggle button - above fixed header */}
         <div className="fixed top-3 left-3 z-[60]">

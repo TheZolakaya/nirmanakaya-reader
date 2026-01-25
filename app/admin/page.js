@@ -25,6 +25,7 @@ import {
   updateUserTokenLimit,
   resetUserDailyTokens
 } from '../../lib/supabase';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 const SUPER_ADMIN_EMAIL = 'chriscrilly@gmail.com';
 
@@ -637,6 +638,11 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Text size slider - top right */}
+      <div className="fixed top-3 right-3 z-50">
+        <TextSizeSlider />
+      </div>
+
       {/* Header */}
       <header className="border-b border-zinc-800/50 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">

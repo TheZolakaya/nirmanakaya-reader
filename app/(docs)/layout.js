@@ -1,8 +1,14 @@
 import DocsBackground from '../../components/shared/DocsBackground';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 export default function DocsLayout({ children }) {
   return (
     <DocsBackground>
+      {/* Text size slider - top right */}
+      <div className="fixed top-3 right-3 z-50">
+        <TextSizeSlider />
+      </div>
+
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {children}

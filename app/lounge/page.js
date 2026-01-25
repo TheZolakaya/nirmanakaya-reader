@@ -28,6 +28,7 @@ import {
   getMyRooms
 } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 // === BACKGROUND VIDEOS & IMAGES (shared with Reader) ===
 const videoBackgrounds = [
@@ -850,6 +851,11 @@ export default function LoungePage() {
           }}
         />
       )}
+
+      {/* Text size slider - top right */}
+      <div className="fixed top-3 right-3 z-[60]">
+        <TextSizeSlider />
+      </div>
 
       {/* Background controls toggle button - above fixed header */}
       <div className="fixed top-3 left-3 z-[60]">

@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { getReadings, getUser, deleteReading, setReadingPublic } from '../../lib/supabase';
 import { getComponent } from '../../lib/corrections';
 import { STATUSES } from '../../lib/constants';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 export default function JournalPage() {
   const router = useRouter();
@@ -117,6 +118,11 @@ export default function JournalPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
+      {/* Text size slider - top right */}
+      <div className="fixed top-3 right-3 z-50">
+        <TextSizeSlider />
+      </div>
+
       {/* Header */}
       <div className="border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
