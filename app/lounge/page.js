@@ -17,7 +17,15 @@ import {
   subscribeToPresence,
   trackPresence,
   broadcastTyping,
-  onTyping
+  onTyping,
+  createChatRoom,
+  deleteChatRoom,
+  getRoomMembers,
+  inviteToRoom,
+  searchUsers,
+  removeFromRoom,
+  isRoomMember,
+  getMyRooms
 } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 
@@ -34,7 +42,7 @@ function PresenceDot({ delay = 0 }) {
 }
 
 // Room item in sidebar
-function RoomItem({ room, isActive, onClick, unreadCount = 0 }) {
+function RoomItem({ room, isActive, onClick, unreadCount = 0, isOwner = false }) {
   return (
     <button
       onClick={onClick}
@@ -48,12 +56,21 @@ function RoomItem({ room, isActive, onClick, unreadCount = 0 }) {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className={`text-lg ${isActive ? 'text-amber-400' : 'text-zinc-500'}`}>
-            #
-          </span>
+          {room.is_private ? (
+            <svg className={`w-4 h-4 ${isActive ? 'text-amber-400' : 'text-zinc-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          ) : (
+            <span className={`text-lg ${isActive ? 'text-amber-400' : 'text-zinc-500'}`}>
+              #
+            </span>
+          )}
           <span className={`font-medium ${isActive ? 'text-zinc-100' : 'text-zinc-400'}`}>
             {room.name}
           </span>
+          {isOwner && (
+            <span className="text-xs text-amber-600">owner</span>
+          )}
         </div>
         {unreadCount > 0 && (
           <span className="px-2 py-0.5 text-xs rounded-full bg-amber-500/20 text-amber-400">
@@ -184,6 +201,271 @@ function OnlinePanel({ users, isOpen, onClose }) {
   );
 }
 
+// Create Room Modal
+function CreateRoomModal({ isOpen, onClose, onCreate }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleCreate() {
+    if (!name.trim()) {
+      setError('Room name is required');
+      return;
+    }
+    setError('');
+    setCreating(true);
+
+    const { data, error: createError } = await createChatRoom(name, description, isPrivate);
+
+    if (createError) {
+      setError(createError.message || 'Failed to create room');
+      setCreating(false);
+      return;
+    }
+
+    setName('');
+    setDescription('');
+    setIsPrivate(false);
+    setCreating(false);
+    onCreate(data);
+    onClose();
+  }
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl"
+      >
+        <div className="p-4 border-b border-zinc-800">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-medium text-zinc-100">Create Room</h2>
+            <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div className="p-4 space-y-4">
+          <div>
+            <label className="block text-sm text-zinc-400 mb-1">Room Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="my-room"
+              className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-600/50"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-zinc-400 mb-1">Description (optional)</label>
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="What's this room about?"
+              className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-600/50"
+            />
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsPrivate(!isPrivate)}
+              className={`relative w-11 h-6 rounded-full transition-colors ${
+                isPrivate ? 'bg-amber-600' : 'bg-zinc-700'
+              }`}
+            >
+              <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                isPrivate ? 'left-6' : 'left-1'
+              }`} />
+            </button>
+            <div>
+              <span className="text-zinc-200 text-sm">Private Room</span>
+              <p className="text-xs text-zinc-500">Only invited members can see and join</p>
+            </div>
+          </div>
+
+          {error && (
+            <p className="text-rose-400 text-sm">{error}</p>
+          )}
+        </div>
+
+        <div className="p-4 border-t border-zinc-800 flex justify-end gap-3">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleCreate}
+            disabled={creating || !name.trim()}
+            className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {creating ? 'Creating...' : 'Create Room'}
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// Room Settings Panel (for owners)
+function RoomSettingsPanel({ room, isOpen, onClose, onInvite, onDelete, onLeave, isOwner, members, user }) {
+  const [inviteQuery, setInviteQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [inviting, setInviting] = useState(null);
+
+  async function handleSearch(query) {
+    setInviteQuery(query);
+    if (query.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+    setSearching(true);
+    const { data } = await searchUsers(query);
+    // Filter out users already in room
+    const memberIds = members.map(m => m.user_id);
+    setSearchResults(data.filter(u => !memberIds.includes(u.id)));
+    setSearching(false);
+  }
+
+  async function handleInvite(userId) {
+    setInviting(userId);
+    await onInvite(userId);
+    setSearchResults(prev => prev.filter(u => u.id !== userId));
+    setInviting(null);
+    setInviteQuery('');
+  }
+
+  if (!isOpen || !room) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 20 }}
+        className="absolute right-0 top-0 bottom-0 w-72 bg-zinc-900/95 border-l border-zinc-800/50 backdrop-blur-sm z-20 flex flex-col"
+      >
+        <div className="p-4 border-b border-zinc-800/50">
+          <div className="flex items-center justify-between">
+            <h3 className="text-zinc-300 font-medium">Room Settings</h3>
+            <button onClick={onClose} className="text-zinc-500 hover:text-zinc-300">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <p className="text-sm text-zinc-500 mt-1">{room.name}</p>
+        </div>
+
+        {/* Members section */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">
+            Members ({members.length})
+          </h4>
+          <div className="space-y-2">
+            {members.map((member) => (
+              <div key={member.user_id} className="flex items-center justify-between py-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 text-xs">
+                    {(member.profiles?.display_name || 'A')[0].toUpperCase()}
+                  </div>
+                  <span className="text-zinc-300 text-sm">
+                    {member.profiles?.display_name || 'Anonymous'}
+                  </span>
+                  {member.role === 'owner' && (
+                    <span className="text-xs text-amber-600">owner</span>
+                  )}
+                </div>
+                {isOwner && member.user_id !== user?.id && (
+                  <button
+                    onClick={() => onInvite(member.user_id, true)}
+                    className="text-zinc-600 hover:text-rose-400 text-xs"
+                    title="Remove member"
+                  >
+                    remove
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Invite section (for private rooms) */}
+          {room.is_private && isOwner && (
+            <div className="mt-6">
+              <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">
+                Invite Members
+              </h4>
+              <input
+                type="text"
+                value={inviteQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Search by name..."
+                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-600/50"
+              />
+              {searching && (
+                <p className="text-zinc-500 text-xs mt-2">Searching...</p>
+              )}
+              {searchResults.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  {searchResults.map((result) => (
+                    <div key={result.id} className="flex items-center justify-between py-1.5 px-2 bg-zinc-800/50 rounded">
+                      <span className="text-zinc-300 text-sm">{result.display_name}</span>
+                      <button
+                        onClick={() => handleInvite(result.id)}
+                        disabled={inviting === result.id}
+                        className="text-amber-400 hover:text-amber-300 text-xs disabled:opacity-50"
+                      >
+                        {inviting === result.id ? '...' : 'invite'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="p-4 border-t border-zinc-800/50 space-y-2">
+          {!room.is_default && (
+            <>
+              {isOwner ? (
+                <button
+                  onClick={onDelete}
+                  className="w-full px-4 py-2 text-rose-400 hover:bg-rose-900/20 rounded-lg text-sm transition-colors"
+                >
+                  Delete Room
+                </button>
+              ) : (
+                <button
+                  onClick={onLeave}
+                  className="w-full px-4 py-2 text-zinc-400 hover:bg-zinc-800 rounded-lg text-sm transition-colors"
+                >
+                  Leave Room
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function LoungePage() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -197,6 +479,11 @@ export default function LoungePage() {
   const [sending, setSending] = useState(false);
   const [showOnlinePanel, setShowOnlinePanel] = useState(false);
   const [showMobileRooms, setShowMobileRooms] = useState(false);
+  // Room management state
+  const [showCreateRoom, setShowCreateRoom] = useState(false);
+  const [showRoomSettings, setShowRoomSettings] = useState(false);
+  const [roomMembers, setRoomMembers] = useState([]);
+  const [myRooms, setMyRooms] = useState({}); // { roomId: role }
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -218,6 +505,14 @@ export default function LoungePage() {
       if (user) {
         const { data: profileData } = await getProfile();
         setProfile(profileData);
+
+        // Load user's room memberships
+        const { data: myRoomsData } = await getMyRooms();
+        if (myRoomsData) {
+          const roleMap = {};
+          myRoomsData.forEach(r => { roleMap[r.id] = r.myRole; });
+          setMyRooms(roleMap);
+        }
       }
 
       const { data: roomsData } = await getChatRooms();
@@ -335,6 +630,71 @@ export default function LoungePage() {
     }
   }
 
+  // Room management handlers
+  async function handleCreateRoom(newRoom) {
+    setRooms(prev => [...prev, newRoom]);
+    setMyRooms(prev => ({ ...prev, [newRoom.id]: 'owner' }));
+    setActiveRoom(newRoom);
+  }
+
+  async function handleDeleteRoom() {
+    if (!activeRoom || activeRoom.is_default) return;
+    if (!window.confirm(`Delete "${activeRoom.name}"? This cannot be undone.`)) return;
+
+    const { error } = await deleteChatRoom(activeRoom.id);
+    if (!error) {
+      setRooms(prev => prev.filter(r => r.id !== activeRoom.id));
+      setActiveRoom(rooms.find(r => r.is_default) || rooms[0]);
+      setShowRoomSettings(false);
+    }
+  }
+
+  async function handleLeaveRoom() {
+    if (!activeRoom || activeRoom.is_default) return;
+    if (!window.confirm(`Leave "${activeRoom.name}"?`)) return;
+
+    const { error } = await removeFromRoom(activeRoom.id);
+    if (!error) {
+      setRooms(prev => prev.filter(r => r.id !== activeRoom.id));
+      setMyRooms(prev => {
+        const updated = { ...prev };
+        delete updated[activeRoom.id];
+        return updated;
+      });
+      setActiveRoom(rooms.find(r => r.is_default) || rooms[0]);
+      setShowRoomSettings(false);
+    }
+  }
+
+  async function handleInviteMember(userId, isRemove = false) {
+    if (!activeRoom) return;
+
+    if (isRemove) {
+      const { error } = await removeFromRoom(activeRoom.id, userId);
+      if (!error) {
+        setRoomMembers(prev => prev.filter(m => m.user_id !== userId));
+      }
+    } else {
+      const { data, error } = await inviteToRoom(activeRoom.id, userId);
+      if (!error && data) {
+        // Reload members
+        const { data: members } = await getRoomMembers(activeRoom.id);
+        setRoomMembers(members || []);
+      }
+    }
+  }
+
+  async function openRoomSettings() {
+    if (!activeRoom) return;
+    const { data: members } = await getRoomMembers(activeRoom.id);
+    setRoomMembers(members || []);
+    setShowRoomSettings(true);
+    setShowOnlinePanel(false);
+  }
+
+  // Check if current user is owner of active room
+  const isRoomOwner = activeRoom && myRooms[activeRoom.id] === 'owner';
+
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
@@ -350,7 +710,7 @@ export default function LoungePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+    <div className="bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden" style={{ height: 'calc(100dvh - 130px)' }}>
       {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950" />
@@ -404,8 +764,19 @@ export default function LoungePage() {
       <div className="relative flex-1 flex overflow-hidden">
         {/* Room sidebar - desktop */}
         <aside className="hidden lg:flex flex-col w-64 border-r border-zinc-800/50 bg-zinc-900/30">
-          <div className="p-4 border-b border-zinc-800/30">
+          <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Rooms</h2>
+            {user && (
+              <button
+                onClick={() => setShowCreateRoom(true)}
+                className="text-zinc-500 hover:text-amber-400 transition-colors"
+                title="Create room"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+            )}
           </div>
           <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
             {rooms.map(room => (
@@ -414,6 +785,7 @@ export default function LoungePage() {
                 room={room}
                 isActive={activeRoom?.id === room.id}
                 onClick={() => setActiveRoom(room)}
+                isOwner={myRooms[room.id] === 'owner'}
               />
             ))}
           </nav>
@@ -432,7 +804,20 @@ export default function LoungePage() {
               className="absolute inset-y-0 left-0 z-20 w-64 border-r border-zinc-800/50 bg-zinc-900/95 backdrop-blur-sm lg:hidden"
             >
               <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
-                <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Rooms</h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Rooms</h2>
+                  {user && (
+                    <button
+                      onClick={() => { setShowMobileRooms(false); setShowCreateRoom(true); }}
+                      className="text-zinc-500 hover:text-amber-400 transition-colors"
+                      title="Create room"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
                 <button
                   onClick={() => setShowMobileRooms(false)}
                   className="text-zinc-500 hover:text-zinc-300"
@@ -452,6 +837,7 @@ export default function LoungePage() {
                       setActiveRoom(room);
                       setShowMobileRooms(false);
                     }}
+                    isOwner={myRooms[room.id] === 'owner'}
                   />
                 ))}
               </nav>
@@ -463,9 +849,33 @@ export default function LoungePage() {
         <main className="flex-1 flex flex-col min-w-0 relative">
           {/* Room header */}
           <div className="px-4 py-3 border-b border-zinc-800/30 bg-zinc-900/20">
-            <div className="flex items-center gap-2">
-              <span className="text-amber-500 text-lg">#</span>
-              <h2 className="font-medium text-zinc-100">{activeRoom?.name || 'General'}</h2>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {activeRoom?.is_private ? (
+                  <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                ) : (
+                  <span className="text-amber-500 text-lg">#</span>
+                )}
+                <h2 className="font-medium text-zinc-100">{activeRoom?.name || 'General'}</h2>
+                {activeRoom?.is_private && (
+                  <span className="text-xs text-zinc-500">private</span>
+                )}
+              </div>
+              {/* Settings button for non-default rooms */}
+              {user && activeRoom && !activeRoom.is_default && (
+                <button
+                  onClick={openRoomSettings}
+                  className="p-1.5 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 rounded transition-colors"
+                  title="Room settings"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              )}
             </div>
             {activeRoom?.description && (
               <p className="text-xs text-zinc-500 mt-1">{activeRoom.description}</p>
@@ -559,8 +969,32 @@ export default function LoungePage() {
             isOpen={showOnlinePanel}
             onClose={() => setShowOnlinePanel(false)}
           />
+
+          {/* Room settings panel */}
+          <RoomSettingsPanel
+            room={activeRoom}
+            isOpen={showRoomSettings}
+            onClose={() => setShowRoomSettings(false)}
+            onInvite={handleInviteMember}
+            onDelete={handleDeleteRoom}
+            onLeave={handleLeaveRoom}
+            isOwner={isRoomOwner}
+            members={roomMembers}
+            user={user}
+          />
         </main>
       </div>
+
+      {/* Create room modal */}
+      <AnimatePresence>
+        {showCreateRoom && (
+          <CreateRoomModal
+            isOpen={showCreateRoom}
+            onClose={() => setShowCreateRoom(false)}
+            onCreate={handleCreateRoom}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Keyframe animation for presence dots */}
       <style jsx global>{`
