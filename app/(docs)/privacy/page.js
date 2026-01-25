@@ -156,8 +156,8 @@ export default function PrivacyPage() {
           If you have questions about this Privacy Policy or your data, please contact us at:
         </p>
         <p className="text-zinc-400 mt-2">
-          <a href="mailto:chriscrilly@gmail.com" className="text-amber-400 hover:text-amber-300">
-            chriscrilly@gmail.com
+          <a href="mailto:zolakaya@nirmanakaya.com" className="text-amber-400 hover:text-amber-300">
+            zolakaya@nirmanakaya.com
           </a>
         </p>
       </section>

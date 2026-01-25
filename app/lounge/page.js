@@ -499,28 +499,40 @@ export default function LoungePage() {
   // Load initial data
   useEffect(() => {
     async function init() {
-      const { user } = await getUser();
-      setUser(user);
+      try {
+        const { user } = await getUser();
+        setUser(user);
 
-      if (user) {
-        const { data: profileData } = await getProfile();
-        setProfile(profileData);
+        if (user) {
+          const { data: profileData } = await getProfile();
+          setProfile(profileData);
 
-        // Load user's room memberships
-        const { data: myRoomsData } = await getMyRooms();
-        if (myRoomsData) {
-          const roleMap = {};
-          myRoomsData.forEach(r => { roleMap[r.id] = r.myRole; });
-          setMyRooms(roleMap);
+          // Load user's room memberships (may fail if RLS not set up)
+          try {
+            const { data: myRoomsData, error: myRoomsError } = await getMyRooms();
+            if (myRoomsError) {
+              console.warn('Failed to load room memberships:', myRoomsError);
+            } else if (myRoomsData) {
+              const roleMap = {};
+              myRoomsData.forEach(r => { roleMap[r.id] = r.myRole; });
+              setMyRooms(roleMap);
+            }
+          } catch (e) {
+            console.warn('Room memberships unavailable:', e);
+          }
         }
-      }
 
-      const { data: roomsData } = await getChatRooms();
-      if (roomsData?.length > 0) {
-        setRooms(roomsData);
-        // Select default room or first room
-        const defaultRoom = roomsData.find(r => r.is_default) || roomsData[0];
-        setActiveRoom(defaultRoom);
+        const { data: roomsData, error: roomsError } = await getChatRooms();
+        if (roomsError) {
+          console.error('Failed to load rooms:', roomsError);
+        } else if (roomsData?.length > 0) {
+          setRooms(roomsData);
+          // Select default room or first room
+          const defaultRoom = roomsData.find(r => r.is_default) || roomsData[0];
+          setActiveRoom(defaultRoom);
+        }
+      } catch (e) {
+        console.error('Failed to initialize lounge:', e);
       }
 
       setLoading(false);

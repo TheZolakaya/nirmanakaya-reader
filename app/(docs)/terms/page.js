@@ -140,8 +140,8 @@ export default function TermsPage() {
           Questions about these Terms of Service? Contact us at:
         </p>
         <p className="text-zinc-400 mt-2">
-          <a href="mailto:chriscrilly@gmail.com" className="text-amber-400 hover:text-amber-300">
-            chriscrilly@gmail.com
+          <a href="mailto:zolakaya@nirmanakaya.com" className="text-amber-400 hover:text-amber-300">
+            zolakaya@nirmanakaya.com
           </a>
         </p>
       </section>
