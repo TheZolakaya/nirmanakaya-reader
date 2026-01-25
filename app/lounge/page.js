@@ -29,6 +29,29 @@ import {
 } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 
+// === BACKGROUND VIDEOS & IMAGES (shared with Reader) ===
+const BACKGROUND_VIDEOS = [
+  { id: 'clouds', name: 'Clouds', url: 'https://videos.pexels.com/video-files/857195/857195-hd_1920_1080_25fps.mp4' },
+  { id: 'aurora', name: 'Aurora', url: 'https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4' },
+  { id: 'waves', name: 'Waves', url: 'https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4' },
+  { id: 'rain', name: 'Rain', url: 'https://videos.pexels.com/video-files/3045176/3045176-hd_1920_1080_24fps.mp4' },
+  { id: 'stars', name: 'Stars', url: 'https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4' },
+  { id: 'forest', name: 'Forest', url: 'https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4' },
+  { id: 'fire', name: 'Fire', url: 'https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4' },
+  { id: 'water', name: 'Water', url: 'https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4' },
+];
+
+const BACKGROUND_IMAGES = [
+  { id: 'cosmos1', name: 'Deep Space', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1920' },
+  { id: 'cosmos2', name: 'Nebula', url: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920' },
+  { id: 'mountain', name: 'Mountain', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920' },
+  { id: 'ocean', name: 'Ocean', url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920' },
+  { id: 'forest', name: 'Forest', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920' },
+  { id: 'desert', name: 'Desert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920' },
+  { id: 'temple', name: 'Temple', url: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1920' },
+  { id: 'abstract', name: 'Abstract', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920' },
+];
+
 // Presence dot - softly pulsing like a heartbeat
 function PresenceDot({ delay = 0 }) {
   return (
@@ -485,6 +508,15 @@ export default function LoungePage() {
   const [roomMembers, setRoomMembers] = useState([]);
   const [myRooms, setMyRooms] = useState({}); // { roomId: role }
 
+  // === BACKGROUND & THEME STATE (shared with Reader preferences) ===
+  const [theme, setTheme] = useState('dark');
+  const [backgroundType, setBackgroundType] = useState('video');
+  const [backgroundOpacity, setBackgroundOpacity] = useState(30);
+  const [contentDim, setContentDim] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [showBgControls, setShowBgControls] = useState(false);
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const channelRef = useRef(null);
@@ -495,6 +527,41 @@ export default function LoungePage() {
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
+
+  // Load preferences from localStorage (shared with Reader)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('nirmanakaya_prefs');
+      if (saved) {
+        const prefs = JSON.parse(saved);
+        if (prefs.theme) setTheme(prefs.theme);
+        if (prefs.backgroundType) setBackgroundType(prefs.backgroundType);
+        if (typeof prefs.backgroundOpacity === 'number') setBackgroundOpacity(prefs.backgroundOpacity);
+        if (typeof prefs.contentDim === 'number') setContentDim(prefs.contentDim);
+        if (typeof prefs.selectedVideo === 'number') setSelectedVideo(prefs.selectedVideo);
+        if (typeof prefs.selectedImage === 'number') setSelectedImage(prefs.selectedImage);
+      }
+    } catch (e) {
+      console.warn('Failed to load preferences:', e);
+    }
+  }, []);
+
+  // Save preferences when they change
+  useEffect(() => {
+    try {
+      const prefs = {
+        theme,
+        backgroundType,
+        backgroundOpacity,
+        contentDim,
+        selectedVideo,
+        selectedImage,
+      };
+      localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
+    } catch (e) {
+      console.warn('Failed to save preferences:', e);
+    }
+  }, [theme, backgroundType, backgroundOpacity, contentDim, selectedVideo, selectedImage]);
 
   // Load initial data
   useEffect(() => {
@@ -704,8 +771,30 @@ export default function LoungePage() {
     setShowOnlinePanel(false);
   }
 
+  // Background navigation
+  function nextBackground() {
+    if (backgroundType === 'video') {
+      setSelectedVideo((prev) => (prev + 1) % BACKGROUND_VIDEOS.length);
+    } else {
+      setSelectedImage((prev) => (prev + 1) % BACKGROUND_IMAGES.length);
+    }
+  }
+
+  function prevBackground() {
+    if (backgroundType === 'video') {
+      setSelectedVideo((prev) => (prev - 1 + BACKGROUND_VIDEOS.length) % BACKGROUND_VIDEOS.length);
+    } else {
+      setSelectedImage((prev) => (prev - 1 + BACKGROUND_IMAGES.length) % BACKGROUND_IMAGES.length);
+    }
+  }
+
   // Check if current user is owner of active room
   const isRoomOwner = activeRoom && myRooms[activeRoom.id] === 'owner';
+
+  // Get current background name
+  const currentBgName = backgroundType === 'video'
+    ? BACKGROUND_VIDEOS[selectedVideo]?.name
+    : BACKGROUND_IMAGES[selectedImage]?.name;
 
   if (loading) {
     return (
@@ -722,16 +811,45 @@ export default function LoungePage() {
   }
 
   return (
-    <div className="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col">
-      {/* Ambient background */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/5 rounded-full blur-3xl" />
-      </div>
+    <div
+      className={`min-h-screen flex flex-col ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
+      data-theme={theme}
+      style={{ '--content-dim': contentDim / 100 }}
+    >
+      {/* Video Background */}
+      {backgroundType === 'video' && (
+        <div className="fixed inset-0 z-0 overflow-hidden">
+          <video
+            key={BACKGROUND_VIDEOS[selectedVideo]?.url}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ opacity: backgroundOpacity / 100 }}
+          >
+            <source src={BACKGROUND_VIDEOS[selectedVideo]?.url} type="video/mp4" />
+          </video>
+          <div className={`absolute inset-0 ${theme === 'light' ? 'bg-stone-100/60' : 'bg-zinc-950/60'}`} />
+        </div>
+      )}
+
+      {/* Image Background */}
+      {backgroundType === 'image' && (
+        <div className="fixed inset-0 z-0 overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${BACKGROUND_IMAGES[selectedImage]?.url})`,
+              opacity: backgroundOpacity / 100,
+            }}
+          />
+          <div className={`absolute inset-0 ${theme === 'light' ? 'bg-stone-100/60' : 'bg-zinc-950/60'}`} />
+        </div>
+      )}
 
       {/* Main NIRMANAKAYA header */}
-      <div className="relative z-10 text-center py-6 border-b border-zinc-800/30 bg-zinc-900/50 backdrop-blur-sm">
+      <div className="content-pane relative z-10 text-center py-6 border-b border-zinc-800/30 bg-zinc-900/50 backdrop-blur-sm">
         <Link href="/" className="inline-block">
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 animate-rainbow-cycle-header hover:opacity-80 transition-opacity">NIRMANAKAYA</h1>
         </Link>
@@ -741,31 +859,31 @@ export default function LoungePage() {
         <div className="flex justify-center gap-2 mt-3 text-xs">
           <Link
             href="/"
-            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Reader
           </Link>
           <Link
             href="/hub"
-            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Community
           </Link>
           <Link
             href="/guide"
-            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Guide
           </Link>
           <Link
             href="/about"
-            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             About
           </Link>
           <Link
             href="/council"
-            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/30 transition-all"
           >
             Council
           </Link>
@@ -773,7 +891,7 @@ export default function LoungePage() {
       </div>
 
       {/* Lounge sub-header */}
-      <header className="relative z-10 border-b border-zinc-800/50 bg-zinc-900/30">
+      <header className="content-pane relative z-10 border-b border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm">
         <div className="flex items-center justify-between px-4 py-3">
           <div>
             <h2 className="text-lg font-light tracking-wide text-zinc-100">
@@ -783,6 +901,17 @@ export default function LoungePage() {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Background controls toggle */}
+            <button
+              onClick={() => setShowBgControls(!showBgControls)}
+              className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
+              title="Background settings"
+            >
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </button>
+
             {/* Online count */}
             <button
               onClick={() => setShowOnlinePanel(!showOnlinePanel)}
@@ -807,10 +936,132 @@ export default function LoungePage() {
         </div>
       </header>
 
+      {/* Floating Background Controls Panel */}
+      <AnimatePresence>
+        {showBgControls && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="fixed top-32 right-4 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
+          >
+            <div className="p-4 border-b border-zinc-800/50">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-medium text-zinc-200">Background</h3>
+                <button onClick={() => setShowBgControls(false)} className="text-zinc-500 hover:text-zinc-300">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-4 space-y-4">
+              {/* Type Toggle */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setBackgroundType('video')}
+                  className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    backgroundType === 'video'
+                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-transparent hover:bg-zinc-800'
+                  }`}
+                >
+                  Video
+                </button>
+                <button
+                  onClick={() => setBackgroundType('image')}
+                  className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    backgroundType === 'image'
+                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-transparent hover:bg-zinc-800'
+                  }`}
+                >
+                  Image
+                </button>
+              </div>
+
+              {/* Background Navigation */}
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={prevBackground}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span className="text-sm text-zinc-300">{currentBgName}</span>
+                <button
+                  onClick={nextBackground}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Background Opacity */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-zinc-500">Brightness</span>
+                  <span className="text-xs text-zinc-400">{backgroundOpacity}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={backgroundOpacity}
+                  onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
+                  className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-amber-500"
+                />
+              </div>
+
+              {/* Content Dimming */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-zinc-500">Content Dim</span>
+                  <span className="text-xs text-zinc-400">{contentDim}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="80"
+                  value={contentDim}
+                  onChange={(e) => setContentDim(Number(e.target.value))}
+                  className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-amber-500"
+                />
+              </div>
+
+              {/* Theme Toggle */}
+              <div className="flex items-center justify-between pt-2 border-t border-zinc-800/50">
+                <span className="text-xs text-zinc-500">Theme</span>
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
+                  title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                >
+                  {theme === 'dark' ? (
+                    <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Main content */}
-      <div className="relative flex-1 flex overflow-hidden">
+      <div className="relative flex-1 flex overflow-hidden z-10">
         {/* Room sidebar - desktop */}
-        <aside className="hidden lg:flex flex-col w-64 border-r border-zinc-800/50 bg-zinc-900/30">
+        <aside className="content-pane hidden lg:flex flex-col w-64 border-r border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm">
           <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Rooms</h2>
             {user && (
@@ -848,7 +1099,7 @@ export default function LoungePage() {
               initial={{ x: -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
-              className="absolute inset-y-0 left-0 z-20 w-64 border-r border-zinc-800/50 bg-zinc-900/95 backdrop-blur-sm lg:hidden"
+              className="content-pane absolute inset-y-0 left-0 z-20 w-64 border-r border-zinc-800/50 bg-zinc-900/95 backdrop-blur-sm lg:hidden"
             >
               <div className="p-4 border-b border-zinc-800/30 flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -893,7 +1144,7 @@ export default function LoungePage() {
         </AnimatePresence>
 
         {/* Chat area */}
-        <main className="flex-1 flex flex-col min-w-0 relative">
+        <main className="content-pane flex-1 flex flex-col min-w-0 relative bg-zinc-900/20 backdrop-blur-sm">
           {/* Room header */}
           <div className="px-4 py-3 border-b border-zinc-800/30 bg-zinc-900/20">
             <div className="flex items-center justify-between">
