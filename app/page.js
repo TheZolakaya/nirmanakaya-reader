@@ -3996,7 +3996,7 @@ CRITICAL FORMATTING RULES:
         {/* Header - FIXED to match Hub/Lounge (hidden on cosmic landing) */}
         {currentUser && (
         <div
-          className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/60 backdrop-blur-sm text-center py-6 border-b border-zinc-800/30"
+          className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/30 backdrop-blur-sm text-center py-6 border-b border-zinc-800/30"
         >
           <div
             className="cursor-pointer"
