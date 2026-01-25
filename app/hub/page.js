@@ -10,6 +10,49 @@ import ReactMarkdown from 'react-markdown';
 import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 
+// Linkify URLs in text content
+function linkifyContent(text) {
+  if (!text) return null;
+  // URL regex that matches http(s) and standalone domains
+  const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])|(\b(?:www\.)[^\s<]+[^<.,:;"')\]\s])/gi;
+
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = urlRegex.exec(text)) !== null) {
+    // Add text before the URL
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    const url = match[0];
+    const href = url.startsWith('http') ? url : `https://${url}`;
+
+    parts.push(
+      <a
+        key={match.index}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-amber-400 hover:text-amber-300 underline break-all"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {url}
+      </a>
+    );
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
+
 const TOPIC_TYPES = [
   { value: 'general', label: 'General', color: 'text-zinc-400' },
   { value: 'reading', label: 'Readings', color: 'text-rose-400' },
@@ -440,14 +483,47 @@ export default function HubPage() {
                     <h3 className="text-zinc-200 font-medium mb-2">
                       {discussion.title}
                     </h3>
-                    <p className="text-zinc-400 text-sm mb-3">
-                      {discussion.content.slice(0, 300)}
+                    <div className="text-zinc-400 text-sm mb-3 whitespace-pre-wrap">
+                      {linkifyContent(discussion.content.slice(0, 300))}
                       {discussion.content.length > 300 ? '...' : ''}
-                    </p>
+                    </div>
 
                     {/* Reaction buttons for original post */}
-                    <div className="flex items-center gap-1">
-                      {REACTION_EMOJIS.map(emoji => {
+                    <div className="flex items-center gap-2">
+                      {/* Upvote/Downvote */}
+                      <div className="flex items-center gap-1 bg-zinc-800/50 rounded-lg px-1">
+                        <button
+                          onClick={(e) => handleReaction(e, discussion.id, '👍')}
+                          className={`p-1 rounded transition-all ${
+                            userReacted(discussion.reactions, '👍')
+                              ? 'text-amber-400'
+                              : 'text-zinc-500 hover:text-amber-400'
+                          }`}
+                          title="Upvote"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                        <span className={`text-sm font-medium min-w-[1.5rem] text-center ${upvotes > 0 ? 'text-amber-400' : 'text-zinc-500'}`}>
+                          {upvotes}
+                        </span>
+                        <button
+                          onClick={(e) => handleReaction(e, discussion.id, '👎')}
+                          className={`p-1 rounded transition-all ${
+                            userReacted(discussion.reactions, '👎')
+                              ? 'text-indigo-400'
+                              : 'text-zinc-500 hover:text-indigo-400'
+                          }`}
+                          title="Downvote"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                      </div>
+                      {/* Other reactions */}
+                      {REACTION_EMOJIS.filter(e => e !== '👍' && e !== '👎').map(emoji => {
                         const count = reactionCounts[emoji] || 0;
                         const reacted = userReacted(discussion.reactions, emoji);
                         return (
@@ -476,8 +552,8 @@ export default function HubPage() {
                           const replyReactionCounts = getReactionCounts(reply.reactions);
                           return (
                             <div key={reply.id} className="pl-4 border-l-2 border-zinc-700/50">
-                              <div className="text-zinc-300 text-sm mb-2">
-                                {reply.content.slice(0, 300)}
+                              <div className="text-zinc-300 text-sm mb-2 whitespace-pre-wrap">
+                                {linkifyContent(reply.content.slice(0, 300))}
                                 {reply.content.length > 300 ? '...' : ''}
                               </div>
                               <div className="flex items-center gap-2 mb-2 text-xs text-zinc-500">
@@ -490,9 +566,38 @@ export default function HubPage() {
                                 <span>•</span>
                                 <span>{formatDate(reply.created_at)}</span>
                               </div>
-                              {/* Reply reaction buttons */}
-                              <div className="flex items-center gap-1">
-                                {REACTION_EMOJIS.map(emoji => {
+                              {/* Reply vote + reactions */}
+                              <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1 bg-zinc-800/50 rounded px-1">
+                                  <button
+                                    onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👍')}
+                                    className={`p-0.5 rounded transition-all ${
+                                      userReacted(reply.reactions, '👍')
+                                        ? 'text-amber-400'
+                                        : 'text-zinc-500 hover:text-amber-400'
+                                    }`}
+                                  >
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </button>
+                                  <span className={`text-xs font-medium ${(replyReactionCounts['👍'] || 0) > 0 ? 'text-amber-400' : 'text-zinc-500'}`}>
+                                    {replyReactionCounts['👍'] || 0}
+                                  </span>
+                                  <button
+                                    onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👎')}
+                                    className={`p-0.5 rounded transition-all ${
+                                      userReacted(reply.reactions, '👎')
+                                        ? 'text-indigo-400'
+                                        : 'text-zinc-500 hover:text-indigo-400'
+                                    }`}
+                                  >
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                {REACTION_EMOJIS.filter(e => e !== '👍' && e !== '👎').map(emoji => {
                                   const count = replyReactionCounts[emoji] || 0;
                                   const reacted = userReacted(reply.reactions, emoji);
                                   return (
@@ -547,11 +652,40 @@ export default function HubPage() {
                                   </div>
                                   {!isCollapsed && (
                                     <>
-                                      <div className="text-zinc-300 text-sm mt-1 mb-2">
-                                        {reply.content}
+                                      <div className="text-zinc-300 text-sm mt-1 mb-2 whitespace-pre-wrap">
+                                        {linkifyContent(reply.content)}
                                       </div>
-                                      <div className="flex items-center gap-1">
-                                        {REACTION_EMOJIS.map(emoji => {
+                                      <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-1 bg-zinc-800/50 rounded px-1">
+                                          <button
+                                            onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👍')}
+                                            className={`p-0.5 rounded transition-all ${
+                                              userReacted(reply.reactions, '👍')
+                                                ? 'text-amber-400'
+                                                : 'text-zinc-500 hover:text-amber-400'
+                                            }`}
+                                          >
+                                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                              <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                            </svg>
+                                          </button>
+                                          <span className={`text-xs font-medium ${(replyReactionCounts['👍'] || 0) > 0 ? 'text-amber-400' : 'text-zinc-500'}`}>
+                                            {replyReactionCounts['👍'] || 0}
+                                          </span>
+                                          <button
+                                            onClick={(e) => handleReplyReaction(e, reply.id, discussion.id, '👎')}
+                                            className={`p-0.5 rounded transition-all ${
+                                              userReacted(reply.reactions, '👎')
+                                                ? 'text-indigo-400'
+                                                : 'text-zinc-500 hover:text-indigo-400'
+                                            }`}
+                                          >
+                                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                              <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                            </svg>
+                                          </button>
+                                        </div>
+                                        {REACTION_EMOJIS.filter(e => e !== '👍' && e !== '👎').map(emoji => {
                                           const count = replyReactionCounts[emoji] || 0;
                                           const reacted = userReacted(reply.reactions, emoji);
                                           return (
