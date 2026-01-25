@@ -9,13 +9,21 @@ export default function DocsLayout({ children }) {
       {/* Simple footer */}
       <footer className="border-t border-zinc-800 px-4 py-6 mt-12">
         <div className="max-w-4xl mx-auto text-center text-zinc-500 text-xs">
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 flex-wrap">
             <a href="/guide" className="hover:text-zinc-400 transition-colors">
               Guide
             </a>
             <span>•</span>
             <a href="/about" className="hover:text-zinc-400 transition-colors">
               About
+            </a>
+            <span>•</span>
+            <a href="/privacy" className="hover:text-zinc-400 transition-colors">
+              Privacy
+            </a>
+            <span>•</span>
+            <a href="/terms" className="hover:text-zinc-400 transition-colors">
+              Terms
             </a>
             <span>•</span>
             <a
