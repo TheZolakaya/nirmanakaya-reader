@@ -135,7 +135,7 @@ import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import Glistener from '../components/reader/Glistener.js';
 import CardImage from '../components/reader/CardImage.js';
 import Minimap from '../components/reader/Minimap.js';
-import { getHomeArchetype, getCardType } from '../lib/cardImages.js';
+import { getHomeArchetype, getCardType, getCardImagePath } from '../lib/cardImages.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 import HelpTooltip from '../components/shared/HelpTooltip.js';
 import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
@@ -725,6 +725,7 @@ export default function NirmanakaReader() {
   const [selectedVideo, setSelectedVideo] = useState(0); // Index into videoBackgrounds (0 = cosmos default)
   const [selectedImage, setSelectedImage] = useState(0); // Index into imageBackgrounds
   const [showBgLabel, setShowBgLabel] = useState(false); // Show label on hover
+  const [showCardImages, setShowCardImages] = useState(true); // Show card art as background in signature cards
 
   const videoBackgrounds = [
     { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
@@ -1181,6 +1182,7 @@ export default function NirmanakaReader() {
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
+        if (prefs.showCardImages !== undefined) setShowCardImages(prefs.showCardImages);
         // Reading defaults
         if (prefs.defaultDepth !== undefined) setDefaultDepth(prefs.defaultDepth);
         if (prefs.defaultExpanded !== undefined) setDefaultExpanded(prefs.defaultExpanded);
@@ -1229,6 +1231,7 @@ export default function NirmanakaReader() {
       backgroundType,
       selectedVideo,
       selectedImage,
+      showCardImages,
       // Reading defaults
       defaultDepth,
       defaultExpanded
@@ -1238,7 +1241,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3728,7 +3731,7 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div
-      className={`min-h-screen ${theme === 'light' ? 'bg-stone-100 text-zinc-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
+      className={`min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
       data-theme={theme}
       onClick={handleMainClick}
     >
@@ -3871,6 +3874,20 @@ CRITICAL FORMATTING RULES:
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                       </svg>
                     )}
+                  </button>
+                  {/* Card images toggle */}
+                  <button
+                    onClick={() => setShowCardImages(!showCardImages)}
+                    className={`flex items-center justify-center w-8 h-8 bg-zinc-900/80 backdrop-blur-sm rounded-lg border transition-all ${
+                      showCardImages
+                        ? 'border-emerald-600/50 text-emerald-400'
+                        : 'border-zinc-700/50 text-zinc-500 hover:text-zinc-300'
+                    }`}
+                    title={showCardImages ? 'Hide card artwork' : 'Show card artwork'}
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
                   </button>
                 </div>
               )}
