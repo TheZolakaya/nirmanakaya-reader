@@ -452,31 +452,43 @@ export default function HubPage() {
         {/* Main NIRMANAKAYA header */}
         <div className="content-pane text-center py-6 border-b border-zinc-800/30 bg-zinc-900/60 backdrop-blur-sm">
           <Link href="/" className="inline-block">
-            <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 animate-rainbow-cycle-header hover:opacity-80 transition-opacity">NIRMANAKAYA</h1>
+            <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 hover:opacity-80 transition-opacity">
+              <span className="rainbow-letter rainbow-letter-0">N</span>
+              <span className="rainbow-letter rainbow-letter-1">I</span>
+              <span className="rainbow-letter rainbow-letter-2">R</span>
+              <span className="rainbow-letter rainbow-letter-3">M</span>
+              <span className="rainbow-letter rainbow-letter-4">A</span>
+              <span className="rainbow-letter rainbow-letter-5">N</span>
+              <span className="rainbow-letter rainbow-letter-6">A</span>
+              <span className="rainbow-letter rainbow-letter-7">K</span>
+              <span className="rainbow-letter rainbow-letter-8">A</span>
+              <span className="rainbow-letter rainbow-letter-9">Y</span>
+              <span className="rainbow-letter rainbow-letter-10">A</span>
+            </h1>
           </Link>
-          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
+          <p className="text-zinc-300 text-sm tracking-wide font-light">Community Hub</p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
-          {/* Nav Links */}
+          {/* Nav Links - rainbow hover colors, current section first */}
           <div className="flex justify-center gap-2 mt-3 text-xs">
-            <Link href="/" className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all">
+            <Link href="/" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all">
               Reader
             </Link>
-            <Link href="/guide" className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all">
+            <Link href="/guide" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all">
               Guide
             </Link>
-            <Link href="/about" className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all">
+            <Link href="/about" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all">
               About
             </Link>
-            <Link href="/lounge" className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-emerald-400 hover:border-emerald-600/30 transition-all">
+            <Link href="/lounge" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all">
               Lounge
             </Link>
-            <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all">
+            <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all">
               Council
             </Link>
           </div>
         </div>
 
-        {/* Sort tabs + Title + New Post */}
+        {/* Sort tabs + New Post */}
         <div className="content-pane border-b border-zinc-800/30 bg-zinc-900/30 backdrop-blur-sm">
           <div className="max-w-4xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-3">
@@ -501,20 +513,14 @@ export default function HubPage() {
                   </button>
                 ))}
               </div>
-              {/* Centered title */}
-              <div className="text-center">
-                <h2 className="text-lg font-light text-zinc-200">Community Hub</h2>
-              </div>
               {/* New Post button */}
-              {user ? (
+              {user && (
                 <button
                   onClick={() => setShowNewPost(true)}
                   className="px-4 py-2 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors text-sm border border-amber-600/30"
                 >
                   New Post
                 </button>
-              ) : (
-                <div className="w-[90px]" /> // Spacer for centering
               )}
             </div>
             <div className="flex flex-wrap gap-2">
@@ -566,18 +572,21 @@ export default function HubPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {sortedDiscussions.map(discussion => {
+              {sortedDiscussions.map((discussion, index) => {
                 const reactionCounts = getReactionCounts(discussion.reactions);
                 const topReplies = discussion.topReplies || [];
                 const totalReplies = discussion.reply_count || 0;
                 const isExpanded = expandedThreads[discussion.id];
                 const allReplies = threadReplies[discussion.id] || [];
                 const upvotes = reactionCounts['👍'] || 0;
+                const isEven = index % 2 === 0;
 
                 return (
                   <div
                     key={discussion.id}
-                    className="content-pane bg-zinc-900/60 border border-zinc-800/50 rounded-lg hover:border-zinc-700/50 transition-colors overflow-hidden backdrop-blur-sm"
+                    className={`content-pane border border-zinc-800/50 rounded-lg hover:border-zinc-700/50 transition-colors overflow-hidden backdrop-blur-sm ${
+                      isEven ? 'bg-zinc-900/60' : 'bg-zinc-900/40'
+                    }`}
                   >
                     {/* Original post */}
                     <div className="p-4">
@@ -768,10 +777,6 @@ export default function HubPage() {
 
                     {/* Footer - actions */}
                     <div className="border-t border-zinc-800/50 px-4 py-2 flex items-center gap-4 bg-zinc-900/20">
-                      <span className="text-sm text-zinc-500 flex items-center gap-1">
-                        <span className="text-amber-500">▲</span>
-                        {upvotes}
-                      </span>
                       <button
                         onClick={() => toggleThread(discussion.id)}
                         className="text-zinc-400 hover:text-zinc-200 text-sm transition-colors flex items-center gap-1"

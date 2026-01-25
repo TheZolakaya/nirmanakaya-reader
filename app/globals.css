@@ -70,6 +70,23 @@ body {
   animation: rainbow-cycle 16s ease-in-out infinite;
 }
 
+/* Per-letter rainbow animation with staggered delays (~1s per letter) */
+.rainbow-letter {
+  animation: rainbow-cycle 16s ease-in-out infinite;
+  display: inline-block;
+}
+.rainbow-letter-0 { animation-delay: 0s; }
+.rainbow-letter-1 { animation-delay: -1s; }
+.rainbow-letter-2 { animation-delay: -2s; }
+.rainbow-letter-3 { animation-delay: -3s; }
+.rainbow-letter-4 { animation-delay: -4s; }
+.rainbow-letter-5 { animation-delay: -5s; }
+.rainbow-letter-6 { animation-delay: -6s; }
+.rainbow-letter-7 { animation-delay: -7s; }
+.rainbow-letter-8 { animation-delay: -8s; }
+.rainbow-letter-9 { animation-delay: -9s; }
+.rainbow-letter-10 { animation-delay: -10s; }
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }

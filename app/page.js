@@ -3999,24 +3999,36 @@ CRITICAL FORMATTING RULES:
           className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 animate-rainbow-cycle-slow">NIRMANAKAYA</h1>
+          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
+            <span className="rainbow-letter rainbow-letter-0">N</span>
+            <span className="rainbow-letter rainbow-letter-1">I</span>
+            <span className="rainbow-letter rainbow-letter-2">R</span>
+            <span className="rainbow-letter rainbow-letter-3">M</span>
+            <span className="rainbow-letter rainbow-letter-4">A</span>
+            <span className="rainbow-letter rainbow-letter-5">N</span>
+            <span className="rainbow-letter rainbow-letter-6">A</span>
+            <span className="rainbow-letter rainbow-letter-7">K</span>
+            <span className="rainbow-letter rainbow-letter-8">A</span>
+            <span className="rainbow-letter rainbow-letter-9">Y</span>
+            <span className="rainbow-letter rainbow-letter-10">A</span>
+          </h1>
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
-          {/* Nav Links */}
+          {/* Nav Links - rainbow hover colors */}
           <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
               data-help="nav-hub"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
             >
               Community
             </a>
             <a
               href="/lounge"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-600/50 hover:bg-zinc-800/90 transition-all flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Lounge
@@ -4028,7 +4040,7 @@ CRITICAL FORMATTING RULES:
               href="/guide"
               onClick={(e) => handleHelpClick('nav-guide', e)}
               data-help="nav-guide"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
             >
               Guide
             </a>
@@ -4036,7 +4048,7 @@ CRITICAL FORMATTING RULES:
               href="/about"
               onClick={(e) => handleHelpClick('nav-about', e)}
               data-help="nav-about"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all"
             >
               About
             </a>
@@ -4044,7 +4056,7 @@ CRITICAL FORMATTING RULES:
               href="/council"
               onClick={(e) => handleHelpClick('nav-council', e)}
               data-help="nav-council"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
             >
               Council
             </a>
@@ -4052,7 +4064,7 @@ CRITICAL FORMATTING RULES:
               href="/map"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
             >
               Map
             </a>
@@ -4110,14 +4122,14 @@ CRITICAL FORMATTING RULES:
                     </p>
                   </div>
 
-                  {/* Title with rainbow cycling animation */}
+                  {/* Title with rainbow cycling animation - 1s per letter variance */}
                   <h1 className="text-5xl sm:text-6xl font-extralight tracking-widest mb-1 drop-shadow-lg">
                     {'NIRMANAKAYA'.split('').map((letter, i) => (
                       <span
                         key={i}
-                        className="inline-block animate-rainbow-cycle"
+                        className="rainbow-letter"
                         style={{
-                          animationDelay: `${i * 0.15}s`,
+                          animationDelay: `${-i}s`,
                           textShadow: '0 0 25px currentColor'
                         }}
                       >
