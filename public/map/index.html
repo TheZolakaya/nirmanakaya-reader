@@ -33,6 +33,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-top: 140px; /* Space for fixed header */
         }
 
         .map-wrapper {
@@ -279,8 +280,8 @@
             text-align: center;
             z-index: 500;
             padding: 1.5rem 0;
-            background: rgba(9, 9, 11, 0.5);
-            backdrop-filter: blur(8px);
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(4px);
             border-bottom: 1px solid rgba(63, 63, 70, 0.3);
         }
         .page-header h1 {
@@ -326,6 +327,7 @@
             color: #d4d4d8;
             text-decoration: none;
             transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, sans-serif;
         }
         .nav-links a:hover {
             border-color: rgba(var(--hover-color), 0.5);
@@ -333,9 +335,10 @@
         }
         .nav-links a.nav-reader:hover { --hover-color: 251, 113, 133; }
         .nav-links a.nav-community:hover { --hover-color: 251, 191, 36; }
+        .nav-links a.nav-lounge:hover { --hover-color: 167, 139, 250; }
         .nav-links a.nav-guide:hover { --hover-color: 52, 211, 153; }
         .nav-links a.nav-about:hover { --hover-color: 34, 211, 238; }
-        .nav-links a.nav-lounge:hover { --hover-color: 167, 139, 250; }
+        .nav-links a.nav-council:hover { --hover-color: 139, 92, 246; }
 
         /* Card name labels - white rounded boxes on the card */
         .card-label {
@@ -841,6 +844,7 @@
             <a href="/lounge" class="nav-lounge">Lounge</a>
             <a href="/guide" class="nav-guide">Guide</a>
             <a href="/about" class="nav-about">About</a>
+            <a href="/council" class="nav-council">Council</a>
         </nav>
     </div>
 

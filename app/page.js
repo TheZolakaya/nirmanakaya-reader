@@ -4015,7 +4015,6 @@ CRITICAL FORMATTING RULES:
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
-          <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
           {/* Nav Links - rainbow hover colors */}
           <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
             <a

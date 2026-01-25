@@ -547,6 +547,9 @@ export default function HubPage() {
             <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all">
               Council
             </Link>
+            <a href="/map" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all">
+              Map
+            </a>
           </div>
         </div>
 

@@ -914,6 +914,14 @@ export default function LoungePage() {
           >
             Council
           </Link>
+          <a
+            href="/map"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
+          >
+            Map
+          </a>
         </div>
       </div>
 
