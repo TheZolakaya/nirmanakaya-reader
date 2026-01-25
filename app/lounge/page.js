@@ -722,7 +722,7 @@ export default function LoungePage() {
   }
 
   return (
-    <div className="bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden" style={{ height: 'calc(100dvh - 130px)' }}>
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col">
       {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950" />
@@ -730,21 +730,56 @@ export default function LoungePage() {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-zinc-800/50 bg-zinc-900/50 backdrop-blur-sm">
+      {/* Main NIRMANAKAYA header */}
+      <div className="relative z-10 text-center py-6 border-b border-zinc-800/30 bg-zinc-900/50 backdrop-blur-sm">
+        <Link href="/" className="inline-block">
+          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 animate-rainbow-cycle-header hover:opacity-80 transition-opacity">NIRMANAKAYA</h1>
+        </Link>
+        <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">Consciousness Architecture Reader</p>
+        <p className="text-zinc-500 text-[0.625rem] mt-0.5">v{VERSION} alpha</p>
+        {/* Nav Links */}
+        <div className="flex justify-center gap-2 mt-3 text-xs">
+          <Link
+            href="/"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Reader
+          </Link>
+          <Link
+            href="/hub"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Community
+          </Link>
+          <Link
+            href="/guide"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Guide
+          </Link>
+          <Link
+            href="/about"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            About
+          </Link>
+          <Link
+            href="/council"
+            className="px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+          >
+            Council
+          </Link>
+        </div>
+      </div>
+
+      {/* Lounge sub-header */}
+      <header className="relative z-10 border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="text-zinc-400 hover:text-zinc-200 transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-            </Link>
-            <div>
-              <h1 className="text-lg font-light tracking-wide text-zinc-100">
-                The Lounge
-              </h1>
-              <p className="text-xs text-zinc-600">A gathering place for seekers</p>
-            </div>
+          <div>
+            <h2 className="text-lg font-light tracking-wide text-zinc-100">
+              The Lounge
+            </h2>
+            <p className="text-xs text-zinc-600">A gathering place for seekers</p>
           </div>
 
           <div className="flex items-center gap-3">
