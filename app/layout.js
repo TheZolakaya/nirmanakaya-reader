@@ -11,26 +11,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {children}
-        {/* SEO footer - always in DOM for crawlers, visually subtle */}
+      <body className="antialiased" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <main style={{ flex: 1 }}>
+          {children}
+        </main>
+        {/* SEO footer - standard footer for crawlers */}
         <footer style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
           textAlign: 'center',
-          padding: '8px',
-          background: 'transparent',
-          zIndex: 1,
-          pointerEvents: 'none'
+          padding: '16px',
+          backgroundColor: '#18181b',
+          borderTop: '1px solid #27272a'
         }}>
-          <nav style={{ pointerEvents: 'auto' }}>
-            <span style={{ color: '#52525b', fontSize: '10px', marginRight: '8px' }}>
-              Nirmanakaya: AI oracle for exploring patterns of meaning
-            </span>
-            <a href="https://www.nirmanakaya.com/privacy" style={{ color: '#52525b', fontSize: '10px', marginRight: '8px', textDecoration: 'underline' }}>Privacy Policy</a>
-            <a href="https://www.nirmanakaya.com/terms" style={{ color: '#52525b', fontSize: '10px', textDecoration: 'underline' }}>Terms of Service</a>
+          <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>
+            Nirmanakaya: AI oracle for exploring patterns of meaning
+          </p>
+          <nav>
+            <a href="https://www.nirmanakaya.com/privacy" style={{ color: '#71717a', fontSize: '12px', marginRight: '16px', textDecoration: 'underline' }}>Privacy Policy</a>
+            <a href="https://www.nirmanakaya.com/terms" style={{ color: '#71717a', fontSize: '12px', textDecoration: 'underline' }}>Terms of Service</a>
           </nav>
         </footer>
       </body>
