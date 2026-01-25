@@ -851,8 +851,8 @@ export default function LoungePage() {
         />
       )}
 
-      {/* Background controls toggle button - top left floating */}
-      <div className="fixed top-3 left-3 z-50">
+      {/* Background controls toggle button - above fixed header */}
+      <div className="fixed top-3 left-3 z-[60]">
         <button
           onClick={() => setShowBgControls(!showBgControls)}
           className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
@@ -864,8 +864,8 @@ export default function LoungePage() {
         </button>
       </div>
 
-      {/* Main NIRMANAKAYA header */}
-      <div className="content-pane relative z-10 text-center py-6 border-b border-zinc-800/30 bg-zinc-900/50 backdrop-blur-sm">
+      {/* Main NIRMANAKAYA header - FIXED */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/60 backdrop-blur-sm text-center py-6 border-b border-zinc-800/30">
         <Link href="/" className="inline-block">
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 hover:opacity-80 transition-opacity">
             <span className="rainbow-letter rainbow-letter-0">N</span>
@@ -925,6 +925,9 @@ export default function LoungePage() {
         </div>
       </div>
 
+      {/* Spacer for fixed header */}
+      <div className="pt-36"></div>
+
       {/* Lounge sub-header */}
       <header className="content-pane relative z-10 border-b border-zinc-800/50 bg-zinc-900/30 backdrop-blur-sm">
         <div className="flex items-center justify-between px-4 py-3">
@@ -960,14 +963,14 @@ export default function LoungePage() {
         </div>
       </header>
 
-      {/* Floating Background Controls Panel */}
+      {/* Floating Background Controls Panel - above fixed header */}
       <AnimatePresence>
         {showBgControls && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
+            className="fixed top-14 left-3 z-[60] w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
           >
             <div className="p-4 border-b border-zinc-800/50">
               <div className="flex items-center justify-between">

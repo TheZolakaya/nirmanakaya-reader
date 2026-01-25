@@ -379,8 +379,8 @@ export default function HubPage() {
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
 
-        {/* Background controls toggle button */}
-        <div className="fixed top-3 left-3 z-50">
+        {/* Background controls toggle button - above fixed header */}
+        <div className="fixed top-3 left-3 z-[60]">
           <button
             onClick={() => setShowBgControls(!showBgControls)}
             className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
@@ -392,9 +392,9 @@ export default function HubPage() {
           </button>
         </div>
 
-        {/* Floating Background Controls Panel */}
+        {/* Floating Background Controls Panel - above fixed header */}
         {showBgControls && (
-          <div className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm">
+          <div className="fixed top-14 left-3 z-[60] w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm">
             <div className="p-4 border-b border-zinc-800/50">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-medium text-zinc-200">Background</h3>

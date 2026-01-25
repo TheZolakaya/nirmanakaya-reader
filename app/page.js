@@ -3993,12 +3993,15 @@ CRITICAL FORMATTING RULES:
           </>
         )}
 
-        {/* Header - click to scroll to top (hidden on cosmic landing) */}
+        {/* Header - FIXED to match Hub/Lounge (hidden on cosmic landing) */}
         {currentUser && (
         <div
-          className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/60 backdrop-blur-sm text-center py-6 border-b border-zinc-800/30"
         >
+          <div
+            className="cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
             <span className="rainbow-letter rainbow-letter-0">N</span>
             <span className="rainbow-letter rainbow-letter-1">I</span>
@@ -4012,9 +4015,10 @@ CRITICAL FORMATTING RULES:
             <span className="rainbow-letter rainbow-letter-9">Y</span>
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
-          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
+          <p className="text-zinc-300 text-sm tracking-wide font-light">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
+          </div>
           {/* Nav Links - rainbow hover colors */}
           <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
@@ -4081,6 +4085,9 @@ CRITICAL FORMATTING RULES:
           )}
         </div>
         )}
+
+        {/* Spacer for fixed header */}
+        {currentUser && <div className="pt-36"></div>}
 
         {/* Controls */}
         {!draws && (
