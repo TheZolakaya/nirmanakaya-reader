@@ -6732,12 +6732,17 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </a>
             <span className="text-zinc-800">•</span>
             <a
-              href="https://nirmanakaya.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/privacy"
               className="hover:text-zinc-400 transition-colors"
             >
-              Nirmanakaya.com
+              Privacy
+            </a>
+            <span className="text-zinc-800">•</span>
+            <a
+              href="/terms"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              Terms
             </a>
           </div>
           <p className="text-center text-zinc-600 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>

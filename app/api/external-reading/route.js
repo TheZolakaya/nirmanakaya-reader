@@ -427,8 +427,8 @@ export async function GET(request) {
           },
           statusCodes: {
             '1': 'Balanced',
-            '2': 'Too Little (vertical correction)',
-            '3': 'Too Much (diagonal correction)',
+            '2': 'Too Much (diagonal correction)',
+            '3': 'Too Little (vertical correction)',
             '4': 'Unacknowledged (reduction pair)'
           }
         }
