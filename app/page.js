@@ -3922,13 +3922,13 @@ CRITICAL FORMATTING RULES:
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
               data-help="nav-hub"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
             >
               Community
             </a>
             <a
               href="/lounge"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-emerald-400 hover:border-emerald-600/30 transition-all flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-600/50 hover:bg-zinc-800/90 transition-all flex items-center gap-1.5"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Lounge
@@ -3940,7 +3940,7 @@ CRITICAL FORMATTING RULES:
               href="/guide"
               onClick={(e) => handleHelpClick('nav-guide', e)}
               data-help="nav-guide"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
             >
               Guide
             </a>
@@ -3948,7 +3948,7 @@ CRITICAL FORMATTING RULES:
               href="/about"
               onClick={(e) => handleHelpClick('nav-about', e)}
               data-help="nav-about"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
             >
               About
             </a>
@@ -3956,7 +3956,7 @@ CRITICAL FORMATTING RULES:
               href="/council"
               onClick={(e) => handleHelpClick('nav-council', e)}
               data-help="nav-council"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
             >
               Council
             </a>
@@ -3964,7 +3964,7 @@ CRITICAL FORMATTING RULES:
               href="/map"
               target="_blank"
               rel="noopener noreferrer"
-              className="content-pane px-3 py-1.5 rounded bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 hover:text-amber-400 hover:border-amber-600/30 transition-all"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-600/50 hover:bg-zinc-800/90 transition-all"
             >
               Map
             </a>
