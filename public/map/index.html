@@ -803,6 +803,109 @@
             outline-color: #00ff00;
         }
 
+        /* Text size slider - positioned top right */
+        .text-size-toggle {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 600;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(24, 24, 27, 0.8);
+            border: 1px solid rgba(82, 82, 91, 0.5);
+            border-radius: 8px;
+            color: #71717a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+        .text-size-toggle:hover {
+            color: #d4d4d8;
+            background: rgba(39, 39, 42, 1);
+        }
+        .text-size-panel {
+            position: fixed;
+            top: 52px;
+            right: 12px;
+            z-index: 600;
+            width: 200px;
+            background: rgba(24, 24, 27, 0.95);
+            border: 1px solid rgba(63, 63, 70, 0.5);
+            border-radius: 8px;
+            padding: 16px;
+            display: none;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+        .text-size-panel.open {
+            display: block;
+        }
+        .text-size-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .text-size-header span {
+            font-size: 0.75rem;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .text-size-reset {
+            font-size: 0.75rem;
+            color: #71717a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .text-size-reset:hover {
+            color: #d4d4d8;
+        }
+        .text-size-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .text-size-slider-row span {
+            color: #71717a;
+        }
+        .text-size-slider-row span:first-child {
+            font-size: 0.75rem;
+        }
+        .text-size-slider-row span:last-child {
+            font-size: 1.125rem;
+        }
+        .text-size-slider {
+            flex: 1;
+            height: 8px;
+            background: #3f3f46;
+            border-radius: 4px;
+            appearance: none;
+            cursor: pointer;
+        }
+        .text-size-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        .text-size-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        .text-size-value {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #71717a;
+        }
+
     </style>
 </head>
 <body>
@@ -825,6 +928,29 @@
             <a href="/lounge" class="nav-lounge">Lounge</a>
             <a href="/council" class="nav-council">Council</a>
         </nav>
+    </div>
+
+    <!-- Text size slider toggle button -->
+    <button class="text-size-toggle" id="text-size-toggle" title="Adjust text size">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+        </svg>
+    </button>
+
+    <!-- Text size slider panel -->
+    <div class="text-size-panel" id="text-size-panel">
+        <div class="text-size-header">
+            <span>Text Size</span>
+            <button class="text-size-reset" id="text-size-reset">Reset</button>
+        </div>
+        <div class="text-size-slider-row">
+            <span>A</span>
+            <input type="range" class="text-size-slider" id="text-size-slider" min="80" max="120" value="100" step="5">
+            <span>A</span>
+        </div>
+        <div class="text-size-value" id="text-size-value">100%</div>
     </div>
 
     <!-- Background controls toggle button -->
@@ -946,6 +1072,17 @@
     </div>
 
 <script>
+// ============================================
+// TEXT SIZE SLIDER - Apply saved preference immediately
+// ============================================
+(function initTextScale() {
+    const saved = localStorage.getItem('nirmanakaya-text-scale');
+    const scale = saved ? parseFloat(saved) : 1;
+    document.documentElement.style.setProperty('--text-scale', scale);
+    // Apply to root font size for consistent scaling
+    document.documentElement.style.fontSize = (16 * scale) + 'px';
+})();
+
 // ============================================
 // CONFIGURATION
 // ============================================
@@ -2492,6 +2629,56 @@ videoToggle.addEventListener('change', () => {
 document.addEventListener('click', (e) => {
     if (!bgControlsPanel.contains(e.target) && !bgControlsToggle.contains(e.target)) {
         bgControlsPanel.classList.remove('visible');
+    }
+});
+
+// ============================================
+// TEXT SIZE SLIDER CONTROLS
+// ============================================
+const textSizeToggle = document.getElementById('text-size-toggle');
+const textSizePanel = document.getElementById('text-size-panel');
+const textSizeSlider = document.getElementById('text-size-slider');
+const textSizeValue = document.getElementById('text-size-value');
+const textSizeReset = document.getElementById('text-size-reset');
+
+// Load saved value
+const savedScale = localStorage.getItem('nirmanakaya-text-scale');
+if (savedScale) {
+    const percent = Math.round(parseFloat(savedScale) * 100);
+    textSizeSlider.value = percent;
+    textSizeValue.textContent = percent + '%';
+}
+
+// Toggle panel
+textSizeToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    textSizePanel.classList.toggle('open');
+    bgControlsPanel.classList.remove('visible'); // Close bg panel
+});
+
+// Slider change
+textSizeSlider.addEventListener('input', () => {
+    const percent = parseInt(textSizeSlider.value);
+    const scale = percent / 100;
+    textSizeValue.textContent = percent + '%';
+    document.documentElement.style.setProperty('--text-scale', scale);
+    document.documentElement.style.fontSize = (16 * scale) + 'px';
+    localStorage.setItem('nirmanakaya-text-scale', scale);
+});
+
+// Reset button
+textSizeReset.addEventListener('click', () => {
+    textSizeSlider.value = 100;
+    textSizeValue.textContent = '100%';
+    document.documentElement.style.setProperty('--text-scale', 1);
+    document.documentElement.style.fontSize = '16px';
+    localStorage.removeItem('nirmanakaya-text-scale');
+});
+
+// Close panel when clicking outside
+document.addEventListener('click', (e) => {
+    if (!textSizePanel.contains(e.target) && !textSizeToggle.contains(e.target)) {
+        textSizePanel.classList.remove('open');
     }
 });
 </script>
