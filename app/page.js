@@ -3993,6 +3993,95 @@ CRITICAL FORMATTING RULES:
           </>
         )}
 
+        {/* Header - click to scroll to top (hidden on cosmic landing) */}
+        {currentUser && (
+        <div
+          className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
+            <span className="rainbow-letter rainbow-letter-0">N</span>
+            <span className="rainbow-letter rainbow-letter-1">I</span>
+            <span className="rainbow-letter rainbow-letter-2">R</span>
+            <span className="rainbow-letter rainbow-letter-3">M</span>
+            <span className="rainbow-letter rainbow-letter-4">A</span>
+            <span className="rainbow-letter rainbow-letter-5">N</span>
+            <span className="rainbow-letter rainbow-letter-6">A</span>
+            <span className="rainbow-letter rainbow-letter-7">K</span>
+            <span className="rainbow-letter rainbow-letter-8">A</span>
+            <span className="rainbow-letter rainbow-letter-9">Y</span>
+            <span className="rainbow-letter rainbow-letter-10">A</span>
+          </h1>
+          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
+            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
+          </p>
+          {/* Nav Links - rainbow hover colors */}
+          <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
+            <a
+              href="/hub"
+              onClick={(e) => handleHelpClick('nav-hub', e)}
+              data-help="nav-hub"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
+            >
+              Community
+            </a>
+            <a
+              href="/lounge"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Lounge
+              {loungeOnlineCount > 0 && (
+                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
+              )}
+            </a>
+            <a
+              href="/guide"
+              onClick={(e) => handleHelpClick('nav-guide', e)}
+              data-help="nav-guide"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
+            >
+              Guide
+            </a>
+            <a
+              href="/about"
+              onClick={(e) => handleHelpClick('nav-about', e)}
+              data-help="nav-about"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all"
+            >
+              About
+            </a>
+            <a
+              href="/council"
+              onClick={(e) => handleHelpClick('nav-council', e)}
+              data-help="nav-council"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
+            >
+              Council
+            </a>
+            <a
+              href="/map"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
+            >
+              Map
+            </a>
+          </div>
+          {helpPopover === 'intro' && (
+            <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
+              <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
+                <p className="text-zinc-300 text-sm leading-relaxed">
+                  The Nirmanakaya is both mirror and forge. Bring a question or declare an intention —
+                  the draw finds what's ready to be seen. Where you are, what's moving, what might need attention.
+                </p>
+                <button onClick={() => setHelpPopover(null)} className="mt-3 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center">Got it</button>
+              </div>
+            </div>
+          )}
+        </div>
+        )}
+
         {/* Controls */}
         {!draws && (
           <>
