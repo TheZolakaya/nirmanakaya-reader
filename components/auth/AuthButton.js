@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import { supabase, signOut, getUser, getUnreadCount, isAdmin } from '../../lib/supabase';
 
-export default function AuthButton({ onAuthChange }) {
+export default function AuthButton({ onAuthChange, buttonClassName }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -80,9 +80,15 @@ export default function AuthButton({ onAuthChange }) {
     return (
       <button
         onClick={handleSignIn}
-        className="px-3 py-1.5 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors"
+        className={buttonClassName || "px-3 py-1.5 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors"}
+        title="Sign In"
       >
-        Sign In
+        {buttonClassName ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        ) : 'Sign In'}
       </button>
     );
   }
@@ -92,9 +98,15 @@ export default function AuthButton({ onAuthChange }) {
     <div className="relative">
       <button
         onClick={() => setShowMenu(!showMenu)}
-        className="flex items-center gap-2 hover:opacity-80 transition-opacity relative"
+        className={buttonClassName || "flex items-center gap-2 hover:opacity-80 transition-opacity relative"}
+        title={user.user_metadata?.full_name || user.email}
       >
-        {user.user_metadata?.avatar_url ? (
+        {buttonClassName ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        ) : user.user_metadata?.avatar_url ? (
           <img
             src={user.user_metadata.avatar_url}
             alt="Avatar"

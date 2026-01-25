@@ -3943,52 +3943,9 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
             )}
-            {/* Help button */}
-            <div className="fixed top-14 right-3 z-50">
-              <button
-                onClick={() => helpMode ? exitHelpMode() : enterHelpMode()}
-                className={`help-trigger w-8 h-8 rounded-lg backdrop-blur-sm text-sm font-medium flex items-center justify-center transition-all ${
-                  helpMode
-                    ? 'bg-amber-500 text-black border border-amber-400 shadow-lg shadow-amber-500/30'
-                    : 'bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 text-[#f59e0b] hover:text-[#fbbf24]'
-                }`}
-                title={helpMode ? 'Exit help mode' : 'Enter help mode'}
-              >
-                ?
-              </button>
-              {helpPopover === 'unified' && (
-                <div className="help-popover-content absolute top-full mt-2 right-0 z-50 w-80 sm:w-96">
-                  <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
-                    <div className="space-y-4 text-sm">
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Modes</div>
-                        <div className="space-y-2">
-                          <div><span className="text-zinc-200 font-medium">Reflect:</span> <span className="text-zinc-400 text-xs">Static positions you choose. See how specific territories are functioning.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Discover:</span> <span className="text-zinc-400 text-xs">Randomized positions. What the architecture reveals as most active right now.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Forge:</span> <span className="text-zinc-400 text-xs">Declare intentions into a randomized position. Shape rather than observe.</span></div>
-                          <div><span className="text-zinc-200 font-medium">Explore:</span> <span className="text-zinc-400 text-xs">DTP algorithm. Recursive diagnostic that traces signature chains.</span></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Spreads</div>
-                        <div className="space-y-2">
-                          <div><span className="text-zinc-200 font-medium">Single:</span> <span className="text-zinc-400 text-xs">One position, deep focus</span></div>
-                          <div><span className="text-zinc-200 font-medium">Triad:</span> <span className="text-zinc-400 text-xs">Three positions, triangulated view</span></div>
-                          <div><span className="text-zinc-200 font-medium">Pentad:</span> <span className="text-zinc-400 text-xs">Five positions, comprehensive spread</span></div>
-                          <div><span className="text-zinc-200 font-medium">Septad:</span> <span className="text-zinc-400 text-xs">Seven positions, full diagnostic</span></div>
-                        </div>
-                      </div>
-                      <div className="pt-2 border-t border-zinc-700">
-                        <a href="/guide" className="text-amber-400 hover:text-amber-300 text-xs">Full Guide →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Auth button */}
-            <div className="fixed top-24 right-3 z-50" onClick={(e) => e.stopPropagation()}>
-              <AuthButton onAuthChange={setCurrentUser} />
+            {/* Auth button - styled like TextSizeSlider but purple, next to text size slider */}
+            <div className="fixed top-3 right-12 z-50" onClick={(e) => e.stopPropagation()}>
+              <AuthButton onAuthChange={setCurrentUser} buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
             </div>
           </>
         )}
@@ -3996,7 +3953,7 @@ CRITICAL FORMATTING RULES:
         {/* Header - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
         <div
-          className="text-center mb-4 md:mb-6 mobile-header relative cursor-pointer"
+          className="text-center mb-2 md:mb-3 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
@@ -4016,7 +3973,7 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           {/* Nav Links - rainbow hover colors */}
-          <div className="flex justify-center gap-2 mt-3 text-xs" onClick={(e) => e.stopPropagation()}>
+          <div className="flex justify-center gap-2 mt-2 text-xs" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
@@ -4235,25 +4192,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
 
-              {/* Admin toggle for complexity slider */}
-              {userIsAdmin && (
-                <div className="absolute top-2 right-2">
-                  <button
-                    onClick={() => setUseComplexitySlider(!useComplexitySlider)}
-                    className={`px-2 py-1 rounded text-[10px] font-medium transition-all ${
-                      useComplexitySlider
-                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                        : 'bg-zinc-700/50 text-zinc-500 border border-zinc-700'
-                    }`}
-                    title="Toggle complexity slider"
-                  >
-                    {useComplexitySlider ? `Lv ${complexityLevel}` : 'Unlock'}
-                  </button>
-                </div>
-              )}
-
               {/* Mode Toggle - with complexity-based disabled states */}
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   {/* Reflect - always enabled at level 1+ */}
                   <button
@@ -4307,7 +4247,7 @@ CRITICAL FORMATTING RULES:
               </div>
 
               {/* Spread Selection - changes based on mode */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-4 relative">
+              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
@@ -4461,8 +4401,7 @@ CRITICAL FORMATTING RULES:
               <div className="mt-2 pt-2 border-t border-zinc-800/50">
 
                 {/* TIER 1: Persona Selector - ALWAYS visible */}
-                <div className="mb-3">
-                  <div className="text-xs text-zinc-500 mb-2 text-center">Who reads this to you?</div>
+                <div className="mb-2">
                   <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1">
                     {PERSONAS.map(p => {
                       const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
@@ -4484,17 +4423,13 @@ CRITICAL FORMATTING RULES:
                       );
                     })}
                   </div>
-                  {/* Persona description */}
-                  <div className="text-center text-[0.625rem] text-zinc-500 mt-2">
-                    {PERSONAS.find(p => p.key === persona)?.desc || ''}
-                  </div>
                 </div>
 
                 {/* TIER 2: Fine-tune Voice - ALWAYS available (collapsed) */}
                 <button
                   onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
                   data-help="fine-tune-voice"
-                  className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                  className="w-full flex items-center justify-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors py-0.5"
                 >
                   <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
                   <span className="text-[0.5625rem] tracking-widest uppercase">Fine-tune Voice</span>
@@ -4909,7 +4844,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
                   data-help="get-reading"
                   disabled={loading}
-                  className="px-6 py-2 min-h-[40px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-sm text-[#f59e0b] font-medium border border-emerald-700/50"
+                  className="px-6 py-2 min-h-[40px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-sm text-white font-medium border border-emerald-700/50"
                 >
                   {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
                 </button>
