@@ -29,8 +29,8 @@ export default function RootLayout({ children }) {
             <span style={{ color: '#52525b', fontSize: '10px', marginRight: '8px' }}>
               Nirmanakaya: AI oracle for exploring patterns of meaning
             </span>
-            <a href="/privacy" style={{ color: '#52525b', fontSize: '10px', marginRight: '8px', textDecoration: 'underline' }}>Privacy</a>
-            <a href="/terms" style={{ color: '#52525b', fontSize: '10px', textDecoration: 'underline' }}>Terms</a>
+            <a href="https://www.nirmanakaya.com/privacy" style={{ color: '#52525b', fontSize: '10px', marginRight: '8px', textDecoration: 'underline' }}>Privacy Policy</a>
+            <a href="https://www.nirmanakaya.com/terms" style={{ color: '#52525b', fontSize: '10px', textDecoration: 'underline' }}>Terms of Service</a>
           </nav>
         </footer>
       </body>

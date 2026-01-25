@@ -4036,9 +4036,9 @@ CRITICAL FORMATTING RULES:
                 {/* Footer with legal links */}
                 <div className="fixed bottom-4 left-0 right-0 text-center">
                   <div className="text-zinc-500 text-[0.65rem] flex items-center justify-center gap-2">
-                    <a href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
+                    <a href="https://www.nirmanakaya.com/privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
                     <span className="text-zinc-700">·</span>
-                    <a href="/terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
+                    <a href="https://www.nirmanakaya.com/terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
                   </div>
                 </div>
 
