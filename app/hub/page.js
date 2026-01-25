@@ -72,9 +72,13 @@ const imageBackgrounds = [
   { id: "deep-ocean-2", src: "/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_3.png", label: "Deep Ocean 2" },
   { id: "cosmic-1", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_0.png", label: "Cosmic 1" },
   { id: "cosmic-2", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_1.png", label: "Cosmic 2" },
+  { id: "cosmic-3", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_2.png", label: "Cosmic 3" },
   { id: "forest", src: "/images/Zolakaya_imaginary_green_Lucious_fractal_garden_calm_forest_w_ff789520-3ec5-437d-b2da-d378d9a837f2_0.png", label: "Forest" },
   { id: "violet-1", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_0.png", label: "Violet 1" },
+  { id: "violet-2", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_2.png", label: "Violet 2" },
+  { id: "violet-3", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_3.png", label: "Violet 3" },
   { id: "tunnel-1", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_0.png", label: "Tunnel 1" },
+  { id: "tunnel-2", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png", label: "Tunnel 2" },
 ];
 
 export default function HubPage() {
@@ -143,6 +147,14 @@ export default function HubPage() {
     }
     loadData();
   }, [filter]);
+
+  // Get current background label
+  const getCurrentBackground = () => {
+    if (backgroundType === 'video') {
+      return videoBackgrounds[selectedVideo] || videoBackgrounds[0];
+    }
+    return imageBackgrounds[selectedImage] || imageBackgrounds[0];
+  };
 
   // Cycle through backgrounds
   function cycleBackground(direction) {
@@ -367,87 +379,133 @@ export default function HubPage() {
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
 
-        {/* Floating background controls */}
-        <div className="fixed top-3 left-3 z-50 flex flex-col items-start gap-1">
+        {/* Background controls toggle button */}
+        <div className="fixed top-3 left-3 z-50">
           <button
             onClick={() => setShowBgControls(!showBgControls)}
             className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
-            title="Background settings"
+            title={showBgControls ? "Hide background controls" : "Show background controls"}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </button>
+        </div>
 
-          {showBgControls && (
-            <div className="flex items-center gap-2 p-2 bg-zinc-900/90 backdrop-blur-sm rounded-lg border border-zinc-700/50">
-              {/* Video/Image toggle */}
-              <button
-                onClick={() => setBackgroundType(backgroundType === 'video' ? 'image' : 'video')}
-                className="px-2 py-1 rounded text-xs bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:text-amber-400 transition-all"
-              >
-                {backgroundType === 'video' ? 'Movie' : 'Static'}
-              </button>
+        {/* Floating Background Controls Panel */}
+        {showBgControls && (
+          <div className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm">
+            <div className="p-4 border-b border-zinc-800/50">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-medium text-zinc-200">Background</h3>
+                <button onClick={() => setShowBgControls(false)} className="text-zinc-500 hover:text-zinc-300">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-              {/* Prev/Next */}
-              <button
-                onClick={() => cycleBackground(-1)}
-                className="w-6 h-6 rounded flex items-center justify-center text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-all"
-              >
-                ◀
-              </button>
-              <button
-                onClick={() => cycleBackground(1)}
-                className="w-6 h-6 rounded flex items-center justify-center text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-all"
-              >
-                ▶
-              </button>
+            <div className="p-4 space-y-4">
+              {/* Type Toggle */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setBackgroundType('video')}
+                  className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    backgroundType === 'video'
+                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-transparent hover:bg-zinc-800'
+                  }`}
+                >
+                  Video
+                </button>
+                <button
+                  onClick={() => setBackgroundType('image')}
+                  className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    backgroundType === 'image'
+                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800/50 text-zinc-400 border border-transparent hover:bg-zinc-800'
+                  }`}
+                >
+                  Image
+                </button>
+              </div>
 
-              {/* Brightness slider */}
-              <div className="flex items-center gap-2 bg-zinc-800/80 rounded-lg px-2 py-1">
-                <span className="text-cyan-400 text-xs">☀</span>
+              {/* Background Navigation */}
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => cycleBackground(-1)}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span className="text-sm text-zinc-300">{getCurrentBackground().label}</span>
+                <button
+                  onClick={() => cycleBackground(1)}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Background Opacity */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-zinc-500">Brightness</span>
+                  <span className="text-xs text-zinc-400">{backgroundOpacity}%</span>
+                </div>
                 <input
                   type="range"
-                  min="0"
-                  max="100"
+                  min="5"
+                  max="60"
                   value={backgroundOpacity}
                   onChange={(e) => setBackgroundOpacity(Number(e.target.value))}
-                  className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                  className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-amber-500"
                 />
               </div>
 
-              {/* Content dim slider */}
-              <div className="flex items-center gap-2 bg-zinc-800/80 rounded-lg px-2 py-1">
-                <span className="text-zinc-500 text-xs">●</span>
+              {/* Content Dimming */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-zinc-500">Content Dim</span>
+                  <span className="text-xs text-zinc-400">{contentDim}%</span>
+                </div>
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={contentDim}
                   onChange={(e) => setContentDim(Number(e.target.value))}
-                  className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-amber-500"
                 />
               </div>
 
               {/* Theme toggle */}
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="flex items-center justify-center w-8 h-8 bg-zinc-800/80 rounded-lg border border-zinc-700/50 hover:border-amber-600/50 transition-all"
-                title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-              >
-                {theme === 'dark' ? (
-                  <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                  </svg>
-                )}
-              </button>
+              <div className="flex items-center justify-between pt-2 border-t border-zinc-800/50">
+                <span className="text-xs text-zinc-500">Theme</span>
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
+                  title={theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
+                >
+                  {theme === 'dark' ? (
+                    <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Main NIRMANAKAYA header */}
         <div className="content-pane text-center py-6 border-b border-zinc-800/30 bg-zinc-900/60 backdrop-blur-sm">

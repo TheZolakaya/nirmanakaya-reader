@@ -30,26 +30,27 @@ import {
 import { VERSION } from '../../lib/version';
 
 // === BACKGROUND VIDEOS & IMAGES (shared with Reader) ===
-const BACKGROUND_VIDEOS = [
-  { id: 'clouds', name: 'Clouds', url: 'https://videos.pexels.com/video-files/857195/857195-hd_1920_1080_25fps.mp4' },
-  { id: 'aurora', name: 'Aurora', url: 'https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4' },
-  { id: 'waves', name: 'Waves', url: 'https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4' },
-  { id: 'rain', name: 'Rain', url: 'https://videos.pexels.com/video-files/3045176/3045176-hd_1920_1080_24fps.mp4' },
-  { id: 'stars', name: 'Stars', url: 'https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4' },
-  { id: 'forest', name: 'Forest', url: 'https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4' },
-  { id: 'fire', name: 'Fire', url: 'https://videos.pexels.com/video-files/856973/856973-hd_1920_1080_25fps.mp4' },
-  { id: 'water', name: 'Water', url: 'https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4' },
+const videoBackgrounds = [
+  { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
+  { id: "ocean", src: "/video/background.mp4", label: "Ocean" },
+  { id: "ocean2", src: "/video/ocean2.mp4", label: "Deep Ocean" },
+  { id: "rainbow", src: "/video/rainbow.mp4", label: "Rainbow" },
+  { id: "forest", src: "/video/forest.mp4", label: "Forest" },
+  { id: "violet", src: "/video/violet.mp4", label: "Violet" },
 ];
 
-const BACKGROUND_IMAGES = [
-  { id: 'cosmos1', name: 'Deep Space', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1920' },
-  { id: 'cosmos2', name: 'Nebula', url: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920' },
-  { id: 'mountain', name: 'Mountain', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920' },
-  { id: 'ocean', name: 'Ocean', url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920' },
-  { id: 'forest', name: 'Forest', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920' },
-  { id: 'desert', name: 'Desert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920' },
-  { id: 'temple', name: 'Temple', url: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1920' },
-  { id: 'abstract', name: 'Abstract', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920' },
+const imageBackgrounds = [
+  { id: "deep-ocean-1", src: "/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_1.png", label: "Deep Ocean 1" },
+  { id: "deep-ocean-2", src: "/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_3.png", label: "Deep Ocean 2" },
+  { id: "cosmic-1", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_0.png", label: "Cosmic 1" },
+  { id: "cosmic-2", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_1.png", label: "Cosmic 2" },
+  { id: "cosmic-3", src: "/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_2.png", label: "Cosmic 3" },
+  { id: "forest", src: "/images/Zolakaya_imaginary_green_Lucious_fractal_garden_calm_forest_w_ff789520-3ec5-437d-b2da-d378d9a837f2_0.png", label: "Forest" },
+  { id: "violet-1", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_0.png", label: "Violet 1" },
+  { id: "violet-2", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_2.png", label: "Violet 2" },
+  { id: "violet-3", src: "/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_3.png", label: "Violet 3" },
+  { id: "tunnel-1", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_0.png", label: "Tunnel 1" },
+  { id: "tunnel-2", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png", label: "Tunnel 2" },
 ];
 
 // Presence dot - softly pulsing like a heartbeat
@@ -771,30 +772,33 @@ export default function LoungePage() {
     setShowOnlinePanel(false);
   }
 
+  // Get current background
+  const getCurrentBackground = () => {
+    if (backgroundType === 'video') {
+      return videoBackgrounds[selectedVideo] || videoBackgrounds[0];
+    }
+    return imageBackgrounds[selectedImage] || imageBackgrounds[0];
+  };
+
   // Background navigation
   function nextBackground() {
     if (backgroundType === 'video') {
-      setSelectedVideo((prev) => (prev + 1) % BACKGROUND_VIDEOS.length);
+      setSelectedVideo((prev) => (prev + 1) % videoBackgrounds.length);
     } else {
-      setSelectedImage((prev) => (prev + 1) % BACKGROUND_IMAGES.length);
+      setSelectedImage((prev) => (prev + 1) % imageBackgrounds.length);
     }
   }
 
   function prevBackground() {
     if (backgroundType === 'video') {
-      setSelectedVideo((prev) => (prev - 1 + BACKGROUND_VIDEOS.length) % BACKGROUND_VIDEOS.length);
+      setSelectedVideo((prev) => (prev - 1 + videoBackgrounds.length) % videoBackgrounds.length);
     } else {
-      setSelectedImage((prev) => (prev - 1 + BACKGROUND_IMAGES.length) % BACKGROUND_IMAGES.length);
+      setSelectedImage((prev) => (prev - 1 + imageBackgrounds.length) % imageBackgrounds.length);
     }
   }
 
   // Check if current user is owner of active room
   const isRoomOwner = activeRoom && myRooms[activeRoom.id] === 'owner';
-
-  // Get current background name
-  const currentBgName = backgroundType === 'video'
-    ? BACKGROUND_VIDEOS[selectedVideo]?.name
-    : BACKGROUND_IMAGES[selectedImage]?.name;
 
   if (loading) {
     return (
@@ -817,36 +821,48 @@ export default function LoungePage() {
       style={{ '--content-dim': contentDim / 100 }}
     >
       {/* Video Background */}
-      {backgroundType === 'video' && (
-        <div className="fixed inset-0 z-0 overflow-hidden">
-          <video
-            key={BACKGROUND_VIDEOS[selectedVideo]?.url}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ opacity: backgroundOpacity / 100 }}
-          >
-            <source src={BACKGROUND_VIDEOS[selectedVideo]?.url} type="video/mp4" />
-          </video>
-          <div className={`absolute inset-0 ${theme === 'light' ? 'bg-stone-100/60' : 'bg-zinc-950/60'}`} />
-        </div>
+      {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
+        <video
+          key={videoBackgrounds[selectedVideo].id}
+          autoPlay
+          loop
+          muted
+          playsInline
+          ref={(el) => { if (el) el.playbackRate = 1.0; }}
+          className="fixed inset-0 w-full h-full object-cover z-0"
+          style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
+        >
+          <source src={videoBackgrounds[selectedVideo].src} type="video/mp4" />
+        </video>
       )}
 
       {/* Image Background */}
-      {backgroundType === 'image' && (
-        <div className="fixed inset-0 z-0 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${BACKGROUND_IMAGES[selectedImage]?.url})`,
-              opacity: backgroundOpacity / 100,
-            }}
-          />
-          <div className={`absolute inset-0 ${theme === 'light' ? 'bg-stone-100/60' : 'bg-zinc-950/60'}`} />
-        </div>
+      {backgroundType === 'image' && imageBackgrounds[selectedImage]?.src && (
+        <div
+          key={imageBackgrounds[selectedImage].id}
+          className="fixed inset-0 w-full h-full z-0"
+          style={{
+            backgroundImage: `url(${imageBackgrounds[selectedImage].src})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            pointerEvents: "none",
+            opacity: backgroundOpacity / 100
+          }}
+        />
       )}
+
+      {/* Background controls toggle button - top left floating */}
+      <div className="fixed top-3 left-3 z-50">
+        <button
+          onClick={() => setShowBgControls(!showBgControls)}
+          className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all"
+          title={showBgControls ? "Hide background controls" : "Show background controls"}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </button>
+      </div>
 
       {/* Main NIRMANAKAYA header */}
       <div className="content-pane relative z-10 text-center py-6 border-b border-zinc-800/30 bg-zinc-900/50 backdrop-blur-sm">
@@ -913,17 +929,6 @@ export default function LoungePage() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Background controls toggle */}
-            <button
-              onClick={() => setShowBgControls(!showBgControls)}
-              className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
-              title="Background settings"
-            >
-              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </button>
-
             {/* Online count */}
             <button
               onClick={() => setShowOnlinePanel(!showOnlinePanel)}
@@ -955,7 +960,7 @@ export default function LoungePage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-32 right-4 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
+            className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
           >
             <div className="p-4 border-b border-zinc-800/50">
               <div className="flex items-center justify-between">
@@ -1003,7 +1008,7 @@ export default function LoungePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <span className="text-sm text-zinc-300">{currentBgName}</span>
+                <span className="text-sm text-zinc-300">{getCurrentBackground().label}</span>
                 <button
                   onClick={nextBackground}
                   className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 transition-colors"
