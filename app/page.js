@@ -3972,8 +3972,8 @@ CRITICAL FORMATTING RULES:
           <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
-          {/* Nav Links - rainbow hover colors */}
-          <div className="flex justify-center gap-2 mt-5 text-xs" onClick={(e) => e.stopPropagation()}>
+          {/* Nav Links - rainbow hover colors, wrap on mobile */}
+          <div className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto" onClick={(e) => e.stopPropagation()}>
             <a
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
@@ -3994,24 +3994,24 @@ CRITICAL FORMATTING RULES:
             </a>
             <a
               href="/guide"
-              onClick={(e) => handleHelpClick('nav-guide', e)}
-              data-help="nav-guide"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
             >
               Guide
             </a>
             <a
               href="/about"
-              onClick={(e) => handleHelpClick('nav-about', e)}
-              data-help="nav-about"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
             >
               About
             </a>
             <a
               href="/council"
-              onClick={(e) => handleHelpClick('nav-council', e)}
-              data-help="nav-council"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
             >
               Council
