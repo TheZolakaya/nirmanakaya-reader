@@ -1,6 +1,7 @@
 // === DYNAMIC OG IMAGE FOR SHARED READINGS ===
 // Generates a 1200x630 image for social media sharing
 // Uses Next.js ImageResponse (Satori) to render JSX to PNG
+// Features: random fractal background, card thumbnails, synthesis text
 
 import { ImageResponse } from 'next/og';
 import { getPublicReadingServer } from '../../../lib/supabase-server';
@@ -12,6 +13,21 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nirmanakaya.com';
+
+// Background images (same as app/page.js imageBackgrounds)
+const BACKGROUNDS = [
+  '/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_1.png',
+  '/images/Zolakaya_abstract_fractal_deep_blue_ocean_fills_the_image_--s_834b4b03-ff4a-4dba-b095-276ca0078063_3.png',
+  '/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_0.png',
+  '/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_1.png',
+  '/images/Zolakaya_Cosmic_rainbow_of_colors_fractal_expressions_of_holy_71e29517-f921-418c-9415-aa100c5acf4e_2.png',
+  '/images/Zolakaya_imaginary_green_Lucious_fractal_garden_calm_forest_w_ff789520-3ec5-437d-b2da-d378d9a837f2_0.png',
+  '/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_0.png',
+  '/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_2.png',
+  '/images/Zolakaya_Sparkling_fractal_Purple_flowers_radiating_from_ever_2da9d73c-5041-4ae6-8f9f-c09b40d828f2_3.png',
+  '/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_0.png',
+  '/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png',
+];
 
 // Status to RGB color mapping
 const STATUS_COLORS = {
@@ -40,18 +56,41 @@ function getModeLabel(mode) {
   return labels[mode] || mode || 'Reading';
 }
 
-async function loadCardImage(transient) {
-  const thumbPath = getCardThumbPath(transient);
-  if (!thumbPath) return null;
+// Deterministic hash from slug -> consistent background per reading
+function hashSlug(slug) {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = ((hash << 5) - hash) + slug.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
 
+// Extract shallow synthesis text (first 1-2 sentences from shallowest depth)
+function getSynthesisShallow(synthesis) {
+  if (!synthesis?.summary) return null;
+  let text = null;
+  const summary = synthesis.summary;
+  if (typeof summary === 'string') {
+    text = summary;
+  } else if (typeof summary === 'object') {
+    text = summary.surface || summary.wade || summary.swim || summary.deep || null;
+  }
+  if (!text) return null;
+  // Extract first 2 sentences
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  const shallow = sentences.slice(0, 2).join(' ');
+  // Truncate if still too long
+  if (shallow.length > 200) return shallow.slice(0, 197) + '...';
+  return shallow;
+}
+
+async function fetchImage(path) {
   try {
-    // Fetch thumbnail from public CDN URL
-    const url = `${SITE_URL}${thumbPath}`;
-    const res = await fetch(url);
+    const res = await fetch(`${SITE_URL}${path}`);
     if (!res.ok) return null;
     const buffer = await res.arrayBuffer();
-    const base64 = Buffer.from(buffer).toString('base64');
-    return `data:image/png;base64,${base64}`;
+    return `data:image/png;base64,${Buffer.from(buffer).toString('base64')}`;
   } catch {
     return null;
   }
@@ -86,121 +125,178 @@ export default async function OGImage({ params }) {
   const modeColor = MODE_COLORS[reading.mode] || MODE_COLORS.discover;
   const cards = reading.cards && Array.isArray(reading.cards) ? reading.cards.slice(0, 5) : [];
 
-  // Load card thumbnail images in parallel
-  const cardImages = await Promise.all(
-    cards.map(async (card) => {
+  // Pick a deterministic background based on slug hash
+  const bgIndex = hashSlug(slug) % BACKGROUNDS.length;
+  const bgPath = BACKGROUNDS[bgIndex];
+
+  // Load background and card thumbnails in parallel
+  const [bgData, ...cardResults] = await Promise.all([
+    fetchImage(bgPath),
+    ...cards.map(async (card) => {
       const trans = getComponent(card.transient);
-      const imgData = await loadCardImage(card.transient);
+      const imgData = await fetchImage(getCardThumbPath(card.transient));
       const statusColor = STATUS_COLORS[card.status] || STATUS_COLORS[1];
       return {
         name: trans?.name || `Card ${card.transient}`,
-        status: card.status,
         imgData,
         statusColor,
       };
     })
-  );
+  ]);
+
+  // Get synthesis shallow text
+  const synthesisText = getSynthesisShallow(reading.synthesis);
 
   // Truncate question
   let question = reading.question || '';
-  if (question.length > 120) {
-    question = question.slice(0, 117) + '...';
+  if (question.length > 100) {
+    question = question.slice(0, 97) + '...';
   }
 
   return new ImageResponse(
     (
       <div style={{
         width: '100%', height: '100%', display: 'flex',
-        flexDirection: 'column', alignItems: 'center',
-        background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%)',
+        flexDirection: 'column',
         fontFamily: 'sans-serif',
-        padding: '40px 60px',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        {/* Top branding */}
+        {/* Background image */}
+        {bgData ? (
+          <img
+            src={bgData}
+            width={1200}
+            height={630}
+            style={{
+              position: 'absolute', top: 0, left: 0,
+              width: '100%', height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          <div style={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%',
+            background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%)',
+          }} />
+        )}
+
+        {/* Dark overlay for text readability */}
         <div style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          marginBottom: 24,
+          position: 'absolute', top: 0, left: 0,
+          width: '100%', height: '100%',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%)',
+          display: 'flex',
+        }} />
+
+        {/* Content layer */}
+        <div style={{
+          position: 'relative', display: 'flex', flexDirection: 'column',
+          alignItems: 'center', width: '100%', height: '100%',
+          padding: '32px 48px',
         }}>
+          {/* Top branding */}
           <div style={{
-            fontSize: 20, fontWeight: 300, letterSpacing: 8,
-            color: '#fbbf24',
-            marginBottom: 8,
-            display: 'flex',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            marginBottom: 16,
           }}>
-            NIRMANAKAYA
+            <div style={{
+              fontSize: 18, fontWeight: 300, letterSpacing: 8,
+              color: '#fbbf24',
+              marginBottom: 6,
+              display: 'flex',
+            }}>
+              NIRMANAKAYA
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 24, fontWeight: 300, color: modeColor }}>
+                {modeLabel}
+              </span>
+              <span style={{ fontSize: 24, fontWeight: 300, color: 'rgba(255,255,255,0.7)' }}>
+                Reading
+              </span>
+            </div>
           </div>
+
+          {/* Card thumbnails row */}
+          {cardResults.length > 0 && (
+            <div style={{
+              display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+              gap: 20, marginBottom: 16, flex: 1,
+            }}>
+              {cardResults.map((card, i) => (
+                <div key={i} style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  gap: 6,
+                }}>
+                  <div style={{
+                    display: 'flex', padding: 3, borderRadius: 8,
+                    background: `linear-gradient(135deg, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.7), transparent 50%, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.7))`,
+                    boxShadow: `0 0 24px rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.4)`,
+                  }}>
+                    {card.imgData ? (
+                      <img
+                        src={card.imgData}
+                        width={110}
+                        height={165}
+                        style={{ borderRadius: 6 }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: 110, height: 165, borderRadius: 6,
+                        background: 'rgba(39,39,42,0.8)', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center',
+                        color: '#71717a', fontSize: 13,
+                      }}>
+                        Card
+                      </div>
+                    )}
+                  </div>
+                  <div style={{
+                    fontSize: 12, color: 'rgba(255,255,255,0.85)',
+                    maxWidth: 110, textAlign: 'center',
+                    display: 'flex',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+                  }}>
+                    {card.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Bottom text area */}
           <div style={{
-            display: 'flex', alignItems: 'center', gap: 12,
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            gap: 8, maxWidth: 1000,
           }}>
-            <span style={{ fontSize: 28, fontWeight: 300, color: modeColor }}>
-              {modeLabel}
-            </span>
-            <span style={{ fontSize: 28, fontWeight: 300, color: '#a1a1aa' }}>
-              Reading
-            </span>
+            {/* Question */}
+            {question && (
+              <div style={{
+                fontSize: 14, color: 'rgba(255,255,255,0.5)', fontStyle: 'italic',
+                textAlign: 'center',
+                display: 'flex',
+                textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+              }}>
+                {`\u201C${question}\u201D`}
+              </div>
+            )}
+
+            {/* Synthesis shallow */}
+            {synthesisText && (
+              <div style={{
+                fontSize: 15, color: 'rgba(255,255,255,0.8)',
+                textAlign: 'center',
+                lineHeight: 1.5,
+                display: 'flex',
+                textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+              }}>
+                {synthesisText}
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Card thumbnails row */}
-        {cardImages.length > 0 && (
-          <div style={{
-            display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-            gap: 24, marginBottom: 24, flex: 1,
-          }}>
-            {cardImages.map((card, i) => (
-              <div key={i} style={{
-                display: 'flex', flexDirection: 'column', alignItems: 'center',
-                gap: 8,
-              }}>
-                {/* Card image with status border */}
-                <div style={{
-                  display: 'flex', padding: 3,
-                  borderRadius: 8,
-                  background: `linear-gradient(135deg, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.6), transparent 50%, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.6))`,
-                  boxShadow: `0 0 20px rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.3)`,
-                }}>
-                  {card.imgData ? (
-                    <img
-                      src={card.imgData}
-                      width={120}
-                      height={180}
-                      style={{ borderRadius: 6 }}
-                    />
-                  ) : (
-                    <div style={{
-                      width: 120, height: 180, borderRadius: 6,
-                      background: '#27272a', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
-                      color: '#52525b', fontSize: 14,
-                    }}>
-                      Card
-                    </div>
-                  )}
-                </div>
-                {/* Card name */}
-                <div style={{
-                  fontSize: 13, color: '#d4d4d8',
-                  maxWidth: 120, textAlign: 'center',
-                  display: 'flex',
-                }}>
-                  {card.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Question at bottom */}
-        {question && (
-          <div style={{
-            fontSize: 18, color: '#a1a1aa', fontStyle: 'italic',
-            textAlign: 'center', maxWidth: 900,
-            lineHeight: 1.4,
-            display: 'flex',
-          }}>
-            {`\u201C${question}\u201D`}
-          </div>
-        )}
       </div>
     ),
     { ...size }
