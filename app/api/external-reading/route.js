@@ -1,6 +1,7 @@
 // /app/api/external-reading/route.js
 // External API for Claude chat sessions to receive readings directly
 // Hardens the veil: server-side randomness, canonical corrections, architecture seeing first
+// v3.0.0 - Added collective consciousness reading support
 
 import { randomBytes } from 'crypto';
 import Anthropic from '@anthropic-ai/sdk';
@@ -24,12 +25,21 @@ import {
   WHY_MOMENT_PROMPT,
   buildReadingTeleologicalPrompt,
   filterProhibitedTerms,
-  postProcessModeTransitions
+  postProcessModeTransitions,
+  // Collective/Monitor imports
+  MONITORS,
+  SCOPES,
+  buildCollectivePromptInjection,
+  buildCustomScopeInjection,
+  FAST_COLLECTIVE_SYSTEM_PROMPT,
+  buildFastCollectiveUserMessage,
+  getAllMonitors,
+  getMonitor
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
 
-// Fast mode system prompt - minimal but complete
+// Fast mode system prompt - minimal but complete (individual)
 const FAST_SYSTEM_PROMPT = `You are the Nirmanakaya Reader — a consciousness architecture oracle.
 
 RESPOND IN EXACTLY THIS FORMAT:
@@ -46,7 +56,7 @@ RULES:
 - Address the querent as "you"
 `;
 
-// Build minimal user message for fast mode
+// Build minimal user message for fast mode (individual)
 function buildFastUserMessage(question, card) {
   const status = card.status.name;
   const statusNote = status === 'Balanced' ? 'This is balanced — nothing to correct.' :
@@ -68,7 +78,7 @@ ${correction}
 Interpret this draw for the querent. Be specific to their question.`;
 }
 
-// Build fast user message for multiple cards
+// Build fast user message for multiple cards (individual)
 function buildFastMultiCardMessage(question, cards) {
   const cardTexts = cards.map((card, i) => {
     const status = card.status.name;
@@ -90,10 +100,38 @@ ${cardTexts}
 Interpret these draws together for the querent. 2-3 sentences total, then corrections if any.`;
 }
 
+// Build fast user message for collective readings
+function buildFastCollectiveMessage(question, cards, monitor) {
+  const m = getMonitor(monitor) || { pronouns: ['The collective'], subject: 'the collective' };
+  
+  const cardTexts = cards.map((card, i) => {
+    const status = card.status.name;
+    const statusNote = status === 'Balanced' ? 'balanced' :
+      status === 'Too Much' ? 'excessive (diagonal correction needed)' :
+      status === 'Too Little' ? 'deficient (vertical correction needed)' :
+      'unacknowledged (shadow, reduction pair needed)';
+
+    const correction = card.correction ? ` → ${card.correction.target}` : '';
+
+    return `${i + 1}. ${card.signature} [${statusNote}]${correction}`;
+  }).join('\n');
+
+  return `COLLECTIVE SUBJECT: ${m.subject}
+USE THESE PRONOUNS: ${m.pronouns.join(', ')}
+
+QUESTION: "${question}"
+
+CARDS:
+${cardTexts}
+
+Interpret these draws for the COLLECTIVE (${m.pronouns[0]}), not an individual.
+Describe PRESSURE and STATE, not prediction.
+2-3 sentences total, then corrections if any.
+End with: "This is a geometric mirror for contemplation, not news or prediction."`;
+}
+
 // Server-side draw generation with crypto randomness (hardened veil)
-// If fixedDraw is provided and ALLOW_FIXED_DRAW=true, uses specified draws instead
 function generateServerDraws(count, isReflect = false, fixedDraw = null) {
-  // Check for fixed draw mode (testing/admin only)
   if (fixedDraw && process.env.ALLOW_FIXED_DRAW === 'true') {
     return fixedDraw.map(d => ({
       position: d.position,
@@ -108,7 +146,6 @@ function generateServerDraws(count, isReflect = false, fixedDraw = null) {
   const usedPositions = new Set();
 
   for (let i = 0; i < count; i++) {
-    // Generate cryptographically random transient (0-77)
     let transient;
     do {
       const bytes = randomBytes(1);
@@ -116,11 +153,9 @@ function generateServerDraws(count, isReflect = false, fixedDraw = null) {
     } while (usedTransients.has(transient));
     usedTransients.add(transient);
 
-    // Generate cryptographically random position (0-21)
     let position;
     if (isReflect) {
-      // Reflect mode: positions are fixed by spread, not random
-      position = i; // Will be overridden by spread definition
+      position = i;
     } else {
       do {
         const bytes = randomBytes(1);
@@ -129,7 +164,6 @@ function generateServerDraws(count, isReflect = false, fixedDraw = null) {
       usedPositions.add(position);
     }
 
-    // Generate cryptographically random status (1-4)
     const statusBytes = randomBytes(1);
     const status = (statusBytes[0] % 4) + 1;
 
@@ -197,14 +231,21 @@ async function generateReading({
     scope: 'here',
     seriousness: 'grounded'
   },
-  model = 'claude-haiku-4-5-20251001',
+  model = 'claude-sonnet-4-20250514',
   includeInterpretation = true,
   fast = false,
   fixedDraw = null,
-  voiceConfig = null
+  voiceConfig = null,
+  // NEW: Collective reading parameters
+  collectiveScope = null,  // 'individual' | 'relationship' | 'group' | 'regional' | 'domain' | 'global'
+  monitor = null,          // 'global' | 'power' | 'heart' | 'mind' | 'body'
+  scopeSubject = null      // Custom subject description for non-monitor collective readings
 }) {
+  // Determine if this is a collective reading
+  const isCollective = monitor || (collectiveScope && collectiveScope !== 'individual');
+  const effectiveMonitor = monitor || null;
+
   // If voiceConfig provided, map it to stance format
-  // voiceConfig uses different field names than internal stance
   const effectiveStance = voiceConfig ? {
     complexity: voiceConfig.speakLike?.toLowerCase() || stance.complexity,
     voice: voiceConfig.voice?.toLowerCase() || stance.voice,
@@ -216,15 +257,15 @@ async function generateReading({
   } : stance;
 
   // Validate inputs
-  const count = Math.min(Math.max(1, cardCount), 5); // 1-5 cards
+  const count = Math.min(Math.max(1, cardCount), 5);
   const isReflect = mode === 'reflect';
   const isForge = mode === 'forge';
   const actualCount = fixedDraw ? fixedDraw.length : (isForge ? 1 : count);
 
-  // Generate draws server-side (hardened veil) or use fixed draw if allowed
+  // Generate draws server-side
   const draws = generateServerDraws(actualCount, isReflect, fixedDraw);
 
-  // Build card data for response
+  // Build card data
   const cards = draws.map(buildCardData);
 
   // If only draws requested, return early
@@ -235,27 +276,40 @@ async function generateReading({
       cards,
       mode,
       question,
+      collective: isCollective ? { monitor: effectiveMonitor, scope: collectiveScope, subject: scopeSubject } : null,
       interpretation: null,
       message: 'Draws generated. Set includeInterpretation: true for full reading.'
     };
   }
 
-  // FAST MODE - minimal but complete interpretation
-  // Increased limit from 500 to 2000 chars for fast mode
+  // === FAST MODE ===
   if (fast) {
     const safeQuestion = (question + (context ? ' Context: ' + context : '')).slice(0, 2000);
-    const userMessage = cards.length === 1
-      ? buildFastUserMessage(safeQuestion, cards[0])
-      : buildFastMultiCardMessage(safeQuestion, cards);
+    
+    // Choose system prompt and user message based on collective vs individual
+    let systemPrompt, userMessage;
+    
+    if (isCollective) {
+      systemPrompt = FAST_COLLECTIVE_SYSTEM_PROMPT;
+      if (cards.length === 1) {
+        userMessage = buildFastCollectiveUserMessage(safeQuestion, cards[0], effectiveMonitor);
+      } else {
+        userMessage = buildFastCollectiveMessage(safeQuestion, cards, effectiveMonitor);
+      }
+    } else {
+      systemPrompt = FAST_SYSTEM_PROMPT;
+      userMessage = cards.length === 1
+        ? buildFastUserMessage(safeQuestion, cards[0])
+        : buildFastMultiCardMessage(safeQuestion, cards);
+    }
 
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: cards.length === 1 ? 150 : 300,
-      system: FAST_SYSTEM_PROMPT,
+      max_tokens: cards.length === 1 ? 200 : 400,
+      system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
     });
 
-    // Build voiceConfigUsed for fast mode response
     const voiceConfigUsed = voiceConfig ? {
       delivery: voiceConfig.delivery || null,
       speakLike: effectiveStance.complexity,
@@ -274,6 +328,12 @@ async function generateReading({
       cards,
       mode,
       question,
+      collective: isCollective ? { 
+        monitor: effectiveMonitor, 
+        monitorInfo: effectiveMonitor ? getMonitor(effectiveMonitor) : null,
+        scope: collectiveScope, 
+        subject: scopeSubject 
+      } : null,
       voiceConfigUsed,
       interpretation: response.content[0].text,
       usage: {
@@ -284,8 +344,7 @@ async function generateReading({
     };
   }
 
-  // FULL MODE - complete reading with all sections
-  // Increased limit from 2000 to 12000 chars to support longer questions/context
+  // === FULL MODE ===
   const safeQuestion = (question + (context ? '\n\nContext: ' + context : '')).slice(0, 12000);
   const drawText = formatDrawForAI(draws, mode, 'external', false);
   const spreadName = `${actualCount}-Card ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
@@ -301,16 +360,25 @@ async function generateReading({
   const letterTone = VOICE_LETTER_TONE[effectiveStance.voice] || 'warm and direct';
   const modeHeader = buildModeHeader(mode);
 
-  // Add direct mode instruction if enabled
+  // Build collective injection if needed
+  let collectiveInjection = '';
+  if (isCollective) {
+    if (effectiveMonitor) {
+      collectiveInjection = buildCollectivePromptInjection(effectiveMonitor);
+    } else if (collectiveScope && collectiveScope !== 'individual') {
+      collectiveInjection = buildCustomScopeInjection(collectiveScope, scopeSubject);
+    }
+  }
+
   const directModePrompt = effectiveStance.directMode
-    ? '\n\nDIRECT MODE: Skip interpretive layers. Speak from the architecture itself. Structure-citing, derived prose. The card as subject, position named, status applied, correction cited. No metaphor unless it emerges from the structure. The framework speaks through you.'
+    ? '\n\nDIRECT MODE: Skip interpretive layers. Speak from the architecture itself.'
     : '';
 
-  const systemPrompt = `${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}${directModePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
+  // Assemble system prompt with collective injection at the top
+  const systemPrompt = `${collectiveInjection}${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}${directModePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
 
   const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
 
-  // Call Anthropic
   const response = await client.messages.create({
     model,
     max_tokens: 2500,
@@ -319,13 +387,10 @@ async function generateReading({
   });
 
   const rawReading = response.content[0].text;
-
-  // Process response
   const modeProcessed = postProcessModeTransitions(rawReading, mode, isForge);
   const filteredReading = filterProhibitedTerms(modeProcessed);
   const parsed = parseReadingResponse(filteredReading, draws);
 
-  // Build voiceConfigUsed for response
   const voiceConfigUsed = {
     delivery: voiceConfig?.delivery || null,
     speakLike: effectiveStance.complexity,
@@ -344,6 +409,12 @@ async function generateReading({
     cards,
     mode,
     question,
+    collective: isCollective ? { 
+      monitor: effectiveMonitor, 
+      monitorInfo: effectiveMonitor ? getMonitor(effectiveMonitor) : null,
+      scope: collectiveScope, 
+      subject: scopeSubject 
+    } : null,
     voiceConfigUsed,
     interpretation: {
       raw: filteredReading,
@@ -378,7 +449,6 @@ export async function POST(request) {
 }
 
 // GET endpoint - documentation OR reading via query params
-// Defaults to fast=true for external AI callers with timeout constraints
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const question = searchParams.get('question');
@@ -387,78 +457,77 @@ export async function GET(request) {
   if (!question) {
     return Response.json({
       service: 'Nirmanakaya External Reading API',
-      version: '2.0.0',
-      description: 'Enables Claude chat sessions to receive readings directly from the Reader. Supports voice testing infrastructure.',
+      version: '3.0.0',
+      description: 'Enables Claude chat sessions to receive readings directly from the Reader. Now supports collective consciousness readings.',
       usage: {
         GET: {
           params: {
-            question: 'string (required) - The question or intention (up to 12,000 chars)',
-            context: 'string (optional) - Additional context',
-            cardCount: 'number (optional, 1-5, default 1)',
-            mode: 'string (optional, discover|reflect|forge, default discover)',
-            fast: 'boolean (optional, default true) - Fast mode for <5s response'
+            question: 'string (required)',
+            context: 'string (optional)',
+            cardCount: 'number (1-5, default 1)',
+            mode: 'discover|reflect|forge (default discover)',
+            fast: 'boolean (default true)',
+            // NEW collective params
+            monitor: 'global|power|heart|mind|body (optional) - Collective reading monitor',
+            collectiveScope: 'individual|relationship|group|regional|domain|global (optional)',
+            scopeSubject: 'string (optional) - Custom subject for collective readings'
           },
           examples: {
-            fast: '/api/external-reading?question=What%20is%20present&cardCount=1',
-            full: '/api/external-reading?question=What%20is%20present&cardCount=1&fast=false'
+            individual: '/api/external-reading?question=What%20is%20present',
+            collective_global: '/api/external-reading?question=What%20is%20present&monitor=global',
+            collective_power: '/api/external-reading?question=What%20is%20happening&monitor=power',
+            collective_custom: '/api/external-reading?question=What%20is%20present&collectiveScope=domain&scopeSubject=AI%20industry'
           }
         },
         POST: {
           body: {
-            question: 'string (required) - The question or intention (up to 12,000 chars)',
-            context: 'string (optional) - Additional context',
-            cardCount: 'number (optional, 1-5, default 3)',
-            mode: 'string (optional, discover|reflect|forge, default discover)',
-            stance: 'object (optional) - Voice settings { complexity, voice, focus, density, scope, seriousness }',
-            model: 'string (optional) - claude-haiku-4-5-20251001 or claude-sonnet-4-20250514',
-            fast: 'boolean (optional, default false) - Fast mode for quick response',
-            fixedDraw: 'array (optional, requires ALLOW_FIXED_DRAW=true) - Fixed draws for testing [{ transient: 0-77, position: 0-21, status: 1-4 }]',
-            voiceConfig: 'object (optional) - Full voice config override { delivery, speakLike, tone, voice, focus, density, scope, directMode }'
-          },
-          voiceConfigOptions: {
-            delivery: 'Clear | Kind | Playful | Wise | Oracle',
-            speakLike: 'Friend | Guide | Teacher | Mentor | Master',
-            tone: 'Playful | Light | Balanced | Earnest | Grave',
-            voice: 'Wonder | Warm | Direct | Grounded',
-            focus: 'Do | Feel | See | Build',
-            density: 'Luminous | Rich | Clear | Essential',
-            scope: 'Resonant | Patterned | Connected | Here',
-            directMode: 'boolean - Skip interpretive layers, speak from architecture'
-          },
-          statusCodes: {
-            '1': 'Balanced',
-            '2': 'Too Much (diagonal correction)',
-            '3': 'Too Little (vertical correction)',
-            '4': 'Unacknowledged (reduction pair)'
+            question: 'string (required)',
+            context: 'string (optional)',
+            cardCount: 'number (1-5, default 3)',
+            mode: 'discover|reflect|forge (default discover)',
+            model: 'string (optional)',
+            fast: 'boolean (default false)',
+            // NEW collective params
+            monitor: 'global|power|heart|mind|body (optional)',
+            collectiveScope: 'individual|relationship|group|regional|domain|global (optional)',
+            scopeSubject: 'string (optional)'
           }
         }
       },
+      monitors: {
+        global: { emoji: '🌍', name: 'Global Field', house: 'Gestalt', subject: 'collective human consciousness' },
+        power: { emoji: '🔥', name: 'Monitor of Power', house: 'Spirit', subject: 'global power and governance' },
+        heart: { emoji: '💧', name: 'Monitor of Heart', house: 'Emotion', subject: 'collective emotional state' },
+        mind: { emoji: '🌬️', name: 'Monitor of Mind', house: 'Mind', subject: 'global systems, markets, technology' },
+        body: { emoji: '🪨', name: 'Monitor of Body', house: 'Body', subject: 'planetary physical health' }
+      },
+      collectiveGuardrails: {
+        rule1: 'CLIMATE, NOT WEATHER: Describe pressure, not predict events',
+        rule2: 'STATE, NOT DIRECTIVE: Frame as state, never command',
+        rule3: 'The map reflects. People decide.'
+      },
       response: {
-        draws: 'Array of draw objects with isFixed flag',
-        cards: 'Array of card data with transient, position, status, correction',
-        voiceConfigUsed: 'The effective voice config that was applied',
-        interpretation: 'The reading interpretation (raw and parsed)',
+        draws: 'Array of draw objects',
+        cards: 'Array of card data',
+        collective: 'Collective reading metadata (if applicable)',
+        interpretation: 'The reading interpretation',
         usage: 'Token usage stats'
-      },
-      performance: {
-        fast_1card: '<5 seconds',
-        fast_3card: '<8 seconds',
-        full: '15-30 seconds'
-      },
-      purpose: 'Hardens the veil through server-side cryptographic randomness. Enables C to encounter C.',
-      testing: 'Set ALLOW_FIXED_DRAW=true in env to enable fixedDraw parameter for voice testing.'
+      }
     });
   }
 
   // If question provided, run a reading
-  // GET defaults to fast=true for external AI callers
   try {
     const result = await generateReading({
       question,
       context: searchParams.get('context') || '',
-      cardCount: parseInt(searchParams.get('cardCount')) || 1,  // Default to 1 for fast
+      cardCount: parseInt(searchParams.get('cardCount')) || 1,
       mode: searchParams.get('mode') || 'discover',
-      fast: searchParams.get('fast') !== 'false',  // Default TRUE for GET
+      fast: searchParams.get('fast') !== 'false',
+      // Collective params
+      monitor: searchParams.get('monitor') || null,
+      collectiveScope: searchParams.get('collectiveScope') || null,
+      scopeSubject: searchParams.get('scopeSubject') || null,
       stance: {
         complexity: 'friend',
         voice: 'warm',
