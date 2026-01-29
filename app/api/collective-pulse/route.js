@@ -178,6 +178,38 @@ async function storeReading(reading, readingDate, voice = 'default') {
   }
 }
 
+// Re-interpret an existing card draw with a different voice preset
+async function generateVoicedReading(monitorId, card, draw, voicePreset) {
+  const monitor = getMonitor(monitorId);
+  if (!monitor) throw new Error(`Unknown monitor: ${monitorId}`);
+
+  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+  const userMessage = buildFullCollectiveUserMessage(
+    monitor.question,
+    card,
+    monitorId
+  );
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 2000,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: userMessage }]
+  });
+
+  return {
+    monitor: monitorId,
+    monitorInfo: monitor,
+    draw,
+    card,
+    interpretation: response.content[0].text,
+    usage: {
+      input_tokens: response.usage?.input_tokens,
+      output_tokens: response.usage?.output_tokens
+    }
+  };
+}
+
 // Generate throughline synthesis across all 5 monitors (v2)
 async function generateThroughline(allReadings, readingDate) {
   const monitorSummaries = allReadings.map(r => {
@@ -346,6 +378,52 @@ export async function POST(request) {
       }
     }
 
+    // Pre-generate all voice variants if enabled in pulse_settings
+    let voiceResults = [];
+    let voiceErrors = [];
+    if (allReadings.length > 0) {
+      let preGenVoices = false;
+      try {
+        const { data: pgSettings } = await supabase
+          .from('pulse_settings')
+          .select('pre_generate_voices')
+          .limit(1)
+          .single();
+        preGenVoices = pgSettings?.pre_generate_voices === true;
+      } catch (e) {
+        // column/table may not exist yet
+      }
+
+      if (preGenVoices) {
+        const voiceKeys = Object.keys(PULSE_VOICE_PRESETS);
+        console.log(`Pre-generating ${voiceKeys.length} voice variants × ${allReadings.length} monitors...`);
+
+        for (const voiceKey of voiceKeys) {
+          const voicePreset = PULSE_VOICE_PRESETS[voiceKey];
+          for (const reading of allReadings) {
+            try {
+              console.log(`  Voice: ${voiceKey} × ${reading.monitor}`);
+              const voiced = await generateVoicedReading(
+                reading.monitor,
+                reading.card,
+                reading.draw,
+                voicePreset
+              );
+              await storeReading(voiced, today, voiceKey);
+              voiceResults.push({ monitor: reading.monitor, voice: voiceKey, success: true });
+
+              // Small delay between API calls
+              await new Promise(resolve => setTimeout(resolve, 300));
+            } catch (err) {
+              console.error(`Voice ${voiceKey}/${reading.monitor} failed:`, err.message);
+              voiceErrors.push({ monitor: reading.monitor, voice: voiceKey, error: err.message });
+            }
+          }
+        }
+        console.log(`Voice pre-generation done: ${voiceResults.length} ok, ${voiceErrors.length} failed`);
+      }
+    }
+
     // Update last_generated_at in pulse_settings
     if (results.length > 0) {
       try {
@@ -363,6 +441,11 @@ export async function POST(request) {
       date: today,
       readings: results,
       throughline,
+      voices: voiceResults.length > 0 ? {
+        generated: voiceResults.length,
+        failed: voiceErrors.length,
+        errors: voiceErrors.length > 0 ? voiceErrors : undefined
+      } : undefined,
       errors: errors.length > 0 ? errors : undefined,
       totalGenerated: results.length,
       totalFailed: errors.length

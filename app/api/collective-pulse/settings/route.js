@@ -31,6 +31,7 @@ export async function GET(request) {
           frequency: 'daily',
           default_voice: 'default',
           auto_generate: true,
+          pre_generate_voices: false,
           last_generated_at: null
         }
       });
@@ -52,7 +53,7 @@ export async function PATCH(request) {
 
   try {
     const body = await request.json();
-    const allowed = ['frequency', 'default_voice', 'auto_generate'];
+    const allowed = ['frequency', 'default_voice', 'auto_generate', 'pre_generate_voices'];
     const updates = {};
     for (const key of allowed) {
       if (body[key] !== undefined) updates[key] = body[key];
