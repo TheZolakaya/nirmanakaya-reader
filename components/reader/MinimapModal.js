@@ -46,7 +46,7 @@ const MinimapModal = ({
   onClose,
   onReopen,              // Callback to reopen this minimap (for back navigation)
   fromId,                // Card's home archetype
-  toId,                  // Position archetype
+  toId,                  // Position archetype (where drawn)
   transient,             // Original card transient (for getting card info)
   cardType,              // 'archetype' | 'bound' | 'agent'
   boundIsInner,          // For bounds: inner (1-5) or outer (6-10)
@@ -55,7 +55,10 @@ const MinimapModal = ({
   colorTheme = 'violet', // 'violet' | 'emerald' | 'teal'
   toCardType = null,     // For correction targets: 'archetype' | 'bound' | 'agent'
   toBoundIsInner = null, // For correction targets: inner bound or not
-  toTransient = null     // For corrections: the target card's transient ID (bound/agent)
+  toTransient = null,    // For corrections: the target card's transient ID (bound/agent)
+  secondToId = null,           // Second destination archetype (correction/growth target)
+  secondToCardType = null,     // Card type for second destination
+  secondToBoundIsInner = null  // Inner/outer for second destination bounds
 }) => {
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -261,6 +264,9 @@ const MinimapModal = ({
               boundIsInner={boundIsInner}
               toCardType={toCardType}
               toBoundIsInner={toBoundIsInner}
+              secondToId={secondToId}
+              secondToCardType={secondToCardType}
+              secondToBoundIsInner={secondToBoundIsInner}
             />
           </div>
         </div>

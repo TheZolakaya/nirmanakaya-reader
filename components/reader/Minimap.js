@@ -488,10 +488,11 @@ const CardTypeIndicator = ({ x, y, archetypeId, cardType, isInner }) => {
 };
 
 // Animated arrow component (marching dashes)
-const AnimatedArrow = ({ fromX, fromY, toX, toY }) => {
+const AnimatedArrow = ({ fromX, fromY, toX, toY, color = 'rgba(255, 255, 255, 0.9)', dashArray = '10 8', animationName = 'marchLine' }) => {
   const dx = toX - fromX;
   const dy = toY - fromY;
   const len = Math.sqrt(dx * dx + dy * dy);
+  if (len === 0) return null;
 
   // Shorten arrow to not overlap shapes
   const pullBack = 25;
@@ -516,16 +517,16 @@ const AnimatedArrow = ({ fromX, fromY, toX, toY }) => {
         y1={startY}
         x2={endX}
         y2={endY}
-        stroke="rgba(255, 255, 255, 0.9)"
+        stroke={color}
         strokeWidth={3}
         strokeLinecap="round"
-        strokeDasharray="10 8"
-        style={{ animation: 'marchLine 0.6s linear infinite' }}
+        strokeDasharray={dashArray}
+        style={{ animation: `${animationName} 0.6s linear infinite` }}
       />
       {/* Arrowhead */}
       <polygon
         points={`${endX},${endY} ${arrowX1},${arrowY1} ${arrowX2},${arrowY2}`}
-        fill="rgba(255, 255, 255, 0.9)"
+        fill={color}
         style={{ animation: 'pulseLine 1.5s ease-in-out infinite' }}
       />
     </g>
@@ -535,13 +536,16 @@ const AnimatedArrow = ({ fromX, fromY, toX, toY }) => {
 const Minimap = ({
   highlightId = null,
   fromId = null,    // Source archetype (card's home)
-  toId = null,      // Target archetype (position)
+  toId = null,      // Target archetype (position where drawn)
   size = 'md',
   singleMode = false,  // Only show fromId and toId shapes (hide all others)
   fromCardType = null, // 'archetype' | 'bound' | 'agent' - type of the fromId card
   boundIsInner = null, // true for inner bounds (1-5), false for outer bounds (6-10)
   toCardType = null,   // 'archetype' | 'bound' | 'agent' - type of the toId card (for corrections)
   toBoundIsInner = null, // true for inner bounds (1-5), false for outer bounds (6-10) for toId
+  secondToId = null,     // Second destination archetype (correction/growth target)
+  secondToCardType = null,   // Card type for second destination
+  secondToBoundIsInner = null, // Inner/outer for second destination bounds
   className = ''
 }) => {
   // Size multipliers - scaled to fit containers
@@ -562,11 +566,16 @@ const Minimap = ({
   const toPos = toId !== null ? getArchetypePosition(toId) : null;
   const showArrow = fromPos && toPos && fromId !== toId;
 
+  // Second destination arrow (for rebalancer/growth dual-arrow display)
+  const secondToPos = secondToId !== null ? getArchetypePosition(secondToId) : null;
+  const showSecondArrow = fromPos && secondToPos && fromId !== secondToId;
+
   // Determine which IDs to highlight
   const highlightIds = new Set();
   if (highlightId !== null) highlightIds.add(highlightId);
   if (fromId !== null) highlightIds.add(fromId);
   if (toId !== null) highlightIds.add(toId);
+  if (secondToId !== null) highlightIds.add(secondToId);
 
   return (
     <div className={`minimap-container ${className}`}>
@@ -583,6 +592,10 @@ const Minimap = ({
             @keyframes marchLine {
               0% { stroke-dashoffset: 0; }
               100% { stroke-dashoffset: -18; }
+            }
+            @keyframes marchLineSecond {
+              0% { stroke-dashoffset: 0; }
+              100% { stroke-dashoffset: -14; }
             }
             @keyframes pulseLine {
               0%, 100% { opacity: 0.7; }
@@ -658,6 +671,8 @@ const Minimap = ({
               const showFromIndicator = id === fromId && fromCardType && fromCardType !== 'archetype';
               // Show indicator for toId (target card) if it's a bound or agent (for corrections)
               const showToIndicator = id === toId && toCardType && toCardType !== 'archetype';
+              // Show indicator for secondToId (second destination) if it's a bound or agent
+              const showSecondToIndicator = id === secondToId && secondToCardType && secondToCardType !== 'archetype';
 
               return (
                 <g key={`arch-${id}`}>
@@ -680,19 +695,41 @@ const Minimap = ({
                       isInner={toBoundIsInner}
                     />
                   )}
+                  {showSecondToIndicator && (
+                    <CardTypeIndicator
+                      x={localX}
+                      y={localY}
+                      archetypeId={id}
+                      cardType={secondToCardType}
+                      isInner={secondToBoundIsInner}
+                    />
+                  )}
                 </g>
               );
             })}
           </g>
         ))}
 
-        {/* Animated arrow between from and to */}
+        {/* Animated arrow between from and to (white - placement arrow) */}
         {showArrow && (
           <AnimatedArrow
             fromX={fromPos.x}
             fromY={fromPos.y}
             toX={toPos.x}
             toY={toPos.y}
+          />
+        )}
+
+        {/* Second animated arrow from origin to correction/growth target (gold - pathway arrow) */}
+        {showSecondArrow && (
+          <AnimatedArrow
+            fromX={fromPos.x}
+            fromY={fromPos.y}
+            toX={secondToPos.x}
+            toY={secondToPos.y}
+            color="rgba(212, 175, 55, 0.9)"
+            dashArray="6 6"
+            animationName="marchLineSecond"
           />
         )}
       </svg>

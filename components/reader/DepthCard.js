@@ -1191,13 +1191,14 @@ const DepthCard = ({
                         >
                           <Minimap
                             fromId={cardHomeArchetype}
-                            toId={correctionArchetype}
+                            toId={positionArchetype}
                             size="card"
                             singleMode={true}
                             fromCardType={cardTypeForMinimap}
                             boundIsInner={boundIsInner}
-                            toCardType={correctionCardType}
-                            toBoundIsInner={correctionBoundIsInner}
+                            secondToId={correctionArchetype}
+                            secondToCardType={correctionCardType}
+                            secondToBoundIsInner={correctionBoundIsInner}
                           />
                         </div>
                         <GlossaryTerm
@@ -1440,10 +1441,11 @@ const DepthCard = ({
 
                   {/* Minimap showing growth pathway */}
                   {(() => {
-                    // For Agent cards, get the growth target Agent's card type info
+                    // Compute growth target's archetype position and card type for dual-arrow minimap
                     const growthTargetForMinimap = getComponent(growthTargetId);
                     const growthTargetCardType = growthTargetForMinimap?.type?.toLowerCase() || null;
-                    const showGrowthTargetIndicator = cardTypeForMinimap === 'agent' && growthTargetCardType === 'agent';
+                    const growthTargetArchetype = getHomeArchetype(growthTargetId);
+                    const growthTargetBoundIsInner = growthTargetCardType === 'bound' && growthTargetForMinimap?.number <= 5;
 
                     return (
                       <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
@@ -1470,7 +1472,9 @@ const DepthCard = ({
                             singleMode={true}
                             fromCardType={cardTypeForMinimap}
                             boundIsInner={boundIsInner}
-                            toCardType={showGrowthTargetIndicator ? 'agent' : null}
+                            secondToId={growthTargetArchetype}
+                            secondToCardType={growthTargetCardType !== 'archetype' ? growthTargetCardType : null}
+                            secondToBoundIsInner={growthTargetBoundIsInner}
                           />
                         </div>
                         <GlossaryTerm
@@ -2054,24 +2058,27 @@ const DepthCard = ({
           onClose={() => setShowRebalancerMinimapModal(false)}
           onReopen={() => setShowRebalancerMinimapModal(true)}
           fromId={cardHomeArchetype}
-          toId={correctionArchetype}
+          toId={positionArchetype}
           transient={draw.transient}
           cardType={cardTypeForMinimap}
           boundIsInner={boundIsInner}
           setSelectedInfo={setSelectedInfo}
           navigateFromMinimap={navigateFromMinimap}
           colorTheme="emerald"
-          toCardType={correctionCardType}
-          toBoundIsInner={correctionBoundIsInner}
           toTransient={correctionTargetId}
+          secondToId={correctionArchetype}
+          secondToCardType={correctionCardType}
+          secondToBoundIsInner={correctionBoundIsInner}
         />
       )}
 
       {/* Growth Minimap Modal - for balanced cards growth pathway */}
       {positionArchetype !== null && (() => {
-        // For Agent cards, get the growth target Agent's info for the modal
+        // Compute growth target's archetype position and card type for dual-arrow modal
         const growthTargetForModal = getComponent(growthTargetId);
-        const growthTargetIsAgent = cardTypeForMinimap === 'agent' && growthTargetForModal?.type === 'Agent';
+        const growthTargetModalCardType = growthTargetForModal?.type?.toLowerCase() || null;
+        const growthTargetModalArchetype = getHomeArchetype(growthTargetId);
+        const growthTargetModalBoundIsInner = growthTargetModalCardType === 'bound' && growthTargetForModal?.number <= 5;
 
         return (
           <MinimapModal
@@ -2086,8 +2093,10 @@ const DepthCard = ({
             setSelectedInfo={setSelectedInfo}
             navigateFromMinimap={navigateFromMinimap}
             colorTheme="teal"
-            toCardType={growthTargetIsAgent ? 'agent' : null}
-            toTransient={growthTargetIsAgent ? growthTargetId : null}
+            toTransient={growthTargetId}
+            secondToId={growthTargetModalArchetype}
+            secondToCardType={growthTargetModalCardType !== 'archetype' ? growthTargetModalCardType : null}
+            secondToBoundIsInner={growthTargetModalBoundIsInner}
           />
         );
       })()}

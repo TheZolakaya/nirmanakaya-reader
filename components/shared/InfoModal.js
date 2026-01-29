@@ -6,8 +6,9 @@ import { CHANNELS, HOUSES, ROLES, STATUS_INFO, HOUSE_COLORS, STATUS_COLORS, CHAN
 import { getAssociatedCards } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { getGlossaryEntry } from '../../lib/glossary.js';
-import { getCardImagePath, getDetailedCardType } from '../../lib/cardImages.js';
+import { getCardImagePath, getDetailedCardType, getHomeArchetype } from '../../lib/cardImages.js';
 import ClickableTermContext from './ClickableTermContext.js';
+import Minimap from '../reader/Minimap.js';
 
 const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack, onGoBack }) => {
   if (!info) return null;
@@ -50,6 +51,11 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
       const cardImagePath = getCardImagePath(id);
       const detailedType = getDetailedCardType(id);
 
+      // Minimap: show where this card lives on the architecture map
+      const homeArchetype = getHomeArchetype(id);
+      const minimapCardType = isBound ? 'bound' : isAgent ? 'agent' : 'archetype';
+      const minimapBoundIsInner = isBound && component.number <= 5;
+
       return (
         <>
           <div className="flex justify-between items-start mb-4">
@@ -69,6 +75,29 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
                 className="w-[95%] h-auto rounded-lg shadow-lg"
                 style={{ maxHeight: '35vh', objectFit: 'contain' }}
               />
+            </div>
+          )}
+
+          {/* Minimap - show card's home position on the architecture map */}
+          {homeArchetype !== null && (
+            <div className="flex justify-center mb-4">
+              <div
+                className="rounded-lg overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(107, 77, 138, 0.1) 0%, rgba(13, 13, 26, 0.6) 50%, rgba(107, 77, 138, 0.1) 100%)',
+                  border: '1px solid rgba(107, 77, 138, 0.25)',
+                  padding: '8px'
+                }}
+              >
+                <Minimap
+                  highlightId={homeArchetype}
+                  fromId={homeArchetype}
+                  size="sm"
+                  singleMode={true}
+                  fromCardType={minimapCardType}
+                  boundIsInner={minimapBoundIsInner}
+                />
+              </div>
             </div>
           )}
 
