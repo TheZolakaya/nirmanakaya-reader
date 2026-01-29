@@ -1,15 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { MONITORS } from '../../lib/monitorPrompts';
+import { MONITORS, PULSE_VOICE_PRESETS } from '../../lib/monitorPrompts';
 import { STATUSES, STATUS_COLORS, HOUSE_COLORS, HOUSES } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent } from '../../lib/corrections';
 import { getHomeArchetype, getDetailedCardType } from '../../lib/cardImages';
+import { renderWithHotlinks } from '../../lib/hotlinks';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import InfoModal from '../../components/shared/InfoModal';
 
 // House-aligned border colors (semi-transparent for see-through cards)
 const HOUSE_BORDERS = {
@@ -84,8 +86,14 @@ function getMinimapProps(reading) {
   };
 }
 
+// Voice options for the switcher
+const VOICE_OPTIONS = [
+  { key: 'default', label: 'Default' },
+  ...Object.values(PULSE_VOICE_PRESETS).map(v => ({ key: v.key, label: v.label }))
+];
+
 // MonitorCard defined at module level so React identity is stable across renders
-function MonitorCard({ monitorId, reading, featured = false, contentDim = 60 }) {
+function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, onInfoClick = null, voiceLoading = false }) {
   const monitor = MONITORS[monitorId];
   if (!reading || !monitor) return null;
 
@@ -117,7 +125,7 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60 }) 
             <span className={featured ? 'text-4xl' : 'text-2xl'}>{monitor.emoji}</span>
             <div>
               <h2 className={`${featured ? 'text-2xl' : 'text-lg'} font-light ${houseColors.text}`}>
-                {monitor.name}
+                {monitor.publicName || monitor.name}
               </h2>
               <p className="text-zinc-500 text-xs mt-0.5">{monitor.description}</p>
             </div>
@@ -168,17 +176,21 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60 }) 
         {/* Interpretation */}
         <div className="mb-3">
           <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Interpretation</h4>
-          <div className={`${featured ? 'text-zinc-300' : 'text-zinc-400'} text-sm leading-relaxed`}>
-            {interpretation}
-          </div>
+          {voiceLoading ? (
+            <div className="text-zinc-500 text-sm animate-pulse">Loading voice variant...</div>
+          ) : (
+            <div className={`${featured ? 'text-zinc-300' : 'text-zinc-400'} text-sm leading-relaxed`}>
+              {onInfoClick ? renderWithHotlinks(interpretation, onInfoClick) : interpretation}
+            </div>
+          )}
         </div>
 
         {/* Path to Balance (only if imbalanced) */}
-        {!isBalanced && correction && (
+        {!isBalanced && correction && !voiceLoading && (
           <div className="mt-3 pt-3 border-t border-white/5">
             <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Path to Balance</h4>
             <div className="text-zinc-400 text-sm leading-relaxed">
-              {correction}
+              {onInfoClick ? renderWithHotlinks(correction, onInfoClick) : correction}
             </div>
           </div>
         )}
@@ -192,6 +204,13 @@ export default function PulsePage() {
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [trends, setTrends] = useState(null);
+
+  // Voice state
+  const [selectedVoice, setSelectedVoice] = useState('default');
+  const [voiceLoadingMonitors, setVoiceLoadingMonitors] = useState(new Set());
+
+  // InfoModal state (for hotlinks)
+  const [selectedInfo, setSelectedInfo] = useState(null);
 
   // Background/theme state
   const [showBgControls, setShowBgControls] = useState(false);
@@ -254,17 +273,23 @@ export default function PulsePage() {
     }
   };
 
-  // Fetch readings for selected date
+  // Fetch readings for selected date + voice
   useEffect(() => {
     async function fetchReadings() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+        const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
+        const res = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
         const data = await res.json();
         if (data.success && data.readings[selectedDate]) {
           setReadings(data.readings[selectedDate]);
         } else {
-          setReadings(null);
+          // Voice variant not cached yet — try on-demand generation
+          if (selectedVoice !== 'default') {
+            await fetchVoiceOnDemand(selectedDate, selectedVoice);
+          } else {
+            setReadings(null);
+          }
         }
       } catch (err) {
         console.error('Error fetching readings:', err);
@@ -274,7 +299,33 @@ export default function PulsePage() {
       }
     }
     fetchReadings();
-  }, [selectedDate]);
+  }, [selectedDate, selectedVoice]);
+
+  // On-demand voice generation for all monitors
+  const fetchVoiceOnDemand = useCallback(async (date, voice) => {
+    const monitorIds = ['global', 'power', 'heart', 'mind', 'body'];
+    setVoiceLoadingMonitors(new Set(monitorIds));
+    const results = {};
+
+    for (const monitorId of monitorIds) {
+      try {
+        const res = await fetch(`/api/collective-pulse/voice?date=${date}&monitor=${monitorId}&voice=${voice}`);
+        const data = await res.json();
+        if (data.success && data.reading) {
+          results[monitorId] = data.reading;
+          // Update readings progressively as each monitor completes
+          setReadings(prev => ({ ...prev, ...{ [monitorId]: data.reading } }));
+        }
+      } catch (err) {
+        console.error(`Error generating ${monitorId} voice:`, err);
+      }
+      setVoiceLoadingMonitors(prev => {
+        const next = new Set(prev);
+        next.delete(monitorId);
+        return next;
+      });
+    }
+  }, []);
 
   // Fetch 7-day trends
   useEffect(() => {
@@ -301,6 +352,37 @@ export default function PulsePage() {
     const newDate = current.toISOString().split('T')[0];
     if (newDate <= new Date().toISOString().split('T')[0]) setSelectedDate(newDate);
   };
+
+  // Share current pulse URL
+  const handleShare = async () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
+    const shareUrl = `${baseUrl}/pulse?date=${selectedDate}${voiceParam}`;
+    const shareText = `Collective Pulse - ${formatDate(selectedDate)}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: shareText, url: shareUrl });
+      } catch (e) {
+        // User cancelled or error — fall through to clipboard
+        if (e.name !== 'AbortError') {
+          await navigator.clipboard?.writeText(shareUrl);
+        }
+      }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(shareUrl);
+    }
+  };
+
+  // Read date/voice from URL params on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get('date');
+    const voiceParam = params.get('voice');
+    if (dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam)) setSelectedDate(dateParam);
+    if (voiceParam && VOICE_OPTIONS.some(v => v.key === voiceParam)) setSelectedVoice(voiceParam);
+  }, []);
 
   const monitorIds = Object.keys(MONITORS);
 
@@ -483,12 +565,24 @@ export default function PulsePage() {
                   Geometric Weather for Humanity
                 </p>
               </div>
-              <Link
-                href="/"
-                className="text-zinc-400 hover:text-white transition-colors text-sm"
-              >
-                Back to Reader
-              </Link>
+              <div className="flex items-center gap-3">
+                {/* Share button */}
+                <button
+                  onClick={handleShare}
+                  className="p-2 rounded-lg bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-400 hover:text-amber-400 transition-all border border-zinc-700/30"
+                  title="Share this pulse"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                </button>
+                <Link
+                  href="/"
+                  className="text-zinc-400 hover:text-white transition-colors text-sm"
+                >
+                  Back to Reader
+                </Link>
+              </div>
             </div>
           </div>
         </header>
@@ -515,6 +609,25 @@ export default function PulsePage() {
           </div>
         </div>
 
+        {/* Voice Switcher */}
+        <div className="max-w-6xl mx-auto px-4 pb-2">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            {VOICE_OPTIONS.map(voice => (
+              <button
+                key={voice.key}
+                onClick={() => setSelectedVoice(voice.key)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  selectedVoice === voice.key
+                    ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                    : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/30 hover:text-zinc-300 hover:bg-zinc-800'
+                }`}
+              >
+                {voice.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Main Content */}
         <main className="max-w-6xl mx-auto px-4 py-8">
           {loading ? (
@@ -534,10 +647,32 @@ export default function PulsePage() {
             </div>
           ) : (
             <>
+              {/* Throughline (cross-monitor synthesis) */}
+              {readings.global?.throughline && selectedVoice === 'default' && (
+                <div
+                  className="mb-8 rounded-xl border border-amber-500/30 p-6"
+                  style={{ backgroundColor: `rgba(24, 24, 27, ${0.3 + (contentDim / 100) * 0.62})` }}
+                >
+                  <h3 className="text-xs font-medium text-amber-500 uppercase tracking-wider mb-3">
+                    Today&apos;s Throughline
+                  </h3>
+                  <p className="text-zinc-200 text-sm leading-relaxed">
+                    {renderWithHotlinks(readings.global.throughline, setSelectedInfo)}
+                  </p>
+                </div>
+              )}
+
               {/* Global Field - Featured */}
               {readings.global && (
                 <div className="mb-8">
-                  <MonitorCard monitorId="global" reading={readings.global} featured={true} contentDim={contentDim} />
+                  <MonitorCard
+                    monitorId="global"
+                    reading={readings.global}
+                    featured={true}
+                    contentDim={contentDim}
+                    onInfoClick={setSelectedInfo}
+                    voiceLoading={voiceLoadingMonitors.has('global')}
+                  />
                 </div>
               )}
 
@@ -545,7 +680,14 @@ export default function PulsePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {['power', 'heart', 'mind', 'body'].map(id => (
                   readings[id] ? (
-                    <MonitorCard key={id} monitorId={id} reading={readings[id]} contentDim={contentDim} />
+                    <MonitorCard
+                      key={id}
+                      monitorId={id}
+                      reading={readings[id]}
+                      contentDim={contentDim}
+                      onInfoClick={setSelectedInfo}
+                      voiceLoading={voiceLoadingMonitors.has(id)}
+                    />
                   ) : null
                 ))}
               </div>
@@ -625,6 +767,14 @@ export default function PulsePage() {
           </div>
         </footer>
       </div>
+
+      {/* InfoModal for hotlinks */}
+      {selectedInfo && (
+        <InfoModal
+          info={selectedInfo}
+          onClose={() => setSelectedInfo(null)}
+        />
+      )}
     </div>
   );
 }

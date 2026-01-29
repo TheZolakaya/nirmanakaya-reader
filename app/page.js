@@ -3805,6 +3805,15 @@ CRITICAL FORMATTING RULES:
               >
                 ✉
               </a>
+              <a
+                href="/pulse"
+                className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-orange-400 text-xs font-medium flex items-center justify-center transition-all"
+                title="Collective Pulse"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </a>
             </div>
 
             {/* Floating Background Controls Panel */}

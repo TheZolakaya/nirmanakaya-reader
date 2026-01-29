@@ -341,6 +341,54 @@ export default function AdminPanel() {
   const [configWarning, setConfigWarning] = useState(null);
   const [configSection, setConfigSection] = useState('access'); // access | voice | reading | background
 
+  // Pulse tab state
+  const [pulseGenerating, setPulseGenerating] = useState(false);
+  const [pulseResult, setPulseResult] = useState(null);
+  const [pulseSettings, setPulseSettings] = useState(null);
+  const [pulseSettingsLoading, setPulseSettingsLoading] = useState(false);
+
+  // Generate Pulse Now
+  const generatePulseNow = async () => {
+    setPulseGenerating(true);
+    setPulseResult(null);
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/collective-pulse', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${cronSecret}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ force: true })
+      });
+      const data = await res.json();
+      setPulseResult(data);
+    } catch (err) {
+      setPulseResult({ success: false, error: err.message });
+    } finally {
+      setPulseGenerating(false);
+    }
+  };
+
+  // Load pulse settings from Supabase (via API)
+  const loadPulseSettings = async () => {
+    setPulseSettingsLoading(true);
+    try {
+      const res = await fetch('/api/collective-pulse?date=' + new Date().toISOString().split('T')[0]);
+      const data = await res.json();
+      if (data.success) {
+        setPulseSettings({
+          lastGenerated: data.dateRange?.to || null,
+          readingCount: data.count || 0
+        });
+      }
+    } catch (err) {
+      console.error('Failed to load pulse settings:', err);
+    } finally {
+      setPulseSettingsLoading(false);
+    }
+  };
+
   useEffect(() => {
     async function checkAdmin() {
       const { user } = await getUser();
@@ -683,6 +731,7 @@ export default function AdminPanel() {
               { id: 'testing', label: 'Testing', onClick: () => setActiveTab('testing') },
               { id: 'broadcast', label: 'Broadcast', onClick: () => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }},
               { id: 'config', label: 'Config', onClick: () => { setActiveTab('config'); loadFeatureConfig(); }},
+              { id: 'pulse', label: 'Pulse', onClick: () => setActiveTab('pulse') },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1905,6 +1954,108 @@ export default function AdminPanel() {
                 Changes apply to new users and reset sessions
               </p>
             </div>
+          </div>
+        )}
+
+        {/* PULSE TAB */}
+        {activeTab === 'pulse' && (
+          <div className="space-y-6 max-w-2xl">
+            <h2 className="text-xl font-light text-white">Collective Pulse Controls</h2>
+
+            {/* Generate Now */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-2">Generate Now</h3>
+              <p className="text-xs text-zinc-500 mb-4">
+                Manually trigger collective pulse generation for today. This generates all 5 monitor readings + throughline.
+              </p>
+              <button
+                onClick={generatePulseNow}
+                disabled={pulseGenerating}
+                className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+                  pulseGenerating
+                    ? 'bg-zinc-700 text-zinc-500 cursor-not-allowed'
+                    : 'bg-amber-500 text-zinc-900 hover:bg-amber-400'
+                }`}
+              >
+                {pulseGenerating ? 'Generating...' : 'Generate Pulse Now'}
+              </button>
+
+              {pulseResult && (
+                <div className={`mt-4 p-4 rounded-lg text-sm ${
+                  pulseResult.success
+                    ? 'bg-emerald-900/30 border border-emerald-700/30 text-emerald-300'
+                    : 'bg-red-900/30 border border-red-700/30 text-red-300'
+                }`}>
+                  {pulseResult.success ? (
+                    <div>
+                      <p className="font-medium mb-2">Generated successfully for {pulseResult.date}</p>
+                      <p className="text-xs text-zinc-400">
+                        {pulseResult.totalGenerated} readings generated
+                        {pulseResult.throughline ? ' + throughline' : ''}
+                        {pulseResult.totalFailed > 0 && ` (${pulseResult.totalFailed} failed)`}
+                      </p>
+                      {pulseResult.readings?.map(r => (
+                        <div key={r.monitor} className="mt-1 text-xs text-zinc-500">
+                          {r.monitor}: {r.signature}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>Error: {pulseResult.error}</p>
+                  )}
+                </div>
+              )}
+            </section>
+
+            {/* Current Status */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-medium text-cyan-400">Current Status</h3>
+                <button
+                  onClick={loadPulseSettings}
+                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                >
+                  {pulseSettingsLoading ? 'Loading...' : 'Refresh'}
+                </button>
+              </div>
+              {pulseSettings ? (
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">Last generated</span>
+                    <span className="text-zinc-300">{pulseSettings.lastGenerated || 'Never'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">Today&apos;s readings</span>
+                    <span className="text-zinc-300">{pulseSettings.readingCount}</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">
+                  Click Refresh to load current status
+                </p>
+              )}
+            </section>
+
+            {/* Quick Link */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-violet-400 mb-2">Quick Links</h3>
+              <div className="flex gap-3">
+                <a
+                  href="/pulse"
+                  className="px-4 py-2 rounded-lg text-sm bg-violet-500/20 text-violet-400 border border-violet-500/30 hover:bg-violet-500/30 transition-colors"
+                >
+                  View Pulse Dashboard
+                </a>
+                <a
+                  href="/api/collective-pulse"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg text-sm bg-zinc-700/50 text-zinc-400 border border-zinc-700/30 hover:bg-zinc-700 transition-colors"
+                >
+                  API Docs
+                </a>
+              </div>
+            </section>
           </div>
         )}
       </main>
