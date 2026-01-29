@@ -346,6 +346,8 @@ export default function AdminPanel() {
   const [pulseResult, setPulseResult] = useState(null);
   const [pulseSettings, setPulseSettings] = useState(null);
   const [pulseSettingsLoading, setPulseSettingsLoading] = useState(false);
+  const [pulseAdminSettings, setPulseAdminSettings] = useState(null);
+  const [pulseAdminSaving, setPulseAdminSaving] = useState(false);
 
   // Generate Pulse Now
   const generatePulseNow = async () => {
@@ -386,6 +388,42 @@ export default function AdminPanel() {
       console.error('Failed to load pulse settings:', err);
     } finally {
       setPulseSettingsLoading(false);
+    }
+  };
+
+  // Load admin pulse settings (frequency, default voice, auto-generate)
+  const loadPulseAdminSettings = async () => {
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/collective-pulse/settings', {
+        headers: { 'Authorization': `Bearer ${cronSecret}` }
+      });
+      const data = await res.json();
+      if (data.success) setPulseAdminSettings(data.settings);
+    } catch (err) {
+      console.error('Failed to load pulse admin settings:', err);
+    }
+  };
+
+  // Save a pulse admin setting
+  const savePulseAdminSetting = async (key, value) => {
+    setPulseAdminSaving(true);
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/collective-pulse/settings', {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${cronSecret}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ [key]: value })
+      });
+      const data = await res.json();
+      if (data.success) setPulseAdminSettings(data.settings);
+    } catch (err) {
+      console.error('Failed to save pulse setting:', err);
+    } finally {
+      setPulseAdminSaving(false);
     }
   };
 
@@ -731,7 +769,7 @@ export default function AdminPanel() {
               { id: 'testing', label: 'Testing', onClick: () => setActiveTab('testing') },
               { id: 'broadcast', label: 'Broadcast', onClick: () => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }},
               { id: 'config', label: 'Config', onClick: () => { setActiveTab('config'); loadFeatureConfig(); }},
-              { id: 'pulse', label: 'Pulse', onClick: () => setActiveTab('pulse') },
+              { id: 'pulse', label: 'Pulse', onClick: () => { setActiveTab('pulse'); loadPulseAdminSettings(); }},
             ].map(tab => (
               <button
                 key={tab.id}
@@ -2032,6 +2070,75 @@ export default function AdminPanel() {
               ) : (
                 <p className="text-xs text-zinc-500">
                   Click Refresh to load current status
+                </p>
+              )}
+            </section>
+
+            {/* Pulse Settings */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Pulse Settings</h3>
+              {pulseAdminSettings ? (
+                <div className="space-y-4">
+                  {/* Default Voice */}
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Default Voice</label>
+                    <select
+                      value={pulseAdminSettings.default_voice || 'default'}
+                      onChange={(e) => savePulseAdminSetting('default_voice', e.target.value)}
+                      disabled={pulseAdminSaving}
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                    >
+                      <option value="default">Default</option>
+                      <option value="friend">Friend</option>
+                      <option value="analyst">Analyst</option>
+                      <option value="scientist">Scientist</option>
+                      <option value="mentor">Mentor</option>
+                      <option value="oracle">Oracle</option>
+                    </select>
+                  </div>
+
+                  {/* Frequency */}
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Generation Frequency</label>
+                    <select
+                      value={pulseAdminSettings.frequency || 'daily'}
+                      onChange={(e) => savePulseAdminSetting('frequency', e.target.value)}
+                      disabled={pulseAdminSaving}
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                    >
+                      <option value="hourly">Hourly</option>
+                      <option value="6hour">Every 6 Hours</option>
+                      <option value="daily">Daily</option>
+                      <option value="weekly">Weekly</option>
+                    </select>
+                  </div>
+
+                  {/* Auto-generate toggle */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-zinc-400">Auto-generate (cron)</span>
+                    <button
+                      onClick={() => savePulseAdminSetting('auto_generate', !pulseAdminSettings.auto_generate)}
+                      disabled={pulseAdminSaving}
+                      className={`w-11 h-6 rounded-full transition-colors relative ${
+                        pulseAdminSettings.auto_generate ? 'bg-amber-500' : 'bg-zinc-700'
+                      }`}
+                    >
+                      <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${
+                        pulseAdminSettings.auto_generate ? 'left-5.5 translate-x-0' : 'left-0.5'
+                      }`} style={{ left: pulseAdminSettings.auto_generate ? '22px' : '2px' }} />
+                    </button>
+                  </div>
+
+                  {/* Last generated */}
+                  {pulseAdminSettings.last_generated_at && (
+                    <div className="text-xs text-zinc-600 pt-2 border-t border-zinc-800">
+                      Last generated: {new Date(pulseAdminSettings.last_generated_at).toLocaleString()}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">
+                  Loading settings...
                 </p>
               )}
             </section>

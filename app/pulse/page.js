@@ -8,6 +8,7 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent } from '../../lib/corrections';
 import { getHomeArchetype, getDetailedCardType } from '../../lib/cardImages';
 import { renderWithHotlinks } from '../../lib/hotlinks';
+import { ensureParagraphBreaks } from '../../lib/utils';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
@@ -86,10 +87,10 @@ function getMinimapProps(reading) {
   };
 }
 
-// Voice options for the switcher
+// Voice options for the switcher (Raw at end)
 const VOICE_OPTIONS = [
-  { key: 'default', label: 'Default' },
-  ...Object.values(PULSE_VOICE_PRESETS).map(v => ({ key: v.key, label: v.label }))
+  ...Object.values(PULSE_VOICE_PRESETS).map(v => ({ key: v.key, label: v.label })),
+  { key: 'default', label: 'Raw' }
 ];
 
 // MonitorCard defined at module level so React identity is stable across renders
@@ -130,7 +131,10 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
               <p className="text-zinc-500 text-xs mt-0.5">{monitor.description}</p>
             </div>
           </div>
-          <span className={`text-xs px-2 py-1 rounded-full shrink-0 ${STATUS_COLORS[reading.status_id]}`}>
+          <span
+            className={`text-xs px-2 py-1 rounded-full shrink-0 cursor-pointer hover:brightness-125 transition-all ${STATUS_COLORS[reading.status_id]}`}
+            onClick={() => onInfoClick && onInfoClick({ type: 'status', id: reading.status_id, data: STATUSES[reading.status_id] })}
+          >
             {STATUSES[reading.status_id]?.name}
           </span>
         </div>
@@ -140,7 +144,10 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
 
         {/* Card visual: CardImage + Minimap (stacks on mobile) */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-3">
-          <div className="shrink-0 p-3 -m-3 overflow-visible">
+          <div
+            className="shrink-0 p-3 -m-3 overflow-visible cursor-pointer"
+            onClick={() => onInfoClick && onInfoClick({ type: 'card', id: reading.transient_id, data: component })}
+          >
             <CardImage
               transient={reading.transient_id}
               status={reading.status_id}
@@ -164,9 +171,24 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
             {reading.signature}
           </div>
           <div className="text-zinc-500 text-xs">
-            {component?.name || 'Unknown'} in {position?.name || 'Unknown'}
+            <span
+              className="cursor-pointer hover:underline decoration-dotted underline-offset-2 hover:text-zinc-300 transition-colors"
+              onClick={() => onInfoClick && onInfoClick({ type: 'card', id: reading.transient_id, data: component })}
+            >
+              {component?.name || 'Unknown'}
+            </span>
+            {' in '}
+            <span
+              className="cursor-pointer hover:underline decoration-dotted underline-offset-2 hover:text-zinc-300 transition-colors"
+              onClick={() => onInfoClick && position && onInfoClick({ type: 'card', id: reading.position_id, data: position })}
+            >
+              {position?.name || 'Unknown'}
+            </span>
             {component?.house && (
-              <span className={`ml-2 ${HOUSE_COLORS[component.house]?.text || 'text-zinc-500'}`}>
+              <span
+                className={`ml-2 cursor-pointer hover:underline decoration-dotted underline-offset-2 transition-colors ${HOUSE_COLORS[component.house]?.text || 'text-zinc-500'}`}
+                onClick={() => onInfoClick && onInfoClick({ type: 'house', id: component.house, data: component.house })}
+              >
                 {component.house} House
               </span>
             )}
@@ -185,8 +207,12 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
               <div className="h-3 bg-zinc-700/40 rounded w-3/5" />
             </div>
           ) : (
-            <div className={`${featured ? 'text-zinc-300' : 'text-zinc-400'} text-sm leading-relaxed`}>
-              {onInfoClick ? renderWithHotlinks(interpretation, onInfoClick) : interpretation}
+            <div className={`${featured ? 'text-zinc-300' : 'text-zinc-400'} text-sm leading-relaxed space-y-3`}>
+              {ensureParagraphBreaks(interpretation).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                <p key={i} className="whitespace-pre-wrap">
+                  {onInfoClick ? renderWithHotlinks(para.trim(), onInfoClick) : para.trim()}
+                </p>
+              ))}
             </div>
           )}
         </div>
@@ -195,8 +221,12 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
         {!isBalanced && !voiceLoading && correction && (
           <div className="mt-3 pt-3 border-t border-white/5">
             <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Path to Balance</h4>
-            <div className="text-zinc-400 text-sm leading-relaxed">
-              {onInfoClick ? renderWithHotlinks(correction, onInfoClick) : correction}
+            <div className="text-zinc-400 text-sm leading-relaxed space-y-3">
+              {ensureParagraphBreaks(correction).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                <p key={i} className="whitespace-pre-wrap">
+                  {onInfoClick ? renderWithHotlinks(para.trim(), onInfoClick) : para.trim()}
+                </p>
+              ))}
             </div>
           </div>
         )}
@@ -218,9 +248,10 @@ export default function PulsePage() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [trends, setTrends] = useState(null);
 
-  // Voice state
-  const [selectedVoice, setSelectedVoice] = useState('default');
+  // Voice state (default to 'friend'; localStorage or URL params may override)
+  const [selectedVoice, setSelectedVoice] = useState('friend');
   const [voiceLoadingMonitors, setVoiceLoadingMonitors] = useState(new Set());
+  const [throughline, setThroughline] = useState(null);
 
   // InfoModal state (for hotlinks)
   const [selectedInfo, setSelectedInfo] = useState(null);
@@ -253,6 +284,7 @@ export default function PulsePage() {
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
+        if (prefs.selectedVoice !== undefined) setSelectedVoice(prefs.selectedVoice);
       }
     } catch (e) {
       console.warn('Failed to load pulse preferences:', e);
@@ -261,13 +293,13 @@ export default function PulsePage() {
 
   // Auto-save preferences
   useEffect(() => {
-    const prefs = { backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage };
+    const prefs = { backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, selectedVoice };
     try {
       localStorage.setItem('nirmanakaya_pulse_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save pulse preferences:', e);
     }
-  }, [backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage]);
+  }, [backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, selectedVoice]);
 
   // Background helpers
   const getCurrentBackground = () => {
@@ -293,17 +325,18 @@ export default function PulsePage() {
     }
   };
 
-  // Track previous date to distinguish date change vs voice change
+  // Track previous date and voice to distinguish what changed
   const [prevDate, setPrevDate] = useState(selectedDate);
+  const [prevVoice, setPrevVoice] = useState(null); // null = initial load
 
   // Fetch readings for selected date + voice
   useEffect(() => {
     const isDateChange = selectedDate !== prevDate;
-    const isVoiceSwitch = !isDateChange && selectedVoice !== 'default';
+    const isVoiceSwitch = !isDateChange && prevVoice !== null && selectedVoice !== prevVoice;
 
     async function fetchReadings() {
-      // Full-page loading only for date changes or initial load
-      // Voice switches show per-card loading instead
+      // Full-page loading for date changes or initial load
+      // Voice switches show per-card shimmer instead
       if (!isVoiceSwitch) {
         setLoading(true);
       } else {
@@ -312,8 +345,37 @@ export default function PulsePage() {
       }
       setError(null);
       setPrevDate(selectedDate);
+      setPrevVoice(selectedVoice);
 
       try {
+        // On date change or initial load, fetch default readings first for throughline
+        if (!isVoiceSwitch) {
+          const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+          const defaultData = await defaultRes.json();
+          if (defaultData.success && defaultData.readings[selectedDate]) {
+            const defaultReadings = defaultData.readings[selectedDate];
+            // Capture throughline (only stored on default voice global row)
+            if (defaultReadings.global?.throughline) {
+              setThroughline(defaultReadings.global.throughline);
+            } else {
+              setThroughline(null);
+            }
+            // If voice IS default, use these readings directly
+            if (selectedVoice === 'default') {
+              setReadings(defaultReadings);
+              setVoiceLoadingMonitors(new Set());
+              return;
+            }
+          } else {
+            setThroughline(null);
+            if (selectedVoice === 'default') {
+              setReadings(null);
+              return;
+            }
+          }
+        }
+
+        // Fetch voice-specific readings
         const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
         const res = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
         const data = await res.json();
@@ -696,21 +758,6 @@ export default function PulsePage() {
             </div>
           ) : (
             <>
-              {/* Throughline (cross-monitor synthesis) */}
-              {readings.global?.throughline && selectedVoice === 'default' && (
-                <div
-                  className="mb-8 rounded-xl border border-amber-500/30 p-6"
-                  style={{ backgroundColor: `rgba(24, 24, 27, ${0.3 + (contentDim / 100) * 0.62})` }}
-                >
-                  <h3 className="text-xs font-medium text-amber-500 uppercase tracking-wider mb-3">
-                    Today&apos;s Throughline
-                  </h3>
-                  <p className="text-zinc-200 text-sm leading-relaxed">
-                    {renderWithHotlinks(readings.global.throughline, setSelectedInfo)}
-                  </p>
-                </div>
-              )}
-
               {/* Global Field - Featured */}
               {readings.global && (
                 <div className="mb-8">
@@ -740,6 +787,25 @@ export default function PulsePage() {
                   ) : null
                 ))}
               </div>
+
+              {/* Throughline (cross-monitor synthesis) — shown for all voices */}
+              {throughline && (
+                <div
+                  className="mb-8 rounded-xl border border-amber-500/30 p-6"
+                  style={{ backgroundColor: `rgba(24, 24, 27, ${0.3 + (contentDim / 100) * 0.62})` }}
+                >
+                  <h3 className="text-xs font-medium text-amber-500 uppercase tracking-wider mb-3">
+                    Today&apos;s Throughline
+                  </h3>
+                  <div className="text-zinc-200 text-sm leading-relaxed space-y-3">
+                    {ensureParagraphBreaks(throughline).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                      <p key={i} className="whitespace-pre-wrap">
+                        {renderWithHotlinks(para.trim(), setSelectedInfo)}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* 7-Day Trend */}
               {trends && Object.keys(trends).length > 1 && (
@@ -822,6 +888,7 @@ export default function PulsePage() {
         <InfoModal
           info={selectedInfo}
           onClose={() => setSelectedInfo(null)}
+          setSelectedInfo={setSelectedInfo}
         />
       )}
     </div>

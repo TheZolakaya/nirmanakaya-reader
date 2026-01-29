@@ -315,6 +315,24 @@ export async function POST(request) {
       }
     }
 
+    // Purge cached voice variants so they regenerate from new card draws
+    if (results.length > 0) {
+      try {
+        const { error: purgeErr } = await supabase
+          .from('collective_readings')
+          .delete()
+          .eq('reading_date', today)
+          .neq('voice', 'default');
+        if (purgeErr) {
+          console.log('Voice cache purge failed (non-critical):', purgeErr.message);
+        } else {
+          console.log('Purged cached voice variants for', today);
+        }
+      } catch (e) {
+        console.log('Voice cache purge skipped:', e.message);
+      }
+    }
+
     // Generate throughline if all 5 monitors succeeded (v2)
     let throughline = null;
     if (allReadings.length === 5) {
