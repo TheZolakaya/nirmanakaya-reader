@@ -194,26 +194,26 @@ export default async function OGImage({ params }) {
         <div style={{
           position: 'relative', display: 'flex', flexDirection: 'column',
           alignItems: 'center', width: '100%', height: '100%',
-          padding: '32px 48px',
+          padding: '24px 40px',
         }}>
           {/* Top branding */}
           <div style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center',
-            marginBottom: 16,
+            marginBottom: 12,
           }}>
             <div style={{
-              fontSize: 18, fontWeight: 300, letterSpacing: 8,
+              fontSize: 22, fontWeight: 300, letterSpacing: 10,
               color: '#fbbf24',
-              marginBottom: 6,
+              marginBottom: 4,
               display: 'flex',
             }}>
               NIRMANAKAYA
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 24, fontWeight: 300, color: modeColor }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ fontSize: 32, fontWeight: 300, color: modeColor }}>
                 {modeLabel}
               </span>
-              <span style={{ fontSize: 24, fontWeight: 300, color: 'rgba(255,255,255,0.7)' }}>
+              <span style={{ fontSize: 32, fontWeight: 300, color: 'rgba(255,255,255,0.7)' }}>
                 Reading
               </span>
             </div>
@@ -223,7 +223,7 @@ export default async function OGImage({ params }) {
           {cardResults.length > 0 && (
             <div style={{
               display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-              gap: 20, marginBottom: 16, flex: 1,
+              gap: 24, marginBottom: 12, flex: 1,
             }}>
               {cardResults.map((card, i) => (
                 <div key={i} style={{
@@ -231,33 +231,33 @@ export default async function OGImage({ params }) {
                   gap: 6,
                 }}>
                   <div style={{
-                    display: 'flex', padding: 3, borderRadius: 8,
+                    display: 'flex', padding: 4, borderRadius: 10,
                     background: `linear-gradient(135deg, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.7), transparent 50%, rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.7))`,
-                    boxShadow: `0 0 24px rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.4)`,
+                    boxShadow: `0 0 30px rgba(${card.statusColor.r}, ${card.statusColor.g}, ${card.statusColor.b}, 0.5)`,
                   }}>
                     {card.imgData ? (
                       <img
                         src={card.imgData}
-                        width={110}
-                        height={165}
-                        style={{ borderRadius: 6 }}
+                        width={140}
+                        height={210}
+                        style={{ borderRadius: 8 }}
                       />
                     ) : (
                       <div style={{
-                        width: 110, height: 165, borderRadius: 6,
+                        width: 140, height: 210, borderRadius: 8,
                         background: 'rgba(39,39,42,0.8)', display: 'flex',
                         alignItems: 'center', justifyContent: 'center',
-                        color: '#71717a', fontSize: 13,
+                        color: '#71717a', fontSize: 16,
                       }}>
                         Card
                       </div>
                     )}
                   </div>
                   <div style={{
-                    fontSize: 12, color: 'rgba(255,255,255,0.85)',
-                    maxWidth: 110, textAlign: 'center',
+                    fontSize: 15, color: 'rgba(255,255,255,0.9)',
+                    maxWidth: 140, textAlign: 'center',
                     display: 'flex',
-                    textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+                    textShadow: '0 1px 4px rgba(0,0,0,0.9)',
                   }}>
                     {card.name}
                   </div>
@@ -269,15 +269,15 @@ export default async function OGImage({ params }) {
           {/* Bottom text area */}
           <div style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center',
-            gap: 8, maxWidth: 1000,
+            gap: 8, maxWidth: 1060,
           }}>
             {/* Question */}
             {question && (
               <div style={{
-                fontSize: 14, color: 'rgba(255,255,255,0.5)', fontStyle: 'italic',
+                fontSize: 17, color: 'rgba(255,255,255,0.55)', fontStyle: 'italic',
                 textAlign: 'center',
                 display: 'flex',
-                textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+                textShadow: '0 1px 4px rgba(0,0,0,0.9)',
               }}>
                 {`\u201C${question}\u201D`}
               </div>
@@ -286,11 +286,11 @@ export default async function OGImage({ params }) {
             {/* Synthesis shallow */}
             {synthesisText && (
               <div style={{
-                fontSize: 15, color: 'rgba(255,255,255,0.8)',
+                fontSize: 18, color: 'rgba(255,255,255,0.85)',
                 textAlign: 'center',
                 lineHeight: 1.5,
                 display: 'flex',
-                textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+                textShadow: '0 1px 5px rgba(0,0,0,0.95)',
               }}>
                 {synthesisText}
               </div>
