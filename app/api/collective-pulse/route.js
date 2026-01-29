@@ -3,6 +3,9 @@
 // Generates readings for all 5 monitors and stores them in Supabase
 // Call via Vercel cron or external scheduler with CRON_SECRET
 
+// Allow up to 5 minutes for full voice pre-generation (5 defaults + throughline + 25 voices)
+export const maxDuration = 300;
+
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { randomBytes } from 'crypto';
@@ -398,11 +401,13 @@ export async function POST(request) {
         const voiceKeys = Object.keys(PULSE_VOICE_PRESETS);
         console.log(`Pre-generating ${voiceKeys.length} voice variants × ${allReadings.length} monitors...`);
 
+        // Process one voice at a time, but parallelize all 5 monitors within each voice
         for (const voiceKey of voiceKeys) {
           const voicePreset = PULSE_VOICE_PRESETS[voiceKey];
-          for (const reading of allReadings) {
+          console.log(`  Generating voice: ${voiceKey} (${allReadings.length} monitors in parallel)...`);
+
+          const monitorPromises = allReadings.map(async (reading) => {
             try {
-              console.log(`  Voice: ${voiceKey} × ${reading.monitor}`);
               const voiced = await generateVoicedReading(
                 reading.monitor,
                 reading.card,
@@ -410,15 +415,25 @@ export async function POST(request) {
                 voicePreset
               );
               await storeReading(voiced, today, voiceKey);
-              voiceResults.push({ monitor: reading.monitor, voice: voiceKey, success: true });
-
-              // Small delay between API calls
-              await new Promise(resolve => setTimeout(resolve, 300));
+              return { monitor: reading.monitor, voice: voiceKey, success: true };
             } catch (err) {
               console.error(`Voice ${voiceKey}/${reading.monitor} failed:`, err.message);
-              voiceErrors.push({ monitor: reading.monitor, voice: voiceKey, error: err.message });
+              return { monitor: reading.monitor, voice: voiceKey, success: false, error: err.message };
+            }
+          });
+
+          const batchResults = await Promise.all(monitorPromises);
+          for (const r of batchResults) {
+            if (r.success) {
+              voiceResults.push(r);
+            } else {
+              voiceErrors.push(r);
             }
           }
+          console.log(`  Voice ${voiceKey}: ${batchResults.filter(r => r.success).length}/5 ok`);
+
+          // Brief pause between voice batches
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
         console.log(`Voice pre-generation done: ${voiceResults.length} ok, ${voiceErrors.length} failed`);
       }
