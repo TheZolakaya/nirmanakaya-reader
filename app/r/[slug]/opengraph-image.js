@@ -3,8 +3,6 @@
 // Uses Next.js ImageResponse (Satori) to render JSX to PNG
 
 import { ImageResponse } from 'next/og';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
 import { getPublicReadingServer } from '../../../lib/supabase-server';
 import { getComponent } from '../../../lib/corrections';
 import { getCardThumbPath } from '../../../lib/cardImages';
@@ -12,6 +10,8 @@ import { getCardThumbPath } from '../../../lib/cardImages';
 export const runtime = 'nodejs';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nirmanakaya.com';
 
 // Status to RGB color mapping
 const STATUS_COLORS = {
@@ -45,10 +45,13 @@ async function loadCardImage(transient) {
   if (!thumbPath) return null;
 
   try {
-    // Read from public directory on the filesystem
-    const filePath = join(process.cwd(), 'public', thumbPath);
-    const buffer = await readFile(filePath);
-    return `data:image/png;base64,${buffer.toString('base64')}`;
+    // Fetch thumbnail from public CDN URL
+    const url = `${SITE_URL}${thumbPath}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const buffer = await res.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString('base64');
+    return `data:image/png;base64,${base64}`;
   } catch {
     return null;
   }
@@ -59,20 +62,18 @@ export default async function OGImage({ params }) {
   const { data: reading } = await getPublicReadingServer(slug);
 
   if (!reading) {
-    // Fallback: generic Nirmanakaya image
     return new ImageResponse(
       (
         <div style={{
           width: '100%', height: '100%', display: 'flex',
           flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
           background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%)',
-          color: '#a1a1aa',
           fontFamily: 'sans-serif',
         }}>
-          <div style={{ fontSize: 48, fontWeight: 300, color: '#fbbf24', marginBottom: 16 }}>
+          <div style={{ fontSize: 48, fontWeight: 300, color: '#fbbf24', marginBottom: 16, display: 'flex' }}>
             NIRMANAKAYA
           </div>
-          <div style={{ fontSize: 24, color: '#71717a' }}>
+          <div style={{ fontSize: 24, color: '#71717a', display: 'flex' }}>
             Reading not found
           </div>
         </div>
@@ -122,8 +123,9 @@ export default async function OGImage({ params }) {
         }}>
           <div style={{
             fontSize: 20, fontWeight: 300, letterSpacing: 8,
-            color: '#fbbf24', textTransform: 'uppercase',
+            color: '#fbbf24',
             marginBottom: 8,
+            display: 'flex',
           }}>
             NIRMANAKAYA
           </div>
@@ -162,7 +164,7 @@ export default async function OGImage({ params }) {
                       src={card.imgData}
                       width={120}
                       height={180}
-                      style={{ borderRadius: 6, objectFit: 'cover' }}
+                      style={{ borderRadius: 6 }}
                     />
                   ) : (
                     <div style={{
@@ -179,9 +181,7 @@ export default async function OGImage({ params }) {
                 <div style={{
                   fontSize: 13, color: '#d4d4d8',
                   maxWidth: 120, textAlign: 'center',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
+                  display: 'flex',
                 }}>
                   {card.name}
                 </div>
@@ -196,8 +196,9 @@ export default async function OGImage({ params }) {
             fontSize: 18, color: '#a1a1aa', fontStyle: 'italic',
             textAlign: 'center', maxWidth: 900,
             lineHeight: 1.4,
+            display: 'flex',
           }}>
-            &ldquo;{question}&rdquo;
+            {`\u201C${question}\u201D`}
           </div>
         )}
       </div>
