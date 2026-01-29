@@ -725,6 +725,7 @@ export default function NirmanakaReader() {
   const [selectedVideo, setSelectedVideo] = useState(0); // Index into videoBackgrounds (0 = cosmos default)
   const [selectedImage, setSelectedImage] = useState(0); // Index into imageBackgrounds
   const [showCardImages, setShowCardImages] = useState(true); // Show card art as background in signature cards
+  const [pulseUnseen, setPulseUnseen] = useState(false); // Flash pulse button until user visits today's pulse
 
   const videoBackgrounds = [
     { id: "cosmos", src: "/video/cosmos.mp4", label: "Cosmos" },
@@ -1241,6 +1242,15 @@ export default function NirmanakaReader() {
       console.warn('Failed to save preferences:', e);
     }
   }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+
+  // Check if user has seen today's pulse (for flash indicator)
+  useEffect(() => {
+    try {
+      const lastSeen = localStorage.getItem('nirmanakaya_last_pulse_seen');
+      const today = new Date().toISOString().split('T')[0];
+      setPulseUnseen(!lastSeen || lastSeen < today);
+    } catch (e) { /* localStorage unavailable */ }
+  }, []);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3807,12 +3817,22 @@ CRITICAL FORMATTING RULES:
               </a>
               <a
                 href="/pulse"
-                className="w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-orange-400 text-xs font-medium flex items-center justify-center transition-all"
+                className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
+                  pulseUnseen
+                    ? 'bg-orange-500/20 border-orange-500/50 text-orange-400 hover:bg-orange-500/30'
+                    : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-orange-400'
+                }`}
                 title="Collective Pulse"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-4 h-4 ${pulseUnseen ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
+                {pulseUnseen && (
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full animate-ping" />
+                )}
+                {pulseUnseen && (
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full" />
+                )}
               </a>
             </div>
 

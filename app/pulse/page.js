@@ -138,8 +138,8 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
         {/* Scope question */}
         <p className="text-zinc-500 text-xs italic mb-4">{monitor.question}</p>
 
-        {/* Card visual: CardImage + Minimap */}
-        <div className="flex items-center gap-4 mb-3">
+        {/* Card visual: CardImage + Minimap (stacks on mobile) */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-3">
           <div className="shrink-0 p-3 -m-3 overflow-visible">
             <CardImage
               transient={reading.transient_id}
@@ -177,7 +177,13 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
         <div className="mb-3">
           <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Interpretation</h4>
           {voiceLoading ? (
-            <div className="text-zinc-500 text-sm animate-pulse">Loading voice variant...</div>
+            <div className="space-y-2 animate-pulse">
+              <div className="h-3 bg-zinc-700/50 rounded w-full" />
+              <div className="h-3 bg-zinc-700/50 rounded w-11/12" />
+              <div className="h-3 bg-zinc-700/50 rounded w-4/5" />
+              <div className="h-3 bg-zinc-700/50 rounded w-9/12" />
+              <div className="h-3 bg-zinc-700/40 rounded w-3/5" />
+            </div>
           ) : (
             <div className={`${featured ? 'text-zinc-300' : 'text-zinc-400'} text-sm leading-relaxed`}>
               {onInfoClick ? renderWithHotlinks(interpretation, onInfoClick) : interpretation}
@@ -186,12 +192,19 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
         </div>
 
         {/* Path to Balance (only if imbalanced) */}
-        {!isBalanced && correction && !voiceLoading && (
+        {!isBalanced && !voiceLoading && correction && (
           <div className="mt-3 pt-3 border-t border-white/5">
             <h4 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Path to Balance</h4>
             <div className="text-zinc-400 text-sm leading-relaxed">
               {onInfoClick ? renderWithHotlinks(correction, onInfoClick) : correction}
             </div>
+          </div>
+        )}
+        {voiceLoading && !isBalanced && (
+          <div className="mt-3 pt-3 border-t border-white/5 animate-pulse">
+            <div className="h-2.5 bg-zinc-700/30 rounded w-24 mb-2" />
+            <div className="h-3 bg-zinc-700/40 rounded w-full" />
+            <div className="h-3 bg-zinc-700/40 rounded w-3/4 mt-2" />
           </div>
         )}
     </div>
@@ -220,6 +233,13 @@ export default function PulsePage() {
   const [backgroundType, setBackgroundType] = useState('video');
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // Mark pulse as seen (stops flash on Reader's pulse button)
+  useEffect(() => {
+    try {
+      localStorage.setItem('nirmanakaya_last_pulse_seen', new Date().toISOString().split('T')[0]);
+    } catch (e) { /* localStorage unavailable */ }
+  }, []);
 
   // Load preferences from localStorage
   useEffect(() => {
@@ -273,16 +293,33 @@ export default function PulsePage() {
     }
   };
 
+  // Track previous date to distinguish date change vs voice change
+  const [prevDate, setPrevDate] = useState(selectedDate);
+
   // Fetch readings for selected date + voice
   useEffect(() => {
+    const isDateChange = selectedDate !== prevDate;
+    const isVoiceSwitch = !isDateChange && selectedVoice !== 'default';
+
     async function fetchReadings() {
-      setLoading(true);
+      // Full-page loading only for date changes or initial load
+      // Voice switches show per-card loading instead
+      if (!isVoiceSwitch) {
+        setLoading(true);
+      } else {
+        // Mark all monitors as loading for per-card shimmer
+        setVoiceLoadingMonitors(new Set(['global', 'power', 'heart', 'mind', 'body']));
+      }
+      setError(null);
+      setPrevDate(selectedDate);
+
       try {
         const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
         const res = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
         const data = await res.json();
         if (data.success && data.readings[selectedDate]) {
           setReadings(data.readings[selectedDate]);
+          setVoiceLoadingMonitors(new Set());
         } else {
           // Voice variant not cached yet — try on-demand generation
           if (selectedVoice !== 'default') {
@@ -294,6 +331,7 @@ export default function PulsePage() {
       } catch (err) {
         console.error('Error fetching readings:', err);
         setError('Failed to load readings');
+        setVoiceLoadingMonitors(new Set());
       } finally {
         setLoading(false);
       }
@@ -612,19 +650,30 @@ export default function PulsePage() {
         {/* Voice Switcher */}
         <div className="max-w-6xl mx-auto px-4 pb-2">
           <div className="flex items-center justify-center gap-2 flex-wrap">
-            {VOICE_OPTIONS.map(voice => (
-              <button
-                key={voice.key}
-                onClick={() => setSelectedVoice(voice.key)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedVoice === voice.key
-                    ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
-                    : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/30 hover:text-zinc-300 hover:bg-zinc-800'
-                }`}
-              >
-                {voice.label}
-              </button>
-            ))}
+            {VOICE_OPTIONS.map(voice => {
+              const isActive = selectedVoice === voice.key;
+              const isLoading = isActive && voiceLoadingMonitors.size > 0;
+              return (
+                <button
+                  key={voice.key}
+                  onClick={() => setSelectedVoice(voice.key)}
+                  disabled={isLoading}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    isActive
+                      ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/30 hover:text-zinc-300 hover:bg-zinc-800'
+                  } ${isLoading ? 'animate-pulse' : ''}`}
+                >
+                  {isLoading && (
+                    <svg className="inline-block w-3 h-3 mr-1.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                  )}
+                  {voice.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
