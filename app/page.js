@@ -82,7 +82,9 @@ import {
   PERSONAS,
   HUMOR_LEVELS,
   REGISTER_LEVELS,
-  CREATOR_LEVELS
+  CREATOR_LEVELS,
+  // Locus Control
+  LOCUS_OPTIONS
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -475,6 +477,12 @@ export default function NirmanakaReader() {
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
   const [userReadingCount, setUserReadingCount] = useState(0);
+  // Locus control state
+  const [locus, setLocus] = useState('individual');
+  const [locusDetail, setLocusDetail] = useState('');
+  const [locusExpanded, setLocusExpanded] = useState(false);
+  const [featureFlags, setFeatureFlags] = useState({ locus_control_enabled: false, email_system_enabled: true });
+
   // Lounge online count
   const [loungeOnlineCount, setLoungeOnlineCount] = useState(0);
   const [featureConfig, setFeatureConfig] = useState({
@@ -534,6 +542,19 @@ export default function NirmanakaReader() {
       }
     }
 
+    // Fetch feature flags (locus, email, etc.)
+    async function fetchFeatureFlags() {
+      try {
+        const res = await fetch('/api/feature-flags');
+        const data = await res.json();
+        if (data.success && data.flags) {
+          setFeatureFlags(data.flags);
+        }
+      } catch (err) {
+        console.log('[FeatureFlags] Using defaults');
+      }
+    }
+
     // Also listen for auth state changes
     if (supabase) {
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -544,11 +565,13 @@ export default function NirmanakaReader() {
 
       checkExistingSession();
       fetchFeatureConfig();
+      fetchFeatureFlags();
 
       return () => subscription.unsubscribe();
     } else {
       checkExistingSession();
       fetchFeatureConfig();
+      fetchFeatureFlags();
     }
   }, []);
 
@@ -1418,7 +1441,10 @@ export default function NirmanakaReader() {
       register,
       creator,
       roastMode,
-      directMode
+      directMode,
+      // Locus control
+      locus,
+      locusDetail
     });
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
@@ -4846,6 +4872,67 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   />
                 )}
               </div>
+
+              {/* Locus Selector — feature-flagged */}
+              {featureFlags.locus_control_enabled && spreadType !== 'explore' && (
+                <div className="mt-2 max-w-2xl mx-auto">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setLocusExpanded(!locusExpanded)}
+                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
+                    >
+                      <span>Locus:</span>
+                      <span className={`font-medium ${locus === 'individual' ? 'text-zinc-400' : 'text-amber-400'}`}>
+                        {LOCUS_OPTIONS.find(o => o.key === locus)?.label || 'Just Me'}
+                      </span>
+                      <span className="text-[10px]">{locusExpanded ? '▲' : '▼'}</span>
+                    </button>
+                    {locus !== 'individual' && (
+                      <button
+                        onClick={() => { setLocus('individual'); setLocusDetail(''); setLocusExpanded(false); }}
+                        className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
+                      >
+                        ✕ Reset
+                      </button>
+                    )}
+                  </div>
+                  {locusExpanded && (
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {LOCUS_OPTIONS.map(opt => (
+                        <button
+                          key={opt.key}
+                          onClick={() => {
+                            setLocus(opt.key);
+                            if (!opt.needsDetail) {
+                              setLocusDetail('');
+                              setLocusExpanded(false);
+                            } else {
+                              setLocusDetail('');
+                            }
+                          }}
+                          className={`px-2.5 py-1 rounded text-xs transition-all ${
+                            locus === opt.key
+                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                              : 'bg-zinc-800/60 text-zinc-400 border border-zinc-700/40 hover:text-zinc-200'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {locusExpanded && locus !== 'individual' && LOCUS_OPTIONS.find(o => o.key === locus)?.needsDetail && (
+                    <input
+                      type="text"
+                      value={locusDetail}
+                      onChange={(e) => setLocusDetail(e.target.value)}
+                      placeholder={LOCUS_OPTIONS.find(o => o.key === locus)?.detailPrompt || 'Details...'}
+                      className="mt-1.5 w-full max-w-sm bg-zinc-800 border border-zinc-700/60 rounded px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/50"
+                      onKeyDown={(e) => e.key === 'Enter' && setLocusExpanded(false)}
+                    />
+                  )}
+                </div>
+              )}
 
               {/* Action row - Quick buttons + main action button */}
               <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">

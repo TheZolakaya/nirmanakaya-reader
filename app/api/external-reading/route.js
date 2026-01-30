@@ -34,7 +34,8 @@ import {
   FAST_COLLECTIVE_SYSTEM_PROMPT,
   buildFastCollectiveUserMessage,
   getAllMonitors,
-  getMonitor
+  getMonitor,
+  buildLocusInjection
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
@@ -239,7 +240,10 @@ async function generateReading({
   // NEW: Collective reading parameters
   collectiveScope = null,  // 'individual' | 'relationship' | 'group' | 'regional' | 'domain' | 'global'
   monitor = null,          // 'global' | 'power' | 'heart' | 'mind' | 'body'
-  scopeSubject = null      // Custom subject description for non-monitor collective readings
+  scopeSubject = null,     // Custom subject description for non-monitor collective readings
+  // Locus control — reading "zoom level"
+  locus = null,            // 'individual' | 'relationship' | 'family' | 'team' | 'community' | 'custom'
+  locusDetail = null       // Optional detail (e.g., "my wife Sarah")
 }) {
   // Determine if this is a collective reading
   const isCollective = monitor || (collectiveScope && collectiveScope !== 'individual');
@@ -374,8 +378,15 @@ async function generateReading({
     ? '\n\nDIRECT MODE: Skip interpretive layers. Speak from the architecture itself.'
     : '';
 
-  // Assemble system prompt with collective injection at the top
-  const systemPrompt = `${collectiveInjection}${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}${directModePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
+  // Build locus injection if needed (non-collective, non-individual readings)
+  let locusInjection = '';
+  if (!isCollective && locus && locus !== 'individual') {
+    locusInjection = buildLocusInjection(locus, locusDetail || '');
+    if (locusInjection) locusInjection += '\n\n';
+  }
+
+  // Assemble system prompt with collective/locus injection at the top
+  const systemPrompt = `${collectiveInjection}${locusInjection}${modeHeader}\n\n${BASE_SYSTEM}\n\n${stancePrompt}${directModePrompt}\n\n${FORMAT_INSTRUCTIONS}\n\n${WHY_MOMENT_PROMPT}\n\nLetter tone for this stance: ${letterTone}`;
 
   const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
 
