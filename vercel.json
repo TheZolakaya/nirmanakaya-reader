@@ -3,6 +3,10 @@
     {
       "path": "/api/collective-pulse",
       "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/email-readings",
+      "schedule": "0 7 * * *"
     }
   ]
 }

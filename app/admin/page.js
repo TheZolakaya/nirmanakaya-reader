@@ -349,6 +349,15 @@ export default function AdminPanel() {
   const [pulseAdminSettings, setPulseAdminSettings] = useState(null);
   const [pulseAdminSaving, setPulseAdminSaving] = useState(false);
 
+  // Email tab state
+  const [emailSettings, setEmailSettings] = useState(null);
+  const [emailSaving, setEmailSaving] = useState(false);
+  const [emailSendResult, setEmailSendResult] = useState(null);
+  const [emailSending, setEmailSending] = useState(false);
+  // Feature flags state
+  const [featureFlags, setFeatureFlags] = useState(null);
+  const [flagsSaving, setFlagsSaving] = useState(false);
+
   // Generate Pulse Now
   const generatePulseNow = async () => {
     setPulseGenerating(true);
@@ -424,6 +433,98 @@ export default function AdminPanel() {
       console.error('Failed to save pulse setting:', err);
     } finally {
       setPulseAdminSaving(false);
+    }
+  };
+
+  // Load email settings
+  const loadEmailSettings = async () => {
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/email-settings', {
+        headers: { 'Authorization': `Bearer ${cronSecret}` }
+      });
+      const data = await res.json();
+      if (data.success) setEmailSettings(data.settings);
+    } catch (err) {
+      console.error('Failed to load email settings:', err);
+    }
+  };
+
+  // Save an email setting
+  const saveEmailSetting = async (key, value) => {
+    setEmailSaving(true);
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/email-settings', {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${cronSecret}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ [key]: value })
+      });
+      const data = await res.json();
+      if (data.success) setEmailSettings(data.settings);
+    } catch (err) {
+      console.error('Failed to save email setting:', err);
+    } finally {
+      setEmailSaving(false);
+    }
+  };
+
+  // Trigger email send now (all users)
+  const triggerEmailSendNow = async () => {
+    setEmailSending(true);
+    setEmailSendResult(null);
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/email-readings', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${cronSecret}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ force: true })
+      });
+      const data = await res.json();
+      setEmailSendResult(data);
+    } catch (err) {
+      setEmailSendResult({ success: false, error: err.message });
+    } finally {
+      setEmailSending(false);
+    }
+  };
+
+  // Load feature flags
+  const loadFeatureFlags = async () => {
+    try {
+      const res = await fetch('/api/feature-flags');
+      const data = await res.json();
+      if (data.success) setFeatureFlags(data.flags);
+    } catch (err) {
+      console.error('Failed to load feature flags:', err);
+    }
+  };
+
+  // Toggle a feature flag
+  const toggleFeatureFlag = async (key, value) => {
+    setFlagsSaving(true);
+    try {
+      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
+      const res = await fetch('/api/feature-flags', {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${cronSecret}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ [key]: value })
+      });
+      const data = await res.json();
+      if (data.success) setFeatureFlags(data.flags);
+    } catch (err) {
+      console.error('Failed to toggle feature flag:', err);
+    } finally {
+      setFlagsSaving(false);
     }
   };
 
@@ -770,6 +871,8 @@ export default function AdminPanel() {
               { id: 'broadcast', label: 'Broadcast', onClick: () => { setActiveTab('broadcast'); loadSubscriberCount(); loadUnconfirmedUsers(); }},
               { id: 'config', label: 'Config', onClick: () => { setActiveTab('config'); loadFeatureConfig(); }},
               { id: 'pulse', label: 'Pulse', onClick: () => { setActiveTab('pulse'); loadPulseAdminSettings(); }},
+              { id: 'email', label: 'Email', onClick: () => { setActiveTab('email'); loadEmailSettings(); }},
+              { id: 'flags', label: 'Flags', onClick: () => { setActiveTab('flags'); loadFeatureFlags(); }},
             ].map(tab => (
               <button
                 key={tab.id}
@@ -2181,6 +2284,261 @@ export default function AdminPanel() {
                   API Docs
                 </a>
               </div>
+            </section>
+          </div>
+        )}
+
+        {/* EMAIL TAB */}
+        {activeTab === 'email' && (
+          <div className="space-y-6 max-w-2xl">
+            <h2 className="text-xl font-light text-white">Email Reading Settings</h2>
+
+            {/* Email System Toggle */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">System Control</h3>
+              {emailSettings ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-sm text-zinc-300">Email system enabled</span>
+                      <p className="text-[10px] text-zinc-600 mt-0.5">Master toggle for all automated email readings</p>
+                    </div>
+                    <button
+                      onClick={() => saveEmailSetting('email_system_enabled', !emailSettings.email_system_enabled)}
+                      disabled={emailSaving}
+                      className={`w-11 h-6 rounded-full transition-colors relative ${
+                        emailSettings.email_system_enabled ? 'bg-amber-500' : 'bg-zinc-700'
+                      }`}
+                    >
+                      <span className="absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform" style={{ left: emailSettings.email_system_enabled ? '22px' : '2px' }} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading settings...</p>
+              )}
+            </section>
+
+            {/* Schedule Settings */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Schedule</h3>
+              {emailSettings ? (
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Frequency</label>
+                    <select
+                      value={emailSettings.email_frequency || 'weekly'}
+                      onChange={(e) => saveEmailSetting('email_frequency', e.target.value)}
+                      disabled={emailSaving}
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                    >
+                      <option value="daily">Daily</option>
+                      <option value="weekly">Weekly</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Send Hour (UTC)</label>
+                    <select
+                      value={emailSettings.send_hour ?? 7}
+                      onChange={(e) => saveEmailSetting('send_hour', parseInt(e.target.value))}
+                      disabled={emailSaving}
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                    >
+                      {Array.from({ length: 24 }, (_, i) => (
+                        <option key={i} value={i}>{i.toString().padStart(2, '0')}:00 UTC</option>
+                      ))}
+                    </select>
+                  </div>
+                  {emailSettings.email_frequency === 'weekly' && (
+                    <div>
+                      <label className="block text-xs text-zinc-500 mb-1.5">Send Day</label>
+                      <select
+                        value={emailSettings.send_day ?? 1}
+                        onChange={(e) => saveEmailSetting('send_day', parseInt(e.target.value))}
+                        disabled={emailSaving}
+                        className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                      >
+                        <option value={0}>Sunday</option>
+                        <option value={1}>Monday</option>
+                        <option value={2}>Tuesday</option>
+                        <option value={3}>Wednesday</option>
+                        <option value={4}>Thursday</option>
+                        <option value={5}>Friday</option>
+                        <option value={6}>Saturday</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading...</p>
+              )}
+            </section>
+
+            {/* Default Settings for New Users */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Defaults for New Users</h3>
+              {emailSettings ? (
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Default Card Count</label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3].map(n => (
+                        <button
+                          key={n}
+                          onClick={() => saveEmailSetting('default_card_count', n)}
+                          disabled={emailSaving}
+                          className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                            (emailSettings.default_card_count || 1) === n
+                              ? 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                              : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:border-zinc-600'
+                          }`}
+                        >
+                          {n}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-zinc-500 mb-1.5">Default Voice</label>
+                    <select
+                      value={emailSettings.default_voice || 'friend'}
+                      onChange={(e) => saveEmailSetting('default_voice', e.target.value)}
+                      disabled={emailSaving}
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:border-amber-500/50 focus:outline-none"
+                    >
+                      <option value="friend">Friend</option>
+                      <option value="guide">Guide</option>
+                      <option value="teacher">Teacher</option>
+                      <option value="mentor">Mentor</option>
+                      <option value="master">Master</option>
+                    </select>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading...</p>
+              )}
+            </section>
+
+            {/* Actions */}
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Actions</h3>
+              <div className="space-y-3">
+                <button
+                  onClick={triggerEmailSendNow}
+                  disabled={emailSending}
+                  className="w-full px-4 py-3 rounded-lg text-sm font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 hover:bg-amber-500/30 transition-colors disabled:opacity-50"
+                >
+                  {emailSending ? 'Sending...' : 'Trigger Send Now (All Eligible Users)'}
+                </button>
+                <p className="text-[10px] text-zinc-600">
+                  Bypasses schedule check. Generates readings + sends emails immediately.
+                </p>
+
+                {emailSendResult && (
+                  <div className={`p-3 rounded-lg border text-sm ${
+                    emailSendResult.success
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                      : 'bg-red-500/10 border-red-500/30 text-red-400'
+                  }`}>
+                    {emailSendResult.success ? (
+                      <div>
+                        <p>Sent: {emailSendResult.sent} / {emailSendResult.total}</p>
+                        {emailSendResult.failed > 0 && <p>Failed: {emailSendResult.failed}</p>}
+                        {emailSendResult.pulse_included && <p className="text-xs mt-1">Pulse data included</p>}
+                      </div>
+                    ) : (
+                      <p>Error: {emailSendResult.error || emailSendResult.message}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {/* Stats */}
+            {emailSettings && (
+              <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+                <h3 className="text-sm font-medium text-zinc-500 mb-4">Last Send Stats</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <div className="text-lg font-light text-zinc-300 tabular-nums">
+                      {emailSettings.last_send_count || 0}
+                    </div>
+                    <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Sent</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-light text-red-400 tabular-nums">
+                      {emailSettings.last_send_failed || 0}
+                    </div>
+                    <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Failed</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-zinc-400">
+                      {emailSettings.last_send_at
+                        ? new Date(emailSettings.last_send_at).toLocaleString()
+                        : 'Never'}
+                    </div>
+                    <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Last Send</div>
+                  </div>
+                </div>
+              </section>
+            )}
+          </div>
+        )}
+
+        {/* FLAGS TAB */}
+        {activeTab === 'flags' && (
+          <div className="space-y-6 max-w-2xl">
+            <h2 className="text-xl font-light text-white">Feature Flags</h2>
+
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Locus Control</h3>
+              {featureFlags ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-sm text-zinc-300">Enable Locus Selector</span>
+                      <p className="text-[10px] text-zinc-600 mt-0.5">When OFF: All users see default Reader (Just Me only)</p>
+                      <p className="text-[10px] text-zinc-600">When ON: Locus dropdown visible to all users</p>
+                    </div>
+                    <button
+                      onClick={() => toggleFeatureFlag('locus_control_enabled', !featureFlags.locus_control_enabled)}
+                      disabled={flagsSaving}
+                      className={`w-11 h-6 rounded-full transition-colors relative ${
+                        featureFlags.locus_control_enabled ? 'bg-amber-500' : 'bg-zinc-700'
+                      }`}
+                    >
+                      <span className="absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform" style={{ left: featureFlags.locus_control_enabled ? '22px' : '2px' }} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading feature flags...</p>
+              )}
+            </section>
+
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Email System</h3>
+              {featureFlags ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-sm text-zinc-300">Email System Enabled</span>
+                      <p className="text-[10px] text-zinc-600 mt-0.5">Master toggle for the entire automated email reading system</p>
+                    </div>
+                    <button
+                      onClick={() => toggleFeatureFlag('email_system_enabled', !featureFlags.email_system_enabled)}
+                      disabled={flagsSaving}
+                      className={`w-11 h-6 rounded-full transition-colors relative ${
+                        featureFlags.email_system_enabled ? 'bg-amber-500' : 'bg-zinc-700'
+                      }`}
+                    >
+                      <span className="absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform" style={{ left: featureFlags.email_system_enabled ? '22px' : '2px' }} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading feature flags...</p>
+              )}
             </section>
           </div>
         )}
