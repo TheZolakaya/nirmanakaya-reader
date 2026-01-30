@@ -176,6 +176,32 @@ export default function AuthButton({ onAuthChange, buttonClassName }) {
               Community Hub
             </a>
 
+            <div className="border-t border-zinc-800 my-1" />
+
+            <a
+              href="/guide"
+              className="block px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 transition-colors"
+              onClick={() => setShowMenu(false)}
+            >
+              Guide
+            </a>
+
+            <a
+              href="/about"
+              className="block px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 transition-colors"
+              onClick={() => setShowMenu(false)}
+            >
+              About
+            </a>
+
+            <a
+              href="/council"
+              className="block px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 transition-colors"
+              onClick={() => setShowMenu(false)}
+            >
+              Council
+            </a>
+
             <button
               onClick={handleSignOut}
               className="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-zinc-800 transition-colors"

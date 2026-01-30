@@ -83,8 +83,6 @@ import {
   HUMOR_LEVELS,
   REGISTER_LEVELS,
   CREATOR_LEVELS,
-  // Locus Control
-  LOCUS_OPTIONS
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -477,9 +475,9 @@ export default function NirmanakaReader() {
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
   const [userReadingCount, setUserReadingCount] = useState(0);
-  // Locus control state
-  const [locus, setLocus] = useState('individual');
-  const [locusDetail, setLocusDetail] = useState('');
+  // Locus control state — subjects-based (chip input)
+  const [locusSubjects, setLocusSubjects] = useState([]);
+  const [locusInput, setLocusInput] = useState('');
   const [locusExpanded, setLocusExpanded] = useState(false);
   const [featureFlags, setFeatureFlags] = useState({ locus_control_enabled: false, email_system_enabled: true });
 
@@ -960,6 +958,7 @@ export default function NirmanakaReader() {
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
+  const prefsLoaded = useRef(false);
 
   // Watch for all cards loaded to trigger synthesis
   useEffect(() => {
@@ -1170,6 +1169,7 @@ export default function NirmanakaReader() {
         // Clear after reading so refresh goes to normal mode
         sessionStorage.removeItem('adminConfig');
         // Skip normal preference loading when in admin mode
+        prefsLoaded.current = true;
         return;
       }
     } catch (e) {
@@ -1214,6 +1214,8 @@ export default function NirmanakaReader() {
       console.warn('Failed to load preferences:', e);
     }
 
+    prefsLoaded.current = true;
+
     // Then, check for URL params (these override localStorage)
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get('r');
@@ -1234,6 +1236,8 @@ export default function NirmanakaReader() {
 
   // Auto-save preferences to localStorage whenever they change
   useEffect(() => {
+    // Don't save until initial prefs have been loaded (prevents overwriting with defaults)
+    if (!prefsLoaded.current) return;
     const prefs = {
       spreadType,
       spreadKey,
@@ -1443,8 +1447,7 @@ export default function NirmanakaReader() {
       roastMode,
       directMode,
       // Locus control
-      locus,
-      locusDetail
+      locusSubjects
     });
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
@@ -4873,7 +4876,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                 )}
               </div>
 
-              {/* Locus Selector — feature-flagged */}
+              {/* Locus Selector — chip-based subject input, feature-flagged */}
               {featureFlags.locus_control_enabled && spreadType !== 'explore' && (
                 <div className="mt-2 max-w-2xl mx-auto">
                   <div className="flex items-center gap-2">
@@ -4881,55 +4884,73 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                       onClick={() => setLocusExpanded(!locusExpanded)}
                       className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
                     >
-                      <span>Locus:</span>
-                      <span className={`font-medium ${locus === 'individual' ? 'text-zinc-400' : 'text-amber-400'}`}>
-                        {LOCUS_OPTIONS.find(o => o.key === locus)?.label || 'Just Me'}
+                      <span>Focus:</span>
+                      <span className={`font-medium ${locusSubjects.length === 0 ? 'text-zinc-400' : 'text-amber-400'}`}>
+                        {locusSubjects.length === 0 ? 'Just Me' : locusSubjects.join(', ')}
                       </span>
                       <span className="text-[10px]">{locusExpanded ? '▲' : '▼'}</span>
                     </button>
-                    {locus !== 'individual' && (
+                    {locusSubjects.length > 0 && (
                       <button
-                        onClick={() => { setLocus('individual'); setLocusDetail(''); setLocusExpanded(false); }}
+                        onClick={() => { setLocusSubjects([]); setLocusInput(''); setLocusExpanded(false); }}
                         className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
                       >
-                        ✕ Reset
+                        ✕ Clear
                       </button>
                     )}
                   </div>
                   {locusExpanded && (
-                    <div className="mt-1.5 flex flex-wrap gap-1">
-                      {LOCUS_OPTIONS.map(opt => (
-                        <button
-                          key={opt.key}
-                          onClick={() => {
-                            setLocus(opt.key);
-                            if (!opt.needsDetail) {
-                              setLocusDetail('');
+                    <div className="mt-1.5">
+                      {/* Subject chips */}
+                      {locusSubjects.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-1.5">
+                          {locusSubjects.map((subject, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                            >
+                              {subject}
+                              <button
+                                onClick={() => setLocusSubjects(locusSubjects.filter((_, j) => j !== i))}
+                                className="text-amber-500/60 hover:text-amber-300 text-[10px] ml-0.5"
+                              >
+                                ✕
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {/* Input for adding subjects */}
+                      {locusSubjects.length < 5 && (
+                        <input
+                          type="text"
+                          value={locusInput}
+                          onChange={(e) => setLocusInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if ((e.key === 'Enter' || e.key === ',') && locusInput.trim()) {
+                              e.preventDefault();
+                              const name = locusInput.trim().replace(/,+$/, '');
+                              if (name && !locusSubjects.includes(name)) {
+                                setLocusSubjects([...locusSubjects, name]);
+                              }
+                              setLocusInput('');
+                            }
+                            if (e.key === 'Backspace' && !locusInput && locusSubjects.length > 0) {
+                              setLocusSubjects(locusSubjects.slice(0, -1));
+                            }
+                            if (e.key === 'Escape') {
                               setLocusExpanded(false);
-                            } else {
-                              setLocusDetail('');
                             }
                           }}
-                          className={`px-2.5 py-1 rounded text-xs transition-all ${
-                            locus === opt.key
-                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
-                              : 'bg-zinc-800/60 text-zinc-400 border border-zinc-700/40 hover:text-zinc-200'
-                          }`}
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
+                          placeholder={locusSubjects.length === 0 ? 'Add a name or entity (e.g. Sarah, Mom, Team Alpha)...' : 'Add another...'}
+                          className="w-full max-w-sm bg-zinc-800 border border-zinc-700/60 rounded px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/50"
+                          autoFocus
+                        />
+                      )}
+                      <p className="text-[10px] text-zinc-600 mt-1">
+                        {locusSubjects.length === 0 ? 'Type a name and press Enter. Add up to 5.' : `${locusSubjects.length}/5 subjects`}
+                      </p>
                     </div>
-                  )}
-                  {locusExpanded && locus !== 'individual' && LOCUS_OPTIONS.find(o => o.key === locus)?.needsDetail && (
-                    <input
-                      type="text"
-                      value={locusDetail}
-                      onChange={(e) => setLocusDetail(e.target.value)}
-                      placeholder={LOCUS_OPTIONS.find(o => o.key === locus)?.detailPrompt || 'Details...'}
-                      className="mt-1.5 w-full max-w-sm bg-zinc-800 border border-zinc-700/60 rounded px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/50"
-                      onKeyDown={(e) => e.key === 'Enter' && setLocusExpanded(false)}
-                    />
                   )}
                 </div>
               )}
@@ -6160,13 +6181,13 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   <div className="pb-5 border-b border-zinc-700/50">
                     <div className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">
                       {spreadType === 'reflect' ? 'Your Question' :
-                       spreadType === 'discover' ? 'Your Draw' :
+                       spreadType === 'discover' ? (question ? 'Your Intention' : 'Your Draw') :
                        spreadType === 'forge' ? 'Your Declaration' :
                        'What\'s Active'}
                     </div>
                     <div className="text-zinc-200 text-sm leading-relaxed">
                       {spreadType === 'discover' ? (
-                        `A blind draw of ${draws.length} card${draws.length > 1 ? 's' : ''}`
+                        question ? `"${question}"` : `A blind draw of ${draws.length} card${draws.length > 1 ? 's' : ''}`
                       ) : spreadType === 'explore' ? (
                         <div>
                           <div className="mb-2">{parsedReading?.originalInput || question}</div>
@@ -6876,7 +6897,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
 
         {/* Footer */}
         <footer className="border-t border-zinc-800/30 mt-8 pt-4 pb-2">
-          <div className="flex justify-center gap-4 text-xs text-zinc-600 mb-2">
+          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-600 mb-2">
             <a
               href="/guide"
               target="_blank"

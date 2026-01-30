@@ -43,8 +43,7 @@ export async function GET(request) {
           email_readings_enabled: true,
           topic_mode: 'general',
           custom_topic: null,
-          locus: 'individual',
-          locus_detail: null,
+          locus_subjects: [],
           card_count: 1,
           voice: 'friend'
         }
@@ -66,7 +65,7 @@ export async function PUT(request) {
     const body = await request.json();
     const allowed = [
       'email_readings_enabled', 'topic_mode', 'custom_topic',
-      'locus', 'locus_detail', 'card_count', 'voice'
+      'locus_subjects', 'card_count', 'voice'
     ];
     const updates = { user_id: user.id, updated_at: new Date().toISOString() };
     for (const key of allowed) {

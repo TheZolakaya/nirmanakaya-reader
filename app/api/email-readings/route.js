@@ -23,7 +23,8 @@ import {
   buildReadingTeleologicalPrompt,
   filterProhibitedTerms,
   postProcessModeTransitions,
-  buildLocusInjection
+  buildLocusInjection,
+  locusToSubjects
 } from '../../../lib/index.js';
 import { sendAutomatedReadingEmail } from '../../../lib/email.js';
 
@@ -131,8 +132,10 @@ async function generateUserReading(userPrefs) {
   const cardCount = Math.min(Math.max(1, userPrefs.card_count || 1), 3);
   const voiceKey = userPrefs.voice || 'friend';
   const stance = VOICE_STANCES[voiceKey] || VOICE_STANCES.friend;
-  const locus = userPrefs.locus || 'individual';
-  const locusDetail = userPrefs.locus_detail || '';
+  // Locus subjects — prefer new array, fall back to old category+detail
+  const locusSubjects = Array.isArray(userPrefs.locus_subjects) && userPrefs.locus_subjects.length > 0
+    ? userPrefs.locus_subjects
+    : locusToSubjects(userPrefs.locus || 'individual', userPrefs.locus_detail || '');
 
   // Generate draws
   const draws = generateServerDraws(cardCount);
@@ -147,8 +150,8 @@ async function generateUserReading(userPrefs) {
   const modeHeader = buildModeHeader('discover');
 
   let locusInjection = '';
-  if (locus && locus !== 'individual') {
-    locusInjection = buildLocusInjection(locus, locusDetail);
+  if (locusSubjects.length > 0) {
+    locusInjection = buildLocusInjection(locusSubjects);
     if (locusInjection) locusInjection += '\n\n';
   }
 
@@ -176,8 +179,7 @@ async function generateUserReading(userPrefs) {
 
   return {
     topic,
-    locus,
-    locusDetail,
+    locusSubjects,
     cardCount,
     voice: voiceKey,
     draws: draws.map((d, i) => ({
@@ -332,8 +334,7 @@ export async function POST(request) {
           email_readings_enabled: true,
           topic_mode: 'general',
           custom_topic: null,
-          locus: 'individual',
-          locus_detail: null,
+          locus_subjects: [],
           card_count: settings.default_card_count || 1,
           voice: settings.default_voice || 'friend'
         }
@@ -384,8 +385,7 @@ export async function POST(request) {
                 reading_type: 'automated',
                 topic_mode: user.prefs.topic_mode || 'general',
                 topic: reading.topic,
-                locus: reading.locus,
-                locus_detail: reading.locusDetail,
+                locus_subjects: reading.locusSubjects,
                 card_count: reading.cardCount,
                 voice: reading.voice,
                 draws: reading.draws,

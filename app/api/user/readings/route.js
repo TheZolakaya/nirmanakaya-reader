@@ -66,7 +66,7 @@ export async function GET(request) {
     const offset = (page - 1) * limit;
     const { data, error, count } = await supabase
       .from('user_readings')
-      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, card_count, voice, draws, share_token, is_public', { count: 'exact' })
+      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, locus_subjects, card_count, voice, draws, share_token, is_public', { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -92,7 +92,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { reading_type, topic_mode, topic, locus, locus_detail, card_count, voice, draws, interpretation } = body;
+    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation } = body;
 
     if (!draws || !interpretation) {
       return Response.json({ success: false, error: 'draws and interpretation are required' }, { status: 400 });
@@ -105,6 +105,8 @@ export async function POST(request) {
         reading_type: reading_type || 'manual',
         topic_mode: topic_mode || 'general',
         topic: topic || null,
+        locus_subjects: Array.isArray(locus_subjects) ? locus_subjects : [],
+        // Keep legacy columns for backward compat display
         locus: locus || 'individual',
         locus_detail: locus_detail || null,
         card_count: card_count || draws.length,

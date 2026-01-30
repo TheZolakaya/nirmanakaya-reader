@@ -22,7 +22,8 @@ import {
   buildReadingTeleologicalPrompt,
   filterProhibitedTerms,
   postProcessModeTransitions,
-  buildLocusInjection
+  buildLocusInjection,
+  locusToSubjects
 } from '../../../../lib/index.js';
 
 const client = new Anthropic();
@@ -164,8 +165,12 @@ export async function POST(request) {
     const topic = reading.topic || 'What wants to be seen?';
 
     let locusInjection = '';
-    if (reading.locus && reading.locus !== 'individual') {
-      locusInjection = buildLocusInjection(reading.locus, reading.locus_detail || '');
+    // Prefer new subjects array, fall back to old category+detail for legacy readings
+    const subjects = Array.isArray(reading.locus_subjects) && reading.locus_subjects.length > 0
+      ? reading.locus_subjects
+      : locusToSubjects(reading.locus, reading.locus_detail || '');
+    if (subjects.length > 0) {
+      locusInjection = buildLocusInjection(subjects);
       if (locusInjection) locusInjection += '\n\n';
     }
 

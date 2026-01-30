@@ -35,7 +35,8 @@ import {
   buildFastCollectiveUserMessage,
   getAllMonitors,
   getMonitor,
-  buildLocusInjection
+  buildLocusInjection,
+  locusToSubjects
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
@@ -241,9 +242,11 @@ async function generateReading({
   collectiveScope = null,  // 'individual' | 'relationship' | 'group' | 'regional' | 'domain' | 'global'
   monitor = null,          // 'global' | 'power' | 'heart' | 'mind' | 'body'
   scopeSubject = null,     // Custom subject description for non-monitor collective readings
-  // Locus control — reading "zoom level"
-  locus = null,            // 'individual' | 'relationship' | 'family' | 'team' | 'community' | 'custom'
-  locusDetail = null       // Optional detail (e.g., "my wife Sarah")
+  // Locus control — subjects-based focus
+  locusSubjects = null,    // Array of names/entities (up to 5), or null for "Just Me"
+  // Legacy params (backward compat)
+  locus = null,
+  locusDetail = null
 }) {
   // Determine if this is a collective reading
   const isCollective = monitor || (collectiveScope && collectiveScope !== 'individual');
@@ -378,11 +381,17 @@ async function generateReading({
     ? '\n\nDIRECT MODE: Skip interpretive layers. Speak from the architecture itself.'
     : '';
 
-  // Build locus injection if needed (non-collective, non-individual readings)
+  // Build locus injection if needed (non-collective readings with subjects)
   let locusInjection = '';
-  if (!isCollective && locus && locus !== 'individual') {
-    locusInjection = buildLocusInjection(locus, locusDetail || '');
-    if (locusInjection) locusInjection += '\n\n';
+  if (!isCollective) {
+    // Prefer new subjects array, fall back to old category+detail
+    const subjects = Array.isArray(locusSubjects) && locusSubjects.length > 0
+      ? locusSubjects
+      : locusToSubjects(locus, locusDetail || '');
+    if (subjects.length > 0) {
+      locusInjection = buildLocusInjection(subjects);
+      if (locusInjection) locusInjection += '\n\n';
+    }
   }
 
   // Assemble system prompt with collective/locus injection at the top

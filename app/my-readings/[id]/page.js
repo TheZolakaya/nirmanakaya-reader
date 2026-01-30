@@ -150,11 +150,15 @@ export default function ReadingDetailPage() {
             <h1 className="text-xl font-light text-zinc-200">{formatDate(reading.created_at)}</h1>
             <div className="flex items-center gap-2 mt-1">
               {reading.topic && <span className="text-xs text-zinc-400">{reading.topic}</span>}
-              {reading.locus && reading.locus !== 'individual' && (
+              {Array.isArray(reading.locus_subjects) && reading.locus_subjects.length > 0 ? (
+                <span className="text-xs text-amber-500/60">
+                  {reading.locus_subjects.join(', ')}
+                </span>
+              ) : reading.locus && reading.locus !== 'individual' ? (
                 <span className="text-xs text-amber-500/60">
                   {reading.locus}{reading.locus_detail ? `: ${reading.locus_detail}` : ''}
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
           <div className="flex items-center gap-2">

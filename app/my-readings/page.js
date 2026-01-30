@@ -122,11 +122,15 @@ export default function MyReadingsPage() {
                 {/* Topic + Locus */}
                 <div className="text-xs text-zinc-500 mb-2">
                   {reading.topic && <span>{reading.topic}</span>}
-                  {reading.locus && reading.locus !== 'individual' && (
+                  {Array.isArray(reading.locus_subjects) && reading.locus_subjects.length > 0 ? (
+                    <span className="ml-2 text-amber-500/60">
+                      {reading.locus_subjects.join(', ')}
+                    </span>
+                  ) : reading.locus && reading.locus !== 'individual' ? (
                     <span className="ml-2 text-amber-500/60">
                       {reading.locus}{reading.locus_detail ? `: ${reading.locus_detail}` : ''}
                     </span>
-                  )}
+                  ) : null}
                   <span className="ml-2">{reading.card_count || reading.draws?.length} card{(reading.card_count || reading.draws?.length) !== 1 ? 's' : ''}</span>
                 </div>
 

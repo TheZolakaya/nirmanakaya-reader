@@ -19,7 +19,7 @@ export async function GET(request) {
   try {
     const { data, error } = await supabase
       .from('user_readings')
-      .select('id, created_at, topic, locus, locus_detail, card_count, draws, interpretation, share_token, is_public')
+      .select('id, created_at, topic, locus, locus_detail, locus_subjects, card_count, draws, interpretation, share_token, is_public')
       .eq('share_token', token)
       .eq('is_public', true)
       .single();
