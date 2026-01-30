@@ -57,11 +57,35 @@ export async function PATCH(request) {
     }
     updates.updated_at = new Date().toISOString();
 
+    // Get the singleton row ID first
+    const { data: existing } = await supabase
+      .from('feature_flags')
+      .select('id')
+      .limit(1)
+      .single();
+
+    if (!existing) {
+      // No row exists — insert instead
+      const { data, error } = await supabase
+        .from('feature_flags')
+        .insert(updates)
+        .select()
+        .single();
+      if (error) return Response.json({ success: false, error: error.message }, { status: 500 });
+      return Response.json({
+        success: true,
+        flags: {
+          locus_control_enabled: data.locus_control_enabled || false,
+          email_system_enabled: data.email_system_enabled !== false
+        }
+      });
+    }
+
     const { data, error } = await supabase
       .from('feature_flags')
       .update(updates)
+      .eq('id', existing.id)
       .select()
-      .limit(1)
       .single();
 
     if (error) {
