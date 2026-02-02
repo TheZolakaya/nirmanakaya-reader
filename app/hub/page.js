@@ -32,7 +32,7 @@ function linkifyContent(text) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-amber-400 hover:text-amber-300 underline break-all"
+        className="text-amber-400 hover:text-amber-300 underline break-all relative z-10"
         onClick={(e) => e.stopPropagation()}
       >
         {url}
@@ -572,25 +572,15 @@ export default function HubPage() {
           </Link>
           <p className="text-zinc-300 text-sm tracking-wide font-light">Community Hub</p>
           {/* Nav Links - rainbow hover colors, current section first */}
-          <div className="flex justify-center gap-2 mt-3 text-xs">
-            <Link href="/" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all">
-              Reader
-            </Link>
-            <Link href="/guide" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all">
-              Guide
-            </Link>
-            <Link href="/about" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all">
-              About
-            </Link>
-            <Link href="/lounge" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all">
-              Lounge
-            </Link>
-            <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all">
-              Council
-            </Link>
-            <a href="/map" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all">
-              Map
-            </a>
+          <div className="overflow-x-auto mt-3">
+            <div className="flex gap-2 text-xs w-max mx-auto px-4">
+              <Link href="/" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all shrink-0">Reader</Link>
+              <Link href="/guide" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all shrink-0">Guide</Link>
+              <Link href="/about" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all shrink-0">About</Link>
+              <Link href="/lounge" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all shrink-0">Lounge</Link>
+              <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all shrink-0">Council</Link>
+              <a href="/map" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all shrink-0">Map</a>
+            </div>
           </div>
         </div>
 
@@ -632,7 +622,7 @@ export default function HubPage() {
                 </button>
               )}
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-2 overflow-x-auto pb-1">
               <button
                 onClick={() => setFilter(null)}
                 className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
@@ -719,8 +709,8 @@ export default function HubPage() {
                         {discussion.title}
                       </h3>
                       <div className="text-zinc-400 text-sm mb-3 whitespace-pre-wrap">
-                        {linkifyContent(discussion.content.slice(0, 300))}
-                        {discussion.content.length > 300 ? '...' : ''}
+                        {linkifyContent(discussion.content.slice(0, 2000))}
+                        {discussion.content.length > 2000 ? '...' : ''}
                       </div>
 
                       {/* Reaction buttons */}

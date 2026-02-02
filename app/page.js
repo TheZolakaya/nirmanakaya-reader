@@ -3821,12 +3821,13 @@ CRITICAL FORMATTING RULES:
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
           <>
-            {/* Text size slider - top right */}
-            <div className="fixed top-3 right-3 z-50">
+            {/* Right column - top right */}
+            <div className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
+              <AuthButton onAuthChange={setCurrentUser} buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
               <TextSizeSlider />
             </div>
             {/* Background controls toggle button - top left */}
-            <div className="fixed top-3 left-3 z-50 flex items-center gap-1">
+            <div className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
               <button
                 data-help="bg-toggle"
                 onClick={(e) => { if (!handleHelpClick('bg-toggle', e)) setShowBgControls(!showBgControls); }}
@@ -4001,10 +4002,6 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
             )}
-            {/* Auth button - styled like TextSizeSlider but purple, next to text size slider */}
-            <div className="fixed top-3 right-12 z-50" onClick={(e) => e.stopPropagation()}>
-              <AuthButton onAuthChange={setCurrentUser} buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
-            </div>
           </>
         )}
 

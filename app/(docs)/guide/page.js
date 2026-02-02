@@ -34,45 +34,15 @@ export default function GuidePage() {
         </Link>
         <p className="text-zinc-300 text-sm tracking-wide font-light">Guide</p>
         {/* Nav Links - rainbow hover colors */}
-        <div className="flex justify-center gap-2 mt-3 text-xs">
-          <Link
-            href="/"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
-          >
-            Reader
-          </Link>
-          <Link
-            href="/hub"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all"
-          >
-            Community
-          </Link>
-          <Link
-            href="/about"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
-          >
-            About
-          </Link>
-          <Link
-            href="/lounge"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all"
-          >
-            Lounge
-          </Link>
-          <Link
-            href="/council"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
-          >
-            Council
-          </Link>
-          <a
-            href="/map"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
-          >
-            Map
-          </a>
+        <div className="overflow-x-auto mt-3">
+          <div className="flex gap-2 text-xs w-max mx-auto px-4">
+            <Link href="/" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all shrink-0">Reader</Link>
+            <Link href="/hub" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all shrink-0">Community</Link>
+            <Link href="/about" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all shrink-0">About</Link>
+            <Link href="/lounge" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all shrink-0">Lounge</Link>
+            <Link href="/council" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all shrink-0">Council</Link>
+            <a href="/map" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all shrink-0">Map</a>
+          </div>
         </div>
       </div>
 
