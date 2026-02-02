@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { VERSION } from '../../lib/version.js';
 import {
@@ -91,7 +91,8 @@ const UserRow = ({
                 </span>
               )}
             </div>
-            <div className="text-[11px] text-zinc-500 font-mono truncate mt-0.5">{u.id}</div>
+            {u.email && <div className="text-[11px] text-zinc-400 truncate mt-0.5">{u.email}</div>}
+            <div className="text-[11px] text-zinc-600 font-mono truncate">{u.id}</div>
           </div>
 
           {/* Quick Stats - Time-based readings */}
@@ -161,6 +162,19 @@ const UserRow = ({
           {/* Actions */}
           <div className="p-4 border-t border-zinc-700/30 bg-zinc-800/30">
             <div className="flex flex-wrap items-center gap-2">
+              {/* Email User */}
+              {u.email && (
+                <a
+                  href={`mailto:${u.email}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="px-3 py-1.5 text-xs bg-zinc-700 hover:bg-sky-600/80 text-zinc-300 hover:text-white rounded transition-colors"
+                >
+                  ✉ Email
+                </a>
+              )}
+
+              <div className="w-px h-6 bg-zinc-700 mx-1" />
+
               {/* Token Limit */}
               {editingLimit === u.id ? (
                 <div className="flex items-center gap-1">
@@ -284,6 +298,8 @@ export default function AdminPanel() {
   const [editingLimit, setEditingLimit] = useState(null);
   const [limitValue, setLimitValue] = useState('');
   const [deletingId, setDeletingId] = useState(null);
+  const [sortBy, setSortBy] = useState('created');
+  const [sortDir, setSortDir] = useState('desc');
 
   // Broadcast tab state
   const [broadcastSubject, setBroadcastSubject] = useState('');
@@ -543,6 +559,52 @@ export default function AdminPanel() {
     }
     checkAdmin();
   }, []);
+
+  // Sorted users list
+  const sortedUsers = useMemo(() => {
+    const sorted = [...users].sort((a, b) => {
+      let aVal, bVal;
+      switch (sortBy) {
+        case 'name':
+          aVal = (a.display_name || '').toLowerCase();
+          bVal = (b.display_name || '').toLowerCase();
+          return sortDir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        case 'email':
+          aVal = (a.email || '').toLowerCase();
+          bVal = (b.email || '').toLowerCase();
+          return sortDir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        case 'readings24h':
+          aVal = a.readingsToday || 0; bVal = b.readingsToday || 0;
+          break;
+        case 'readings7d':
+          aVal = a.readingsThisWeek || 0; bVal = b.readingsThisWeek || 0;
+          break;
+        case 'readings30d':
+          aVal = a.readingsThisMonth || 0; bVal = b.readingsThisMonth || 0;
+          break;
+        case 'readingsTotal':
+          aVal = a.readingCount || 0; bVal = b.readingCount || 0;
+          break;
+        case 'cost':
+          aVal = a.totalCost || 0; bVal = b.totalCost || 0;
+          break;
+        case 'tokens':
+          aVal = a.totalTokens || 0; bVal = b.totalTokens || 0;
+          break;
+        case 'lastActive':
+          aVal = a.lastReadingAt ? new Date(a.lastReadingAt).getTime() : 0;
+          bVal = b.lastReadingAt ? new Date(b.lastReadingAt).getTime() : 0;
+          break;
+        case 'created':
+        default:
+          aVal = a.created_at ? new Date(a.created_at).getTime() : 0;
+          bVal = b.created_at ? new Date(b.created_at).getTime() : 0;
+          break;
+      }
+      return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
+    });
+    return sorted;
+  }, [users, sortBy, sortDir]);
 
   async function loadUsers() {
     setUsersLoading(true);
@@ -952,8 +1014,8 @@ export default function AdminPanel() {
 
             {/* User List */}
             <section>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xs text-zinc-500 uppercase tracking-wider font-medium">User Management</h2>
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xs text-zinc-500 uppercase tracking-wider font-medium">User Management ({users.length})</h2>
                 <button
                   onClick={loadUsers}
                   disabled={usersLoading}
@@ -963,8 +1025,41 @@ export default function AdminPanel() {
                 </button>
               </div>
 
+              {/* Sort Controls */}
+              <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1">
+                {[
+                  { key: 'created', label: 'Joined' },
+                  { key: 'name', label: 'Name' },
+                  { key: 'readings24h', label: '24h' },
+                  { key: 'readings7d', label: '7d' },
+                  { key: 'readings30d', label: '30d' },
+                  { key: 'readingsTotal', label: 'Total' },
+                  { key: 'cost', label: 'Cost' },
+                  { key: 'lastActive', label: 'Active' },
+                ].map(s => (
+                  <button
+                    key={s.key}
+                    onClick={() => {
+                      if (sortBy === s.key) {
+                        setSortDir(sortDir === 'desc' ? 'asc' : 'desc');
+                      } else {
+                        setSortBy(s.key);
+                        setSortDir('desc');
+                      }
+                    }}
+                    className={`px-2.5 py-1 text-[11px] rounded shrink-0 transition-colors ${
+                      sortBy === s.key
+                        ? 'bg-amber-600/30 text-amber-400 border border-amber-600/40'
+                        : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 border border-zinc-700/30'
+                    }`}
+                  >
+                    {s.label} {sortBy === s.key ? (sortDir === 'desc' ? '↓' : '↑') : ''}
+                  </button>
+                ))}
+              </div>
+
               <div className="space-y-2">
-                {users.map(u => (
+                {sortedUsers.map(u => (
                   <UserRow
                     key={u.id}
                     user={u}
