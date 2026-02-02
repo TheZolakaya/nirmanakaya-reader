@@ -962,7 +962,7 @@ export default function NirmanakaReader() {
 
   // Watch for all cards loaded to trigger synthesis
   useEffect(() => {
-    if (!draws || !parsedReading?._onDemand || synthesisLoaded || synthesisLoading) return;
+    if (!draws || !parsedReading?._onDemand || parsedReading?._isFirstContact || synthesisLoaded || synthesisLoading) return;
 
     // Check if all cards are loaded AND have actual content (not just placeholders)
     const allCardsLoaded = draws.every((_, i) => cardLoaded[i]);
@@ -1381,26 +1381,46 @@ export default function NirmanakaReader() {
     const isFirstContact = userLevel === USER_LEVELS.FIRST_CONTACT;
 
     if (isFirstContact) {
-      // First Contact Mode: Use simplified single-call approach (unchanged)
+      // First Contact Mode: Rich experience via two-phase letter + card-depth flow
       const systemPrompt = buildSystemPrompt(userLevel);
-      const userMessage = buildUserMessage(safeQuestion, drawsToUse, userLevel);
+      setSystemPromptCache(systemPrompt);
+
       try {
-        const res = await fetch('/api/reading', {
+        const res = await fetch('/api/letter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            messages: [{ role: 'user', content: userMessage }],
+            question: safeQuestion,
+            draws: drawsToUse,
+            spreadType: 'discover',
+            spreadKey: 'one',
+            stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'playful' },
             system: systemPrompt,
-            model: "claude-haiku-4-5-20251001",
-            isFirstContact: true,
-            max_tokens: 300,
-            userId: currentUser?.id
+            model: "claude-sonnet-4-20250514"
           })
         });
         const data = await res.json();
         if (data.error) throw new Error(data.error);
-        const parsed = parseFirstContactResponse(data.reading);
-        setParsedReading(parsed);
+
+        const cardPlaceholders = drawsToUse.map((_, i) => ({
+          index: i,
+          token: null,
+          surface: null, wade: null, swim: null, deep: null,
+          architecture: null, mirror: null, why: null, rebalancer: null,
+          _notLoaded: true
+        }));
+
+        setParsedReading({
+          letter: data.letter,
+          summary: null,
+          cards: cardPlaceholders,
+          path: null,
+          corrections: [],
+          rebalancerSummary: null,
+          wordsToWhys: null,
+          _onDemand: true,
+          _isFirstContact: true
+        });
         setTokenUsage(data.usage);
 
         // Auto-save First Contact reading
@@ -1409,15 +1429,13 @@ export default function NirmanakaReader() {
           mode: 'first-contact',
           spreadType: '1-card',
           cards: drawsToUse,
-          synthesis: parsed?.letter || null,
-          letter: parsed?.letter || null,
+          synthesis: null,
+          letter: data.letter,
           tokenUsage: data.usage,
-          // Telemetry (initial values - will be updated later)
           ...telemetry
         }).then(result => {
           if (result?.data?.id) {
             setSavedReadingId(result.data.id);
-            // Send reading email (async, respects user preferences)
             if (currentUser?.id) {
               fetch('/api/email/reading', {
                 method: 'POST',
@@ -1427,6 +1445,12 @@ export default function NirmanakaReader() {
             }
           }
         }).catch(err => console.log('[AutoSave] Failed:', err));
+
+        // Auto-load the single card
+        setTimeout(() => {
+          loadCardDepth(0, drawsToUse, safeQuestion, data.letter, systemPrompt);
+        }, 100);
+
       } catch (e) { setError(`Error: ${e.message}`); }
       setLoading(false);
       return;
@@ -4183,7 +4207,7 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT && (
               <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto">
                 <div className="text-center mb-6">
-                  <p className="text-zinc-400 text-sm">Ask a question or share what's on your mind</p>
+                  <p className="text-zinc-400 text-sm">What's on your mind?</p>
                 </div>
 
                 {/* Simple question input */}
@@ -4209,7 +4233,7 @@ CRITICAL FORMATTING RULES:
                   disabled={loading}
                   className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
                 >
-                  {loading ? 'Reading...' : 'Get a Reading'}
+                  {loading ? 'Reading...' : 'Reveal the Pattern'}
                 </button>
 
                 {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
@@ -5109,11 +5133,13 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
               {/* Metadata line ABOVE buttons */}
               <div className="text-center mb-3">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
-                  {spreadType === 'reflect'
+                  {parsedReading?._isFirstContact
+                    ? 'Single Card Reading'
+                    : spreadType === 'reflect'
                     ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}`
                     : spreadType === 'explore'
                       ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
-                      : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} • {getCurrentStanceLabel()}
+                      : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
                 </span>
               </div>
               {/* Action buttons row */}
@@ -5155,23 +5181,29 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     <div data-help="action-email" onClick={(e) => handleHelpClick('action-email', e)}>
                       <EmailReadingButton readingId={savedReadingId} disabled={helpMode} />
                     </div>
-                    <button
-                      data-help="action-export"
-                      onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
-                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
-                    >Export</button>
+                    {!parsedReading?._isFirstContact && (
+                      <button
+                        data-help="action-export"
+                        onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
+                        className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
+                      >Export</button>
+                    )}
                   </>
                 )}
-                <button
-                  data-help="action-traditional"
-                  onClick={(e) => { if (!handleHelpClick('action-traditional', e)) setShowTraditional(!showTraditional); }}
-                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
-                >{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
-                <button
-                  data-help="action-architecture"
-                  onClick={(e) => { if (!handleHelpClick('action-architecture', e)) setShowArchitecture(!showArchitecture); }}
-                  className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
-                >{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
+                {!parsedReading?._isFirstContact && (
+                  <button
+                    data-help="action-traditional"
+                    onClick={(e) => { if (!handleHelpClick('action-traditional', e)) setShowTraditional(!showTraditional); }}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
+                  >{showTraditional ? 'Hide Traditional' : 'Traditional'}</button>
+                )}
+                {!parsedReading?._isFirstContact && (
+                  <button
+                    data-help="action-architecture"
+                    onClick={(e) => { if (!handleHelpClick('action-architecture', e)) setShowArchitecture(!showArchitecture); }}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
+                  >{showArchitecture ? 'Hide Architecture' : 'Architecture'}</button>
+                )}
                 <button
                   data-help="action-new"
                   onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); } }}
@@ -5670,27 +5702,28 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   <DepthCard
                     cardData={card}
                     draw={draws[card.index]}
+                    isFirstContact={!!parsedReading?._isFirstContact}
                     showTraditional={showTraditional}
                     setSelectedInfo={setSelectedInfo}
                     navigateFromMinimap={navigateFromMinimap}
                     spreadType={spreadType}
                     spreadKey={spreadType === 'reflect' ? reflectSpreadKey : spreadKey}
-                    // Default depth setting (shallow or wade)
-                    defaultDepth={defaultDepth}
-                    // Default expansion setting (cards start open or closed)
-                    defaultExpanded={defaultExpanded}
+                    // Default depth setting (shallow or wade) — force wade for First Contact
+                    defaultDepth={parsedReading?._isFirstContact ? 'wade' : defaultDepth}
+                    // Default expansion setting — force open for First Contact
+                    defaultExpanded={parsedReading?._isFirstContact ? true : defaultExpanded}
                     // Expansion props
                     onExpand={handleExpand}
                     expansions={expansions}
                     expanding={expanding}
-                    // Thread props
-                    threadData={threadData[cardSectionKey] || []}
-                    threadOperation={threadOperations[cardSectionKey]}
-                    threadContext={threadContexts[cardSectionKey]}
-                    onSetThreadOperation={(op) => setThreadOperations(prev => ({ ...prev, [cardSectionKey]: op }))}
-                    onSetThreadContext={(ctx) => setThreadContexts(prev => ({ ...prev, [cardSectionKey]: ctx }))}
-                    onContinueThread={() => continueThread(cardSectionKey)}
-                    threadLoading={threadLoading[cardSectionKey]}
+                    // Thread props — disabled for First Contact
+                    threadData={parsedReading?._isFirstContact ? [] : (threadData[cardSectionKey] || [])}
+                    threadOperation={parsedReading?._isFirstContact ? undefined : threadOperations[cardSectionKey]}
+                    threadContext={parsedReading?._isFirstContact ? undefined : threadContexts[cardSectionKey]}
+                    onSetThreadOperation={parsedReading?._isFirstContact ? undefined : ((op) => setThreadOperations(prev => ({ ...prev, [cardSectionKey]: op })))}
+                    onSetThreadContext={parsedReading?._isFirstContact ? undefined : ((ctx) => setThreadContexts(prev => ({ ...prev, [cardSectionKey]: ctx })))}
+                    onContinueThread={parsedReading?._isFirstContact ? null : (() => continueThread(cardSectionKey))}
+                    threadLoading={parsedReading?._isFirstContact ? undefined : threadLoading[cardSectionKey]}
                     collapsedThreads={collapsedThreads}
                     setCollapsedThreads={setCollapsedThreads}
                     question={question}
@@ -5699,8 +5732,8 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     isLoading={isCardLoading}
                     isNotLoaded={card._notLoaded && !isCardLoaded}
                     onRequestLoad={triggerCardLoad}
-                    // Progressive deepening props
-                    onLoadDeeper={loadDeeperContent}
+                    // Progressive deepening props — disabled for First Contact
+                    onLoadDeeper={parsedReading?._isFirstContact ? null : loadDeeperContent}
                     isLoadingDeeper={!!cardLoadingDeeper[card.index]}
                   />
                 </div>
@@ -5708,7 +5741,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             })}
 
             {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
-            {parsedReading._onDemand && synthesisLoading && (
+            {parsedReading._onDemand && !parsedReading._isFirstContact && synthesisLoading && (
               <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/50">
                 <div className="flex items-center gap-3">
                   <span className="text-sm"><PulsatingLoader color="text-amber-400" /></span>
@@ -5728,7 +5761,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             )}
 
             {/* Synthesis Not Yet Available - shows when cards still loading */}
-            {parsedReading._onDemand && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
+            {parsedReading._onDemand && !parsedReading._isFirstContact && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
               <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
                 <div className="flex items-center gap-3 text-zinc-500">
                   <span className="text-sm">Overview and Path will appear after all cards are loaded</span>
@@ -6623,7 +6656,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         )}
 
         {/* Follow-up Input - hide in First Contact mode */}
-        {parsedReading && !loading && !parsedReading.firstContact && (
+        {parsedReading && !loading && !parsedReading.firstContact && !parsedReading._isFirstContact && (
           <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
@@ -6667,7 +6700,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         )}
 
         {/* Adjust Stance - at the bottom - hide in First Contact mode */}
-        {parsedReading && !loading && !parsedReading.firstContact && (
+        {parsedReading && !loading && !parsedReading.firstContact && !parsedReading._isFirstContact && (
           <div className="mt-6 relative">
             <div className="flex items-center gap-2">
               <button

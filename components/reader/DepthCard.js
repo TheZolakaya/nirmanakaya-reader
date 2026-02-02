@@ -100,6 +100,7 @@ const WHY_DEPTH = {
 const DepthCard = ({
   cardData,  // { index, surface, wade, swim, architecture, mirror, rebalancer, why }
   draw,      // { transient, status, position }
+  isFirstContact = false,
   showTraditional = false,
   setSelectedInfo,
   navigateFromMinimap,    // For navigating to info from minimap with back support
@@ -786,57 +787,80 @@ const DepthCard = ({
           ) : cardLoadingDeeper ? (
             <span className="ml-auto text-xs"><PulsatingLoader color="text-amber-400" /></span>
           ) : !isMobile && (
-            /* Desktop: Button row inline */
-            <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
-              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                const hasContent = level === 'shallow' ? cardData.wade
-                  : level === 'wade' ? cardData.wade
-                  : level === 'swim' ? cardData.swim
-                  : cardData.deep;
-                const isActive = depth === level;
+            isFirstContact && depth !== DEPTH.COLLAPSED ? (
+              /* First Contact: Static depth badges as loss leaders */
+              <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
+                {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                  const isActive = depth === level;
+                  return (
+                    <span
+                      key={level}
+                      title={isActive ? level.charAt(0).toUpperCase() + level.slice(1) : 'Subscribe for deeper insights'}
+                      className={`px-2 py-0.5 text-xs rounded ${
+                        isActive
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'
+                      }`}
+                    >
+                      {getDepthLabel(level)}
+                      {!isActive && <span className="ml-0.5 text-zinc-700">+</span>}
+                    </span>
+                  );
+                })}
+              </div>
+            ) : !isFirstContact && (
+              /* Desktop: Button row inline */
+              <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
+                {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                  const hasContent = level === 'shallow' ? cardData.wade
+                    : level === 'wade' ? cardData.wade
+                    : level === 'swim' ? cardData.swim
+                    : cardData.deep;
+                  const isActive = depth === level;
 
-                const handleClick = async (e) => {
-                  e.stopPropagation();
-                  if (level === 'shallow' || level === 'wade') {
-                    if (cardData.wade) setDepth(level);
-                    return;
-                  }
-                  if (hasContent) {
-                    setDepth(level);
-                  } else if (onLoadDeeper && !cardLoadingDeeper) {
-                    setCardLoadingDeeper(true);
-                    const previousContent = {
-                      reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                      why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                      rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
-                      architecture: cardData.architecture || '',
-                      mirror: cardData.mirror || ''
-                    };
-                    await onLoadDeeper(cardData.index, level, previousContent);
-                    setCardLoadingDeeper(false);
-                    setDepth(level);
-                  }
-                };
+                  const handleClick = async (e) => {
+                    e.stopPropagation();
+                    if (level === 'shallow' || level === 'wade') {
+                      if (cardData.wade) setDepth(level);
+                      return;
+                    }
+                    if (hasContent) {
+                      setDepth(level);
+                    } else if (onLoadDeeper && !cardLoadingDeeper) {
+                      setCardLoadingDeeper(true);
+                      const previousContent = {
+                        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                        architecture: cardData.architecture || '',
+                        mirror: cardData.mirror || ''
+                      };
+                      await onLoadDeeper(cardData.index, level, previousContent);
+                      setCardLoadingDeeper(false);
+                      setDepth(level);
+                    }
+                  };
 
-                return (
-                  <button
-                    key={level}
-                    onClick={handleClick}
-                    title={level.charAt(0).toUpperCase() + level.slice(1)}
-                    className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                      isActive
-                        ? 'bg-amber-500 text-white'
-                        : hasContent
-                          ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                          : 'bg-zinc-800/50 text-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-500 border border-dashed border-zinc-700'
-                    }`}
-                  >
-                    {getDepthLabel(level)}
-                    {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                  </button>
-                );
-              })}
-            </div>
+                  return (
+                    <button
+                      key={level}
+                      onClick={handleClick}
+                      title={level.charAt(0).toUpperCase() + level.slice(1)}
+                      className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                        isActive
+                          ? 'bg-amber-500 text-white'
+                          : hasContent
+                            ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                            : 'bg-zinc-800/50 text-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-500 border border-dashed border-zinc-700'
+                      }`}
+                    >
+                      {getDepthLabel(level)}
+                      {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )
           )}
 
           {showTraditional && trans?.traditional && depth !== DEPTH.COLLAPSED && (
@@ -845,8 +869,8 @@ const DepthCard = ({
         </div>
       </div>
 
-      {/* Mobile Depth Stepper - under title, left-justified */}
-      {isMobile && depth !== DEPTH.COLLAPSED && (
+      {/* Mobile Depth Stepper - under title, left-justified (hidden for First Contact) */}
+      {isMobile && !isFirstContact && depth !== DEPTH.COLLAPSED && (
         <div className="mb-3" onClick={(e) => e.stopPropagation()}>
           <MobileDepthStepper
             currentDepth={depth}
@@ -1028,67 +1052,79 @@ const DepthCard = ({
             ) : rebalancerLoadingDeeper ? (
               <span className="ml-auto text-xs"><PulsatingLoader color="text-emerald-400" /></span>
             ) : !isMobile && (
-              /* Desktop: Button row inline */
-              <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
-                {(() => {
-                  const r = cardData.rebalancer || {};
-                  const hasContentObj = {
-                    shallow: hasContentValue(r.wade),
-                    wade: hasContentValue(r.wade),
-                    swim: hasContentValue(r.swim),
-                    deep: hasContentValue(r.deep)
-                  };
-                  return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                    const hasContent = hasContentObj[level];
+              isFirstContact && rebalancerDepth !== DEPTH.COLLAPSED ? (
+                <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+                  {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                     const isActive = rebalancerDepth === level;
                     return (
-                      <button
-                        key={level}
-                        onClick={async (e) => {
-                          e.stopPropagation();
-                          if (level === 'shallow' || level === 'wade') {
-                            if (hasContentObj.wade) setRebalancerDepth(level);
-                            return;
-                          }
-                          if (hasContent) {
-                            setRebalancerDepth(level);
-                          } else if (onLoadDeeper && !rebalancerLoadingDeeper) {
-                            setRebalancerLoadingDeeper(true);
-                            const previousContent = {
-                              reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                              why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                              rebalancer: { wade: r.wade || '', swim: r.swim || '' },
-                              architecture: cardData.architecture || '',
-                              mirror: cardData.mirror || ''
-                            };
-                            await onLoadDeeper(cardData.index, level, previousContent);
-                            setRebalancerLoadingDeeper(false);
-                            setRebalancerDepth(level);
-                          } else {
-                            setRebalancerDepth(level);
-                          }
-                        }}
-                        title={level.charAt(0).toUpperCase() + level.slice(1)}
-                        className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                          isActive
-                            ? 'bg-emerald-500 text-white'
-                            : hasContent
-                              ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                              : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
-                        }`}
-                      >
-                        {getDepthLabel(level)}
-                        {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                      </button>
+                      <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-emerald-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
+                        {getDepthLabel(level)}{!isActive && <span className="ml-0.5 text-zinc-700">+</span>}
+                      </span>
                     );
-                  });
-                })()}
-              </div>
+                  })}
+                </div>
+              ) : !isFirstContact && (
+                <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+                  {(() => {
+                    const r = cardData.rebalancer || {};
+                    const hasContentObj = {
+                      shallow: hasContentValue(r.wade),
+                      wade: hasContentValue(r.wade),
+                      swim: hasContentValue(r.swim),
+                      deep: hasContentValue(r.deep)
+                    };
+                    return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                      const hasContent = hasContentObj[level];
+                      const isActive = rebalancerDepth === level;
+                      return (
+                        <button
+                          key={level}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (level === 'shallow' || level === 'wade') {
+                              if (hasContentObj.wade) setRebalancerDepth(level);
+                              return;
+                            }
+                            if (hasContent) {
+                              setRebalancerDepth(level);
+                            } else if (onLoadDeeper && !rebalancerLoadingDeeper) {
+                              setRebalancerLoadingDeeper(true);
+                              const previousContent = {
+                                reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                                why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                rebalancer: { wade: r.wade || '', swim: r.swim || '' },
+                                architecture: cardData.architecture || '',
+                                mirror: cardData.mirror || ''
+                              };
+                              await onLoadDeeper(cardData.index, level, previousContent);
+                              setRebalancerLoadingDeeper(false);
+                              setRebalancerDepth(level);
+                            } else {
+                              setRebalancerDepth(level);
+                            }
+                          }}
+                          title={level.charAt(0).toUpperCase() + level.slice(1)}
+                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                            isActive
+                              ? 'bg-emerald-500 text-white'
+                              : hasContent
+                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-emerald-500/50'
+                          }`}
+                        >
+                          {getDepthLabel(level)}
+                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                        </button>
+                      );
+                    });
+                  })()}
+                </div>
+              )
             )}
           </div>
 
-          {/* Mobile Depth Stepper - under title, left-justified */}
-          {isMobile && rebalancerDepth !== DEPTH.COLLAPSED && (
+          {/* Mobile Depth Stepper - under title, left-justified (hidden for First Contact) */}
+          {isMobile && !isFirstContact && rebalancerDepth !== DEPTH.COLLAPSED && (
             <div className="mb-3" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const r = cardData.rebalancer || {};
@@ -1261,8 +1297,8 @@ const DepthCard = ({
                 )}
               </div>
 
-              {/* Rebalancer Architecture */}
-              {(rebalancerDepth === DEPTH.SHALLOW || rebalancerDepth === DEPTH.WADE || rebalancerDepth === DEPTH.SWIM || rebalancerDepth === DEPTH.DEEP) && cardData.rebalancer?.architecture && (
+              {/* Rebalancer Architecture (hidden for First Contact) */}
+              {!isFirstContact && (rebalancerDepth === DEPTH.SHALLOW || rebalancerDepth === DEPTH.WADE || rebalancerDepth === DEPTH.SWIM || rebalancerDepth === DEPTH.DEEP) && cardData.rebalancer?.architecture && (
                 <ArchitectureBox
                   content={cardData.rebalancer.architecture}
                   isRebalancer={true}
@@ -1304,67 +1340,79 @@ const DepthCard = ({
             ) : growthLoadingDeeper ? (
               <span className="ml-auto text-xs"><PulsatingLoader color="text-teal-400" /></span>
             ) : !isMobile && (
-              /* Desktop: Button row inline */
-              <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
-                {(() => {
-                  const g = cardData.growth || {};
-                  const hasContentObj = {
-                    shallow: hasContentValue(g.wade),
-                    wade: hasContentValue(g.wade),
-                    swim: hasContentValue(g.swim),
-                    deep: hasContentValue(g.deep)
-                  };
-                  return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                    const hasContent = hasContentObj[level];
+              isFirstContact && growthDepth !== DEPTH.COLLAPSED ? (
+                <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+                  {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                     const isActive = growthDepth === level;
                     return (
-                      <button
-                        key={level}
-                        onClick={async (e) => {
-                          e.stopPropagation();
-                          if (level === 'shallow' || level === 'wade') {
-                            if (hasContentObj.wade) setGrowthDepth(level);
-                            return;
-                          }
-                          if (hasContent) {
-                            setGrowthDepth(level);
-                          } else if (onLoadDeeper && !growthLoadingDeeper) {
-                            setGrowthLoadingDeeper(true);
-                            const previousContent = {
-                              reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                              why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                              growth: { wade: g.wade || '', swim: g.swim || '' },
-                              architecture: cardData.architecture || '',
-                              mirror: cardData.mirror || ''
-                            };
-                            await onLoadDeeper(cardData.index, level, previousContent);
-                            setGrowthLoadingDeeper(false);
-                            setGrowthDepth(level);
-                          } else {
-                            setGrowthDepth(level);
-                          }
-                        }}
-                        title={level.charAt(0).toUpperCase() + level.slice(1)}
-                        className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                          isActive
-                            ? 'bg-teal-500 text-white'
-                            : hasContent
-                              ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                              : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-teal-500/50'
-                        }`}
-                      >
-                        {getDepthLabel(level)}
-                        {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                      </button>
+                      <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-teal-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
+                        {getDepthLabel(level)}{!isActive && <span className="ml-0.5 text-zinc-700">+</span>}
+                      </span>
                     );
-                  });
-                })()}
-              </div>
+                  })}
+                </div>
+              ) : !isFirstContact && (
+                <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
+                  {(() => {
+                    const g = cardData.growth || {};
+                    const hasContentObj = {
+                      shallow: hasContentValue(g.wade),
+                      wade: hasContentValue(g.wade),
+                      swim: hasContentValue(g.swim),
+                      deep: hasContentValue(g.deep)
+                    };
+                    return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                      const hasContent = hasContentObj[level];
+                      const isActive = growthDepth === level;
+                      return (
+                        <button
+                          key={level}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (level === 'shallow' || level === 'wade') {
+                              if (hasContentObj.wade) setGrowthDepth(level);
+                              return;
+                            }
+                            if (hasContent) {
+                              setGrowthDepth(level);
+                            } else if (onLoadDeeper && !growthLoadingDeeper) {
+                              setGrowthLoadingDeeper(true);
+                              const previousContent = {
+                                reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                                why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                growth: { wade: g.wade || '', swim: g.swim || '' },
+                                architecture: cardData.architecture || '',
+                                mirror: cardData.mirror || ''
+                              };
+                              await onLoadDeeper(cardData.index, level, previousContent);
+                              setGrowthLoadingDeeper(false);
+                              setGrowthDepth(level);
+                            } else {
+                              setGrowthDepth(level);
+                            }
+                          }}
+                          title={level.charAt(0).toUpperCase() + level.slice(1)}
+                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                            isActive
+                              ? 'bg-teal-500 text-white'
+                              : hasContent
+                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-teal-500/50'
+                          }`}
+                        >
+                          {getDepthLabel(level)}
+                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                        </button>
+                      );
+                    });
+                  })()}
+                </div>
+              )
             )}
           </div>
 
           {/* Mobile Depth Stepper - under title, left-justified */}
-          {isMobile && growthDepth !== DEPTH.COLLAPSED && (
+          {isMobile && !isFirstContact && growthDepth !== DEPTH.COLLAPSED && (
             <div className="mb-3" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const g = cardData.growth || {};
@@ -1543,8 +1591,8 @@ const DepthCard = ({
                 )}
               </div>
 
-              {/* Growth Architecture (if any) */}
-              {(growthDepth === DEPTH.SHALLOW || growthDepth === DEPTH.WADE || growthDepth === DEPTH.SWIM || growthDepth === DEPTH.DEEP) && cardData.growth?.architecture && (
+              {/* Growth Architecture (if any, hidden for First Contact) */}
+              {!isFirstContact && (growthDepth === DEPTH.SHALLOW || growthDepth === DEPTH.WADE || growthDepth === DEPTH.SWIM || growthDepth === DEPTH.DEEP) && cardData.growth?.architecture && (
                 <ArchitectureBox
                   content={cardData.growth.architecture}
                   label="Growth Architecture"
@@ -1612,68 +1660,80 @@ const DepthCard = ({
                     <span className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider">
                       Words to the Whys
                     </span>
-                    {/* Depth navigation - desktop inline, mobile below */}
+                    {/* Depth navigation - desktop inline, mobile below (hidden for First Contact) */}
                     {whyLoadingDeeper ? (
                       <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>
                     ) : !isMobile && (
-                      /* Desktop: Button row inline */
-                      <div className="flex-shrink-0 flex gap-1">
-                        {(() => {
-                          const hasContentObj = {
-                            shallow: hasContentValue(cardData.why?.wade),
-                            wade: hasContentValue(cardData.why?.wade),
-                            swim: hasContentValue(cardData.why?.swim),
-                            deep: hasContentValue(cardData.why?.deep)
-                          };
-                          return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                            const hasContent = hasContentObj[level];
+                      isFirstContact && !isWhyCollapsed ? (
+                        <div className="flex-shrink-0 flex gap-1">
+                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                             const isActive = whyDepth === level;
                             return (
-                              <button
-                                key={level}
-                                onClick={async (e) => {
-                                  e.stopPropagation();
-                                  if (level === 'shallow' || level === 'wade') {
-                                    if (hasContentObj.wade) setWhyDepth(level);
-                                    return;
-                                  }
-                                  if (hasContent) {
-                                    setWhyDepth(level);
-                                  } else if (onLoadDeeper && !whyLoadingDeeper) {
-                                    setWhyLoadingDeeper(true);
-                                    const previousContent = {
-                                      reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                      why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                      rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
-                                      architecture: cardData.architecture || '',
-                                      mirror: cardData.mirror || ''
-                                    };
-                                    await onLoadDeeper(cardData.index, level, previousContent);
-                                    setWhyLoadingDeeper(false);
-                                    setWhyDepth(level);
-                                  }
-                                }}
-                                title={level.charAt(0).toUpperCase() + level.slice(1)}
-                                className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                                  isActive
-                                    ? 'bg-cyan-500 text-white'
-                                    : hasContent
-                                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                      : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
-                                }`}
-                              >
-                                {getDepthLabel(level)}
-                                {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                              </button>
+                              <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-cyan-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
+                                {getDepthLabel(level)}{!isActive && <span className="ml-0.5 text-zinc-700">+</span>}
+                              </span>
                             );
-                          });
-                        })()}
-                      </div>
+                          })}
+                        </div>
+                      ) : !isFirstContact && (
+                        <div className="flex-shrink-0 flex gap-1">
+                          {(() => {
+                            const hasContentObj = {
+                              shallow: hasContentValue(cardData.why?.wade),
+                              wade: hasContentValue(cardData.why?.wade),
+                              swim: hasContentValue(cardData.why?.swim),
+                              deep: hasContentValue(cardData.why?.deep)
+                            };
+                            return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                              const hasContent = hasContentObj[level];
+                              const isActive = whyDepth === level;
+                              return (
+                                <button
+                                  key={level}
+                                  onClick={async (e) => {
+                                    e.stopPropagation();
+                                    if (level === 'shallow' || level === 'wade') {
+                                      if (hasContentObj.wade) setWhyDepth(level);
+                                      return;
+                                    }
+                                    if (hasContent) {
+                                      setWhyDepth(level);
+                                    } else if (onLoadDeeper && !whyLoadingDeeper) {
+                                      setWhyLoadingDeeper(true);
+                                      const previousContent = {
+                                        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
+                                        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                        architecture: cardData.architecture || '',
+                                        mirror: cardData.mirror || ''
+                                      };
+                                      await onLoadDeeper(cardData.index, level, previousContent);
+                                      setWhyLoadingDeeper(false);
+                                      setWhyDepth(level);
+                                    }
+                                  }}
+                                  title={level.charAt(0).toUpperCase() + level.slice(1)}
+                                  className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                                    isActive
+                                      ? 'bg-cyan-500 text-white'
+                                      : hasContent
+                                        ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                                        : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-cyan-500/50'
+                                  }`}
+                                >
+                                  {getDepthLabel(level)}
+                                  {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
+                                </button>
+                              );
+                            });
+                          })()}
+                        </div>
+                      )
                     )}
                   </div>
 
-                  {/* Mobile Depth Stepper - under title, left-justified */}
-                  {isMobile && (
+                  {/* Mobile Depth Stepper - under title, left-justified (hidden for First Contact) */}
+                  {isMobile && !isFirstContact && (
                     <div className="mb-3">
                       {(() => {
                         const hasContentObj = {
@@ -1736,8 +1796,8 @@ const DepthCard = ({
                     })()}
                   </div>
 
-                  {/* WHY Architecture Box - collapsed */}
-                  {cardData.why.architecture && (
+                  {/* WHY Architecture Box - collapsed (hidden for First Contact) */}
+                  {!isFirstContact && cardData.why.architecture && (
                     <ArchitectureBox
                       content={cardData.why.architecture}
                       label="Why Architecture"
@@ -1752,8 +1812,8 @@ const DepthCard = ({
         </div>
       )}
 
-      {/* Card Architecture Section - visible at all depths, collapsed by default */}
-      {depth !== DEPTH.COLLAPSED && cardData.architecture && (
+      {/* Card Architecture Section - visible at all depths, collapsed by default (hidden for First Contact) */}
+      {depth !== DEPTH.COLLAPSED && cardData.architecture && !isFirstContact && (
         <div className="mt-4 rounded-lg border-2 border-violet-500/30 bg-violet-950/20 p-4">
           {/* Architecture Header - clickable to expand */}
           <div

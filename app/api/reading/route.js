@@ -189,13 +189,13 @@ export async function POST(request) {
     }
   }
 
-  // First Contact mode uses Haiku with minimal tokens
+  // First Contact mode uses Sonnet for quality interpretations
   const effectiveModel = isFirstContact
-    ? "claude-haiku-4-5-20251001"
+    ? "claude-sonnet-4-20250514"
     : (model || "claude-sonnet-4-20250514");
 
   const effectiveMaxTokens = isFirstContact
-    ? 300
+    ? 4000
     : (max_tokens || 4000);
 
   // Convert system prompt to cached format for 90% input token savings
