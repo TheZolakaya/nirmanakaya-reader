@@ -656,6 +656,7 @@ export default function NirmanakaReader() {
       setSelectionConfirmed(false);
     } else {
       // Second tap on SAME selection: flash, collapse, show default placeholder
+      // Longer flash (800ms) for the final confirmation
       setReadyFlash(true);
       setPlaceholderFlash(true);
       setTimeout(() => {
@@ -663,14 +664,14 @@ export default function NirmanakaReader() {
         setPlaceholderFlash(false);
         setAdvancedMode(false);
         setSelectionConfirmed(true);
-      }, 200);
+      }, 800);
     }
   };
 
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - collapse with flash
+      // User clicked textarea - collapse with flash (800ms for final confirmation)
       setReadyFlash(true);
       setPlaceholderFlash(true);
       setTimeout(() => {
@@ -678,7 +679,7 @@ export default function NirmanakaReader() {
         setPlaceholderFlash(false);
         setAdvancedMode(false);
         setSelectionConfirmed(true);
-      }, 200);
+      }, 800);
     }
   };
 
@@ -4774,7 +4775,7 @@ CRITICAL FORMATTING RULES:
                         style={{
                           borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
                           boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.15s, box-shadow 0.15s'
+                          transition: 'border-color 0.4s, box-shadow 0.4s'
                         }}
                         rows={4}
                       />
@@ -4804,7 +4805,7 @@ CRITICAL FORMATTING RULES:
                         style={{
                           borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
                           boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.15s, box-shadow 0.15s'
+                          transition: 'border-color 0.4s, box-shadow 0.4s'
                         }}
                         rows={4}
                       />
