@@ -4627,6 +4627,26 @@ CRITICAL FORMATTING RULES:
                       );
                     })}
                   </div>
+                  {/* Quick reading buttons - contained block */}
+                  <div className="mt-3 flex items-center justify-center gap-2">
+                    <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Quick</span>
+                    <div className="flex gap-1 px-2 py-1 rounded-lg border border-zinc-700/50 bg-zinc-900/50">
+                      {[1, 2, 3, 4].map(count => (
+                        <button
+                          key={count}
+                          onClick={() => {
+                            const newDraws = generateSpread(count, false);
+                            setDraws(newDraws);
+                            performReadingWithDraws(newDraws, question.trim() || 'General reading');
+                          }}
+                          className="w-7 h-7 rounded bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 text-xs font-medium transition-colors"
+                          title={`${count}-card general reading`}
+                        >
+                          {count}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* TIER 2: Fine-tune Voice - ALWAYS available (collapsed) */}
