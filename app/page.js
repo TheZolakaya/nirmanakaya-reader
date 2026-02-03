@@ -4114,24 +4114,18 @@ CRITICAL FORMATTING RULES:
             </a>
             <a
               href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
             >
               Guide
             </a>
             <a
               href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
             >
               About
             </a>
             <a
               href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
             >
               Council
@@ -4490,7 +4484,7 @@ CRITICAL FORMATTING RULES:
                       onChange={(e) => setDtpInput(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                       placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-12 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
                       rows={4}
                     />
                   ) : (
@@ -4499,29 +4493,20 @@ CRITICAL FORMATTING RULES:
                       onChange={(e) => setQuestion(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                       placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 pb-12 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
                       rows={4}
                     />
                   )}
-                </div>
-                {/* Go button - always visible, bottom right of textarea */}
-                <div className="flex justify-end max-w-2xl mx-auto mt-2">
+                  {/* Go button - inside textarea, bottom right */}
                   <motion.button
-                    onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
+                    onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                     data-help="get-reading"
                     disabled={loading}
-                    className="go-button px-5 py-2 min-h-[40px] rounded-lg text-sm text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    style={{
-                      background: 'linear-gradient(135deg, #1a0a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 75%, #2d1b4e 100%)',
-                      backgroundSize: '300% 300%',
-                      animation: 'logoGradient 8s ease infinite',
-                      border: '1px solid rgba(139, 92, 246, 0.3)',
-                      boxShadow: '0 0 20px rgba(139, 92, 246, 0.15)',
-                    }}
+                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <span className="relative z-10">{loading ? 'Drawing...' : 'Go'}</span>
+                    <span className="relative z-10 animate-rainbow-cycle-slow">{loading ? '...' : 'Go'}</span>
                   </motion.button>
                 </div>
               </div>
@@ -4601,32 +4586,48 @@ CRITICAL FORMATTING RULES:
 
                 {/* TIER 1: Persona Selector - Fly in from sides */}
                 <div className="mb-2">
-                  <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1">
-                    {PERSONAS.map((p, index) => {
-                      const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
-                      const isLeftColumn = index % 3 === 0;
-                      const isRightColumn = index % 3 === 2;
-                      return (
-                        <motion.button
-                          key={p.key}
-                          initial={advancedMode ? { opacity: 0, x: isLeftColumn ? -30 : isRightColumn ? 30 : 0 } : false}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.35, delay: 0.05 + index * 0.04, ease: [0.25, 0.46, 0.45, 0.94] }}
-                          onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
-                          data-help={`persona-${p.key}`}
-                          title={p.desc}
-                          className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
-                            persona === p.key
-                              ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
-                              : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
-                          }`}
-                        >
-                          <span>{icons[p.key]}</span>
-                          <span>{p.name}</span>
-                        </motion.button>
-                      );
-                    })}
-                  </div>
+                  <AnimatePresence mode="wait">
+                    {advancedMode && (
+                      <motion.div
+                        key="persona-grid"
+                        className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1"
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                      >
+                        {PERSONAS.map((p, index) => {
+                          const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
+                          const isLeftColumn = index % 3 === 0;
+                          const isRightColumn = index % 3 === 2;
+                          const xOffset = isLeftColumn ? -40 : isRightColumn ? 40 : 0;
+                          return (
+                            <motion.button
+                              key={p.key}
+                              initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                              animate={{ opacity: 1, x: 0, scale: 1 }}
+                              exit={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                              transition={{
+                                duration: 0.45,
+                                delay: index * 0.06,
+                                ease: [0.25, 0.46, 0.45, 0.94]
+                              }}
+                              onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
+                              data-help={`persona-${p.key}`}
+                              title={p.desc}
+                              className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
+                                persona === p.key
+                                  ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                                  : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
+                              }`}
+                            >
+                              <span>{icons[p.key]}</span>
+                              <span>{p.name}</span>
+                            </motion.button>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   {/* Quick reading buttons - contained block */}
                   <div className="mt-3 flex items-center justify-center gap-2">
                     <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Quick</span>
@@ -6940,8 +6941,6 @@ CRITICAL FORMATTING RULES:
           <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-600 mb-2">
             <a
               href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
               className="hover:text-zinc-400 transition-colors"
             >
               Guide
@@ -6949,8 +6948,6 @@ CRITICAL FORMATTING RULES:
             <span className="text-zinc-800">•</span>
             <a
               href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
               className="hover:text-zinc-400 transition-colors"
             >
               About
@@ -6958,8 +6955,6 @@ CRITICAL FORMATTING RULES:
             <span className="text-zinc-800">•</span>
             <a
               href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
               className="hover:text-zinc-400 transition-colors"
             >
               Council
