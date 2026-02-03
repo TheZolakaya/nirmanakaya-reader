@@ -4284,30 +4284,30 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Full UI or Simple Mode based on advancedMode */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
+            <AnimatePresence mode="wait">
             {/* Simple Mode UI - shown when advancedMode is false */}
             {!advancedMode && (
-              <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto relative">
+              <motion.div
+                key="simple-mode"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto relative"
+              >
                 {/* Gear toggle button - top right */}
                 <motion.button
                   onClick={() => setAdvancedMode(true)}
                   className="absolute top-3 right-3 w-9 h-9 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:border-amber-500/50 transition-colors z-10"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Show advanced controls"
                   title="Show advanced controls"
                 >
-                  <motion.svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                  </motion.svg>
+                  </svg>
                 </motion.button>
 
                 {/* Simple question input */}
@@ -4337,34 +4337,33 @@ CRITICAL FORMATTING RULES:
                 </button>
 
                 {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
-              </div>
+              </motion.div>
             )}
 
             {/* Advanced Mode UI - shown when advancedMode is true */}
             {advancedMode && (
             <>
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto">
+            <motion.div
+              key="advanced-mode"
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto"
+            >
               {/* Gear toggle button - collapse to simple mode */}
               <motion.button
                 onClick={() => setAdvancedMode(false)}
                 className="absolute top-3 right-3 w-8 h-8 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-amber-400 hover:text-amber-300 hover:border-amber-500/50 transition-colors z-10"
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, rotate: -90 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Hide advanced controls"
                 title="Hide advanced controls"
               >
-                <motion.svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                </motion.svg>
+                </svg>
               </motion.button>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
@@ -4394,6 +4393,7 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.05} duration={0.6}>
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   {/* Reflect - always enabled at level 1+ */}
@@ -4446,8 +4446,10 @@ CRITICAL FORMATTING RULES:
                   </button>
                 </div>
               </div>
+              </UnfoldPanel>
 
               {/* Spread Selection - changes based on mode */}
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.6}>
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
@@ -4532,8 +4534,9 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
               </div>
+              </UnfoldPanel>
 
-              {/* Question Input - moved up for better UX flow */}
+              {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-4 mt-2">
                 <div
                   className="relative max-w-2xl mx-auto"
@@ -4563,6 +4566,7 @@ CRITICAL FORMATTING RULES:
               </div>
 
               {/* Voice Section - Three Tier Structure */}
+              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.6}>
               <div className="mt-2 pt-2 border-t border-zinc-800/50">
 
                 {/* TIER 1: Persona Selector - ALWAYS visible */}
@@ -4856,6 +4860,7 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
             </div>
+            </UnfoldPanel>
 
             {showGlistener && (
               <Glistener
@@ -4868,6 +4873,7 @@ CRITICAL FORMATTING RULES:
             )}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
+            <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.15} duration={0.6}>
             <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
               {/* Glistener prompt - left side */}
               {!showGlistener && spreadType !== 'explore' ? (
@@ -4945,8 +4951,10 @@ CRITICAL FORMATTING RULES:
               </div>
               </div>
             </div>
+            </UnfoldPanel>
 
             {/* Description Block - moved below controls for reference */}
+            <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.2} duration={0.6}>
             <div className="relative mb-3 mt-4">
               <div className="w-full max-w-lg mx-auto mb-4">
                 {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
@@ -5044,8 +5052,10 @@ CRITICAL FORMATTING RULES:
                 </button>
               </div>
             </div>
+            </UnfoldPanel>
             </>
             )}
+            </AnimatePresence>
             {/* End of advancedMode conditional */}
           </>
           )}
