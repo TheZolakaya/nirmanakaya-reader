@@ -5129,9 +5129,14 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             )}
             {/* End of advancedMode conditional */}
           </>
-        )}
+          )}
+          {/* End of Standard Mode conditional */}
         </>
         )}
+        {/* End of currentUser ternary */}
+          </>
+        )}
+        {/* End of !draws conditional */}
 
         {/* Loading */}
         {loading && !expanding && (
