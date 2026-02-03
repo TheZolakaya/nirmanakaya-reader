@@ -4727,7 +4727,7 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Description Block - moved above voice section */}
+              {/* Description Block - HIDDEN FOR NOW (may restore later)
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
               <div className="relative mb-2 mt-2">
                 <div className="w-full max-w-lg mx-auto min-h-[110px]">
@@ -4795,6 +4795,7 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
               </UnfoldPanel>
+              */}
 
               {/* Persona Selector - Separate row above Voice (Gemini spec) */}
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
