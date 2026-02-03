@@ -5342,17 +5342,21 @@ CRITICAL FORMATTING RULES:
                   setDefaultDepth(newDepth);
                   setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
                 }}
-                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                title="Starting depth for card content"
               >
-                {defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}
+                <span className="text-zinc-500 text-[10px]">Depth</span>
+                <span>{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
               </button>
 
               {/* Expansion toggle - single button that flips state */}
               <button
                 onClick={() => setDefaultExpanded(!defaultExpanded)}
-                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                title="Cards start expanded or collapsed"
               >
-                {defaultExpanded ? 'Open' : 'Closed'}
+                <span className="text-zinc-500 text-[10px]">Cards</span>
+                <span>{defaultExpanded ? 'Open' : 'Closed'}</span>
               </button>
             </div>
             </motion.div>
