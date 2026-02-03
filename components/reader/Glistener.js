@@ -44,27 +44,12 @@ export default function Glistener({
     onPhaseChange?.(phase);
   }, [phase, onPhaseChange]);
 
-  // Generate fragments from bones and tale for the ghost stream
-  const generateFragments = useCallback((bones, transmission) => {
-    const fragments = [];
-
-    // Add bone words
-    bones.forEach(bone => {
-      fragments.push(bone.word);
-      fragments.push(`${bone.constraint}...`);
-    });
-
-    // Add tale snippets (2-4 word chunks)
-    const words = transmission.split(/\s+/);
-    for (let i = 0; i < words.length; i += 3) {
-      const chunk = words.slice(i, i + 3).join(' ');
-      if (chunk.length > 5) {
-        fragments.push(chunk + '...');
-      }
-    }
-
-    // Shuffle for chaos
-    return fragments.sort(() => Math.random() - 0.5);
+  // Build scrolling content from bones and transmission
+  const buildScrollingContent = useCallback((bones, transmission) => {
+    // Format bones as a header section
+    const boneText = bones.map(b => `${b.constraint}: ${b.word}`).join(' · ');
+    // Full content: bones header + transmission
+    return `${boneText}\n\n${transmission}`;
   }, []);
 
   const startGlisten = async () => {
@@ -89,32 +74,26 @@ export default function Glistener({
 
       setData(result);
 
-      // Start the Ghost Stream
+      // Start the Ghost Stream - show FULL transmission text
       setPhase('streaming');
-      const fragments = generateFragments(result.bones, result.transmission);
-      let fragmentIndex = 0;
+      const fullContent = buildScrollingContent(result.bones, result.transmission);
       let elapsed = 0;
-      let opacity = 0.7;  // Start more visible
+      let pulsePhase = 0;
 
       const streamInterval = setInterval(() => {
         elapsed += FRAGMENT_INTERVAL;
         const progress = elapsed / STREAM_DURATION;
+        pulsePhase += 0.15;  // For glow pulsing
 
-        // Cycle through fragments
-        const fragment = fragments[fragmentIndex % fragments.length];
-        fragmentIndex++;
+        // Pulsing opacity effect (0.6 to 0.9)
+        const pulseOpacity = 0.75 + Math.sin(pulsePhase) * 0.15;
 
-        // Slowdown phase - increase opacity toward full
-        if (progress > SLOWDOWN_START) {
-          const slowProgress = (progress - SLOWDOWN_START) / (1 - SLOWDOWN_START);
-          opacity = 0.7 + (slowProgress * 0.3); // 0.7 -> 1.0
-        }
-
-        // Send fragment to parent for display
+        // Send full transmission to parent for display
         onDisplayContent?.({
           type: 'streaming',
-          text: fragment,
-          opacity,
+          text: fullContent,
+          opacity: pulseOpacity,
+          pulse: true,
         });
 
         // End stream, start typing

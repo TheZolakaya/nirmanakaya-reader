@@ -4832,19 +4832,21 @@ CRITICAL FORMATTING RULES:
                         {/* Ghost Stream content from Glistener */}
                         {glistenerContent && (
                           <motion.div
-                            key={glistenerContent.type + (glistenerContent.text || '')}
-                            initial={{ opacity: 0, y: 5 }}
+                            key={glistenerContent.type}
+                            initial={{ opacity: 0 }}
                             animate={{
                               opacity: glistenerContent.type === 'streaming' ? glistenerContent.opacity : 1,
-                              y: 0,
                             }}
-                            exit={{ opacity: 0, y: -5 }}
-                            transition={{ duration: 0.15 }}
-                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex items-center justify-center text-[1rem] sm:text-base ${
-                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse' :
-                              glistenerContent.type === 'streaming' ? 'text-zinc-300 font-mono' :
-                              glistenerContent.type === 'typing' ? 'text-amber-300 italic' : 'text-zinc-400'
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.1 }}
+                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none overflow-hidden ${
+                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse flex items-center justify-center' :
+                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap' :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg' : 'text-zinc-400'
                             }`}
+                            style={glistenerContent.pulse ? {
+                              textShadow: '0 0 20px rgba(251, 191, 36, 0.3)',
+                            } : undefined}
                           >
                             {glistenerContent.text}
                             {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
@@ -4856,7 +4858,7 @@ CRITICAL FORMATTING RULES:
                         <Glistener
                           onTransfer={(crystal) => {
                             setQuestion(crystal);
-                            setShowGlistener(false);
+                            // DON'T close - let receipt button show
                             setGlistenerContent(null);
                           }}
                           onClose={() => {
