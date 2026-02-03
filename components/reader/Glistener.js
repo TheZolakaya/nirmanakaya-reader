@@ -69,11 +69,11 @@ export default function Glistener({
     onDisplayContent?.({ type: 'loading', text: loadingMessages[0] });
     onStreamStart?.();
 
-    // Cycle through messages while waiting
+    // Cycle through messages while waiting (slow and mystical)
     const msgInterval = setInterval(() => {
       msgIndex = (msgIndex + 1) % loadingMessages.length;
       onDisplayContent?.({ type: 'loading', text: loadingMessages[msgIndex] });
-    }, 1200);
+    }, 2500);
 
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });

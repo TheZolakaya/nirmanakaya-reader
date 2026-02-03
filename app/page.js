@@ -6092,7 +6092,7 @@ CRITICAL FORMATTING RULES:
                   )}
                   <DepthCard
                     cardData={card}
-                    draw={draws[card.index]}
+                    draw={draws?.[card.index]}
                     isFirstContact={!!parsedReading?._isFirstContact}
                     showTraditional={showTraditional}
                     setSelectedInfo={setSelectedInfo}
