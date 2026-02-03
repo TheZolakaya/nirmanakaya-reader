@@ -4266,7 +4266,7 @@ CRITICAL FORMATTING RULES:
             <span className="rainbow-letter rainbow-letter-9">Y</span>
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
-          <p className="text-zinc-300 text-base sm:text-lg tracking-widest uppercase font-light">
+          <p className="font-mono text-zinc-400/60 text-xs sm:text-sm tracking-[0.2em] uppercase">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Soul Search Engine'}
           </p>
           {/* Nav Links - rainbow hover colors, wrap on mobile */}
