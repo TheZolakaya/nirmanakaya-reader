@@ -4281,89 +4281,30 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
-            {/* Standard Mode - Full UI or Simple Mode based on advancedMode */}
+            {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <>
-            <AnimatePresence mode="wait">
-            {/* Simple Mode UI - shown when advancedMode is false */}
-            {!advancedMode && (
-              <motion.div
-                key="simple-mode"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto relative"
-              >
-                {/* Gear toggle button - top right */}
-                <motion.button
-                  onClick={() => setAdvancedMode(true)}
-                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:border-amber-500/50 transition-colors z-10"
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Show advanced controls"
-                  title="Show advanced controls"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                  </svg>
-                </motion.button>
-
-                {/* Simple question input */}
-                <div className="mb-4 rounded-lg overflow-hidden">
-                  <textarea
-                    value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
-                    placeholder="What's on your mind?"
-                    className="w-full p-4 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
-                    rows={3}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        performReading();
-                      }
-                    }}
-                  />
-                </div>
-
-                {/* Simple read button */}
-                <button
-                  onClick={performReading}
-                  disabled={loading}
-                  className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
-                >
-                  {loading ? 'Reading...' : 'Reveal the Pattern'}
-                </button>
-
-                {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
-              </motion.div>
-            )}
-
-            {/* Advanced Mode UI - shown when advancedMode is true */}
-            {advancedMode && (
-            <>
-            <motion.div
-              key="advanced-mode"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-              className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto"
-            >
-              {/* Gear toggle button - collapse to simple mode */}
+            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative mx-auto transition-all duration-500 ${advancedMode ? 'max-w-2xl' : 'max-w-lg'}`}>
+              {/* Gear toggle button - always visible */}
               <motion.button
-                onClick={() => setAdvancedMode(false)}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-amber-400 hover:text-amber-300 hover:border-amber-500/50 transition-colors z-10"
-                whileHover={{ scale: 1.1, rotate: -90 }}
+                onClick={() => setAdvancedMode(!advancedMode)}
+                className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="Hide advanced controls"
-                title="Hide advanced controls"
+                aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
+                title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <motion.svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  animate={{ rotate: advancedMode ? 90 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                </svg>
+                </motion.svg>
               </motion.button>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
@@ -5052,14 +4993,9 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
             </UnfoldPanel>
-            </motion.div>
-            </>
+            </div>
             )}
-            </AnimatePresence>
-            {/* End of advancedMode conditional */}
-          </>
-          )}
-          {/* End of Standard Mode conditional */}
+            {/* End of Standard Mode conditional */}
         </>
         )}
         {/* End of currentUser ternary */}
