@@ -5018,8 +5018,15 @@ CRITICAL FORMATTING RULES:
               */}
 
               {/* Fine-tune Voice Panel - triggered by voice icon in footer */}
+              {/* Backdrop to close panel when clicking outside */}
+              {showVoicePanel && (
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setShowVoicePanel(false)}
+                />
+              )}
               <UnfoldPanel isOpen={advancedMode && showVoicePanel} direction="down" delay={0.05} duration={0.3}>
-              <div className="mb-2">
+              <div className="mb-2 relative z-20">
                 {/* Panel header */}
                 <div className="text-center mb-2">
                   <span className="text-[0.5625rem] tracking-widest uppercase text-zinc-500">Fine-tune Voice</span>
