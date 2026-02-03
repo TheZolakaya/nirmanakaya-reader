@@ -4859,7 +4859,6 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
               </div>
-            </div>
             </UnfoldPanel>
 
             {showGlistener && (
