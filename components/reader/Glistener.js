@@ -32,8 +32,8 @@ export default function Glistener({
   onClose,
   onStreamStart,
   onStreamEnd,
-  onDisplayContent,  // NEW: Callback to send content for display in textarea
-  onPhaseChange,     // NEW: Callback to notify parent of phase changes
+  onDisplayContent,  // Callback to send content for display in textarea
+  onPhaseChange,     // Callback to notify parent of phase changes
 }) {
   const [phase, setPhase] = useState('idle'); // idle | loading | streaming | typing | complete
   const [data, setData] = useState(null);
@@ -168,45 +168,29 @@ export default function Glistener({
     setError(null);
   };
 
-  // ========== RENDER: IDLE STATE (Begin Button) ==========
-  // Shows as compact bar inside textarea area
+  // ========== RENDER: IDLE STATE (Subtle inline confirm) ==========
+  // Small confirmation in bottom-left, not a big centered panel
   if (phase === 'idle') {
     return (
-      <div className="absolute inset-x-0 top-0 bottom-12 flex items-center justify-center pointer-events-none">
-        <div className="pointer-events-auto bg-zinc-900/95 border border-zinc-700/50 rounded-lg px-4 py-3 max-w-md mx-4">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <div className="flex items-baseline gap-2">
-                <h3 className="text-amber-400 font-medium text-sm">Glisten</h3>
-                <span className="text-zinc-600 text-[9px] uppercase tracking-wider">Field Prompter</span>
-              </div>
-              <p className="text-zinc-500 text-xs mt-0.5">
-                Let the question find its shape through The Veil.
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={startGlisten}
-                className="px-3 py-1 bg-amber-600/80 hover:bg-amber-500/80 text-white text-xs rounded transition-colors font-medium"
-              >
-                Begin
-              </button>
-              {onClose && (
-                <button
-                  onClick={onClose}
-                  className="text-zinc-500 hover:text-zinc-300 transition-colors p-1"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-            </div>
-          </div>
-          {error && (
-            <p className="text-red-400 text-xs mt-2">{error}</p>
-          )}
-        </div>
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
+        <span className="text-amber-500/70 text-xs">◇</span>
+        <button
+          onClick={startGlisten}
+          className="text-amber-400 hover:text-amber-300 text-xs transition-colors"
+        >
+          Begin
+        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          >
+            ✕
+          </button>
+        )}
+        {error && (
+          <span className="text-red-400 text-xs ml-2">{error}</span>
+        )}
       </div>
     );
   }
@@ -238,35 +222,29 @@ function ViewSourcePanel({ data, onReset, onClose }) {
 
   return (
     <>
-      {/* Compact bar showing completion - positioned inside textarea */}
-      <div className="absolute inset-x-0 top-0 bottom-12 flex items-center justify-center pointer-events-none">
-        <div className="pointer-events-auto bg-zinc-900/95 border border-zinc-700/50 rounded-lg px-4 py-2 mx-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setShowReceipt(true)}
-              className="flex items-center gap-2 text-zinc-400 hover:text-amber-400 transition-colors text-sm"
-            >
-              <span>📜</span>
-              <span>View Transmission</span>
-            </button>
-            <button
-              onClick={onReset}
-              className="text-zinc-500 hover:text-zinc-300 transition-colors text-xs"
-            >
-              Again
-            </button>
-            {onClose && (
-              <button
-                onClick={onClose}
-                className="text-zinc-500 hover:text-zinc-300 transition-colors p-1"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
-          </div>
-        </div>
+      {/* Subtle inline controls - bottom left like idle state */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-3 z-10">
+        <button
+          onClick={() => setShowReceipt(true)}
+          className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1"
+        >
+          <span>📜</span>
+          <span>Receipt</span>
+        </button>
+        <button
+          onClick={onReset}
+          className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+        >
+          Again
+        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       {/* Transmission Receipt Modal */}
