@@ -4283,7 +4283,7 @@ CRITICAL FORMATTING RULES:
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 pb-4 sm:pb-6 mb-2 relative mx-auto transition-all duration-500 ${advancedMode ? 'max-w-2xl pt-4 sm:pt-6' : 'max-w-lg pt-2'}`}>
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 pt-2 pb-4 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4312,7 +4312,7 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
-              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.05} duration={0.6}>
+              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.05} duration={0.5}>
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   {/* Reflect - always enabled at level 1+ */}
@@ -4368,7 +4368,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
 
               {/* Spread Selection - changes based on mode */}
-              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.6}>
+              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.5}>
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
@@ -4456,7 +4456,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
 
               {/* Question Input - THE ANCHOR POINT (no animation) */}
-              <div className="relative mb-4 mt-2">
+              <div className="relative mb-2 mt-2">
                 <div
                   className="relative max-w-2xl mx-auto"
                   data-help="question-input"
@@ -4490,8 +4490,8 @@ CRITICAL FORMATTING RULES:
                       onChange={(e) => setDtpInput(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                       placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
-                      rows={5}
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                      rows={4}
                     />
                   ) : (
                     <textarea
@@ -4499,15 +4499,35 @@ CRITICAL FORMATTING RULES:
                       onChange={(e) => setQuestion(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                       placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                      rows={3}
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
+                      rows={4}
                     />
                   )}
+                </div>
+                {/* Go button - always visible, bottom right of textarea */}
+                <div className="flex justify-end max-w-2xl mx-auto mt-2">
+                  <motion.button
+                    onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
+                    data-help="get-reading"
+                    disabled={loading}
+                    className="go-button px-5 py-2 min-h-[40px] rounded-lg text-sm text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    style={{
+                      background: 'linear-gradient(135deg, #1a0a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 75%, #2d1b4e 100%)',
+                      backgroundSize: '300% 300%',
+                      animation: 'logoGradient 8s ease infinite',
+                      border: '1px solid rgba(139, 92, 246, 0.3)',
+                      boxShadow: '0 0 20px rgba(139, 92, 246, 0.15)',
+                    }}
+                  >
+                    <span className="relative z-10">{loading ? 'Drawing...' : 'Go'}</span>
+                  </motion.button>
                 </div>
               </div>
 
               {/* Voice Section - Three Tier Structure */}
-              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.6}>
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
               <div className="mt-2 pt-2 border-t border-zinc-800/50">
 
                 {/* TIER 1: Persona Selector - ALWAYS visible */}
@@ -4813,7 +4833,7 @@ CRITICAL FORMATTING RULES:
             )}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
-            <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.15} duration={0.6}>
+            <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.15} duration={0.5}>
             <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
               {/* Glistener prompt - left side */}
               {!showGlistener && spreadType !== 'explore' ? (
@@ -4893,10 +4913,10 @@ CRITICAL FORMATTING RULES:
             </div>
             </UnfoldPanel>
 
-            {/* Description Block - moved below controls for reference */}
-            <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.2} duration={0.6}>
-            <div className="relative mb-3 mt-4">
-              <div className="w-full max-w-lg mx-auto mb-4">
+            {/* Description Block */}
+            <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.2} duration={0.5}>
+            <div className="relative mb-3 mt-2">
+              <div className="w-full max-w-lg mx-auto mb-2 min-h-[110px]">
                 {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
                   <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
                     <div className="text-zinc-300 text-sm font-medium mb-1">
@@ -4960,37 +4980,6 @@ CRITICAL FORMATTING RULES:
                 ) : null}
               </div>
 
-              {/* Action row - Quick buttons + main action button */}
-              <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">
-                {/* Quick reading buttons - left side (all modes) */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-500">Quick:</span>
-                  {[1, 2, 3].map(count => (
-                    <button
-                      key={count}
-                      onClick={() => {
-                        const newDraws = generateSpread(count, false);
-                        setDraws(newDraws);
-                        performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                      }}
-                      className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-amber-500/50 text-sm font-medium transition-colors"
-                      title={`${count}-card general reading`}
-                    >
-                      {count}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Main action button - right side */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
-                  data-help="get-reading"
-                  disabled={loading}
-                  className="px-6 py-2 min-h-[40px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-sm text-white font-medium border border-emerald-700/50"
-                >
-                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
-                </button>
-              </div>
             </div>
             </UnfoldPanel>
             </div>
