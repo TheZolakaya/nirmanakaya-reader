@@ -4472,7 +4472,8 @@ CRITICAL FORMATTING RULES:
                 marginTop: advancedMode ? 0 : 120,
               }}
               transition={{
-                marginTop: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+                // Match the controls-above height animation exactly
+                marginTop: { duration: 0.3, ease: 'easeInOut' }
               }}
             >
 
@@ -4488,7 +4489,8 @@ CRITICAL FORMATTING RULES:
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
-                  height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                  // Sync with marginTop compensation animation
+                  height: { duration: 0.3, ease: 'easeInOut' },
                   opacity: { duration: 0.2 }
                 }}
               >
