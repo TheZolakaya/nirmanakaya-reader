@@ -4080,70 +4080,71 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           {/* Nav Links - rainbow hover colors, wrap on mobile */}
-          {/* Conditionally show based on advancedMode (or always for First Contact) */}
-          <AnimatePresence>
-            {(userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <a
-                  href="/hub"
-                  onClick={(e) => handleHelpClick('nav-hub', e)}
-                  data-help="nav-hub"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
-                >
-                  Community
-                </a>
-                <a
-                  href="/lounge"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Lounge
-                  {loungeOnlineCount > 0 && (
-                    <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
-                  )}
-                </a>
-                <a
-                  href="/guide"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
-                >
-                  Guide
-                </a>
-                <a
-                  href="/about"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
-                >
-                  About
-                </a>
-                <a
-                  href="/council"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
-                >
-                  Council
-                </a>
-                <a
-                  href="/map"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
-                >
-                  Map
-                </a>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Opacity animation preserves layout space when hidden */}
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 1 : 0,
+              y: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 0 : -10,
+            }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
+            style={{
+              pointerEvents: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 'auto' : 'none',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <a
+              href="/hub"
+              onClick={(e) => handleHelpClick('nav-hub', e)}
+              data-help="nav-hub"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
+            >
+              Community
+            </a>
+            <a
+              href="/lounge"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Lounge
+              {loungeOnlineCount > 0 && (
+                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
+              )}
+            </a>
+            <a
+              href="/guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
+            >
+              Guide
+            </a>
+            <a
+              href="/about"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
+            >
+              About
+            </a>
+            <a
+              href="/council"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
+            >
+              Council
+            </a>
+            <a
+              href="/map"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
+            >
+              Map
+            </a>
+          </motion.div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
@@ -4355,7 +4356,7 @@ CRITICAL FORMATTING RULES:
                   stroke="currentColor"
                   strokeWidth="2"
                   animate={{ rotate: 90 }}
-                  transition={{ duration: 1.5 }}
+                  transition={{ duration: 3 }}
                 >
                   <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
