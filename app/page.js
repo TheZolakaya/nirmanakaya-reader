@@ -4452,7 +4452,7 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
-              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.05} duration={0.5}>
+              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.05} duration={0.5} preserveSpace>
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   {/* Reflect - Violet (#7C3AED) */}
@@ -4512,7 +4512,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
 
               {/* Spread Selection - changes based on mode */}
-              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.5}>
+              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.5} preserveSpace>
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */

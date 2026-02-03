@@ -20,6 +20,7 @@ const UnfoldPanel = ({
   duration = 0.4,
   className = '',
   onAnimationComplete,
+  preserveSpace = false, // When true, keeps height constant (anchor mode)
 }) => {
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
@@ -66,9 +67,9 @@ const UnfoldPanel = ({
       }}
       initial={false}
       animate={{
-        height: isOpen ? 'auto' : 0,
-        marginTop: isOpen ? undefined : 0,
-        marginBottom: isOpen ? undefined : 0,
+        height: preserveSpace ? 'auto' : (isOpen ? 'auto' : 0),
+        marginTop: preserveSpace ? undefined : (isOpen ? undefined : 0),
+        marginBottom: preserveSpace ? undefined : (isOpen ? undefined : 0),
       }}
       transition={{
         duration: effectiveDuration * 0.8,
