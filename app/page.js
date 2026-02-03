@@ -4423,14 +4423,24 @@ CRITICAL FORMATTING RULES:
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 mb-2 relative mx-auto max-w-2xl transition-all duration-300 ${advancedMode ? 'pt-2 pb-4' : 'py-3'}`}>
+            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
 
-              {/* === UPPER SECTION: flex-col-reverse keeps textarea anchored === */}
-              {/* Controls have order:1 to appear above, textarea has order:0 (default) to be anchor */}
-              <div className="flex flex-col-reverse">
+              {/* === MAIN LAYOUT: Controls above textarea === */}
+              <div className="flex flex-col">
 
-              {/* CONTROLS GROUP - uses order:1 to appear ABOVE textarea visually */}
-              <div className="controls-above" style={{ order: 1 }}>
+              {/* CONTROLS GROUP - single animated container for all controls */}
+              <motion.div
+                className="controls-above overflow-hidden"
+                initial={false}
+                animate={{
+                  height: advancedMode ? 'auto' : 0,
+                  opacity: advancedMode ? 1 : 0,
+                }}
+                transition={{
+                  height: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+                  opacity: { duration: 0.3, delay: advancedMode ? 0.1 : 0 }
+                }}
+              >
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4459,7 +4469,6 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
-              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.05} duration={0.5} preserveSpace>
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
                   {/* Reflect - Violet (#7C3AED) */}
@@ -4516,10 +4525,8 @@ CRITICAL FORMATTING RULES:
                   </button>
                 </div>
               </div>
-              </UnfoldPanel>
 
               {/* Spread Selection - changes based on mode */}
-              <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.1} duration={0.5} preserveSpace>
               <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
@@ -4628,8 +4635,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
               </div>
-              </UnfoldPanel>
-              </div>{/* END controls-above */}
+              </motion.div>{/* END controls-above */}
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
