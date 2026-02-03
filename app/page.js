@@ -651,7 +651,7 @@ export default function NirmanakaReader() {
     if (isNewSelection) {
       // First tap on NEW selection: flash, update placeholder, stay open
       setReadyFlash(true);
-      setTimeout(() => setReadyFlash(false), 400);
+      setTimeout(() => setReadyFlash(false), 200);
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
     } else {
@@ -663,7 +663,7 @@ export default function NirmanakaReader() {
         setPlaceholderFlash(false);
         setAdvancedMode(false);
         setSelectionConfirmed(true);
-      }, 400);
+      }, 200);
     }
   };
 
@@ -678,7 +678,7 @@ export default function NirmanakaReader() {
         setPlaceholderFlash(false);
         setAdvancedMode(false);
         setSelectionConfirmed(true);
-      }, 400);
+      }, 200);
     }
   };
 
@@ -4772,7 +4772,7 @@ CRITICAL FORMATTING RULES:
                         style={{
                           borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
                           boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.3s, box-shadow 0.3s'
+                          transition: 'border-color 0.15s, box-shadow 0.15s'
                         }}
                         rows={4}
                       />
@@ -4802,7 +4802,7 @@ CRITICAL FORMATTING RULES:
                         style={{
                           borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
                           boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.3s, box-shadow 0.3s'
+                          transition: 'border-color 0.15s, box-shadow 0.15s'
                         }}
                         rows={4}
                       />
