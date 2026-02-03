@@ -4460,22 +4460,20 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
 
-              {/* === MAIN LAYOUT: CSS Grid keeps textarea anchored at bottom === */}
-              {/* Grid has 2 rows: controls (variable) and textarea (fixed) */}
-              {/* When controls collapse, grid row shrinks but textarea row stays */}
-              <div
-                className="grid transition-all duration-300"
-                style={{
-                  gridTemplateRows: advancedMode ? 'auto auto' : '0fr auto',
-                }}
-              >
+              {/* === MAIN LAYOUT: Controls above textarea === */}
+              <div className="flex flex-col">
 
-              {/* CONTROLS GROUP - in collapsible grid row */}
-              <div
-                className="controls-above overflow-hidden transition-opacity duration-300"
-                style={{
+              {/* CONTROLS GROUP - smooth height animation */}
+              <motion.div
+                className="controls-above overflow-hidden"
+                initial={false}
+                animate={{
+                  height: advancedMode ? 'auto' : 0,
                   opacity: advancedMode ? 1 : 0,
-                  minHeight: 0, // Allows row to collapse to 0
+                }}
+                transition={{
+                  height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                  opacity: { duration: 0.2 }
                 }}
               >
               {/* Complexity Slider - Admin only for now */}
@@ -4684,7 +4682,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
               </div>
-              </div>{/* END controls-above */}
+              </motion.div>{/* END controls-above */}
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
@@ -4783,7 +4781,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                   )}
                   {/* Compact persona selector - above Go button */}
-                  <div className="absolute bottom-12 right-3 z-10">
+                  <div className="absolute bottom-12 right-3 z-20">
                     <div className="relative">
                       <button
                         onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
@@ -4847,7 +4845,7 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
               </div>{/* END textarea-anchor */}
-              </div>{/* END grid layout */}
+              </div>{/* END flex layout */}
 
               {/* Description Block - HIDDEN FOR NOW (may restore later)
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
