@@ -1,32 +1,69 @@
 /**
- * Glistener UI Component
- * Single-click scroll experience: Bones -> Tale -> Crystal
+ * Glistener UI Component - "The Ghost Stream"
  *
- * Pre-reading emergence ritual that generates a crystallized question
- * from constrained randomness.
+ * A cinematic in-textarea experience where fragments from the Bones and Tale
+ * stream through like data through a pipe, finally landing on the Crystal question.
+ *
+ * Flow:
+ * 1. User clicks "Begin" → API call starts
+ * 2. Ghost Stream: Fragments rush through textarea (low opacity, blurry, monospace)
+ * 3. Landing: Stream slows, sharpens, final question types character-by-character
+ * 4. Complete: "View Source" 📜 reveals the full Bones + Tale receipt
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const BONE_DELAY = 250;      // ms between bone reveals
-const TALE_DELAY = 3000;     // ms between tale sentences
-const CRYSTAL_DELAY = 1000;  // ms before crystal appears
+// Timing constants
+const STREAM_DURATION = 3500;     // Total ghost stream time (ms)
+const FRAGMENT_INTERVAL = 150;   // Time between fragment changes (ms)
+const TYPING_SPEED = 35;         // ms per character for final question
+const SLOWDOWN_START = 0.7;      // When stream starts slowing (70% through)
 
-export default function Glistener({ onTransfer, onClose }) {
-  const [phase, setPhase] = useState('idle'); // idle | loading | bones | tale | crystal | complete
+export default function Glistener({ onTransfer, onClose, onStreamStart, onStreamEnd }) {
+  const [phase, setPhase] = useState('idle'); // idle | loading | streaming | typing | complete
   const [data, setData] = useState(null);
-  const [visibleBones, setVisibleBones] = useState(0);
-  const [visibleTale, setVisibleTale] = useState(0);
-  const [showPlain, setShowPlain] = useState(false);
-  const [plainText, setPlainText] = useState(null);
   const [error, setError] = useState(null);
+
+  // Ghost stream state
+  const [currentFragment, setCurrentFragment] = useState('');
+  const [fragmentOpacity, setFragmentOpacity] = useState(0.4);
+  const [fragmentBlur, setFragmentBlur] = useState(true);
+
+  // Typing state
+  const [typedChars, setTypedChars] = useState(0);
+
+  // Generate fragments from bones and tale for the ghost stream
+  const generateFragments = useCallback((bones, transmission) => {
+    const fragments = [];
+
+    // Add bone words
+    bones.forEach(bone => {
+      fragments.push(bone.word);
+      fragments.push(`${bone.constraint}...`);
+    });
+
+    // Add tale snippets (2-4 word chunks)
+    const words = transmission.split(/\s+/);
+    for (let i = 0; i < words.length; i += 3) {
+      const chunk = words.slice(i, i + 3).join(' ');
+      if (chunk.length > 5) {
+        fragments.push(chunk + '...');
+      }
+    }
+
+    // Shuffle for chaos
+    return fragments.sort(() => Math.random() - 0.5);
+  }, []);
 
   const startGlisten = async () => {
     setPhase('loading');
     setError(null);
+
+    // Notify parent that streaming will start
+    onStreamStart?.();
 
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });
@@ -35,81 +72,78 @@ export default function Glistener({ onTransfer, onClose }) {
       if (!result.success) {
         setError(result.error || 'Failed to glisten');
         setPhase('idle');
+        onStreamEnd?.();
         return;
       }
 
       setData(result);
-      setPhase('bones');
 
-      // Reveal bones sequentially
-      for (let i = 1; i <= 10; i++) {
-        setTimeout(() => setVisibleBones(i), i * BONE_DELAY);
-      }
+      // Start the Ghost Stream
+      setPhase('streaming');
+      const fragments = generateFragments(result.bones, result.transmission);
+      let fragmentIndex = 0;
+      let elapsed = 0;
 
-      // Transition to tale after bones complete
-      setTimeout(() => {
-        setPhase('tale');
-        const sentences = result.transmission.split(/(?<=[.!?])\s+/);
+      const streamInterval = setInterval(() => {
+        elapsed += FRAGMENT_INTERVAL;
+        const progress = elapsed / STREAM_DURATION;
 
-        for (let i = 1; i <= sentences.length; i++) {
-          setTimeout(() => setVisibleTale(i), i * TALE_DELAY);
+        // Cycle through fragments
+        setCurrentFragment(fragments[fragmentIndex % fragments.length]);
+        fragmentIndex++;
+
+        // Slowdown phase - reduce opacity fluctuation, prep for landing
+        if (progress > SLOWDOWN_START) {
+          const slowProgress = (progress - SLOWDOWN_START) / (1 - SLOWDOWN_START);
+          setFragmentOpacity(0.4 + (slowProgress * 0.6)); // 0.4 -> 1.0
+          if (slowProgress > 0.8) {
+            setFragmentBlur(false); // Snap sharp
+          }
         }
 
-        // Transition to crystal after tale complete
-        setTimeout(() => {
-          setPhase('crystal');
-          setTimeout(() => setPhase('complete'), CRYSTAL_DELAY);
-        }, (sentences.length + 1) * TALE_DELAY);
+        // End stream, start typing
+        if (elapsed >= STREAM_DURATION) {
+          clearInterval(streamInterval);
+          setPhase('typing');
+          setCurrentFragment('');
 
-      }, 11 * BONE_DELAY + 500);
+          // Type out the crystal question character by character
+          const crystal = result.crystal;
+          let charIndex = 0;
+
+          const typeInterval = setInterval(() => {
+            charIndex++;
+            setTypedChars(charIndex);
+
+            if (charIndex >= crystal.length) {
+              clearInterval(typeInterval);
+              setPhase('complete');
+              // Transfer the question to the textarea
+              onTransfer?.(crystal);
+              onStreamEnd?.();
+            }
+          }, TYPING_SPEED);
+        }
+      }, FRAGMENT_INTERVAL);
 
     } catch (err) {
       setError('Failed to connect. Please try again.');
       setPhase('idle');
-    }
-  };
-
-  const handlePlainToggle = async () => {
-    if (plainText) {
-      setShowPlain(!showPlain);
-      return;
-    }
-
-    // Fetch plain language version
-    try {
-      const response = await fetch('/api/glisten/plain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transmission: data.transmission })
-      });
-      const result = await response.json();
-      if (result.success) {
-        setPlainText(result.text);
-        setShowPlain(true);
-      }
-    } catch (err) {
-      console.error('Failed to get plain language:', err);
-    }
-  };
-
-  const handleTransfer = () => {
-    if (onTransfer && data?.crystal) {
-      onTransfer(data.crystal);
+      onStreamEnd?.();
     }
   };
 
   const handleReset = () => {
     setPhase('idle');
     setData(null);
-    setVisibleBones(0);
-    setVisibleTale(0);
-    setShowPlain(false);
-    setPlainText(null);
+    setCurrentFragment('');
+    setFragmentOpacity(0.4);
+    setFragmentBlur(true);
+    setTypedChars(0);
     setError(null);
   };
 
-  // ========== RENDER ==========
-
+  // ========== RENDER: IDLE STATE (Begin Button) ==========
   if (phase === 'idle') {
     return (
       <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg px-4 py-3 mb-4">
@@ -151,145 +185,182 @@ export default function Glistener({ onTransfer, onClose }) {
     );
   }
 
+  // ========== RENDER: LOADING STATE ==========
   if (phase === 'loading') {
     return (
-      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-pulse text-amber-400">
-            Drawing from the field...
+      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg px-4 py-3 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="animate-pulse text-amber-400 text-sm">
+            ◇ Tuning into the field...
           </div>
         </div>
       </div>
     );
   }
 
-  const taleSentences = data?.transmission.split(/(?<=[.!?])\s+/) || [];
+  // ========== RENDER: STREAMING / TYPING STATE (Ghost Stream Overlay) ==========
+  if (phase === 'streaming' || phase === 'typing') {
+    return (
+      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg px-4 py-3 mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-amber-500 animate-pulse">◇</span>
+            <span className="text-zinc-400 text-xs font-mono">
+              {phase === 'streaming' ? 'receiving transmission...' : 'crystallizing...'}
+            </span>
+          </div>
+        </div>
+
+        {/* Ghost Stream Display */}
+        <div className="mt-3 min-h-[60px] flex items-center justify-center">
+          {phase === 'streaming' && (
+            <motion.div
+              key={currentFragment}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: fragmentOpacity, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.1 }}
+              className={`text-zinc-400 font-mono text-sm text-center ${fragmentBlur ? 'blur-[0.5px]' : ''}`}
+            >
+              {currentFragment}
+            </motion.div>
+          )}
+
+          {phase === 'typing' && data?.crystal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-amber-300 text-center italic"
+            >
+              {data.crystal.slice(0, typedChars)}
+              <span className="animate-pulse">|</span>
+            </motion.div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ========== RENDER: COMPLETE STATE (View Source) ==========
+  if (phase === 'complete') {
+    return (
+      <ViewSourcePanel
+        data={data}
+        onReset={handleReset}
+        onClose={onClose}
+      />
+    );
+  }
+
+  return null;
+}
+
+// ========== VIEW SOURCE PANEL ==========
+function ViewSourcePanel({ data, onReset, onClose }) {
+  const [showReceipt, setShowReceipt] = useState(false);
 
   return (
-    <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-      {/* Close button */}
-      {onClose && (
-        <div className="flex justify-end mb-2">
+    <>
+      {/* Compact "View Source" button */}
+      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg px-4 py-3 mb-4">
+        <div className="flex items-center justify-between gap-3">
           <button
-            onClick={onClose}
-            className="text-zinc-500 hover:text-zinc-300 transition-colors"
+            onClick={() => setShowReceipt(true)}
+            className="flex items-center gap-2 text-zinc-400 hover:text-amber-400 transition-colors text-sm"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <span>📜</span>
+            <span>View Transmission</span>
           </button>
-        </div>
-      )}
-
-      {/* BONES */}
-      <AnimatePresence>
-        {(phase === 'bones' || phase === 'tale' || phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              The Bones
-            </h4>
-            <div className="grid grid-cols-2 gap-2">
-              {data.bones.slice(0, visibleBones).map((bone, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-sm font-mono"
-                >
-                  <span className="text-zinc-500">{bone.constraint}</span>
-                  <span className="text-zinc-600 mx-2">-&gt;</span>
-                  <span className="text-amber-300">{bone.word}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* TALE */}
-      <AnimatePresence>
-        {(phase === 'tale' || phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              {showPlain ? 'The Meaning' : 'The Tale'}
-            </h4>
-            <div className="text-zinc-200 leading-relaxed">
-              {showPlain ? (
-                <p>{plainText}</p>
-              ) : (
-                taleSentences.slice(0, visibleTale).map((sentence, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                  >
-                    {sentence}{' '}
-                  </motion.span>
-                ))
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* CRYSTAL */}
-      <AnimatePresence>
-        {(phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-center py-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              Your Question
-            </h4>
-            <p className="text-xl text-amber-300 italic">
-              {data.crystal}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ACTIONS */}
-      {phase === 'complete' && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col items-center gap-3 pt-4 border-t border-zinc-800"
-        >
-          <button
-            onClick={handleTransfer}
-            className="w-full px-6 py-3 bg-amber-600/80 hover:bg-amber-500/80 text-white rounded-lg transition-colors font-medium"
-          >
-            Use This Question
-          </button>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-2">
             <button
-              onClick={handlePlainToggle}
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              onClick={onReset}
+              className="text-zinc-500 hover:text-zinc-300 transition-colors text-xs"
             >
-              {showPlain ? 'View as tale' : 'View as plain language'}
+              Glisten again
             </button>
-            <button
-              onClick={handleReset}
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
-            >
-              Try again
-            </button>
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="text-zinc-500 hover:text-zinc-300 transition-colors p-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
-        </motion.div>
-      )}
-    </div>
+        </div>
+      </div>
+
+      {/* Transmission Receipt Modal */}
+      <AnimatePresence>
+        {showReceipt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowReceipt(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-amber-400 font-medium">Transmission Receipt</h3>
+                <button
+                  onClick={() => setShowReceipt(false)}
+                  className="text-zinc-500 hover:text-zinc-300 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* The Bones */}
+              <div className="mb-6">
+                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                  The Bones
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {data.bones.map((bone, i) => (
+                    <div key={i} className="text-sm font-mono">
+                      <span className="text-zinc-500">{bone.constraint}</span>
+                      <span className="text-zinc-600 mx-2">→</span>
+                      <span className="text-amber-300">{bone.word}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* The Tale */}
+              <div className="mb-6">
+                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                  The Tale
+                </h4>
+                <p className="text-zinc-300 leading-relaxed text-sm">
+                  {data.transmission}
+                </p>
+              </div>
+
+              {/* The Crystal */}
+              <div className="pt-4 border-t border-zinc-800">
+                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                  The Crystal
+                </h4>
+                <p className="text-amber-300 italic text-lg text-center">
+                  "{data.crystal}"
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
