@@ -4856,8 +4856,8 @@ CRITICAL FORMATTING RULES:
                     )}
                   </>
                 )}
-                  </div>
-                )}
+                </div>
+              )}
               </div>
             </div>
             </UnfoldPanel>
