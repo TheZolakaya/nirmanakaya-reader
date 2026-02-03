@@ -133,7 +133,7 @@ export default function Glistener({ onTransfer, onClose }) {
         </div>
         <button
           onClick={startGlisten}
-          className="w-full px-6 py-3 bg-amber-600/80 hover:bg-amber-500/80 text-white rounded-lg transition-colors font-medium"
+          className="px-5 py-2 bg-amber-600/80 hover:bg-amber-500/80 text-white text-sm rounded-md transition-colors font-medium"
         >
           Begin Glisten
         </button>
