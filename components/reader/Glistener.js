@@ -112,34 +112,40 @@ export default function Glistener({ onTransfer, onClose }) {
 
   if (phase === 'idle') {
     return (
-      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-amber-400 font-medium">Glisten</h3>
-            <p className="text-zinc-600 text-[10px] uppercase tracking-wider mb-1">Field Prompter</p>
-            <p className="text-zinc-400 text-sm">
-              Let the question find its shape through chaos.
-            </p>
+      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg px-4 py-3 mb-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div>
+              <div className="flex items-baseline gap-2">
+                <h3 className="text-amber-400 font-medium text-sm">Glisten</h3>
+                <span className="text-zinc-600 text-[9px] uppercase tracking-wider">Field Prompter</span>
+              </div>
+              <p className="text-zinc-500 text-xs">
+                Let the question find its shape through The Veil.
+              </p>
+            </div>
           </div>
-          {onClose && (
+          <div className="flex items-center gap-2">
             <button
-              onClick={onClose}
-              className="text-zinc-500 hover:text-zinc-300 transition-colors"
+              onClick={startGlisten}
+              className="px-3 py-1 bg-amber-600/80 hover:bg-amber-500/80 text-white text-xs rounded transition-colors font-medium"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              Begin
             </button>
-          )}
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="text-zinc-500 hover:text-zinc-300 transition-colors p-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
-        <button
-          onClick={startGlisten}
-          className="px-5 py-2 bg-amber-600/80 hover:bg-amber-500/80 text-white text-sm rounded-md transition-colors font-medium"
-        >
-          Begin Glisten
-        </button>
         {error && (
-          <p className="text-red-400 text-sm mt-3">{error}</p>
+          <p className="text-red-400 text-xs mt-2">{error}</p>
         )}
       </div>
     );
