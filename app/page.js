@@ -4460,20 +4460,22 @@ CRITICAL FORMATTING RULES:
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
 
-              {/* === MAIN LAYOUT: Controls above textarea === */}
-              <div className="flex flex-col">
-
-              {/* CONTROLS GROUP - single animated container for all controls */}
-              <motion.div
-                className="controls-above overflow-hidden"
-                initial={false}
-                animate={{
-                  height: advancedMode ? 'auto' : 0,
-                  opacity: advancedMode ? 1 : 0,
+              {/* === MAIN LAYOUT: CSS Grid keeps textarea anchored at bottom === */}
+              {/* Grid has 2 rows: controls (variable) and textarea (fixed) */}
+              {/* When controls collapse, grid row shrinks but textarea row stays */}
+              <div
+                className="grid transition-all duration-300"
+                style={{
+                  gridTemplateRows: advancedMode ? 'auto auto' : '0fr auto',
                 }}
-                transition={{
-                  height: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-                  opacity: { duration: 0.3, delay: advancedMode ? 0.1 : 0 }
+              >
+
+              {/* CONTROLS GROUP - in collapsible grid row */}
+              <div
+                className="controls-above overflow-hidden transition-opacity duration-300"
+                style={{
+                  opacity: advancedMode ? 1 : 0,
+                  minHeight: 0, // Allows row to collapse to 0
                 }}
               >
               {/* Complexity Slider - Admin only for now */}
@@ -4682,7 +4684,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
               </div>
-              </motion.div>{/* END controls-above */}
+              </div>{/* END controls-above */}
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
@@ -4845,7 +4847,7 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
               </div>{/* END textarea-anchor */}
-              </div>{/* END flex-col-reverse upper section */}
+              </div>{/* END grid layout */}
 
               {/* Description Block - HIDDEN FOR NOW (may restore later)
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
@@ -7255,56 +7257,58 @@ CRITICAL FORMATTING RULES:
           </div>
         )}
 
-        {/* Footer */}
-        <footer className="border-t border-zinc-800/30 mt-8 pt-4 pb-2">
-          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-600 mb-2">
+        {/* Footer - sticky at bottom with dark background */}
+        <footer className="fixed bottom-0 left-0 right-0 bg-zinc-950/90 backdrop-blur-sm border-t border-zinc-800/50 pt-3 pb-2 z-40">
+          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-500 mb-2">
             <a
               href="/guide"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Guide
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/about"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               About
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/council"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Council
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/map"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Map
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/privacy"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Privacy
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/terms"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Terms
             </a>
           </div>
-          <p className="text-center text-zinc-400 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
-          <p className="text-center text-zinc-500 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+          <p className="text-center text-zinc-300 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
+          <p className="text-center text-zinc-400 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
         </footer>
+        {/* Spacer to prevent content from being hidden behind fixed footer */}
+        <div className="h-20"></div>
       </div>
 
       {/* Info Modal */}
