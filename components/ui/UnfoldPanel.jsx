@@ -62,6 +62,18 @@ const UnfoldPanel = ({
       style={{
         perspective: `${perspective}px`,
         perspectiveOrigin: `center ${origin}`,
+        overflow: 'hidden',
+      }}
+      initial={false}
+      animate={{
+        height: isOpen ? 'auto' : 0,
+        marginTop: isOpen ? undefined : 0,
+        marginBottom: isOpen ? undefined : 0,
+      }}
+      transition={{
+        duration: effectiveDuration * 0.8,
+        delay: isOpen ? delay : 0,
+        ease: 'easeInOut',
       }}
     >
       <motion.div

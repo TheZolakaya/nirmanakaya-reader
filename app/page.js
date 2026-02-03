@@ -4283,7 +4283,7 @@ CRITICAL FORMATTING RULES:
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 pt-2 pb-4 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
+            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 mb-2 relative mx-auto max-w-2xl transition-all duration-300 ${advancedMode ? 'pt-2 pb-4' : 'py-3'}`}>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
