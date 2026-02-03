@@ -24,6 +24,30 @@ body {
   background-color: #18181b;
 }
 
+/* Dark minimal scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 63, 70, 0.5) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.5);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(82, 82, 91, 0.7);
+}
+
 /* =============================================
    ANIMATIONS
    ============================================= */
@@ -64,6 +88,10 @@ body {
 
 .animate-rainbow-cycle-slow {
   animation: rainbow-cycle 32s ease-in-out infinite;
+}
+
+.animate-rainbow-cycle-fast {
+  animation: rainbow-cycle 0.5s ease-in-out 1;
 }
 
 .animate-rainbow-cycle-header {

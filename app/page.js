@@ -4839,10 +4839,10 @@ CRITICAL FORMATTING RULES:
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.1 }}
-                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none overflow-hidden ${
-                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse flex items-center justify-center' :
-                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap' :
-                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg' : 'text-zinc-400'
+                            className={`absolute inset-0 p-4 pb-12 pr-12 ${
+                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse flex items-center justify-center pointer-events-none' :
+                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap overflow-y-auto' :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
                             }`}
                             style={glistenerContent.pulse ? {
                               textShadow: '0 0 20px rgba(251, 191, 36, 0.3)',
