@@ -633,15 +633,49 @@ export default function NirmanakaReader() {
     reflectCardCountRef.current = reflectCardCount;
   }, [reflectCardCount, advancedMode, spreadType]);
 
-  // Ready flash trigger: When final layout selection changes (Reflect mode only for now)
+  // Ready flash trigger: When FINAL selection is made in any mode, flash and collapse
+  // Reflect: final = layout selection, Discover: final = count selection
+  // Explore/Forge: final = mode selection (handled separately)
   const reflectSpreadKeyRef = useRef(reflectSpreadKey);
+  const spreadKeyRef = useRef(spreadKey);
+
+  // Reflect mode: flash on layout selection (final step)
   useEffect(() => {
-    if (reflectSpreadKeyRef.current !== reflectSpreadKey && advancedMode) {
+    if (reflectSpreadKeyRef.current !== reflectSpreadKey && advancedMode && spreadType === 'reflect') {
       setReadyFlash(true);
-      setTimeout(() => setReadyFlash(false), 300);
+      setTimeout(() => {
+        setReadyFlash(false);
+        setAdvancedMode(false); // Auto-collapse after selection
+      }, 400);
     }
     reflectSpreadKeyRef.current = reflectSpreadKey;
-  }, [reflectSpreadKey, advancedMode]);
+  }, [reflectSpreadKey, advancedMode, spreadType]);
+
+  // Discover mode: flash on count selection (final step, no layouts)
+  useEffect(() => {
+    if (spreadKeyRef.current !== spreadKey && advancedMode && spreadType === 'discover') {
+      setReadyFlash(true);
+      setTimeout(() => {
+        setReadyFlash(false);
+        setAdvancedMode(false); // Auto-collapse after selection
+      }, 400);
+    }
+    spreadKeyRef.current = spreadKey;
+  }, [spreadKey, advancedMode, spreadType]);
+
+  // Explore/Forge mode: flash immediately when selected (no further selections)
+  useEffect(() => {
+    if ((spreadType === 'explore' || spreadType === 'forge') && advancedMode && spreadTypeRef.current !== spreadType) {
+      // Small delay to let mode ripple finish first
+      setTimeout(() => {
+        setReadyFlash(true);
+        setTimeout(() => {
+          setReadyFlash(false);
+          setAdvancedMode(false); // Auto-collapse after selection
+        }, 400);
+      }, 300);
+    }
+  }, [spreadType, advancedMode]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -901,6 +935,7 @@ export default function NirmanakaReader() {
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
+  const [showCompactPersona, setShowCompactPersona] = useState(false); // Compact persona flyout above Go button
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
   const [showBgControls, setShowBgControls] = useState(false); // Show/hide background controls panel
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
@@ -4554,9 +4589,13 @@ CRITICAL FORMATTING RULES:
                               isDisabled
                                 ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
                                 : reflectCardCount === count
-                                  ? 'bg-[#2e1065] text-amber-400'
+                                  ? 'text-white'
                                   : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                             } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
+                            style={reflectCardCount === count && !isDisabled ? {
+                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
+                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
+                            } : {}}
                             animate={rippleTarget === 'counts' ? {
                               opacity: [0.6, 1, 0.6],
                               scale: [1, 1.08, 1],
@@ -4582,9 +4621,13 @@ CRITICAL FORMATTING RULES:
                             onClick={(e) => { if (!handleHelpClick('spread-selector', e)) setReflectSpreadKey(spreadId); }}
                             className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
                               reflectSpreadKey === spreadId
-                                ? 'bg-[#2e1065] text-amber-400'
+                                ? 'text-white'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                             } ${!rippleTarget && reflectSpreadKey !== spreadId ? 'guidance-pulse' : ''}`}
+                            style={reflectSpreadKey === spreadId ? {
+                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
+                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
+                            } : {}}
                             animate={rippleTarget === 'layouts' ? {
                               opacity: [0.6, 1, 0.6],
                               scale: [1, 1.08, 1],
@@ -4616,9 +4659,13 @@ CRITICAL FORMATTING RULES:
                             isDisabled
                               ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
                               : spreadKey === key
-                                ? 'bg-[#2e1065] text-amber-400'
+                                ? 'text-white'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                           } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
+                          style={spreadKey === key && !isDisabled ? {
+                            backgroundColor: `${MODE_COLORS.discover.primary}40`,
+                            border: `1px solid ${MODE_COLORS.discover.primary}80`
+                          } : {}}
                           animate={rippleTarget === 'counts' ? {
                             opacity: [0.6, 1, 0.6],
                             scale: [1, 1.08, 1],
@@ -4683,18 +4730,18 @@ CRITICAL FORMATTING RULES:
                         }}
                         rows={4}
                       />
-                      {/* Animated placeholder overlay */}
+                      {/* Animated placeholder overlay - dynamic when selecting, default when collapsed */}
                       <AnimatePresence mode="wait">
                         {!dtpInput && (
                           <motion.div
-                            key={getPlaceholder('explore', 1, null)}
+                            key={advancedMode ? 'explore' : 'default'}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                             className="absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base leading-relaxed"
                           >
-                            {getPlaceholder('explore', 1, null)}
+                            {advancedMode ? getPlaceholder('explore', 1, null) : DEFAULT_PLACEHOLDER}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -4713,38 +4760,86 @@ CRITICAL FORMATTING RULES:
                         }}
                         rows={4}
                       />
-                      {/* Animated placeholder overlay - dynamic based on mode/count/layout */}
+                      {/* Animated placeholder overlay - dynamic when selecting, default when collapsed */}
                       <AnimatePresence mode="wait">
                         {!question && (
                           <motion.div
-                            key={getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)}
+                            key={advancedMode ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey) : 'default'}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                             className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base"
                           >
-                            {getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)}
+                            {advancedMode
+                              ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)
+                              : DEFAULT_PLACEHOLDER
+                            }
                           </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
                   )}
-                  {/* Go button - inside textarea, bottom right - shows persona icon */}
+                  {/* Compact persona selector - above Go button */}
+                  <div className="absolute bottom-12 right-3 z-10">
+                    <div className="relative">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                        className="w-7 h-7 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+                        title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                      >
+                        {{ none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                      </button>
+                      {/* Compact persona flyout */}
+                      <AnimatePresence>
+                        {showCompactPersona && (
+                          <>
+                            {/* Backdrop to close */}
+                            <div
+                              className="fixed inset-0 z-20"
+                              onClick={() => setShowCompactPersona(false)}
+                            />
+                            <motion.div
+                              initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                              transition={{ duration: 0.15 }}
+                              className="absolute bottom-8 right-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
+                            >
+                              {PERSONAS.map((p) => {
+                                const icons = { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                                return (
+                                  <button
+                                    key={p.key}
+                                    onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
+                                    className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
+                                      persona === p.key
+                                        ? 'bg-zinc-700 text-amber-400'
+                                        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                                    }`}
+                                  >
+                                    <span>{icons[p.key]}</span>
+                                    <span>{p.name}</span>
+                                  </button>
+                                );
+                              })}
+                            </motion.div>
+                          </>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                  {/* Go button - inside textarea, bottom right - rainbow "Go" text */}
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                     data-help="get-reading"
                     disabled={loading}
-                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
+                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10 border border-zinc-700/50"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    style={{
-                      borderColor: MODE_COLORS[spreadType]?.primary,
-                      boxShadow: `0 0 12px ${MODE_COLORS[spreadType]?.glow || 'transparent'}`
-                    }}
                   >
-                    <span className="relative z-10 animate-rainbow-cycle-slow">
-                      {loading ? '...' : { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                    <span className="relative z-10 animate-rainbow-cycle-slow font-semibold">
+                      {loading ? '...' : 'Go'}
                     </span>
                   </motion.button>
                 </div>
@@ -4822,7 +4917,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-              {/* Persona Selector - Separate row above Voice (Gemini spec) */}
+              {/* Persona Selector - MOVED TO COMPACT VERSION ABOVE GO BUTTON
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
               <div className="mt-2 pt-2 border-t border-zinc-800/50 mb-2">
                 <AnimatePresence mode="wait">
@@ -4835,7 +4930,6 @@ CRITICAL FORMATTING RULES:
                       exit="hidden"
                     >
                       {PERSONAS.map((p, index) => {
-                        // Gemini spec icons: 🛋️ therapist, 🧬 scientist
                         const icons = { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
                         const isLeftColumn = index % 3 === 0;
                         const isRightColumn = index % 3 === 2;
@@ -4868,28 +4962,9 @@ CRITICAL FORMATTING RULES:
                     </motion.div>
                   )}
                 </AnimatePresence>
-                {/* Quick reading buttons - contained block */}
-                <div className="mt-3 flex items-center justify-center gap-2">
-                  <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Quick</span>
-                  <div className="flex gap-1 px-2 py-1 rounded-lg border border-zinc-700/50 bg-zinc-900/50">
-                    {[1, 2, 3, 4].map(count => (
-                      <button
-                        key={count}
-                        onClick={() => {
-                          const newDraws = generateSpread(count, false);
-                          setDraws(newDraws);
-                          performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                        }}
-                        className="w-7 h-7 rounded bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 text-xs font-medium transition-colors"
-                        title={`${count}-card general reading`}
-                      >
-                        {count}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
               </UnfoldPanel>
+              */}
 
               {/* Fine-tune Voice Section - Separate accordion */}
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.15} duration={0.5}>
