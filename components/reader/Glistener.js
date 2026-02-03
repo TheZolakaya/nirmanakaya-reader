@@ -115,9 +115,10 @@ export default function Glistener({ onTransfer, onClose }) {
       <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h3 className="text-amber-400 font-medium mb-1">Glisten</h3>
+            <h3 className="text-amber-400 font-medium">Glisten</h3>
+            <p className="text-zinc-600 text-[10px] uppercase tracking-wider mb-1">Field Prompter</p>
             <p className="text-zinc-400 text-sm">
-              You have a feeling but no words. Let the question find its shape.
+              Let the question find its shape through chaos.
             </p>
           </div>
           {onClose && (
