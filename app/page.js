@@ -4530,14 +4530,19 @@ CRITICAL FORMATTING RULES:
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
               <div className="mt-2 pt-2 border-t border-zinc-800/50">
 
-                {/* TIER 1: Persona Selector - ALWAYS visible */}
+                {/* TIER 1: Persona Selector - Fly in from sides */}
                 <div className="mb-2">
                   <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1">
-                    {PERSONAS.map(p => {
+                    {PERSONAS.map((p, index) => {
                       const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
+                      const isLeftColumn = index % 3 === 0;
+                      const isRightColumn = index % 3 === 2;
                       return (
-                        <button
+                        <motion.button
                           key={p.key}
+                          initial={advancedMode ? { opacity: 0, x: isLeftColumn ? -30 : isRightColumn ? 30 : 0 } : false}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.35, delay: 0.05 + index * 0.04, ease: [0.25, 0.46, 0.45, 0.94] }}
                           onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
                           data-help={`persona-${p.key}`}
                           title={p.desc}
@@ -4549,7 +4554,7 @@ CRITICAL FORMATTING RULES:
                         >
                           <span>{icons[p.key]}</span>
                           <span>{p.name}</span>
-                        </button>
+                        </motion.button>
                       );
                     })}
                   </div>
@@ -4833,7 +4838,16 @@ CRITICAL FORMATTING RULES:
             )}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
-            <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.15} duration={0.5}>
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: advancedMode ? 1 : 0,
+                scaleX: advancedMode ? 1 : 0.95,
+                height: advancedMode ? 'auto' : 0,
+              }}
+              transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
+              style={{ overflow: 'hidden' }}
+            >
             <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
               {/* Glistener prompt - left side */}
               {!showGlistener && spreadType !== 'explore' ? (
@@ -4911,7 +4925,7 @@ CRITICAL FORMATTING RULES:
               </div>
               </div>
             </div>
-            </UnfoldPanel>
+            </motion.div>
 
             {/* Description Block */}
             <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.2} duration={0.5}>
