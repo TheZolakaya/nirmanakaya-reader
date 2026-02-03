@@ -56,12 +56,28 @@ export default function Glistener({
     setPhase('loading');
     setError(null);
 
-    // Send loading message to display in textarea
-    onDisplayContent?.({ type: 'loading', text: '◇ Tuning into the field...' });
+    // Cycling loading messages to entertain during API call
+    const loadingMessages = [
+      '◇ Tuning into the field...',
+      '◇ Casting bones...',
+      '◇ Reading the scatter...',
+      '◇ Weaving the tale...',
+      '◇ Crystallizing the question...',
+    ];
+    let msgIndex = 0;
+
+    onDisplayContent?.({ type: 'loading', text: loadingMessages[0] });
     onStreamStart?.();
+
+    // Cycle through messages while waiting
+    const msgInterval = setInterval(() => {
+      msgIndex = (msgIndex + 1) % loadingMessages.length;
+      onDisplayContent?.({ type: 'loading', text: loadingMessages[msgIndex] });
+    }, 1200);
 
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });
+      clearInterval(msgInterval);  // Stop cycling once we have response
       const result = await response.json();
 
       if (!result.success) {
@@ -129,6 +145,7 @@ export default function Glistener({
       }, FRAGMENT_INTERVAL);
 
     } catch (err) {
+      clearInterval(msgInterval);  // Stop cycling on error too
       setError('Failed to connect. Please try again.');
       setPhase('idle');
       onDisplayContent?.(null);
@@ -140,6 +157,7 @@ export default function Glistener({
     setPhase('idle');
     setData(null);
     setError(null);
+    onTransfer?.('');  // Clear the old question in textarea
   };
 
   // ========== RENDER: IDLE STATE (Subtle inline confirm) ==========
