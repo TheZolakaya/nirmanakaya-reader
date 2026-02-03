@@ -4526,6 +4526,75 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
+              {/* Description Block - moved above voice section */}
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
+              <div className="relative mb-2 mt-2">
+                <div className="w-full max-w-lg mx-auto min-h-[110px]">
+                  {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'discover' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'forge' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Forge • 1 position
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {FORGE_DESCRIPTION.subtitle}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'explore' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Explore • Direct Token Protocol
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        Describe what's active. Each token gets its own card.
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+              </UnfoldPanel>
+
               {/* Voice Section - Three Tier Structure */}
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
               <div className="mt-2 pt-2 border-t border-zinc-800/50">
@@ -4926,76 +4995,6 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
             </motion.div>
-
-            {/* Description Block */}
-            <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.2} duration={0.5}>
-            <div className="relative mb-3 mt-2">
-              <div className="w-full max-w-lg mx-auto mb-2 min-h-[110px]">
-                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'discover' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'forge' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Forge • 1 position
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {FORGE_DESCRIPTION.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'explore' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Explore • Direct Token Protocol
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      Describe what's active. Each token gets its own card.
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-
-            </div>
-            </UnfoldPanel>
             </div>
             )}
             {/* End of Standard Mode conditional */}
