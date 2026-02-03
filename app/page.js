@@ -4310,7 +4310,7 @@ CRITICAL FORMATTING RULES:
                   <textarea
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
-                    placeholder="What would you like clarity on?"
+                    placeholder="What's on your mind?"
                     className="w-full p-4 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
                     rows={3}
                     onKeyDown={(e) => {
@@ -4355,7 +4355,7 @@ CRITICAL FORMATTING RULES:
                   stroke="currentColor"
                   strokeWidth="2"
                   animate={{ rotate: 90 }}
-                  transition={{ duration: 0.8 }}
+                  transition={{ duration: 1.5 }}
                 >
                   <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
@@ -4528,69 +4528,33 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
 
-              {/* Description Block - shows immediately after selections, before style presets */}
-              <div className="w-full max-w-lg mx-auto mb-4">
-                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'discover' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'forge' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Forge • 1 position
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {FORGE_DESCRIPTION.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'explore' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Explore • Direct Token Protocol
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      Describe what's active. Each token gets its own card.
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
-                    </div>
-                  </div>
-                ) : null}
+              {/* Question Input - moved up for better UX flow */}
+              <div className="relative mb-4 mt-2">
+                <div
+                  className="relative max-w-2xl mx-auto"
+                  data-help="question-input"
+                  onClick={(e) => handleHelpClick('question-input', e)}
+                >
+                  {spreadType === 'explore' ? (
+                    <textarea
+                      value={dtpInput}
+                      onChange={(e) => setDtpInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                      placeholder="What's on your mind?"
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
+                      rows={5}
+                    />
+                  ) : (
+                    <textarea
+                      value={question}
+                      onChange={(e) => setQuestion(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                      placeholder="What's on your mind?"
+                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
+                      rows={3}
+                    />
+                  )}
+                </div>
               </div>
 
               {/* Voice Section - Three Tier Structure */}
@@ -4977,121 +4941,71 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
 
-            {/* Question Input Section */}
+            {/* Description Block - moved below controls for reference */}
             <div className="relative mb-3 mt-4">
-              {/* Centered textarea */}
-              <div
-                className="relative max-w-2xl mx-auto"
-                data-help="question-input"
-                onClick={(e) => handleHelpClick('question-input', e)}
-              >
-                {spreadType === 'explore' ? (
-                  <textarea
-                    value={dtpInput}
-                    onChange={(e) => setDtpInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                    placeholder="Describe what's active for you right now...
-
-Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
-                    rows={5}
-                  />
-                ) : (
-                  <textarea
-                    value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                    placeholder={
-                      spreadType === 'forge'
-                        ? "What are you forging? Declare your intention..."
-                        : spreadType === 'reflect'
-                          ? "What area of life are you examining?"
-                          : "Name your question or declare your intent..."
-                    }
-                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                    rows={3}
-                  />
-                )}
-              </div>
-
-              {/* Locus Selector — chip-based subject input, feature-flagged */}
-              {featureFlags.locus_control_enabled && spreadType !== 'explore' && (
-                <div className="mt-2 max-w-2xl mx-auto">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setLocusExpanded(!locusExpanded)}
-                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
-                    >
-                      <span>Focus:</span>
-                      <span className={`font-medium ${locusSubjects.length === 0 ? 'text-zinc-400' : 'text-amber-400'}`}>
-                        {locusSubjects.length === 0 ? 'Just Me' : locusSubjects.join(', ')}
-                      </span>
-                      <span className="text-[10px]">{locusExpanded ? '▲' : '▼'}</span>
-                    </button>
-                    {locusSubjects.length > 0 && (
-                      <button
-                        onClick={() => { setLocusSubjects([]); setLocusInput(''); setLocusExpanded(false); }}
-                        className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
-                      >
-                        ✕ Clear
-                      </button>
-                    )}
-                  </div>
-                  {locusExpanded && (
-                    <div className="mt-1.5">
-                      {/* Subject chips */}
-                      {locusSubjects.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-1.5">
-                          {locusSubjects.map((subject, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40"
-                            >
-                              {subject}
-                              <button
-                                onClick={() => setLocusSubjects(locusSubjects.filter((_, j) => j !== i))}
-                                className="text-amber-500/60 hover:text-amber-300 text-[10px] ml-0.5"
-                              >
-                                ✕
-                              </button>
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      {/* Input for adding subjects */}
-                      {locusSubjects.length < 5 && (
-                        <input
-                          type="text"
-                          value={locusInput}
-                          onChange={(e) => setLocusInput(e.target.value)}
-                          onKeyDown={(e) => {
-                            if ((e.key === 'Enter' || e.key === ',') && locusInput.trim()) {
-                              e.preventDefault();
-                              const name = locusInput.trim().replace(/,+$/, '');
-                              if (name && !locusSubjects.includes(name)) {
-                                setLocusSubjects([...locusSubjects, name]);
-                              }
-                              setLocusInput('');
-                            }
-                            if (e.key === 'Backspace' && !locusInput && locusSubjects.length > 0) {
-                              setLocusSubjects(locusSubjects.slice(0, -1));
-                            }
-                            if (e.key === 'Escape') {
-                              setLocusExpanded(false);
-                            }
-                          }}
-                          placeholder={locusSubjects.length === 0 ? 'Add a name or entity (e.g. Sarah, Mom, Team Alpha)...' : 'Add another...'}
-                          className="w-full max-w-sm bg-zinc-800 border border-zinc-700/60 rounded px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/50"
-                          autoFocus
-                        />
-                      )}
-                      <p className="text-[10px] text-zinc-600 mt-1">
-                        {locusSubjects.length === 0 ? 'Type a name and press Enter. Add up to 5.' : `${locusSubjects.length}/5 subjects`}
-                      </p>
+              <div className="w-full max-w-lg mx-auto mb-4">
+                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
                     </div>
-                  )}
-                </div>
-              )}
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'discover' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'forge' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Forge • 1 position
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      {FORGE_DESCRIPTION.subtitle}
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
+                    </div>
+                  </div>
+                ) : spreadType === 'explore' ? (
+                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                    <div className="text-zinc-300 text-sm font-medium mb-1">
+                      Explore • Direct Token Protocol
+                    </div>
+                    <div className="text-zinc-400 text-xs mb-2">
+                      Describe what's active. Each token gets its own card.
+                    </div>
+                    <div className="text-zinc-500 text-xs mb-1">
+                      <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
+                    </div>
+                    <div className="text-zinc-500 text-xs">
+                      <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
+                    </div>
+                  </div>
+                ) : null}
+              </div>
 
               {/* Action row - Quick buttons + main action button */}
               <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">
