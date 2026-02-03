@@ -579,6 +579,8 @@ export default function NirmanakaReader() {
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
+  const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
+  const [glistenerPhase, setGlistenerPhase] = useState('idle');
   const [userReadingCount, setUserReadingCount] = useState(0);
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
@@ -4810,9 +4812,9 @@ CRITICAL FORMATTING RULES:
                         }}
                         rows={4}
                       />
-                      {/* Animated placeholder overlay - dynamic when selecting, default when collapsed */}
+                      {/* Animated placeholder overlay - shows glistener content OR regular placeholder */}
                       <AnimatePresence mode="wait">
-                        {!question && (
+                        {!question && !glistenerContent && (
                           <motion.div
                             key={advancedMode ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey) : 'default'}
                             initial={{ opacity: 0 }}
@@ -4827,7 +4829,44 @@ CRITICAL FORMATTING RULES:
                             }
                           </motion.div>
                         )}
+                        {/* Ghost Stream content from Glistener */}
+                        {glistenerContent && (
+                          <motion.div
+                            key={glistenerContent.type + (glistenerContent.text || '')}
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{
+                              opacity: glistenerContent.type === 'streaming' ? glistenerContent.opacity : 1,
+                              y: 0,
+                            }}
+                            exit={{ opacity: 0, y: -5 }}
+                            transition={{ duration: 0.15 }}
+                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex items-center justify-center text-[1rem] sm:text-base ${
+                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse' :
+                              glistenerContent.type === 'streaming' ? `text-zinc-400 font-mono ${glistenerContent.blur ? 'blur-[0.5px]' : ''}` :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic' : 'text-zinc-400'
+                            }`}
+                          >
+                            {glistenerContent.text}
+                            {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
+                          </motion.div>
+                        )}
                       </AnimatePresence>
+                      {/* Glistener component - renders inside textarea for idle/complete states */}
+                      {showGlistener && (
+                        <Glistener
+                          onTransfer={(crystal) => {
+                            setQuestion(crystal);
+                            setShowGlistener(false);
+                            setGlistenerContent(null);
+                          }}
+                          onClose={() => {
+                            setShowGlistener(false);
+                            setGlistenerContent(null);
+                          }}
+                          onDisplayContent={setGlistenerContent}
+                          onPhaseChange={setGlistenerPhase}
+                        />
+                      )}
                     </div>
                   )}
                   {/* Compact persona selector - above Go button */}
@@ -5301,15 +5340,7 @@ CRITICAL FORMATTING RULES:
               </div>
             </UnfoldPanel>
 
-            {showGlistener && (
-              <Glistener
-                onTransfer={(crystal) => {
-                  setQuestion(crystal);
-                  setShowGlistener(false);
-                }}
-                onClose={() => setShowGlistener(false)}
-              />
-            )}
+{/* Glistener moved to inside textarea - see below */}
 
             {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
             <motion.div
