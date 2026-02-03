@@ -4417,6 +4417,13 @@ CRITICAL FORMATTING RULES:
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 mb-2 relative mx-auto max-w-2xl transition-all duration-300 ${advancedMode ? 'pt-2 pb-4' : 'py-3'}`}>
+
+              {/* === UPPER SECTION: flex-col-reverse keeps textarea anchored === */}
+              {/* Controls have order:1 to appear above, textarea has order:0 (default) to be anchor */}
+              <div className="flex flex-col-reverse">
+
+              {/* CONTROLS GROUP - uses order:1 to appear ABOVE textarea visually */}
+              <div className="controls-above" style={{ order: 1 }}>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4615,7 +4622,10 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
               </UnfoldPanel>
+              </div>{/* END controls-above */}
 
+              {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
+              <div className="textarea-anchor">
               {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-2 mt-2">
                 <div
@@ -4726,6 +4736,8 @@ CRITICAL FORMATTING RULES:
                   </motion.button>
                 </div>
               </div>
+              </div>{/* END textarea-anchor */}
+              </div>{/* END flex-col-reverse upper section */}
 
               {/* Description Block - HIDDEN FOR NOW (may restore later)
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
