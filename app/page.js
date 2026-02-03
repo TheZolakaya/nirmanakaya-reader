@@ -4879,6 +4879,17 @@ CRITICAL FORMATTING RULES:
                       </AnimatePresence>
                     </div>
                   </div>
+                  {/* Glisten trigger - inside textarea, bottom left */}
+                  {!showGlistener && spreadType !== 'explore' && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
+                      className="absolute bottom-3 left-3 text-xs text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 z-10"
+                      title="Let a question find its shape"
+                    >
+                      <span className="text-amber-500/70">◇</span>
+                      <span>Glisten</span>
+                    </button>
+                  )}
                   {/* Go button - inside textarea, bottom right - rainbow "Go" text */}
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
@@ -5312,19 +5323,6 @@ CRITICAL FORMATTING RULES:
               style={{ overflow: 'hidden' }}
             >
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 max-w-2xl mx-auto">
-              {/* Glistener prompt - compact */}
-              {!showGlistener && spreadType !== 'explore' ? (
-                <button
-                  onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1.5 shrink-0"
-                >
-                  <span className="text-amber-500">◇</span>
-                  <span className="text-zinc-300 hover:text-amber-400">Glisten</span>
-                </button>
-              ) : (
-                <div className="w-16" /> /* Spacer when Glistener hidden */
-              )}
-
               {/* Voice icon - triggers Fine-Tune panel */}
               <button
                 onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
