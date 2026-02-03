@@ -5052,6 +5052,7 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
             </UnfoldPanel>
+            </motion.div>
             </>
             )}
             </AnimatePresence>
