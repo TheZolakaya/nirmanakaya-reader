@@ -610,8 +610,15 @@ export default function NirmanakaReader() {
   // Ripple/Pulse animation state (Gemini "Dynamic Sanctuary" spec)
   // rippleTarget: 'counts' | 'layouts' | null - which row is rippling
   // readyFlash: boolean - textarea border flash when final selection made
+  // selectionConfirmed: boolean - true after second tap (ready to collapse)
+  // placeholderFlash: boolean - flash animation on placeholder text
   const [rippleTarget, setRippleTarget] = useState(null);
   const [readyFlash, setReadyFlash] = useState(false);
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [placeholderFlash, setPlaceholderFlash] = useState(false);
+
+  // Track previous selections for "tap again to confirm" logic
+  const [lastFinalSelection, setLastFinalSelection] = useState(null);
 
   // Ripple trigger: When mode changes, ripple count buttons (skip on initial mount)
   const spreadTypeRef = useRef(spreadType);
@@ -619,6 +626,9 @@ export default function NirmanakaReader() {
     if (spreadTypeRef.current !== spreadType && advancedMode) {
       setRippleTarget('counts');
       setTimeout(() => setRippleTarget(null), 800);
+      // Reset confirmation when mode changes
+      setSelectionConfirmed(false);
+      setLastFinalSelection(null);
     }
     spreadTypeRef.current = spreadType;
   }, [spreadType, advancedMode]);
@@ -629,53 +639,48 @@ export default function NirmanakaReader() {
     if (reflectCardCountRef.current !== reflectCardCount && advancedMode && spreadType === 'reflect') {
       setRippleTarget('layouts');
       setTimeout(() => setRippleTarget(null), 800);
+      // Reset confirmation when count changes
+      setSelectionConfirmed(false);
+      setLastFinalSelection(null);
     }
     reflectCardCountRef.current = reflectCardCount;
   }, [reflectCardCount, advancedMode, spreadType]);
 
-  // Ready flash trigger: When FINAL selection is made in any mode, flash and collapse
-  // Reflect: final = layout selection, Discover: final = count selection
-  // Explore/Forge: final = mode selection (handled separately)
-  const reflectSpreadKeyRef = useRef(reflectSpreadKey);
-  const spreadKeyRef = useRef(spreadKey);
-
-  // Reflect mode: flash on layout selection (final step)
-  useEffect(() => {
-    if (reflectSpreadKeyRef.current !== reflectSpreadKey && advancedMode && spreadType === 'reflect') {
+  // Helper function to handle final selection tap (first tap = preview, second tap = confirm)
+  const handleFinalSelectionTap = (selectionKey, isNewSelection) => {
+    if (isNewSelection) {
+      // First tap on NEW selection: flash, update placeholder, stay open
       setReadyFlash(true);
+      setTimeout(() => setReadyFlash(false), 400);
+      setLastFinalSelection(selectionKey);
+      setSelectionConfirmed(false);
+    } else {
+      // Second tap on SAME selection: flash, collapse, show default placeholder
+      setReadyFlash(true);
+      setPlaceholderFlash(true);
       setTimeout(() => {
         setReadyFlash(false);
-        setAdvancedMode(false); // Auto-collapse after selection
+        setPlaceholderFlash(false);
+        setAdvancedMode(false);
+        setSelectionConfirmed(true);
       }, 400);
     }
-    reflectSpreadKeyRef.current = reflectSpreadKey;
-  }, [reflectSpreadKey, advancedMode, spreadType]);
+  };
 
-  // Discover mode: flash on count selection (final step, no layouts)
-  useEffect(() => {
-    if (spreadKeyRef.current !== spreadKey && advancedMode && spreadType === 'discover') {
+  // Collapse triggers: textarea click always collapses when in advanced mode
+  const handleTextareaClick = () => {
+    if (advancedMode) {
+      // User clicked textarea - collapse with flash
       setReadyFlash(true);
+      setPlaceholderFlash(true);
       setTimeout(() => {
         setReadyFlash(false);
-        setAdvancedMode(false); // Auto-collapse after selection
+        setPlaceholderFlash(false);
+        setAdvancedMode(false);
+        setSelectionConfirmed(true);
       }, 400);
     }
-    spreadKeyRef.current = spreadKey;
-  }, [spreadKey, advancedMode, spreadType]);
-
-  // Explore/Forge mode: flash immediately when selected (no further selections)
-  useEffect(() => {
-    if ((spreadType === 'explore' || spreadType === 'forge') && advancedMode && spreadTypeRef.current !== spreadType) {
-      // Small delay to let mode ripple finish first
-      setTimeout(() => {
-        setReadyFlash(true);
-        setTimeout(() => {
-          setReadyFlash(false);
-          setAdvancedMode(false); // Auto-collapse after selection
-        }, 400);
-      }, 300);
-    }
-  }, [spreadType, advancedMode]);
+  };
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -4464,7 +4469,7 @@ CRITICAL FORMATTING RULES:
               animate={{
                 // When controls collapse, add margin-top to compensate
                 // This keeps the textarea visually anchored in place
-                marginTop: advancedMode ? 0 : 100,
+                marginTop: advancedMode ? 0 : 120,
               }}
               transition={{
                 marginTop: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
@@ -4545,7 +4550,15 @@ CRITICAL FORMATTING RULES:
                   </button>
                   {/* Explore - Emerald (#059669) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-explore', e) && (!useComplexitySlider || isModeEnabled('explore', complexityLevel))) setSpreadType('explore'); }}
+                    onClick={(e) => {
+                      if (handleHelpClick('mode-explore', e)) return;
+                      if (useComplexitySlider && !isModeEnabled('explore', complexityLevel)) return;
+                      const isNewSelection = spreadType !== 'explore';
+                      setSpreadType('explore');
+                      // Explore mode: mode selection IS the final selection
+                      const selectionKey = 'explore';
+                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
+                    }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
@@ -4558,7 +4571,15 @@ CRITICAL FORMATTING RULES:
                   </button>
                   {/* Forge - Red (#DC2626) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-forge', e) && (!useComplexitySlider || isModeEnabled('forge', complexityLevel))) setSpreadType('forge'); }}
+                    onClick={(e) => {
+                      if (handleHelpClick('mode-forge', e)) return;
+                      if (useComplexitySlider && !isModeEnabled('forge', complexityLevel)) return;
+                      const isNewSelection = spreadType !== 'forge';
+                      setSpreadType('forge');
+                      // Forge mode: mode selection IS the final selection
+                      const selectionKey = 'forge';
+                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
+                    }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
@@ -4629,7 +4650,14 @@ CRITICAL FORMATTING RULES:
                           <motion.button
                             key={spreadId}
                             data-help="spread-selector"
-                            onClick={(e) => { if (!handleHelpClick('spread-selector', e)) setReflectSpreadKey(spreadId); }}
+                            onClick={(e) => {
+                              if (handleHelpClick('spread-selector', e)) return;
+                              const isNewSelection = reflectSpreadKey !== spreadId;
+                              setReflectSpreadKey(spreadId);
+                              // Tap-to-confirm: first tap = preview, second tap = collapse
+                              const selectionKey = `reflect-${spreadId}`;
+                              handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
+                            }}
                             className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
                               reflectSpreadKey === spreadId
                                 ? 'text-white'
@@ -4665,7 +4693,14 @@ CRITICAL FORMATTING RULES:
                           key={key}
                           data-help={helpKey}
                           disabled={isDisabled}
-                          onClick={(e) => { if (!isDisabled && !handleHelpClick(helpKey, e)) setSpreadKey(key); }}
+                          onClick={(e) => {
+                            if (isDisabled || handleHelpClick(helpKey, e)) return;
+                            const isNewSelection = spreadKey !== key;
+                            setSpreadKey(key);
+                            // Tap-to-confirm: first tap = preview, second tap = collapse
+                            const selectionKey = `discover-${key}`;
+                            handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
+                          }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
                             isDisabled
                               ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
@@ -4728,7 +4763,7 @@ CRITICAL FORMATTING RULES:
                   </motion.button>
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
-                    <div className="relative w-full">
+                    <div className="relative w-full" onClick={handleTextareaClick}>
                       <textarea
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
@@ -4750,7 +4785,7 @@ CRITICAL FORMATTING RULES:
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base leading-relaxed"
+                            className={`absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base leading-relaxed ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode ? getPlaceholder('explore', 1, null) : DEFAULT_PLACEHOLDER}
                           </motion.div>
@@ -4758,7 +4793,7 @@ CRITICAL FORMATTING RULES:
                       </AnimatePresence>
                     </div>
                   ) : (
-                    <div className="relative w-full">
+                    <div className="relative w-full" onClick={handleTextareaClick}>
                       <textarea
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
@@ -4780,7 +4815,7 @@ CRITICAL FORMATTING RULES:
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base"
+                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode
                               ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)
@@ -4845,7 +4880,12 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                     data-help="get-reading"
                     disabled={loading}
-                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10 border border-zinc-700/50"
+                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
+                    style={{
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: MODE_COLORS[spreadType]?.primary || 'rgba(113, 113, 122, 0.5)',
+                    }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
