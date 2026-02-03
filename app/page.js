@@ -4059,9 +4059,15 @@ CRITICAL FORMATTING RULES:
 
             {/* Floating Background Controls Panel */}
             {showBgControls && (
+              <>
+              {/* Click-outside backdrop to close panel */}
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowBgControls(false)}
+              />
               <div
                 data-help="bg-controls"
-                onClick={(e) => handleHelpClick('bg-controls', e)}
+                onClick={(e) => { e.stopPropagation(); handleHelpClick('bg-controls', e); }}
                 className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
               >
                 <div className="p-4 border-b border-zinc-800/50">
@@ -4192,6 +4198,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 </div>
               </div>
+              </>
             )}
           </>
         )}
