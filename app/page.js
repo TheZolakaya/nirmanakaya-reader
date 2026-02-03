@@ -146,6 +146,109 @@ import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
 
+// === DYNAMIC PLACEHOLDER TEXT SYSTEM ===
+// Context-aware prompts based on Mode + Count + Layout (Gemini "Dynamic Sanctuary" spec)
+const PLACEHOLDER_TEXT = {
+  reflect: {
+    1: {
+      default: "What aspect of self needs a mirror?",
+      'single-focus': "What needs your focused attention right now?",
+      'core': "What's at the center beneath the noise?",
+      'invitation': "What's waiting for you to notice it?",
+      'ground': "Where do you need to find stability?"
+    },
+    2: {
+      default: "What dynamic are you navigating?",
+      'ground-sky': "Where does your foundation meet your aspiration?",
+      'inner-outer': "Where is the gap between inside and outside?",
+      'give-receive': "What's the flow of exchange right now?",
+      'self-other': "What's happening in this relationship?"
+    },
+    3: {
+      default: "What pattern is unfolding?",
+      'arc': "What's in motion? Where is it heading?",
+      'time-lens': "What's ending, present, and emerging?",
+      'creation': "What are you making? How is it developing?",
+      'foundation': "What's supporting what in your structure?"
+    },
+    4: {
+      default: "How are your four domains expressing?",
+      'quadraverse': "How are Spirit, Mind, Emotion, and Body showing up?",
+      'relationship': "What's the full picture of this dynamic?",
+      'decision': "What are the forces around this choice?",
+      'cycle': "Where are you in this cycle?"
+    },
+    5: {
+      default: "What's the full architecture?",
+      'five-houses': "How are your five houses expressing?",
+      'project': "What's the status of this creation?",
+      'alignment': "Where is alignment and misalignment?",
+      'journey': "Where are you on this path?"
+    },
+    6: {
+      default: "What's the complete picture?",
+      'life-domains': "How are all six domains functioning?",
+      'full-cycle': "What does the full cycle reveal?",
+      'spheres': "How do the spheres of life connect?",
+      'integration': "What wants to integrate?"
+    }
+  },
+  discover: {
+    1: "What does the field want to show you?",
+    2: "What relationship is emerging?",
+    3: "What shape do these three signatures create?",
+    4: "What architecture is revealing itself?",
+    5: "What's the full message waiting for you?",
+    6: "What complete transmission is available?"
+  },
+  explore: {
+    any: "Name the tokens. Each gets its own card."
+  },
+  forge: {
+    1: "What are you creating? State your intention.",
+    2: "What's the engine of this creation?",
+    3: "What are the forces you're marshaling?",
+    4: "What's the structure of your design?",
+    5: "What's the full architecture of your intention?",
+    6: "What's the complete declaration?"
+  }
+};
+
+// Default placeholder when no specific match
+const DEFAULT_PLACEHOLDER = "What would you like clarity on?";
+
+/**
+ * Get context-aware placeholder text based on mode, count, and layout
+ * Includes safety fallbacks at every level
+ */
+function getPlaceholder(mode, count, layout) {
+  // Safety: If no mode, return default
+  if (!mode) return DEFAULT_PLACEHOLDER;
+
+  const modeText = PLACEHOLDER_TEXT[mode];
+  if (!modeText) return DEFAULT_PLACEHOLDER;
+
+  // Explore mode: always same prompt
+  if (mode === 'explore') {
+    return modeText.any || DEFAULT_PLACEHOLDER;
+  }
+
+  // For discover and forge: simple count lookup
+  if (mode === 'discover' || mode === 'forge') {
+    return modeText[count] || modeText[1] || DEFAULT_PLACEHOLDER;
+  }
+
+  // For reflect: check for layout-specific text
+  const countText = modeText[count];
+  if (!countText) return modeText[1]?.default || DEFAULT_PLACEHOLDER;
+
+  // If countText is a string (shouldn't happen for reflect, but safety)
+  if (typeof countText === 'string') return countText;
+
+  // Return layout-specific or default for that count
+  return countText[layout] || countText.default || DEFAULT_PLACEHOLDER;
+}
+
 // Pulsating loader with cycling messages
 const PulsatingLoader = ({ color = 'text-amber-400' }) => {
   const [messageIndex, setMessageIndex] = useState(0);
@@ -503,6 +606,42 @@ export default function NirmanakaReader() {
   // When true: full controls visible (mode tabs, personas, depth, etc.)
   const [advancedMode, setAdvancedMode] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+
+  // Ripple/Pulse animation state (Gemini "Dynamic Sanctuary" spec)
+  // rippleTarget: 'counts' | 'layouts' | null - which row is rippling
+  // readyFlash: boolean - textarea border flash when final selection made
+  const [rippleTarget, setRippleTarget] = useState(null);
+  const [readyFlash, setReadyFlash] = useState(false);
+
+  // Ripple trigger: When mode changes, ripple count buttons (skip on initial mount)
+  const spreadTypeRef = useRef(spreadType);
+  useEffect(() => {
+    if (spreadTypeRef.current !== spreadType && advancedMode) {
+      setRippleTarget('counts');
+      setTimeout(() => setRippleTarget(null), 800);
+    }
+    spreadTypeRef.current = spreadType;
+  }, [spreadType, advancedMode]);
+
+  // Ripple trigger: When count changes in Reflect mode, ripple layout buttons
+  const reflectCardCountRef = useRef(reflectCardCount);
+  useEffect(() => {
+    if (reflectCardCountRef.current !== reflectCardCount && advancedMode && spreadType === 'reflect') {
+      setRippleTarget('layouts');
+      setTimeout(() => setRippleTarget(null), 800);
+    }
+    reflectCardCountRef.current = reflectCardCount;
+  }, [reflectCardCount, advancedMode, spreadType]);
+
+  // Ready flash trigger: When final layout selection changes (Reflect mode only for now)
+  const reflectSpreadKeyRef = useRef(reflectSpreadKey);
+  useEffect(() => {
+    if (reflectSpreadKeyRef.current !== reflectSpreadKey && advancedMode) {
+      setReadyFlash(true);
+      setTimeout(() => setReadyFlash(false), 300);
+    }
+    reflectSpreadKeyRef.current = reflectSpreadKey;
+  }, [reflectSpreadKey, advancedMode]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -4309,7 +4448,7 @@ CRITICAL FORMATTING RULES:
               <UnfoldPanel isOpen={advancedMode} direction="up" delay={0.05} duration={0.5}>
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
-                  {/* Reflect - always enabled at level 1+ */}
+                  {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
@@ -4317,11 +4456,12 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'reflect' ? { backgroundColor: 'rgba(124, 58, 237, 0.25)', border: '1px solid rgba(124, 58, 237, 0.5)' } : {}}>
                     Reflect
                   </button>
-                  {/* Discover - enabled at level 6+ */}
+                  {/* Discover - Blue (#2563EB) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
@@ -4329,11 +4469,12 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'discover' ? { backgroundColor: 'rgba(37, 99, 235, 0.25)', border: '1px solid rgba(37, 99, 235, 0.5)' } : {}}>
                     Discover
                   </button>
-                  {/* Explore - enabled at level 11+ */}
+                  {/* Explore - Emerald (#059669) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-explore', e) && (!useComplexitySlider || isModeEnabled('explore', complexityLevel))) setSpreadType('explore'); }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
@@ -4341,11 +4482,12 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'explore' ? { backgroundColor: 'rgba(5, 150, 105, 0.25)', border: '1px solid rgba(5, 150, 105, 0.5)' } : {}}>
                     Explore
                   </button>
-                  {/* Forge - enabled at level 16+ */}
+                  {/* Forge - Red (#DC2626) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-forge', e) && (!useComplexitySlider || isModeEnabled('forge', complexityLevel))) setSpreadType('forge'); }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
@@ -4353,8 +4495,9 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
                     Forge
                   </button>
                 </div>
@@ -4369,13 +4512,13 @@ CRITICAL FORMATTING RULES:
                   null
                 ) : spreadType === 'reflect' ? (
                   <>
-                    {/* Position count selector for Reflect mode */}
+                    {/* Position count selector for Reflect mode - with ripple animation */}
                     <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
-                      {[1, 2, 3, 4, 5, 6].map((count) => {
+                      {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
                         const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
                         return (
-                          <button
+                          <motion.button
                             key={count}
                             data-help={helpKey}
                             disabled={isDisabled}
@@ -4392,19 +4535,27 @@ CRITICAL FORMATTING RULES:
                                 : reflectCardCount === count
                                   ? 'bg-[#2e1065] text-amber-400'
                                   : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            }`}
+                            } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
+                            animate={rippleTarget === 'counts' ? {
+                              opacity: [0.6, 1, 0.6],
+                              scale: [1, 1.08, 1],
+                            } : {}}
+                            transition={{
+                              delay: index * 0.1,
+                              duration: 0.3,
+                            }}
                           >
                             {count}
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
-                    {/* Spread options for selected count */}
+                    {/* Spread options for selected count - with ripple animation */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
-                      {SPREADS_BY_COUNT[reflectCardCount].map((spreadId) => {
+                      {SPREADS_BY_COUNT[reflectCardCount].map((spreadId, index) => {
                         const spread = REFLECT_SPREADS[spreadId];
                         return (
-                          <button
+                          <motion.button
                             key={spreadId}
                             data-help="spread-selector"
                             onClick={(e) => { if (!handleHelpClick('spread-selector', e)) setReflectSpreadKey(spreadId); }}
@@ -4412,22 +4563,30 @@ CRITICAL FORMATTING RULES:
                               reflectSpreadKey === spreadId
                                 ? 'bg-[#2e1065] text-amber-400'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            }`}
+                            } ${!rippleTarget && reflectSpreadKey !== spreadId ? 'guidance-pulse' : ''}`}
+                            animate={rippleTarget === 'layouts' ? {
+                              opacity: [0.6, 1, 0.6],
+                              scale: [1, 1.08, 1],
+                            } : {}}
+                            transition={{
+                              delay: index * 0.1,
+                              duration: 0.3,
+                            }}
                           >
                             {spread.name}
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
                   </>
                 ) : (
                   /* Discover mode - simple position count as numbers */
-                  <div className="flex gap-1 justify-center" data-help="spread-selector">
-                    {Object.entries(RANDOM_SPREADS).map(([key, value]) => {
+                  <div className={`flex gap-1 justify-center ${rippleTarget === 'counts' ? '' : ''}`} data-help="spread-selector">
+                    {Object.entries(RANDOM_SPREADS).map(([key, value], index) => {
                       const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
                       const isDisabled = useComplexitySlider && !isCardCountEnabled('discover', value.count, complexityLevel);
                       return (
-                        <button
+                        <motion.button
                           key={key}
                           data-help={helpKey}
                           disabled={isDisabled}
@@ -4438,10 +4597,18 @@ CRITICAL FORMATTING RULES:
                               : spreadKey === key
                                 ? 'bg-[#2e1065] text-amber-400'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                          }`}
+                          } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
+                          animate={rippleTarget === 'counts' ? {
+                            opacity: [0.6, 1, 0.6],
+                            scale: [1, 1.08, 1],
+                          } : {}}
+                          transition={{
+                            delay: index * 0.1,
+                            duration: 0.3,
+                          }}
                         >
                           {value.count}
-                        </button>
+                        </motion.button>
                       );
                     })}
                   </div>
@@ -4478,35 +4645,84 @@ CRITICAL FORMATTING RULES:
                       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
                     </motion.svg>
                   </motion.button>
+                  {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
-                    <textarea
-                      value={dtpInput}
-                      onChange={(e) => setDtpInput(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                      placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-12 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
-                      rows={4}
-                    />
+                    <div className="relative w-full">
+                      <textarea
+                        value={dtpInput}
+                        onChange={(e) => setDtpInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                        style={{
+                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
+                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
+                          transition: 'border-color 0.3s, box-shadow 0.3s'
+                        }}
+                        rows={4}
+                      />
+                      {/* Animated placeholder overlay */}
+                      <AnimatePresence mode="wait">
+                        {!dtpInput && (
+                          <motion.div
+                            key={getPlaceholder('explore', 1, null)}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.5 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base leading-relaxed"
+                          >
+                            {getPlaceholder('explore', 1, null)}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   ) : (
-                    <textarea
-                      value={question}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                      placeholder="What's on your mind?"
-                      className="content-pane w-full bg-zinc-900 border-2 border-zinc-700/80 rounded-lg p-4 pb-12 pr-12 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-900 resize-none transition-colors text-[1rem] sm:text-base min-h-[120px]"
-                      rows={4}
-                    />
+                    <div className="relative w-full">
+                      <textarea
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px]"
+                        style={{
+                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
+                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
+                          transition: 'border-color 0.3s, box-shadow 0.3s'
+                        }}
+                        rows={4}
+                      />
+                      {/* Animated placeholder overlay - dynamic based on mode/count/layout */}
+                      <AnimatePresence mode="wait">
+                        {!question && (
+                          <motion.div
+                            key={getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.5 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-zinc-500 text-[1rem] sm:text-base"
+                          >
+                            {getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   )}
-                  {/* Go button - inside textarea, bottom right */}
+                  {/* Go button - inside textarea, bottom right - shows persona icon */}
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                     data-help="get-reading"
                     disabled={loading}
-                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
+                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    style={{
+                      borderColor: MODE_COLORS[spreadType]?.primary,
+                      boxShadow: `0 0 12px ${MODE_COLORS[spreadType]?.glow || 'transparent'}`
+                    }}
                   >
-                    <span className="relative z-10 animate-rainbow-cycle-slow">{loading ? '...' : 'Go'}</span>
+                    <span className="relative z-10 animate-rainbow-cycle-slow">
+                      {loading ? '...' : { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                    </span>
                   </motion.button>
                 </div>
               </div>
@@ -4580,77 +4796,79 @@ CRITICAL FORMATTING RULES:
               </div>
               </UnfoldPanel>
 
-              {/* Voice Section - Three Tier Structure */}
+              {/* Persona Selector - Separate row above Voice (Gemini spec) */}
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
-              <div className="mt-2 pt-2 border-t border-zinc-800/50">
-
-                {/* TIER 1: Persona Selector - Fly in from sides */}
-                <div className="mb-2">
-                  <AnimatePresence mode="wait">
-                    {advancedMode && (
-                      <motion.div
-                        key="persona-grid"
-                        className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1"
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
+              <div className="mt-2 pt-2 border-t border-zinc-800/50 mb-2">
+                <AnimatePresence mode="wait">
+                  {advancedMode && (
+                    <motion.div
+                      key="persona-grid"
+                      className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1"
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                    >
+                      {PERSONAS.map((p, index) => {
+                        // Gemini spec icons: 🛋️ therapist, 🧬 scientist
+                        const icons = { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                        const isLeftColumn = index % 3 === 0;
+                        const isRightColumn = index % 3 === 2;
+                        const xOffset = isLeftColumn ? -40 : isRightColumn ? 40 : 0;
+                        return (
+                          <motion.button
+                            key={p.key}
+                            initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                            transition={{
+                              duration: 0.45,
+                              delay: index * 0.06,
+                              ease: [0.25, 0.46, 0.45, 0.94]
+                            }}
+                            onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
+                            data-help={`persona-${p.key}`}
+                            title={p.desc}
+                            className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
+                              persona === p.key
+                                ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
+                            }`}
+                          >
+                            <span>{icons[p.key]}</span>
+                            <span>{p.name}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                {/* Quick reading buttons - contained block */}
+                <div className="mt-3 flex items-center justify-center gap-2">
+                  <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Quick</span>
+                  <div className="flex gap-1 px-2 py-1 rounded-lg border border-zinc-700/50 bg-zinc-900/50">
+                    {[1, 2, 3, 4].map(count => (
+                      <button
+                        key={count}
+                        onClick={() => {
+                          const newDraws = generateSpread(count, false);
+                          setDraws(newDraws);
+                          performReadingWithDraws(newDraws, question.trim() || 'General reading');
+                        }}
+                        className="w-7 h-7 rounded bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 text-xs font-medium transition-colors"
+                        title={`${count}-card general reading`}
                       >
-                        {PERSONAS.map((p, index) => {
-                          const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
-                          const isLeftColumn = index % 3 === 0;
-                          const isRightColumn = index % 3 === 2;
-                          const xOffset = isLeftColumn ? -40 : isRightColumn ? 40 : 0;
-                          return (
-                            <motion.button
-                              key={p.key}
-                              initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              exit={{ opacity: 0, x: xOffset, scale: 0.9 }}
-                              transition={{
-                                duration: 0.45,
-                                delay: index * 0.06,
-                                ease: [0.25, 0.46, 0.45, 0.94]
-                              }}
-                              onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
-                              data-help={`persona-${p.key}`}
-                              title={p.desc}
-                              className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
-                                persona === p.key
-                                  ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
-                                  : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
-                              }`}
-                            >
-                              <span>{icons[p.key]}</span>
-                              <span>{p.name}</span>
-                            </motion.button>
-                          );
-                        })}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  {/* Quick reading buttons - contained block */}
-                  <div className="mt-3 flex items-center justify-center gap-2">
-                    <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Quick</span>
-                    <div className="flex gap-1 px-2 py-1 rounded-lg border border-zinc-700/50 bg-zinc-900/50">
-                      {[1, 2, 3, 4].map(count => (
-                        <button
-                          key={count}
-                          onClick={() => {
-                            const newDraws = generateSpread(count, false);
-                            setDraws(newDraws);
-                            performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                          }}
-                          className="w-7 h-7 rounded bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 text-xs font-medium transition-colors"
-                          title={`${count}-card general reading`}
-                        >
-                          {count}
-                        </button>
-                      ))}
-                    </div>
+                        {count}
+                      </button>
+                    ))}
                   </div>
                 </div>
+              </div>
+              </UnfoldPanel>
 
-                {/* TIER 2: Fine-tune Voice - ALWAYS available (collapsed) */}
+              {/* Fine-tune Voice Section - Separate accordion */}
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.15} duration={0.5}>
+              <div className="mb-2">
+                {/* Fine-tune Voice accordion toggle */}
                 <button
                   onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
                   data-help="fine-tune-voice"

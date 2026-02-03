@@ -117,6 +117,27 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Guidance pulse animation - soft breathing glow for unselected options (Gemini spec) */
+@keyframes guidance-pulse {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.85; }
+}
+
+.guidance-pulse {
+  animation: guidance-pulse 1.6s ease-in-out infinite;
+}
+
+/* Ready flash animation - textarea border flash when final selection made */
+@keyframes ready-flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ready-flash-overlay {
+  animation: ready-flash 0.3s ease-out forwards;
+}
+
 /* Staggered fade in/out for cosmic taglines (4 lines, 14s cycle) */
 @keyframes tagline-fade-4 {
   0%, 100% { opacity: 0; }
