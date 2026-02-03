@@ -655,15 +655,15 @@ export default function NirmanakaReader() {
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
     } else {
-      // Second tap on SAME selection: flash, collapse, show default placeholder
-      // Longer flash (800ms) for the final confirmation
+      // Second tap on SAME selection: COLLAPSE FIRST, then long flash
+      setAdvancedMode(false);
+      setSelectionConfirmed(true);
+      // Now do the long flash after collapse
       setReadyFlash(true);
       setPlaceholderFlash(true);
       setTimeout(() => {
         setReadyFlash(false);
         setPlaceholderFlash(false);
-        setAdvancedMode(false);
-        setSelectionConfirmed(true);
       }, 800);
     }
   };
@@ -671,14 +671,15 @@ export default function NirmanakaReader() {
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - collapse with flash (800ms for final confirmation)
+      // User clicked textarea - COLLAPSE FIRST, then long flash
+      setAdvancedMode(false);
+      setSelectionConfirmed(true);
+      // Now do the long flash after collapse
       setReadyFlash(true);
       setPlaceholderFlash(true);
       setTimeout(() => {
         setReadyFlash(false);
         setPlaceholderFlash(false);
-        setAdvancedMode(false);
-        setSelectionConfirmed(true);
       }, 800);
     }
   };
