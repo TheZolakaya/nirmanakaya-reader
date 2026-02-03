@@ -4458,12 +4458,23 @@ CRITICAL FORMATTING RULES:
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl transition-all duration-300">
+            <motion.div
+              className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl"
+              initial={false}
+              animate={{
+                // When controls collapse, add margin-top to compensate
+                // This keeps the textarea visually anchored in place
+                marginTop: advancedMode ? 0 : 100,
+              }}
+              transition={{
+                marginTop: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+              }}
+            >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
               <div className="flex flex-col">
 
-              {/* CONTROLS GROUP - smooth height animation */}
+              {/* CONTROLS GROUP - collapses to 0 height */}
               <motion.div
                 className="controls-above overflow-hidden"
                 initial={false}
@@ -5335,7 +5346,7 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
             </motion.div>
-            </div>
+            </motion.div>
             )}
             {/* End of Standard Mode conditional */}
         </>
