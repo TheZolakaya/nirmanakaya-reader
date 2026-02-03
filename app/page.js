@@ -4842,7 +4842,7 @@ CRITICAL FORMATTING RULES:
                             transition={{ duration: 0.15 }}
                             className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex items-center justify-center text-[1rem] sm:text-base ${
                               glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse' :
-                              glistenerContent.type === 'streaming' ? `text-zinc-400 font-mono ${glistenerContent.blur ? 'blur-[0.5px]' : ''}` :
+                              glistenerContent.type === 'streaming' ? 'text-zinc-300 font-mono' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic' : 'text-zinc-400'
                             }`}
                           >

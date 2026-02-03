@@ -94,8 +94,7 @@ export default function Glistener({
       const fragments = generateFragments(result.bones, result.transmission);
       let fragmentIndex = 0;
       let elapsed = 0;
-      let opacity = 0.4;
-      let blur = true;
+      let opacity = 0.7;  // Start more visible
 
       const streamInterval = setInterval(() => {
         elapsed += FRAGMENT_INTERVAL;
@@ -105,13 +104,10 @@ export default function Glistener({
         const fragment = fragments[fragmentIndex % fragments.length];
         fragmentIndex++;
 
-        // Slowdown phase - increase opacity, prep for landing
+        // Slowdown phase - increase opacity toward full
         if (progress > SLOWDOWN_START) {
           const slowProgress = (progress - SLOWDOWN_START) / (1 - SLOWDOWN_START);
-          opacity = 0.4 + (slowProgress * 0.6); // 0.4 -> 1.0
-          if (slowProgress > 0.8) {
-            blur = false; // Snap sharp
-          }
+          opacity = 0.7 + (slowProgress * 0.3); // 0.7 -> 1.0
         }
 
         // Send fragment to parent for display
@@ -119,7 +115,6 @@ export default function Glistener({
           type: 'streaming',
           text: fragment,
           opacity,
-          blur,
         });
 
         // End stream, start typing
