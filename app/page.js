@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import UnfoldPanel from '../components/ui/UnfoldPanel';
 
 // Import data and utilities from lib
 import {
@@ -496,6 +498,12 @@ export default function NirmanakaReader() {
     defaultSpread: 'triad'
   });
 
+  // Advanced mode toggle for Origami Unfold UI
+  // When false: simple UI (just textarea + button)
+  // When true: full controls visible (mode tabs, personas, depth, etc.)
+  const [advancedMode, setAdvancedMode] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
   // Listen for auth modal open event
   useEffect(() => {
     const handleOpenAuth = () => setAuthModalOpen(true);
@@ -597,6 +605,23 @@ export default function NirmanakaReader() {
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, []);
+
+  // Load advancedMode from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('nirmanakaya-advanced-mode');
+    if (saved !== null) {
+      try {
+        setAdvancedMode(JSON.parse(saved));
+      } catch (e) {
+        // Invalid JSON, use default
+      }
+    }
+  }, []);
+
+  // Save advancedMode to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('nirmanakaya-advanced-mode', JSON.stringify(advancedMode));
+  }, [advancedMode]);
 
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
@@ -955,6 +980,9 @@ export default function NirmanakaReader() {
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
+
+  // Derived: Show advanced controls when not First Contact AND advancedMode is true
+  const showAdvancedControls = userLevel !== USER_LEVELS.FIRST_CONTACT && advancedMode;
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
@@ -4052,58 +4080,70 @@ CRITICAL FORMATTING RULES:
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
           </p>
           {/* Nav Links - rainbow hover colors, wrap on mobile */}
-          <div className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto" onClick={(e) => e.stopPropagation()}>
-            <a
-              href="/hub"
-              onClick={(e) => handleHelpClick('nav-hub', e)}
-              data-help="nav-hub"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
-            >
-              Community
-            </a>
-            <a
-              href="/lounge"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Lounge
-              {loungeOnlineCount > 0 && (
-                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
-              )}
-            </a>
-            <a
-              href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
-            >
-              Guide
-            </a>
-            <a
-              href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
-            >
-              About
-            </a>
-            <a
-              href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
-            >
-              Council
-            </a>
-            <a
-              href="/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
-            >
-              Map
-            </a>
-          </div>
+          {/* Conditionally show based on advancedMode (or always for First Contact) */}
+          <AnimatePresence>
+            {(userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <a
+                  href="/hub"
+                  onClick={(e) => handleHelpClick('nav-hub', e)}
+                  data-help="nav-hub"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
+                >
+                  Community
+                </a>
+                <a
+                  href="/lounge"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Lounge
+                  {loungeOnlineCount > 0 && (
+                    <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
+                  )}
+                </a>
+                <a
+                  href="/guide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
+                >
+                  Guide
+                </a>
+                <a
+                  href="/about"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
+                >
+                  About
+                </a>
+                <a
+                  href="/council"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
+                >
+                  Council
+                </a>
+                <a
+                  href="/map"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
+                >
+                  Map
+                </a>
+              </motion.div>
+            )}
+          </AnimatePresence>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
@@ -4240,10 +4280,87 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
-            {/* Standard Mode - Full UI */}
+            {/* Standard Mode - Full UI or Simple Mode based on advancedMode */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
             <>
+            {/* Simple Mode UI - shown when advancedMode is false */}
+            {!advancedMode && (
+              <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-6 sm:p-8 mb-6 max-w-lg mx-auto relative">
+                {/* Gear toggle button - top right */}
+                <motion.button
+                  onClick={() => setAdvancedMode(true)}
+                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:border-amber-500/50 transition-colors z-10"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Show advanced controls"
+                  title="Show advanced controls"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                  </svg>
+                </motion.button>
+
+                <div className="text-center mb-6">
+                  <p className="text-zinc-400 text-sm">What's on your mind?</p>
+                </div>
+
+                {/* Simple question input */}
+                <div className="mb-4 rounded-lg overflow-hidden">
+                  <textarea
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    placeholder="What would you like clarity on?"
+                    className="w-full p-4 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
+                    rows={3}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        performReading();
+                      }
+                    }}
+                  />
+                </div>
+
+                {/* Simple read button */}
+                <button
+                  onClick={performReading}
+                  disabled={loading}
+                  className="w-full py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-zinc-900 font-medium text-lg hover:from-amber-500 hover:to-amber-400 transition-all disabled:opacity-50"
+                >
+                  {loading ? 'Reading...' : 'Reveal the Pattern'}
+                </button>
+
+                {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
+              </div>
+            )}
+
+            {/* Advanced Mode UI - shown when advancedMode is true */}
+            {advancedMode && (
+            <>
             <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto">
+              {/* Gear toggle button - collapse to simple mode */}
+              <motion.button
+                onClick={() => setAdvancedMode(false)}
+                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center text-amber-400 hover:text-amber-300 hover:border-amber-500/50 transition-colors z-10"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Hide advanced controls"
+                title="Hide advanced controls"
+              >
+                <motion.svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  animate={{ rotate: 90 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                </motion.svg>
+              </motion.button>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -5010,6 +5127,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
             </div>
             </>
             )}
+            {/* End of advancedMode conditional */}
           </>
         )}
         </>

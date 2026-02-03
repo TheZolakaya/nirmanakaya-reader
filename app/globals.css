@@ -129,6 +129,35 @@ body {
 }
 
 /* =============================================
+   3D UNFOLD ANIMATION SUPPORT
+   ============================================= */
+
+/* Container establishes 3D perspective */
+.unfold-container {
+  perspective: 1000px;
+}
+
+/* Panel element that rotates in 3D space */
+.unfold-panel {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Performance: remove will-change after animation */
+.unfold-panel.animation-complete {
+  will-change: auto;
+}
+
+/* Accessibility: instant transitions for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .unfold-panel {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+  }
+}
+
+/* =============================================
    MOBILE STYLES - All changes below this line
    are mobile-only (max-width: 768px)
    ============================================= */
