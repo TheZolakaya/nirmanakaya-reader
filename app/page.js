@@ -4283,29 +4283,7 @@ CRITICAL FORMATTING RULES:
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative mx-auto transition-all duration-500 ${advancedMode ? 'max-w-2xl' : 'max-w-lg'}`}>
-              {/* Gear toggle button - always visible */}
-              <motion.button
-                onClick={() => setAdvancedMode(!advancedMode)}
-                className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
-                title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
-              >
-                <motion.svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  animate={{ rotate: advancedMode ? 90 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                </motion.svg>
-              </motion.button>
+            <div className={`content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 pb-4 sm:pb-6 mb-2 relative mx-auto transition-all duration-500 ${advancedMode ? 'max-w-2xl pt-4 sm:pt-6' : 'max-w-lg pt-2'}`}>
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4484,6 +4462,28 @@ CRITICAL FORMATTING RULES:
                   data-help="question-input"
                   onClick={(e) => handleHelpClick('question-input', e)}
                 >
+                  {/* Gear toggle button - inside textarea area */}
+                  <motion.button
+                    onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
+                    className={`absolute top-2 right-2 w-8 h-8 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
+                    title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
+                  >
+                    <motion.svg
+                      className="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      animate={{ rotate: advancedMode ? 90 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                    </motion.svg>
+                  </motion.button>
                   {spreadType === 'explore' ? (
                     <textarea
                       value={dtpInput}
