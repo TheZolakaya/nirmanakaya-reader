@@ -5017,21 +5017,14 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-              {/* Fine-tune Voice Section - Separate accordion */}
-              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.15} duration={0.5}>
+              {/* Fine-tune Voice Panel - triggered by voice icon in footer */}
+              <UnfoldPanel isOpen={advancedMode && showVoicePanel} direction="down" delay={0.05} duration={0.3}>
               <div className="mb-2">
-                {/* Fine-tune Voice accordion toggle */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                  data-help="fine-tune-voice"
-                  className="w-full flex items-center justify-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors py-0.5"
-                >
-                  <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
-                  <span className="text-[0.5625rem] tracking-widest uppercase">Fine-tune Voice</span>
-                </button>
-
-                {showVoicePanel && (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mt-2 max-w-sm mx-auto">
+                {/* Panel header */}
+                <div className="text-center mb-2">
+                  <span className="text-[0.5625rem] tracking-widest uppercase text-zinc-500">Fine-tune Voice</span>
+                </div>
+                <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 max-w-sm mx-auto">
                     {/* Humor slider */}
                     <div className="mb-4">
                       <div className="flex items-center justify-between mb-1">
@@ -5283,7 +5276,6 @@ CRITICAL FORMATTING RULES:
                   </>
                 )}
                 </div>
-              )}
               </div>
             </UnfoldPanel>
 
@@ -5308,82 +5300,53 @@ CRITICAL FORMATTING RULES:
               transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
               style={{ overflow: 'hidden' }}
             >
-            <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
-              {/* Glistener prompt - left side */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 max-w-2xl mx-auto">
+              {/* Glistener prompt - compact */}
               {!showGlistener && spreadType !== 'explore' ? (
                 <button
                   onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1 sm:gap-2 shrink-0"
+                  className="text-sm text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1.5 shrink-0"
                 >
                   <span className="text-amber-500">◇</span>
-                  <span className="hidden sm:inline">Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
-                  <strong className="sm:hidden font-semibold text-zinc-200">Glisten</strong>
+                  <span className="text-zinc-300 hover:text-amber-400">Glisten</span>
                 </button>
               ) : (
-                <div /> /* Empty div to maintain spacing when Glistener hidden */
+                <div className="w-16" /> /* Spacer when Glistener hidden */
               )}
 
-              {/* Selectors - right side */}
-              <div className="flex items-center gap-2 sm:gap-4">
-              {/* Depth selector */}
-              <div className="flex items-center gap-1 sm:gap-2">
-                <span className="text-xs text-zinc-500 hidden sm:inline">Start at:</span>
-                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
-                  <button
-                    onClick={() => {
-                      setDefaultDepth('shallow');
-                      setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
-                    }}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultDepth === 'shallow'
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Shallow
-                  </button>
-                  <button
-                    onClick={() => {
-                      setDefaultDepth('wade');
-                      setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
-                    }}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultDepth === 'wade'
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Wade
-                  </button>
-                </div>
-              </div>
-              {/* Expansion toggle */}
-              <div className="flex items-center gap-1 sm:gap-2">
-                <span className="text-xs text-zinc-500 hidden sm:inline">Cards:</span>
-                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
-                  <button
-                    onClick={() => setDefaultExpanded(false)}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      !defaultExpanded
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Closed
-                  </button>
-                  <button
-                    onClick={() => setDefaultExpanded(true)}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultExpanded
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Open
-                  </button>
-                </div>
-              </div>
-              </div>
+              {/* Voice icon - triggers Fine-Tune panel */}
+              <button
+                onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                data-help="fine-tune-voice"
+                className={`p-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/30 text-amber-400' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'}`}
+                title="Fine-tune Voice"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 10v3a1 1 0 0 0 1 1h3l4 4V5L6 9H3a1 1 0 0 0-1 1z" fill="currentColor" opacity="0.3" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                </svg>
+              </button>
+
+              {/* Depth toggle - single button that flips state */}
+              <button
+                onClick={() => {
+                  const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                  setDefaultDepth(newDepth);
+                  setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                }}
+                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+              >
+                {defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}
+              </button>
+
+              {/* Expansion toggle - single button that flips state */}
+              <button
+                onClick={() => setDefaultExpanded(!defaultExpanded)}
+                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+              >
+                {defaultExpanded ? 'Open' : 'Closed'}
+              </button>
             </div>
             </motion.div>
             </motion.div>
