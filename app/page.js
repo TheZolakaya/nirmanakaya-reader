@@ -202,7 +202,7 @@ const PLACEHOLDER_TEXT = {
     6: "What complete transmission is available?"
   },
   explore: {
-    any: "Name the tokens. Each gets its own card."
+    any: "Each key word gets its own card."
   },
   forge: {
     1: "What are you creating? State your intention.",
