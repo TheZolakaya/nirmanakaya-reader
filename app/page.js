@@ -626,17 +626,30 @@ export default function NirmanakaReader() {
   const [lastFinalSelection, setLastFinalSelection] = useState(null);
 
   // Ripple trigger: When mode changes, ripple count buttons (skip on initial mount)
+  // Also sync question/dtpInput when switching to/from Explore mode
   const spreadTypeRef = useRef(spreadType);
   useEffect(() => {
-    if (spreadTypeRef.current !== spreadType && advancedMode) {
-      setRippleTarget('counts');
-      setTimeout(() => setRippleTarget(null), 800);
-      // Reset confirmation when mode changes
-      setSelectionConfirmed(false);
-      setLastFinalSelection(null);
+    const prevMode = spreadTypeRef.current;
+    if (prevMode !== spreadType) {
+      // Sync question values when switching to/from Explore
+      if (spreadType === 'explore' && question && !dtpInput) {
+        // Switching TO explore: copy question to dtpInput
+        setDtpInput(question);
+      } else if (prevMode === 'explore' && dtpInput && !question) {
+        // Switching FROM explore: copy dtpInput to question
+        setQuestion(dtpInput);
+      }
+
+      if (advancedMode) {
+        setRippleTarget('counts');
+        setTimeout(() => setRippleTarget(null), 800);
+        // Reset confirmation when mode changes
+        setSelectionConfirmed(false);
+        setLastFinalSelection(null);
+      }
     }
     spreadTypeRef.current = spreadType;
-  }, [spreadType, advancedMode]);
+  }, [spreadType, advancedMode, question, dtpInput]);
 
   // Ripple trigger: When count changes in Reflect mode, ripple layout buttons
   const reflectCardCountRef = useRef(reflectCardCount);
