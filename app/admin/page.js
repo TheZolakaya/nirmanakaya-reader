@@ -1523,7 +1523,6 @@ export default function AdminPanel() {
                   <p className="text-xs text-zinc-500 mb-4">Default persona for the reader's voice</p>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { id: 'none', label: '○ None', icon: '○' },
                       { id: 'friend', label: '👋 Friend', icon: '👋' },
                       { id: 'therapist', label: '💭 Therapist', icon: '💭' },
                       { id: 'spiritualist', label: '✨ Spiritualist', icon: '✨' },
@@ -1552,7 +1551,6 @@ export default function AdminPanel() {
                     {featureConfig.defaultVoice?.persona === 'spiritualist' && 'Mystical, connected, transcendent'}
                     {featureConfig.defaultVoice?.persona === 'scientist' && 'Analytical, precise, evidence-based'}
                     {featureConfig.defaultVoice?.persona === 'coach' && 'Motivating, action-oriented, empowering'}
-                    {featureConfig.defaultVoice?.persona === 'none' && 'Neutral voice, no persona'}
                   </p>
                 </section>
 

@@ -1100,7 +1100,7 @@ export default function NirmanakaReader() {
 
   // === PERSONA VOICE SYSTEM V2 (One-Pass) ===
   // Voice is baked into generation - no separate translation layer
-  const [persona, setPersona] = useState('none'); // 'none' | 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
+  const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
   const [register, setRegister] = useState(5); // 1-10: Unhinged Street to Oracle
   const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
@@ -4976,7 +4976,7 @@ CRITICAL FORMATTING RULES:
                         className="w-7 h-7 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:text-amber-400 transition-colors"
                         title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
                       >
-                        {{ none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                        {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
                       </button>
                       {/* Compact persona flyout */}
                       <AnimatePresence>
@@ -4995,7 +4995,7 @@ CRITICAL FORMATTING RULES:
                               className="absolute bottom-8 right-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
                             >
                               {PERSONAS.map((p) => {
-                                const icons = { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                                const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
                                 return (
                                   <button
                                     key={p.key}
@@ -5134,7 +5134,7 @@ CRITICAL FORMATTING RULES:
                       exit="hidden"
                     >
                       {PERSONAS.map((p, index) => {
-                        const icons = { none: '○', friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                        const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
                         const isLeftColumn = index % 3 === 0;
                         const isRightColumn = index % 3 === 2;
                         const xOffset = isLeftColumn ? -40 : isRightColumn ? 40 : 0;
