@@ -4902,37 +4902,7 @@ CRITICAL FORMATTING RULES:
                       </motion.div>
                     )}
                   </AnimatePresence>
-                  {/* Persona flyout - appears below control icons */}
-                  <AnimatePresence>
-                    {showCompactPersona && (
-                      <>
-                        <div className="fixed inset-0 z-20" onClick={() => setShowCompactPersona(false)} />
-                        <motion.div
-                          initial={{ opacity: 0, y: -5, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -5, scale: 0.95 }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute top-full left-0 mt-1 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[140px]"
-                        >
-                          {PERSONAS.map((p) => {
-                            const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
-                            return (
-                              <button
-                                key={p.key}
-                                onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
-                                className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
-                                  persona === p.key ? 'bg-zinc-700 text-amber-400' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
-                                }`}
-                              >
-                                <span>{icons[p.key]}</span>
-                                <span>{p.name}</span>
-                              </button>
-                            );
-                          })}
-                        </motion.div>
-                      </>
-                    )}
-                  </AnimatePresence>
+                  {/* Persona flyout moved to fixed position outside overflow-hidden container */}
                 </div>
               </div>
               </motion.div>{/* END controls-above */}
@@ -5347,6 +5317,45 @@ CRITICAL FORMATTING RULES:
             )}
             {/* End of Standard Mode conditional */}
 
+            {/* Persona Dropdown Flyout - Fixed position outside overflow-hidden */}
+            <AnimatePresence>
+              {advancedMode && showCompactPersona && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowCompactPersona(false)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="fixed bottom-56 left-1/2 -translate-x-1/2 bg-zinc-950/95 border border-white/10 rounded-xl p-3 shadow-2xl z-50 backdrop-blur-md min-w-[180px]"
+                  >
+                    <h4 className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 mb-2 pb-2 border-b border-white/5">Select Voice</h4>
+                    {PERSONAS.map((p) => {
+                      const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                      return (
+                        <button
+                          key={p.key}
+                          onClick={() => { setPersona(p.key); setShowCompactPersona(false); }}
+                          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                            persona === p.key ? 'bg-amber-500/20 text-amber-400' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                          }`}
+                        >
+                          <span className="text-lg">{icons[p.key]}</span>
+                          <span>{p.name}</span>
+                        </button>
+                      );
+                    })}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+
             {/* Adjust Persona Popover - Rendered outside container to prevent layout expansion */}
             <AnimatePresence>
               {advancedMode && showVoicePanel && (
@@ -5365,12 +5374,17 @@ CRITICAL FORMATTING RULES:
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
                     className="fixed bottom-56 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                    onClick={() => setShowVoicePanel(false)}
                   >
                     {/* Header */}
                     <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
                       <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
-                      {/* LED Indicator */}
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
+                      {/* Close button (LED style) */}
+                      <button
+                        onClick={() => setShowVoicePanel(false)}
+                        className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)] hover:bg-emerald-400 hover:shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all cursor-pointer"
+                        title="Close"
+                      />
                     </div>
 
                     {/* Sliders Stack */}
@@ -5388,6 +5402,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={humor}
                           onChange={(e) => setHumor(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
                         />
                       </div>
@@ -5405,6 +5420,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={register}
                           onChange={(e) => setRegister(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
                         />
                       </div>
@@ -5422,6 +5438,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={creator}
                           onChange={(e) => setCreator(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
                         />
                       </div>
@@ -5430,13 +5447,13 @@ CRITICAL FORMATTING RULES:
                     {/* Footer Toggles (Roast/Direct) */}
                     <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
                       <button
-                        onClick={() => setRoastMode(!roastMode)}
+                        onClick={(e) => { e.stopPropagation(); setRoastMode(!roastMode); }}
                         className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                       >
                         Roast Mode
                       </button>
                       <button
-                        onClick={() => setDirectMode(!directMode)}
+                        onClick={(e) => { e.stopPropagation(); setDirectMode(!directMode); }}
                         className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                       >
                         Direct Mode
@@ -7580,10 +7597,6 @@ CRITICAL FORMATTING RULES:
         />
       )}
 
-      {/* Version indicator - always visible for deployment verification */}
-      <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
-        v{VERSION}
-      </div>
     </div>
   );
 }
