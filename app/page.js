@@ -5475,6 +5475,7 @@ CRITICAL FORMATTING RULES:
               </div>
             </div>
             </motion.div>
+            </motion.div>
             )}
             {/* End of Standard Mode conditional */}
         </>
