@@ -4546,8 +4546,8 @@ CRITICAL FORMATTING RULES:
 
               {/* Mode Toggle - with complexity-based disabled states */}
               <div className="flex items-center justify-between mb-2 px-1">
-                {/* Left spacer for visual balance */}
-                <div className="w-[88px]"></div>
+                {/* Left spacer for visual balance (matches 2x2 grid width) */}
+                <div className="w-[52px]"></div>
 
                 {/* Mode tabs centered */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
@@ -4621,25 +4621,26 @@ CRITICAL FORMATTING RULES:
                   </button>
                 </div>
 
-                {/* Control Icons Row - all toggles as icons */}
-                <div className="flex items-center gap-1">
-                  {/* Persona toggle - emoji icon */}
+                {/* Control Icons - 2x2 grid */}
+                <div className="grid grid-cols-2 gap-0.5 relative">
+                  {/* Top row: Persona, Signal Tuning */}
+                  {/* Persona toggle */}
                   <button
                     onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                    className={`p-1.5 rounded-md transition-colors flex items-center justify-center text-sm ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    className={`w-6 h-6 rounded text-xs transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
                     title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
                   >
                     {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
                   </button>
 
-                  {/* Signal Tuning toggle - sliders icon */}
+                  {/* Signal Tuning */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
                     data-help="fine-tune-voice"
-                    className={`p-1.5 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    className={`w-6 h-6 rounded transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
                     title="Signal Tuning"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="4" y1="21" x2="4" y2="14" />
                       <line x1="4" y1="10" x2="4" y2="3" />
                       <line x1="12" y1="21" x2="12" y2="12" />
@@ -4652,89 +4653,71 @@ CRITICAL FORMATTING RULES:
                     </svg>
                   </button>
 
-                  {/* Divider */}
-                  <div className="w-px h-4 bg-zinc-700/50 mx-0.5"></div>
-
-                  {/* Depth toggle - wave icon */}
-                  <div className="relative">
-                    <button
-                      onClick={() => {
-                        const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                        setDefaultDepth(newDepth);
-                        setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                        setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                        setTimeout(() => setControlTooltip(null), 1200);
-                      }}
-                      className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                      title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        {defaultDepth === 'shallow' ? (
-                          <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                        ) : (
-                          <>
-                            <path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                            <path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                          </>
-                        )}
-                      </svg>
-                    </button>
-                    {/* Tooltip */}
-                    <AnimatePresence>
-                      {controlTooltip?.type === 'depth' && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
-                          className="absolute top-full mt-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
-                        >
-                          {controlTooltip.text}
-                        </motion.div>
+                  {/* Bottom row: Depth, Cards */}
+                  {/* Depth toggle */}
+                  <button
+                    onClick={() => {
+                      const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                      setDefaultDepth(newDepth);
+                      setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                      setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                      setTimeout(() => setControlTooltip(null), 1200);
+                    }}
+                    className="w-6 h-6 rounded bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      {defaultDepth === 'shallow' ? (
+                        <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                      ) : (
+                        <>
+                          <path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                          <path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                        </>
                       )}
-                    </AnimatePresence>
-                  </div>
+                    </svg>
+                  </button>
 
-                  {/* Cards toggle - stack icon */}
-                  <div className="relative">
-                    <button
-                      onClick={() => {
-                        const newState = !defaultExpanded;
-                        setDefaultExpanded(newState);
-                        setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
-                        setTimeout(() => setControlTooltip(null), 1200);
-                      }}
-                      className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                      title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        {defaultExpanded ? (
-                          <>
-                            <rect x="3" y="3" width="18" height="6" rx="1" />
-                            <rect x="3" y="13" width="18" height="6" rx="1" />
-                          </>
-                        ) : (
-                          <>
-                            <rect x="4" y="4" width="16" height="5" rx="1" />
-                            <rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" />
-                            <rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" />
-                          </>
-                        )}
-                      </svg>
-                    </button>
-                    {/* Tooltip */}
-                    <AnimatePresence>
-                      {controlTooltip?.type === 'cards' && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
-                          className="absolute top-full mt-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
-                        >
-                          {controlTooltip.text}
-                        </motion.div>
+                  {/* Cards toggle */}
+                  <button
+                    onClick={() => {
+                      const newState = !defaultExpanded;
+                      setDefaultExpanded(newState);
+                      setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                      setTimeout(() => setControlTooltip(null), 1200);
+                    }}
+                    className="w-6 h-6 rounded bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {defaultExpanded ? (
+                        <>
+                          <rect x="3" y="3" width="18" height="6" rx="1" />
+                          <rect x="3" y="13" width="18" height="6" rx="1" />
+                        </>
+                      ) : (
+                        <>
+                          <rect x="4" y="4" width="16" height="5" rx="1" />
+                          <rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" />
+                          <rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" />
+                        </>
                       )}
-                    </AnimatePresence>
-                  </div>
+                    </svg>
+                  </button>
+
+                  {/* Tooltip - positioned below grid */}
+                  <AnimatePresence>
+                    {controlTooltip && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        className="absolute top-full mt-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
+                      >
+                        {controlTooltip.text}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 
