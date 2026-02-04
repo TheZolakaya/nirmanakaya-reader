@@ -4080,25 +4080,28 @@ CRITICAL FORMATTING RULES:
               >
                 ✉
               </a>
-              <a
-                href="/pulse"
-                className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
-                  pulseUnseen
-                    ? 'bg-orange-500/20 border-orange-500/50 text-orange-400 hover:bg-orange-500/30'
-                    : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-orange-400'
-                }`}
-                title="Collective Pulse"
-              >
-                <svg className={`w-4 h-4 ${pulseUnseen ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                {pulseUnseen && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full animate-ping" />
-                )}
-                {pulseUnseen && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full" />
-                )}
-              </a>
+              {/* Collective Pulse - admin only until feature is locked down */}
+              {userIsAdmin && (
+                <a
+                  href="/pulse"
+                  className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
+                    pulseUnseen
+                      ? 'bg-orange-500/20 border-orange-500/50 text-orange-400 hover:bg-orange-500/30'
+                      : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-orange-400'
+                  }`}
+                  title="Collective Pulse"
+                >
+                  <svg className={`w-4 h-4 ${pulseUnseen ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  {pulseUnseen && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full animate-ping" />
+                  )}
+                  {pulseUnseen && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full" />
+                  )}
+                </a>
+              )}
             </div>
 
             {/* Floating Background Controls Panel */}
