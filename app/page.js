@@ -5417,7 +5417,7 @@ CRITICAL FORMATTING RULES:
 
             {/* Persona Dropdown Flyout - Fixed position outside overflow-hidden */}
             <AnimatePresence>
-              {advancedMode && showCompactPersona && (
+              {showCompactPersona && (
                 <>
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -5456,7 +5456,7 @@ CRITICAL FORMATTING RULES:
 
             {/* Adjust Persona Popover - Rendered outside container to prevent layout expansion */}
             <AnimatePresence>
-              {advancedMode && showVoicePanel && (
+              {showVoicePanel && (
                 <>
                   {/* Backdrop to close panel when clicking outside */}
                   <motion.div
