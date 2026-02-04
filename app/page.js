@@ -4752,15 +4752,10 @@ CRITICAL FORMATTING RULES:
                   onClick={(e) => handleHelpClick('question-input', e)}
                 >
                   {/* Mode Trigger - inside textarea area, top right */}
+                  {/* No border, bg matches textarea, min-width for consistent size */}
                   <button
                     onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
-                    className={`absolute top-4 right-4 group flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-black/40 z-10 ${
-                      spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
-                      spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
-                      spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
-                      spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
-                      'border-zinc-700/50 hover:border-zinc-600'
-                    }`}
+                    className="absolute top-4 right-4 group flex items-center justify-center gap-2 min-w-[120px] px-3 py-1.5 rounded-lg transition-all duration-300 bg-zinc-900 hover:bg-zinc-800 z-10"
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
