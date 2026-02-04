@@ -676,11 +676,13 @@ export default function NirmanakaReader() {
   // Helper function to handle final selection tap (first tap = preview, second tap = confirm)
   const handleFinalSelectionTap = (selectionKey, isNewSelection) => {
     if (isNewSelection) {
-      // First tap on NEW selection: flash, update placeholder, stay open
+      // First tap on NEW selection: flash border in mode color, update placeholder, stay open
       setReadyFlash(true);
       setTimeout(() => setReadyFlash(false), 200);
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
+      // Activate border pulse on final selection (mode color)
+      setBorderPulseActive(true);
     } else {
       // Second tap on SAME selection: COLLAPSE FIRST, then long flash
       setAdvancedMode(false);
@@ -692,6 +694,8 @@ export default function NirmanakaReader() {
         setReadyFlash(false);
         setPlaceholderFlash(false);
       }, 800);
+      // Keep border pulse active after collapse
+      setBorderPulseActive(true);
     }
   };
 
