@@ -681,8 +681,9 @@ export default function NirmanakaReader() {
       setTimeout(() => setReadyFlash(false), 200);
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
-      // Activate border pulse on final selection (mode color)
+      // Activate border pulse on final selection (mode color) - brief flash then stop
       setBorderPulseActive(true);
+      setTimeout(() => setBorderPulseActive(false), 800);
     } else {
       // Second tap on SAME selection: COLLAPSE FIRST, then long flash
       setAdvancedMode(false);
@@ -694,22 +695,24 @@ export default function NirmanakaReader() {
         setReadyFlash(false);
         setPlaceholderFlash(false);
       }, 800);
-      // Keep border pulse active after collapse
+      // Brief border pulse flash after collapse
       setBorderPulseActive(true);
+      setTimeout(() => setBorderPulseActive(false), 800);
     }
   };
 
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - COLLAPSE FIRST, then start continuous pulse
+      // User clicked textarea - COLLAPSE FIRST, then brief border flash
       setAdvancedMode(false);
       setSelectionConfirmed(true);
-      // Brief placeholder flash, then start continuous border pulse
+      // Brief placeholder flash and border pulse
       setPlaceholderFlash(true);
       setTimeout(() => setPlaceholderFlash(false), 800);
-      // Start continuous border pulse (stays on until expanded/mode change/initiate)
+      // Brief border pulse flash then stop
       setBorderPulseActive(true);
+      setTimeout(() => setBorderPulseActive(false), 800);
     }
   };
 
