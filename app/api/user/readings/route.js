@@ -92,11 +92,22 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation } = body;
+    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation, glisten } = body;
 
     if (!draws || !interpretation) {
       return Response.json({ success: false, error: 'draws and interpretation are required' }, { status: 400 });
     }
+
+    // Build interpretation object, optionally including glisten data
+    const fullInterpretation = {
+      ...interpretation,
+      ...(glisten ? {
+        glisten: {
+          ...glisten,
+          createdAt: new Date().toISOString()
+        }
+      } : {})
+    };
 
     const { data, error } = await supabase
       .from('user_readings')
@@ -112,7 +123,7 @@ export async function POST(request) {
         card_count: card_count || draws.length,
         voice: voice || 'friend',
         draws,
-        interpretation,
+        interpretation: fullInterpretation,
         is_public: false
       })
       .select()

@@ -581,6 +581,7 @@ export default function NirmanakaReader() {
   const [showGlistener, setShowGlistener] = useState(false);
   const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
   const [glistenerPhase, setGlistenerPhase] = useState('idle');
+  const [glistenData, setGlistenData] = useState(null); // Full glisten data for saving to My Readings
   const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
   // Locus control state — subjects-based (chip input)
@@ -4954,9 +4955,11 @@ CRITICAL FORMATTING RULES:
                           onClose={() => {
                             setShowGlistener(false);
                             setGlistenerContent(null);
+                            setGlistenData(null); // Clear glisten data when closing
                           }}
                           onDisplayContent={setGlistenerContent}
                           onPhaseChange={setGlistenerPhase}
+                          onGlistenComplete={setGlistenData}
                         />
                       )}
                     </div>
@@ -5560,6 +5563,10 @@ CRITICAL FORMATTING RULES:
                     tokenUsage,
                     threadData // Include thread data for cloud saves
                   }}
+                  glisten={glistenData}
+                  draws={draws}
+                  locusSubjects={locusSubjects}
+                  voice="friend-warm"
                   onSave={(saved) => setSavedReadingId(saved?.id)}
                 />
                 <ShareReadingButton
@@ -5632,6 +5639,10 @@ CRITICAL FORMATTING RULES:
                         tokenUsage,
                         threadData // Include thread data for cloud saves
                       }}
+                      glisten={glistenData}
+                      draws={draws}
+                      locusSubjects={locusSubjects}
+                      voice={`${stance.complexity}-${stance.voice}`}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
                     />
                     <div data-help="action-share" onClick={(e) => handleHelpClick('action-share', e)}>

@@ -8,6 +8,7 @@ import { ARCHETYPES } from '../../../lib/archetypes';
 import { ensureParagraphBreaks } from '../../../lib/utils';
 import CardImage from '../../../components/reader/CardImage';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
+import GlistenSourcePanel from '../../../components/reader/GlistenSourcePanel';
 
 export default function ReadingDetailPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function ReadingDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expanding, setExpanding] = useState(false);
+  const [showGlisten, setShowGlisten] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -149,6 +151,16 @@ export default function ReadingDetailPage() {
             </button>
             <h1 className="text-xl font-light text-zinc-200">{formatDate(reading.created_at)}</h1>
             <div className="flex items-center gap-2 mt-1">
+              {/* Glistened Tale button - shows if glisten data exists */}
+              {interp.glisten && (
+                <button
+                  onClick={() => setShowGlisten(true)}
+                  className="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors flex items-center gap-1"
+                  title="View Glistened Tale"
+                >
+                  <span>✨</span> Glistened Tale
+                </button>
+              )}
               {reading.topic && <span className="text-xs text-zinc-400">{reading.topic}</span>}
               {Array.isArray(reading.locus_subjects) && reading.locus_subjects.length > 0 ? (
                 <span className="text-xs text-amber-500/60">
@@ -262,6 +274,15 @@ export default function ReadingDetailPage() {
           <div className="mt-6 text-center text-xs text-zinc-600">Maximum depth reached (5/5 cards)</div>
         )}
       </div>
+
+      {/* Glistened Tale Modal */}
+      {showGlisten && interp.glisten && (
+        <GlistenSourcePanel
+          data={interp.glisten}
+          onClose={() => setShowGlisten(false)}
+          isOpen={showGlisten}
+        />
+      )}
     </div>
   );
 }

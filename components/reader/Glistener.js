@@ -20,6 +20,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import GlistenSourcePanel from './GlistenSourcePanel';
 
 // Timing constants
 const STREAM_DURATION = 5000;     // Total ghost stream time (ms) - slow enough to see scroll
@@ -36,6 +37,7 @@ export default function Glistener({
   onStreamEnd,
   onDisplayContent,  // Callback to send content for display in textarea
   onPhaseChange,     // Callback to notify parent of phase changes
+  onGlistenComplete, // Callback with full glisten data when complete
 }) {
   const [phase, setPhase] = useState('idle'); // idle | loading | streaming | typing | complete
   const [data, setData] = useState(null);
@@ -163,6 +165,15 @@ export default function Glistener({
       }
 
       setData(result);
+
+      // Notify parent of complete glisten data
+      onGlistenComplete?.({
+        bones: result.bones,
+        symbolism: result.symbolism,
+        transmission: result.transmission,
+        integration: result.integration,
+        crystal: result.crystal
+      });
 
       // Start the Ghost Stream - show FULL transmission text
       setPhase('streaming');
@@ -464,101 +475,15 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
         </button>
       </div>
 
-      {/* Transmission Receipt Modal */}
-      <AnimatePresence>
-        {showReceipt && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowReceipt(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full max-h-[85vh] overflow-y-auto mb-4"
-              onClick={e => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-amber-400 font-medium">Field Translation Log</h3>
-                <button
-                  onClick={() => setShowReceipt(false)}
-                  className="text-zinc-500 hover:text-zinc-300 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Constraint Matrix */}
-              <div className="mb-6">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  Constraint Matrix
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {data.bones.map((bone, i) => (
-                    <div key={i} className="text-sm font-mono">
-                      <span className="text-zinc-500">{bone.constraint}</span>
-                      <span className="text-zinc-600 mx-2">→</span>
-                      <span className="text-amber-300">{bone.word}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Narrative Synthesis */}
-              <div className="mb-6">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  Narrative Synthesis
-                </h4>
-                <p className="text-zinc-300 leading-relaxed text-sm">
-                  {data.transmission}
-                </p>
-              </div>
-
-              {/* Extracted Query with Depth Navigation */}
-              <div className="pt-4 border-t border-zinc-800">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-xs uppercase tracking-wider text-zinc-500">
-                    Extracted Query
-                  </h4>
-                  {/* Depth navigator inside modal */}
-                  <div className="flex items-center gap-1">
-                    {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
-                      <button
-                        onClick={goShallower}
-                        className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
-                        title="Simplify"
-                      >
-                        ←
-                      </button>
-                    )}
-                    <span className={`text-xs px-2 py-0.5 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
-                      {preloading ? '...' : DEPTH_LABELS[currentDepth]}
-                    </span>
-                    {depthIndex > 0 && !preloading && (
-                      <button
-                        onClick={goDeeper}
-                        className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
-                        title="Go deeper"
-                      >
-                        →
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <p className="text-amber-300 italic text-lg text-center">
-                  "{currentCrystal}"
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Transmission Receipt Modal - uses shared GlistenSourcePanel */}
+      {showReceipt && (
+        <GlistenSourcePanel
+          data={data}
+          onClose={() => setShowReceipt(false)}
+          onTransfer={onTransfer}
+          isOpen={showReceipt}
+        />
+      )}
     </>
   );
 }
