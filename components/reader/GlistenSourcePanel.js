@@ -7,8 +7,8 @@
  *
  * Features:
  * - Bones/Constraint Matrix display
- * - Narrative Synthesis (transmission)
- * - Crystal with depth navigation
+ * - Narrative Synthesis (transmission) with depth navigation
+ * - Crystal display
  */
 
 'use client';
@@ -16,7 +16,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Depth levels for crystal exploration
+// Depth levels for story exploration
 const DEPTH_LEVELS = ['deep', 'swim', 'wade', 'shallow'];
 const DEPTH_LABELS = {
   deep: 'Deep',
@@ -32,55 +32,55 @@ export default function GlistenSourcePanel({
   isOpen = true   // Control visibility when used as standalone
 }) {
   const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
-  const [crystals, setCrystals] = useState({ deep: data?.crystal }); // Cache crystals at each depth
+  const [stories, setStories] = useState({ deep: data?.transmission }); // Cache stories at each depth
   const [preloading, setPreloading] = useState(true);
   const hasPrecached = useRef(false);
 
   const currentDepth = DEPTH_LEVELS[depthIndex];
-  const currentCrystal = crystals[currentDepth] || data?.crystal;
+  const currentStory = stories[currentDepth] || data?.transmission;
 
   // Pre-cache all depth levels on mount using SEQUENTIAL generation
   useEffect(() => {
-    if (!data?.crystal) return;
+    if (!data?.transmission) return;
     if (hasPrecached.current) return;
     hasPrecached.current = true;
 
     const precacheAllDepths = async () => {
-      const rawCrystal = data.crystal;
-      const newCrystals = { deep: rawCrystal };
+      const rawTransmission = data.transmission;
+      const newStories = { deep: rawTransmission };
 
       // Generate depths SEQUENTIALLY: deep → swim → wade → shallow
-      let currentCrystal = rawCrystal;
+      let currentTransmission = rawTransmission;
 
       for (const targetDepth of ['swim', 'wade', 'shallow']) {
         try {
-          const res = await fetch('/api/glisten/simplify', {
+          const res = await fetch('/api/glisten/simplify-story', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              crystal: currentCrystal,
+              transmission: currentTransmission,
               targetDepth
             })
           });
           const result = await res.json();
           if (result.success) {
-            newCrystals[targetDepth] = result.crystal;
-            currentCrystal = result.crystal;
+            newStories[targetDepth] = result.transmission;
+            currentTransmission = result.transmission;
           } else {
-            newCrystals[targetDepth] = currentCrystal;
+            newStories[targetDepth] = currentTransmission;
           }
         } catch (e) {
           console.error(`Failed to generate ${targetDepth}:`, e);
-          newCrystals[targetDepth] = currentCrystal;
+          newStories[targetDepth] = currentTransmission;
         }
       }
 
-      setCrystals(newCrystals);
+      setStories(newStories);
       setPreloading(false);
     };
 
     precacheAllDepths();
-  }, [data?.crystal]);
+  }, [data?.transmission]);
 
   // Navigate to shallower
   const goShallower = () => {
@@ -88,9 +88,8 @@ export default function GlistenSourcePanel({
     if (preloading) return;
 
     const nextDepth = DEPTH_LEVELS[depthIndex + 1];
-    if (crystals[nextDepth]) {
+    if (stories[nextDepth]) {
       setDepthIndex(depthIndex + 1);
-      onTransfer?.(crystals[nextDepth]);
     }
   };
 
@@ -99,9 +98,8 @@ export default function GlistenSourcePanel({
     if (depthIndex <= 0) return;
 
     const prevDepth = DEPTH_LEVELS[depthIndex - 1];
-    if (crystals[prevDepth]) {
+    if (stories[prevDepth]) {
       setDepthIndex(depthIndex - 1);
-      onTransfer?.(crystals[prevDepth]);
     }
   };
 
@@ -155,51 +153,51 @@ export default function GlistenSourcePanel({
               </div>
             )}
 
-            {/* Narrative Synthesis */}
+            {/* Narrative Synthesis with Depth Navigation */}
             {data.transmission && (
               <div className="mb-6">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  Narrative Synthesis
-                </h4>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500">
+                    Narrative Synthesis
+                  </h4>
+                  {/* Depth navigator */}
+                  <div className="flex items-center gap-1">
+                    {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
+                      <button
+                        onClick={goShallower}
+                        className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20"
+                        title="Simplify the story"
+                      >
+                        ← Simplify
+                      </button>
+                    )}
+                    <span className={`text-xs px-2 py-1 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
+                      {preloading ? '...' : DEPTH_LABELS[currentDepth]}
+                    </span>
+                    {depthIndex > 0 && !preloading && (
+                      <button
+                        onClick={goDeeper}
+                        className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-zinc-400 hover:text-zinc-200 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700"
+                        title="Go deeper"
+                      >
+                        Deeper →
+                      </button>
+                    )}
+                  </div>
+                </div>
                 <p className="text-zinc-300 leading-relaxed text-sm">
-                  {data.transmission}
+                  {currentStory}
                 </p>
               </div>
             )}
 
-            {/* Extracted Query with Depth Navigation */}
+            {/* Extracted Query (always shows original crystal) */}
             <div className="pt-4 border-t border-zinc-800">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500">
-                  Extracted Query
-                </h4>
-                {/* Depth navigator */}
-                <div className="flex items-center gap-1">
-                  {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
-                    <button
-                      onClick={goShallower}
-                      className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20"
-                      title="Simplify the question"
-                    >
-                      ← Simplify
-                    </button>
-                  )}
-                  <span className={`text-xs px-2 py-1 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
-                    {preloading ? '...' : DEPTH_LABELS[currentDepth]}
-                  </span>
-                  {depthIndex > 0 && !preloading && (
-                    <button
-                      onClick={goDeeper}
-                      className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-zinc-400 hover:text-zinc-200 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700"
-                      title="Go deeper"
-                    >
-                      Deeper →
-                    </button>
-                  )}
-                </div>
-              </div>
+              <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                Extracted Query
+              </h4>
               <p className="text-amber-300 italic text-lg text-center pb-2">
-                "{currentCrystal}"
+                "{data.crystal}"
               </p>
             </div>
           </motion.div>
