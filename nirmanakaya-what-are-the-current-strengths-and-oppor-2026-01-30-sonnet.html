@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirmanakaya Reading - 1/29/2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #18181b; color: #e4e4e7; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; padding: 2rem; max-width: 800px; margin: 0 auto; }
+    h1 { font-weight: 200; letter-spacing: 0.2em; text-align: center; margin-bottom: 0.5rem; color: #fafafa; }
+    .subtitle { text-align: center; color: #52525b; font-size: 0.75rem; margin-bottom: 2rem; }
+    .meta { text-align: center; color: #71717a; font-size: 0.875rem; margin-bottom: 2rem; }
+    .question-box { background: #27272a; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
+    .question-label { color: #71717a; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .question-text { color: #d4d4d8; }
+    .section { margin-bottom: 2rem; }
+    .section-title { color: #71717a; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; border-bottom: 1px solid #3f3f46; padding-bottom: 0.5rem; }
+    .summary-box { background: linear-gradient(to bottom right, rgba(69, 26, 3, 0.4), rgba(120, 53, 15, 0.2)); border: 2px solid rgba(245, 158, 11, 0.5); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; }
+    .summary-badge { display: inline-block; background: rgba(245, 158, 11, 0.3); color: #f59e0b; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; margin-bottom: 0.75rem; }
+    .summary { color: #fef3c7; }
+    .signature { background: rgba(8, 51, 68, 0.3); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; border: 2px solid rgba(6, 182, 212, 0.5); }
+    .signature-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .signature-badge { display: inline-block; background: rgba(8, 51, 68, 0.5); color: #22d3ee; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-right: 0.5rem; vertical-align: middle; }
+    .signature-title { color: #fafafa; font-weight: 500; }
+    .signature-status { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; }
+    .status-balanced { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .status-too-much { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .status-too-little { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+    .status-unacknowledged { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+    .signature-name { color: #22d3ee; margin-bottom: 0.5rem; }
+    .traditional { color: #71717a; }
+    .arch-details { color: #a1a1aa; font-size: 0.75rem; margin-bottom: 0.75rem; padding: 0.5rem; background: rgba(39, 39, 42, 0.5); border-radius: 0.5rem; }
+    .signature-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; }
+    .rebalancer { margin-top: 1rem; padding: 1rem; background: rgba(2, 44, 34, 0.3); border: 2px solid rgba(16, 185, 129, 0.5); border-radius: 0.5rem; margin-left: 1rem; }
+    .rebalancer-badge { display: inline-block; background: rgba(16, 185, 129, 0.3); color: #6ee7b7; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.5rem; }
+    .rebalancer-header { color: #34d399; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .rebalancer-content { color: #a7f3d0; font-size: 0.875rem; line-height: 1.6; }
+    .path-box { background: linear-gradient(to bottom right, rgba(6, 78, 59, 0.3), rgba(16, 185, 129, 0.15)); border: 2px solid rgba(16, 185, 129, 0.6); border-radius: 0.75rem; padding: 1.5rem; }
+    .path-badge { display: inline-block; color: #34d399; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+    .path-content { color: #d4d4d8; line-height: 1.6; white-space: pre-wrap; }
+    .letter-box { background: rgba(46, 16, 101, 0.3); border: 2px solid rgba(139, 92, 246, 0.5); border-radius: 0.75rem; padding: 1.5rem; }
+    .letter-badge { display: inline-block; background: rgba(139, 92, 246, 0.3); color: #c4b5fd; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; margin-bottom: 0.75rem; }
+    .letter { color: #ddd6fe; font-style: italic; line-height: 1.6; }
+    .footer { text-align: center; color: #3f3f46; font-size: 0.625rem; margin-top: 3rem; letter-spacing: 0.1em; }
+    .threads { margin-top: 1rem; }
+    .thread-item { margin-left: 1rem; border-left: 2px solid #3f3f46; padding-left: 1rem; margin-top: 0.75rem; }
+    .thread-label { font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .thread-reflect .thread-label { color: #38bdf8; }
+    .thread-forge .thread-label { color: #fb923c; }
+    .thread-card { padding: 1rem; border-radius: 0.5rem; }
+    .thread-reflect .thread-card { background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); }
+    .thread-forge .thread-card { background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); }
+    .thread-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .thread-name { color: #e4e4e7; font-weight: 500; }
+    .thread-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
+    .the-why { margin-top: 1rem; padding: 1rem; background: rgba(8, 51, 68, 0.3); border: 2px solid rgba(6, 182, 212, 0.4); border-radius: 0.5rem; margin-left: 1rem; }
+    .why-badge { display: inline-block; background: rgba(6, 182, 212, 0.3); color: #67e8f9; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.75rem; }
+    .mirror-content { color: #a5f3fc; font-style: italic; font-size: 0.875rem; line-height: 1.6; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(6, 182, 212, 0.3); }
+    .why-label { display: block; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: #22d3ee; margin-bottom: 0.5rem; }
+    .why-content { color: #cffafe; font-size: 0.875rem; line-height: 1.6; }
+    .expansion { margin-top: 1rem; padding: 1rem; background: rgba(63, 63, 70, 0.3); border: 1px solid rgba(113, 113, 122, 0.4); border-radius: 0.5rem; margin-left: 1rem; }
+    .expansion-badge { display: inline-block; background: rgba(113, 113, 122, 0.3); color: #a1a1aa; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .expansion-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>NIRMANAKAYA</h1>
+  <p class="subtitle">Consciousness Architecture Reader</p>
+  <p class="meta">Discover • Three • Friend • Clear • 1/29/2026</p>
+
+  <div class="question-box">
+    <div class="question-label">Your Question or Intention</div>
+    <div class="question-text">What are the current strengths and opportunities for our relationship? how are things going in general?</div>
+  </div>
+
+  
+  <div class="section">
+    <div class="summary-box">
+      <span class="summary-badge">Overview</span>
+      <div class="summary">These cards reveal a relationship that's operating on way more wisdom and infrastructure than either of you realizes. You've got shared momentum (Drive), solid foundational care (Culture), and good collaborative judgment (Balance) — but all of it's happening under the radar or getting shortchanged by efficiency mode.</div>
+      
+      
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Signatures</div>
+    
+        <div class="signature">
+          <div class="signature-header">
+            <div>
+              <span class="signature-badge">Reading</span>
+              <span class="signature-title">Signature 1 — Position 1</span>
+            </div>
+            <span class="signature-status status-too-little">Too Little</span>
+          </div>
+          <div class="signature-name">Too Little Reverie</div>
+          <div class="arch-details">Channel: Resonance • Associated: Compassion</div>
+          <div class="signature-content">Too Little Reverie in Drive means the peaceful, dreamy connection between you is getting shortchanged by all the momentum and forward motion. You're both so focused on where the relationship is going that you're missing the quiet magic of just... being together in the feeling of it.<br><br>Drive is your shared momentum — the energy that moves you both forward as a couple. But when Reverie is too little here, it's like you're running on efficiency instead of enchantment. The relationship has direction but it's lost some of that dreamy, &quot;let's just sit and feel how good this is&quot; quality that actually fuels the best kind of forward movement.</div>
+          
+          
+          <div class="rebalancer">
+            <span class="rebalancer-badge">Rebalancer</span>
+            <div class="rebalancer-header">Reverie → Reconciliation via VERTICAL duality</div>
+            <div class="rebalancer-content">Reconciliation brings the art of finding middle ground and working through differences with curiosity instead of force. In your Drive, this means creating momentum that honors both of your rhythms instead of defaulting to the fastest or most efficient path forward.<br><br>Practice slowing down your shared momentum to include more negotiation and adjustment. Like, when you're planning or moving forward together, pause and check: &quot;How does this feel for both of us?&quot; Let the relationship's direction emerge from conversation rather than assumption.<br><br>The rebalancing happens when your forward movement includes space for both perspectives to be felt and adjusted for — which naturally creates those peaceful, connected moments you're missing.</div>
+          </div>
+          
+          
+            <div class="the-why">
+              <span class="why-badge">The Why</span>
+              <div class="mirror-content">You're moving together but forgetting to pause in the sweetness of what you're creating.</div>
+              <div class="why-content"><span class="why-label">Words to the Whys</span>This card showed up because your relationship is asking for more spaciousness in its momentum. You've got the drive part down — you're both invested, both moving forward — but the dreamy, contemplative connection is what's actually missing from that forward motion.<br><br>Drive without reverie becomes productivity instead of intimacy. The reason this imbalance is surfacing now is because the relationship itself is ready for a different quality of momentum — one that includes more of those peaceful, connected moments where you both just... sink into how good it feels to be together.</div>
+            </div>
+          
+        </div>
+        <div class="signature">
+          <div class="signature-header">
+            <div>
+              <span class="signature-badge">Reading</span>
+              <span class="signature-title">Signature 2 — Position 2</span>
+            </div>
+            <span class="signature-status status-unacknowledged">Unacknowledged</span>
+          </div>
+          <div class="signature-name">Unacknowledged Steward of Structure</div>
+          <div class="arch-details">Role: Steward • Channel: Structure • Associated: Change</div>
+          <div class="signature-content">The Steward of Structure in your Culture space means one of you is naturally amazing at creating the conditions for things to flourish together — but it's happening totally under the radar. Like, someone's been quietly building the foundation that lets your relationship actually work, but neither of you is really seeing or acknowledging this capacity. This could be the person who remembers to stock the fridge, handles the logistics that make date nights possible, or just has this instinct for what the relationship needs to stay grounded and sustainable. The unacknowledged piece means this essential nurturing is being taken for granted, which honestly isn't fair to whoever's carrying it.</div>
+          
+          
+          <div class="rebalancer">
+            <span class="rebalancer-badge">Rebalancer</span>
+            <div class="rebalancer-header">Steward of Structure → Steward of Intent via REDUCTION pair</div>
+            <div class="rebalancer-content">The Steward of Intent offers a path back by channeling that same nurturing energy toward shared direction and purpose. Instead of just maintaining what's already there, this means actively stewarding where you're both heading together — tending to your collective dreams and making sure your relationship has the structure it needs to grow toward what you both actually want. It's about taking that natural capacity for creating conditions and applying it to your future together, not just your day-to-day maintenance. The rebalancing happens when the care-giving becomes intentional and mutual, focused on building toward something instead of just keeping things stable.</div>
+          </div>
+          
+          
+            <div class="the-why">
+              <span class="why-badge">The Why</span>
+              <div class="mirror-content">You're creating the garden but not seeing yourself as the gardener.</div>
+              <div class="why-content"><span class="why-label">Words to the Whys</span>This card showed up because your relationship has been running on invisible infrastructure, and it's time to name it. Someone's been doing the quiet work that keeps everything stable — the emotional labor, the practical thinking, the &quot;how do we actually make this work&quot; stuff — but it's not getting recognized as the skill it actually is. The relationship is asking you both to see and value this capacity instead of just assuming it'll always be there. When foundational care goes unnoticed, it eventually stops flowing as freely, which is why this pattern is surfacing now.</div>
+            </div>
+          
+        </div>
+        <div class="signature">
+          <div class="signature-header">
+            <div>
+              <span class="signature-badge">Reading</span>
+              <span class="signature-title">Signature 3 — Position 3</span>
+            </div>
+            <span class="signature-status status-unacknowledged">Unacknowledged</span>
+          </div>
+          <div class="signature-name">Unacknowledged Discernment</div>
+          <div class="arch-details">Channel: Cognition • Associated: Discipline</div>
+          <div class="signature-content">**Unacknowledged Discernment in Balance** means you both have this really sharp ability to see what's actually working versus what isn't in your relationship — but you're not consciously using it together. Like, individually you probably both notice the same patterns, the same moments when things click or when they don't, but you're not bringing that clarity into your conversations about the relationship itself.<br><br>This creates this weird dynamic where you're both operating from really good judgment about each other and the connection, but it's all happening in the background. You might find yourselves making decisions or adjustments that actually work really well, but neither of you is quite naming why or how you knew to do that.<br><br>The opportunity here is that your collective wisdom about what creates balance between you is already there — it's just not being acknowledged or discussed openly.</div>
+          
+          
+          <div class="rebalancer">
+            <span class="rebalancer-badge">Rebalancer</span>
+            <div class="rebalancer-header">Discernment → Fulfillment via REDUCTION pair</div>
+            <div class="rebalancer-content">**Fulfillment** brings you back to center by helping you both recognize and celebrate what's already deeply satisfying about how you navigate together. Instead of focusing on what needs improvement, start noticing and naming the moments when your shared judgment creates something that feels really good between you.<br><br>This isn't about forcing conversations, but about acknowledging out loud when you both handle something well or when your instincts about each other prove right. Like, &quot;Hey, remember how we both just knew to give each other space yesterday? That actually worked really well.&quot;<br><br>The path back to balance is through appreciating the collaborative intelligence that's already there — letting yourselves feel satisfied with the ways you're already creating equilibrium together, even in small moments.</div>
+          </div>
+          
+          
+            <div class="the-why">
+              <span class="why-badge">The Why</span>
+              <div class="mirror-content">You both see clearly — you just haven't learned to look together.</div>
+              <div class="why-content"><span class="why-label">Words to the Whys</span>This card showed up because your relationship has actually developed some pretty sophisticated internal radar about what works and what doesn't — but that intelligence is operating in shadow mode. You asked about strengths and opportunities, and honestly? Your biggest strength is this shared discernment that's already functioning.<br><br>The reason it's unacknowledged is probably because you're both so focused on the big obvious relationship stuff that you're missing how much you're already navigating together successfully on a more subtle level. Like, you're both making micro-adjustments and small choices that keep things balanced, but you're not giving yourselves credit for that collaborative wisdom.<br><br>It's showing up now because recognizing this hidden capacity could actually shift how you approach everything else in the relationship.</div>
+            </div>
+          
+        </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="path-box">
+      <span class="path-badge">◈ Path to Balance</span>
+      <div class="path-content">The path forward starts with slowing down your shared momentum enough to actually notice and appreciate what you're both already contributing. This means building in more negotiation and check-ins when you're moving forward together, plus openly acknowledging when someone's handling the behind-the-scenes stuff that keeps things running smoothly.<br><br>The real opportunity is recognizing that your collective judgment about the relationship is already pretty sophisticated — you're both making good micro-adjustments all the time. Start naming that out loud when it happens, like &quot;Hey, we handled that really well&quot; or &quot;I love how we both just knew to do that.&quot;<br><br>Once you can see and celebrate the invisible infrastructure you've built together, that creates space for more of those peaceful, dreamy moments where you just get to feel how good it actually is between you.</div>
+      
+    </div>
+  </div>
+
+  
+
+  
+  <div class="section">
+    <div class="letter-box">
+      <span class="letter-badge">Letter</span>
+      <div class="letter">Hey there. So you're asking about strengths and opportunities in your relationship, and honestly? The cards are showing me something pretty interesting.<br><br>What's coming through isn't about what's broken or needs fixing — it's about what's already there but operating kind of under the radar. Like, you both have these really solid capacities that aren't getting their full moment to shine.<br><br>The pattern I'm seeing is around dreams, structure, and clarity — but all of it happening in shadow mode. Which actually suggests there's way more foundation and vision available to you both than either of you might be recognizing right now.<br><br>It feels like a relationship that's got more going for it than meets the eye, if that makes sense.</div>
+      
+      
+    </div>
+  </div>
+
+  
+
+  
+  <div class="section">
+    <div style="text-align: center; color: #52525b; font-size: 0.75rem;">
+      Tokens: 3,985 in / 2,294 out •
+      Cost: $0.0464
+    </div>
+  </div>
+
+  <p class="footer">Generated by Nirmanakaya • Sonnet</p>
+</body>
+</html>

@@ -5165,249 +5165,6 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-              {/* Adjust Persona Popover - Fixed position overlay */}
-              <AnimatePresence>
-                {advancedMode && showVoicePanel && (
-                  <>
-                    {/* Backdrop to close panel when clicking outside */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="fixed inset-0 z-40"
-                      onClick={() => setShowVoicePanel(false)}
-                    />
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="fixed bottom-32 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
-                    >
-                      {/* Header */}
-                      <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
-                        <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
-                        {/* LED Indicator */}
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
-                      </div>
-
-                      {/* Sliders Stack */}
-                      <div className="space-y-4">
-                        {/* Humor */}
-                        <div className="space-y-1.5">
-                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
-                            <span>Serious</span>
-                            <span className="text-violet-400">Humor</span>
-                            <span>Wild</span>
-                          </div>
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={humor}
-                            onChange={(e) => setHumor(parseInt(e.target.value))}
-                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
-                          />
-                        </div>
-
-                        {/* Register */}
-                        <div className="space-y-1.5">
-                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
-                            <span>Chaos</span>
-                            <span className="text-blue-400">Register</span>
-                            <span>Oracle</span>
-                          </div>
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={register}
-                            onChange={(e) => setRegister(parseInt(e.target.value))}
-                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
-                          />
-                        </div>
-
-                        {/* Agency */}
-                        <div className="space-y-1.5">
-                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
-                            <span>Witness</span>
-                            <span className="text-emerald-400">Agency</span>
-                            <span>Creator</span>
-                          </div>
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={creator}
-                            onChange={(e) => setCreator(parseInt(e.target.value))}
-                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Footer Toggles (Roast/Direct) */}
-                      <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
-                        <button
-                          onClick={() => setRoastMode(!roastMode)}
-                          className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                        >
-                          Roast Mode
-                        </button>
-                        <button
-                          onClick={() => setDirectMode(!directMode)}
-                          className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                        >
-                          Direct Mode
-                        </button>
-                      </div>
-
-                      {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
-                      {showAdvancedVoice && (
-                        <div className="mt-4 pt-3 border-t border-white/5">
-                          <button
-                            onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                            data-help="advanced-voice"
-                            className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
-                          >
-                            <span className="text-[10px]">{showLandingFineTune ? '▾' : '▸'}</span>
-                            <span className="text-[10px] font-mono uppercase tracking-wider">Advanced</span>
-                          </button>
-
-                          {showLandingFineTune && (
-                            <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
-                              {/* Delivery Presets */}
-                              <div
-                                className="mb-3 pb-3 border-b border-zinc-700/50"
-                                data-help="delivery-preset"
-                                onClick={(e) => handleHelpClick('delivery-preset', e)}
-                              >
-                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
-                                <div className="flex gap-1 justify-center">
-                                  {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                                    const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                                    return (
-                                      <button
-                                        key={key}
-                                        onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                                        className={`px-1.5 py-1 rounded text-[9px] transition-all ${
-                                          isActive
-                                            ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
-                                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                        }`}
-                                        title={preset.preview || preset.name}
-                                      >
-                                        {preset.name}
-                                      </button>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-
-                              {/* Voice Preview */}
-                              <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                                <p className="text-zinc-400 text-[10px] italic leading-relaxed">
-                                  "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                                </p>
-                              </div>
-
-                              {/* Complexity Selector */}
-                              <div
-                                className="mb-3"
-                                data-help="voice-complexity"
-                                onClick={(e) => handleHelpClick('voice-complexity', e)}
-                              >
-                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
-                                <div className="flex gap-1 justify-center">
-                                  {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                                    <button
-                                      key={key}
-                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                                      className={`px-1.5 py-1 rounded text-[9px] transition-all ${
-                                        stance.complexity === key
-                                          ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                      }`}
-                                    >
-                                      {opt.label}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Tone Selector */}
-                              <div
-                                className="mb-3"
-                                data-help="voice-tone"
-                                onClick={(e) => handleHelpClick('voice-tone', e)}
-                              >
-                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
-                                <div className="flex gap-1 justify-center">
-                                  {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                                    <button
-                                      key={key}
-                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                                      className={`px-1.5 py-1 rounded text-[9px] transition-all capitalize ${
-                                        stance.seriousness === key
-                                          ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                      }`}
-                                    >
-                                      {key}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Stance Grid */}
-                              <div
-                                data-help="stance-selector"
-                                onClick={(e) => handleHelpClick('stance-selector', e)}
-                              >
-                                <StanceSelector
-                                  stance={stance}
-                                  setStance={setStance}
-                                  showCustomize={true}
-                                  setShowCustomize={() => {}}
-                                  gridOnly={true}
-                                  disabled={helpMode}
-                                />
-                              </div>
-
-                              {/* Model Selector + Token Display */}
-                              <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                                {getAvailableModels().length > 1 && (
-                                  <div className="flex items-center justify-center gap-2 mb-1.5">
-                                    <span className="text-[9px] text-zinc-500 font-mono">Model:</span>
-                                    <select
-                                      value={selectedModel}
-                                      onChange={(e) => setSelectedModel(e.target.value)}
-                                      className="text-[9px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
-                                    >
-                                      {getAvailableModels().map(m => (
-                                        <option key={m} value={m}>{getModelLabel(m)}</option>
-                                      ))}
-                                    </select>
-                                  </div>
-                                )}
-                                <label className="flex items-center justify-center gap-2 cursor-pointer">
-                                  <input
-                                    type="checkbox"
-                                    checked={showTokenUsage}
-                                    onChange={(e) => setShowTokenUsage(e.target.checked)}
-                                    className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                                  />
-                                  <span className="text-[9px] text-zinc-400 font-mono">Show token usage</span>
-                                </label>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
-
 {/* Glistener moved to inside textarea - see below */}
 
             {/* Footer Deck - Signal Tuning & Output Toggles */}
@@ -5478,6 +5235,249 @@ CRITICAL FORMATTING RULES:
             </motion.div>
             )}
             {/* End of Standard Mode conditional */}
+
+            {/* Adjust Persona Popover - Rendered outside container to prevent layout expansion */}
+            <AnimatePresence>
+              {advancedMode && showVoicePanel && (
+                <>
+                  {/* Backdrop to close panel when clicking outside */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowVoicePanel(false)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="fixed bottom-32 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                  >
+                    {/* Header */}
+                    <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
+                      <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
+                      {/* LED Indicator */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
+                    </div>
+
+                    {/* Sliders Stack */}
+                    <div className="space-y-4">
+                      {/* Humor */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Serious</span>
+                          <span className="text-violet-400">Humor</span>
+                          <span>Wild</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={humor}
+                          onChange={(e) => setHumor(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
+                        />
+                      </div>
+
+                      {/* Register */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Chaos</span>
+                          <span className="text-blue-400">Register</span>
+                          <span>Oracle</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={register}
+                          onChange={(e) => setRegister(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
+                        />
+                      </div>
+
+                      {/* Agency */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Witness</span>
+                          <span className="text-emerald-400">Agency</span>
+                          <span>Creator</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={creator}
+                          onChange={(e) => setCreator(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Footer Toggles (Roast/Direct) */}
+                    <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
+                      <button
+                        onClick={() => setRoastMode(!roastMode)}
+                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                      >
+                        Roast Mode
+                      </button>
+                      <button
+                        onClick={() => setDirectMode(!directMode)}
+                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                      >
+                        Direct Mode
+                      </button>
+                    </div>
+
+                    {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
+                    {showAdvancedVoice && (
+                      <div className="mt-4 pt-3 border-t border-white/5">
+                        <button
+                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
+                          data-help="advanced-voice"
+                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                        >
+                          <span className="text-[11px]">{showLandingFineTune ? '▾' : '▸'}</span>
+                          <span className="text-[11px] font-mono uppercase tracking-wider">Advanced</span>
+                        </button>
+
+                        {showLandingFineTune && (
+                          <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
+                            {/* Delivery Presets */}
+                            <div
+                              className="mb-3 pb-3 border-b border-zinc-700/50"
+                              data-help="delivery-preset"
+                              onClick={(e) => handleHelpClick('delivery-preset', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                                  const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                                  return (
+                                    <button
+                                      key={key}
+                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
+                                      className={`px-1.5 py-1 rounded text-[10px] transition-all ${
+                                        isActive
+                                          ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
+                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                      }`}
+                                      title={preset.preview || preset.name}
+                                    >
+                                      {preset.name}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Voice Preview */}
+                            <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
+                              <p className="text-zinc-400 text-[11px] italic leading-relaxed">
+                                "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                              </p>
+                            </div>
+
+                            {/* Complexity Selector */}
+                            <div
+                              className="mb-3"
+                              data-help="voice-complexity"
+                              onClick={(e) => handleHelpClick('voice-complexity', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
+                                  <button
+                                    key={key}
+                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
+                                    className={`px-1.5 py-1 rounded text-[10px] transition-all ${
+                                      stance.complexity === key
+                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                    }`}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Tone Selector */}
+                            <div
+                              className="mb-3"
+                              data-help="voice-tone"
+                              onClick={(e) => handleHelpClick('voice-tone', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
+                                  <button
+                                    key={key}
+                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
+                                    className={`px-1.5 py-1 rounded text-[10px] transition-all capitalize ${
+                                      stance.seriousness === key
+                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                    }`}
+                                  >
+                                    {key}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Stance Grid */}
+                            <div
+                              data-help="stance-selector"
+                              onClick={(e) => handleHelpClick('stance-selector', e)}
+                            >
+                              <StanceSelector
+                                stance={stance}
+                                setStance={setStance}
+                                showCustomize={true}
+                                setShowCustomize={() => {}}
+                                gridOnly={true}
+                                disabled={helpMode}
+                              />
+                            </div>
+
+                            {/* Model Selector + Token Display */}
+                            <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                              {getAvailableModels().length > 1 && (
+                                <div className="flex items-center justify-center gap-2 mb-1.5">
+                                  <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
+                                  <select
+                                    value={selectedModel}
+                                    onChange={(e) => setSelectedModel(e.target.value)}
+                                    className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                                  >
+                                    {getAvailableModels().map(m => (
+                                      <option key={m} value={m}>{getModelLabel(m)}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                              )}
+                              <label className="flex items-center justify-center gap-2 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={showTokenUsage}
+                                  onChange={(e) => setShowTokenUsage(e.target.checked)}
+                                  className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                                />
+                                <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
+                              </label>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
         </>
         )}
         {/* End of currentUser ternary */}
