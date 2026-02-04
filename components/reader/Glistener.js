@@ -25,7 +25,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 const STREAM_DURATION = 4500;     // Total ghost stream time (ms) - slower for effect
 const FRAGMENT_INTERVAL = 180;   // Time between fragment changes (ms)
 const TYPING_SPEED = 40;         // ms per character for final question
-const SLOWDOWN_START = 0.7;      // When stream starts slowing (70% through)
+const LINGER_DURATION = 2000;    // How long crystal hangs before transfer (ms)
+const FADE_DURATION = 800;       // Fade out duration (ms)
+const FADE_STEPS = 20;           // Number of fade animation steps
 
 export default function Glistener({
   onTransfer,
@@ -56,13 +58,13 @@ export default function Glistener({
     setPhase('loading');
     setError(null);
 
-    // Cycling loading messages to entertain during API call
+    // Cycling loading messages - technical/scientific framing
     const loadingMessages = [
-      '◇ Tuning into the field...',
-      '◇ Casting bones...',
-      '◇ Reading the scatter...',
-      '◇ Weaving the tale...',
-      '◇ Crystallizing the question...',
+      '◇ Calibrating field antenna...',
+      '◇ Generating constraint matrix...',
+      '◇ Sampling probability distribution...',
+      '◇ Synthesizing narrative structure...',
+      '◇ Extracting coherent query...',
     ];
     let msgIndex = 0;
 
@@ -104,12 +106,13 @@ export default function Glistener({
         // Pulsing opacity effect (0.6 to 0.9)
         const pulseOpacity = 0.75 + Math.sin(pulsePhase) * 0.15;
 
-        // Send full transmission to parent for display
+        // Send full transmission to parent for display with scroll progress
         onDisplayContent?.({
           type: 'streaming',
           text: fullContent,
           opacity: pulseOpacity,
           pulse: true,
+          scrollProgress: progress,  // 0 to 1, parent uses this to auto-scroll
         });
 
         // End stream, start typing
@@ -134,11 +137,31 @@ export default function Glistener({
 
             if (charIndex >= crystal.length) {
               clearInterval(typeInterval);
-              setPhase('complete');
-              // Transfer the question to the textarea
-              onTransfer?.(crystal);
-              onDisplayContent?.(null);
-              onStreamEnd?.();
+
+              // Linger phase - let the crystal hang for a moment
+              setTimeout(() => {
+                // Fade out gradually
+                let fadeStep = 0;
+                const fadeInterval = setInterval(() => {
+                  fadeStep++;
+                  const fadeOpacity = 1 - (fadeStep / FADE_STEPS);
+
+                  onDisplayContent?.({
+                    type: 'fading',
+                    text: crystal,
+                    opacity: fadeOpacity,
+                  });
+
+                  if (fadeStep >= FADE_STEPS) {
+                    clearInterval(fadeInterval);
+                    setPhase('complete');
+                    // Transfer the question to the textarea
+                    onTransfer?.(crystal);
+                    onDisplayContent?.(null);
+                    onStreamEnd?.();
+                  }
+                }, FADE_DURATION / FADE_STEPS);
+              }, LINGER_DURATION);
             }
           }, TYPING_SPEED);
         }
@@ -258,7 +281,7 @@ function ViewSourcePanel({ data, onReset, onClose }) {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-amber-400 font-medium">Transmission Receipt</h3>
+                <h3 className="text-amber-400 font-medium">Field Translation Log</h3>
                 <button
                   onClick={() => setShowReceipt(false)}
                   className="text-zinc-500 hover:text-zinc-300 transition-colors"
@@ -269,10 +292,10 @@ function ViewSourcePanel({ data, onReset, onClose }) {
                 </button>
               </div>
 
-              {/* The Bones */}
+              {/* Constraint Matrix */}
               <div className="mb-6">
                 <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  The Bones
+                  Constraint Matrix
                 </h4>
                 <div className="grid grid-cols-2 gap-2">
                   {data.bones.map((bone, i) => (
@@ -285,20 +308,20 @@ function ViewSourcePanel({ data, onReset, onClose }) {
                 </div>
               </div>
 
-              {/* The Tale */}
+              {/* Narrative Synthesis */}
               <div className="mb-6">
                 <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  The Tale
+                  Narrative Synthesis
                 </h4>
                 <p className="text-zinc-300 leading-relaxed text-sm">
                   {data.transmission}
                 </p>
               </div>
 
-              {/* The Crystal */}
+              {/* Extracted Query */}
               <div className="pt-4 border-t border-zinc-800">
                 <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  The Crystal
+                  Extracted Query
                 </h4>
                 <p className="text-amber-300 italic text-lg text-center">
                   "{data.crystal}"
