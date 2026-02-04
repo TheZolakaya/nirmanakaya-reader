@@ -5184,6 +5184,44 @@ CRITICAL FORMATTING RULES:
                     </svg>
                   </motion.button>
                 </div>
+                {/* Mode reminder label - below textarea when advancedMode */}
+                {advancedMode && (
+                  <div className="text-center mt-1.5">
+                    <span className="text-[0.65rem] font-mono tracking-wider text-zinc-600">
+                      {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                        <>
+                          <span className="text-violet-400/70">Reflect</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('reflect', REFLECT_SPREADS[reflectSpreadKey].count, reflectSpreadKey)}</span>
+                        </>
+                      ) : spreadType === 'discover' ? (
+                        <>
+                          <span className="text-blue-400/70">Discover</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{RANDOM_SPREADS[spreadKey]?.count || 1}</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('discover', RANDOM_SPREADS[spreadKey]?.count || 1, null)}</span>
+                        </>
+                      ) : spreadType === 'explore' ? (
+                        <>
+                          <span className="text-emerald-400/70">Explore</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('explore', 1, null)}</span>
+                        </>
+                      ) : spreadType === 'forge' ? (
+                        <>
+                          <span className="text-red-400/70">Forge</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('forge', 1, null)}</span>
+                        </>
+                      ) : null}
+                    </span>
+                  </div>
+                )}
               </div>
               </div>{/* END textarea-anchor */}
               </div>{/* END flex layout */}
