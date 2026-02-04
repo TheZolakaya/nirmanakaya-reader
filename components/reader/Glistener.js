@@ -439,8 +439,9 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
 
         <button
           onClick={() => setShowReceipt(true)}
-          className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1"
+          className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1 animate-border-rainbow rounded-full px-1"
           title="View source"
+          style={{ boxShadow: '0 0 8px rgba(251, 191, 36, 0.4)' }}
         >
           <span>📜</span>
         </button>
@@ -477,7 +478,7 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto"
+              className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full max-h-[85vh] overflow-y-auto mb-4"
               onClick={e => e.stopPropagation()}
             >
               {/* Header */}
@@ -519,13 +520,39 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
                 </p>
               </div>
 
-              {/* Extracted Query */}
+              {/* Extracted Query with Depth Navigation */}
               <div className="pt-4 border-t border-zinc-800">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  Extracted Query
-                </h4>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500">
+                    Extracted Query
+                  </h4>
+                  {/* Depth navigator inside modal */}
+                  <div className="flex items-center gap-1">
+                    {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
+                      <button
+                        onClick={goShallower}
+                        className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
+                        title="Simplify"
+                      >
+                        ←
+                      </button>
+                    )}
+                    <span className={`text-xs px-2 py-0.5 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
+                      {preloading ? '...' : DEPTH_LABELS[currentDepth]}
+                    </span>
+                    {depthIndex > 0 && !preloading && (
+                      <button
+                        onClick={goDeeper}
+                        className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
+                        title="Go deeper"
+                      >
+                        →
+                      </button>
+                    )}
+                  </div>
+                </div>
                 <p className="text-amber-300 italic text-lg text-center">
-                  "{data.crystal}"
+                  "{currentCrystal}"
                 </p>
               </div>
             </motion.div>

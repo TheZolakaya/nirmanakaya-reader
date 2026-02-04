@@ -4923,7 +4923,7 @@ CRITICAL FORMATTING RULES:
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
-                            className={`absolute inset-0 pt-5 px-4 pb-16 pr-12 ${
+                            className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
                               glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
