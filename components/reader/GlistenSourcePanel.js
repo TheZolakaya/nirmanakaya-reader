@@ -114,14 +114,14 @@ export default function GlistenSourcePanel({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
           onClick={onClose}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full max-h-[85vh] overflow-y-auto mb-4"
+            className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full my-auto"
             onClick={e => e.stopPropagation()}
           >
             {/* Header */}
@@ -178,27 +178,27 @@ export default function GlistenSourcePanel({
                   {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
                     <button
                       onClick={goShallower}
-                      className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
-                      title="Simplify"
+                      className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20"
+                      title="Simplify the question"
                     >
-                      ←
+                      ← Simplify
                     </button>
                   )}
-                  <span className={`text-xs px-2 py-0.5 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
+                  <span className={`text-xs px-2 py-1 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
                     {preloading ? '...' : DEPTH_LABELS[currentDepth]}
                   </span>
                   {depthIndex > 0 && !preloading && (
                     <button
                       onClick={goDeeper}
-                      className="w-6 h-6 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400 bg-zinc-800"
+                      className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-zinc-400 hover:text-zinc-200 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700"
                       title="Go deeper"
                     >
-                      →
+                      Deeper →
                     </button>
                   )}
                 </div>
               </div>
-              <p className="text-amber-300 italic text-lg text-center">
+              <p className="text-amber-300 italic text-lg text-center pb-2">
                 "{currentCrystal}"
               </p>
             </div>
