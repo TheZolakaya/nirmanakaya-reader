@@ -1,4 +1,4 @@
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 export const metadata = {
@@ -9,8 +9,8 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <>
-      {/* Global Header */}
-      <Header />
+      {/* Global Brand Header */}
+      <BrandHeader compact />
 
       <div className="prose prose-invert prose-zinc max-w-none">
       <h1 className="text-3xl font-light text-amber-400 mb-2">Terms of Service</h1>

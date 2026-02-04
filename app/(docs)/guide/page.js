@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 export const metadata = {
@@ -16,8 +16,8 @@ export default function GuidePage() {
 
   return (
     <>
-      {/* Global Header */}
-      <Header />
+      {/* Global Brand Header */}
+      <BrandHeader compact />
 
       <article className="prose-invert pt-4">
         <MarkdownRenderer content={content} />

@@ -11,7 +11,7 @@ import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, 
 import { VERSION } from '../../lib/version';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import { getCached, invalidateCache } from '../../lib/cache';
-import Header from '../../components/layout/Header';
+import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 import CommunityNav from '../../components/layout/CommunityNav';
 
@@ -556,8 +556,8 @@ export default function HubPage() {
           </div>
         )}
 
-        {/* Global Header */}
-        <Header />
+        {/* Global Brand Header */}
+        <BrandHeader compact />
 
         {/* Community Sub-nav */}
         <CommunityNav />

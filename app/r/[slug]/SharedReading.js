@@ -10,7 +10,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import SharedDepthCard from '../../../components/reader/SharedDepthCard';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 // Helper to safely get content from depth objects
@@ -156,7 +156,7 @@ export default function SharedReading({ reading, error }) {
   if (error || !reading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex flex-col">
-        <Header />
+        <BrandHeader compact />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="text-zinc-500 mb-4">{error || 'Reading not found'}</div>
@@ -178,7 +178,7 @@ export default function SharedReading({ reading, error }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
-      <Header />
+      <BrandHeader compact />
       {/* Text size slider */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />

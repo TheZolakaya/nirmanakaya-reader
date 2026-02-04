@@ -13,7 +13,7 @@ import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import InfoModal from '../../components/shared/InfoModal';
-import Header from '../../components/layout/Header';
+import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 
 // House-aligned border colors (semi-transparent for see-through cards)
@@ -493,7 +493,7 @@ export default function PulsePage() {
       className={`min-h-screen flex flex-col ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={theme}
     >
-      <Header />
+      <BrandHeader compact />
       {/* Background - Video or Image */}
       {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
         <video

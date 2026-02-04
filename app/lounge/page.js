@@ -30,7 +30,7 @@ import {
 import { VERSION } from '../../lib/version';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import { getCached, invalidateCache } from '../../lib/cache';
-import Header from '../../components/layout/Header';
+import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 import CommunityNav from '../../components/layout/CommunityNav';
 
@@ -903,8 +903,8 @@ export default function LoungePage() {
         </button>
       </div>
 
-      {/* Global Header */}
-      <Header />
+      {/* Global Brand Header */}
+      <BrandHeader compact />
 
       {/* Community Sub-nav */}
       <CommunityNav onlineCount={onlineUsers.length + 1} />

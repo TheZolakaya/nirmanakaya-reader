@@ -10,7 +10,7 @@ import { getReadings, getUser, deleteReading, setReadingPublic } from '../../lib
 import { getComponent } from '../../lib/corrections';
 import { STATUSES } from '../../lib/constants';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
-import Header from '../../components/layout/Header';
+import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 
 export default function JournalPage() {
@@ -120,7 +120,7 @@ export default function JournalPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
-      <Header />
+      <BrandHeader compact />
       {/* Text size slider - top right */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />

@@ -9,7 +9,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin, toggleReaction, getDiscussionReactions, getReplyReactions, REACTION_EMOJIS } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 const TOPIC_COLORS = {
@@ -261,7 +261,7 @@ export default function DiscussionPage({ params }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
-      <Header />
+      <BrandHeader compact />
       {/* Text size slider - top right */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />

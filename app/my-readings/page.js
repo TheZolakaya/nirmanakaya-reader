@@ -5,7 +5,7 @@ import { getUser, getSession } from '../../lib/supabase';
 import { getComponent } from '../../lib/corrections';
 import { STATUSES } from '../../lib/constants';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
-import Header from '../../components/layout/Header';
+import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 
 export default function MyReadingsPage() {
@@ -71,7 +71,7 @@ export default function MyReadingsPage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       {/* Global Header */}
-      <Header />
+      <BrandHeader compact />
 
       {/* Page Header */}
       <div className="max-w-3xl mx-auto px-4 py-6">

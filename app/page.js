@@ -4612,9 +4612,9 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-1">
-                {/* Mode tabs centered */}
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
+              <div className="flex justify-center mb-1 overflow-x-auto px-2">
+                {/* Mode tabs centered - scrollable on mobile */}
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5 flex-shrink-0">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
@@ -4686,8 +4686,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Control Icons - positioned at right, vertically centered in controls area */}
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 grid grid-cols-2 gap-1 z-10">
+              {/* Control Icons - positioned at right, vertically centered in controls area - hidden on mobile */}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:grid grid-cols-2 gap-1 z-10">
                 {/* Top row: Persona, Signal Tuning */}
                 <button
                   onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
@@ -4935,7 +4935,7 @@ CRITICAL FORMATTING RULES:
                   </button>
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
-                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
+                    <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
                       <textarea
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
@@ -5003,7 +5003,7 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   ) : (
-                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
+                    <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
                       <textarea
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
@@ -5095,7 +5095,7 @@ CRITICAL FORMATTING RULES:
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
                             className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
-                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
+                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-clip text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
                             }`}
@@ -5366,7 +5366,7 @@ CRITICAL FORMATTING RULES:
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="fixed bottom-56 left-1/2 -translate-x-1/2 bg-zinc-950/95 border border-white/10 rounded-xl p-3 shadow-2xl z-50 backdrop-blur-md min-w-[180px]"
+                    className="fixed bottom-20 sm:bottom-56 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 bg-zinc-950/95 border border-white/10 rounded-xl p-3 shadow-2xl z-50 backdrop-blur-md sm:min-w-[180px]"
                   >
                     <h4 className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 mb-2 pb-2 border-b border-white/5">Select Voice</h4>
                     {PERSONAS.map((p) => {
@@ -5406,7 +5406,7 @@ CRITICAL FORMATTING RULES:
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="fixed bottom-56 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                    className="fixed bottom-20 sm:bottom-56 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-4 sm:p-5 shadow-2xl z-50 backdrop-blur-md max-h-[70vh] overflow-y-auto"
                     onClick={() => setShowVoicePanel(false)}
                   >
                     {/* Header */}

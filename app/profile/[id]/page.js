@@ -16,7 +16,7 @@ import {
   isAdmin
 } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 export default function ProfilePage() {
@@ -202,7 +202,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Global Header */}
-      <Header />
+      <BrandHeader compact />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Profile Header */}

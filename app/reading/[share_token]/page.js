@@ -7,7 +7,7 @@ import { ARCHETYPES } from '../../../lib/archetypes';
 import { ensureParagraphBreaks } from '../../../lib/utils';
 import CardImage from '../../../components/reader/CardImage';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
-import Header from '../../../components/layout/Header';
+import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
 export default function SharedReadingPage() {
@@ -64,7 +64,7 @@ export default function SharedReadingPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
-      <Header />
+      <BrandHeader compact />
       <div className="flex-1 max-w-3xl mx-auto px-4 py-6 w-full">
         {/* Page Header */}
         <div className="flex items-center justify-between mb-6">
