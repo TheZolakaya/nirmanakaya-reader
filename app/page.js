@@ -4620,25 +4620,54 @@ CRITICAL FORMATTING RULES:
                   </button>
                 </div>
 
-                {/* Output Toggles - moved from footer */}
+                {/* Control Icons Row - all toggles as icons */}
                 <div className="flex items-center gap-1">
-                  {/* Depth toggle - icon with label */}
+                  {/* Persona toggle - emoji icon */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                    className={`p-1.5 rounded-md transition-colors flex items-center justify-center text-sm ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                  >
+                    {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                  </button>
+
+                  {/* Signal Tuning toggle - sliders icon */}
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                    data-help="fine-tune-voice"
+                    className={`p-1.5 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title="Signal Tuning"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="4" y1="21" x2="4" y2="14" />
+                      <line x1="4" y1="10" x2="4" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12" y2="3" />
+                      <line x1="20" y1="21" x2="20" y2="16" />
+                      <line x1="20" y1="12" x2="20" y2="3" />
+                      <line x1="1" y1="14" x2="7" y2="14" />
+                      <line x1="9" y1="8" x2="15" y2="8" />
+                      <line x1="17" y1="16" x2="23" y2="16" />
+                    </svg>
+                  </button>
+
+                  {/* Divider */}
+                  <div className="w-px h-4 bg-zinc-700/50 mx-0.5"></div>
+
+                  {/* Depth toggle - wave icon */}
                   <button
                     onClick={() => {
                       const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
                       setDefaultDepth(newDepth);
                       setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
                     }}
-                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex flex-col items-center gap-0.5"
+                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
                     title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
                   >
-                    {/* Depth icon - water layers */}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       {defaultDepth === 'shallow' ? (
-                        /* Shallow - single wave */
                         <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
                       ) : (
-                        /* Wade - double waves */
                         <>
                           <path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
                           <path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
@@ -4647,22 +4676,19 @@ CRITICAL FORMATTING RULES:
                     </svg>
                   </button>
 
-                  {/* Cards toggle - icon with state */}
+                  {/* Cards toggle - stack icon */}
                   <button
                     onClick={() => setDefaultExpanded(!defaultExpanded)}
-                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex flex-col items-center gap-0.5"
+                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
                     title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
                   >
-                    {/* Cards icon - stack open/closed */}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       {defaultExpanded ? (
-                        /* Open - expanded cards */
                         <>
                           <rect x="3" y="3" width="18" height="6" rx="1" />
                           <rect x="3" y="13" width="18" height="6" rx="1" />
                         </>
                       ) : (
-                        /* Closed - stacked cards */
                         <>
                           <rect x="4" y="4" width="16" height="5" rx="1" />
                           <rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" />
@@ -5045,55 +5071,42 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   )}
-                  {/* Compact persona selector - left of Initiate button, smaller and centered */}
-                  <div className="absolute bottom-[1.125rem] right-[11rem] z-20 flex items-center">
-                    <div className="relative">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                        className="w-7 h-7 rounded-md bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-xs hover:border-amber-500/50 hover:bg-zinc-700/50 transition-colors"
-                        title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                      >
-                        {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                      </button>
-                      {/* Compact persona flyout */}
-                      <AnimatePresence>
-                        {showCompactPersona && (
-                          <>
-                            {/* Backdrop to close */}
-                            <div
-                              className="fixed inset-0 z-20"
-                              onClick={() => setShowCompactPersona(false)}
-                            />
-                            <motion.div
-                              initial={{ opacity: 0, y: 5, scale: 0.95 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 5, scale: 0.95 }}
-                              transition={{ duration: 0.15 }}
-                              className="absolute bottom-10 left-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
-                            >
-                              {PERSONAS.map((p) => {
-                                const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
-                                return (
-                                  <button
-                                    key={p.key}
-                                    onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
-                                    className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
-                                      persona === p.key
-                                        ? 'bg-zinc-700 text-amber-400'
-                                        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
-                                    }`}
-                                  >
-                                    <span>{icons[p.key]}</span>
-                                    <span>{p.name}</span>
-                                  </button>
-                                );
-                              })}
-                            </motion.div>
-                          </>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
+                  {/* Persona flyout - appears above mode row when persona icon clicked */}
+                  <AnimatePresence>
+                    {showCompactPersona && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-20"
+                          onClick={() => setShowCompactPersona(false)}
+                        />
+                        <motion.div
+                          initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-2 right-4 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
+                        >
+                          {PERSONAS.map((p) => {
+                            const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                            return (
+                              <button
+                                key={p.key}
+                                onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
+                                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
+                                  persona === p.key
+                                    ? 'bg-zinc-700 text-amber-400'
+                                    : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                                }`}
+                              >
+                                <span>{icons[p.key]}</span>
+                                <span>{p.name}</span>
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      </>
+                    )}
+                  </AnimatePresence>
                   {/* Glisten trigger - inside textarea, bottom left */}
                   {!showGlistener && (
                     <button
@@ -5267,49 +5280,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-{/* Glistener moved to inside textarea - see below */}
-
-            {/* Footer Deck - Signal Tuning & Output Toggles */}
-            <motion.div
-              initial={false}
-              animate={{
-                opacity: advancedMode ? 1 : 0,
-                scaleX: advancedMode ? 1 : 0.95,
-                height: advancedMode ? 'auto' : 0,
-              }}
-              transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
-              style={{ overflow: 'hidden' }}
-              className="relative"
-            >
-            <div className="flex items-center justify-between mb-2 max-w-2xl mx-auto px-2">
-              {/* Zone 1 (Left): Empty for visual balance */}
-              <div className="w-24"></div>
-
-              {/* Zone 2 (Center): Signal Tuning Button */}
-              <button
-                onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                data-help="fine-tune-voice"
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'}`}
-                title="Signal Tuning"
-              >
-                {/* Sliders icon */}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="4" y1="21" x2="4" y2="14" />
-                  <line x1="4" y1="10" x2="4" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12" y2="3" />
-                  <line x1="20" y1="21" x2="20" y2="16" />
-                  <line x1="20" y1="12" x2="20" y2="3" />
-                  <line x1="1" y1="14" x2="7" y2="14" />
-                  <line x1="9" y1="8" x2="15" y2="8" />
-                  <line x1="17" y1="16" x2="23" y2="16" />
-                </svg>
-              </button>
-
-              {/* Zone 3 (Right): Empty - depth/cards moved to mode row */}
-              <div className="w-24"></div>
-            </div>
-            </motion.div>
+{/* Footer Deck removed - all controls moved to mode row */}
             </motion.div>
             )}
             {/* End of Standard Mode conditional */}
