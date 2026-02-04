@@ -306,6 +306,23 @@ body {
   animation: tagline-fade-4-hold 14s ease-in-out infinite;
 }
 
+/* Soul Search Engine shimmer - brightness sweep (direction randomized by JS) */
+@keyframes soul-shimmer {
+  0%, 90%, 100% {
+    color: rgb(161, 161, 170, 0.6); /* zinc-400/60 base */
+  }
+  94%, 96% {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.shimmer-letter {
+  display: inline-block;
+  animation: soul-shimmer 8s ease-in-out infinite;
+  /* animation-delay set via inline style for dynamic LTR/RTL direction */
+}
+
 /* Smooth expand/collapse for depth cards */
 .depth-content {
   transition: all 0.3s ease-out;

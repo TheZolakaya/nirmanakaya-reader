@@ -1212,12 +1212,23 @@ export default function NirmanakaReader() {
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
 
+  // Shimmer direction for "The Soul Search Engine" - randomly alternates
+  const [shimmerLTR, setShimmerLTR] = useState(false); // false = RTL, true = LTR
+
   // Derived: Show advanced controls when not First Contact AND advancedMode is true
   const showAdvancedControls = userLevel !== USER_LEVELS.FIRST_CONTACT && advancedMode;
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
   const prefsLoaded = useRef(false);
+
+  // Randomize shimmer direction every cycle (8s animation)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShimmerLTR(Math.random() > 0.5);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Watch for all cards loaded to trigger synthesis
   useEffect(() => {
@@ -4346,7 +4357,26 @@ CRITICAL FORMATTING RULES:
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
           <p className="font-mono text-zinc-400/60 text-xs sm:text-sm tracking-[0.2em] uppercase">
-            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'The Soul Search Engine'}
+            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : (
+              <>
+                {'The Soul Search Engine'.split('').map((char, i, arr) => {
+                  // RTL: last letter (21) shimmers first with most negative delay
+                  // LTR: first letter (0) shimmers first with most negative delay
+                  const delay = shimmerLTR
+                    ? -(i * 0.1 + 0.1)  // LTR: 0 = -0.1s, 21 = -2.2s
+                    : -((arr.length - 1 - i) * 0.1 + 0.1);  // RTL: 21 = -0.1s, 0 = -2.2s
+                  return (
+                    <span
+                      key={`${i}-${shimmerLTR}`}
+                      className="shimmer-letter"
+                      style={{ animationDelay: `${delay}s` }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </span>
+                  );
+                })}
+              </>
+            )}
           </p>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
@@ -4545,9 +4575,9 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
-              <div className="flex items-center justify-between mb-2 px-1">
-                {/* Left spacer for visual balance (matches 2x2 grid width) */}
-                <div className="w-[52px]"></div>
+              <div className="flex items-center justify-between mb-1 px-1">
+                {/* Left spacer for visual balance (matches 2x2 grid width: 2*36px + 4px gap = 76px) */}
+                <div className="w-[76px]"></div>
 
                 {/* Mode tabs centered */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
@@ -4621,13 +4651,13 @@ CRITICAL FORMATTING RULES:
                   </button>
                 </div>
 
-                {/* Control Icons - 2x2 grid */}
-                <div className="grid grid-cols-2 gap-0.5 relative">
+                {/* Control Icons - 2x2 grid, sized to match mode row height */}
+                <div className="grid grid-cols-2 gap-1 relative">
                   {/* Top row: Persona, Signal Tuning */}
                   {/* Persona toggle */}
                   <button
                     onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                    className={`w-6 h-6 rounded text-xs transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
                     title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
                   >
                     {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
@@ -4637,10 +4667,10 @@ CRITICAL FORMATTING RULES:
                   <button
                     onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
                     data-help="fine-tune-voice"
-                    className={`w-6 h-6 rounded transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
                     title="Signal Tuning"
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="4" y1="21" x2="4" y2="14" />
                       <line x1="4" y1="10" x2="4" y2="3" />
                       <line x1="12" y1="21" x2="12" y2="12" />
@@ -4663,10 +4693,10 @@ CRITICAL FORMATTING RULES:
                       setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
                       setTimeout(() => setControlTooltip(null), 1200);
                     }}
-                    className="w-6 h-6 rounded bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
                     title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       {defaultDepth === 'shallow' ? (
                         <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
                       ) : (
@@ -4686,10 +4716,10 @@ CRITICAL FORMATTING RULES:
                       setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
                       setTimeout(() => setControlTooltip(null), 1200);
                     }}
-                    className="w-6 h-6 rounded bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
                     title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       {defaultExpanded ? (
                         <>
                           <rect x="3" y="3" width="18" height="6" rx="1" />
@@ -4705,14 +4735,14 @@ CRITICAL FORMATTING RULES:
                     </svg>
                   </button>
 
-                  {/* Tooltip - positioned below grid */}
+                  {/* Tooltip - positioned to the left of grid */}
                   <AnimatePresence>
                     {controlTooltip && (
                       <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        className="absolute top-full mt-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
+                        initial={{ opacity: 0, x: 5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 5 }}
+                        className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
                       >
                         {controlTooltip.text}
                       </motion.div>
@@ -4724,14 +4754,14 @@ CRITICAL FORMATTING RULES:
               {/* Spread Selection - changes based on mode */}
               {/* min-h ensures consistent height across all modes to anchor textarea position */}
               {/* justify-start keeps number row at same position regardless of mode */}
-              <div className="flex flex-col items-center justify-start w-full max-w-lg mx-auto mb-2 relative min-h-[100px]">
+              <div className="flex flex-col items-center justify-start w-full max-w-lg mx-auto mb-1 relative min-h-[80px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
                 ) : spreadType === 'reflect' ? (
                   <>
                     {/* Position count selector for Reflect mode - with ripple animation */}
-                    <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
+                    <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
                         const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
@@ -4863,7 +4893,7 @@ CRITICAL FORMATTING RULES:
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
               {/* Question Input - THE ANCHOR POINT (no animation) */}
-              <div className="relative mb-2 mt-2">
+              <div className="relative mb-2 mt-1">
                 <div
                   className="relative max-w-2xl mx-auto"
                   data-help="question-input"
@@ -5092,7 +5122,7 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   )}
-                  {/* Persona flyout - appears above mode row when persona icon clicked */}
+                  {/* Persona flyout - appears below control icons when persona icon clicked */}
                   <AnimatePresence>
                     {showCompactPersona && (
                       <>
@@ -5101,11 +5131,11 @@ CRITICAL FORMATTING RULES:
                           onClick={() => setShowCompactPersona(false)}
                         />
                         <motion.div
-                          initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                          initial={{ opacity: 0, y: -5, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                          exit={{ opacity: 0, y: -5, scale: 0.95 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute top-2 right-4 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
+                          className="absolute -top-2 right-4 translate-y-[-100%] bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[140px]"
                         >
                           {PERSONAS.map((p) => {
                             const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
@@ -5113,7 +5143,7 @@ CRITICAL FORMATTING RULES:
                               <button
                                 key={p.key}
                                 onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
-                                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
+                                className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
                                   persona === p.key
                                     ? 'bg-zinc-700 text-amber-400'
                                     : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'

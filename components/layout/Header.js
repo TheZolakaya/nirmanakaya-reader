@@ -71,6 +71,9 @@ export default function Header({ hasActivity = false }) {
           Map
         </Link>
 
+        {/* Invisible spacer to balance the Community dot + gap (w-1.5 + gap-2.5 = ~w-4) */}
+        <div className="w-4 h-1.5 opacity-0 flex-shrink-0" aria-hidden="true" />
+
       </div>
     </nav>
   );
