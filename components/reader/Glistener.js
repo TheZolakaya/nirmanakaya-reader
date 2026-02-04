@@ -320,31 +320,39 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
     <>
       {/* Subtle inline controls - bottom left like idle state */}
       <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
-        {/* Depth navigator */}
+        {/* Depth navigator - ← = shallower, → = deeper */}
         <div className="flex items-center gap-1 mr-2">
-          <button
-            onClick={goDeeper}
-            disabled={depthIndex === 0 || simplifying}
-            className={`w-5 h-5 flex items-center justify-center rounded text-xs transition-colors ${
-              depthIndex === 0 ? 'text-zinc-700 cursor-not-allowed' : 'text-zinc-500 hover:text-amber-400'
-            }`}
-            title="Go deeper"
-          >
-            ←
-          </button>
-          <span className={`text-xs px-1.5 py-0.5 rounded ${simplifying ? 'text-amber-400 animate-pulse' : 'text-zinc-400'}`}>
-            {simplifying ? '...' : DEPTH_LABELS[currentDepth]}
+          {/* Left arrow = go shallower (hidden at shallowest) */}
+          {depthIndex < DEPTH_LEVELS.length - 1 && (
+            <button
+              onClick={goShallower}
+              disabled={simplifying}
+              className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
+              title="Simplify"
+            >
+              ←
+            </button>
+          )}
+          <span className={`text-xs px-1.5 py-0.5 rounded min-w-[50px] text-center ${simplifying ? 'text-amber-400' : 'text-zinc-400'}`}>
+            {simplifying ? (
+              <span className="inline-flex gap-0.5">
+                <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+                <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+                <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+              </span>
+            ) : DEPTH_LABELS[currentDepth]}
           </span>
-          <button
-            onClick={goShallower}
-            disabled={depthIndex === DEPTH_LEVELS.length - 1 || simplifying}
-            className={`w-5 h-5 flex items-center justify-center rounded text-xs transition-colors ${
-              depthIndex === DEPTH_LEVELS.length - 1 ? 'text-zinc-700 cursor-not-allowed' : 'text-zinc-500 hover:text-amber-400'
-            }`}
-            title="Simplify"
-          >
-            →
-          </button>
+          {/* Right arrow = go deeper (hidden at deepest) */}
+          {depthIndex > 0 && (
+            <button
+              onClick={goDeeper}
+              disabled={simplifying}
+              className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
+              title="Go deeper"
+            >
+              →
+            </button>
+          )}
         </div>
 
         <span className="text-zinc-700">|</span>

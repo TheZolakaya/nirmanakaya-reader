@@ -4900,7 +4900,6 @@ CRITICAL FORMATTING RULES:
                             }`}
                             style={{
                               ...(glistenerContent.pulse ? { textShadow: '0 0 20px rgba(251, 191, 36, 0.3)' } : {}),
-                              ...(glistenerContent.type === 'streaming' ? { maxHeight: '120px' } : {}),
                             }}
                           >
                             {glistenerContent.text}
