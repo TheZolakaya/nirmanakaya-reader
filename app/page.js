@@ -4790,7 +4790,7 @@ CRITICAL FORMATTING RULES:
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: 0.6 }}
                             className={`absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base leading-relaxed ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode ? getPlaceholder('explore', 1, null) : DEFAULT_PLACEHOLDER}
@@ -4820,7 +4820,7 @@ CRITICAL FORMATTING RULES:
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: 0.6 }}
                             className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode
