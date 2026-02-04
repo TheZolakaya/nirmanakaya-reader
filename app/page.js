@@ -5224,7 +5224,8 @@ CRITICAL FORMATTING RULES:
                 )}
               </div>
 
-              {/* Mobile Control Icons - below textarea, mobile only */}
+              {/* Mobile Control Icons - below textarea, mobile only, only when expanded */}
+              {advancedMode && (
               <div className="flex sm:hidden justify-center gap-2 mt-2">
                 {/* Persona */}
                 <button
@@ -5287,6 +5288,7 @@ CRITICAL FORMATTING RULES:
                   </svg>
                 </button>
               </div>
+              )}
 
               </div>{/* END textarea-anchor */}
               </div>{/* END flex layout */}
