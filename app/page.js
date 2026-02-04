@@ -4764,30 +4764,19 @@ CRITICAL FORMATTING RULES:
                   data-help="question-input"
                   onClick={(e) => handleHelpClick('question-input', e)}
                 >
-                  {/* Mode Trigger - inside textarea area, top right */}
-                  {/* No border, bg matches textarea, min-width for consistent size */}
+                  {/* Mode Trigger - disclosure triangle, upper right */}
                   <button
                     onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
-                    className="absolute top-4 right-4 group flex items-center justify-center gap-2 min-w-[120px] px-3 py-1.5 rounded-lg transition-all duration-300 bg-zinc-900 hover:bg-zinc-800 z-10"
+                    className="absolute top-3 right-3 p-2 rounded-md transition-all duration-300 hover:bg-zinc-800/50 z-10"
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
-                    <span className={`text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium transition-colors ${
-                      spreadType === 'reflect' ? 'text-violet-400 group-hover:text-violet-300' :
-                      spreadType === 'discover' ? 'text-blue-400 group-hover:text-blue-300' :
-                      spreadType === 'explore' ? 'text-emerald-400 group-hover:text-emerald-300' :
-                      spreadType === 'forge' ? 'text-red-400 group-hover:text-red-300' :
-                      'text-zinc-400 group-hover:text-zinc-300'
-                    }`}>
-                      {spreadType.charAt(0).toUpperCase() + spreadType.slice(1)}
-                    </span>
-                    {/* Triangle Icon - green when minimized, red when expanded */}
                     <motion.div
                       animate={{ rotate: advancedMode ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <svg className={`w-2.5 h-2.5 fill-current transition-colors ${
-                        advancedMode ? 'text-red-400' : 'text-emerald-400'
+                      <svg className={`w-3 h-3 fill-current transition-colors ${
+                        advancedMode ? 'text-red-400 hover:text-red-300' : 'text-emerald-400 hover:text-emerald-300'
                       }`} viewBox="0 0 10 6">
                         <path d="M5 6L0 0h10L5 6z" />
                       </svg>
