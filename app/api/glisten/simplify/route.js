@@ -9,26 +9,25 @@
 import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
 
 const DEPTH_PROMPTS = {
-  deep: `You are refining a question for clarity and coherence while preserving its depth.
-This question emerged from a creative process and may have unusual phrasing.
-Make it grammatically sensible and clear while keeping its philosophical depth and poetic quality.
-Do not simplify the meaning - only ensure it reads naturally as a profound question.
-If it's already clear, return it unchanged or with minimal polish.
+  deep: `Refine this question for clarity while preserving its philosophical depth and poetic quality.
+Keep metaphor and abstraction. Graduate-level language is fine.
+Target: 15-25 words. Evocative and profound.
+If already clear, return unchanged or with minimal polish.
 Output ONLY the refined question - no explanation, no quotes, just the question ending with ?`,
 
-  swim: `Reframe this philosophical question using clearer, more direct language.
-Keep the depth and meaning intact, but make it accessible without metaphor or heavy abstraction.
-The question should feel equally profound but easier to hold in mind.
-Output ONLY the reframed question - no explanation, no quotes, just the question ending with ?`,
+  swim: `Simplify this question to clear, direct language a smart high schooler would understand.
+Remove metaphor and abstraction. Keep the core meaning but make it concrete.
+Target: 12-18 words. Clear and thoughtful.
+Output ONLY the simplified question - no explanation, no quotes, just the question ending with ?`,
 
-  wade: `Extract the practical, lived-experience version of this question.
-What is this question really asking about daily life, relationships, or decisions?
-Ground the cosmic in the personal without losing the thread of inquiry.
+  wade: `Translate this into everyday language about real life, using words a 5th grader knows.
+What is this really asking about? Make it practical and personal.
+Target: 10-15 words. Simple and grounded.
 Output ONLY the grounded question - no explanation, no quotes, just the question ending with ?`,
 
-  shallow: `Find the essential question hiding inside this one.
-Strip away all framing and get to the raw, human question at its core.
-What would a child ask that points to the same thing? Maximum 10 words.
+  shallow: `Distill to the simplest possible question a curious child would ask.
+Use only basic words. Get to the raw human question underneath.
+MAXIMUM 10 words. Short and direct.
 Output ONLY the essential question - no explanation, no quotes, just the question ending with ?`
 };
 

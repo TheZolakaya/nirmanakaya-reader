@@ -4909,7 +4909,7 @@ CRITICAL FORMATTING RULES:
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
-                            className={`absolute inset-0 p-4 pb-12 pr-12 ${
+                            className={`absolute inset-0 p-4 pb-16 pr-12 ${
                               glistenerContent.type === 'streaming' ? 'text-amber-300/90 leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth text-[1.05rem] font-light tracking-wide animate-glisten-pulse' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
