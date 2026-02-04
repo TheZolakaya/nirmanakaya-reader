@@ -99,7 +99,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -581,6 +581,7 @@ export default function NirmanakaReader() {
   const [authChecked, setAuthChecked] = useState(false); // Track if auth check is complete
   const [savedReadingId, setSavedReadingId] = useState(null);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [communityActivity, setCommunityActivity] = useState(false); // For header indicator
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
   const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
@@ -810,6 +811,42 @@ export default function NirmanakaReader() {
       fetchFeatureFlags();
     }
   }, []);
+
+  // Track community activity for header indicator
+  useEffect(() => {
+    if (!currentUser) return;
+
+    let globalPresenceChannel = null;
+    let globalMessagesChannel = null;
+
+    async function initCommunityTracking() {
+      // Check for recent activity on mount
+      const { hasActivity } = await checkCommunityActivity(15); // Last 15 minutes
+      setCommunityActivity(hasActivity);
+
+      // Subscribe to global presence
+      globalPresenceChannel = subscribeToGlobalPresence((users) => {
+        // If anyone else is online, show activity
+        const othersOnline = users.filter(u => u.user_id !== currentUser.id).length > 0;
+        if (othersOnline) setCommunityActivity(true);
+      });
+
+      // Track our own presence
+      trackGlobalPresence(globalPresenceChannel, currentUser, currentUser.email?.split('@')[0]);
+
+      // Subscribe to new messages
+      globalMessagesChannel = subscribeToGlobalMessages(() => {
+        setCommunityActivity(true);
+      });
+    }
+
+    initCommunityTracking();
+
+    return () => {
+      globalPresenceChannel?.unsubscribe();
+      globalMessagesChannel?.unsubscribe();
+    };
+  }, [currentUser]);
 
   // Fetch user's reading count for Glistener gating
   useEffect(() => {
@@ -4335,7 +4372,7 @@ CRITICAL FORMATTING RULES:
         )}
 
         {/* Global Header Nav */}
-        {currentUser && <Header />}
+        {currentUser && <Header hasActivity={communityActivity} />}
 
         {/* Title - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
