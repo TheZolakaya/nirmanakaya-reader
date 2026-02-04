@@ -272,12 +272,12 @@ export default function Glistener({
   if (phase === 'idle') {
     return (
       <div className="absolute bottom-4 left-4 flex items-center gap-2 z-10">
-        <span className="text-amber-500/70">◇</span>
         <button
           onClick={startGlisten}
-          className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors"
+          className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-2"
         >
-          Begin
+          <span className="text-amber-500/70">◇</span>
+          <span>Begin</span>
         </button>
         {onClose && (
           <button
