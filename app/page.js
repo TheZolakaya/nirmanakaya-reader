@@ -4618,8 +4618,8 @@ CRITICAL FORMATTING RULES:
 
               {/* Spread Selection - changes based on mode */}
               {/* min-h ensures consistent height across all modes to anchor textarea position */}
-              {/* Reflect has 2 rows (~100px), Discover has 1 row (~40px), Explore/Forge have 0 */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative min-h-[100px]">
+              {/* justify-start keeps number row at same position regardless of mode */}
+              <div className="flex flex-col items-center justify-start w-full max-w-lg mx-auto mb-2 relative min-h-[100px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
