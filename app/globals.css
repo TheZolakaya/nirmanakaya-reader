@@ -197,23 +197,15 @@ body {
   animation: border-rainbow 0.8s ease-in-out;
 }
 
-/* Single flash for first selection (ramp up → ramp down → off) */
+/* Single flash for first selection (ramp up → ramp down → off) - 0.8s */
 @keyframes border-flash-mode {
   0% {
     border-color: rgba(63, 63, 70, 0.8);
     box-shadow: 0 0 0px transparent;
   }
-  25% {
-    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 15px var(--mode-glow-color, transparent);
-  }
-  50% {
+  40% {
     border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
     box-shadow: 0 0 30px var(--mode-glow-color, transparent);
-  }
-  75% {
-    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 15px var(--mode-glow-color, transparent);
   }
   100% {
     border-color: rgba(63, 63, 70, 0.8);
@@ -221,22 +213,22 @@ body {
   }
 }
 .animate-border-flash-mode {
-  animation: border-flash-mode 0.8s ease-in-out forwards !important;
+  animation: border-flash-mode 0.8s ease-out forwards !important;
 }
 
-/* Slow pulsing border using CSS custom property for mode color (continuous after confirmation) */
+/* Slow pulsing border - 4x slower than flash (3.2s) for text entry mode */
 @keyframes border-pulse-mode {
   0%, 100% {
-    border-color: var(--mode-border-color, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 8px var(--mode-glow-color, transparent);
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
   }
   50% {
     border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 20px var(--mode-glow-color, transparent);
+    box-shadow: 0 0 25px var(--mode-glow-color, transparent);
   }
 }
 .animate-border-pulse-mode {
-  animation: border-pulse-mode 2s ease-in-out infinite;
+  animation: border-pulse-mode 3.2s ease-in-out infinite;
 }
 
 /* Staggered fade in/out for cosmic taglines (3 lines) */
