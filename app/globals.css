@@ -200,20 +200,28 @@ body {
 /* Single flash for first selection (ramp up → ramp down → off) */
 @keyframes border-flash-mode {
   0% {
-    border-color: var(--mode-border-color, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 0px var(--mode-glow-color, transparent);
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
+  }
+  25% {
+    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 15px var(--mode-glow-color, transparent);
   }
   50% {
     border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 25px var(--mode-glow-color, transparent);
+    box-shadow: 0 0 30px var(--mode-glow-color, transparent);
+  }
+  75% {
+    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 15px var(--mode-glow-color, transparent);
   }
   100% {
-    border-color: var(--mode-border-color, rgba(63, 63, 70, 0.8));
-    box-shadow: 0 0 0px var(--mode-glow-color, transparent);
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
   }
 }
 .animate-border-flash-mode {
-  animation: border-flash-mode 0.6s ease-in-out forwards;
+  animation: border-flash-mode 0.8s ease-in-out forwards !important;
 }
 
 /* Slow pulsing border using CSS custom property for mode color (continuous after confirmation) */
