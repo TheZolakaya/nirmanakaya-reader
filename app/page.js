@@ -4842,11 +4842,14 @@ CRITICAL FORMATTING RULES:
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'}`}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''}`}
                         style={{
-                          borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
-                          boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
-                          transition: 'border-color 0.4s, box-shadow 0.4s'
+                          // Don't override border/shadow when rainbow animation is active
+                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming') ? {
+                            borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
+                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
+                            transition: 'border-color 0.4s, box-shadow 0.4s'
+                          } : {})
                         }}
                         rows={4}
                       />
@@ -4874,7 +4877,7 @@ CRITICAL FORMATTING RULES:
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-end pb-14 overflow-hidden"
+                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
                           >
                             {/* Scrolling message stack - starts at bottom, scrolls up */}
                             <div className="flex flex-col-reverse items-center w-full">
@@ -4922,10 +4925,10 @@ CRITICAL FORMATTING RULES:
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
-                            className={`absolute inset-0 p-4 pb-16 pr-12 ${
-                              glistenerContent.type === 'streaming' ? 'text-amber-300/90 leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth text-[1.05rem] font-light tracking-wide animate-glisten-pulse' :
-                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' :
-                              glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
+                            className={`absolute inset-0 pt-4 px-4 pb-14 pr-12 ${
+                              glistenerContent.type === 'streaming' ? 'text-amber-300/90 leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-pulse' :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
+                              glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
                             }`}
                             style={{
                               ...(glistenerContent.pulse ? { textShadow: '0 0 25px rgba(251, 191, 36, 0.4)' } : {}),

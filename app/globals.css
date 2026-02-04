@@ -146,6 +146,20 @@ body {
   animation: glisten-pulse 2s ease-in-out infinite;
 }
 
+/* Rainbow border animation for Glisten generation phase */
+@keyframes border-rainbow {
+  0%, 100% { border-color: rgba(251, 191, 36, 0.6); box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+  14% { border-color: rgba(167, 139, 250, 0.6); box-shadow: 0 0 15px rgba(167, 139, 250, 0.3); }
+  28% { border-color: rgba(129, 140, 248, 0.6); box-shadow: 0 0 15px rgba(129, 140, 248, 0.3); }
+  42% { border-color: rgba(96, 165, 250, 0.6); box-shadow: 0 0 15px rgba(96, 165, 250, 0.3); }
+  56% { border-color: rgba(45, 212, 191, 0.6); box-shadow: 0 0 15px rgba(45, 212, 191, 0.3); }
+  70% { border-color: rgba(74, 222, 128, 0.6); box-shadow: 0 0 15px rgba(74, 222, 128, 0.3); }
+  84% { border-color: rgba(250, 204, 21, 0.6); box-shadow: 0 0 15px rgba(250, 204, 21, 0.3); }
+}
+.animate-border-rainbow {
+  animation: border-rainbow 4s ease-in-out infinite;
+}
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }

@@ -102,12 +102,12 @@ export default function Glistener({
       '◇ Sharpening the asking edge',
       '◇ Polishing question facets',
       '◇ Precipitating final form',
-      // Esoteric & Poetic
-      '◇ Listening to the bones',
+      // Field Resonance & Patterns
+      '◇ Detecting field harmonics',
       '◇ Reading scattered patterns',
-      '◇ Interpreting cast shadows',
-      '◇ Decoding thrown stones',
-      '◇ Translating ancient whispers',
+      '◇ Parsing signal interference',
+      '◇ Decoding probability waves',
+      '◇ Translating liminal echoes',
     ];
 
     // Shuffle messages (Fisher-Yates)
@@ -125,10 +125,15 @@ export default function Glistener({
     onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase: 0 });
     onStreamStart?.();
 
+    // Continuous pulse animation - runs faster than message changes for smooth glow
+    const pulseInterval = setInterval(() => {
+      pulsePhase += 0.12; // Smooth continuous pulse
+      onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase });
+    }, 50); // 20fps pulse updates
+
     // Scroll messages up with crossfade - new message fades in as old fades out
     const msgInterval = setInterval(() => {
       msgIndex = (msgIndex + 1) % loadingMessages.length;
-      pulsePhase += 0.15; // For font weight pulsing
 
       // Build visible stack: current (entering), previous (exiting), older (fading out)
       visibleStack = [
@@ -146,6 +151,7 @@ export default function Glistener({
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });
       clearInterval(msgInterval);  // Stop cycling once we have response
+      clearInterval(pulseInterval);  // Stop pulse animation
       const result = await response.json();
 
       if (!result.success) {
@@ -235,6 +241,7 @@ export default function Glistener({
 
     } catch (err) {
       clearInterval(msgInterval);  // Stop cycling on error too
+      clearInterval(pulseInterval);  // Stop pulse on error
       setError('Failed to connect. Please try again.');
       setPhase('idle');
       onDisplayContent?.(null);
