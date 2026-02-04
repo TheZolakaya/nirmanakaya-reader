@@ -4532,13 +4532,13 @@ CRITICAL FORMATTING RULES:
 
               {/* Mode Toggle - with complexity-based disabled states */}
               <div className="flex justify-center mb-2">
-                <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
                     data-help="mode-reflect"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4551,7 +4551,7 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
                     data-help="mode-discover"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4572,7 +4572,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4593,7 +4593,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
