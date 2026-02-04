@@ -621,13 +621,15 @@ export default function NirmanakaReader() {
   // selectionConfirmed: boolean - true after second tap (ready to collapse)
   // placeholderFlash: boolean - flash animation on placeholder text
   // crystalFlash: boolean - border + text flash when glisten crystal transfers
-  // borderPulseActive: boolean - continuous slow pulse until expanded/mode change/initiate
+  // borderFlashActive: boolean - single gradiated flash on first selection (ramp up → ramp down → off)
+  // borderPulseActive: boolean - continuous slow pulse after confirmation (stays on until expanded/mode change/initiate)
   // initiateFlash: boolean - rainbow flash when Initiate is clicked
   const [rippleTarget, setRippleTarget] = useState(null);
   const [readyFlash, setReadyFlash] = useState(false);
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [placeholderFlash, setPlaceholderFlash] = useState(false);
   const [crystalFlash, setCrystalFlash] = useState(false);
+  const [borderFlashActive, setBorderFlashActive] = useState(false);
   const [borderPulseActive, setBorderPulseActive] = useState(false);
   const [initiateFlash, setInitiateFlash] = useState(false);
 
@@ -676,16 +678,17 @@ export default function NirmanakaReader() {
   // Helper function to handle final selection tap (first tap = preview, second tap = confirm)
   const handleFinalSelectionTap = (selectionKey, isNewSelection) => {
     if (isNewSelection) {
-      // First tap on NEW selection: flash border in mode color, update placeholder, stay open
+      // First tap on NEW selection: single gradiated flash (ramp up → ramp down → off)
       setReadyFlash(true);
       setTimeout(() => setReadyFlash(false), 200);
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
-      // Activate border pulse on final selection (mode color) - brief flash then stop
-      setBorderPulseActive(true);
-      setTimeout(() => setBorderPulseActive(false), 800);
+      // Single flash animation (not continuous pulse)
+      setBorderFlashActive(true);
+      setBorderPulseActive(false);
+      setTimeout(() => setBorderFlashActive(false), 600);
     } else {
-      // Second tap on SAME selection: COLLAPSE FIRST, then long flash
+      // Second tap on SAME selection: COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
       setSelectionConfirmed(true);
       // Now do the long flash after collapse
@@ -695,36 +698,38 @@ export default function NirmanakaReader() {
         setReadyFlash(false);
         setPlaceholderFlash(false);
       }, 800);
-      // Brief border pulse flash after collapse
+      // Start continuous slow pulse (stays on until expanded/mode change/initiate)
+      setBorderFlashActive(false);
       setBorderPulseActive(true);
-      setTimeout(() => setBorderPulseActive(false), 800);
     }
   };
 
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - COLLAPSE FIRST, then brief border flash
+      // User clicked textarea - COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
       setSelectionConfirmed(true);
-      // Brief placeholder flash and border pulse
+      // Brief placeholder flash
       setPlaceholderFlash(true);
       setTimeout(() => setPlaceholderFlash(false), 800);
-      // Brief border pulse flash then stop
+      // Start continuous slow pulse (stays on until expanded/mode change/initiate)
+      setBorderFlashActive(false);
       setBorderPulseActive(true);
-      setTimeout(() => setBorderPulseActive(false), 800);
     }
   };
 
-  // Turn off border pulse when expanding, changing mode, or on unmount
+  // Turn off border flash/pulse when expanding, changing mode, or on unmount
   useEffect(() => {
     if (advancedMode) {
+      setBorderFlashActive(false);
       setBorderPulseActive(false);
     }
   }, [advancedMode]);
 
   useEffect(() => {
-    // Mode changed - turn off pulse
+    // Mode changed - turn off flash and pulse
+    setBorderFlashActive(false);
     setBorderPulseActive(false);
   }, [spreadType]);
 
@@ -2229,7 +2234,8 @@ export default function NirmanakaReader() {
   };
 
   const performReading = async () => {
-    // Trigger rainbow flash on border and stop continuous pulse
+    // Trigger rainbow flash on border and stop any border animations
+    setBorderFlashActive(false);
     setBorderPulseActive(false);
     setInitiateFlash(true);
     setTimeout(() => setInitiateFlash(false), 800);
@@ -4794,13 +4800,13 @@ CRITICAL FORMATTING RULES:
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
-                          ...(!borderPulseActive && !initiateFlash ? {
+                          ...(!borderFlashActive && !borderPulseActive && !initiateFlash ? {
                             borderColor: 'rgba(63, 63, 70, 0.8)',
                             boxShadow: 'none',
                             transition: 'border-color 0.4s, box-shadow 0.4s'
@@ -4830,7 +4836,7 @@ CRITICAL FORMATTING RULES:
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
                           // CSS custom properties for pulse animation
@@ -4838,7 +4844,7 @@ CRITICAL FORMATTING RULES:
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
                           // Don't override border/shadow when animations are active
-                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderPulseActive && !initiateFlash) ? {
+                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderFlashActive && !borderPulseActive && !initiateFlash) ? {
                             borderColor: crystalFlash ? '#fbbf24' : 'rgba(63, 63, 70, 0.8)',
                             boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : 'none',
                             transition: 'border-color 0.4s, box-shadow 0.4s'
