@@ -4851,27 +4851,33 @@ CRITICAL FORMATTING RULES:
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex flex-col items-center justify-center overflow-visible"
+                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-end pb-14 overflow-hidden"
                           >
-                            {/* Scrolling message stack - newest at bottom, oldest fading at top */}
-                            <div className="flex flex-col items-center relative h-20 w-full">
+                            {/* Scrolling message stack - starts at bottom, scrolls up */}
+                            <div className="flex flex-col-reverse items-center w-full">
                               <AnimatePresence>
-                                {glistenerContent.messages?.map((msg, i) => (
+                                {glistenerContent.messages?.map((msg) => (
                                   <motion.div
-                                    key={msg.text + '-' + msg.position}
-                                    initial={{ opacity: 0, y: 30 }}
+                                    key={msg.text}
+                                    initial={{ opacity: 0, y: 40 }}
                                     animate={{
                                       opacity: msg.opacity,
-                                      y: -msg.position * 22,
+                                      y: -msg.position * 28,
+                                      scale: msg.position === 0 ? 1 : 0.95,
                                     }}
-                                    exit={{ opacity: 0, y: -50 }}
-                                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                                    className="text-amber-400 italic text-base sm:text-lg absolute whitespace-nowrap left-1/2 -translate-x-1/2"
+                                    exit={{ opacity: 0, y: -60 }}
+                                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                                    className="text-amber-400 italic text-base sm:text-lg absolute whitespace-nowrap"
                                     style={{
                                       fontWeight: msg.position === 0
-                                        ? Math.round(400 + Math.sin((glistenerContent.pulsePhase || 0) * 2) * 150)
+                                        ? Math.round(500 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 200)
                                         : 300,
-                                      textShadow: msg.position === 0 ? '0 0 12px rgba(251, 191, 36, 0.35)' : 'none',
+                                      textShadow: msg.position === 0
+                                        ? `0 0 ${15 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 8}px rgba(251, 191, 36, 0.5)`
+                                        : 'none',
+                                      opacity: msg.position === 0
+                                        ? 0.85 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 0.15
+                                        : msg.opacity,
                                     }}
                                   >
                                     {msg.text}
