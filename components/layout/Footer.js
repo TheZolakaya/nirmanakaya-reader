@@ -13,11 +13,11 @@ import { VERSION } from '../../lib/version';
 
 export default function Footer() {
   return (
-    <footer className="w-full py-4 mt-auto">
-      <div className="container mx-auto px-4 text-center space-y-2">
+    <footer className="w-full py-3">
+      <div className="container mx-auto px-4 text-center space-y-1.5">
 
         {/* 1. THE SYSTEM AXIOM (The Soul of the Machine) */}
-        <div className="space-y-1 select-none group cursor-default">
+        <div className="space-y-1.5 select-none group cursor-default">
           {/* Version & Name */}
           <h4 className="text-[11px] font-mono uppercase tracking-[0.3em] text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500">
             Nirmanakaya <span className="text-emerald-500/50 mx-2">::</span> v{VERSION}

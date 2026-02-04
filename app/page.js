@@ -4088,7 +4088,7 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div
-      className={`min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
+      className={`flex flex-col min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
       data-theme={theme}
       onClick={handleMainClick}
     >
@@ -4121,9 +4121,9 @@ CRITICAL FORMATTING RULES:
         />
       )}
 
-      {/* Main content overlay */}
-      <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container">
+      {/* Main content overlay - flex-1 fills available space, pushing footer to bottom */}
+      <div className="relative z-10 flex-1 flex flex-col" style={{ '--content-dim': contentDim / 100 }}>
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container flex-1">
         
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
@@ -7426,10 +7426,11 @@ CRITICAL FORMATTING RULES:
             </p>
           </div>
         )}
+      </div>{/* End max-w-4xl content container */}
 
-        {/* Global Footer */}
-        <Footer />
-      </div>
+      {/* Global Footer - outside content container, anchored to bottom */}
+      <Footer />
+      </div>{/* End z-10 flex wrapper */}
 
       {/* Info Modal */}
       <InfoModal
@@ -7484,7 +7485,6 @@ CRITICAL FORMATTING RULES:
       <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
         v{VERSION}
       </div>
-      </div> {/* Close z-10 wrapper */}
     </div>
   );
 }
