@@ -90,8 +90,14 @@ body {
   animation: rainbow-cycle 32s ease-in-out infinite;
 }
 
+/* Placeholder flash - slowed to 25% speed (2s instead of 0.5s) */
 .animate-rainbow-cycle-fast {
-  animation: rainbow-cycle 0.5s ease-in-out 1;
+  animation: rainbow-cycle 2s ease-in-out 1;
+}
+
+/* Crystal transfer text flash - slow rainbow cycle for landed question */
+.animate-crystal-text-flash {
+  animation: rainbow-cycle 2s ease-in-out 1;
 }
 
 .animate-rainbow-cycle-header {
@@ -114,6 +120,31 @@ body {
 .rainbow-letter-8 { animation-delay: -8s; }
 .rainbow-letter-9 { animation-delay: -9s; }
 .rainbow-letter-10 { animation-delay: -10s; }
+
+/* Fast rainbow cycle for Glisten active state */
+.glisten-active .rainbow-letter {
+  animation: rainbow-cycle 3s ease-in-out infinite;
+}
+.glisten-active .rainbow-letter-0 { animation-delay: 0s; }
+.glisten-active .rainbow-letter-1 { animation-delay: -0.2s; }
+.glisten-active .rainbow-letter-2 { animation-delay: -0.4s; }
+.glisten-active .rainbow-letter-3 { animation-delay: -0.6s; }
+.glisten-active .rainbow-letter-4 { animation-delay: -0.8s; }
+.glisten-active .rainbow-letter-5 { animation-delay: -1.0s; }
+.glisten-active .rainbow-letter-6 { animation-delay: -1.2s; }
+.glisten-active .rainbow-letter-7 { animation-delay: -1.4s; }
+.glisten-active .rainbow-letter-8 { animation-delay: -1.6s; }
+.glisten-active .rainbow-letter-9 { animation-delay: -1.8s; }
+.glisten-active .rainbow-letter-10 { animation-delay: -2.0s; }
+
+/* Glisten streaming content pulse - gentle breathing effect */
+@keyframes glisten-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.animate-glisten-pulse {
+  animation: glisten-pulse 2s ease-in-out infinite;
+}
 
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {

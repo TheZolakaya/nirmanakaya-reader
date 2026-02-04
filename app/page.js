@@ -615,10 +615,12 @@ export default function NirmanakaReader() {
   // readyFlash: boolean - textarea border flash when final selection made
   // selectionConfirmed: boolean - true after second tap (ready to collapse)
   // placeholderFlash: boolean - flash animation on placeholder text
+  // crystalFlash: boolean - border + text flash when glisten crystal transfers
   const [rippleTarget, setRippleTarget] = useState(null);
   const [readyFlash, setReadyFlash] = useState(false);
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [placeholderFlash, setPlaceholderFlash] = useState(false);
+  const [crystalFlash, setCrystalFlash] = useState(false);
 
   // Track previous selections for "tap again to confirm" logic
   const [lastFinalSelection, setLastFinalSelection] = useState(null);
@@ -1492,14 +1494,22 @@ export default function NirmanakaReader() {
   }, []);
 
   // Auto-scroll glistener streaming content
+  const prevStreamingType = useRef(null);
   useEffect(() => {
-    if (glistenerContent?.type === 'streaming' && glistenerContent?.scrollProgress !== undefined && glistenerScrollRef.current) {
+    if (glistenerContent?.type === 'streaming' && glistenerScrollRef.current) {
       const el = glistenerScrollRef.current;
-      const maxScroll = el.scrollHeight - el.clientHeight;
-      if (maxScroll > 0) {
-        el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+      // Reset to top when streaming starts (transition from loading)
+      if (prevStreamingType.current !== 'streaming') {
+        el.scrollTop = 0;
+      } else if (glistenerContent?.scrollProgress !== undefined) {
+        // Progressive scroll after initial reset
+        const maxScroll = el.scrollHeight - el.clientHeight;
+        if (maxScroll > 0) {
+          el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+        }
       }
     }
+    prevStreamingType.current = glistenerContent?.type || null;
   }, [glistenerContent]);
 
   useEffect(() => {
@@ -4268,7 +4278,7 @@ CRITICAL FORMATTING RULES:
           className="text-center mb-2 md:mb-3 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
+          <h1 className={`text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'glisten-active' : ''}`}>
             <span className="rainbow-letter rainbow-letter-0">N</span>
             <span className="rainbow-letter rainbow-letter-1">I</span>
             <span className="rainbow-letter rainbow-letter-2">R</span>
@@ -4819,10 +4829,10 @@ CRITICAL FORMATTING RULES:
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px]"
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'}`}
                         style={{
-                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
-                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
+                          borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
+                          boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
                           transition: 'border-color 0.4s, box-shadow 0.4s'
                         }}
                         rows={4}
@@ -4900,12 +4910,13 @@ CRITICAL FORMATTING RULES:
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
                             className={`absolute inset-0 p-4 pb-12 pr-12 ${
-                              glistenerContent.type === 'streaming' ? 'text-amber-300 italic leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth' :
+                              glistenerContent.type === 'streaming' ? 'text-amber-300/90 leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth text-[1.05rem] font-light tracking-wide animate-glisten-pulse' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
                             }`}
                             style={{
-                              ...(glistenerContent.pulse ? { textShadow: '0 0 20px rgba(251, 191, 36, 0.3)' } : {}),
+                              ...(glistenerContent.pulse ? { textShadow: '0 0 25px rgba(251, 191, 36, 0.4)' } : {}),
+                              ...(glistenerContent.type === 'streaming' ? { fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' } : {}),
                             }}
                           >
                             {glistenerContent.text}
@@ -4920,6 +4931,11 @@ CRITICAL FORMATTING RULES:
                             setQuestion(crystal);
                             // DON'T close - let receipt button show
                             setGlistenerContent(null);
+                            // Trigger border + text flash for non-empty crystals
+                            if (crystal) {
+                              setCrystalFlash(true);
+                              setTimeout(() => setCrystalFlash(false), 2000);
+                            }
                           }}
                           onClose={() => {
                             setShowGlistener(false);

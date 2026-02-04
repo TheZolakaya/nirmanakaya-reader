@@ -18,7 +18,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Timing constants
@@ -58,18 +58,64 @@ export default function Glistener({
     setPhase('loading');
     setError(null);
 
-    // Cycling loading messages - technical/scientific framing (no ellipsis)
-    const loadingMessages = [
+    // Extensive loading messages - shuffled to avoid repetition
+    const allMessages = [
+      // Field & Antenna
       '◇ Calibrating field antenna',
-      '◇ Generating constraint matrix',
-      '◇ Sampling probability distribution',
-      '◇ Synthesizing narrative structure',
       '◇ Tuning resonance frequency',
+      '◇ Aligning receiver aperture',
+      '◇ Scanning liminal bandwidth',
+      '◇ Establishing signal lock',
+      // Matrix & Structure
+      '◇ Generating constraint matrix',
+      '◇ Weaving probability lattice',
+      '◇ Constructing semantic scaffold',
+      '◇ Building symbolic framework',
+      '◇ Assembling meaning vectors',
+      // Sampling & Distribution
+      '◇ Sampling probability distribution',
+      '◇ Drawing from possibility space',
+      '◇ Collapsing potential states',
+      '◇ Harvesting random seeds',
+      '◇ Extracting signal from noise',
+      // Synthesis & Narrative
+      '◇ Synthesizing narrative structure',
+      '◇ Composing symbolic threads',
+      '◇ Fusing disparate fragments',
+      '◇ Distilling essence patterns',
+      '◇ Braiding meaning currents',
+      // Mapping & Topology
       '◇ Mapping semantic topology',
-      '◇ Crystallizing question form',
+      '◇ Charting conceptual terrain',
+      '◇ Tracing hidden contours',
+      '◇ Surveying inner landscape',
+      '◇ Plotting resonance coordinates',
+      // Depth & Meaning
       '◇ Plumbing the depths',
       '◇ Filtering meaning',
+      '◇ Sifting symbolic sediment',
+      '◇ Refining raw intuition',
+      '◇ Condensing vapor to crystal',
+      // Crystal & Question
+      '◇ Crystallizing question form',
+      '◇ Focusing inquiry lens',
+      '◇ Sharpening the asking edge',
+      '◇ Polishing question facets',
+      '◇ Precipitating final form',
+      // Esoteric & Poetic
+      '◇ Listening to the bones',
+      '◇ Reading scattered patterns',
+      '◇ Interpreting cast shadows',
+      '◇ Decoding thrown stones',
+      '◇ Translating ancient whispers',
     ];
+
+    // Shuffle messages (Fisher-Yates)
+    const loadingMessages = [...allMessages];
+    for (let i = loadingMessages.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [loadingMessages[i], loadingMessages[j]] = [loadingMessages[j], loadingMessages[i]];
+    }
 
     // Track visible messages as a scrolling stack
     let visibleStack = [{ text: loadingMessages[0], opacity: 1, position: 0 }];
@@ -267,12 +313,17 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
   const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
   const [crystals, setCrystals] = useState({ deep: data.crystal }); // Cache crystals at each depth
   const [preloading, setPreloading] = useState(true); // Pre-caching all depths
+  const hasPrecached = useRef(false); // Track if precaching has been done
 
   const currentDepth = DEPTH_LEVELS[depthIndex];
   const currentCrystal = crystals[currentDepth] || data.crystal;
 
   // Pre-cache all depth levels on mount (filter deep + generate swim/wade/shallow)
   useEffect(() => {
+    // Only run once per mount
+    if (hasPrecached.current) return;
+    hasPrecached.current = true;
+
     const precacheAllDepths = async () => {
       const rawCrystal = data.crystal;
       const newCrystals = { deep: rawCrystal };
@@ -322,7 +373,7 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
     };
 
     precacheAllDepths();
-  }, [data.crystal, onTransfer]);
+  }, [data.crystal]); // Removed onTransfer - use ref guard instead
 
   // Navigate to shallower - uses pre-cached crystals
   const goShallower = () => {
@@ -386,23 +437,27 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
         <button
           onClick={() => setShowReceipt(true)}
           className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1"
+          title="View source"
         >
           <span>📜</span>
         </button>
         <button
           onClick={onReset}
           className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          title="Generate new"
         >
           Again
         </button>
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
-          >
-            ✕
-          </button>
-        )}
+        <button
+          onClick={() => {
+            onTransfer?.('');  // Clear the question
+            onClose?.();       // Close glistener UI
+          }}
+          className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          title="Clear and close"
+        >
+          Clear
+        </button>
       </div>
 
       {/* Transmission Receipt Modal */}
