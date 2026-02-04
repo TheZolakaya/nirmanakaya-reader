@@ -4763,7 +4763,7 @@ CRITICAL FORMATTING RULES:
               </div>
 
               {/* Spread Selection - truly centered */}
-              <div className="w-full max-w-2xl mx-auto mb-1">
+              <div className="w-full max-w-2xl mx-auto mb-3">
                 {/* Center: Spread selection rows - FIXED HEIGHT, content at top to be directly under mode tabs */}
                 <div className="flex flex-col items-center justify-start h-[88px] sm:h-[72px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
