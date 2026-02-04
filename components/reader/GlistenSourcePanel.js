@@ -7,23 +7,14 @@
  *
  * Features:
  * - Bones/Constraint Matrix display
- * - Narrative Synthesis (transmission) with depth navigation
+ * - Narrative Synthesis with Mythic/Modern toggle (transmission/integration)
  * - Crystal display
  */
 
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Depth levels for story exploration
-const DEPTH_LEVELS = ['deep', 'swim', 'wade', 'shallow'];
-const DEPTH_LABELS = {
-  deep: 'Deep',
-  swim: 'Swim',
-  wade: 'Wade',
-  shallow: 'Shallow'
-};
 
 export default function GlistenSourcePanel({
   data,           // { bones, symbolism, transmission, integration, crystal }
@@ -31,79 +22,12 @@ export default function GlistenSourcePanel({
   onTransfer,     // Optional - transfer crystal to parent (for homepage use)
   isOpen = true   // Control visibility when used as standalone
 }) {
-  const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
-  const [stories, setStories] = useState({ deep: data?.transmission }); // Cache stories at each depth
-  const [preloading, setPreloading] = useState(true);
-  const hasPrecached = useRef(false);
-
-  const currentDepth = DEPTH_LEVELS[depthIndex];
-  const currentStory = stories[currentDepth] || data?.transmission;
-
-  // Pre-cache all depth levels on mount using SEQUENTIAL generation
-  useEffect(() => {
-    if (!data?.transmission) return;
-    if (hasPrecached.current) return;
-    hasPrecached.current = true;
-
-    const precacheAllDepths = async () => {
-      const rawTransmission = data.transmission;
-      const newStories = { deep: rawTransmission };
-
-      // Generate depths SEQUENTIALLY: deep → swim → wade → shallow
-      let currentTransmission = rawTransmission;
-
-      for (const targetDepth of ['swim', 'wade', 'shallow']) {
-        try {
-          const res = await fetch('/api/glisten/simplify-story', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              transmission: currentTransmission,
-              targetDepth
-            })
-          });
-          const result = await res.json();
-          if (result.success) {
-            newStories[targetDepth] = result.transmission;
-            currentTransmission = result.transmission;
-          } else {
-            newStories[targetDepth] = currentTransmission;
-          }
-        } catch (e) {
-          console.error(`Failed to generate ${targetDepth}:`, e);
-          newStories[targetDepth] = currentTransmission;
-        }
-      }
-
-      setStories(newStories);
-      setPreloading(false);
-    };
-
-    precacheAllDepths();
-  }, [data?.transmission]);
-
-  // Navigate to shallower
-  const goShallower = () => {
-    if (depthIndex >= DEPTH_LEVELS.length - 1) return;
-    if (preloading) return;
-
-    const nextDepth = DEPTH_LEVELS[depthIndex + 1];
-    if (stories[nextDepth]) {
-      setDepthIndex(depthIndex + 1);
-    }
-  };
-
-  // Navigate to deeper
-  const goDeeper = () => {
-    if (depthIndex <= 0) return;
-
-    const prevDepth = DEPTH_LEVELS[depthIndex - 1];
-    if (stories[prevDepth]) {
-      setDepthIndex(depthIndex - 1);
-    }
-  };
+  const [showModern, setShowModern] = useState(false); // false = mythic (transmission), true = modern (integration)
 
   if (!data) return null;
+
+  const currentStory = showModern ? data.integration : data.transmission;
+  const hasIntegration = data.integration && data.integration.trim().length > 0;
 
   return (
     <AnimatePresence>
@@ -153,37 +77,38 @@ export default function GlistenSourcePanel({
               </div>
             )}
 
-            {/* Narrative Synthesis with Depth Navigation */}
+            {/* Narrative Synthesis with Mythic/Modern toggle */}
             {data.transmission && (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-xs uppercase tracking-wider text-zinc-500">
                     Narrative Synthesis
                   </h4>
-                  {/* Depth navigator */}
-                  <div className="flex items-center gap-1">
-                    {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
+                  {/* Mythic/Modern toggle */}
+                  {hasIntegration && (
+                    <div className="flex items-center gap-1">
                       <button
-                        onClick={goShallower}
-                        className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20"
-                        title="Simplify the story"
+                        onClick={() => setShowModern(false)}
+                        className={`px-2 py-1 rounded text-xs transition-colors ${
+                          !showModern
+                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
+                        }`}
                       >
-                        ← Simplify
+                        Mythic
                       </button>
-                    )}
-                    <span className={`text-xs px-2 py-1 rounded min-w-[55px] text-center bg-zinc-800 ${preloading ? 'text-amber-400' : 'text-zinc-300'}`}>
-                      {preloading ? '...' : DEPTH_LABELS[currentDepth]}
-                    </span>
-                    {depthIndex > 0 && !preloading && (
                       <button
-                        onClick={goDeeper}
-                        className="px-2 py-1 flex items-center gap-1 rounded text-xs transition-colors text-zinc-400 hover:text-zinc-200 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700"
-                        title="Go deeper"
+                        onClick={() => setShowModern(true)}
+                        className={`px-2 py-1 rounded text-xs transition-colors ${
+                          showModern
+                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
+                        }`}
                       >
-                        Deeper →
+                        Modern
                       </button>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
                 <p className="text-zinc-300 leading-relaxed text-sm">
                   {currentStory}
