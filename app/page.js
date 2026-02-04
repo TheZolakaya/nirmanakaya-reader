@@ -4824,7 +4824,7 @@ CRITICAL FORMATTING RULES:
                       </AnimatePresence>
                     </div>
                   ) : (
-                    <div className="relative w-full" onClick={handleTextareaClick}>
+                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
                       <textarea
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
