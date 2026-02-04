@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import UnfoldPanel from '../components/ui/UnfoldPanel';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 // Import data and utilities from lib
 import {
@@ -4288,7 +4290,10 @@ CRITICAL FORMATTING RULES:
           </>
         )}
 
-        {/* Header - click to scroll to top (hidden on cosmic landing) */}
+        {/* Global Header Nav */}
+        {currentUser && <Header />}
+
+        {/* Title - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
         <div
           className="text-center mb-2 md:mb-3 mobile-header relative cursor-pointer"
@@ -4310,66 +4315,6 @@ CRITICAL FORMATTING RULES:
           <p className="font-mono text-zinc-400/60 text-xs sm:text-sm tracking-[0.2em] uppercase">
             {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'The Soul Search Engine'}
           </p>
-          {/* Nav Links - rainbow hover colors, wrap on mobile */}
-          {/* Opacity animation preserves layout space when hidden */}
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 1 : 0,
-              y: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 0 : -10,
-            }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
-            style={{
-              pointerEvents: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 'auto' : 'none',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <a
-              href="/hub"
-              onClick={(e) => handleHelpClick('nav-hub', e)}
-              data-help="nav-hub"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
-            >
-              Community
-            </a>
-            <a
-              href="/lounge"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Lounge
-              {loungeOnlineCount > 0 && (
-                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
-              )}
-            </a>
-            <a
-              href="/guide"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
-            >
-              Guide
-            </a>
-            <a
-              href="/about"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
-            >
-              About
-            </a>
-            <a
-              href="/council"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
-            >
-              Council
-            </a>
-            <a
-              href="/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
-            >
-              Map
-            </a>
-          </motion.div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
@@ -7420,58 +7365,8 @@ CRITICAL FORMATTING RULES:
           </div>
         )}
 
-        {/* Footer - sticky at bottom with dark background */}
-        <footer className="fixed bottom-0 left-0 right-0 bg-zinc-950/90 backdrop-blur-sm border-t border-zinc-800/50 pt-3 pb-2 z-40">
-          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-500 mb-2">
-            <a
-              href="/guide"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Guide
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/about"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              About
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/council"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Council
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Map
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/privacy"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Privacy
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/terms"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Terms
-            </a>
-          </div>
-          <p className="text-center text-zinc-300 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
-          <p className="text-center text-zinc-400 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
-        </footer>
-        {/* Spacer to prevent content from being hidden behind fixed footer */}
-        <div className="h-20"></div>
+        {/* Global Footer */}
+        <Footer />
       </div>
 
       {/* Info Modal */}

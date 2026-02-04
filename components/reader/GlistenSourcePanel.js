@@ -88,7 +88,7 @@ export default function GlistenSourcePanel({
                   {hasIntegration && (
                     <div className="flex items-center gap-1">
                       <button
-                        onClick={() => setShowModern(false)}
+                        onClick={() => setShowPlainEnglish(false)}
                         className={`px-2 py-1 rounded text-xs transition-colors ${
                           !showPlainEnglish
                             ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
@@ -98,7 +98,7 @@ export default function GlistenSourcePanel({
                         Mythic
                       </button>
                       <button
-                        onClick={() => setShowModern(true)}
+                        onClick={() => setShowPlainEnglish(true)}
                         className={`px-2 py-1 rounded text-xs transition-colors ${
                           showPlainEnglish
                             ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'

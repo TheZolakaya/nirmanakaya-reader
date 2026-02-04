@@ -16,6 +16,8 @@ import {
   isAdmin
 } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
+import Header from '../../../components/layout/Header';
+import Footer from '../../../components/layout/Footer';
 
 export default function ProfilePage() {
   const params = useParams();
@@ -199,27 +201,8 @@ export default function ProfilePage() {
         <TextSizeSlider />
       </div>
 
-      {/* Header */}
-      <header className="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-amber-400 hover:text-amber-300 text-sm flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Reader
-          </Link>
-          <div className="flex items-center gap-4">
-            {userIsAdmin && (
-              <Link href="/admin" className="text-amber-400 hover:text-amber-300 text-sm">
-                Admin
-              </Link>
-            )}
-            <Link href="/hub" className="text-zinc-400 hover:text-zinc-300 text-sm">
-              Hub
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Global Header */}
+      <Header />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Profile Header */}
@@ -512,6 +495,9 @@ export default function ProfilePage() {
           </div>
         )}
       </main>
+
+      {/* Global Footer */}
+      <Footer />
     </div>
   );
 }
