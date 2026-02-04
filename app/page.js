@@ -4494,8 +4494,7 @@ CRITICAL FORMATTING RULES:
             >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
-              {/* Fixed height container with flex-end keeps textarea anchored at bottom */}
-              <div className="flex flex-col justify-end" style={{ minHeight: '340px' }}>
+              <div className="flex flex-col">
 
               {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
