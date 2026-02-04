@@ -4776,7 +4776,11 @@ CRITICAL FORMATTING RULES:
                       transition={{ duration: 0.3 }}
                     >
                       <svg className={`w-3 h-3 fill-current transition-colors ${
-                        advancedMode ? 'text-red-400 hover:text-red-300' : 'text-emerald-400 hover:text-emerald-300'
+                        spreadType === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
+                        spreadType === 'discover' ? 'text-blue-400 hover:text-blue-300' :
+                        spreadType === 'explore' ? 'text-emerald-400 hover:text-emerald-300' :
+                        spreadType === 'forge' ? 'text-red-400 hover:text-red-300' :
+                        'text-zinc-400 hover:text-zinc-300'
                       }`} viewBox="0 0 10 6">
                         <path d="M5 6L0 0h10L5 6z" />
                       </svg>
