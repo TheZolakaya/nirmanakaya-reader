@@ -5253,7 +5253,7 @@ CRITICAL FORMATTING RULES:
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="fixed bottom-32 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                    className="fixed bottom-56 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
                   >
                     {/* Header */}
                     <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
