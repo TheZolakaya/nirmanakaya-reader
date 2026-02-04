@@ -7,7 +7,7 @@
  *
  * Features:
  * - Bones/Constraint Matrix display
- * - Narrative Synthesis with Mythic/Modern toggle (transmission/integration)
+ * - Narrative Synthesis with Mythic/Plain English toggle (transmission/integration)
  * - Crystal display
  */
 
@@ -22,11 +22,11 @@ export default function GlistenSourcePanel({
   onTransfer,     // Optional - transfer crystal to parent (for homepage use)
   isOpen = true   // Control visibility when used as standalone
 }) {
-  const [showModern, setShowModern] = useState(false); // false = mythic (transmission), true = modern (integration)
+  const [showPlainEnglish, setShowPlainEnglish] = useState(false); // false = mythic (transmission), true = plain english (integration)
 
   if (!data) return null;
 
-  const currentStory = showModern ? data.integration : data.transmission;
+  const currentStory = showPlainEnglish ? data.integration : data.transmission;
   const hasIntegration = data.integration && data.integration.trim().length > 0;
 
   return (
@@ -84,13 +84,13 @@ export default function GlistenSourcePanel({
                   <h4 className="text-xs uppercase tracking-wider text-zinc-500">
                     Narrative Synthesis
                   </h4>
-                  {/* Mythic/Modern toggle */}
+                  {/* Mythic/Plain English toggle */}
                   {hasIntegration && (
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => setShowModern(false)}
                         className={`px-2 py-1 rounded text-xs transition-colors ${
-                          !showModern
+                          !showPlainEnglish
                             ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                             : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
                         }`}
@@ -100,12 +100,12 @@ export default function GlistenSourcePanel({
                       <button
                         onClick={() => setShowModern(true)}
                         className={`px-2 py-1 rounded text-xs transition-colors ${
-                          showModern
+                          showPlainEnglish
                             ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                             : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
                         }`}
                       >
-                        Modern
+                        Plain English
                       </button>
                     </div>
                   )}
