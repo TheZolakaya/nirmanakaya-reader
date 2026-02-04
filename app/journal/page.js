@@ -10,6 +10,8 @@ import { getReadings, getUser, deleteReading, setReadingPublic } from '../../lib
 import { getComponent } from '../../lib/corrections';
 import { STATUSES } from '../../lib/constants';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import Header from '../../components/layout/Header';
+import Footer from '../../components/layout/Footer';
 
 export default function JournalPage() {
   const router = useRouter();
@@ -117,13 +119,14 @@ export default function JournalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
+      <Header />
       {/* Text size slider - top right */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />
       </div>
 
-      {/* Header */}
+      {/* Page Header */}
       <div className="border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -311,6 +314,7 @@ export default function JournalPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

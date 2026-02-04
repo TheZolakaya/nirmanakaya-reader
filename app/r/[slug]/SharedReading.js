@@ -10,6 +10,8 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import SharedDepthCard from '../../../components/reader/SharedDepthCard';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
+import Header from '../../../components/layout/Header';
+import Footer from '../../../components/layout/Footer';
 
 // Helper to safely get content from depth objects
 function getDepthContent(obj) {
@@ -153,16 +155,20 @@ const MODE_COLORS = {
 export default function SharedReading({ reading, error }) {
   if (error || !reading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-zinc-500 mb-4">{error || 'Reading not found'}</div>
-          <Link
-            href="/"
-            className="inline-block px-6 py-3 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
-          >
-            Create your own reading
-          </Link>
+      <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-zinc-500 mb-4">{error || 'Reading not found'}</div>
+            <Link
+              href="/"
+              className="inline-block px-6 py-3 rounded-lg bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
+            >
+              Create your own reading
+            </Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -171,13 +177,14 @@ export default function SharedReading({ reading, error }) {
   const modeColor = MODE_COLORS[reading.mode] || 'text-zinc-400';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
+      <Header />
       {/* Text size slider */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />
       </div>
 
-      {/* Header */}
+      {/* Page Header */}
       <div className="border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -316,12 +323,7 @@ export default function SharedReading({ reading, error }) {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="border-t border-zinc-800/50 py-4">
-        <div className="max-w-4xl mx-auto px-4 text-center text-xs text-zinc-600">
-          Nirmanakaya Reader — Consciousness Architecture
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

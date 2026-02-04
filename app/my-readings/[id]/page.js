@@ -9,6 +9,8 @@ import { ensureParagraphBreaks } from '../../../lib/utils';
 import CardImage from '../../../components/reader/CardImage';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import GlistenSourcePanel from '../../../components/reader/GlistenSourcePanel';
+import Header from '../../../components/layout/Header';
+import Footer from '../../../components/layout/Footer';
 
 export default function ReadingDetailPage() {
   const router = useRouter();
@@ -141,9 +143,10 @@ export default function ReadingDetailPage() {
   const cardCount = reading.draws?.length || 0;
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
-      <div className="max-w-3xl mx-auto px-4 py-6">
-        {/* Header */}
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+      <Header />
+      <div className="flex-1 max-w-3xl mx-auto px-4 py-6 w-full">
+        {/* Page Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <button onClick={() => router.push('/my-readings')} className="text-xs text-zinc-500 hover:text-zinc-300 mb-1">
@@ -283,6 +286,7 @@ export default function ReadingDetailPage() {
           isOpen={showGlisten}
         />
       )}
+      <Footer />
     </div>
   );
 }

@@ -20,9 +20,21 @@ export default function Header({ hasActivity = false }) {
   const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/map');
 
+  const isHome = pathname === '/';
+
   return (
     <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none">
-      <div className="flex items-center gap-8 md:gap-12 backdrop-blur-sm px-6 py-2 rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
+      <div className="flex items-center gap-6 md:gap-10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
+
+        {/* HOME - Nirmanakaya wordmark */}
+        <Link
+          href="/"
+          className={`text-[10px] font-mono uppercase tracking-[0.2em] transition-colors duration-300 ${
+            isHome ? 'text-amber-400' : 'text-zinc-500 hover:text-amber-400'
+          }`}
+        >
+          Nirmanakaya
+        </Link>
 
         {/* COMMUNITY - dot on right for centering */}
         <Link

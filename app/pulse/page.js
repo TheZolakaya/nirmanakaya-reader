@@ -13,6 +13,8 @@ import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import InfoModal from '../../components/shared/InfoModal';
+import Header from '../../components/layout/Header';
+import Footer from '../../components/layout/Footer';
 
 // House-aligned border colors (semi-transparent for see-through cards)
 const HOUSE_BORDERS = {
@@ -488,9 +490,10 @@ export default function PulsePage() {
 
   return (
     <div
-      className={`min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
+      className={`min-h-screen flex flex-col ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={theme}
     >
+      <Header />
       {/* Background - Video or Image */}
       {backgroundType === 'video' && videoBackgrounds[selectedVideo]?.src && (
         <video
@@ -891,6 +894,7 @@ export default function PulsePage() {
           setSelectedInfo={setSelectedInfo}
         />
       )}
+      <Footer />
     </div>
   );
 }
