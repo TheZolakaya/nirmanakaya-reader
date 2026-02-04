@@ -4544,7 +4544,11 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - with complexity-based disabled states */}
-              <div className="flex justify-center mb-2">
+              <div className="flex items-center justify-between mb-2 px-1">
+                {/* Left spacer for visual balance */}
+                <div className="w-[88px]"></div>
+
+                {/* Mode tabs centered */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
@@ -4613,6 +4617,59 @@ CRITICAL FORMATTING RULES:
                     }`}
                     style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
                     Forge
+                  </button>
+                </div>
+
+                {/* Output Toggles - moved from footer */}
+                <div className="flex items-center gap-1">
+                  {/* Depth toggle - icon with label */}
+                  <button
+                    onClick={() => {
+                      const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                      setDefaultDepth(newDepth);
+                      setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                    }}
+                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex flex-col items-center gap-0.5"
+                    title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                  >
+                    {/* Depth icon - water layers */}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      {defaultDepth === 'shallow' ? (
+                        /* Shallow - single wave */
+                        <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                      ) : (
+                        /* Wade - double waves */
+                        <>
+                          <path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                          <path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                        </>
+                      )}
+                    </svg>
+                  </button>
+
+                  {/* Cards toggle - icon with state */}
+                  <button
+                    onClick={() => setDefaultExpanded(!defaultExpanded)}
+                    className="p-1.5 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex flex-col items-center gap-0.5"
+                    title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                  >
+                    {/* Cards icon - stack open/closed */}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {defaultExpanded ? (
+                        /* Open - expanded cards */
+                        <>
+                          <rect x="3" y="3" width="18" height="6" rx="1" />
+                          <rect x="3" y="13" width="18" height="6" rx="1" />
+                        </>
+                      ) : (
+                        /* Closed - stacked cards */
+                        <>
+                          <rect x="4" y="4" width="16" height="5" rx="1" />
+                          <rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" />
+                          <rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" />
+                        </>
+                      )}
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -5249,32 +5306,8 @@ CRITICAL FORMATTING RULES:
                 </svg>
               </button>
 
-              {/* Zone 3 (Right): Output Toggles */}
-              <div className="flex items-center gap-2">
-                {/* Depth toggle */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                  }}
-                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
-                  title="Starting depth for card content"
-                >
-                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Depth</span>
-                  <span className="font-medium">{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
-                </button>
-
-                {/* Cards toggle */}
-                <button
-                  onClick={() => setDefaultExpanded(!defaultExpanded)}
-                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
-                  title="Cards start expanded or collapsed"
-                >
-                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Cards</span>
-                  <span className="font-medium">{defaultExpanded ? 'Open' : 'Closed'}</span>
-                </button>
-              </div>
+              {/* Zone 3 (Right): Empty - depth/cards moved to mode row */}
+              <div className="w-24"></div>
             </div>
             </motion.div>
             </motion.div>
