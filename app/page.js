@@ -5165,7 +5165,7 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-              {/* Signal Tuning Popover - Centered compact panel */}
+              {/* Adjust Persona Popover - Fixed position overlay */}
               <AnimatePresence>
                 {advancedMode && showVoicePanel && (
                   <>
@@ -5182,20 +5182,20 @@ CRITICAL FORMATTING RULES:
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute bottom-16 left-1/2 -translate-x-1/2 w-72 bg-zinc-950/95 border border-white/10 rounded-xl p-4 shadow-2xl z-50 backdrop-blur-md"
+                      className="fixed bottom-32 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
                     >
                       {/* Header */}
-                      <div className="flex justify-between items-center mb-3 border-b border-white/5 pb-2">
-                        <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">Signal Tuning</h3>
+                      <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
+                        <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
                         {/* LED Indicator */}
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
                       </div>
 
                       {/* Sliders Stack */}
-                      <div className="space-y-3">
+                      <div className="space-y-4">
                         {/* Humor */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
                             <span>Serious</span>
                             <span className="text-violet-400">Humor</span>
                             <span>Wild</span>
@@ -5206,13 +5206,13 @@ CRITICAL FORMATTING RULES:
                             max="10"
                             value={humor}
                             onChange={(e) => setHumor(parseInt(e.target.value))}
-                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
+                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
                           />
                         </div>
 
                         {/* Register */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
                             <span>Chaos</span>
                             <span className="text-blue-400">Register</span>
                             <span>Oracle</span>
@@ -5223,13 +5223,13 @@ CRITICAL FORMATTING RULES:
                             max="10"
                             value={register}
                             onChange={(e) => setRegister(parseInt(e.target.value))}
-                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
+                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
                           />
                         </div>
 
                         {/* Agency */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between text-[10px] uppercase font-mono text-zinc-400">
                             <span>Witness</span>
                             <span className="text-emerald-400">Agency</span>
                             <span>Creator</span>
@@ -5240,22 +5240,22 @@ CRITICAL FORMATTING RULES:
                             max="10"
                             value={creator}
                             onChange={(e) => setCreator(parseInt(e.target.value))}
-                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
+                            className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
                           />
                         </div>
                       </div>
 
                       {/* Footer Toggles (Roast/Direct) */}
-                      <div className="mt-4 pt-2 border-t border-white/5 flex justify-between">
+                      <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
                         <button
                           onClick={() => setRoastMode(!roastMode)}
-                          className={`text-[9px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                          className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
                           Roast Mode
                         </button>
                         <button
                           onClick={() => setDirectMode(!directMode)}
-                          className={`text-[9px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                          className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
                           Direct Mode
                         </button>
@@ -5263,14 +5263,14 @@ CRITICAL FORMATTING RULES:
 
                       {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
                       {showAdvancedVoice && (
-                        <div className="mt-3 pt-2 border-t border-white/5">
+                        <div className="mt-4 pt-3 border-t border-white/5">
                           <button
                             onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
                             data-help="advanced-voice"
                             className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
                           >
-                            <span className="text-[9px]">{showLandingFineTune ? '▾' : '▸'}</span>
-                            <span className="text-[9px] font-mono uppercase tracking-wider">Advanced</span>
+                            <span className="text-[10px]">{showLandingFineTune ? '▾' : '▸'}</span>
+                            <span className="text-[10px] font-mono uppercase tracking-wider">Advanced</span>
                           </button>
 
                           {showLandingFineTune && (
