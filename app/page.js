@@ -4605,7 +4605,8 @@ CRITICAL FORMATTING RULES:
               </div>
 
               {/* Spread Selection - changes based on mode */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
+              {/* min-h ensures consistent height across all modes to anchor textarea position */}
+              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative min-h-[92px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
