@@ -5146,43 +5146,70 @@ CRITICAL FORMATTING RULES:
                     </button>
                   )}
                   {/* Initiate button - inside textarea, bottom right */}
-                  <motion.button
-                    onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
-                    data-help="get-reading"
-                    disabled={loading}
-                    className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
-                      spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
-                      spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
-                      spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
-                      spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
-                      'border-zinc-700/50 hover:border-zinc-600'
-                    }`}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span
-                      className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium"
-                      style={{
-                        background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
-                        backgroundSize: '200% 100%',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        animation: 'gradient-shift 3s ease infinite',
+                  {/* Shows Cancel when Glistener is running, Initiate otherwise */}
+                  {['loading', 'streaming', 'typing'].includes(glistenerPhase) ? (
+                    <motion.button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowGlistener(false);
+                        setGlistenerContent(null);
+                        setGlistenData(null);
                       }}
+                      className="group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-blue-500/50 hover:border-blue-400 backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 z-10 animate-pulse"
+                      whileTap={{ scale: 0.95 }}
                     >
-                      {loading ? '...' : 'INITIATE'}
-                    </span>
-                    {/* Wireframe chevron - translates right on hover */}
-                    <svg
-                      className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
+                      <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium text-blue-400">
+                        CANCEL
+                      </span>
+                      <svg
+                        className="w-3.5 h-3.5 text-blue-400"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M2 2l8 8M10 2l-8 8" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
+                      data-help="get-reading"
+                      disabled={loading}
+                      className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
+                        spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
+                        spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
+                        spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
+                        spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                        'border-zinc-700/50 hover:border-zinc-600'
+                      }`}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </motion.button>
+                      <span
+                        className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium"
+                        style={{
+                          background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
+                          backgroundSize: '200% 100%',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          animation: 'gradient-shift 3s ease infinite',
+                        }}
+                      >
+                        {loading ? '...' : 'INITIATE'}
+                      </span>
+                      {/* Wireframe chevron - translates right on hover */}
+                      <svg
+                        className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </motion.button>
+                  )}
                 </div>
                 {/* Mode reminder label - below textarea when controls minimized */}
                 {!advancedMode && (
