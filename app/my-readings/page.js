@@ -5,6 +5,8 @@ import { getUser, getSession } from '../../lib/supabase';
 import { getComponent } from '../../lib/corrections';
 import { STATUSES } from '../../lib/constants';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import BrandHeader from '../../components/layout/BrandHeader';
+import Footer from '../../components/layout/Footer';
 
 export default function MyReadingsPage() {
   const router = useRouter();
@@ -68,7 +70,10 @@ export default function MyReadingsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
-      {/* Header */}
+      {/* Global Header */}
+      <BrandHeader compact />
+
+      {/* Page Header */}
       <div className="max-w-3xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -173,6 +178,9 @@ export default function MyReadingsPage() {
           </div>
         )}
       </div>
+
+      {/* Global Footer */}
+      <Footer />
     </div>
   );
 }

@@ -23,8 +23,35 @@ export default function GlistenSourcePanel({
   isOpen = true   // Control visibility when used as standalone
 }) {
   const [showPlainEnglish, setShowPlainEnglish] = useState(false); // false = mythic (transmission), true = plain english (integration)
+  const [copied, setCopied] = useState(false);
 
   if (!data) return null;
+
+  const handleShare = async () => {
+    const shareText = `${data.transmission}\n\n— "${data.crystal}"\n\nvia Nirmanakaya`;
+
+    // Try Web Share API first (mobile-friendly)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Glistened Tale',
+          text: shareText,
+        });
+        return;
+      } catch (e) {
+        // User cancelled or share failed, fall through to clipboard
+      }
+    }
+
+    // Fallback to clipboard
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (e) {
+      console.error('Failed to copy:', e);
+    }
+  };
 
   const currentStory = showPlainEnglish ? data.integration : data.transmission;
   const hasIntegration = data.integration && data.integration.trim().length > 0;
@@ -36,94 +63,116 @@ export default function GlistenSourcePanel({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={onClose}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-zinc-900 border border-zinc-700/50 rounded-lg p-6 max-w-lg w-full my-auto"
+            className="bg-zinc-900 border border-zinc-700/50 rounded-lg max-w-lg w-full max-h-[85vh] flex flex-col"
             onClick={e => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            {/* Header - fixed at top */}
+            <div className="flex items-center justify-between p-6 pb-4 border-b border-zinc-800 flex-shrink-0">
               <h3 className="text-amber-400 font-medium">Field Translation Log</h3>
-              <button
-                onClick={onClose}
-                className="text-zinc-500 hover:text-zinc-300 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-3">
+                {/* Share button */}
+                <button
+                  onClick={handleShare}
+                  className={`text-zinc-500 hover:text-amber-400 transition-colors ${copied ? 'text-emerald-400' : ''}`}
+                  title={copied ? 'Copied!' : 'Share'}
+                >
+                  {copied ? (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                  )}
+                </button>
+                {/* Close button */}
+                <button
+                  onClick={onClose}
+                  className="text-zinc-500 hover:text-zinc-300 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            {/* Constraint Matrix */}
-            {data.bones && data.bones.length > 0 && (
-              <div className="mb-6">
-                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                  Constraint Matrix
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {data.bones.map((bone, i) => (
-                    <div key={i} className="text-sm font-mono">
-                      <span className="text-zinc-500">{bone.constraint}</span>
-                      <span className="text-zinc-600 mx-2">→</span>
-                      <span className="text-amber-300">{bone.word}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Narrative Synthesis with Mythic/Modern toggle */}
-            {data.transmission && (
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-xs uppercase tracking-wider text-zinc-500">
-                    Narrative Synthesis
+            {/* Scrollable content */}
+            <div className="overflow-y-auto flex-1 p-6 pt-4 glisten-scroll">
+              {/* Constraint Matrix */}
+              {data.bones && data.bones.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                    Constraint Matrix
                   </h4>
-                  {/* Mythic/Plain English toggle */}
-                  {hasIntegration && (
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => setShowModern(false)}
-                        className={`px-2 py-1 rounded text-xs transition-colors ${
-                          !showPlainEnglish
-                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
-                        }`}
-                      >
-                        Mythic
-                      </button>
-                      <button
-                        onClick={() => setShowModern(true)}
-                        className={`px-2 py-1 rounded text-xs transition-colors ${
-                          showPlainEnglish
-                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
-                        }`}
-                      >
-                        Plain English
-                      </button>
-                    </div>
-                  )}
+                  <div className="grid grid-cols-2 gap-2">
+                    {data.bones.map((bone, i) => (
+                      <div key={i} className="text-sm font-mono">
+                        <span className="text-zinc-500">{bone.constraint}</span>
+                        <span className="text-zinc-600 mx-2">→</span>
+                        <span className="text-amber-300">{bone.word}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-zinc-300 leading-relaxed text-sm">
-                  {currentStory}
+              )}
+
+              {/* Narrative Synthesis with Mythic/Modern toggle */}
+              {data.transmission && (
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-xs uppercase tracking-wider text-zinc-500">
+                      Narrative Synthesis
+                    </h4>
+                    {/* Mythic/Plain English toggle */}
+                    {hasIntegration && (
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => setShowPlainEnglish(false)}
+                          className={`px-2 py-1 rounded text-xs transition-colors ${
+                            !showPlainEnglish
+                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                              : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
+                          }`}
+                        >
+                          Mythic
+                        </button>
+                        <button
+                          onClick={() => setShowPlainEnglish(true)}
+                          className={`px-2 py-1 rounded text-xs transition-colors ${
+                            showPlainEnglish
+                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                              : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700'
+                          }`}
+                        >
+                          Plain English
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-zinc-300 leading-relaxed text-sm">
+                    {currentStory}
+                  </p>
+                </div>
+              )}
+
+              {/* Extracted Query (always shows original crystal) */}
+              <div className="pt-4 border-t border-zinc-800">
+                <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+                  Extracted Query
+                </h4>
+                <p className="text-amber-300 italic text-lg text-center pb-2">
+                  "{data.crystal}"
                 </p>
               </div>
-            )}
-
-            {/* Extracted Query (always shows original crystal) */}
-            <div className="pt-4 border-t border-zinc-800">
-              <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-                Extracted Query
-              </h4>
-              <p className="text-amber-300 italic text-lg text-center pb-2">
-                "{data.crystal}"
-              </p>
             </div>
           </motion.div>
         </motion.div>

@@ -268,21 +268,21 @@ export default function Glistener({
   };
 
   // ========== RENDER: IDLE STATE (Subtle inline confirm) ==========
-  // Small confirmation in bottom-left, not a big centered panel
+  // Small confirmation in bottom-left, matching GLISTEN button style
   if (phase === 'idle') {
     return (
-      <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
-        <span className="text-amber-500/70 text-xs">◇</span>
+      <div className="absolute bottom-4 left-4 flex items-center gap-2 z-10">
         <button
           onClick={startGlisten}
-          className="text-amber-400 hover:text-amber-300 text-xs transition-colors"
+          className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-2"
         >
-          Begin
+          <span className="text-amber-500/70">◇</span>
+          <span>Begin</span>
         </button>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+            className="text-zinc-600 hover:text-zinc-400 text-sm transition-colors ml-1"
           >
             ✕
           </button>

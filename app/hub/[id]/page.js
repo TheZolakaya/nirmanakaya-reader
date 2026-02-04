@@ -9,6 +9,8 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin, toggleReaction, getDiscussionReactions, getReplyReactions, REACTION_EMOJIS } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
+import BrandHeader from '../../../components/layout/BrandHeader';
+import Footer from '../../../components/layout/Footer';
 
 const TOPIC_COLORS = {
   general: 'text-zinc-400',
@@ -258,13 +260,14 @@ export default function DiscussionPage({ params }) {
   const userIsAdmin = isAdmin(user);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
+      <BrandHeader compact />
       {/* Text size slider - top right */}
       <div className="fixed top-3 right-3 z-50">
         <TextSizeSlider />
       </div>
 
-      {/* Header */}
+      {/* Page Header */}
       <div className="border-b border-zinc-800/50 bg-zinc-900/30">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -419,6 +422,7 @@ export default function DiscussionPage({ params }) {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

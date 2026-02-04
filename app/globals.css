@@ -90,6 +90,21 @@ body {
   animation: rainbow-cycle 32s ease-in-out infinite;
 }
 
+/* Gradient text animation for Initiate button */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-slow {
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-gradient-fast {
+  animation: gradient-shift 2s ease infinite;
+}
+
 /* Placeholder flash - slowed to 25% speed (2s instead of 0.5s) */
 .animate-rainbow-cycle-fast {
   animation: rainbow-cycle 2s ease-in-out 1;
@@ -177,6 +192,45 @@ body {
   animation: border-rainbow 4s ease-in-out infinite;
 }
 
+/* Fast rainbow flash for Initiate button click */
+.animate-border-rainbow-fast {
+  animation: border-rainbow 0.8s ease-in-out;
+}
+
+/* Single flash for first selection (ramp up → ramp down → off) - 0.8s */
+@keyframes border-flash-mode {
+  0% {
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
+  }
+  40% {
+    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 30px var(--mode-glow-color, transparent);
+  }
+  100% {
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
+  }
+}
+.animate-border-flash-mode {
+  animation: border-flash-mode 0.8s ease-out forwards !important;
+}
+
+/* Slow pulsing border - 4x slower than flash (3.2s) for text entry mode */
+@keyframes border-pulse-mode {
+  0%, 100% {
+    border-color: rgba(63, 63, 70, 0.8);
+    box-shadow: 0 0 0px transparent;
+  }
+  50% {
+    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 25px var(--mode-glow-color, transparent);
+  }
+}
+.animate-border-pulse-mode {
+  animation: border-pulse-mode 3.2s ease-in-out infinite;
+}
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }
@@ -250,6 +304,28 @@ body {
 .animate-tagline-fade-4-hold {
   opacity: 0;
   animation: tagline-fade-4-hold 14s ease-in-out infinite;
+}
+
+/* Soul Search Engine shimmer - brightness sweep (direction randomized by JS) */
+@keyframes soul-shimmer {
+  0%, 90%, 100% {
+    color: rgb(161, 161, 170, 0.6); /* zinc-400/60 base */
+  }
+  94%, 96% {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.shimmer-letter {
+  display: inline-block;
+  animation: soul-shimmer 8s ease-in-out infinite;
+  /* animation-delay set via inline style for dynamic LTR/RTL direction */
+  /* Prevent text blur from GPU compositing during animation */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  will-change: color;
 }
 
 /* Smooth expand/collapse for depth cards */

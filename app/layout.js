@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <link rel="privacy-policy" href="https://www.nirmanakaya.com/privacy" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
       </head>
-      <body className="antialiased">
+      <body className="antialiased flex flex-col min-h-screen">
         {children}
       </body>
     </html>

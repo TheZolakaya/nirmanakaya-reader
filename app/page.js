@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import UnfoldPanel from '../components/ui/UnfoldPanel';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 // Import data and utilities from lib
 import {
@@ -97,7 +99,7 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount } from '../lib/supabase';
+import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -566,6 +568,7 @@ export default function NirmanakaReader() {
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
   const [defaultExpanded, setDefaultExpanded] = useState(false); // When true, nested sections start expanded
+  const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
@@ -578,6 +581,7 @@ export default function NirmanakaReader() {
   const [authChecked, setAuthChecked] = useState(false); // Track if auth check is complete
   const [savedReadingId, setSavedReadingId] = useState(null);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [communityActivity, setCommunityActivity] = useState(false); // For header indicator
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
   const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
@@ -619,11 +623,17 @@ export default function NirmanakaReader() {
   // selectionConfirmed: boolean - true after second tap (ready to collapse)
   // placeholderFlash: boolean - flash animation on placeholder text
   // crystalFlash: boolean - border + text flash when glisten crystal transfers
+  // borderFlashActive: boolean - single gradiated flash on first selection (ramp up → ramp down → off)
+  // borderPulseActive: boolean - continuous slow pulse after confirmation (stays on until expanded/mode change/initiate)
+  // initiateFlash: boolean - rainbow flash when Initiate is clicked
   const [rippleTarget, setRippleTarget] = useState(null);
   const [readyFlash, setReadyFlash] = useState(false);
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [placeholderFlash, setPlaceholderFlash] = useState(false);
   const [crystalFlash, setCrystalFlash] = useState(false);
+  const [borderFlashActive, setBorderFlashActive] = useState(false);
+  const [borderPulseActive, setBorderPulseActive] = useState(false);
+  const [initiateFlash, setInitiateFlash] = useState(false);
 
   // Track previous selections for "tap again to confirm" logic
   const [lastFinalSelection, setLastFinalSelection] = useState(null);
@@ -670,13 +680,17 @@ export default function NirmanakaReader() {
   // Helper function to handle final selection tap (first tap = preview, second tap = confirm)
   const handleFinalSelectionTap = (selectionKey, isNewSelection) => {
     if (isNewSelection) {
-      // First tap on NEW selection: flash, update placeholder, stay open
+      // First tap on NEW selection: single gradiated flash (ramp up → ramp down → off)
       setReadyFlash(true);
       setTimeout(() => setReadyFlash(false), 200);
       setLastFinalSelection(selectionKey);
       setSelectionConfirmed(false);
+      // Single flash animation (not continuous pulse)
+      setBorderFlashActive(true);
+      setBorderPulseActive(false);
+      setTimeout(() => setBorderFlashActive(false), 600);
     } else {
-      // Second tap on SAME selection: COLLAPSE FIRST, then long flash
+      // Second tap on SAME selection: COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
       setSelectionConfirmed(true);
       // Now do the long flash after collapse
@@ -686,24 +700,40 @@ export default function NirmanakaReader() {
         setReadyFlash(false);
         setPlaceholderFlash(false);
       }, 800);
+      // Start continuous slow pulse (stays on until expanded/mode change/initiate)
+      setBorderFlashActive(false);
+      setBorderPulseActive(true);
     }
   };
 
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - COLLAPSE FIRST, then long flash
+      // User clicked textarea - COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
       setSelectionConfirmed(true);
-      // Now do the long flash after collapse
-      setReadyFlash(true);
+      // Brief placeholder flash
       setPlaceholderFlash(true);
-      setTimeout(() => {
-        setReadyFlash(false);
-        setPlaceholderFlash(false);
-      }, 800);
+      setTimeout(() => setPlaceholderFlash(false), 800);
+      // Start continuous slow pulse (stays on until expanded/mode change/initiate)
+      setBorderFlashActive(false);
+      setBorderPulseActive(true);
     }
   };
+
+  // Turn off border flash/pulse when expanding, changing mode, or on unmount
+  useEffect(() => {
+    if (advancedMode) {
+      setBorderFlashActive(false);
+      setBorderPulseActive(false);
+    }
+  }, [advancedMode]);
+
+  useEffect(() => {
+    // Mode changed - turn off flash and pulse
+    setBorderFlashActive(false);
+    setBorderPulseActive(false);
+  }, [spreadType]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -781,6 +811,42 @@ export default function NirmanakaReader() {
       fetchFeatureFlags();
     }
   }, []);
+
+  // Track community activity for header indicator
+  useEffect(() => {
+    if (!currentUser) return;
+
+    let globalPresenceChannel = null;
+    let globalMessagesChannel = null;
+
+    async function initCommunityTracking() {
+      // Check for recent activity on mount
+      const { hasActivity } = await checkCommunityActivity(15); // Last 15 minutes
+      setCommunityActivity(hasActivity);
+
+      // Subscribe to global presence
+      globalPresenceChannel = subscribeToGlobalPresence((users) => {
+        // If anyone else is online, show activity
+        const othersOnline = users.filter(u => u.user_id !== currentUser.id).length > 0;
+        if (othersOnline) setCommunityActivity(true);
+      });
+
+      // Track our own presence
+      trackGlobalPresence(globalPresenceChannel, currentUser, currentUser.email?.split('@')[0]);
+
+      // Subscribe to new messages
+      globalMessagesChannel = subscribeToGlobalMessages(() => {
+        setCommunityActivity(true);
+      });
+    }
+
+    initCommunityTracking();
+
+    return () => {
+      globalPresenceChannel?.unsubscribe();
+      globalMessagesChannel?.unsubscribe();
+    };
+  }, [currentUser]);
 
   // Fetch user's reading count for Glistener gating
   useEffect(() => {
@@ -1183,12 +1249,23 @@ export default function NirmanakaReader() {
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
 
+  // Shimmer direction for "The Soul Search Engine" - randomly alternates
+  const [shimmerLTR, setShimmerLTR] = useState(false); // false = RTL, true = LTR
+
   // Derived: Show advanced controls when not First Contact AND advancedMode is true
   const showAdvancedControls = userLevel !== USER_LEVELS.FIRST_CONTACT && advancedMode;
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
   const prefsLoaded = useRef(false);
+
+  // Randomize shimmer direction every cycle (8s animation)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShimmerLTR(Math.random() > 0.5);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Watch for all cards loaded to trigger synthesis
   useEffect(() => {
@@ -2206,6 +2283,12 @@ export default function NirmanakaReader() {
   };
 
   const performReading = async () => {
+    // Trigger rainbow flash on border and stop any border animations
+    setBorderFlashActive(false);
+    setBorderPulseActive(false);
+    setInitiateFlash(true);
+    setTimeout(() => setInitiateFlash(false), 800);
+
     // DTP (Explore) mode uses dtpInput instead of question
     const isExplore = spreadType === 'explore';
 
@@ -4054,7 +4137,7 @@ CRITICAL FORMATTING RULES:
 
   return (
     <div
-      className={`min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
+      className={`flex flex-col min-h-screen ${theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'} ${helpMode ? 'cursor-help' : ''}`}
       data-theme={theme}
       onClick={handleMainClick}
     >
@@ -4087,9 +4170,9 @@ CRITICAL FORMATTING RULES:
         />
       )}
 
-      {/* Main content overlay */}
-      <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
+      {/* Main content overlay - flex-1 fills available space, pushing footer to bottom */}
+      <div className="relative z-10 flex-1 flex flex-col w-full" style={{ '--content-dim': contentDim / 100 }}>
+      <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container flex-1">
         
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
@@ -4288,7 +4371,10 @@ CRITICAL FORMATTING RULES:
           </>
         )}
 
-        {/* Header - click to scroll to top (hidden on cosmic landing) */}
+        {/* Global Header Nav */}
+        {currentUser && <Header hasActivity={communityActivity} />}
+
+        {/* Title - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
         <div
           className="text-center mb-2 md:mb-3 mobile-header relative cursor-pointer"
@@ -4308,68 +4394,27 @@ CRITICAL FORMATTING RULES:
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
           <p className="font-mono text-zinc-400/60 text-xs sm:text-sm tracking-[0.2em] uppercase">
-            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'The Soul Search Engine'}
+            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : (
+              <>
+                {'The Soul Search Engine'.split('').map((char, i, arr) => {
+                  // RTL: last letter (21) shimmers first with most negative delay
+                  // LTR: first letter (0) shimmers first with most negative delay
+                  const delay = shimmerLTR
+                    ? -(i * 0.1 + 0.1)  // LTR: 0 = -0.1s, 21 = -2.2s
+                    : -((arr.length - 1 - i) * 0.1 + 0.1);  // RTL: 21 = -0.1s, 0 = -2.2s
+                  return (
+                    <span
+                      key={`${i}-${shimmerLTR}`}
+                      className="shimmer-letter"
+                      style={{ animationDelay: `${delay}s` }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </span>
+                  );
+                })}
+              </>
+            )}
           </p>
-          {/* Nav Links - rainbow hover colors, wrap on mobile */}
-          {/* Opacity animation preserves layout space when hidden */}
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 1 : 0,
-              y: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 0 : -10,
-            }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
-            style={{
-              pointerEvents: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 'auto' : 'none',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <a
-              href="/hub"
-              onClick={(e) => handleHelpClick('nav-hub', e)}
-              data-help="nav-hub"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-rose-400 hover:border-rose-500/50 transition-all"
-            >
-              Community
-            </a>
-            <a
-              href="/lounge"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-amber-400 hover:border-amber-500/50 transition-all flex items-center gap-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Lounge
-              {loungeOnlineCount > 0 && (
-                <span className="text-emerald-400/70 text-[0.65rem]">({loungeOnlineCount})</span>
-              )}
-            </a>
-            <a
-              href="/guide"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
-            >
-              Guide
-            </a>
-            <a
-              href="/about"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
-            >
-              About
-            </a>
-            <a
-              href="/council"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
-            >
-              Council
-            </a>
-            <a
-              href="/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-fuchsia-400 hover:border-fuchsia-500/50 transition-all"
-            >
-              Map
-            </a>
-          </motion.div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
@@ -4523,18 +4568,18 @@ CRITICAL FORMATTING RULES:
             >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
+              {/* Simple column layout - no minHeight changes to keep textarea rock solid */}
               <div className="flex flex-col">
 
-              {/* CONTROLS GROUP - collapses to 0 height */}
+              {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
-                className="controls-above overflow-hidden"
+                className={`controls-above overflow-hidden relative ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
                   height: advancedMode ? 'auto' : 0,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
-                  // Sync with marginTop compensation animation
                   height: { duration: 0.3, ease: 'easeInOut' },
                   opacity: { duration: 0.2 }
                 }}
@@ -4566,15 +4611,16 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
 
-              {/* Mode Toggle - with complexity-based disabled states */}
-              <div className="flex justify-center mb-2">
-                <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
+              {/* Mode Toggle - centered, own row */}
+              <div className="flex justify-center mb-1 px-2">
+                {/* Mode tabs centered - compact on mobile */}
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
                     data-help="mode-reflect"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4587,7 +4633,7 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
                     data-help="mode-discover"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4608,7 +4654,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4629,7 +4675,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
-                    className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4640,15 +4686,93 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Spread Selection - changes based on mode */}
-              <div className="flex flex-col items-center justify-center w-full max-w-lg mx-auto mb-2 relative">
+              {/* Control Icons - positioned at right, desktop only */}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:grid grid-cols-2 gap-1 z-10">
+                {/* Top row: Persona, Signal Tuning */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-md text-xs sm:text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                >
+                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                </button>
+                <button
+                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                  data-help="fine-tune-voice"
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title="Signal Tuning"
+                >
+                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                  </svg>
+                </button>
+                {/* Bottom row: Depth, Cards */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                >
+                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    {defaultDepth === 'shallow' ? (
+                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                    ) : (
+                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
+                    )}
+                  </svg>
+                </button>
+                <button
+                  onClick={() => {
+                    const newState = !defaultExpanded;
+                    setDefaultExpanded(newState);
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                >
+                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {defaultExpanded ? (
+                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
+                    ) : (
+                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
+                    )}
+                  </svg>
+                </button>
+                {/* Tooltip */}
+                <AnimatePresence>
+                  {controlTooltip && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 5 }}
+                      className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
+                    >
+                      {controlTooltip.text}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Spread Selection - truly centered */}
+              <div className="w-full max-w-2xl mx-auto mb-3">
+                {/* Center: Spread selection rows - FIXED HEIGHT, content at top to be directly under mode tabs */}
+                <div className="flex flex-col items-center justify-start h-[88px] sm:h-[72px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
                 ) : spreadType === 'reflect' ? (
                   <>
                     {/* Position count selector for Reflect mode - with ripple animation */}
-                    <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
+                    <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
                         const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
@@ -4774,53 +4898,59 @@ CRITICAL FORMATTING RULES:
                     })}
                   </div>
                 )}
+                </div>
               </div>
               </motion.div>{/* END controls-above */}
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
               {/* Question Input - THE ANCHOR POINT (no animation) */}
-              <div className="relative mb-2 mt-2">
+              <div className="relative mb-2 mt-1">
                 <div
                   className="relative max-w-2xl mx-auto"
                   data-help="question-input"
                   onClick={(e) => handleHelpClick('question-input', e)}
                 >
-                  {/* Gear toggle button - inside textarea area */}
-                  <motion.button
+                  {/* Mode Trigger - disclosure triangle, upper right */}
+                  <button
                     onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
-                    className={`absolute top-2 right-2 w-8 h-8 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="absolute top-3 right-3 p-2 rounded-md transition-all duration-300 hover:bg-zinc-800/50 z-10"
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
-                    <motion.svg
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      animate={{ rotate: advancedMode ? 90 : 0 }}
+                    <motion.div
+                      animate={{ rotate: advancedMode ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                    </motion.svg>
-                  </motion.button>
+                      <svg className={`w-3 h-3 fill-current transition-colors ${
+                        spreadType === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
+                        spreadType === 'discover' ? 'text-blue-400 hover:text-blue-300' :
+                        spreadType === 'explore' ? 'text-emerald-400 hover:text-emerald-300' :
+                        spreadType === 'forge' ? 'text-red-400 hover:text-red-300' :
+                        'text-zinc-400 hover:text-zinc-300'
+                      }`} viewBox="0 0 10 6">
+                        <path d="M5 6L0 0h10L5 6z" />
+                      </svg>
+                    </motion.div>
+                  </button>
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
-                    <div className="relative w-full" onClick={handleTextareaClick}>
+                    <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
                       <textarea
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
-                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.4s, box-shadow 0.4s'
+                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          ...(!borderFlashActive && !borderPulseActive && !initiateFlash ? {
+                            borderColor: 'rgba(63, 63, 70, 0.8)',
+                            boxShadow: 'none',
+                            transition: 'border-color 0.4s, box-shadow 0.4s'
+                          } : {})
                         }}
                         rows={4}
                       />
@@ -4839,20 +4969,56 @@ CRITICAL FORMATTING RULES:
                           </motion.div>
                         )}
                       </AnimatePresence>
+                      {/* Glistener component - renders inside textarea for idle/complete states */}
+                      {showGlistener && (
+                        <Glistener
+                          onTransfer={(crystal) => {
+                            setDtpInput(crystal); // Use dtpInput for Explore mode
+                            setGlistenerContent(null);
+                            if (crystal) {
+                              setCrystalFlash(true);
+                              setTimeout(() => setCrystalFlash(false), 2000);
+                            }
+                          }}
+                          onClose={() => {
+                            setShowGlistener(false);
+                            setGlistenerContent(null);
+                            setGlistenData(null);
+                          }}
+                          onDisplayContent={setGlistenerContent}
+                          onPhaseChange={setGlistenerPhase}
+                          onGlistenComplete={setGlistenData}
+                        />
+                      )}
+                      {/* Glisten trigger - inside textarea, bottom left */}
+                      {!showGlistener && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
+                          className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
+                          title="Let a question find its shape"
+                        >
+                          <span className="text-amber-500/70">◇</span>
+                          <span>Glisten</span>
+                        </button>
+                      )}
                     </div>
                   ) : (
-                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
+                    <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
                       <textarea
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''}`}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          // Don't override border/shadow when rainbow animation is active
-                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming') ? {
-                            borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
-                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
+                          // CSS custom properties for pulse animation
+                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          // Don't override border/shadow when animations are active
+                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderFlashActive && !borderPulseActive && !initiateFlash) ? {
+                            borderColor: crystalFlash ? '#fbbf24' : 'rgba(63, 63, 70, 0.8)',
+                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : 'none',
                             transition: 'border-color 0.4s, box-shadow 0.4s'
                           } : {})
                         }}
@@ -4929,7 +5095,7 @@ CRITICAL FORMATTING RULES:
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
                             className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
-                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
+                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-clip text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
                             }`}
@@ -4968,86 +5134,189 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   )}
-                  {/* Compact persona selector - above Go button */}
-                  <div className="absolute bottom-12 right-3 z-20">
-                    <div className="relative">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                        className="w-7 h-7 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:text-amber-400 transition-colors"
-                        title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                      >
-                        {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                      </button>
-                      {/* Compact persona flyout */}
-                      <AnimatePresence>
-                        {showCompactPersona && (
-                          <>
-                            {/* Backdrop to close */}
-                            <div
-                              className="fixed inset-0 z-20"
-                              onClick={() => setShowCompactPersona(false)}
-                            />
-                            <motion.div
-                              initial={{ opacity: 0, y: 5, scale: 0.95 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 5, scale: 0.95 }}
-                              transition={{ duration: 0.15 }}
-                              className="absolute bottom-8 right-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
-                            >
-                              {PERSONAS.map((p) => {
-                                const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
-                                return (
-                                  <button
-                                    key={p.key}
-                                    onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
-                                    className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
-                                      persona === p.key
-                                        ? 'bg-zinc-700 text-amber-400'
-                                        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
-                                    }`}
-                                  >
-                                    <span>{icons[p.key]}</span>
-                                    <span>{p.name}</span>
-                                  </button>
-                                );
-                              })}
-                            </motion.div>
-                          </>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
                   {/* Glisten trigger - inside textarea, bottom left */}
                   {!showGlistener && (
                     <button
                       onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
-                      className="absolute bottom-3 left-3 text-xs text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 z-10"
+                      className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
                       title="Let a question find its shape"
                     >
                       <span className="text-amber-500/70">◇</span>
                       <span>Glisten</span>
                     </button>
                   )}
-                  {/* Go button - inside textarea, bottom right - rainbow "Go" text */}
-                  <motion.button
-                    onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
-                    data-help="get-reading"
-                    disabled={loading}
-                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
-                    style={{
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: MODE_COLORS[spreadType]?.primary || 'rgba(113, 113, 122, 0.5)',
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="relative z-10 animate-rainbow-cycle-slow font-semibold">
-                      {loading ? '...' : 'Go'}
-                    </span>
-                  </motion.button>
+                  {/* Initiate button - inside textarea, bottom right */}
+                  {/* Shows Cancel when Glistener is running, Initiate otherwise */}
+                  {['loading', 'streaming', 'typing'].includes(glistenerPhase) ? (
+                    <motion.button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowGlistener(false);
+                        setGlistenerContent(null);
+                        setGlistenData(null);
+                      }}
+                      className="group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-blue-500/50 hover:border-blue-400 backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 z-10 animate-pulse"
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium text-blue-400">
+                        CANCEL
+                      </span>
+                      <svg
+                        className="w-3.5 h-3.5 text-blue-400"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M2 2l8 8M10 2l-8 8" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
+                      data-help="get-reading"
+                      disabled={loading}
+                      className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
+                        spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
+                        spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
+                        spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
+                        spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                        'border-zinc-700/50 hover:border-zinc-600'
+                      }`}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span
+                        className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium"
+                        style={{
+                          background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
+                          backgroundSize: '200% 100%',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          animation: 'gradient-shift 3s ease infinite',
+                        }}
+                      >
+                        {loading ? '...' : 'INITIATE'}
+                      </span>
+                      {/* Wireframe chevron - translates right on hover */}
+                      <svg
+                        className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </motion.button>
+                  )}
                 </div>
+                {/* Mode reminder label - below textarea when controls minimized */}
+                {!advancedMode && (
+                  <div className="text-center leading-none mt-2 px-4">
+                    <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
+                      {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                        <>
+                          <span className="text-violet-400/70">Reflect</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('reflect', REFLECT_SPREADS[reflectSpreadKey].count, reflectSpreadKey)}</span>
+                        </>
+                      ) : spreadType === 'discover' ? (
+                        <>
+                          <span className="text-blue-400/70">Discover</span>
+                          <span className="text-zinc-700 mx-1">:</span>
+                          <span className="text-zinc-500">{RANDOM_SPREADS[spreadKey]?.count || 1}</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('discover', RANDOM_SPREADS[spreadKey]?.count || 1, null)}</span>
+                        </>
+                      ) : spreadType === 'explore' ? (
+                        <>
+                          <span className="text-emerald-400/70">Explore</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('explore', 1, null)}</span>
+                        </>
+                      ) : spreadType === 'forge' ? (
+                        <>
+                          <span className="text-red-400/70">Forge</span>
+                          <span className="text-zinc-700 mx-1.5">—</span>
+                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('forge', 1, null)}</span>
+                        </>
+                      ) : null}
+                    </span>
+                  </div>
+                )}
               </div>
+
+              {/* Mobile Control Icons - below textarea, mobile only, only when expanded */}
+              {advancedMode && (
+              <div className="flex sm:hidden justify-center gap-2 mt-2">
+                {/* Persona */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                  className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                >
+                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                </button>
+                {/* Signal Tuning */}
+                <button
+                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                  className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title="Signal Tuning"
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                  </svg>
+                </button>
+                {/* Depth */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    {defaultDepth === 'shallow' ? (
+                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                    ) : (
+                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
+                    )}
+                  </svg>
+                </button>
+                {/* Cards */}
+                <button
+                  onClick={() => {
+                    const newState = !defaultExpanded;
+                    setDefaultExpanded(newState);
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {defaultExpanded ? (
+                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
+                    ) : (
+                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
+                    )}
+                  </svg>
+                </button>
+              </div>
+              )}
+
               </div>{/* END textarea-anchor */}
               </div>{/* END flex layout */}
 
@@ -5170,80 +5439,53 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-{/* Glistener moved to inside textarea - see below */}
-
-            {/* Footer Deck - Signal Tuning & Output Toggles */}
-            <motion.div
-              initial={false}
-              animate={{
-                opacity: advancedMode ? 1 : 0,
-                scaleX: advancedMode ? 1 : 0.95,
-                height: advancedMode ? 'auto' : 0,
-              }}
-              transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
-              style={{ overflow: 'hidden' }}
-              className="relative"
-            >
-            <div className="flex items-center justify-between mb-2 max-w-2xl mx-auto px-2">
-              {/* Zone 1 (Left): Empty for visual balance */}
-              <div className="w-24"></div>
-
-              {/* Zone 2 (Center): Signal Tuning Button */}
-              <button
-                onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                data-help="fine-tune-voice"
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'}`}
-                title="Signal Tuning"
-              >
-                {/* Sliders icon */}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="4" y1="21" x2="4" y2="14" />
-                  <line x1="4" y1="10" x2="4" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12" y2="3" />
-                  <line x1="20" y1="21" x2="20" y2="16" />
-                  <line x1="20" y1="12" x2="20" y2="3" />
-                  <line x1="1" y1="14" x2="7" y2="14" />
-                  <line x1="9" y1="8" x2="15" y2="8" />
-                  <line x1="17" y1="16" x2="23" y2="16" />
-                </svg>
-              </button>
-
-              {/* Zone 3 (Right): Output Toggles */}
-              <div className="flex items-center gap-2">
-                {/* Depth toggle */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                  }}
-                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
-                  title="Starting depth for card content"
-                >
-                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Depth</span>
-                  <span className="font-medium">{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
-                </button>
-
-                {/* Cards toggle */}
-                <button
-                  onClick={() => setDefaultExpanded(!defaultExpanded)}
-                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
-                  title="Cards start expanded or collapsed"
-                >
-                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Cards</span>
-                  <span className="font-medium">{defaultExpanded ? 'Open' : 'Closed'}</span>
-                </button>
-              </div>
-            </div>
-            </motion.div>
+{/* Footer Deck removed - all controls moved to mode row */}
             </motion.div>
             )}
             {/* End of Standard Mode conditional */}
 
+            {/* Persona Dropdown Flyout - Fixed position outside overflow-hidden */}
+            <AnimatePresence>
+              {showCompactPersona && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowCompactPersona(false)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="fixed bottom-20 sm:bottom-56 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 bg-zinc-950/95 border border-white/10 rounded-xl p-3 shadow-2xl z-50 backdrop-blur-md sm:min-w-[180px]"
+                  >
+                    <h4 className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 mb-2 pb-2 border-b border-white/5">Select Voice</h4>
+                    {PERSONAS.map((p) => {
+                      const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                      return (
+                        <button
+                          key={p.key}
+                          onClick={() => { setPersona(p.key); setShowCompactPersona(false); }}
+                          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                            persona === p.key ? 'bg-amber-500/20 text-amber-400' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                          }`}
+                        >
+                          <span className="text-lg">{icons[p.key]}</span>
+                          <span>{p.name}</span>
+                        </button>
+                      );
+                    })}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+
             {/* Adjust Persona Popover - Rendered outside container to prevent layout expansion */}
             <AnimatePresence>
-              {advancedMode && showVoicePanel && (
+              {showVoicePanel && (
                 <>
                   {/* Backdrop to close panel when clicking outside */}
                   <motion.div
@@ -5258,13 +5500,18 @@ CRITICAL FORMATTING RULES:
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="fixed bottom-56 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                    className="fixed bottom-20 sm:bottom-56 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-4 sm:p-5 shadow-2xl z-50 backdrop-blur-md max-h-[70vh] overflow-y-auto"
+                    onClick={() => setShowVoicePanel(false)}
                   >
                     {/* Header */}
                     <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
                       <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
-                      {/* LED Indicator */}
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
+                      {/* Close button (LED style) */}
+                      <button
+                        onClick={() => setShowVoicePanel(false)}
+                        className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)] hover:bg-emerald-400 hover:shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all cursor-pointer"
+                        title="Close"
+                      />
                     </div>
 
                     {/* Sliders Stack */}
@@ -5273,7 +5520,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Serious</span>
-                          <span className="text-violet-400">Humor</span>
+                          <span className="text-violet-400">{HUMOR_LEVELS[humor]}</span>
                           <span>Wild</span>
                         </div>
                         <input
@@ -5282,6 +5529,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={humor}
                           onChange={(e) => setHumor(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
                         />
                       </div>
@@ -5290,7 +5538,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Chaos</span>
-                          <span className="text-blue-400">Register</span>
+                          <span className="text-blue-400">{REGISTER_LEVELS[register]}</span>
                           <span>Oracle</span>
                         </div>
                         <input
@@ -5299,6 +5547,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={register}
                           onChange={(e) => setRegister(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
                         />
                       </div>
@@ -5307,7 +5556,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Witness</span>
-                          <span className="text-emerald-400">Agency</span>
+                          <span className="text-emerald-400">{CREATOR_LEVELS[creator]}</span>
                           <span>Creator</span>
                         </div>
                         <input
@@ -5316,6 +5565,7 @@ CRITICAL FORMATTING RULES:
                           max="10"
                           value={creator}
                           onChange={(e) => setCreator(parseInt(e.target.value))}
+                          onClick={(e) => e.stopPropagation()}
                           className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
                         />
                       </div>
@@ -5324,13 +5574,13 @@ CRITICAL FORMATTING RULES:
                     {/* Footer Toggles (Roast/Direct) */}
                     <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
                       <button
-                        onClick={() => setRoastMode(!roastMode)}
+                        onClick={(e) => { e.stopPropagation(); setRoastMode(!roastMode); }}
                         className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                       >
                         Roast Mode
                       </button>
                       <button
-                        onClick={() => setDirectMode(!directMode)}
+                        onClick={(e) => { e.stopPropagation(); setDirectMode(!directMode); }}
                         className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                       >
                         Direct Mode
@@ -7419,60 +7669,11 @@ CRITICAL FORMATTING RULES:
             </p>
           </div>
         )}
+      </div>{/* End max-w-4xl content container */}
 
-        {/* Footer - sticky at bottom with dark background */}
-        <footer className="fixed bottom-0 left-0 right-0 bg-zinc-950/90 backdrop-blur-sm border-t border-zinc-800/50 pt-3 pb-2 z-40">
-          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-500 mb-2">
-            <a
-              href="/guide"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Guide
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/about"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              About
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/council"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Council
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Map
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/privacy"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Privacy
-            </a>
-            <span className="text-zinc-700">•</span>
-            <a
-              href="/terms"
-              className="hover:text-zinc-300 transition-colors"
-            >
-              Terms
-            </a>
-          </div>
-          <p className="text-center text-zinc-300 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
-          <p className="text-center text-zinc-400 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
-        </footer>
-        {/* Spacer to prevent content from being hidden behind fixed footer */}
-        <div className="h-20"></div>
-      </div>
+      {/* Global Footer - outside content container, anchored to bottom */}
+      <Footer />
+      </div>{/* End z-10 flex wrapper */}
 
       {/* Info Modal */}
       <InfoModal
@@ -7523,11 +7724,6 @@ CRITICAL FORMATTING RULES:
         />
       )}
 
-      {/* Version indicator - always visible for deployment verification */}
-      <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
-        v{VERSION}
-      </div>
-      </div> {/* Close z-10 wrapper */}
     </div>
   );
 }

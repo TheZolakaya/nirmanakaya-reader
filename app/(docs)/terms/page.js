@@ -1,3 +1,6 @@
+import BrandHeader from '../../../components/layout/BrandHeader';
+import Footer from '../../../components/layout/Footer';
+
 export const metadata = {
   title: 'Terms of Service | Nirmanakaya',
   description: 'Terms of service for Nirmanakaya consciousness architecture platform',
@@ -5,7 +8,11 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="prose prose-invert prose-zinc max-w-none">
+    <>
+      {/* Global Brand Header */}
+      <BrandHeader compact />
+
+      <div className="prose prose-invert prose-zinc max-w-none">
       <h1 className="text-3xl font-light text-amber-400 mb-2">Terms of Service</h1>
       <p className="text-zinc-500 text-sm mb-8">Last updated: January 24, 2026</p>
 
@@ -146,14 +153,10 @@ export default function TermsPage() {
         </p>
       </section>
 
-      <div className="border-t border-zinc-800 pt-6 mt-12">
-        <a 
-          href="/" 
-          className="text-amber-400 hover:text-amber-300 text-sm"
-        >
-          ← Return to Nirmanakaya
-        </a>
       </div>
-    </div>
+
+      {/* Global Footer */}
+      <Footer />
+    </>
   );
 }
