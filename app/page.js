@@ -5187,8 +5187,8 @@ CRITICAL FORMATTING RULES:
                 </div>
                 {/* Mode reminder label - below textarea when controls minimized */}
                 {!advancedMode && (
-                  <div className="text-center leading-none -mt-1">
-                    <span className="text-[0.5rem] font-mono tracking-wide text-zinc-600">
+                  <div className="text-center leading-none -mt-2">
+                    <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
                       {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
                         <>
                           <span className="text-violet-400/70">Reflect</span>
