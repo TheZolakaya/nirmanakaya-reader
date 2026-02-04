@@ -4686,14 +4686,86 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Spread Selection + Control Icons - side by side layout */}
-              {/* Control icons align with the two selection rows (numbers + spreads) */}
-              <div className="flex items-start justify-center gap-4 w-full max-w-2xl mx-auto mb-1 relative">
-                {/* Left spacer for balance */}
-                <div className="w-[76px] flex-shrink-0 hidden sm:block"></div>
+              {/* Spread Selection - truly centered */}
+              <div className="w-full max-w-2xl mx-auto mb-1 relative">
+                {/* Control Icons - positioned at right, vertically centered in controls area */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 grid grid-cols-2 gap-1 z-10">
+                  {/* Top row: Persona, Signal Tuning */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                    className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                  >
+                    {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                  </button>
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                    data-help="fine-tune-voice"
+                    className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title="Signal Tuning"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                      <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                      <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                    </svg>
+                  </button>
+                  {/* Bottom row: Depth, Cards */}
+                  <button
+                    onClick={() => {
+                      const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                      setDefaultDepth(newDepth);
+                      setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                      setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                      setTimeout(() => setControlTooltip(null), 1200);
+                    }}
+                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      {defaultDepth === 'shallow' ? (
+                        <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                      ) : (
+                        <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
+                      )}
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const newState = !defaultExpanded;
+                      setDefaultExpanded(newState);
+                      setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                      setTimeout(() => setControlTooltip(null), 1200);
+                    }}
+                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                    title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {defaultExpanded ? (
+                        <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
+                      ) : (
+                        <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
+                      )}
+                    </svg>
+                  </button>
+                  {/* Tooltip */}
+                  <AnimatePresence>
+                    {controlTooltip && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 5 }}
+                        className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
+                      >
+                        {controlTooltip.text}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                {/* Center: Spread selection rows */}
-                <div className="flex flex-col items-center justify-start flex-1 min-h-[76px]">
+                {/* Center: Spread selection rows - truly centered */}
+                <div className="flex flex-col items-center justify-center min-h-[76px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
@@ -4826,83 +4898,6 @@ CRITICAL FORMATTING RULES:
                     })}
                   </div>
                 )}
-                </div>
-
-                {/* Right: Control Icons - 2x2 grid, aligned with selection rows */}
-                <div className="grid grid-cols-2 gap-1 relative flex-shrink-0">
-                  {/* Top row: Persona, Signal Tuning */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                    className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                    title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                  >
-                    {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                  </button>
-                  <button
-                    onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                    data-help="fine-tune-voice"
-                    className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                    title="Signal Tuning"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                      <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                      <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                      <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                    </svg>
-                  </button>
-                  {/* Bottom row: Depth, Cards */}
-                  <button
-                    onClick={() => {
-                      const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                      setDefaultDepth(newDepth);
-                      setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                      setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                      setTimeout(() => setControlTooltip(null), 1200);
-                    }}
-                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                    title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      {defaultDepth === 'shallow' ? (
-                        <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                      ) : (
-                        <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                      )}
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => {
-                      const newState = !defaultExpanded;
-                      setDefaultExpanded(newState);
-                      setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
-                      setTimeout(() => setControlTooltip(null), 1200);
-                    }}
-                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                    title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      {defaultExpanded ? (
-                        <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                      ) : (
-                        <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                      )}
-                    </svg>
-                  </button>
-                  {/* Tooltip */}
-                  <AnimatePresence>
-                    {controlTooltip && (
-                      <motion.div
-                        initial={{ opacity: 0, x: 5 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 5 }}
-                        className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
-                      >
-                        {controlTooltip.text}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  {/* Persona flyout moved to fixed position outside overflow-hidden container */}
                 </div>
               </div>
               </motion.div>{/* END controls-above */}
