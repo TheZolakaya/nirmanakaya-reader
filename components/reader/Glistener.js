@@ -22,8 +22,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Timing constants
-const STREAM_DURATION = 3000;     // Total ghost stream time (ms) - fast and hot!
-const FRAGMENT_INTERVAL = 100;   // Time between updates (ms) - rapid for smooth scroll
+const STREAM_DURATION = 5000;     // Total ghost stream time (ms) - slow enough to see scroll
+const FRAGMENT_INTERVAL = 50;    // Time between updates (ms) - smooth scroll updates
 const TYPING_SPEED = 40;         // ms per character for final question
 const LINGER_DURATION = 2000;    // How long crystal hangs before transfer (ms)
 const FADE_DURATION = 800;       // Fade out duration (ms)

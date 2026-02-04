@@ -581,6 +581,7 @@ export default function NirmanakaReader() {
   const [showGlistener, setShowGlistener] = useState(false);
   const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
   const [glistenerPhase, setGlistenerPhase] = useState('idle');
+  const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
@@ -1489,6 +1490,17 @@ export default function NirmanakaReader() {
       setPulseUnseen(!lastSeen || lastSeen < today);
     } catch (e) { /* localStorage unavailable */ }
   }, []);
+
+  // Auto-scroll glistener streaming content
+  useEffect(() => {
+    if (glistenerContent?.type === 'streaming' && glistenerContent?.scrollProgress !== undefined && glistenerScrollRef.current) {
+      const el = glistenerScrollRef.current;
+      const maxScroll = el.scrollHeight - el.clientHeight;
+      if (maxScroll > 0) {
+        el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+      }
+    }
+  }, [glistenerContent]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -4836,17 +4848,7 @@ CRITICAL FORMATTING RULES:
                         {glistenerContent && (
                           <motion.div
                             key={glistenerContent.type === 'fading' ? 'typing' : glistenerContent.type}
-                            ref={(el) => {
-                              // Auto-scroll during streaming phase - use rAF to ensure layout is computed
-                              if (el && glistenerContent.type === 'streaming' && glistenerContent.scrollProgress !== undefined) {
-                                requestAnimationFrame(() => {
-                                  const maxScroll = el.scrollHeight - el.clientHeight;
-                                  if (maxScroll > 0) {
-                                    el.scrollTop = maxScroll * glistenerContent.scrollProgress;
-                                  }
-                                });
-                              }
-                            }}
+                            ref={glistenerContent.type === 'streaming' ? glistenerScrollRef : undefined}
                             initial={{ opacity: 0 }}
                             animate={{
                               opacity: glistenerContent.type === 'streaming' ? glistenerContent.opacity :
@@ -4856,13 +4858,14 @@ CRITICAL FORMATTING RULES:
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
                             className={`absolute inset-0 p-4 pb-12 pr-12 ${
                               glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse flex items-center justify-center pointer-events-none' :
-                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap overflow-y-auto' :
+                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
                             }`}
-                            style={glistenerContent.pulse ? {
-                              textShadow: '0 0 20px rgba(251, 191, 36, 0.3)',
-                            } : undefined}
+                            style={{
+                              ...(glistenerContent.pulse ? { textShadow: '0 0 20px rgba(251, 191, 36, 0.3)' } : {}),
+                              ...(glistenerContent.type === 'streaming' ? { maxHeight: '120px' } : {}),
+                            }}
                           >
                             {glistenerContent.text}
                             {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
