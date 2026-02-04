@@ -4122,8 +4122,8 @@ CRITICAL FORMATTING RULES:
       )}
 
       {/* Main content overlay - flex-1 fills available space, pushing footer to bottom */}
-      <div className="relative z-10 flex-1 flex flex-col" style={{ '--content-dim': contentDim / 100 }}>
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container flex-1">
+      <div className="relative z-10 flex-1 flex flex-col w-full" style={{ '--content-dim': contentDim / 100 }}>
+      <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container flex-1">
         
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
