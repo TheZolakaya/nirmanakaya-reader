@@ -4731,28 +4731,33 @@ CRITICAL FORMATTING RULES:
                   data-help="question-input"
                   onClick={(e) => handleHelpClick('question-input', e)}
                 >
-                  {/* Gear toggle button - inside textarea area */}
-                  <motion.button
+                  {/* Mode Trigger - inside textarea area, top right */}
+                  <button
                     onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
-                    className={`absolute top-2 right-2 w-8 h-8 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    className={`absolute top-4 right-4 group flex items-center gap-3 px-3 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-black/40 z-10 ${
+                      spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
+                      spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
+                      spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
+                      spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                      'border-zinc-700/50 hover:border-zinc-600'
+                    }`}
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
-                    <motion.svg
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      animate={{ rotate: advancedMode ? 90 : 0 }}
+                    <span className="text-[10px] font-light font-mono uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">
+                      <span className="opacity-40 mr-2 hidden sm:inline">Mode:</span>
+                      {spreadType.charAt(0).toUpperCase() + spreadType.slice(1)}
+                    </span>
+                    {/* Triangle Icon */}
+                    <motion.div
+                      animate={{ rotate: advancedMode ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-                    </motion.svg>
-                  </motion.button>
+                      <svg className="w-2 h-2 fill-current text-white/80" viewBox="0 0 10 6">
+                        <path d="M5 6L0 0h10L5 6z" />
+                      </svg>
+                    </motion.div>
+                  </button>
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
                     <div className="relative w-full" onClick={handleTextareaClick}>
@@ -4973,23 +4978,43 @@ CRITICAL FORMATTING RULES:
                       <span>Glisten</span>
                     </button>
                   )}
-                  {/* Go button - inside textarea, bottom right - rainbow "Go" text */}
+                  {/* Initiate button - inside textarea, bottom right */}
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                     data-help="get-reading"
                     disabled={loading}
-                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
-                    style={{
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: MODE_COLORS[spreadType]?.primary || 'rgba(113, 113, 122, 0.5)',
-                    }}
-                    whileHover={{ scale: 1.05 }}
+                    className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
+                      spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
+                      spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
+                      spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
+                      spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                      'border-zinc-700/50 hover:border-zinc-600'
+                    }`}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <span className="relative z-10 animate-rainbow-cycle-slow font-semibold">
-                      {loading ? '...' : 'Go'}
+                    <span
+                      className="text-[11px] font-mono uppercase tracking-[0.2em] font-medium"
+                      style={{
+                        background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
+                        backgroundSize: '200% 100%',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        animation: 'gradient-shift 3s ease infinite',
+                      }}
+                    >
+                      {loading ? '...' : 'INITIATE'}
                     </span>
+                    {/* Wireframe chevron - translates right on hover */}
+                    <svg
+                      className="w-3 h-3 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
+                      <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </motion.button>
                 </div>
               </div>
