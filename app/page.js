@@ -4491,18 +4491,20 @@ CRITICAL FORMATTING RULES:
             >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
-              <div className="flex flex-col">
+              {/* Fixed height container with flex-end keeps textarea anchored at bottom */}
+              <div className="flex flex-col justify-end" style={{ minHeight: '340px' }}>
 
-              {/* CONTROLS GROUP - fixed height, opacity only (keeps textarea anchored) */}
+              {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
                 className={`controls-above overflow-hidden ${!advancedMode ? 'pointer-events-none' : ''}`}
-                style={{ height: '140px' }}
                 initial={false}
                 animate={{
+                  height: advancedMode ? 'auto' : 0,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
-                  opacity: { duration: 0.25 }
+                  height: { duration: 0.3, ease: 'easeInOut' },
+                  opacity: { duration: 0.2 }
                 }}
               >
               {/* Complexity Slider - Admin only for now */}
@@ -5276,7 +5278,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Serious</span>
-                          <span className="text-violet-400">Humor</span>
+                          <span className="text-violet-400">{HUMOR_LEVELS[humor]}</span>
                           <span>Wild</span>
                         </div>
                         <input
@@ -5293,7 +5295,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Chaos</span>
-                          <span className="text-blue-400">Register</span>
+                          <span className="text-blue-400">{REGISTER_LEVELS[register]}</span>
                           <span>Oracle</span>
                         </div>
                         <input
@@ -5310,7 +5312,7 @@ CRITICAL FORMATTING RULES:
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
                           <span>Witness</span>
-                          <span className="text-emerald-400">Agency</span>
+                          <span className="text-emerald-400">{CREATOR_LEVELS[creator]}</span>
                           <span>Creator</span>
                         </div>
                         <input
