@@ -4953,12 +4953,12 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   )}
-                  {/* Compact persona selector - left of Initiate button */}
-                  <div className="absolute bottom-4 right-[11rem] z-20">
+                  {/* Compact persona selector - left of Initiate button, matches Initiate height */}
+                  <div className="absolute bottom-4 right-[11rem] z-20 flex items-center">
                     <div className="relative">
                       <button
                         onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                        className="px-3 py-1.5 rounded-lg bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-base hover:border-amber-500/50 hover:bg-zinc-700/50 transition-colors"
+                        className="w-9 h-9 rounded-lg bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:bg-zinc-700/50 transition-colors"
                         title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
                       >
                         {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
