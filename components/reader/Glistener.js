@@ -64,10 +64,11 @@ export default function Glistener({
       '◇ Generating constraint matrix',
       '◇ Sampling probability distribution',
       '◇ Synthesizing narrative structure',
-      '◇ Extracting coherent query',
       '◇ Tuning resonance frequency',
       '◇ Mapping semantic topology',
       '◇ Crystallizing question form',
+      '◇ Plumbing the depths',
+      '◇ Filtering meaning',
     ];
 
     // Track visible messages as a scrolling stack
@@ -265,46 +266,73 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
   const [showReceipt, setShowReceipt] = useState(false);
   const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
   const [crystals, setCrystals] = useState({ deep: data.crystal }); // Cache crystals at each depth
-  const [simplifying, setSimplifying] = useState(false);
+  const [preloading, setPreloading] = useState(true); // Pre-caching all depths
 
   const currentDepth = DEPTH_LEVELS[depthIndex];
   const currentCrystal = crystals[currentDepth] || data.crystal;
 
-  // Navigate to shallower (simplify)
-  const goShallower = async () => {
+  // Pre-cache all depth levels on mount (filter deep + generate swim/wade/shallow)
+  useEffect(() => {
+    const precacheAllDepths = async () => {
+      const rawCrystal = data.crystal;
+      const newCrystals = { deep: rawCrystal };
+
+      // First: filter the deep crystal for sensibility
+      try {
+        const deepRes = await fetch('/api/glisten/simplify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ crystal: rawCrystal, targetDepth: 'deep' })
+        });
+        const deepResult = await deepRes.json();
+        if (deepResult.success) {
+          newCrystals.deep = deepResult.crystal;
+          onTransfer?.(deepResult.crystal); // Update textarea with filtered version
+        }
+      } catch (e) {
+        console.error('Failed to filter deep:', e);
+      }
+
+      // Then: generate all other depths in parallel from the filtered deep
+      const depths = ['swim', 'wade', 'shallow'];
+      const promises = depths.map(async (depth) => {
+        try {
+          const res = await fetch('/api/glisten/simplify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ crystal: newCrystals.deep, targetDepth: depth })
+          });
+          const result = await res.json();
+          if (result.success) {
+            return { depth, crystal: result.crystal };
+          }
+        } catch (e) {
+          console.error(`Failed to generate ${depth}:`, e);
+        }
+        return null;
+      });
+
+      const results = await Promise.all(promises);
+      results.forEach(r => {
+        if (r) newCrystals[r.depth] = r.crystal;
+      });
+
+      setCrystals(newCrystals);
+      setPreloading(false);
+    };
+
+    precacheAllDepths();
+  }, [data.crystal, onTransfer]);
+
+  // Navigate to shallower - uses pre-cached crystals
+  const goShallower = () => {
     if (depthIndex >= DEPTH_LEVELS.length - 1) return; // Already at shallowest
+    if (preloading) return; // Wait for pre-cache
 
     const nextDepth = DEPTH_LEVELS[depthIndex + 1];
-
-    // If we already have this depth cached, just navigate
     if (crystals[nextDepth]) {
       setDepthIndex(depthIndex + 1);
       onTransfer?.(crystals[nextDepth]);
-      return;
-    }
-
-    // Otherwise, call API to simplify
-    setSimplifying(true);
-    try {
-      const response = await fetch('/api/glisten/simplify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          crystal: currentCrystal,
-          targetDepth: nextDepth
-        })
-      });
-      const result = await response.json();
-
-      if (result.success) {
-        setCrystals(prev => ({ ...prev, [nextDepth]: result.crystal }));
-        setDepthIndex(depthIndex + 1);
-        onTransfer?.(result.crystal);
-      }
-    } catch (err) {
-      console.error('Failed to simplify:', err);
-    } finally {
-      setSimplifying(false);
     }
   };
 
@@ -322,19 +350,18 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
       <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
         {/* Depth navigator - ← = shallower, → = deeper */}
         <div className="flex items-center gap-1 mr-2">
-          {/* Left arrow = go shallower (hidden at shallowest) */}
-          {depthIndex < DEPTH_LEVELS.length - 1 && (
+          {/* Left arrow = go shallower (hidden at shallowest or while preloading) */}
+          {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
             <button
               onClick={goShallower}
-              disabled={simplifying}
               className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
               title="Simplify"
             >
               ←
             </button>
           )}
-          <span className={`text-xs px-1.5 py-0.5 rounded min-w-[50px] text-center ${simplifying ? 'text-amber-400' : 'text-zinc-400'}`}>
-            {simplifying ? (
+          <span className={`text-xs px-1.5 py-0.5 rounded min-w-[50px] text-center ${preloading ? 'text-amber-400' : 'text-zinc-400'}`}>
+            {preloading ? (
               <span className="inline-flex gap-0.5">
                 <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
                 <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
@@ -342,11 +369,10 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
               </span>
             ) : DEPTH_LABELS[currentDepth]}
           </span>
-          {/* Right arrow = go deeper (hidden at deepest) */}
-          {depthIndex > 0 && (
+          {/* Right arrow = go deeper (hidden at deepest or while preloading) */}
+          {depthIndex > 0 && !preloading && (
             <button
               onClick={goDeeper}
-              disabled={simplifying}
               className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
               title="Go deeper"
             >

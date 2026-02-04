@@ -9,22 +9,27 @@
 import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
 
 const DEPTH_PROMPTS = {
-  swim: `You are simplifying a profound question to make it more accessible.
-Take this deep, metaphysically-rich question and make it somewhat simpler while keeping its essence.
-Reduce abstract concepts, use more concrete language, but maintain the core inquiry.
-Output ONLY the simplified question - no explanation, no quotes, just the question ending with ?`,
+  deep: `You are refining a question for clarity and coherence while preserving its depth.
+This question emerged from a creative process and may have unusual phrasing.
+Make it grammatically sensible and clear while keeping its philosophical depth and poetic quality.
+Do not simplify the meaning - only ensure it reads naturally as a profound question.
+If it's already clear, return it unchanged or with minimal polish.
+Output ONLY the refined question - no explanation, no quotes, just the question ending with ?`,
 
-  wade: `You are simplifying a question for everyday understanding.
-Take this question and make it practical and relatable.
-Use simple, everyday language. Remove metaphysical or abstract framing.
-Focus on the actionable or emotional core.
-Output ONLY the simplified question - no explanation, no quotes, just the question ending with ?`,
+  swim: `Reframe this philosophical question using clearer, more direct language.
+Keep the depth and meaning intact, but make it accessible without metaphor or heavy abstraction.
+The question should feel equally profound but easier to hold in mind.
+Output ONLY the reframed question - no explanation, no quotes, just the question ending with ?`,
 
-  shallow: `You are distilling a question to its simplest form.
-Take this question and reduce it to the most basic, direct version possible.
-One simple question anyone could immediately understand and answer.
-Maximum 10 words if possible.
-Output ONLY the simplified question - no explanation, no quotes, just the question ending with ?`
+  wade: `Extract the practical, lived-experience version of this question.
+What is this question really asking about daily life, relationships, or decisions?
+Ground the cosmic in the personal without losing the thread of inquiry.
+Output ONLY the grounded question - no explanation, no quotes, just the question ending with ?`,
+
+  shallow: `Find the essential question hiding inside this one.
+Strip away all framing and get to the raw, human question at its core.
+What would a child ask that points to the same thing? Maximum 10 words.
+Output ONLY the essential question - no explanation, no quotes, just the question ending with ?`
 };
 
 async function callClaude(prompt, maxTokens = 100) {
@@ -65,7 +70,7 @@ export async function POST(request) {
     if (!DEPTH_PROMPTS[targetDepth]) {
       return Response.json({
         success: false,
-        error: 'Invalid targetDepth. Use: swim, wade, or shallow'
+        error: 'Invalid targetDepth. Use: deep, swim, wade, or shallow'
       }, { status: 400 });
     }
 
