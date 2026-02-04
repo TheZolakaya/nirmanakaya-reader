@@ -325,7 +325,8 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
   const currentDepth = DEPTH_LEVELS[depthIndex];
   const currentCrystal = crystals[currentDepth] || data.crystal;
 
-  // Pre-cache all depth levels on mount (filter deep + generate swim/wade/shallow)
+  // Pre-cache all depth levels on mount using SEQUENTIAL generation
+  // Each depth is simplified FROM the previous level (deep → swim → wade → shallow)
   useEffect(() => {
     // Only run once per mount
     if (hasPrecached.current) return;
@@ -335,45 +336,37 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
       const rawCrystal = data.crystal;
       const newCrystals = { deep: rawCrystal };
 
-      // First: filter the deep crystal for sensibility
-      try {
-        const deepRes = await fetch('/api/glisten/simplify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ crystal: rawCrystal, targetDepth: 'deep' })
-        });
-        const deepResult = await deepRes.json();
-        if (deepResult.success) {
-          newCrystals.deep = deepResult.crystal;
-          onTransfer?.(deepResult.crystal); // Update textarea with filtered version
-        }
-      } catch (e) {
-        console.error('Failed to filter deep:', e);
-      }
+      // Deep crystal is the raw crystal - no modification needed
+      // (The /api/glisten already generates at "deep" archetypal level)
+      onTransfer?.(rawCrystal);
 
-      // Then: generate all other depths in parallel from the filtered deep
-      const depths = ['swim', 'wade', 'shallow'];
-      const promises = depths.map(async (depth) => {
+      // Generate depths SEQUENTIALLY: deep → swim → wade → shallow
+      // Each level simplifies FROM the previous level's output
+      let currentCrystal = rawCrystal;
+
+      for (const targetDepth of ['swim', 'wade', 'shallow']) {
         try {
           const res = await fetch('/api/glisten/simplify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ crystal: newCrystals.deep, targetDepth: depth })
+            body: JSON.stringify({
+              crystal: currentCrystal,  // Use PREVIOUS depth as input
+              targetDepth
+            })
           });
           const result = await res.json();
           if (result.success) {
-            return { depth, crystal: result.crystal };
+            newCrystals[targetDepth] = result.crystal;
+            currentCrystal = result.crystal; // Chain to next depth
+          } else {
+            // On failure, use previous level (graceful fallback)
+            newCrystals[targetDepth] = currentCrystal;
           }
         } catch (e) {
-          console.error(`Failed to generate ${depth}:`, e);
+          console.error(`Failed to generate ${targetDepth}:`, e);
+          newCrystals[targetDepth] = currentCrystal; // Graceful fallback
         }
-        return null;
-      });
-
-      const results = await Promise.all(promises);
-      results.forEach(r => {
-        if (r) newCrystals[r.depth] = r.crystal;
-      });
+      }
 
       setCrystals(newCrystals);
       setPreloading(false);
@@ -394,12 +387,15 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
     }
   };
 
-  // Navigate to deeper
+  // Navigate to deeper - uses pre-cached crystals
   const goDeeper = () => {
     if (depthIndex <= 0) return; // Already at deepest
-    setDepthIndex(depthIndex - 1);
+
     const prevDepth = DEPTH_LEVELS[depthIndex - 1];
-    onTransfer?.(crystals[prevDepth] || data.crystal);
+    if (crystals[prevDepth]) {
+      setDepthIndex(depthIndex - 1);
+      onTransfer?.(crystals[prevDepth]);
+    }
   };
 
   return (
