@@ -621,11 +621,15 @@ export default function NirmanakaReader() {
   // selectionConfirmed: boolean - true after second tap (ready to collapse)
   // placeholderFlash: boolean - flash animation on placeholder text
   // crystalFlash: boolean - border + text flash when glisten crystal transfers
+  // borderPulseActive: boolean - continuous slow pulse until expanded/mode change/initiate
+  // initiateFlash: boolean - rainbow flash when Initiate is clicked
   const [rippleTarget, setRippleTarget] = useState(null);
   const [readyFlash, setReadyFlash] = useState(false);
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [placeholderFlash, setPlaceholderFlash] = useState(false);
   const [crystalFlash, setCrystalFlash] = useState(false);
+  const [borderPulseActive, setBorderPulseActive] = useState(false);
+  const [initiateFlash, setInitiateFlash] = useState(false);
 
   // Track previous selections for "tap again to confirm" logic
   const [lastFinalSelection, setLastFinalSelection] = useState(null);
@@ -694,18 +698,28 @@ export default function NirmanakaReader() {
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
     if (advancedMode) {
-      // User clicked textarea - COLLAPSE FIRST, then long flash
+      // User clicked textarea - COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
       setSelectionConfirmed(true);
-      // Now do the long flash after collapse
-      setReadyFlash(true);
+      // Brief placeholder flash, then start continuous border pulse
       setPlaceholderFlash(true);
-      setTimeout(() => {
-        setReadyFlash(false);
-        setPlaceholderFlash(false);
-      }, 800);
+      setTimeout(() => setPlaceholderFlash(false), 800);
+      // Start continuous border pulse (stays on until expanded/mode change/initiate)
+      setBorderPulseActive(true);
     }
   };
+
+  // Turn off border pulse when expanding, changing mode, or on unmount
+  useEffect(() => {
+    if (advancedMode) {
+      setBorderPulseActive(false);
+    }
+  }, [advancedMode]);
+
+  useEffect(() => {
+    // Mode changed - turn off pulse
+    setBorderPulseActive(false);
+  }, [spreadType]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -2208,6 +2222,11 @@ export default function NirmanakaReader() {
   };
 
   const performReading = async () => {
+    // Trigger rainbow flash on border and stop continuous pulse
+    setBorderPulseActive(false);
+    setInitiateFlash(true);
+    setTimeout(() => setInitiateFlash(false), 800);
+
     // DTP (Explore) mode uses dtpInput instead of question
     const isExplore = spreadType === 'explore';
 
@@ -4744,7 +4763,7 @@ CRITICAL FORMATTING RULES:
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
-                    <span className={`text-[13px] font-mono uppercase tracking-[0.2em] font-medium transition-colors ${
+                    <span className={`text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium transition-colors ${
                       spreadType === 'reflect' ? 'text-violet-400 group-hover:text-violet-300' :
                       spreadType === 'discover' ? 'text-blue-400 group-hover:text-blue-300' :
                       spreadType === 'explore' ? 'text-emerald-400 group-hover:text-emerald-300' :
@@ -4772,12 +4791,17 @@ CRITICAL FORMATTING RULES:
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
-                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
-                          transition: 'border-color 0.4s, box-shadow 0.4s'
+                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          ...(!borderPulseActive && !initiateFlash ? {
+                            borderColor: 'rgba(63, 63, 70, 0.8)',
+                            boxShadow: 'none',
+                            transition: 'border-color 0.4s, box-shadow 0.4s'
+                          } : {})
                         }}
                         rows={4}
                       />
@@ -4803,13 +4827,17 @@ CRITICAL FORMATTING RULES:
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''}`}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          // Don't override border/shadow when rainbow animation is active
-                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming') ? {
-                            borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
-                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
+                          // CSS custom properties for pulse animation
+                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          // Don't override border/shadow when animations are active
+                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderPulseActive && !initiateFlash) ? {
+                            borderColor: crystalFlash ? '#fbbf24' : 'rgba(63, 63, 70, 0.8)',
+                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : 'none',
                             transition: 'border-color 0.4s, box-shadow 0.4s'
                           } : {})
                         }}
@@ -4925,12 +4953,12 @@ CRITICAL FORMATTING RULES:
                       )}
                     </div>
                   )}
-                  {/* Compact persona selector - above Go button */}
-                  <div className="absolute bottom-12 right-3 z-20">
+                  {/* Compact persona selector - left of Initiate button */}
+                  <div className="absolute bottom-4 right-[9.5rem] z-20">
                     <div className="relative">
                       <button
                         onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                        className="w-7 h-7 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+                        className="px-3 py-1.5 rounded-lg bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-base hover:border-amber-500/50 hover:bg-zinc-700/50 transition-colors"
                         title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
                       >
                         {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
@@ -4949,7 +4977,7 @@ CRITICAL FORMATTING RULES:
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 5, scale: 0.95 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute bottom-8 right-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
+                              className="absolute bottom-10 left-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
                             >
                               {PERSONAS.map((p) => {
                                 const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
@@ -4978,7 +5006,7 @@ CRITICAL FORMATTING RULES:
                   {!showGlistener && (
                     <button
                       onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
-                      className="absolute bottom-3 left-3 text-xs text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 z-10"
+                      className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
                       title="Let a question find its shape"
                     >
                       <span className="text-amber-500/70">◇</span>
@@ -5000,7 +5028,7 @@ CRITICAL FORMATTING RULES:
                     whileTap={{ scale: 0.95 }}
                   >
                     <span
-                      className="text-[13px] font-mono uppercase tracking-[0.2em] font-medium"
+                      className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium"
                       style={{
                         background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
                         backgroundSize: '200% 100%',

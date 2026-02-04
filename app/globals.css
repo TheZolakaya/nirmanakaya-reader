@@ -192,6 +192,26 @@ body {
   animation: border-rainbow 4s ease-in-out infinite;
 }
 
+/* Fast rainbow flash for Initiate button click */
+.animate-border-rainbow-fast {
+  animation: border-rainbow 0.8s ease-in-out;
+}
+
+/* Slow pulsing border using CSS custom property for mode color */
+@keyframes border-pulse-mode {
+  0%, 100% {
+    border-color: var(--mode-border-color, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 8px var(--mode-glow-color, transparent);
+  }
+  50% {
+    border-color: var(--mode-border-color-bright, rgba(63, 63, 70, 0.8));
+    box-shadow: 0 0 20px var(--mode-glow-color, transparent);
+  }
+}
+.animate-border-pulse-mode {
+  animation: border-pulse-mode 2s ease-in-out infinite;
+}
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }
