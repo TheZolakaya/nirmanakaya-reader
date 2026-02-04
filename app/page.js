@@ -4764,8 +4764,9 @@ CRITICAL FORMATTING RULES:
                   </AnimatePresence>
                 </div>
 
-                {/* Center: Spread selection rows - truly centered */}
-                <div className="flex flex-col items-center justify-center min-h-[76px]">
+                {/* Center: Spread selection rows - truly centered, FIXED HEIGHT to prevent mode switching jitter */}
+                {/* Height accommodates Reflect's 2 rows: numbers (36px) + gap (8px) + spreads (~44px mobile, ~32px desktop) */}
+                <div className="flex flex-col items-center justify-center h-[88px] sm:h-[72px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
