@@ -4734,7 +4734,7 @@ CRITICAL FORMATTING RULES:
                   {/* Mode Trigger - inside textarea area, top right */}
                   <button
                     onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
-                    className={`absolute top-4 right-4 group flex items-center gap-3 px-3 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-black/40 z-10 ${
+                    className={`absolute top-4 right-4 group flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-black/40 z-10 ${
                       spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
                       spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
                       spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
@@ -4744,23 +4744,30 @@ CRITICAL FORMATTING RULES:
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                   >
-                    <span className="text-[10px] font-light font-mono uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">
-                      <span className="opacity-40 mr-2 hidden sm:inline">Mode:</span>
+                    <span className={`text-[13px] font-mono uppercase tracking-[0.2em] font-medium transition-colors ${
+                      spreadType === 'reflect' ? 'text-violet-400 group-hover:text-violet-300' :
+                      spreadType === 'discover' ? 'text-blue-400 group-hover:text-blue-300' :
+                      spreadType === 'explore' ? 'text-emerald-400 group-hover:text-emerald-300' :
+                      spreadType === 'forge' ? 'text-red-400 group-hover:text-red-300' :
+                      'text-zinc-400 group-hover:text-zinc-300'
+                    }`}>
                       {spreadType.charAt(0).toUpperCase() + spreadType.slice(1)}
                     </span>
-                    {/* Triangle Icon */}
+                    {/* Triangle Icon - green when minimized, red when expanded */}
                     <motion.div
                       animate={{ rotate: advancedMode ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <svg className="w-2 h-2 fill-current text-white/80" viewBox="0 0 10 6">
+                      <svg className={`w-2.5 h-2.5 fill-current transition-colors ${
+                        advancedMode ? 'text-red-400' : 'text-emerald-400'
+                      }`} viewBox="0 0 10 6">
                         <path d="M5 6L0 0h10L5 6z" />
                       </svg>
                     </motion.div>
                   </button>
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
-                    <div className="relative w-full" onClick={handleTextareaClick}>
+                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
                       <textarea
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
@@ -4993,7 +5000,7 @@ CRITICAL FORMATTING RULES:
                     whileTap={{ scale: 0.95 }}
                   >
                     <span
-                      className="text-[11px] font-mono uppercase tracking-[0.2em] font-medium"
+                      className="text-[13px] font-mono uppercase tracking-[0.2em] font-medium"
                       style={{
                         background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
                         backgroundSize: '200% 100%',
@@ -5007,7 +5014,7 @@ CRITICAL FORMATTING RULES:
                     </span>
                     {/* Wireframe chevron - translates right on hover */}
                     <svg
-                      className="w-3 h-3 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
+                      className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200"
                       viewBox="0 0 12 12"
                       fill="none"
                       stroke="currentColor"
