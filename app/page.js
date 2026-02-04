@@ -4934,7 +4934,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                   </div>
                   {/* Glisten trigger - inside textarea, bottom left */}
-                  {!showGlistener && spreadType !== 'explore' && (
+                  {!showGlistener && (
                     <button
                       onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
                       className="absolute bottom-3 left-3 text-xs text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 z-10"
