@@ -14,8 +14,8 @@ import { usePathname } from 'next/navigation';
 export default function Header() {
   const pathname = usePathname();
 
-  // Check if we're in the community section (includes /community and /lounge)
-  const isCommunityActive = pathname?.startsWith('/community') || pathname?.startsWith('/lounge');
+  // Check if we're in the community section (includes /hub and /lounge)
+  const isCommunityActive = pathname?.startsWith('/hub') || pathname?.startsWith('/lounge');
   const isGuideActive = pathname?.startsWith('/guide');
   const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/map');
@@ -26,7 +26,7 @@ export default function Header() {
 
         {/* 1. COMMUNITY (The Live Gate) */}
         <Link
-          href="/community"
+          href="/hub"
           className={`group flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.15em] transition-colors duration-300 ${
             isCommunityActive ? 'text-emerald-400' : 'text-zinc-400 hover:text-emerald-400'
           }`}
