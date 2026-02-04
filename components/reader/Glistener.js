@@ -224,6 +224,7 @@ export default function Glistener({
         data={data}
         onReset={handleReset}
         onClose={onClose}
+        onTransfer={onTransfer}
       />
     );
   }
@@ -231,20 +232,109 @@ export default function Glistener({
   return null;
 }
 
+// Depth levels for crystal exploration
+const DEPTH_LEVELS = ['deep', 'swim', 'wade', 'shallow'];
+const DEPTH_LABELS = {
+  deep: 'Deep',
+  swim: 'Swim',
+  wade: 'Wade',
+  shallow: 'Shallow'
+};
+
 // ========== VIEW SOURCE PANEL ==========
-function ViewSourcePanel({ data, onReset, onClose }) {
+function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
   const [showReceipt, setShowReceipt] = useState(false);
+  const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
+  const [crystals, setCrystals] = useState({ deep: data.crystal }); // Cache crystals at each depth
+  const [simplifying, setSimplifying] = useState(false);
+
+  const currentDepth = DEPTH_LEVELS[depthIndex];
+  const currentCrystal = crystals[currentDepth] || data.crystal;
+
+  // Navigate to shallower (simplify)
+  const goShallower = async () => {
+    if (depthIndex >= DEPTH_LEVELS.length - 1) return; // Already at shallowest
+
+    const nextDepth = DEPTH_LEVELS[depthIndex + 1];
+
+    // If we already have this depth cached, just navigate
+    if (crystals[nextDepth]) {
+      setDepthIndex(depthIndex + 1);
+      onTransfer?.(crystals[nextDepth]);
+      return;
+    }
+
+    // Otherwise, call API to simplify
+    setSimplifying(true);
+    try {
+      const response = await fetch('/api/glisten/simplify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          crystal: currentCrystal,
+          targetDepth: nextDepth
+        })
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setCrystals(prev => ({ ...prev, [nextDepth]: result.crystal }));
+        setDepthIndex(depthIndex + 1);
+        onTransfer?.(result.crystal);
+      }
+    } catch (err) {
+      console.error('Failed to simplify:', err);
+    } finally {
+      setSimplifying(false);
+    }
+  };
+
+  // Navigate to deeper
+  const goDeeper = () => {
+    if (depthIndex <= 0) return; // Already at deepest
+    setDepthIndex(depthIndex - 1);
+    const prevDepth = DEPTH_LEVELS[depthIndex - 1];
+    onTransfer?.(crystals[prevDepth] || data.crystal);
+  };
 
   return (
     <>
       {/* Subtle inline controls - bottom left like idle state */}
-      <div className="absolute bottom-3 left-3 flex items-center gap-3 z-10">
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
+        {/* Depth navigator */}
+        <div className="flex items-center gap-1 mr-2">
+          <button
+            onClick={goDeeper}
+            disabled={depthIndex === 0 || simplifying}
+            className={`w-5 h-5 flex items-center justify-center rounded text-xs transition-colors ${
+              depthIndex === 0 ? 'text-zinc-700 cursor-not-allowed' : 'text-zinc-500 hover:text-amber-400'
+            }`}
+            title="Go deeper"
+          >
+            ←
+          </button>
+          <span className={`text-xs px-1.5 py-0.5 rounded ${simplifying ? 'text-amber-400 animate-pulse' : 'text-zinc-400'}`}>
+            {simplifying ? '...' : DEPTH_LABELS[currentDepth]}
+          </span>
+          <button
+            onClick={goShallower}
+            disabled={depthIndex === DEPTH_LEVELS.length - 1 || simplifying}
+            className={`w-5 h-5 flex items-center justify-center rounded text-xs transition-colors ${
+              depthIndex === DEPTH_LEVELS.length - 1 ? 'text-zinc-700 cursor-not-allowed' : 'text-zinc-500 hover:text-amber-400'
+            }`}
+            title="Simplify"
+          >
+            →
+          </button>
+        </div>
+
+        <span className="text-zinc-700">|</span>
+
         <button
           onClick={() => setShowReceipt(true)}
           className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1"
         >
           <span>📜</span>
-          <span>Receipt</span>
         </button>
         <button
           onClick={onReset}
