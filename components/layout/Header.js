@@ -21,8 +21,8 @@ export default function Header({ hasActivity = false }) {
   const isMapActive = pathname?.startsWith('/map');
 
   return (
-    <nav className="w-full flex justify-center items-center py-2 z-50 relative">
-      <div className="flex items-center gap-8 md:gap-12 backdrop-blur-sm px-6 py-2 rounded-full border border-white/0 hover:border-white/5 transition-all duration-500">
+    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none">
+      <div className="flex items-center gap-8 md:gap-12 backdrop-blur-sm px-6 py-2 rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
         {/* COMMUNITY */}
         <Link
