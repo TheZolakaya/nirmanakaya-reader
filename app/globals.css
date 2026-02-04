@@ -321,6 +321,11 @@ body {
   display: inline-block;
   animation: soul-shimmer 8s ease-in-out infinite;
   /* animation-delay set via inline style for dynamic LTR/RTL direction */
+  /* Prevent text blur from GPU compositing during animation */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  will-change: color;
 }
 
 /* Smooth expand/collapse for depth cards */
