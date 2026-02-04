@@ -4844,8 +4844,45 @@ CRITICAL FORMATTING RULES:
                             }
                           </motion.div>
                         )}
-                        {/* Ghost Stream content from Glistener */}
-                        {glistenerContent && (
+                        {/* Ghost Stream content from Glistener - Loading messages */}
+                        {glistenerContent && glistenerContent.type === 'loading' && (
+                          <motion.div
+                            key="loading"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
+                          >
+                            {/* Scrolling message stack - newest at bottom, oldest fading at top */}
+                            <div className="flex flex-col items-center relative h-20">
+                              <AnimatePresence>
+                                {glistenerContent.messages?.map((msg, i) => (
+                                  <motion.div
+                                    key={msg.text + '-' + msg.position}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{
+                                      opacity: msg.opacity,
+                                      y: -msg.position * 22,
+                                    }}
+                                    exit={{ opacity: 0, y: -50 }}
+                                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                                    className="text-amber-400 italic text-base sm:text-lg absolute"
+                                    style={{
+                                      fontWeight: msg.position === 0
+                                        ? Math.round(400 + Math.sin((glistenerContent.pulsePhase || 0) * 2) * 150)
+                                        : 300,
+                                      textShadow: msg.position === 0 ? '0 0 12px rgba(251, 191, 36, 0.35)' : 'none',
+                                    }}
+                                  >
+                                    {msg.text}
+                                  </motion.div>
+                                ))}
+                              </AnimatePresence>
+                            </div>
+                          </motion.div>
+                        )}
+                        {/* Ghost Stream content from Glistener - Streaming/Typing/Fading */}
+                        {glistenerContent && glistenerContent.type !== 'loading' && (
                           <motion.div
                             key={glistenerContent.type === 'fading' ? 'typing' : glistenerContent.type}
                             ref={glistenerContent.type === 'streaming' ? glistenerScrollRef : undefined}
@@ -4857,8 +4894,7 @@ CRITICAL FORMATTING RULES:
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
                             className={`absolute inset-0 p-4 pb-12 pr-12 ${
-                              glistenerContent.type === 'loading' ? 'text-amber-400 animate-pulse flex items-center justify-center pointer-events-none' :
-                              glistenerContent.type === 'streaming' ? 'text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth' :
+                              glistenerContent.type === 'streaming' ? 'text-amber-300 italic leading-relaxed whitespace-pre-wrap overflow-y-scroll scroll-smooth' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none' : 'text-zinc-400 pointer-events-none'
                             }`}

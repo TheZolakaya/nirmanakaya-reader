@@ -58,24 +58,43 @@ export default function Glistener({
     setPhase('loading');
     setError(null);
 
-    // Cycling loading messages - technical/scientific framing
+    // Cycling loading messages - technical/scientific framing (no ellipsis)
     const loadingMessages = [
-      '◇ Calibrating field antenna...',
-      '◇ Generating constraint matrix...',
-      '◇ Sampling probability distribution...',
-      '◇ Synthesizing narrative structure...',
-      '◇ Extracting coherent query...',
+      '◇ Calibrating field antenna',
+      '◇ Generating constraint matrix',
+      '◇ Sampling probability distribution',
+      '◇ Synthesizing narrative structure',
+      '◇ Extracting coherent query',
+      '◇ Tuning resonance frequency',
+      '◇ Mapping semantic topology',
+      '◇ Crystallizing question form',
     ];
-    let msgIndex = 0;
 
-    onDisplayContent?.({ type: 'loading', text: loadingMessages[0] });
+    // Track visible messages as a scrolling stack
+    let visibleStack = [{ text: loadingMessages[0], opacity: 1, position: 0 }];
+    let msgIndex = 0;
+    let pulsePhase = 0;
+
+    onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase: 0 });
     onStreamStart?.();
 
-    // Cycle through messages while waiting (slow and mystical)
+    // Scroll messages up with crossfade - new message fades in as old fades out
     const msgInterval = setInterval(() => {
       msgIndex = (msgIndex + 1) % loadingMessages.length;
-      onDisplayContent?.({ type: 'loading', text: loadingMessages[msgIndex] });
-    }, 2500);
+      pulsePhase += 0.15; // For font weight pulsing
+
+      // Build visible stack: current (entering), previous (exiting), older (fading out)
+      visibleStack = [
+        // New message entering from bottom
+        { text: loadingMessages[msgIndex], opacity: 1, position: 0 },
+        // Previous message scrolling up
+        ...(visibleStack[0] ? [{ text: visibleStack[0].text, opacity: 0.5, position: 1 }] : []),
+        // Oldest visible message fading out at top
+        ...(visibleStack[1] ? [{ text: visibleStack[1].text, opacity: 0.15, position: 2 }] : []),
+      ].slice(0, 3); // Max 3 visible
+
+      onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase });
+    }, 1800);
 
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });
