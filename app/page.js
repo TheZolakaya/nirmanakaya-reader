@@ -4612,15 +4612,15 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-1 overflow-x-auto px-2">
-                {/* Mode tabs centered - scrollable on mobile */}
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5 flex-shrink-0">
+              <div className="flex justify-center mb-1 px-2">
+                {/* Mode tabs centered - compact on mobile */}
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
                     data-help="mode-reflect"
-                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[0.6rem] sm:text-[0.7rem] font-mono uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4633,7 +4633,7 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
                     data-help="mode-discover"
-                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[0.6rem] sm:text-[0.7rem] font-mono uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4654,7 +4654,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
-                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[0.6rem] sm:text-[0.7rem] font-mono uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4675,7 +4675,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
-                    className={`mode-tab px-2 sm:px-3 py-1 rounded-md text-[0.7rem] font-mono uppercase tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[0.6rem] sm:text-[0.7rem] font-mono uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4686,8 +4686,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Control Icons - positioned at right, vertically centered in controls area */}
-              <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 grid grid-cols-2 gap-0.5 sm:gap-1 z-10">
+              {/* Control Icons - positioned at right, desktop only */}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:grid grid-cols-2 gap-1 z-10">
                 {/* Top row: Persona, Signal Tuning */}
                 <button
                   onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
@@ -5223,6 +5223,71 @@ CRITICAL FORMATTING RULES:
                   </div>
                 )}
               </div>
+
+              {/* Mobile Control Icons - below textarea, mobile only */}
+              <div className="flex sm:hidden justify-center gap-2 mt-2">
+                {/* Persona */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                  className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                >
+                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                </button>
+                {/* Signal Tuning */}
+                <button
+                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                  className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title="Signal Tuning"
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                  </svg>
+                </button>
+                {/* Depth */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    {defaultDepth === 'shallow' ? (
+                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                    ) : (
+                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
+                    )}
+                  </svg>
+                </button>
+                {/* Cards */}
+                <button
+                  onClick={() => {
+                    const newState = !defaultExpanded;
+                    setDefaultExpanded(newState);
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                >
+                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {defaultExpanded ? (
+                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
+                    ) : (
+                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
+                    )}
+                  </svg>
+                </button>
+              </div>
+
               </div>{/* END textarea-anchor */}
               </div>{/* END flex layout */}
 
