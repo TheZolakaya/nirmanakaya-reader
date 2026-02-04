@@ -4091,7 +4091,7 @@ CRITICAL FORMATTING RULES:
 
       {/* Main content overlay */}
       <div className="relative z-10" style={{ '--content-dim': contentDim / 100 }}>
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 mobile-container">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 pb-4 sm:pb-8 mobile-container">
         
         {/* Floating Controls - only show when logged in */}
         {currentUser && (
