@@ -5165,278 +5165,252 @@ CRITICAL FORMATTING RULES:
               </UnfoldPanel>
               */}
 
-              {/* Fine-tune Voice Panel - triggered by voice icon in footer */}
-              {/* Backdrop to close panel when clicking outside */}
-              {showVoicePanel && (
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setShowVoicePanel(false)}
-                />
-              )}
-              <UnfoldPanel isOpen={advancedMode && showVoicePanel} direction="down" delay={0.05} duration={0.3}>
-              <div className="mb-2 relative z-20">
-                {/* Panel header */}
-                <div className="text-center mb-2">
-                  <span className="text-[0.5625rem] tracking-widest uppercase text-zinc-500">Fine-tune Voice</span>
-                </div>
-                <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 max-w-sm mx-auto">
-                    {/* Humor slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Humor</span>
-                        <span className="text-xs text-amber-500/80">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
+              {/* Signal Tuning Popover - Centered compact panel */}
+              <AnimatePresence>
+                {advancedMode && showVoicePanel && (
+                  <>
+                    {/* Backdrop to close panel when clicking outside */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowVoicePanel(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute bottom-16 left-1/2 -translate-x-1/2 w-72 bg-zinc-950/95 border border-white/10 rounded-xl p-4 shadow-2xl z-50 backdrop-blur-md"
+                    >
+                      {/* Header */}
+                      <div className="flex justify-between items-center mb-3 border-b border-white/5 pb-2">
+                        <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">Signal Tuning</h3>
+                        {/* LED Indicator */}
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Unhinged</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+
+                      {/* Sliders Stack */}
+                      <div className="space-y-3">
+                        {/* Humor */}
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                            <span>Serious</span>
+                            <span className="text-violet-400">Humor</span>
+                            <span>Wild</span>
+                          </div>
                           <input
                             type="range"
                             min="1"
                             max="10"
                             value={humor}
                             onChange={(e) => setHumor(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
                           />
                         </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Sacred</span>
-                      </div>
-                    </div>
 
-                    {/* Register slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Register</span>
-                        <span className="text-xs text-amber-500/80">{REGISTER_LEVELS[register] || 'Clear'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Chaos</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                        {/* Register */}
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                            <span>Chaos</span>
+                            <span className="text-blue-400">Register</span>
+                            <span>Oracle</span>
+                          </div>
                           <input
                             type="range"
                             min="1"
                             max="10"
                             value={register}
                             onChange={(e) => setRegister(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
                           />
                         </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Oracle</span>
-                      </div>
-                    </div>
 
-                    {/* Agency slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Agency</span>
-                        <span className="text-xs text-amber-500/80">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Witness</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
+                        {/* Agency */}
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[9px] uppercase font-mono text-zinc-400">
+                            <span>Witness</span>
+                            <span className="text-emerald-400">Agency</span>
+                            <span>Creator</span>
+                          </div>
                           <input
                             type="range"
                             min="1"
                             max="10"
                             value={creator}
                             onChange={(e) => setCreator(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
+                            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
                           />
                         </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Creator</span>
                       </div>
-                    </div>
 
-                    {/* Agency hint */}
-                    <div className="text-center text-[0.625rem] text-zinc-600 mb-3 pb-3 border-b border-zinc-800/50">
-                      {creator <= 3 ? 'Observation: "The field shows..."' :
-                       creator <= 6 ? 'Balanced observation and agency' :
-                       creator <= 8 ? 'Agency: "You\'re shaping..."' :
-                       'Full authorship: "You ARE the field"'}
-                    </div>
-
-                    {/* Checkboxes */}
-                    <div className="flex justify-center gap-6 mb-3">
-                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-                        <input
-                          type="checkbox"
-                          checked={roastMode}
-                          onChange={(e) => setRoastMode(e.target.checked)}
-                          className="accent-amber-500"
-                        />
-                        Roast Mode
-                        <span className="text-[10px] text-zinc-600" title="Best friend who's HAD IT. Read them for filth.">(savage)</span>
-                      </label>
-                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-                        <input
-                          type="checkbox"
-                          checked={directMode}
-                          onChange={(e) => setDirectMode(e.target.checked)}
-                          className="accent-amber-500"
-                        />
-                        Direct Mode
-                        <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
-                      </label>
-                    </div>
-
-                    {/* TIER 3: Advanced Voice Settings - Inside Fine-tune panel */}
-                    {showAdvancedVoice && (
-                      <>
+                      {/* Footer Toggles (Roast/Direct) */}
+                      <div className="mt-4 pt-2 border-t border-white/5 flex justify-between">
                         <button
-                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                          data-help="advanced-voice"
-                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1 border-t border-zinc-800/50 pt-3"
+                          onClick={() => setRoastMode(!roastMode)}
+                          className={`text-[9px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
-                          <span className="text-xs">{showLandingFineTune ? '▾' : '▸'}</span>
-                          <span className="text-[0.5625rem] tracking-widest uppercase">Advanced</span>
+                          Roast Mode
                         </button>
-
-                        {showLandingFineTune && (
-                          <div className="mt-2 pt-2">
-                        {/* Delivery Presets */}
-                        <div
-                          className="mb-3 pb-3 border-b border-zinc-700/50"
-                          data-help="delivery-preset"
-                          onClick={(e) => handleHelpClick('delivery-preset', e)}
+                        <button
+                          onClick={() => setDirectMode(!directMode)}
+                          className={`text-[9px] font-mono uppercase tracking-wider px-2 py-1 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
-                          <div className="w-full max-w-lg mx-auto">
-                            <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
-                              {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                                const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                                const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
-                                return (
-                                  <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                                    className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                                      isActive
-                                        ? 'bg-[#2e1065] text-amber-400 ring-1 ring-amber-500/30'
-                                        : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
-                                    }`}
-                                    title={preset.preview || preset.name}
-                                  >
-                                    <span className="sm:hidden">{mobileNames[key]}</span>
-                                    <span className="hidden sm:inline">{preset.name}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
+                          Direct Mode
+                        </button>
+                      </div>
 
-                        {/* Voice Preview */}
-                        <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                          <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                            <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                          </p>
-                        </div>
+                      {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
+                      {showAdvancedVoice && (
+                        <div className="mt-3 pt-2 border-t border-white/5">
+                          <button
+                            onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
+                            data-help="advanced-voice"
+                            className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                          >
+                            <span className="text-[9px]">{showLandingFineTune ? '▾' : '▸'}</span>
+                            <span className="text-[9px] font-mono uppercase tracking-wider">Advanced</span>
+                          </button>
 
-                        {/* Complexity Selector */}
-                        <div
-                          className="mb-3"
-                          data-help="voice-complexity"
-                          onClick={(e) => handleHelpClick('voice-complexity', e)}
-                        >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
-                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                            {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                              <button
-                                key={key}
-                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
-                                  stance.complexity === key
-                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                                }`}
+                          {showLandingFineTune && (
+                            <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
+                              {/* Delivery Presets */}
+                              <div
+                                className="mb-3 pb-3 border-b border-zinc-700/50"
+                                data-help="delivery-preset"
+                                onClick={(e) => handleHelpClick('delivery-preset', e)}
                               >
-                                {opt.label}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
+                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
+                                <div className="flex gap-1 justify-center">
+                                  {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                                    const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                                    return (
+                                      <button
+                                        key={key}
+                                        onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
+                                        className={`px-1.5 py-1 rounded text-[9px] transition-all ${
+                                          isActive
+                                            ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
+                                            : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                        }`}
+                                        title={preset.preview || preset.name}
+                                      >
+                                        {preset.name}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
 
-                        {/* Seriousness/Tone Selector */}
-                        <div
-                          className="mb-3"
-                          data-help="voice-tone"
-                          onClick={(e) => handleHelpClick('voice-tone', e)}
-                        >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
-                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                            {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                              <button
-                                key={key}
-                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
-                                  stance.seriousness === key
-                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                                }`}
+                              {/* Voice Preview */}
+                              <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
+                                <p className="text-zinc-400 text-[10px] italic leading-relaxed">
+                                  "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                                </p>
+                              </div>
+
+                              {/* Complexity Selector */}
+                              <div
+                                className="mb-3"
+                                data-help="voice-complexity"
+                                onClick={(e) => handleHelpClick('voice-complexity', e)}
                               >
-                                {key}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
+                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
+                                <div className="flex gap-1 justify-center">
+                                  {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
+                                    <button
+                                      key={key}
+                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
+                                      className={`px-1.5 py-1 rounded text-[9px] transition-all ${
+                                        stance.complexity === key
+                                          ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                      }`}
+                                    >
+                                      {opt.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
 
-                        {/* Stance Grid - only the 4x4 grid */}
-                        <div
-                          data-help="stance-selector"
-                          onClick={(e) => handleHelpClick('stance-selector', e)}
-                        >
-                          <StanceSelector
-                            stance={stance}
-                            setStance={setStance}
-                            showCustomize={true}
-                            setShowCustomize={() => {}}
-                            gridOnly={true}
-                            disabled={helpMode}
-                          />
-                        </div>
-
-                        {/* Model Selector + Token Display */}
-                        <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                          {getAvailableModels().length > 1 && (
-                            <div className="flex items-center justify-center gap-2 mb-1.5">
-                              <span className="text-[0.625rem] text-zinc-500">Model:</span>
-                              <select
-                                value={selectedModel}
-                                onChange={(e) => setSelectedModel(e.target.value)}
-                                className="text-[0.625rem] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                              {/* Tone Selector */}
+                              <div
+                                className="mb-3"
+                                data-help="voice-tone"
+                                onClick={(e) => handleHelpClick('voice-tone', e)}
                               >
-                                {getAvailableModels().map(m => (
-                                  <option key={m} value={m}>{getModelLabel(m)}</option>
-                                ))}
-                              </select>
+                                <div className="text-[9px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
+                                <div className="flex gap-1 justify-center">
+                                  {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
+                                    <button
+                                      key={key}
+                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
+                                      className={`px-1.5 py-1 rounded text-[9px] transition-all capitalize ${
+                                        stance.seriousness === key
+                                          ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                      }`}
+                                    >
+                                      {key}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Stance Grid */}
+                              <div
+                                data-help="stance-selector"
+                                onClick={(e) => handleHelpClick('stance-selector', e)}
+                              >
+                                <StanceSelector
+                                  stance={stance}
+                                  setStance={setStance}
+                                  showCustomize={true}
+                                  setShowCustomize={() => {}}
+                                  gridOnly={true}
+                                  disabled={helpMode}
+                                />
+                              </div>
+
+                              {/* Model Selector + Token Display */}
+                              <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                                {getAvailableModels().length > 1 && (
+                                  <div className="flex items-center justify-center gap-2 mb-1.5">
+                                    <span className="text-[9px] text-zinc-500 font-mono">Model:</span>
+                                    <select
+                                      value={selectedModel}
+                                      onChange={(e) => setSelectedModel(e.target.value)}
+                                      className="text-[9px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                                    >
+                                      {getAvailableModels().map(m => (
+                                        <option key={m} value={m}>{getModelLabel(m)}</option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                )}
+                                <label className="flex items-center justify-center gap-2 cursor-pointer">
+                                  <input
+                                    type="checkbox"
+                                    checked={showTokenUsage}
+                                    onChange={(e) => setShowTokenUsage(e.target.checked)}
+                                    className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                                  />
+                                  <span className="text-[9px] text-zinc-400 font-mono">Show token usage</span>
+                                </label>
+                              </div>
                             </div>
                           )}
-                          <label className="flex items-center justify-center gap-2 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={showTokenUsage}
-                              onChange={(e) => setShowTokenUsage(e.target.checked)}
-                              className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                            />
-                            <span className="text-[0.625rem] text-zinc-400">Show token usage</span>
-                          </label>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </motion.div>
                   </>
                 )}
-                </div>
-              </div>
-            </UnfoldPanel>
+              </AnimatePresence>
 
 {/* Glistener moved to inside textarea - see below */}
 
-            {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
+            {/* Footer Deck - Signal Tuning & Output Toggles */}
             <motion.div
               initial={false}
               animate={{
@@ -5446,48 +5420,60 @@ CRITICAL FORMATTING RULES:
               }}
               transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
               style={{ overflow: 'hidden' }}
+              className="relative"
             >
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 max-w-2xl mx-auto">
-              {/* Voice icon - triggers Fine-Tune panel */}
+            <div className="flex items-center justify-between mb-2 max-w-2xl mx-auto px-2">
+              {/* Zone 1 (Left): Empty for visual balance */}
+              <div className="w-24"></div>
+
+              {/* Zone 2 (Center): Signal Tuning Button */}
               <button
                 onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
                 data-help="fine-tune-voice"
-                className={`p-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/30 text-amber-400' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'}`}
-                title="Fine-tune Voice"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'}`}
+                title="Signal Tuning"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  <path d="M8 10h.01" />
-                  <path d="M12 10h.01" />
-                  <path d="M16 10h.01" />
+                {/* Sliders icon */}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
                 </svg>
               </button>
 
-              {/* Depth toggle - single button that flips state */}
-              <button
-                onClick={() => {
-                  const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                  setDefaultDepth(newDepth);
-                  setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                }}
-                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                title="Starting depth for card content"
-              >
-                <span className="text-zinc-500 text-[10px]">Depth</span>
-                <span>{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
-              </button>
+              {/* Zone 3 (Right): Output Toggles */}
+              <div className="flex items-center gap-2">
+                {/* Depth toggle */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                  }}
+                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
+                  title="Starting depth for card content"
+                >
+                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Depth</span>
+                  <span className="font-medium">{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
+                </button>
 
-              {/* Expansion toggle - single button that flips state */}
-              <button
-                onClick={() => setDefaultExpanded(!defaultExpanded)}
-                className="px-3 py-1 text-xs rounded-lg border border-zinc-700/50 bg-zinc-800/80 text-zinc-300 hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                title="Cards start expanded or collapsed"
-              >
-                <span className="text-zinc-500 text-[10px]">Cards</span>
-                <span>{defaultExpanded ? 'Open' : 'Closed'}</span>
-              </button>
+                {/* Cards toggle */}
+                <button
+                  onClick={() => setDefaultExpanded(!defaultExpanded)}
+                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
+                  title="Cards start expanded or collapsed"
+                >
+                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Cards</span>
+                  <span className="font-medium">{defaultExpanded ? 'Open' : 'Closed'}</span>
+                </button>
+              </div>
             </div>
-            </motion.div>
             </motion.div>
             )}
             {/* End of Standard Mode conditional */}
