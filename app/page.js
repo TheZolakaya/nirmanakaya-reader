@@ -4493,18 +4493,16 @@ CRITICAL FORMATTING RULES:
               {/* === MAIN LAYOUT: Controls above textarea === */}
               <div className="flex flex-col">
 
-              {/* CONTROLS GROUP - collapses to 0 height */}
+              {/* CONTROLS GROUP - fixed height, opacity only (keeps textarea anchored) */}
               <motion.div
-                className="controls-above overflow-hidden"
+                className={`controls-above overflow-hidden ${!advancedMode ? 'pointer-events-none' : ''}`}
+                style={{ height: '140px' }}
                 initial={false}
                 animate={{
-                  height: advancedMode ? 'auto' : 0,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
-                  // Sync with marginTop compensation animation
-                  height: { duration: 0.3, ease: 'easeInOut' },
-                  opacity: { duration: 0.2 }
+                  opacity: { duration: 0.25 }
                 }}
               >
               {/* Complexity Slider - Admin only for now */}
