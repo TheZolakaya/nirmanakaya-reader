@@ -4834,10 +4834,14 @@ CRITICAL FORMATTING RULES:
                           <motion.div
                             key={glistenerContent.type === 'fading' ? 'typing' : glistenerContent.type}
                             ref={(el) => {
-                              // Auto-scroll during streaming phase
-                              if (el && glistenerContent.type === 'streaming' && glistenerContent.scrollProgress) {
-                                const maxScroll = el.scrollHeight - el.clientHeight;
-                                el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+                              // Auto-scroll during streaming phase - use rAF to ensure layout is computed
+                              if (el && glistenerContent.type === 'streaming' && glistenerContent.scrollProgress !== undefined) {
+                                requestAnimationFrame(() => {
+                                  const maxScroll = el.scrollHeight - el.clientHeight;
+                                  if (maxScroll > 0) {
+                                    el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+                                  }
+                                });
                               }
                             }}
                             initial={{ opacity: 0 }}

@@ -22,8 +22,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Timing constants
-const STREAM_DURATION = 4500;     // Total ghost stream time (ms) - slower for effect
-const FRAGMENT_INTERVAL = 180;   // Time between fragment changes (ms)
+const STREAM_DURATION = 3000;     // Total ghost stream time (ms) - fast and hot!
+const FRAGMENT_INTERVAL = 100;   // Time between updates (ms) - rapid for smooth scroll
 const TYPING_SPEED = 40;         // ms per character for final question
 const LINGER_DURATION = 2000;    // How long crystal hangs before transfer (ms)
 const FADE_DURATION = 800;       // Fade out duration (ms)
@@ -101,10 +101,10 @@ export default function Glistener({
       const streamInterval = setInterval(() => {
         elapsed += FRAGMENT_INTERVAL;
         const progress = elapsed / STREAM_DURATION;
-        pulsePhase += 0.15;  // For glow pulsing
+        pulsePhase += 0.25;  // For glow pulsing - faster beat
 
-        // Pulsing opacity effect (0.6 to 0.9)
-        const pulseOpacity = 0.75 + Math.sin(pulsePhase) * 0.15;
+        // Pulsing opacity effect (0.75 to 0.95) - legible but alive
+        const pulseOpacity = 0.85 + Math.sin(pulsePhase) * 0.1;
 
         // Send full transmission to parent for display with scroll progress
         onDisplayContent?.({
