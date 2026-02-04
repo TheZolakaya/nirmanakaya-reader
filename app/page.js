@@ -4620,7 +4620,7 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
                     data-help="mode-reflect"
-                    className={`mode-tab px-1 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4633,7 +4633,7 @@ CRITICAL FORMATTING RULES:
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
                     data-help="mode-discover"
-                    className={`mode-tab px-1 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4654,7 +4654,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
-                    className={`mode-tab px-1 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
@@ -4675,7 +4675,7 @@ CRITICAL FORMATTING RULES:
                     }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
-                    className={`mode-tab px-1 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
+                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
                         : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
