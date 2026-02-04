@@ -4954,7 +4954,7 @@ CRITICAL FORMATTING RULES:
                     </div>
                   )}
                   {/* Compact persona selector - left of Initiate button */}
-                  <div className="absolute bottom-4 right-[9.5rem] z-20">
+                  <div className="absolute bottom-4 right-[11rem] z-20">
                     <div className="relative">
                       <button
                         onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
