@@ -4823,6 +4823,38 @@ CRITICAL FORMATTING RULES:
                           </motion.div>
                         )}
                       </AnimatePresence>
+                      {/* Glistener component - renders inside textarea for idle/complete states */}
+                      {showGlistener && (
+                        <Glistener
+                          onTransfer={(crystal) => {
+                            setDtpInput(crystal); // Use dtpInput for Explore mode
+                            setGlistenerContent(null);
+                            if (crystal) {
+                              setCrystalFlash(true);
+                              setTimeout(() => setCrystalFlash(false), 2000);
+                            }
+                          }}
+                          onClose={() => {
+                            setShowGlistener(false);
+                            setGlistenerContent(null);
+                            setGlistenData(null);
+                          }}
+                          onDisplayContent={setGlistenerContent}
+                          onPhaseChange={setGlistenerPhase}
+                          onGlistenComplete={setGlistenData}
+                        />
+                      )}
+                      {/* Glisten trigger - inside textarea, bottom left */}
+                      {!showGlistener && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
+                          className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
+                          title="Let a question find its shape"
+                        >
+                          <span className="text-amber-500/70">◇</span>
+                          <span>Glisten</span>
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
