@@ -4568,12 +4568,12 @@ CRITICAL FORMATTING RULES:
             >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
-              {/* justify-end anchors textarea at bottom, min-h only when expanded */}
-              <div className="flex flex-col justify-end" style={{ minHeight: advancedMode ? '280px' : 'auto' }}>
+              {/* Simple column layout - no minHeight changes to keep textarea rock solid */}
+              <div className="flex flex-col">
 
               {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
-                className={`controls-above overflow-hidden ${!advancedMode ? 'pointer-events-none' : ''}`}
+                className={`controls-above overflow-hidden relative ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
                   height: advancedMode ? 'auto' : 0,
@@ -4612,7 +4612,7 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-2">
+              <div className="flex justify-center mb-1">
                 {/* Mode tabs centered */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0.5">
                   {/* Reflect - Violet (#7C3AED) */}
@@ -4686,87 +4686,86 @@ CRITICAL FORMATTING RULES:
                 </div>
               </div>
 
-              {/* Spread Selection - truly centered */}
-              <div className="w-full max-w-2xl mx-auto mb-1 relative">
-                {/* Control Icons - positioned at right, vertically centered in controls area */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 grid grid-cols-2 gap-1 z-10">
-                  {/* Top row: Persona, Signal Tuning */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                    className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                    title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                  >
-                    {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                  </button>
-                  <button
-                    onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                    data-help="fine-tune-voice"
-                    className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                    title="Signal Tuning"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                      <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                      <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                      <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                    </svg>
-                  </button>
-                  {/* Bottom row: Depth, Cards */}
-                  <button
-                    onClick={() => {
-                      const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                      setDefaultDepth(newDepth);
-                      setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                      setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                      setTimeout(() => setControlTooltip(null), 1200);
-                    }}
-                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                    title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      {defaultDepth === 'shallow' ? (
-                        <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                      ) : (
-                        <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                      )}
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => {
-                      const newState = !defaultExpanded;
-                      setDefaultExpanded(newState);
-                      setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
-                      setTimeout(() => setControlTooltip(null), 1200);
-                    }}
-                    className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                    title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      {defaultExpanded ? (
-                        <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                      ) : (
-                        <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                      )}
-                    </svg>
-                  </button>
-                  {/* Tooltip */}
-                  <AnimatePresence>
-                    {controlTooltip && (
-                      <motion.div
-                        initial={{ opacity: 0, x: 5 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 5 }}
-                        className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
-                      >
-                        {controlTooltip.text}
-                      </motion.div>
+              {/* Control Icons - positioned at right, vertically centered in controls area */}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 grid grid-cols-2 gap-1 z-10">
+                {/* Top row: Persona, Signal Tuning */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                  className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                >
+                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                </button>
+                <button
+                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                  data-help="fine-tune-voice"
+                  className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                  title="Signal Tuning"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                  </svg>
+                </button>
+                {/* Bottom row: Depth, Cards */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    {defaultDepth === 'shallow' ? (
+                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                    ) : (
+                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
                     )}
-                  </AnimatePresence>
-                </div>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => {
+                    const newState = !defaultExpanded;
+                    setDefaultExpanded(newState);
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setTimeout(() => setControlTooltip(null), 1200);
+                  }}
+                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
+                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {defaultExpanded ? (
+                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
+                    ) : (
+                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
+                    )}
+                  </svg>
+                </button>
+                {/* Tooltip */}
+                <AnimatePresence>
+                  {controlTooltip && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 5 }}
+                      className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
+                    >
+                      {controlTooltip.text}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
-                {/* Center: Spread selection rows - truly centered, FIXED HEIGHT to prevent mode switching jitter */}
-                {/* Height accommodates Reflect's 2 rows: numbers (36px) + gap (8px) + spreads (~44px mobile, ~32px desktop) */}
-                <div className="flex flex-col items-center justify-center h-[88px] sm:h-[72px]">
+              {/* Spread Selection - truly centered */}
+              <div className="w-full max-w-2xl mx-auto mb-1">
+                {/* Center: Spread selection rows - FIXED HEIGHT, content at top to be directly under mode tabs */}
+                <div className="flex flex-col items-center justify-start h-[88px] sm:h-[72px]">
                 {spreadType === 'forge' || spreadType === 'explore' ? (
                   /* Forge/Explore mode - no position selector needed */
                   null
@@ -5187,7 +5186,7 @@ CRITICAL FORMATTING RULES:
                 </div>
                 {/* Mode reminder label - below textarea when controls minimized */}
                 {!advancedMode && (
-                  <div className="text-center leading-none -mt-2">
+                  <div className="text-center leading-none mt-2 px-4">
                     <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
                       {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
                         <>
