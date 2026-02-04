@@ -4851,10 +4851,10 @@ CRITICAL FORMATTING RULES:
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
+                            className="absolute inset-0 p-4 pb-12 pr-12 pointer-events-none flex flex-col items-center justify-center overflow-visible"
                           >
                             {/* Scrolling message stack - newest at bottom, oldest fading at top */}
-                            <div className="flex flex-col items-center relative h-20">
+                            <div className="flex flex-col items-center relative h-20 w-full">
                               <AnimatePresence>
                                 {glistenerContent.messages?.map((msg, i) => (
                                   <motion.div
@@ -4866,7 +4866,7 @@ CRITICAL FORMATTING RULES:
                                     }}
                                     exit={{ opacity: 0, y: -50 }}
                                     transition={{ duration: 0.6, ease: 'easeOut' }}
-                                    className="text-amber-400 italic text-base sm:text-lg absolute"
+                                    className="text-amber-400 italic text-base sm:text-lg absolute whitespace-nowrap left-1/2 -translate-x-1/2"
                                     style={{
                                       fontWeight: msg.position === 0
                                         ? Math.round(400 + Math.sin((glistenerContent.pulsePhase || 0) * 2) * 150)
