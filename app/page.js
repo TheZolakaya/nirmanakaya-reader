@@ -135,6 +135,7 @@ import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import Glistener from '../components/reader/Glistener.js';
+import GlistenSourcePanel from '../components/reader/GlistenSourcePanel.js';
 import CardImage from '../components/reader/CardImage.js';
 import Minimap from '../components/reader/Minimap.js';
 import { getHomeArchetype, getCardType, getCardImagePath } from '../lib/cardImages.js';
@@ -582,6 +583,7 @@ export default function NirmanakaReader() {
   const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
   const [glistenerPhase, setGlistenerPhase] = useState('idle');
   const [glistenData, setGlistenData] = useState(null); // Full glisten data for saving to My Readings
+  const [showGlistenPanel, setShowGlistenPanel] = useState(false); // Show Glistened Tale panel in reading
   const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
   // Locus control state — subjects-based (chip input)
@@ -5910,7 +5912,19 @@ CRITICAL FORMATTING RULES:
         {/* Your Question - shows after visual spread (non-Explore modes) */}
         {parsedReading && !loading && !parsedReading.firstContact && question && spreadType !== 'explore' && (
           <div className="content-pane bg-zinc-800/50 rounded-lg p-4 mb-6 mx-8">
-            <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
+            <div className="flex items-center gap-2 mb-2">
+              {/* Glistened Tale button - shows if glisten data exists */}
+              {glistenData && (
+                <button
+                  onClick={() => setShowGlistenPanel(true)}
+                  className="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors flex items-center gap-1"
+                  title="View Glistened Tale"
+                >
+                  <span>✨</span> Glistened Tale
+                </button>
+              )}
+              <div className="text-[0.625rem] text-zinc-500 tracking-wider">Your question or intention</div>
+            </div>
             <div className="text-zinc-300 text-sm">{question}</div>
           </div>
         )}
@@ -7497,6 +7511,15 @@ CRITICAL FORMATTING RULES:
         }}
         initialMode={authModalMode}
       />
+
+      {/* Glistened Tale Panel - view glisten data before saving */}
+      {showGlistenPanel && glistenData && (
+        <GlistenSourcePanel
+          data={glistenData}
+          onClose={() => setShowGlistenPanel(false)}
+          isOpen={showGlistenPanel}
+        />
+      )}
 
       {/* Version indicator - always visible for deployment verification */}
       <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
