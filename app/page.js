@@ -4893,11 +4893,9 @@ CRITICAL FORMATTING RULES:
                                     }}
                                     exit={{ opacity: 0, y: -60 }}
                                     transition={{ duration: 0.8, ease: 'easeOut' }}
-                                    className="text-amber-400 italic text-base sm:text-lg absolute whitespace-nowrap"
+                                    className="italic text-base sm:text-lg absolute whitespace-nowrap animate-rainbow-cycle"
                                     style={{
-                                      fontWeight: msg.position === 0
-                                        ? Math.round(500 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 200)
-                                        : 300,
+                                      fontWeight: 400,
                                       textShadow: msg.position === 0
                                         ? `0 0 ${15 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 8}px rgba(251, 191, 36, 0.5)`
                                         : 'none',
@@ -4925,8 +4923,8 @@ CRITICAL FORMATTING RULES:
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
-                            className={`absolute inset-0 pt-4 px-4 pb-14 pr-12 ${
-                              glistenerContent.type === 'streaming' ? 'text-amber-300/90 leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-pulse' :
+                            className={`absolute inset-0 pt-5 px-4 pb-16 pr-12 ${
+                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
                             }`}
