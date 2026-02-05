@@ -6514,9 +6514,9 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
-            {/* Path to Balance - ALWAYS shown (holistic synthesis), collapsed by default */}
+            {/* Path to Balance - HIDDEN: Now shown as "The Invitation" in the Synthesis section */}
             {/* Uses parsedReading.path with depth levels (surface, wade, swim, deep) */}
-            {(parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.path?.deep || parsedReading.rebalancerSummary) && (() => {
+            {false && (parsedReading.path?.surface || parsedReading.path?.wade || parsedReading.path?.swim || parsedReading.path?.deep || parsedReading.rebalancerSummary) && (() => {
               const path = parsedReading.path || {};
               const hasDepthLevels = path.surface || path.wade || path.swim || path.deep;
               // Use explicit null check to avoid empty string fallback issues
