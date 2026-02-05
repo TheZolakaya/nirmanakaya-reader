@@ -142,6 +142,8 @@ const DepthCard = ({
   const [whyDepth, setWhyDepth] = useState(defaultDepth); // Use user's chosen default depth
   const [isArchCollapsed, setIsArchCollapsed] = useState(!defaultExpanded); // Architecture section
   const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
+  const [collapsedRebalancerExpansions, setCollapsedRebalancerExpansions] = useState({}); // Track collapsed state for rebalancer expansions
+  const [collapsedGrowthExpansions, setCollapsedGrowthExpansions] = useState({}); // Track collapsed state for growth expansions
 
   // Independent loading states for each section
   const [cardLoadingDeeper, setCardLoadingDeeper] = useState(false);
@@ -616,6 +618,16 @@ const DepthCard = ({
   const expansionKey = `card-${cardData.index}`;
   const sectionExpansions = expansions[expansionKey] || {};
   const isExpanding = expanding?.section === expansionKey;
+
+  // Rebalancer expansion handling
+  const rebalancerExpansionKey = `rebalancer-${cardData.index}`;
+  const rebalancerExpansions = expansions[rebalancerExpansionKey] || {};
+  const isRebalancerExpanding = expanding?.section === rebalancerExpansionKey;
+
+  // Growth expansion handling
+  const growthExpansionKey = `growth-${cardData.index}`;
+  const growthExpansions = expansions[growthExpansionKey] || {};
+  const isGrowthExpanding = expanding?.section === growthExpansionKey;
 
   const getButtonStyle = (hasExpansion, isThisExpanding, isExpandingOther) => {
     return `text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
@@ -1297,6 +1309,66 @@ const DepthCard = ({
                 )}
               </div>
 
+              {/* Rebalancer Expansion Buttons */}
+              {onExpand && (
+                <div className="flex gap-2 flex-wrap mb-4">
+                  {Object.entries(EXPANSION_PROMPTS)
+                    .filter(([key]) => key !== 'architecture')
+                    .map(([key, { label }]) => {
+                    const isThisExpanding = isRebalancerExpanding && expanding?.type === key;
+                    const hasExpansion = !!rebalancerExpansions[key];
+                    const isExpandingOther = isRebalancerExpanding && !isThisExpanding;
+
+                    return (
+                      <button
+                        key={key}
+                        onClick={(e) => { e.stopPropagation(); if (!hasExpansion) onExpand(rebalancerExpansionKey, key); }}
+                        disabled={isRebalancerExpanding || hasExpansion}
+                        className={getButtonStyle(hasExpansion, isThisExpanding, isExpandingOther)}
+                      >
+                        {isThisExpanding && (
+                          <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                        )}
+                        {hasExpansion ? `✓ ${label}` : label}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Rebalancer Expansion Content Display */}
+              {Object.entries(rebalancerExpansions).map(([key, expansionContent]) => {
+                if (!expansionContent) return null;
+                const isExpCollapsed = collapsedRebalancerExpansions[key] === true;
+                const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
+                return (
+                  <div key={key} className="mb-4 rounded-lg border border-emerald-700/30 overflow-hidden animate-fadeIn bg-emerald-900/20">
+                    <div
+                      className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-emerald-800/20 transition-colors"
+                      onClick={(e) => { e.stopPropagation(); setCollapsedRebalancerExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
+                    >
+                      <span
+                        className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-emerald-400'}`}
+                        style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                      >
+                        ▼
+                      </span>
+                      <span className="text-xs text-emerald-300 uppercase tracking-wider">{EXPANSION_PROMPTS[key]?.label}</span>
+                      {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
+                    </div>
+                    {!isExpCollapsed && (
+                      <div className="px-3 pb-3 text-sm text-emerald-100/90 border-t border-emerald-700/30 space-y-3">
+                        {paragraphs.map((para, i) => (
+                          <p key={i} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
               {/* Rebalancer Architecture (hidden for First Contact) */}
               {!isFirstContact && (rebalancerDepth === DEPTH.SHALLOW || rebalancerDepth === DEPTH.WADE || rebalancerDepth === DEPTH.SWIM || rebalancerDepth === DEPTH.DEEP) && cardData.rebalancer?.architecture && (
                 <ArchitectureBox
@@ -1590,6 +1662,66 @@ const DepthCard = ({
                   <span className="text-teal-500/50 italic">Growth content generating...</span>
                 )}
               </div>
+
+              {/* Growth Expansion Buttons */}
+              {onExpand && (
+                <div className="flex gap-2 flex-wrap mb-4">
+                  {Object.entries(EXPANSION_PROMPTS)
+                    .filter(([key]) => key !== 'architecture')
+                    .map(([key, { label }]) => {
+                    const isThisExpanding = isGrowthExpanding && expanding?.type === key;
+                    const hasExpansion = !!growthExpansions[key];
+                    const isExpandingOther = isGrowthExpanding && !isThisExpanding;
+
+                    return (
+                      <button
+                        key={key}
+                        onClick={(e) => { e.stopPropagation(); if (!hasExpansion) onExpand(growthExpansionKey, key); }}
+                        disabled={isGrowthExpanding || hasExpansion}
+                        className={getButtonStyle(hasExpansion, isThisExpanding, isExpandingOther)}
+                      >
+                        {isThisExpanding && (
+                          <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
+                        )}
+                        {hasExpansion ? `✓ ${label}` : label}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Growth Expansion Content Display */}
+              {Object.entries(growthExpansions).map(([key, expansionContent]) => {
+                if (!expansionContent) return null;
+                const isExpCollapsed = collapsedGrowthExpansions[key] === true;
+                const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
+                return (
+                  <div key={key} className="mb-4 rounded-lg border border-teal-700/30 overflow-hidden animate-fadeIn bg-teal-900/20">
+                    <div
+                      className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-teal-800/20 transition-colors"
+                      onClick={(e) => { e.stopPropagation(); setCollapsedGrowthExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
+                    >
+                      <span
+                        className={`text-xs transition-transform duration-200 ${isExpCollapsed ? 'text-red-500' : 'text-teal-400'}`}
+                        style={{ transform: isExpCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                      >
+                        ▼
+                      </span>
+                      <span className="text-xs text-teal-300 uppercase tracking-wider">{EXPANSION_PROMPTS[key]?.label}</span>
+                      {isExpCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-auto">tap to expand</span>}
+                    </div>
+                    {!isExpCollapsed && (
+                      <div className="px-3 pb-3 text-sm text-teal-100/90 border-t border-teal-700/30 space-y-3">
+                        {paragraphs.map((para, i) => (
+                          <p key={i} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
 
               {/* Growth Architecture (if any, hidden for First Contact) */}
               {!isFirstContact && (growthDepth === DEPTH.SHALLOW || growthDepth === DEPTH.WADE || growthDepth === DEPTH.SWIM || growthDepth === DEPTH.DEEP) && cardData.growth?.architecture && (
