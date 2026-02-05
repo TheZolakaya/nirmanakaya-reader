@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Text scaling CSS variables */
+/* Text scaling and appearance CSS variables */
 :root {
   --text-scale: 1;
   --text-xs: calc(0.75rem * var(--text-scale));
@@ -10,6 +10,12 @@
   --text-base: calc(1rem * var(--text-scale));
   --text-lg: calc(1.125rem * var(--text-scale));
   --text-xl: calc(1.25rem * var(--text-scale));
+
+  /* User appearance preferences */
+  --text-brightness: 1;
+  --input-text-color: #ffffff;
+  --input-bg-color: #18181b;
+  --input-font: ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Global dark background to prevent white flash on overscroll */
@@ -662,4 +668,43 @@ select {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* =============================================
+   USER APPEARANCE CUSTOMIZATION
+   Applied via CSS variables from TextSizeSlider
+   ============================================= */
+
+/* Input areas (textareas) - apply user preferences */
+.user-input-area,
+textarea.user-input-area {
+  color: var(--input-text-color) !important;
+  background-color: var(--input-bg-color) !important;
+  font-family: var(--input-font) !important;
+  opacity: var(--text-brightness);
+}
+
+/* Reading content - apply user preferences */
+.reading-content-customizable {
+  font-family: var(--input-font);
+}
+
+/* Apply brightness to reading text */
+.reading-text-customizable {
+  opacity: var(--text-brightness);
+}
+
+/* Apply color theme to all user-facing text areas */
+.user-text-color {
+  color: var(--input-text-color);
+}
+
+.user-bg-color {
+  background-color: var(--input-bg-color);
+}
+
+/* Placeholder text respects brightness */
+.user-input-area::placeholder,
+textarea.user-input-area::placeholder {
+  opacity: calc(var(--text-brightness) * 0.5);
 }
