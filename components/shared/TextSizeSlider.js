@@ -1,91 +1,23 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-
-// Font presets - 4 distinctive options
-const FONT_PRESETS = [
-  { id: 'system', label: 'System', value: 'ui-sans-serif, system-ui, sans-serif', preview: 'Aa' },
-  { id: 'mono', label: 'Mono', value: 'ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace', preview: 'Aa' },
-  { id: 'serif', label: 'Serif', value: 'Georgia, "Times New Roman", serif', preview: 'Aa' },
-  { id: 'rounded', label: 'Soft', value: '"Nunito", "Varela Round", ui-rounded, sans-serif', preview: 'Aa' },
-];
-
-// Color presets for text and background
-const TEXT_COLOR_PRESETS = [
-  { id: 'white', label: 'White', value: '#ffffff', textClass: 'text-white' },
-  { id: 'warm', label: 'Warm', value: '#fef3c7', textClass: 'text-amber-100' },
-  { id: 'cool', label: 'Cool', value: '#e0f2fe', textClass: 'text-sky-100' },
-  { id: 'soft', label: 'Soft', value: '#d4d4d8', textClass: 'text-zinc-300' },
-];
-
-const BG_COLOR_PRESETS = [
-  { id: 'dark', label: 'Dark', value: '#18181b', bgClass: 'bg-zinc-900' },
-  { id: 'darker', label: 'Deeper', value: '#09090b', bgClass: 'bg-zinc-950' },
-  { id: 'warm', label: 'Warm', value: '#1c1917', bgClass: 'bg-stone-900' },
-  { id: 'ink', label: 'Ink', value: '#0f172a', bgClass: 'bg-slate-900' },
-];
+import { useAppearance } from './AppearanceContext';
 
 const TextSizeSlider = () => {
-  const [scale, setScale] = useState(1);
-  const [brightness, setBrightness] = useState(1);
-  const [textColor, setTextColor] = useState('white');
-  const [bgColor, setBgColor] = useState('dark');
-  const [font, setFont] = useState('system');
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
-  // Load saved preferences on mount
-  useEffect(() => {
-    const savedScale = localStorage.getItem('nirmanakaya-text-scale');
-    const savedBrightness = localStorage.getItem('nirmanakaya-text-brightness');
-    const savedTextColor = localStorage.getItem('nirmanakaya-text-color');
-    const savedBgColor = localStorage.getItem('nirmanakaya-bg-color');
-    const savedFont = localStorage.getItem('nirmanakaya-font');
+  const {
+    appearance,
+    updateAppearance,
+    resetAppearance,
+    getInputStyles,
+    FONT_PRESETS,
+    TEXT_COLOR_PRESETS,
+    BG_COLOR_PRESETS,
+  } = useAppearance();
 
-    const scaleValue = savedScale ? parseFloat(savedScale) : 1;
-    const brightnessValue = savedBrightness ? parseFloat(savedBrightness) : 1;
-    const textColorValue = savedTextColor || 'white';
-    const bgColorValue = savedBgColor || 'dark';
-    const fontValue = savedFont || 'system';
-
-    setScale(scaleValue);
-    setBrightness(brightnessValue);
-    setTextColor(textColorValue);
-    setBgColor(bgColorValue);
-    setFont(fontValue);
-
-    // Apply all settings
-    applySettings(scaleValue, brightnessValue, textColorValue, bgColorValue, fontValue);
-  }, []);
-
-  // Apply settings to CSS variables
-  const applySettings = (scaleVal, brightnessVal, textColorVal, bgColorVal, fontVal) => {
-    const root = document.documentElement;
-
-    // Text scale
-    root.style.setProperty('--text-scale', scaleVal);
-
-    // Brightness (applied as opacity multiplier)
-    root.style.setProperty('--text-brightness', brightnessVal);
-
-    // Text color
-    const textPreset = TEXT_COLOR_PRESETS.find(p => p.id === textColorVal);
-    if (textPreset) {
-      root.style.setProperty('--input-text-color', textPreset.value);
-    }
-
-    // Background color
-    const bgPreset = BG_COLOR_PRESETS.find(p => p.id === bgColorVal);
-    if (bgPreset) {
-      root.style.setProperty('--input-bg-color', bgPreset.value);
-    }
-
-    // Font
-    const fontPreset = FONT_PRESETS.find(p => p.id === fontVal);
-    if (fontPreset) {
-      root.style.setProperty('--input-font', fontPreset.value);
-    }
-  };
+  const { scale, brightness, textColor, bgColor, font } = appearance;
 
   // Close dropdown when clicking/tapping outside
   const handleClickOutside = useCallback((e) => {
@@ -105,56 +37,6 @@ const TextSizeSlider = () => {
       document.removeEventListener('touchend', handleClickOutside, true);
     };
   }, [isOpen, handleClickOutside]);
-
-  // Update handlers
-  const handleScaleChange = (e) => {
-    const value = parseFloat(e.target.value);
-    setScale(value);
-    localStorage.setItem('nirmanakaya-text-scale', value);
-    applySettings(value, brightness, textColor, bgColor, font);
-  };
-
-  const handleBrightnessChange = (e) => {
-    const value = parseFloat(e.target.value);
-    setBrightness(value);
-    localStorage.setItem('nirmanakaya-text-brightness', value);
-    applySettings(scale, value, textColor, bgColor, font);
-  };
-
-  const handleTextColorChange = (colorId) => {
-    setTextColor(colorId);
-    localStorage.setItem('nirmanakaya-text-color', colorId);
-    applySettings(scale, brightness, colorId, bgColor, font);
-  };
-
-  const handleBgColorChange = (colorId) => {
-    setBgColor(colorId);
-    localStorage.setItem('nirmanakaya-bg-color', colorId);
-    applySettings(scale, brightness, textColor, colorId, font);
-  };
-
-  const handleFontChange = (fontId) => {
-    setFont(fontId);
-    localStorage.setItem('nirmanakaya-font', fontId);
-    applySettings(scale, brightness, textColor, bgColor, fontId);
-  };
-
-  // Reset all to defaults
-  const handleReset = () => {
-    setScale(1);
-    setBrightness(1);
-    setTextColor('white');
-    setBgColor('dark');
-    setFont('system');
-
-    localStorage.removeItem('nirmanakaya-text-scale');
-    localStorage.removeItem('nirmanakaya-text-brightness');
-    localStorage.removeItem('nirmanakaya-text-color');
-    localStorage.removeItem('nirmanakaya-bg-color');
-    localStorage.removeItem('nirmanakaya-font');
-
-    applySettings(1, 1, 'white', 'dark', 'system');
-  };
 
   return (
     <div ref={containerRef} className="relative">
@@ -178,7 +60,7 @@ const TextSizeSlider = () => {
           <div className="flex justify-between items-center mb-4 pb-2 border-b border-zinc-800">
             <span className="text-xs text-zinc-400 uppercase tracking-wider font-medium">Appearance</span>
             <button
-              onClick={handleReset}
+              onClick={resetAppearance}
               className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               Reset All
@@ -199,7 +81,7 @@ const TextSizeSlider = () => {
                 max="1.2"
                 step="0.05"
                 value={scale}
-                onChange={handleScaleChange}
+                onChange={(e) => updateAppearance('scale', parseFloat(e.target.value))}
                 className="flex-1 h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer
                            [&::-webkit-slider-thumb]:appearance-none
                            [&::-webkit-slider-thumb]:w-4
@@ -228,7 +110,7 @@ const TextSizeSlider = () => {
                 max="1"
                 step="0.05"
                 value={brightness}
-                onChange={handleBrightnessChange}
+                onChange={(e) => updateAppearance('brightness', parseFloat(e.target.value))}
                 className="flex-1 h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer
                            [&::-webkit-slider-thumb]:appearance-none
                            [&::-webkit-slider-thumb]:w-4
@@ -250,7 +132,7 @@ const TextSizeSlider = () => {
               {TEXT_COLOR_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
-                  onClick={() => handleTextColorChange(preset.id)}
+                  onClick={() => updateAppearance('textColor', preset.id)}
                   className={`flex-1 px-2 py-1.5 rounded-md text-[10px] font-medium transition-all border ${
                     textColor === preset.id
                       ? 'border-amber-500/60 bg-zinc-800'
@@ -272,7 +154,7 @@ const TextSizeSlider = () => {
               {BG_COLOR_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
-                  onClick={() => handleBgColorChange(preset.id)}
+                  onClick={() => updateAppearance('bgColor', preset.id)}
                   className={`flex-1 px-2 py-1.5 rounded-md text-[10px] font-medium transition-all border ${
                     bgColor === preset.id
                       ? 'border-amber-500/60 text-zinc-300'
@@ -294,7 +176,7 @@ const TextSizeSlider = () => {
               {FONT_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
-                  onClick={() => handleFontChange(preset.id)}
+                  onClick={() => updateAppearance('font', preset.id)}
                   className={`px-3 py-2 rounded-md text-sm transition-all border ${
                     font === preset.id
                       ? 'border-amber-500/60 bg-zinc-800 text-zinc-200'
@@ -315,13 +197,7 @@ const TextSizeSlider = () => {
             <span className="text-[10px] text-zinc-600 block mb-2">Preview</span>
             <div
               className="p-3 rounded-lg border border-zinc-700/50"
-              style={{
-                backgroundColor: BG_COLOR_PRESETS.find(p => p.id === bgColor)?.value,
-                color: TEXT_COLOR_PRESETS.find(p => p.id === textColor)?.value,
-                fontFamily: FONT_PRESETS.find(p => p.id === font)?.value,
-                opacity: brightness,
-                fontSize: `${scale * 0.875}rem`,
-              }}
+              style={getInputStyles({ fontSize: `${scale * 0.875}rem` })}
             >
               What brings you here today?
             </div>

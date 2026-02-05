@@ -4528,12 +4528,6 @@ CRITICAL FORMATTING RULES:
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="What would you like clarity on?"
                     className="user-input-area w-full p-4 rounded-lg border border-zinc-700 placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-base"
-                    style={{
-                      color: 'var(--input-text-color, #ffffff)',
-                      backgroundColor: 'var(--input-bg-color, #18181b)',
-                      fontFamily: 'var(--input-font, inherit)',
-                      opacity: 'var(--text-brightness, 1)',
-                    }}
                     rows={3}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
@@ -4949,10 +4943,6 @@ CRITICAL FORMATTING RULES:
                         className={`user-input-area content-pane w-full border-2 rounded-lg px-4 pt-4 pb-12 pr-12 focus:outline-none resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          color: 'var(--input-text-color, #ffffff)',
-                          backgroundColor: 'var(--input-bg-color, #18181b)',
-                          fontFamily: 'var(--input-font, inherit)',
-                          opacity: 'var(--text-brightness, 1)',
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
@@ -5021,10 +5011,6 @@ CRITICAL FORMATTING RULES:
                         className={`user-input-area content-pane w-full border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : ''} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: 'transparent', // Hide text cursor
-                          color: crystalFlash ? undefined : 'var(--input-text-color, #ffffff)',
-                          backgroundColor: 'var(--input-bg-color, #18181b)',
-                          fontFamily: 'var(--input-font, inherit)',
-                          opacity: 'var(--text-brightness, 1)',
                           // CSS custom properties for pulse animation
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
