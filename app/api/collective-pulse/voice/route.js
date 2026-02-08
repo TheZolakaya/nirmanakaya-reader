@@ -15,6 +15,8 @@ import {
   ARCHETYPES,
   buildFullCollectiveSystemPrompt,
   buildFullCollectiveUserMessage,
+  buildDailyCollectiveSystemPrompt,
+  buildDailyCollectiveUserMessage,
   PULSE_VOICE_PRESETS
 } from '../../../../lib/index.js';
 
@@ -148,13 +150,35 @@ export async function GET(request) {
       defaultReading.correction_target_id
     );
 
+    // For daily voice: fetch previous day's reading for trend context
+    let previousReading = null;
+    if (voicePreset.isDaily) {
+      const prevDate = new Date(date + 'T12:00:00');
+      prevDate.setDate(prevDate.getDate() - 1);
+      const prevDateStr = prevDate.toISOString().split('T')[0];
+      const { data: prevData } = await supabase
+        .from('collective_readings')
+        .select('signature, interpretation, status_id')
+        .eq('reading_date', prevDateStr)
+        .eq('monitor', monitorId)
+        .eq('voice', 'default')
+        .single();
+      if (prevData) {
+        previousReading = {
+          signature: prevData.signature,
+          interpretation: prevData.interpretation,
+          status_name: STATUSES[prevData.status_id]?.name || ''
+        };
+      }
+    }
+
     // Generate voiced interpretation using the same card draws
-    const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
-    const userMessage = buildFullCollectiveUserMessage(
-      monitor.question,
-      card,
-      monitorId
-    );
+    const systemPrompt = voicePreset.isDaily
+      ? buildDailyCollectiveSystemPrompt(monitorId, previousReading)
+      : buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+    const userMessage = voicePreset.isDaily
+      ? buildDailyCollectiveUserMessage(monitor.question, card, monitorId, previousReading)
+      : buildFullCollectiveUserMessage(monitor.question, card, monitorId);
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-20250514',

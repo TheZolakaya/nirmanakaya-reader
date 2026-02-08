@@ -89,10 +89,10 @@ function getMinimapProps(reading) {
   };
 }
 
-// Voice options for the switcher (Raw at end)
+// Voice options for the switcher: Daily (default) and Deep
 const VOICE_OPTIONS = [
-  ...Object.values(PULSE_VOICE_PRESETS).map(v => ({ key: v.key, label: v.label })),
-  { key: 'default', label: 'Raw' }
+  { key: 'daily', label: 'Daily' },
+  { key: 'default', label: 'Deep' }
 ];
 
 // MonitorCard defined at module level so React identity is stable across renders
@@ -253,8 +253,8 @@ export default function PulsePage() {
   // Feature flag gate
   const [pulseEnabled, setPulseEnabled] = useState(null); // null = loading
 
-  // Voice state (default to 'friend'; localStorage or URL params may override)
-  const [selectedVoice, setSelectedVoice] = useState('friend');
+  // Voice state (default to 'daily'; localStorage or URL params may override)
+  const [selectedVoice, setSelectedVoice] = useState('daily');
   const [voiceLoadingMonitors, setVoiceLoadingMonitors] = useState(new Set());
   const [throughline, setThroughline] = useState(null);
 
@@ -303,7 +303,11 @@ export default function PulsePage() {
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
-        if (prefs.selectedVoice !== undefined) setSelectedVoice(prefs.selectedVoice);
+        if (prefs.selectedVoice !== undefined) {
+          // Migrate old voices to new options
+          const validVoices = ['daily', 'default'];
+          setSelectedVoice(validVoices.includes(prefs.selectedVoice) ? prefs.selectedVoice : 'daily');
+        }
       }
     } catch (e) {
       console.warn('Failed to load pulse preferences:', e);
@@ -367,39 +371,65 @@ export default function PulsePage() {
       setPrevVoice(selectedVoice);
 
       try {
-        // On date change or initial load, fetch default readings first for throughline
+        // On date change or initial load, fetch readings
         if (!isVoiceSwitch) {
-          const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
-          const defaultData = await defaultRes.json();
-          if (defaultData.success && defaultData.readings[selectedDate]) {
-            const defaultReadings = defaultData.readings[selectedDate];
-            // Capture throughline (only stored on default voice global row)
-            if (defaultReadings.global?.throughline) {
-              setThroughline(defaultReadings.global.throughline);
+          // First try to get the selected voice directly
+          const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
+          const directRes = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
+          const directData = await directRes.json();
+
+          if (directData.success && directData.readings[selectedDate]) {
+            const directReadings = directData.readings[selectedDate];
+            // Capture throughline from this voice's global row
+            if (directReadings.global?.throughline) {
+              setThroughline(directReadings.global.throughline);
             } else {
-              setThroughline(null);
+              // Fallback: get throughline from default voice
+              if (selectedVoice !== 'default') {
+                const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+                const defaultData = await defaultRes.json();
+                if (defaultData.success && defaultData.readings[selectedDate]?.global?.throughline) {
+                  setThroughline(defaultData.readings[selectedDate].global.throughline);
+                } else {
+                  setThroughline(null);
+                }
+              } else {
+                setThroughline(null);
+              }
             }
-            // If voice IS default, use these readings directly
-            if (selectedVoice === 'default') {
-              setReadings(defaultReadings);
-              setVoiceLoadingMonitors(new Set());
-              return;
-            }
+            setReadings(directReadings);
+            setVoiceLoadingMonitors(new Set());
+            return;
           } else {
-            setThroughline(null);
-            if (selectedVoice === 'default') {
+            // No cached readings for this voice — fall through to on-demand generation
+            // But first get throughline from default
+            if (selectedVoice !== 'default') {
+              const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+              const defaultData = await defaultRes.json();
+              if (defaultData.success && defaultData.readings[selectedDate]?.global?.throughline) {
+                setThroughline(defaultData.readings[selectedDate].global.throughline);
+              } else {
+                setThroughline(null);
+              }
+            } else {
               setReadings(null);
+              setThroughline(null);
               return;
             }
           }
         }
 
-        // Fetch voice-specific readings
+        // Voice switch: fetch voice-specific readings
         const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
         const res = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
         const data = await res.json();
         if (data.success && data.readings[selectedDate]) {
-          setReadings(data.readings[selectedDate]);
+          const voiceReadings = data.readings[selectedDate];
+          setReadings(voiceReadings);
+          // Update throughline if this voice has its own
+          if (voiceReadings.global?.throughline) {
+            setThroughline(voiceReadings.global.throughline);
+          }
           setVoiceLoadingMonitors(new Set());
         } else {
           // Voice variant not cached yet — try on-demand generation

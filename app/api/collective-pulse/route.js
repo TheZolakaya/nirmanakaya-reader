@@ -24,7 +24,10 @@ import {
   buildFullCollectiveSystemPrompt,
   buildFullCollectiveUserMessage,
   THROUGHLINE_SYSTEM_PROMPT,
-  PULSE_VOICE_PRESETS
+  PULSE_VOICE_PRESETS,
+  buildDailyCollectiveSystemPrompt,
+  buildDailyCollectiveUserMessage,
+  DAILY_THROUGHLINE_SYSTEM_PROMPT
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
@@ -265,15 +268,18 @@ export async function POST(request) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check for force parameter (admin Generate Now bypasses frequency gate)
+    // Check for force parameter and optional targetDate (for backfill)
     let forceGenerate = false;
+    let targetDate = null;
     try {
       const body = await request.clone().json().catch(() => ({}));
       forceGenerate = body?.force === true;
+      targetDate = body?.targetDate || null; // YYYY-MM-DD for backfill
     } catch (e) { /* no body or not JSON */ }
 
     // Frequency gating: check pulse_settings to see if enough time has elapsed
-    if (!forceGenerate) {
+    // Skip gating for backfill (targetDate) or forced generation
+    if (!forceGenerate && !targetDate) {
       try {
         const { data: settings } = await supabase
           .from('pulse_settings')
@@ -320,7 +326,7 @@ export async function POST(request) {
       }
     }
 
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const today = targetDate || new Date().toISOString().split('T')[0]; // YYYY-MM-DD (or backfill date)
     const monitors = ['global', 'power', 'heart', 'mind', 'body'];
     const results = [];
     const allReadings = []; // Full reading objects for throughline
@@ -378,6 +384,109 @@ export async function POST(request) {
       } catch (err) {
         console.error('Throughline generation failed:', err);
         errors.push({ monitor: 'throughline', error: err.message });
+      }
+    }
+
+    // Pre-generate daily voice variants (lighter, trend-aware)
+    let dailyResults = [];
+    if (allReadings.length > 0) {
+      try {
+        console.log('Generating daily voice variants...');
+        // Fetch previous day's readings for trend context
+        const prevDate = new Date(today + 'T12:00:00');
+        prevDate.setDate(prevDate.getDate() - 1);
+        const prevDateStr = prevDate.toISOString().split('T')[0];
+        const { data: prevReadings } = await supabase
+          .from('collective_readings')
+          .select('monitor, signature, interpretation, status_id')
+          .eq('reading_date', prevDateStr)
+          .eq('voice', 'default');
+
+        const prevByMonitor = {};
+        if (prevReadings) {
+          for (const pr of prevReadings) {
+            prevByMonitor[pr.monitor] = {
+              signature: pr.signature,
+              interpretation: pr.interpretation,
+              status_name: STATUSES[pr.status_id]?.name || ''
+            };
+          }
+        }
+
+        for (const reading of allReadings) {
+          try {
+            const prev = prevByMonitor[reading.monitor] || null;
+            const systemPrompt = buildDailyCollectiveSystemPrompt(reading.monitor, prev);
+            const userMessage = buildDailyCollectiveUserMessage(
+              getMonitor(reading.monitor).question,
+              reading.card,
+              reading.monitor,
+              prev
+            );
+            const response = await client.messages.create({
+              model: 'claude-sonnet-4-20250514',
+              max_tokens: 500,
+              system: systemPrompt,
+              messages: [{ role: 'user', content: userMessage }]
+            });
+            const dailyReading = {
+              ...reading,
+              interpretation: response.content[0].text,
+              usage: {
+                input_tokens: response.usage?.input_tokens,
+                output_tokens: response.usage?.output_tokens
+              }
+            };
+            await storeReading(dailyReading, today, 'daily');
+            dailyResults.push({ monitor: reading.monitor, success: true });
+            await new Promise(resolve => setTimeout(resolve, 300));
+          } catch (err) {
+            console.error(`Daily voice ${reading.monitor} failed:`, err.message);
+            dailyResults.push({ monitor: reading.monitor, success: false, error: err.message });
+          }
+        }
+
+        // Generate daily throughline (shorter, 2 sentences)
+        if (dailyResults.filter(r => r.success).length === 5) {
+          try {
+            const { data: dailyReadings } = await supabase
+              .from('collective_readings')
+              .select('monitor, signature, interpretation')
+              .eq('reading_date', today)
+              .eq('voice', 'daily');
+
+            if (dailyReadings && dailyReadings.length === 5) {
+              const monitorSummaries = dailyReadings.map(r => {
+                const m = getMonitor(r.monitor);
+                return `${m.publicName || m.name}: ${r.signature}\n${r.interpretation}`;
+              }).join('\n\n');
+
+              const prevThroughline = prevByMonitor.global ? 'Yesterday\'s overall field: ' + (prevByMonitor.global.interpretation || '').slice(0, 150) + '...' : '';
+              const dailyThroughlineResponse = await client.messages.create({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 200,
+                system: DAILY_THROUGHLINE_SYSTEM_PROMPT,
+                messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline.\n${prevThroughline ? `\n${prevThroughline}\n` : ''}\n${monitorSummaries}` }]
+              });
+              const dailyThroughlineText = dailyThroughlineResponse.content[0].text;
+
+              // Store daily throughline on the daily global row
+              await supabase
+                .from('collective_readings')
+                .update({ throughline: dailyThroughlineText })
+                .eq('reading_date', today)
+                .eq('monitor', 'global')
+                .eq('voice', 'daily');
+
+              console.log('Daily throughline generated');
+            }
+          } catch (err) {
+            console.error('Daily throughline failed:', err.message);
+          }
+        }
+        console.log(`Daily voice: ${dailyResults.filter(r => r.success).length}/5 ok`);
+      } catch (err) {
+        console.error('Daily voice generation failed:', err);
       }
     }
 
@@ -439,8 +548,8 @@ export async function POST(request) {
       }
     }
 
-    // Update last_generated_at in pulse_settings
-    if (results.length > 0) {
+    // Update last_generated_at in pulse_settings (skip for backfill)
+    if (results.length > 0 && !targetDate) {
       try {
         await supabase
           .from('pulse_settings')
@@ -456,6 +565,10 @@ export async function POST(request) {
       date: today,
       readings: results,
       throughline,
+      daily: dailyResults.length > 0 ? {
+        generated: dailyResults.filter(r => r.success).length,
+        failed: dailyResults.filter(r => !r.success).length
+      } : undefined,
       voices: voiceResults.length > 0 ? {
         generated: voiceResults.length,
         failed: voiceErrors.length,
