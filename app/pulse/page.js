@@ -250,6 +250,9 @@ export default function PulsePage() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [trends, setTrends] = useState(null);
 
+  // Feature flag gate
+  const [pulseEnabled, setPulseEnabled] = useState(null); // null = loading
+
   // Voice state (default to 'friend'; localStorage or URL params may override)
   const [selectedVoice, setSelectedVoice] = useState('friend');
   const [voiceLoadingMonitors, setVoiceLoadingMonitors] = useState(new Set());
@@ -266,6 +269,20 @@ export default function PulsePage() {
   const [backgroundType, setBackgroundType] = useState('video');
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // Check feature flag on mount
+  useEffect(() => {
+    async function checkPulseFlag() {
+      try {
+        const res = await fetch('/api/feature-flags');
+        const data = await res.json();
+        setPulseEnabled(data.success && data.flags?.pulse_enabled === true);
+      } catch (e) {
+        setPulseEnabled(false);
+      }
+    }
+    checkPulseFlag();
+  }, []);
 
   // Mark pulse as seen (stops flash on Reader's pulse button)
   useEffect(() => {
@@ -487,6 +504,40 @@ export default function PulsePage() {
   }, []);
 
   const monitorIds = Object.keys(MONITORS);
+
+  // Feature flag gate: show coming soon if pulse is disabled
+  if (pulseEnabled === null) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
+        <div className="text-zinc-400">Loading...</div>
+      </div>
+    );
+  }
+
+  if (pulseEnabled === false) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+        <BrandHeader compact />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center max-w-md px-6">
+            <div className="text-6xl mb-6">🌍</div>
+            <h1 className="text-3xl font-light text-white mb-3">Collective Pulse</h1>
+            <p className="text-zinc-400 mb-2">Geometric Weather for Humanity</p>
+            <p className="text-zinc-500 text-sm mb-8">
+              This feature is being calibrated. Check back soon.
+            </p>
+            <Link
+              href="/"
+              className="inline-block px-6 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all border border-zinc-700/50 text-sm"
+            >
+              Back to Reader
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div

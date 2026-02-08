@@ -4201,8 +4201,8 @@ CRITICAL FORMATTING RULES:
               >
                 ✉
               </a>
-              {/* Collective Pulse - admin only until feature is locked down */}
-              {userIsAdmin && (
+              {/* Collective Pulse - visible to all when enabled, admin-only otherwise */}
+              {(featureFlags.pulse_enabled || userIsAdmin) && (
                 <a
                   href="/pulse"
                   className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
