@@ -150,34 +150,35 @@ export async function GET(request) {
       defaultReading.correction_target_id
     );
 
-    // For daily voice: fetch previous day's reading for trend context
-    let previousReading = null;
+    // For daily voice: fetch last 7 days for week-normalized trend context
+    let priorReadings = [];
     if (voicePreset.isDaily) {
-      const prevDate = new Date(date + 'T12:00:00');
-      prevDate.setDate(prevDate.getDate() - 1);
-      const prevDateStr = prevDate.toISOString().split('T')[0];
-      const { data: prevData } = await supabase
+      const weekStart = new Date(date + 'T12:00:00');
+      weekStart.setDate(weekStart.getDate() - 7);
+      const weekStartStr = weekStart.toISOString().split('T')[0];
+      const { data: weekData } = await supabase
         .from('collective_readings')
-        .select('signature, interpretation, status_id')
-        .eq('reading_date', prevDateStr)
+        .select('reading_date, signature, status_id')
         .eq('monitor', monitorId)
         .eq('voice', 'default')
-        .single();
-      if (prevData) {
-        previousReading = {
-          signature: prevData.signature,
-          interpretation: prevData.interpretation,
-          status_name: STATUSES[prevData.status_id]?.name || ''
-        };
+        .gte('reading_date', weekStartStr)
+        .lt('reading_date', date)
+        .order('reading_date', { ascending: false });
+      if (weekData) {
+        priorReadings = weekData.map(r => ({
+          date: r.reading_date,
+          signature: r.signature,
+          status_name: STATUSES[r.status_id]?.name || ''
+        }));
       }
     }
 
     // Generate voiced interpretation using the same card draws
     const systemPrompt = voicePreset.isDaily
-      ? buildDailyCollectiveSystemPrompt(monitorId, previousReading)
+      ? buildDailyCollectiveSystemPrompt(monitorId, priorReadings)
       : buildFullCollectiveSystemPrompt(monitorId, voicePreset);
     const userMessage = voicePreset.isDaily
-      ? buildDailyCollectiveUserMessage(monitor.question, card, monitorId, previousReading)
+      ? buildDailyCollectiveUserMessage(monitor.question, card, monitorId, priorReadings)
       : buildFullCollectiveUserMessage(monitor.question, card, monitorId);
 
     const response = await client.messages.create({

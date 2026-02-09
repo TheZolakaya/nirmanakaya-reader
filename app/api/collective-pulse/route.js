@@ -387,41 +387,45 @@ export async function POST(request) {
       }
     }
 
-    // Pre-generate daily voice variants (lighter, trend-aware)
+    // Pre-generate daily voice variants (week-normalized, trend-aware)
     let dailyResults = [];
     if (allReadings.length > 0) {
       try {
-        console.log('Generating daily voice variants...');
-        // Fetch previous day's readings for trend context
-        const prevDate = new Date(today + 'T12:00:00');
-        prevDate.setDate(prevDate.getDate() - 1);
-        const prevDateStr = prevDate.toISOString().split('T')[0];
-        const { data: prevReadings } = await supabase
+        console.log('Generating daily voice variants (week-normalized)...');
+        // Fetch last 7 days of readings for trend normalization
+        const weekStart = new Date(today + 'T12:00:00');
+        weekStart.setDate(weekStart.getDate() - 7);
+        const weekStartStr = weekStart.toISOString().split('T')[0];
+        const { data: weekReadings } = await supabase
           .from('collective_readings')
-          .select('monitor, signature, interpretation, status_id')
-          .eq('reading_date', prevDateStr)
-          .eq('voice', 'default');
+          .select('reading_date, monitor, signature, status_id')
+          .eq('voice', 'default')
+          .gte('reading_date', weekStartStr)
+          .lt('reading_date', today)
+          .order('reading_date', { ascending: false });
 
-        const prevByMonitor = {};
-        if (prevReadings) {
-          for (const pr of prevReadings) {
-            prevByMonitor[pr.monitor] = {
-              signature: pr.signature,
-              interpretation: pr.interpretation,
-              status_name: STATUSES[pr.status_id]?.name || ''
-            };
+        // Group by monitor: { global: [{date, signature, status_name}, ...], ... }
+        const weekByMonitor = {};
+        if (weekReadings) {
+          for (const wr of weekReadings) {
+            if (!weekByMonitor[wr.monitor]) weekByMonitor[wr.monitor] = [];
+            weekByMonitor[wr.monitor].push({
+              date: wr.reading_date,
+              signature: wr.signature,
+              status_name: STATUSES[wr.status_id]?.name || ''
+            });
           }
         }
 
         for (const reading of allReadings) {
           try {
-            const prev = prevByMonitor[reading.monitor] || null;
-            const systemPrompt = buildDailyCollectiveSystemPrompt(reading.monitor, prev);
+            const priorReadings = weekByMonitor[reading.monitor] || [];
+            const systemPrompt = buildDailyCollectiveSystemPrompt(reading.monitor, priorReadings);
             const userMessage = buildDailyCollectiveUserMessage(
               getMonitor(reading.monitor).question,
               reading.card,
               reading.monitor,
-              prev
+              priorReadings
             );
             const response = await client.messages.create({
               model: 'claude-sonnet-4-20250514',
@@ -446,7 +450,7 @@ export async function POST(request) {
           }
         }
 
-        // Generate daily throughline (shorter, 2 sentences)
+        // Generate daily throughline (2 sentences, week-aware)
         if (dailyResults.filter(r => r.success).length === 5) {
           try {
             const { data: dailyReadings } = await supabase
@@ -461,12 +465,20 @@ export async function POST(request) {
                 return `${m.publicName || m.name}: ${r.signature}\n${r.interpretation}`;
               }).join('\n\n');
 
-              const prevThroughline = prevByMonitor.global ? 'Yesterday\'s overall field: ' + (prevByMonitor.global.interpretation || '').slice(0, 150) + '...' : '';
+              // Build week trend summary for throughline
+              const weekStatusSummary = Object.entries(weekByMonitor)
+                .map(([mon, readings]) => {
+                  const m = getMonitor(mon);
+                  const statuses = readings.map(r => r.status_name).join(' → ');
+                  return `${m?.publicName || mon}: ${statuses}`;
+                }).join('\n');
+              const weekContext = weekStatusSummary ? `\nWEEK TREND (status progression, newest first):\n${weekStatusSummary}\n` : '';
+
               const dailyThroughlineResponse = await client.messages.create({
                 model: 'claude-sonnet-4-20250514',
                 max_tokens: 200,
                 system: DAILY_THROUGHLINE_SYSTEM_PROMPT,
-                messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline.\n${prevThroughline ? `\n${prevThroughline}\n` : ''}\n${monitorSummaries}` }]
+                messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline that normalizes today against the week's arc.${weekContext}\n${monitorSummaries}` }]
               });
               const dailyThroughlineText = dailyThroughlineResponse.content[0].text;
 
