@@ -101,7 +101,7 @@ function buildCardData(draw) {
 }
 
 // Generate a collective reading for a specific monitor (full mode v2)
-async function generateMonitorReading(monitorId, voicePreset = null) {
+async function generateMonitorReading(monitorId, voicePreset = null, priorReadings = []) {
   const monitor = getMonitor(monitorId);
   if (!monitor) {
     throw new Error(`Unknown monitor: ${monitorId}`);
@@ -111,12 +111,13 @@ async function generateMonitorReading(monitorId, voicePreset = null) {
   const draw = generateSingleDraw();
   const card = buildCardData(draw);
 
-  // Build the full collective prompt (v2: 5-8 sentence interpretations)
-  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+  // Build the full collective prompt (v2: 5-8 sentence interpretations, week-aware)
+  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset, priorReadings);
   const userMessage = buildFullCollectiveUserMessage(
     monitor.question,
     card,
-    monitorId
+    monitorId,
+    priorReadings
   );
 
   // Call Anthropic for interpretation
@@ -185,15 +186,16 @@ async function storeReading(reading, readingDate, voice = 'default') {
 }
 
 // Re-interpret an existing card draw with a different voice preset
-async function generateVoicedReading(monitorId, card, draw, voicePreset) {
+async function generateVoicedReading(monitorId, card, draw, voicePreset, priorReadings = []) {
   const monitor = getMonitor(monitorId);
   if (!monitor) throw new Error(`Unknown monitor: ${monitorId}`);
 
-  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset, priorReadings);
   const userMessage = buildFullCollectiveUserMessage(
     monitor.question,
     card,
-    monitorId
+    monitorId,
+    priorReadings
   );
 
   const response = await client.messages.create({
@@ -217,14 +219,23 @@ async function generateVoicedReading(monitorId, card, draw, voicePreset) {
 }
 
 // Generate throughline synthesis across all 5 monitors (v2)
-async function generateThroughline(allReadings, readingDate) {
+async function generateThroughline(allReadings, readingDate, weekByMonitor = {}) {
   const monitorSummaries = allReadings.map(r => {
     const m = getMonitor(r.monitor);
     return `${m.publicName || m.name} (${m.emoji}): ${r.card.signature}\n${r.interpretation}`;
   }).join('\n\n---\n\n');
 
-  const userMessage = `Here are today's five Collective Pulse readings. Synthesize them into one throughline.
+  // Build week trend summary for throughline
+  const weekStatusSummary = Object.entries(weekByMonitor)
+    .map(([mon, readings]) => {
+      const m = getMonitor(mon);
+      const statuses = readings.map(r => r.status_name).join(' → ');
+      return `${m?.publicName || mon}: ${statuses}`;
+    }).join('\n');
+  const weekContext = weekStatusSummary ? `\nWEEK ARC (status progression per monitor, newest first):\n${weekStatusSummary}\n` : '';
 
+  const userMessage = `Here are today's five Collective Pulse readings. Synthesize them into one throughline that places today in the context of the week's arc.
+${weekContext}
 ${monitorSummaries}
 
 Write a 4-6 sentence throughline paragraph that captures the overall pattern across all five monitors.`;
@@ -332,10 +343,40 @@ export async function POST(request) {
     const allReadings = []; // Full reading objects for throughline
     const errors = [];
 
+    // Fetch last 7 days of readings for ALL monitors (shared by Deep + Daily generation)
+    const weekStart = new Date(today + 'T12:00:00');
+    weekStart.setDate(weekStart.getDate() - 7);
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+    let weekByMonitor = {};
+    try {
+      const { data: weekReadings } = await supabase
+        .from('collective_readings')
+        .select('reading_date, monitor, signature, status_id')
+        .eq('voice', 'default')
+        .gte('reading_date', weekStartStr)
+        .lt('reading_date', today)
+        .order('reading_date', { ascending: false });
+
+      if (weekReadings) {
+        for (const wr of weekReadings) {
+          if (!weekByMonitor[wr.monitor]) weekByMonitor[wr.monitor] = [];
+          weekByMonitor[wr.monitor].push({
+            date: wr.reading_date,
+            signature: wr.signature,
+            status_name: STATUSES[wr.status_id]?.name || ''
+          });
+        }
+      }
+      console.log(`Week context loaded: ${Object.keys(weekByMonitor).length} monitors, ${weekReadings?.length || 0} total readings`);
+    } catch (e) {
+      console.log('Week context fetch failed (non-critical):', e.message);
+    }
+
     for (const monitorId of monitors) {
       try {
         console.log(`Generating reading for ${monitorId}...`);
-        const reading = await generateMonitorReading(monitorId);
+        const priorReadings = weekByMonitor[monitorId] || [];
+        const reading = await generateMonitorReading(monitorId, null, priorReadings);
 
         // Store in database
         await storeReading(reading, today);
@@ -379,7 +420,7 @@ export async function POST(request) {
     if (allReadings.length === 5) {
       try {
         console.log('Generating throughline synthesis...');
-        throughline = await generateThroughline(allReadings, today);
+        throughline = await generateThroughline(allReadings, today, weekByMonitor);
         console.log('Throughline generated successfully');
       } catch (err) {
         console.error('Throughline generation failed:', err);
@@ -392,30 +433,7 @@ export async function POST(request) {
     if (allReadings.length > 0) {
       try {
         console.log('Generating daily voice variants (week-normalized)...');
-        // Fetch last 7 days of readings for trend normalization
-        const weekStart = new Date(today + 'T12:00:00');
-        weekStart.setDate(weekStart.getDate() - 7);
-        const weekStartStr = weekStart.toISOString().split('T')[0];
-        const { data: weekReadings } = await supabase
-          .from('collective_readings')
-          .select('reading_date, monitor, signature, status_id')
-          .eq('voice', 'default')
-          .gte('reading_date', weekStartStr)
-          .lt('reading_date', today)
-          .order('reading_date', { ascending: false });
-
-        // Group by monitor: { global: [{date, signature, status_name}, ...], ... }
-        const weekByMonitor = {};
-        if (weekReadings) {
-          for (const wr of weekReadings) {
-            if (!weekByMonitor[wr.monitor]) weekByMonitor[wr.monitor] = [];
-            weekByMonitor[wr.monitor].push({
-              date: wr.reading_date,
-              signature: wr.signature,
-              status_name: STATUSES[wr.status_id]?.name || ''
-            });
-          }
-        }
+        // Reuses weekByMonitor fetched earlier for Deep generation
 
         for (const reading of allReadings) {
           try {

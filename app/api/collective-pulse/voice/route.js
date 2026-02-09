@@ -150,36 +150,34 @@ export async function GET(request) {
       defaultReading.correction_target_id
     );
 
-    // For daily voice: fetch last 7 days for week-normalized trend context
+    // Fetch last 7 days for week trend context (used by ALL voices)
     let priorReadings = [];
-    if (voicePreset.isDaily) {
-      const weekStart = new Date(date + 'T12:00:00');
-      weekStart.setDate(weekStart.getDate() - 7);
-      const weekStartStr = weekStart.toISOString().split('T')[0];
-      const { data: weekData } = await supabase
-        .from('collective_readings')
-        .select('reading_date, signature, status_id')
-        .eq('monitor', monitorId)
-        .eq('voice', 'default')
-        .gte('reading_date', weekStartStr)
-        .lt('reading_date', date)
-        .order('reading_date', { ascending: false });
-      if (weekData) {
-        priorReadings = weekData.map(r => ({
-          date: r.reading_date,
-          signature: r.signature,
-          status_name: STATUSES[r.status_id]?.name || ''
-        }));
-      }
+    const weekStart = new Date(date + 'T12:00:00');
+    weekStart.setDate(weekStart.getDate() - 7);
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+    const { data: weekData } = await supabase
+      .from('collective_readings')
+      .select('reading_date, signature, status_id')
+      .eq('monitor', monitorId)
+      .eq('voice', 'default')
+      .gte('reading_date', weekStartStr)
+      .lt('reading_date', date)
+      .order('reading_date', { ascending: false });
+    if (weekData) {
+      priorReadings = weekData.map(r => ({
+        date: r.reading_date,
+        signature: r.signature,
+        status_name: STATUSES[r.status_id]?.name || ''
+      }));
     }
 
-    // Generate voiced interpretation using the same card draws
+    // Generate voiced interpretation using the same card draws (week-aware)
     const systemPrompt = voicePreset.isDaily
       ? buildDailyCollectiveSystemPrompt(monitorId, priorReadings)
-      : buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+      : buildFullCollectiveSystemPrompt(monitorId, voicePreset, priorReadings);
     const userMessage = voicePreset.isDaily
       ? buildDailyCollectiveUserMessage(monitor.question, card, monitorId, priorReadings)
-      : buildFullCollectiveUserMessage(monitor.question, card, monitorId);
+      : buildFullCollectiveUserMessage(monitor.question, card, monitorId, priorReadings);
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-20250514',
