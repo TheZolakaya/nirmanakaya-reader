@@ -4612,9 +4612,9 @@ CRITICAL FORMATTING RULES:
               )}
 
               {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-1 px-2">
+              <div className="flex justify-center mb-1 px-2 overflow-x-auto" style={{ scrollbarWidth: 'thin' }}>
                 {/* Mode tabs centered - compact on mobile */}
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5">
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5 flex-shrink-0">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
