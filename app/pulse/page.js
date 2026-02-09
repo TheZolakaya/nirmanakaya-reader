@@ -243,11 +243,16 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
   );
 }
 
+// Get local YYYY-MM-DD (avoids UTC rollover showing "tomorrow")
+function getLocalDateString(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export default function PulsePage() {
   const [readings, setReadings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(getLocalDateString());
   const [trends, setTrends] = useState(null);
 
   // Feature flag gate
@@ -287,7 +292,7 @@ export default function PulsePage() {
   // Mark pulse as seen (stops flash on Reader's pulse button)
   useEffect(() => {
     try {
-      localStorage.setItem('nirmanakaya_last_pulse_seen', new Date().toISOString().split('T')[0]);
+      localStorage.setItem('nirmanakaya_last_pulse_seen', getLocalDateString());
     } catch (e) { /* localStorage unavailable */ }
   }, []);
 
@@ -498,8 +503,8 @@ export default function PulsePage() {
   const changeDate = (days) => {
     const current = new Date(selectedDate + 'T12:00:00');
     current.setDate(current.getDate() + days);
-    const newDate = current.toISOString().split('T')[0];
-    if (newDate <= new Date().toISOString().split('T')[0]) setSelectedDate(newDate);
+    const newDate = getLocalDateString(current);
+    if (newDate <= getLocalDateString()) setSelectedDate(newDate);
   };
 
   // Share current pulse URL
@@ -785,7 +790,7 @@ export default function PulsePage() {
             </div>
             <button
               onClick={() => changeDate(1)}
-              disabled={selectedDate >= new Date().toISOString().split('T')[0]}
+              disabled={selectedDate >= getLocalDateString()}
               className="text-zinc-400 hover:text-white transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Next
