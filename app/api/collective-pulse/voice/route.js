@@ -182,7 +182,7 @@ export async function GET(request) {
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 2000,
+      max_tokens: voicePreset.isDaily ? 200 : 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
     });
