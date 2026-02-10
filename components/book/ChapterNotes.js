@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   getChapterNotes, addNote, editNote, deleteNote,
   getNoteCount, getNotesVisible, setNotesVisible,
 } from '../../lib/book-notes';
 import {
   getChapterAnnotations, createAnnotation, updateAnnotation, deleteAnnotation,
+  searchHashtags,
 } from '../../lib/book-annotations';
 import { getUser, isAdmin } from '../../lib/supabase';
 
@@ -30,6 +31,12 @@ export default function ChapterNotes({ slug }) {
 
   const [noteCount, setNoteCount] = useState(0);
   const [annotationCount, setAnnotationCount] = useState(0);
+
+  // #hashtag state
+  const [hashtagQuery, setHashtagQuery] = useState(null);
+  const [hashtagResults, setHashtagResults] = useState([]);
+  const [hashtagIndex, setHashtagIndex] = useState(0);
+  const annotationTextareaRef = useRef(null);
 
   useEffect(() => {
     setVisible(getNotesVisible());
@@ -97,8 +104,9 @@ export default function ChapterNotes({ slug }) {
   // --- Community annotations ---
   const handleAddAnnotation = async () => {
     if (!annotationText.trim() || !user) return;
-    const { error } = await createAnnotation(slug, annotationText, true);
-    if (!error) { setAnnotationText(''); loadAnnotations(); }
+    const hashtags = extractHashtags(annotationText);
+    const { error } = await createAnnotation(slug, annotationText, true, hashtags);
+    if (!error) { setAnnotationText(''); setHashtagQuery(null); setHashtagResults([]); loadAnnotations(); }
   };
 
   const handleEditAnnotation = (ann) => {
@@ -121,6 +129,79 @@ export default function ChapterNotes({ slug }) {
 
   const handleKeyDown = (e, action) => {
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); action(); }
+  };
+
+  const handleAnnotationKeyDown = (e) => {
+    // Handle #hashtag navigation
+    if (hashtagResults.length > 0) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); setHashtagIndex(prev => Math.min(prev + 1, hashtagResults.length - 1)); return; }
+      if (e.key === 'ArrowUp') { e.preventDefault(); setHashtagIndex(prev => Math.max(prev - 1, 0)); return; }
+      if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); insertHashtag(hashtagResults[hashtagIndex]); return; }
+      if (e.key === 'Escape') { setHashtagQuery(null); setHashtagResults([]); return; }
+    }
+    handleKeyDown(e, handleAddAnnotation);
+  };
+
+  const handleAnnotationChange = (e) => {
+    const value = e.target.value;
+    setAnnotationText(value);
+
+    const cursorPos = e.target.selectionStart;
+    const textBeforeCursor = value.slice(0, cursorPos);
+    const hashtagMatch = textBeforeCursor.match(/#(\w*)$/);
+
+    if (hashtagMatch) {
+      setHashtagQuery(hashtagMatch[1]);
+      setHashtagIndex(0);
+    } else {
+      setHashtagQuery(null);
+      setHashtagResults([]);
+    }
+  };
+
+  useEffect(() => {
+    if (hashtagQuery === null || hashtagQuery.length < 1) {
+      setHashtagResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      const results = await searchHashtags(hashtagQuery);
+      setHashtagResults(results);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [hashtagQuery]);
+
+  const insertHashtag = (tag) => {
+    const textarea = annotationTextareaRef.current;
+    if (!textarea) return;
+    const cursorPos = textarea.selectionStart;
+    const textBeforeCursor = annotationText.slice(0, cursorPos);
+    const hashStart = textBeforeCursor.lastIndexOf('#');
+    const textAfterCursor = annotationText.slice(cursorPos);
+    const newText = textBeforeCursor.slice(0, hashStart) + `#${tag} ` + textAfterCursor;
+    setAnnotationText(newText);
+    setHashtagQuery(null);
+    setHashtagResults([]);
+    setTimeout(() => {
+      textarea.focus();
+      const newPos = hashStart + tag.length + 2;
+      textarea.setSelectionRange(newPos, newPos);
+    }, 0);
+  };
+
+  const extractHashtags = (text) => {
+    const matches = text.match(/#(\w{2,})/g);
+    if (!matches) return [];
+    return [...new Set(matches.map(m => m.slice(1).toLowerCase()))];
+  };
+
+  const renderAnnotationContent = (text) => {
+    const parts = text.split(/([@#]\w+(?:\s\w+)?)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith('@')) return <span key={i} className="text-amber-400 font-medium">{part}</span>;
+      if (part.startsWith('#')) return <span key={i} className="text-amber-400/80 font-mono text-[11px]">{part}</span>;
+      return part;
+    });
   };
 
   const formatTime = (ts) => {
@@ -240,8 +321,17 @@ export default function ChapterNotes({ slug }) {
                                 )}
                               </div>
                               <p className="text-sm text-zinc-300 whitespace-pre-wrap break-words leading-relaxed pl-7">
-                                {ann.content}
+                                {renderAnnotationContent(ann.content)}
                               </p>
+                              {ann.hashtags?.length > 0 && (
+                                <div className="flex flex-wrap gap-1 mt-1 pl-7">
+                                  {ann.hashtags.map(tag => (
+                                    <span key={tag} className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70">
+                                      #{tag}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
@@ -256,13 +346,33 @@ export default function ChapterNotes({ slug }) {
 
                 {user ? (
                   <div>
-                    <textarea
-                      value={annotationText}
-                      onChange={e => setAnnotationText(e.target.value)}
-                      onKeyDown={e => handleKeyDown(e, handleAddAnnotation)}
-                      placeholder="Share a thought about this chapter..."
-                      className="w-full bg-zinc-800/50 border border-zinc-800 rounded-md px-3 py-2.5 text-sm text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 resize-y min-h-[60px] transition-colors"
-                    />
+                    <div className="relative">
+                      <textarea
+                        ref={annotationTextareaRef}
+                        value={annotationText}
+                        onChange={handleAnnotationChange}
+                        onKeyDown={handleAnnotationKeyDown}
+                        placeholder="Share a thought... (# to tag)"
+                        className="w-full bg-zinc-800/50 border border-zinc-800 rounded-md px-3 py-2.5 text-sm text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 resize-y min-h-[60px] transition-colors"
+                      />
+
+                      {/* #hashtag dropdown */}
+                      {hashtagResults.length > 0 && (
+                        <div className="absolute bottom-full left-0 mb-1 bg-zinc-800 border border-zinc-700 rounded-md shadow-lg overflow-hidden w-full z-50">
+                          {hashtagResults.map((tag, i) => (
+                            <button
+                              key={tag}
+                              onClick={() => insertHashtag(tag)}
+                              className={`w-full flex items-center gap-2 px-3 py-2 text-left text-sm font-mono transition-colors ${
+                                i === hashtagIndex ? 'bg-amber-400/10 text-amber-400' : 'text-zinc-300 hover:bg-zinc-700'
+                              }`}
+                            >
+                              #{tag}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <div className="flex items-center justify-between mt-2">
                       <span className="text-[10px] text-zinc-700 font-mono hidden sm:inline">Ctrl+Enter to post</span>
                       <button

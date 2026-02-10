@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import {
-  getInlineAnnotations, createInlineAnnotation, deleteAnnotation, searchUsers,
+  getInlineAnnotations, createInlineAnnotation, deleteAnnotation, searchUsers, searchHashtags,
 } from '../../lib/book-annotations';
 import { getUser, isAdmin } from '../../lib/supabase';
 
@@ -36,6 +36,11 @@ export default function InlineAnnotationLayer({ slug, children }) {
   const [mentionIndex, setMentionIndex] = useState(0);
   const [mentionedUsers, setMentionedUsers] = useState([]);
   const textareaRef = useRef(null);
+
+  // #hashtag state
+  const [hashtagQuery, setHashtagQuery] = useState(null);
+  const [hashtagResults, setHashtagResults] = useState([]);
+  const [hashtagIndex, setHashtagIndex] = useState(0);
 
   useEffect(() => {
     checkUser();
@@ -202,6 +207,7 @@ export default function InlineAnnotationLayer({ slug, children }) {
     setPosting(true);
 
     const mentionIds = mentionedUsers.map(u => u.id);
+    const hashtags = extractHashtags(annotateText);
     const { error } = await createInlineAnnotation(
       slug,
       annotateText,
@@ -209,6 +215,7 @@ export default function InlineAnnotationLayer({ slug, children }) {
       selection.prefix,
       selection.suffix,
       mentionIds,
+      hashtags,
     );
 
     if (!error) {
@@ -246,6 +253,16 @@ export default function InlineAnnotationLayer({ slug, children }) {
       setMentionQuery(null);
       setMentionResults([]);
     }
+
+    // Check for #hashtag trigger
+    const hashtagMatch = textBeforeCursor.match(/#(\w*)$/);
+    if (hashtagMatch && !mentionMatch) {
+      setHashtagQuery(hashtagMatch[1]);
+      setHashtagIndex(0);
+    } else {
+      setHashtagQuery(null);
+      setHashtagResults([]);
+    }
   };
 
   useEffect(() => {
@@ -262,6 +279,50 @@ export default function InlineAnnotationLayer({ slug, children }) {
 
     return () => clearTimeout(timer);
   }, [mentionQuery]);
+
+  // Search hashtags when query changes
+  useEffect(() => {
+    if (hashtagQuery === null) return;
+    if (hashtagQuery.length < 1) {
+      setHashtagResults([]);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      const results = await searchHashtags(hashtagQuery);
+      setHashtagResults(results);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [hashtagQuery]);
+
+  const insertHashtag = (tag) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const cursorPos = textarea.selectionStart;
+    const textBeforeCursor = annotateText.slice(0, cursorPos);
+    const hashStart = textBeforeCursor.lastIndexOf('#');
+    const textAfterCursor = annotateText.slice(cursorPos);
+
+    const newText = textBeforeCursor.slice(0, hashStart) + `#${tag} ` + textAfterCursor;
+    setAnnotateText(newText);
+    setHashtagQuery(null);
+    setHashtagResults([]);
+
+    setTimeout(() => {
+      textarea.focus();
+      const newPos = hashStart + tag.length + 2;
+      textarea.setSelectionRange(newPos, newPos);
+    }, 0);
+  };
+
+  // Extract hashtags from annotation text
+  const extractHashtags = (text) => {
+    const matches = text.match(/#(\w{2,})/g);
+    if (!matches) return [];
+    return [...new Set(matches.map(m => m.slice(1).toLowerCase()))];
+  };
 
   const insertMention = (user) => {
     const textarea = textareaRef.current;
@@ -313,6 +374,30 @@ export default function InlineAnnotationLayer({ slug, children }) {
       }
     }
 
+    // Handle #hashtag navigation
+    if (hashtagResults.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setHashtagIndex(prev => Math.min(prev + 1, hashtagResults.length - 1));
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setHashtagIndex(prev => Math.max(prev - 1, 0));
+        return;
+      }
+      if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        insertHashtag(hashtagResults[hashtagIndex]);
+        return;
+      }
+      if (e.key === 'Escape') {
+        setHashtagQuery(null);
+        setHashtagResults([]);
+        return;
+      }
+    }
+
     // Ctrl+Enter to post
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
@@ -342,15 +427,35 @@ export default function InlineAnnotationLayer({ slug, children }) {
       ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
   };
 
-  // Render @mentions in text
-  const renderAnnotationContent = (text) => {
-    const parts = text.split(/(@\w+(?:\s\w+)?)/g);
+  // Render @mentions and #hashtags in text
+  const renderAnnotationContent = (text, ann) => {
+    const parts = text.split(/([@#]\w+(?:\s\w+)?)/g);
     return parts.map((part, i) => {
       if (part.startsWith('@')) {
         return <span key={i} className="text-amber-400 font-medium">{part}</span>;
       }
+      if (part.startsWith('#')) {
+        return <span key={i} className="text-amber-400/80 font-mono text-[11px] cursor-default">{part}</span>;
+      }
       return part;
     });
+  };
+
+  // Render hashtag pills for an annotation
+  const renderHashtagPills = (ann) => {
+    if (!ann.hashtags?.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1 mt-1 pl-[22px]">
+        {ann.hashtags.map(tag => (
+          <span
+            key={tag}
+            className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70 cursor-default"
+          >
+            #{tag}
+          </span>
+        ))}
+      </div>
+    );
   };
 
   const userIsAdmin = user && isAdmin(user);
@@ -384,7 +489,7 @@ export default function InlineAnnotationLayer({ slug, children }) {
                   value={annotateText}
                   onChange={handleTextareaChange}
                   onKeyDown={handleTextareaKeyDown}
-                  placeholder="Add your annotation... (@ to mention)"
+                  placeholder="Add your annotation... (@ to mention, # to tag)"
                   className="w-full bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-sm text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-amber-400/50 resize-y min-h-[60px]"
                   autoFocus
                 />
@@ -408,6 +513,23 @@ export default function InlineAnnotationLayer({ slug, children }) {
                           </div>
                         )}
                         {u.display_name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* #hashtag dropdown */}
+                {hashtagResults.length > 0 && mentionResults.length === 0 && (
+                  <div className="absolute bottom-full left-0 mb-1 bg-zinc-800 border border-zinc-700 rounded-md shadow-lg overflow-hidden w-full z-50">
+                    {hashtagResults.map((tag, i) => (
+                      <button
+                        key={tag}
+                        onClick={() => insertHashtag(tag)}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left text-sm font-mono transition-colors ${
+                          i === hashtagIndex ? 'bg-amber-400/10 text-amber-400' : 'text-zinc-300 hover:bg-zinc-700'
+                        }`}
+                      >
+                        #{tag}
                       </button>
                     ))}
                   </div>
@@ -492,8 +614,9 @@ export default function InlineAnnotationLayer({ slug, children }) {
                       )}
                     </div>
                     <p className="text-sm text-zinc-300 leading-relaxed pl-[22px]">
-                      {renderAnnotationContent(ann.content)}
+                      {renderAnnotationContent(ann.content, ann)}
                     </p>
+                    {renderHashtagPills(ann)}
                   </div>
                 );
               })}

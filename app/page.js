@@ -3315,7 +3315,7 @@ CRITICAL FORMATTING RULES:
   const resetReading = (skipConfirm = false) => {
     // Warn user if they have an active reading
     if (!skipConfirm && draws) {
-      if (!window.confirm('Start a new reading? Your current reading will be cleared.')) {
+      if (!window.confirm('Begin a new encounter? Your current encounter will be cleared.')) {
         return;
       }
     }
@@ -4348,7 +4348,7 @@ CRITICAL FORMATTING RULES:
                       </button>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-zinc-500">Cards</span>
+                      <span className="text-xs text-zinc-500">Signatures</span>
                       <button
                         onClick={() => setShowCardImages(!showCardImages)}
                         className={`p-2 rounded-lg transition-colors ${
@@ -4733,11 +4733,11 @@ CRITICAL FORMATTING RULES:
                   onClick={() => {
                     const newState = !defaultExpanded;
                     setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'signatures' });
                     setTimeout(() => setControlTooltip(null), 1200);
                   }}
                   className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                  title={`Signatures: ${defaultExpanded ? 'Open' : 'Closed'}`}
                 >
                   <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     {defaultExpanded ? (
@@ -5196,7 +5196,7 @@ CRITICAL FORMATTING RULES:
                           animation: 'gradient-shift 3s ease infinite',
                         }}
                       >
-                        {loading ? '...' : 'INITIATE'}
+                        {loading ? '...' : 'ENTER THE FIELD'}
                       </span>
                       {/* Wireframe chevron - translates right on hover */}
                       <svg
@@ -5300,11 +5300,11 @@ CRITICAL FORMATTING RULES:
                   onClick={() => {
                     const newState = !defaultExpanded;
                     setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
+                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'signatures' });
                     setTimeout(() => setControlTooltip(null), 1200);
                   }}
                   className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
+                  title={`Signatures: ${defaultExpanded ? 'Open' : 'Closed'}`}
                 >
                   <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     {defaultExpanded ? (
@@ -5747,12 +5747,14 @@ CRITICAL FORMATTING RULES:
               <div className="w-16 h-16 border-2 border-zinc-800 rounded-full"></div>
               <div className="absolute inset-0 w-16 h-16 border-2 border-transparent border-t-zinc-400 rounded-full animate-spin"></div>
             </div>
-            <p
-              className="mt-6 text-zinc-500 text-sm text-center max-w-xs transition-opacity duration-300"
+            <div
+              className="mt-6 bg-zinc-900/60 backdrop-blur-sm rounded-lg px-6 py-4 max-w-xs transition-opacity duration-300"
               style={{ opacity: loadingPhraseVisible ? 1 : 0 }}
             >
-              {loadingPhrases[loadingPhraseIndex] || ''}
-            </p>
+              <p className="text-zinc-400 text-sm text-center">
+                {loadingPhrases[loadingPhraseIndex] || ''}
+              </p>
+            </div>
           </div>
         )}
 
@@ -5939,7 +5941,7 @@ CRITICAL FORMATTING RULES:
                 )}
                 <button
                   data-help="action-new"
-                  onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); } }}
+                  onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Begin a new encounter? Your current encounter will be cleared.')) resetReading(true); } }}
                   className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50"
                 >New</button>
                 <button
@@ -6761,7 +6763,7 @@ CRITICAL FORMATTING RULES:
                                 disabled={!threadOperations['path'] || threadLoading['path']}
                                 className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['path'] && !threadLoading['path'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                               >
-                                {threadLoading['path'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
+                                {threadLoading['path'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Encountering...</> : 'Continue'}
                               </button>
                             </div>
                           )}
@@ -7279,7 +7281,7 @@ CRITICAL FORMATTING RULES:
                           disabled={!threadOperations['unified'] || threadLoading['unified']}
                           className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['unified'] && !threadLoading['unified'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                         >
-                          {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
+                          {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Encountering...</> : 'Continue'}
                         </button>
                       </div>
                     )}

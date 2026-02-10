@@ -6,6 +6,7 @@ import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
 import ChapterActions from '../../../components/book/ChapterActions';
 import ChapterNotes from '../../../components/book/ChapterNotes';
 import InlineAnnotationLayer from '../../../components/book/InlineAnnotationLayer';
+import ReadAloud from '../../../components/book/ReadAloud';
 import TextSizer from '../../../components/book/TextSizer';
 import { getAllEntries, getEntryBySlug, getNavigation } from '../../../lib/book-data';
 
@@ -60,6 +61,7 @@ export default function ChapterPage({ params }) {
             {entry.title}
           </h1>
           <div className="flex items-center gap-1 shrink-0">
+            <ReadAloud />
             <TextSizer />
             <ChapterActions slug={slug} title={entry.title} label={entry.label} />
           </div>

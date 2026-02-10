@@ -90,7 +90,7 @@ body {
   animation: rainbow-cycle 32s ease-in-out infinite;
 }
 
-/* Gradient text animation for Initiate button */
+/* Gradient text animation for Enter the Field button */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -192,7 +192,7 @@ body {
   animation: border-rainbow 4s ease-in-out infinite;
 }
 
-/* Fast rainbow flash for Initiate button click */
+/* Fast rainbow flash for Enter the Field button click */
 .animate-border-rainbow-fast {
   animation: border-rainbow 0.8s ease-in-out;
 }
@@ -326,6 +326,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
   will-change: color;
+}
+
+/* Read Aloud — active paragraph highlight */
+.nkya-reading-active {
+  border-left: 2px solid rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.05);
+  padding-left: 0.75rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 /* Smooth expand/collapse for depth cards */
