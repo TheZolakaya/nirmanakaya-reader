@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { BOOK_PARTS, APPENDICES } from '../../lib/book-data';
 
-// Build a flat searchable list from the data index
+// Quick-match list for title-only search (instant, no API)
 const SEARCHABLE = (() => {
   const items = [];
   for (const part of BOOK_PARTS) {
@@ -33,25 +33,63 @@ const SEARCHABLE = (() => {
 
 export default function BookSearch({ onNavigate }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [titleResults, setTitleResults] = useState([]);
+  const [contentResults, setContentResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef(null);
+  const debounceRef = useRef(null);
   const router = useRouter();
 
+  // Combined results for keyboard navigation
+  const allResults = [...titleResults, ...contentResults.filter(
+    cr => !titleResults.some(tr => tr.slug === cr.slug)
+  )];
+
+  // Title search (instant)
   useEffect(() => {
     if (!query.trim()) {
-      setResults([]);
+      setTitleResults([]);
+      setContentResults([]);
       setIsOpen(false);
       return;
     }
-
     const q = query.toLowerCase().trim();
     const matched = SEARCHABLE.filter(item => item.searchText.includes(q));
-    setResults(matched.slice(0, 10));
+    setTitleResults(matched.slice(0, 5));
     setSelectedIdx(0);
-    setIsOpen(matched.length > 0);
+    setIsOpen(true);
   }, [query]);
+
+  // Full-text search (debounced API call)
+  const doContentSearch = useCallback(async (q) => {
+    if (q.length < 3) {
+      setContentResults([]);
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/book-search?q=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      setContentResults(data.results || []);
+    } catch {
+      setContentResults([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const q = query.trim();
+    if (q.length >= 3) {
+      debounceRef.current = setTimeout(() => doContentSearch(q), 300);
+    } else {
+      setContentResults([]);
+    }
+    return () => clearTimeout(debounceRef.current);
+  }, [query, doContentSearch]);
 
   const navigateTo = (slug) => {
     setQuery('');
@@ -61,21 +99,26 @@ export default function BookSearch({ onNavigate }) {
   };
 
   const handleKeyDown = (e) => {
-    if (!isOpen) return;
+    if (!isOpen || allResults.length === 0) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIdx(i => Math.min(i + 1, results.length - 1));
+      setSelectedIdx(i => Math.min(i + 1, allResults.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setSelectedIdx(i => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter' && results[selectedIdx]) {
+    } else if (e.key === 'Enter' && allResults[selectedIdx]) {
       e.preventDefault();
-      navigateTo(results[selectedIdx].slug);
+      navigateTo(allResults[selectedIdx].slug);
     } else if (e.key === 'Escape') {
       setIsOpen(false);
       setQuery('');
     }
   };
+
+  // Content results that aren't already shown as title results
+  const uniqueContentResults = contentResults.filter(
+    cr => !titleResults.some(tr => tr.slug === cr.slug)
+  );
 
   return (
     <div className="relative px-3 py-2">
@@ -93,30 +136,86 @@ export default function BookSearch({ onNavigate }) {
           value={query}
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          onFocus={() => query.trim() && results.length > 0 && setIsOpen(true)}
+          onFocus={() => query.trim() && setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-          placeholder="Search chapters..."
+          placeholder="Search book..."
           className="w-full bg-zinc-900 border border-zinc-800 rounded-md pl-8 pr-3 py-1.5 text-xs text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors"
         />
+        {loading && (
+          <div className="absolute right-2.5 top-1/2 -translate-y-1/2">
+            <div className="w-3 h-3 border border-zinc-600 border-t-amber-400 rounded-full animate-spin" />
+          </div>
+        )}
       </div>
 
       {/* Results dropdown */}
-      {isOpen && (
-        <div className="absolute left-3 right-3 top-full mt-1 bg-zinc-900 border border-zinc-700 rounded-md shadow-xl z-50 max-h-64 overflow-y-auto">
-          {results.map((item, i) => (
-            <button
-              key={item.slug}
-              onMouseDown={() => navigateTo(item.slug)}
-              className={`w-full text-left px-3 py-2 text-xs transition-colors ${
-                i === selectedIdx
-                  ? 'bg-amber-400/10 text-amber-400'
-                  : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
-              }`}
-            >
-              <span className="font-mono text-zinc-600 mr-1.5">{item.label}</span>
-              {item.title}
-            </button>
-          ))}
+      {isOpen && allResults.length > 0 && (
+        <div className="absolute left-3 right-3 top-full mt-1 bg-zinc-900 border border-zinc-700 rounded-md shadow-xl z-50 max-h-80 overflow-y-auto">
+          {/* Title matches */}
+          {titleResults.length > 0 && (
+            <>
+              <div className="px-3 pt-2 pb-1 text-[9px] font-mono uppercase tracking-wider text-zinc-600">
+                Chapters
+              </div>
+              {titleResults.map((item, i) => (
+                <button
+                  key={item.slug}
+                  onMouseDown={() => navigateTo(item.slug)}
+                  className={`w-full text-left px-3 py-2 text-xs transition-colors ${
+                    i === selectedIdx
+                      ? 'bg-amber-400/10 text-amber-400'
+                      : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                  }`}
+                >
+                  <span className="font-mono text-zinc-600 mr-1.5">{item.label}</span>
+                  {item.title}
+                </button>
+              ))}
+            </>
+          )}
+
+          {/* Content matches */}
+          {uniqueContentResults.length > 0 && (
+            <>
+              <div className="px-3 pt-2 pb-1 text-[9px] font-mono uppercase tracking-wider text-zinc-600 border-t border-zinc-800 mt-1">
+                In content {loading ? '' : `(${contentResults.length})`}
+              </div>
+              {uniqueContentResults.slice(0, 10).map((item, i) => {
+                const globalIdx = titleResults.length + i;
+                return (
+                  <button
+                    key={item.slug}
+                    onMouseDown={() => navigateTo(item.slug)}
+                    className={`w-full text-left px-3 py-2 transition-colors ${
+                      globalIdx === selectedIdx
+                        ? 'bg-amber-400/10'
+                        : 'hover:bg-zinc-800'
+                    }`}
+                  >
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-xs font-mono text-zinc-600">{item.label}</span>
+                      <span className={`text-xs ${globalIdx === selectedIdx ? 'text-amber-400' : 'text-zinc-300'}`}>
+                        {item.title}
+                      </span>
+                      <span className="text-[9px] text-zinc-600 ml-auto shrink-0">
+                        {item.matchCount}x
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-zinc-500 mt-0.5 line-clamp-2 leading-relaxed">
+                      {item.snippet}
+                    </p>
+                  </button>
+                );
+              })}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* No results message */}
+      {isOpen && query.length >= 3 && !loading && allResults.length === 0 && (
+        <div className="absolute left-3 right-3 top-full mt-1 bg-zinc-900 border border-zinc-700 rounded-md shadow-xl z-50 px-3 py-3 text-xs text-zinc-500 text-center">
+          No results for &ldquo;{query}&rdquo;
         </div>
       )}
     </div>

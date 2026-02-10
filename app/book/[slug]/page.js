@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
 import ChapterActions from '../../../components/book/ChapterActions';
+import ChapterNotes from '../../../components/book/ChapterNotes';
 import { getAllEntries, getEntryBySlug, getNavigation } from '../../../lib/book-data';
 
 // Generate static params for all chapters and appendices
@@ -65,6 +66,9 @@ export default function ChapterPage({ params }) {
       <div className="prose-invert">
         <MarkdownRenderer content={content} />
       </div>
+
+      {/* Notes */}
+      <ChapterNotes slug={slug} />
 
       {/* Previous / Next Navigation */}
       <nav className="mt-16 pt-6 border-t border-zinc-800">
