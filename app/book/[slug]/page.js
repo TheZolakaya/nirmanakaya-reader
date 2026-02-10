@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
 import ChapterActions from '../../../components/book/ChapterActions';
 import ChapterNotes from '../../../components/book/ChapterNotes';
+import InlineAnnotationLayer from '../../../components/book/InlineAnnotationLayer';
+import TextSizer from '../../../components/book/TextSizer';
 import { getAllEntries, getEntryBySlug, getNavigation } from '../../../lib/book-data';
 
 // Generate static params for all chapters and appendices
@@ -57,15 +59,20 @@ export default function ChapterPage({ params }) {
           <h1 className="text-2xl sm:text-3xl font-serif text-zinc-100">
             {entry.title}
           </h1>
-          <ChapterActions slug={slug} title={entry.title} label={entry.label} />
+          <div className="flex items-center gap-1 shrink-0">
+            <TextSizer />
+            <ChapterActions slug={slug} title={entry.title} label={entry.label} />
+          </div>
         </div>
         <div className="mt-4 h-px bg-gradient-to-r from-amber-400/20 via-zinc-800 to-transparent" />
       </header>
 
-      {/* Content */}
-      <div className="prose-invert">
-        <MarkdownRenderer content={content} />
-      </div>
+      {/* Content with inline annotations */}
+      <InlineAnnotationLayer slug={slug}>
+        <div className="prose-invert" id="chapter-content">
+          <MarkdownRenderer content={content} />
+        </div>
+      </InlineAnnotationLayer>
 
       {/* Notes */}
       <ChapterNotes slug={slug} />

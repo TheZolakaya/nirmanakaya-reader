@@ -6,7 +6,7 @@ import {
   getNoteCount, getNotesVisible, setNotesVisible,
 } from '../../lib/book-notes';
 import {
-  getPublicAnnotations, createAnnotation, updateAnnotation, deleteAnnotation,
+  getChapterAnnotations, createAnnotation, updateAnnotation, deleteAnnotation,
 } from '../../lib/book-annotations';
 import { getUser, isAdmin } from '../../lib/supabase';
 
@@ -56,7 +56,7 @@ export default function ChapterNotes({ slug }) {
 
   const loadAnnotations = async () => {
     setLoadingAnnotations(true);
-    const data = await getPublicAnnotations(slug);
+    const data = await getChapterAnnotations(slug);
     setAnnotations(data);
     setAnnotationCount(data.length);
     setLoadingAnnotations(false);
