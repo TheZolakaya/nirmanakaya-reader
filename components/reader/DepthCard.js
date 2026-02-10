@@ -29,14 +29,12 @@ const DEPTH = {
   DEEP: 'deep'
 };
 
-// Helper to extract shallow content (1-2 sentences) from wade content
-const getShallowContent = (wadeContent) => {
+// Helper to derive shallow content — use surface if available, else extract from wade
+const getShallowContent = (wadeContent, surfaceContent) => {
+  if (surfaceContent) return surfaceContent;
   if (!wadeContent) return '';
-  // Split on sentence-ending punctuation followed by space
-  // This regex captures .!? followed by whitespace (but not abbreviations like "Dr." usually)
   const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-  // Return first 2 sentences
-  return sentences.slice(0, 2).join(' ');
+  return sentences.slice(0, 3).join(' ');
 };
 
 // Animated content wrapper
@@ -368,7 +366,8 @@ const DepthCard = ({
     // Try requested depth first, then fall back in order
     switch (d) {
       case DEPTH.SHALLOW:
-        // Shallow derives from Wade content - first 1-2 sentences
+        // Use actual surface content from API if available, else derive from wade
+        if (hasContentValue(cardData.surface)) return cardData.surface;
         if (hasContentValue(cardData.wade)) return getShallowContent(cardData.wade);
         if (hasContentValue(cardData.swim)) return getShallowContent(cardData.swim);
         if (hasContentValue(cardData.deep)) return getShallowContent(cardData.deep);
@@ -411,7 +410,8 @@ const DepthCard = ({
     // Return exact depth content only - no fallback to avoid UI/content mismatch
     switch (d) {
       case DEPTH.SHALLOW:
-        // Shallow derives from wade - first 1-2 sentences
+        // Use actual surface content if available, else derive from wade
+        if (hasContent(r.surface)) return r.surface;
         return hasContent(r.wade) ? getShallowContent(r.wade) : null;
       case DEPTH.SURFACE:
         return hasContent(r.surface) ? r.surface : null;
@@ -547,7 +547,8 @@ const DepthCard = ({
     // Return exact depth content only - no fallback to avoid UI/content mismatch
     switch (d) {
       case DEPTH.SHALLOW:
-        // Shallow derives from wade - first 1-2 sentences
+        // Use actual surface content if available, else derive from wade
+        if (hasContent(g.surface)) return g.surface;
         return hasContent(g.wade) ? getShallowContent(g.wade) : null;
       case DEPTH.SURFACE:
         return hasContent(g.surface) ? g.surface : null;
@@ -1910,9 +1911,9 @@ const DepthCard = ({
                   {/* WHY Content at current depth */}
                   <div className="text-sm text-cyan-100/90 mb-4">
                     {(() => {
-                      // Get content based on depth (shallow derives from wade)
+                      // Get content based on depth — use surface if available, else derive from wade
                       const whyContent = whyDepth === 'shallow'
-                        ? (cardData.why?.wade ? getShallowContent(cardData.why.wade) : null)
+                        ? (cardData.why?.surface || (cardData.why?.wade ? getShallowContent(cardData.why.wade) : null))
                         : cardData.why[whyDepth];
                       return whyContent ? (
                         <div className="space-y-3">

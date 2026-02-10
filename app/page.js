@@ -450,11 +450,13 @@ const getSummaryContent = (summaryInput, depth = 'shallow') => {
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
   if (depth === 'shallow') {
-    // Extract first 1-2 sentences from wade
-    const wadeContent = summary.wade || summary.surface || '';
+    // Use actual surface content from API if available
+    if (summary.surface) return summary.surface;
+    // Fallback: derive from wade
+    const wadeContent = summary.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (summary[depth] != null && summary[depth] !== '') return summary[depth];
   if (summary.wade != null && summary.wade !== '') return summary.wade;
@@ -472,12 +474,13 @@ const getWhyAppearedContent = (whyInput, depth = 'shallow') => {
     try { whyAppeared = JSON.parse(whyAppeared); } catch (e) { return whyAppeared; }
   }
   if (typeof whyAppeared === 'string') return whyAppeared;
-  // Format: { wade, swim, deep } - shallow derives from wade
+  // Format: { wade, swim, deep } - shallow uses surface, falls back to wade
   if (depth === 'shallow') {
+    if (whyAppeared.surface) return whyAppeared.surface;
     const wadeContent = whyAppeared.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (whyAppeared[depth] != null && whyAppeared[depth] !== '') return whyAppeared[depth];
   if (whyAppeared.wade != null && whyAppeared.wade !== '') return whyAppeared.wade;
@@ -498,11 +501,13 @@ const getLetterContent = (letterInput, depth = 'shallow') => {
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
   if (depth === 'shallow') {
-    // Extract first 1-2 sentences from wade
+    // Use actual surface content from API if available
+    if (letter.surface) return letter.surface;
+    // Fallback: derive from wade
     const wadeContent = letter.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (letter[depth] != null && letter[depth] !== '') return letter[depth];
   if (letter.wade != null && letter.wade !== '') return letter.wade;
@@ -6227,16 +6232,17 @@ CRITICAL FORMATTING RULES:
             try { letter = JSON.parse(letter); } catch (e) { /* keep as string */ }
           }
           const isLegacy = typeof letter === 'string';
-          // Helper to get shallow content (first 1-2 sentences from wade)
-          const getShallowContent = (wadeContent) => {
+          // Helper to get shallow content — use surface if available, else derive from wade
+          const getShallowContent = (surfaceContent, wadeContent) => {
+            if (surfaceContent) return surfaceContent;
             if (!wadeContent) return '';
             const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-            return sentences.slice(0, 2).join(' ');
+            return sentences.slice(0, 3).join(' ');
           };
           const letterContent = isLegacy
             ? letter
             : letterDepth === 'shallow'
-              ? getShallowContent(letter.wade || letter.surface || '')
+              ? getShallowContent(letter.surface, letter.wade || '')
               : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
           const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim || letter.deep);
           const letterSectionKey = 'letter';
@@ -6535,12 +6541,13 @@ CRITICAL FORMATTING RULES:
               // Use explicit null check to avoid empty string fallback issues
               const getPathContent = () => {
                 if (hasDepthLevels) {
-                  // Handle shallow depth - derive from wade content
+                  // Handle shallow depth — use surface if available, else derive from wade
                   if (pathDepth === 'shallow') {
-                    const wadeContent = path.wade || path.surface || '';
+                    if (path.surface) return path.surface;
+                    const wadeContent = path.wade || '';
                     if (!wadeContent) return '';
                     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-                    return sentences.slice(0, 2).join(' ');
+                    return sentences.slice(0, 3).join(' ');
                   }
                   // Try requested depth first, then fallback in order: wade -> swim -> deep -> surface
                   if (path[pathDepth] != null && path[pathDepth] !== '') return path[pathDepth];
@@ -7163,10 +7170,11 @@ CRITICAL FORMATTING RULES:
                     const hasDepthLevels = path.wade || path.swim || path.deep;
                     const getPathContent = () => {
                       if (pathDepth === 'shallow') {
+                        if (path.surface) return path.surface;
                         const wadeContent = path.wade || '';
                         if (!wadeContent) return '';
                         const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-                        return sentences.slice(0, 2).join(' ');
+                        return sentences.slice(0, 3).join(' ');
                       }
                       if (path[pathDepth]) return path[pathDepth];
                       return path.wade || path.swim || path.deep || '';
