@@ -230,37 +230,37 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionLens ? `
+CONTEXT: This is Signature ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionLens ? `
 POSITION LENS: ${positionLens}` : ''}
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
-THE CARD: ${cardName}
+THE SIGNATURE: ${cardName}
 IN POSITION: ${positionName}
 Traditional Name: ${trans?.traditional || 'N/A'}
 Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
-Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
+Generate the WADE level content for this signature. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
-- THE CARD (what was drawn): ${cardName}
+- THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
 Your interpretation MUST say "${cardName} in ${positionName}" or "in your ${positionName}".
-DO NOT reverse these - ${cardName} is the card, ${positionName} is the position it landed in.
+DO NOT reverse these - ${cardName} is the signature, ${positionName} is the position it landed in.
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 
 Respond with these markers:
 
 [CARD:${n}:WADE]
-(3-4 sentences: What does this card reveal about their question? Be specific.)
+(3-4 sentences: What does this signature reveal about their question? Be specific.)
 
 [CARD:${n}:MIRROR]
 (Single poetic line reflecting their situation)
 
 [CARD:${n}:WHY:WADE]
-(3-4 sentences: Why did THIS card appear for THIS question?)
+(3-4 sentences: Why did THIS signature emerge for THIS question?)
 ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
 
@@ -400,9 +400,9 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.
+CONTEXT: This is Signature ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.
 
-THE CARD: ${cardName}
+THE SIGNATURE: ${cardName}
 IN POSITION: ${positionName}
 Status: ${stat?.name || 'Balanced'}
 
@@ -414,7 +414,7 @@ Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
 ${depthInstructions}
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
-- THE CARD (what was drawn): ${cardName}
+- THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
 Say "${cardName} in ${positionName}" - DO NOT reverse these. Weave naturally into your deepened content.
 
@@ -433,7 +433,7 @@ Respond with these markers:
 (Build on previous reading - add new dimensions)
 
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
-(Deepen why this card appeared - new angles)
+(Deepen why this signature emerged - new angles)
 ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
 

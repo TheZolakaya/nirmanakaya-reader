@@ -162,7 +162,7 @@ async function generateUserReading(userPrefs) {
   const spreadName = `${cardCount}-Card Discover`;
   const teleologicalPrompt = buildReadingTeleologicalPrompt(draws);
 
-  const userMessage = `QUESTION: "${topic}"\n\nTHE DRAW (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1]${cardCount > 1 ? ', [CARD:2]' : ''}${cardCount > 2 ? ', [CARD:3]' : ''}, [CORRECTION:N] for each imbalanced card, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
+  const userMessage = `QUESTION: "${topic}"\n\nTHE ENCOUNTER (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1]${cardCount > 1 ? ', [CARD:2]' : ''}${cardCount > 2 ? ', [CARD:3]' : ''}, [CORRECTION:N] for each imbalanced signature, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
 
   // Call Anthropic
   const response = await client.messages.create({

@@ -190,12 +190,12 @@ ${drawText}
 
 ${teleologicalPrompt}
 
-This is an EXPANDED reading. Cards 1-${cardIndex - 1} have already been interpreted. Generate interpretation ONLY for Card ${cardIndex} (the new card).
+This is an EXPANDED reading. Signatures 1-${cardIndex - 1} have already been interpreted. Generate interpretation ONLY for Signature ${cardIndex} (the new signature).
 
 Respond using these markers:
-[CARD:${cardIndex}] — the new card's interpretation
+[CARD:${cardIndex}] — the new signature's interpretation
 [CORRECTION:${cardIndex}] — correction if imbalanced
-[SYNTHESIS] — regenerated synthesis across ALL ${cardIndex} cards
+[SYNTHESIS] — regenerated synthesis across ALL ${cardIndex} signatures
 
 Each marker on its own line.`;
 
