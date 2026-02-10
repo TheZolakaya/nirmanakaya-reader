@@ -571,6 +571,8 @@ export default function NirmanakaReader() {
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
+  const [synthContextInput, setSynthContextInput] = useState({}); // { summary: true } - which synth sections show converse input
+  const [synthContextText, setSynthContextText] = useState({}); // { summary: 'user text' } - converse input values
   const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
   const [defaultExpanded, setDefaultExpanded] = useState(false); // When true, nested sections start expanded
   const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
@@ -3279,6 +3281,127 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
     setExpanding(null);
   };
 
+  // Render Converse button + conversation UI for synthesis sections (summary, whyAppeared, path, letter)
+  const renderSynthConverseUI = (sectionKey, sectionExps, isSectionExpanding, accentColor = 'amber') => {
+    const contextData = sectionExps?.context;
+    const hasContext = contextData && Array.isArray(contextData) && contextData.length > 0;
+    const isContextExpanding = isSectionExpanding && expanding?.type === 'context';
+    const isCollapsed = collapsedSections[`${sectionKey}-context`] === true;
+    const inputVisible = synthContextInput[sectionKey];
+
+    const colorMap = {
+      amber: { border: 'border-amber-700/30', bg: 'bg-amber-950/10', hoverBg: 'hover:bg-amber-900/20', text: 'text-amber-400', textDim: 'text-amber-400/80', quoteBg: 'bg-amber-950/30', btnBg: 'bg-amber-600', btnHover: 'hover:bg-amber-500', activeBg: 'bg-amber-500/30', activeBorder: 'border-amber-500/50', activeText: 'text-amber-300' },
+      cyan: { border: 'border-cyan-700/30', bg: 'bg-cyan-950/10', hoverBg: 'hover:bg-cyan-900/20', text: 'text-cyan-400', textDim: 'text-cyan-400/80', quoteBg: 'bg-cyan-950/30', btnBg: 'bg-cyan-600', btnHover: 'hover:bg-cyan-500', activeBg: 'bg-cyan-500/30', activeBorder: 'border-cyan-500/50', activeText: 'text-cyan-300' },
+      emerald: { border: 'border-emerald-700/30', bg: 'bg-emerald-950/10', hoverBg: 'hover:bg-emerald-900/20', text: 'text-emerald-400', textDim: 'text-emerald-400/80', quoteBg: 'bg-emerald-950/30', btnBg: 'bg-emerald-600', btnHover: 'hover:bg-emerald-500', activeBg: 'bg-emerald-500/30', activeBorder: 'border-emerald-500/50', activeText: 'text-emerald-300' },
+      violet: { border: 'border-violet-700/30', bg: 'bg-violet-950/10', hoverBg: 'hover:bg-violet-900/20', text: 'text-violet-400', textDim: 'text-violet-400/80', quoteBg: 'bg-violet-950/30', btnBg: 'bg-violet-600', btnHover: 'hover:bg-violet-500', activeBg: 'bg-violet-500/30', activeBorder: 'border-violet-500/50', activeText: 'text-violet-300' },
+    };
+    const c = colorMap[accentColor] || colorMap.amber;
+
+    return (
+      <>
+        {/* Converse conversation thread */}
+        {hasContext && (
+          <div className={`mt-4 rounded-lg border ${c.border} overflow-hidden animate-fadeIn ${c.bg}`}>
+            <div
+              className={`flex items-center gap-2 px-3 py-2 cursor-pointer ${c.hoverBg} transition-colors`}
+              onClick={(e) => { e.stopPropagation(); setCollapsedSections(prev => ({ ...prev, [`${sectionKey}-context`]: !prev[`${sectionKey}-context`] })); }}
+            >
+              <span className={`text-xs transition-transform duration-200 ${isCollapsed ? 'text-red-500' : c.text}`} style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>{'\u25BC'}</span>
+              <span className={`text-xs ${c.textDim} uppercase tracking-wider`}>Converse</span>
+              <span className="text-[0.6rem] text-zinc-600 ml-auto">
+                {Math.floor(contextData.length / 2)} exchange{contextData.length > 2 ? 's' : ''}
+              </span>
+              {isCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-1">tap to expand</span>}
+            </div>
+            {!isCollapsed && (
+              <div className={`px-3 pb-3 border-t ${c.border} space-y-3`}>
+                {contextData.map((turn, i) => (
+                  <div key={i}>
+                    {turn.role === 'user' ? (
+                      <div className={`text-xs ${c.textDim} ${c.quoteBg} rounded px-2 py-1.5 italic`}>
+                        &ldquo;{turn.content}&rdquo;
+                      </div>
+                    ) : (
+                      <div className="text-sm text-zinc-300 space-y-2 mt-1">
+                        {ensureParagraphBreaks(turn.content).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Converse input — stays visible for multi-turn */}
+        {inputVisible && !(hasContext && isCollapsed) && (
+          <div className="mt-3 flex gap-2">
+            <input
+              type="text"
+              value={synthContextText[sectionKey] || ''}
+              onChange={(e) => setSynthContextText(prev => ({ ...prev, [sectionKey]: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey && synthContextText[sectionKey]?.trim() && !isContextExpanding) {
+                  e.preventDefault();
+                  handleExpand(sectionKey, 'context', false, synthContextText[sectionKey].trim());
+                  setSynthContextText(prev => ({ ...prev, [sectionKey]: '' }));
+                }
+              }}
+              placeholder={hasContext ? "Continue the conversation..." : "Share a thought, ask a question..."}
+              className={`flex-1 bg-zinc-800/80 text-zinc-200 text-sm rounded-lg px-3 py-2 border border-zinc-700 focus:${c.border.replace('border-', 'border-')} focus:outline-none placeholder-zinc-600`}
+              disabled={isContextExpanding}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (synthContextText[sectionKey]?.trim() && !isContextExpanding) {
+                  handleExpand(sectionKey, 'context', false, synthContextText[sectionKey].trim());
+                  setSynthContextText(prev => ({ ...prev, [sectionKey]: '' }));
+                }
+              }}
+              disabled={!synthContextText[sectionKey]?.trim() || isContextExpanding}
+              className={`px-3 py-2 text-sm rounded-lg ${c.btnBg} text-white ${c.btnHover} disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0`}
+            >
+              {isContextExpanding ? (
+                <span className="inline-block w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></span>
+              ) : '\u2192'}
+            </button>
+          </div>
+        )}
+      </>
+    );
+  };
+
+  // Render Converse button for synthesis sections
+  const renderSynthConverseButton = (sectionKey, sectionExps, isSectionExpanding, accentColor = 'amber') => {
+    const hasContext = sectionExps?.context && Array.isArray(sectionExps.context) && sectionExps.context.length > 0;
+    const colorMap = {
+      amber: { activeBg: 'bg-amber-500/30', activeText: 'text-amber-300', activeBorder: 'border-amber-500/50' },
+      cyan: { activeBg: 'bg-cyan-500/30', activeText: 'text-cyan-300', activeBorder: 'border-cyan-500/50' },
+      emerald: { activeBg: 'bg-emerald-500/30', activeText: 'text-emerald-300', activeBorder: 'border-emerald-500/50' },
+      violet: { activeBg: 'bg-violet-500/30', activeText: 'text-violet-300', activeBorder: 'border-violet-500/50' },
+    };
+    const c = colorMap[accentColor] || colorMap.amber;
+
+    return (
+      <button
+        onClick={(e) => { e.stopPropagation(); setSynthContextInput(prev => ({ ...prev, [sectionKey]: !prev[sectionKey] })); }}
+        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+          synthContextInput[sectionKey] || hasContext
+            ? `${c.activeBg} ${c.activeText} border ${c.activeBorder}`
+            : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'
+        }`}
+      >
+        Converse
+      </button>
+    );
+  };
+
   const sendFollowUp = async () => {
     if (!followUp.trim() || !draws) return;
     setFollowUpLoading(true); setError('');
@@ -3341,7 +3464,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
     
     // Pass stance to follow-up
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are conversing about an encounter. The querent wants to go deeper, challenge something, or explore a thread. Respond directly, referencing the reading context as needed. This is a dialogue, not a lecture. No section markers — just respond naturally.
 
 CRITICAL FORMATTING RULES:
 1. Write SHORT paragraphs (2-3 sentences MAX each)
@@ -6436,8 +6559,12 @@ CRITICAL FORMATTING RULES:
                       </button>
                     );
                   })}
+                  {renderSynthConverseButton(letterSectionKey, sectionExpansions, isExpanding, 'violet')}
                 </div>
               )}
+
+              {/* Converse UI for letter section */}
+              {renderSynthConverseUI(letterSectionKey, sectionExpansions, isExpanding, 'violet')}
 
               {/* Expansion content display - collapsible, never deleted (excludes context arrays) */}
               {Object.entries(sectionExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, content]) => {
@@ -6782,7 +6909,11 @@ CRITICAL FORMATTING RULES:
                               </button>
                             );
                           })}
+                          {renderSynthConverseButton('path', pathExpansions, isPathExpanding, 'emerald')}
                         </div>
+
+                        {/* Converse UI */}
+                        {renderSynthConverseUI('path', pathExpansions, isPathExpanding, 'emerald')}
 
                         {/* Path Expansion Content */}
                         {Object.entries(pathExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, expContent]) => (
@@ -7144,7 +7275,10 @@ CRITICAL FORMATTING RULES:
                                   {isSummaryExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('summary', summaryExpansions, isSummaryExpanding, 'amber')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('summary', summaryExpansions, isSummaryExpanding, 'amber')}
                             {/* Expansion Results */}
                             {Object.entries(summaryExpansions).filter(([k]) => typeof summaryExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30">
@@ -7225,7 +7359,10 @@ CRITICAL FORMATTING RULES:
                                   {isWhyExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('whyAppeared', whyExpansions, isWhyExpanding, 'cyan')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('whyAppeared', whyExpansions, isWhyExpanding, 'cyan')}
                             {/* Expansion Results */}
                             {Object.entries(whyExpansions).filter(([k]) => typeof whyExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30">
@@ -7315,7 +7452,10 @@ CRITICAL FORMATTING RULES:
                                   {isPathExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('path', pathExpansions, isPathExpanding, 'emerald')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('path', pathExpansions, isPathExpanding, 'emerald')}
                             {/* Expansion Results */}
                             {Object.entries(pathExpansions).filter(([k]) => typeof pathExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30">
@@ -7502,7 +7642,7 @@ CRITICAL FORMATTING RULES:
         {parsedReading && !loading && !parsedReading.firstContact && !parsedReading._isFirstContact && (
           <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
+              <span className="text-[0.625rem] text-zinc-500 tracking-wider">Converse about this encounter</span>
               <button
                 onClick={() => setHelpPopover(helpPopover === 'followup' ? null : 'followup')}
                 className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
@@ -7513,7 +7653,7 @@ CRITICAL FORMATTING RULES:
                 <div className="absolute top-8 left-0 z-50 w-72">
                   <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 shadow-xl">
                     <p className="text-zinc-400 text-xs leading-relaxed">
-                      Ask anything — dig deeper, challenge it, ask about a specific part, or take the conversation wherever you need.
+                      Converse about the whole encounter — dig deeper, challenge something, ask about a specific signature, or take the dialogue wherever you need.
                     </p>
                     <button onClick={() => setHelpPopover(null)} className="mt-2 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center">Got it</button>
                   </div>
@@ -7528,7 +7668,7 @@ CRITICAL FORMATTING RULES:
               <div className="content-pane flex-1 min-w-0 rounded-lg overflow-hidden">
                 <input type="text" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
-                  placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
+                  placeholder={followUpLoading ? "Thinking..." : "Share a thought, challenge it, go deeper..."}
                   disabled={followUpLoading || helpMode}
                   className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
               </div>
