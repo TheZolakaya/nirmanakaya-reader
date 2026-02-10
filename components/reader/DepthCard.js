@@ -1098,7 +1098,7 @@ const DepthCard = ({
                 : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
             }`}
           >
-            Add Context
+            Converse
           </button>
         </div>
       )}
@@ -1454,7 +1454,7 @@ const DepthCard = ({
                         : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
                     }`}
                   >
-                    Add Context
+                    Converse
                   </button>
                 </div>
               )}
@@ -1822,7 +1822,7 @@ const DepthCard = ({
                         : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
                     }`}
                   >
-                    Add Context
+                    Converse
                   </button>
                 </div>
               )}
