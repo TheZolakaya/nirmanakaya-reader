@@ -149,6 +149,10 @@ const DepthCard = ({
   const [growthLoadingDeeper, setGrowthLoadingDeeper] = useState(false); // For balanced cards' Growth Opportunity
   const [whyLoadingDeeper, setWhyLoadingDeeper] = useState(false);
 
+  // Add Context state — tracks input visibility and text per section
+  const [showContextInput, setShowContextInput] = useState({}); // { 'card-0': true }
+  const [contextText, setContextText] = useState({}); // { 'card-0': 'user text' }
+
   // Minimap modal state
   const [showMinimapModal, setShowMinimapModal] = useState(false);
   const [showRebalancerMinimapModal, setShowRebalancerMinimapModal] = useState(false);
@@ -638,6 +642,99 @@ const DepthCard = ({
     } ${isExpandingOther ? 'opacity-50 cursor-not-allowed' : ''}`;
   };
 
+  // Context thread + input render helper (used by card, rebalancer, growth sections)
+  const renderContextUI = (expKey, sectionExps, isSectionExpanding, collapsedObj, setCollapsedFn) => {
+    const contextData = sectionExps?.context;
+    const hasContext = contextData && Array.isArray(contextData) && contextData.length > 0;
+    const isContextExpanding = isSectionExpanding && expanding?.type === 'context';
+    const isCollapsed = collapsedObj?.context === true;
+    const inputVisible = showContextInput[expKey];
+
+    if (!hasContext && !inputVisible) return null;
+
+    return (
+      <>
+        {/* Context conversation thread */}
+        {hasContext && (
+          <div className="mb-4 rounded-lg border border-amber-700/30 overflow-hidden animate-fadeIn bg-amber-950/10">
+            <div
+              className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-amber-900/20 transition-colors"
+              onClick={(e) => { e.stopPropagation(); setCollapsedFn(prev => ({ ...prev, context: !prev.context })); }}
+            >
+              <span
+                className={`text-xs transition-transform duration-200 ${isCollapsed ? 'text-red-500' : 'text-amber-400'}`}
+                style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+              >▼</span>
+              <span className="text-xs text-amber-400/80 uppercase tracking-wider">Context</span>
+              <span className="text-[0.6rem] text-zinc-600 ml-auto">
+                {Math.floor(contextData.length / 2)} exchange{contextData.length > 2 ? 's' : ''}
+              </span>
+              {isCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-1">tap to expand</span>}
+            </div>
+            {!isCollapsed && (
+              <div className="px-3 pb-3 border-t border-amber-700/30 space-y-3">
+                {contextData.map((turn, i) => (
+                  <div key={i}>
+                    {turn.role === 'user' ? (
+                      <div className="text-xs text-amber-400/80 bg-amber-950/30 rounded px-2 py-1.5 italic">
+                        &ldquo;{turn.content}&rdquo;
+                      </div>
+                    ) : (
+                      <div className="text-sm text-zinc-300 space-y-2 mt-1">
+                        {ensureParagraphBreaks(turn.content).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Context input — stays visible for multi-turn */}
+        {inputVisible && !(hasContext && isCollapsed) && (
+          <div className="mb-4 flex gap-2">
+            <input
+              type="text"
+              value={contextText[expKey] || ''}
+              onChange={(e) => setContextText(prev => ({ ...prev, [expKey]: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey && contextText[expKey]?.trim() && !isContextExpanding) {
+                  e.preventDefault();
+                  onExpand(expKey, 'context', false, contextText[expKey].trim());
+                  setContextText(prev => ({ ...prev, [expKey]: '' }));
+                }
+              }}
+              placeholder={hasContext ? "Add more context..." : "What context would you like to add?"}
+              className="flex-1 bg-zinc-800/80 text-zinc-200 text-sm rounded-lg px-3 py-2 border border-zinc-700 focus:border-amber-500/50 focus:outline-none placeholder-zinc-600"
+              disabled={isContextExpanding}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (contextText[expKey]?.trim() && !isContextExpanding) {
+                  onExpand(expKey, 'context', false, contextText[expKey].trim());
+                  setContextText(prev => ({ ...prev, [expKey]: '' }));
+                }
+              }}
+              disabled={!contextText[expKey]?.trim() || isContextExpanding}
+              className="px-3 py-2 text-sm rounded-lg bg-amber-600 text-white hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+            >
+              {isContextExpanding ? (
+                <span className="inline-block w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></span>
+              ) : '\u2192'}
+            </button>
+          </div>
+        )}
+      </>
+    );
+  };
+
   const content = getContent(depth);
   const canGoDeeper = depth !== DEPTH.DEEP && depth !== DEPTH.COLLAPSED;
   const canGoShallower = depth !== DEPTH.COLLAPSED;
@@ -968,11 +1065,11 @@ const DepthCard = ({
         </>
       )}
 
-      {/* Expansion Buttons - appear at every depth level (excluding architecture - it's its own section) */}
+      {/* Expansion Buttons - appear at every depth level (excluding architecture and context - they have special handling) */}
       {depth !== DEPTH.COLLAPSED && onExpand && (
         <div className="flex gap-2 flex-wrap mb-4">
           {Object.entries(EXPANSION_PROMPTS)
-            .filter(([key]) => key !== 'architecture') // Architecture is its own section now
+            .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
             .map(([key, { label }]) => {
             const isThisExpanding = isExpanding && expanding?.type === key;
             const hasExpansion = !!sectionExpansions[key];
@@ -988,15 +1085,29 @@ const DepthCard = ({
                 {isThisExpanding && (
                   <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
                 )}
-                {hasExpansion ? `✓ ${label}` : label}
+                {hasExpansion ? `\u2713 ${label}` : label}
               </button>
             );
           })}
+          {/* Add Context button — opens multi-turn input */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowContextInput(prev => ({ ...prev, [expansionKey]: !prev[expansionKey] })); }}
+            className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+              showContextInput[expansionKey] || sectionExpansions.context
+                ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50'
+                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+            }`}
+          >
+            Add Context
+          </button>
         </div>
       )}
 
-      {/* Expansion Content Display - collapsible, never deleted */}
-      {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).map(([key, expansionContent]) => {
+      {/* Context thread + input */}
+      {depth !== DEPTH.COLLAPSED && onExpand && renderContextUI(expansionKey, sectionExpansions, isExpanding, collapsedExpansions, setCollapsedExpansions)}
+
+      {/* Expansion Content Display - collapsible, never deleted (excludes context - rendered above) */}
+      {depth !== DEPTH.COLLAPSED && Object.entries(sectionExpansions).filter(([key]) => key !== 'context').map(([key, expansionContent]) => {
         if (!expansionContent) return null;
         const isExpCollapsed = collapsedExpansions[key] === true;
         // Split content into paragraphs for proper formatting
@@ -1314,7 +1425,7 @@ const DepthCard = ({
               {onExpand && (
                 <div className="flex gap-2 flex-wrap mb-4">
                   {Object.entries(EXPANSION_PROMPTS)
-                    .filter(([key]) => key !== 'architecture')
+                    .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                     .map(([key, { label }]) => {
                     const isThisExpanding = isRebalancerExpanding && expanding?.type === key;
                     const hasExpansion = !!rebalancerExpansions[key];
@@ -1330,15 +1441,29 @@ const DepthCard = ({
                         {isThisExpanding && (
                           <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
                         )}
-                        {hasExpansion ? `✓ ${label}` : label}
+                        {hasExpansion ? `\u2713 ${label}` : label}
                       </button>
                     );
                   })}
+                  {/* Add Context button */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setShowContextInput(prev => ({ ...prev, [rebalancerExpansionKey]: !prev[rebalancerExpansionKey] })); }}
+                    className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                      showContextInput[rebalancerExpansionKey] || rebalancerExpansions.context
+                        ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50'
+                        : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+                    }`}
+                  >
+                    Add Context
+                  </button>
                 </div>
               )}
 
+              {/* Rebalancer context thread + input */}
+              {onExpand && renderContextUI(rebalancerExpansionKey, rebalancerExpansions, isRebalancerExpanding, collapsedRebalancerExpansions, setCollapsedRebalancerExpansions)}
+
               {/* Rebalancer Expansion Content Display */}
-              {Object.entries(rebalancerExpansions).map(([key, expansionContent]) => {
+              {Object.entries(rebalancerExpansions).filter(([key]) => key !== 'context').map(([key, expansionContent]) => {
                 if (!expansionContent) return null;
                 const isExpCollapsed = collapsedRebalancerExpansions[key] === true;
                 const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
@@ -1668,7 +1793,7 @@ const DepthCard = ({
               {onExpand && (
                 <div className="flex gap-2 flex-wrap mb-4">
                   {Object.entries(EXPANSION_PROMPTS)
-                    .filter(([key]) => key !== 'architecture')
+                    .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                     .map(([key, { label }]) => {
                     const isThisExpanding = isGrowthExpanding && expanding?.type === key;
                     const hasExpansion = !!growthExpansions[key];
@@ -1684,15 +1809,29 @@ const DepthCard = ({
                         {isThisExpanding && (
                           <span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>
                         )}
-                        {hasExpansion ? `✓ ${label}` : label}
+                        {hasExpansion ? `\u2713 ${label}` : label}
                       </button>
                     );
                   })}
+                  {/* Add Context button */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setShowContextInput(prev => ({ ...prev, [growthExpansionKey]: !prev[growthExpansionKey] })); }}
+                    className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                      showContextInput[growthExpansionKey] || growthExpansions.context
+                        ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50'
+                        : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
+                    }`}
+                  >
+                    Add Context
+                  </button>
                 </div>
               )}
 
+              {/* Growth context thread + input */}
+              {onExpand && renderContextUI(growthExpansionKey, growthExpansions, isGrowthExpanding, collapsedGrowthExpansions, setCollapsedGrowthExpansions)}
+
               {/* Growth Expansion Content Display */}
-              {Object.entries(growthExpansions).map(([key, expansionContent]) => {
+              {Object.entries(growthExpansions).filter(([key]) => key !== 'context').map(([key, expansionContent]) => {
                 if (!expansionContent) return null;
                 const isExpCollapsed = collapsedGrowthExpansions[key] === true;
                 const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());

@@ -3025,7 +3025,7 @@ Interpret this new card as the architecture's response to their declared directi
     return true; // Indicate help was shown
   };
 
-  const handleExpand = async (sectionKey, expansionType, remove = false) => {
+  const handleExpand = async (sectionKey, expansionType, remove = false, userText = null) => {
     // If removing, just clear that expansion
     if (remove) {
       setExpansions(prev => {
@@ -3040,12 +3040,15 @@ Interpret this new card as the architecture's response to their declared directi
       return;
     }
     
-    // If already has this expansion, toggle it off
-    if (expansions[sectionKey]?.[expansionType]) {
+    // If already has this expansion, toggle it off (but NOT for context - it's multi-turn)
+    if (expansionType !== 'context' && expansions[sectionKey]?.[expansionType]) {
       handleExpand(sectionKey, expansionType, true);
       return;
     }
-    
+
+    // For context type, user text is required (button click in DepthCard handles input toggle)
+    if (expansionType === 'context' && !userText) return;
+
     // Otherwise, fetch the expansion
     setExpanding({ section: sectionKey, type: expansionType });
 
@@ -3114,9 +3117,11 @@ Interpret this new card as the architecture's response to their declared directi
       sectionContext = 'the "Why This Reading Appeared" section (teleological closure - why these specific cards emerged for this question)';
     }
 
-    // Custom prompts for Path and WhyAppeared sections
+    // Custom prompts for each expansion type / section
     let expansionPrompt;
-    if (sectionKey === 'path') {
+    if (expansionType === 'context') {
+      expansionPrompt = EXPANSION_PROMPTS.context.prompt;
+    } else if (sectionKey === 'path') {
       const pathPrompts = {
         unpack: "Expand on the Path to Balance with more detail. Go deeper on the synthesis of these corrections and what they're pointing to together.",
         clarify: "Restate the Path to Balance in simpler, everyday language. Plain words, short sentences — make it completely accessible.",
@@ -3171,7 +3176,44 @@ Ground your expansion in this specific context.`;
       }
       return '';
     })();
-    const userMessage = `QUERENT'S QUESTION: "${question}"
+    // Build messages for API call
+    let messages;
+    if (expansionType === 'context' && userText) {
+      // Multi-turn context: build conversation history
+      const existingContext = expansions[sectionKey]?.context || [];
+      const baseInfo = `QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
+
+      if (existingContext.length === 0) {
+        // First context submission
+        messages = [{
+          role: 'user',
+          content: `${baseInfo}\n\nQUERENT'S ADDITIONAL CONTEXT: "${userText}"\n\n${expansionPrompt}\n${expansionDtpContext}\nKeep it focused on this specific section AND relevant to their question: "${question}"\n\nREMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them.`
+        }];
+      } else {
+        // Follow-up: reconstruct conversation with full context in first message
+        messages = [{
+          role: 'user',
+          content: `${baseInfo}\n\nQUERENT'S ADDITIONAL CONTEXT: "${existingContext[0].content}"\n\n${expansionPrompt}\n${expansionDtpContext}\nKeep it focused on this specific section AND relevant to their question: "${question}"\n\nREMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them.`
+        }];
+        // Add previous conversation turns
+        for (let i = 1; i < existingContext.length; i++) {
+          const turn = existingContext[i];
+          messages.push({
+            role: turn.role,
+            content: turn.role === 'user'
+              ? `FOLLOW-UP CONTEXT: "${turn.content}"\n\nBuild on your previous re-interpretation. Don't repeat yourself — show what's new.`
+              : turn.content
+          });
+        }
+        // Add new follow-up
+        messages.push({
+          role: 'user',
+          content: `FOLLOW-UP CONTEXT: "${userText}"\n\nBuild on your previous re-interpretation. Don't repeat yourself — show what's new.`
+        });
+      }
+    } else {
+      // Standard one-shot expansion
+      const userMessage = `QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
 ${drawText}
@@ -3185,12 +3227,14 @@ ${expansionDtpContext}
 Respond directly with the expanded content. No section markers needed. Keep it focused on this specific section AND relevant to their question: "${question}"
 
 REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them. Never write a wall of text.`;
+      messages = [{ role: 'user', content: userMessage }];
+    }
 
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
+        body: JSON.stringify({ messages, system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -3198,13 +3242,29 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       // Post-process to ensure paragraph breaks (AI often ignores formatting instructions)
       const formattedContent = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
 
-      setExpansions(prev => ({
-        ...prev,
-        [sectionKey]: {
-          ...(prev[sectionKey] || {}),
-          [expansionType]: formattedContent
-        }
-      }));
+      if (expansionType === 'context') {
+        // Store as conversation array (append user turn + assistant response)
+        setExpansions(prev => ({
+          ...prev,
+          [sectionKey]: {
+            ...(prev[sectionKey] || {}),
+            context: [
+              ...(prev[sectionKey]?.context || []),
+              { role: 'user', content: userText },
+              { role: 'assistant', content: formattedContent }
+            ]
+          }
+        }));
+      } else {
+        // Store as string (one-shot expansion)
+        setExpansions(prev => ({
+          ...prev,
+          [sectionKey]: {
+            ...(prev[sectionKey] || {}),
+            [expansionType]: formattedContent
+          }
+        }));
+      }
 
       // Accumulate token usage
       if (data.usage) {
@@ -3213,8 +3273,8 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
         } : data.usage);
       }
-    } catch (e) { 
-      setError(`Expansion error: ${e.message}`); 
+    } catch (e) {
+      setError(`Expansion error: ${e.message}`);
     }
     setExpanding(null);
   };
@@ -3732,14 +3792,22 @@ CRITICAL FORMATTING RULES:
         md += `#### Words to the Whys\n\n${whyContent}\n\n`;
       }
 
-      // Card expansions (Unpack, Clarify, Example, Architecture)
+      // Card expansions (Unpack, Clarify, Example, Architecture — excludes context which is array)
       const cardExpansions = expansions[`card-${card.index}`] || {};
-      Object.entries(cardExpansions).forEach(([expType, content]) => {
+      Object.entries(cardExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
         if (content) {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `#### ${label}\n\n${content}\n\n`;
         }
       });
+      // Context conversations
+      const cardContext = cardExpansions.context;
+      if (cardContext && Array.isArray(cardContext) && cardContext.length > 0) {
+        md += `#### Context\n\n`;
+        cardContext.forEach(turn => {
+          md += turn.role === 'user' ? `> *"${turn.content}"*\n\n` : `${turn.content}\n\n`;
+        });
+      }
     });
 
     // Path to Balance (new structure with depths - use deep first)
@@ -3762,8 +3830,8 @@ CRITICAL FORMATTING RULES:
       md += `---\n\n## Letter\n\n${letterContent}\n\n`;
       // Letter expansions
       const letterExpansions = expansions['letter'] || {};
-      Object.entries(letterExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(letterExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `### ${label}\n\n${content}\n\n`;
         }
@@ -3773,8 +3841,8 @@ CRITICAL FORMATTING RULES:
     // Summary expansions
     const summaryExpansions = expansions['summary'] || {};
     if (Object.keys(summaryExpansions).length > 0) {
-      Object.entries(summaryExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(summaryExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `### Overview ${label}\n\n${content}\n\n`;
         }
@@ -3921,8 +3989,8 @@ CRITICAL FORMATTING RULES:
       // Card expansions (Unpack, Clarify, Example, Architecture)
       const cardExpansions = expansions[`card-${card.index}`] || {};
       let expansionsHtml = '';
-      Object.entries(cardExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(cardExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           expansionsHtml += `
             <div class="expansion">
@@ -3931,6 +3999,17 @@ CRITICAL FORMATTING RULES:
             </div>`;
         }
       });
+      // Context conversations
+      const cardContextHtml = cardExpansions.context;
+      if (cardContextHtml && Array.isArray(cardContextHtml) && cardContextHtml.length > 0) {
+        expansionsHtml += `<div class="expansion"><span class="expansion-badge">Context</span><div class="expansion-content">`;
+        cardContextHtml.forEach(turn => {
+          expansionsHtml += turn.role === 'user'
+            ? `<p style="color:#fbbf24;font-style:italic">&ldquo;${escapeHtml(turn.content)}&rdquo;</p>`
+            : `<p>${escapeHtml(turn.content)}</p>`;
+        });
+        expansionsHtml += `</div></div>`;
+      }
 
       // Only render signature-content div if there's actual content
       const signatureContentHtml = cardContent.trim()
@@ -3960,8 +4039,8 @@ CRITICAL FORMATTING RULES:
     // Build letter expansions HTML
     const letterExpansions = expansions['letter'] || {};
     let letterExpansionsHtml = '';
-    Object.entries(letterExpansions).forEach(([expType, content]) => {
-      if (content) {
+    Object.entries(letterExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+      if (content && typeof content === 'string') {
         const label = EXPANSION_PROMPTS[expType]?.label || expType;
         letterExpansionsHtml += `
           <div class="expansion" style="margin-left: 0;">
@@ -3974,8 +4053,8 @@ CRITICAL FORMATTING RULES:
     // Build summary expansions HTML
     const summaryExpansions = expansions['summary'] || {};
     let summaryExpansionsHtml = '';
-    Object.entries(summaryExpansions).forEach(([expType, content]) => {
-      if (content) {
+    Object.entries(summaryExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+      if (content && typeof content === 'string') {
         const label = EXPANSION_PROMPTS[expType]?.label || expType;
         summaryExpansionsHtml += `
           <div class="expansion" style="margin-left: 0;">
@@ -6338,7 +6417,7 @@ CRITICAL FORMATTING RULES:
               {handleExpand && (
                 <div className="flex gap-2 flex-wrap mb-4">
                   {Object.entries(EXPANSION_PROMPTS)
-                    .filter(([key]) => key !== 'architecture')
+                    .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                     .map(([key, { label }]) => {
                     const isThisExpanding = isExpanding && expanding?.type === key;
                     const hasExpansion = !!sectionExpansions[key];
@@ -6360,8 +6439,8 @@ CRITICAL FORMATTING RULES:
                 </div>
               )}
 
-              {/* Expansion content display - collapsible, never deleted */}
-              {Object.entries(sectionExpansions).map(([expType, content]) => {
+              {/* Expansion content display - collapsible, never deleted (excludes context arrays) */}
+              {Object.entries(sectionExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, content]) => {
                 if (!content) return null;
                 const expKey = `letter-exp-${expType}`;
                 const isExpCollapsed = collapsedSections[expKey] === true;
@@ -6679,7 +6758,7 @@ CRITICAL FORMATTING RULES:
                         {/* Path Expansion Buttons (excluding architecture - has own section) */}
                         <div className="flex gap-2 flex-wrap">
                           {Object.entries(EXPANSION_PROMPTS)
-                            .filter(([key]) => key !== 'architecture')
+                            .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                             .map(([key, { label }]) => {
                             const isThisExpanding = isPathExpanding && expanding?.type === key;
                             const hasExpansion = !!pathExpansions[key];
@@ -6706,7 +6785,7 @@ CRITICAL FORMATTING RULES:
                         </div>
 
                         {/* Path Expansion Content */}
-                        {Object.entries(pathExpansions).map(([expType, expContent]) => (
+                        {Object.entries(pathExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, expContent]) => (
                           <div key={expType} className="mt-4 pt-4 border-t border-emerald-700/50">
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-xs uppercase tracking-wider text-emerald-500/70">
@@ -7059,7 +7138,7 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('summary', key); }} disabled={isSummaryExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${summaryExpansions[key] ? 'bg-amber-900/40 text-amber-300 border border-amber-500/40' : isSummaryExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isSummaryExpanding && expanding?.type === key ? 'Expanding...' : label}
@@ -7067,7 +7146,7 @@ CRITICAL FORMATTING RULES:
                               ))}
                             </div>
                             {/* Expansion Results */}
-                            {Object.entries(summaryExpansions).map(([expKey, content]) => (
+                            {Object.entries(summaryExpansions).filter(([k]) => typeof summaryExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30">
                                 <div className="text-xs font-medium text-amber-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
@@ -7140,7 +7219,7 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('whyAppeared', key); }} disabled={isWhyExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${whyExpansions[key] ? 'bg-cyan-900/40 text-cyan-300 border border-cyan-500/40' : isWhyExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isWhyExpanding && expanding?.type === key ? 'Expanding...' : label}
@@ -7148,7 +7227,7 @@ CRITICAL FORMATTING RULES:
                               ))}
                             </div>
                             {/* Expansion Results */}
-                            {Object.entries(whyExpansions).map(([expKey, content]) => (
+                            {Object.entries(whyExpansions).filter(([k]) => typeof whyExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30">
                                 <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
@@ -7230,7 +7309,7 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('path', key); }} disabled={isPathExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${pathExpansions[key] ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-500/40' : isPathExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isPathExpanding && expanding?.type === key ? 'Expanding...' : label}
@@ -7238,7 +7317,7 @@ CRITICAL FORMATTING RULES:
                               ))}
                             </div>
                             {/* Expansion Results */}
-                            {Object.entries(pathExpansions).map(([expKey, content]) => (
+                            {Object.entries(pathExpansions).filter(([k]) => typeof pathExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30">
                                 <div className="text-xs font-medium text-emerald-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
