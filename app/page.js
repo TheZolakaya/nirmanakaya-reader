@@ -3079,8 +3079,8 @@ Interpret this new card as the architecture's response to their declared directi
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\n${cardSection?.architecture || ''}`;
       sectionContent = cardSection?.wade || cardSection?.surface || cardSection?.content || '';
       sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
-    } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:')) {
-      const cardIndex = parseInt(sectionKey.split(':')[1]);
+    } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:') || sectionKey.startsWith('rebalancer-')) {
+      const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const rebalancer = cardSection?.rebalancer;
       const draw = draws[cardIndex];
@@ -3090,6 +3090,17 @@ Interpret this new card as the architecture's response to their declared directi
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nRebalancer Architecture: ${rebalancer?.architecture || ''}`;
       sectionContent = rebalancer?.wade || rebalancer?.surface || '';
       sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
+    } else if (sectionKey.startsWith('growth-')) {
+      const cardIndex = parseInt(sectionKey.split('-')[1]);
+      const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
+      const growth = cardSection?.growth;
+      const draw = draws[cardIndex];
+      const trans = getComponent(draw.transient);
+      const stat = STATUSES[draw.status];
+      // SCOPED: Only send this specific card's draw info
+      drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nGrowth Architecture: ${growth?.architecture || ''}`;
+      sectionContent = growth?.wade || growth?.surface || '';
+      sectionContext = `the growth opportunity for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
     } else if (sectionKey === 'path') {
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for path synthesis
       sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
