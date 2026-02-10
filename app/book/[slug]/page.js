@@ -3,6 +3,7 @@ import path from 'path';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MarkdownRenderer from '../../../components/shared/MarkdownRenderer';
+import ChapterActions from '../../../components/book/ChapterActions';
 import { getAllEntries, getEntryBySlug, getNavigation } from '../../../lib/book-data';
 
 // Generate static params for all chapters and appendices
@@ -51,9 +52,12 @@ export default function ChapterPage({ params }) {
         <p className="text-xs font-mono text-amber-400/60 mb-1">
           {entry.label}
         </p>
-        <h1 className="text-2xl sm:text-3xl font-serif text-zinc-100">
-          {entry.title}
-        </h1>
+        <div className="flex items-start justify-between gap-4">
+          <h1 className="text-2xl sm:text-3xl font-serif text-zinc-100">
+            {entry.title}
+          </h1>
+          <ChapterActions slug={slug} title={entry.title} label={entry.label} />
+        </div>
         <div className="mt-4 h-px bg-gradient-to-r from-amber-400/20 via-zinc-800 to-transparent" />
       </header>
 

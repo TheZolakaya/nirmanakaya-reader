@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { BOOK_PARTS, APPENDICES, QUOTES } from '../../lib/book-data';
+import { BOOK_PARTS, APPENDICES } from '../../lib/book-data';
+import { ContinueReading, FavoritesList, RandomQuote } from '../../components/book/BookUserSections';
 
 export const metadata = {
   title: 'Nirmanakaya: A Map of Consciousness — Table of Contents',
@@ -7,9 +8,6 @@ export const metadata = {
 };
 
 export default function BookPage() {
-  // Pick a random quote at build time
-  const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
-
   return (
     <article className="pb-12">
       {/* Header */}
@@ -27,20 +25,19 @@ export default function BookPage() {
         {/* Divider */}
         <div className="mt-8 flex items-center justify-center gap-3">
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-zinc-700" />
-          <span className="text-amber-400/40 text-xs">✦</span>
+          <span className="text-amber-400/40 text-xs">&#10022;</span>
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-zinc-700" />
         </div>
       </header>
 
-      {/* Random Quote */}
-      <blockquote className="max-w-xl mx-auto mb-12 px-4 py-4 border-l-2 border-amber-500/30 bg-amber-500/5 rounded-r">
-        <p className="text-zinc-300 text-sm italic leading-relaxed">
-          &ldquo;{quote.text}&rdquo;
-        </p>
-        <cite className="block mt-2 text-xs text-zinc-500 not-italic">
-          — {quote.source}
-        </cite>
-      </blockquote>
+      {/* Continue Reading (client-side, shows last visited chapter) */}
+      <ContinueReading />
+
+      {/* Random Quote (client-side, truly random on each visit) */}
+      <RandomQuote />
+
+      {/* Favorites (client-side, shows starred chapters) */}
+      <FavoritesList />
 
       {/* Table of Contents */}
       <div className="space-y-8">
@@ -96,11 +93,11 @@ export default function BookPage() {
       <div className="mt-12 text-center">
         <div className="inline-flex gap-6 text-[10px] font-mono text-zinc-600 uppercase tracking-wider">
           <span>40 Chapters</span>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">&middot;</span>
           <span>10 Parts</span>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">&middot;</span>
           <span>6 Appendices</span>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">&middot;</span>
           <span>~500 Pages</span>
         </div>
       </div>

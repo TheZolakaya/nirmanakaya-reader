@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BOOK_PARTS, APPENDICES } from '../../lib/book-data';
+import BookSearch from './BookSearch';
 
 export default function BookSidebar() {
   const pathname = usePathname();
@@ -49,6 +50,9 @@ export default function BookSidebar() {
           A Map of Consciousness
         </span>
       </Link>
+
+      {/* Search */}
+      <BookSearch onNavigate={() => setMobileOpen(false)} />
 
       {/* Scrollable nav */}
       <nav className="flex-1 overflow-y-auto py-2 scrollbar-thin">
