@@ -478,7 +478,7 @@ const DepthCard = ({
       };
 
       // Call the API to generate deeper content
-      await onLoadDeeper(cardData.index, targetDepth, previousContent);
+      await onLoadDeeper(cardData.index, targetDepth, previousContent, ['reading']);
       setDepth(targetDepth);
     } else {
       // No loader available, just switch (content may be empty but UI will show something)
@@ -848,7 +848,7 @@ const DepthCard = ({
                         architecture: cardData.architecture || '',
                         mirror: cardData.mirror || ''
                       };
-                      await onLoadDeeper(cardData.index, level, previousContent);
+                      await onLoadDeeper(cardData.index, level, previousContent, ['reading']);
                       setCardLoadingDeeper(false);
                       setDepth(level);
                     }
@@ -907,7 +907,7 @@ const DepthCard = ({
                   architecture: cardData.architecture || '',
                   mirror: cardData.mirror || ''
                 };
-                await onLoadDeeper(cardData.index, newDepth, previousContent);
+                await onLoadDeeper(cardData.index, newDepth, previousContent, ['reading']);
                 setCardLoadingDeeper(false);
                 setDepth(newDepth);
               }
@@ -1109,7 +1109,7 @@ const DepthCard = ({
                                 architecture: cardData.architecture || '',
                                 mirror: cardData.mirror || ''
                               };
-                              await onLoadDeeper(cardData.index, level, previousContent);
+                              await onLoadDeeper(cardData.index, level, previousContent, ['rebalancer']);
                               setRebalancerLoadingDeeper(false);
                               setRebalancerDepth(level);
                             } else {
@@ -1166,7 +1166,7 @@ const DepthCard = ({
                           architecture: cardData.architecture || '',
                           mirror: cardData.mirror || ''
                         };
-                        await onLoadDeeper(cardData.index, newDepth, previousContent);
+                        await onLoadDeeper(cardData.index, newDepth, previousContent, ['rebalancer']);
                         setRebalancerLoadingDeeper(false);
                         setRebalancerDepth(newDepth);
                       } else {
@@ -1457,7 +1457,7 @@ const DepthCard = ({
                                 architecture: cardData.architecture || '',
                                 mirror: cardData.mirror || ''
                               };
-                              await onLoadDeeper(cardData.index, level, previousContent);
+                              await onLoadDeeper(cardData.index, level, previousContent, ['growth']);
                               setGrowthLoadingDeeper(false);
                               setGrowthDepth(level);
                             } else {
@@ -1514,7 +1514,7 @@ const DepthCard = ({
                           architecture: cardData.architecture || '',
                           mirror: cardData.mirror || ''
                         };
-                        await onLoadDeeper(cardData.index, newDepth, previousContent);
+                        await onLoadDeeper(cardData.index, newDepth, previousContent, ['growth']);
                         setGrowthLoadingDeeper(false);
                         setGrowthDepth(newDepth);
                       } else {
@@ -1840,7 +1840,7 @@ const DepthCard = ({
                                         architecture: cardData.architecture || '',
                                         mirror: cardData.mirror || ''
                                       };
-                                      await onLoadDeeper(cardData.index, level, previousContent);
+                                      await onLoadDeeper(cardData.index, level, previousContent, ['why']);
                                       setWhyLoadingDeeper(false);
                                       setWhyDepth(level);
                                     }
@@ -1894,7 +1894,7 @@ const DepthCard = ({
                                   architecture: cardData.architecture || '',
                                   mirror: cardData.mirror || ''
                                 };
-                                await onLoadDeeper(cardData.index, newDepth, previousContent);
+                                await onLoadDeeper(cardData.index, newDepth, previousContent, ['why']);
                                 setWhyLoadingDeeper(false);
                                 setWhyDepth(newDepth);
                               }

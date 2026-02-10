@@ -1961,13 +1961,10 @@ export default function NirmanakaReader() {
   };
 
   // Progressive deepening: Load SWIM or DEEP for a card (builds on previous content)
-  const loadDeeperContent = async (cardIndex, targetDepth, previousContent) => {
-    if (cardLoadingDeeper[cardIndex]) return; // Already loading
-
+  // sections: ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all, legacy)
+  const loadDeeperContent = async (cardIndex, targetDepth, previousContent, sections = null) => {
     // Track depth telemetry
     updateTelemetry('maxDepth', targetDepth);
-
-    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: true }));
 
     try {
       const letterContent = getLetterContent(parsedReading?.letter);
@@ -1992,20 +1989,23 @@ export default function NirmanakaReader() {
           model: getModelId(selectedModel),
           // Progressive deepening params
           targetDepth,
-          previousContent
+          previousContent,
+          sections // Selective section loading — null means all
         })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // V2: Voice is baked into generation - no translation needed
-      const updatedReading = {
-        ...parsedReading,
-        cards: parsedReading?.cards?.map((card, i) =>
-          i === cardIndex ? { ...card, ...data.cardData } : card
-        ) || []
-      };
-      setParsedReading(updatedReading);
+      // Use functional update to avoid stale state when multiple sections load concurrently
+      setParsedReading(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          cards: prev.cards?.map((card, i) =>
+            i === cardIndex ? { ...card, ...data.cardData } : card
+          ) || []
+        };
+      });
 
       // Accumulate token usage
       if (data.usage) {
@@ -2020,8 +2020,6 @@ export default function NirmanakaReader() {
     } catch (e) {
       setError(`Error loading deeper content for card ${cardIndex + 1}: ${e.message}`);
     }
-
-    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: false }));
   };
 
   // On-demand: Load Summary + Path to Balance (after all cards loaded)

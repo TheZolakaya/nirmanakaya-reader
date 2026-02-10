@@ -28,6 +28,7 @@ export async function POST(request) {
     // Progressive deepening params
     targetDepth,    // 'wade' | 'swim' | 'deep' (default: wade)
     previousContent, // { wade: '...', swim: '...' } - content to build on
+    sections,       // ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all)
     // DTP token context (optional)
     token,          // e.g., "Fear" - the user's token this card is reading
     originalInput   // e.g., "I'm worried about my marriage" - full question for grounding
@@ -42,7 +43,7 @@ export async function POST(request) {
 
   // Build card-specific user message
   const userMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput)
+    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput, sections)
     : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput);
 
   // Convert system prompt to cached format for 90% input token savings
@@ -57,8 +58,11 @@ export async function POST(request) {
   // Adjust max tokens based on what we're generating
   // Baseline (WADE for all sections) needs ~3500 tokens
   // DEEP needs more room than SWIM for full transmission
+  // When sections specified, scale tokens down — single section needs far fewer tokens
   const maxTokens = isDeepening
-    ? (depth === 'deep' ? 3000 : 2000)  // DEEP gets 3000, SWIM gets 2000
+    ? (sections && sections.length > 0
+      ? (depth === 'deep' ? 1500 : 1000)  // Single/few sections: DEEP 1500, SWIM 1000
+      : (depth === 'deep' ? 3000 : 2000)) // All sections: DEEP 3000, SWIM 2000
     : 3500;  // Baseline (WADE) stays at 3500
 
   try {
@@ -110,7 +114,7 @@ export async function POST(request) {
 
     // Parse the card sections from response
     const parsedCard = isDeepening
-      ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent)
+      ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent, sections)
       : parseBaselineResponse(text, n, draw.status !== 1, draw);
 
     // Check if parsing produced empty results (model returned unexpected format)
@@ -290,7 +294,8 @@ The token "${token}" should appear naturally woven into your interpretations, gr
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null) {
+// sections: null = all sections, or array like ['reading'], ['rebalancer'], ['why'], ['growth']
+function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null, sections = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -377,15 +382,23 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
     }
   }
 
-  const depthInstructions = targetDepth === 'deep'
-    ? `DEEP depth: Full transmission with NO limits.
-       - Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications
-       - Why section: 3-4 paragraphs on deeper teleological meaning
-       - Rebalancer (if imbalanced): 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it
-       - Growth (if balanced): 3-4 paragraphs on the developmental invitation and how to engage it
+  // Determine which sections to include (null = all)
+  const includeReading = !sections || sections.includes('reading');
+  const includeWhy = !sections || sections.includes('why');
+  const includeRebalancer = !sections || sections.includes('rebalancer');
+  const includeGrowth = !sections || sections.includes('growth');
 
-       DEEP is the fullest expression. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`
-    : `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
+  let depthInstructions;
+  if (targetDepth === 'deep') {
+    const details = [];
+    if (includeReading) details.push('- Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications');
+    if (includeWhy) details.push('- Why section: 3-4 paragraphs on deeper teleological meaning');
+    if (includeRebalancer && isImbalanced) details.push('- Rebalancer: 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it');
+    if (includeGrowth && isBalanced) details.push('- Growth: 3-4 paragraphs on the developmental invitation and how to engage it');
+    depthInstructions = `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`;
+  } else {
+    depthInstructions = `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
+  }
 
   // Build previous content display
   let previousDisplay = '';
@@ -409,7 +422,7 @@ Status: ${stat?.name || 'Balanced'}
 PREVIOUS CONTENT (what the querent has already read):
 ${previousDisplay}
 
-Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
+Now generate ${targetDepth.toUpperCase()} level content for ${sections ? 'the requested section(s)' : 'ALL sections'}.
 
 ${depthInstructions}
 
@@ -428,18 +441,17 @@ CRITICAL RULES:
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 Respond with these markers:
-
+${includeReading ? `
 [CARD:${n}:${targetDepth.toUpperCase()}]
 (Build on previous reading - add new dimensions)
-
+` : ''}${includeWhy ? `
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
 (Deepen why this signature emerged - new angles)
-${isImbalanced ? `
+` : ''}${isImbalanced && includeRebalancer ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
 
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}
-${isBalanced ? `
+(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
 ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
@@ -508,8 +520,9 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
   return cardData;
 }
 
-// Parse deepen response (SWIM or DEEP for all sections)
-function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
+// Parse deepen response (SWIM or DEEP for requested sections)
+// sections: null = all sections, or array like ['reading'], ['rebalancer'], etc.
+function parseDeepenResponse(text, n, isImbalanced, depth, previousContent, sections = null) {
   const extractSection = (marker) => {
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
@@ -524,42 +537,45 @@ function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
   };
 
   const depthMarker = depth.toUpperCase();
-  const newContent = extractSection(`CARD:${n}:${depthMarker}`);
-  const newWhy = extractSection(`CARD:${n}:WHY:${depthMarker}`);
+  const shouldUpdate = (section) => !sections || sections.includes(section);
   const isBalanced = !isImbalanced;
 
-  // Merge with previous content
+  // Only extract sections that were requested
+  const newContent = shouldUpdate('reading') ? extractSection(`CARD:${n}:${depthMarker}`) : '';
+  const newWhy = shouldUpdate('why') ? extractSection(`CARD:${n}:WHY:${depthMarker}`) : '';
+
+  // Merge with previous content — only update requested sections, preserve others
   const cardData = {
     wade: previousContent?.reading?.wade || '',
-    swim: depth === 'swim' ? newContent : (previousContent?.reading?.swim || ''),
-    deep: depth === 'deep' ? newContent : (previousContent?.reading?.deep || ''),
+    swim: (depth === 'swim' && shouldUpdate('reading')) ? newContent : (previousContent?.reading?.swim || ''),
+    deep: (depth === 'deep' && shouldUpdate('reading')) ? newContent : (previousContent?.reading?.deep || ''),
     architecture: previousContent?.architecture || '',
     mirror: previousContent?.mirror || '',
     why: {
       wade: previousContent?.why?.wade || '',
-      swim: depth === 'swim' ? newWhy : (previousContent?.why?.swim || ''),
-      deep: depth === 'deep' ? newWhy : (previousContent?.why?.deep || ''),
+      swim: (depth === 'swim' && shouldUpdate('why')) ? newWhy : (previousContent?.why?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('why')) ? newWhy : (previousContent?.why?.deep || ''),
       architecture: previousContent?.why?.architecture || ''
     }
   };
 
   if (isImbalanced) {
-    const newRebalancer = extractSection(`CARD:${n}:REBALANCER:${depthMarker}`);
+    const newRebalancer = shouldUpdate('rebalancer') ? extractSection(`CARD:${n}:REBALANCER:${depthMarker}`) : '';
     cardData.rebalancer = {
       wade: previousContent?.rebalancer?.wade || '',
-      swim: depth === 'swim' ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
-      deep: depth === 'deep' ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
+      swim: (depth === 'swim' && shouldUpdate('rebalancer')) ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('rebalancer')) ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
       architecture: previousContent?.rebalancer?.architecture || ''
     };
   }
 
   // Add growth section for balanced cards
   if (isBalanced) {
-    const newGrowth = extractSection(`CARD:${n}:GROWTH:${depthMarker}`);
+    const newGrowth = shouldUpdate('growth') ? extractSection(`CARD:${n}:GROWTH:${depthMarker}`) : '';
     cardData.growth = {
       wade: previousContent?.growth?.wade || '',
-      swim: depth === 'swim' ? newGrowth : (previousContent?.growth?.swim || ''),
-      deep: depth === 'deep' ? newGrowth : (previousContent?.growth?.deep || ''),
+      swim: (depth === 'swim' && shouldUpdate('growth')) ? newGrowth : (previousContent?.growth?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('growth')) ? newGrowth : (previousContent?.growth?.deep || ''),
       architecture: '' // No AI architecture for growth
     };
   }
