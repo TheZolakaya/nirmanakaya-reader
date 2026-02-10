@@ -63,7 +63,7 @@ export async function POST(request) {
     ? (sections && sections.length > 0
       ? (depth === 'deep' ? 1500 : 1000)  // Single/few sections: DEEP 1500, SWIM 1000
       : (depth === 'deep' ? 3000 : 2000)) // All sections: DEEP 3000, SWIM 2000
-    : 3500;  // Baseline (WADE) stays at 3500
+    : 4000;  // Baseline (SURFACE + WADE for all sections)
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -245,7 +245,13 @@ Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
-Generate the WADE level content for this signature. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
+Generate WADE and SURFACE level content for this signature.
+WADE means: 4-6 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
+SURFACE means: 2-3 sentences that are an INDEPENDENT distillation — the core "oh..." moment.
+
+CRITICAL ANTI-TRUNCATION RULE: Write WADE first. Then write SURFACE FROM SCRATCH as its own distillation.
+Surface must NEVER be the first sentences of Wade copy-pasted. Different words, same core truth.
+The reader should feel "oh, that's the essence" — not "oh, that's the same text shorter."
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
@@ -257,28 +263,40 @@ FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 
 
 Respond with these markers:
 
+[CARD:${n}:SURFACE]
+(2-3 sentences: The core insight distilled. Must stand alone as a complete thought.)
+
 [CARD:${n}:WADE]
-(3-4 sentences: What does this signature reveal about their question? Be specific.)
+(4-6 sentences: What does this signature reveal about their question? Be specific.)
 
 [CARD:${n}:MIRROR]
 (Single poetic line reflecting their situation)
+
+[CARD:${n}:WHY:SURFACE]
+(2 sentences: The teleological pressure, named plainly.)
 
 [CARD:${n}:WHY:WADE]
 (3-4 sentences: Why did THIS signature emerge for THIS question?)
 ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
 
+[CARD:${n}:REBALANCER:SURFACE]
+(2-3 sentences: What the correction offers, plainly.)
+
 [CARD:${n}:REBALANCER:WADE]
-(3-4 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
+(4-6 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
 GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
-[CARD:${n}:GROWTH:WADE]
-(3-4 sentences: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
+[CARD:${n}:GROWTH:SURFACE]
+(2-3 sentences: The growth invitation, plainly.)
 
-CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
+[CARD:${n}:GROWTH:WADE]
+(4-6 sentences: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
+
+CRITICAL: Make each section substantive. Surface must be a complete thought that stands alone. Wade should explore ONE clear idea fully.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
 NOTE: Architecture section will be generated separately - do not include it.${token ? `
 
@@ -485,12 +503,14 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
   const isBalanced = draw.status === 1;
 
   const cardData = {
+    surface: extractSection(`CARD:${n}:SURFACE`),
     wade: extractSection(`CARD:${n}:WADE`),
     swim: '', // Not generated yet - will be filled by deepening
     deep: '', // Not generated yet
     architecture: architectureText,
     mirror: extractSection(`CARD:${n}:MIRROR`),
     why: {
+      surface: extractSection(`CARD:${n}:WHY:SURFACE`),
       wade: extractSection(`CARD:${n}:WHY:WADE`),
       swim: '',
       deep: '',
@@ -500,6 +520,7 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
 
   if (isImbalanced) {
     cardData.rebalancer = {
+      surface: extractSection(`CARD:${n}:REBALANCER:SURFACE`),
       wade: extractSection(`CARD:${n}:REBALANCER:WADE`),
       swim: '',
       deep: '',
@@ -510,6 +531,7 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
   // Add growth section for balanced cards
   if (isBalanced) {
     cardData.growth = {
+      surface: extractSection(`CARD:${n}:GROWTH:SURFACE`),
       wade: extractSection(`CARD:${n}:GROWTH:WADE`),
       swim: '',
       deep: '',
