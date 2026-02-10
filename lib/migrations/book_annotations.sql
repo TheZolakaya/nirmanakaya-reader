@@ -39,6 +39,16 @@ create policy "Users can delete own annotations"
   on book_annotations for delete
   using (auth.uid() = user_id);
 
+-- Admins can delete any annotation
+create policy "Admins can delete any annotation"
+  on book_annotations for delete
+  using (
+    auth.uid() in (
+      select id from auth.users
+      where email = 'chriscrilly@gmail.com'
+    )
+  );
+
 -- Indexes for fast queries
 create index if not exists idx_book_annotations_chapter
   on book_annotations(chapter_slug, is_public);

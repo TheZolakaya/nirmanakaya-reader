@@ -8,7 +8,7 @@ import {
 import {
   getPublicAnnotations, createAnnotation, updateAnnotation, deleteAnnotation,
 } from '../../lib/book-annotations';
-import { getUser } from '../../lib/supabase';
+import { getUser, isAdmin } from '../../lib/supabase';
 
 export default function ChapterNotes({ slug }) {
   const [visible, setVisible] = useState(false);
@@ -185,6 +185,9 @@ export default function ChapterNotes({ slug }) {
                   <div className="space-y-4 mb-4">
                     {annotations.map((ann) => {
                       const isOwn = user && ann.user_id === user.id;
+                      const userIsAdmin = user && isAdmin(user);
+                      const canEdit = isOwn;
+                      const canDelete = isOwn || userIsAdmin;
                       const name = ann.profiles?.display_name || 'Anonymous';
                       const avatar = ann.profiles?.avatar_url;
 
@@ -216,19 +219,23 @@ export default function ChapterNotes({ slug }) {
                                 )}
                                 <span className="text-[11px] text-zinc-400">{name}</span>
                                 <span className="text-[10px] text-zinc-600 font-mono">{formatTime(ann.created_at)}</span>
-                                {isOwn && (
+                                {(canEdit || canDelete) && (
                                   <div className="ml-auto flex gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                                    <button onClick={() => handleEditAnnotation(ann)} className="text-zinc-600 hover:text-zinc-400 p-1" title="Edit">
-                                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
-                                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                      </svg>
-                                    </button>
-                                    <button onClick={() => handleDeleteAnnotation(ann.id)} className="text-zinc-600 hover:text-red-400 p-1" title="Delete">
-                                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M18 6L6 18M6 6l12 12" />
-                                      </svg>
-                                    </button>
+                                    {canEdit && (
+                                      <button onClick={() => handleEditAnnotation(ann)} className="text-zinc-600 hover:text-zinc-400 p-1" title="Edit">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                                          <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                        </svg>
+                                      </button>
+                                    )}
+                                    {canDelete && (
+                                      <button onClick={() => handleDeleteAnnotation(ann.id)} className="text-zinc-600 hover:text-red-400 p-1" title={userIsAdmin && !isOwn ? 'Delete (admin)' : 'Delete'}>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                          <path d="M18 6L6 18M6 6l12 12" />
+                                        </svg>
+                                      </button>
+                                    )}
                                   </div>
                                 )}
                               </div>
