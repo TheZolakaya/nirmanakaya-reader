@@ -56,11 +56,16 @@ export default function SaveReadingButton({ reading, glisten, draws, locusSubjec
                 voice: voice || 'friend',
                 draws: draws,
                 interpretation: {
-                  cards: reading.cards?.map(c => ({
-                    interpretation: c.interpretation?.interpretation || c.interpretation,
-                    rebalancing: c.interpretation?.rebalancing
-                  })) || [],
-                  synthesis: reading.synthesis?.summary || reading.synthesis?.path,
+                  cards: reading.cards?.map(c => {
+                    const interp = c.interpretation;
+                    return {
+                      // Preserve full depth object for future multi-depth viewing
+                      interpretation: interp,
+                      // Fix: field is 'rebalancer' not 'rebalancing' in depth format
+                      rebalancing: interp?.rebalancer || interp?.rebalancing || null
+                    };
+                  }) || [],
+                  synthesis: reading.synthesis?.summary || reading.synthesis?.path || reading.synthesis,
                   letter: reading.letter
                 },
                 glisten: glisten || null,
