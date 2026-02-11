@@ -5185,6 +5185,7 @@ CRITICAL FORMATTING RULES:
                 <TopicBar
                   currentUser={currentUser}
                   activeTopic={activeTopic}
+                  question={question}
                   onSelectTopic={(topic) => {
                     setActiveTopic(topic);
                     if (topic) setQuestion(topic.label);

@@ -3,14 +3,15 @@
 // === TOPIC BAR ===
 // Shows saved recurring topics as pills above the question input
 // Click a topic to pre-fill the question and set topic_id for reading
-// Max 7 active topics
+// "+" button saves current question as new topic (max 7 active)
 
 import { useState, useEffect, useCallback } from 'react';
 import { getSession } from '../../lib/supabase';
 
-export default function TopicBar({ onSelectTopic, activeTopic, currentUser }) {
+export default function TopicBar({ onSelectTopic, activeTopic, currentUser, question = '' }) {
   const [topics, setTopics] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
   const [showMenu, setShowMenu] = useState(null); // topic id for context menu
   const [renaming, setRenaming] = useState(null); // topic id being renamed
   const [renameValue, setRenameValue] = useState('');
@@ -32,17 +33,44 @@ export default function TopicBar({ onSelectTopic, activeTopic, currentUser }) {
     } catch (e) {
       console.error('Failed to load topics:', e);
     }
+    setLoading(false);
   }, [currentUser]);
 
   useEffect(() => {
     loadTopics();
   }, [loadTopics]);
 
-  if (!currentUser || topics.length === 0) return null;
+  if (!currentUser || loading) return null;
+
+  const canCreate = question.trim().length > 2 && topics.length < 7;
+  const isDuplicate = topics.some(t => t.label.toLowerCase() === question.trim().toLowerCase());
+
+  const handleCreate = async () => {
+    if (!canCreate || isDuplicate || creating) return;
+    setCreating(true);
+    try {
+      const session = await getSession();
+      const token = session?.session?.access_token;
+      if (!token) return;
+
+      const res = await fetch('/api/user/topics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ label: question.trim() })
+      });
+      const data = await res.json();
+      if (data.success && data.topic) {
+        await loadTopics();
+        onSelectTopic?.(data.topic);
+      }
+    } catch (e) {
+      console.error('Create topic failed:', e);
+    }
+    setCreating(false);
+  };
 
   const handleSelect = (topic) => {
     if (activeTopic?.id === topic.id) {
-      // Deselect
       onSelectTopic?.(null);
     } else {
       onSelectTopic?.(topic);
@@ -88,6 +116,9 @@ export default function TopicBar({ onSelectTopic, activeTopic, currentUser }) {
       console.error('Archive failed:', e);
     }
   };
+
+  // Show bar if there are topics OR if the user can create one
+  if (topics.length === 0 && !canCreate) return null;
 
   return (
     <div className="flex items-center gap-2 max-w-2xl mx-auto mb-2 px-1 overflow-x-auto scrollbar-hide">
@@ -151,6 +182,23 @@ export default function TopicBar({ onSelectTopic, activeTopic, currentUser }) {
             )}
           </div>
         ))}
+
+        {/* Create new topic button */}
+        {canCreate && !isDuplicate && (
+          <button
+            onClick={handleCreate}
+            disabled={creating}
+            className="px-2 py-1 text-xs rounded-full bg-zinc-800/40 text-zinc-500 border border-dashed border-zinc-700/50 hover:border-amber-500/40 hover:text-amber-400 transition-all whitespace-nowrap"
+            title="Save current question as a recurring topic"
+          >
+            {creating ? '...' : '+ Save topic'}
+          </button>
+        )}
+
+        {/* At limit indicator */}
+        {topics.length >= 7 && (
+          <span className="text-[10px] text-zinc-600 self-center">7/7</span>
+        )}
       </div>
 
       {/* Click outside to close menu */}
