@@ -3,6 +3,9 @@
 
 import { createClient } from '@supabase/supabase-js';
 
+// Force dynamic — Vercel edge will cache this route otherwise
+export const dynamic = 'force-dynamic';
+
 const MAX_ACTIVE_TOPICS = 7;
 
 const supabase = createClient(

@@ -8,6 +8,9 @@ import Anthropic from '@anthropic-ai/sdk';
 import { buildBadgeStats } from '../../../../lib/badgeStats.js';
 import { buildUserContextBlock } from '../../../../lib/userContext.js';
 
+// Force dynamic — Vercel edge will cache this route otherwise
+export const dynamic = 'force-dynamic';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY

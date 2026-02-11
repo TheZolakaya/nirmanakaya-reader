@@ -6,6 +6,9 @@ import { createClient } from '@supabase/supabase-js';
 import { buildBadgeStats } from '../../../../lib/badgeStats.js';
 import { checkForNewBadges } from '../../../../lib/badges.js';
 
+// Force dynamic — Vercel edge will cache this route otherwise
+export const dynamic = 'force-dynamic';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
