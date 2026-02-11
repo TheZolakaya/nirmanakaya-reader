@@ -909,11 +909,16 @@ export default function NirmanakaReader() {
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
 
-  // Load saved reading from URL param (?load=readingId)
+  // Load saved reading from URL param (?load=readingId) or resume from sessionStorage
   useEffect(() => {
     async function loadSavedReading() {
       const params = new URLSearchParams(window.location.search);
-      const loadId = params.get('load');
+      let loadId = params.get('load');
+
+      // Auto-resume: if no URL param, check sessionStorage for active reading
+      if (!loadId) {
+        try { loadId = sessionStorage.getItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
+      }
       if (!loadId) return;
 
       try {
@@ -990,6 +995,19 @@ export default function NirmanakaReader() {
         }
 
         setSavedReadingId(data.id);
+
+        // Restore expansions and follow-up messages from synthesis JSONB
+        if (data.synthesis?._expansions) {
+          setExpansions(data.synthesis._expansions);
+        }
+        if (data.synthesis?._followUpMessages) {
+          setFollowUpMessages(data.synthesis._followUpMessages);
+        }
+
+        // Restore thread data
+        if (data.thread_data && typeof data.thread_data === 'object') {
+          setThreadData(data.thread_data);
+        }
 
         // Clear the URL param after loading
         window.history.replaceState({}, '', window.location.pathname);
@@ -1356,6 +1374,50 @@ export default function NirmanakaReader() {
     }
   }, [synthesisLoaded, parsedReading, savedReadingId, synthesisSaved]);
 
+  // Auto-save expansions, threads, and follow-up messages (debounced)
+  const expansionSaveTimer = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId) return;
+    // Skip if nothing to save yet
+    const hasExpansions = Object.keys(expansions).length > 0;
+    const hasThreads = Object.keys(threadData).length > 0;
+    const hasFollowUps = followUpMessages.length > 0;
+    if (!hasExpansions && !hasThreads && !hasFollowUps) return;
+
+    // Debounce: wait 2s after last change before saving
+    if (expansionSaveTimer.current) clearTimeout(expansionSaveTimer.current);
+    expansionSaveTimer.current = setTimeout(() => {
+      const updatePayload = {};
+
+      // Build synthesis update with expansions and follow-ups embedded
+      if (hasExpansions || hasFollowUps) {
+        // Merge with existing synthesis data
+        const currentSynthesis = {};
+        if (parsedReading?.summary) currentSynthesis.summary = parsedReading.summary;
+        if (parsedReading?.path) currentSynthesis.path = parsedReading.path;
+        if (parsedReading?.fullArchitecture) currentSynthesis.fullArchitecture = parsedReading.fullArchitecture;
+        if (hasExpansions) currentSynthesis._expansions = expansions;
+        if (hasFollowUps) currentSynthesis._followUpMessages = followUpMessages;
+        updatePayload.synthesis = currentSynthesis;
+      }
+
+      // Save thread data separately
+      if (hasThreads) {
+        updatePayload.thread_data = threadData;
+      }
+
+      if (Object.keys(updatePayload).length > 0) {
+        updateReadingContent(savedReadingId, updatePayload)
+          .then(result => {
+            if (result?.data) console.log('[AutoSave] Expansions/threads saved');
+          })
+          .catch(err => console.log('[AutoSave] Failed to save expansions/threads:', err));
+      }
+    }, 2000);
+
+    return () => { if (expansionSaveTimer.current) clearTimeout(expansionSaveTimer.current); };
+  }, [expansions, threadData, followUpMessages, savedReadingId]);
+
   // Re-interpret with current stance (same draws)
   const reinterpret = async () => {
     if (!draws) return;
@@ -1666,18 +1728,12 @@ export default function NirmanakaReader() {
   }, [loading]);
 
 
-  // Warn before leaving if there's a reading
+  // Stash active reading ID in sessionStorage for auto-resume
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      if (draws && parsedReading) {
-        e.preventDefault();
-        e.returnValue = "You'll lose your reading if you leave. Are you sure?";
-        return e.returnValue;
-      }
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [draws, parsedReading]);
+    if (savedReadingId) {
+      try { sessionStorage.setItem('nirmanakaya_active_reading', savedReadingId); } catch (e) { /* ignore */ }
+    }
+  }, [savedReadingId]);
 
   // Click outside to dismiss help popover
   useEffect(() => {
@@ -3552,6 +3608,8 @@ CRITICAL FORMATTING RULES:
       updateReadingTelemetry(savedReadingId, telemetry).catch(err => console.log('[Telemetry] Failed to save:', err));
       setSavedReadingId(null);
     }
+    // Clear auto-resume so new reading starts fresh
+    try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
@@ -3681,11 +3739,11 @@ CRITICAL FORMATTING RULES:
               aria-hidden="true"
             />
             <button
-              className="absolute top-2 right-2 z-20 p-1.5 rounded-md bg-black/40 text-zinc-400 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute top-2 right-2 z-20 p-1.5 rounded-md bg-black/40 text-zinc-400 hover:text-white sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
               title="View card detail"
               onClick={(e) => { e.stopPropagation(); openCardDetail(draw.transient); }}
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
             </button>
           </>
         )}
@@ -5230,7 +5288,7 @@ CRITICAL FORMATTING RULES:
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                         className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
-                          caretColor: 'transparent', // Hide text cursor
+                          caretColor: '#fbbf24', // Amber cursor matching theme
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
@@ -5298,7 +5356,7 @@ CRITICAL FORMATTING RULES:
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                         className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
-                          caretColor: 'transparent', // Hide text cursor
+                          caretColor: '#fbbf24', // Amber cursor matching theme
                           // CSS custom properties for pulse animation
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
