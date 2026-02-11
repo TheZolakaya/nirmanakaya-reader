@@ -57,11 +57,17 @@ export async function GET(request) {
       return Response.json({ error: error.message }, { status: 500 });
     }
 
-    const stats = buildBadgeStats(readings || []);
+    const readingsList = readings || [];
+    const stats = buildBadgeStats(readingsList);
 
     return Response.json({
       success: true,
       stats,
+      _debug: {
+        rawCount: readingsList.length,
+        sampleDraws: readingsList[0]?.draws?.slice(0, 2),
+        userId: user.id
+      },
       ...(topicId ? { topic_id: topicId } : {}),
       ...(days > 0 ? { days } : {})
     });

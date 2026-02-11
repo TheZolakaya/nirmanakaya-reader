@@ -13,7 +13,11 @@ import {
   updateNotificationPrefs,
   getEmailPrefs,
   updateEmailPrefs,
-  isAdmin
+  isAdmin,
+  getProfileContext,
+  addProfileContext,
+  removeProfileContext,
+  setPersonalizationEnabled
 } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import BadgeGrid from '../../../components/shared/BadgeGrid';
@@ -49,6 +53,13 @@ export default function ProfilePage() {
     email_replies: true,
     email_updates: true
   });
+
+  // Personalization
+  const [personalizationEnabled, setPersonalizationEnabledState] = useState(false);
+  const [profileFacts, setProfileFacts] = useState([]);
+  const [newFact, setNewFact] = useState('');
+  const [newCategory, setNewCategory] = useState('identity');
+  const [addingFact, setAddingFact] = useState(false);
 
   const isOwnProfile = currentUser?.id === userId;
 
@@ -93,7 +104,7 @@ export default function ProfilePage() {
         setEditBio(profileData?.bio || '');
         setNotifyPref(profileData?.notification_prefs || 'all');
 
-        // Load email preferences for own profile
+        // Load email preferences + personalization for own profile
         if (user?.id === userId) {
           const { data: emailData } = await getEmailPrefs();
           if (emailData) {
@@ -103,6 +114,11 @@ export default function ProfilePage() {
               email_updates: emailData.email_updates !== false
             });
           }
+
+          // Load personalization state
+          setPersonalizationEnabledState(profileData?.personalization_enabled || false);
+          const { data: facts } = await getProfileContext();
+          setProfileFacts(facts || []);
         }
 
         // Get public readings
@@ -156,6 +172,27 @@ export default function ProfilePage() {
     const newPrefs = { ...emailPrefs, [key]: value };
     setEmailPrefs(newPrefs);
     await updateEmailPrefs({ [key]: value });
+  };
+
+  const handlePersonalizationToggle = async (enabled) => {
+    setPersonalizationEnabledState(enabled);
+    await setPersonalizationEnabled(enabled);
+  };
+
+  const handleAddFact = async () => {
+    if (!newFact.trim()) return;
+    setAddingFact(true);
+    const { data, error } = await addProfileContext(newFact.trim(), newCategory);
+    if (data && !error) {
+      setProfileFacts(prev => [data, ...prev]);
+      setNewFact('');
+    }
+    setAddingFact(false);
+  };
+
+  const handleRemoveFact = async (id) => {
+    await removeProfileContext(id);
+    setProfileFacts(prev => prev.filter(f => f.id !== id));
   };
 
   const formatDate = (dateString) => {
@@ -387,6 +424,94 @@ export default function ProfilePage() {
                 </label>
               </div>
               <p className="text-xs text-zinc-600 mt-3">You can also unsubscribe via links in any email we send</p>
+            </div>
+          )}
+
+          {/* Personalization - only for own profile */}
+          {isOwnProfile && (
+            <div className="mt-6 pt-6 border-t border-zinc-800">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm text-zinc-400">Personalized Readings</h3>
+                <button
+                  onClick={() => handlePersonalizationToggle(!personalizationEnabled)}
+                  className={`relative w-10 h-5 rounded-full transition-colors ${
+                    personalizationEnabled ? 'bg-amber-500' : 'bg-zinc-700'
+                  }`}
+                >
+                  <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
+                    personalizationEnabled ? 'translate-x-5' : 'translate-x-0.5'
+                  }`} />
+                </button>
+              </div>
+              <p className="text-xs text-zinc-600 mb-4">
+                When enabled, the reader remembers things you share about yourself to give more relevant interpretations. This information is private and never shared publicly.
+              </p>
+
+              {personalizationEnabled && (
+                <div className="space-y-4">
+                  {/* Add new fact */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={newFact}
+                      onChange={(e) => setNewFact(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && !addingFact && handleAddFact()}
+                      placeholder="Something you'd like the reader to know..."
+                      className="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-amber-500/50"
+                    />
+                    <select
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      className="bg-zinc-800 border border-zinc-700 rounded-lg px-2 py-2 text-xs text-zinc-300 focus:outline-none focus:border-amber-500/50"
+                    >
+                      <option value="identity">Who I Am</option>
+                      <option value="life_situation">Life Situation</option>
+                      <option value="active_projects">Active Projects</option>
+                      <option value="self_knowledge">Self-Knowledge</option>
+                      <option value="relationship_to_system">System Relationship</option>
+                    </select>
+                    <button
+                      onClick={handleAddFact}
+                      disabled={addingFact || !newFact.trim()}
+                      className="px-3 py-2 bg-amber-500/20 text-amber-400 rounded-lg text-sm hover:bg-amber-500/30 disabled:opacity-50 border border-amber-500/30"
+                    >
+                      {addingFact ? '...' : 'Add'}
+                    </button>
+                  </div>
+
+                  {/* Facts list */}
+                  {profileFacts.length > 0 ? (
+                    <div className="space-y-2">
+                      {profileFacts.map(fact => (
+                        <div key={fact.id} className="flex items-start gap-2 bg-zinc-900/50 rounded-lg px-3 py-2 border border-zinc-800">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm text-zinc-200">{fact.fact}</p>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-xs text-zinc-600 capitalize">
+                                {fact.category?.replace(/_/g, ' ')}
+                              </span>
+                              {fact.source === 'auto' && (
+                                <span className="text-xs text-cyan-600">learned from reading</span>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleRemoveFact(fact.id)}
+                            className="text-zinc-600 hover:text-red-400 transition-colors mt-0.5"
+                            title="Remove"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-zinc-600 italic">No personal context yet. Add some above, or converse with your readings and the system will learn naturally.</p>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
