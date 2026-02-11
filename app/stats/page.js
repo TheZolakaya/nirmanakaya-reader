@@ -51,10 +51,12 @@ export default function StatsPage() {
         const token = session?.session?.access_token;
         if (!token) { router.push('/'); return; }
 
-        const res = await fetch('/api/user/stats', {
-          headers: { 'Authorization': `Bearer ${token}` }
+        const res = await fetch(`/api/user/stats?_t=${Date.now()}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+          cache: 'no-store'
         });
         const data = await res.json();
+        console.log('[Stats] API response:', data);
         if (data.success) setStats(data.stats);
       } catch (e) {
         console.error('Stats load error:', e);

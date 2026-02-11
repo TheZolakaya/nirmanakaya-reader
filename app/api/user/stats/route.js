@@ -66,8 +66,11 @@ export async function GET(request) {
     return Response.json({
       success: true,
       stats,
+      _debug: { queryRows: readings?.length ?? 0, ts: Date.now() },
       ...(topicId ? { topic_id: topicId } : {}),
       ...(days > 0 ? { days } : {})
+    }, {
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' }
     });
   } catch (err) {
     return Response.json({ error: err.message }, { status: 500 });
