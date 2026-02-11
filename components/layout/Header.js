@@ -19,6 +19,7 @@ export default function Header({ hasActivity = false }) {
   const isGuideActive = pathname?.startsWith('/guide');
   const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/map');
+  const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
   const isBookActive = pathname?.startsWith('/book');
   const isHome = pathname === '/';
@@ -61,6 +62,16 @@ export default function Header({ hasActivity = false }) {
           }`}
         >
           Book
+        </Link>
+
+        {/* JOURNEY (Stats / Collection) */}
+        <Link
+          href="/stats"
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            isJourneyActive ? 'text-violet-400' : 'text-zinc-500 hover:text-violet-400'
+          }`}
+        >
+          Journey
         </Link>
 
         {/* GUIDE */}

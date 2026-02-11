@@ -99,7 +99,11 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
+import BadgeNotification from '../components/shared/BadgeNotification.js';
+import TopicBar from '../components/reader/TopicBar.js';
+import CardDetailModal from '../components/reader/CardDetailModal.js';
+import LastReadingStrip from '../components/reader/LastReadingStrip.js';
+import { getReading, getUser, getSession, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -597,6 +601,11 @@ export default function NirmanakaReader() {
   const [showGlistenPanel, setShowGlistenPanel] = useState(false); // Show Glistened Tale panel in reading
   const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
+  const userContextRef = useRef(''); // Cached user journey context block for prompt injection
+  const [pendingBadges, setPendingBadges] = useState(null); // Newly earned badges to display
+  const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
+  const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
+  const userStatsRef = useRef(null); // Cached user stats for CardDetailModal
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
   const [locusInput, setLocusInput] = useState('');
@@ -1809,6 +1818,25 @@ export default function NirmanakaReader() {
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
 
+    // Fetch user journey context for prompt enrichment (non-blocking for unauthenticated)
+    let userContext = '';
+    if (currentUser) {
+      try {
+        const session = await getSession();
+        const token = session?.session?.access_token;
+        if (token) {
+          const ctxParams = new URLSearchParams({ draws: JSON.stringify(drawsToUse) });
+          if (activeTopic?.id) ctxParams.set('topic_id', activeTopic.id);
+          const ctxRes = await fetch(`/api/user/context?${ctxParams}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          const ctxData = await ctxRes.json();
+          userContext = ctxData.contextBlock || '';
+        }
+      } catch (e) { /* Context is optional — reading works without it */ }
+    }
+    userContextRef.current = userContext;
+
     try {
       const res = await fetch('/api/letter', {
         method: 'POST',
@@ -1820,7 +1848,8 @@ export default function NirmanakaReader() {
           spreadKey: currentSpreadKey,
           stance,
           system: systemPrompt,
-          model: getModelId(selectedModel)
+          model: getModelId(selectedModel),
+          userContext
         })
       });
       const data = await res.json();
@@ -1917,7 +1946,8 @@ export default function NirmanakaReader() {
           letterContent,
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
-          model: getModelId(selectedModel)
+          model: getModelId(selectedModel),
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2048,7 +2078,8 @@ export default function NirmanakaReader() {
           model: getModelId(selectedModel),
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
-          originalInput: parsedReading?.originalInput
+          originalInput: parsedReading?.originalInput,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -3549,6 +3580,22 @@ CRITICAL FORMATTING RULES:
     return 'Gestalt';
   };
 
+  // Helper to open card detail modal (full-screen with stats)
+  const openCardDetail = async (transientId) => {
+    setCardDetailId(transientId);
+    if (!userStatsRef.current && currentUser) {
+      try {
+        const session = await getSession();
+        const token = session?.session?.access_token;
+        if (token) {
+          const res = await fetch('/api/user/stats', { headers: { 'Authorization': `Bearer ${token}` } });
+          const data = await res.json();
+          if (data.success) userStatsRef.current = data.stats;
+        }
+      } catch (e) { /* silent */ }
+    }
+  };
+
   // === CARD DISPLAY (simplified, visual only) ===
   const CardDisplay = ({ draw, index }) => {
     const isReflect = spreadType === 'reflect';
@@ -3626,12 +3673,21 @@ CRITICAL FORMATTING RULES:
       >
         {/* Card artwork background */}
         {showCardImages && cardImagePath && (
-          <img
-            src={cardImagePath}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
-            aria-hidden="true"
-          />
+          <>
+            <img
+              src={cardImagePath}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
+              aria-hidden="true"
+            />
+            <button
+              className="absolute top-2 right-2 z-20 p-1.5 rounded-md bg-black/40 text-zinc-400 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+              title="View card detail"
+              onClick={(e) => { e.stopPropagation(); openCardDetail(draw.transient); }}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+            </button>
+          </>
         )}
         <div className="relative z-10 mb-3 flex justify-between items-start">
           <span
@@ -5120,6 +5176,21 @@ CRITICAL FORMATTING RULES:
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
+              {/* Last Reading Strip */}
+              {currentUser && !parsedReading && (
+                <LastReadingStrip currentUser={currentUser} />
+              )}
+              {/* Saved Topics Bar */}
+              {currentUser && !parsedReading && (
+                <TopicBar
+                  currentUser={currentUser}
+                  activeTopic={activeTopic}
+                  onSelectTopic={(topic) => {
+                    setActiveTopic(topic);
+                    if (topic) setQuestion(topic.label);
+                  }}
+                />
+              )}
               {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-2 mt-1">
                 <div
@@ -6039,7 +6110,9 @@ CRITICAL FORMATTING RULES:
                   draws={draws}
                   locusSubjects={locusSubjects}
                   voice="friend-warm"
+                  topicId={activeTopic?.id}
                   onSave={(saved) => setSavedReadingId(saved?.id)}
+                  onBadges={(badges) => setPendingBadges(badges)}
                 />
                 <ShareReadingButton
                   reading={{
@@ -6115,7 +6188,9 @@ CRITICAL FORMATTING RULES:
                       draws={draws}
                       locusSubjects={locusSubjects}
                       voice={`${stance.complexity}-${stance.voice}`}
+                      topicId={activeTopic?.id}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
+                      onBadges={(badges) => setPendingBadges(badges)}
                     />
                     <div data-help="action-share" onClick={(e) => handleHelpClick('action-share', e)}>
                       <ShareReadingButton
@@ -7037,7 +7112,7 @@ CRITICAL FORMATTING RULES:
                                         cardName={trans?.name}
                                         size="default"
                                         showFrame={true}
-                                        onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                        onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                       />
                                       <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
                                         {trans?.name}
@@ -7558,7 +7633,7 @@ CRITICAL FORMATTING RULES:
                                     cardName={trans?.name}
                                     size="default"
                                     showFrame={true}
-                                    onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                    onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                   />
                                   <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
                                     {trans?.name}
@@ -7953,6 +8028,14 @@ CRITICAL FORMATTING RULES:
         initialMode={authModalMode}
       />
 
+      {/* Badge Achievement Notification */}
+      {pendingBadges && pendingBadges.length > 0 && (
+        <BadgeNotification
+          badges={pendingBadges}
+          onDismiss={() => setPendingBadges(null)}
+        />
+      )}
+
       {/* Glistened Tale Panel - view glisten data before saving */}
       {showGlistenPanel && glistenData && (
         <GlistenSourcePanel
@@ -7961,6 +8044,14 @@ CRITICAL FORMATTING RULES:
           isOpen={showGlistenPanel}
         />
       )}
+
+      {/* Card Detail Modal - full-screen card popup */}
+      <CardDetailModal
+        isOpen={cardDetailId !== null}
+        onClose={() => setCardDetailId(null)}
+        transientId={cardDetailId}
+        stats={userStatsRef.current}
+      />
 
     </div>
   );

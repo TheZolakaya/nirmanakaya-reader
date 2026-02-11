@@ -1,7 +1,10 @@
 // /app/api/user/readings/route.js
 // CRUD for stored personal readings (auth required)
+// Extended: badge checking after save, topic_id support
 
 import { createClient } from '@supabase/supabase-js';
+import { buildBadgeStats } from '../../../../lib/badgeStats.js';
+import { checkForNewBadges } from '../../../../lib/badges.js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -66,7 +69,7 @@ export async function GET(request) {
     const offset = (page - 1) * limit;
     const { data, error, count } = await supabase
       .from('user_readings')
-      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, locus_subjects, card_count, voice, draws, share_token, is_public', { count: 'exact' })
+      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, locus_subjects, card_count, voice, draws, share_token, is_public, topic_id', { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -92,7 +95,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation, glisten } = body;
+    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation, glisten, topic_id } = body;
 
     if (!draws || !interpretation) {
       return Response.json({ success: false, error: 'draws and interpretation are required' }, { status: 400 });
@@ -109,29 +112,99 @@ export async function POST(request) {
       } : {})
     };
 
+    const insertData = {
+      user_id: user.id,
+      reading_type: reading_type || 'manual',
+      topic_mode: topic_mode || 'general',
+      topic: topic || null,
+      locus_subjects: Array.isArray(locus_subjects) ? locus_subjects : [],
+      // Keep legacy columns for backward compat display
+      locus: locus || 'individual',
+      locus_detail: locus_detail || null,
+      card_count: card_count || draws.length,
+      voice: voice || 'friend',
+      draws,
+      interpretation: fullInterpretation,
+      is_public: false
+    };
+
+    // Link to saved topic if provided
+    if (topic_id) {
+      insertData.topic_id = topic_id;
+    }
+
     const { data, error } = await supabase
       .from('user_readings')
-      .insert({
-        user_id: user.id,
-        reading_type: reading_type || 'manual',
-        topic_mode: topic_mode || 'general',
-        topic: topic || null,
-        locus_subjects: Array.isArray(locus_subjects) ? locus_subjects : [],
-        // Keep legacy columns for backward compat display
-        locus: locus || 'individual',
-        locus_detail: locus_detail || null,
-        card_count: card_count || draws.length,
-        voice: voice || 'friend',
-        draws,
-        interpretation: fullInterpretation,
-        is_public: false
-      })
+      .insert(insertData)
       .select()
       .single();
 
     if (error) return Response.json({ success: false, error: error.message }, { status: 500 });
 
-    return Response.json({ success: true, reading: data });
+    // Update topic counters if linked to a topic
+    if (topic_id) {
+      await supabase
+        .from('user_topics')
+        .update({
+          last_used_at: new Date().toISOString(),
+          reading_count: supabase.rpc ? undefined : undefined // handled below
+        })
+        .eq('id', topic_id)
+        .eq('user_id', user.id);
+
+      // Increment reading_count via raw update
+      await supabase.rpc('increment_topic_reading_count', { p_topic_id: topic_id }).catch(() => {
+        // Fallback: manual increment if RPC not available
+        supabase
+          .from('user_topics')
+          .select('reading_count')
+          .eq('id', topic_id)
+          .single()
+          .then(({ data: t }) => {
+            if (t) {
+              supabase
+                .from('user_topics')
+                .update({ reading_count: (t.reading_count || 0) + 1 })
+                .eq('id', topic_id);
+            }
+          });
+      });
+    }
+
+    // Badge check (non-blocking — don't wait for it to complete)
+    let newBadges = [];
+    try {
+      const { data: allReadings } = await supabase
+        .from('user_readings')
+        .select('draws, created_at')
+        .eq('user_id', user.id);
+
+      const stats = buildBadgeStats(allReadings || []);
+
+      const { data: existingBadges } = await supabase
+        .from('user_badges')
+        .select('badge_key')
+        .eq('user_id', user.id);
+
+      const existingKeys = (existingBadges || []).map(b => b.badge_key);
+      const earned = checkForNewBadges(stats, existingKeys);
+
+      if (earned.length > 0) {
+        const badgeInserts = earned.map(b => ({
+          user_id: user.id,
+          badge_key: b.key,
+          reading_id: data.id
+        }));
+
+        await supabase.from('user_badges').insert(badgeInserts);
+        newBadges = earned.map(b => ({ key: b.key, name: b.name, description: b.description }));
+      }
+    } catch (badgeErr) {
+      // Badge check failure should not block reading save
+      console.error('Badge check error:', badgeErr);
+    }
+
+    return Response.json({ success: true, reading: data, newBadges });
   } catch (err) {
     return Response.json({ success: false, error: err.message }, { status: 500 });
   }

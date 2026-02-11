@@ -31,7 +31,8 @@ export async function POST(request) {
     sections,       // ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all)
     // DTP token context (optional)
     token,          // e.g., "Fear" - the user's token this card is reading
-    originalInput   // e.g., "I'm worried about my marriage" - full question for grounding
+    originalInput,  // e.g., "I'm worried about my marriage" - full question for grounding
+    userContext      // Optional user journey context block
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -42,9 +43,12 @@ export async function POST(request) {
   const isDeepening = previousContent && Object.keys(previousContent).length > 0;
 
   // Build card-specific user message
-  const userMessage = isDeepening
+  const baseMessage = isDeepening
     ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput, sections)
     : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput);
+
+  // Prepend user journey context if available (only for baseline, not deepening)
+  const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [

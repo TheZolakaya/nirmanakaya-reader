@@ -16,6 +16,7 @@ import {
   isAdmin
 } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
+import BadgeGrid from '../../../components/shared/BadgeGrid';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
@@ -412,6 +413,18 @@ export default function ProfilePage() {
           >
             Discussions ({discussions.length})
           </button>
+          {isOwnProfile && (
+            <button
+              onClick={() => setActiveTab('badges')}
+              className={`px-4 py-2 rounded-md text-sm transition-colors ${
+                activeTab === 'badges'
+                  ? 'bg-violet-500/20 text-violet-400'
+                  : 'text-zinc-400 hover:text-zinc-300'
+              }`}
+            >
+              Achievements
+            </button>
+          )}
         </div>
 
         {/* Content */}
@@ -493,6 +506,10 @@ export default function ProfilePage() {
               ))
             )}
           </div>
+        )}
+
+        {activeTab === 'badges' && isOwnProfile && (
+          <BadgeGrid />
         )}
       </main>
 

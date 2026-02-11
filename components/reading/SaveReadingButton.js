@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { saveReading, saveReadingLocally, getUser, getSession } from '../../lib/supabase';
 
-export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, onSave }) {
+export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, topicId, onSave, onBadges }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
@@ -63,11 +63,24 @@ export default function SaveReadingButton({ reading, glisten, draws, locusSubjec
                   synthesis: reading.synthesis?.summary || reading.synthesis?.path,
                   letter: reading.letter
                 },
-                glisten: glisten || null
+                glisten: glisten || null,
+                ...(topicId ? { topic_id: topicId } : {})
               })
             });
             const userReadingData = await userReadingRes.json();
             console.log('User readings save result:', userReadingData);
+            // Surface new badges if any were earned
+            if (userReadingData.newBadges && userReadingData.newBadges.length > 0) {
+              onBadges?.(userReadingData.newBadges);
+            }
+            // Auto-generate topic meta-analysis (non-blocking)
+            if (topicId) {
+              fetch('/api/user/topic-analysis', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ topic_id: topicId })
+              }).catch(err => console.log('[TopicAnalysis] Failed:', err));
+            }
           }
         } catch (userReadingError) {
           console.warn('User readings save failed:', userReadingError);

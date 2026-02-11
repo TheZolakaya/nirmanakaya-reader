@@ -22,7 +22,8 @@ export async function POST(request) {
     previousContent, // { summary: {...}, path: {...} } - content to build on
     // DTP token context (optional)
     tokens,          // Array of tokens for DTP mode
-    originalInput    // Full question for grounding
+    originalInput,   // Full question for grounding
+    userContext       // Optional user journey context block
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -32,9 +33,12 @@ export async function POST(request) {
   const isDeepening = previousContent && Object.keys(previousContent).length > 0;
 
   // Build synthesis user message
-  const userMessage = isDeepening
+  const baseMessage = isDeepening
     ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent, tokens, originalInput)
     : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput);
+
+  // Prepend user journey context if available (only for baseline, not deepening)
+  const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // Convert system prompt to cached format for 90% input token savings
   // Guard against empty system prompt (can happen when loading saved readings)
