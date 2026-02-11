@@ -55,7 +55,6 @@ export default function StatsPage() {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
-        console.log('[Stats API Response]', JSON.stringify(data._debug), 'totalReadings:', data.stats?.totalReadings, 'totalDraws:', data.stats?.totalDraws);
         if (data.success) setStats(data.stats);
       } catch (e) {
         console.error('Stats load error:', e);
