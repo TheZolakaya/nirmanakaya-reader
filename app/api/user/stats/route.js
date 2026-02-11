@@ -5,10 +5,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { buildBadgeStats } from '../../../../lib/badgeStats.js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+// Force dynamic — never cache this route
+export const dynamic = 'force-dynamic';
 
 async function getAuthUser(request) {
   const authHeader = request.headers.get('authorization');
@@ -26,6 +24,12 @@ async function getAuthUser(request) {
 export async function GET(request) {
   const user = await getAuthUser(request);
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+  // Create client per-request to avoid stale connections
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  );
 
   const { searchParams } = new URL(request.url);
   const topicId = searchParams.get('topic_id');
