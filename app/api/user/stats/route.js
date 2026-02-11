@@ -25,52 +25,55 @@ export async function GET(request) {
   const user = await getAuthUser(request);
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-  // Create client per-request to avoid stale connections
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  const authHeader = request.headers.get('authorization');
+  const token = authHeader.replace('Bearer ', '');
 
   const { searchParams } = new URL(request.url);
   const topicId = searchParams.get('topic_id');
   const days = parseInt(searchParams.get('days') || '0'); // 0 = all time
 
   try {
-    // Build query
-    let query = supabase
+    // Try BOTH approaches: service role key AND user's own token
+    const serviceClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
+
+    const userClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      { global: { headers: { Authorization: `Bearer ${token}` } } }
+    );
+
+    // Query with service role (bypasses RLS)
+    const { data: serviceData, error: serviceError, count: serviceCount } = await serviceClient
       .from('user_readings')
-      .select('draws, created_at')
+      .select('draws, created_at', { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: true });
 
-    // Filter by topic if specified
-    if (topicId) {
-      query = query.eq('topic_id', topicId);
-    }
+    // Query with user token (uses RLS)
+    const { data: userData, error: userError, count: userCount } = await userClient
+      .from('user_readings')
+      .select('draws, created_at', { count: 'exact' })
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: true });
 
-    // Filter by date range if specified
-    if (days > 0) {
-      const since = new Date();
-      since.setDate(since.getDate() - days);
-      query = query.gte('created_at', since.toISOString());
-    }
-
-    const { data: readings, error } = await query;
-
-    if (error) {
-      return Response.json({ error: error.message }, { status: 500 });
-    }
-
-    const readingsList = readings || [];
-    const stats = buildBadgeStats(readingsList);
+    // Use whichever has data
+    const readings = (serviceData?.length > 0 ? serviceData : userData) || [];
+    const stats = buildBadgeStats(readings);
 
     return Response.json({
       success: true,
       stats,
       _debug: {
-        rawCount: readingsList.length,
-        sampleDraws: readingsList[0]?.draws?.slice(0, 2),
-        userId: user.id
+        serviceCount: serviceData?.length ?? 'null',
+        serviceError: serviceError?.message ?? null,
+        userCount: userData?.length ?? 'null',
+        userError: userError?.message ?? null,
+        hasServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+        userId: user.id,
+        sampleDraws: readings[0]?.draws?.slice(0, 2)
       },
       ...(topicId ? { topic_id: topicId } : {}),
       ...(days > 0 ? { days } : {})
