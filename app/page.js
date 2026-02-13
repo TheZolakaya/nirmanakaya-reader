@@ -72,6 +72,8 @@ import {
   shuffleArray,
   generateSpread,
   generateDynamicDraws,
+  getArchetypeRoot,
+  generateTraceDraw,
   encodeDraws,
   decodeDraws,
   sanitizeForAPI,
@@ -1258,6 +1260,11 @@ export default function NirmanakaReader() {
   const [threadContexts, setThreadContexts] = useState({}); // {key: 'context text'}
   const [threadLoading, setThreadLoading] = useState({}); // {key: true/false}
   const [collapsedThreads, setCollapsedThreads] = useState({}); // {threadKey: true/false}
+
+  // V1: Ariadne Thread state — chain traversal through archetype positions
+  const [ariadneThread, setAriadneThread] = useState(null); // { sourceCardIndex, steps: [{draw, position, interpretation, loaded}], visitedPositions: Set }
+  const [ariadneLoading, setAriadneLoading] = useState(false); // Currently loading a trace step
+  const MAX_ARIADNE_STEPS = 8; // Max traversal depth
 
   // On-demand depth generation state
   const [cardLoaded, setCardLoaded] = useState({}); // {0: true, 1: false, ...} - which cards have content
@@ -3627,6 +3634,7 @@ CRITICAL FORMATTING RULES:
     setDtpInput(''); setDtpTokens(null);
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
+    setAriadneThread(null); setAriadneLoading(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false); setContentSaved(false); setSynthesisSaved(false);
     // Reset telemetry
@@ -3635,6 +3643,190 @@ CRITICAL FORMATTING RULES:
     setLetterDepth(defaultDepth); setPathDepth(defaultDepth); setSummaryDepth(defaultDepth); setWhyAppearedDepth(defaultDepth);
     hasAutoInterpreted.current = false;
     window.history.replaceState({}, '', window.location.pathname);
+  };
+
+  // === ARIADNE THREAD ===
+  // Chain traversal through archetype positions: T→Root(T)→Draw in Root(T)→Root(new T)→...
+
+  const handleTraceRoot = (cardIndex) => {
+    if (ariadneThread || ariadneLoading) return; // Already tracing
+    const draw = draws[cardIndex];
+    if (!draw) return;
+
+    // Find the archetype root of this card's transient
+    const rootPosition = getArchetypeRoot(draw.transient);
+
+    // Generate a new draw at the root position
+    const newDraw = generateTraceDraw(rootPosition);
+    const visitedPositions = new Set([draw.position, rootPosition]);
+    // Check for fixed point: transient's root IS the position it's drawn in
+    const newRoot = getArchetypeRoot(newDraw.transient);
+    const isFixedPoint = newRoot === rootPosition;
+    const isCycle = false; // Can't cycle on first step
+
+    setAriadneThread({
+      sourceCardIndex: cardIndex,
+      steps: [{
+        draw: newDraw,
+        position: rootPosition,
+        interpretation: null,
+        loaded: false,
+        isFixedPoint,
+        isCycle
+      }],
+      visitedPositions: [...visitedPositions],
+      terminated: isFixedPoint // Auto-terminate on fixed point
+    });
+  };
+
+  const handleTraceContinue = () => {
+    if (!ariadneThread || ariadneLoading || ariadneThread.terminated) return;
+
+    const lastStep = ariadneThread.steps[ariadneThread.steps.length - 1];
+    const nextPosition = getArchetypeRoot(lastStep.draw.transient);
+
+    // Check for cycle
+    const visited = new Set(ariadneThread.visitedPositions);
+    const isCycle = visited.has(nextPosition);
+
+    // Check for max steps
+    if (ariadneThread.steps.length >= MAX_ARIADNE_STEPS) {
+      setAriadneThread(prev => ({ ...prev, terminated: true, terminationReason: 'max-steps' }));
+      return;
+    }
+
+    if (isCycle) {
+      setAriadneThread(prev => ({
+        ...prev,
+        terminated: true,
+        terminationReason: 'cycle',
+        cycleTarget: nextPosition
+      }));
+      return;
+    }
+
+    // Generate a new draw at the next position
+    const newDraw = generateTraceDraw(nextPosition);
+    const newRoot = getArchetypeRoot(newDraw.transient);
+    const isFixedPoint = newRoot === nextPosition;
+
+    visited.add(nextPosition);
+
+    setAriadneThread(prev => ({
+      ...prev,
+      steps: [...prev.steps, {
+        draw: newDraw,
+        position: nextPosition,
+        interpretation: null,
+        loaded: false,
+        isFixedPoint,
+        isCycle: false
+      }],
+      visitedPositions: [...visited],
+      terminated: isFixedPoint,
+      terminationReason: isFixedPoint ? 'fixed-point' : undefined
+    }));
+  };
+
+  const handleTraceStop = () => {
+    if (!ariadneThread) return;
+    setAriadneThread(prev => ({
+      ...prev,
+      terminated: true,
+      terminationReason: 'user-stopped'
+    }));
+  };
+
+  const handleTraceCardLoad = async (stepIndex) => {
+    if (!ariadneThread || ariadneLoading) return;
+    const step = ariadneThread.steps[stepIndex];
+    if (!step || step.loaded) return;
+
+    setAriadneLoading(true);
+
+    const trans = getComponent(step.draw.transient);
+    const stat = STATUSES[step.draw.status];
+    const posArch = ARCHETYPES[step.position];
+    const statusPrefix = stat.prefix || 'Balanced';
+
+    // Build chain context for the AI
+    const chainContext = ariadneThread.steps.slice(0, stepIndex).map((s, i) => {
+      const sTrans = getComponent(s.draw.transient);
+      const sArch = ARCHETYPES[s.position];
+      return `Step ${i + 1}: ${sTrans.name} in ${sArch.name} position`;
+    }).join(' → ');
+
+    const sourceCard = draws[ariadneThread.sourceCardIndex];
+    const sourceTrans = getComponent(sourceCard.transient);
+    const sourceArch = ARCHETYPES[sourceCard.position];
+
+    // Individual traced cards inherit current posture (Council ruling Q5)
+    const systemPrompt = buildSystemPrompt(userLevel, {
+      posture: spreadType,
+      stance,
+      persona,
+      humor,
+      showArchitecture: showArchitectureTerms
+    });
+
+    // Build the trace interpretation prompt
+    const userMessage = `${userContextRef.current ? `${userContextRef.current}\n\n` : ''}ARIADNE THREAD — Tracing the root structure of this reading.
+
+ORIGIN: ${sourceTrans.name} in ${sourceArch.name} position
+${chainContext ? `CHAIN SO FAR: ${chainContext}\n` : ''}
+CURRENT STEP ${stepIndex + 1}: ${statusPrefix} ${trans.name} drawn in ${posArch.name} position
+
+THE SIGNATURE: ${trans.name}${trans.traditional ? ` (${trans.traditional})` : ''}
+${trans.extended || trans.description}
+Status: ${statusPrefix} (${stat.name} — ${stat.desc})
+Position: ${posArch.name} — ${posArch.description}
+
+QUESTION BEING EXPLORED: "${sanitizeForAPI(question)}"
+
+Interpret this signature in its position, through the lens of the Ariadne Thread. This card was reached by tracing the archetype root of the previous signature. What does this structural chain reveal? How does arriving at ${posArch.name} through this path illuminate the original question?
+
+Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full reading.`;
+
+    try {
+      const res = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: userMessage }],
+          system: systemPrompt,
+          model: getModelId(selectedModel),
+          max_tokens: 2000,
+          userId: currentUser?.id
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      const formatted = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
+
+      setAriadneThread(prev => ({
+        ...prev,
+        steps: prev.steps.map((s, i) =>
+          i === stepIndex ? { ...s, interpretation: formatted, loaded: true } : s
+        )
+      }));
+
+      // Accumulate into reading-level converse history
+      readingConverseRef.current = [
+        ...readingConverseRef.current,
+        { section: `ariadne-step-${stepIndex + 1}`, userText: `Traced to ${posArch.name}: ${trans.name}` }
+      ];
+
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
+    } catch (e) {
+      setError(`Trace error: ${e.message}`);
+    }
+    setAriadneLoading(false);
   };
 
   const getCardHouse = (draw, index) => {
@@ -6594,10 +6786,151 @@ CRITICAL FORMATTING RULES:
                     // V1: Expand/Collapse all triggers
                     expandAllTrigger={expandAllCounter}
                     collapseAllTrigger={collapseAllCounter}
+                    // V1: Ariadne Thread
+                    onTraceRoot={!parsedReading?._isFirstContact ? () => handleTraceRoot(card.index) : undefined}
+                    canTrace={!parsedReading?._isFirstContact && isCardLoaded && !ariadneThread && !ariadneLoading}
                   />
                 </div>
               );
             })}
+
+            {/* === ARIADNE THREAD DISPLAY === */}
+            {ariadneThread && (
+              <div className="mb-6 rounded-lg border-2 border-violet-500/30 bg-violet-950/20 overflow-hidden">
+                {/* Thread Header */}
+                <div className="px-5 py-3 bg-violet-900/20 border-b border-violet-500/20">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-violet-400 text-sm font-medium">Ariadne Thread</span>
+                      <span className="text-violet-500/60 text-xs">
+                        {ariadneThread.steps.length} step{ariadneThread.steps.length !== 1 ? 's' : ''}
+                        {ariadneThread.terminated && ` — ${
+                          ariadneThread.terminationReason === 'fixed-point' ? 'Fixed Point reached'
+                          : ariadneThread.terminationReason === 'cycle' ? 'Cycle detected'
+                          : ariadneThread.terminationReason === 'max-steps' ? 'Maximum depth'
+                          : 'Stopped'
+                        }`}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setAriadneThread(null)}
+                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  {/* Chain visualization */}
+                  <div className="flex items-center gap-1 mt-2 flex-wrap text-xs">
+                    <span className="text-zinc-400">
+                      {getComponent(draws[ariadneThread.sourceCardIndex].transient).name}
+                    </span>
+                    {ariadneThread.steps.map((step, i) => (
+                      <span key={i} className="flex items-center gap-1">
+                        <span className="text-violet-500/60">→</span>
+                        <span className={step.loaded ? 'text-violet-300' : 'text-zinc-500'}>
+                          {ARCHETYPES[step.position].name}
+                          {step.isFixedPoint && ' ⊙'}
+                        </span>
+                      </span>
+                    ))}
+                    {ariadneThread.terminated && ariadneThread.terminationReason === 'cycle' && (
+                      <span className="flex items-center gap-1">
+                        <span className="text-violet-500/60">→</span>
+                        <span className="text-violet-400/60">
+                          {ARCHETYPES[ariadneThread.cycleTarget]?.name} ↩
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Thread Steps */}
+                <div className="divide-y divide-violet-500/10">
+                  {ariadneThread.steps.map((step, i) => {
+                    const stepTrans = getComponent(step.draw.transient);
+                    const stepArch = ARCHETYPES[step.position];
+                    const stepStat = STATUSES[step.draw.status];
+                    const statusPrefix = stepStat.prefix || 'Balanced';
+
+                    return (
+                      <div key={i} className="px-5 py-4">
+                        {/* Step header */}
+                        <div
+                          className="flex items-center gap-2 cursor-pointer group"
+                          onClick={() => !step.loaded && handleTraceCardLoad(i)}
+                        >
+                          <span className="text-violet-500/40 text-xs font-mono">{i + 1}</span>
+                          <span className="text-zinc-200 text-sm font-medium">
+                            {statusPrefix} {stepTrans.name}
+                          </span>
+                          <span className="text-zinc-500 text-xs">
+                            in {stepArch.name}
+                          </span>
+                          {step.isFixedPoint && (
+                            <span className="text-violet-400 text-[0.65rem] uppercase tracking-wider">Fixed Point</span>
+                          )}
+                          {!step.loaded && !ariadneLoading && (
+                            <span className="ml-auto text-[0.6rem] uppercase tracking-wider text-violet-600/60 group-hover:text-violet-500/80">
+                              tap to interpret
+                            </span>
+                          )}
+                          {ariadneLoading && !step.loaded && (
+                            <span className="ml-auto text-violet-400 animate-pulse text-xs">interpreting...</span>
+                          )}
+                        </div>
+
+                        {/* Step interpretation */}
+                        {step.loaded && step.interpretation && (
+                          <div className="mt-3 text-sm text-zinc-300 leading-relaxed">
+                            {step.interpretation.split('\n\n').map((para, pi) => (
+                              <p key={pi} className={pi > 0 ? 'mt-3' : ''}>
+                                {renderWithHotlinks ? renderWithHotlinks(para) : para}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Thread Controls */}
+                <div className="px-5 py-3 bg-violet-900/10 border-t border-violet-500/20 flex gap-2">
+                  {!ariadneThread.terminated && (
+                    <>
+                      <button
+                        onClick={handleTraceContinue}
+                        disabled={ariadneLoading}
+                        className="text-xs px-3 py-1.5 rounded-lg bg-violet-800/40 text-violet-300 hover:bg-violet-700/50 transition-all border border-violet-500/30 disabled:opacity-50"
+                      >
+                        Continue Thread
+                      </button>
+                      <button
+                        onClick={handleTraceStop}
+                        className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-all"
+                      >
+                        Stop Here
+                      </button>
+                    </>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'fixed-point' && (
+                    <span className="text-xs text-violet-400/80">
+                      The thread found its ground — {getComponent(ariadneThread.steps[ariadneThread.steps.length - 1].draw.transient).name} in its own archetype position. A natural resting point.
+                    </span>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'cycle' && (
+                    <span className="text-xs text-violet-400/80">
+                      The thread returns to {ARCHETYPES[ariadneThread.cycleTarget]?.name} — a cycle is complete. The pattern loops.
+                    </span>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'max-steps' && (
+                    <span className="text-xs text-violet-400/80">
+                      Maximum thread depth reached. The path continues beyond what we trace here.
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
             {parsedReading._onDemand && !parsedReading._isFirstContact && synthesisLoading && (

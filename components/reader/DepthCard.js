@@ -133,7 +133,10 @@ const DepthCard = ({
   isLoadingDeeper = false,
   // V1: Expand/collapse all triggers (counters that increment)
   expandAllTrigger = 0,
-  collapseAllTrigger = 0
+  collapseAllTrigger = 0,
+  // V1: Ariadne Thread props
+  onTraceRoot,       // () => void — initiate trace from this card
+  canTrace = false   // Whether trace button should appear (card is loaded, no active thread)
 }) => {
   // Initialize states based on defaultExpanded setting
   // V1 Spread on Table: unloaded cards always start collapsed (zero depth)
@@ -1110,6 +1113,15 @@ const DepthCard = ({
           >
             Converse
           </button>
+          {/* V1: Ariadne Thread — Trace the Root button */}
+          {canTrace && onTraceRoot && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onTraceRoot(); }}
+              className="text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-zinc-800/50 text-violet-500 hover:text-violet-300 hover:bg-zinc-800 border border-violet-500/30 hover:border-violet-400/50"
+            >
+              Trace the Root
+            </button>
+          )}
         </div>
       )}
 
