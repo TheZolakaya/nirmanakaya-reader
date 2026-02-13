@@ -274,13 +274,14 @@ Respond with these markers:
 [CARD:${n}:WHY:WADE]
 (3-4 sentences: Why did THIS signature emerge for THIS question?)
 ${isImbalanced ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction — the same imbalance means something different in ${positionName} than it would elsewhere.` : ''}
 
 [CARD:${n}:REBALANCER:SURFACE]
-(2-3 sentences: What the correction offers, plainly.)
+(2-3 sentences: What the correction offers within ${positionName}, plainly.)
 
 [CARD:${n}:REBALANCER:WADE]
-(4-6 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
+(4-6 sentences: The specific correction through ${correctionTarget || 'the correction target'} as it operates in the ${positionName} position. How does this correction restore balance HERE?)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
@@ -449,10 +450,11 @@ ${includeReading ? `
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
 (Deepen why this signature emerged - new angles)
 ` : ''}${isImbalanced && includeRebalancer ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction.` : ''}
 
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
+(Deepen the correction through ${correctionTarget || 'the correction target'} as it operates in ${positionName} - new practical dimensions grounded in this position.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
 ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
