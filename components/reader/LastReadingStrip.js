@@ -62,7 +62,7 @@ export default function LastReadingStrip({ currentUser }) {
   return (
     <div className="max-w-2xl mx-auto mb-3 px-1">
       <a
-        href={`/my-readings/${lastReading.id}`}
+        href={`/?load=${lastReading.id}`}
         className="flex items-center gap-3 px-3 py-2 rounded-lg bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700/50 transition-colors group"
       >
         {/* Card thumbnails */}
