@@ -133,7 +133,8 @@ End with: "This is a geometric mirror for contemplation, not news or prediction.
 }
 
 // Server-side draw generation with crypto randomness (hardened veil)
-function generateServerDraws(count, isReflect = false, fixedDraw = null) {
+// V1: Every card ALWAYS gets a random archetype position — universal backbone
+function generateServerDraws(count, fixedDraw = null) {
   if (fixedDraw && process.env.ALLOW_FIXED_DRAW === 'true') {
     return fixedDraw.map(d => ({
       position: d.position,
@@ -156,15 +157,11 @@ function generateServerDraws(count, isReflect = false, fixedDraw = null) {
     usedTransients.add(transient);
 
     let position;
-    if (isReflect) {
-      position = i;
-    } else {
-      do {
-        const bytes = randomBytes(1);
-        position = bytes[0] % 22;
-      } while (usedPositions.has(position));
-      usedPositions.add(position);
-    }
+    do {
+      const bytes = randomBytes(1);
+      position = bytes[0] % 22;
+    } while (usedPositions.has(position));
+    usedPositions.add(position);
 
     const statusBytes = randomBytes(1);
     const status = (statusBytes[0] % 4) + 1;
@@ -265,12 +262,11 @@ async function generateReading({
 
   // Validate inputs
   const count = Math.min(Math.max(1, cardCount), 5);
-  const isReflect = mode === 'reflect';
   const isForge = mode === 'forge';
   const actualCount = fixedDraw ? fixedDraw.length : (isForge ? 1 : count);
 
-  // Generate draws server-side
-  const draws = generateServerDraws(actualCount, isReflect, fixedDraw);
+  // Generate draws server-side — V1: all cards get archetype positions
+  const draws = generateServerDraws(actualCount, fixedDraw);
 
   // Build card data
   const cards = draws.map(buildCardData);

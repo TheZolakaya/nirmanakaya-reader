@@ -71,7 +71,7 @@ import {
   ensureParagraphBreaks,
   shuffleArray,
   generateSpread,
-  generateDTPDraws,
+  generateDynamicDraws,
   encodeDraws,
   decodeDraws,
   sanitizeForAPI,
@@ -2412,7 +2412,7 @@ export default function NirmanakaReader() {
 
     // First Contact Mode: Always 1 card, always Discover mode
     if (userLevel === USER_LEVELS.FIRST_CONTACT) {
-      const newDraws = generateSpread(1, false);
+      const newDraws = generateSpread(1);
       setDraws(newDraws);
       await performReadingWithDraws(newDraws, actualQuestion);
       return;
@@ -2423,7 +2423,7 @@ export default function NirmanakaReader() {
     // Forge mode always draws 1 card
     // Reflect mode uses REFLECT_SPREADS, Discover uses RANDOM_SPREADS
     const count = isForge ? 1 : (isReflect ? REFLECT_SPREADS[reflectSpreadKey].count : RANDOM_SPREADS[spreadKey].count);
-    const newDraws = generateSpread(count, isReflect);
+    const newDraws = generateSpread(count);
     setDraws(newDraws);
     await performReadingWithDraws(newDraws, actualQuestion);
   };
@@ -2433,8 +2433,8 @@ export default function NirmanakaReader() {
     setLoading(true);
     setError('');
 
-    // Generate 5 draws (unique positions guaranteed)
-    const newDraws = generateDTPDraws();
+    // Generate 5 draws (unique positions guaranteed) — V1: count will be AI-determined
+    const newDraws = generateDynamicDraws(5);
 
     try {
       // Step 1: Call DTP API to extract tokens only
