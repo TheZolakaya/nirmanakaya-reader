@@ -1599,6 +1599,19 @@ export default function NirmanakaReader() {
       console.warn('Failed to load preferences:', e);
     }
 
+    // One-time migration: push wade depth + signatures open to all existing users
+    try {
+      if (!localStorage.getItem('nkya_migrated_wade_open')) {
+        setDefaultDepth('wade');
+        setDefaultExpanded(true);
+        setLetterDepth('wade');
+        setPathDepth('wade');
+        setSummaryDepth('wade');
+        setWhyAppearedDepth('wade');
+        localStorage.setItem('nkya_migrated_wade_open', '1');
+      }
+    } catch (e) { /* localStorage unavailable */ }
+
     prefsLoaded.current = true;
 
     // Then, check for URL params (these override localStorage)
