@@ -577,13 +577,13 @@ export default function NirmanakaReader() {
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [synthContextInput, setSynthContextInput] = useState({}); // { summary: true } - which synth sections show converse input
   const [synthContextText, setSynthContextText] = useState({}); // { summary: 'user text' } - converse input values
-  const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
-  const [defaultExpanded, setDefaultExpanded] = useState(false); // When true, nested sections start expanded
+  const [defaultDepth, setDefaultDepth] = useState('wade'); // Master default: 'shallow' | 'wade'
+  const [defaultExpanded, setDefaultExpanded] = useState(true); // When true, nested sections start expanded
   const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
-  const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [whyAppearedDepth, setWhyAppearedDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [letterDepth, setLetterDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [pathDepth, setPathDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [summaryDepth, setSummaryDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [whyAppearedDepth, setWhyAppearedDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
 
   // Auth state
   const [authModalOpen, setAuthModalOpen] = useState(false);
