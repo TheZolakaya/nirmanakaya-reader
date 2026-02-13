@@ -133,7 +133,8 @@ const DepthCard = ({
   isLoadingDeeper = false
 }) => {
   // Initialize states based on defaultExpanded setting
-  const [depth, setDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED);
+  // V1 Spread on Table: unloaded cards always start collapsed (zero depth)
+  const [depth, setDepth] = useState(isNotLoaded ? DEPTH.COLLAPSED : (defaultExpanded ? defaultDepth : DEPTH.COLLAPSED));
   const [rebalancerDepth, setRebalancerDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED);
   const [growthDepth, setGrowthDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED); // For balanced cards' Growth Opportunity
   const [isWhyCollapsed, setIsWhyCollapsed] = useState(!defaultExpanded);
@@ -887,8 +888,12 @@ const DepthCard = ({
 
           {/* Depth navigation - desktop inline, mobile below */}
           {depth === DEPTH.COLLAPSED ? (
-            <span className="ml-auto text-[0.6rem] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider transition-colors">
-              tap to explore
+            <span className={`ml-auto text-[0.6rem] uppercase tracking-wider transition-colors ${
+              isNotLoaded
+                ? 'text-amber-600/60 group-hover:text-amber-500/80'
+                : 'text-zinc-600 group-hover:text-zinc-500'
+            }`}>
+              {isNotLoaded ? 'tap to interpret' : 'tap to explore'}
             </span>
           ) : cardLoadingDeeper ? (
             <span className="ml-auto text-xs"><PulsatingLoader color="text-amber-400" /></span>

@@ -1956,16 +1956,9 @@ export default function NirmanakaReader() {
         }
       }).catch(err => console.log('[AutoSave] Failed:', err));
 
-      // Auto-load ALL cards in parallel immediately for better UX
-      // This uses the on-demand architecture but loads everything upfront
-      setTimeout(() => {
-        drawsToUse.forEach((_, i) => {
-          const cardToken = tokens ? tokens[i] : null;
-          // Pass originalInput for DTP mode grounded interpretations
-          const originalInputForCard = tokens && tokens.length > 0 ? safeQuestion : null;
-          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt, cardToken, originalInputForCard);
-        });
-      }, 100);
+      // V1 Spread on Table: Cards start at zero depth (names + positions only)
+      // User taps individual cards to load interpretation
+      // No auto-load — on-demand via DepthCard's onRequestLoad callback
 
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);
@@ -6561,7 +6554,14 @@ CRITICAL FORMATTING RULES:
             {parsedReading._onDemand && !parsedReading._isFirstContact && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
               <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
                 <div className="flex items-center gap-3 text-zinc-500">
-                  <span className="text-sm">Overview and Path will appear after all cards are loaded</span>
+                  <span className="text-sm">
+                    {(() => {
+                      const loadedCount = Object.values(cardLoaded).filter(Boolean).length;
+                      const totalCount = draws?.length || 0;
+                      if (loadedCount === 0) return 'Tap each signature to explore it. Synthesis appears after all are revealed.';
+                      return `${loadedCount} of ${totalCount} explored. Synthesis appears after all signatures are revealed.`;
+                    })()}
+                  </span>
                 </div>
               </div>
             )}
