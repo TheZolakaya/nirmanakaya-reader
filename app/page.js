@@ -597,6 +597,7 @@ export default function NirmanakaReader() {
   const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
   const userContextRef = useRef(''); // Cached user journey context block for prompt injection
+  const readingConverseRef = useRef([]); // Reading-level converse accumulator: [{section, userText}]
   const [pendingBadges, setPendingBadges] = useState(null); // Newly earned badges to display
   const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
   const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
@@ -1756,7 +1757,7 @@ export default function NirmanakaReader() {
   };
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null) => {
-    setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     // Reset persona translation state
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
     // Reset on-demand state
@@ -1790,7 +1791,8 @@ export default function NirmanakaReader() {
             spreadKey: 'one',
             stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'playful' },
             system: systemPrompt,
-            model: "claude-sonnet-4-20250514"
+            model: "claude-sonnet-4-20250514",
+            userContext: userContextRef.current
           })
         });
         const data = await res.json();
@@ -2065,7 +2067,8 @@ export default function NirmanakaReader() {
           // Progressive deepening params
           targetDepth,
           previousContent,
-          sections // Selective section loading — null means all
+          sections, // Selective section loading — null means all
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2203,7 +2206,8 @@ export default function NirmanakaReader() {
           system: systemPromptCache,
           model: getModelId(selectedModel),
           targetDepth,
-          previousContent
+          previousContent,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2295,7 +2299,8 @@ export default function NirmanakaReader() {
           previousContent,
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
-          originalInput: parsedReading?.originalInput
+          originalInput: parsedReading?.originalInput,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -3220,6 +3225,15 @@ Interpret this new card as the architecture's response to their declared directi
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nCRITICAL FORMATTING RULES:\n1. NEVER write walls of text\n2. Each paragraph must be 2-4 sentences MAX\n3. Put TWO blank lines between each paragraph (this is required for rendering)\n4. Break your response into 3-5 distinct paragraphs\n5. Each paragraph should explore ONE aspect or dimension`;
 
+    // Inject user journey context if available
+    const contextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
+
+    // V1: Build reading-level converse history (compact summary for cross-card awareness)
+    const converseHistory = readingConverseRef.current;
+    const converseBlock = converseHistory.length > 0
+      ? `PRIOR CONVERSATIONS IN THIS READING:\n${converseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\nKeep awareness of these prior exchanges — the querent's exploration has a thread.\n\n`
+      : '';
+
     // Build DTP context for Explore mode expansions
     const expansionDtpContext = (() => {
       if (spreadType !== 'explore') return '';
@@ -3257,7 +3271,7 @@ Ground your expansion in this specific context.`;
     if (expansionType === 'context' && userText) {
       // Multi-turn context: build conversation history
       const existingContext = expansions[sectionKey]?.context || [];
-      const baseInfo = `QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
+      const baseInfo = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
 
       if (existingContext.length === 0) {
         // First context submission
@@ -3289,7 +3303,7 @@ Ground your expansion in this specific context.`;
       }
     } else {
       // Standard one-shot expansion
-      const userMessage = `QUERENT'S QUESTION: "${question}"
+      const userMessage = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
 ${drawText}
@@ -3331,6 +3345,11 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
             ]
           }
         }));
+        // V1: Accumulate into reading-level converse history
+        readingConverseRef.current = [
+          ...readingConverseRef.current,
+          { section: sectionKey, userText }
+        ];
       } else {
         // Store as string (one-shot expansion)
         setExpansions(prev => ({
@@ -3551,8 +3570,15 @@ CRITICAL FORMATTING RULES:
       { role: 'user', content: followUp }
     ];
 
-    const contextMessage = `THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
-    
+    // V1: Inject user journey context + reading-level converse history
+    const fuContextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
+    const fuConverseHistory = readingConverseRef.current;
+    const fuConverseBlock = fuConverseHistory.length > 0
+      ? `PRIOR CONVERSATIONS IN THIS READING:\n${fuConverseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\n\n`
+      : '';
+
+    const contextMessage = `${fuContextPrefix}${fuConverseBlock}THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
+
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
@@ -3570,6 +3596,8 @@ CRITICAL FORMATTING RULES:
       // Post-process to ensure paragraph breaks
       const formattedResponse = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
       setFollowUpMessages([...messages, { role: 'assistant', content: formattedResponse }]);
+      // V1: Accumulate follow-up into reading-level converse history
+      readingConverseRef.current = [...readingConverseRef.current, { section: 'follow-up', userText: followUp }];
       setFollowUp('');
 
       // Accumulate token usage
@@ -3591,7 +3619,7 @@ CRITICAL FORMATTING RULES:
     }
     // Clear auto-resume so new reading starts fresh
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
-    setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);

@@ -1104,7 +1104,7 @@ const DepthCard = ({
             onClick={(e) => { e.stopPropagation(); setShowContextInput(prev => ({ ...prev, [expansionKey]: !prev[expansionKey] })); }}
             className={`text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
               showContextInput[expansionKey] || sectionExpansions.context
-                ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50'
+                ? 'bg-zinc-700 text-zinc-200 border border-zinc-600'
                 : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800'
             }`}
           >
