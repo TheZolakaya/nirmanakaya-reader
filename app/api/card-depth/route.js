@@ -158,22 +158,14 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context - different for Reflect vs Discover/Forge modes
+  // V1: Position context — always from archetype position (universal)
+  const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
+  // Optional frame lens from preset spread
   const isReflect = spreadType === 'reflect';
-  let positionName;
   let positionLens = '';
-
   if (isReflect) {
-    // Reflect mode: positions are named slots from spread config
     const spreadConfig = REFLECT_SPREADS[spreadKey];
-    const position = spreadConfig?.positions?.[n - 1];
-    positionName = position?.name || `Position ${n}`;
-    positionLens = position?.lens || '';
-  } else {
-    // Discover/Forge/Explore mode: position is an archetype from draw.position
-    positionName = draw.position !== null && draw.position !== undefined
-      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
-      : `Position ${n}`;
+    positionLens = spreadConfig?.positions?.[n - 1]?.lens || '';
   }
 
   // Calculate correction target for imbalanced cards using canonical correction functions
@@ -328,21 +320,8 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context - different for Reflect vs Discover/Forge modes
-  const isReflect = spreadType === 'reflect';
-  let positionName;
-
-  if (isReflect) {
-    // Reflect mode: positions are named slots from spread config
-    const spreadConfig = REFLECT_SPREADS[spreadKey];
-    const position = spreadConfig?.positions?.[n - 1];
-    positionName = position?.name || `Position ${n}`;
-  } else {
-    // Discover/Forge/Explore mode: position is an archetype from draw.position
-    positionName = draw.position !== null && draw.position !== undefined
-      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
-      : `Position ${n}`;
-  }
+  // V1: Position context — always from archetype position (universal)
+  const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;

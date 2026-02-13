@@ -44,19 +44,11 @@ const ReadingSection = ({
 }) => {
   const trans = draw ? getComponent(draw.transient) : null;
   const stat = draw ? STATUSES[draw.status] : null;
-  const isReflect = spreadType === 'reflect';
-  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
+  // V1: All cards have archetype positions
+  const posLabel = draw ? (ARCHETYPES[draw.position]?.name || `Position ${index + 1}`) : null;
 
-  // Get position/frame label
-  const posLabel = draw ? (isReflect
-    ? spreadConfig?.positions?.[index]?.name
-    : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Position ${index + 1}`)) : null;
-
-  // Get house for coloring (for card/correction sections)
-  // Reflect mode uses neutral Gestalt coloring since positions don't have houses
-  const house = draw ? (isReflect
-    ? 'Gestalt'
-    : (draw.position !== null ? ARCHETYPES[draw.position]?.house : 'Gestalt')) : null;
+  // Get house for coloring — V1: always from archetype position
+  const house = draw ? (ARCHETYPES[draw.position]?.house || 'Gestalt') : null;
 
   const houseColors = house ? HOUSE_COLORS[house] : null;
 
@@ -104,7 +96,7 @@ const ReadingSection = ({
             <ClickableTerm type="card" id={draw.transient}>{trans?.name}</ClickableTerm>
           )}
           {' in your '}
-          <ClickableTerm type={isReflect ? "house" : "card"} id={isReflect ? house : draw.position}>
+          <ClickableTerm type="card" id={draw.position}>
             {posLabel}
           </ClickableTerm>
         </span>

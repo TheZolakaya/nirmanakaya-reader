@@ -3699,8 +3699,10 @@ CRITICAL FORMATTING RULES:
     const house = getCardHouse(draw, index);
     const houseColors = HOUSE_COLORS[house];
 
-    const contextLabel = isReflect ? spreadConfig?.positions?.[index]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : 'Draw');
-    const contextSub = isReflect ? null : (draw.position !== null ? `Position ${draw.position}` : null);
+    // V1: Every card has an archetype position. Frame labels are additional context.
+    const contextLabel = ARCHETYPES[draw.position]?.name || 'Draw';
+    const frameLabel = isReflect && spreadConfig?.positions?.[index]?.name ? spreadConfig.positions[index].name : null;
+    const contextSub = frameLabel || null;
     
     // Helper to open card info
     const openCardInfo = (cardId) => {
@@ -3784,7 +3786,7 @@ CRITICAL FORMATTING RULES:
         <div className="relative z-10 text-sm text-zinc-400 mb-3">
           in your <span
             className={`font-medium cursor-pointer hover:underline decoration-dotted ${houseColors.text}`}
-            onClick={(e) => { e.stopPropagation(); isReflect ? openHouseInfo(house) : openCardInfo(draw.position); }}
+            onClick={(e) => { e.stopPropagation(); openCardInfo(draw.position); }}
           >{contextLabel}</span>
           {contextSub && <span className="text-zinc-600 text-xs ml-1">({contextSub})</span>}
         </div>
@@ -3984,9 +3986,8 @@ CRITICAL FORMATTING RULES:
       // New structure: rebalancer is nested in card
       const rebalancer = card.rebalancer;
 
-      const context = isReflect && spreadConfig
-        ? spreadConfig.positions?.[card.index]?.name
-        : `Position ${card.index + 1}`;
+      // V1: Always use archetype position name
+      const context = ARCHETYPES[draw.position]?.name || `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       md += `### Signature ${card.index + 1} — ${context}\n\n`;
@@ -4168,7 +4169,8 @@ CRITICAL FORMATTING RULES:
       const stat = STATUSES[draw.status];
       // New structure: rebalancer is nested in card
       const rebalancer = card.rebalancer;
-      const context = isReflect && spreadConfig ? spreadConfig.positions?.[card.index]?.name : `Position ${card.index + 1}`;
+      // V1: Always use archetype position name
+      const context = ARCHETYPES[draw.position]?.name || `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       let archDetails = '';
@@ -6359,14 +6361,13 @@ CRITICAL FORMATTING RULES:
                 
                 <div className="space-y-4 mb-6">
                   {draws.map((draw, i) => {
-                    const isReflect = spreadType === 'reflect';
-                    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : RANDOM_SPREADS[spreadKey];
                     const trans = getComponent(draw.transient);
                     const stat = STATUSES[draw.status];
-                    const pos = draw.position !== null ? ARCHETYPES[draw.position] : null;
+                    const pos = ARCHETYPES[draw.position] || null;
                     const transArchetype = trans.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
                     const correction = getFullCorrection(draw.transient, draw.status);
-                    const label = isReflect ? spreadConfig?.positions?.[i]?.name : (pos?.name || 'Draw');
+                    // V1: Always use archetype position name
+                    const label = pos?.name || 'Draw';
                     
                     return (
                       <div key={i} className="bg-zinc-800/30 rounded-lg p-3 text-sm">
@@ -6451,33 +6452,28 @@ CRITICAL FORMATTING RULES:
                     <div className="text-sm text-zinc-600 space-y-1">
                       {(() => {
                         const relationships = [];
-                        const isReflect = spreadType === 'reflect';
-                        const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
 
-                        // House grouping only for Discover mode (Reflect mode doesn't have house per position)
-                        if (!isReflect) {
-                          const houseGroups = {};
-                          draws.forEach((draw, i) => {
-                            const house = draw.position !== null ? ARCHETYPES[draw.position]?.house : null;
-                            if (house) {
-                              if (!houseGroups[house]) houseGroups[house] = [];
-                              const label = ARCHETYPES[draw.position]?.name;
-                              houseGroups[house].push(label);
-                            }
-                          });
-                          Object.entries(houseGroups).forEach(([house, cards]) => {
-                            if (cards.length > 1) {
-                              relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
-                            }
-                          });
-                        }
+                        // V1: House grouping always works (universal positions)
+                        const houseGroups = {};
+                        draws.forEach((draw, i) => {
+                          const house = ARCHETYPES[draw.position]?.house || null;
+                          if (house) {
+                            if (!houseGroups[house]) houseGroups[house] = [];
+                            houseGroups[house].push(ARCHETYPES[draw.position]?.name);
+                          }
+                        });
+                        Object.entries(houseGroups).forEach(([house, cards]) => {
+                          if (cards.length > 1) {
+                            relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
+                          }
+                        });
 
                         const channelGroups = {};
                         draws.forEach((draw, i) => {
                           const trans = getComponent(draw.transient);
                           if (trans.channel) {
                             if (!channelGroups[trans.channel]) channelGroups[trans.channel] = [];
-                            const label = isReflect ? spreadConfig?.positions?.[i]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Signature ${i+1}`);
+                            const label = ARCHETYPES[draw.position]?.name || `Signature ${i+1}`;
                             channelGroups[trans.channel].push({ label, trans: trans.name });
                           }
                         });
@@ -6497,8 +6493,9 @@ CRITICAL FORMATTING RULES:
                                 if (i !== j) {
                                   const otherTrans = getComponent(otherDraw.transient);
                                   if (otherDraw.transient === corrTarget || otherTrans.archetype === corrTarget) {
-                                    const label1 = isReflect ? spreadConfig?.positions?.[i]?.name : ARCHETYPES[draw.position]?.name;
-                                    const label2 = isReflect ? spreadConfig?.positions?.[j]?.name : ARCHETYPES[otherDraw.position]?.name;
+                                    // V1: Always use archetype position names
+                                    const label1 = ARCHETYPES[draw.position]?.name;
+                                    const label2 = ARCHETYPES[otherDraw.position]?.name;
                                     relationships.push(`${label1} correction points toward ${label2}`);
                                   }
                                 }

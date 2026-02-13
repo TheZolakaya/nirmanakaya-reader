@@ -180,24 +180,23 @@ const DepthCard = ({
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
   const isBalanced = draw.status === 1;
+  // V1: isReflect kept for legacy spread config lookup, but all cards now have positions
   const isReflect = spreadType === 'reflect';
 
-  // Get position/frame label - use spread position names for Reflect mode
+  // V1: Position label — always use archetype position name
+  const posLabel = ARCHETYPES[draw.position]?.name || `Position ${cardData.index + 1}`;
+  // Optional frame label from preset spread (additional context)
   const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
-  const posLabel = isReflect
-    ? (spreadConfig?.positions?.[cardData.index]?.name || `Position ${cardData.index + 1}`)
-    : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Position ${cardData.index + 1}`);
+  const frameLabel = isReflect ? spreadConfig?.positions?.[cardData.index]?.name : null;
 
-  // Get house for coloring
-  const house = isReflect
-    ? 'Gestalt'
-    : (draw.position !== null ? ARCHETYPES[draw.position]?.house : 'Gestalt');
+  // Get house for coloring — V1: always from archetype position
+  const house = ARCHETYPES[draw.position]?.house || 'Gestalt';
   const houseColors = house ? HOUSE_COLORS[house] : null;
 
   // Get the card's home archetype for minimap (bounds/agents map to their archetype)
   const cardHomeArchetype = getHomeArchetype(draw.transient);
-  // Position is always an archetype (0-21) in Discover mode
-  const positionArchetype = !isReflect && draw.position !== null ? draw.position : null;
+  // V1: Position is always an archetype (0-21)
+  const positionArchetype = draw.position;
 
   // Card type for minimap indicator (archetype, bound, or agent)
   const cardTypeForMinimap = trans?.type?.toLowerCase() || 'archetype';
@@ -770,8 +769,8 @@ const DepthCard = ({
             <ClickableCardType transientId={draw.transient} className="text-[0.65rem] text-zinc-500 uppercase tracking-wider" />
           </div>
 
-          {/* Arrow connector - only in Discover mode with position */}
-          {!isReflect && positionArchetype !== null && (
+          {/* Arrow connector — V1: always present (universal positions) */}
+          {positionArchetype !== null && (
             <>
               {/* Arrow with "in your" - single clickable unit, vertical on mobile, horizontal on desktop */}
               {isMobile ? (
@@ -860,13 +859,10 @@ const DepthCard = ({
             </>
           )}
 
-          {/* Reflect mode: just show position label */}
-          {isReflect && (
-            <div className="flex items-center text-zinc-400">
-              <GlossaryTerm slug="in-your" className="text-sm">in your</GlossaryTerm>
-              <ClickableTerm type="house" id={house} className="text-sm ml-1">
-                {posLabel}
-              </ClickableTerm>
+          {/* V1: Frame label shown as additional context if preset spread provides one */}
+          {frameLabel && (
+            <div className="flex items-center text-zinc-500 text-xs mt-1">
+              <span className="italic">Frame: {frameLabel}</span>
             </div>
           )}
         </div>
