@@ -130,7 +130,10 @@ const DepthCard = ({
   onRequestLoad,
   // Progressive deepening props
   onLoadDeeper,        // (cardIndex, targetDepth, previousContent) => Promise
-  isLoadingDeeper = false
+  isLoadingDeeper = false,
+  // V1: Expand/collapse all triggers (counters that increment)
+  expandAllTrigger = 0,
+  collapseAllTrigger = 0
 }) => {
   // Initialize states based on defaultExpanded setting
   // V1 Spread on Table: unloaded cards always start collapsed (zero depth)
@@ -159,6 +162,25 @@ const DepthCard = ({
   const [showRebalancerMinimapModal, setShowRebalancerMinimapModal] = useState(false);
   const [showGrowthMinimapModal, setShowGrowthMinimapModal] = useState(false);
   const [threadMinimapData, setThreadMinimapData] = useState(null); // Stores data for thread item minimap modal
+
+  // V1: Respond to expand/collapse all triggers from parent
+  const expandRef = useRef(expandAllTrigger);
+  const collapseRef = useRef(collapseAllTrigger);
+  useEffect(() => {
+    if (expandAllTrigger > expandRef.current) {
+      expandRef.current = expandAllTrigger;
+      if (depth === DEPTH.COLLAPSED) {
+        setDepth(DEPTH.WADE);
+        if (isNotLoaded && onRequestLoad) onRequestLoad();
+      }
+    }
+  }, [expandAllTrigger]);
+  useEffect(() => {
+    if (collapseAllTrigger > collapseRef.current) {
+      collapseRef.current = collapseAllTrigger;
+      if (depth !== DEPTH.COLLAPSED) setDepth(DEPTH.COLLAPSED);
+    }
+  }, [collapseAllTrigger]);
 
   // Mobile/narrow detection - triggers vertical layout when cards would wrap
   // 720px = 3 cards (200px each) + connectors + padding

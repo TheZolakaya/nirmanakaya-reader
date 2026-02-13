@@ -1267,6 +1267,9 @@ export default function NirmanakaReader() {
   const [letterLoadingDeeper, setLetterLoadingDeeper] = useState(false); // Whether letter is loading deeper content
   const [synthesisLoadingSection, setSynthesisLoadingSection] = useState(null); // Which synthesis section is loading deeper ('summary' | 'whyAppeared' | 'path' | null)
   const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
+  // V1 Spread on Table: expand/collapse all trigger counters
+  const [expandAllCounter, setExpandAllCounter] = useState(0);
+  const [collapseAllCounter, setCollapseAllCounter] = useState(0);
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
@@ -6461,6 +6464,41 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
+            {/* V1: Expand/Collapse All + Explore count */}
+            {parsedReading._onDemand && !parsedReading._isFirstContact && draws?.length > 1 && (
+              <div className="flex items-center justify-between mb-3 px-1">
+                <span className="text-xs text-zinc-600">
+                  {Object.values(cardLoaded).filter(Boolean).length} of {draws.length} explored
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      // Expand all: trigger load for any unloaded cards, then expand
+                      if (parsedReading._onDemand) {
+                        draws.forEach((_, i) => {
+                          const card = parsedReading.cards[i];
+                          if (card?._notLoaded && !cardLoaded[i] && !cardLoading[i]) {
+                            loadCardDepth(i, draws, question, parsedReading.letter, systemPromptCache, card.token, parsedReading.originalInput);
+                          }
+                        });
+                      }
+                      setExpandAllCounter(c => c + 1);
+                    }}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    Expand all
+                  </button>
+                  <span className="text-zinc-700">|</span>
+                  <button
+                    onClick={() => setCollapseAllCounter(c => c + 1)}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    Collapse all
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Signature Sections with nested Rebalancers - using new DepthCard component */}
             {parsedReading.cards.map((card) => {
               // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
@@ -6525,6 +6563,9 @@ CRITICAL FORMATTING RULES:
                     // Progressive deepening props — disabled for First Contact
                     onLoadDeeper={parsedReading?._isFirstContact ? null : loadDeeperContent}
                     isLoadingDeeper={!!cardLoadingDeeper[card.index]}
+                    // V1: Expand/Collapse all triggers
+                    expandAllTrigger={expandAllCounter}
+                    collapseAllTrigger={collapseAllCounter}
                   />
                 </div>
               );
