@@ -12,6 +12,15 @@ import GlistenSourcePanel from '../../../components/reader/GlistenSourcePanel';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
+// Extract text from a depth-level object {surface, wade, swim, deep} or a plain string
+function getDepthText(obj, preferredDepth) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  // Try preferred depth first, then fall back to deepest available
+  if (preferredDepth && obj[preferredDepth]) return obj[preferredDepth];
+  return obj.deep || obj.swim || obj.wade || obj.surface || '';
+}
+
 export default function ReadingDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -141,6 +150,8 @@ export default function ReadingDetailPage() {
   const interp = reading.interpretation || {};
   const cards = interp.cards || [];
   const cardCount = reading.draws?.length || 0;
+  // Extract depth preference from voice setting (e.g. 'wade-friend' → 'wade')
+  const voiceDepth = reading.voice?.split('-')?.[0] || 'wade';
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
@@ -221,44 +232,57 @@ export default function ReadingDetailPage() {
                 </div>
 
                 {/* Interpretation */}
-                {card.interpretation && (
-                  <div className="mb-4">
-                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Interpretation</h3>
-                    <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
-                      {ensureParagraphBreaks(card.interpretation).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
-                        <p key={j}>{para.trim()}</p>
-                      ))}
+                {(() => {
+                  const interpText = getDepthText(card.interpretation, voiceDepth);
+                  return interpText && interpText.trim() ? (
+                    <div className="mb-4">
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Interpretation</h3>
+                      <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(interpText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  ) : null;
+                })()}
 
                 {/* Path to Balance / Growth */}
-                {card.rebalancing && (
-                  <div>
-                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Path to Balance</h3>
-                    <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
-                      {ensureParagraphBreaks(card.rebalancing).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
-                        <p key={j}>{para.trim()}</p>
-                      ))}
+                {(() => {
+                  // Rebalancing data may be in card.rebalancing (string), or card.interpretation.rebalancer (depth object)
+                  const rebalText = getDepthText(card.rebalancing, voiceDepth)
+                    || getDepthText(card.interpretation?.rebalancer, voiceDepth);
+                  return rebalText && rebalText.trim() ? (
+                    <div>
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Path to Balance</h3>
+                      <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(rebalText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  ) : null;
+                })()}
               </div>
             );
           })}
         </div>
 
         {/* Synthesis */}
-        {interp.synthesis && (
-          <div className="mt-6 rounded-xl border border-amber-500/20 bg-zinc-900/30 p-5">
-            <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Synthesis</h3>
-            <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
-              {ensureParagraphBreaks(interp.synthesis).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
-                <p key={i}>{para.trim()}</p>
-              ))}
+        {(() => {
+          const synthText = getDepthText(interp.synthesis, voiceDepth)
+            || getDepthText(interp.synthesis?.summary, voiceDepth)
+            || getDepthText(interp.synthesis?.path, voiceDepth);
+          return synthText && synthText.trim() ? (
+            <div className="mt-6 rounded-xl border border-amber-500/20 bg-zinc-900/30 p-5">
+              <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Synthesis</h3>
+              <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
+                {ensureParagraphBreaks(synthText).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                  <p key={i}>{para.trim()}</p>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          ) : null;
+        })()}
 
         {/* Expand Reading */}
         {cardCount < 5 && (

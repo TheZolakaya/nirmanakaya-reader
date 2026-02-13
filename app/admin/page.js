@@ -2633,6 +2633,32 @@ export default function AdminPanel() {
                 <p className="text-xs text-zinc-500">Loading feature flags...</p>
               )}
             </section>
+
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Collective Pulse</h3>
+              {featureFlags ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-sm text-zinc-300">Pulse Enabled</span>
+                      <p className="text-[10px] text-zinc-600 mt-0.5">When OFF: /pulse shows &quot;Coming Soon&quot; to users</p>
+                      <p className="text-[10px] text-zinc-600">When ON: Collective Pulse dashboard is live for all users</p>
+                    </div>
+                    <button
+                      onClick={() => toggleFeatureFlag('pulse_enabled', !featureFlags.pulse_enabled)}
+                      disabled={flagsSaving}
+                      className={`w-11 h-6 rounded-full transition-colors relative ${
+                        featureFlags.pulse_enabled ? 'bg-amber-500' : 'bg-zinc-700'
+                      }`}
+                    >
+                      <span className="absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform" style={{ left: featureFlags.pulse_enabled ? '22px' : '2px' }} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500">Loading feature flags...</p>
+              )}
+            </section>
           </div>
         )}
       </main>

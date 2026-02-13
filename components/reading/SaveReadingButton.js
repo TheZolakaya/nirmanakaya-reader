@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { saveReading, saveReadingLocally, getUser, getSession } from '../../lib/supabase';
 
-export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, onSave }) {
+export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, topicId, onSave, onBadges }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
@@ -56,18 +56,36 @@ export default function SaveReadingButton({ reading, glisten, draws, locusSubjec
                 voice: voice || 'friend',
                 draws: draws,
                 interpretation: {
-                  cards: reading.cards?.map(c => ({
-                    interpretation: c.interpretation?.interpretation || c.interpretation,
-                    rebalancing: c.interpretation?.rebalancing
-                  })) || [],
-                  synthesis: reading.synthesis?.summary || reading.synthesis?.path,
+                  cards: reading.cards?.map(c => {
+                    const interp = c.interpretation;
+                    return {
+                      // Preserve full depth object for future multi-depth viewing
+                      interpretation: interp,
+                      // Fix: field is 'rebalancer' not 'rebalancing' in depth format
+                      rebalancing: interp?.rebalancer || interp?.rebalancing || null
+                    };
+                  }) || [],
+                  synthesis: reading.synthesis?.summary || reading.synthesis?.path || reading.synthesis,
                   letter: reading.letter
                 },
-                glisten: glisten || null
+                glisten: glisten || null,
+                ...(topicId ? { topic_id: topicId } : {})
               })
             });
             const userReadingData = await userReadingRes.json();
             console.log('User readings save result:', userReadingData);
+            // Surface new badges if any were earned
+            if (userReadingData.newBadges && userReadingData.newBadges.length > 0) {
+              onBadges?.(userReadingData.newBadges);
+            }
+            // Auto-generate topic meta-analysis (non-blocking)
+            if (topicId) {
+              fetch('/api/user/topic-analysis', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ topic_id: topicId })
+              }).catch(err => console.log('[TopicAnalysis] Failed:', err));
+            }
           }
         } catch (userReadingError) {
           console.warn('User readings save failed:', userReadingError);

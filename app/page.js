@@ -71,7 +71,9 @@ import {
   ensureParagraphBreaks,
   shuffleArray,
   generateSpread,
-  generateDTPDraws,
+  generateDynamicDraws,
+  getArchetypeRoot,
+  generateTraceDraw,
   encodeDraws,
   decodeDraws,
   sanitizeForAPI,
@@ -99,7 +101,11 @@ import GlossaryTooltip from '../components/shared/GlossaryTooltip.js';
 // Import auth components
 import { AuthButton, AuthModal } from '../components/auth';
 import { SaveReadingButton, ShareReadingButton, EmailReadingButton } from '../components/reading';
-import { getReading, getUser, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
+import BadgeNotification from '../components/shared/BadgeNotification.js';
+import TopicBar from '../components/reader/TopicBar.js';
+import CardDetailModal from '../components/reader/CardDetailModal.js';
+import LastReadingStrip from '../components/reader/LastReadingStrip.js';
+import { getReading, getUser, getSession, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../lib/teleology-utils.js';
@@ -109,6 +115,9 @@ import { filterProhibitedTerms } from '../lib/contentFilter.js';
 
 // Import mode system for governance
 import { buildModeHeader } from '../lib/modePrompts.js';
+
+// Import V1 presets
+import { READING_PRESETS } from '../lib/postures.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
 import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
 
@@ -121,9 +130,6 @@ import {
   MODE_DESCRIPTIONS,
   getLevelInfo,
   legacyFromLevel,
-  isModeEnabled,
-  getMaxCardsForMode,
-  isCardCountEnabled
 } from '../lib/complexity.js';
 
 // Import React components
@@ -450,11 +456,13 @@ const getSummaryContent = (summaryInput, depth = 'shallow') => {
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
   if (depth === 'shallow') {
-    // Extract first 1-2 sentences from wade
-    const wadeContent = summary.wade || summary.surface || '';
+    // Use actual surface content from API if available
+    if (summary.surface) return summary.surface;
+    // Fallback: derive from wade
+    const wadeContent = summary.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (summary[depth] != null && summary[depth] !== '') return summary[depth];
   if (summary.wade != null && summary.wade !== '') return summary.wade;
@@ -472,12 +480,13 @@ const getWhyAppearedContent = (whyInput, depth = 'shallow') => {
     try { whyAppeared = JSON.parse(whyAppeared); } catch (e) { return whyAppeared; }
   }
   if (typeof whyAppeared === 'string') return whyAppeared;
-  // Format: { wade, swim, deep } - shallow derives from wade
+  // Format: { wade, swim, deep } - shallow uses surface, falls back to wade
   if (depth === 'shallow') {
+    if (whyAppeared.surface) return whyAppeared.surface;
     const wadeContent = whyAppeared.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (whyAppeared[depth] != null && whyAppeared[depth] !== '') return whyAppeared[depth];
   if (whyAppeared.wade != null && whyAppeared.wade !== '') return whyAppeared.wade;
@@ -498,11 +507,13 @@ const getLetterContent = (letterInput, depth = 'shallow') => {
   // New format: { wade, swim, deep } - shallow derives from wade
   // Use explicit null check to avoid empty string fallback issues
   if (depth === 'shallow') {
-    // Extract first 1-2 sentences from wade
+    // Use actual surface content from API if available
+    if (letter.surface) return letter.surface;
+    // Fallback: derive from wade
     const wadeContent = letter.wade || '';
     if (!wadeContent) return '';
     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-    return sentences.slice(0, 2).join(' ');
+    return sentences.slice(0, 3).join(' ');
   }
   if (letter[depth] != null && letter[depth] !== '') return letter[depth];
   if (letter.wade != null && letter.wade !== '') return letter.wade;
@@ -557,8 +568,6 @@ export default function NirmanakaReader() {
   const [spreadKey, setSpreadKey] = useState('three');
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
-  const [complexityLevel, setComplexityLevel] = useState(3); // 1-20 complexity level
-  const [useComplexitySlider, setUseComplexitySlider] = useState(false); // Toggle between old UI and new complexity slider
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -566,8 +575,10 @@ export default function NirmanakaReader() {
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
   const [expanding, setExpanding] = useState(null); // {section: 'card:1', type: 'unpack'}
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
+  const [synthContextInput, setSynthContextInput] = useState({}); // { summary: true } - which synth sections show converse input
+  const [synthContextText, setSynthContextText] = useState({}); // { summary: 'user text' } - converse input values
   const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
-  const [defaultExpanded, setDefaultExpanded] = useState(false); // When true, nested sections start expanded
+  const [defaultExpanded, setDefaultExpanded] = useState(true); // When true, nested sections start expanded
   const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
   const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
   const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
@@ -590,6 +601,12 @@ export default function NirmanakaReader() {
   const [showGlistenPanel, setShowGlistenPanel] = useState(false); // Show Glistened Tale panel in reading
   const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
+  const userContextRef = useRef(''); // Cached user journey context block for prompt injection
+  const readingConverseRef = useRef([]); // Reading-level converse accumulator: [{section, userText}]
+  const [pendingBadges, setPendingBadges] = useState(null); // Newly earned badges to display
+  const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
+  const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
+  const userStatsRef = useRef(null); // Cached user stats for CardDetailModal
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
   const [locusInput, setLocusInput] = useState('');
@@ -893,11 +910,16 @@ export default function NirmanakaReader() {
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
 
-  // Load saved reading from URL param (?load=readingId)
+  // Load saved reading from URL param (?load=readingId) or resume from sessionStorage
   useEffect(() => {
     async function loadSavedReading() {
       const params = new URLSearchParams(window.location.search);
-      const loadId = params.get('load');
+      let loadId = params.get('load');
+
+      // Auto-resume: if no URL param, check sessionStorage for active reading
+      if (!loadId) {
+        try { loadId = sessionStorage.getItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
+      }
       if (!loadId) return;
 
       try {
@@ -957,7 +979,8 @@ export default function NirmanakaReader() {
           if (anyCardsNeedLoad) {
             const systemPrompt = buildSystemPrompt(userLevel, {
               spreadType: data.mode || 'discover',
-              stance
+              stance,
+              showArchitecture: showArchitectureTerms
             });
             setSystemPromptCache(systemPrompt);
           }
@@ -974,6 +997,19 @@ export default function NirmanakaReader() {
         }
 
         setSavedReadingId(data.id);
+
+        // Restore expansions and follow-up messages from synthesis JSONB
+        if (data.synthesis?._expansions) {
+          setExpansions(data.synthesis._expansions);
+        }
+        if (data.synthesis?._followUpMessages) {
+          setFollowUpMessages(data.synthesis._followUpMessages);
+        }
+
+        // Restore thread data
+        if (data.thread_data && typeof data.thread_data === 'object') {
+          setThreadData(data.thread_data);
+        }
 
         // Clear the URL param after loading
         window.history.replaceState({}, '', window.location.pathname);
@@ -1168,10 +1204,7 @@ export default function NirmanakaReader() {
   // Voice is baked into generation - no separate translation layer
   const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
-  const [register, setRegister] = useState(5); // 1-10: Unhinged Street to Oracle
-  const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
-  const [roastMode, setRoastMode] = useState(false); // Loving but savage
-  const [directMode, setDirectMode] = useState(false); // No softening
+  const [showArchitectureTerms, setShowArchitectureTerms] = useState(false); // V1: architecture visibility toggle
 
   // Apply config defaults to voice settings when config is loaded
   // ONLY if no saved preferences exist in localStorage (first-time users)
@@ -1184,8 +1217,7 @@ export default function NirmanakaReader() {
         if (saved) {
           const prefs = JSON.parse(saved);
           // If any voice-related pref exists, user has customized their settings
-          hasSavedPrefs = prefs.persona !== undefined || prefs.humor !== undefined ||
-                          prefs.register !== undefined || prefs.stance !== undefined;
+          hasSavedPrefs = prefs.persona !== undefined || prefs.humor !== undefined || prefs.stance !== undefined;
         }
       } catch (e) { /* ignore */ }
 
@@ -1200,10 +1232,6 @@ export default function NirmanakaReader() {
       // Apply voice defaults
       if (dv.persona) setPersona(dv.persona);
       if (dv.humor) setHumor(dv.humor);
-      if (dv.register) setRegister(dv.register);
-      if (dv.creator) setCreator(dv.creator);
-      if (dv.roastMode !== undefined) setRoastMode(dv.roastMode);
-      if (dv.directMode !== undefined) setDirectMode(dv.directMode);
       // Apply stance defaults (includes preset values)
       setStance(prev => ({
         complexity: dv.complexity || prev.complexity,
@@ -1236,6 +1264,11 @@ export default function NirmanakaReader() {
   const [threadLoading, setThreadLoading] = useState({}); // {key: true/false}
   const [collapsedThreads, setCollapsedThreads] = useState({}); // {threadKey: true/false}
 
+  // V1: Ariadne Thread state — chain traversal through archetype positions
+  const [ariadneThread, setAriadneThread] = useState(null); // { sourceCardIndex, steps: [{draw, position, interpretation, loaded}], visitedPositions: Set }
+  const [ariadneLoading, setAriadneLoading] = useState(false); // Currently loading a trace step
+  const MAX_ARIADNE_STEPS = 8; // Max traversal depth
+
   // On-demand depth generation state
   const [cardLoaded, setCardLoaded] = useState({}); // {0: true, 1: false, ...} - which cards have content
   const [cardLoading, setCardLoading] = useState({}); // {0: true, ...} - which cards are currently loading
@@ -1245,6 +1278,9 @@ export default function NirmanakaReader() {
   const [letterLoadingDeeper, setLetterLoadingDeeper] = useState(false); // Whether letter is loading deeper content
   const [synthesisLoadingSection, setSynthesisLoadingSection] = useState(null); // Which synthesis section is loading deeper ('summary' | 'whyAppeared' | 'path' | null)
   const [systemPromptCache, setSystemPromptCache] = useState(''); // Cached system prompt for on-demand calls
+  // V1 Spread on Table: expand/collapse all trigger counters
+  const [expandAllCounter, setExpandAllCounter] = useState(0);
+  const [collapseAllCounter, setCollapseAllCounter] = useState(0);
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
@@ -1340,6 +1376,50 @@ export default function NirmanakaReader() {
     }
   }, [synthesisLoaded, parsedReading, savedReadingId, synthesisSaved]);
 
+  // Auto-save expansions, threads, and follow-up messages (debounced)
+  const expansionSaveTimer = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId) return;
+    // Skip if nothing to save yet
+    const hasExpansions = Object.keys(expansions).length > 0;
+    const hasThreads = Object.keys(threadData).length > 0;
+    const hasFollowUps = followUpMessages.length > 0;
+    if (!hasExpansions && !hasThreads && !hasFollowUps) return;
+
+    // Debounce: wait 2s after last change before saving
+    if (expansionSaveTimer.current) clearTimeout(expansionSaveTimer.current);
+    expansionSaveTimer.current = setTimeout(() => {
+      const updatePayload = {};
+
+      // Build synthesis update with expansions and follow-ups embedded
+      if (hasExpansions || hasFollowUps) {
+        // Merge with existing synthesis data
+        const currentSynthesis = {};
+        if (parsedReading?.summary) currentSynthesis.summary = parsedReading.summary;
+        if (parsedReading?.path) currentSynthesis.path = parsedReading.path;
+        if (parsedReading?.fullArchitecture) currentSynthesis.fullArchitecture = parsedReading.fullArchitecture;
+        if (hasExpansions) currentSynthesis._expansions = expansions;
+        if (hasFollowUps) currentSynthesis._followUpMessages = followUpMessages;
+        updatePayload.synthesis = currentSynthesis;
+      }
+
+      // Save thread data separately
+      if (hasThreads) {
+        updatePayload.thread_data = threadData;
+      }
+
+      if (Object.keys(updatePayload).length > 0) {
+        updateReadingContent(savedReadingId, updatePayload)
+          .then(result => {
+            if (result?.data) console.log('[AutoSave] Expansions/threads saved');
+          })
+          .catch(err => console.log('[AutoSave] Failed to save expansions/threads:', err));
+      }
+    }, 2000);
+
+    return () => { if (expansionSaveTimer.current) clearTimeout(expansionSaveTimer.current); };
+  }, [expansions, threadData, followUpMessages, savedReadingId]);
+
   // Re-interpret with current stance (same draws)
   const reinterpret = async () => {
     if (!draws) return;
@@ -1370,10 +1450,7 @@ export default function NirmanakaReader() {
         body: JSON.stringify({
           content: readingText,
           persona,
-          humor,
-          register,
-          roastMode,
-          directMode
+          humor
         })
       });
 
@@ -1501,10 +1578,8 @@ export default function NirmanakaReader() {
         // Load persona layer preferences
         if (prefs.persona !== undefined) setPersona(prefs.persona);
         if (prefs.humor !== undefined) setHumor(prefs.humor);
-        if (prefs.register !== undefined) setRegister(prefs.register);
-        if (prefs.creator !== undefined) setCreator(prefs.creator);
-        if (prefs.roastMode !== undefined) setRoastMode(prefs.roastMode);
-        if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
+        // V1: Architecture visibility toggle
+        if (prefs.showArchitectureTerms !== undefined) setShowArchitectureTerms(prefs.showArchitectureTerms);
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
@@ -1520,6 +1595,19 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to load preferences:', e);
     }
+
+    // One-time migration: push wade depth + signatures open to all existing users
+    try {
+      if (!localStorage.getItem('nkya_migrated_wade_open')) {
+        setDefaultDepth('shallow');
+        setDefaultExpanded(true);
+        setLetterDepth('wade');
+        setPathDepth('wade');
+        setSummaryDepth('wade');
+        setWhyAppearedDepth('wade');
+        localStorage.setItem('nkya_migrated_wade_open', '1');
+      }
+    } catch (e) { /* localStorage unavailable */ }
 
     prefsLoaded.current = true;
 
@@ -1550,13 +1638,10 @@ export default function NirmanakaReader() {
       spreadKey,
       stance,
       showVoicePreview,
-      // Persona layer settings (V2)
+      // Voice settings (V1)
       persona,
       humor,
-      register,
-      creator,
-      roastMode,
-      directMode,
+      showArchitectureTerms,
       // Background settings
       animatedBackground,
       backgroundOpacity,
@@ -1575,7 +1660,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -1650,18 +1735,12 @@ export default function NirmanakaReader() {
   }, [loading]);
 
 
-  // Warn before leaving if there's a reading
+  // Stash active reading ID in sessionStorage for auto-resume
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      if (draws && parsedReading) {
-        e.preventDefault();
-        e.returnValue = "You'll lose your reading if you leave. Are you sure?";
-        return e.returnValue;
-      }
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [draws, parsedReading]);
+    if (savedReadingId) {
+      try { sessionStorage.setItem('nirmanakaya_active_reading', savedReadingId); } catch (e) { /* ignore */ }
+    }
+  }, [savedReadingId]);
 
   // Click outside to dismiss help popover
   useEffect(() => {
@@ -1688,7 +1767,7 @@ export default function NirmanakaReader() {
   };
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null) => {
-    setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     // Reset persona translation state
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
     // Reset on-demand state
@@ -1722,7 +1801,8 @@ export default function NirmanakaReader() {
             spreadKey: 'one',
             stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'playful' },
             system: systemPrompt,
-            model: "claude-sonnet-4-20250514"
+            model: "claude-sonnet-4-20250514",
+            userContext: userContextRef.current
           })
         });
         const data = await res.json();
@@ -1792,15 +1872,32 @@ export default function NirmanakaReader() {
       // Persona Voice V2 params
       persona,
       humor,
-      register,
-      creator,
-      roastMode,
-      directMode,
+      // Architecture visibility
+      showArchitecture: showArchitectureTerms,
       // Locus control
       locusSubjects
     });
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
+
+    // Fetch user journey context for prompt enrichment (non-blocking for unauthenticated)
+    let userContext = '';
+    if (currentUser) {
+      try {
+        const session = await getSession();
+        const token = session?.session?.access_token;
+        if (token) {
+          const ctxParams = new URLSearchParams({ draws: JSON.stringify(drawsToUse) });
+          if (activeTopic?.id) ctxParams.set('topic_id', activeTopic.id);
+          const ctxRes = await fetch(`/api/user/context?${ctxParams}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          const ctxData = await ctxRes.json();
+          userContext = ctxData.contextBlock || '';
+        }
+      } catch (e) { /* Context is optional — reading works without it */ }
+    }
+    userContextRef.current = userContext;
 
     try {
       const res = await fetch('/api/letter', {
@@ -1813,7 +1910,8 @@ export default function NirmanakaReader() {
           spreadKey: currentSpreadKey,
           stance,
           system: systemPrompt,
-          model: getModelId(selectedModel)
+          model: getModelId(selectedModel),
+          userContext
         })
       });
       const data = await res.json();
@@ -1873,16 +1971,9 @@ export default function NirmanakaReader() {
         }
       }).catch(err => console.log('[AutoSave] Failed:', err));
 
-      // Auto-load ALL cards in parallel immediately for better UX
-      // This uses the on-demand architecture but loads everything upfront
-      setTimeout(() => {
-        drawsToUse.forEach((_, i) => {
-          const cardToken = tokens ? tokens[i] : null;
-          // Pass originalInput for DTP mode grounded interpretations
-          const originalInputForCard = tokens && tokens.length > 0 ? safeQuestion : null;
-          loadCardDepth(i, drawsToUse, safeQuestion, data.letter, systemPrompt, cardToken, originalInputForCard);
-        });
-      }, 100);
+      // V1 Spread on Table: Cards start at zero depth (names + positions only)
+      // User taps individual cards to load interpretation
+      // No auto-load — on-demand via DepthCard's onRequestLoad callback
 
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);
@@ -1895,7 +1986,12 @@ export default function NirmanakaReader() {
     setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
 
     try {
-      const letterContent = letterData?.swim || letterData?.wade || letterData?.surface || '';
+      const letterContent = letterData?.swim || letterData?.wade || letterData?.shallow || letterData?.surface || '';
+      // Compute frame label/lens for this card (reflect spreads have position-specific context)
+      const currentSpreadKey = spreadType === 'reflect' ? reflectSpreadKey : spreadKey;
+      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
+      const frameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const frameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1904,20 +2000,23 @@ export default function NirmanakaReader() {
           draw: drawsToUse[cardIndex],
           question: questionToUse,
           spreadType,
-          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          spreadKey: currentSpreadKey,
           stance,
           system: systemPromptToUse || systemPromptCache,
           letterContent,
+          frameLabel, // Frame context from preset spreads
+          frameLens,  // Interpretation lens from preset spreads
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
-          model: getModelId(selectedModel)
+          model: getModelId(selectedModel),
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
       // Validate that we got actual content (not just empty strings)
-      const hasContent = data.cardData && (data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
+      const hasContent = data.cardData && (data.cardData.shallow || data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
       if (!hasContent) {
         throw new Error('Card generation returned empty content. Please try again.');
       }
@@ -1956,13 +2055,10 @@ export default function NirmanakaReader() {
   };
 
   // Progressive deepening: Load SWIM or DEEP for a card (builds on previous content)
-  const loadDeeperContent = async (cardIndex, targetDepth, previousContent) => {
-    if (cardLoadingDeeper[cardIndex]) return; // Already loading
-
+  // sections: ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all, legacy)
+  const loadDeeperContent = async (cardIndex, targetDepth, previousContent, sections = null) => {
     // Track depth telemetry
     updateTelemetry('maxDepth', targetDepth);
-
-    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: true }));
 
     try {
       const letterContent = getLetterContent(parsedReading?.letter);
@@ -1970,6 +2066,10 @@ export default function NirmanakaReader() {
       const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
       // Get originalInput for grounded DTP interpretations
       const originalInput = parsedReading?.originalInput || null;
+      // Compute frame label/lens for this card
+      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
+      const deepenFrameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const deepenFrameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1982,25 +2082,31 @@ export default function NirmanakaReader() {
           stance,
           system: systemPromptCache,
           letterContent,
+          frameLabel: deepenFrameLabel,
+          frameLens: deepenFrameLens,
           token: cardToken, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
           // Progressive deepening params
           targetDepth,
-          previousContent
+          previousContent,
+          sections, // Selective section loading — null means all
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // V2: Voice is baked into generation - no translation needed
-      const updatedReading = {
-        ...parsedReading,
-        cards: parsedReading?.cards?.map((card, i) =>
-          i === cardIndex ? { ...card, ...data.cardData } : card
-        ) || []
-      };
-      setParsedReading(updatedReading);
+      // Use functional update to avoid stale state when multiple sections load concurrently
+      setParsedReading(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          cards: prev.cards?.map((card, i) =>
+            i === cardIndex ? { ...card, ...data.cardData } : card
+          ) || []
+        };
+      });
 
       // Accumulate token usage
       if (data.usage) {
@@ -2015,8 +2121,6 @@ export default function NirmanakaReader() {
     } catch (e) {
       setError(`Error loading deeper content for card ${cardIndex + 1}: ${e.message}`);
     }
-
-    setCardLoadingDeeper(prev => ({ ...prev, [cardIndex]: false }));
   };
 
   // On-demand: Load Summary + Path to Balance (after all cards loaded)
@@ -2043,7 +2147,8 @@ export default function NirmanakaReader() {
           model: getModelId(selectedModel),
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
-          originalInput: parsedReading?.originalInput
+          originalInput: parsedReading?.originalInput,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2124,7 +2229,8 @@ export default function NirmanakaReader() {
           system: systemPromptCache,
           model: getModelId(selectedModel),
           targetDepth,
-          previousContent
+          previousContent,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2216,7 +2322,8 @@ export default function NirmanakaReader() {
           previousContent,
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
-          originalInput: parsedReading?.originalInput
+          originalInput: parsedReading?.originalInput,
+          userContext: userContextRef.current
         })
       });
       const data = await res.json();
@@ -2307,7 +2414,7 @@ export default function NirmanakaReader() {
 
     // First Contact Mode: Always 1 card, always Discover mode
     if (userLevel === USER_LEVELS.FIRST_CONTACT) {
-      const newDraws = generateSpread(1, false);
+      const newDraws = generateSpread(1);
       setDraws(newDraws);
       await performReadingWithDraws(newDraws, actualQuestion);
       return;
@@ -2318,7 +2425,7 @@ export default function NirmanakaReader() {
     // Forge mode always draws 1 card
     // Reflect mode uses REFLECT_SPREADS, Discover uses RANDOM_SPREADS
     const count = isForge ? 1 : (isReflect ? REFLECT_SPREADS[reflectSpreadKey].count : RANDOM_SPREADS[spreadKey].count);
-    const newDraws = generateSpread(count, isReflect);
+    const newDraws = generateSpread(count);
     setDraws(newDraws);
     await performReadingWithDraws(newDraws, actualQuestion);
   };
@@ -2328,8 +2435,8 @@ export default function NirmanakaReader() {
     setLoading(true);
     setError('');
 
-    // Generate 5 draws (unique positions guaranteed)
-    const newDraws = generateDTPDraws();
+    // Generate 5 draws (unique positions guaranteed) — V1: count will be AI-determined
+    const newDraws = generateDynamicDraws(5);
 
     try {
       // Step 1: Call DTP API to extract tokens only
@@ -3022,7 +3129,7 @@ Interpret this new card as the architecture's response to their declared directi
     return true; // Indicate help was shown
   };
 
-  const handleExpand = async (sectionKey, expansionType, remove = false) => {
+  const handleExpand = async (sectionKey, expansionType, remove = false, userText = null) => {
     // If removing, just clear that expansion
     if (remove) {
       setExpansions(prev => {
@@ -3037,12 +3144,15 @@ Interpret this new card as the architecture's response to their declared directi
       return;
     }
     
-    // If already has this expansion, toggle it off
-    if (expansions[sectionKey]?.[expansionType]) {
+    // If already has this expansion, toggle it off (but NOT for context - it's multi-turn)
+    if (expansionType !== 'context' && expansions[sectionKey]?.[expansionType]) {
       handleExpand(sectionKey, expansionType, true);
       return;
     }
-    
+
+    // For context type, user text is required (button click in DepthCard handles input toggle)
+    if (expansionType === 'context' && !userText) return;
+
     // Otherwise, fetch the expansion
     setExpanding({ section: sectionKey, type: expansionType });
 
@@ -3079,8 +3189,8 @@ Interpret this new card as the architecture's response to their declared directi
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\n${cardSection?.architecture || ''}`;
       sectionContent = cardSection?.wade || cardSection?.surface || cardSection?.content || '';
       sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
-    } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:')) {
-      const cardIndex = parseInt(sectionKey.split(':')[1]);
+    } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:') || sectionKey.startsWith('rebalancer-')) {
+      const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
       const rebalancer = cardSection?.rebalancer;
       const draw = draws[cardIndex];
@@ -3090,6 +3200,17 @@ Interpret this new card as the architecture's response to their declared directi
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nRebalancer Architecture: ${rebalancer?.architecture || ''}`;
       sectionContent = rebalancer?.wade || rebalancer?.surface || '';
       sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
+    } else if (sectionKey.startsWith('growth-')) {
+      const cardIndex = parseInt(sectionKey.split('-')[1]);
+      const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
+      const growth = cardSection?.growth;
+      const draw = draws[cardIndex];
+      const trans = getComponent(draw.transient);
+      const stat = STATUSES[draw.status];
+      // SCOPED: Only send this specific card's draw info
+      drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nGrowth Architecture: ${growth?.architecture || ''}`;
+      sectionContent = growth?.wade || growth?.surface || '';
+      sectionContext = `the growth opportunity for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
     } else if (sectionKey === 'path') {
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for path synthesis
       sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
@@ -3100,9 +3221,11 @@ Interpret this new card as the architecture's response to their declared directi
       sectionContext = 'the "Why This Reading Appeared" section (teleological closure - why these specific cards emerged for this question)';
     }
 
-    // Custom prompts for Path and WhyAppeared sections
+    // Custom prompts for each expansion type / section
     let expansionPrompt;
-    if (sectionKey === 'path') {
+    if (expansionType === 'context') {
+      expansionPrompt = EXPANSION_PROMPTS.context.prompt;
+    } else if (sectionKey === 'path') {
       const pathPrompts = {
         unpack: "Expand on the Path to Balance with more detail. Go deeper on the synthesis of these corrections and what they're pointing to together.",
         clarify: "Restate the Path to Balance in simpler, everyday language. Plain words, short sentences — make it completely accessible.",
@@ -3124,6 +3247,15 @@ Interpret this new card as the architecture's response to their declared directi
     // Pass the original stance to expansion
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nCRITICAL FORMATTING RULES:\n1. NEVER write walls of text\n2. Each paragraph must be 2-4 sentences MAX\n3. Put TWO blank lines between each paragraph (this is required for rendering)\n4. Break your response into 3-5 distinct paragraphs\n5. Each paragraph should explore ONE aspect or dimension`;
+
+    // Inject user journey context if available
+    const contextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
+
+    // V1: Build reading-level converse history (compact summary for cross-card awareness)
+    const converseHistory = readingConverseRef.current;
+    const converseBlock = converseHistory.length > 0
+      ? `PRIOR CONVERSATIONS IN THIS READING:\n${converseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\nKeep awareness of these prior exchanges — the querent's exploration has a thread.\n\n`
+      : '';
 
     // Build DTP context for Explore mode expansions
     const expansionDtpContext = (() => {
@@ -3157,7 +3289,44 @@ Ground your expansion in this specific context.`;
       }
       return '';
     })();
-    const userMessage = `QUERENT'S QUESTION: "${question}"
+    // Build messages for API call
+    let messages;
+    if (expansionType === 'context' && userText) {
+      // Multi-turn context: build conversation history
+      const existingContext = expansions[sectionKey]?.context || [];
+      const baseInfo = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
+
+      if (existingContext.length === 0) {
+        // First context submission
+        messages = [{
+          role: 'user',
+          content: `${baseInfo}\n\nQUERENT'S ADDITIONAL CONTEXT: "${userText}"\n\n${expansionPrompt}\n${expansionDtpContext}\nKeep it focused on this specific section AND relevant to their question: "${question}"\n\nREMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them.`
+        }];
+      } else {
+        // Follow-up: reconstruct conversation with full context in first message
+        messages = [{
+          role: 'user',
+          content: `${baseInfo}\n\nQUERENT'S ADDITIONAL CONTEXT: "${existingContext[0].content}"\n\n${expansionPrompt}\n${expansionDtpContext}\nKeep it focused on this specific section AND relevant to their question: "${question}"\n\nREMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them.`
+        }];
+        // Add previous conversation turns
+        for (let i = 1; i < existingContext.length; i++) {
+          const turn = existingContext[i];
+          messages.push({
+            role: turn.role,
+            content: turn.role === 'user'
+              ? `FOLLOW-UP CONTEXT: "${turn.content}"\n\nBuild on your previous re-interpretation. Don't repeat yourself — show what's new.`
+              : turn.content
+          });
+        }
+        // Add new follow-up
+        messages.push({
+          role: 'user',
+          content: `FOLLOW-UP CONTEXT: "${userText}"\n\nBuild on your previous re-interpretation. Don't repeat yourself — show what's new.`
+        });
+      }
+    } else {
+      // Standard one-shot expansion
+      const userMessage = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
 ${drawText}
@@ -3171,12 +3340,14 @@ ${expansionDtpContext}
 Respond directly with the expanded content. No section markers needed. Keep it focused on this specific section AND relevant to their question: "${question}"
 
 REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between them. Never write a wall of text.`;
+      messages = [{ role: 'user', content: userMessage }];
+    }
 
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
+        body: JSON.stringify({ messages, system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -3184,13 +3355,34 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       // Post-process to ensure paragraph breaks (AI often ignores formatting instructions)
       const formattedContent = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
 
-      setExpansions(prev => ({
-        ...prev,
-        [sectionKey]: {
-          ...(prev[sectionKey] || {}),
-          [expansionType]: formattedContent
-        }
-      }));
+      if (expansionType === 'context') {
+        // Store as conversation array (append user turn + assistant response)
+        setExpansions(prev => ({
+          ...prev,
+          [sectionKey]: {
+            ...(prev[sectionKey] || {}),
+            context: [
+              ...(prev[sectionKey]?.context || []),
+              { role: 'user', content: userText },
+              { role: 'assistant', content: formattedContent }
+            ]
+          }
+        }));
+        // V1: Accumulate into reading-level converse history
+        readingConverseRef.current = [
+          ...readingConverseRef.current,
+          { section: sectionKey, userText }
+        ];
+      } else {
+        // Store as string (one-shot expansion)
+        setExpansions(prev => ({
+          ...prev,
+          [sectionKey]: {
+            ...(prev[sectionKey] || {}),
+            [expansionType]: formattedContent
+          }
+        }));
+      }
 
       // Accumulate token usage
       if (data.usage) {
@@ -3199,10 +3391,131 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
         } : data.usage);
       }
-    } catch (e) { 
-      setError(`Expansion error: ${e.message}`); 
+    } catch (e) {
+      setError(`Expansion error: ${e.message}`);
     }
     setExpanding(null);
+  };
+
+  // Render Converse button + conversation UI for synthesis sections (summary, whyAppeared, path, letter)
+  const renderSynthConverseUI = (sectionKey, sectionExps, isSectionExpanding, accentColor = 'amber') => {
+    const contextData = sectionExps?.context;
+    const hasContext = contextData && Array.isArray(contextData) && contextData.length > 0;
+    const isContextExpanding = isSectionExpanding && expanding?.type === 'context';
+    const isCollapsed = collapsedSections[`${sectionKey}-context`] === true;
+    const inputVisible = synthContextInput[sectionKey];
+
+    const colorMap = {
+      amber: { border: 'border-amber-700/30', bg: 'bg-amber-950/10', hoverBg: 'hover:bg-amber-900/20', text: 'text-amber-400', textDim: 'text-amber-400/80', quoteBg: 'bg-amber-950/30', btnBg: 'bg-amber-600', btnHover: 'hover:bg-amber-500', activeBg: 'bg-amber-500/30', activeBorder: 'border-amber-500/50', activeText: 'text-amber-300' },
+      cyan: { border: 'border-cyan-700/30', bg: 'bg-cyan-950/10', hoverBg: 'hover:bg-cyan-900/20', text: 'text-cyan-400', textDim: 'text-cyan-400/80', quoteBg: 'bg-cyan-950/30', btnBg: 'bg-cyan-600', btnHover: 'hover:bg-cyan-500', activeBg: 'bg-cyan-500/30', activeBorder: 'border-cyan-500/50', activeText: 'text-cyan-300' },
+      emerald: { border: 'border-emerald-700/30', bg: 'bg-emerald-950/10', hoverBg: 'hover:bg-emerald-900/20', text: 'text-emerald-400', textDim: 'text-emerald-400/80', quoteBg: 'bg-emerald-950/30', btnBg: 'bg-emerald-600', btnHover: 'hover:bg-emerald-500', activeBg: 'bg-emerald-500/30', activeBorder: 'border-emerald-500/50', activeText: 'text-emerald-300' },
+      violet: { border: 'border-violet-700/30', bg: 'bg-violet-950/10', hoverBg: 'hover:bg-violet-900/20', text: 'text-violet-400', textDim: 'text-violet-400/80', quoteBg: 'bg-violet-950/30', btnBg: 'bg-violet-600', btnHover: 'hover:bg-violet-500', activeBg: 'bg-violet-500/30', activeBorder: 'border-violet-500/50', activeText: 'text-violet-300' },
+    };
+    const c = colorMap[accentColor] || colorMap.amber;
+
+    return (
+      <>
+        {/* Converse conversation thread */}
+        {hasContext && (
+          <div className={`mt-4 rounded-lg border ${c.border} overflow-hidden animate-fadeIn ${c.bg}`}>
+            <div
+              className={`flex items-center gap-2 px-3 py-2 cursor-pointer ${c.hoverBg} transition-colors`}
+              onClick={(e) => { e.stopPropagation(); setCollapsedSections(prev => ({ ...prev, [`${sectionKey}-context`]: !prev[`${sectionKey}-context`] })); }}
+            >
+              <span className={`text-xs transition-transform duration-200 ${isCollapsed ? 'text-red-500' : c.text}`} style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>{'\u25BC'}</span>
+              <span className={`text-xs ${c.textDim} uppercase tracking-wider`}>Converse</span>
+              <span className="text-[0.6rem] text-zinc-600 ml-auto">
+                {Math.floor(contextData.length / 2)} exchange{contextData.length > 2 ? 's' : ''}
+              </span>
+              {isCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-1">tap to expand</span>}
+            </div>
+            {!isCollapsed && (
+              <div className={`px-3 pb-3 border-t ${c.border} space-y-3`}>
+                {contextData.map((turn, i) => (
+                  <div key={i}>
+                    {turn.role === 'user' ? (
+                      <div className={`text-xs ${c.textDim} ${c.quoteBg} rounded px-2 py-1.5 italic`}>
+                        &ldquo;{turn.content}&rdquo;
+                      </div>
+                    ) : (
+                      <div className="text-sm text-zinc-300 space-y-2 mt-1">
+                        {ensureParagraphBreaks(turn.content).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j} className="whitespace-pre-wrap">
+                            {renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Converse input — stays visible for multi-turn */}
+        {inputVisible && !(hasContext && isCollapsed) && (
+          <div className="mt-3 flex gap-2">
+            <input
+              type="text"
+              value={synthContextText[sectionKey] || ''}
+              onChange={(e) => setSynthContextText(prev => ({ ...prev, [sectionKey]: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey && synthContextText[sectionKey]?.trim() && !isContextExpanding) {
+                  e.preventDefault();
+                  handleExpand(sectionKey, 'context', false, synthContextText[sectionKey].trim());
+                  setSynthContextText(prev => ({ ...prev, [sectionKey]: '' }));
+                }
+              }}
+              placeholder={hasContext ? "Continue the conversation..." : "Share a thought, ask a question..."}
+              className={`flex-1 bg-zinc-800/80 text-zinc-200 text-sm rounded-lg px-3 py-2 border border-zinc-700 focus:${c.border.replace('border-', 'border-')} focus:outline-none placeholder-zinc-600`}
+              disabled={isContextExpanding}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (synthContextText[sectionKey]?.trim() && !isContextExpanding) {
+                  handleExpand(sectionKey, 'context', false, synthContextText[sectionKey].trim());
+                  setSynthContextText(prev => ({ ...prev, [sectionKey]: '' }));
+                }
+              }}
+              disabled={!synthContextText[sectionKey]?.trim() || isContextExpanding}
+              className={`px-3 py-2 text-sm rounded-lg ${c.btnBg} text-white ${c.btnHover} disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0`}
+            >
+              {isContextExpanding ? (
+                <span className="inline-block w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></span>
+              ) : '\u2192'}
+            </button>
+          </div>
+        )}
+      </>
+    );
+  };
+
+  // Render Converse button for synthesis sections
+  const renderSynthConverseButton = (sectionKey, sectionExps, isSectionExpanding, accentColor = 'amber') => {
+    const hasContext = sectionExps?.context && Array.isArray(sectionExps.context) && sectionExps.context.length > 0;
+    const colorMap = {
+      amber: { activeBg: 'bg-amber-500/30', activeText: 'text-amber-300', activeBorder: 'border-amber-500/50' },
+      cyan: { activeBg: 'bg-cyan-500/30', activeText: 'text-cyan-300', activeBorder: 'border-cyan-500/50' },
+      emerald: { activeBg: 'bg-emerald-500/30', activeText: 'text-emerald-300', activeBorder: 'border-emerald-500/50' },
+      violet: { activeBg: 'bg-violet-500/30', activeText: 'text-violet-300', activeBorder: 'border-violet-500/50' },
+    };
+    const c = colorMap[accentColor] || colorMap.amber;
+
+    return (
+      <button
+        onClick={(e) => { e.stopPropagation(); setSynthContextInput(prev => ({ ...prev, [sectionKey]: !prev[sectionKey] })); }}
+        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+          synthContextInput[sectionKey] || hasContext
+            ? `${c.activeBg} ${c.activeText} border ${c.activeBorder}`
+            : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'
+        }`}
+      >
+        Converse
+      </button>
+    );
   };
 
   const sendFollowUp = async () => {
@@ -3267,7 +3580,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
     
     // Pass stance to follow-up
     const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
-    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are continuing a conversation about a reading. Answer their follow-up question directly, referencing the reading context as needed. No section markers — just respond naturally.
+    const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are conversing about an encounter. The querent wants to go deeper, challenge something, or explore a thread. Respond directly, referencing the reading context as needed. This is a dialogue, not a lecture. No section markers — just respond naturally.
 
 CRITICAL FORMATTING RULES:
 1. Write SHORT paragraphs (2-3 sentences MAX each)
@@ -3280,8 +3593,15 @@ CRITICAL FORMATTING RULES:
       { role: 'user', content: followUp }
     ];
 
-    const contextMessage = `THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
-    
+    // V1: Inject user journey context + reading-level converse history
+    const fuContextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
+    const fuConverseHistory = readingConverseRef.current;
+    const fuConverseBlock = fuConverseHistory.length > 0
+      ? `PRIOR CONVERSATIONS IN THIS READING:\n${fuConverseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\n\n`
+      : '';
+
+    const contextMessage = `${fuContextPrefix}${fuConverseBlock}THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
+
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
@@ -3299,6 +3619,8 @@ CRITICAL FORMATTING RULES:
       // Post-process to ensure paragraph breaks
       const formattedResponse = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
       setFollowUpMessages([...messages, { role: 'assistant', content: formattedResponse }]);
+      // V1: Accumulate follow-up into reading-level converse history
+      readingConverseRef.current = [...readingConverseRef.current, { section: 'follow-up', userText: followUp }];
       setFollowUp('');
 
       // Accumulate token usage
@@ -3312,19 +3634,15 @@ CRITICAL FORMATTING RULES:
     setFollowUpLoading(false);
   };
 
-  const resetReading = (skipConfirm = false) => {
-    // Warn user if they have an active reading
-    if (!skipConfirm && draws) {
-      if (!window.confirm('Start a new reading? Your current reading will be cleared.')) {
-        return;
-      }
-    }
+  const resetReading = () => {
     // Save telemetry before resetting (fire and forget)
     if (savedReadingId) {
       updateReadingTelemetry(savedReadingId, telemetry).catch(err => console.log('[Telemetry] Failed to save:', err));
       setSavedReadingId(null);
     }
-    setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]);
+    // Clear auto-resume so new reading starts fresh
+    try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
+    setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -3332,6 +3650,7 @@ CRITICAL FORMATTING RULES:
     setDtpInput(''); setDtpTokens(null);
     // Clear thread state
     setThreadData({}); setThreadOperations({}); setThreadContexts({}); setThreadLoading({}); setCollapsedThreads({});
+    setAriadneThread(null); setAriadneLoading(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false); setContentSaved(false); setSynthesisSaved(false);
     // Reset telemetry
@@ -3342,6 +3661,203 @@ CRITICAL FORMATTING RULES:
     window.history.replaceState({}, '', window.location.pathname);
   };
 
+  // === ARIADNE THREAD ===
+  // Chain traversal through archetype positions: T→Root(T)→Draw in Root(T)→Root(new T)→...
+
+  const handleTraceRoot = (cardIndex) => {
+    if (ariadneThread || ariadneLoading) return; // Already tracing
+    const draw = draws[cardIndex];
+    if (!draw) return;
+
+    // Find the archetype root of this card's transient
+    const rootPosition = getArchetypeRoot(draw.transient);
+
+    // Generate a new draw at the root position
+    const newDraw = generateTraceDraw(rootPosition);
+    const visitedPositions = new Set([draw.position, rootPosition]);
+    // Check for fixed point: transient's root IS the position it's drawn in
+    const newRoot = getArchetypeRoot(newDraw.transient);
+    const isFixedPoint = newRoot === rootPosition;
+    const isCycle = false; // Can't cycle on first step
+
+    setAriadneThread({
+      sourceCardIndex: cardIndex,
+      steps: [{
+        draw: newDraw,
+        position: rootPosition,
+        interpretation: null,
+        loaded: false,
+        isFixedPoint,
+        isCycle
+      }],
+      visitedPositions: [...visitedPositions],
+      terminated: isFixedPoint,
+      terminationReason: isFixedPoint ? 'fixed-point' : undefined
+    });
+  };
+
+  const handleTraceContinue = () => {
+    if (!ariadneThread || ariadneLoading || ariadneThread.terminated) return;
+
+    const lastStep = ariadneThread.steps[ariadneThread.steps.length - 1];
+    const nextPosition = getArchetypeRoot(lastStep.draw.transient);
+
+    // Check for cycle
+    const visited = new Set(ariadneThread.visitedPositions);
+    const isCycle = visited.has(nextPosition);
+
+    // Check for max steps
+    if (ariadneThread.steps.length >= MAX_ARIADNE_STEPS) {
+      setAriadneThread(prev => ({ ...prev, terminated: true, terminationReason: 'max-steps' }));
+      return;
+    }
+
+    if (isCycle) {
+      setAriadneThread(prev => ({
+        ...prev,
+        terminated: true,
+        terminationReason: 'cycle',
+        cycleTarget: nextPosition
+      }));
+      return;
+    }
+
+    // Generate a new draw at the next position
+    const newDraw = generateTraceDraw(nextPosition);
+    const newRoot = getArchetypeRoot(newDraw.transient);
+    const isFixedPoint = newRoot === nextPosition;
+
+    visited.add(nextPosition);
+
+    setAriadneThread(prev => ({
+      ...prev,
+      steps: [...prev.steps, {
+        draw: newDraw,
+        position: nextPosition,
+        interpretation: null,
+        loaded: false,
+        isFixedPoint,
+        isCycle: false
+      }],
+      visitedPositions: [...visited],
+      terminated: isFixedPoint,
+      terminationReason: isFixedPoint ? 'fixed-point' : undefined
+    }));
+  };
+
+  const handleTraceStop = () => {
+    if (!ariadneThread) return;
+    setAriadneThread(prev => ({
+      ...prev,
+      terminated: true,
+      terminationReason: 'user-stopped'
+    }));
+  };
+
+  const handleTraceCardLoad = async (stepIndex) => {
+    if (!ariadneThread || ariadneLoading) return;
+    const step = ariadneThread.steps[stepIndex];
+    if (!step || step.loaded) return;
+
+    setAriadneLoading(true);
+
+    const trans = getComponent(step.draw.transient);
+    const stat = STATUSES[step.draw.status];
+    const posArch = ARCHETYPES[step.position];
+    const statusPrefix = stat.prefix || 'Balanced';
+
+    // Build chain context for the AI
+    const chainContext = ariadneThread.steps.slice(0, stepIndex).map((s, i) => {
+      const sTrans = getComponent(s.draw.transient);
+      const sArch = ARCHETYPES[s.position];
+      return `Step ${i + 1}: ${sTrans.name} in ${sArch.name} position`;
+    }).join(' → ');
+
+    const sourceCard = draws[ariadneThread.sourceCardIndex];
+    const sourceTrans = getComponent(sourceCard.transient);
+    const sourceArch = ARCHETYPES[sourceCard.position];
+
+    // Individual traced cards inherit current posture (Council ruling Q5)
+    const systemPrompt = buildSystemPrompt(userLevel, {
+      posture: spreadType,
+      stance,
+      persona,
+      humor,
+      showArchitecture: showArchitectureTerms
+    });
+
+    // Build the trace interpretation prompt
+    const userMessage = `${userContextRef.current ? `${userContextRef.current}\n\n` : ''}ARIADNE THREAD — Tracing the root structure of this reading.
+
+ORIGIN: ${sourceTrans.name} in ${sourceArch.name} position
+${chainContext ? `CHAIN SO FAR: ${chainContext}\n` : ''}
+CURRENT STEP ${stepIndex + 1}: ${statusPrefix} ${trans.name} drawn in ${posArch.name} position
+
+THE SIGNATURE: ${trans.name}${trans.traditional ? ` (${trans.traditional})` : ''}
+${trans.extended || trans.description}
+Status: ${statusPrefix} (${stat.name} — ${stat.desc})
+Position: ${posArch.name} — ${posArch.description}
+
+QUESTION BEING EXPLORED: "${sanitizeForAPI(question)}"
+
+Interpret this signature in its position, through the lens of the Ariadne Thread. This card was reached by tracing the archetype root of the previous signature. What does this structural chain reveal? How does arriving at ${posArch.name} through this path illuminate the original question?
+
+Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full reading.`;
+
+    try {
+      const res = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: userMessage }],
+          system: systemPrompt,
+          model: getModelId(selectedModel),
+          max_tokens: 2000,
+          userId: currentUser?.id
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      const formatted = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
+
+      setAriadneThread(prev => ({
+        ...prev,
+        steps: prev.steps.map((s, i) =>
+          i === stepIndex ? { ...s, interpretation: formatted, loaded: true } : s
+        )
+      }));
+
+      // Accumulate into reading-level converse history
+      readingConverseRef.current = [
+        ...readingConverseRef.current,
+        { section: `ariadne-step-${stepIndex + 1}`, userText: `Traced to ${posArch.name}: ${trans.name}` }
+      ];
+
+      if (data.usage) {
+        setTokenUsage(prev => prev ? {
+          input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
+          output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
+        } : data.usage);
+      }
+    } catch (e) {
+      setError(`Trace error: ${e.message}`);
+    }
+    setAriadneLoading(false);
+  };
+
+  // V1: Apply a named preset — bundles posture + card count + voice settings
+  const applyPreset = (presetKey) => {
+    const preset = READING_PRESETS[presetKey];
+    if (!preset) return;
+    const s = preset.settings;
+    if (s.spreadType) setSpreadType(s.spreadType);
+    if (s.spreadKey) setSpreadKey(s.spreadKey);
+    if (s.persona) setPersona(s.persona);
+    if (s.humor !== undefined) setHumor(s.humor);
+    if (s.showArchitecture !== undefined) setShowArchitectureTerms(s.showArchitecture);
+  };
+
   const getCardHouse = (draw, index) => {
     if (spreadType === 'reflect') {
       // Reflect mode uses neutral Gestalt coloring since positions don't have houses
@@ -3350,6 +3866,22 @@ CRITICAL FORMATTING RULES:
       return ARCHETYPES[draw.position]?.house || 'Gestalt';
     }
     return 'Gestalt';
+  };
+
+  // Helper to open card detail modal (full-screen with stats)
+  const openCardDetail = async (transientId) => {
+    setCardDetailId(transientId);
+    if (!userStatsRef.current && currentUser) {
+      try {
+        const session = await getSession();
+        const token = session?.session?.access_token;
+        if (token) {
+          const res = await fetch('/api/user/stats', { headers: { 'Authorization': `Bearer ${token}` } });
+          const data = await res.json();
+          if (data.success) userStatsRef.current = data.stats;
+        }
+      } catch (e) { /* silent */ }
+    }
   };
 
   // === CARD DISPLAY (simplified, visual only) ===
@@ -3390,8 +3922,10 @@ CRITICAL FORMATTING RULES:
     const house = getCardHouse(draw, index);
     const houseColors = HOUSE_COLORS[house];
 
-    const contextLabel = isReflect ? spreadConfig?.positions?.[index]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : 'Draw');
-    const contextSub = isReflect ? null : (draw.position !== null ? `Position ${draw.position}` : null);
+    // V1: Every card has an archetype position. Frame labels are additional context.
+    const contextLabel = ARCHETYPES[draw.position]?.name || 'Draw';
+    const frameLabel = isReflect && spreadConfig?.positions?.[index]?.name ? spreadConfig.positions[index].name : null;
+    const contextSub = frameLabel || null;
     
     // Helper to open card info
     const openCardInfo = (cardId) => {
@@ -3429,12 +3963,21 @@ CRITICAL FORMATTING RULES:
       >
         {/* Card artwork background */}
         {showCardImages && cardImagePath && (
-          <img
-            src={cardImagePath}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
-            aria-hidden="true"
-          />
+          <>
+            <img
+              src={cardImagePath}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-15 pointer-events-none"
+              aria-hidden="true"
+            />
+            <button
+              className="absolute top-2 right-2 z-20 p-1.5 rounded-md bg-black/40 text-zinc-400 hover:text-white sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+              title="View card detail"
+              onClick={(e) => { e.stopPropagation(); openCardDetail(draw.transient); }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+            </button>
+          </>
         )}
         <div className="relative z-10 mb-3 flex justify-between items-start">
           <span
@@ -3466,7 +4009,7 @@ CRITICAL FORMATTING RULES:
         <div className="relative z-10 text-sm text-zinc-400 mb-3">
           in your <span
             className={`font-medium cursor-pointer hover:underline decoration-dotted ${houseColors.text}`}
-            onClick={(e) => { e.stopPropagation(); isReflect ? openHouseInfo(house) : openCardInfo(draw.position); }}
+            onClick={(e) => { e.stopPropagation(); openCardInfo(draw.position); }}
           >{contextLabel}</span>
           {contextSub && <span className="text-zinc-600 text-xs ml-1">({contextSub})</span>}
         </div>
@@ -3666,9 +4209,8 @@ CRITICAL FORMATTING RULES:
       // New structure: rebalancer is nested in card
       const rebalancer = card.rebalancer;
 
-      const context = isReflect && spreadConfig
-        ? spreadConfig.positions?.[card.index]?.name
-        : `Position ${card.index + 1}`;
+      // V1: Always use archetype position name
+      const context = ARCHETYPES[draw.position]?.name || `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       md += `### Signature ${card.index + 1} — ${context}\n\n`;
@@ -3718,14 +4260,22 @@ CRITICAL FORMATTING RULES:
         md += `#### Words to the Whys\n\n${whyContent}\n\n`;
       }
 
-      // Card expansions (Unpack, Clarify, Example, Architecture)
+      // Card expansions (Unpack, Clarify, Example, Architecture — excludes context which is array)
       const cardExpansions = expansions[`card-${card.index}`] || {};
-      Object.entries(cardExpansions).forEach(([expType, content]) => {
+      Object.entries(cardExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
         if (content) {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `#### ${label}\n\n${content}\n\n`;
         }
       });
+      // Context conversations
+      const cardContext = cardExpansions.context;
+      if (cardContext && Array.isArray(cardContext) && cardContext.length > 0) {
+        md += `#### Context\n\n`;
+        cardContext.forEach(turn => {
+          md += turn.role === 'user' ? `> *"${turn.content}"*\n\n` : `${turn.content}\n\n`;
+        });
+      }
     });
 
     // Path to Balance (new structure with depths - use deep first)
@@ -3748,8 +4298,8 @@ CRITICAL FORMATTING RULES:
       md += `---\n\n## Letter\n\n${letterContent}\n\n`;
       // Letter expansions
       const letterExpansions = expansions['letter'] || {};
-      Object.entries(letterExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(letterExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `### ${label}\n\n${content}\n\n`;
         }
@@ -3759,8 +4309,8 @@ CRITICAL FORMATTING RULES:
     // Summary expansions
     const summaryExpansions = expansions['summary'] || {};
     if (Object.keys(summaryExpansions).length > 0) {
-      Object.entries(summaryExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(summaryExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `### Overview ${label}\n\n${content}\n\n`;
         }
@@ -3842,7 +4392,8 @@ CRITICAL FORMATTING RULES:
       const stat = STATUSES[draw.status];
       // New structure: rebalancer is nested in card
       const rebalancer = card.rebalancer;
-      const context = isReflect && spreadConfig ? spreadConfig.positions?.[card.index]?.name : `Position ${card.index + 1}`;
+      // V1: Always use archetype position name
+      const context = ARCHETYPES[draw.position]?.name || `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       let archDetails = '';
@@ -3907,8 +4458,8 @@ CRITICAL FORMATTING RULES:
       // Card expansions (Unpack, Clarify, Example, Architecture)
       const cardExpansions = expansions[`card-${card.index}`] || {};
       let expansionsHtml = '';
-      Object.entries(cardExpansions).forEach(([expType, content]) => {
-        if (content) {
+      Object.entries(cardExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           expansionsHtml += `
             <div class="expansion">
@@ -3917,6 +4468,17 @@ CRITICAL FORMATTING RULES:
             </div>`;
         }
       });
+      // Context conversations
+      const cardContextHtml = cardExpansions.context;
+      if (cardContextHtml && Array.isArray(cardContextHtml) && cardContextHtml.length > 0) {
+        expansionsHtml += `<div class="expansion"><span class="expansion-badge">Context</span><div class="expansion-content">`;
+        cardContextHtml.forEach(turn => {
+          expansionsHtml += turn.role === 'user'
+            ? `<p style="color:#fbbf24;font-style:italic">&ldquo;${escapeHtml(turn.content)}&rdquo;</p>`
+            : `<p>${escapeHtml(turn.content)}</p>`;
+        });
+        expansionsHtml += `</div></div>`;
+      }
 
       // Only render signature-content div if there's actual content
       const signatureContentHtml = cardContent.trim()
@@ -3946,8 +4508,8 @@ CRITICAL FORMATTING RULES:
     // Build letter expansions HTML
     const letterExpansions = expansions['letter'] || {};
     let letterExpansionsHtml = '';
-    Object.entries(letterExpansions).forEach(([expType, content]) => {
-      if (content) {
+    Object.entries(letterExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+      if (content && typeof content === 'string') {
         const label = EXPANSION_PROMPTS[expType]?.label || expType;
         letterExpansionsHtml += `
           <div class="expansion" style="margin-left: 0;">
@@ -3960,8 +4522,8 @@ CRITICAL FORMATTING RULES:
     // Build summary expansions HTML
     const summaryExpansions = expansions['summary'] || {};
     let summaryExpansionsHtml = '';
-    Object.entries(summaryExpansions).forEach(([expType, content]) => {
-      if (content) {
+    Object.entries(summaryExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+      if (content && typeof content === 'string') {
         const label = EXPANSION_PROMPTS[expType]?.label || expType;
         summaryExpansionsHtml += `
           <div class="expansion" style="margin-left: 0;">
@@ -4201,8 +4763,8 @@ CRITICAL FORMATTING RULES:
               >
                 ✉
               </a>
-              {/* Collective Pulse - admin only until feature is locked down */}
-              {userIsAdmin && (
+              {/* Collective Pulse - visible to all when enabled, admin-only otherwise */}
+              {(featureFlags.pulse_enabled || userIsAdmin) && (
                 <a
                   href="/pulse"
                   className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
@@ -4348,7 +4910,7 @@ CRITICAL FORMATTING RULES:
                       </button>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-zinc-500">Cards</span>
+                      <span className="text-xs text-zinc-500">Signatures</span>
                       <button
                         onClick={() => setShowCardImages(!showCardImages)}
                         className={`p-2 rounded-lg transition-colors ${
@@ -4584,59 +5146,26 @@ CRITICAL FORMATTING RULES:
                   opacity: { duration: 0.2 }
                 }}
               >
-              {/* Complexity Slider - Admin only for now */}
-              {userIsAdmin && useComplexitySlider && (
-                <div className="mb-4 px-2">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-zinc-500">Complexity Level</span>
-                    <span className="text-xs text-amber-400 font-medium">
-                      {complexityLevel} / {featureConfig.maxUserLevel || 20}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max={featureConfig.maxUserLevel || 20}
-                    value={complexityLevel}
-                    onChange={(e) => setComplexityLevel(parseInt(e.target.value))}
-                    className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700"
-                    style={{
-                      background: `linear-gradient(to right, rgb(251, 191, 36) 0%, rgb(251, 191, 36) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) 100%)`
-                    }}
-                  />
-                  <div className="flex justify-between text-[9px] text-zinc-600 mt-1">
-                    <span>Reflect 1</span>
-                    <span>Forge 5</span>
-                  </div>
-                </div>
-              )}
-
               {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-1 px-2">
+              <div className="flex justify-center mb-1 px-2 overflow-x-auto" style={{ scrollbarWidth: 'thin' }}>
                 {/* Mode tabs centered - compact on mobile */}
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5">
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5 flex-shrink-0">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
-                    disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
+                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e)) setSpreadType('reflect'); }}
                     data-help="mode-reflect"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'reflect' ? { backgroundColor: 'rgba(124, 58, 237, 0.25)', border: '1px solid rgba(124, 58, 237, 0.5)' } : {}}>
                     Reflect
                   </button>
                   {/* Discover - Blue (#2563EB) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
-                    disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
+                    onClick={(e) => { if (!handleHelpClick('mode-discover', e)) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     data-help="mode-discover"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('discover', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'discover' ? { backgroundColor: 'rgba(37, 99, 235, 0.25)', border: '1px solid rgba(37, 99, 235, 0.5)' } : {}}>
                     Discover
@@ -4645,19 +5174,14 @@ CRITICAL FORMATTING RULES:
                   <button
                     onClick={(e) => {
                       if (handleHelpClick('mode-explore', e)) return;
-                      if (useComplexitySlider && !isModeEnabled('explore', complexityLevel)) return;
                       const isNewSelection = spreadType !== 'explore';
                       setSpreadType('explore');
-                      // Explore mode: mode selection IS the final selection
                       const selectionKey = 'explore';
                       setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
                     }}
-                    disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('explore', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'explore' ? { backgroundColor: 'rgba(5, 150, 105, 0.25)', border: '1px solid rgba(5, 150, 105, 0.5)' } : {}}>
                     Explore
@@ -4666,19 +5190,14 @@ CRITICAL FORMATTING RULES:
                   <button
                     onClick={(e) => {
                       if (handleHelpClick('mode-forge', e)) return;
-                      if (useComplexitySlider && !isModeEnabled('forge', complexityLevel)) return;
                       const isNewSelection = spreadType !== 'forge';
                       setSpreadType('forge');
-                      // Forge mode: mode selection IS the final selection
                       const selectionKey = 'forge';
                       setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
                     }}
-                    disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('forge', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
                     Forge
@@ -4709,44 +5228,6 @@ CRITICAL FORMATTING RULES:
                     <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
                   </svg>
                 </button>
-                {/* Bottom row: Depth, Cards */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                >
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    {defaultDepth === 'shallow' ? (
-                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                    ) : (
-                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                    )}
-                  </svg>
-                </button>
-                <button
-                  onClick={() => {
-                    const newState = !defaultExpanded;
-                    setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                >
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {defaultExpanded ? (
-                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                    ) : (
-                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                    )}
-                  </svg>
-                </button>
                 {/* Tooltip */}
                 <AnimatePresence>
                   {controlTooltip && (
@@ -4775,27 +5256,22 @@ CRITICAL FORMATTING RULES:
                     <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
-                        const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
                         return (
                           <motion.button
                             key={count}
                             data-help={helpKey}
-                            disabled={isDisabled}
                             onClick={(e) => {
-                              if (!isDisabled && !handleHelpClick(helpKey, e)) {
+                              if (!handleHelpClick(helpKey, e)) {
                                 setReflectCardCount(count);
-                                // Auto-select first spread for this count
                                 setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
                               }
                             }}
                             className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                              isDisabled
-                                ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
-                                : reflectCardCount === count
-                                  ? 'text-white'
-                                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                              reflectCardCount === count
+                                ? 'text-white'
+                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                             } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
-                            style={reflectCardCount === count && !isDisabled ? {
+                            style={reflectCardCount === count ? {
                               backgroundColor: `${MODE_COLORS.reflect.primary}40`,
                               border: `1px solid ${MODE_COLORS.reflect.primary}80`
                             } : {}}
@@ -4858,28 +5334,23 @@ CRITICAL FORMATTING RULES:
                   <div className={`flex gap-1 justify-center ${rippleTarget === 'counts' ? '' : ''}`} data-help="spread-selector">
                     {Object.entries(RANDOM_SPREADS).map(([key, value], index) => {
                       const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
-                      const isDisabled = useComplexitySlider && !isCardCountEnabled('discover', value.count, complexityLevel);
                       return (
                         <motion.button
                           key={key}
                           data-help={helpKey}
-                          disabled={isDisabled}
                           onClick={(e) => {
-                            if (isDisabled || handleHelpClick(helpKey, e)) return;
+                            if (handleHelpClick(helpKey, e)) return;
                             const isNewSelection = spreadKey !== key;
                             setSpreadKey(key);
-                            // Tap-to-confirm: first tap = preview, second tap = collapse
                             const selectionKey = `discover-${key}`;
                             handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
                           }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                            isDisabled
-                              ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
-                              : spreadKey === key
-                                ? 'text-white'
-                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            spreadKey === key
+                              ? 'text-white'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                           } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
-                          style={spreadKey === key && !isDisabled ? {
+                          style={spreadKey === key ? {
                             backgroundColor: `${MODE_COLORS.discover.primary}40`,
                             border: `1px solid ${MODE_COLORS.discover.primary}80`
                           } : {}}
@@ -4904,6 +5375,22 @@ CRITICAL FORMATTING RULES:
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
+              {/* Last Reading Strip */}
+              {currentUser && !parsedReading && (
+                <LastReadingStrip currentUser={currentUser} />
+              )}
+              {/* Saved Topics Bar */}
+              {currentUser && !parsedReading && (
+                <TopicBar
+                  currentUser={currentUser}
+                  activeTopic={activeTopic}
+                  question={question}
+                  onSelectTopic={(topic) => {
+                    setActiveTopic(topic);
+                    if (topic) setQuestion(topic.label);
+                  }}
+                />
+              )}
               {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-2 mt-1">
                 <div
@@ -4933,6 +5420,31 @@ CRITICAL FORMATTING RULES:
                       </svg>
                     </motion.div>
                   </button>
+                  {/* V1: Preset quick-start buttons — visible when controls collapsed */}
+                  {!advancedMode && (
+                    <div className="flex gap-1.5 justify-center mb-2 px-4">
+                      {Object.entries(READING_PRESETS).map(([key, preset]) => {
+                        const isActive = key === 'explore' ? spreadType === 'explore'
+                          : key === 'forge' ? spreadType === 'forge'
+                          : key === 'deep' ? (spreadType === 'discover' && spreadKey === 'three')
+                          : (spreadType === 'discover' && spreadKey === 'one');
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => applyPreset(key)}
+                            className={`text-[0.65rem] px-2.5 py-1 rounded-md transition-all border ${
+                              isActive
+                                ? `${preset.bgColor} ${preset.color} ${preset.borderColor}`
+                                : 'bg-zinc-900/50 text-zinc-500 border-zinc-800 hover:text-zinc-300 hover:border-zinc-700'
+                            }`}
+                          >
+                            <span className="mr-1">{preset.icon}</span>
+                            {preset.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
                     <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
@@ -4942,7 +5454,7 @@ CRITICAL FORMATTING RULES:
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                         className={`user-input-area content-pane w-full border-2 rounded-lg px-4 pt-4 pb-12 pr-12 focus:outline-none resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
-                          caretColor: 'transparent', // Hide text cursor
+                          caretColor: '#fbbf24', // Amber cursor matching theme
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
@@ -5010,7 +5522,7 @@ CRITICAL FORMATTING RULES:
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
                         className={`user-input-area content-pane w-full border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : ''} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
-                          caretColor: 'transparent', // Hide text cursor
+                          caretColor: '#fbbf24', // Amber cursor matching theme
                           // CSS custom properties for pulse animation
                           '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
                           '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
@@ -5196,7 +5708,7 @@ CRITICAL FORMATTING RULES:
                           animation: 'gradient-shift 3s ease infinite',
                         }}
                       >
-                        {loading ? '...' : 'INITIATE'}
+                        {loading ? '...' : 'ENTER THE FIELD'}
                       </span>
                       {/* Wireframe chevron - translates right on hover */}
                       <svg
@@ -5273,45 +5785,6 @@ CRITICAL FORMATTING RULES:
                     <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
                     <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
                     <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                  </svg>
-                </button>
-                {/* Depth */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    {defaultDepth === 'shallow' ? (
-                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                    ) : (
-                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                    )}
-                  </svg>
-                </button>
-                {/* Cards */}
-                <button
-                  onClick={() => {
-                    const newState = !defaultExpanded;
-                    setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'cards' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Cards: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {defaultExpanded ? (
-                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                    ) : (
-                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                    )}
                   </svg>
                 </button>
               </div>
@@ -5514,7 +5987,7 @@ CRITICAL FORMATTING RULES:
                       />
                     </div>
 
-                    {/* Sliders Stack */}
+                    {/* V1: Simplified Voice Controls — Humor + Architecture Toggle */}
                     <div className="space-y-4">
                       {/* Humor */}
                       <div className="space-y-1.5">
@@ -5534,201 +6007,44 @@ CRITICAL FORMATTING RULES:
                         />
                       </div>
 
-                      {/* Register */}
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
-                          <span>Chaos</span>
-                          <span className="text-blue-400">{REGISTER_LEVELS[register]}</span>
-                          <span>Oracle</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={register}
-                          onChange={(e) => setRegister(parseInt(e.target.value))}
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
-                        />
-                      </div>
-
-                      {/* Agency */}
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
-                          <span>Witness</span>
-                          <span className="text-emerald-400">{CREATOR_LEVELS[creator]}</span>
-                          <span>Creator</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={creator}
-                          onChange={(e) => setCreator(parseInt(e.target.value))}
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Footer Toggles (Roast/Direct) */}
-                    <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setRoastMode(!roastMode); }}
-                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                      >
-                        Roast Mode
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setDirectMode(!directMode); }}
-                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                      >
-                        Direct Mode
-                      </button>
-                    </div>
-
-                    {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
-                    {showAdvancedVoice && (
-                      <div className="mt-4 pt-3 border-t border-white/5">
+                      {/* Architecture Visibility Toggle */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Show Architecture</span>
                         <button
-                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                          data-help="advanced-voice"
-                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                          onClick={(e) => { e.stopPropagation(); setShowArchitectureTerms(!showArchitectureTerms); }}
+                          className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${showArchitectureTerms ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
-                          <span className="text-[11px]">{showLandingFineTune ? '▾' : '▸'}</span>
-                          <span className="text-[11px] font-mono uppercase tracking-wider">Advanced</span>
+                          {showArchitectureTerms ? 'ON' : 'OFF'}
                         </button>
-
-                        {showLandingFineTune && (
-                          <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
-                            {/* Delivery Presets */}
-                            <div
-                              className="mb-3 pb-3 border-b border-zinc-700/50"
-                              data-help="delivery-preset"
-                              onClick={(e) => handleHelpClick('delivery-preset', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                                  const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                                  return (
-                                    <button
-                                      key={key}
-                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                                      className={`px-1.5 py-1 rounded text-[10px] transition-all ${
-                                        isActive
-                                          ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
-                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                      }`}
-                                      title={preset.preview || preset.name}
-                                    >
-                                      {preset.name}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Voice Preview */}
-                            <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                              <p className="text-zinc-400 text-[11px] italic leading-relaxed">
-                                "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                              </p>
-                            </div>
-
-                            {/* Complexity Selector */}
-                            <div
-                              className="mb-3"
-                              data-help="voice-complexity"
-                              onClick={(e) => handleHelpClick('voice-complexity', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                                  <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                                    className={`px-1.5 py-1 rounded text-[10px] transition-all ${
-                                      stance.complexity === key
-                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                    }`}
-                                  >
-                                    {opt.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Tone Selector */}
-                            <div
-                              className="mb-3"
-                              data-help="voice-tone"
-                              onClick={(e) => handleHelpClick('voice-tone', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                                  <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                                    className={`px-1.5 py-1 rounded text-[10px] transition-all capitalize ${
-                                      stance.seriousness === key
-                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                    }`}
-                                  >
-                                    {key}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Stance Grid */}
-                            <div
-                              data-help="stance-selector"
-                              onClick={(e) => handleHelpClick('stance-selector', e)}
-                            >
-                              <StanceSelector
-                                stance={stance}
-                                setStance={setStance}
-                                showCustomize={true}
-                                setShowCustomize={() => {}}
-                                gridOnly={true}
-                                disabled={helpMode}
-                              />
-                            </div>
-
-                            {/* Model Selector + Token Display */}
-                            <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                              {getAvailableModels().length > 1 && (
-                                <div className="flex items-center justify-center gap-2 mb-1.5">
-                                  <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
-                                  <select
-                                    value={selectedModel}
-                                    onChange={(e) => setSelectedModel(e.target.value)}
-                                    className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
-                                  >
-                                    {getAvailableModels().map(m => (
-                                      <option key={m} value={m}>{getModelLabel(m)}</option>
-                                    ))}
-                                  </select>
-                                </div>
-                              )}
-                              <label className="flex items-center justify-center gap-2 cursor-pointer">
-                                <input
-                                  type="checkbox"
-                                  checked={showTokenUsage}
-                                  onChange={(e) => setShowTokenUsage(e.target.checked)}
-                                  className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                                />
-                                <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
-                              </label>
-                            </div>
-                          </div>
-                        )}
                       </div>
-                    )}
+                    </div>
+
+                    {/* Model Selector + Token Display */}
+                    <div className="mt-4 pt-3 border-t border-white/5">
+                      {getAvailableModels().length > 1 && (
+                        <div className="flex items-center justify-center gap-2 mb-1.5">
+                          <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
+                          <select
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                          >
+                            {getAvailableModels().map(m => (
+                              <option key={m} value={m}>{getModelLabel(m)}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                      <label className="flex items-center justify-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={showTokenUsage}
+                          onChange={(e) => setShowTokenUsage(e.target.checked)}
+                          className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
+                      </label>
+                    </div>
                   </motion.div>
                 </>
               )}
@@ -5747,12 +6063,14 @@ CRITICAL FORMATTING RULES:
               <div className="w-16 h-16 border-2 border-zinc-800 rounded-full"></div>
               <div className="absolute inset-0 w-16 h-16 border-2 border-transparent border-t-zinc-400 rounded-full animate-spin"></div>
             </div>
-            <p
-              className="mt-6 text-zinc-500 text-sm text-center max-w-xs transition-opacity duration-300"
+            <div
+              className="mt-6 bg-zinc-900/60 backdrop-blur-sm rounded-lg px-6 py-4 max-w-xs transition-opacity duration-300"
               style={{ opacity: loadingPhraseVisible ? 1 : 0 }}
             >
-              {loadingPhrases[loadingPhraseIndex] || ''}
-            </p>
+              <p className="text-zinc-400 text-sm text-center">
+                {loadingPhrases[loadingPhraseIndex] || ''}
+              </p>
+            </div>
           </div>
         )}
 
@@ -5821,7 +6139,9 @@ CRITICAL FORMATTING RULES:
                   draws={draws}
                   locusSubjects={locusSubjects}
                   voice="friend-warm"
+                  topicId={activeTopic?.id}
                   onSave={(saved) => setSavedReadingId(saved?.id)}
+                  onBadges={(badges) => setPendingBadges(badges)}
                 />
                 <ShareReadingButton
                   reading={{
@@ -5897,7 +6217,9 @@ CRITICAL FORMATTING RULES:
                       draws={draws}
                       locusSubjects={locusSubjects}
                       voice={`${stance.complexity}-${stance.voice}`}
+                      topicId={activeTopic?.id}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
+                      onBadges={(badges) => setPendingBadges(badges)}
                     />
                     <div data-help="action-share" onClick={(e) => handleHelpClick('action-share', e)}>
                       <ShareReadingButton
@@ -5939,7 +6261,7 @@ CRITICAL FORMATTING RULES:
                 )}
                 <button
                   data-help="action-new"
-                  onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Start a new reading? Your current reading will be cleared.')) resetReading(true); } }}
+                  onClick={(e) => { if (!handleHelpClick('action-new', e)) resetReading(); }}
                   className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50"
                 >New</button>
                 <button
@@ -6000,14 +6322,13 @@ CRITICAL FORMATTING RULES:
                 
                 <div className="space-y-4 mb-6">
                   {draws.map((draw, i) => {
-                    const isReflect = spreadType === 'reflect';
-                    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : RANDOM_SPREADS[spreadKey];
                     const trans = getComponent(draw.transient);
                     const stat = STATUSES[draw.status];
-                    const pos = draw.position !== null ? ARCHETYPES[draw.position] : null;
+                    const pos = ARCHETYPES[draw.position] || null;
                     const transArchetype = trans.archetype !== undefined ? ARCHETYPES[trans.archetype] : null;
                     const correction = getFullCorrection(draw.transient, draw.status);
-                    const label = isReflect ? spreadConfig?.positions?.[i]?.name : (pos?.name || 'Draw');
+                    // V1: Always use archetype position name
+                    const label = pos?.name || 'Draw';
                     
                     return (
                       <div key={i} className="bg-zinc-800/30 rounded-lg p-3 text-sm">
@@ -6092,33 +6413,28 @@ CRITICAL FORMATTING RULES:
                     <div className="text-sm text-zinc-600 space-y-1">
                       {(() => {
                         const relationships = [];
-                        const isReflect = spreadType === 'reflect';
-                        const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
 
-                        // House grouping only for Discover mode (Reflect mode doesn't have house per position)
-                        if (!isReflect) {
-                          const houseGroups = {};
-                          draws.forEach((draw, i) => {
-                            const house = draw.position !== null ? ARCHETYPES[draw.position]?.house : null;
-                            if (house) {
-                              if (!houseGroups[house]) houseGroups[house] = [];
-                              const label = ARCHETYPES[draw.position]?.name;
-                              houseGroups[house].push(label);
-                            }
-                          });
-                          Object.entries(houseGroups).forEach(([house, cards]) => {
-                            if (cards.length > 1) {
-                              relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
-                            }
-                          });
-                        }
+                        // V1: House grouping always works (universal positions)
+                        const houseGroups = {};
+                        draws.forEach((draw, i) => {
+                          const house = ARCHETYPES[draw.position]?.house || null;
+                          if (house) {
+                            if (!houseGroups[house]) houseGroups[house] = [];
+                            houseGroups[house].push(ARCHETYPES[draw.position]?.name);
+                          }
+                        });
+                        Object.entries(houseGroups).forEach(([house, cards]) => {
+                          if (cards.length > 1) {
+                            relationships.push(`${house} House: ${cards.join(' & ')} share domain`);
+                          }
+                        });
 
                         const channelGroups = {};
                         draws.forEach((draw, i) => {
                           const trans = getComponent(draw.transient);
                           if (trans.channel) {
                             if (!channelGroups[trans.channel]) channelGroups[trans.channel] = [];
-                            const label = isReflect ? spreadConfig?.positions?.[i]?.name : (draw.position !== null ? ARCHETYPES[draw.position]?.name : `Signature ${i+1}`);
+                            const label = ARCHETYPES[draw.position]?.name || `Signature ${i+1}`;
                             channelGroups[trans.channel].push({ label, trans: trans.name });
                           }
                         });
@@ -6138,8 +6454,9 @@ CRITICAL FORMATTING RULES:
                                 if (i !== j) {
                                   const otherTrans = getComponent(otherDraw.transient);
                                   if (otherDraw.transient === corrTarget || otherTrans.archetype === corrTarget) {
-                                    const label1 = isReflect ? spreadConfig?.positions?.[i]?.name : ARCHETYPES[draw.position]?.name;
-                                    const label2 = isReflect ? spreadConfig?.positions?.[j]?.name : ARCHETYPES[otherDraw.position]?.name;
+                                    // V1: Always use archetype position names
+                                    const label1 = ARCHETYPES[draw.position]?.name;
+                                    const label2 = ARCHETYPES[otherDraw.position]?.name;
                                     relationships.push(`${label1} correction points toward ${label2}`);
                                   }
                                 }
@@ -6214,16 +6531,17 @@ CRITICAL FORMATTING RULES:
             try { letter = JSON.parse(letter); } catch (e) { /* keep as string */ }
           }
           const isLegacy = typeof letter === 'string';
-          // Helper to get shallow content (first 1-2 sentences from wade)
-          const getShallowContent = (wadeContent) => {
+          // Helper to get shallow content — use surface if available, else derive from wade
+          const getShallowContent = (surfaceContent, wadeContent) => {
+            if (surfaceContent) return surfaceContent;
             if (!wadeContent) return '';
             const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-            return sentences.slice(0, 2).join(' ');
+            return sentences.slice(0, 3).join(' ');
           };
           const letterContent = isLegacy
             ? letter
             : letterDepth === 'shallow'
-              ? getShallowContent(letter.wade || letter.surface || '')
+              ? getShallowContent(letter.surface, letter.wade || '')
               : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
           const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim || letter.deep);
           const letterSectionKey = 'letter';
@@ -6321,7 +6639,7 @@ CRITICAL FORMATTING RULES:
               {handleExpand && (
                 <div className="flex gap-2 flex-wrap mb-4">
                   {Object.entries(EXPANSION_PROMPTS)
-                    .filter(([key]) => key !== 'architecture')
+                    .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                     .map(([key, { label }]) => {
                     const isThisExpanding = isExpanding && expanding?.type === key;
                     const hasExpansion = !!sectionExpansions[key];
@@ -6340,11 +6658,15 @@ CRITICAL FORMATTING RULES:
                       </button>
                     );
                   })}
+                  {renderSynthConverseButton(letterSectionKey, sectionExpansions, isExpanding, 'violet')}
                 </div>
               )}
 
-              {/* Expansion content display - collapsible, never deleted */}
-              {Object.entries(sectionExpansions).map(([expType, content]) => {
+              {/* Converse UI for letter section */}
+              {renderSynthConverseUI(letterSectionKey, sectionExpansions, isExpanding, 'violet')}
+
+              {/* Expansion content display - collapsible, never deleted (excludes context arrays) */}
+              {Object.entries(sectionExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, content]) => {
                 if (!content) return null;
                 const expKey = `letter-exp-${expType}`;
                 const isExpCollapsed = collapsedSections[expKey] === true;
@@ -6416,6 +6738,41 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
+            {/* V1: Expand/Collapse All + Explore count */}
+            {parsedReading._onDemand && !parsedReading._isFirstContact && draws?.length > 1 && (
+              <div className="flex items-center justify-between mb-3 px-1">
+                <span className="text-xs text-zinc-600">
+                  {Object.values(cardLoaded).filter(Boolean).length} of {draws.length} explored
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      // Expand all: trigger load for any unloaded cards, then expand
+                      if (parsedReading._onDemand) {
+                        draws.forEach((_, i) => {
+                          const card = parsedReading.cards[i];
+                          if (card?._notLoaded && !cardLoaded[i] && !cardLoading[i]) {
+                            loadCardDepth(i, draws, question, parsedReading.letter, systemPromptCache, card.token, parsedReading.originalInput);
+                          }
+                        });
+                      }
+                      setExpandAllCounter(c => c + 1);
+                    }}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    Expand all
+                  </button>
+                  <span className="text-zinc-700">|</span>
+                  <button
+                    onClick={() => setCollapseAllCounter(c => c + 1)}
+                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    Collapse all
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Signature Sections with nested Rebalancers - using new DepthCard component */}
             {parsedReading.cards.map((card) => {
               // New structure: card has .surface, .wade, .swim, .architecture, .mirror, .rebalancer
@@ -6480,10 +6837,154 @@ CRITICAL FORMATTING RULES:
                     // Progressive deepening props — disabled for First Contact
                     onLoadDeeper={parsedReading?._isFirstContact ? null : loadDeeperContent}
                     isLoadingDeeper={!!cardLoadingDeeper[card.index]}
+                    // V1: Expand/Collapse all triggers
+                    expandAllTrigger={expandAllCounter}
+                    collapseAllTrigger={collapseAllCounter}
+                    // V1: Ariadne Thread
+                    onTraceRoot={!parsedReading?._isFirstContact ? () => handleTraceRoot(card.index) : undefined}
+                    canTrace={!parsedReading?._isFirstContact && isCardLoaded && !ariadneThread && !ariadneLoading}
                   />
                 </div>
               );
             })}
+
+            {/* === ARIADNE THREAD DISPLAY === */}
+            {ariadneThread && (
+              <div className="mb-6 rounded-lg border-2 border-violet-500/30 bg-violet-950/20 overflow-hidden">
+                {/* Thread Header */}
+                <div className="px-5 py-3 bg-violet-900/20 border-b border-violet-500/20">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-violet-400 text-sm font-medium">Ariadne Thread</span>
+                      <span className="text-violet-500/60 text-xs">
+                        {ariadneThread.steps.length} step{ariadneThread.steps.length !== 1 ? 's' : ''}
+                        {ariadneThread.terminated && ` — ${
+                          ariadneThread.terminationReason === 'fixed-point' ? 'Fixed Point reached'
+                          : ariadneThread.terminationReason === 'cycle' ? 'Cycle detected'
+                          : ariadneThread.terminationReason === 'max-steps' ? 'Maximum depth'
+                          : 'Stopped'
+                        }`}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setAriadneThread(null)}
+                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  {/* Chain visualization */}
+                  <div className="flex items-center gap-1 mt-2 flex-wrap text-xs">
+                    <span className="text-zinc-400">
+                      {getComponent(draws[ariadneThread.sourceCardIndex].transient).name}
+                    </span>
+                    {ariadneThread.steps.map((step, i) => (
+                      <span key={i} className="flex items-center gap-1">
+                        <span className="text-violet-500/60">→</span>
+                        <span className={step.loaded ? 'text-violet-300' : 'text-zinc-500'}>
+                          {ARCHETYPES[step.position].name}
+                          {step.isFixedPoint && ' ⊙'}
+                        </span>
+                      </span>
+                    ))}
+                    {ariadneThread.terminated && ariadneThread.terminationReason === 'cycle' && (
+                      <span className="flex items-center gap-1">
+                        <span className="text-violet-500/60">→</span>
+                        <span className="text-violet-400/60">
+                          {ARCHETYPES[ariadneThread.cycleTarget]?.name} ↩
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Thread Steps */}
+                <div className="divide-y divide-violet-500/10">
+                  {ariadneThread.steps.map((step, i) => {
+                    const stepTrans = getComponent(step.draw.transient);
+                    const stepArch = ARCHETYPES[step.position];
+                    const stepStat = STATUSES[step.draw.status];
+                    const statusPrefix = stepStat.prefix || 'Balanced';
+
+                    return (
+                      <div key={i} className="px-5 py-4">
+                        {/* Step header */}
+                        <div
+                          className="flex items-center gap-2 cursor-pointer group"
+                          onClick={() => !step.loaded && handleTraceCardLoad(i)}
+                        >
+                          <span className="text-violet-500/40 text-xs font-mono">{i + 1}</span>
+                          <span className="text-zinc-200 text-sm font-medium">
+                            {statusPrefix} {stepTrans.name}
+                          </span>
+                          <span className="text-zinc-500 text-xs">
+                            in {stepArch.name}
+                          </span>
+                          {step.isFixedPoint && (
+                            <span className="text-violet-400 text-[0.65rem] uppercase tracking-wider">Fixed Point</span>
+                          )}
+                          {!step.loaded && !ariadneLoading && (
+                            <span className="ml-auto text-[0.6rem] uppercase tracking-wider text-violet-600/60 group-hover:text-violet-500/80">
+                              tap to interpret
+                            </span>
+                          )}
+                          {ariadneLoading && !step.loaded && (
+                            <span className="ml-auto text-violet-400 animate-pulse text-xs">interpreting...</span>
+                          )}
+                        </div>
+
+                        {/* Step interpretation */}
+                        {step.loaded && step.interpretation && (
+                          <div className="mt-3 text-sm text-zinc-300 leading-relaxed">
+                            {step.interpretation.split('\n\n').map((para, pi) => (
+                              <p key={pi} className={pi > 0 ? 'mt-3' : ''}>
+                                {renderWithHotlinks ? renderWithHotlinks(para) : para}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Thread Controls */}
+                <div className="px-5 py-3 bg-violet-900/10 border-t border-violet-500/20 flex gap-2">
+                  {!ariadneThread.terminated && (
+                    <>
+                      <button
+                        onClick={handleTraceContinue}
+                        disabled={ariadneLoading}
+                        className="text-xs px-3 py-1.5 rounded-lg bg-violet-800/40 text-violet-300 hover:bg-violet-700/50 transition-all border border-violet-500/30 disabled:opacity-50"
+                      >
+                        Continue Thread
+                      </button>
+                      <button
+                        onClick={handleTraceStop}
+                        className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-all"
+                      >
+                        Stop Here
+                      </button>
+                    </>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'fixed-point' && (
+                    <span className="text-xs text-violet-400/80">
+                      The thread found its ground — {getComponent(ariadneThread.steps[ariadneThread.steps.length - 1].draw.transient).name} in its own archetype position. A natural resting point.
+                    </span>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'cycle' && (
+                    <span className="text-xs text-violet-400/80">
+                      The thread returns to {ARCHETYPES[ariadneThread.cycleTarget]?.name} — a cycle is complete. The pattern loops.
+                    </span>
+                  )}
+                  {ariadneThread.terminated && ariadneThread.terminationReason === 'max-steps' && (
+                    <span className="text-xs text-violet-400/80">
+                      Maximum thread depth reached. The path continues beyond what we trace here.
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Synthesis Loading Indicator - shows when all cards loaded but synthesis pending */}
             {parsedReading._onDemand && !parsedReading._isFirstContact && synthesisLoading && (
@@ -6509,7 +7010,14 @@ CRITICAL FORMATTING RULES:
             {parsedReading._onDemand && !parsedReading._isFirstContact && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
               <div className="mb-6 rounded-lg border-2 border-zinc-600/40 p-5 bg-zinc-900/30">
                 <div className="flex items-center gap-3 text-zinc-500">
-                  <span className="text-sm">Overview and Path will appear after all cards are loaded</span>
+                  <span className="text-sm">
+                    {(() => {
+                      const loadedCount = Object.values(cardLoaded).filter(Boolean).length;
+                      const totalCount = draws?.length || 0;
+                      if (loadedCount === 0) return 'Tap each signature to explore it. Synthesis appears after all are revealed.';
+                      return `${loadedCount} of ${totalCount} explored. Synthesis appears after all signatures are revealed.`;
+                    })()}
+                  </span>
                 </div>
               </div>
             )}
@@ -6522,12 +7030,13 @@ CRITICAL FORMATTING RULES:
               // Use explicit null check to avoid empty string fallback issues
               const getPathContent = () => {
                 if (hasDepthLevels) {
-                  // Handle shallow depth - derive from wade content
+                  // Handle shallow depth — use surface if available, else derive from wade
                   if (pathDepth === 'shallow') {
-                    const wadeContent = path.wade || path.surface || '';
+                    if (path.surface) return path.surface;
+                    const wadeContent = path.wade || '';
                     if (!wadeContent) return '';
                     const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-                    return sentences.slice(0, 2).join(' ');
+                    return sentences.slice(0, 3).join(' ');
                   }
                   // Try requested depth first, then fallback in order: wade -> swim -> deep -> surface
                   if (path[pathDepth] != null && path[pathDepth] !== '') return path[pathDepth];
@@ -6661,7 +7170,7 @@ CRITICAL FORMATTING RULES:
                         {/* Path Expansion Buttons (excluding architecture - has own section) */}
                         <div className="flex gap-2 flex-wrap">
                           {Object.entries(EXPANSION_PROMPTS)
-                            .filter(([key]) => key !== 'architecture')
+                            .filter(([key, v]) => key !== 'architecture' && !v.hasInput)
                             .map(([key, { label }]) => {
                             const isThisExpanding = isPathExpanding && expanding?.type === key;
                             const hasExpansion = !!pathExpansions[key];
@@ -6685,10 +7194,14 @@ CRITICAL FORMATTING RULES:
                               </button>
                             );
                           })}
+                          {renderSynthConverseButton('path', pathExpansions, isPathExpanding, 'emerald')}
                         </div>
 
+                        {/* Converse UI */}
+                        {renderSynthConverseUI('path', pathExpansions, isPathExpanding, 'emerald')}
+
                         {/* Path Expansion Content */}
-                        {Object.entries(pathExpansions).map(([expType, expContent]) => (
+                        {Object.entries(pathExpansions).filter(([k, v]) => typeof v === 'string').map(([expType, expContent]) => (
                           <div key={expType} className="mt-4 pt-4 border-t border-emerald-700/50">
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-xs uppercase tracking-wider text-emerald-500/70">
@@ -6761,7 +7274,7 @@ CRITICAL FORMATTING RULES:
                                 disabled={!threadOperations['path'] || threadLoading['path']}
                                 className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['path'] && !threadLoading['path'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                               >
-                                {threadLoading['path'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
+                                {threadLoading['path'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Encountering...</> : 'Continue'}
                               </button>
                             </div>
                           )}
@@ -6809,7 +7322,7 @@ CRITICAL FORMATTING RULES:
                                         cardName={trans?.name}
                                         size="default"
                                         showFrame={true}
-                                        onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                        onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                       />
                                       <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
                                         {trans?.name}
@@ -7041,15 +7554,18 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('summary', key); }} disabled={isSummaryExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${summaryExpansions[key] ? 'bg-amber-900/40 text-amber-300 border border-amber-500/40' : isSummaryExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isSummaryExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('summary', summaryExpansions, isSummaryExpanding, 'amber')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('summary', summaryExpansions, isSummaryExpanding, 'amber')}
                             {/* Expansion Results */}
-                            {Object.entries(summaryExpansions).map(([expKey, content]) => (
+                            {Object.entries(summaryExpansions).filter(([k]) => typeof summaryExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30">
                                 <div className="text-xs font-medium text-amber-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
@@ -7122,15 +7638,18 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('whyAppeared', key); }} disabled={isWhyExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${whyExpansions[key] ? 'bg-cyan-900/40 text-cyan-300 border border-cyan-500/40' : isWhyExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isWhyExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('whyAppeared', whyExpansions, isWhyExpanding, 'cyan')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('whyAppeared', whyExpansions, isWhyExpanding, 'cyan')}
                             {/* Expansion Results */}
-                            {Object.entries(whyExpansions).map(([expKey, content]) => (
+                            {Object.entries(whyExpansions).filter(([k]) => typeof whyExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30">
                                 <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
@@ -7150,10 +7669,11 @@ CRITICAL FORMATTING RULES:
                     const hasDepthLevels = path.wade || path.swim || path.deep;
                     const getPathContent = () => {
                       if (pathDepth === 'shallow') {
+                        if (path.surface) return path.surface;
                         const wadeContent = path.wade || '';
                         if (!wadeContent) return '';
                         const sentences = wadeContent.split(/(?<=[.!?])\s+/);
-                        return sentences.slice(0, 2).join(' ');
+                        return sentences.slice(0, 3).join(' ');
                       }
                       if (path[pathDepth]) return path[pathDepth];
                       return path.wade || path.swim || path.deep || '';
@@ -7211,15 +7731,18 @@ CRITICAL FORMATTING RULES:
                             </div>
                             {/* Expansion Buttons */}
                             <div className="flex gap-2 flex-wrap">
-                              {Object.entries(EXPANSION_PROMPTS).filter(([k]) => k !== 'architecture').map(([key, { label }]) => (
+                              {Object.entries(EXPANSION_PROMPTS).filter(([k, v]) => k !== 'architecture' && !v.hasInput).map(([key, { label }]) => (
                                 <button key={key} onClick={(e) => { e.stopPropagation(); handleExpand('path', key); }} disabled={isPathExpanding}
                                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${pathExpansions[key] ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-500/40' : isPathExpanding && expanding?.type === key ? 'bg-zinc-800 text-zinc-400 border border-zinc-700 animate-pulse' : 'bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 hover:text-zinc-300'}`}>
                                   {isPathExpanding && expanding?.type === key ? 'Expanding...' : label}
                                 </button>
                               ))}
+                              {renderSynthConverseButton('path', pathExpansions, isPathExpanding, 'emerald')}
                             </div>
+                            {/* Converse UI */}
+                            {renderSynthConverseUI('path', pathExpansions, isPathExpanding, 'emerald')}
                             {/* Expansion Results */}
-                            {Object.entries(pathExpansions).map(([expKey, content]) => (
+                            {Object.entries(pathExpansions).filter(([k]) => typeof pathExpansions[k] === 'string').map(([expKey, content]) => (
                               <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30">
                                 <div className="text-xs font-medium text-emerald-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
@@ -7279,7 +7802,7 @@ CRITICAL FORMATTING RULES:
                           disabled={!threadOperations['unified'] || threadLoading['unified']}
                           className={`w-full px-6 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${threadOperations['unified'] && !threadLoading['unified'] ? 'bg-[#021810] text-[#f59e0b] hover:bg-[#052e23] border border-emerald-700/50' : 'bg-zinc-900 text-zinc-600 cursor-not-allowed'}`}
                         >
-                          {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Drawing...</> : 'Continue'}
+                          {threadLoading['unified'] ? <><span className="inline-block w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></span>Encountering...</> : 'Continue'}
                         </button>
                       </div>
                     )}
@@ -7320,7 +7843,7 @@ CRITICAL FORMATTING RULES:
                                     cardName={trans?.name}
                                     size="default"
                                     showFrame={true}
-                                    onImageClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: getComponent(threadItem.draw.transient) })}
+                                    onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                   />
                                   <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
                                     {trans?.name}
@@ -7404,7 +7927,7 @@ CRITICAL FORMATTING RULES:
         {parsedReading && !loading && !parsedReading.firstContact && !parsedReading._isFirstContact && (
           <div className="mt-6 pt-4 border-t border-zinc-800/50 relative">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[0.625rem] text-zinc-500 tracking-wider">Continue the conversation</span>
+              <span className="text-[0.625rem] text-zinc-500 tracking-wider">Converse about this encounter</span>
               <button
                 onClick={() => setHelpPopover(helpPopover === 'followup' ? null : 'followup')}
                 className="w-4 h-4 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/50 text-[#f59e0b] hover:bg-[#f59e0b]/30 hover:text-[#f59e0b] text-[0.625rem] flex items-center justify-center transition-all"
@@ -7415,7 +7938,7 @@ CRITICAL FORMATTING RULES:
                 <div className="absolute top-8 left-0 z-50 w-72">
                   <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-3 shadow-xl">
                     <p className="text-zinc-400 text-xs leading-relaxed">
-                      Ask anything — dig deeper, challenge it, ask about a specific part, or take the conversation wherever you need.
+                      Converse about the whole encounter — dig deeper, challenge something, ask about a specific signature, or take the dialogue wherever you need.
                     </p>
                     <button onClick={() => setHelpPopover(null)} className="mt-2 text-xs text-zinc-500 hover:text-zinc-300 w-full text-center">Got it</button>
                   </div>
@@ -7430,7 +7953,7 @@ CRITICAL FORMATTING RULES:
               <div className="content-pane flex-1 min-w-0 rounded-lg overflow-hidden">
                 <input type="text" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !followUpLoading && sendFollowUp()}
-                  placeholder={followUpLoading ? "Thinking..." : "Ask a follow-up question..."}
+                  placeholder={followUpLoading ? "Thinking..." : "Share a thought, challenge it, go deeper..."}
                   disabled={followUpLoading || helpMode}
                   className="w-full bg-zinc-900/50 border border-zinc-700/50 rounded-lg px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 transition-colors text-sm disabled:opacity-50" />
               </div>
@@ -7503,14 +8026,6 @@ CRITICAL FORMATTING RULES:
                     setPersona={setPersona}
                     humor={humor}
                     setHumor={setHumor}
-                    register={register}
-                    setRegister={setRegister}
-                    creator={creator}
-                    setCreator={setCreator}
-                    roastMode={roastMode}
-                    setRoastMode={setRoastMode}
-                    directMode={directMode}
-                    setDirectMode={setDirectMode}
                     compact={true}
                     hasReading={!!parsedReading}
                   />
@@ -7715,6 +8230,14 @@ CRITICAL FORMATTING RULES:
         initialMode={authModalMode}
       />
 
+      {/* Badge Achievement Notification */}
+      {pendingBadges && pendingBadges.length > 0 && (
+        <BadgeNotification
+          badges={pendingBadges}
+          onDismiss={() => setPendingBadges(null)}
+        />
+      )}
+
       {/* Glistened Tale Panel - view glisten data before saving */}
       {showGlistenPanel && glistenData && (
         <GlistenSourcePanel
@@ -7723,6 +8246,14 @@ CRITICAL FORMATTING RULES:
           isOpen={showGlistenPanel}
         />
       )}
+
+      {/* Card Detail Modal - full-screen card popup */}
+      <CardDetailModal
+        isOpen={cardDetailId !== null}
+        onClose={() => setCardDetailId(null)}
+        transientId={cardDetailId}
+        stats={userStatsRef.current}
+      />
 
     </div>
   );

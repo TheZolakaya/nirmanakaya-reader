@@ -23,7 +23,8 @@ export async function GET() {
         success: true,
         flags: {
           locus_control_enabled: false,
-          email_system_enabled: true
+          email_system_enabled: true,
+          pulse_enabled: false
         }
       });
     }
@@ -32,7 +33,8 @@ export async function GET() {
       success: true,
       flags: {
         locus_control_enabled: data.locus_control_enabled || false,
-        email_system_enabled: data.email_system_enabled !== false
+        email_system_enabled: data.email_system_enabled !== false,
+        pulse_enabled: data.pulse_enabled || false
       }
     });
   } catch (err) {
@@ -50,7 +52,7 @@ export async function PATCH(request) {
 
   try {
     const body = await request.json();
-    const allowed = ['locus_control_enabled', 'email_system_enabled'];
+    const allowed = ['locus_control_enabled', 'email_system_enabled', 'pulse_enabled'];
     const updates = {};
     for (const key of allowed) {
       if (body[key] !== undefined) updates[key] = body[key];
@@ -76,7 +78,8 @@ export async function PATCH(request) {
         success: true,
         flags: {
           locus_control_enabled: data.locus_control_enabled || false,
-          email_system_enabled: data.email_system_enabled !== false
+          email_system_enabled: data.email_system_enabled !== false,
+          pulse_enabled: data.pulse_enabled || false
         }
       });
     }
@@ -96,7 +99,8 @@ export async function PATCH(request) {
       success: true,
       flags: {
         locus_control_enabled: data.locus_control_enabled || false,
-        email_system_enabled: data.email_system_enabled !== false
+        email_system_enabled: data.email_system_enabled !== false,
+        pulse_enabled: data.pulse_enabled || false
       }
     });
   } catch (err) {

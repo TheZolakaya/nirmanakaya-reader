@@ -24,7 +24,10 @@ import {
   buildFullCollectiveSystemPrompt,
   buildFullCollectiveUserMessage,
   THROUGHLINE_SYSTEM_PROMPT,
-  PULSE_VOICE_PRESETS
+  PULSE_VOICE_PRESETS,
+  buildDailyCollectiveSystemPrompt,
+  buildDailyCollectiveUserMessage,
+  DAILY_THROUGHLINE_SYSTEM_PROMPT
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
@@ -98,7 +101,7 @@ function buildCardData(draw) {
 }
 
 // Generate a collective reading for a specific monitor (full mode v2)
-async function generateMonitorReading(monitorId, voicePreset = null) {
+async function generateMonitorReading(monitorId, voicePreset = null, priorReadings = []) {
   const monitor = getMonitor(monitorId);
   if (!monitor) {
     throw new Error(`Unknown monitor: ${monitorId}`);
@@ -108,12 +111,13 @@ async function generateMonitorReading(monitorId, voicePreset = null) {
   const draw = generateSingleDraw();
   const card = buildCardData(draw);
 
-  // Build the full collective prompt (v2: 5-8 sentence interpretations)
-  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+  // Build the full collective prompt (v2: 5-8 sentence interpretations, week-aware)
+  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset, priorReadings);
   const userMessage = buildFullCollectiveUserMessage(
     monitor.question,
     card,
-    monitorId
+    monitorId,
+    priorReadings
   );
 
   // Call Anthropic for interpretation
@@ -182,15 +186,16 @@ async function storeReading(reading, readingDate, voice = 'default') {
 }
 
 // Re-interpret an existing card draw with a different voice preset
-async function generateVoicedReading(monitorId, card, draw, voicePreset) {
+async function generateVoicedReading(monitorId, card, draw, voicePreset, priorReadings = []) {
   const monitor = getMonitor(monitorId);
   if (!monitor) throw new Error(`Unknown monitor: ${monitorId}`);
 
-  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset);
+  const systemPrompt = buildFullCollectiveSystemPrompt(monitorId, voicePreset, priorReadings);
   const userMessage = buildFullCollectiveUserMessage(
     monitor.question,
     card,
-    monitorId
+    monitorId,
+    priorReadings
   );
 
   const response = await client.messages.create({
@@ -214,14 +219,23 @@ async function generateVoicedReading(monitorId, card, draw, voicePreset) {
 }
 
 // Generate throughline synthesis across all 5 monitors (v2)
-async function generateThroughline(allReadings, readingDate) {
+async function generateThroughline(allReadings, readingDate, weekByMonitor = {}) {
   const monitorSummaries = allReadings.map(r => {
     const m = getMonitor(r.monitor);
     return `${m.publicName || m.name} (${m.emoji}): ${r.card.signature}\n${r.interpretation}`;
   }).join('\n\n---\n\n');
 
-  const userMessage = `Here are today's five Collective Pulse readings. Synthesize them into one throughline.
+  // Build week trend summary for throughline
+  const weekStatusSummary = Object.entries(weekByMonitor)
+    .map(([mon, readings]) => {
+      const m = getMonitor(mon);
+      const statuses = readings.map(r => r.status_name).join(' → ');
+      return `${m?.publicName || mon}: ${statuses}`;
+    }).join('\n');
+  const weekContext = weekStatusSummary ? `\nWEEK ARC (status progression per monitor, newest first):\n${weekStatusSummary}\n` : '';
 
+  const userMessage = `Here are today's five Collective Pulse readings. Synthesize them into one throughline that places today in the context of the week's arc.
+${weekContext}
 ${monitorSummaries}
 
 Write a 4-6 sentence throughline paragraph that captures the overall pattern across all five monitors.`;
@@ -265,15 +279,18 @@ export async function POST(request) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check for force parameter (admin Generate Now bypasses frequency gate)
+    // Check for force parameter and optional targetDate (for backfill)
     let forceGenerate = false;
+    let targetDate = null;
     try {
       const body = await request.clone().json().catch(() => ({}));
       forceGenerate = body?.force === true;
+      targetDate = body?.targetDate || null; // YYYY-MM-DD for backfill
     } catch (e) { /* no body or not JSON */ }
 
     // Frequency gating: check pulse_settings to see if enough time has elapsed
-    if (!forceGenerate) {
+    // Skip gating for backfill (targetDate) or forced generation
+    if (!forceGenerate && !targetDate) {
       try {
         const { data: settings } = await supabase
           .from('pulse_settings')
@@ -320,16 +337,46 @@ export async function POST(request) {
       }
     }
 
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const today = targetDate || new Date().toISOString().split('T')[0]; // YYYY-MM-DD (or backfill date)
     const monitors = ['global', 'power', 'heart', 'mind', 'body'];
     const results = [];
     const allReadings = []; // Full reading objects for throughline
     const errors = [];
 
+    // Fetch last 7 days of readings for ALL monitors (shared by Deep + Daily generation)
+    const weekStart = new Date(today + 'T12:00:00');
+    weekStart.setDate(weekStart.getDate() - 7);
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+    let weekByMonitor = {};
+    try {
+      const { data: weekReadings } = await supabase
+        .from('collective_readings')
+        .select('reading_date, monitor, signature, status_id')
+        .eq('voice', 'default')
+        .gte('reading_date', weekStartStr)
+        .lt('reading_date', today)
+        .order('reading_date', { ascending: false });
+
+      if (weekReadings) {
+        for (const wr of weekReadings) {
+          if (!weekByMonitor[wr.monitor]) weekByMonitor[wr.monitor] = [];
+          weekByMonitor[wr.monitor].push({
+            date: wr.reading_date,
+            signature: wr.signature,
+            status_name: STATUSES[wr.status_id]?.name || ''
+          });
+        }
+      }
+      console.log(`Week context loaded: ${Object.keys(weekByMonitor).length} monitors, ${weekReadings?.length || 0} total readings`);
+    } catch (e) {
+      console.log('Week context fetch failed (non-critical):', e.message);
+    }
+
     for (const monitorId of monitors) {
       try {
         console.log(`Generating reading for ${monitorId}...`);
-        const reading = await generateMonitorReading(monitorId);
+        const priorReadings = weekByMonitor[monitorId] || [];
+        const reading = await generateMonitorReading(monitorId, null, priorReadings);
 
         // Store in database
         await storeReading(reading, today);
@@ -373,11 +420,103 @@ export async function POST(request) {
     if (allReadings.length === 5) {
       try {
         console.log('Generating throughline synthesis...');
-        throughline = await generateThroughline(allReadings, today);
+        throughline = await generateThroughline(allReadings, today, weekByMonitor);
         console.log('Throughline generated successfully');
       } catch (err) {
         console.error('Throughline generation failed:', err);
         errors.push({ monitor: 'throughline', error: err.message });
+      }
+    }
+
+    // Pre-generate daily voice variants (week-normalized, trend-aware)
+    let dailyResults = [];
+    if (allReadings.length > 0) {
+      try {
+        console.log('Generating daily voice variants (week-normalized)...');
+        // Reuses weekByMonitor fetched earlier for Deep generation
+
+        for (const reading of allReadings) {
+          try {
+            const priorReadings = weekByMonitor[reading.monitor] || [];
+            const systemPrompt = buildDailyCollectiveSystemPrompt(reading.monitor, priorReadings);
+            const userMessage = buildDailyCollectiveUserMessage(
+              getMonitor(reading.monitor).question,
+              reading.card,
+              reading.monitor,
+              priorReadings
+            );
+            const response = await client.messages.create({
+              model: 'claude-sonnet-4-20250514',
+              max_tokens: 200,
+              system: systemPrompt,
+              messages: [{ role: 'user', content: userMessage }]
+            });
+            const dailyReading = {
+              ...reading,
+              interpretation: response.content[0].text,
+              usage: {
+                input_tokens: response.usage?.input_tokens,
+                output_tokens: response.usage?.output_tokens
+              }
+            };
+            await storeReading(dailyReading, today, 'daily');
+            dailyResults.push({ monitor: reading.monitor, success: true });
+            await new Promise(resolve => setTimeout(resolve, 300));
+          } catch (err) {
+            console.error(`Daily voice ${reading.monitor} failed:`, err.message);
+            dailyResults.push({ monitor: reading.monitor, success: false, error: err.message });
+          }
+        }
+
+        // Generate daily throughline (2 sentences, week-aware)
+        if (dailyResults.filter(r => r.success).length === 5) {
+          try {
+            const { data: dailyReadings } = await supabase
+              .from('collective_readings')
+              .select('monitor, signature, interpretation')
+              .eq('reading_date', today)
+              .eq('voice', 'daily');
+
+            if (dailyReadings && dailyReadings.length === 5) {
+              const monitorSummaries = dailyReadings.map(r => {
+                const m = getMonitor(r.monitor);
+                return `${m.publicName || m.name}: ${r.signature}\n${r.interpretation}`;
+              }).join('\n\n');
+
+              // Build week trend summary for throughline
+              const weekStatusSummary = Object.entries(weekByMonitor)
+                .map(([mon, readings]) => {
+                  const m = getMonitor(mon);
+                  const statuses = readings.map(r => r.status_name).join(' → ');
+                  return `${m?.publicName || mon}: ${statuses}`;
+                }).join('\n');
+              const weekContext = weekStatusSummary ? `\nWEEK TREND (status progression, newest first):\n${weekStatusSummary}\n` : '';
+
+              const dailyThroughlineResponse = await client.messages.create({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 200,
+                system: DAILY_THROUGHLINE_SYSTEM_PROMPT,
+                messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline that normalizes today against the week's arc.${weekContext}\n${monitorSummaries}` }]
+              });
+              const dailyThroughlineText = dailyThroughlineResponse.content[0].text;
+
+              // Store daily throughline on the daily global row
+              await supabase
+                .from('collective_readings')
+                .update({ throughline: dailyThroughlineText })
+                .eq('reading_date', today)
+                .eq('monitor', 'global')
+                .eq('voice', 'daily');
+
+              console.log('Daily throughline generated');
+            }
+          } catch (err) {
+            console.error('Daily throughline failed:', err.message);
+          }
+        }
+        console.log(`Daily voice: ${dailyResults.filter(r => r.success).length}/5 ok`);
+      } catch (err) {
+        console.error('Daily voice generation failed:', err);
       }
     }
 
@@ -439,8 +578,8 @@ export async function POST(request) {
       }
     }
 
-    // Update last_generated_at in pulse_settings
-    if (results.length > 0) {
+    // Update last_generated_at in pulse_settings (skip for backfill)
+    if (results.length > 0 && !targetDate) {
       try {
         await supabase
           .from('pulse_settings')
@@ -456,6 +595,10 @@ export async function POST(request) {
       date: today,
       readings: results,
       throughline,
+      daily: dailyResults.length > 0 ? {
+        generated: dailyResults.filter(r => r.success).length,
+        failed: dailyResults.filter(r => !r.success).length
+      } : undefined,
       voices: voiceResults.length > 0 ? {
         generated: voiceResults.length,
         failed: voiceErrors.length,

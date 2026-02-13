@@ -22,7 +22,8 @@ export async function POST(request) {
     previousContent, // { summary: {...}, path: {...} } - content to build on
     // DTP token context (optional)
     tokens,          // Array of tokens for DTP mode
-    originalInput    // Full question for grounding
+    originalInput,   // Full question for grounding
+    userContext       // Optional user journey context block
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -32,9 +33,12 @@ export async function POST(request) {
   const isDeepening = previousContent && Object.keys(previousContent).length > 0;
 
   // Build synthesis user message
-  const userMessage = isDeepening
+  const baseMessage = isDeepening
     ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent, tokens, originalInput)
     : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput);
+
+  // Prepend user journey context if available (only for baseline, not deepening)
+  const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // Convert system prompt to cached format for 90% input token savings
   // Guard against empty system prompt (can happen when loading saved readings)
@@ -137,7 +141,7 @@ function buildBaselineMessage(question, draws, cards, letter, spreadType, spread
       ? (card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : '')
       : (card.growth ? `Growth Opportunity: ${card.growth.wade || card.growth.surface || ''}` : '');
 
-    return `CARD ${i + 1}: ${cardName}
+    return `SIGNATURE ${i + 1}: ${cardName}
 Reading: ${card.wade || card.surface || '(loading)'}
 ${correctionInfo}
 Why: ${card.why?.wade || card.why?.surface || ''}`;
@@ -152,22 +156,22 @@ READING TYPE: ${spreadType.toUpperCase()} (${spreadKey})
 LETTER (for tone continuity):
 ${letterContext}
 
-ALL CARDS (for synthesis):
+ALL SIGNATURES (for synthesis):
 ${cardSummaries}
 
 Generate WADE level content for SUMMARY, WHY THIS APPEARED, and THE INVITATION.
 
 WADE means: 3-4 substantive sentences per section. Real insight, not fluff.
 
-These are HOLISTIC sections that synthesize ALL the cards together:
-- SUMMARY: What do these cards, taken together, reveal about the question?
-- WHY THIS APPEARED: Why did THESE specific cards appear for THIS question? What needed to be seen?
-- THE INVITATION: What's the aggregate path forward? For imbalanced cards, the correction. For balanced cards, the growth opportunity.
+These are HOLISTIC sections that synthesize ALL the signatures together:
+- SUMMARY: What do these signatures, taken together, reveal about the question?
+- WHY THIS APPEARED: Why did THESE specific signatures emerge for THIS question? What needed to be seen?
+- THE INVITATION: What's the aggregate path forward? For imbalanced signatures, the correction. For balanced signatures, the growth opportunity.
 
 Respond with these markers:
 
 [SUMMARY:WADE]
-(3-4 sentences: The unified insight from all these cards together)
+(3-4 sentences: The unified insight from all these signatures together)
 
 [WHY_APPEARED:WADE]
 (3-4 sentences: The teleological significance - why this reading emerged for this moment)
@@ -218,7 +222,7 @@ function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKe
 
   return `QUESTION: "${question}"
 
-CARDS: ${cardNames}
+SIGNATURES: ${cardNames}
 
 PREVIOUS CONTENT (what the querent has already read):
 ${previousDisplay}

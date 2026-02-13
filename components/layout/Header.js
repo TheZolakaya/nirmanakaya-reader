@@ -19,7 +19,9 @@ export default function Header({ hasActivity = false }) {
   const isGuideActive = pathname?.startsWith('/guide');
   const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/map');
+  const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
+  const isBookActive = pathname?.startsWith('/book');
   const isHome = pathname === '/';
 
   return (
@@ -50,6 +52,26 @@ export default function Header({ hasActivity = false }) {
             )}
             <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${hasActivity ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-zinc-600'}`}></span>
           </div>
+        </Link>
+
+        {/* BOOK */}
+        <Link
+          href="/book"
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            isBookActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
+          }`}
+        >
+          Book
+        </Link>
+
+        {/* JOURNEY (Stats / Collection) */}
+        <Link
+          href="/stats"
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            isJourneyActive ? 'text-violet-400' : 'text-zinc-500 hover:text-violet-400'
+          }`}
+        >
+          Journey
         </Link>
 
         {/* GUIDE */}

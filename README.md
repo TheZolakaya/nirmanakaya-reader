@@ -52,4 +52,6 @@ Replace `app/page.js` in GitHub. ~60 seconds to live.
 
 ---
 
+Licensed under AGPL-3.0 (Code) and CC BY-NC-SA 4.0 (Data/Text). See [COVENANT.md](COVENANT.md) for commercial use terms.
+
 *The structure is the authority.*

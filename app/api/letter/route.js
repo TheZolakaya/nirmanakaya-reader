@@ -18,16 +18,20 @@ export async function POST(request) {
     model,
     // Progressive deepening params
     targetDepth,     // 'wade' | 'swim' | 'deep' (default: wade)
-    previousContent  // { wade: '...', swim: '...' } - content to build on
+    previousContent, // { wade: '...', swim: '...' } - content to build on
+    userContext       // Optional user journey context block
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
   const depth = targetDepth || 'wade';
 
   // Build user message based on mode
-  const userMessage = previousContent && Object.keys(previousContent).length > 0
+  const baseMessage = previousContent && Object.keys(previousContent).length > 0
     ? buildDeepenMessage(question, draws, spreadType, spreadKey, depth, previousContent)
     : buildBaselineMessage(question, draws, spreadType, spreadKey);
+
+  // Prepend user journey context if available (only for baseline, not deepening)
+  const userMessage = (userContext && !previousContent) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [

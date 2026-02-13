@@ -6,7 +6,7 @@ const IntroSection = () => (
     <div className="max-w-2xl mx-auto">
       <p className="text-zinc-400 text-sm leading-relaxed">
         The Nirmanakaya is both mirror and forge. Bring a question or declare an intention —
-        the draw finds what's ready to be seen. Where you are, what's moving, what might need attention.
+        what's ready to be seen will emerge. Where you are, what's moving, what might need attention.
       </p>
       {/* Help Links */}
       <div className="flex justify-center gap-4 mt-4 text-xs">

@@ -25,6 +25,9 @@ ALTER TABLE collective_readings
 DROP CONSTRAINT IF EXISTS collective_readings_reading_date_monitor_key;
 
 ALTER TABLE collective_readings
+DROP CONSTRAINT IF EXISTS collective_readings_date_monitor_voice_key;
+
+ALTER TABLE collective_readings
 ADD CONSTRAINT collective_readings_date_monitor_voice_key
   UNIQUE(reading_date, monitor, voice);
 
@@ -45,6 +48,7 @@ CREATE TABLE IF NOT EXISTS pulse_settings (
   frequency TEXT DEFAULT 'daily' CHECK (frequency IN ('hourly', '6hour', 'daily', 'weekly')),
   default_voice TEXT DEFAULT 'default',
   auto_generate BOOLEAN DEFAULT true,
+  pre_generate_voices BOOLEAN DEFAULT false,
 
   -- Last generation timestamp
   last_generated_at TIMESTAMPTZ,
@@ -61,10 +65,12 @@ ON CONFLICT (singleton) DO NOTHING;
 -- 7. RLS for pulse_settings
 ALTER TABLE pulse_settings ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Pulse settings readable by authenticated" ON pulse_settings;
 CREATE POLICY "Pulse settings readable by authenticated"
 ON pulse_settings FOR SELECT TO authenticated
 USING (true);
 
+DROP POLICY IF EXISTS "Service role manages pulse settings" ON pulse_settings;
 CREATE POLICY "Service role manages pulse settings"
 ON pulse_settings FOR ALL TO service_role
 USING (true) WITH CHECK (true);
@@ -96,3 +102,11 @@ ORDER BY
     WHEN 'mind' THEN 4
     WHEN 'body' THEN 5
   END;
+
+-- 10. Add pre_generate_voices column if already ran earlier version of this migration
+ALTER TABLE pulse_settings
+ADD COLUMN IF NOT EXISTS pre_generate_voices BOOLEAN DEFAULT false;
+
+-- 11. Add pulse_enabled to feature_flags table
+ALTER TABLE feature_flags
+ADD COLUMN IF NOT EXISTS pulse_enabled BOOLEAN DEFAULT false;

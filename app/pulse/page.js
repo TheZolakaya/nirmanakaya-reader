@@ -89,10 +89,10 @@ function getMinimapProps(reading) {
   };
 }
 
-// Voice options for the switcher (Raw at end)
+// Voice options for the switcher: Daily (default) and Deep
 const VOICE_OPTIONS = [
-  ...Object.values(PULSE_VOICE_PRESETS).map(v => ({ key: v.key, label: v.label })),
-  { key: 'default', label: 'Raw' }
+  { key: 'daily', label: 'Daily' },
+  { key: 'default', label: 'Deep' }
 ];
 
 // MonitorCard defined at module level so React identity is stable across renders
@@ -243,15 +243,23 @@ function MonitorCard({ monitorId, reading, featured = false, contentDim = 60, on
   );
 }
 
+// Get local YYYY-MM-DD (avoids UTC rollover showing "tomorrow")
+function getLocalDateString(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export default function PulsePage() {
   const [readings, setReadings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(getLocalDateString());
   const [trends, setTrends] = useState(null);
 
-  // Voice state (default to 'friend'; localStorage or URL params may override)
-  const [selectedVoice, setSelectedVoice] = useState('friend');
+  // Feature flag gate
+  const [pulseEnabled, setPulseEnabled] = useState(null); // null = loading
+
+  // Voice state (default to 'daily'; localStorage or URL params may override)
+  const [selectedVoice, setSelectedVoice] = useState('daily');
   const [voiceLoadingMonitors, setVoiceLoadingMonitors] = useState(new Set());
   const [throughline, setThroughline] = useState(null);
 
@@ -267,10 +275,24 @@ export default function PulsePage() {
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
 
+  // Check feature flag on mount
+  useEffect(() => {
+    async function checkPulseFlag() {
+      try {
+        const res = await fetch('/api/feature-flags');
+        const data = await res.json();
+        setPulseEnabled(data.success && data.flags?.pulse_enabled === true);
+      } catch (e) {
+        setPulseEnabled(false);
+      }
+    }
+    checkPulseFlag();
+  }, []);
+
   // Mark pulse as seen (stops flash on Reader's pulse button)
   useEffect(() => {
     try {
-      localStorage.setItem('nirmanakaya_last_pulse_seen', new Date().toISOString().split('T')[0]);
+      localStorage.setItem('nirmanakaya_last_pulse_seen', getLocalDateString());
     } catch (e) { /* localStorage unavailable */ }
   }, []);
 
@@ -286,7 +308,11 @@ export default function PulsePage() {
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
-        if (prefs.selectedVoice !== undefined) setSelectedVoice(prefs.selectedVoice);
+        if (prefs.selectedVoice !== undefined) {
+          // Migrate old voices to new options
+          const validVoices = ['daily', 'default'];
+          setSelectedVoice(validVoices.includes(prefs.selectedVoice) ? prefs.selectedVoice : 'daily');
+        }
       }
     } catch (e) {
       console.warn('Failed to load pulse preferences:', e);
@@ -350,39 +376,65 @@ export default function PulsePage() {
       setPrevVoice(selectedVoice);
 
       try {
-        // On date change or initial load, fetch default readings first for throughline
+        // On date change or initial load, fetch readings
         if (!isVoiceSwitch) {
-          const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
-          const defaultData = await defaultRes.json();
-          if (defaultData.success && defaultData.readings[selectedDate]) {
-            const defaultReadings = defaultData.readings[selectedDate];
-            // Capture throughline (only stored on default voice global row)
-            if (defaultReadings.global?.throughline) {
-              setThroughline(defaultReadings.global.throughline);
+          // First try to get the selected voice directly
+          const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
+          const directRes = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
+          const directData = await directRes.json();
+
+          if (directData.success && directData.readings[selectedDate]) {
+            const directReadings = directData.readings[selectedDate];
+            // Capture throughline from this voice's global row
+            if (directReadings.global?.throughline) {
+              setThroughline(directReadings.global.throughline);
             } else {
-              setThroughline(null);
+              // Fallback: get throughline from default voice
+              if (selectedVoice !== 'default') {
+                const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+                const defaultData = await defaultRes.json();
+                if (defaultData.success && defaultData.readings[selectedDate]?.global?.throughline) {
+                  setThroughline(defaultData.readings[selectedDate].global.throughline);
+                } else {
+                  setThroughline(null);
+                }
+              } else {
+                setThroughline(null);
+              }
             }
-            // If voice IS default, use these readings directly
-            if (selectedVoice === 'default') {
-              setReadings(defaultReadings);
-              setVoiceLoadingMonitors(new Set());
-              return;
-            }
+            setReadings(directReadings);
+            setVoiceLoadingMonitors(new Set());
+            return;
           } else {
-            setThroughline(null);
-            if (selectedVoice === 'default') {
+            // No cached readings for this voice — fall through to on-demand generation
+            // But first get throughline from default
+            if (selectedVoice !== 'default') {
+              const defaultRes = await fetch(`/api/collective-pulse?date=${selectedDate}`);
+              const defaultData = await defaultRes.json();
+              if (defaultData.success && defaultData.readings[selectedDate]?.global?.throughline) {
+                setThroughline(defaultData.readings[selectedDate].global.throughline);
+              } else {
+                setThroughline(null);
+              }
+            } else {
               setReadings(null);
+              setThroughline(null);
               return;
             }
           }
         }
 
-        // Fetch voice-specific readings
+        // Voice switch: fetch voice-specific readings
         const voiceParam = selectedVoice !== 'default' ? `&voice=${selectedVoice}` : '';
         const res = await fetch(`/api/collective-pulse?date=${selectedDate}${voiceParam}`);
         const data = await res.json();
         if (data.success && data.readings[selectedDate]) {
-          setReadings(data.readings[selectedDate]);
+          const voiceReadings = data.readings[selectedDate];
+          setReadings(voiceReadings);
+          // Update throughline if this voice has its own
+          if (voiceReadings.global?.throughline) {
+            setThroughline(voiceReadings.global.throughline);
+          }
           setVoiceLoadingMonitors(new Set());
         } else {
           // Voice variant not cached yet — try on-demand generation
@@ -451,8 +503,8 @@ export default function PulsePage() {
   const changeDate = (days) => {
     const current = new Date(selectedDate + 'T12:00:00');
     current.setDate(current.getDate() + days);
-    const newDate = current.toISOString().split('T')[0];
-    if (newDate <= new Date().toISOString().split('T')[0]) setSelectedDate(newDate);
+    const newDate = getLocalDateString(current);
+    if (newDate <= getLocalDateString()) setSelectedDate(newDate);
   };
 
   // Share current pulse URL
@@ -487,6 +539,40 @@ export default function PulsePage() {
   }, []);
 
   const monitorIds = Object.keys(MONITORS);
+
+  // Feature flag gate: show coming soon if pulse is disabled
+  if (pulseEnabled === null) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
+        <div className="text-zinc-400">Loading...</div>
+      </div>
+    );
+  }
+
+  if (pulseEnabled === false) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+        <BrandHeader compact />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center max-w-md px-6">
+            <div className="text-6xl mb-6">🌍</div>
+            <h1 className="text-3xl font-light text-white mb-3">Collective Pulse</h1>
+            <p className="text-zinc-400 mb-2">Geometric Weather for Humanity</p>
+            <p className="text-zinc-500 text-sm mb-8">
+              This feature is being calibrated. Check back soon.
+            </p>
+            <Link
+              href="/"
+              className="inline-block px-6 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all border border-zinc-700/50 text-sm"
+            >
+              Back to Reader
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -704,7 +790,7 @@ export default function PulsePage() {
             </div>
             <button
               onClick={() => changeDate(1)}
-              disabled={selectedDate >= new Date().toISOString().split('T')[0]}
+              disabled={selectedDate >= getLocalDateString()}
               className="text-zinc-400 hover:text-white transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Next

@@ -9,6 +9,7 @@ const MobileDepthStepper = ({
   accentColor = 'amber', // amber | emerald | teal | cyan | violet
   loading = false      // Show pulsating animation when loading deeper content
 }) => {
+  // V1: Four depth levels — shallow/wade/swim/deep
   const depths = ['shallow', 'wade', 'swim', 'deep'];
   const idx = depths.indexOf(currentDepth);
   const canLeft = idx > 0;

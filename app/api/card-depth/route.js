@@ -1,12 +1,15 @@
 // app/api/card-depth/route.js
 // On-demand depth generation for a single card
-// Supports WADE baseline generation OR progressive deepening
+// Supports SHALLOW baseline generation OR progressive deepening (wade/swim/deep)
 // Uses Anthropic prompt caching for efficiency
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { STATUSES } from '../../../lib/constants.js';
 import {
+  DIAGONAL_PAIRS,
+  VERTICAL_PAIRS,
+  REDUCTION_PAIRS,
   getArchetypeCorrection,
   getBoundCorrection,
   getAgentCorrection,
@@ -26,24 +29,32 @@ export async function POST(request) {
     letterContent,  // Letter content for context
     model,
     // Progressive deepening params
-    targetDepth,    // 'wade' | 'swim' | 'deep' (default: wade)
-    previousContent, // { wade: '...', swim: '...' } - content to build on
+    targetDepth,    // 'shallow' | 'wade' | 'swim' | 'deep'
+    previousContent, // { shallow: '...', wade: '...', swim: '...' } - content to build on
+    sections,       // ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all)
+    // Frame context (from preset spreads)
+    frameLabel,     // e.g., "Foundation" - the spread position label
+    frameLens,      // e.g., "This signature is how your practical reality is expressing..."
     // DTP token context (optional)
     token,          // e.g., "Fear" - the user's token this card is reading
-    originalInput   // e.g., "I'm worried about my marriage" - full question for grounding
+    originalInput,  // e.g., "I'm worried about my marriage" - full question for grounding
+    userContext      // Optional user journey context block
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
-  const depth = targetDepth || 'wade';
+  const depth = targetDepth || 'shallow';
   const n = cardIndex + 1; // 1-indexed for markers
 
   // Determine if this is baseline generation or progressive deepening
   const isDeepening = previousContent && Object.keys(previousContent).length > 0;
 
   // Build card-specific user message
-  const userMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput)
-    : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput);
+  const baseMessage = isDeepening
+    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput, sections, frameLabel, frameLens)
+    : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens);
+
+  // Prepend user journey context if available (only for baseline, not deepening)
+  const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // Convert system prompt to cached format for 90% input token savings
   const systemWithCache = [
@@ -54,12 +65,16 @@ export async function POST(request) {
     }
   ];
 
-  // Adjust max tokens based on what we're generating
-  // Baseline (WADE for all sections) needs ~3500 tokens
-  // DEEP needs more room than SWIM for full transmission
+  // Token budgets per depth tier
+  // Shallow baseline: full interpretation, no architecture = 6000
+  // Wade deepening: adds Gestalt/Portal context = 3000
+  // Swim deepening: adds horizon/structural interaction = 3000
+  // Deep deepening: full geometry = 4000
   const maxTokens = isDeepening
-    ? (depth === 'deep' ? 3000 : 2000)  // DEEP gets 3000, SWIM gets 2000
-    : 3500;  // Baseline (WADE) stays at 3500
+    ? (sections && sections.length > 0
+      ? (depth === 'deep' ? 2000 : 1500)  // Single section: DEEP 2000, others 1500
+      : (depth === 'deep' ? 4000 : 3000)) // All sections: DEEP 4000, others 3000
+    : 6000;  // Baseline (SURFACE + SHALLOW for all sections)
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -110,11 +125,11 @@ export async function POST(request) {
 
     // Parse the card sections from response
     const parsedCard = isDeepening
-      ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent)
+      ? parseDeepenResponse(text, n, draw.status !== 1, depth, previousContent, sections)
       : parseBaselineResponse(text, n, draw.status !== 1, draw);
 
     // Check if parsing produced empty results (model returned unexpected format)
-    const hasContent = parsedCard.wade || parsedCard.surface || parsedCard.swim || parsedCard.deep;
+    const hasContent = parsedCard.shallow || parsedCard.wade || parsedCard.surface || parsedCard.swim || parsedCard.deep;
     if (!hasContent) {
       console.error('Parsing failed - no content extracted. First 1000 chars of response:', text.substring(0, 1000));
       return Response.json({
@@ -139,7 +154,7 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for all sections (initial load)
-function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token = null, originalInput = null) {
+function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token = null, originalInput = null, frameLabel = null, frameLens = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -150,22 +165,15 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context - different for Reflect vs Discover/Forge modes
-  const isReflect = spreadType === 'reflect';
-  let positionName;
-  let positionLens = '';
-
-  if (isReflect) {
-    // Reflect mode: positions are named slots from spread config
+  // V1: Position context — always from archetype position (universal)
+  const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
+  // Frame lens from preset spread (passed directly or looked up for reflect)
+  let positionLens = frameLens || '';
+  let positionFrame = frameLabel || '';
+  if (!positionLens && spreadType === 'reflect') {
     const spreadConfig = REFLECT_SPREADS[spreadKey];
-    const position = spreadConfig?.positions?.[n - 1];
-    positionName = position?.name || `Position ${n}`;
-    positionLens = position?.lens || '';
-  } else {
-    // Discover/Forge/Explore mode: position is an archetype from draw.position
-    positionName = draw.position !== null && draw.position !== undefined
-      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
-      : `Position ${n}`;
+    positionLens = spreadConfig?.positions?.[n - 1]?.lens || '';
+    positionFrame = positionFrame || spreadConfig?.positions?.[n - 1]?.name || '';
   }
 
   // Calculate correction target for imbalanced cards using canonical correction functions
@@ -230,51 +238,66 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
 
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionLens ? `
+CONTEXT: This is Signature ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionFrame ? `
+FRAME POSITION: "${positionFrame}" — interpret through this frame in addition to the archetype position.` : ''}${positionLens ? `
 POSITION LENS: ${positionLens}` : ''}
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
-THE CARD: ${cardName}
+THE SIGNATURE: ${cardName}
 IN POSITION: ${positionName}
 Traditional Name: ${trans?.traditional || 'N/A'}
 Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
-Generate the WADE level content for this card. WADE means: 3-4 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
+Generate SHALLOW level content for this signature.
+SHALLOW means: A full, substantive interpretation — 2-4 rich paragraphs. Each paragraph 2-3 sentences. This is a pure reading — focus on meaning, feeling, and insight. Do NOT use architectural framework terms (process stage, horizon, Gestalt, Portal, correction geometry). Write as if having a natural conversation about what this signature reveals. Explore how the signature operates within this specific position. What does this combination reveal about their question?
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
-- THE CARD (what was drawn): ${cardName}
+- THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
 Your interpretation MUST say "${cardName} in ${positionName}" or "in your ${positionName}".
-DO NOT reverse these - ${cardName} is the card, ${positionName} is the position it landed in.
+DO NOT reverse these - ${cardName} is the signature, ${positionName} is the position it landed in.
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 
 Respond with these markers:
 
-[CARD:${n}:WADE]
-(3-4 sentences: What does this card reveal about their question? Be specific.)
+[CARD:${n}:SURFACE]
+(2-3 sentences: Core insight distilled. Must stand alone.)
+
+[CARD:${n}:SHALLOW]
+(2-4 paragraphs: Full interpretation of this signature in this position. What does it reveal about their question? How does the position shape the meaning? Be specific and substantive. No architectural terminology — write naturally.)
 
 [CARD:${n}:MIRROR]
 (Single poetic line reflecting their situation)
 
-[CARD:${n}:WHY:WADE]
-(3-4 sentences: Why did THIS card appear for THIS question?)
-${isImbalanced ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+[CARD:${n}:WHY:SURFACE]
+(2-3 sentences: The teleological pressure, named plainly.)
 
-[CARD:${n}:REBALANCER:WADE]
-(3-4 sentences: The specific correction through ${correctionTarget || 'the correction target'} and how to apply it)` : ''}
+[CARD:${n}:WHY:SHALLOW]
+(1-2 paragraphs: Why did THIS signature emerge for THIS question? What is it pointing at? No architectural terminology.)
+${isImbalanced ? `
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction — the same imbalance means something different in ${positionName} than it would elsewhere.` : ''}
+
+[CARD:${n}:REBALANCER:SURFACE]
+(2-3 sentences: What the correction offers within ${positionName}, plainly.)
+
+[CARD:${n}:REBALANCER:SHALLOW]
+(1-2 paragraphs: The specific correction through ${correctionTarget || 'the correction target'} as it operates in the ${positionName} position. How does this correction restore balance HERE? What does it look like in practice? No architectural terminology.)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
 GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
-[CARD:${n}:GROWTH:WADE]
-(3-4 sentences: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
+[CARD:${n}:GROWTH:SURFACE]
+(2-3 sentences: The growth invitation, plainly.)
 
-CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear idea fully.
+[CARD:${n}:GROWTH:SHALLOW]
+(1-2 paragraphs: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. It's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived". No architectural terminology.` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, you're invited toward..." Not correction - INVITATION. No architectural terminology.`})` : ''}
+
+CRITICAL: Make each section substantive. Shallow is the user's first encounter — it must be rich enough to stand on its own as a genuine reading. Surface is a companion distillation, not the main event.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
 NOTE: Architecture section will be generated separately - do not include it.${token ? `
 
@@ -290,7 +313,8 @@ The token "${token}" should appear naturally woven into your interpretations, gr
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null) {
+// sections: null = all sections, or array like ['reading'], ['rebalancer'], ['why'], ['growth']
+function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null, sections = null, frameLabel = null, frameLens = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -301,21 +325,8 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
   const isImbalanced = draw.status !== 1;
   const isBalanced = draw.status === 1;
 
-  // Get position context - different for Reflect vs Discover/Forge modes
-  const isReflect = spreadType === 'reflect';
-  let positionName;
-
-  if (isReflect) {
-    // Reflect mode: positions are named slots from spread config
-    const spreadConfig = REFLECT_SPREADS[spreadKey];
-    const position = spreadConfig?.positions?.[n - 1];
-    positionName = position?.name || `Position ${n}`;
-  } else {
-    // Discover/Forge/Explore mode: position is an archetype from draw.position
-    positionName = draw.position !== null && draw.position !== undefined
-      ? ARCHETYPES[draw.position]?.name || `Position ${n}`
-      : `Position ${n}`;
-  }
+  // V1: Position context — always from archetype position (universal)
+  const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -377,44 +388,133 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
     }
   }
 
-  const depthInstructions = targetDepth === 'deep'
-    ? `DEEP depth: Full transmission with NO limits.
-       - Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications
-       - Why section: 3-4 paragraphs on deeper teleological meaning
-       - Rebalancer (if imbalanced): 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it
-       - Growth (if balanced): 3-4 paragraphs on the developmental invitation and how to engage it
+  // Determine which sections to include (null = all)
+  const includeReading = !sections || sections.includes('reading');
+  const includeWhy = !sections || sections.includes('why');
+  const includeRebalancer = !sections || sections.includes('rebalancer');
+  const includeGrowth = !sections || sections.includes('growth');
 
-       DEEP is the fullest expression. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`
-    : `SWIM depth: One rich paragraph per section. Add psychological depth, practical implications, and emotional resonance that WADE introduced but didn't fully develop.`;
+  // Compute structural data for tier-specific injection
+  const posArch = ARCHETYPES[draw.position];
+  const posHouse = posArch?.house || 'Unknown';
+  const posFunction = posArch?.function || 'Unknown';
+  const posHorizon = draw.position <= 9 ? 'Inner' : (draw.position <= 21 ? 'Outer' : 'Unknown');
+  const gestaltPositions = [0, 1, 19, 20];
+  const portalPositions = [10, 21];
+
+  // Build tier-specific structural injection
+  let structuralContext = '';
+  if (targetDepth === 'wade' || targetDepth === 'swim' || targetDepth === 'deep') {
+    // WADE tier: Add Gestalt/Portal significance
+    if (gestaltPositions.includes(draw.position)) {
+      structuralContext += `\nGESTALT SIGNIFICANCE: ${positionName} is a Gestalt archetype — it operates above the four houses, at the level of consciousness itself. Interpretations landing here carry meta-level weight. Weave this cosmic scope into your deepening.\n`;
+    }
+    if (portalPositions.includes(draw.position)) {
+      const portalType = draw.position === 10 ? 'Ingress (entry)' : 'Egress (completion)';
+      structuralContext += `\nPORTAL THRESHOLD: ${positionName} is a Portal — the ${portalType} point between Inner and Outer horizons. This is a threshold position where something is crossing between worlds. Let this threshold quality inform your deepening.\n`;
+    }
+  }
+  if (targetDepth === 'swim' || targetDepth === 'deep') {
+    // SWIM tier: Add horizon, process stage, structural interaction
+    structuralContext += `\nSTRUCTURAL LOCATION: ${positionName} sits on the ${posHorizon} horizon (${posHorizon === 'Inner' ? 'positions 0-9: forming, seeding, developing' : 'positions 10-21: realized, completed, returning'}), in the ${posHouse} House, at the ${posFunction} stage of the process cycle.\n`;
+    // Transient process stage interaction
+    const transComp = getComponent(draw.transient);
+    const transArch = transComp.type === 'Archetype' ? ARCHETYPES[draw.transient] : (transComp.archetype !== undefined ? ARCHETYPES[transComp.archetype] : null);
+    const transFunction = transArch?.function || transComp?.function;
+    if (transFunction && posFunction && transFunction !== posFunction) {
+      structuralContext += `STRUCTURAL INTERACTION: The transient (${transComp.name}) carries ${transFunction} energy landing in a ${posFunction} position. Explore what this crossing of process stages means.\n`;
+    }
+    const transHorizon = draw.transient <= 9 ? 'Inner' : (draw.transient <= 21 ? 'Outer' : (transComp.archetype !== undefined ? (transComp.archetype <= 9 ? 'Inner-derived' : 'Outer-derived') : 'Channel'));
+    if (posHorizon === 'Inner' && transHorizon.startsWith('Outer')) {
+      structuralContext += `HORIZON CROSSING: An Outer-horizon signature landing in an Inner position — what has been realized is now influencing what is still forming.\n`;
+    } else if (posHorizon === 'Outer' && transHorizon === 'Inner') {
+      structuralContext += `HORIZON CROSSING: An Inner-horizon signature landing in an Outer position — what is nascent is expressing through a mature domain.\n`;
+    }
+  }
+  if (targetDepth === 'deep') {
+    // DEEP tier: Add correction geometry, channels, house interaction
+    const transComp = getComponent(draw.transient);
+    const transId = transComp.type === 'Archetype' ? draw.transient : (transComp.archetype !== undefined ? transComp.archetype : null);
+    if (transId !== null && transId <= 21) {
+      const diagonal = DIAGONAL_PAIRS[transId];
+      const vertical = VERTICAL_PAIRS[transId];
+      const reduction = REDUCTION_PAIRS[transId];
+      structuralContext += `\nCORRECTION GEOMETRY for ${transComp.name}:\n`;
+      structuralContext += `  Diagonal (counter-force for Too Much): ${ARCHETYPES[diagonal]?.name}\n`;
+      structuralContext += `  Vertical (restoration for Too Little): ${ARCHETYPES[vertical]?.name}\n`;
+      if (reduction !== null) {
+        structuralContext += `  Reduction (illumination for Unacknowledged): ${ARCHETYPES[reduction]?.name}\n`;
+      }
+    }
+    const transChannel = transComp.channel || null;
+    const posChannel = posArch?.channel || null;
+    if (transChannel && posChannel) {
+      if (transChannel === posChannel) {
+        structuralContext += `CHANNEL RESONANCE: Both operate through ${transChannel} — amplified, concentrated expression.\n`;
+      } else {
+        structuralContext += `CHANNEL CROSSING: Transient through ${transChannel}, position through ${posChannel}. Cross-pollination of energies.\n`;
+      }
+    }
+    const transHouse = transComp.house || null;
+    if (transHouse && posHouse && transHouse !== posHouse) {
+      structuralContext += `HOUSE INTERACTION: ${transComp.name} (${transHouse} House) in ${positionName} (${posHouse} House).\n`;
+    }
+  }
+
+  let depthInstructions;
+  if (targetDepth === 'deep') {
+    const details = [];
+    if (includeReading) details.push('- Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications');
+    if (includeWhy) details.push('- Why section: 3-4 paragraphs on deeper teleological meaning');
+    if (includeRebalancer && isImbalanced) details.push('- Rebalancer: 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it');
+    if (includeGrowth && isBalanced) details.push('- Growth: 3-4 paragraphs on the developmental invitation and how to engage it');
+    depthInstructions = `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression. Use architectural framework terms freely. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`;
+  } else if (targetDepth === 'swim') {
+    depthInstructions = `SWIM depth: 2-3 rich paragraphs per section. Add psychological depth, practical implications, and structural awareness. You may reference horizons and process stages.`;
+  } else {
+    // Wade
+    depthInstructions = `WADE depth: 2-3 rich paragraphs per section. Build on the shallow reading by incorporating the structural significance below. If a Gestalt or Portal is present, make that presence felt in the interpretation.`;
+  }
 
   // Build previous content display
   let previousDisplay = '';
+  if (previousContent.reading?.shallow) previousDisplay += `Reading SHALLOW: ${previousContent.reading.shallow}\n`;
   if (previousContent.reading?.wade) previousDisplay += `Reading WADE: ${previousContent.reading.wade}\n`;
   if (previousContent.reading?.swim) previousDisplay += `Reading SWIM: ${previousContent.reading.swim}\n`;
+  if (previousContent.why?.shallow) previousDisplay += `Why SHALLOW: ${previousContent.why.shallow}\n`;
   if (previousContent.why?.wade) previousDisplay += `Why WADE: ${previousContent.why.wade}\n`;
   if (previousContent.why?.swim) previousDisplay += `Why SWIM: ${previousContent.why.swim}\n`;
+  if (isImbalanced && previousContent.rebalancer?.shallow) previousDisplay += `Rebalancer SHALLOW: ${previousContent.rebalancer.shallow}\n`;
   if (isImbalanced && previousContent.rebalancer?.wade) previousDisplay += `Rebalancer WADE: ${previousContent.rebalancer.wade}\n`;
   if (isImbalanced && previousContent.rebalancer?.swim) previousDisplay += `Rebalancer SWIM: ${previousContent.rebalancer.swim}\n`;
+  if (isBalanced && previousContent.growth?.shallow) previousDisplay += `Growth SHALLOW: ${previousContent.growth.shallow}\n`;
   if (isBalanced && previousContent.growth?.wade) previousDisplay += `Growth WADE: ${previousContent.growth.wade}\n`;
   if (isBalanced && previousContent.growth?.swim) previousDisplay += `Growth SWIM: ${previousContent.growth.swim}\n`;
 
+  // Frame context
+  const positionFrame = frameLabel || '';
+  const positionLens = frameLens || '';
+
   return `QUESTION: "${question}"
 
-CONTEXT: This is Card ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.
+CONTEXT: This is Signature ${n} (${positionName}) in a ${spreadType.toUpperCase()} reading.${positionFrame ? `
+FRAME POSITION: "${positionFrame}" — interpret through this frame in addition to the archetype position.` : ''}${positionLens ? `
+POSITION LENS: ${positionLens}` : ''}
 
-THE CARD: ${cardName}
+THE SIGNATURE: ${cardName}
 IN POSITION: ${positionName}
 Status: ${stat?.name || 'Balanced'}
 
 PREVIOUS CONTENT (what the querent has already read):
 ${previousDisplay}
 
-Now generate ${targetDepth.toUpperCase()} level content for ALL sections.
+Now generate ${targetDepth.toUpperCase()} level content for ${sections ? 'the requested section(s)' : 'ALL sections'}.
 
+${structuralContext ? `STRUCTURAL DATA FOR THIS DEPTH TIER:\n${structuralContext}` : ''}
 ${depthInstructions}
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
-- THE CARD (what was drawn): ${cardName}
+- THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
 Say "${cardName} in ${positionName}" - DO NOT reverse these. Weave naturally into your deepened content.
 
@@ -428,18 +528,18 @@ CRITICAL RULES:
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-4 sentences max. No walls of text.
 
 Respond with these markers:
-
+${includeReading ? `
 [CARD:${n}:${targetDepth.toUpperCase()}]
 (Build on previous reading - add new dimensions)
-
+` : ''}${includeWhy ? `
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
-(Deepen why this card appeared - new angles)
-${isImbalanced ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.` : ''}
+(Deepen why this signature emerged - new angles)
+` : ''}${isImbalanced && includeRebalancer ? `
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction.` : ''}
 
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction through ${correctionTarget || 'the correction target'} - new practical dimensions.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}
-${isBalanced ? `
+(Deepen the correction through ${correctionTarget || 'the correction target'} as it operates in ${positionName} - new practical dimensions grounded in this position.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
 ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
@@ -453,7 +553,7 @@ Continue grounding all interpretations in this specific context.
 The token "${token}" should appear naturally woven into all sections, grounded in the specific situation.` : ''}`;
 }
 
-// Parse baseline response (WADE for all sections)
+// Parse baseline response (SHALLOW for all sections — no architecture)
 function parseBaselineResponse(text, n, isImbalanced, draw) {
   const extractSection = (marker) => {
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
@@ -473,43 +573,52 @@ function parseBaselineResponse(text, n, isImbalanced, draw) {
   const isBalanced = draw.status === 1;
 
   const cardData = {
-    wade: extractSection(`CARD:${n}:WADE`),
-    swim: '', // Not generated yet - will be filled by deepening
-    deep: '', // Not generated yet
+    surface: extractSection(`CARD:${n}:SURFACE`),
+    shallow: extractSection(`CARD:${n}:SHALLOW`),
+    wade: '', // Not generated yet - filled by first deepening (adds Gestalt/Portal)
+    swim: '', // Second deepening (adds horizon/interaction)
+    deep: '', // Third deepening (full geometry)
     architecture: architectureText,
     mirror: extractSection(`CARD:${n}:MIRROR`),
     why: {
-      wade: extractSection(`CARD:${n}:WHY:WADE`),
+      surface: extractSection(`CARD:${n}:WHY:SURFACE`),
+      shallow: extractSection(`CARD:${n}:WHY:SHALLOW`),
+      wade: '',
       swim: '',
       deep: '',
-      architecture: '' // No longer AI-generated
+      architecture: ''
     }
   };
 
   if (isImbalanced) {
     cardData.rebalancer = {
-      wade: extractSection(`CARD:${n}:REBALANCER:WADE`),
+      surface: extractSection(`CARD:${n}:REBALANCER:SURFACE`),
+      shallow: extractSection(`CARD:${n}:REBALANCER:SHALLOW`),
+      wade: '',
       swim: '',
       deep: '',
-      architecture: '' // No longer AI-generated
+      architecture: ''
     };
   }
 
   // Add growth section for balanced cards
   if (isBalanced) {
     cardData.growth = {
-      wade: extractSection(`CARD:${n}:GROWTH:WADE`),
+      surface: extractSection(`CARD:${n}:GROWTH:SURFACE`),
+      shallow: extractSection(`CARD:${n}:GROWTH:SHALLOW`),
+      wade: '',
       swim: '',
       deep: '',
-      architecture: '' // No AI architecture for growth
+      architecture: ''
     };
   }
 
   return cardData;
 }
 
-// Parse deepen response (SWIM or DEEP for all sections)
-function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
+// Parse deepen response (SWIM or DEEP for requested sections)
+// sections: null = all sections, or array like ['reading'], ['rebalancer'], etc.
+function parseDeepenResponse(text, n, isImbalanced, depth, previousContent, sections = null) {
   const extractSection = (marker) => {
     const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z]+:[A-Z]+\\]|$)`, 'i');
     const match = text.match(regex);
@@ -524,43 +633,50 @@ function parseDeepenResponse(text, n, isImbalanced, depth, previousContent) {
   };
 
   const depthMarker = depth.toUpperCase();
-  const newContent = extractSection(`CARD:${n}:${depthMarker}`);
-  const newWhy = extractSection(`CARD:${n}:WHY:${depthMarker}`);
+  const shouldUpdate = (section) => !sections || sections.includes(section);
   const isBalanced = !isImbalanced;
 
-  // Merge with previous content
+  // Only extract sections that were requested
+  const newContent = shouldUpdate('reading') ? extractSection(`CARD:${n}:${depthMarker}`) : '';
+  const newWhy = shouldUpdate('why') ? extractSection(`CARD:${n}:WHY:${depthMarker}`) : '';
+
+  // Merge with previous content — only update requested sections, preserve others
   const cardData = {
-    wade: previousContent?.reading?.wade || '',
-    swim: depth === 'swim' ? newContent : (previousContent?.reading?.swim || ''),
-    deep: depth === 'deep' ? newContent : (previousContent?.reading?.deep || ''),
+    shallow: previousContent?.reading?.shallow || '',
+    wade: (depth === 'wade' && shouldUpdate('reading')) ? newContent : (previousContent?.reading?.wade || ''),
+    swim: (depth === 'swim' && shouldUpdate('reading')) ? newContent : (previousContent?.reading?.swim || ''),
+    deep: (depth === 'deep' && shouldUpdate('reading')) ? newContent : (previousContent?.reading?.deep || ''),
     architecture: previousContent?.architecture || '',
     mirror: previousContent?.mirror || '',
     why: {
-      wade: previousContent?.why?.wade || '',
-      swim: depth === 'swim' ? newWhy : (previousContent?.why?.swim || ''),
-      deep: depth === 'deep' ? newWhy : (previousContent?.why?.deep || ''),
+      shallow: previousContent?.why?.shallow || '',
+      wade: (depth === 'wade' && shouldUpdate('why')) ? newWhy : (previousContent?.why?.wade || ''),
+      swim: (depth === 'swim' && shouldUpdate('why')) ? newWhy : (previousContent?.why?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('why')) ? newWhy : (previousContent?.why?.deep || ''),
       architecture: previousContent?.why?.architecture || ''
     }
   };
 
   if (isImbalanced) {
-    const newRebalancer = extractSection(`CARD:${n}:REBALANCER:${depthMarker}`);
+    const newRebalancer = shouldUpdate('rebalancer') ? extractSection(`CARD:${n}:REBALANCER:${depthMarker}`) : '';
     cardData.rebalancer = {
-      wade: previousContent?.rebalancer?.wade || '',
-      swim: depth === 'swim' ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
-      deep: depth === 'deep' ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
+      shallow: previousContent?.rebalancer?.shallow || '',
+      wade: (depth === 'wade' && shouldUpdate('rebalancer')) ? newRebalancer : (previousContent?.rebalancer?.wade || ''),
+      swim: (depth === 'swim' && shouldUpdate('rebalancer')) ? newRebalancer : (previousContent?.rebalancer?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('rebalancer')) ? newRebalancer : (previousContent?.rebalancer?.deep || ''),
       architecture: previousContent?.rebalancer?.architecture || ''
     };
   }
 
   // Add growth section for balanced cards
   if (isBalanced) {
-    const newGrowth = extractSection(`CARD:${n}:GROWTH:${depthMarker}`);
+    const newGrowth = shouldUpdate('growth') ? extractSection(`CARD:${n}:GROWTH:${depthMarker}`) : '';
     cardData.growth = {
-      wade: previousContent?.growth?.wade || '',
-      swim: depth === 'swim' ? newGrowth : (previousContent?.growth?.swim || ''),
-      deep: depth === 'deep' ? newGrowth : (previousContent?.growth?.deep || ''),
-      architecture: '' // No AI architecture for growth
+      shallow: previousContent?.growth?.shallow || '',
+      wade: (depth === 'wade' && shouldUpdate('growth')) ? newGrowth : (previousContent?.growth?.wade || ''),
+      swim: (depth === 'swim' && shouldUpdate('growth')) ? newGrowth : (previousContent?.growth?.swim || ''),
+      deep: (depth === 'deep' && shouldUpdate('growth')) ? newGrowth : (previousContent?.growth?.deep || ''),
+      architecture: ''
     };
   }
 
