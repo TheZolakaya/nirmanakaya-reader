@@ -63,11 +63,12 @@ export async function POST(request) {
   // Baseline (WADE for all sections) needs ~3500 tokens
   // DEEP needs more room than SWIM for full transmission
   // When sections specified, scale tokens down — single section needs far fewer tokens
+  // V1: Token budgets — wade is now a full interpretation, not a summary
   const maxTokens = isDeepening
     ? (sections && sections.length > 0
-      ? (depth === 'deep' ? 1500 : 1000)  // Single/few sections: DEEP 1500, SWIM 1000
-      : (depth === 'deep' ? 3000 : 2000)) // All sections: DEEP 3000, SWIM 2000
-    : 4000;  // Baseline (SURFACE + WADE for all sections)
+      ? (depth === 'deep' ? 2000 : 1500)  // Single/few sections: DEEP 2000, SWIM 1500
+      : (depth === 'deep' ? 4000 : 3000)) // All sections: DEEP 4000, SWIM 3000
+    : 6000;  // Baseline (SURFACE + WADE for all sections — wade is now 2-4 paragraphs)
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -241,13 +242,8 @@ Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
 
-Generate WADE and SURFACE level content for this signature.
-WADE means: 4-6 substantive sentences per section. Not shallow, but not exhaustive either. Give real insight.
-SURFACE means: 2-3 sentences that are an INDEPENDENT distillation — the core "oh..." moment.
-
-CRITICAL ANTI-TRUNCATION RULE: Write WADE first. Then write SURFACE FROM SCRATCH as its own distillation.
-Surface must NEVER be the first sentences of Wade copy-pasted. Different words, same core truth.
-The reader should feel "oh, that's the essence" — not "oh, that's the same text shorter."
+Generate WADE level content for this signature.
+WADE means: A full, substantive interpretation — 2-4 rich paragraphs. Each paragraph 2-3 sentences. This is the user's first real encounter with this signature in this position. Give genuine insight, not a summary. Explore how the signature operates within this specific position. What does this combination reveal about their question?
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
@@ -260,19 +256,19 @@ FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 
 Respond with these markers:
 
 [CARD:${n}:SURFACE]
-(2-3 sentences: The core insight distilled. Must stand alone as a complete thought.)
+(2-3 sentences: Core insight distilled. Must stand alone.)
 
 [CARD:${n}:WADE]
-(4-6 sentences: What does this signature reveal about their question? Be specific.)
+(2-4 paragraphs: Full interpretation of this signature in this position. What does it reveal about their question? How does the position shape the meaning? Be specific and substantive.)
 
 [CARD:${n}:MIRROR]
 (Single poetic line reflecting their situation)
 
 [CARD:${n}:WHY:SURFACE]
-(2 sentences: The teleological pressure, named plainly.)
+(2-3 sentences: The teleological pressure, named plainly.)
 
 [CARD:${n}:WHY:WADE]
-(3-4 sentences: Why did THIS signature emerge for THIS question?)
+(1-2 paragraphs: Why did THIS signature emerge for THIS question? What is the architecture pointing at?)
 ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
 REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction — the same imbalance means something different in ${positionName} than it would elsewhere.` : ''}
@@ -281,7 +277,7 @@ REBALANCER CONTEXT: This correction is happening in the ${positionName} position
 (2-3 sentences: What the correction offers within ${positionName}, plainly.)
 
 [CARD:${n}:REBALANCER:WADE]
-(4-6 sentences: The specific correction through ${correctionTarget || 'the correction target'} as it operates in the ${positionName} position. How does this correction restore balance HERE?)` : ''}
+(1-2 paragraphs: The specific correction through ${correctionTarget || 'the correction target'} as it operates in the ${positionName} position. How does this correction restore balance HERE? What does it look like in practice?)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
@@ -291,9 +287,9 @@ GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'grow
 (2-3 sentences: The growth invitation, plainly.)
 
 [CARD:${n}:GROWTH:WADE]
-(4-6 sentences: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
+(1-2 paragraphs: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. The architecture isn't pointing elsewhere — it's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived"` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, the architecture invites..." Not correction - INVITATION.`})` : ''}
 
-CRITICAL: Make each section substantive. Surface must be a complete thought that stands alone. Wade should explore ONE clear idea fully.
+CRITICAL: Make each section substantive. Wade is the user's primary interpretation — it must be rich enough to stand on its own as a genuine reading. Surface is a companion distillation, not the main event.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
 NOTE: Architecture section will be generated separately - do not include it.${token ? `
 
