@@ -4763,8 +4763,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               >
                 ✉
               </a>
-              {/* Collective Pulse - visible to all when enabled, admin-only otherwise */}
-              {(featureFlags.pulse_enabled || userIsAdmin) && (
+              {/* Collective Pulse - only visible when enabled */}
+              {featureFlags.pulse_enabled && (
                 <a
                   href="/pulse"
                   className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
