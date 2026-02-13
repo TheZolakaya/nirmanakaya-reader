@@ -570,7 +570,7 @@ export default function NirmanakaReader() {
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Preset frame
   // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
   const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic'
-  const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'integrate'
+  const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'integrate' (internal, set by presets)
   const [cardCount, setCardCount] = useState(3); // 1-5 for architecture frame
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
@@ -756,13 +756,10 @@ export default function NirmanakaReader() {
     setBorderPulseActive(false);
   }, [spreadType]);
 
-  // V1: Sync frameSource + posture → spreadType (internal compatibility)
+  // V1: Sync frameSource → spreadType (internal compatibility)
+  // Posture is internal (set by presets), frame determines the reading type
   const COUNT_TO_KEY = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
   useEffect(() => {
-    if (posture === 'forge') {
-      setSpreadType('forge');
-      return;
-    }
     if (frameSource === 'architecture') {
       setSpreadType('discover');
       setSpreadKey(COUNT_TO_KEY[cardCount] || 'three');
@@ -771,15 +768,7 @@ export default function NirmanakaReader() {
     } else if (frameSource === 'dynamic') {
       setSpreadType('explore');
     }
-  }, [frameSource, posture, cardCount]);
-
-  // V1: When posture='forge', force architecture frame + 1 card
-  useEffect(() => {
-    if (posture === 'forge') {
-      setFrameSource('architecture');
-      setCardCount(1);
-    }
-  }, [posture]);
+  }, [frameSource, cardCount]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -1276,8 +1265,8 @@ export default function NirmanakaReader() {
         const dm = featureConfig.defaultMode;
         if (dm === 'explore') { setFrameSource('dynamic'); }
         else if (dm === 'reflect') { setFrameSource('preset'); }
-        else if (dm === 'forge') { setPosture('forge'); }
-        else { setPosture(dm); }
+        else if (dm === 'forge') { setFrameSource('architecture'); } // forge no longer a posture
+        else { setFrameSource('architecture'); }
       }
       if (featureConfig.defaultSpread) {
         const spreadMap = { single: 'one', triad: 'three', pentad: 'five', septad: 'seven' };
@@ -5203,15 +5192,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div className="flex justify-center mb-2 px-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0">
                   <button
-                    onClick={() => { setFrameSource('architecture'); if (posture === 'forge') setPosture('discover'); }}
+                    onClick={() => setFrameSource('architecture')}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
-                      frameSource === 'architecture' && posture !== 'forge' ? 'bg-zinc-700/60 text-zinc-200' : 'text-zinc-500 hover:text-zinc-300'
+                      frameSource === 'architecture' ? 'bg-zinc-700/60 text-zinc-200' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
                     Architecture
                   </button>
                   <button
-                    onClick={() => { setFrameSource('preset'); if (posture === 'forge') setPosture('discover'); }}
+                    onClick={() => setFrameSource('preset')}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'preset' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
@@ -5221,7 +5210,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   <button
                     onClick={() => {
                       setFrameSource('dynamic');
-                      if (posture === 'forge') setPosture('discover');
                       // Copy question to dtpInput when switching to dynamic
                       if (question && !dtpInput) setDtpInput(question);
                     }}
@@ -5234,31 +5222,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
 
-              {/* V1: Posture Selector — verb governance (saved preference) */}
-              <div className="flex justify-center mb-2 gap-1">
-                {[
-                  { key: 'reflect', label: 'Reflect', color: 'violet', desc: 'What is already happening?' },
-                  { key: 'discover', label: 'Discover', color: 'blue', desc: 'Where is authorship available?' },
-                  { key: 'forge', label: 'Forge', color: 'red', desc: 'What changes when intention is asserted?' },
-                  { key: 'integrate', label: 'Integrate', color: 'amber', desc: 'What came back? How does it connect?' }
-                ].map(p => (
-                  <button
-                    key={p.key}
-                    onClick={() => setPosture(p.key)}
-                    title={p.desc}
-                    className={`px-2 py-0.5 rounded text-[0.6rem] sm:text-[0.65rem] font-mono uppercase tracking-wider transition-all ${
-                      posture === p.key
-                        ? p.color === 'violet' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40'
-                        : p.color === 'blue' ? 'bg-blue-600/25 text-blue-300 border border-blue-500/40'
-                        : p.color === 'red' ? 'bg-red-600/25 text-red-300 border border-red-500/40'
-                        : 'bg-amber-600/25 text-amber-300 border border-amber-500/40'
-                        : 'text-zinc-600 hover:text-zinc-400 border border-transparent'
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
+              {/* V1: Posture is internal — set by presets, not user-selectable */}
 
               {/* Control Icons - positioned at right, desktop only */}
               <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:grid grid-cols-2 gap-1 z-10">
@@ -5298,16 +5262,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </AnimatePresence>
               </div>
 
-              {/* V1: Card Count + Spread Picker — context-dependent on frameSource */}
+              {/* V1: Spread Picker — only visible for Preset frame (Choose a Spread) */}
+              {frameSource === 'preset' && (
               <div className="w-full max-w-2xl mx-auto mb-3">
                 <div className="flex flex-col items-center justify-start min-h-[36px]">
-                {frameSource === 'dynamic' || posture === 'forge' ? (
-                  /* Dynamic frame or Forge posture — no card count selector */
-                  posture === 'forge' ? (
-                    <div className="text-[0.65rem] text-zinc-500 font-mono">1 signature — declare your intention</div>
-                  ) : null
-                ) : frameSource === 'preset' ? (
-                  <>
                     {/* Spread count selector for Preset frame */}
                     <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count, index) => (
@@ -5360,36 +5318,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         );
                       })}
                     </div>
-                  </>
-                ) : (
-                  /* Architecture frame — universal card count 1-5 */
-                  <div className="flex gap-1 justify-center" data-help="spread-selector">
-                    {[1, 2, 3, 4, 5].map((count, index) => (
-                      <motion.button
-                        key={count}
-                        onClick={() => {
-                          setCardCount(count);
-                          const selKey = `arch-${count}`;
-                          handleFinalSelectionTap(selKey, cardCount !== count || lastFinalSelection !== selKey);
-                        }}
-                        className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                          cardCount === count
-                            ? 'bg-zinc-600/40 text-white border border-zinc-500/50'
-                            : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                        }`}
-                        animate={rippleTarget === 'counts' ? {
-                          opacity: [0.6, 1, 0.6],
-                          scale: [1, 1.08, 1],
-                        } : {}}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                      >
-                        {count}
-                      </motion.button>
-                    ))}
-                  </div>
-                )}
                 </div>
               </div>
+              )}
               </motion.div>{/* END controls-above */}
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
@@ -5431,7 +5362,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       <svg className={`w-3 h-3 fill-current transition-colors ${
                         posture === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
                         posture === 'discover' ? 'text-blue-400 hover:text-blue-300' :
-                        posture === 'forge' ? 'text-red-400 hover:text-red-300' :
                         posture === 'integrate' ? 'text-amber-400 hover:text-amber-300' :
                         'text-zinc-400 hover:text-zinc-300'
                       }`} viewBox="0 0 10 6">
@@ -5710,7 +5640,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
                         posture === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
                         posture === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
-                        posture === 'forge' ? 'border-red-500/50 hover:border-red-400' :
                         posture === 'integrate' ? 'border-amber-500/50 hover:border-amber-400' :
                         'border-zinc-700/50 hover:border-zinc-600'
                       }`}
@@ -5747,28 +5676,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   <div className="text-center leading-none mt-2 px-4">
                     <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
                       {/* Posture label */}
-                      <span className={
-                        posture === 'reflect' ? 'text-violet-400/70' :
-                        posture === 'discover' ? 'text-blue-400/70' :
-                        posture === 'forge' ? 'text-red-400/70' :
-                        'text-amber-400/70'
-                      }>
-                        {posture.charAt(0).toUpperCase() + posture.slice(1)}
-                      </span>
-                      <span className="text-zinc-700 mx-1">·</span>
                       {/* Frame info */}
                       {frameSource === 'preset' && REFLECT_SPREADS[reflectSpreadKey] ? (
                         <>
-                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
+                          <span className="text-violet-400/50">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
                           <span className="text-zinc-700 mx-1">·</span>
                           <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
                         </>
                       ) : frameSource === 'dynamic' ? (
                         <span className="text-emerald-400/50">From Your Words</span>
-                      ) : posture === 'forge' ? (
-                        <span className="text-zinc-500">1</span>
                       ) : (
-                        <span className="text-zinc-500">{cardCount}</span>
+                        <span className="text-zinc-500">{cardCount} signature{cardCount !== 1 ? 's' : ''}</span>
                       )}
                     </span>
                   </div>
