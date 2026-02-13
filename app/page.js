@@ -125,9 +125,6 @@ import {
   MODE_DESCRIPTIONS,
   getLevelInfo,
   legacyFromLevel,
-  isModeEnabled,
-  getMaxCardsForMode,
-  isCardCountEnabled
 } from '../lib/complexity.js';
 
 // Import React components
@@ -566,8 +563,6 @@ export default function NirmanakaReader() {
   const [spreadKey, setSpreadKey] = useState('three');
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
-  const [complexityLevel, setComplexityLevel] = useState(3); // 1-20 complexity level
-  const [useComplexitySlider, setUseComplexitySlider] = useState(false); // Toggle between old UI and new complexity slider
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -978,7 +973,8 @@ export default function NirmanakaReader() {
           if (anyCardsNeedLoad) {
             const systemPrompt = buildSystemPrompt(userLevel, {
               spreadType: data.mode || 'discover',
-              stance
+              stance,
+              showArchitecture: showArchitectureTerms
             });
             setSystemPromptCache(systemPrompt);
           }
@@ -1202,10 +1198,7 @@ export default function NirmanakaReader() {
   // Voice is baked into generation - no separate translation layer
   const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
-  const [register, setRegister] = useState(5); // 1-10: Unhinged Street to Oracle
-  const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
-  const [roastMode, setRoastMode] = useState(false); // Loving but savage
-  const [directMode, setDirectMode] = useState(false); // No softening
+  const [showArchitectureTerms, setShowArchitectureTerms] = useState(false); // V1: architecture visibility toggle
 
   // Apply config defaults to voice settings when config is loaded
   // ONLY if no saved preferences exist in localStorage (first-time users)
@@ -1218,8 +1211,7 @@ export default function NirmanakaReader() {
         if (saved) {
           const prefs = JSON.parse(saved);
           // If any voice-related pref exists, user has customized their settings
-          hasSavedPrefs = prefs.persona !== undefined || prefs.humor !== undefined ||
-                          prefs.register !== undefined || prefs.stance !== undefined;
+          hasSavedPrefs = prefs.persona !== undefined || prefs.humor !== undefined || prefs.stance !== undefined;
         }
       } catch (e) { /* ignore */ }
 
@@ -1234,10 +1226,6 @@ export default function NirmanakaReader() {
       // Apply voice defaults
       if (dv.persona) setPersona(dv.persona);
       if (dv.humor) setHumor(dv.humor);
-      if (dv.register) setRegister(dv.register);
-      if (dv.creator) setCreator(dv.creator);
-      if (dv.roastMode !== undefined) setRoastMode(dv.roastMode);
-      if (dv.directMode !== undefined) setDirectMode(dv.directMode);
       // Apply stance defaults (includes preset values)
       setStance(prev => ({
         complexity: dv.complexity || prev.complexity,
@@ -1448,10 +1436,7 @@ export default function NirmanakaReader() {
         body: JSON.stringify({
           content: readingText,
           persona,
-          humor,
-          register,
-          roastMode,
-          directMode
+          humor
         })
       });
 
@@ -1579,10 +1564,8 @@ export default function NirmanakaReader() {
         // Load persona layer preferences
         if (prefs.persona !== undefined) setPersona(prefs.persona);
         if (prefs.humor !== undefined) setHumor(prefs.humor);
-        if (prefs.register !== undefined) setRegister(prefs.register);
-        if (prefs.creator !== undefined) setCreator(prefs.creator);
-        if (prefs.roastMode !== undefined) setRoastMode(prefs.roastMode);
-        if (prefs.directMode !== undefined) setDirectMode(prefs.directMode);
+        // V1: Architecture visibility toggle
+        if (prefs.showArchitectureTerms !== undefined) setShowArchitectureTerms(prefs.showArchitectureTerms);
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
@@ -1641,13 +1624,10 @@ export default function NirmanakaReader() {
       spreadKey,
       stance,
       showVoicePreview,
-      // Persona layer settings (V2)
+      // Voice settings (V1)
       persona,
       humor,
-      register,
-      creator,
-      roastMode,
-      directMode,
+      showArchitectureTerms,
       // Background settings
       animatedBackground,
       backgroundOpacity,
@@ -1666,7 +1646,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, register, creator, roastMode, directMode, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -1877,10 +1857,8 @@ export default function NirmanakaReader() {
       // Persona Voice V2 params
       persona,
       humor,
-      register,
-      creator,
-      roastMode,
-      directMode,
+      // Architecture visibility
+      showArchitecture: showArchitectureTerms,
       // Locus control
       locusSubjects
     });
@@ -4923,59 +4901,26 @@ CRITICAL FORMATTING RULES:
                   opacity: { duration: 0.2 }
                 }}
               >
-              {/* Complexity Slider - Admin only for now */}
-              {userIsAdmin && useComplexitySlider && (
-                <div className="mb-4 px-2">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-zinc-500">Complexity Level</span>
-                    <span className="text-xs text-amber-400 font-medium">
-                      {complexityLevel} / {featureConfig.maxUserLevel || 20}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max={featureConfig.maxUserLevel || 20}
-                    value={complexityLevel}
-                    onChange={(e) => setComplexityLevel(parseInt(e.target.value))}
-                    className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700"
-                    style={{
-                      background: `linear-gradient(to right, rgb(251, 191, 36) 0%, rgb(251, 191, 36) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) ${((complexityLevel - 1) / ((featureConfig.maxUserLevel || 20) - 1)) * 100}%, rgb(63, 63, 70) 100%)`
-                    }}
-                  />
-                  <div className="flex justify-between text-[9px] text-zinc-600 mt-1">
-                    <span>Reflect 1</span>
-                    <span>Forge 5</span>
-                  </div>
-                </div>
-              )}
-
               {/* Mode Toggle - centered, own row */}
               <div className="flex justify-center mb-1 px-2 overflow-x-auto" style={{ scrollbarWidth: 'thin' }}>
                 {/* Mode tabs centered - compact on mobile */}
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5 flex-shrink-0">
                   {/* Reflect - Violet (#7C3AED) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
-                    disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
+                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e)) setSpreadType('reflect'); }}
                     data-help="mode-reflect"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'reflect' ? { backgroundColor: 'rgba(124, 58, 237, 0.25)', border: '1px solid rgba(124, 58, 237, 0.5)' } : {}}>
                     Reflect
                   </button>
                   {/* Discover - Blue (#2563EB) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
-                    disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
+                    onClick={(e) => { if (!handleHelpClick('mode-discover', e)) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     data-help="mode-discover"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('discover', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'discover' ? { backgroundColor: 'rgba(37, 99, 235, 0.25)', border: '1px solid rgba(37, 99, 235, 0.5)' } : {}}>
                     Discover
@@ -4984,19 +4929,14 @@ CRITICAL FORMATTING RULES:
                   <button
                     onClick={(e) => {
                       if (handleHelpClick('mode-explore', e)) return;
-                      if (useComplexitySlider && !isModeEnabled('explore', complexityLevel)) return;
                       const isNewSelection = spreadType !== 'explore';
                       setSpreadType('explore');
-                      // Explore mode: mode selection IS the final selection
                       const selectionKey = 'explore';
                       setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
                     }}
-                    disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('explore', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'explore' ? { backgroundColor: 'rgba(5, 150, 105, 0.25)', border: '1px solid rgba(5, 150, 105, 0.5)' } : {}}>
                     Explore
@@ -5005,19 +4945,14 @@ CRITICAL FORMATTING RULES:
                   <button
                     onClick={(e) => {
                       if (handleHelpClick('mode-forge', e)) return;
-                      if (useComplexitySlider && !isModeEnabled('forge', complexityLevel)) return;
                       const isNewSelection = spreadType !== 'forge';
                       setSpreadType('forge');
-                      // Forge mode: mode selection IS the final selection
                       const selectionKey = 'forge';
                       setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
                     }}
-                    disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
                     className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      useComplexitySlider && !isModeEnabled('forge', complexityLevel)
-                        ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
+                      spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                     style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
                     Forge
@@ -5048,44 +4983,6 @@ CRITICAL FORMATTING RULES:
                     <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
                   </svg>
                 </button>
-                {/* Bottom row: Depth, Cards */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                >
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    {defaultDepth === 'shallow' ? (
-                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                    ) : (
-                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                    )}
-                  </svg>
-                </button>
-                <button
-                  onClick={() => {
-                    const newState = !defaultExpanded;
-                    setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'signatures' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Signatures: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                >
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {defaultExpanded ? (
-                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                    ) : (
-                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                    )}
-                  </svg>
-                </button>
                 {/* Tooltip */}
                 <AnimatePresence>
                   {controlTooltip && (
@@ -5114,27 +5011,22 @@ CRITICAL FORMATTING RULES:
                     <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
                       {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
-                        const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
                         return (
                           <motion.button
                             key={count}
                             data-help={helpKey}
-                            disabled={isDisabled}
                             onClick={(e) => {
-                              if (!isDisabled && !handleHelpClick(helpKey, e)) {
+                              if (!handleHelpClick(helpKey, e)) {
                                 setReflectCardCount(count);
-                                // Auto-select first spread for this count
                                 setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
                               }
                             }}
                             className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                              isDisabled
-                                ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
-                                : reflectCardCount === count
-                                  ? 'text-white'
-                                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                              reflectCardCount === count
+                                ? 'text-white'
+                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                             } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
-                            style={reflectCardCount === count && !isDisabled ? {
+                            style={reflectCardCount === count ? {
                               backgroundColor: `${MODE_COLORS.reflect.primary}40`,
                               border: `1px solid ${MODE_COLORS.reflect.primary}80`
                             } : {}}
@@ -5197,26 +5089,21 @@ CRITICAL FORMATTING RULES:
                   <div className={`flex gap-1 justify-center ${rippleTarget === 'counts' ? '' : ''}`} data-help="spread-selector">
                     {Object.entries(RANDOM_SPREADS).map(([key, value], index) => {
                       const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
-                      const isDisabled = useComplexitySlider && !isCardCountEnabled('discover', value.count, complexityLevel);
                       return (
                         <motion.button
                           key={key}
                           data-help={helpKey}
-                          disabled={isDisabled}
                           onClick={(e) => {
-                            if (isDisabled || handleHelpClick(helpKey, e)) return;
+                            if (handleHelpClick(helpKey, e)) return;
                             const isNewSelection = spreadKey !== key;
                             setSpreadKey(key);
-                            // Tap-to-confirm: first tap = preview, second tap = collapse
                             const selectionKey = `discover-${key}`;
                             handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
                           }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                            isDisabled
-                              ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
-                              : spreadKey === key
-                                ? 'text-white'
-                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            spreadKey === key
+                              ? 'text-white'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                           } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
                           style={spreadKey === key && !isDisabled ? {
                             backgroundColor: `${MODE_COLORS.discover.primary}40`,
@@ -5630,45 +5517,6 @@ CRITICAL FORMATTING RULES:
                     <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
                   </svg>
                 </button>
-                {/* Depth */}
-                <button
-                  onClick={() => {
-                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
-                    setDefaultDepth(newDepth);
-                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
-                    setControlTooltip({ text: newDepth === 'shallow' ? 'Shallow' : 'Wade', type: 'depth' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Depth: ${defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}`}
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    {defaultDepth === 'shallow' ? (
-                      <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
-                    ) : (
-                      <><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /><path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" /></>
-                    )}
-                  </svg>
-                </button>
-                {/* Cards */}
-                <button
-                  onClick={() => {
-                    const newState = !defaultExpanded;
-                    setDefaultExpanded(newState);
-                    setControlTooltip({ text: newState ? 'Open' : 'Closed', type: 'signatures' });
-                    setTimeout(() => setControlTooltip(null), 1200);
-                  }}
-                  className="w-9 h-9 rounded-md bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50 transition-colors flex items-center justify-center"
-                  title={`Signatures: ${defaultExpanded ? 'Open' : 'Closed'}`}
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {defaultExpanded ? (
-                      <><rect x="3" y="3" width="18" height="6" rx="1" /><rect x="3" y="13" width="18" height="6" rx="1" /></>
-                    ) : (
-                      <><rect x="4" y="4" width="16" height="5" rx="1" /><rect x="4" y="11" width="16" height="5" rx="1" opacity="0.6" /><rect x="4" y="18" width="16" height="2" rx="0.5" opacity="0.3" /></>
-                    )}
-                  </svg>
-                </button>
               </div>
               )}
 
@@ -5869,7 +5717,7 @@ CRITICAL FORMATTING RULES:
                       />
                     </div>
 
-                    {/* Sliders Stack */}
+                    {/* V1: Simplified Voice Controls — Humor + Architecture Toggle */}
                     <div className="space-y-4">
                       {/* Humor */}
                       <div className="space-y-1.5">
@@ -5889,201 +5737,44 @@ CRITICAL FORMATTING RULES:
                         />
                       </div>
 
-                      {/* Register */}
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
-                          <span>Chaos</span>
-                          <span className="text-blue-400">{REGISTER_LEVELS[register]}</span>
-                          <span>Oracle</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={register}
-                          onChange={(e) => setRegister(parseInt(e.target.value))}
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
-                        />
-                      </div>
-
-                      {/* Agency */}
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
-                          <span>Witness</span>
-                          <span className="text-emerald-400">{CREATOR_LEVELS[creator]}</span>
-                          <span>Creator</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={creator}
-                          onChange={(e) => setCreator(parseInt(e.target.value))}
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Footer Toggles (Roast/Direct) */}
-                    <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setRoastMode(!roastMode); }}
-                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                      >
-                        Roast Mode
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setDirectMode(!directMode); }}
-                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
-                      >
-                        Direct Mode
-                      </button>
-                    </div>
-
-                    {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
-                    {showAdvancedVoice && (
-                      <div className="mt-4 pt-3 border-t border-white/5">
+                      {/* Architecture Visibility Toggle */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Show Architecture</span>
                         <button
-                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                          data-help="advanced-voice"
-                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                          onClick={(e) => { e.stopPropagation(); setShowArchitectureTerms(!showArchitectureTerms); }}
+                          className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${showArchitectureTerms ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
-                          <span className="text-[11px]">{showLandingFineTune ? '▾' : '▸'}</span>
-                          <span className="text-[11px] font-mono uppercase tracking-wider">Advanced</span>
+                          {showArchitectureTerms ? 'ON' : 'OFF'}
                         </button>
-
-                        {showLandingFineTune && (
-                          <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
-                            {/* Delivery Presets */}
-                            <div
-                              className="mb-3 pb-3 border-b border-zinc-700/50"
-                              data-help="delivery-preset"
-                              onClick={(e) => handleHelpClick('delivery-preset', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                                  const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                                  return (
-                                    <button
-                                      key={key}
-                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                                      className={`px-1.5 py-1 rounded text-[10px] transition-all ${
-                                        isActive
-                                          ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
-                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                      }`}
-                                      title={preset.preview || preset.name}
-                                    >
-                                      {preset.name}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Voice Preview */}
-                            <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                              <p className="text-zinc-400 text-[11px] italic leading-relaxed">
-                                "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                              </p>
-                            </div>
-
-                            {/* Complexity Selector */}
-                            <div
-                              className="mb-3"
-                              data-help="voice-complexity"
-                              onClick={(e) => handleHelpClick('voice-complexity', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                                  <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                                    className={`px-1.5 py-1 rounded text-[10px] transition-all ${
-                                      stance.complexity === key
-                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                    }`}
-                                  >
-                                    {opt.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Tone Selector */}
-                            <div
-                              className="mb-3"
-                              data-help="voice-tone"
-                              onClick={(e) => handleHelpClick('voice-tone', e)}
-                            >
-                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
-                              <div className="flex gap-1 justify-center">
-                                {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                                  <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                                    className={`px-1.5 py-1 rounded text-[10px] transition-all capitalize ${
-                                      stance.seriousness === key
-                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
-                                    }`}
-                                  >
-                                    {key}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Stance Grid */}
-                            <div
-                              data-help="stance-selector"
-                              onClick={(e) => handleHelpClick('stance-selector', e)}
-                            >
-                              <StanceSelector
-                                stance={stance}
-                                setStance={setStance}
-                                showCustomize={true}
-                                setShowCustomize={() => {}}
-                                gridOnly={true}
-                                disabled={helpMode}
-                              />
-                            </div>
-
-                            {/* Model Selector + Token Display */}
-                            <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                              {getAvailableModels().length > 1 && (
-                                <div className="flex items-center justify-center gap-2 mb-1.5">
-                                  <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
-                                  <select
-                                    value={selectedModel}
-                                    onChange={(e) => setSelectedModel(e.target.value)}
-                                    className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
-                                  >
-                                    {getAvailableModels().map(m => (
-                                      <option key={m} value={m}>{getModelLabel(m)}</option>
-                                    ))}
-                                  </select>
-                                </div>
-                              )}
-                              <label className="flex items-center justify-center gap-2 cursor-pointer">
-                                <input
-                                  type="checkbox"
-                                  checked={showTokenUsage}
-                                  onChange={(e) => setShowTokenUsage(e.target.checked)}
-                                  className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                                />
-                                <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
-                              </label>
-                            </div>
-                          </div>
-                        )}
                       </div>
-                    )}
+                    </div>
+
+                    {/* Model Selector + Token Display */}
+                    <div className="mt-4 pt-3 border-t border-white/5">
+                      {getAvailableModels().length > 1 && (
+                        <div className="flex items-center justify-center gap-2 mb-1.5">
+                          <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
+                          <select
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                          >
+                            {getAvailableModels().map(m => (
+                              <option key={m} value={m}>{getModelLabel(m)}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                      <label className="flex items-center justify-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={showTokenUsage}
+                          onChange={(e) => setShowTokenUsage(e.target.checked)}
+                          className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
+                      </label>
+                    </div>
                   </motion.div>
                 </>
               )}
@@ -7879,14 +7570,6 @@ CRITICAL FORMATTING RULES:
                     setPersona={setPersona}
                     humor={humor}
                     setHumor={setHumor}
-                    register={register}
-                    setRegister={setRegister}
-                    creator={creator}
-                    setCreator={setCreator}
-                    roastMode={roastMode}
-                    setRoastMode={setRoastMode}
-                    directMode={directMode}
-                    setDirectMode={setDirectMode}
                     compact={true}
                     hasReading={!!parsedReading}
                   />
