@@ -3609,13 +3609,7 @@ CRITICAL FORMATTING RULES:
     setFollowUpLoading(false);
   };
 
-  const resetReading = (skipConfirm = false) => {
-    // Warn user if they have an active reading
-    if (!skipConfirm && draws) {
-      if (!window.confirm('Begin a new encounter? Your current encounter will be cleared.')) {
-        return;
-      }
-    }
+  const resetReading = () => {
     // Save telemetry before resetting (fire and forget)
     if (savedReadingId) {
       updateReadingTelemetry(savedReadingId, telemetry).catch(err => console.log('[Telemetry] Failed to save:', err));
@@ -6304,7 +6298,7 @@ CRITICAL FORMATTING RULES:
                 )}
                 <button
                   data-help="action-new"
-                  onClick={(e) => { if (!handleHelpClick('action-new', e)) { if (window.confirm('Begin a new encounter? Your current encounter will be cleared.')) resetReading(true); } }}
+                  onClick={(e) => { if (!handleHelpClick('action-new', e)) resetReading(); }}
                   className="text-xs text-[#f59e0b] hover:text-yellow-300 transition-colors px-2 py-1 rounded bg-[#021810] hover:bg-[#052e23] border border-emerald-700/50"
                 >New</button>
                 <button
