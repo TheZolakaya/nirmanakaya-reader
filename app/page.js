@@ -577,13 +577,13 @@ export default function NirmanakaReader() {
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [synthContextInput, setSynthContextInput] = useState({}); // { summary: true } - which synth sections show converse input
   const [synthContextText, setSynthContextText] = useState({}); // { summary: 'user text' } - converse input values
-  const [defaultDepth, setDefaultDepth] = useState('wade'); // Master default: 'shallow' | 'wade'
+  const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
   const [defaultExpanded, setDefaultExpanded] = useState(true); // When true, nested sections start expanded
   const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
-  const [letterDepth, setLetterDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [pathDepth, setPathDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [summaryDepth, setSummaryDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [whyAppearedDepth, setWhyAppearedDepth] = useState('wade'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
+  const [whyAppearedDepth, setWhyAppearedDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
 
   // Auth state
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -1599,7 +1599,7 @@ export default function NirmanakaReader() {
     // One-time migration: push wade depth + signatures open to all existing users
     try {
       if (!localStorage.getItem('nkya_migrated_wade_open')) {
-        setDefaultDepth('wade');
+        setDefaultDepth('shallow');
         setDefaultExpanded(true);
         setLetterDepth('wade');
         setPathDepth('wade');
@@ -1986,7 +1986,12 @@ export default function NirmanakaReader() {
     setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
 
     try {
-      const letterContent = letterData?.swim || letterData?.wade || letterData?.surface || '';
+      const letterContent = letterData?.swim || letterData?.wade || letterData?.shallow || letterData?.surface || '';
+      // Compute frame label/lens for this card (reflect spreads have position-specific context)
+      const currentSpreadKey = spreadType === 'reflect' ? reflectSpreadKey : spreadKey;
+      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
+      const frameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const frameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1995,10 +2000,12 @@ export default function NirmanakaReader() {
           draw: drawsToUse[cardIndex],
           question: questionToUse,
           spreadType,
-          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          spreadKey: currentSpreadKey,
           stance,
           system: systemPromptToUse || systemPromptCache,
           letterContent,
+          frameLabel, // Frame context from preset spreads
+          frameLens,  // Interpretation lens from preset spreads
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
@@ -2009,7 +2016,7 @@ export default function NirmanakaReader() {
       if (data.error) throw new Error(data.error);
 
       // Validate that we got actual content (not just empty strings)
-      const hasContent = data.cardData && (data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
+      const hasContent = data.cardData && (data.cardData.shallow || data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
       if (!hasContent) {
         throw new Error('Card generation returned empty content. Please try again.');
       }
@@ -2059,6 +2066,10 @@ export default function NirmanakaReader() {
       const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
       // Get originalInput for grounded DTP interpretations
       const originalInput = parsedReading?.originalInput || null;
+      // Compute frame label/lens for this card
+      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
+      const deepenFrameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const deepenFrameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2071,6 +2082,8 @@ export default function NirmanakaReader() {
           stance,
           system: systemPromptCache,
           letterContent,
+          frameLabel: deepenFrameLabel,
+          frameLens: deepenFrameLens,
           token: cardToken, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
@@ -3678,7 +3691,8 @@ CRITICAL FORMATTING RULES:
         isCycle
       }],
       visitedPositions: [...visitedPositions],
-      terminated: isFixedPoint // Auto-terminate on fixed point
+      terminated: isFixedPoint,
+      terminationReason: isFixedPoint ? 'fixed-point' : undefined
     });
   };
 

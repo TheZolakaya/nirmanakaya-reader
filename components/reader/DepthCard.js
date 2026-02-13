@@ -173,7 +173,7 @@ const DepthCard = ({
     if (expandAllTrigger > expandRef.current) {
       expandRef.current = expandAllTrigger;
       if (depth === DEPTH.COLLAPSED) {
-        setDepth(DEPTH.WADE);
+        setDepth(DEPTH.SHALLOW);
         if (isNotLoaded && onRequestLoad) onRequestLoad();
       }
     }
@@ -392,30 +392,33 @@ const DepthCard = ({
   const hasContentValue = (val) => val != null && val !== '';
 
   const getContent = (d) => {
-    // V1: Simplified depth progression — wade/swim/deep only
-    // Shallow/Surface fall through to wade for backward compatibility
+    // V1: Four-tier depth progression — shallow/wade/swim/deep
+    // Shallow = plain reading (no architecture), wade adds Gestalt/Portal,
+    // swim adds horizon/interaction, deep adds full geometry
     switch (d) {
       case DEPTH.SHALLOW:
       case DEPTH.SURFACE:
+        if (hasContentValue(cardData.shallow)) return cardData.shallow;
+        if (hasContentValue(cardData.wade)) return cardData.wade;
+        return '';
       case DEPTH.WADE:
         if (hasContentValue(cardData.wade)) return cardData.wade;
-        if (hasContentValue(cardData.swim)) return cardData.swim;
-        if (hasContentValue(cardData.deep)) return cardData.deep;
+        if (hasContentValue(cardData.shallow)) return cardData.shallow;
         return '';
       case DEPTH.SWIM:
         if (hasContentValue(cardData.swim)) return cardData.swim;
         if (hasContentValue(cardData.wade)) return cardData.wade;
-        if (hasContentValue(cardData.deep)) return cardData.deep;
+        if (hasContentValue(cardData.shallow)) return cardData.shallow;
         return '';
       case DEPTH.DEEP:
         if (hasContentValue(cardData.deep)) return cardData.deep;
         if (hasContentValue(cardData.swim)) return cardData.swim;
         if (hasContentValue(cardData.wade)) return cardData.wade;
+        if (hasContentValue(cardData.shallow)) return cardData.shallow;
         return '';
       default:
+        if (hasContentValue(cardData.shallow)) return cardData.shallow;
         if (hasContentValue(cardData.wade)) return cardData.wade;
-        if (hasContentValue(cardData.swim)) return cardData.swim;
-        if (hasContentValue(cardData.deep)) return cardData.deep;
         return '';
     }
   };
@@ -429,13 +432,13 @@ const DepthCard = ({
     // Return exact depth content only - no fallback to avoid UI/content mismatch
     switch (d) {
       case DEPTH.SHALLOW:
-        // Use actual surface content if available, else derive from wade
+        if (hasContent(r.shallow)) return r.shallow;
         if (hasContent(r.surface)) return r.surface;
-        return hasContent(r.wade) ? getShallowContent(r.wade) : null;
+        return hasContent(r.wade) ? r.wade : null;
       case DEPTH.SURFACE:
         return hasContent(r.surface) ? r.surface : null;
       case DEPTH.WADE:
-        return hasContent(r.wade) ? r.wade : null;
+        return hasContent(r.wade) ? r.wade : (hasContent(r.shallow) ? r.shallow : null);
       case DEPTH.SWIM:
         return hasContent(r.swim) ? r.swim : null;
       case DEPTH.DEEP:
@@ -447,7 +450,7 @@ const DepthCard = ({
 
   const handleCardClick = () => {
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.WADE); // V1: First tap always goes to Wade
+      setDepth(DEPTH.SHALLOW); // V1: First tap goes to Shallow (plain reading, no architecture)
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -459,7 +462,7 @@ const DepthCard = ({
   const toggleCollapse = (e) => {
     e.stopPropagation();
     if (depth === DEPTH.COLLAPSED) {
-      setDepth(DEPTH.WADE); // V1: First tap always goes to Wade
+      setDepth(DEPTH.SHALLOW); // V1: First tap goes to Shallow
       // Trigger on-demand load if content not yet fetched
       if (isNotLoaded && onRequestLoad) {
         onRequestLoad();
@@ -472,9 +475,10 @@ const DepthCard = ({
   const goDeeper = async (e) => {
     e.stopPropagation();
 
-    // Determine target depth (WADE → SWIM → DEEP)
+    // Determine target depth (SHALLOW → WADE → SWIM → DEEP)
     let targetDepth = null;
-    if (depth === DEPTH.SHALLOW || depth === DEPTH.WADE) targetDepth = DEPTH.SWIM;
+    if (depth === DEPTH.SHALLOW) targetDepth = DEPTH.WADE;
+    else if (depth === DEPTH.WADE) targetDepth = DEPTH.SWIM;
     else if (depth === DEPTH.SWIM) targetDepth = DEPTH.DEEP;
 
     if (!targetDepth) return;
@@ -488,9 +492,9 @@ const DepthCard = ({
     } else if (onLoadDeeper && !isLoadingDeeper) {
       // Need to fetch content - build previousContent for API
       const previousContent = {
-        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+        reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+        why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+        rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
         architecture: cardData.architecture || '',
         mirror: cardData.mirror || ''
       };
@@ -508,20 +512,20 @@ const DepthCard = ({
     e.stopPropagation();
     if (depth === DEPTH.DEEP) setDepth(DEPTH.SWIM);
     else if (depth === DEPTH.SWIM) setDepth(DEPTH.WADE);
-    else if (depth === DEPTH.WADE || depth === DEPTH.SHALLOW) setDepth(DEPTH.COLLAPSED);
+    else if (depth === DEPTH.WADE) setDepth(DEPTH.SHALLOW);
+    else if (depth === DEPTH.SHALLOW) setDepth(DEPTH.COLLAPSED);
   };
 
   // Find first available rebalancer depth (user's default preferred)
   const getFirstRebalancerDepth = () => {
     const r = cardData.rebalancer;
-    if (!r) return defaultDepth;
-    // Check if user's default depth content exists
-    if (defaultDepth === 'wade' && hasContentValue(r.wade)) return DEPTH.WADE;
-    // Shallow is derived from wade, so if wade exists, shallow exists
-    if (hasContentValue(r.wade)) return defaultDepth;
+    if (!r) return DEPTH.SHALLOW;
+    // Shallow is the default starting depth
+    if (hasContentValue(r.shallow)) return DEPTH.SHALLOW;
+    if (hasContentValue(r.wade)) return DEPTH.WADE;
     if (hasContentValue(r.swim)) return DEPTH.SWIM;
     if (hasContentValue(r.deep)) return DEPTH.DEEP;
-    return defaultDepth; // Default to user's chosen default
+    return DEPTH.SHALLOW;
   };
 
   const handleRebalancerClick = () => {
@@ -559,38 +563,34 @@ const DepthCard = ({
   const getGrowthContent = (d) => {
     if (!cardData.growth) return null;
     const g = cardData.growth;
-    // Helper to check for actual content (not empty string)
     const hasContent = (val) => val != null && val !== '';
-    // Return exact depth content only - no fallback to avoid UI/content mismatch
     switch (d) {
       case DEPTH.SHALLOW:
-        // Use actual surface content if available, else derive from wade
+        if (hasContent(g.shallow)) return g.shallow;
         if (hasContent(g.surface)) return g.surface;
-        return hasContent(g.wade) ? getShallowContent(g.wade) : null;
+        return hasContent(g.wade) ? g.wade : null;
       case DEPTH.SURFACE:
         return hasContent(g.surface) ? g.surface : null;
       case DEPTH.WADE:
-        return hasContent(g.wade) ? g.wade : null;
+        return hasContent(g.wade) ? g.wade : (hasContent(g.shallow) ? g.shallow : null);
       case DEPTH.SWIM:
         return hasContent(g.swim) ? g.swim : null;
       case DEPTH.DEEP:
         return hasContent(g.deep) ? g.deep : null;
       default:
-        return hasContent(g.wade) ? g.wade : null;
+        return hasContent(g.shallow) ? g.shallow : null;
     }
   };
 
-  // Find first available growth depth (user's default preferred)
+  // Find first available growth depth
   const getFirstGrowthDepth = () => {
     const g = cardData.growth;
-    if (!g) return defaultDepth;
-    // Check if user's default depth content exists
-    if (defaultDepth === 'wade' && hasContentValue(g.wade)) return DEPTH.WADE;
-    // Shallow is derived from wade, so if wade exists, shallow exists
-    if (hasContentValue(g.wade)) return defaultDepth;
+    if (!g) return DEPTH.SHALLOW;
+    if (hasContentValue(g.shallow)) return DEPTH.SHALLOW;
+    if (hasContentValue(g.wade)) return DEPTH.WADE;
     if (hasContentValue(g.swim)) return DEPTH.SWIM;
     if (hasContentValue(g.deep)) return DEPTH.DEEP;
-    return defaultDepth; // Default to user's chosen default
+    return DEPTH.SHALLOW;
   };
 
   const handleGrowthClick = () => {
@@ -914,7 +914,7 @@ const DepthCard = ({
             isFirstContact && depth !== DEPTH.COLLAPSED ? (
               /* First Contact: Static depth badges as loss leaders */
               <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
-                {['wade', 'swim', 'deep'].map((level) => {
+                {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                   const isActive = depth === level;
                   return (
                     <span
@@ -935,16 +935,17 @@ const DepthCard = ({
             ) : !isFirstContact && (
               /* Desktop: Button row inline — V1: wade/swim/deep only */
               <div className="flex-shrink-0 flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
-                {['wade', 'swim', 'deep'].map((level) => {
-                  const hasContent = level === 'wade' ? cardData.wade
+                {['shallow', 'wade', 'swim', 'deep'].map((level) => {
+                  const hasContent = level === 'shallow' ? cardData.shallow
+                    : level === 'wade' ? cardData.wade
                     : level === 'swim' ? cardData.swim
                     : cardData.deep;
                   const isActive = depth === level;
 
                   const handleClick = async (e) => {
                     e.stopPropagation();
-                    if (level === 'wade') {
-                      if (cardData.wade) setDepth(level);
+                    if (level === 'shallow') {
+                      if (cardData.shallow) setDepth(level);
                       return;
                     }
                     if (hasContent) {
@@ -952,9 +953,9 @@ const DepthCard = ({
                     } else if (onLoadDeeper && !cardLoadingDeeper) {
                       setCardLoadingDeeper(true);
                       const previousContent = {
-                        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                        reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                        why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                        rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
                         architecture: cardData.architecture || '',
                         mirror: cardData.mirror || ''
                       };
@@ -998,12 +999,12 @@ const DepthCard = ({
           <MobileDepthStepper
             currentDepth={depth}
             onDepthChange={async (newDepth) => {
-              const hasContentForLevel = (lvl) => lvl === 'shallow' ? cardData.wade
+              const hasContentForLevel = (lvl) => lvl === 'shallow' ? cardData.shallow
                 : lvl === 'wade' ? cardData.wade
                 : lvl === 'swim' ? cardData.swim
                 : cardData.deep;
-              if (newDepth === 'shallow' || newDepth === 'wade') {
-                if (cardData.wade) setDepth(newDepth);
+              if (newDepth === 'shallow') {
+                if (cardData.shallow) setDepth(newDepth);
                 return;
               }
               if (hasContentForLevel(newDepth)) {
@@ -1011,9 +1012,9 @@ const DepthCard = ({
               } else if (onLoadDeeper && !cardLoadingDeeper) {
                 setCardLoadingDeeper(true);
                 const previousContent = {
-                  reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                  why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                  rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                  reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                  why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                  rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
                   architecture: cardData.architecture || '',
                   mirror: cardData.mirror || ''
                 };
@@ -1023,7 +1024,7 @@ const DepthCard = ({
               }
             }}
             hasContent={{
-              shallow: !!cardData.wade,
+              shallow: !!cardData.shallow,
               wade: !!cardData.wade,
               swim: !!cardData.swim,
               deep: !!cardData.deep
@@ -1200,7 +1201,7 @@ const DepthCard = ({
             ) : !isMobile && (
               isFirstContact && rebalancerDepth !== DEPTH.COLLAPSED ? (
                 <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
-                  {['wade', 'swim', 'deep'].map((level) => {
+                  {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                     const isActive = rebalancerDepth === level;
                     return (
                       <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-emerald-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
@@ -1214,12 +1215,12 @@ const DepthCard = ({
                   {(() => {
                     const r = cardData.rebalancer || {};
                     const hasContentObj = {
-                      shallow: hasContentValue(r.wade),
+                      shallow: hasContentValue(r.shallow),
                       wade: hasContentValue(r.wade),
                       swim: hasContentValue(r.swim),
                       deep: hasContentValue(r.deep)
                     };
-                    return ['wade', 'swim', 'deep'].map((level) => {
+                    return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
                       const hasContent = hasContentObj[level];
                       const isActive = rebalancerDepth === level;
                       return (
@@ -1227,8 +1228,8 @@ const DepthCard = ({
                           key={level}
                           onClick={async (e) => {
                             e.stopPropagation();
-                            if (level === 'shallow' || level === 'wade') {
-                              if (hasContentObj.wade) setRebalancerDepth(level);
+                            if (level === 'shallow') {
+                              if (hasContentObj.shallow) setRebalancerDepth(level);
                               return;
                             }
                             if (hasContent) {
@@ -1236,9 +1237,9 @@ const DepthCard = ({
                             } else if (onLoadDeeper && !rebalancerLoadingDeeper) {
                               setRebalancerLoadingDeeper(true);
                               const previousContent = {
-                                reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                rebalancer: { wade: r.wade || '', swim: r.swim || '' },
+                                reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                                why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                rebalancer: { shallow: r.shallow || '', wade: r.wade || '', swim: r.swim || '' },
                                 architecture: cardData.architecture || '',
                                 mirror: cardData.mirror || ''
                               };
@@ -1275,7 +1276,7 @@ const DepthCard = ({
               {(() => {
                 const r = cardData.rebalancer || {};
                 const hasContentObj = {
-                  shallow: hasContentValue(r.wade),
+                  shallow: hasContentValue(r.shallow),
                   wade: hasContentValue(r.wade),
                   swim: hasContentValue(r.swim),
                   deep: hasContentValue(r.deep)
@@ -1284,8 +1285,8 @@ const DepthCard = ({
                   <MobileDepthStepper
                     currentDepth={rebalancerDepth}
                     onDepthChange={async (newDepth) => {
-                      if (newDepth === 'shallow' || newDepth === 'wade') {
-                        if (hasContentObj.wade) setRebalancerDepth(newDepth);
+                      if (newDepth === 'shallow') {
+                        if (hasContentObj.shallow) setRebalancerDepth(newDepth);
                         return;
                       }
                       if (hasContentObj[newDepth]) {
@@ -1293,9 +1294,9 @@ const DepthCard = ({
                       } else if (onLoadDeeper && !rebalancerLoadingDeeper) {
                         setRebalancerLoadingDeeper(true);
                         const previousContent = {
-                          reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                          why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                          rebalancer: { wade: r.wade || '', swim: r.swim || '' },
+                          reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                          why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                          rebalancer: { shallow: r.shallow || '', wade: r.wade || '', swim: r.swim || '' },
                           architecture: cardData.architecture || '',
                           mirror: cardData.mirror || ''
                         };
@@ -1562,7 +1563,7 @@ const DepthCard = ({
             ) : !isMobile && (
               isFirstContact && growthDepth !== DEPTH.COLLAPSED ? (
                 <div className="flex-shrink-0 flex gap-1" onClick={(e) => e.stopPropagation()}>
-                  {['wade', 'swim', 'deep'].map((level) => {
+                  {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                     const isActive = growthDepth === level;
                     return (
                       <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-teal-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
@@ -1576,12 +1577,12 @@ const DepthCard = ({
                   {(() => {
                     const g = cardData.growth || {};
                     const hasContentObj = {
-                      shallow: hasContentValue(g.wade),
+                      shallow: hasContentValue(g.shallow),
                       wade: hasContentValue(g.wade),
                       swim: hasContentValue(g.swim),
                       deep: hasContentValue(g.deep)
                     };
-                    return ['wade', 'swim', 'deep'].map((level) => {
+                    return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
                       const hasContent = hasContentObj[level];
                       const isActive = growthDepth === level;
                       return (
@@ -1589,8 +1590,8 @@ const DepthCard = ({
                           key={level}
                           onClick={async (e) => {
                             e.stopPropagation();
-                            if (level === 'shallow' || level === 'wade') {
-                              if (hasContentObj.wade) setGrowthDepth(level);
+                            if (level === 'shallow') {
+                              if (hasContentObj.shallow) setGrowthDepth(level);
                               return;
                             }
                             if (hasContent) {
@@ -1598,9 +1599,9 @@ const DepthCard = ({
                             } else if (onLoadDeeper && !growthLoadingDeeper) {
                               setGrowthLoadingDeeper(true);
                               const previousContent = {
-                                reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                growth: { wade: g.wade || '', swim: g.swim || '' },
+                                reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                                why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                growth: { shallow: g.shallow || '', wade: g.wade || '', swim: g.swim || '' },
                                 architecture: cardData.architecture || '',
                                 mirror: cardData.mirror || ''
                               };
@@ -1637,7 +1638,7 @@ const DepthCard = ({
               {(() => {
                 const g = cardData.growth || {};
                 const hasContentObj = {
-                  shallow: hasContentValue(g.wade),
+                  shallow: hasContentValue(g.shallow),
                   wade: hasContentValue(g.wade),
                   swim: hasContentValue(g.swim),
                   deep: hasContentValue(g.deep)
@@ -1647,7 +1648,7 @@ const DepthCard = ({
                     currentDepth={growthDepth}
                     onDepthChange={async (newDepth) => {
                       if (newDepth === 'shallow' || newDepth === 'wade') {
-                        if (hasContentObj.wade) setGrowthDepth(newDepth);
+                        if (hasContentObj[newDepth]) setGrowthDepth(newDepth);
                         return;
                       }
                       if (hasContentObj[newDepth]) {
@@ -1655,9 +1656,9 @@ const DepthCard = ({
                       } else if (onLoadDeeper && !growthLoadingDeeper) {
                         setGrowthLoadingDeeper(true);
                         const previousContent = {
-                          reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                          why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                          growth: { wade: g.wade || '', swim: g.swim || '' },
+                          reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                          why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                          growth: { shallow: g.shallow || '', wade: g.wade || '', swim: g.swim || '' },
                           architecture: cardData.architecture || '',
                           mirror: cardData.mirror || ''
                         };
@@ -1960,7 +1961,7 @@ const DepthCard = ({
                     ) : !isMobile && (
                       isFirstContact && !isWhyCollapsed ? (
                         <div className="flex-shrink-0 flex gap-1">
-                          {['wade', 'swim', 'deep'].map((level) => {
+                          {['shallow', 'wade', 'swim', 'deep'].map((level) => {
                             const isActive = whyDepth === level;
                             return (
                               <span key={level} className={`px-2 py-0.5 text-xs rounded ${isActive ? 'bg-cyan-500 text-white' : 'bg-zinc-800/30 text-zinc-600 border border-dashed border-zinc-700/50 cursor-default'}`}>
@@ -1973,12 +1974,12 @@ const DepthCard = ({
                         <div className="flex-shrink-0 flex gap-1">
                           {(() => {
                             const hasContentObj = {
-                              shallow: hasContentValue(cardData.why?.wade),
+                              shallow: hasContentValue(cardData.why?.shallow),
                               wade: hasContentValue(cardData.why?.wade),
                               swim: hasContentValue(cardData.why?.swim),
                               deep: hasContentValue(cardData.why?.deep)
                             };
-                            return ['wade', 'swim', 'deep'].map((level) => {
+                            return ['shallow', 'wade', 'swim', 'deep'].map((level) => {
                               const hasContent = hasContentObj[level];
                               const isActive = whyDepth === level;
                               return (
@@ -1987,7 +1988,7 @@ const DepthCard = ({
                                   onClick={async (e) => {
                                     e.stopPropagation();
                                     if (level === 'shallow' || level === 'wade') {
-                                      if (hasContentObj.wade) setWhyDepth(level);
+                                      if (hasContentObj[level]) setWhyDepth(level);
                                       return;
                                     }
                                     if (hasContent) {
@@ -1995,9 +1996,9 @@ const DepthCard = ({
                                     } else if (onLoadDeeper && !whyLoadingDeeper) {
                                       setWhyLoadingDeeper(true);
                                       const previousContent = {
-                                        reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                        why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                        rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                        reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                                        why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                        rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
                                         architecture: cardData.architecture || '',
                                         mirror: cardData.mirror || ''
                                       };
@@ -2031,7 +2032,7 @@ const DepthCard = ({
                     <div className="mb-3">
                       {(() => {
                         const hasContentObj = {
-                          shallow: hasContentValue(cardData.why?.wade),
+                          shallow: hasContentValue(cardData.why?.shallow),
                           wade: hasContentValue(cardData.why?.wade),
                           swim: hasContentValue(cardData.why?.swim),
                           deep: hasContentValue(cardData.why?.deep)
@@ -2041,7 +2042,7 @@ const DepthCard = ({
                             currentDepth={whyDepth}
                             onDepthChange={async (newDepth) => {
                               if (newDepth === 'shallow' || newDepth === 'wade') {
-                                if (hasContentObj.wade) setWhyDepth(newDepth);
+                                if (hasContentObj[newDepth]) setWhyDepth(newDepth);
                                 return;
                               }
                               if (hasContentObj[newDepth]) {
@@ -2049,9 +2050,9 @@ const DepthCard = ({
                               } else if (onLoadDeeper && !whyLoadingDeeper) {
                                 setWhyLoadingDeeper(true);
                                 const previousContent = {
-                                  reading: { wade: cardData.wade || '', swim: cardData.swim || '' },
-                                  why: { wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
-                                  rebalancer: cardData.rebalancer ? { wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                  reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
+                                  why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
+                                  rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
                                   architecture: cardData.architecture || '',
                                   mirror: cardData.mirror || ''
                                 };
@@ -2074,7 +2075,7 @@ const DepthCard = ({
                     {(() => {
                       // Get content based on depth — use surface if available, else derive from wade
                       const whyContent = whyDepth === 'shallow'
-                        ? (cardData.why?.surface || (cardData.why?.wade ? getShallowContent(cardData.why.wade) : null))
+                        ? (cardData.why?.shallow || cardData.why?.surface || (cardData.why?.wade ? cardData.why.wade : null))
                         : cardData.why[whyDepth];
                       return whyContent ? (
                         <div className="space-y-3">
