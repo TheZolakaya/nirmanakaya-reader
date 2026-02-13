@@ -115,6 +115,9 @@ import { filterProhibitedTerms } from '../lib/contentFilter.js';
 
 // Import mode system for governance
 import { buildModeHeader } from '../lib/modePrompts.js';
+
+// Import V1 presets
+import { READING_PRESETS } from '../lib/postures.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
 import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
 
@@ -3829,6 +3832,18 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     setAriadneLoading(false);
   };
 
+  // V1: Apply a named preset — bundles posture + card count + voice settings
+  const applyPreset = (presetKey) => {
+    const preset = READING_PRESETS[presetKey];
+    if (!preset) return;
+    const s = preset.settings;
+    if (s.spreadType) setSpreadType(s.spreadType);
+    if (s.spreadKey) setSpreadKey(s.spreadKey);
+    if (s.persona) setPersona(s.persona);
+    if (s.humor !== undefined) setHumor(s.humor);
+    if (s.showArchitecture !== undefined) setShowArchitectureTerms(s.showArchitecture);
+  };
+
   const getCardHouse = (draw, index) => {
     if (spreadType === 'reflect') {
       // Reflect mode uses neutral Gestalt coloring since positions don't have houses
@@ -5391,6 +5406,31 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       </svg>
                     </motion.div>
                   </button>
+                  {/* V1: Preset quick-start buttons — visible when controls collapsed */}
+                  {!advancedMode && (
+                    <div className="flex gap-1.5 justify-center mb-2 px-4">
+                      {Object.entries(READING_PRESETS).map(([key, preset]) => {
+                        const isActive = key === 'explore' ? spreadType === 'explore'
+                          : key === 'forge' ? spreadType === 'forge'
+                          : key === 'deep' ? (spreadType === 'discover' && spreadKey === 'three')
+                          : (spreadType === 'discover' && spreadKey === 'one');
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => applyPreset(key)}
+                            className={`text-[0.65rem] px-2.5 py-1 rounded-md transition-all border ${
+                              isActive
+                                ? `${preset.bgColor} ${preset.color} ${preset.borderColor}`
+                                : 'bg-zinc-900/50 text-zinc-500 border-zinc-800 hover:text-zinc-300 hover:border-zinc-700'
+                            }`}
+                          >
+                            <span className="mr-1">{preset.icon}</span>
+                            {preset.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                   {/* Textarea with animated placeholder overlay */}
                   {spreadType === 'explore' ? (
                     <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
