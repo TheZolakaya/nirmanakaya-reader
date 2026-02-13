@@ -5336,7 +5336,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               ? 'text-white'
                               : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
                           } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
-                          style={spreadKey === key && !isDisabled ? {
+                          style={spreadKey === key ? {
                             backgroundColor: `${MODE_COLORS.discover.primary}40`,
                             border: `1px solid ${MODE_COLORS.discover.primary}80`
                           } : {}}
