@@ -167,6 +167,21 @@ function buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterCo
 
   // V1: Position context — always from archetype position (universal)
   const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
+  const positionDesc = ARCHETYPES[draw.position]?.description || '';
+  const positionExtended = ARCHETYPES[draw.position]?.extended || '';
+
+  // Gestalt/Portal significance — applies at ALL depths past zero
+  const gestaltPositions = [0, 1, 19, 20];
+  const portalPositions = [10, 21];
+  let significanceContext = '';
+  if (gestaltPositions.includes(draw.position)) {
+    significanceContext += `\nGESTALT SIGNIFICANCE: ${positionName} is a Gestalt archetype — it operates above the four houses, at the level of consciousness itself. Interpretations landing here carry meta-level weight.\n`;
+  }
+  if (portalPositions.includes(draw.position)) {
+    const portalType = draw.position === 10 ? 'Ingress (entry)' : 'Egress (completion)';
+    significanceContext += `\nPORTAL THRESHOLD: ${positionName} is a Portal — the ${portalType} point between Inner and Outer horizons. This is a threshold position where something is crossing between worlds.\n`;
+  }
+
   // Frame lens from preset spread (passed directly or looked up for reflect)
   let positionLens = frameLens || '';
   let positionFrame = frameLabel || '';
@@ -244,14 +259,14 @@ POSITION LENS: ${positionLens}` : ''}
 ${letterContent ? `\nLETTER CONTEXT:\n${letterContent}\n` : ''}
 
 THE SIGNATURE: ${cardName}
-IN POSITION: ${positionName}
-Traditional Name: ${trans?.traditional || 'N/A'}
+IN POSITION: ${positionName} — ${positionDesc}
+${positionExtended ? `Position context: ${positionExtended}` : ''}
 Description: ${trans?.description || ''}
 ${trans?.extended ? `Extended: ${trans.extended}` : ''}
 Status: ${stat?.name || 'Balanced'} — ${stat?.desc || 'In balance'}
-
+${significanceContext}
 Generate SHALLOW level content for this signature.
-SHALLOW means: A full, substantive interpretation — 2-4 rich paragraphs. Each paragraph 2-3 sentences. This is a pure reading — focus on meaning, feeling, and insight. Do NOT use architectural framework terms (process stage, horizon, Gestalt, Portal, correction geometry). Write as if having a natural conversation about what this signature reveals. Explore how the signature operates within this specific position. What does this combination reveal about their question?
+SHALLOW means: A full, substantive interpretation — 2-4 rich paragraphs. Each paragraph 2-3 sentences. This is a pure reading — focus on meaning, feeling, and insight. Do NOT use architectural framework terms (process stage, horizon, Gestalt, Portal, rebalancer geometry). Write as if having a natural conversation about what this signature reveals. Explore how the signature operates within this specific position. What does this combination reveal about their question?
 
 ⚠️ POSITION CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
@@ -278,14 +293,14 @@ Respond with these markers:
 [CARD:${n}:WHY:SHALLOW]
 (1-2 paragraphs: Why did THIS signature emerge for THIS question? What is it pointing at? No architectural terminology.)
 ${isImbalanced ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
-REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction — the same imbalance means something different in ${positionName} than it would elsewhere.` : ''}
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} rebalancing. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This rebalancing is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the rebalancing — the same imbalance means something different in ${positionName} than it would elsewhere.` : ''}
 
 [CARD:${n}:REBALANCER:SURFACE]
-(2-3 sentences: What the correction offers within ${positionName}, plainly.)
+(2-3 sentences: What the rebalancing offers within ${positionName}, plainly.)
 
 [CARD:${n}:REBALANCER:SHALLOW]
-(1-2 paragraphs: The specific correction through ${correctionTarget || 'the correction target'} as it operates in the ${positionName} position. How does this correction restore balance HERE? What does it look like in practice? No architectural terminology.)` : ''}
+(1-2 paragraphs: The specific rebalancing through ${correctionTarget || 'the rebalancer target'} as it operates in the ${positionName} position. How does this rebalancing restore balance HERE? What does it look like in practice? No architectural terminology.)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
@@ -295,7 +310,7 @@ GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'grow
 (2-3 sentences: The growth invitation, plainly.)
 
 [CARD:${n}:GROWTH:SHALLOW]
-(1-2 paragraphs: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. It's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived". No architectural terminology.` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, you're invited toward..." Not correction - INVITATION. No architectural terminology.`})` : ''}
+(1-2 paragraphs: ${growthIsSelf ? `Balanced ${trans?.name || 'this signature'} grows by going deeper here. It's saying MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived". No architectural terminology.` : `The developmental invitation from balance toward ${growthTarget}. Frame as "from here, you're invited toward..." Not rebalancing - INVITATION. No architectural terminology.`})` : ''}
 
 CRITICAL: Make each section substantive. Shallow is the user's first encounter — it must be rich enough to stand on its own as a genuine reading. Surface is a companion distillation, not the main event.
 VOICE: Match the humor/register/persona specified in the system prompt throughout all sections.
@@ -327,6 +342,7 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
 
   // V1: Position context — always from archetype position (universal)
   const positionName = ARCHETYPES[draw.position]?.name || `Position ${n}`;
+  const positionDesc = ARCHETYPES[draw.position]?.description || '';
 
   // Calculate correction target for imbalanced cards using canonical correction functions
   let correctionTarget = null;
@@ -405,7 +421,7 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
   // Build tier-specific structural injection
   let structuralContext = '';
   if (targetDepth === 'wade' || targetDepth === 'swim' || targetDepth === 'deep') {
-    // WADE tier: Add Gestalt/Portal significance
+    // WADE tier: Add Gestalt/Portal significance + structural location
     if (gestaltPositions.includes(draw.position)) {
       structuralContext += `\nGESTALT SIGNIFICANCE: ${positionName} is a Gestalt archetype — it operates above the four houses, at the level of consciousness itself. Interpretations landing here carry meta-level weight. Weave this cosmic scope into your deepening.\n`;
     }
@@ -413,10 +429,11 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
       const portalType = draw.position === 10 ? 'Ingress (entry)' : 'Egress (completion)';
       structuralContext += `\nPORTAL THRESHOLD: ${positionName} is a Portal — the ${portalType} point between Inner and Outer horizons. This is a threshold position where something is crossing between worlds. Let this threshold quality inform your deepening.\n`;
     }
+    // Structural location — horizon, house, process stage
+    structuralContext += `\nSTRUCTURAL LOCATION: ${positionName} sits on the ${posHorizon} horizon (${posHorizon === 'Inner' ? 'positions 0-9: forming, seeding, developing' : 'positions 10-21: realized, completed, returning'}), in the ${posHouse} House, at the ${posFunction} stage of the process cycle.\n`;
   }
   if (targetDepth === 'swim' || targetDepth === 'deep') {
-    // SWIM tier: Add horizon, process stage, structural interaction
-    structuralContext += `\nSTRUCTURAL LOCATION: ${positionName} sits on the ${posHorizon} horizon (${posHorizon === 'Inner' ? 'positions 0-9: forming, seeding, developing' : 'positions 10-21: realized, completed, returning'}), in the ${posHouse} House, at the ${posFunction} stage of the process cycle.\n`;
+    // SWIM tier: Add structural interaction + horizon crossing
     // Transient process stage interaction
     const transComp = getComponent(draw.transient);
     const transArch = transComp.type === 'Archetype' ? ARCHETYPES[draw.transient] : (transComp.archetype !== undefined ? ARCHETYPES[transComp.archetype] : null);
@@ -432,20 +449,37 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
     }
   }
   if (targetDepth === 'deep') {
-    // DEEP tier: Add correction geometry, channels, house interaction
+    // DEEP tier: Add rebalancer geometry, channels, house interaction — ALL 78 signatures
     const transComp = getComponent(draw.transient);
-    const transId = transComp.type === 'Archetype' ? draw.transient : (transComp.archetype !== undefined ? transComp.archetype : null);
-    if (transId !== null && transId <= 21) {
-      const diagonal = DIAGONAL_PAIRS[transId];
-      const vertical = VERTICAL_PAIRS[transId];
-      const reduction = REDUCTION_PAIRS[transId];
-      structuralContext += `\nCORRECTION GEOMETRY for ${transComp.name}:\n`;
-      structuralContext += `  Diagonal (counter-force for Too Much): ${ARCHETYPES[diagonal]?.name}\n`;
-      structuralContext += `  Vertical (restoration for Too Little): ${ARCHETYPES[vertical]?.name}\n`;
-      if (reduction !== null) {
-        structuralContext += `  Reduction (illumination for Unacknowledged): ${ARCHETYPES[reduction]?.name}\n`;
-      }
-    }
+
+    // Rebalancer geometry for all signature types (archetypes, bounds, agents)
+    const getRebalancerName = (corr, comp) => {
+      if (!corr) return null;
+      if (comp.type === 'Bound' && corr.targetBound) return corr.targetBound.name;
+      if (comp.type === 'Agent' && corr.targetAgent) return corr.targetAgent.name;
+      if (corr.target !== undefined) return ARCHETYPES[corr.target]?.name;
+      return null;
+    };
+
+    const tooMuchCorr = transComp.type === 'Archetype' ? getArchetypeCorrection(draw.transient, 2) :
+                        transComp.type === 'Bound' ? getBoundCorrection(transComp, 2) :
+                        getAgentCorrection(transComp, 2);
+    const tooLittleCorr = transComp.type === 'Archetype' ? getArchetypeCorrection(draw.transient, 3) :
+                          transComp.type === 'Bound' ? getBoundCorrection(transComp, 3) :
+                          getAgentCorrection(transComp, 3);
+    const unackCorr = transComp.type === 'Archetype' ? getArchetypeCorrection(draw.transient, 4) :
+                      transComp.type === 'Bound' ? getBoundCorrection(transComp, 4) :
+                      getAgentCorrection(transComp, 4);
+
+    const diagonalName = getRebalancerName(tooMuchCorr, transComp);
+    const verticalName = getRebalancerName(tooLittleCorr, transComp);
+    const reductionName = getRebalancerName(unackCorr, transComp);
+
+    structuralContext += `\nREBALANCER GEOMETRY for ${transComp.name}:\n`;
+    if (diagonalName) structuralContext += `  Diagonal (rebalancer for Too Much): ${diagonalName}\n`;
+    if (verticalName) structuralContext += `  Vertical (rebalancer for Too Little): ${verticalName}\n`;
+    if (reductionName) structuralContext += `  Reduction (rebalancer for Unacknowledged): ${reductionName}\n`;
+
     const transChannel = transComp.channel || null;
     const posChannel = posArch?.channel || null;
     if (transChannel && posChannel) {
@@ -466,7 +500,7 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
     const details = [];
     if (includeReading) details.push('- Main reading: 4-6 paragraphs exploring philosophy, psychology, practical implications');
     if (includeWhy) details.push('- Why section: 3-4 paragraphs on deeper teleological meaning');
-    if (includeRebalancer && isImbalanced) details.push('- Rebalancer: 3-4 paragraphs on HOW the correction works, WHY it helps, practical ways to apply it');
+    if (includeRebalancer && isImbalanced) details.push('- Rebalancer: 3-4 paragraphs on HOW the rebalancing works, WHY it helps, practical ways to apply it');
     if (includeGrowth && isBalanced) details.push('- Growth: 3-4 paragraphs on the developmental invitation and how to engage it');
     depthInstructions = `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression. Use architectural framework terms freely. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`;
   } else if (targetDepth === 'swim') {
@@ -502,7 +536,7 @@ FRAME POSITION: "${positionFrame}" — interpret through this frame in addition 
 POSITION LENS: ${positionLens}` : ''}
 
 THE SIGNATURE: ${cardName}
-IN POSITION: ${positionName}
+IN POSITION: ${positionName} — ${positionDesc}
 Status: ${stat?.name || 'Balanced'}
 
 PREVIOUS CONTENT (what the querent has already read):
@@ -535,11 +569,11 @@ ${includeReading ? `
 [CARD:${n}:WHY:${targetDepth.toUpperCase()}]
 (Deepen why this signature emerged - new angles)
 ` : ''}${isImbalanced && includeRebalancer ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} correction. You MUST discuss ${correctionTarget} specifically.
-REBALANCER CONTEXT: This correction is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the correction.` : ''}
+${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} rebalancing. You MUST discuss ${correctionTarget} specifically.
+REBALANCER CONTEXT: This rebalancing is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the rebalancing.` : ''}
 
 [CARD:${n}:REBALANCER:${targetDepth.toUpperCase()}]
-(Deepen the correction through ${correctionTarget || 'the correction target'} as it operates in ${positionName} - new practical dimensions grounded in this position.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
+(Deepen the rebalancing through ${correctionTarget || 'the rebalancer target'} as it operates in ${positionName} - new practical dimensions grounded in this position.${targetDepth === 'deep' ? ' For DEEP: Full transmission, no sentence limits. Explore philosophy, psychology, practical application. At least 3-4 paragraphs.' : ''})` : ''}${isBalanced && includeGrowth ? `
 ${growthIsSelf ? `This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH:${targetDepth.toUpperCase()}]
@@ -706,7 +740,7 @@ function generateArchitectureText(draw) {
     if (arch.channel) lines.push(`**Channel:** ${arch.channel}`);
     lines.push(`**Card Type:** Archetype (Major)`);
 
-    // Add correction using canonical function
+    // Add rebalancer using canonical function
     const correction = getArchetypeCorrection(transient, status);
     if (correction) {
       const targetArch = ARCHETYPES[correction.target];
@@ -716,7 +750,7 @@ function generateArchitectureText(draw) {
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${targetArch.name} via ${corrType}`);
       } else {
-        lines.push(`**Path back:** → ${targetArch.name} via ${corrType} correction`);
+        lines.push(`**Path back:** → ${targetArch.name} via ${corrType} rebalancing`);
       }
     }
 
@@ -733,7 +767,7 @@ function generateArchitectureText(draw) {
     lines.push(`**Card Type:** Bound (Minor ${bound.number})`);
     lines.push(`**Expresses:** ${associatedArch.name} — ${associatedArch.house} House`);
 
-    // Bound corrections use canonical function with polarity flip
+    // Bound rebalancer using canonical function with polarity flip
     const correction = getBoundCorrection(trans, status);
     if (correction && correction.targetBound) {
       const corrType = correction.type.toUpperCase();
@@ -742,7 +776,7 @@ function generateArchitectureText(draw) {
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${correction.targetBound.name} via ${corrType}`);
       } else {
-        lines.push(`**Path back:** → ${correction.targetBound.name} via ${corrType} correction`);
+        lines.push(`**Path back:** → ${correction.targetBound.name} via ${corrType} rebalancing`);
       }
     }
 
@@ -759,7 +793,7 @@ function generateArchitectureText(draw) {
     lines.push(`**Card Type:** Agent (Court)`);
     lines.push(`**Embodies:** ${associatedArch.name} — ${associatedArch.house} House`);
 
-    // Agent corrections use canonical function with polarity flip
+    // Agent rebalancer using canonical function with polarity flip
     const correction = getAgentCorrection(trans, status);
     if (correction && correction.targetAgent) {
       const corrType = correction.type.toUpperCase();
@@ -768,7 +802,7 @@ function generateArchitectureText(draw) {
       } else if (status === 1) {
         lines.push(`**Growth opportunity:** → ${correction.targetAgent.name} via ${corrType}`);
       } else {
-        lines.push(`**Path back:** → ${correction.targetAgent.name} via ${corrType} correction`);
+        lines.push(`**Path back:** → ${correction.targetAgent.name} via ${corrType} rebalancing`);
       }
     }
   }

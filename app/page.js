@@ -562,12 +562,16 @@ const FORGE_DESCRIPTION = {
 export default function NirmanakaReader() {
   const [question, setQuestion] = useState('');
   const [followUp, setFollowUp] = useState('');
-  const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'explore'
-  const [dtpInput, setDtpInput] = useState(''); // DTP (Explore mode) text input
-  const [dtpTokens, setDtpTokens] = useState(null); // DTP tokens array for Explore mode
+  const [spreadType, setSpreadType] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'explore' (internal, synced from frameSource)
+  const [dtpInput, setDtpInput] = useState(''); // DTP (Dynamic frame) text input
+  const [dtpTokens, setDtpTokens] = useState(null); // DTP tokens array for Dynamic frame
   const [spreadKey, setSpreadKey] = useState('three');
-  const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Reflect mode
-  const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Reflect mode
+  const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Preset frame
+  const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Preset frame
+  // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
+  const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic'
+  const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'integrate'
+  const [cardCount, setCardCount] = useState(3); // 1-5 for architecture frame
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -751,6 +755,31 @@ export default function NirmanakaReader() {
     setBorderFlashActive(false);
     setBorderPulseActive(false);
   }, [spreadType]);
+
+  // V1: Sync frameSource + posture → spreadType (internal compatibility)
+  const COUNT_TO_KEY = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
+  useEffect(() => {
+    if (posture === 'forge') {
+      setSpreadType('forge');
+      return;
+    }
+    if (frameSource === 'architecture') {
+      setSpreadType('discover');
+      setSpreadKey(COUNT_TO_KEY[cardCount] || 'three');
+    } else if (frameSource === 'preset') {
+      setSpreadType('reflect');
+    } else if (frameSource === 'dynamic') {
+      setSpreadType('explore');
+    }
+  }, [frameSource, posture, cardCount]);
+
+  // V1: When posture='forge', force architecture frame + 1 card
+  useEffect(() => {
+    if (posture === 'forge') {
+      setFrameSource('architecture');
+      setCardCount(1);
+    }
+  }, [posture]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -979,6 +1008,7 @@ export default function NirmanakaReader() {
           if (anyCardsNeedLoad) {
             const systemPrompt = buildSystemPrompt(userLevel, {
               spreadType: data.mode || 'discover',
+              posture, // V1: explicit posture for governance
               stance,
               showArchitecture: showArchitectureTerms
             });
@@ -1241,11 +1271,21 @@ export default function NirmanakaReader() {
         density: dv.density || prev.density,
         scope: dv.scope || prev.scope
       }));
-      // Apply mode/spread defaults
-      if (featureConfig.defaultMode) setSpreadType(featureConfig.defaultMode);
+      // Apply mode/spread defaults (V1: map to frameSource + posture)
+      if (featureConfig.defaultMode) {
+        const dm = featureConfig.defaultMode;
+        if (dm === 'explore') { setFrameSource('dynamic'); }
+        else if (dm === 'reflect') { setFrameSource('preset'); }
+        else if (dm === 'forge') { setPosture('forge'); }
+        else { setPosture(dm); }
+      }
       if (featureConfig.defaultSpread) {
         const spreadMap = { single: 'one', triad: 'three', pentad: 'five', septad: 'seven' };
-        setSpreadKey(spreadMap[featureConfig.defaultSpread] || 'three');
+        const key = spreadMap[featureConfig.defaultSpread] || 'three';
+        setSpreadKey(key);
+        // Also set cardCount for architecture frame
+        const countMap = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        if (countMap[key]) setCardCount(countMap[key]);
       }
       setConfigApplied(true);
       console.log('[Config] Applied voice defaults:', dv);
@@ -1567,6 +1607,10 @@ export default function NirmanakaReader() {
         const prefs = JSON.parse(saved);
         if (prefs.spreadType) setSpreadType(prefs.spreadType);
         if (prefs.spreadKey) setSpreadKey(prefs.spreadKey);
+        // V1: Load frame/posture/cardCount (these override spreadType/spreadKey via sync effects)
+        if (prefs.frameSource) setFrameSource(prefs.frameSource);
+        if (prefs.posture) setPosture(prefs.posture);
+        if (prefs.cardCount) setCardCount(prefs.cardCount);
         if (prefs.stance) {
           // Ensure seriousness has a default if loading old prefs
           const loadedStance = { ...prefs.stance };
@@ -1638,6 +1682,10 @@ export default function NirmanakaReader() {
       spreadKey,
       stance,
       showVoicePreview,
+      // V1 Layer Architecture
+      frameSource,
+      posture,
+      cardCount,
       // Voice settings (V1)
       persona,
       humor,
@@ -1660,7 +1708,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, persona, humor, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -1867,6 +1915,7 @@ export default function NirmanakaReader() {
     // V2: Include persona params for one-pass voice integration
     const systemPrompt = buildSystemPrompt(userLevel, {
       spreadType,
+      posture, // V1: explicit posture for verb governance (overrides spreadType in prompt builder)
       stance,
       letterTone: VOICE_LETTER_TONE[stance.voice],
       // Persona Voice V2 params
@@ -3779,7 +3828,8 @@ CRITICAL FORMATTING RULES:
 
     // Individual traced cards inherit current posture (Council ruling Q5)
     const systemPrompt = buildSystemPrompt(userLevel, {
-      posture: spreadType,
+      spreadType,
+      posture, // V1: explicit posture for governance (overrides spreadType)
       stance,
       persona,
       humor,
@@ -3846,13 +3896,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     setAriadneLoading(false);
   };
 
-  // V1: Apply a named preset — bundles posture + card count + voice settings
+  // V1: Apply a named preset — bundles frame + posture + card count + voice settings
   const applyPreset = (presetKey) => {
     const preset = READING_PRESETS[presetKey];
     if (!preset) return;
     const s = preset.settings;
-    if (s.spreadType) setSpreadType(s.spreadType);
-    if (s.spreadKey) setSpreadKey(s.spreadKey);
+    // V1 Layer Architecture: set frame, posture, card count (sync effects handle spreadType/spreadKey)
+    if (s.frameSource) setFrameSource(s.frameSource);
+    if (s.posture) setPosture(s.posture);
+    if (s.cardCount) setCardCount(s.cardCount);
+    // Voice settings
     if (s.persona) setPersona(s.persona);
     if (s.humor !== undefined) setHumor(s.humor);
     if (s.showArchitecture !== undefined) setShowArchitectureTerms(s.showArchitecture);
@@ -5146,63 +5199,65 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   opacity: { duration: 0.2 }
                 }}
               >
-              {/* Mode Toggle - centered, own row */}
-              <div className="flex justify-center mb-1 px-2 overflow-x-auto" style={{ scrollbarWidth: 'thin' }}>
-                {/* Mode tabs centered - compact on mobile */}
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 mode-tabs-container gap-0 sm:gap-0.5 flex-shrink-0">
-                  {/* Reflect - Violet (#7C3AED) */}
+              {/* V1: Frame Selector — replaces mode tabs */}
+              <div className="flex justify-center mb-2 px-2">
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0">
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-reflect', e)) setSpreadType('reflect'); }}
-                    data-help="mode-reflect"
-                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+                    onClick={() => { setFrameSource('architecture'); if (posture === 'forge') setPosture('discover'); }}
+                    className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
+                      frameSource === 'architecture' && posture !== 'forge' ? 'bg-zinc-700/60 text-zinc-200' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
-                    style={spreadType === 'reflect' ? { backgroundColor: 'rgba(124, 58, 237, 0.25)', border: '1px solid rgba(124, 58, 237, 0.5)' } : {}}>
-                    Reflect
+                  >
+                    Architecture
                   </button>
-                  {/* Discover - Blue (#2563EB) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-discover', e)) { setSpreadType('discover'); setSpreadKey('three'); } }}
-                    data-help="mode-discover"
-                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
+                    onClick={() => { setFrameSource('preset'); if (posture === 'forge') setPosture('discover'); }}
+                    className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
+                      frameSource === 'preset' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
-                    style={spreadType === 'discover' ? { backgroundColor: 'rgba(37, 99, 235, 0.25)', border: '1px solid rgba(37, 99, 235, 0.5)' } : {}}>
-                    Discover
+                  >
+                    Choose a Spread
                   </button>
-                  {/* Explore - Emerald (#059669) */}
                   <button
-                    onClick={(e) => {
-                      if (handleHelpClick('mode-explore', e)) return;
-                      const isNewSelection = spreadType !== 'explore';
-                      setSpreadType('explore');
-                      const selectionKey = 'explore';
-                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
+                    onClick={() => {
+                      setFrameSource('dynamic');
+                      if (posture === 'forge') setPosture('discover');
+                      // Copy question to dtpInput when switching to dynamic
+                      if (question && !dtpInput) setDtpInput(question);
                     }}
-                    data-help="mode-explore"
-                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+                    className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
+                      frameSource === 'dynamic' ? 'bg-emerald-600/25 text-emerald-300 border border-emerald-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
-                    style={spreadType === 'explore' ? { backgroundColor: 'rgba(5, 150, 105, 0.25)', border: '1px solid rgba(5, 150, 105, 0.5)' } : {}}>
-                    Explore
-                  </button>
-                  {/* Forge - Red (#DC2626) */}
-                  <button
-                    onClick={(e) => {
-                      if (handleHelpClick('mode-forge', e)) return;
-                      const isNewSelection = spreadType !== 'forge';
-                      setSpreadType('forge');
-                      const selectionKey = 'forge';
-                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
-                    }}
-                    data-help="mode-forge"
-                    className={`mode-tab px-0.5 sm:px-3 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[0.7rem] font-mono uppercase tracking-tighter sm:tracking-[0.1em] transition-all ${
-                      spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}
-                    style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
-                    Forge
+                  >
+                    From Your Words
                   </button>
                 </div>
+              </div>
+
+              {/* V1: Posture Selector — verb governance (saved preference) */}
+              <div className="flex justify-center mb-2 gap-1">
+                {[
+                  { key: 'reflect', label: 'Reflect', color: 'violet', desc: 'What is already happening?' },
+                  { key: 'discover', label: 'Discover', color: 'blue', desc: 'Where is authorship available?' },
+                  { key: 'forge', label: 'Forge', color: 'red', desc: 'What changes when intention is asserted?' },
+                  { key: 'integrate', label: 'Integrate', color: 'amber', desc: 'What came back? How does it connect?' }
+                ].map(p => (
+                  <button
+                    key={p.key}
+                    onClick={() => setPosture(p.key)}
+                    title={p.desc}
+                    className={`px-2 py-0.5 rounded text-[0.6rem] sm:text-[0.65rem] font-mono uppercase tracking-wider transition-all ${
+                      posture === p.key
+                        ? p.color === 'violet' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40'
+                        : p.color === 'blue' ? 'bg-blue-600/25 text-blue-300 border border-blue-500/40'
+                        : p.color === 'red' ? 'bg-red-600/25 text-red-300 border border-red-500/40'
+                        : 'bg-amber-600/25 text-amber-300 border border-amber-500/40'
+                        : 'text-zinc-600 hover:text-zinc-400 border border-transparent'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
               </div>
 
               {/* Control Icons - positioned at right, desktop only */}
@@ -5243,85 +5298,62 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </AnimatePresence>
               </div>
 
-              {/* Spread Selection - truly centered */}
+              {/* V1: Card Count + Spread Picker — context-dependent on frameSource */}
               <div className="w-full max-w-2xl mx-auto mb-3">
-                {/* Center: Spread selection rows - FIXED HEIGHT, content at top to be directly under mode tabs */}
-                <div className="flex flex-col items-center justify-start h-[88px] sm:h-[72px]">
-                {spreadType === 'forge' || spreadType === 'explore' ? (
-                  /* Forge/Explore mode - no position selector needed */
-                  null
-                ) : spreadType === 'reflect' ? (
+                <div className="flex flex-col items-center justify-start min-h-[36px]">
+                {frameSource === 'dynamic' || posture === 'forge' ? (
+                  /* Dynamic frame or Forge posture — no card count selector */
+                  posture === 'forge' ? (
+                    <div className="text-[0.65rem] text-zinc-500 font-mono">1 signature — declare your intention</div>
+                  ) : null
+                ) : frameSource === 'preset' ? (
                   <>
-                    {/* Position count selector for Reflect mode - with ripple animation */}
+                    {/* Spread count selector for Preset frame */}
                     <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
-                      {[1, 2, 3, 4, 5, 6].map((count, index) => {
-                        const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
-                        return (
-                          <motion.button
-                            key={count}
-                            data-help={helpKey}
-                            onClick={(e) => {
-                              if (!handleHelpClick(helpKey, e)) {
-                                setReflectCardCount(count);
-                                setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
-                              }
-                            }}
-                            className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                              reflectCardCount === count
-                                ? 'text-white'
-                                : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
-                            style={reflectCardCount === count ? {
-                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
-                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
-                            } : {}}
-                            animate={rippleTarget === 'counts' ? {
-                              opacity: [0.6, 1, 0.6],
-                              scale: [1, 1.08, 1],
-                            } : {}}
-                            transition={{
-                              delay: index * 0.1,
-                              duration: 0.3,
-                            }}
-                          >
-                            {count}
-                          </motion.button>
-                        );
-                      })}
+                      {[1, 2, 3, 4, 5, 6].map((count, index) => (
+                        <motion.button
+                          key={count}
+                          onClick={() => {
+                            setReflectCardCount(count);
+                            setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
+                          }}
+                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                            reflectCardCount === count
+                              ? 'bg-violet-600/30 text-white border border-violet-500/50'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                          }`}
+                          animate={rippleTarget === 'counts' ? {
+                            opacity: [0.6, 1, 0.6],
+                            scale: [1, 1.08, 1],
+                          } : {}}
+                          transition={{ delay: index * 0.1, duration: 0.3 }}
+                        >
+                          {count}
+                        </motion.button>
+                      ))}
                     </div>
-                    {/* Spread options for selected count - with ripple animation */}
+                    {/* Spread options for selected count */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
                       {SPREADS_BY_COUNT[reflectCardCount].map((spreadId, index) => {
                         const spread = REFLECT_SPREADS[spreadId];
                         return (
                           <motion.button
                             key={spreadId}
-                            data-help="spread-selector"
-                            onClick={(e) => {
-                              if (handleHelpClick('spread-selector', e)) return;
-                              const isNewSelection = reflectSpreadKey !== spreadId;
+                            onClick={() => {
+                              const isNew = reflectSpreadKey !== spreadId;
                               setReflectSpreadKey(spreadId);
-                              // Tap-to-confirm: first tap = preview, second tap = collapse
-                              const selectionKey = `reflect-${spreadId}`;
-                              handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
+                              handleFinalSelectionTap(`preset-${spreadId}`, isNew || lastFinalSelection !== `preset-${spreadId}`);
                             }}
                             className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
                               reflectSpreadKey === spreadId
-                                ? 'text-white'
+                                ? 'bg-violet-600/30 text-white border border-violet-500/50'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            } ${!rippleTarget && reflectSpreadKey !== spreadId ? 'guidance-pulse' : ''}`}
-                            style={reflectSpreadKey === spreadId ? {
-                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
-                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
-                            } : {}}
+                            }`}
                             animate={rippleTarget === 'layouts' ? {
                               opacity: [0.6, 1, 0.6],
                               scale: [1, 1.08, 1],
                             } : {}}
-                            transition={{
-                              delay: index * 0.1,
-                              duration: 0.3,
-                            }}
+                            transition={{ delay: index * 0.1, duration: 0.3 }}
                           >
                             {spread.name}
                           </motion.button>
@@ -5330,43 +5362,30 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </div>
                   </>
                 ) : (
-                  /* Discover mode - simple position count as numbers */
-                  <div className={`flex gap-1 justify-center ${rippleTarget === 'counts' ? '' : ''}`} data-help="spread-selector">
-                    {Object.entries(RANDOM_SPREADS).map(([key, value], index) => {
-                      const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
-                      return (
-                        <motion.button
-                          key={key}
-                          data-help={helpKey}
-                          onClick={(e) => {
-                            if (handleHelpClick(helpKey, e)) return;
-                            const isNewSelection = spreadKey !== key;
-                            setSpreadKey(key);
-                            const selectionKey = `discover-${key}`;
-                            handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
-                          }}
-                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
-                            spreadKey === key
-                              ? 'text-white'
-                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                          } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
-                          style={spreadKey === key ? {
-                            backgroundColor: `${MODE_COLORS.discover.primary}40`,
-                            border: `1px solid ${MODE_COLORS.discover.primary}80`
-                          } : {}}
-                          animate={rippleTarget === 'counts' ? {
-                            opacity: [0.6, 1, 0.6],
-                            scale: [1, 1.08, 1],
-                          } : {}}
-                          transition={{
-                            delay: index * 0.1,
-                            duration: 0.3,
-                          }}
-                        >
-                          {value.count}
-                        </motion.button>
-                      );
-                    })}
+                  /* Architecture frame — universal card count 1-5 */
+                  <div className="flex gap-1 justify-center" data-help="spread-selector">
+                    {[1, 2, 3, 4, 5].map((count, index) => (
+                      <motion.button
+                        key={count}
+                        onClick={() => {
+                          setCardCount(count);
+                          const selKey = `arch-${count}`;
+                          handleFinalSelectionTap(selKey, cardCount !== count || lastFinalSelection !== selKey);
+                        }}
+                        className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                          cardCount === count
+                            ? 'bg-zinc-600/40 text-white border border-zinc-500/50'
+                            : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                        }`}
+                        animate={rippleTarget === 'counts' ? {
+                          opacity: [0.6, 1, 0.6],
+                          scale: [1, 1.08, 1],
+                        } : {}}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                      >
+                        {count}
+                      </motion.button>
+                    ))}
                   </div>
                 )}
                 </div>
@@ -5410,10 +5429,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       transition={{ duration: 0.3 }}
                     >
                       <svg className={`w-3 h-3 fill-current transition-colors ${
-                        spreadType === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
-                        spreadType === 'discover' ? 'text-blue-400 hover:text-blue-300' :
-                        spreadType === 'explore' ? 'text-emerald-400 hover:text-emerald-300' :
-                        spreadType === 'forge' ? 'text-red-400 hover:text-red-300' :
+                        posture === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
+                        posture === 'discover' ? 'text-blue-400 hover:text-blue-300' :
+                        posture === 'forge' ? 'text-red-400 hover:text-red-300' :
+                        posture === 'integrate' ? 'text-amber-400 hover:text-amber-300' :
                         'text-zinc-400 hover:text-zinc-300'
                       }`} viewBox="0 0 10 6">
                         <path d="M5 6L0 0h10L5 6z" />
@@ -5424,10 +5443,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {!advancedMode && (
                     <div className="flex gap-1.5 justify-center mb-2 px-4">
                       {Object.entries(READING_PRESETS).map(([key, preset]) => {
-                        const isActive = key === 'explore' ? spreadType === 'explore'
-                          : key === 'forge' ? spreadType === 'forge'
-                          : key === 'deep' ? (spreadType === 'discover' && spreadKey === 'three')
-                          : (spreadType === 'discover' && spreadKey === 'one');
+                        const s = preset.settings;
+                        const isActive = s.frameSource === frameSource
+                          && s.posture === posture
+                          && (s.cardCount ? s.cardCount === cardCount : true);
                         return (
                           <button
                             key={key}
@@ -5446,7 +5465,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </div>
                   )}
                   {/* Textarea with animated placeholder overlay */}
-                  {spreadType === 'explore' ? (
+                  {frameSource === 'dynamic' ? (
                     <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
                       <textarea
                         value={dtpInput}
@@ -5455,9 +5474,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         className={`user-input-area content-pane w-full border-2 rounded-lg px-4 pt-4 pb-12 pr-12 focus:outline-none resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
-                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          '--mode-border-color': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[posture]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
                           ...(!borderFlashActive && !borderPulseActive && !initiateFlash ? {
                             borderColor: 'rgba(63, 63, 70, 0.8)',
                             boxShadow: 'none',
@@ -5524,9 +5543,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
                           // CSS custom properties for pulse animation
-                          '--mode-border-color': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-border-color-bright': MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-glow-color': MODE_COLORS[spreadType]?.glow || 'transparent',
+                          '--mode-border-color': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': MODE_COLORS[posture]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
                           // Don't override border/shadow when animations are active
                           ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderFlashActive && !borderPulseActive && !initiateFlash) ? {
                             borderColor: crystalFlash ? '#fbbf24' : 'rgba(63, 63, 70, 0.8)',
@@ -5689,10 +5708,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       data-help="get-reading"
                       disabled={loading}
                       className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
-                        spreadType === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
-                        spreadType === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
-                        spreadType === 'explore' ? 'border-emerald-500/50 hover:border-emerald-400' :
-                        spreadType === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                        posture === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
+                        posture === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
+                        posture === 'forge' ? 'border-red-500/50 hover:border-red-400' :
+                        posture === 'integrate' ? 'border-amber-500/50 hover:border-amber-400' :
                         'border-zinc-700/50 hover:border-zinc-600'
                       }`}
                       whileTap={{ scale: 0.95 }}
@@ -5723,41 +5742,34 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </motion.button>
                   )}
                 </div>
-                {/* Mode reminder label - below textarea when controls minimized */}
+                {/* V1: Status label - below textarea when controls minimized */}
                 {!advancedMode && (
                   <div className="text-center leading-none mt-2 px-4">
                     <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
-                      {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                      {/* Posture label */}
+                      <span className={
+                        posture === 'reflect' ? 'text-violet-400/70' :
+                        posture === 'discover' ? 'text-blue-400/70' :
+                        posture === 'forge' ? 'text-red-400/70' :
+                        'text-amber-400/70'
+                      }>
+                        {posture.charAt(0).toUpperCase() + posture.slice(1)}
+                      </span>
+                      <span className="text-zinc-700 mx-1">·</span>
+                      {/* Frame info */}
+                      {frameSource === 'preset' && REFLECT_SPREADS[reflectSpreadKey] ? (
                         <>
-                          <span className="text-violet-400/70">Reflect</span>
-                          <span className="text-zinc-700 mx-1">:</span>
-                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
-                          <span className="text-zinc-700 mx-1">:</span>
                           <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
-                          <span className="text-zinc-700 mx-1.5">—</span>
-                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('reflect', REFLECT_SPREADS[reflectSpreadKey].count, reflectSpreadKey)}</span>
+                          <span className="text-zinc-700 mx-1">·</span>
+                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
                         </>
-                      ) : spreadType === 'discover' ? (
-                        <>
-                          <span className="text-blue-400/70">Discover</span>
-                          <span className="text-zinc-700 mx-1">:</span>
-                          <span className="text-zinc-500">{RANDOM_SPREADS[spreadKey]?.count || 1}</span>
-                          <span className="text-zinc-700 mx-1.5">—</span>
-                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('discover', RANDOM_SPREADS[spreadKey]?.count || 1, null)}</span>
-                        </>
-                      ) : spreadType === 'explore' ? (
-                        <>
-                          <span className="text-emerald-400/70">Explore</span>
-                          <span className="text-zinc-700 mx-1.5">—</span>
-                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('explore', 1, null)}</span>
-                        </>
-                      ) : spreadType === 'forge' ? (
-                        <>
-                          <span className="text-red-400/70">Forge</span>
-                          <span className="text-zinc-700 mx-1.5">—</span>
-                          <span className="text-zinc-500 italic normal-case tracking-normal">{getPlaceholder('forge', 1, null)}</span>
-                        </>
-                      ) : null}
+                      ) : frameSource === 'dynamic' ? (
+                        <span className="text-emerald-400/50">From Your Words</span>
+                      ) : posture === 'forge' ? (
+                        <span className="text-zinc-500">1</span>
+                      ) : (
+                        <span className="text-zinc-500">{cardCount}</span>
+                      )}
                     </span>
                   </div>
                 )}
