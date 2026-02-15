@@ -5689,28 +5689,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </motion.button>
                   )}
                 </div>
-                {/* V1: Status label - below textarea when controls minimized */}
-                {!advancedMode && (
-                  <div className="text-center leading-none mt-2 px-4">
-                    <span className="text-[0.65rem] font-mono tracking-wide text-zinc-500">
-                      {/* Posture label */}
-                      {/* Frame info */}
-                      {frameSource === 'preset' && REFLECT_SPREADS[reflectSpreadKey] ? (
-                        <>
-                          <span className="text-violet-400/50">{REFLECT_SPREADS[reflectSpreadKey].name}</span>
-                          <span className="text-zinc-700 mx-1">·</span>
-                          <span className="text-zinc-500">{REFLECT_SPREADS[reflectSpreadKey].count}</span>
-                        </>
-                      ) : frameSource === 'dynamic' ? (
-                        <span className="text-emerald-400/50">From Your Words</span>
-                      ) : frameSource === 'custom' ? (
-                        <span className="text-rose-400/50">Custom · {cardCount}</span>
-                      ) : (
-                        <span className="text-blue-400/50">{cardCount} signature{cardCount !== 1 ? 's' : ''}</span>
-                      )}
-                    </span>
-                  </div>
-                )}
+                {/* Status label removed — clean minimized state */}
               </div>
 
               {/* V1: Below-textarea row — voice controls left, last reading right — only when expanded */}
