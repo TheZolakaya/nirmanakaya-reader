@@ -5207,18 +5207,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <motion.div
+            <div
               className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl"
-              initial={false}
-              animate={{
-                // When controls collapse, add margin-top to compensate
-                // This keeps the textarea visually anchored in place
-                marginTop: advancedMode ? 0 : controlsHeight,
-              }}
-              transition={{
-                // Match the controls-above height animation exactly
-                marginTop: { duration: 0.3, ease: 'easeInOut' }
-              }}
             >
 
               {/* === MAIN LAYOUT: Controls above textarea === */}
@@ -5232,10 +5222,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 initial={false}
                 animate={{
                   height: advancedMode ? 'auto' : 0,
+                  marginTop: advancedMode ? 0 : controlsHeight,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
                   height: { duration: 0.3, ease: 'easeInOut' },
+                  marginTop: { duration: 0.3, ease: 'easeInOut' },
                   opacity: { duration: 0.2 }
                 }}
               >
@@ -5390,19 +5382,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
-              {/* Last Reading Strip — moved to below-textarea row (visible when expanded) */}
-              {/* Saved Topics Bar */}
-              {currentUser && !parsedReading && (
-                <TopicBar
-                  currentUser={currentUser}
-                  activeTopic={activeTopic}
-                  question={question}
-                  onSelectTopic={(topic) => {
-                    setActiveTopic(topic);
-                    if (topic) setQuestion(topic.label);
-                  }}
-                />
-              )}
               {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-2 mt-1">
                 <div
@@ -5439,7 +5418,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         value={dtpInput}
                         onChange={(e) => setDtpInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`user-input-area content-pane w-full border-2 rounded-lg px-4 pt-4 pb-12 pr-12 focus:outline-none resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
+                        className={`user-input-area content-pane w-full border-2 rounded-lg px-4 pt-4 pb-16 pr-12 focus:outline-none resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
                           '--mode-border-color': FRAME_COLORS[frameSource]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
@@ -5462,7 +5441,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.6 }}
-                            className={`absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base leading-relaxed ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
+                            className={`absolute inset-0 px-4 pt-4 pb-16 pr-12 pointer-events-none text-[1rem] sm:text-base leading-relaxed ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode ? getPlaceholder('explore', 1, null) : DEFAULT_PLACEHOLDER}
                           </motion.div>
@@ -5507,7 +5486,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                        className={`user-input-area content-pane w-full border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : ''} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
+                        className={`user-input-area content-pane w-full border-2 rounded-lg p-4 pb-16 pr-12 focus:outline-none resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : ''} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
                           // CSS custom properties for pulse animation
@@ -5532,7 +5511,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.6 }}
-                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
+                            className={`absolute inset-0 p-4 pb-16 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode
                               ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)
@@ -5715,6 +5694,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
               {/* V1: Below-textarea row — voice controls left, last reading right — only when expanded */}
               {advancedMode && (
+              <>
               <div className="flex items-center justify-between mt-2 px-1">
                 {/* Voice controls + incognito — left */}
                 <div className="flex gap-1">
@@ -5768,6 +5748,21 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </div>
                 )}
               </div>
+              {/* Saved Topics — bottom of expanded frame */}
+              {currentUser && !parsedReading && (
+                <div className="mt-2">
+                  <TopicBar
+                    currentUser={currentUser}
+                    activeTopic={activeTopic}
+                    question={question}
+                    onSelectTopic={(topic) => {
+                      setActiveTopic(topic);
+                      if (topic) setQuestion(topic.label);
+                    }}
+                  />
+                </div>
+              )}
+              </>
               )}
 
               </div>{/* END textarea-anchor */}
@@ -5893,7 +5888,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               */}
 
 {/* Footer Deck removed - all controls moved to mode row */}
-            </motion.div>
+            </div>
             )}
             {/* End of Standard Mode conditional */}
 
