@@ -621,8 +621,8 @@ export default function NirmanakaReader() {
   const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
   const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
   const userStatsRef = useRef(null); // Cached user stats for CardDetailModal
-  const controlsAboveRef = useRef(null); // Ref for measuring controls height (textarea anchor)
-  const [controlsHeight, setControlsHeight] = useState(0); // Dynamic height for marginTop compensation
+  const controlsAboveRef = useRef(null); // Ref for controls-above div (scroll anchor compensation)
+  const prevControlsHeightRef = useRef(0); // Track controls height for scroll compensation
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
   const [locusInput, setLocusInput] = useState('');
@@ -767,14 +767,19 @@ export default function NirmanakaReader() {
   // as a side effect of frameSource. Flash is triggered by frame tab clicks
   // and cleared by setTimeout (600ms) or advancedMode toggle.
 
-  // Measure controls-above height for textarea anchor compensation
-  // When controls collapse, marginTop = controlsHeight keeps textarea in place
+  // Textarea anchor: scroll compensation when controls-above resizes
+  // ResizeObserver fires after layout but before paint — so scrollBy is seamless
   useEffect(() => {
     const el = controlsAboveRef.current;
     if (!el) return;
-    const observer = new ResizeObserver(() => {
-      const h = el.scrollHeight;
-      if (h > 0) setControlsHeight(h);
+    prevControlsHeightRef.current = el.getBoundingClientRect().height;
+    const observer = new ResizeObserver((entries) => {
+      const newHeight = entries[0].contentRect.height;
+      const delta = newHeight - prevControlsHeightRef.current;
+      if (Math.abs(delta) > 0.5) {
+        window.scrollBy(0, delta);
+      }
+      prevControlsHeightRef.current = newHeight;
     });
     observer.observe(el);
     return () => observer.disconnect();
@@ -5222,12 +5227,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 initial={false}
                 animate={{
                   height: advancedMode ? 'auto' : 0,
-                  marginTop: advancedMode ? 0 : controlsHeight,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
                   height: { duration: 0.3, ease: 'easeInOut' },
-                  marginTop: { duration: 0.3, ease: 'easeInOut' },
                   opacity: { duration: 0.2 }
                 }}
               >
