@@ -648,6 +648,7 @@ export default function NirmanakaReader() {
   // When false: simple UI (just textarea + button)
   // When true: full controls visible (mode tabs, personas, depth, etc.)
   const [advancedMode, setAdvancedMode] = useState(false);
+  const [incognitoMode, setIncognitoMode] = useState(false); // Per-session: readings not auto-saved
   const prefersReducedMotion = useReducedMotion();
 
   // Ripple/Pulse animation state (Gemini "Dynamic Sanctuary" spec)
@@ -1900,28 +1901,30 @@ export default function NirmanakaReader() {
         });
         setTokenUsage(data.usage);
 
-        // Auto-save First Contact reading
-        saveReading({
-          question: safeQuestion,
-          mode: 'first-contact',
-          spreadType: '1-card',
-          cards: drawsToUse,
-          synthesis: null,
-          letter: data.letter,
-          tokenUsage: data.usage,
-          ...telemetry
-        }).then(result => {
-          if (result?.data?.id) {
-            setSavedReadingId(result.data.id);
-            if (currentUser?.id) {
-              fetch('/api/email/reading', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
-              }).catch(err => console.log('[Email] Failed:', err));
+        // Auto-save First Contact reading (skipped in incognito mode)
+        if (!incognitoMode) {
+          saveReading({
+            question: safeQuestion,
+            mode: 'first-contact',
+            spreadType: '1-card',
+            cards: drawsToUse,
+            synthesis: null,
+            letter: data.letter,
+            tokenUsage: data.usage,
+            ...telemetry
+          }).then(result => {
+            if (result?.data?.id) {
+              setSavedReadingId(result.data.id);
+              if (currentUser?.id) {
+                fetch('/api/email/reading', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
+                }).catch(err => console.log('[Email] Failed:', err));
+              }
             }
-          }
-        }).catch(err => console.log('[AutoSave] Failed:', err));
+          }).catch(err => console.log('[AutoSave] Failed:', err));
+        }
 
         // Auto-load the single card
         setTimeout(() => {
@@ -2023,30 +2026,32 @@ export default function NirmanakaReader() {
       });
       setTokenUsage(data.usage);
 
-      // Auto-save reading to database
-      saveReading({
-        question: questionToUse,
-        mode: spreadType,
-        spreadType: `${drawsToUse.length}-card`,
-        cards: drawsToUse,
-        synthesis: null,
-        letter: data.letter,
-        tokenUsage: data.usage,
-        // Telemetry (initial values - will be updated later)
-        ...telemetry
-      }).then(result => {
-        if (result?.data?.id) {
-          setSavedReadingId(result.data.id);
-          // Send reading email (async, respects user preferences)
-          if (currentUser?.id) {
-            fetch('/api/email/reading', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
-            }).catch(err => console.log('[Email] Failed:', err));
+      // Auto-save reading to database (skipped in incognito mode)
+      if (!incognitoMode) {
+        saveReading({
+          question: questionToUse,
+          mode: spreadType,
+          spreadType: `${drawsToUse.length}-card`,
+          cards: drawsToUse,
+          synthesis: null,
+          letter: data.letter,
+          tokenUsage: data.usage,
+          // Telemetry (initial values - will be updated later)
+          ...telemetry
+        }).then(result => {
+          if (result?.data?.id) {
+            setSavedReadingId(result.data.id);
+            // Send reading email (async, respects user preferences)
+            if (currentUser?.id) {
+              fetch('/api/email/reading', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: currentUser.id, readingId: result.data.id })
+              }).catch(err => console.log('[Email] Failed:', err));
+            }
           }
-        }
-      }).catch(err => console.log('[AutoSave] Failed:', err));
+        }).catch(err => console.log('[AutoSave] Failed:', err));
+      }
 
       // V1 Spread on Table: Cards start at zero depth (names + positions only)
       // User taps individual cards to load interpretation
@@ -5711,7 +5716,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               {/* V1: Below-textarea row — voice controls left, last reading right — only when expanded */}
               {advancedMode && (
               <div className="flex items-center justify-between mt-2 px-1">
-                {/* Voice controls — left */}
+                {/* Voice controls + incognito — left */}
                 <div className="flex gap-1">
                   <button
                     onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
@@ -5733,6 +5738,28 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
                     </svg>
                   </button>
+                  {currentUser && (
+                    <button
+                      onClick={() => setIncognitoMode(!incognitoMode)}
+                      className={`w-8 h-8 rounded-md transition-colors flex items-center justify-center ${incognitoMode ? 'bg-violet-600/20 text-violet-400' : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700/50'}`}
+                      title={incognitoMode ? 'Incognito ON — readings won\'t auto-save' : 'Incognito OFF — readings auto-save'}
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        {incognitoMode ? (
+                          <>
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
+                          </>
+                        ) : (
+                          <>
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </>
+                        )}
+                      </svg>
+                    </button>
+                  )}
                 </div>
                 {/* Last Reading Strip — right */}
                 {currentUser && !parsedReading && (
@@ -6074,6 +6101,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
             {/* Simple actions */}
             <div className="flex flex-col items-center gap-3 mt-6">
+              {incognitoMode && !savedReadingId && (
+                <span className="text-[10px] text-violet-400/70 flex items-center gap-1">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                  Incognito — not auto-saved
+                </span>
+              )}
               <div className="flex gap-2">
                 <SaveReadingButton
                   reading={{
@@ -6144,6 +6181,19 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
                 </span>
               </div>
+              {/* Incognito indicator */}
+              {incognitoMode && !savedReadingId && parsedReading && (
+                <div className="text-center mb-2">
+                  <span className="text-[10px] text-violet-400/70 inline-flex items-center gap-1">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                    Incognito — not auto-saved
+                  </span>
+                </div>
+              )}
               {/* Action buttons row */}
               <div className="flex justify-center gap-2 items-center relative mb-4 flex-wrap">
                 {parsedReading && !loading && (
