@@ -118,6 +118,7 @@ import { buildModeHeader } from '../lib/modePrompts.js';
 
 // Import V1 presets
 import { READING_PRESETS } from '../lib/postures.js';
+import { buildNowismGovernance } from '../lib/nowism.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
 import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
 
@@ -569,9 +570,10 @@ export default function NirmanakaReader() {
   const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Preset frame
   const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Preset frame
   // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
-  const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic'
+  const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic' | 'custom'
   const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'integrate' (internal, set by presets)
-  const [cardCount, setCardCount] = useState(3); // 1-5 for architecture frame
+  const [cardCount, setCardCount] = useState(3); // 1-5 for architecture/custom frame
+  const [customLabels, setCustomLabels] = useState(['', '', '']); // Position labels for custom frame
   const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
   const [showCustomize, setShowCustomize] = useState(false);
   const [draws, setDraws] = useState(null);
@@ -760,7 +762,7 @@ export default function NirmanakaReader() {
   // Posture is internal (set by presets), frame determines the reading type
   const COUNT_TO_KEY = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
   useEffect(() => {
-    if (frameSource === 'architecture') {
+    if (frameSource === 'architecture' || frameSource === 'custom') {
       setSpreadType('discover');
       setSpreadKey(COUNT_TO_KEY[cardCount] || 'three');
     } else if (frameSource === 'preset') {
@@ -769,6 +771,17 @@ export default function NirmanakaReader() {
       setSpreadType('explore');
     }
   }, [frameSource, cardCount]);
+
+  // V1: Sync customLabels array length to cardCount when in custom frame
+  useEffect(() => {
+    if (frameSource === 'custom') {
+      setCustomLabels(prev => {
+        if (prev.length === cardCount) return prev;
+        if (prev.length < cardCount) return [...prev, ...Array(cardCount - prev.length).fill('')];
+        return prev.slice(0, cardCount);
+      });
+    }
+  }, [cardCount, frameSource]);
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -1902,7 +1915,7 @@ export default function NirmanakaReader() {
     // Standard Mode: On-demand depth generation
     // Phase 1: Fetch Letter only (card content loaded on-demand)
     // V2: Include persona params for one-pass voice integration
-    const systemPrompt = buildSystemPrompt(userLevel, {
+    let systemPrompt = buildSystemPrompt(userLevel, {
       spreadType,
       posture, // V1: explicit posture for verb governance (overrides spreadType in prompt builder)
       stance,
@@ -1915,6 +1928,11 @@ export default function NirmanakaReader() {
       // Locus control
       locusSubjects
     });
+    // V1: Inject Nowism governance when custom frame has temporal labels
+    if (frameSource === 'custom') {
+      const nowismBlock = buildNowismGovernance(customLabels);
+      if (nowismBlock) systemPrompt += '\n\n' + nowismBlock;
+    }
     // Cache system prompt for on-demand calls
     setSystemPromptCache(systemPrompt);
 
@@ -2025,10 +2043,13 @@ export default function NirmanakaReader() {
 
     try {
       const letterContent = letterData?.swim || letterData?.wade || letterData?.shallow || letterData?.surface || '';
-      // Compute frame label/lens for this card (reflect spreads have position-specific context)
+      // Compute frame label/lens for this card
+      // Custom frame: labels from user input. Preset frame: from spread config.
       const currentSpreadKey = spreadType === 'reflect' ? reflectSpreadKey : spreadKey;
       const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
-      const frameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const frameLabel = frameSource === 'custom'
+        ? (customLabels[cardIndex] || null)
+        : (currentSpreadConfig?.positions?.[cardIndex]?.name || null);
       const frameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
@@ -2104,9 +2125,11 @@ export default function NirmanakaReader() {
       const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
       // Get originalInput for grounded DTP interpretations
       const originalInput = parsedReading?.originalInput || null;
-      // Compute frame label/lens for this card
+      // Compute frame label/lens for this card (custom or preset)
       const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
-      const deepenFrameLabel = currentSpreadConfig?.positions?.[cardIndex]?.name || null;
+      const deepenFrameLabel = frameSource === 'custom'
+        ? (customLabels[cardIndex] || null)
+        : (currentSpreadConfig?.positions?.[cardIndex]?.name || null);
       const deepenFrameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
@@ -3966,8 +3989,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
     // V1: Every card has an archetype position. Frame labels are additional context.
     const contextLabel = ARCHETYPES[draw.position]?.name || 'Draw';
-    const frameLabel = isReflect && spreadConfig?.positions?.[index]?.name ? spreadConfig.positions[index].name : null;
-    const contextSub = frameLabel || null;
+    const presetFrameLabel = isReflect && spreadConfig?.positions?.[index]?.name ? spreadConfig.positions[index].name : null;
+    const customFrameLabel = frameSource === 'custom' && customLabels[index] ? customLabels[index] : null;
+    const contextSub = customFrameLabel || presetFrameLabel || null;
     
     // Helper to open card info
     const openCardInfo = (cardId) => {
@@ -5219,6 +5243,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   >
                     From Your Words
                   </button>
+                  <button
+                    onClick={() => setFrameSource('custom')}
+                    className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
+                      frameSource === 'custom' ? 'bg-rose-600/25 text-rose-300 border border-rose-500/40' : 'text-zinc-500 hover:text-zinc-300'
+                    }`}
+                  >
+                    Make Your Own
+                  </button>
                 </div>
               </div>
 
@@ -5261,6 +5293,47 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* V1: Custom Frame — card count + position name inputs */}
+              {frameSource === 'custom' && (
+              <div className="w-full max-w-2xl mx-auto mb-3">
+                <div className="flex flex-col items-center justify-start">
+                    {/* Card count selector */}
+                    <div className="flex gap-1 justify-center mb-2">
+                      {[1, 2, 3, 4, 5].map((count) => (
+                        <button
+                          key={count}
+                          onClick={() => setCardCount(count)}
+                          className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
+                            cardCount === count
+                              ? 'bg-rose-600/30 text-white border border-rose-500/50'
+                              : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                          }`}
+                        >
+                          {count}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Position name inputs */}
+                    <div className="flex flex-col gap-1.5 w-full max-w-sm px-4">
+                      {customLabels.map((label, i) => (
+                        <input
+                          key={i}
+                          type="text"
+                          value={label}
+                          onChange={(e) => {
+                            const next = [...customLabels];
+                            next[i] = e.target.value;
+                            setCustomLabels(next);
+                          }}
+                          placeholder={`Position ${i + 1}`}
+                          className="bg-zinc-900 border border-zinc-700/50 rounded-md px-3 py-1.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-rose-500/50 transition-colors"
+                        />
+                      ))}
+                    </div>
+                </div>
+              </div>
+              )}
 
               {/* V1: Spread Picker — only visible for Preset frame (Choose a Spread) */}
               {frameSource === 'preset' && (
@@ -5660,6 +5733,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         </>
                       ) : frameSource === 'dynamic' ? (
                         <span className="text-emerald-400/50">From Your Words</span>
+                      ) : frameSource === 'custom' ? (
+                        <span className="text-rose-400/50">Custom · {cardCount}</span>
                       ) : (
                         <span className="text-zinc-500">{cardCount} signature{cardCount !== 1 ? 's' : ''}</span>
                       )}
