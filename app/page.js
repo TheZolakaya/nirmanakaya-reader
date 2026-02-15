@@ -5369,31 +5369,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       </svg>
                     </motion.div>
                   </button>
-                  {/* V1: Preset quick-start buttons — visible when controls collapsed */}
-                  {!advancedMode && (
-                    <div className="flex gap-1.5 justify-center mb-2 px-4">
-                      {Object.entries(READING_PRESETS).map(([key, preset]) => {
-                        const s = preset.settings;
-                        const isActive = s.frameSource === frameSource
-                          && s.posture === posture
-                          && (s.cardCount ? s.cardCount === cardCount : true);
-                        return (
-                          <button
-                            key={key}
-                            onClick={() => applyPreset(key)}
-                            className={`text-[0.65rem] px-2.5 py-1 rounded-md transition-all border ${
-                              isActive
-                                ? `${preset.bgColor} ${preset.color} ${preset.borderColor}`
-                                : 'bg-zinc-900/50 text-zinc-500 border-zinc-800 hover:text-zinc-300 hover:border-zinc-700'
-                            }`}
-                          >
-                            <span className="mr-1">{preset.icon}</span>
-                            {preset.name}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
                   {/* Textarea with animated placeholder overlay */}
                   {frameSource === 'dynamic' ? (
                     <div className="relative w-full rounded-lg" style={{ overflow: 'clip' }} onClick={handleTextareaClick}>
