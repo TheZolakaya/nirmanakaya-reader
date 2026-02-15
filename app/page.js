@@ -157,6 +157,14 @@ import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
 // VERSION is now imported from lib/version.js - update it there when releasing
 
 // === DYNAMIC PLACEHOLDER TEXT SYSTEM ===
+// Frame tab colors for border flash — maps frameSource to CSS color values
+const FRAME_COLORS = {
+  architecture: { primary: '#2563EB', glow: 'rgba(37, 99, 235, 0.3)' },   // Blue
+  preset:       { primary: '#7C3AED', glow: 'rgba(124, 58, 237, 0.3)' },   // Violet
+  dynamic:      { primary: '#059669', glow: 'rgba(5, 150, 105, 0.3)' },    // Emerald
+  custom:       { primary: '#E11D48', glow: 'rgba(225, 29, 72, 0.3)' }     // Rose
+};
+
 // Context-aware prompts based on Mode + Count + Layout (Gemini "Dynamic Sanctuary" spec)
 const PLACEHOLDER_TEXT = {
   reflect: {
@@ -752,11 +760,9 @@ export default function NirmanakaReader() {
     }
   }, [advancedMode]);
 
-  useEffect(() => {
-    // Mode changed - turn off flash and pulse
-    setBorderFlashActive(false);
-    setBorderPulseActive(false);
-  }, [spreadType]);
+  // Note: spreadType flash clearing removed — spreadType is now only changed
+  // as a side effect of frameSource. Flash is triggered by frame tab clicks
+  // and cleared by setTimeout (600ms) or advancedMode toggle.
 
   // V1: Sync frameSource → spreadType (internal compatibility)
   // Posture is internal (set by presets), frame determines the reading type
@@ -5216,15 +5222,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div className="flex justify-center mb-2 px-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0">
                   <button
-                    onClick={() => setFrameSource('architecture')}
+                    onClick={() => { setFrameSource('architecture'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
-                      frameSource === 'architecture' ? 'bg-zinc-700/60 text-zinc-200' : 'text-zinc-500 hover:text-zinc-300'
+                      frameSource === 'architecture' ? 'bg-blue-600/25 text-blue-300 border border-blue-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
                     Architecture
                   </button>
                   <button
-                    onClick={() => setFrameSource('preset')}
+                    onClick={() => { setFrameSource('preset'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'preset' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
@@ -5236,6 +5242,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       setFrameSource('dynamic');
                       // Copy question to dtpInput when switching to dynamic
                       if (question && !dtpInput) setDtpInput(question);
+                      setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600);
                     }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'dynamic' ? 'bg-emerald-600/25 text-emerald-300 border border-emerald-500/40' : 'text-zinc-500 hover:text-zinc-300'
@@ -5244,7 +5251,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     From Your Words
                   </button>
                   <button
-                    onClick={() => setFrameSource('custom')}
+                    onClick={() => { setFrameSource('custom'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'custom' ? 'bg-rose-600/25 text-rose-300 border border-rose-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
@@ -5433,9 +5440,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       transition={{ duration: 0.3 }}
                     >
                       <svg className={`w-3 h-3 fill-current transition-colors ${
-                        posture === 'reflect' ? 'text-violet-400 hover:text-violet-300' :
-                        posture === 'discover' ? 'text-blue-400 hover:text-blue-300' :
-                        posture === 'integrate' ? 'text-amber-400 hover:text-amber-300' :
+                        frameSource === 'architecture' ? 'text-blue-400 hover:text-blue-300' :
+                        frameSource === 'preset' ? 'text-violet-400 hover:text-violet-300' :
+                        frameSource === 'dynamic' ? 'text-emerald-400 hover:text-emerald-300' :
+                        frameSource === 'custom' ? 'text-rose-400 hover:text-rose-300' :
                         'text-zinc-400 hover:text-zinc-300'
                       }`} viewBox="0 0 10 6">
                         <path d="M5 6L0 0h10L5 6z" />
@@ -5452,9 +5460,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         className={`content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
-                          '--mode-border-color': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-border-color-bright': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-glow-color': MODE_COLORS[posture]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
+                          '--mode-border-color': FRAME_COLORS[frameSource]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': FRAME_COLORS[frameSource]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': FRAME_COLORS[frameSource]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
                           ...(!borderFlashActive && !borderPulseActive && !initiateFlash ? {
                             borderColor: 'rgba(63, 63, 70, 0.8)',
                             boxShadow: 'none',
@@ -5521,9 +5529,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
                           // CSS custom properties for pulse animation
-                          '--mode-border-color': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-border-color-bright': MODE_COLORS[posture]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
-                          '--mode-glow-color': MODE_COLORS[posture]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
+                          '--mode-border-color': FRAME_COLORS[frameSource]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-border-color-bright': FRAME_COLORS[frameSource]?.primary || MODE_COLORS[spreadType]?.primary || 'rgba(63, 63, 70, 0.8)',
+                          '--mode-glow-color': FRAME_COLORS[frameSource]?.glow || MODE_COLORS[spreadType]?.glow || 'transparent',
                           // Don't override border/shadow when animations are active
                           ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming' && !borderFlashActive && !borderPulseActive && !initiateFlash) ? {
                             borderColor: crystalFlash ? '#fbbf24' : 'rgba(63, 63, 70, 0.8)',
@@ -5686,9 +5694,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       data-help="get-reading"
                       disabled={loading}
                       className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
-                        posture === 'reflect' ? 'border-violet-500/50 hover:border-violet-400' :
-                        posture === 'discover' ? 'border-blue-500/50 hover:border-blue-400' :
-                        posture === 'integrate' ? 'border-amber-500/50 hover:border-amber-400' :
+                        frameSource === 'architecture' ? 'border-blue-500/50 hover:border-blue-400' :
+                        frameSource === 'preset' ? 'border-violet-500/50 hover:border-violet-400' :
+                        frameSource === 'dynamic' ? 'border-emerald-500/50 hover:border-emerald-400' :
+                        frameSource === 'custom' ? 'border-rose-500/50 hover:border-rose-400' :
                         'border-zinc-700/50 hover:border-zinc-600'
                       }`}
                       whileTap={{ scale: 0.95 }}
@@ -5736,7 +5745,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       ) : frameSource === 'custom' ? (
                         <span className="text-rose-400/50">Custom · {cardCount}</span>
                       ) : (
-                        <span className="text-zinc-500">{cardCount} signature{cardCount !== 1 ? 's' : ''}</span>
+                        <span className="text-blue-400/50">{cardCount} signature{cardCount !== 1 ? 's' : ''}</span>
                       )}
                     </span>
                   </div>
