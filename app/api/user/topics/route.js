@@ -131,7 +131,7 @@ export async function PATCH(request) {
     if (!id) return Response.json({ error: 'id is required' }, { status: 400 });
 
     // Only allow certain fields
-    const allowed = ['label', 'archived', 'last_used_at', 'reading_count', 'meta_analysis'];
+    const allowed = ['label', 'archived', 'last_used_at', 'reading_count', 'meta_analysis', 'is_private'];
     const safeUpdates = {};
     for (const key of allowed) {
       if (updates[key] !== undefined) safeUpdates[key] = updates[key];

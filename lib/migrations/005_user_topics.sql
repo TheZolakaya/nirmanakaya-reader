@@ -9,8 +9,9 @@ CREATE TABLE IF NOT EXISTS user_topics (
   last_used_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   archived BOOLEAN NOT NULL DEFAULT false,
   reading_count INT NOT NULL DEFAULT 0,
-  meta_analysis JSONB DEFAULT NULL
+  meta_analysis JSONB DEFAULT NULL,
   -- meta_analysis shape: { text: string, generated_at: string, reading_count: number }
+  is_private BOOLEAN NOT NULL DEFAULT false
 );
 
 -- RLS
