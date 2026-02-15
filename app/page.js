@@ -5263,43 +5263,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
               {/* V1: Posture is internal — set by presets, not user-selectable */}
 
-              {/* Control Icons - positioned at right, desktop only */}
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:grid grid-cols-2 gap-1 z-10">
-                {/* Top row: Persona, Signal Tuning */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-md text-xs sm:text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                >
-                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                </button>
-                <button
-                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                  data-help="fine-tune-voice"
-                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                  title="Signal Tuning"
-                >
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                  </svg>
-                </button>
-                {/* Tooltip */}
-                <AnimatePresence>
-                  {controlTooltip && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 5 }}
-                      className="absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-0.5 bg-zinc-800 text-zinc-200 text-[10px] rounded whitespace-nowrap z-50"
-                    >
-                      {controlTooltip.text}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              {/* Control Icons — moved to below-textarea row (visible when expanded) */}
 
               {/* V1: Custom Frame — card count + position name inputs */}
               {frameSource === 'custom' && (
@@ -5405,10 +5369,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
               {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
               <div className="textarea-anchor">
-              {/* Last Reading Strip */}
-              {currentUser && !parsedReading && (
-                <LastReadingStrip currentUser={currentUser} />
-              )}
+              {/* Last Reading Strip — moved to below-textarea row (visible when expanded) */}
               {/* Saved Topics Bar */}
               {currentUser && !parsedReading && (
                 <TopicBar
@@ -5752,30 +5713,38 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 )}
               </div>
 
-              {/* Mobile Control Icons - below textarea, mobile only, only when expanded */}
+              {/* V1: Below-textarea row — voice controls left, last reading right — only when expanded */}
               {advancedMode && (
-              <div className="flex sm:hidden justify-center gap-2 mt-2">
-                {/* Persona */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
-                  className={`w-9 h-9 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                  title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
-                >
-                  {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
-                </button>
-                {/* Signal Tuning */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                  className={`w-9 h-9 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
-                  title="Signal Tuning"
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                  </svg>
-                </button>
+              <div className="flex items-center justify-between mt-2 px-1">
+                {/* Voice controls — left */}
+                <div className="flex gap-1">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                    className={`w-8 h-8 rounded-md text-sm transition-colors flex items-center justify-center ${showCompactPersona ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                  >
+                    {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                  </button>
+                  <button
+                    onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                    data-help="fine-tune-voice"
+                    className={`w-8 h-8 rounded-md transition-colors flex items-center justify-center ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'}`}
+                    title="Signal Tuning"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                      <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                      <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                    </svg>
+                  </button>
+                </div>
+                {/* Last Reading Strip — right */}
+                {currentUser && !parsedReading && (
+                  <div className="flex-1 ml-3 min-w-0">
+                    <LastReadingStrip currentUser={currentUser} compact />
+                  </div>
+                )}
               </div>
               )}
 

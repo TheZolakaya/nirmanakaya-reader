@@ -29,7 +29,7 @@ function formatRelativeDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-export default function LastReadingStrip({ currentUser }) {
+export default function LastReadingStrip({ currentUser, compact = false }) {
   const [lastReading, setLastReading] = useState(null);
 
   useEffect(() => {
@@ -60,19 +60,19 @@ export default function LastReadingStrip({ currentUser }) {
   const draws = lastReading.draws.slice(0, 5);
 
   return (
-    <div className="max-w-2xl mx-auto mb-3 px-1">
+    <div className={compact ? '' : 'max-w-2xl mx-auto mb-3 px-1'}>
       <a
         href={`/?load=${lastReading.id}`}
-        className="flex items-center gap-3 px-3 py-2 rounded-lg bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700/50 transition-colors group"
+        className={`flex items-center gap-2 rounded-lg bg-zinc-900/30 border border-zinc-800/50 hover:border-zinc-700/50 transition-colors group ${compact ? 'px-2 py-1' : 'gap-3 px-3 py-2'}`}
       >
         {/* Card thumbnails */}
-        <div className="flex -space-x-2">
+        <div className="flex -space-x-2 flex-shrink-0">
           {draws.map((draw, i) => {
             const imagePath = getCardImagePath(draw.transient);
             return (
               <div
                 key={i}
-                className="w-8 h-10 rounded overflow-hidden border border-zinc-700 bg-zinc-800 flex-shrink-0"
+                className={`rounded overflow-hidden border border-zinc-700 bg-zinc-800 flex-shrink-0 ${compact ? 'w-6 h-7' : 'w-8 h-10'}`}
                 style={{ zIndex: draws.length - i }}
               >
                 {imagePath ? (
@@ -87,12 +87,14 @@ export default function LastReadingStrip({ currentUser }) {
 
         {/* Info */}
         <div className="flex-1 min-w-0">
-          <p className="text-[11px] text-zinc-500 truncate group-hover:text-zinc-400 transition-colors">
+          <p className={`text-zinc-500 truncate group-hover:text-zinc-400 transition-colors ${compact ? 'text-[10px]' : 'text-[11px]'}`}>
             {lastReading.topic || 'Last reading'}
           </p>
-          <p className="text-[10px] text-zinc-600">
-            {draws.map(d => getSignatureName(d.transient)).join(' \u00B7 ')}
-          </p>
+          {!compact && (
+            <p className="text-[10px] text-zinc-600">
+              {draws.map(d => getSignatureName(d.transient)).join(' \u00B7 ')}
+            </p>
+          )}
         </div>
 
         {/* Time */}
