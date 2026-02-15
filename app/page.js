@@ -621,6 +621,8 @@ export default function NirmanakaReader() {
   const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
   const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
   const userStatsRef = useRef(null); // Cached user stats for CardDetailModal
+  const controlsAboveRef = useRef(null); // Ref for measuring controls height (textarea anchor)
+  const [controlsHeight, setControlsHeight] = useState(0); // Dynamic height for marginTop compensation
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
   const [locusInput, setLocusInput] = useState('');
@@ -763,6 +765,19 @@ export default function NirmanakaReader() {
   // Note: spreadType flash clearing removed — spreadType is now only changed
   // as a side effect of frameSource. Flash is triggered by frame tab clicks
   // and cleared by setTimeout (600ms) or advancedMode toggle.
+
+  // Measure controls-above height for textarea anchor compensation
+  // When controls collapse, marginTop = controlsHeight keeps textarea in place
+  useEffect(() => {
+    const el = controlsAboveRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      const h = el.scrollHeight;
+      if (h > 0) setControlsHeight(h);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // V1: Sync frameSource → spreadType (internal compatibility)
   // Posture is internal (set by presets), frame determines the reading type
@@ -5193,7 +5208,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               animate={{
                 // When controls collapse, add margin-top to compensate
                 // This keeps the textarea visually anchored in place
-                marginTop: advancedMode ? 0 : 120,
+                marginTop: advancedMode ? 0 : controlsHeight,
               }}
               transition={{
                 // Match the controls-above height animation exactly
@@ -5207,6 +5222,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
               {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
+                ref={controlsAboveRef}
                 className={`controls-above overflow-hidden relative ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
