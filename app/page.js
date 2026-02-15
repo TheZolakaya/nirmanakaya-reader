@@ -5194,26 +5194,25 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
             {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
+            <>
+            {/* CONTROLS ZONE — fixed height, outside pane border. Textarea never moves. */}
             <div
-              className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl"
+              className={`mx-auto max-w-2xl overflow-hidden transition-all duration-300 ${
+                advancedMode
+                  ? 'bg-zinc-900/30 border border-zinc-800/50 border-b-0 rounded-t-lg px-4 sm:px-6 pt-3'
+                  : 'px-4 sm:px-6'
+              }`}
+              style={{ height: 280 }}
             >
-
-              {/* === MAIN LAYOUT: Controls above textarea === */}
-              {/* Simple column layout - no minHeight changes to keep textarea rock solid */}
-              <div className="flex flex-col">
-
-              {/* CONTROLS GROUP - animates height, textarea stays at bottom */}
               <motion.div
                 ref={controlsAboveRef}
-                className={`controls-above overflow-hidden relative ${!advancedMode ? 'pointer-events-none' : ''}`}
+                className={`controls-above ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
-                  height: advancedMode ? 300 : 0,
                   opacity: advancedMode ? 1 : 0,
                 }}
                 transition={{
-                  height: { duration: 0.3, ease: 'easeInOut' },
-                  opacity: { duration: 0.2 }
+                  opacity: { duration: 0.25 }
                 }}
               >
               {/* V1: Frame Selector — replaces mode tabs */}
@@ -5364,8 +5363,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               </div>
               )}
               </motion.div>{/* END controls-above */}
+            </div>{/* END controls zone */}
 
-              {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
+            {/* CONTENT PANE — textarea only, border connects to controls zone when expanded */}
+            <div
+              className={`content-pane bg-zinc-900/30 border border-zinc-800/50 px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl ${
+                advancedMode ? 'rounded-b-lg border-t-0' : 'rounded-lg'
+              }`}
+            >
               <div className="textarea-anchor">
               {/* Question Input - THE ANCHOR POINT (no animation) */}
               <div className="relative mb-2 mt-1">
@@ -5751,7 +5756,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               )}
 
               </div>{/* END textarea-anchor */}
-              </div>{/* END flex layout */}
 
               {/* Description Block - HIDDEN FOR NOW (may restore later)
               <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
@@ -5874,6 +5878,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
 {/* Footer Deck removed - all controls moved to mode row */}
             </div>
+            </>
             )}
             {/* End of Standard Mode conditional */}
 
