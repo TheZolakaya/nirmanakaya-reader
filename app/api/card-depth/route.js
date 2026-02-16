@@ -38,7 +38,8 @@ export async function POST(request) {
     // DTP token context (optional)
     token,          // e.g., "Fear" - the user's token this card is reading
     originalInput,  // e.g., "I'm worried about my marriage" - full question for grounding
-    userContext      // Optional user journey context block
+    userContext,     // Optional user journey context block
+    showArchitecture // Whether architecture terms are visible (default: false)
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -50,7 +51,7 @@ export async function POST(request) {
 
   // Build card-specific user message
   const baseMessage = isDeepening
-    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput, sections, frameLabel, frameLens)
+    ? buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, depth, previousContent, token, originalInput, sections, frameLabel, frameLens, showArchitecture)
     : buildBaselineMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens);
 
   // Prepend user journey context if available (only for baseline, not deepening)
@@ -333,7 +334,7 @@ The token "${token}" should appear naturally woven into your interpretations, gr
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
 // sections: null = all sections, or array like ['reading'], ['rebalancer'], ['why'], ['growth']
-function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null, sections = null, frameLabel = null, frameLens = null) {
+function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterContent, targetDepth, previousContent, token = null, originalInput = null, sections = null, frameLabel = null, frameLens = null, showArchitecture = false) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status directly)
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
@@ -506,12 +507,18 @@ function buildDeepenMessage(n, draw, question, spreadType, spreadKey, letterCont
     if (includeWhy) details.push('- Why section: 3-4 paragraphs on deeper teleological meaning');
     if (includeRebalancer && isImbalanced) details.push('- Rebalancer: 3-4 paragraphs on HOW the rebalancing works, WHY it helps, practical ways to apply it');
     if (includeGrowth && isBalanced) details.push('- Growth: 3-4 paragraphs on the developmental invitation and how to engage it');
-    depthInstructions = `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression. Use architectural framework terms freely. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`;
+    depthInstructions = showArchitecture
+      ? `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression. Use architectural framework terms freely. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.`
+      : `DEEP depth: Full transmission with NO limits.\n${details.join('\n')}\n\nDEEP is the fullest expression — maximum philosophical and emotional depth. If a section feels short, you haven't gone deep enough. Add examples, nuances, emotional resonance.\n\n⚠️ ARCHITECTURE INVISIBLE: The structural data below is for YOUR reasoning only. Use it to inform the DEPTH and ACCURACY of your interpretation, but translate ALL structural insights into felt experience. Do NOT use framework terms like "Seed stage", "Fruition", "diagonal partner", "Inner horizon", "rebalancer geometry", "channel resonance", "house interaction" in your prose. Instead, convey WHAT THOSE PATTERNS MEAN for the person — the derivative insight, not the scaffolding.`;
   } else if (targetDepth === 'swim') {
-    depthInstructions = `SWIM depth: 2-3 rich paragraphs per section. Add psychological depth, practical implications, and structural awareness. You may reference horizons and process stages.`;
+    depthInstructions = showArchitecture
+      ? `SWIM depth: 2-3 rich paragraphs per section. Add psychological depth, practical implications, and structural awareness. You may reference horizons and process stages.`
+      : `SWIM depth: 2-3 rich paragraphs per section. Add psychological depth, practical implications, and nuanced awareness of the dynamics at play.\n\n⚠️ ARCHITECTURE INVISIBLE: The structural data below is for YOUR reasoning only. Use it to deepen your interpretation but translate all insights into natural language. Do NOT use terms like "horizon", "process stage", "channel crossing" — convey what those dynamics MEAN in felt, human terms.`;
   } else {
     // Wade
-    depthInstructions = `WADE depth: 2-3 rich paragraphs per section. Build on the shallow reading by incorporating the structural significance below. If a Gestalt or Portal is present, make that presence felt in the interpretation.`;
+    depthInstructions = showArchitecture
+      ? `WADE depth: 2-3 rich paragraphs per section. Build on the shallow reading by incorporating the structural significance below. If a Gestalt or Portal is present, make that presence felt in the interpretation.`
+      : `WADE depth: 2-3 rich paragraphs per section. Build on the shallow reading by deepening the emotional and psychological texture. If something cosmically significant is present, let the reader feel that weight without naming the framework.\n\n⚠️ ARCHITECTURE INVISIBLE: The structural data below is for YOUR reasoning only. Use it to inform accuracy but translate everything into felt meaning. No framework terminology in your prose.`;
   }
 
   // Build previous content display
@@ -548,7 +555,7 @@ ${previousDisplay}
 
 Now generate ${targetDepth.toUpperCase()} level content for ${sections ? 'the requested section(s)' : 'ALL sections'}.
 
-${structuralContext ? `STRUCTURAL DATA FOR THIS DEPTH TIER:\n${structuralContext}` : ''}
+${structuralContext ? `STRUCTURAL DATA FOR THIS DEPTH TIER${!showArchitecture ? ' (for your reasoning — DO NOT expose these terms to the user, translate into felt meaning)' : ''}:\n${structuralContext}` : ''}
 ${depthInstructions}
 
 ⚠️ POSITION CONTEXT IS MANDATORY:

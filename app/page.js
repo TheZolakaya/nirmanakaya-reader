@@ -2081,7 +2081,8 @@ export default function NirmanakaReader() {
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          showArchitecture: showArchitectureTerms
         })
       });
       const data = await res.json();
@@ -2165,7 +2166,8 @@ export default function NirmanakaReader() {
           targetDepth,
           previousContent,
           sections, // Selective section loading — null means all
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          showArchitecture: showArchitectureTerms
         })
       });
       const data = await res.json();
