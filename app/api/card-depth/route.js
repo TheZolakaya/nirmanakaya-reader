@@ -277,17 +277,17 @@ DO NOT reverse these - ${cardName} is the signature, ${positionName} is the posi
 
 ⚠️ FRAME CONTEXT IS MANDATORY:
 This card was drawn in the "${positionFrame}" position of a structured spread.${positionLens ? ` ${positionLens}` : ''}
-Your interpretation MUST address what ${cardName} reveals specifically about "${positionFrame}". Mention "${positionFrame}" by name at least once. The frame shapes the reading's PURPOSE — the archetype position shapes HOW it operates.` : ''}
+Your interpretation MUST be framed in "${positionFrame}" — open your SHALLOW reading by naming "${positionFrame}" in the first sentence or two (e.g., "Framed in ${positionFrame}..." or "Looking at ${positionFrame}..."). The frame shapes the reading's PURPOSE — the archetype position shapes HOW it operates. Every section should feel like it's answering "${positionFrame}" through the lens of ${cardName}.` : ''}
 
 FORMATTING: Always use blank lines between paragraphs. Each paragraph should be 2-3 sentences max.
 
 Respond with these markers:
 
 [CARD:${n}:SURFACE]
-(2-3 sentences: Core insight distilled. Must stand alone.)
+(2-3 sentences: Core insight distilled.${positionFrame ? ` Reference "${positionFrame}" to ground the insight.` : ''} Must stand alone.)
 
 [CARD:${n}:SHALLOW]
-(2-4 paragraphs: Full interpretation of this signature in this position. What does it reveal about their question? How does the position shape the meaning? Be specific and substantive. No architectural terminology — write naturally.)
+(2-4 paragraphs: Full interpretation of this signature in this position.${positionFrame ? ` Open by naming the frame "${positionFrame}" — e.g., "Framed in ${positionFrame}..."` : ''} What does it reveal about their question? How does the position shape the meaning? Be specific and substantive. No architectural terminology — write naturally.)
 
 [CARD:${n}:MIRROR]
 (Single poetic line reflecting their situation)
@@ -562,7 +562,7 @@ ${depthInstructions}
 - THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
 Say "${cardName} in ${positionName}" - DO NOT reverse these. Weave naturally into your deepened content.${positionFrame ? `
-⚠️ FRAME CONTEXT: This card is in the "${positionFrame}" spread position.${positionLens ? ` ${positionLens}` : ''} Weave "${positionFrame}" into your deepened content.` : ''}
+⚠️ FRAME CONTEXT: This card is framed in "${positionFrame}".${positionLens ? ` ${positionLens}` : ''} Open each deepened section by referencing "${positionFrame}" — the frame is the lens through which everything is read.` : ''}
 
 CRITICAL RULES:
 1. DO NOT repeat what's in the previous content
