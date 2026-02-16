@@ -4,6 +4,7 @@
 // Uses Anthropic prompt caching for efficiency
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
+import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { STATUSES } from '../../../lib/constants.js';
 
@@ -124,8 +125,23 @@ export async function POST(request) {
 
 // Build baseline message - generates WADE for summary + path (initial load)
 function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens = null, originalInput = null) {
+  // Build spread context for Reflect mode
+  let spreadContext = '';
+  if (spreadType === 'reflect') {
+    const spreadConfig = REFLECT_SPREADS[spreadKey];
+    if (spreadConfig) {
+      const positionList = spreadConfig.positions.map((p, i) => `  ${i + 1}. "${p.name}"`).join('\n');
+      spreadContext = `\nSPREAD: ${spreadConfig.name}
+Positions:
+${positionList}
+
+Your synthesis should reference these position names when weaving the signatures together. How the signatures relate ACROSS their positions is the synthesis insight.\n`;
+    }
+  }
+
   // Build card summaries for synthesis context
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
+  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
   const cardSummaries = cards.map((card, i) => {
     const draw = draws[i];
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
@@ -135,13 +151,14 @@ function buildBaselineMessage(question, draws, cards, letter, spreadType, spread
     const statusPrefix = stat?.prefix || '';
     const cardName = `${statusPrefix}${statusPrefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
     const isImbalanced = draw.status !== 1;
+    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
 
     // For balanced cards, include growth opportunity. For imbalanced, include rebalancer.
     const correctionInfo = isImbalanced
       ? (card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : '')
       : (card.growth ? `Growth Opportunity: ${card.growth.wade || card.growth.surface || ''}` : '');
 
-    return `SIGNATURE ${i + 1}: ${cardName}
+    return `SIGNATURE ${i + 1}${posLabel}: ${cardName}
 Reading: ${card.wade || card.surface || '(loading)'}
 ${correctionInfo}
 Why: ${card.why?.wade || card.why?.surface || ''}`;
@@ -152,6 +169,7 @@ Why: ${card.why?.wade || card.why?.surface || ''}`;
   return `QUESTION: "${question}"
 
 READING TYPE: ${spreadType.toUpperCase()} (${spreadKey})
+${spreadContext}
 
 LETTER (for tone continuity):
 ${letterContext}
@@ -197,6 +215,7 @@ Ground your synthesis in this specific situation. Show how the token themes inte
 // Build deepening message - generates SWIM or DEEP that builds on previous
 function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent, tokens = null, originalInput = null) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
+  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
   const cardNames = cards.map((card, i) => {
     const draw = draws[i];
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
@@ -204,7 +223,8 @@ function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKe
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
-    return `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
+    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
+    return `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}${posLabel}`;
   }).join(', ');
 
   const depthInstructions = targetDepth === 'deep'

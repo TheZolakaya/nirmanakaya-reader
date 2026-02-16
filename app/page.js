@@ -2081,7 +2081,8 @@ export default function NirmanakaReader() {
           token, // DTP mode: token context for this card
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          showArchitecture: showArchitectureTerms
         })
       });
       const data = await res.json();
@@ -2165,7 +2166,8 @@ export default function NirmanakaReader() {
           targetDepth,
           previousContent,
           sections, // Selective section loading — null means all
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          showArchitecture: showArchitectureTerms
         })
       });
       const data = await res.json();
@@ -5202,7 +5204,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   ? 'bg-zinc-900/30 border border-zinc-800/50 border-b-0 rounded-t-lg px-4 sm:px-6 pt-3'
                   : 'px-4 sm:px-6'
               }`}
-              style={{ height: 280 }}
+              style={{ height: advancedMode ? 280 : 0 }}
             >
               <motion.div
                 ref={controlsAboveRef}
