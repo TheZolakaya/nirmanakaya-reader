@@ -5204,11 +5204,11 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   ? 'bg-zinc-900/30 border border-zinc-800/50 border-b-0 rounded-t-lg px-4 sm:px-6 pt-3'
                   : 'px-4 sm:px-6'
               }`}
-              style={{ height: advancedMode ? 280 : 0 }}
+              style={{ height: advancedMode ? 160 : 0 }}
             >
               <motion.div
                 ref={controlsAboveRef}
-                className={`controls-above ${!advancedMode ? 'pointer-events-none' : ''}`}
+                className={`controls-above overflow-y-auto ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
                   opacity: advancedMode ? 1 : 0,
