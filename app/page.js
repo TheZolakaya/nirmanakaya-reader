@@ -5740,7 +5740,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </div>
                 )}
               </div>
-              {/* Saved Topics — bottom of expanded frame */}
+              </>
+              )}
+              {/* Saved Topics — always visible so "+ Save topic" works while typing */}
               {currentUser && !parsedReading && (
                 <div className="mt-2">
                   <TopicBar
@@ -5753,8 +5755,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     }}
                   />
                 </div>
-              )}
-              </>
               )}
 
               </div>{/* END textarea-anchor */}
