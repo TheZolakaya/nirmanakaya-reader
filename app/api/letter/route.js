@@ -4,6 +4,7 @@
 // Uses Anthropic prompt caching for efficiency
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
+import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { STATUSES } from '../../../lib/constants.js';
 
@@ -92,20 +93,38 @@ function buildBaselineMessage(question, draws, spreadType, spreadKey) {
   const cardCount = draws.length;
   const spreadName = spreadKey || `${cardCount}-card`;
 
+  // Build spread context for Reflect mode (preset spreads with named positions)
+  let spreadContext = '';
+  if (spreadType === 'reflect') {
+    const spreadConfig = REFLECT_SPREADS[spreadKey];
+    if (spreadConfig) {
+      const positionSummary = spreadConfig.positions.map((p, i) => `  Position ${i + 1}: "${p.name}" — ${p.lens.replace(/^This signature is /, '').replace(/\. Read it as:.*$/, '')}`).join('\n');
+      spreadContext = `\nSPREAD: ${spreadConfig.name} (${spreadConfig.positions.length}-card)
+${spreadConfig.whenToUse ? `Purpose: ${spreadConfig.whenToUse}` : ''}
+Positions:
+${positionSummary}
+
+IMPORTANT: This is a structured spread. Each card maps to a specific position. Your letter should reference these positions by name when hinting at what the cards suggest. For example, say "in your ${spreadConfig.positions[0].name}..." not just "your first card...".\n`;
+    }
+  }
+
   // Build minimal card overview for context
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
+  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
   const cardNames = draws.map((draw, i) => {
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                   draw.transient < 62 ? BOUNDS[draw.transient] :
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
-    return `Card ${i + 1}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
+    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
+    return `Card ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   return `QUESTION: "${question}"
 
 READING TYPE: ${spreadType.toUpperCase()} (${spreadName})
+${spreadContext}
 
 CARDS DRAWN (overview for letter context):
 ${cardNames}
@@ -130,13 +149,15 @@ Respond with JUST the content (no markers needed). Write directly to the querent
 // Build deepening message - generates SWIM or DEEP that builds on previous
 function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth, previousContent) {
   // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
+  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
   const cardNames = draws.map((draw, i) => {
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                   draw.transient < 62 ? BOUNDS[draw.transient] :
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
-    return `Card ${i + 1}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
+    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
+    return `Card ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   const depthInstructions = targetDepth === 'deep'
