@@ -2,11 +2,12 @@
 
 // === SAVE READING BUTTON ===
 // Saves reading locally and to cloud if authenticated
+// Also saves to user_readings for My Readings feature (with optional glisten data)
 
 import { useState } from 'react';
-import { saveReading, saveReadingLocally, getUser } from '../../lib/supabase';
+import { saveReading, saveReadingLocally, getUser, getSession } from '../../lib/supabase';
 
-export default function SaveReadingButton({ reading, onSave }) {
+export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, onSave }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
@@ -28,11 +29,49 @@ export default function SaveReadingButton({ reading, onSave }) {
       const { user } = await getUser();
       console.log('User:', user);
       if (user) {
+        // Save to legacy readings table
         const { data, error: cloudError } = await saveReading(reading);
         console.log('Cloud save result:', { data, error: cloudError });
         if (cloudError) {
           console.warn('Cloud save failed, saved locally:', cloudError);
-          // Still mark as saved since we have local copy
+        }
+
+        // Also save to user_readings for My Readings feature
+        try {
+          const session = await getSession();
+          const token = session?.session?.access_token;
+          if (token && draws) {
+            const userReadingRes = await fetch('/api/user/readings', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                reading_type: 'manual',
+                topic_mode: reading.question ? 'custom' : 'general',
+                topic: reading.question || null,
+                locus_subjects: locusSubjects || [],
+                card_count: draws.length,
+                voice: voice || 'friend',
+                draws: draws,
+                interpretation: {
+                  cards: reading.cards?.map(c => ({
+                    interpretation: c.interpretation?.interpretation || c.interpretation,
+                    rebalancing: c.interpretation?.rebalancing
+                  })) || [],
+                  synthesis: reading.synthesis?.summary || reading.synthesis?.path,
+                  letter: reading.letter
+                },
+                glisten: glisten || null
+              })
+            });
+            const userReadingData = await userReadingRes.json();
+            console.log('User readings save result:', userReadingData);
+          }
+        } catch (userReadingError) {
+          console.warn('User readings save failed:', userReadingError);
+          // Don't fail overall save if this fails
         }
       }
 

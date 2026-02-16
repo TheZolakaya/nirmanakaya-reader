@@ -24,6 +24,30 @@ body {
   background-color: #18181b;
 }
 
+/* Dark minimal scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 63, 70, 0.5) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.5);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(82, 82, 91, 0.7);
+}
+
 /* =============================================
    ANIMATIONS
    ============================================= */
@@ -66,6 +90,16 @@ body {
   animation: rainbow-cycle 32s ease-in-out infinite;
 }
 
+/* Placeholder flash - slowed to 25% speed (2s instead of 0.5s) */
+.animate-rainbow-cycle-fast {
+  animation: rainbow-cycle 2s ease-in-out 1;
+}
+
+/* Crystal transfer text flash - slow rainbow cycle for landed question */
+.animate-crystal-text-flash {
+  animation: rainbow-cycle 2s ease-in-out 1;
+}
+
 .animate-rainbow-cycle-header {
   animation: rainbow-cycle 16s ease-in-out infinite;
 }
@@ -87,6 +121,62 @@ body {
 .rainbow-letter-9 { animation-delay: -9s; }
 .rainbow-letter-10 { animation-delay: -10s; }
 
+/* Fast rainbow cycle for Glisten active state */
+.glisten-active .rainbow-letter {
+  animation: rainbow-cycle 3s ease-in-out infinite;
+}
+.glisten-active .rainbow-letter-0 { animation-delay: 0s; }
+.glisten-active .rainbow-letter-1 { animation-delay: -0.2s; }
+.glisten-active .rainbow-letter-2 { animation-delay: -0.4s; }
+.glisten-active .rainbow-letter-3 { animation-delay: -0.6s; }
+.glisten-active .rainbow-letter-4 { animation-delay: -0.8s; }
+.glisten-active .rainbow-letter-5 { animation-delay: -1.0s; }
+.glisten-active .rainbow-letter-6 { animation-delay: -1.2s; }
+.glisten-active .rainbow-letter-7 { animation-delay: -1.4s; }
+.glisten-active .rainbow-letter-8 { animation-delay: -1.6s; }
+.glisten-active .rainbow-letter-9 { animation-delay: -1.8s; }
+.glisten-active .rainbow-letter-10 { animation-delay: -2.0s; }
+
+/* Glisten streaming content pulse - gentle breathing effect */
+@keyframes glisten-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.animate-glisten-pulse {
+  animation: glisten-pulse 2s ease-in-out infinite;
+}
+
+/* Glisten streaming content - combined rainbow color cycling + pulse */
+@keyframes glisten-rainbow {
+  0%, 100% { color: #fcd34d; opacity: 0.85; text-shadow: 0 0 20px rgba(252, 211, 77, 0.4); }
+  10% { color: #a78bfa; opacity: 0.92; text-shadow: 0 0 25px rgba(167, 139, 250, 0.4); }
+  20% { color: #818cf8; opacity: 1; text-shadow: 0 0 25px rgba(129, 140, 248, 0.4); }
+  30% { color: #60a5fa; opacity: 0.92; text-shadow: 0 0 25px rgba(96, 165, 250, 0.4); }
+  40% { color: #38bdf8; opacity: 0.85; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+  50% { color: #2dd4bf; opacity: 0.92; text-shadow: 0 0 25px rgba(45, 212, 191, 0.4); }
+  60% { color: #4ade80; opacity: 1; text-shadow: 0 0 25px rgba(74, 222, 128, 0.4); }
+  70% { color: #a3e635; opacity: 0.92; text-shadow: 0 0 25px rgba(163, 230, 53, 0.4); }
+  80% { color: #facc15; opacity: 0.85; text-shadow: 0 0 20px rgba(250, 204, 21, 0.4); }
+  90% { color: #fb923c; opacity: 0.92; text-shadow: 0 0 25px rgba(251, 146, 60, 0.4); }
+}
+.animate-glisten-rainbow {
+  animation: glisten-rainbow 8s ease-in-out infinite;
+}
+
+/* Rainbow border animation for Glisten generation phase */
+@keyframes border-rainbow {
+  0%, 100% { border-color: rgba(251, 191, 36, 0.6); box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+  14% { border-color: rgba(167, 139, 250, 0.6); box-shadow: 0 0 15px rgba(167, 139, 250, 0.3); }
+  28% { border-color: rgba(129, 140, 248, 0.6); box-shadow: 0 0 15px rgba(129, 140, 248, 0.3); }
+  42% { border-color: rgba(96, 165, 250, 0.6); box-shadow: 0 0 15px rgba(96, 165, 250, 0.3); }
+  56% { border-color: rgba(45, 212, 191, 0.6); box-shadow: 0 0 15px rgba(45, 212, 191, 0.3); }
+  70% { border-color: rgba(74, 222, 128, 0.6); box-shadow: 0 0 15px rgba(74, 222, 128, 0.3); }
+  84% { border-color: rgba(250, 204, 21, 0.6); box-shadow: 0 0 15px rgba(250, 204, 21, 0.3); }
+}
+.animate-border-rainbow {
+  animation: border-rainbow 4s ease-in-out infinite;
+}
+
 /* Staggered fade in/out for cosmic taglines (3 lines) */
 @keyframes tagline-fade {
   0%, 100% { opacity: 0; }
@@ -97,6 +187,45 @@ body {
 .animate-tagline-fade {
   opacity: 0;
   animation: tagline-fade 7.5s ease-in-out infinite;
+}
+
+/* Go button with rainbow text like Nirmanakaya logo */
+.go-button {
+  background: rgba(24, 24, 27, 0.8);
+  border: 1px solid rgba(113, 113, 122, 0.4);
+  transition: all 0.2s ease;
+}
+
+.go-button:hover {
+  background: rgba(39, 39, 42, 0.9);
+  border-color: rgba(161, 161, 170, 0.5);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.go-button span {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Guidance pulse animation - soft breathing glow for unselected options (Gemini spec) */
+@keyframes guidance-pulse {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.85; }
+}
+
+.guidance-pulse {
+  animation: guidance-pulse 1.6s ease-in-out infinite;
+}
+
+/* Ready flash animation - textarea border flash when final selection made */
+@keyframes ready-flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ready-flash-overlay {
+  animation: ready-flash 0.3s ease-out forwards;
 }
 
 /* Staggered fade in/out for cosmic taglines (4 lines, 14s cycle) */
@@ -126,6 +255,35 @@ body {
 /* Smooth expand/collapse for depth cards */
 .depth-content {
   transition: all 0.3s ease-out;
+}
+
+/* =============================================
+   3D UNFOLD ANIMATION SUPPORT
+   ============================================= */
+
+/* Container establishes 3D perspective */
+.unfold-container {
+  perspective: 1000px;
+}
+
+/* Panel element that rotates in 3D space */
+.unfold-panel {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Performance: remove will-change after animation */
+.unfold-panel.animation-complete {
+  will-change: auto;
+}
+
+/* Accessibility: instant transitions for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .unfold-panel {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+  }
 }
 
 /* =============================================

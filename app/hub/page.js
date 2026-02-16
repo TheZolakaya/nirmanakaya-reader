@@ -622,13 +622,13 @@ export default function HubPage() {
                 </button>
               )}
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="flex gap-1 overflow-x-auto pb-1 max-w-[280px] scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <button
                 onClick={() => setFilter(null)}
-                className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
+                className={`px-2 py-0.5 rounded text-[0.65rem] whitespace-nowrap transition-colors ${
                   filter === null
-                    ? 'bg-zinc-700 text-zinc-200'
-                    : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                    ? 'bg-zinc-700/60 text-zinc-300'
+                    : 'bg-zinc-800/30 text-zinc-600 hover:text-zinc-400'
                 }`}
               >
                 All
@@ -637,10 +637,10 @@ export default function HubPage() {
                 <button
                   key={topic.value}
                   onClick={() => setFilter(topic.value)}
-                  className={`px-3 py-1.5 rounded text-xs whitespace-nowrap transition-colors ${
+                  className={`px-2 py-0.5 rounded text-[0.65rem] whitespace-nowrap transition-colors ${
                     filter === topic.value
-                      ? 'bg-zinc-700 text-zinc-200'
-                      : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                      ? 'bg-zinc-700/60 text-zinc-300'
+                      : 'bg-zinc-800/30 text-zinc-600 hover:text-zinc-400'
                   }`}
                 >
                   {topic.label}

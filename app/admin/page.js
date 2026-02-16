@@ -1411,7 +1411,7 @@ export default function AdminPanel() {
                   <h3 className="text-sm font-medium text-amber-400 mb-2">Advanced Voice Settings Visibility</h3>
                   <p className="text-xs text-zinc-500 mb-4">Control who can see fine-tune voice sliders</p>
                   <div className="flex gap-2">
-                    {['admins', 'everyone'].map(opt => (
+                    {['noone', 'admins', 'everyone'].map(opt => (
                       <button
                         key={opt}
                         onClick={() => setFeatureConfig(prev => ({ ...prev, advancedVoiceFor: opt }))}
@@ -1421,7 +1421,7 @@ export default function AdminPanel() {
                             : 'bg-zinc-700/50 text-zinc-400 hover:bg-zinc-600/50'
                         }`}
                       >
-                        {opt === 'admins' ? 'Admins Only' : 'Everyone'}
+                        {opt === 'noone' ? 'No One' : opt === 'admins' ? 'Admins Only' : 'Everyone'}
                       </button>
                     ))}
                   </div>
@@ -1523,7 +1523,6 @@ export default function AdminPanel() {
                   <p className="text-xs text-zinc-500 mb-4">Default persona for the reader's voice</p>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { id: 'none', label: '○ None', icon: '○' },
                       { id: 'friend', label: '👋 Friend', icon: '👋' },
                       { id: 'therapist', label: '💭 Therapist', icon: '💭' },
                       { id: 'spiritualist', label: '✨ Spiritualist', icon: '✨' },
@@ -1552,7 +1551,6 @@ export default function AdminPanel() {
                     {featureConfig.defaultVoice?.persona === 'spiritualist' && 'Mystical, connected, transcendent'}
                     {featureConfig.defaultVoice?.persona === 'scientist' && 'Analytical, precise, evidence-based'}
                     {featureConfig.defaultVoice?.persona === 'coach' && 'Motivating, action-oriented, empowering'}
-                    {featureConfig.defaultVoice?.persona === 'none' && 'Neutral voice, no persona'}
                   </p>
                 </section>
 

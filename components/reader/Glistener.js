@@ -1,288 +1,489 @@
 /**
- * Glistener UI Component
- * Single-click scroll experience: Bones -> Tale -> Crystal
+ * Glistener UI Component - "The Ghost Stream"
  *
- * Pre-reading emergence ritual that generates a crystallized question
- * from constrained randomness.
+ * A cinematic in-textarea experience where fragments from the Bones and Tale
+ * stream through like data through a pipe, finally landing on the Crystal question.
+ *
+ * Flow:
+ * 1. User clicks "Begin" → API call starts
+ * 2. Ghost Stream: Fragments rush through textarea (low opacity, blurry, monospace)
+ * 3. Landing: Stream slows, sharpens, final question types character-by-character
+ * 4. Complete: "View Source" 📜 reveals the full Bones + Tale receipt
+ *
+ * ARCHITECTURE:
+ * - Streaming/typing content is sent to parent via onDisplayContent callback
+ * - Parent renders content in the textarea's placeholder area
+ * - Glistener only renders UI for idle/complete states
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import GlistenSourcePanel from './GlistenSourcePanel';
 
-const BONE_DELAY = 250;      // ms between bone reveals
-const TALE_DELAY = 3000;     // ms between tale sentences
-const CRYSTAL_DELAY = 1000;  // ms before crystal appears
+// Timing constants
+const STREAM_DURATION = 5000;     // Total ghost stream time (ms) - slow enough to see scroll
+const FRAGMENT_INTERVAL = 50;    // Time between updates (ms) - smooth scroll updates
+const TYPING_SPEED = 40;         // ms per character for final question
+const LINGER_DURATION = 2000;    // How long crystal hangs before transfer (ms)
+const FADE_DURATION = 800;       // Fade out duration (ms)
+const FADE_STEPS = 20;           // Number of fade animation steps
 
-export default function Glistener({ onTransfer, onClose }) {
-  const [phase, setPhase] = useState('idle'); // idle | loading | bones | tale | crystal | complete
+export default function Glistener({
+  onTransfer,
+  onClose,
+  onStreamStart,
+  onStreamEnd,
+  onDisplayContent,  // Callback to send content for display in textarea
+  onPhaseChange,     // Callback to notify parent of phase changes
+  onGlistenComplete, // Callback with full glisten data when complete
+}) {
+  const [phase, setPhase] = useState('idle'); // idle | loading | streaming | typing | complete
   const [data, setData] = useState(null);
-  const [visibleBones, setVisibleBones] = useState(0);
-  const [visibleTale, setVisibleTale] = useState(0);
-  const [showPlain, setShowPlain] = useState(false);
-  const [plainText, setPlainText] = useState(null);
   const [error, setError] = useState(null);
+
+  // Notify parent of phase changes
+  useEffect(() => {
+    onPhaseChange?.(phase);
+  }, [phase, onPhaseChange]);
+
+  // Build scrolling content from bones and transmission
+  const buildScrollingContent = useCallback((bones, transmission) => {
+    // Format bones as a header section
+    const boneText = bones.map(b => `${b.constraint}: ${b.word}`).join(' · ');
+    // Full content: bones header + transmission
+    return `${boneText}\n\n${transmission}`;
+  }, []);
 
   const startGlisten = async () => {
     setPhase('loading');
     setError(null);
 
+    // Extensive loading messages - shuffled to avoid repetition
+    const allMessages = [
+      // Field & Antenna
+      'Calibrating field antenna',
+      'Tuning resonance frequency',
+      'Aligning receiver aperture',
+      'Scanning liminal bandwidth',
+      'Establishing signal lock',
+      // Matrix & Structure
+      'Generating constraint matrix',
+      'Weaving probability lattice',
+      'Constructing semantic scaffold',
+      'Building symbolic framework',
+      'Assembling meaning vectors',
+      // Sampling & Distribution
+      'Sampling probability distribution',
+      'Drawing from possibility space',
+      'Collapsing potential states',
+      'Harvesting random seeds',
+      'Extracting signal from noise',
+      // Synthesis & Narrative
+      'Synthesizing narrative structure',
+      'Composing symbolic threads',
+      'Fusing disparate fragments',
+      'Distilling essence patterns',
+      'Braiding meaning currents',
+      // Mapping & Topology
+      'Mapping semantic topology',
+      'Charting conceptual terrain',
+      'Tracing hidden contours',
+      'Surveying inner landscape',
+      'Plotting resonance coordinates',
+      // Depth & Meaning
+      'Plumbing the depths',
+      'Filtering meaning',
+      'Sifting symbolic sediment',
+      'Refining raw intuition',
+      'Condensing vapor to crystal',
+      // Crystal & Question
+      'Crystallizing question form',
+      'Focusing inquiry lens',
+      'Sharpening the asking edge',
+      'Polishing question facets',
+      'Precipitating final form',
+      // Field Resonance & Patterns
+      'Detecting field harmonics',
+      'Reading scattered patterns',
+      'Parsing signal interference',
+      'Decoding probability waves',
+      'Translating liminal echoes',
+    ];
+
+    // Shuffle messages (Fisher-Yates)
+    const loadingMessages = [...allMessages];
+    for (let i = loadingMessages.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [loadingMessages[i], loadingMessages[j]] = [loadingMessages[j], loadingMessages[i]];
+    }
+
+    // Track visible messages as a scrolling stack
+    let visibleStack = [{ text: loadingMessages[0], opacity: 1, position: 0 }];
+    let msgIndex = 0;
+    let pulsePhase = 0;
+
+    onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase: 0 });
+    onStreamStart?.();
+
+    // Continuous pulse animation - runs faster than message changes for smooth glow
+    const pulseInterval = setInterval(() => {
+      pulsePhase += 0.12; // Smooth continuous pulse
+      onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase });
+    }, 50); // 20fps pulse updates
+
+    // Scroll messages up with crossfade - new message fades in as old fades out
+    const msgInterval = setInterval(() => {
+      msgIndex = (msgIndex + 1) % loadingMessages.length;
+
+      // Build visible stack: current (entering), previous (exiting), older (fading out)
+      visibleStack = [
+        // New message entering from bottom
+        { text: loadingMessages[msgIndex], opacity: 1, position: 0 },
+        // Previous message scrolling up
+        ...(visibleStack[0] ? [{ text: visibleStack[0].text, opacity: 0.5, position: 1 }] : []),
+        // Oldest visible message fading out at top
+        ...(visibleStack[1] ? [{ text: visibleStack[1].text, opacity: 0.15, position: 2 }] : []),
+      ].slice(0, 3); // Max 3 visible
+
+      onDisplayContent?.({ type: 'loading', messages: visibleStack, pulsePhase });
+    }, 1800);
+
     try {
       const response = await fetch('/api/glisten', { method: 'POST' });
+      clearInterval(msgInterval);  // Stop cycling once we have response
+      clearInterval(pulseInterval);  // Stop pulse animation
       const result = await response.json();
 
       if (!result.success) {
         setError(result.error || 'Failed to glisten');
         setPhase('idle');
+        onDisplayContent?.(null);
+        onStreamEnd?.();
         return;
       }
 
       setData(result);
-      setPhase('bones');
 
-      // Reveal bones sequentially
-      for (let i = 1; i <= 10; i++) {
-        setTimeout(() => setVisibleBones(i), i * BONE_DELAY);
-      }
+      // Notify parent of complete glisten data
+      onGlistenComplete?.({
+        bones: result.bones,
+        symbolism: result.symbolism,
+        transmission: result.transmission,
+        integration: result.integration,
+        crystal: result.crystal
+      });
 
-      // Transition to tale after bones complete
-      setTimeout(() => {
-        setPhase('tale');
-        const sentences = result.transmission.split(/(?<=[.!?])\s+/);
+      // Start the Ghost Stream - show FULL transmission text
+      setPhase('streaming');
+      const fullContent = buildScrollingContent(result.bones, result.transmission);
+      let elapsed = 0;
+      let pulsePhase = 0;
 
-        for (let i = 1; i <= sentences.length; i++) {
-          setTimeout(() => setVisibleTale(i), i * TALE_DELAY);
+      const streamInterval = setInterval(() => {
+        elapsed += FRAGMENT_INTERVAL;
+        const progress = elapsed / STREAM_DURATION;
+        pulsePhase += 0.25;  // For glow pulsing - faster beat
+
+        // Pulsing opacity effect (0.75 to 0.95) - legible but alive
+        const pulseOpacity = 0.85 + Math.sin(pulsePhase) * 0.1;
+
+        // Send full transmission to parent for display with scroll progress
+        onDisplayContent?.({
+          type: 'streaming',
+          text: fullContent,
+          opacity: pulseOpacity,
+          pulse: true,
+          scrollProgress: progress,  // 0 to 1, parent uses this to auto-scroll
+        });
+
+        // End stream, start typing
+        if (elapsed >= STREAM_DURATION) {
+          clearInterval(streamInterval);
+          setPhase('typing');
+
+          // Type out the crystal question character by character
+          const crystal = result.crystal;
+          let charIndex = 0;
+
+          const typeInterval = setInterval(() => {
+            charIndex++;
+
+            // Send typed content to parent
+            onDisplayContent?.({
+              type: 'typing',
+              text: crystal.slice(0, charIndex),
+              fullText: crystal,
+              progress: charIndex / crystal.length,
+            });
+
+            if (charIndex >= crystal.length) {
+              clearInterval(typeInterval);
+
+              // Linger phase - let the crystal hang for a moment
+              setTimeout(() => {
+                // Fade out gradually
+                let fadeStep = 0;
+                const fadeInterval = setInterval(() => {
+                  fadeStep++;
+                  const fadeOpacity = 1 - (fadeStep / FADE_STEPS);
+
+                  onDisplayContent?.({
+                    type: 'fading',
+                    text: crystal,
+                    opacity: fadeOpacity,
+                  });
+
+                  if (fadeStep >= FADE_STEPS) {
+                    clearInterval(fadeInterval);
+                    setPhase('complete');
+                    // Transfer the question to the textarea
+                    onTransfer?.(crystal);
+                    onDisplayContent?.(null);
+                    onStreamEnd?.();
+                  }
+                }, FADE_DURATION / FADE_STEPS);
+              }, LINGER_DURATION);
+            }
+          }, TYPING_SPEED);
         }
-
-        // Transition to crystal after tale complete
-        setTimeout(() => {
-          setPhase('crystal');
-          setTimeout(() => setPhase('complete'), CRYSTAL_DELAY);
-        }, (sentences.length + 1) * TALE_DELAY);
-
-      }, 11 * BONE_DELAY + 500);
+      }, FRAGMENT_INTERVAL);
 
     } catch (err) {
+      clearInterval(msgInterval);  // Stop cycling on error too
+      clearInterval(pulseInterval);  // Stop pulse on error
       setError('Failed to connect. Please try again.');
       setPhase('idle');
-    }
-  };
-
-  const handlePlainToggle = async () => {
-    if (plainText) {
-      setShowPlain(!showPlain);
-      return;
-    }
-
-    // Fetch plain language version
-    try {
-      const response = await fetch('/api/glisten/plain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transmission: data.transmission })
-      });
-      const result = await response.json();
-      if (result.success) {
-        setPlainText(result.text);
-        setShowPlain(true);
-      }
-    } catch (err) {
-      console.error('Failed to get plain language:', err);
-    }
-  };
-
-  const handleTransfer = () => {
-    if (onTransfer && data?.crystal) {
-      onTransfer(data.crystal);
+      onDisplayContent?.(null);
+      onStreamEnd?.();
     }
   };
 
   const handleReset = () => {
     setPhase('idle');
     setData(null);
-    setVisibleBones(0);
-    setVisibleTale(0);
-    setShowPlain(false);
-    setPlainText(null);
     setError(null);
+    onTransfer?.('');  // Clear the old question in textarea
   };
 
-  // ========== RENDER ==========
-
+  // ========== RENDER: IDLE STATE (Subtle inline confirm) ==========
+  // Small confirmation in bottom-left, not a big centered panel
   if (phase === 'idle') {
     return (
-      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-amber-400 font-medium mb-1">Glisten</h3>
-            <p className="text-zinc-400 text-sm">
-              You have a feeling but no words. Let the question find its shape.
-            </p>
-          </div>
-          {onClose && (
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
+        <span className="text-amber-500/70 text-xs">◇</span>
+        <button
+          onClick={startGlisten}
+          className="text-amber-400 hover:text-amber-300 text-xs transition-colors"
+        >
+          Begin
+        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          >
+            ✕
+          </button>
+        )}
+        {error && (
+          <span className="text-red-400 text-xs ml-2">{error}</span>
+        )}
+      </div>
+    );
+  }
+
+  // ========== RENDER: LOADING / STREAMING / TYPING ==========
+  // Content is displayed in parent's placeholder area via onDisplayContent
+  // We just show nothing here (or a minimal indicator)
+  if (phase === 'loading' || phase === 'streaming' || phase === 'typing') {
+    return null; // Parent handles display
+  }
+
+  // ========== RENDER: COMPLETE STATE (View Source) ==========
+  if (phase === 'complete') {
+    return (
+      <ViewSourcePanel
+        data={data}
+        onReset={handleReset}
+        onClose={onClose}
+        onTransfer={onTransfer}
+      />
+    );
+  }
+
+  return null;
+}
+
+// Depth levels for crystal exploration
+const DEPTH_LEVELS = ['deep', 'swim', 'wade', 'shallow'];
+const DEPTH_LABELS = {
+  deep: 'Deep',
+  swim: 'Swim',
+  wade: 'Wade',
+  shallow: 'Shallow'
+};
+
+// ========== VIEW SOURCE PANEL ==========
+function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [depthIndex, setDepthIndex] = useState(0); // 0 = deep (default)
+  const [crystals, setCrystals] = useState({ deep: data.crystal }); // Cache crystals at each depth
+  const [preloading, setPreloading] = useState(true); // Pre-caching all depths
+  const hasPrecached = useRef(false); // Track if precaching has been done
+
+  const currentDepth = DEPTH_LEVELS[depthIndex];
+  const currentCrystal = crystals[currentDepth] || data.crystal;
+
+  // Pre-cache all depth levels on mount using SEQUENTIAL generation
+  // Each depth is simplified FROM the previous level (deep → swim → wade → shallow)
+  useEffect(() => {
+    // Only run once per mount
+    if (hasPrecached.current) return;
+    hasPrecached.current = true;
+
+    const precacheAllDepths = async () => {
+      const rawCrystal = data.crystal;
+      const newCrystals = { deep: rawCrystal };
+
+      // Deep crystal is the raw crystal - no modification needed
+      // (The /api/glisten already generates at "deep" archetypal level)
+      onTransfer?.(rawCrystal);
+
+      // Generate depths SEQUENTIALLY: deep → swim → wade → shallow
+      // Each level simplifies FROM the previous level's output
+      let currentCrystal = rawCrystal;
+
+      for (const targetDepth of ['swim', 'wade', 'shallow']) {
+        try {
+          const res = await fetch('/api/glisten/simplify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              crystal: currentCrystal,  // Use PREVIOUS depth as input
+              targetDepth
+            })
+          });
+          const result = await res.json();
+          if (result.success) {
+            newCrystals[targetDepth] = result.crystal;
+            currentCrystal = result.crystal; // Chain to next depth
+          } else {
+            // On failure, use previous level (graceful fallback)
+            newCrystals[targetDepth] = currentCrystal;
+          }
+        } catch (e) {
+          console.error(`Failed to generate ${targetDepth}:`, e);
+          newCrystals[targetDepth] = currentCrystal; // Graceful fallback
+        }
+      }
+
+      setCrystals(newCrystals);
+      setPreloading(false);
+    };
+
+    precacheAllDepths();
+  }, [data.crystal]); // Removed onTransfer - use ref guard instead
+
+  // Navigate to shallower - uses pre-cached crystals
+  const goShallower = () => {
+    if (depthIndex >= DEPTH_LEVELS.length - 1) return; // Already at shallowest
+    if (preloading) return; // Wait for pre-cache
+
+    const nextDepth = DEPTH_LEVELS[depthIndex + 1];
+    if (crystals[nextDepth]) {
+      setDepthIndex(depthIndex + 1);
+      onTransfer?.(crystals[nextDepth]);
+    }
+  };
+
+  // Navigate to deeper - uses pre-cached crystals
+  const goDeeper = () => {
+    if (depthIndex <= 0) return; // Already at deepest
+
+    const prevDepth = DEPTH_LEVELS[depthIndex - 1];
+    if (crystals[prevDepth]) {
+      setDepthIndex(depthIndex - 1);
+      onTransfer?.(crystals[prevDepth]);
+    }
+  };
+
+  return (
+    <>
+      {/* Subtle inline controls - bottom left like idle state */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 z-10">
+        {/* Depth navigator - ← = shallower, → = deeper */}
+        <div className="flex items-center gap-1 mr-2">
+          {/* Left arrow = go shallower (hidden at shallowest or while preloading) */}
+          {depthIndex < DEPTH_LEVELS.length - 1 && !preloading && (
             <button
-              onClick={onClose}
-              className="text-zinc-500 hover:text-zinc-300 transition-colors"
+              onClick={goShallower}
+              className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
+              title="Simplify"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              ←
+            </button>
+          )}
+          <span className={`text-xs px-1.5 py-0.5 rounded min-w-[50px] text-center ${preloading ? 'text-amber-400' : 'text-zinc-400'}`}>
+            {preloading ? (
+              <span className="inline-flex gap-0.5">
+                <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+                <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+                <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+              </span>
+            ) : DEPTH_LABELS[currentDepth]}
+          </span>
+          {/* Right arrow = go deeper (hidden at deepest or while preloading) */}
+          {depthIndex > 0 && !preloading && (
+            <button
+              onClick={goDeeper}
+              className="w-5 h-5 flex items-center justify-center rounded text-xs transition-colors text-zinc-500 hover:text-amber-400"
+              title="Go deeper"
+            >
+              →
             </button>
           )}
         </div>
+
+        <span className="text-zinc-700">|</span>
+
         <button
-          onClick={startGlisten}
-          className="w-full px-6 py-3 bg-amber-600/80 hover:bg-amber-500/80 text-white rounded-lg transition-colors font-medium"
+          onClick={() => setShowReceipt(true)}
+          className="text-zinc-500 hover:text-amber-400 text-xs transition-colors flex items-center gap-1 animate-border-rainbow rounded-full px-1"
+          title="View source"
+          style={{ boxShadow: '0 0 8px rgba(251, 191, 36, 0.4)' }}
         >
-          Begin Glisten
+          <span>📜</span>
         </button>
-        {error && (
-          <p className="text-red-400 text-sm mt-3">{error}</p>
-        )}
-      </div>
-    );
-  }
-
-  if (phase === 'loading') {
-    return (
-      <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-pulse text-amber-400">
-            Drawing from the field...
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const taleSentences = data?.transmission.split(/(?<=[.!?])\s+/) || [];
-
-  return (
-    <div className="bg-zinc-900/80 border border-zinc-700/50 rounded-lg p-6 mb-4">
-      {/* Close button */}
-      {onClose && (
-        <div className="flex justify-end mb-2">
-          <button
-            onClick={onClose}
-            className="text-zinc-500 hover:text-zinc-300 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      )}
-
-      {/* BONES */}
-      <AnimatePresence>
-        {(phase === 'bones' || phase === 'tale' || phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              The Bones
-            </h4>
-            <div className="grid grid-cols-2 gap-2">
-              {data.bones.slice(0, visibleBones).map((bone, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-sm font-mono"
-                >
-                  <span className="text-zinc-500">{bone.constraint}</span>
-                  <span className="text-zinc-600 mx-2">-&gt;</span>
-                  <span className="text-amber-300">{bone.word}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* TALE */}
-      <AnimatePresence>
-        {(phase === 'tale' || phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              {showPlain ? 'The Meaning' : 'The Tale'}
-            </h4>
-            <div className="text-zinc-200 leading-relaxed">
-              {showPlain ? (
-                <p>{plainText}</p>
-              ) : (
-                taleSentences.slice(0, visibleTale).map((sentence, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                  >
-                    {sentence}{' '}
-                  </motion.span>
-                ))
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* CRYSTAL */}
-      <AnimatePresence>
-        {(phase === 'crystal' || phase === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-center py-6"
-          >
-            <h4 className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
-              Your Question
-            </h4>
-            <p className="text-xl text-amber-300 italic">
-              {data.crystal}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ACTIONS */}
-      {phase === 'complete' && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col items-center gap-3 pt-4 border-t border-zinc-800"
+        <button
+          onClick={onReset}
+          className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          title="Generate new"
         >
-          <button
-            onClick={handleTransfer}
-            className="w-full px-6 py-3 bg-amber-600/80 hover:bg-amber-500/80 text-white rounded-lg transition-colors font-medium"
-          >
-            Use This Question
-          </button>
-          <div className="flex gap-4">
-            <button
-              onClick={handlePlainToggle}
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
-            >
-              {showPlain ? 'View as tale' : 'View as plain language'}
-            </button>
-            <button
-              onClick={handleReset}
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
-            >
-              Try again
-            </button>
-          </div>
-        </motion.div>
+          Again
+        </button>
+        <button
+          onClick={() => {
+            onTransfer?.('');  // Clear the question
+            onClose?.();       // Close glistener UI
+          }}
+          className="text-zinc-600 hover:text-zinc-400 text-xs transition-colors"
+          title="Clear and close"
+        >
+          Clear
+        </button>
+      </div>
+
+      {/* Transmission Receipt Modal - uses shared GlistenSourcePanel */}
+      {showReceipt && (
+        <GlistenSourcePanel
+          data={data}
+          onClose={() => setShowReceipt(false)}
+          onTransfer={onTransfer}
+          isOpen={showReceipt}
+        />
       )}
-    </div>
+    </>
   );
 }

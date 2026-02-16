@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import UnfoldPanel from '../components/ui/UnfoldPanel';
 
 // Import data and utilities from lib
 import {
@@ -133,6 +135,7 @@ import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import Glistener from '../components/reader/Glistener.js';
+import GlistenSourcePanel from '../components/reader/GlistenSourcePanel.js';
 import CardImage from '../components/reader/CardImage.js';
 import Minimap from '../components/reader/Minimap.js';
 import { getHomeArchetype, getCardType, getCardImagePath } from '../lib/cardImages.js';
@@ -143,6 +146,109 @@ import HelpModeOverlay from '../components/shared/HelpModeOverlay.js';
 // NOTE: All data constants have been extracted to /lib modules.
 // See lib/archetypes.js, lib/constants.js, lib/spreads.js, lib/voice.js, lib/prompts.js, lib/corrections.js, lib/utils.js
 // VERSION is now imported from lib/version.js - update it there when releasing
+
+// === DYNAMIC PLACEHOLDER TEXT SYSTEM ===
+// Context-aware prompts based on Mode + Count + Layout (Gemini "Dynamic Sanctuary" spec)
+const PLACEHOLDER_TEXT = {
+  reflect: {
+    1: {
+      default: "What aspect of self needs a mirror?",
+      'single-focus': "What needs your focused attention right now?",
+      'core': "What's at the center beneath the noise?",
+      'invitation': "What's waiting for you to notice it?",
+      'ground': "Where do you need to find stability?"
+    },
+    2: {
+      default: "What dynamic are you navigating?",
+      'ground-sky': "Where does your foundation meet your aspiration?",
+      'inner-outer': "Where is the gap between inside and outside?",
+      'give-receive': "What's the flow of exchange right now?",
+      'self-other': "What's happening in this relationship?"
+    },
+    3: {
+      default: "What pattern is unfolding?",
+      'arc': "What's in motion? Where is it heading?",
+      'time-lens': "What's ending, present, and emerging?",
+      'creation': "What are you making? How is it developing?",
+      'foundation': "What's supporting what in your structure?"
+    },
+    4: {
+      default: "How are your four domains expressing?",
+      'quadraverse': "How are Spirit, Mind, Emotion, and Body showing up?",
+      'relationship': "What's the full picture of this dynamic?",
+      'decision': "What are the forces around this choice?",
+      'cycle': "Where are you in this cycle?"
+    },
+    5: {
+      default: "What's the full architecture?",
+      'five-houses': "How are your five houses expressing?",
+      'project': "What's the status of this creation?",
+      'alignment': "Where is alignment and misalignment?",
+      'journey': "Where are you on this path?"
+    },
+    6: {
+      default: "What's the complete picture?",
+      'life-domains': "How are all six domains functioning?",
+      'full-cycle': "What does the full cycle reveal?",
+      'spheres': "How do the spheres of life connect?",
+      'integration': "What wants to integrate?"
+    }
+  },
+  discover: {
+    1: "What does the field want to show you?",
+    2: "What relationship is emerging?",
+    3: "What shape do these three signatures create?",
+    4: "What architecture is revealing itself?",
+    5: "What's the full message waiting for you?",
+    6: "What complete transmission is available?"
+  },
+  explore: {
+    any: "Each key word gets its own card."
+  },
+  forge: {
+    1: "What are you creating? State your intention.",
+    2: "What's the engine of this creation?",
+    3: "What are the forces you're marshaling?",
+    4: "What's the structure of your design?",
+    5: "What's the full architecture of your intention?",
+    6: "What's the complete declaration?"
+  }
+};
+
+// Default placeholder when no specific match
+const DEFAULT_PLACEHOLDER = "What would you like clarity on?";
+
+/**
+ * Get context-aware placeholder text based on mode, count, and layout
+ * Includes safety fallbacks at every level
+ */
+function getPlaceholder(mode, count, layout) {
+  // Safety: If no mode, return default
+  if (!mode) return DEFAULT_PLACEHOLDER;
+
+  const modeText = PLACEHOLDER_TEXT[mode];
+  if (!modeText) return DEFAULT_PLACEHOLDER;
+
+  // Explore mode: always same prompt
+  if (mode === 'explore') {
+    return modeText.any || DEFAULT_PLACEHOLDER;
+  }
+
+  // For discover and forge: simple count lookup
+  if (mode === 'discover' || mode === 'forge') {
+    return modeText[count] || modeText[1] || DEFAULT_PLACEHOLDER;
+  }
+
+  // For reflect: check for layout-specific text
+  const countText = modeText[count];
+  if (!countText) return modeText[1]?.default || DEFAULT_PLACEHOLDER;
+
+  // If countText is a string (shouldn't happen for reflect, but safety)
+  if (typeof countText === 'string') return countText;
+
+  // Return layout-specific or default for that count
+  return countText[layout] || countText.default || DEFAULT_PLACEHOLDER;
+}
 
 // Pulsating loader with cycling messages
 const PulsatingLoader = ({ color = 'text-amber-400' }) => {
@@ -474,6 +580,11 @@ export default function NirmanakaReader() {
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   // Glistener state
   const [showGlistener, setShowGlistener] = useState(false);
+  const [glistenerContent, setGlistenerContent] = useState(null); // Content from Glistener to display in placeholder
+  const [glistenerPhase, setGlistenerPhase] = useState('idle');
+  const [glistenData, setGlistenData] = useState(null); // Full glisten data for saving to My Readings
+  const [showGlistenPanel, setShowGlistenPanel] = useState(false); // Show Glistened Tale panel in reading
+  const glistenerScrollRef = useRef(null);
   const [userReadingCount, setUserReadingCount] = useState(0);
   // Locus control state — subjects-based (chip input)
   const [locusSubjects, setLocusSubjects] = useState([]);
@@ -495,6 +606,104 @@ export default function NirmanakaReader() {
     defaultMode: 'reflect',
     defaultSpread: 'triad'
   });
+
+  // Advanced mode toggle for Origami Unfold UI
+  // When false: simple UI (just textarea + button)
+  // When true: full controls visible (mode tabs, personas, depth, etc.)
+  const [advancedMode, setAdvancedMode] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Ripple/Pulse animation state (Gemini "Dynamic Sanctuary" spec)
+  // rippleTarget: 'counts' | 'layouts' | null - which row is rippling
+  // readyFlash: boolean - textarea border flash when final selection made
+  // selectionConfirmed: boolean - true after second tap (ready to collapse)
+  // placeholderFlash: boolean - flash animation on placeholder text
+  // crystalFlash: boolean - border + text flash when glisten crystal transfers
+  const [rippleTarget, setRippleTarget] = useState(null);
+  const [readyFlash, setReadyFlash] = useState(false);
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [placeholderFlash, setPlaceholderFlash] = useState(false);
+  const [crystalFlash, setCrystalFlash] = useState(false);
+
+  // Track previous selections for "tap again to confirm" logic
+  const [lastFinalSelection, setLastFinalSelection] = useState(null);
+
+  // Ripple trigger: When mode changes, ripple count buttons (skip on initial mount)
+  // Also sync question/dtpInput when switching to/from Explore mode
+  const spreadTypeRef = useRef(spreadType);
+  useEffect(() => {
+    const prevMode = spreadTypeRef.current;
+    if (prevMode !== spreadType) {
+      // Sync question values when switching to/from Explore
+      if (spreadType === 'explore' && question && !dtpInput) {
+        // Switching TO explore: copy question to dtpInput
+        setDtpInput(question);
+      } else if (prevMode === 'explore' && dtpInput && !question) {
+        // Switching FROM explore: copy dtpInput to question
+        setQuestion(dtpInput);
+      }
+
+      if (advancedMode) {
+        setRippleTarget('counts');
+        setTimeout(() => setRippleTarget(null), 800);
+        // Reset confirmation when mode changes
+        setSelectionConfirmed(false);
+        setLastFinalSelection(null);
+      }
+    }
+    spreadTypeRef.current = spreadType;
+  }, [spreadType, advancedMode, question, dtpInput]);
+
+  // Ripple trigger: When count changes in Reflect mode, ripple layout buttons
+  const reflectCardCountRef = useRef(reflectCardCount);
+  useEffect(() => {
+    if (reflectCardCountRef.current !== reflectCardCount && advancedMode && spreadType === 'reflect') {
+      setRippleTarget('layouts');
+      setTimeout(() => setRippleTarget(null), 800);
+      // Reset confirmation when count changes
+      setSelectionConfirmed(false);
+      setLastFinalSelection(null);
+    }
+    reflectCardCountRef.current = reflectCardCount;
+  }, [reflectCardCount, advancedMode, spreadType]);
+
+  // Helper function to handle final selection tap (first tap = preview, second tap = confirm)
+  const handleFinalSelectionTap = (selectionKey, isNewSelection) => {
+    if (isNewSelection) {
+      // First tap on NEW selection: flash, update placeholder, stay open
+      setReadyFlash(true);
+      setTimeout(() => setReadyFlash(false), 200);
+      setLastFinalSelection(selectionKey);
+      setSelectionConfirmed(false);
+    } else {
+      // Second tap on SAME selection: COLLAPSE FIRST, then long flash
+      setAdvancedMode(false);
+      setSelectionConfirmed(true);
+      // Now do the long flash after collapse
+      setReadyFlash(true);
+      setPlaceholderFlash(true);
+      setTimeout(() => {
+        setReadyFlash(false);
+        setPlaceholderFlash(false);
+      }, 800);
+    }
+  };
+
+  // Collapse triggers: textarea click always collapses when in advanced mode
+  const handleTextareaClick = () => {
+    if (advancedMode) {
+      // User clicked textarea - COLLAPSE FIRST, then long flash
+      setAdvancedMode(false);
+      setSelectionConfirmed(true);
+      // Now do the long flash after collapse
+      setReadyFlash(true);
+      setPlaceholderFlash(true);
+      setTimeout(() => {
+        setReadyFlash(false);
+        setPlaceholderFlash(false);
+      }, 800);
+    }
+  };
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -597,6 +806,23 @@ export default function NirmanakaReader() {
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, []);
+
+  // Load advancedMode from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('nirmanakaya-advanced-mode');
+    if (saved !== null) {
+      try {
+        setAdvancedMode(JSON.parse(saved));
+      } catch (e) {
+        // Invalid JSON, use default
+      }
+    }
+  }, []);
+
+  // Save advancedMode to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('nirmanakaya-advanced-mode', JSON.stringify(advancedMode));
+  }, [advancedMode]);
 
   // Config defaults applied after state declarations (see below)
   const [configApplied, setConfigApplied] = useState(false);
@@ -737,6 +963,7 @@ export default function NirmanakaReader() {
   const [showLandingFineTune, setShowLandingFineTune] = useState(false);
   const [showVoicePanel, setShowVoicePanel] = useState(false); // Voice settings collapsed by default (FR22)
   const [showVoicePreview, setShowVoicePreview] = useState(true); // Voice sample preview toggle (default ON)
+  const [showCompactPersona, setShowCompactPersona] = useState(false); // Compact persona flyout above Go button
   const [animatedBackground, setAnimatedBackground] = useState(true); // Animated background toggle
   const [showBgControls, setShowBgControls] = useState(false); // Show/hide background controls panel
   const [backgroundOpacity, setBackgroundOpacity] = useState(30); // Background opacity (0-100)
@@ -873,7 +1100,7 @@ export default function NirmanakaReader() {
 
   // === PERSONA VOICE SYSTEM V2 (One-Pass) ===
   // Voice is baked into generation - no separate translation layer
-  const [persona, setPersona] = useState('none'); // 'none' | 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
+  const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
   const [register, setRegister] = useState(5); // 1-10: Unhinged Street to Oracle
   const [creator, setCreator] = useState(5); // 1-10: Witness to Creator (agency/authorship language)
@@ -955,6 +1182,9 @@ export default function NirmanakaReader() {
 
   // User level for progressive disclosure (0 = First Contact, 1-4 = progressive features)
   const [userLevel, setUserLevel] = useState(1); // Default to Full Reader Mode
+
+  // Derived: Show advanced controls when not First Contact AND advancedMode is true
+  const showAdvancedControls = userLevel !== USER_LEVELS.FIRST_CONTACT && advancedMode;
 
   const messagesEndRef = useRef(null);
   const hasAutoInterpreted = useRef(false);
@@ -1278,6 +1508,25 @@ export default function NirmanakaReader() {
       setPulseUnseen(!lastSeen || lastSeen < today);
     } catch (e) { /* localStorage unavailable */ }
   }, []);
+
+  // Auto-scroll glistener streaming content
+  const prevStreamingType = useRef(null);
+  useEffect(() => {
+    if (glistenerContent?.type === 'streaming' && glistenerScrollRef.current) {
+      const el = glistenerScrollRef.current;
+      // Reset to top when streaming starts (transition from loading)
+      if (prevStreamingType.current !== 'streaming') {
+        el.scrollTop = 0;
+      } else if (glistenerContent?.scrollProgress !== undefined) {
+        // Progressive scroll after initial reset
+        const maxScroll = el.scrollHeight - el.clientHeight;
+        if (maxScroll > 0) {
+          el.scrollTop = maxScroll * glistenerContent.scrollProgress;
+        }
+      }
+    }
+    prevStreamingType.current = glistenerContent?.type || null;
+  }, [glistenerContent]);
 
   useEffect(() => {
     if (isSharedReading && draws && question && !hasAutoInterpreted.current) {
@@ -3435,7 +3684,7 @@ CRITICAL FORMATTING RULES:
       });
     }
 
-    md += `---\n\n*Generated by Nirmanakaya Consciousness Architecture Reader*\n`;
+    md += `---\n\n*Generated by Nirmanakaya The Soul Search Engine*\n`;
 
     // Download
     const blob = new Blob([md], { type: 'text/markdown' });
@@ -3706,7 +3955,7 @@ CRITICAL FORMATTING RULES:
 </head>
 <body>
   <h1>NIRMANAKAYA</h1>
-  <p class="subtitle">Consciousness Architecture Reader</p>
+  <p class="subtitle">The Soul Search Engine</p>
   <p class="meta">${spreadName} • ${getCurrentStanceLabel()} • ${new Date().toLocaleDateString()}</p>
 
   <div class="question-box">
@@ -3869,32 +4118,41 @@ CRITICAL FORMATTING RULES:
               >
                 ✉
               </a>
-              <a
-                href="/pulse"
-                className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
-                  pulseUnseen
-                    ? 'bg-orange-500/20 border-orange-500/50 text-orange-400 hover:bg-orange-500/30'
-                    : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-orange-400'
-                }`}
-                title="Collective Pulse"
-              >
-                <svg className={`w-4 h-4 ${pulseUnseen ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                {pulseUnseen && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full animate-ping" />
-                )}
-                {pulseUnseen && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full" />
-                )}
-              </a>
+              {/* Collective Pulse - admin only until feature is locked down */}
+              {userIsAdmin && (
+                <a
+                  href="/pulse"
+                  className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-xs font-medium flex items-center justify-center transition-all relative ${
+                    pulseUnseen
+                      ? 'bg-orange-500/20 border-orange-500/50 text-orange-400 hover:bg-orange-500/30'
+                      : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:bg-zinc-800 hover:text-orange-400'
+                  }`}
+                  title="Collective Pulse"
+                >
+                  <svg className={`w-4 h-4 ${pulseUnseen ? 'animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  {pulseUnseen && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full animate-ping" />
+                  )}
+                  {pulseUnseen && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-orange-500 rounded-full" />
+                  )}
+                </a>
+              )}
             </div>
 
             {/* Floating Background Controls Panel */}
             {showBgControls && (
+              <>
+              {/* Click-outside backdrop to close panel */}
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowBgControls(false)}
+              />
               <div
                 data-help="bg-controls"
-                onClick={(e) => handleHelpClick('bg-controls', e)}
+                onClick={(e) => { e.stopPropagation(); handleHelpClick('bg-controls', e); }}
                 className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
               >
                 <div className="p-4 border-b border-zinc-800/50">
@@ -4025,6 +4283,7 @@ CRITICAL FORMATTING RULES:
                   </div>
                 </div>
               </div>
+              </>
             )}
           </>
         )}
@@ -4035,7 +4294,7 @@ CRITICAL FORMATTING RULES:
           className="text-center mb-2 md:mb-3 mobile-header relative cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <h1 className="text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1">
+          <h1 className={`text-[1.25rem] sm:text-2xl md:text-3xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] mb-1 ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'glisten-active' : ''}`}>
             <span className="rainbow-letter rainbow-letter-0">N</span>
             <span className="rainbow-letter rainbow-letter-1">I</span>
             <span className="rainbow-letter rainbow-letter-2">R</span>
@@ -4048,11 +4307,24 @@ CRITICAL FORMATTING RULES:
             <span className="rainbow-letter rainbow-letter-9">Y</span>
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
-          <p className="text-zinc-400 text-[0.6875rem] sm:text-xs tracking-wide">
-            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'Consciousness Architecture Reader'}
+          <p className="font-mono text-zinc-400/60 text-xs sm:text-sm tracking-[0.2em] uppercase">
+            {userLevel === USER_LEVELS.FIRST_CONTACT ? 'Pattern Reader' : 'The Soul Search Engine'}
           </p>
           {/* Nav Links - rainbow hover colors, wrap on mobile */}
-          <div className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto" onClick={(e) => e.stopPropagation()}>
+          {/* Opacity animation preserves layout space when hidden */}
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 1 : 0,
+              y: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 0 : -10,
+            }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-2 mt-5 text-xs max-w-[17rem] sm:max-w-none mx-auto"
+            style={{
+              pointerEvents: (userLevel === USER_LEVELS.FIRST_CONTACT || showAdvancedControls) ? 'auto' : 'none',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <a
               href="/hub"
               onClick={(e) => handleHelpClick('nav-hub', e)}
@@ -4073,24 +4345,18 @@ CRITICAL FORMATTING RULES:
             </a>
             <a
               href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all"
             >
               Guide
             </a>
             <a
               href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-sky-400 hover:border-sky-500/50 transition-all"
             >
               About
             </a>
             <a
               href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded bg-zinc-900/90 border border-zinc-600/60 text-zinc-300 hover:text-violet-400 hover:border-violet-500/50 transition-all"
             >
               Council
@@ -4103,7 +4369,7 @@ CRITICAL FORMATTING RULES:
             >
               Map
             </a>
-          </div>
+          </motion.div>
           {helpPopover === 'intro' && (
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 w-80 sm:w-96">
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
@@ -4240,10 +4506,39 @@ CRITICAL FORMATTING RULES:
               </div>
             )}
 
-            {/* Standard Mode - Full UI */}
+            {/* Standard Mode - Unified UI with textarea as fixed anchor */}
             {userLevel !== USER_LEVELS.FIRST_CONTACT && (
-            <>
-            <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-6 mb-2 relative max-w-2xl mx-auto">
+            <motion.div
+              className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg px-4 sm:px-6 py-3 mb-2 relative mx-auto max-w-2xl"
+              initial={false}
+              animate={{
+                // When controls collapse, add margin-top to compensate
+                // This keeps the textarea visually anchored in place
+                marginTop: advancedMode ? 0 : 120,
+              }}
+              transition={{
+                // Match the controls-above height animation exactly
+                marginTop: { duration: 0.3, ease: 'easeInOut' }
+              }}
+            >
+
+              {/* === MAIN LAYOUT: Controls above textarea === */}
+              <div className="flex flex-col">
+
+              {/* CONTROLS GROUP - collapses to 0 height */}
+              <motion.div
+                className="controls-above overflow-hidden"
+                initial={false}
+                animate={{
+                  height: advancedMode ? 'auto' : 0,
+                  opacity: advancedMode ? 1 : 0,
+                }}
+                transition={{
+                  // Sync with marginTop compensation animation
+                  height: { duration: 0.3, ease: 'easeInOut' },
+                  opacity: { duration: 0.2 }
+                }}
+              >
               {/* Complexity Slider - Admin only for now */}
               {userIsAdmin && useComplexitySlider && (
                 <div className="mb-4 px-2">
@@ -4274,7 +4569,7 @@ CRITICAL FORMATTING RULES:
               {/* Mode Toggle - with complexity-based disabled states */}
               <div className="flex justify-center mb-2">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-1 mode-tabs-container">
-                  {/* Reflect - always enabled at level 1+ */}
+                  {/* Reflect - Violet (#7C3AED) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-reflect', e) && (!useComplexitySlider || isModeEnabled('reflect', complexityLevel))) setSpreadType('reflect'); }}
                     disabled={useComplexitySlider && !isModeEnabled('reflect', complexityLevel)}
@@ -4282,11 +4577,12 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('reflect', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'reflect' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'reflect' ? 'text-violet-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'reflect' ? { backgroundColor: 'rgba(124, 58, 237, 0.25)', border: '1px solid rgba(124, 58, 237, 0.5)' } : {}}>
                     Reflect
                   </button>
-                  {/* Discover - enabled at level 6+ */}
+                  {/* Discover - Blue (#2563EB) */}
                   <button
                     onClick={(e) => { if (!handleHelpClick('mode-discover', e) && (!useComplexitySlider || isModeEnabled('discover', complexityLevel))) { setSpreadType('discover'); setSpreadKey('three'); } }}
                     disabled={useComplexitySlider && !isModeEnabled('discover', complexityLevel)}
@@ -4294,32 +4590,51 @@ CRITICAL FORMATTING RULES:
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('discover', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'discover' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'discover' ? 'text-blue-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'discover' ? { backgroundColor: 'rgba(37, 99, 235, 0.25)', border: '1px solid rgba(37, 99, 235, 0.5)' } : {}}>
                     Discover
                   </button>
-                  {/* Explore - enabled at level 11+ */}
+                  {/* Explore - Emerald (#059669) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-explore', e) && (!useComplexitySlider || isModeEnabled('explore', complexityLevel))) setSpreadType('explore'); }}
+                    onClick={(e) => {
+                      if (handleHelpClick('mode-explore', e)) return;
+                      if (useComplexitySlider && !isModeEnabled('explore', complexityLevel)) return;
+                      const isNewSelection = spreadType !== 'explore';
+                      setSpreadType('explore');
+                      // Explore mode: mode selection IS the final selection
+                      const selectionKey = 'explore';
+                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
+                    }}
                     disabled={useComplexitySlider && !isModeEnabled('explore', complexityLevel)}
                     data-help="mode-explore"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('explore', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'explore' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'explore' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'explore' ? { backgroundColor: 'rgba(5, 150, 105, 0.25)', border: '1px solid rgba(5, 150, 105, 0.5)' } : {}}>
                     Explore
                   </button>
-                  {/* Forge - enabled at level 16+ */}
+                  {/* Forge - Red (#DC2626) */}
                   <button
-                    onClick={(e) => { if (!handleHelpClick('mode-forge', e) && (!useComplexitySlider || isModeEnabled('forge', complexityLevel))) setSpreadType('forge'); }}
+                    onClick={(e) => {
+                      if (handleHelpClick('mode-forge', e)) return;
+                      if (useComplexitySlider && !isModeEnabled('forge', complexityLevel)) return;
+                      const isNewSelection = spreadType !== 'forge';
+                      setSpreadType('forge');
+                      // Forge mode: mode selection IS the final selection
+                      const selectionKey = 'forge';
+                      setTimeout(() => handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey), 100);
+                    }}
                     disabled={useComplexitySlider && !isModeEnabled('forge', complexityLevel)}
                     data-help="mode-forge"
                     className={`mode-tab px-3 sm:px-4 py-2 min-h-[44px] sm:min-h-0 rounded-md text-sm font-medium sm:font-normal transition-all ${
                       useComplexitySlider && !isModeEnabled('forge', complexityLevel)
                         ? 'text-zinc-600 cursor-not-allowed opacity-40'
-                        : spreadType === 'forge' ? 'bg-[#2e1065] text-amber-400' : 'text-zinc-400 hover:text-zinc-200'
-                    }`}>
+                        : spreadType === 'forge' ? 'text-red-300' : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    style={spreadType === 'forge' ? { backgroundColor: 'rgba(220, 38, 38, 0.25)', border: '1px solid rgba(220, 38, 38, 0.5)' } : {}}>
                     Forge
                   </button>
                 </div>
@@ -4332,13 +4647,13 @@ CRITICAL FORMATTING RULES:
                   null
                 ) : spreadType === 'reflect' ? (
                   <>
-                    {/* Position count selector for Reflect mode */}
+                    {/* Position count selector for Reflect mode - with ripple animation */}
                     <div className="flex gap-1 justify-center mb-3" data-help="spread-selector">
-                      {[1, 2, 3, 4, 5, 6].map((count) => {
+                      {[1, 2, 3, 4, 5, 6].map((count, index) => {
                         const helpKey = count === 1 ? 'spread-single' : count === 3 ? 'spread-triad' : count === 5 ? 'spread-pentad' : 'spread-selector';
                         const isDisabled = useComplexitySlider && !isCardCountEnabled('reflect', count, complexityLevel);
                         return (
-                          <button
+                          <motion.button
                             key={count}
                             data-help={helpKey}
                             disabled={isDisabled}
@@ -4353,667 +4668,827 @@ CRITICAL FORMATTING RULES:
                               isDisabled
                                 ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
                                 : reflectCardCount === count
-                                  ? 'bg-[#2e1065] text-amber-400'
+                                  ? 'text-white'
                                   : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            }`}
+                            } ${!rippleTarget && reflectCardCount !== count ? 'guidance-pulse' : ''}`}
+                            style={reflectCardCount === count && !isDisabled ? {
+                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
+                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
+                            } : {}}
+                            animate={rippleTarget === 'counts' ? {
+                              opacity: [0.6, 1, 0.6],
+                              scale: [1, 1.08, 1],
+                            } : {}}
+                            transition={{
+                              delay: index * 0.1,
+                              duration: 0.3,
+                            }}
                           >
                             {count}
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
-                    {/* Spread options for selected count */}
+                    {/* Spread options for selected count - with ripple animation */}
                     <div className="flex gap-1.5 justify-center flex-wrap">
-                      {SPREADS_BY_COUNT[reflectCardCount].map((spreadId) => {
+                      {SPREADS_BY_COUNT[reflectCardCount].map((spreadId, index) => {
                         const spread = REFLECT_SPREADS[spreadId];
                         return (
-                          <button
+                          <motion.button
                             key={spreadId}
                             data-help="spread-selector"
-                            onClick={(e) => { if (!handleHelpClick('spread-selector', e)) setReflectSpreadKey(spreadId); }}
+                            onClick={(e) => {
+                              if (handleHelpClick('spread-selector', e)) return;
+                              const isNewSelection = reflectSpreadKey !== spreadId;
+                              setReflectSpreadKey(spreadId);
+                              // Tap-to-confirm: first tap = preview, second tap = collapse
+                              const selectionKey = `reflect-${spreadId}`;
+                              handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
+                            }}
                             className={`px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-xs font-medium sm:font-normal transition-all ${
                               reflectSpreadKey === spreadId
-                                ? 'bg-[#2e1065] text-amber-400'
+                                ? 'text-white'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                            }`}
+                            } ${!rippleTarget && reflectSpreadKey !== spreadId ? 'guidance-pulse' : ''}`}
+                            style={reflectSpreadKey === spreadId ? {
+                              backgroundColor: `${MODE_COLORS.reflect.primary}40`,
+                              border: `1px solid ${MODE_COLORS.reflect.primary}80`
+                            } : {}}
+                            animate={rippleTarget === 'layouts' ? {
+                              opacity: [0.6, 1, 0.6],
+                              scale: [1, 1.08, 1],
+                            } : {}}
+                            transition={{
+                              delay: index * 0.1,
+                              duration: 0.3,
+                            }}
                           >
                             {spread.name}
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
                   </>
                 ) : (
                   /* Discover mode - simple position count as numbers */
-                  <div className="flex gap-1 justify-center" data-help="spread-selector">
-                    {Object.entries(RANDOM_SPREADS).map(([key, value]) => {
+                  <div className={`flex gap-1 justify-center ${rippleTarget === 'counts' ? '' : ''}`} data-help="spread-selector">
+                    {Object.entries(RANDOM_SPREADS).map(([key, value], index) => {
                       const helpKey = value.count === 1 ? 'spread-single' : value.count === 3 ? 'spread-triad' : value.count === 5 ? 'spread-pentad' : 'spread-septad';
                       const isDisabled = useComplexitySlider && !isCardCountEnabled('discover', value.count, complexityLevel);
                       return (
-                        <button
+                        <motion.button
                           key={key}
                           data-help={helpKey}
                           disabled={isDisabled}
-                          onClick={(e) => { if (!isDisabled && !handleHelpClick(helpKey, e)) setSpreadKey(key); }}
+                          onClick={(e) => {
+                            if (isDisabled || handleHelpClick(helpKey, e)) return;
+                            const isNewSelection = spreadKey !== key;
+                            setSpreadKey(key);
+                            // Tap-to-confirm: first tap = preview, second tap = collapse
+                            const selectionKey = `discover-${key}`;
+                            handleFinalSelectionTap(selectionKey, isNewSelection || lastFinalSelection !== selectionKey);
+                          }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
                             isDisabled
                               ? 'bg-zinc-900/50 text-zinc-600 cursor-not-allowed opacity-40'
                               : spreadKey === key
-                                ? 'bg-[#2e1065] text-amber-400'
+                                ? 'text-white'
                                 : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                          }`}
+                          } ${!rippleTarget && spreadKey !== key ? 'guidance-pulse' : ''}`}
+                          style={spreadKey === key && !isDisabled ? {
+                            backgroundColor: `${MODE_COLORS.discover.primary}40`,
+                            border: `1px solid ${MODE_COLORS.discover.primary}80`
+                          } : {}}
+                          animate={rippleTarget === 'counts' ? {
+                            opacity: [0.6, 1, 0.6],
+                            scale: [1, 1.08, 1],
+                          } : {}}
+                          transition={{
+                            delay: index * 0.1,
+                            duration: 0.3,
+                          }}
                         >
                           {value.count}
-                        </button>
+                        </motion.button>
                       );
                     })}
                   </div>
                 )}
               </div>
+              </motion.div>{/* END controls-above */}
 
-              {/* Description Block - shows immediately after selections, before style presets */}
-              <div className="w-full max-w-lg mx-auto mb-4">
-                {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'discover' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'forge' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Forge • 1 position
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      {FORGE_DESCRIPTION.subtitle}
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
-                    </div>
-                  </div>
-                ) : spreadType === 'explore' ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
-                    <div className="text-zinc-300 text-sm font-medium mb-1">
-                      Explore • Direct Token Protocol
-                    </div>
-                    <div className="text-zinc-400 text-xs mb-2">
-                      Describe what's active. Each token gets its own card.
-                    </div>
-                    <div className="text-zinc-500 text-xs mb-1">
-                      <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
-                    </div>
-                    <div className="text-zinc-500 text-xs">
-                      <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-
-              {/* Voice Section - Three Tier Structure */}
-              <div className="mt-2 pt-2 border-t border-zinc-800/50">
-
-                {/* TIER 1: Persona Selector - ALWAYS visible */}
-                <div className="mb-2">
-                  <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1">
-                    {PERSONAS.map(p => {
-                      const icons = { none: '○', friend: '👋', therapist: '💭', spiritualist: '✨', scientist: '🔬', coach: '🎯' };
-                      return (
-                        <button
-                          key={p.key}
-                          onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
-                          data-help={`persona-${p.key}`}
-                          title={p.desc}
-                          className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
-                            persona === p.key
-                              ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
-                              : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
-                          }`}
-                        >
-                          <span>{icons[p.key]}</span>
-                          <span>{p.name}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* TIER 2: Fine-tune Voice - ALWAYS available (collapsed) */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
-                  data-help="fine-tune-voice"
-                  className="w-full flex items-center justify-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors py-0.5"
+              {/* TEXTAREA GROUP - First in DOM, appears at bottom of flex (THE ANCHOR) */}
+              <div className="textarea-anchor">
+              {/* Question Input - THE ANCHOR POINT (no animation) */}
+              <div className="relative mb-2 mt-2">
+                <div
+                  className="relative max-w-2xl mx-auto"
+                  data-help="question-input"
+                  onClick={(e) => handleHelpClick('question-input', e)}
                 >
-                  <span className="text-xs">{showVoicePanel ? '▾' : '▸'}</span>
-                  <span className="text-[0.5625rem] tracking-widest uppercase">Fine-tune Voice</span>
-                </button>
-
-                {showVoicePanel && (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mt-2 max-w-sm mx-auto">
-                    {/* Humor slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Humor</span>
-                        <span className="text-xs text-amber-500/80">{HUMOR_LEVELS[humor] || 'Balanced'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Unhinged</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={humor}
-                            onChange={(e) => setHumor(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
-                          />
-                        </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Sacred</span>
-                      </div>
+                  {/* Gear toggle button - inside textarea area */}
+                  <motion.button
+                    onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
+                    className={`absolute top-2 right-2 w-8 h-8 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center transition-colors z-10 ${advancedMode ? 'text-amber-400 hover:text-amber-300 hover:border-amber-500/50' : 'text-zinc-400 hover:text-amber-400 hover:border-amber-500/50'}`}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
+                    title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
+                  >
+                    <motion.svg
+                      className="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      animate={{ rotate: advancedMode ? 90 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                    </motion.svg>
+                  </motion.button>
+                  {/* Textarea with animated placeholder overlay */}
+                  {spreadType === 'explore' ? (
+                    <div className="relative w-full" onClick={handleTextareaClick}>
+                      <textarea
+                        value={dtpInput}
+                        onChange={(e) => setDtpInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                        className="content-pane w-full bg-zinc-900 border-2 rounded-lg px-4 pt-4 pb-12 pr-12 text-white focus:outline-none focus:bg-zinc-900 resize-none transition-all text-[1rem] sm:text-base min-h-[120px] leading-relaxed"
+                        style={{
+                          caretColor: 'transparent', // Hide text cursor
+                          borderColor: readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)',
+                          boxShadow: readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none',
+                          transition: 'border-color 0.4s, box-shadow 0.4s'
+                        }}
+                        rows={4}
+                      />
+                      {/* Animated placeholder overlay - dynamic when selecting, default when collapsed */}
+                      <AnimatePresence mode="wait">
+                        {!dtpInput && (
+                          <motion.div
+                            key={advancedMode ? 'explore' : 'default'}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.5 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className={`absolute inset-0 px-4 pt-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base leading-relaxed ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
+                          >
+                            {advancedMode ? getPlaceholder('explore', 1, null) : DEFAULT_PLACEHOLDER}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-
-                    {/* Register slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Register</span>
-                        <span className="text-xs text-amber-500/80">{REGISTER_LEVELS[register] || 'Clear'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Chaos</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={register}
-                            onChange={(e) => setRegister(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
-                          />
-                        </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Oracle</span>
-                      </div>
-                    </div>
-
-                    {/* Agency slider */}
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-zinc-500">Agency</span>
-                        <span className="text-xs text-amber-500/80">{CREATOR_LEVELS[creator] || 'Balanced'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-zinc-600 w-16 text-right">Witness</span>
-                        <div className="flex-1 relative h-5 flex items-center">
-                          <div className="absolute inset-x-0 h-1.5 rounded-full bg-gradient-to-r from-amber-600 via-zinc-600 to-violet-600 opacity-60" />
-                          <input
-                            type="range"
-                            min="1"
-                            max="10"
-                            value={creator}
-                            onChange={(e) => setCreator(parseInt(e.target.value))}
-                            className="absolute inset-0 w-full accent-amber-500 bg-transparent cursor-pointer"
-                            style={{ WebkitAppearance: 'none', background: 'transparent' }}
-                          />
-                        </div>
-                        <span className="text-[10px] text-zinc-600 w-12">Creator</span>
-                      </div>
-                    </div>
-
-                    {/* Agency hint */}
-                    <div className="text-center text-[0.625rem] text-zinc-600 mb-3 pb-3 border-b border-zinc-800/50">
-                      {creator <= 3 ? 'Observation: "The field shows..."' :
-                       creator <= 6 ? 'Balanced observation and agency' :
-                       creator <= 8 ? 'Agency: "You\'re shaping..."' :
-                       'Full authorship: "You ARE the field"'}
-                    </div>
-
-                    {/* Checkboxes */}
-                    <div className="flex justify-center gap-6 mb-3">
-                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-                        <input
-                          type="checkbox"
-                          checked={roastMode}
-                          onChange={(e) => setRoastMode(e.target.checked)}
-                          className="accent-amber-500"
+                  ) : (
+                    <div className="relative w-full overflow-hidden rounded-lg" onClick={handleTextareaClick}>
+                      <textarea
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                        className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-12 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''}`}
+                        style={{
+                          caretColor: 'transparent', // Hide text cursor
+                          // Don't override border/shadow when rainbow animation is active
+                          ...((glistenerPhase !== 'loading' && glistenerPhase !== 'streaming') ? {
+                            borderColor: crystalFlash ? '#fbbf24' : (readyFlash ? MODE_COLORS[spreadType]?.primary : 'rgba(63, 63, 70, 0.8)'),
+                            boxShadow: crystalFlash ? '0 0 30px rgba(251, 191, 36, 0.5)' : (readyFlash ? `0 0 20px ${MODE_COLORS[spreadType]?.glow}` : 'none'),
+                            transition: 'border-color 0.4s, box-shadow 0.4s'
+                          } : {})
+                        }}
+                        rows={4}
+                      />
+                      {/* Animated placeholder overlay - shows glistener content OR regular placeholder */}
+                      <AnimatePresence mode="wait">
+                        {!question && !glistenerContent && (
+                          <motion.div
+                            key={advancedMode ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey) : 'default'}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.5 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className={`absolute inset-0 p-4 pb-12 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
+                          >
+                            {advancedMode
+                              ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)
+                              : DEFAULT_PLACEHOLDER
+                            }
+                          </motion.div>
+                        )}
+                        {/* Ghost Stream content from Glistener - Loading messages */}
+                        {glistenerContent && glistenerContent.type === 'loading' && (
+                          <motion.div
+                            key="loading"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
+                          >
+                            {/* Scrolling message stack - starts at bottom, scrolls up */}
+                            <div className="flex flex-col-reverse items-center w-full">
+                              <AnimatePresence>
+                                {glistenerContent.messages?.map((msg) => (
+                                  <motion.div
+                                    key={msg.text}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{
+                                      opacity: msg.opacity,
+                                      y: -msg.position * 28,
+                                      scale: msg.position === 0 ? 1 : 0.95,
+                                    }}
+                                    exit={{ opacity: 0, y: -60 }}
+                                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                                    className="italic text-base sm:text-lg absolute whitespace-nowrap animate-rainbow-cycle"
+                                    style={{
+                                      fontWeight: 400,
+                                      textShadow: msg.position === 0
+                                        ? `0 0 ${15 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 8}px rgba(251, 191, 36, 0.5)`
+                                        : 'none',
+                                      opacity: msg.position === 0
+                                        ? 0.85 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 0.15
+                                        : msg.opacity,
+                                    }}
+                                  >
+                                    {msg.text}
+                                  </motion.div>
+                                ))}
+                              </AnimatePresence>
+                            </div>
+                          </motion.div>
+                        )}
+                        {/* Ghost Stream content from Glistener - Streaming/Typing/Fading */}
+                        {glistenerContent && glistenerContent.type !== 'loading' && (
+                          <motion.div
+                            key={glistenerContent.type === 'fading' ? 'typing' : glistenerContent.type}
+                            ref={glistenerContent.type === 'streaming' ? glistenerScrollRef : undefined}
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              opacity: glistenerContent.type === 'streaming' ? glistenerContent.opacity :
+                                       glistenerContent.type === 'fading' ? glistenerContent.opacity : 1,
+                            }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
+                            className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
+                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-hidden text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
+                              glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
+                            }`}
+                            style={{
+                              ...(glistenerContent.pulse ? { textShadow: '0 0 25px rgba(251, 191, 36, 0.4)' } : {}),
+                              ...(glistenerContent.type === 'streaming' ? { fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' } : {}),
+                            }}
+                          >
+                            {glistenerContent.text}
+                            {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      {/* Glistener component - renders inside textarea for idle/complete states */}
+                      {showGlistener && (
+                        <Glistener
+                          onTransfer={(crystal) => {
+                            setQuestion(crystal);
+                            // DON'T close - let receipt button show
+                            setGlistenerContent(null);
+                            // Trigger border + text flash for non-empty crystals
+                            if (crystal) {
+                              setCrystalFlash(true);
+                              setTimeout(() => setCrystalFlash(false), 2000);
+                            }
+                          }}
+                          onClose={() => {
+                            setShowGlistener(false);
+                            setGlistenerContent(null);
+                            setGlistenData(null); // Clear glisten data when closing
+                          }}
+                          onDisplayContent={setGlistenerContent}
+                          onPhaseChange={setGlistenerPhase}
+                          onGlistenComplete={setGlistenData}
                         />
-                        Roast Mode
-                        <span className="text-[10px] text-zinc-600" title="Best friend who's HAD IT. Read them for filth.">(savage)</span>
-                      </label>
-                      <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-                        <input
-                          type="checkbox"
-                          checked={directMode}
-                          onChange={(e) => setDirectMode(e.target.checked)}
-                          className="accent-amber-500"
-                        />
-                        Direct Mode
-                        <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
-                      </label>
+                      )}
                     </div>
-
-                    {/* TIER 3: Advanced Voice Settings - Inside Fine-tune panel */}
-                    {showAdvancedVoice && (
-                      <>
-                        <button
-                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
-                          data-help="advanced-voice"
-                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1 border-t border-zinc-800/50 pt-3"
-                        >
-                          <span className="text-xs">{showLandingFineTune ? '▾' : '▸'}</span>
-                          <span className="text-[0.5625rem] tracking-widest uppercase">Advanced</span>
-                        </button>
-
-                        {showLandingFineTune && (
-                          <div className="mt-2 pt-2">
-                        {/* Delivery Presets */}
-                        <div
-                          className="mb-3 pb-3 border-b border-zinc-700/50"
-                          data-help="delivery-preset"
-                          onClick={(e) => handleHelpClick('delivery-preset', e)}
-                        >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Delivery Preset</div>
-                          <div className="w-full max-w-lg mx-auto">
-                            <div className="flex gap-0.5 sm:gap-1.5 justify-center w-full px-0.5 sm:px-0">
-                              {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                                const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                                const mobileNames = { clear: "Clear", kind: "Kind", playful: "Playful", wise: "Wise", oracle: "Oracle" };
+                  )}
+                  {/* Compact persona selector - above Go button */}
+                  <div className="absolute bottom-12 right-3 z-20">
+                    <div className="relative">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setShowCompactPersona(!showCompactPersona); }}
+                        className="w-7 h-7 rounded-full bg-zinc-800/90 border border-zinc-700/50 flex items-center justify-center text-sm hover:border-amber-500/50 hover:text-amber-400 transition-colors"
+                        title={`Voice: ${PERSONAS.find(p => p.key === persona)?.name || 'None'}`}
+                      >
+                        {{ friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' }[persona] || '○'}
+                      </button>
+                      {/* Compact persona flyout */}
+                      <AnimatePresence>
+                        {showCompactPersona && (
+                          <>
+                            {/* Backdrop to close */}
+                            <div
+                              className="fixed inset-0 z-20"
+                              onClick={() => setShowCompactPersona(false)}
+                            />
+                            <motion.div
+                              initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                              transition={{ duration: 0.15 }}
+                              className="absolute bottom-8 right-0 bg-zinc-900 border border-zinc-700/50 rounded-lg p-1.5 shadow-xl z-30 min-w-[120px]"
+                            >
+                              {PERSONAS.map((p) => {
+                                const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
                                 return (
                                   <button
-                                    key={key}
-                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
-                                    className={`flex-1 px-0.5 sm:px-2 py-2.5 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-sm text-[0.8125rem] sm:text-[0.6875rem] font-medium sm:font-normal transition-all text-center overflow-hidden ${
-                                      isActive
-                                        ? 'bg-[#2e1065] text-amber-400 ring-1 ring-amber-500/30'
-                                        : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700'
+                                    key={p.key}
+                                    onClick={(e) => { e.stopPropagation(); setPersona(p.key); setShowCompactPersona(false); }}
+                                    className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${
+                                      persona === p.key
+                                        ? 'bg-zinc-700 text-amber-400'
+                                        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
                                     }`}
-                                    title={preset.preview || preset.name}
                                   >
-                                    <span className="sm:hidden">{mobileNames[key]}</span>
-                                    <span className="hidden sm:inline">{preset.name}</span>
+                                    <span>{icons[p.key]}</span>
+                                    <span>{p.name}</span>
                                   </button>
                                 );
                               })}
+                            </motion.div>
+                          </>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                  {/* Glisten trigger - inside textarea, bottom left */}
+                  {!showGlistener && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
+                      className="absolute bottom-3 left-3 text-xs text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-1 z-10"
+                      title="Let a question find its shape"
+                    >
+                      <span className="text-amber-500/70">◇</span>
+                      <span>Glisten</span>
+                    </button>
+                  )}
+                  {/* Go button - inside textarea, bottom right - rainbow "Go" text */}
+                  <motion.button
+                    onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
+                    data-help="get-reading"
+                    disabled={loading}
+                    className="go-button absolute bottom-3 right-3 px-4 py-1.5 rounded-md text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden z-10"
+                    style={{
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: MODE_COLORS[spreadType]?.primary || 'rgba(113, 113, 122, 0.5)',
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="relative z-10 animate-rainbow-cycle-slow font-semibold">
+                      {loading ? '...' : 'Go'}
+                    </span>
+                  </motion.button>
+                </div>
+              </div>
+              </div>{/* END textarea-anchor */}
+              </div>{/* END flex layout */}
+
+              {/* Description Block - HIDDEN FOR NOW (may restore later)
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.08} duration={0.5}>
+              <div className="relative mb-2 mt-2">
+                <div className="w-full max-w-lg mx-auto min-h-[110px]">
+                  {spreadType === 'reflect' && REFLECT_SPREADS[reflectSpreadKey] ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        {REFLECT_SPREADS[reflectSpreadKey].name} • {REFLECT_SPREADS[reflectSpreadKey].count} position{REFLECT_SPREADS[reflectSpreadKey].count > 1 ? 's' : ''}
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {REFLECT_SPREADS[reflectSpreadKey].positions.map(p => p.name).join(' → ')}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {REFLECT_SPREADS[reflectSpreadKey].whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {REFLECT_SPREADS[reflectSpreadKey].whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'discover' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Discover • {RANDOM_SPREADS[spreadKey]?.count} position{RANDOM_SPREADS[spreadKey]?.count > 1 ? 's' : ''}
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.subtitle}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {DISCOVER_DESCRIPTIONS[RANDOM_SPREADS[spreadKey]?.count]?.whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'forge' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Forge • 1 position
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        {FORGE_DESCRIPTION.subtitle}
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> {FORGE_DESCRIPTION.whenToUse}
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> {FORGE_DESCRIPTION.whatYoullSee}
+                      </div>
+                    </div>
+                  ) : spreadType === 'explore' ? (
+                    <div className="bg-zinc-900/50 rounded-lg p-4 text-center">
+                      <div className="text-zinc-300 text-sm font-medium mb-1">
+                        Explore • Direct Token Protocol
+                      </div>
+                      <div className="text-zinc-400 text-xs mb-2">
+                        Describe what's active. Each token gets its own card.
+                      </div>
+                      <div className="text-zinc-500 text-xs mb-1">
+                        <span className="text-zinc-400">When to use:</span> When you want to name specific things and see how they're structured
+                      </div>
+                      <div className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400">What you'll see:</span> Up to 5 tokens, each with its own reading
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+              </UnfoldPanel>
+              */}
+
+              {/* Persona Selector - MOVED TO COMPACT VERSION ABOVE GO BUTTON
+              <UnfoldPanel isOpen={advancedMode} direction="down" delay={0.1} duration={0.5}>
+              <div className="mt-2 pt-2 border-t border-zinc-800/50 mb-2">
+                <AnimatePresence mode="wait">
+                  {advancedMode && (
+                    <motion.div
+                      key="persona-grid"
+                      className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1"
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                    >
+                      {PERSONAS.map((p, index) => {
+                        const icons = { friend: '👋', therapist: '🛋️', spiritualist: '✨', scientist: '🧬', coach: '🎯' };
+                        const isLeftColumn = index % 3 === 0;
+                        const isRightColumn = index % 3 === 2;
+                        const xOffset = isLeftColumn ? -40 : isRightColumn ? 40 : 0;
+                        return (
+                          <motion.button
+                            key={p.key}
+                            initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: xOffset, scale: 0.9 }}
+                            transition={{
+                              duration: 0.45,
+                              delay: index * 0.06,
+                              ease: [0.25, 0.46, 0.45, 0.94]
+                            }}
+                            onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
+                            data-help={`persona-${p.key}`}
+                            title={p.desc}
+                            className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
+                              persona === p.key
+                                ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                                : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700 border border-zinc-800'
+                            }`}
+                          >
+                            <span>{icons[p.key]}</span>
+                            <span>{p.name}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              </UnfoldPanel>
+              */}
+
+{/* Glistener moved to inside textarea - see below */}
+
+            {/* Footer Deck - Signal Tuning & Output Toggles */}
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: advancedMode ? 1 : 0,
+                scaleX: advancedMode ? 1 : 0.95,
+                height: advancedMode ? 'auto' : 0,
+              }}
+              transition={{ duration: 0.3, delay: advancedMode ? 0.15 : 0 }}
+              style={{ overflow: 'hidden' }}
+              className="relative"
+            >
+            <div className="flex items-center justify-between mb-2 max-w-2xl mx-auto px-2">
+              {/* Zone 1 (Left): Empty for visual balance */}
+              <div className="w-24"></div>
+
+              {/* Zone 2 (Center): Signal Tuning Button */}
+              <button
+                onClick={(e) => { if (!handleHelpClick('fine-tune-voice', e)) setShowVoicePanel(!showVoicePanel); }}
+                data-help="fine-tune-voice"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${showVoicePanel ? 'bg-amber-600/20 text-amber-400' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'}`}
+                title="Signal Tuning"
+              >
+                {/* Sliders icon */}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
+                </svg>
+              </button>
+
+              {/* Zone 3 (Right): Output Toggles */}
+              <div className="flex items-center gap-2">
+                {/* Depth toggle */}
+                <button
+                  onClick={() => {
+                    const newDepth = defaultDepth === 'shallow' ? 'wade' : 'shallow';
+                    setDefaultDepth(newDepth);
+                    setLetterDepth(newDepth); setPathDepth(newDepth); setSummaryDepth(newDepth); setWhyAppearedDepth(newDepth);
+                  }}
+                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
+                  title="Starting depth for card content"
+                >
+                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Depth</span>
+                  <span className="font-medium">{defaultDepth === 'shallow' ? 'Shallow' : 'Wade'}</span>
+                </button>
+
+                {/* Cards toggle */}
+                <button
+                  onClick={() => setDefaultExpanded(!defaultExpanded)}
+                  className="px-2.5 py-1.5 text-xs rounded-lg bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
+                  title="Cards start expanded or collapsed"
+                >
+                  <span className="text-zinc-500 text-[9px] font-mono uppercase">Cards</span>
+                  <span className="font-medium">{defaultExpanded ? 'Open' : 'Closed'}</span>
+                </button>
+              </div>
+            </div>
+            </motion.div>
+            </motion.div>
+            )}
+            {/* End of Standard Mode conditional */}
+
+            {/* Adjust Persona Popover - Rendered outside container to prevent layout expansion */}
+            <AnimatePresence>
+              {advancedMode && showVoicePanel && (
+                <>
+                  {/* Backdrop to close panel when clicking outside */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowVoicePanel(false)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="fixed bottom-56 left-1/2 -translate-x-1/2 w-80 bg-zinc-950/95 border border-white/10 rounded-xl p-5 shadow-2xl z-50 backdrop-blur-md"
+                  >
+                    {/* Header */}
+                    <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
+                      <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
+                      {/* LED Indicator */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
+                    </div>
+
+                    {/* Sliders Stack */}
+                    <div className="space-y-4">
+                      {/* Humor */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Serious</span>
+                          <span className="text-violet-400">Humor</span>
+                          <span>Wild</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={humor}
+                          onChange={(e) => setHumor(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
+                        />
+                      </div>
+
+                      {/* Register */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Chaos</span>
+                          <span className="text-blue-400">Register</span>
+                          <span>Oracle</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={register}
+                          onChange={(e) => setRegister(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400"
+                        />
+                      </div>
+
+                      {/* Agency */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
+                          <span>Witness</span>
+                          <span className="text-emerald-400">Agency</span>
+                          <span>Creator</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          value={creator}
+                          onChange={(e) => setCreator(parseInt(e.target.value))}
+                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Footer Toggles (Roast/Direct) */}
+                    <div className="mt-4 pt-3 border-t border-white/5 flex justify-between">
+                      <button
+                        onClick={() => setRoastMode(!roastMode)}
+                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${roastMode ? 'bg-red-500/10 border-red-500 text-red-500' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                      >
+                        Roast Mode
+                      </button>
+                      <button
+                        onClick={() => setDirectMode(!directMode)}
+                        className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${directMode ? 'bg-white/10 border-white text-white' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                      >
+                        Direct Mode
+                      </button>
+                    </div>
+
+                    {/* TIER 3: Advanced Voice Settings - Collapsible inside popover */}
+                    {showAdvancedVoice && (
+                      <div className="mt-4 pt-3 border-t border-white/5">
+                        <button
+                          onClick={(e) => { if (!handleHelpClick('advanced-voice', e)) setShowLandingFineTune(!showLandingFineTune); }}
+                          data-help="advanced-voice"
+                          className="w-full flex items-center justify-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors py-1"
+                        >
+                          <span className="text-[11px]">{showLandingFineTune ? '▾' : '▸'}</span>
+                          <span className="text-[11px] font-mono uppercase tracking-wider">Advanced</span>
+                        </button>
+
+                        {showLandingFineTune && (
+                          <div className="mt-2 pt-2 max-h-[40vh] overflow-y-auto">
+                            {/* Delivery Presets */}
+                            <div
+                              className="mb-3 pb-3 border-b border-zinc-700/50"
+                              data-help="delivery-preset"
+                              onClick={(e) => handleHelpClick('delivery-preset', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Delivery Preset</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
+                                  const isActive = getCurrentDeliveryPreset()?.[0] === key;
+                                  return (
+                                    <button
+                                      key={key}
+                                      onClick={(e) => { e.stopPropagation(); if (!helpMode) applyDeliveryPreset(key); }}
+                                      className={`px-1.5 py-1 rounded text-[10px] transition-all ${
+                                        isActive
+                                          ? 'bg-violet-600/30 text-violet-300 border border-violet-500/30'
+                                          : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                      }`}
+                                      title={preset.preview || preset.name}
+                                    >
+                                      {preset.name}
+                                    </button>
+                                  );
+                                })}
+                              </div>
                             </div>
-                          </div>
-                        </div>
 
-                        {/* Voice Preview */}
-                        <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
-                          <p className="text-zinc-400 text-sm italic leading-relaxed px-4">
-                            <span className="text-zinc-500 not-italic text-xs">Preview:</span> "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
-                          </p>
-                        </div>
+                            {/* Voice Preview */}
+                            <div className="text-center mb-3 pb-3 border-b border-zinc-700/50">
+                              <p className="text-zinc-400 text-[11px] italic leading-relaxed">
+                                "{buildPreviewSentence(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness)}"
+                              </p>
+                            </div>
 
-                        {/* Complexity Selector */}
-                        <div
-                          className="mb-3"
-                          data-help="voice-complexity"
-                          onClick={(e) => handleHelpClick('voice-complexity', e)}
-                        >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Speak to me like...</div>
-                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                            {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                              <button
-                                key={key}
-                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
-                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center ${
-                                  stance.complexity === key
-                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                                }`}
-                              >
-                                {opt.label}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Seriousness/Tone Selector */}
-                        <div
-                          className="mb-3"
-                          data-help="voice-tone"
-                          onClick={(e) => handleHelpClick('voice-tone', e)}
-                        >
-                          <div className="text-[0.625rem] text-zinc-500 mb-1.5 text-center">Tone</div>
-                          <div className="flex gap-1 justify-center w-full max-w-sm mx-auto">
-                            {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                              <button
-                                key={key}
-                                onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
-                                className={`flex-1 px-1 py-1.5 min-h-[36px] sm:min-h-0 sm:py-1 rounded-sm text-[0.625rem] sm:text-xs transition-all whitespace-nowrap text-center capitalize ${
-                                  stance.seriousness === key
-                                    ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
-                                    : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 active:bg-zinc-700 border border-zinc-700/50'
-                                }`}
-                              >
-                                {key}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Stance Grid - only the 4x4 grid */}
-                        <div
-                          data-help="stance-selector"
-                          onClick={(e) => handleHelpClick('stance-selector', e)}
-                        >
-                          <StanceSelector
-                            stance={stance}
-                            setStance={setStance}
-                            showCustomize={true}
-                            setShowCustomize={() => {}}
-                            gridOnly={true}
-                            disabled={helpMode}
-                          />
-                        </div>
-
-                        {/* Model Selector + Token Display */}
-                        <div className="mt-3 pt-2 border-t border-zinc-700/50">
-                          {getAvailableModels().length > 1 && (
-                            <div className="flex items-center justify-center gap-2 mb-1.5">
-                              <span className="text-[0.625rem] text-zinc-500">Model:</span>
-                              <select
-                                value={selectedModel}
-                                onChange={(e) => setSelectedModel(e.target.value)}
-                                className="text-[0.625rem] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
-                              >
-                                {getAvailableModels().map(m => (
-                                  <option key={m} value={m}>{getModelLabel(m)}</option>
+                            {/* Complexity Selector */}
+                            <div
+                              className="mb-3"
+                              data-help="voice-complexity"
+                              onClick={(e) => handleHelpClick('voice-complexity', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Speak to me like...</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
+                                  <button
+                                    key={key}
+                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, complexity: key }); }}
+                                    className={`px-1.5 py-1 rounded text-[10px] transition-all ${
+                                      stance.complexity === key
+                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                    }`}
+                                  >
+                                    {opt.label}
+                                  </button>
                                 ))}
-                              </select>
+                              </div>
                             </div>
-                          )}
-                          <label className="flex items-center justify-center gap-2 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={showTokenUsage}
-                              onChange={(e) => setShowTokenUsage(e.target.checked)}
-                              className="w-3.5 h-3.5 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
-                            />
-                            <span className="text-[0.625rem] text-zinc-400">Show token usage</span>
-                          </label>
-                        </div>
+
+                            {/* Tone Selector */}
+                            <div
+                              className="mb-3"
+                              data-help="voice-tone"
+                              onClick={(e) => handleHelpClick('voice-tone', e)}
+                            >
+                              <div className="text-[10px] text-zinc-500 mb-1.5 text-center font-mono uppercase">Tone</div>
+                              <div className="flex gap-1 justify-center">
+                                {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
+                                  <button
+                                    key={key}
+                                    onClick={(e) => { e.stopPropagation(); if (!helpMode) setStance({ ...stance, seriousness: key }); }}
+                                    className={`px-1.5 py-1 rounded text-[10px] transition-all capitalize ${
+                                      stance.seriousness === key
+                                        ? 'bg-zinc-600 text-zinc-100 border border-zinc-500'
+                                        : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300 border border-zinc-700/50'
+                                    }`}
+                                  >
+                                    {key}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Stance Grid */}
+                            <div
+                              data-help="stance-selector"
+                              onClick={(e) => handleHelpClick('stance-selector', e)}
+                            >
+                              <StanceSelector
+                                stance={stance}
+                                setStance={setStance}
+                                showCustomize={true}
+                                setShowCustomize={() => {}}
+                                gridOnly={true}
+                                disabled={helpMode}
+                              />
+                            </div>
+
+                            {/* Model Selector + Token Display */}
+                            <div className="mt-3 pt-2 border-t border-zinc-700/50">
+                              {getAvailableModels().length > 1 && (
+                                <div className="flex items-center justify-center gap-2 mb-1.5">
+                                  <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
+                                  <select
+                                    value={selectedModel}
+                                    onChange={(e) => setSelectedModel(e.target.value)}
+                                    className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
+                                  >
+                                    {getAvailableModels().map(m => (
+                                      <option key={m} value={m}>{getModelLabel(m)}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                              )}
+                              <label className="flex items-center justify-center gap-2 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={showTokenUsage}
+                                  onChange={(e) => setShowTokenUsage(e.target.checked)}
+                                  className="w-3 h-3 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-0 cursor-pointer"
+                                />
+                                <span className="text-[10px] text-zinc-400 font-mono">Show token usage</span>
+                              </label>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
-                  </>
-                )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {showGlistener && (
-              <Glistener
-                onTransfer={(crystal) => {
-                  setQuestion(crystal);
-                  setShowGlistener(false);
-                }}
-                onClose={() => setShowGlistener(false)}
-              />
-            )}
-
-            {/* Glistener prompt + Default Depth & Expansion Selectors - same row */}
-            <div className="flex items-center justify-between gap-2 sm:gap-4 mb-2 max-w-2xl mx-auto">
-              {/* Glistener prompt - left side */}
-              {!showGlistener && spreadType !== 'explore' ? (
-                <button
-                  onClick={() => setShowGlistener(true)}
-                  className="text-sm text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1 sm:gap-2 shrink-0"
-                >
-                  <span className="text-amber-500">◇</span>
-                  <span className="hidden sm:inline">Don't have words yet? Try a <strong className="font-semibold text-zinc-200">Glisten</strong></span>
-                  <strong className="sm:hidden font-semibold text-zinc-200">Glisten</strong>
-                </button>
-              ) : (
-                <div /> /* Empty div to maintain spacing when Glistener hidden */
+                  </motion.div>
+                </>
               )}
-
-              {/* Selectors - right side */}
-              <div className="flex items-center gap-2 sm:gap-4">
-              {/* Depth selector */}
-              <div className="flex items-center gap-1 sm:gap-2">
-                <span className="text-xs text-zinc-500 hidden sm:inline">Start at:</span>
-                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
-                  <button
-                    onClick={() => {
-                      setDefaultDepth('shallow');
-                      setLetterDepth('shallow'); setPathDepth('shallow'); setSummaryDepth('shallow'); setWhyAppearedDepth('shallow');
-                    }}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultDepth === 'shallow'
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Shallow
-                  </button>
-                  <button
-                    onClick={() => {
-                      setDefaultDepth('wade');
-                      setLetterDepth('wade'); setPathDepth('wade'); setSummaryDepth('wade'); setWhyAppearedDepth('wade');
-                    }}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultDepth === 'wade'
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Wade
-                  </button>
-                </div>
-              </div>
-              {/* Expansion toggle */}
-              <div className="flex items-center gap-1 sm:gap-2">
-                <span className="text-xs text-zinc-500 hidden sm:inline">Cards:</span>
-                <div className="flex rounded-lg overflow-hidden border border-zinc-700/50">
-                  <button
-                    onClick={() => setDefaultExpanded(false)}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      !defaultExpanded
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Closed
-                  </button>
-                  <button
-                    onClick={() => setDefaultExpanded(true)}
-                    className={`px-2 sm:px-3 py-1 text-xs transition-colors ${
-                      defaultExpanded
-                        ? 'bg-amber-600/80 text-white'
-                        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
-                    }`}
-                  >
-                    Open
-                  </button>
-                </div>
-              </div>
-              </div>
-            </div>
-
-            {/* Question Input Section */}
-            <div className="relative mb-3 mt-4">
-              {/* Centered textarea */}
-              <div
-                className="relative max-w-2xl mx-auto"
-                data-help="question-input"
-                onClick={(e) => handleHelpClick('question-input', e)}
-              >
-                {spreadType === 'explore' ? (
-                  <textarea
-                    value={dtpInput}
-                    onChange={(e) => setDtpInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                    placeholder="Describe what's active for you right now...
-
-Example: I want to leave my job to start a bakery but I'm scared and my partner isn't sure about it"
-                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg px-4 pt-4 pb-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[140px] leading-relaxed"
-                    rows={5}
-                  />
-                ) : (
-                  <textarea
-                    value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
-                    placeholder={
-                      spreadType === 'forge'
-                        ? "What are you forging? Declare your intention..."
-                        : spreadType === 'reflect'
-                          ? "What area of life are you examining?"
-                          : "Name your question or declare your intent..."
-                    }
-                    className="content-pane w-full bg-zinc-800 border-2 border-zinc-700/80 rounded-lg p-4 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-600/50 focus:bg-zinc-800 resize-none transition-colors text-[1rem] sm:text-base min-h-[100px] sm:min-h-0"
-                    rows={3}
-                  />
-                )}
-              </div>
-
-              {/* Locus Selector — chip-based subject input, feature-flagged */}
-              {featureFlags.locus_control_enabled && spreadType !== 'explore' && (
-                <div className="mt-2 max-w-2xl mx-auto">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setLocusExpanded(!locusExpanded)}
-                      className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
-                    >
-                      <span>Focus:</span>
-                      <span className={`font-medium ${locusSubjects.length === 0 ? 'text-zinc-400' : 'text-amber-400'}`}>
-                        {locusSubjects.length === 0 ? 'Just Me' : locusSubjects.join(', ')}
-                      </span>
-                      <span className="text-[10px]">{locusExpanded ? '▲' : '▼'}</span>
-                    </button>
-                    {locusSubjects.length > 0 && (
-                      <button
-                        onClick={() => { setLocusSubjects([]); setLocusInput(''); setLocusExpanded(false); }}
-                        className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
-                      >
-                        ✕ Clear
-                      </button>
-                    )}
-                  </div>
-                  {locusExpanded && (
-                    <div className="mt-1.5">
-                      {/* Subject chips */}
-                      {locusSubjects.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-1.5">
-                          {locusSubjects.map((subject, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40"
-                            >
-                              {subject}
-                              <button
-                                onClick={() => setLocusSubjects(locusSubjects.filter((_, j) => j !== i))}
-                                className="text-amber-500/60 hover:text-amber-300 text-[10px] ml-0.5"
-                              >
-                                ✕
-                              </button>
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      {/* Input for adding subjects */}
-                      {locusSubjects.length < 5 && (
-                        <input
-                          type="text"
-                          value={locusInput}
-                          onChange={(e) => setLocusInput(e.target.value)}
-                          onKeyDown={(e) => {
-                            if ((e.key === 'Enter' || e.key === ',') && locusInput.trim()) {
-                              e.preventDefault();
-                              const name = locusInput.trim().replace(/,+$/, '');
-                              if (name && !locusSubjects.includes(name)) {
-                                setLocusSubjects([...locusSubjects, name]);
-                              }
-                              setLocusInput('');
-                            }
-                            if (e.key === 'Backspace' && !locusInput && locusSubjects.length > 0) {
-                              setLocusSubjects(locusSubjects.slice(0, -1));
-                            }
-                            if (e.key === 'Escape') {
-                              setLocusExpanded(false);
-                            }
-                          }}
-                          placeholder={locusSubjects.length === 0 ? 'Add a name or entity (e.g. Sarah, Mom, Team Alpha)...' : 'Add another...'}
-                          className="w-full max-w-sm bg-zinc-800 border border-zinc-700/60 rounded px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500/50"
-                          autoFocus
-                        />
-                      )}
-                      <p className="text-[10px] text-zinc-600 mt-1">
-                        {locusSubjects.length === 0 ? 'Type a name and press Enter. Add up to 5.' : `${locusSubjects.length}/5 subjects`}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Action row - Quick buttons + main action button */}
-              <div className="mt-3 max-w-2xl mx-auto flex items-center justify-between">
-                {/* Quick reading buttons - left side (all modes) */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-500">Quick:</span>
-                  {[1, 2, 3].map(count => (
-                    <button
-                      key={count}
-                      onClick={() => {
-                        const newDraws = generateSpread(count, false);
-                        setDraws(newDraws);
-                        performReadingWithDraws(newDraws, question.trim() || 'General reading');
-                      }}
-                      className="w-8 h-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 border border-amber-500/50 text-sm font-medium transition-colors"
-                      title={`${count}-card general reading`}
-                    >
-                      {count}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Main action button - right side */}
-                <button
-                  onClick={(e) => { if (!handleHelpClick('get-reading', e)) performReading(); }}
-                  data-help="get-reading"
-                  disabled={loading}
-                  className="px-6 py-2 min-h-[40px] bg-[#021810] hover:bg-[#052e23] disabled:bg-zinc-900 disabled:text-zinc-700 rounded-lg transition-all text-sm text-white font-medium border border-emerald-700/50"
-                >
-                  {loading ? 'Drawing...' : (spreadType === 'forge' ? 'Forge →' : spreadType === 'reflect' ? 'Reflect →' : spreadType === 'explore' ? 'Read This →' : 'Discover →')}
-                </button>
-              </div>
-            </div>
-            </>
-            )}
-          </>
-        )}
+            </AnimatePresence>
         </>
         )}
+        {/* End of currentUser ternary */}
+          </>
+        )}
+        {/* End of !draws conditional */}
 
         {/* Loading */}
         {loading && !expanding && (
@@ -5092,6 +5567,10 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                     tokenUsage,
                     threadData // Include thread data for cloud saves
                   }}
+                  glisten={glistenData}
+                  draws={draws}
+                  locusSubjects={locusSubjects}
+                  voice="friend-warm"
                   onSave={(saved) => setSavedReadingId(saved?.id)}
                 />
                 <ShareReadingButton
@@ -5164,6 +5643,10 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                         tokenUsage,
                         threadData // Include thread data for cloud saves
                       }}
+                      glisten={glistenData}
+                      draws={draws}
+                      locusSubjects={locusSubjects}
+                      voice={`${stance.complexity}-${stance.voice}`}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
                     />
                     <div data-help="action-share" onClick={(e) => handleHelpClick('action-share', e)}>
@@ -5431,7 +5914,19 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         {/* Your Question - shows after visual spread (non-Explore modes) */}
         {parsedReading && !loading && !parsedReading.firstContact && question && spreadType !== 'explore' && (
           <div className="content-pane bg-zinc-800/50 rounded-lg p-4 mb-6 mx-8">
-            <div className="text-[0.625rem] text-zinc-500 tracking-wider mb-2">Your question or intention</div>
+            <div className="flex items-center gap-2 mb-2">
+              {/* Glistened Tale button - shows if glisten data exists */}
+              {glistenData && (
+                <button
+                  onClick={() => setShowGlistenPanel(true)}
+                  className="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors flex items-center gap-1"
+                  title="View Glistened Tale"
+                >
+                  <span>✨</span> Glistened Tale
+                </button>
+              )}
+              <div className="text-[0.625rem] text-zinc-500 tracking-wider">Your question or intention</div>
+            </div>
             <div className="text-zinc-300 text-sm">{question}</div>
           </div>
         )}
@@ -5701,7 +6196,7 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
                   )}
                   <DepthCard
                     cardData={card}
-                    draw={draws[card.index]}
+                    draw={draws?.[card.index]}
                     isFirstContact={!!parsedReading?._isFirstContact}
                     showTraditional={showTraditional}
                     setSelectedInfo={setSelectedInfo}
@@ -6925,62 +7420,58 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
           </div>
         )}
 
-        {/* Footer */}
-        <footer className="border-t border-zinc-800/30 mt-8 pt-4 pb-2">
-          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-600 mb-2">
+        {/* Footer - sticky at bottom with dark background */}
+        <footer className="fixed bottom-0 left-0 right-0 bg-zinc-950/90 backdrop-blur-sm border-t border-zinc-800/50 pt-3 pb-2 z-40">
+          <div className="flex justify-center flex-wrap gap-4 text-xs text-zinc-500 mb-2">
             <a
               href="/guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Guide
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/about"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               About
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/council"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Council
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/map"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Map
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/privacy"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Privacy
             </a>
-            <span className="text-zinc-800">•</span>
+            <span className="text-zinc-700">•</span>
             <a
               href="/terms"
-              className="hover:text-zinc-400 transition-colors"
+              className="hover:text-zinc-300 transition-colors"
             >
               Terms
             </a>
           </div>
-          <p className="text-center text-zinc-400 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
-          <p className="text-center text-zinc-500 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
+          <p className="text-center text-zinc-300 text-[0.65rem] tracking-wide mb-1">We are love. We are eternal. Consciousness is Primary.</p>
+          <p className="text-center text-zinc-400 text-[0.625rem] tracking-wider">The structure is the authority. Encounter precedes understanding.</p>
         </footer>
+        {/* Spacer to prevent content from being hidden behind fixed footer */}
+        <div className="h-20"></div>
       </div>
 
       {/* Info Modal */}
@@ -7022,6 +7513,15 @@ Example: I want to leave my job to start a bakery but I'm scared and my partner 
         }}
         initialMode={authModalMode}
       />
+
+      {/* Glistened Tale Panel - view glisten data before saving */}
+      {showGlistenPanel && glistenData && (
+        <GlistenSourcePanel
+          data={glistenData}
+          onClose={() => setShowGlistenPanel(false)}
+          isOpen={showGlistenPanel}
+        />
+      )}
 
       {/* Version indicator - always visible for deployment verification */}
       <div className="fixed bottom-3 left-3 text-zinc-500 text-xs font-mono z-50">
