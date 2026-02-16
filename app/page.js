@@ -5199,16 +5199,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             <>
             {/* CONTROLS ZONE — fixed height, outside pane border. Textarea never moves. */}
             <div
-              className={`mx-auto max-w-2xl overflow-hidden transition-all duration-300 ${
+              className={`mx-auto max-w-2xl overflow-hidden transition-colors duration-300 border border-b-0 rounded-t-lg px-4 sm:px-6 pt-3 ${
                 advancedMode
-                  ? 'bg-zinc-900/30 border border-zinc-800/50 border-b-0 rounded-t-lg px-4 sm:px-6 pt-3'
-                  : 'px-4 sm:px-6'
+                  ? 'bg-zinc-900/30 border-zinc-800/50'
+                  : 'bg-transparent border-transparent'
               }`}
               style={{ height: 160 }}
             >
               <motion.div
                 ref={controlsAboveRef}
-                className={`controls-above overflow-y-auto ${!advancedMode ? 'pointer-events-none' : ''}`}
+                className={`controls-above h-full flex flex-col ${!advancedMode ? 'pointer-events-none' : ''}`}
                 initial={false}
                 animate={{
                   opacity: advancedMode ? 1 : 0,
@@ -5218,7 +5218,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 }}
               >
               {/* V1: Frame Selector — replaces mode tabs */}
-              <div className="flex justify-center mb-2 px-2">
+              <div className="flex justify-center mb-2 px-2 flex-shrink-0">
                 <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0">
                   <button
                     onClick={() => { setFrameSource('architecture'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
@@ -5260,9 +5260,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
 
-              {/* V1: Posture is internal — set by presets, not user-selectable */}
-
-              {/* Control Icons — moved to below-textarea row (visible when expanded) */}
+              {/* Scrollable mode content area — tabs stay pinned above */}
+              <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
 
               {/* V1: Custom Frame — card count + position name inputs */}
               {frameSource === 'custom' && (
@@ -5364,6 +5363,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
               )}
+              </div>{/* END scrollable mode content */}
               </motion.div>{/* END controls-above */}
             </div>{/* END controls zone */}
 
