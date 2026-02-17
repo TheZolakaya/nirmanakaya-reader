@@ -1422,7 +1422,7 @@ export default function NirmanakaReader() {
     // Check if all cards are loaded AND have actual content (not just placeholders)
     const allCardsLoaded = draws.every((_, i) => cardLoaded[i]);
     const allCardsHaveContent = parsedReading.cards?.every(card =>
-      card && (card.wade || card.surface || card.swim || card.deep) && !card._notLoaded
+      card && (card.wade || card.surface || card.swim || card.deep || card.reading || card.summary) && !card._notLoaded
     );
 
     if (allCardsLoaded && allCardsHaveContent && draws.length > 0) {
@@ -1437,9 +1437,9 @@ export default function NirmanakaReader() {
     if (!savedReadingId || !draws || !parsedReading?._onDemand || contentSaved) return;
     if (parsedReading._restored) return; // Don't re-save restored readings
 
-    // Check if all cards have content
+    // Check if all cards have content (V3: check flat fields too)
     const allCardsHaveContent = parsedReading.cards?.every(card =>
-      card && (card.wade || card.surface || card.swim || card.deep) && !card._notLoaded
+      card && (card.wade || card.surface || card.swim || card.deep || card.reading || card.summary) && !card._notLoaded
     );
 
     if (allCardsHaveContent && draws.length > 0) {
@@ -2045,13 +2045,19 @@ export default function NirmanakaReader() {
         throw new Error('Card generation returned empty content. Please try again.');
       }
 
+      // V3: Apply content filter to strip prohibited terms (honey, sweetheart, etc.)
+      const filteredCardData = { ...data.cardData };
+      ['summary', 'reading', 'mirror', 'why', 'rebalancer', 'growth'].forEach(key => {
+        if (filteredCardData[key]) filteredCardData[key] = filterProhibitedTerms(filteredCardData[key]);
+      });
+
       // Update the specific card in parsedReading
       setParsedReading(prev => {
         if (!prev) return prev;
         const newCards = [...prev.cards];
         newCards[cardIndex] = {
           ...newCards[cardIndex],
-          ...data.cardData,
+          ...filteredCardData,
           _notLoaded: false
         };
         return { ...prev, cards: newCards };
@@ -2676,21 +2682,21 @@ export default function NirmanakaReader() {
           const draw = draws[i];
           const trans = getComponent(draw.transient);
           const stat = STATUSES[draw.status];
-          const cardContent = card.wade || card.swim || card.surface;
+          const cardContent = card.reading || card.wade || card.swim || card.surface;
           if (cardContent) {
             // Include token context for DTP readings
             const cardTokenLabel = card.token ? ` (Regarding: ${card.token})` : '';
             let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}${cardTokenLabel}\n${cardContent}`;
             // Add Words to the Whys for this card
             if (card.why) {
-              const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+              const whyContent = typeof card.why === 'string' ? card.why : (card.why.wade || card.why.swim || card.why.surface || card.why.deep);
               if (whyContent) {
                 cardSection += `\n\nWHY THIS CARD (Teleological): ${whyContent}`;
               }
             }
             // Add Rebalancer if present
             if (card.rebalancer) {
-              const rebalContent = card.rebalancer.wade || card.rebalancer.swim || card.rebalancer.surface;
+              const rebalContent = typeof card.rebalancer === 'string' ? card.rebalancer : (card.rebalancer.wade || card.rebalancer.swim || card.rebalancer.surface);
               if (rebalContent) {
                 cardSection += `\n\nREBALANCER: ${rebalContent}`;
               }
@@ -2949,11 +2955,11 @@ Interpret this new card as the architecture's response to their declared directi
           const draw = draws[i];
           const trans = getComponent(draw.transient);
           const stat = STATUSES[draw.status];
-          const cardContent = card.wade || card.swim || card.surface;
+          const cardContent = card.reading || card.wade || card.swim || card.surface;
           if (cardContent) {
             let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
             if (card.why) {
-              const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+              const whyContent = typeof card.why === 'string' ? card.why : (card.why.wade || card.why.swim || card.why.surface || card.why.deep);
               if (whyContent) cardSection += `\n\nWHY THIS CARD: ${whyContent}`;
             }
             parts.push(cardSection);
@@ -3612,12 +3618,12 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
         const draw = draws[i];
         const trans = getComponent(draw.transient);
         const stat = STATUSES[draw.status];
-        const cardContent = card.wade || card.surface || card.content || '';
+        const cardContent = card.reading || card.wade || card.surface || card.content || '';
         readingContext += `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}\n`;
 
         // Words to the Whys for this card
         if (card.why) {
-          const whyContent = card.why.wade || card.why.swim || card.why.surface || card.why.deep;
+          const whyContent = typeof card.why === 'string' ? card.why : (card.why.wade || card.why.swim || card.why.surface || card.why.deep);
           if (whyContent) {
             readingContext += `\nWHY THIS CARD: ${whyContent}\n`;
           }
@@ -4304,8 +4310,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         md += `> **Role:** ${trans.role} | **Channel:** ${trans.channel} | **Associated Archetype:** ${assocArchetype?.name} (${assocArchetype?.traditional})\n\n`;
       }
 
-      // New structure: use deep (richest) content with full fallback chain
-      const cardContent = card.deep || card.swim || card.wade || card.surface || card.content || '';
+      // V3: prefer flat 'reading' field, fallback to legacy depth-tiered fields
+      const cardContent = card.reading || card.deep || card.swim || card.wade || card.surface || card.content || '';
       md += `${cardContent}\n\n`;
 
       if (rebalancer) {
@@ -4526,8 +4532,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       }
 
       const threadsHtml = renderSectionThreads(card.index);
-      // Export uses deep (richest) content with fallback chain
-      const cardContent = card.deep || card.swim || card.wade || card.surface || card.content || '';
+      // V3: prefer flat 'reading' field, fallback to legacy depth-tiered fields
+      const cardContent = card.reading || card.deep || card.swim || card.wade || card.surface || card.content || '';
 
       // Card expansions (Unpack, Clarify, Example, Architecture)
       const cardExpansions = expansions[`card-${card.index}`] || {};

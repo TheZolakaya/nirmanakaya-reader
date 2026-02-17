@@ -174,6 +174,24 @@ export async function POST(request) {
       }
     }
 
+    // Post-process: strip prohibited pet names deterministically
+    // (prompt instructions alone are not reliable enough)
+    const sanitizeText = (t) => {
+      if (!t) return t;
+      const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'my friend', 'my dear'];
+      let cleaned = t;
+      terms.forEach(term => {
+        cleaned = cleaned.replace(new RegExp(`\\bOh\\s+${term}\\b[,]?\\s*`, 'gi'), '');
+        cleaned = cleaned.replace(new RegExp(`\\b${term}\\b[,]?\\s*`, 'gi'), '');
+        cleaned = cleaned.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
+        cleaned = cleaned.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
+      });
+      return cleaned.replace(/\s{2,}/g, ' ').replace(/([.!?]\s+)([a-z])/g, (m, p, l) => p + l.toUpperCase()).trim();
+    };
+    ['summary', 'reading', 'mirror', 'why', 'rebalancer', 'growth'].forEach(key => {
+      if (parsedCard[key]) parsedCard[key] = sanitizeText(parsedCard[key]);
+    });
+
     return Response.json({
       cardData: parsedCard,
       cardIndex,

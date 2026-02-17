@@ -108,10 +108,32 @@ export async function POST(request) {
       ? parseDeepenResponse(text, depth, previousContent)
       : parseBaselineResponse(text);
 
+    // Post-process: strip prohibited pet names
+    const sanitize = (t) => {
+      if (!t) return t;
+      const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'my friend', 'my dear'];
+      let c = t;
+      terms.forEach(term => {
+        c = c.replace(new RegExp(`\\bOh\\s+${term}\\b[,]?\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`\\b${term}\\b[,]?\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
+      });
+      return c.replace(/\s{2,}/g, ' ').replace(/([.!?]\s+)([a-z])/g, (m, p, l) => p + l.toUpperCase()).trim();
+    };
+    const sanitizeObj = (obj) => {
+      if (!obj) return obj;
+      const result = {};
+      for (const [k, v] of Object.entries(obj)) {
+        result[k] = typeof v === 'string' ? sanitize(v) : v;
+      }
+      return result;
+    };
+
     return Response.json({
-      summary: parsed.summary,
-      whyAppeared: parsed.whyAppeared,
-      path: parsed.path,
+      summary: sanitizeObj(parsed.summary),
+      whyAppeared: sanitizeObj(parsed.whyAppeared),
+      path: sanitizeObj(parsed.path),
       usage: {
         ...data.usage,
         cache_creation_input_tokens: data.usage?.cache_creation_input_tokens || 0,
@@ -168,14 +190,20 @@ Your synthesis should reference these position names when weaving the signatures
     const posLabel = (fc && !fc.isEmpty) ? ` [${fc.label}]` : '';
 
     // For balanced cards, include growth opportunity. For imbalanced, include rebalancer.
+    // V3: handle both flat string fields and legacy depth-tiered objects
+    const getField = (field) => {
+      if (!field) return '';
+      if (typeof field === 'string') return field;
+      return field.wade || field.swim || field.deep || field.surface || '';
+    };
     const correctionInfo = isImbalanced
-      ? (card.rebalancer ? `Rebalancer: ${card.rebalancer.wade || card.rebalancer.surface || ''}` : '')
-      : (card.growth ? `Growth Opportunity: ${card.growth.wade || card.growth.surface || ''}` : '');
+      ? (card.rebalancer ? `Rebalancer: ${getField(card.rebalancer)}` : '')
+      : (card.growth ? `Growth Opportunity: ${getField(card.growth)}` : '');
 
     return `SIGNATURE ${i + 1}${posLabel}: ${cardName}
-Reading: ${card.wade || card.surface || '(loading)'}
+Reading: ${card.reading || card.wade || card.surface || '(loading)'}
 ${correctionInfo}
-Why: ${card.why?.wade || card.why?.surface || ''}`;
+Why: ${getField(card.why)}`;
   }).join('\n\n');
 
   const letterContext = typeof letter === 'string' ? letter : (letter?.wade || letter?.swim || letter?.deep || '');
