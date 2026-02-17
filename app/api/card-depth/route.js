@@ -479,7 +479,7 @@ The token "${token}" should appear naturally woven into your interpretations, gr
 // Parse card response — single-depth markers, flat structure
 function parseCardResponse(text, n, draw) {
   const extractSection = (marker) => {
-    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:|\\[[A-Z_]+\\]|$)`, 'i');
+    const regex = new RegExp(`\\[${marker}\\]([\\s\\S]*?)(?=\\[CARD:\\d+:[A-Z_]+\\]|$)`, 'i');
     const match = text.match(regex);
     if (!match) return '';
     let content = match[1].trim();
