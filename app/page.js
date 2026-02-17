@@ -610,6 +610,7 @@ export default function NirmanakaReader() {
   // Architecture mode: derived spread from question classification
   const [derivedSpread, setDerivedSpread] = useState(null); // { spreadKey, house, count, name, whenToUse, archetype }
   const [derivedLoading, setDerivedLoading] = useState(false);
+  const [derivedExpanded, setDerivedExpanded] = useState(false); // Tappable expansion of derived spread detail
   const derivedTimer = useRef(null);
   const activeReadingOverrides = useRef(null); // Stores { spreadType, spreadKey } for on-demand card/synthesis loading
   const [userReadingCount, setUserReadingCount] = useState(0);
@@ -796,6 +797,7 @@ export default function NirmanakaReader() {
     if (frameSource !== 'architecture') {
       setDerivedSpread(null);
       setDerivedLoading(false);
+      setDerivedExpanded(false);
       if (derivedTimer.current) clearTimeout(derivedTimer.current);
       return;
     }
@@ -5741,23 +5743,63 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {/* Glisten trigger / Architecture spread indicator - inside textarea, bottom left */}
                   {!showGlistener && (
                     frameSource === 'architecture' && question.trim().length >= 10 ? (
-                      // Architecture mode: show derived spread or loading indicator
-                      <div className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-2 z-10 transition-all duration-300">
-                        <span className="text-amber-500/70">◇</span>
+                      // Architecture mode: tappable derived spread indicator with expansion
+                      <div className="absolute bottom-3 left-3 z-10 transition-all duration-300" onClick={(e) => e.stopPropagation()}>
                         {derivedLoading ? (
-                          <span className="text-zinc-500 inline-flex gap-0.5">
-                            <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
-                            <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
-                            <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
-                          </span>
+                          <div className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-2 px-1 py-0.5">
+                            <span className="text-amber-500/70">◇</span>
+                            <span className="text-zinc-500 inline-flex gap-0.5">
+                              <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+                              <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+                              <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+                            </span>
+                          </div>
                         ) : derivedSpread ? (
-                          <span className="flex items-center gap-1.5">
-                            <span className="text-amber-400">{derivedSpread.name}</span>
-                            <span className="text-zinc-600">·</span>
-                            <span className="text-blue-400/70">{derivedSpread.house}</span>
-                            <span className="text-zinc-600">·</span>
-                            <span className="text-blue-400/70">{derivedSpread.count}</span>
-                          </span>
+                          <div>
+                            {/* Collapsed: tappable spread name */}
+                            <button
+                              onClick={() => setDerivedExpanded(!derivedExpanded)}
+                              className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5 px-1 py-0.5 rounded hover:bg-white/5 transition-colors"
+                            >
+                              <span className="text-amber-500/70">◇</span>
+                              <span className="text-amber-400">{derivedSpread.name}</span>
+                              <span className="text-zinc-600">·</span>
+                              <span className="text-blue-400/70">{derivedSpread.house}</span>
+                              <span className="text-zinc-600">·</span>
+                              <span className="text-blue-400/70">{derivedSpread.count}</span>
+                              <span className={`text-zinc-600 text-[0.65rem] ml-0.5 transition-transform duration-200 ${derivedExpanded ? 'rotate-180' : ''}`}>▾</span>
+                            </button>
+                            {/* Expanded: spread detail panel */}
+                            {derivedExpanded && (() => {
+                              const spread = REFLECT_SPREADS[derivedSpread.spreadKey];
+                              if (!spread) return null;
+                              return (
+                                <div className="mt-1.5 px-2 py-2 rounded-lg bg-zinc-900/90 border border-zinc-700/50 backdrop-blur-sm max-w-[360px]">
+                                  {/* Archetype */}
+                                  <div className="text-[0.7rem] text-zinc-500 font-mono tracking-wider mb-1.5">
+                                    {spread.archetype?.number} {spread.archetype?.verb} — {spread.archetype?.traditional}
+                                  </div>
+                                  {/* When to use */}
+                                  <div className="text-[0.8rem] text-zinc-300 leading-relaxed mb-2 normal-case tracking-normal" style={{ fontFamily: 'system-ui, sans-serif' }}>
+                                    {spread.whenToUse}
+                                  </div>
+                                  {/* Positions */}
+                                  <div className="flex items-center gap-1.5 mb-1.5">
+                                    {spread.positions.map((pos, i) => (
+                                      <span key={i} className="text-[0.7rem] font-mono text-amber-400/80 tracking-wide">
+                                        {i > 0 && <span className="text-zinc-600 mr-1.5">→</span>}
+                                        {pos.name}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  {/* What you'll see */}
+                                  <div className="text-[0.7rem] text-zinc-500 leading-relaxed normal-case tracking-normal" style={{ fontFamily: 'system-ui, sans-serif' }}>
+                                    {spread.whatYoullSee}
+                                  </div>
+                                </div>
+                              );
+                            })()}
+                          </div>
                         ) : null}
                       </div>
                     ) : (
