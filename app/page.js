@@ -5771,11 +5771,11 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             </span>
                           </div>
                         ) : derivedSpread ? (
-                          <div>
+                          <div className={`rounded-lg ${derivedExpanded ? 'bg-zinc-950 border border-zinc-700/50' : ''}`}>
                             {/* Collapsed: tappable spread name */}
                             <button
                               onClick={() => setDerivedExpanded(!derivedExpanded)}
-                              className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5 px-1 py-0.5 rounded hover:bg-white/5 transition-colors"
+                              className={`text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/5 transition-colors ${derivedExpanded ? 'bg-zinc-950' : ''}`}
                             >
                               <span className="text-amber-500/70">◇</span>
                               <span className="text-amber-400">{derivedSpread.name}</span>
@@ -5790,7 +5790,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               const spread = REFLECT_SPREADS[derivedSpread.spreadKey];
                               if (!spread) return null;
                               return (
-                                <div className="mt-1.5 px-2 py-2 rounded-lg bg-zinc-900 border border-zinc-700/50 max-w-[360px]">
+                                <div className="px-2 py-2 max-w-[360px]">
                                   {/* Archetype */}
                                   <div className="text-[0.7rem] text-zinc-500 font-mono tracking-wider mb-1.5">
                                     {spread.archetype?.number} {spread.archetype?.verb} — {spread.archetype?.traditional}
