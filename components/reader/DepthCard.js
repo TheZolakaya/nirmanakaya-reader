@@ -1040,7 +1040,11 @@ const DepthCard = ({
         <>
           {/* Card name reminder */}
           <div className="text-xs text-zinc-500 mb-3 italic">
-            Reading for {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}
+            {frameLabel ? (
+              <>{frameLabel}: {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+            ) : (
+              <>Reading for {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+            )}
           </div>
           <div className="leading-relaxed text-sm mb-4 text-zinc-300 animate-fadeIn">
             {isLoading ? (
@@ -1428,7 +1432,11 @@ const DepthCard = ({
 
               {/* Card name reminder */}
               <div className="text-xs text-emerald-400/60 mb-3 italic">
-                Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}
+                {frameLabel ? (
+                  <>{frameLabel}: Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+                ) : (
+                  <>Rebalancing {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+                )}
               </div>
               <div className="leading-relaxed text-sm mb-4 text-emerald-100/90 animate-fadeIn">
                 {getRebalancerContent(rebalancerDepth) ? (
@@ -1796,7 +1804,11 @@ const DepthCard = ({
 
               {/* Card name reminder */}
               <div className="text-xs text-teal-400/60 mb-3 italic">
-                Growth from {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}
+                {frameLabel ? (
+                  <>{frameLabel}: Growth from {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+                ) : (
+                  <>Growth from {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel}</>
+                )}
               </div>
               <div className="leading-relaxed text-sm mb-4 text-teal-100/90 animate-fadeIn">
                 {getGrowthContent(growthDepth) ? (
@@ -1932,7 +1944,11 @@ const DepthCard = ({
             <>
               {/* Card name reminder */}
               <div className="text-xs text-cyan-400/60 mb-3 italic">
-                Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel} appeared
+                {frameLabel ? (
+                  <>{frameLabel}: Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel} appeared</>
+                ) : (
+                  <>Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel} appeared</>
+                )}
               </div>
               {/* THE MIRROR - single poetic reflection, no depth navigation */}
               <div className="mb-4">
