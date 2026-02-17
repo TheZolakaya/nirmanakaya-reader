@@ -111,7 +111,7 @@ export async function POST(request) {
     // Post-process: strip prohibited pet names
     const sanitize = (t) => {
       if (!t) return t;
-      const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'my friend', 'my dear'];
+      const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'beloved', 'my friend', 'my dear'];
       let c = t;
       terms.forEach(term => {
         c = c.replace(new RegExp(`\\bOh\\s+${term}\\b[,]?\\s*`, 'gi'), '');
