@@ -740,6 +740,8 @@ export default function NirmanakaReader() {
 
   // Collapse triggers: textarea click always collapses when in advanced mode
   const handleTextareaClick = () => {
+    // Dismiss derived spread detail panel on any click in textarea area
+    if (derivedExpanded) setDerivedExpanded(false);
     if (advancedMode) {
       // User clicked textarea - COLLAPSE FIRST, then start continuous pulse
       setAdvancedMode(false);
@@ -752,6 +754,14 @@ export default function NirmanakaReader() {
       setBorderPulseActive(true);
     }
   };
+
+  // Click anywhere outside to dismiss derived spread detail panel
+  useEffect(() => {
+    if (!derivedExpanded) return;
+    const dismiss = () => setDerivedExpanded(false);
+    document.addEventListener('click', dismiss);
+    return () => document.removeEventListener('click', dismiss);
+  }, [derivedExpanded]);
 
   // Turn off border flash/pulse when expanding, changing mode, or on unmount
   useEffect(() => {
@@ -844,7 +854,12 @@ export default function NirmanakaReader() {
     if (frameSource === 'dynamic') {
       return buildFrameContext('explore', { index, label: dtpTokens?.[index] || null });
     }
-    // 'architecture' — use derived spread if available, otherwise fall back to discover
+    // 'architecture' — use locked-in overrides first (prevents race condition if derivedSpread
+    // gets overwritten by a late debounce), then live derivedSpread, then discover fallback
+    const lockedKey = activeReadingOverrides.current?.spreadKey;
+    if (lockedKey) {
+      return buildFrameContext('preset', { spreadKey: lockedKey, index });
+    }
     if (derivedSpread) {
       return buildFrameContext('preset', { spreadKey: derivedSpread.spreadKey, index });
     }
@@ -2595,10 +2610,11 @@ export default function NirmanakaReader() {
     // Architecture mode: route through the derived spread's frame
     // If classification hasn't completed yet (user submitted before debounce), do it synchronously
     if (frameSource === 'architecture' && actualQuestion.trim().length >= 10) {
+      // Always cancel pending debounce to prevent stale classification overwriting derivedSpread mid-reading
+      if (derivedTimer.current) clearTimeout(derivedTimer.current);
       let spread = derivedSpread;
       if (!spread) {
-        // Cancel pending debounce and classify synchronously
-        if (derivedTimer.current) clearTimeout(derivedTimer.current);
+        // Classify synchronously since debounce hadn't completed
         try {
           const res = await fetch('/api/spread-recommend', {
             method: 'POST',
@@ -5613,7 +5629,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       <textarea
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && (e.preventDefault(), performReading())}
+                        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && !loading && !(frameSource === 'architecture' && question.trim().length >= 10 && (derivedLoading || !derivedSpread)) && (e.preventDefault(), performReading())}
                         className={`content-pane w-full bg-zinc-900 border-2 rounded-lg p-4 pb-16 pr-12 focus:outline-none focus:bg-zinc-900 resize-none text-[1rem] sm:text-base min-h-[120px] ${crystalFlash ? 'animate-crystal-text-flash' : 'text-white'} ${(glistenerPhase === 'loading' || glistenerPhase === 'streaming') ? 'animate-border-rainbow' : ''} ${initiateFlash ? 'animate-border-rainbow-fast' : ''} ${borderFlashActive && !initiateFlash ? 'animate-border-flash-mode' : ''} ${borderPulseActive && !initiateFlash ? 'animate-border-pulse-mode' : ''}`}
                         style={{
                           caretColor: '#fbbf24', // Amber cursor matching theme
@@ -5844,7 +5860,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     <motion.button
                       onClick={(e) => { e.stopPropagation(); if (!handleHelpClick('get-reading', e)) performReading(); }}
                       data-help="get-reading"
-                      disabled={loading}
+                      disabled={loading || (frameSource === 'architecture' && question.trim().length >= 10 && (derivedLoading || !derivedSpread))}
                       className={`group absolute bottom-4 right-4 flex items-center gap-2 px-4 py-1.5 rounded-lg border backdrop-blur-md transition-all duration-300 bg-black/20 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed z-10 ${
                         frameSource === 'architecture' ? 'border-blue-500/50 hover:border-blue-400' :
                         frameSource === 'preset' ? 'border-violet-500/50 hover:border-violet-400' :
