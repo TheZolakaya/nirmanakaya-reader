@@ -109,7 +109,47 @@ The forty Bounds organize into a 4×4 grid — houses as columns, channels as ro
 
 Every row sums to forty. Every column sums to forty. Every 2×2 block (all sixteen of them, wrapping around the edges) sums to forty. The four corners sum to forty.
 
-The channel assignments — which archetype gets which element — are not chosen by interpretation. They are determined by the geometry of the pentagram itself, through P/R operations that rotate and mirror the elemental pattern from house to house. The golden ratio (Phi) encodes the rotation. The result is a single valid assignment — the only one out of all possible permutations that satisfies all constraints simultaneously.
+The channel assignments — which archetype gets which element — are not chosen by interpretation. They are determined by the geometry of the pentagram itself, through operations that rotate and mirror the elemental pattern from house to house. Here is the working.
+
+#### The Base Pattern
+
+Each house contains four archetypes arranged in a 2×2 grid. The elements assign to positions following a base pattern:
+
+```
+    Air       Water
+
+    Earth     Fire
+```
+
+This is the pattern as seen from the center of the pentagram looking outward toward any house. Now the pentagram propagates it.
+
+#### The Rotation
+
+The pentagram generates two distinct orderings from its own geometry:
+
+**Ordering 1 — Counter-clockwise rotation around the pentagon.** Starting from Spirit and moving counter-clockwise: Spirit → Emotion → Mind → Body. This gives the column order of the Seal.
+
+**Ordering 2 — Pentagram trace (the cooling sequence).** Starting from the top and tracing the pentagram's five-pointed star through the lower four points without lifting the pen: Fire → Air → Water → Earth (Spirit → Mind → Emotion → Body). This gives the row order of the Seal.
+
+Two orderings from the same geometric figure. One sequential (rotation around the circle), one diagonal (the star trace through it). When you use these two complementary orderings as the axes of a grid, the constant-sum properties emerge from geometric necessity — because both orderings derive from the same structure.
+
+#### The Propagation
+
+The base pattern does not repeat identically. It transforms as it propagates from house to house, following the pentagram's symmetries:
+
+**Spirit** receives the base pattern directly — it sits at the first position on the pentagram.
+
+**Spirit → Mind** (copy): the pattern copies exactly, rotated to Mind's position. The spatial relationship between Spirit and Mind on the pentagram preserves the base arrangement.
+
+**Mind → Emotion** (mirror): the pattern flips across the vertical axis. Mind and Emotion sit on opposite sides of the pentagram — left arm versus right arm — so the pattern mirrors. What was Air-Water becomes Water-Air. What was Earth-Fire becomes Fire-Earth.
+
+**Emotion → Body** (slide): the pattern slides down exactly from Emotion's position to Body's. The mirrored arrangement persists.
+
+The result: the left side of the pentagram (Mind, Body) mirrors the right side (Spirit, Emotion). Every house receives a unique channel assignment, but all four assignments derive from the same base pattern through operations that the pentagram's geometry forces. No choice is made. The geometry propagates.
+
+#### The Grid
+
+When the sixteen manifest archetypes are placed in the grid — columns from the counter-clockwise rotation, rows from the pentagram trace — every row sums to forty, every column sums to forty, and every 2×2 block sums to forty. Not because the numbers were selected for this property, but because the two complementary orderings of the same pentagram produce balanced circulation by geometric necessity.
 
 The Forty-Fold Seal is not a clever arrangement. It is the only arrangement possible given the architecture's axioms. The structure forces it.
 

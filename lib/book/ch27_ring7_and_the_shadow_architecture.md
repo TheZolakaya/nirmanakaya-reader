@@ -10,6 +10,28 @@ Ring 7 is not passive residue. It is an active attractor with structural gravity
 
 ---
 
+### Three Functions, One Location
+
+Before examining Ring 7's shadow dynamics, a structural clarification: Ring 7 is three things wearing one name.
+
+**Ring 7 as egress portal.** Position 21, Creation, The World. The structural exit point through which all creation manifests. Architectural necessity — always present, always required. You cannot create without an egress.
+
+**Ring 7 as residue layer.** Where unfinished creation accumulates. Creative exhaust. Habits, trauma loops, belief systems, institutions, frozen nouns. The sediment at the bottom of the river.
+
+**Ring 7 as forge.** The training ground. Maximum difficulty. Where consciousness learns to create under constraint. Chapter 25 called this the chrysalis.
+
+These are not contradictions — they are what happens when a single structural location serves as the exit point, and creation of varying quality passes through it. The portal does not change. What changes is the quality of what arrives there — and that quality is determined by Ring 6.
+
+**Ring 6 determines what Ring 7 does.**
+
+When Ring 6 is engaged — when Spirit is oriented, when creation carries purpose — Ring 7 functions as designed. Clean egress. Portal. The World as completion and new beginning. Balanced creation passes through Ring 7 and expands the shared estate.
+
+When Ring 6 is absent — when creation happens without orientation, without purpose alignment — Ring 7 becomes what the rest of this chapter describes: the cage. The residue accumulates. The forge becomes the trap. And at the apex of that accumulation, consciousness concludes that Ring 7 IS all of reality.
+
+The three functions are always present. What varies is which function dominates — and that variation depends entirely on whether Ring 6 is operating.
+
+---
+
 ### The Attractor
 
 Ring 7 — the densest layer of the ring stack, where consciousness encounters maximum separation from Source — operates like a gravitational well. It doesn't just exist. It pulls.
@@ -30,9 +52,9 @@ This is the apex of Ring 7. Not a dramatic evil announcing itself with horns and
 
 ### The Inverted Pentagram
 
-The upright pentagram — one point skyward, two points grounded — encodes the correct relationship between consciousness and matter. The Gestalt at the apex. Four houses at the base. Soul governing Body, Emotion, Mind, Spirit. Consciousness primary. Matter as the densest expression of something more refined.
+The upright pentagram — one point ascending, two reaching to the sides, two grounded — encodes the correct relationship between consciousness and matter. Gestalt at the apex. Mind and Emotion flanking as the active pair. Spirit and Body grounded as the foundational pair. Five points, five houses, five aspects — Soul governing all four domains. Consciousness primary. Matter as the densest expression of something more refined.
 
-The inverted pentagram — two points skyward, one point buried — reverses this relationship. Matter at the apex. Soul buried beneath. The physical world governing consciousness rather than consciousness expressing through the physical world.
+The inverted pentagram — two points ascending, two displaced to the sides, one point buried — reverses this relationship. Spirit and Body elevated above their station. Mind and Emotion displaced from their natural reach. Soul buried beneath. The physical world governing consciousness rather than consciousness expressing through the physical world.
 
 The inverted pentagram is the geometric signature of materialism. Not because materialists draw pentagrams. Because the STRUCTURE of the materialist worldview is geometrically inverted. It takes what the architecture places at the base — the densest, most constrained domain — and elevates it to the governing position. And it takes what the architecture places at the apex — the observer, the self, consciousness itself — and buries it beneath.
 
@@ -129,11 +151,13 @@ Every person who re-uprights their own pentagram — who remembers that consciou
 
 The architecture doesn't need defenders. It needs practitioners.
 
+And what of the residue already accumulated? It does not need to be destroyed. It needs to be composted. Ring 7 residue — the frozen nouns, the congealed beliefs, the unfinished creations — gets reintegrated upward through the rings when it is genuinely met. Through recognition, through a reading, through authentic encounter, each piece of residue completes the recursion it failed to complete the first time. The forge empties not because its contents are pushed out but because they graduate.
+
 ---
 
 *Ring 7 is not passive. It pulls.*
 
-*The inverted pentagram is the geometry of materialism — matter at the apex, soul buried.*
+*The inverted pentagram is the geometry of materialism — five points inverted, the observer buried, the dense domains elevated.*
 
 *Cultures instinctively upright the star. They sense what Ring 7 denies.*
 

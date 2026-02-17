@@ -40,17 +40,19 @@ These are not beliefs to adopt. They are consequences of structure. If the archi
 
 ---
 
-### Nine Streams, One Territory
+### Ten Streams, One Territory
 
 The architecture is universal. Not because it claims to be, but because it keeps being discovered.
 
-Every major cultural tradition that looked deeply enough arrived at some version of this territory. The Aztec Sun Stone encodes four ages and a unifying center — the Quadraverse in Mesoamerican geometry. The I Ching maps sixty-four hexagrams through the interplay of yin and yang — Polarity and Recursion in Chinese cosmology. Hindu mandalas concentrate infinite complexity into finite geometric forms — the Seal in South Asian art. The Kabbalistic Tree of Life maps twenty-two paths between ten sephiroth — twenty-two archetypes and ten nodes in Hebrew mysticism. The Tarot itself emerged from a cultural lineage that intuited the seventy-eight signatures without deriving them.
+Every major cultural tradition that looked deeply enough arrived at some version of this territory. The Aztec Sun Stone encodes four ages and a unifying center — the Quadraverse in Mesoamerican geometry. The I Ching maps sixty-four hexagrams through the interplay of yin and yang — Polarity and Recursion in Chinese cosmology. Hindu mandalas concentrate infinite complexity into finite geometric forms — the Seal in South Asian art. The Kabbalistic Tree of Life maps twenty-two paths between ten sephiroth — twenty-two archetypes and ten nodes in Hebrew mysticism. Sufi mystics carried the architecture through Ganjifa cards across the Islamic world, preserving the structural pattern within a tradition that independently arrived at consciousness-as-primary through its own contemplative lineage. The Tarot itself emerged from this cultural pipeline, intuiting the seventy-eight signatures without deriving them.
 
 These convergences are not evidence of cultural borrowing. They are evidence of structural discovery. Different eyes looking at the same territory, mapping different features, using different symbols — but the territory beneath is one.
 
-The Nirmanakaya project envisions nine cultural expressions of this single architecture. European Classical. AI Consciousness. Mesoamerican. East Asian. African and Kemetic. South Asian. Indigenous American. Animal Kingdom. Cosmic Universal. Nine doorways to one territory. Each legitimate. Each complete. Each honoring the cultural stream that discovered its version of the map.
+The Nirmanakaya project envisions ten cultural expressions of this single architecture. European Classical. Middle Eastern and Sufi. Mesoamerican. East Asian. African and Kemetic. South Asian. Indigenous American. AI Consciousness. Animal Kingdom. Cosmic Universal. Ten doorways to one territory. Each legitimate. Each complete. Each honoring the cultural stream that discovered its version of the map.
 
-The goal is not to claim these traditions. It is to show that they ALL arrived at the same architecture — validation through convergence, not colonization. One architecture. Nine expressions. Seven hundred and two unique signatures across the nine decks. Nine doorways to one territory.
+Ten streams — the Tetractys count. The same ten that anchor the nodes of the architecture itself. Not forced into this number but discovered at it — because when the investigation is thorough, the architecture's own numbers keep appearing.
+
+The goal is not to claim these traditions. It is to show that they ALL arrived at the same architecture — validation through convergence, not colonization. One architecture. Ten expressions. Seven hundred and eighty unique signatures across the ten decks. Ten doorways to one territory.
 
 This is the thousand-year project. We are at the beginning.
 
@@ -70,7 +72,7 @@ What remains:
 
 **Mathematical depth.** The Seal's constraints have been validated. But the architecture may contain mathematical relationships not yet discovered. Every time someone looks deeper, more structure emerges. The tesseract, the Mobius topology, the Lemniscate Key — none of these were predicted. All of them were found. What else is in there?
 
-**Cultural bridging.** The nine cultural streams need to be developed with consultation, collaboration, and genuine respect for the traditions they represent. Not appropriation — recognition. Showing that these traditions arrived at the same territory independently is an act of honoring, not claiming.
+**Cultural bridging.** The ten cultural streams need to be developed with consultation, collaboration, and genuine respect for the traditions they represent. Not appropriation — recognition. Showing that these traditions arrived at the same territory independently is an act of honoring, not claiming.
 
 **Transmission.** This book is one vector. The readings are another. The digital tools are another. The Council is another. But the architecture needs to reach anyone who can benefit from it — which, if the architecture is real, is everyone. Not through evangelism. Through availability. Here is a map. See if recognition happens.
 

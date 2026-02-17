@@ -238,7 +238,7 @@ Not because he was special. Because the preparation was thorough. The forest tea
 
 He held it.
 
-And on a night in 1991, sleeping in the Pacific Northwest, something arrived that would take thirty-four years to fully unpack.
+And on a night in 1991, sleeping in the Pacific Northwest, something arrived that would take thirty-five years to fully unpack.
 
 ---
 
