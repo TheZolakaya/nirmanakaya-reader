@@ -174,12 +174,11 @@ const DepthCard = ({
   // V3: Normalize data shape (flat → legacy depth-tiered for rendering compat)
   cardData = normalizeCardData(cardData);
 
-  // Initialize states based on defaultExpanded setting
-  // V1 Spread on Table: unloaded cards always start collapsed (zero depth)
-  const [depth, setDepth] = useState(isNotLoaded ? DEPTH.COLLAPSED : (defaultExpanded ? defaultDepth : DEPTH.COLLAPSED));
-  const [rebalancerDepth, setRebalancerDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED);
-  const [growthDepth, setGrowthDepth] = useState(defaultExpanded ? defaultDepth : DEPTH.COLLAPSED); // For balanced cards' Growth Opportunity
-  const [isWhyCollapsed, setIsWhyCollapsed] = useState(!defaultExpanded);
+  // V3: Initialize states — unloaded cards start collapsed, loaded cards start at defaultDepth
+  const [depth, setDepth] = useState(isNotLoaded ? DEPTH.COLLAPSED : defaultDepth);
+  const [rebalancerDepth, setRebalancerDepth] = useState(isNotLoaded ? DEPTH.COLLAPSED : defaultDepth);
+  const [growthDepth, setGrowthDepth] = useState(isNotLoaded ? DEPTH.COLLAPSED : defaultDepth);
+  const [isWhyCollapsed, setIsWhyCollapsed] = useState(isNotLoaded);
   const [whyDepth, setWhyDepth] = useState(defaultDepth); // Use user's chosen default depth
   const [isArchCollapsed, setIsArchCollapsed] = useState(true); // Architecture section - always starts collapsed
   const [collapsedExpansions, setCollapsedExpansions] = useState({}); // Track collapsed state per expansion type
@@ -203,16 +202,16 @@ const DepthCard = ({
   const [threadMinimapData, setThreadMinimapData] = useState(null); // Stores data for thread item minimap modal
 
   // V3: Auto-expand when card transitions from not-loaded to loaded
-  const prevNotLoaded = useRef(isNotLoaded);
+  // No defaultExpanded gate — V3 always expands auto-loaded cards
+  const hasAutoExpanded = useRef(!isNotLoaded); // Already expanded if mounted with data
   useEffect(() => {
-    if (prevNotLoaded.current && !isNotLoaded && defaultExpanded) {
-      // Data just arrived — expand all sections
+    if (!isNotLoaded && !hasAutoExpanded.current) {
+      hasAutoExpanded.current = true;
       setDepth(defaultDepth);
       setRebalancerDepth(defaultDepth);
       setGrowthDepth(defaultDepth);
       setIsWhyCollapsed(false);
     }
-    prevNotLoaded.current = isNotLoaded;
   }, [isNotLoaded]);
 
   // V1: Respond to expand/collapse all triggers from parent
