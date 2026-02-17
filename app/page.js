@@ -4186,7 +4186,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     return (
       <div
         id={`card-${index}`}
-        className={`rounded-lg border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group relative overflow-hidden`}
+        className={`rounded-lg border-2 p-4 ${houseColors.border} ${houseColors.bg} transition-all cursor-pointer hover:border-opacity-80 group relative overflow-hidden flex flex-col`}
         onClick={scrollToContent}
       >
         {/* Card artwork background */}
@@ -4306,8 +4306,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           </div>
         )}
 
-        {/* Frame context pill — shows spread position with color-coded source */}
-        <div className="relative z-10">
+        {/* Frame context pill — shows spread position with color-coded source, pinned to bottom */}
+        <div className="relative z-10 mt-auto">
           <FrameContextBox frameContext={cardFrameContext} compact />
         </div>
       </div>
