@@ -6285,6 +6285,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   <div className="p-4 pt-0">
                     <div className={`grid gap-4 ${
                       draws.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                      draws.length === 2 ? 'grid-cols-2 max-w-2xl mx-auto' :
                       draws.length === 3 ? 'grid-cols-1 sm:grid-cols-3' :
                       draws.length === 4 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' :
                       'grid-cols-1 sm:grid-cols-3 lg:grid-cols-5'
