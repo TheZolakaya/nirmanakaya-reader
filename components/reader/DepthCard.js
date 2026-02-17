@@ -492,6 +492,7 @@ const DepthCard = ({
         reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
         why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
         rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+        growth: cardData.growth ? { shallow: cardData.growth.shallow || '', wade: cardData.growth.wade || '', swim: cardData.growth.swim || '' } : null,
         architecture: cardData.architecture || '',
         mirror: cardData.mirror || ''
       };
@@ -949,6 +950,7 @@ const DepthCard = ({
                         reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
                         why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
                         rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                        growth: cardData.growth ? { shallow: cardData.growth.shallow || '', wade: cardData.growth.wade || '', swim: cardData.growth.swim || '' } : null,
                         architecture: cardData.architecture || '',
                         mirror: cardData.mirror || ''
                       };
@@ -1008,6 +1010,7 @@ const DepthCard = ({
                   reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
                   why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
                   rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                  growth: cardData.growth ? { shallow: cardData.growth.shallow || '', wade: cardData.growth.wade || '', swim: cardData.growth.swim || '' } : null,
                   architecture: cardData.architecture || '',
                   mirror: cardData.mirror || ''
                 };
@@ -2006,6 +2009,7 @@ const DepthCard = ({
                                         reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
                                         why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
                                         rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                        growth: cardData.growth ? { shallow: cardData.growth.shallow || '', wade: cardData.growth.wade || '', swim: cardData.growth.swim || '' } : null,
                                         architecture: cardData.architecture || '',
                                         mirror: cardData.mirror || ''
                                       };
@@ -2060,6 +2064,7 @@ const DepthCard = ({
                                   reading: { shallow: cardData.shallow || '', wade: cardData.wade || '', swim: cardData.swim || '' },
                                   why: { shallow: cardData.why?.shallow || '', wade: cardData.why?.wade || '', swim: cardData.why?.swim || '' },
                                   rebalancer: cardData.rebalancer ? { shallow: cardData.rebalancer.shallow || '', wade: cardData.rebalancer.wade || '', swim: cardData.rebalancer.swim || '' } : null,
+                                  growth: cardData.growth ? { shallow: cardData.growth.shallow || '', wade: cardData.growth.wade || '', swim: cardData.growth.swim || '' } : null,
                                   architecture: cardData.architecture || '',
                                   mirror: cardData.mirror || ''
                                 };

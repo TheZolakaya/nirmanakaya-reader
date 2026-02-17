@@ -2176,14 +2176,43 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Use functional update to avoid stale state when multiple sections load concurrently
+      // Section-aware merge: only overwrite sections that were actually requested.
+      // This prevents race conditions when multiple sections deepen concurrently,
+      // and preserves nested keys (like .surface) that the deepening response doesn't include.
+      const requestedSections = sections || ['reading', 'why', 'rebalancer', 'growth'];
       setParsedReading(prev => {
         if (!prev) return prev;
         return {
           ...prev,
-          cards: prev.cards?.map((card, i) =>
-            i === cardIndex ? { ...card, ...data.cardData } : card
-          ) || []
+          cards: prev.cards?.map((card, i) => {
+            if (i !== cardIndex) return card;
+            const merged = { ...card };
+
+            // Reading content is flat at top level
+            if (requestedSections.includes('reading')) {
+              merged.shallow = data.cardData.shallow ?? card.shallow;
+              merged.wade = data.cardData.wade ?? card.wade;
+              merged.swim = data.cardData.swim ?? card.swim;
+              merged.deep = data.cardData.deep ?? card.deep;
+            }
+
+            // Nested objects: deep merge to preserve keys server didn't return (e.g. surface)
+            if (requestedSections.includes('why') && data.cardData.why) {
+              merged.why = { ...card.why, ...data.cardData.why };
+            }
+            if (requestedSections.includes('rebalancer') && data.cardData.rebalancer) {
+              merged.rebalancer = { ...card.rebalancer, ...data.cardData.rebalancer };
+            }
+            if (requestedSections.includes('growth') && data.cardData.growth) {
+              merged.growth = { ...card.growth, ...data.cardData.growth };
+            }
+
+            // Always preserve architecture and mirror from whichever source has content
+            merged.architecture = data.cardData.architecture || card.architecture;
+            merged.mirror = data.cardData.mirror || card.mirror;
+
+            return merged;
+          }) || []
         };
       });
 
