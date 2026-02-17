@@ -8020,14 +8020,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-sm text-zinc-300">
-                      {showMidReadingStance ? '▾' : '▸'} Adjust Stance
+                      {showMidReadingStance ? '▾' : '▸'} Adjust Voice
                     </span>
                     <span className="text-xs text-zinc-600 ml-2">
-                      {getCurrentDeliveryPreset()?.[1]?.name || 'Custom'}
+                      {PERSONAS.find(p => p.key === persona)?.name || 'Friend'} · {COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.name || 'Clear'}
                     </span>
                   </div>
                   <span className="text-xs text-zinc-500">
-                    {showMidReadingStance ? 'collapse' : 'change depth & style'}
+                    {showMidReadingStance ? 'collapse' : 'persona & style'}
                   </span>
                 </div>
               </button>
@@ -8042,7 +8042,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div className="absolute top-full right-0 mt-2 z-50 w-72">
                 <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
                   <p className="text-zinc-400 text-xs leading-relaxed">
-                    Stances shape how the reading speaks to you — from quick and direct to deep and expansive. Use Config to customize voice, focus, density, scope, and tone.
+                    Voice controls shape how the reading speaks to you. Persona sets who's talking, Humor sets the tone weight, and Complexity controls vocabulary level.
                   </p>
                   <button
                     onClick={() => setHelpPopover(null)}
@@ -8063,90 +8063,18 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     setPersona={setPersona}
                     humor={humor}
                     setHumor={setHumor}
+                    complexity={complexity}
+                    setComplexity={setComplexity}
                     compact={true}
                     hasReading={!!parsedReading}
                   />
                 </div>
 
-                {/* Advanced Config toggle */}
-                <div className="flex justify-center mt-4">
-                  <button
-                    onClick={() => setShowFineTune(!showFineTune)}
-                    className="px-3 py-1.5 text-[0.625rem] text-zinc-500 hover:text-zinc-300 transition-all flex items-center gap-1"
-                  >
-                    <span>{showFineTune ? '▾' : '▸'}</span>
-                    <span>Advanced</span>
-                  </button>
-                </div>
-
-                {showFineTune && (
-                  <div className="mt-3 bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50 space-y-3">
-                    {/* Delivery Presets Row */}
-                    <div className="w-full max-w-lg mx-auto">
-                      <div className="flex gap-1.5 justify-center flex-nowrap">
-                        {Object.entries(DELIVERY_PRESETS).map(([key, preset]) => {
-                          const isActive = getCurrentDeliveryPreset()?.[0] === key;
-                          return (
-                            <button
-                              key={key}
-                              onClick={() => applyDeliveryPreset(key)}
-                              className={`px-2 py-1.5 rounded-lg text-[0.6875rem] transition-all whitespace-nowrap ${
-                                isActive
-                                  ? 'bg-[#2e1065] text-amber-400'
-                                  : 'bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
-                              }`}
-                            >
-                              {preset.name}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* Complexity Selector - centered */}
-                    <div className="text-center">
-                      <div className="text-[0.625rem] text-zinc-500 mb-2">Speak to me like...</div>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        {Object.entries(COMPLEXITY_OPTIONS).map(([key, opt]) => (
-                          <button
-                            key={key}
-                            onClick={() => setStance({ ...stance, complexity: key })}
-                            className={`px-2 py-1 rounded text-xs transition-all ${
-                              stance.complexity === key
-                                ? 'bg-zinc-700 text-zinc-100'
-                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
-                            }`}
-                          >
-                            {opt.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Seriousness/Tone Selector */}
-                    <div className="text-center">
-                      <div className="text-[0.625rem] text-zinc-500 mb-2">Tone</div>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        {Object.entries(SERIOUSNESS_MODIFIERS).map(([key]) => (
-                          <button
-                            key={key}
-                            onClick={() => setStance({ ...stance, seriousness: key })}
-                            className={`px-2 py-1 rounded text-xs transition-all capitalize ${
-                              stance.seriousness === key
-                                ? 'bg-zinc-700 text-zinc-100'
-                                : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
-                            }`}
-                          >
-                            {key}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* V3: StanceSelector removed — stance system killed */}
-
+                {/* Model Selector (under voice settings) */}
+                <div className="mt-3">
+                  <div className="bg-zinc-900/50 rounded-lg p-3 border border-zinc-800/50">
                     {/* Model Selector + Token Display */}
-                    <div className="pt-3 border-t border-zinc-700/50">
+                    <div>
                       {getAvailableModels().length > 1 && (
                         <div className="flex items-center justify-center gap-2 mb-2">
                           <span className="text-xs text-zinc-500">Model:</span>
@@ -8172,7 +8100,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       </label>
                     </div>
                   </div>
-                )}
+                </div>
 
                 {/* Re-interpret Button */}
                 <div className="mt-3 pt-3 border-t border-zinc-800/50">

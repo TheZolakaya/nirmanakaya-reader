@@ -1,32 +1,23 @@
 // === PERSONA SELECTOR COMPONENT ===
-// UI for selecting and customizing persona voice settings
-// V2: One-pass voice integration - voice baked into generation
+// V3: Three dials — Persona, Humor, Complexity
+// No register, no creator, no roast/direct mode
 
-import { PERSONAS, HUMOR_LEVELS, REGISTER_LEVELS, CREATOR_LEVELS } from '../../lib/personas.js';
+import { PERSONAS, HUMOR_LEVELS, COMPLEXITY_OPTIONS } from '../../lib/personas.js';
 
 const PersonaSelector = ({
   persona,
   setPersona,
   humor,
   setHumor,
-  register,
-  setRegister,
-  creator,
-  setCreator,
-  roastMode,
-  setRoastMode,
-  directMode,
-  setDirectMode,
+  complexity,
+  setComplexity,
   compact = false,
   hasReading = false
 }) => {
 
-  // True 10-level labels
   const getHumorLabel = (val) => HUMOR_LEVELS[val] || 'Balanced';
-  const getRegisterLabel = (val) => REGISTER_LEVELS[val] || 'Clear';
-  const getCreatorLabel = (val) => CREATOR_LEVELS[val] || 'Balanced';
 
-  // Compact mode for post-reading (smaller, inline)
+  // Compact mode for post-reading panel
   if (compact) {
     return (
       <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 mb-4 max-w-2xl mx-auto">
@@ -53,76 +44,50 @@ const PersonaSelector = ({
           ))}
         </div>
 
-        {/* All sliders */}
-        <div className="space-y-2 border-t border-zinc-800/50 pt-3">
+        {/* Sliders & Controls */}
+        <div className="space-y-3 border-t border-zinc-800/50 pt-3">
           {/* Humor slider */}
-          <div className="flex items-center gap-2 px-2">
-            <span className="text-xs text-zinc-500 w-14">Humor</span>
-            <span className="text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={humor}
-              onChange={(e) => setHumor(parseInt(e.target.value))}
-              className="flex-1 accent-amber-500 h-1"
-            />
-            <span className="text-[10px] text-zinc-600 w-10">Sacred</span>
-            <span className="text-[10px] text-amber-500/80 w-16 text-right">{getHumorLabel(humor)}</span>
-          </div>
-
-          {/* Register slider */}
-          <div className="flex items-center gap-2 px-2">
-            <span className="text-xs text-zinc-500 w-14">Register</span>
-            <span className="text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={register}
-              onChange={(e) => setRegister(parseInt(e.target.value))}
-              className="flex-1 accent-amber-500 h-1"
-            />
-            <span className="text-[10px] text-zinc-600 w-10">Oracle</span>
-            <span className="text-[10px] text-amber-500/80 w-16 text-right">{getRegisterLabel(register)}</span>
-          </div>
-
-          {/* Agency slider */}
-          <div className="flex items-center gap-2 px-2">
-            <span className="text-xs text-amber-600/80 w-14 font-medium">Agency</span>
-            <span className="text-[10px] text-zinc-600 w-14 text-right">Witness</span>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={creator}
-              onChange={(e) => setCreator(parseInt(e.target.value))}
-              className="flex-1 accent-amber-500 h-1"
-            />
-            <span className="text-[10px] text-zinc-600 w-10">Creator</span>
-            <span className="text-[10px] text-amber-500/80 w-16 text-right">{getCreatorLabel(creator)}</span>
-          </div>
-
-          {/* Checkboxes */}
-          <div className="flex justify-center gap-4 pt-1">
-            <label className="flex items-center gap-1.5 text-xs text-zinc-400 cursor-pointer">
+          <div className="px-2">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Humor</span>
+              <span className="text-[0.625rem] text-amber-500/80">{getHumorLabel(humor)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-zinc-600">Sacred</span>
               <input
-                type="checkbox"
-                checked={roastMode}
-                onChange={(e) => setRoastMode(e.target.checked)}
-                className="accent-amber-500 w-3 h-3"
+                type="range"
+                min="1"
+                max="10"
+                value={11 - humor}
+                onChange={(e) => setHumor(11 - parseInt(e.target.value))}
+                className="flex-1 accent-amber-500 h-1"
               />
-              Roast Mode
-            </label>
-            <label className="flex items-center gap-1.5 text-xs text-zinc-400 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={directMode}
-                onChange={(e) => setDirectMode(e.target.checked)}
-                className="accent-amber-500 w-3 h-3"
-              />
-              Direct Mode
-            </label>
+              <span className="text-[10px] text-zinc-600">Wild</span>
+            </div>
+          </div>
+
+          {/* Complexity buttons */}
+          <div className="px-2">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Complexity</span>
+              <span className="text-[0.625rem] text-amber-500/80">{COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.name || 'Clear'}</span>
+            </div>
+            <div className="flex gap-1 justify-center">
+              {COMPLEXITY_OPTIONS.map(opt => (
+                <button
+                  key={opt.key}
+                  onClick={() => setComplexity(opt.key)}
+                  title={opt.desc}
+                  className={`px-2.5 py-1 rounded text-xs transition-all ${
+                    complexity === opt.key
+                      ? 'bg-zinc-700 text-zinc-100'
+                      : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                  }`}
+                >
+                  {opt.name}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -137,7 +102,7 @@ const PersonaSelector = ({
         Who reads this to you?
       </div>
 
-      {/* Persona buttons - always 2 rows of 3 for readability */}
+      {/* Persona buttons */}
       <div className="grid grid-cols-3 gap-1.5 w-full max-w-sm mx-auto px-1 mb-2">
         {PERSONAS.map(p => (
           <button
@@ -155,106 +120,57 @@ const PersonaSelector = ({
         ))}
       </div>
 
-      {/* Show persona description */}
+      {/* Persona description */}
       <div className="text-center text-[0.75rem] sm:text-[0.625rem] text-zinc-500 mb-3">
         {PERSONAS.find(p => p.key === persona)?.desc || ''}
       </div>
 
-      {/* Voice sliders */}
+      {/* Voice controls */}
       <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800/50 max-w-md mx-auto w-full">
-        {/* Humor slider - stacked on mobile, inline on desktop */}
-        <div className="mb-3 px-2">
+        {/* Humor slider */}
+        <div className="mb-4 px-2">
           <div className="flex items-center justify-between mb-1 sm:mb-0">
             <span className="text-xs text-zinc-500">Humor</span>
             <span className="text-xs text-amber-500/80 sm:hidden">{getHumorLabel(humor)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Unhinged</span>
+            <span className="text-[10px] text-zinc-600 w-12 text-right">Sacred</span>
             <input
               type="range"
               min="1"
               max="10"
-              value={humor}
-              onChange={(e) => setHumor(parseInt(e.target.value))}
+              value={11 - humor}
+              onChange={(e) => setHumor(11 - parseInt(e.target.value))}
               className="flex-1 accent-amber-500"
             />
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Sacred</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getHumorLabel(humor)}</span>
+            <span className="text-[10px] text-zinc-600 w-10">Wild</span>
+            <span className="hidden sm:inline text-xs text-amber-500/80 w-20 text-right">{getHumorLabel(humor)}</span>
           </div>
         </div>
 
-        {/* Register slider - stacked on mobile, inline on desktop */}
-        <div className="mb-3 px-2">
-          <div className="flex items-center justify-between mb-1 sm:mb-0">
-            <span className="text-xs text-zinc-500">Register</span>
-            <span className="text-xs text-amber-500/80 sm:hidden">{getRegisterLabel(register)}</span>
+        {/* Complexity buttons */}
+        <div className="px-2 pt-3 border-t border-zinc-800/50">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs text-zinc-500">Complexity</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Chaos</span>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={register}
-              onChange={(e) => setRegister(parseInt(e.target.value))}
-              className="flex-1 accent-amber-500"
-            />
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Oracle</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getRegisterLabel(register)}</span>
+          <div className="flex gap-1.5 justify-center">
+            {COMPLEXITY_OPTIONS.map(opt => (
+              <button
+                key={opt.key}
+                onClick={() => setComplexity(opt.key)}
+                className={`px-3 py-1.5 rounded-md text-xs transition-all ${
+                  complexity === opt.key
+                    ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                    : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 border border-zinc-800'
+                }`}
+              >
+                {opt.name}
+              </button>
+            ))}
           </div>
-        </div>
-
-        {/* Agency slider - stacked on mobile, inline on desktop */}
-        <div className="mb-3 px-2">
-          <div className="flex items-center justify-between mb-1 sm:mb-0">
-            <span className="text-xs text-amber-600/80 font-medium">Agency</span>
-            <span className="text-xs text-amber-500/80 sm:hidden">{getCreatorLabel(creator)}</span>
+          <div className="text-center text-[0.625rem] text-zinc-600 mt-1.5">
+            {COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.desc || ''}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-14 text-right">Witness</span>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={creator}
-              onChange={(e) => setCreator(parseInt(e.target.value))}
-              className="flex-1 accent-amber-500"
-            />
-            <span className="hidden sm:inline text-[10px] text-zinc-600 w-12">Creator</span>
-            <span className="hidden sm:inline text-xs text-amber-500/80 w-24 text-right">{getCreatorLabel(creator)}</span>
-          </div>
-        </div>
-
-        {/* Agency hint */}
-        <div className="text-center text-[0.625rem] text-zinc-600 mb-3 pb-3 border-b border-zinc-800/50">
-          {creator <= 3 ? 'Observation: "The field shows..."' :
-           creator <= 6 ? 'Balanced observation and agency' :
-           creator <= 8 ? 'Agency: "You\'re shaping..."' :
-           'Full authorship: "You ARE the field"'}
-        </div>
-
-        {/* Checkboxes */}
-        <div className="flex justify-center gap-6 pt-1">
-          <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-            <input
-              type="checkbox"
-              checked={roastMode}
-              onChange={(e) => setRoastMode(e.target.checked)}
-              className="accent-amber-500"
-            />
-            Roast Mode
-            <span className="text-[10px] text-zinc-600" title="Best friend who's HAD IT. Read them for filth.">(savage)</span>
-          </label>
-          <label className="flex items-center gap-2 text-xs text-zinc-400 cursor-pointer hover:text-zinc-200 transition-colors">
-            <input
-              type="checkbox"
-              checked={directMode}
-              onChange={(e) => setDirectMode(e.target.checked)}
-              className="accent-amber-500"
-            />
-            Direct Mode
-            <span className="text-[10px] text-zinc-600" title="No hedging. State observations as facts.">(unfiltered)</span>
-          </label>
         </div>
       </div>
     </div>
