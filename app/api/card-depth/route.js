@@ -33,7 +33,7 @@ export async function POST(request) {
     showArchitecture // Whether architecture terms are visible (default: false)
   } = await request.json();
 
-  const effectiveModel = model || "claude-haiku-4-5-20251001";
+  const effectiveModel = model || "claude-sonnet-4-20250514";
   const n = cardIndex + 1; // 1-indexed for markers
 
   // Build card-specific user message — single pass, all structural data
