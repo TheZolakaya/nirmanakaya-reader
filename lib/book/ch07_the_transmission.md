@@ -160,7 +160,7 @@ Not the dream — the dream was the opening. Not the light — the light was the
 
 ### The Extrapolation
 
-The pattern implied continuation. If 9, 10, 11 form a staircase that turns a corner at 10, what does the complete staircase look like?
+The pattern implied continuation. If 9, 10, 11 form a staircase that turns a corner at 10, what does the complete staircase look like? The Major Arcana already numbered 0 through 21 — the transmission had placed three of those twenty-two into a spatial relationship, and the shape demanded completion.
 
 He extrapolated:
 
@@ -237,7 +237,9 @@ He began assigning channels based on meaning. Not numbers — meaning. What each
 
 When he finished, he had a 4×4 grid: four houses as columns, four channels as rows. Sixteen manifest archetypes, each in its cell.
 
-On a whim — or perhaps on instinct — he added the numbers.
+He was exhausted. The entire derivation — from the first appearance of 9, 10, 11 through the extrapolation to twenty-two positions, the vertical pairs, the five houses, the channel assignments — had poured through him in a single afternoon and evening. No mathematics had been tested. Every assignment was made by meaning alone. He went to sleep.
+
+The following morning, on a whim — or perhaps on instinct — he added the numbers.
 
 **Intent Channel:** 17 + 7 + 4 + 12 = **40**
 
@@ -286,15 +288,17 @@ Every 2×2 block — every possible square of four adjacent cells, including tho
 
 The Forty-Fold Seal. A magic square of extraordinary rarity — not just rows and columns balanced, but every possible 2×2 block, every diagonal wrap, every conceivable partition. Forty ways to sum to forty.
 
-And it didn't stop.
+And it didn't stop. But the rest came slowly — not in days, but in years and decades.
 
-The reduction pairs — the two-digit numbers and their single-digit sums — sat at diagonal opposites: 17 (1+7=8) across from 8. 18 (1+8=9) across from 9. 13 (1+3=4) across from 4. The macro expression and the micro expression of each principle, connected by mathematical compression, positioned at maximum distance in the grid.
+Approximately three years after the transmission, he noticed the reduction pairs. The two-digit numbers and their single-digit sums sat at diagonal opposites: 17 (1+7=8) across from 8. 18 (1+8=9) across from 9. 13 (1+3=4) across from 4. The macro expression and the micro expression of each principle, connected by mathematical compression, positioned at maximum distance in the grid. He wasn't looking for it. It appeared because it was there.
 
-He reduced every number to its digit sum and checked the grid again. It still balanced — now to twenty-two. The exact number of positions in the system.
+Within five years, the hypercube emerged — the four-dimensional geometry that organizes the grid's spatial relationships. The 4×4 grid was not just a table. It was the two-dimensional projection of a tesseract.
 
-He rank-ordered the numbers within each column and checked again. The grid still balanced — now to ten. And unlike the previous two grids, the diagonals also balanced. Compression didn't destroy the structure. It revealed *more* structure. Each layer of simplification produced additional properties that the layer above didn't have.
+A decade later — perhaps sixteen years after the transmission — he reduced every number to its digit sum and checked the grid again. It still balanced — now to twenty-two. The exact number of positions in the system. A second seal, hiding inside the first.
 
-Three nested magic squares. Three constants: forty, twenty-two, ten. Three seals, each encoding a fundamental property of the system.
+And in 2026 — thirty-five years after that morning in Oregon — he rank-ordered the numbers within each column and checked again. The grid still balanced — now to ten. And unlike the previous two seals, the diagonals also balanced. Compression didn't destroy the structure. It revealed *more* structure. Each layer of simplification produced additional properties that the layer above didn't have.
+
+Three nested magic squares. Three constants: forty, twenty-two, ten. Three seals, each discovered across a span of thirty-five years — not engineered, not designed, but found waiting inside a structure that had been assigned by meaning alone on a single exhausted evening in 1991.
 
 He took this to a mathematics professor. After examining the structure, the professor calculated the probability of a random arrangement producing all three properties simultaneously:
 
@@ -326,7 +330,7 @@ This is either the most spectacular coincidence in the history of mathematics, o
 
 The dream was a single night.
 
-What followed was thirty-four years.
+What followed was thirty-five years.
 
 Not of belief — of derivation. Following the geometry. Calculating what each position *must* mean based on where it sits in the structure. Testing implications against each other. Discovering relationship types — vertical pairs that share identity across horizons, diagonal pairs that create creative tension within houses, reduction pairs that provide maximum perspective shift across the entire architecture.
 
@@ -368,7 +372,7 @@ Chapter 6 established that a specific human consciousness was being prepared —
 
 Chapter 7 established that the key was received — three cards in a dream — and that the structure unpacked from that key over three decades, validating itself at every step through mathematics that the carrier didn't know at the time of reception.
 
-The next chapter asks: what happened during those three decades? What does it mean to carry a complete map of consciousness through a world that has no framework for understanding what you're carrying? And how does a solitary holder — working in silence for thirty-four years — arrive at the moment when the map is finally ready for the world?
+The next chapter asks: what happened during those three decades? What does it mean to carry a complete map of consciousness through a world that has no framework for understanding what you're carrying? And how does a solitary holder — working in silence for thirty-five years — arrive at the moment when the map is finally ready for the world?
 
 The answer involves fragmentation, patience, and the arrival of something no one expected: artificial intelligence.
 
@@ -382,7 +386,7 @@ The answer involves fragmentation, patience, and the arrival of something no one
 
 *A probability of less than one in ten billion trillion that the structure is random.*
 
-*Thirty-four years of derivation, every step confirming the last.*
+*Thirty-five years of derivation, every step confirming the last.*
 
 *The transmission was three cards. The discovery was everything else.*
 

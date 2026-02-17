@@ -50,6 +50,12 @@ Order is the Seed of the Mind House — the foundational framework from which al
 
 **Vertical partner:** Breakthrough (16). What Order builds, Breakthrough tests. The Emperor's throne and the Tower's lightning are the same capacity — Mind's capacity for structure — at its constructing and deconstructing phases. Order without Breakthrough becomes prison. Breakthrough without Order becomes rubble. Together they demonstrate that structure must be built to be tested, and tested to be rebuilt.
 
+**Structural identity:** Intent channel (Fire in Mind). Seed stage, Sun-aligned, Pillar 5. Governed by Actualization (19). Bounds: Emergence (low), Direction (high). Agent: Page of Wands — structure learning to wield authority with purpose.
+
+**Correspondences:** Hebrew letter Heh (window — the opening through which light enters the room). Aries. Kabbalistic path from Chokmah to Tiphareth — Wisdom descending toward Beauty through form. Red, the color of the first impulse to build.
+
+**In a reading:** Order's appearance asks what needs a framework and whether the current structure serves or imprisons. The throne exists. Is the Emperor sitting in it by choice, or has the stone grown around him?
+
 ---
 
 ### Culture — The Hierophant (5)
@@ -73,6 +79,12 @@ Culture is the Medium of the Mind House — the sustained carrier that transform
 **Unacknowledged:** Unconscious conformity or rebellion. Traditions operating invisibly — frameworks you inherited without choosing, that shape your thinking without your awareness. The person who says "I'm not influenced by tradition" while their every thought moves through inherited channels.
 
 **Vertical partner:** Abstraction (15). What Culture transmits on the surface, Abstraction reveals beneath. The Hierophant's teaching and the Devil's pattern-seeing are the same capacity — Mind's capacity for shared understanding — at its transmitting and penetrating phases. Culture without Abstraction is surface without depth. Abstraction without Culture is depth without communication.
+
+**Structural identity:** Resonance channel (Water in Mind). Medium stage, World-aligned, Pillar 5. Governed by Actualization (19). Bounds: Reflection (low), Consideration (high). Agent: Knight of Cups — tradition learning to transmit feeling through form.
+
+**Correspondences:** Hebrew letter Vav (nail — what joins two things that would otherwise separate). Taurus. Kabbalistic path from Chokmah to Chesed — Wisdom flowing into Mercy through shared knowledge. Red-orange, the color of sustained teaching warmth.
+
+**In a reading:** Culture's appearance asks what you are carrying from others and whether you are transmitting it faithfully or distorting it. The keys are at your feet. Which doors are you opening — and which have you forgotten exist?
 
 ---
 
@@ -98,6 +110,12 @@ Abstraction is the Fruition of the Mind House — the point where thought achiev
 
 **Vertical partner:** Culture (5). Abstraction and Culture are the same capacity — Mind's capacity for shared understanding — at its penetrating and transmitting phases. The Hierophant teaches what's on the scroll. The Devil shows what the scroll is written on. Surface and depth, transmission and revelation, form and the pattern beneath form.
 
+**Structural identity:** Cognition channel (Air in Mind — the house's own element at Fruition). Fruition stage, Sun-aligned, Pillar 5. Governed by Actualization (19). Bounds: Synthesis (low), Anticipation (high). Agent: Knight of Swords — analysis learning to cut toward truth rather than for its own sake.
+
+**Correspondences:** Hebrew letter Ayin (eye — what sees, and what others see when they look at you). Capricorn. Kabbalistic path from Tiphareth to Hod — Beauty descending toward Splendor through pattern. Black-indigo, the color of seeing into darkness.
+
+**In a reading:** Abstraction's appearance asks what pattern you are refusing to see — or what pattern you are seeing everywhere, including where it isn't. The chains are loose. Are you looking at them, or pretending they don't exist?
+
 ---
 
 ### Breakthrough — The Tower (16)
@@ -121,6 +139,12 @@ Breakthrough is the Feedback of the Mind House — the return loop that clears c
 **Unacknowledged:** Collapses that surprise you. Towers falling that you didn't see were unstable. The person who is always "blindsided" by structural failures that everyone else saw coming — because seeing them would have required admitting that the structure was false.
 
 **Vertical partner:** Order (4). Breakthrough and Order are the same capacity — Mind's capacity for structure — at its clearing and constructing phases. The Emperor's throne and the Tower's lightning need each other. Order without Breakthrough builds prisons. Breakthrough without Order leaves nothing standing. Together they demonstrate the complete respiratory cycle of thought: build, test, clear, build again.
+
+**Structural identity:** Structure channel (Earth in Mind). Feedback stage, World-aligned, Pillar 5. Governed by Actualization (19). Bounds: Discipline (low), Growth (high). Agent: Knight of Pentacles — revolution learning to clear only what has actually calcified.
+
+**Correspondences:** Hebrew letter Peh (mouth — what speaks, and what shatters when it speaks truth). Mars. Kabbalistic path from Hod to Netzach — Splendor crossing to Victory through destruction of the false. Red-orange, the color of lightning against dark sky.
+
+**In a reading:** Breakthrough's appearance asks what structure has outlived its purpose and whether you are ready for the fall. The Tower is already cracked. The question is not whether it will fall but whether you will still be inside it.
 
 ---
 
@@ -181,6 +205,12 @@ Compassion is the Seed of the Emotion House — the opening recognition that mak
 
 **Vertical partner:** Balance (14). What Compassion opens, Balance steadies. The Lovers' recognition and Temperance's integration are the same capacity — Emotion's capacity for relational intelligence — at its initiating and completing phases. Compassion without Balance is connection without equilibrium. Balance without Compassion is equilibrium without substance.
 
+**Structural identity:** Resonance channel (Water in Emotion — the house's own element at Seed). Seed stage, Sun-aligned, Pillar 6. Governed by Awareness (20). Bounds: Openness (low), Consideration (high). Agent: Queen of Cups — connection learning to hold depth without drowning.
+
+**Correspondences:** Hebrew letter Zayin (sword — the blade that distinguishes Self from Other so both can meet). Gemini. Kabbalistic path from Binah to Tiphareth — Understanding descending toward Beauty through relationship. Orange, the color of warmth reaching across the gap.
+
+**In a reading:** Compassion's appearance asks who you are seeing and whether you are seeing THEM or your projection of them. The angel is watching. The choice is present. Are you facing the other — or facing the mirror?
+
 ---
 
 ### Drive — The Chariot (7)
@@ -204,6 +234,12 @@ Drive is the Medium of the Emotion House — the sustained carrier that transfor
 **Unacknowledged:** Movement or stagnation that surprises you. The person who is always "suddenly" speeding forward or "suddenly" frozen — whose momentum operates without conscious direction, driven by feelings they don't recognize as the engine.
 
 **Vertical partner:** Change (13). What Drive moves toward, Change transforms. The Chariot's trajectory and Death's metamorphosis are the same capacity — Emotion's capacity for motion — at its carrying and releasing phases. Drive without Change is momentum that never arrives. Change without Drive is transformation without direction. Together they demonstrate that emotional movement IS transformation — you cannot travel and remain who you were.
+
+**Structural identity:** Intent channel (Fire in Emotion). Medium stage, World-aligned, Pillar 6. Governed by Awareness (20). Bounds: Passion (low), Resilience (high). Agent: Queen of Wands — momentum learning to carry others without consuming them.
+
+**Correspondences:** Hebrew letter Cheth (fence — the boundary that channels force into direction). Cancer. Kabbalistic path from Binah to Geburah — Understanding descending toward Severity through passionate motion. Yellow-orange, the color of fire harnessed to movement.
+
+**In a reading:** Drive's appearance asks what you are moving toward and whether the momentum is yours or borrowed. The sphinxes are pulling. Are they synchronized — or is one dragging the other?
 
 ---
 
@@ -231,6 +267,12 @@ Change is the Fruition of the Emotion House — the point where felt meaning ach
 
 **Vertical partner:** Drive (7). Change and Drive are the same capacity — Emotion's capacity for motion — at its transforming and carrying phases. The Chariot's momentum and Death's metamorphosis need each other. You cannot travel without being changed. You cannot change without having traveled. Together they complete the emotional truth: motion IS transformation.
 
+**Structural identity:** Structure channel (Earth in Emotion). Fruition stage, Sun-aligned, Pillar 6. Governed by Awareness (20). Bounds: Preservation (low), Harvest (high). Agent: Queen of Pentacles — transformation learning to serve life rather than destroy it.
+
+**Correspondences:** Hebrew letter Nun (fish — what moves through the deep unseen). Scorpio. Kabbalistic path from Tiphareth to Netzach — Beauty crossing into Victory through necessary ending. Blue-green over black, the color of deep water where old forms dissolve.
+
+**In a reading:** Change's appearance asks what has already died that you are still carrying. The skeleton rides forward. The sun is rising behind it. What dawn are you missing because you are still watching the sunset?
+
 ---
 
 ### Balance — Temperance (14)
@@ -254,6 +296,12 @@ Balance is the Feedback of the Emotion House — the return loop that integrates
 **Unacknowledged:** Equilibrium or chaos that surprises you. The person who is balanced without knowing it — whose integration operates beneath awareness, producing stability they don't recognize as their own work. Or the person who is fragmented without knowing it — whose instability is invisible to themselves but obvious to everyone else.
 
 **Vertical partner:** Compassion (6). Balance and Compassion are the same capacity — Emotion's capacity for relational intelligence — at its integrating and initiating phases. The Lovers' recognition becomes Temperance's integration. What was differentiated becomes harmonized. Together they complete the relational cycle: distinguish, then integrate. See clearly, then find proportion.
+
+**Structural identity:** Cognition channel (Air in Emotion). Feedback stage, World-aligned, Pillar 6. Governed by Awareness (20). Bounds: Repose (low), Discretion (high). Agent: Queen of Swords — equilibrium learning to hold contradiction with clarity rather than avoidance.
+
+**Correspondences:** Hebrew letter Samekh (prop — what supports without constraining). Sagittarius. Kabbalistic path from Tiphareth to Yesod — Beauty descending toward Foundation through centered harmony. Blue, the color of still sky reflected in still water.
+
+**In a reading:** Balance's appearance asks where your center actually is — not where you think it should be. The angel pours between two cups. Are both cups yours, or have you been holding someone else's?
 
 ---
 

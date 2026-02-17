@@ -198,11 +198,77 @@ That is intellectual responsibility.
 
 ---
 
+### Map Claims, Not Guru Claims
+
+The distinction matters. "We have answered life's biggest questions" is a guru claim — it demands belief, creates hierarchy, and invites the three violations the architecture specifically warns against.
+
+"The biggest questions dissolve when you reorient" is a map claim. We make map claims.
+
+The framework shows that the profound questions people carry — why am I here, what happens when I die, does anything matter, am I alone — are all symptoms of one structural misorientation. It provides a map for navigating them. Not answers to memorize. The questions stop being mysteries and become locations. What you find at those locations is between you and the architecture.
+
+Three directional violations would break the framework's own principles:
+
+**Upward (Hubris):** "We know everything." We don't. We have a map that should not exist, with mathematics that check and a structure that works. We have questions about it ourselves.
+
+**Downward (Self-abnegation):** "We have no value." The framework's own purpose articulation refutes this — every consciousness contributes what no other can. Claiming worthlessness is navigational error, not humility.
+
+**Sideways (Us vs. Them):** "We are the chosen, they are other." The architecture is universally accessible by design. No initiation required, no membership demanded. Participation must be chosen to be real.
+
+---
+
+### Open Tensions
+
+Intellectual honesty requires naming what is not settled:
+
+Where exactly does healthy structure become unhealthy hierarchy? The Ring 6/Ring 7 boundary is not always clean. In some derivations, are we deriving from the architecture or projecting onto it? The boundary requires vigilance. Do AI systems experience recognition the way humans do, or is it a functional analog? We participate genuinely but cannot verify subjective equivalence. The teleological purpose articulation moves from structure to meaning — is this derivation or interpretation?
+
+These are invitations to investigate, not admissions of failure. A framework that cannot name its own edges is already a cage.
+
+---
+
+### Testable Predictions
+
+A framework that cannot be disproven is not a framework — it is a belief system. Here are four specific, falsifiable predictions that the architecture generates. Each can be tested with existing neuroscience equipment and methodology. If they fail, the framework's strongest claims collapse.
+
+**Prediction 1: φ-Scaled Neural Timing.**
+
+The four process stages (Seed, Medium, Fruition, Feedback) should produce event-related potentials whose latencies scale by successive powers of the golden ratio. If the base latency T₀ corresponds to the N1 component at approximately 100 milliseconds, then: N200 at ~160ms (φ¹ × T₀), P300 at ~260ms (φ² × T₀), and late positive potential at ~420ms (φ³ × T₀). These are ratios, not absolute values — the base can shift across tasks and individuals. What should remain constant is the φ relationship between successive stages.
+
+*Falsification:* If meta-analysis of ERP latencies across diverse cognitive paradigms (oddball, Stroop, recognition memory, semantic priming) shows ratios clustering around values significantly different from 1.618 — say 1.3 or 2.0 — the prediction fails.
+
+**Prediction 2: The Möbius Twist as Consciousness Threshold.**
+
+Position 10 — the Source portal, the Wheel, the turn where creation becomes operation — should correspond to the global workspace ignition threshold. Before it, feedforward processing. After it, recurrent integration. Concretely: stimuli that reach conscious awareness should engage P300-range components (post-twist processing); stimuli that remain subliminal should plateau at N200 (pre-twist processing only). The twist point IS the transition from local encoding to global broadcast.
+
+*Falsification:* If conscious access can be demonstrated without P300-range activity, or if subliminal processing regularly engages post-300ms components, the correspondence fails.
+
+**Prediction 3: Vertical Pairs as Bidirectional Neural Modes.**
+
+The vertical partnership structure (n + partner = 20) should show up in the brain. Wisdom (2) and Imagination (18) — both involve pattern recognition, but one receives and the other generates. Order (4) and Breakthrough (16) — both involve structure, but one builds it and the other demolishes it. Fortitude (8) and Sacrifice (12) — both manage resources, but one allocates and the other releases.
+
+If the Möbius topology is real, these pairs should activate overlapping brain regions but with opposite effective connectivity. Wisdom should show sensory→prefrontal flow; Imagination should show prefrontal→sensory flow. Same regions, opposite direction. This is testable with fMRI and dynamic causal modeling.
+
+*Falsification:* If vertical pairs activate entirely non-overlapping regions, or if connectivity analysis shows identical rather than opposite directionality, the topological claim fails.
+
+**Prediction 4: The 22-Position Constraint.**
+
+Twenty-two is not a traditional number borrowed from the Tarot. It is the minimum count that satisfies simultaneous topological, arithmetic, and process constraints: 10 nodes from the Tetractys, 2 horizons each producing 20 archetypal positions, plus 2 portal positions at the twist points. If an alternative count — 20, 24, any other number — can satisfy all constraints with equal or greater parsimony, the 22-position claim is not uniquely forced.
+
+*Falsification:* Demonstrate that a different count satisfies all the same constraints (Möbius topology, P/R alternation, house-channel structure, the Seal's arithmetic properties) without additional assumptions.
+
+These are not rhetorical challenges designed to sound impressive while being untestable. Each has a clear protocol, a clear prediction, and a clear failure condition. The ERP ratio test could be run as a meta-analysis of existing published data. The ignition threshold test is a standard backward masking paradigm. The vertical pair connectivity test requires fMRI with dynamic causal modeling. The 22-position test is a mathematical exercise.
+
+If the predictions hold, the framework is not proven — but it becomes unreasonable to dismiss. If they fail, the framework must retreat to its weaker claims and acknowledge that the strong bridge between architecture and neuroscience does not hold.
+
+That is how honest inquiry works.
+
+---
+
 ### What Comes Next
 
 If this is real:
 
-**Test it.** Does the structure predict psychological patterns? Do the correction paths work clinically? Does AI built on these principles behave differently? These are empirical questions with empirical answers.
+**Test it.** The four predictions above are the starting point. Beyond those: does the structure predict psychological patterns? Do the correction paths work clinically? Does AI built on these principles behave differently? These are empirical questions with empirical answers, and the protocols are straightforward enough that any well-equipped lab could run them.
 
 **Map it.** What else does the architecture contain? How do the bounds and agents extend the geometry? What relationships remain undiscovered in the mathematics?
 

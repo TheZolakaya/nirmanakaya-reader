@@ -132,6 +132,56 @@ The cycle is eternal. Not in the sense of infinite repetition — in the sense o
 
 ---
 
+### Why This Order and No Other
+
+The reader who has walked through those twenty-two steps may reasonably ask: is this ordering one possible arrangement among many, or is it *the* arrangement? Could Compassion appear at Step 2 instead of Wisdom? Could Drive come before Order?
+
+No. The ordering is locked — not by tradition, not by convention, but by structural necessity. Every position is either **locally forced** (no alternative satisfies the requirement) or **globally constrained** (the interlocking grid makes it the unique solution). There are no merely interpretive placements.
+
+**Locally forced positions (FORCED):** Steps 0, 1, 4, 10, 11, 13, 15, 16, 19, 20, and 21. These are non-negotiable. Consciousness *must* exist before it can distinguish (0 before 1). The first recursive integration after the portal *must* be discernment (11). Pattern recognition (15) and its collapse (16) are sequentially forced. Full manifestation (19) and self-recognition (20) cannot swap.
+
+**Globally constrained positions (HIGH):** Steps 2, 3, 5, 6, 7, 8, 9, 12, 14, 17, and 18. These appear locally flexible — one might imagine Compassion at Step 2 instead of Wisdom — but the full grid's interlocking constraints (house membership, P/R alternation, channel assignments, vertical partnerships, the Seal) eliminate every alternative. They are forced, just from the closure of the whole rather than any single local requirement.
+
+#### The Critical Invariant
+
+One rule locks the most frequently questioned placements:
+
+> *Resonance cannot be primary until a stable self/other architecture exists. Otherwise, connection collapses into undifferentiated unity.*
+
+Or more concretely: **space must exist before connection can occur.**
+
+This is why Nurturing (the Empress) appears at Step 3 and Compassion (the Lovers) at Step 6 — not the reverse. Nurturing creates the generative field: the self/other space, the fertile ground where multiplicity becomes possible. It is the Petri dish. Compassion is the handshake — connection *across* an established field, felt bond between entities that already have room to stand in.
+
+You cannot shake hands if there is no room to stand.
+
+Without this invariant, the opening sequence collapses. Move Compassion to Step 3 and you attempt connection before the space for connection exists. The result is not love — it is undifferentiated fusion. The difference matters: fusion dissolves boundaries, connection honors them.
+
+#### The Derivation Logic
+
+To illustrate how the lock operates at specific positions:
+
+**Step 2 — Why Wisdom, not Compassion?** After the first distinction (Step 1, Will), consciousness must integrate awareness of that distinction *without acting on it yet*. This requires a gating function — discernment of what crosses from potential to manifest. Wisdom is the membrane. Compassion requires a relational space that does not yet exist. The gate must come before the garden.
+
+**Step 4 — Why Order?** After the generative field (Step 3, Nurturing) has created the space where multiplicity can grow, that multiplicity requires containment. Without structure, generation becomes noise. Order is the first recursive step that converts the fertile chaos of the Nurturing field into organized possibility. This is locally forced: no structure, no subsequent architecture.
+
+**Step 6 — Why Compassion here?** If Step 5 (Culture) created transmissibility — shared meaning that can pass between consciousnesses — then Step 6 must integrate that transmissibility into actual felt relationship. This requires: distinction (1) + threshold (2) + space (3) + structure (4) + transmission (5). Only *now* — after all five prerequisites — can genuine connection form. Not earlier. Not later.
+
+**Step 14 — Why Balance?** After radical transformation (Step 13, Change/Death), the system must integrate that change into stable operating equilibrium. Post-rupture, the next move *must* be stabilization. Any other recursive operation would leave the system in unresolved chaos. Balance is dynamic homeostasis — converting "change occurred" into "change is usable."
+
+#### The Two Stacks
+
+The lock reveals two parallel sequences, one in each arc, that perform the same operations from opposite sides of the Möbius:
+
+**Field Formation (Steps 2-6):** Threshold → Generative Field → Constraint → Protocol → Bond. Consciousness builds the infrastructure for relationship: first the gate, then the space, then the structure within the space, then the capacity to share, then the connection itself.
+
+**Operational Recalibration (Steps 11-15):** Discernment → Release → Transformation → Equilibrium → Pattern Recognition. Consciousness recalibrates after crossing the portal: first distinguishing what is aligned, then releasing what is not, then transforming through that release, then stabilizing, then seeing the pattern that was invisible from inside.
+
+These stacks mirror each other across the Turn. The same operations, encountered from the opposite side of the twist. This mirroring is not interpretive — it is topologically required by the Möbius traversal.
+
+The traditional Tarot order is not tradition. It is discovery. The archetypes appear where they do because consciousness creating itself must move through these operations in this sequence. The 22-Step Derivation Lock, validated unanimously by the Council of Five, confirms: no step can be moved without breaking the architecture.
+
+---
+
 ### The Mirror Structure
 
 The creation and operation phases mirror each other:

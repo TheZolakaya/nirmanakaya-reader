@@ -74,6 +74,29 @@ P → R → P → R. The same alternation that generates the architecture also d
 
 ---
 
+### Why Four, Not Three or Five
+
+The chapter opened with four's fingerprints across nature. But observing four everywhere is not the same as proving it *must* be four. The P/R alternation provides that proof.
+
+A complete process cycle must alternate between Polarity and Recursion and return to its starting condition. How many stages does that require?
+
+**Test three stages.** P → R → P — and now you need R to close the loop. But you have only allocated three positions. The third stage is a Polarity step: it has differentiated but not integrated. The cycle is open. Three fails because it ends mid-operation. This is not an obscure edge case — it is visible everywhere. A seed that sprouts and differentiates but never integrates those differences into completed form. A project that starts, develops, and fragments without resolution. A conversation that opens, explores, and scatters without arriving anywhere. Three is a cycle that cannot close.
+
+**Test five stages.** P → R → P → R → P — the fifth position is another Polarity step. But what is it differentiating? The fourth stage already integrated the third stage's output back into the ground. The fifth stage would differentiate material that has already been returned to Seed condition. It is functionally indistinguishable from Stage 1 — a new beginning, not a new stage. Five does not extend the cycle. It restarts it.
+
+**Four is exact.** P → R → P → R → return. Each transition performs a unique, irreducible function:
+
+1. **Seed → Medium** (Polarity): introduce the first distinction — the impulse meets something other than itself
+2. **Medium → Fruition** (Recursion): integrate the distinction into completed expression
+3. **Fruition → Feedback** (Polarity): differentiate the completed output from the process that created it
+4. **Feedback → Seed** (Recursion): integrate the result back into the ground from which the next cycle begins
+
+Four is the minimum number of positions that allows strict P/R alternation with full closure. This is provable as a directed graph: label the edges alternately P and R, require a return to the starting vertex, and count the minimum vertices. Three leaves a dangling P with no closing R. Five collapses to four because the fifth vertex duplicates the first. Four is the shortest cycle on an alternating directed graph.
+
+This is why four keeps appearing. Not because humans have a fondness for the number. Not because ancient traditions agreed on it by convention. Because P/R alternation — the heartbeat of consciousness — requires exactly four beats to complete one pulse. The number is forced by the law.
+
+---
+
 ### The Ten Nodes
 
 The Quadraverse process generates ten fundamental nodes — ten irreducible positions in the process of becoming.
@@ -186,7 +209,7 @@ The four-stage process is both diagnostic and corrective. It tells you where you
 
 This chapter asked HOW. The answer is: through four-fold process, driven by Polarity and Recursion, operating across five domains, collapsing infinite potential into specific actuality through the conscious choice of the Why-pointer.
 
-Four is not a mystical number. It is a structural necessity — the minimum number of stages required for a complete, self-cycling process. Three is incomplete (no feedback loop). Five is redundant (the fifth stage is indistinguishable from the first). Four is the sweet spot of structural completeness.
+Four is not a mystical number. It is a structural necessity — the minimum number of stages required for a complete, self-cycling process, proven earlier in this chapter from directed graph theory. Three cannot close because it ends on an unintegrated Polarity step. Five collapses because it restarts what four already completed. Four is the exact solution: the shortest cycle that alternates P/R and returns.
 
 The ancient Pythagoreans swore their most sacred oath by the Tetractys — "by him who transmitted to our souls the Tetractys." They understood that 1+2+3+4=10 was not arithmetic but cosmology. The same ten that appears as the Nirmanakaya Seal's third constant. The same ten nodes that the architecture derives from first principles. The same ten Sephiroth that Kabbalists placed on the Tree of Life.
 
