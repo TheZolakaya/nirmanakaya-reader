@@ -33,19 +33,9 @@ import {
   REFLECT_SPREADS,
   SPREADS_BY_COUNT,
   MODE_EXPLANATIONS,
-  // Voice/Stance
-  VOICE_MODIFIERS,
-  FOCUS_MODIFIERS,
-  DENSITY_MODIFIERS,
-  SCOPE_MODIFIERS,
-  COMPLEXITY_OPTIONS,
-  COMPLEXITY_MODIFIERS,
-  SERIOUSNESS_MODIFIERS,
+  // V3: Voice/Stance imports removed — stubs imported for backward compat until full UI cleanup
   DELIVERY_PRESETS,
-  STANCE_PRESETS,
-  VOICE_LETTER_TONE,
-  buildStancePrompt,
-  buildPreviewSentence,
+  SERIOUSNESS_MODIFIERS,
   // Prompts
   BASE_SYSTEM,
   FORMAT_INSTRUCTIONS,
@@ -81,16 +71,12 @@ import {
   sanitizeForAPI,
   formatDrawForAI,
   parseReadingResponse,
-  // Persona Translation Layer
-  reconstructReadingText,
-  validateMarkerPreservation,
-  parseTranslatedReading,
-  DEFAULT_PERSONA_SETTINGS,
-  // Personas
+  // V3 Voice System
+  buildPersonaPrompt,
   PERSONAS,
   HUMOR_LEVELS,
-  REGISTER_LEVELS,
-  CREATOR_LEVELS,
+  COMPLEXITY_OPTIONS,
+  DEFAULT_VOICE_SETTINGS,
 } from '../lib/index.js';
 
 // Import renderWithHotlinks for reading text parsing
@@ -140,7 +126,7 @@ import ClickableTermContext from '../components/shared/ClickableTermContext.js';
 import InfoModal from '../components/shared/InfoModal.js';
 import ThreadedCard from '../components/reader/ThreadedCard.js';
 import ReadingSection from '../components/reader/ReadingSection.js';
-import StanceSelector from '../components/reader/StanceSelector.js';
+// V3: StanceSelector removed — stance system killed
 import PersonaSelector from '../components/reader/PersonaSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
@@ -575,8 +561,10 @@ export default function NirmanakaReader() {
   const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'integrate' (internal, set by presets)
   const [cardCount, setCardCount] = useState(3); // 1-5 for architecture/custom frame
   const [customLabels, setCustomLabels] = useState(['', '', '']); // Position labels for custom frame
-  const [stance, setStance] = useState({ complexity: 'friend', seriousness: 'playful', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here' }); // Default: Clear
-  const [showCustomize, setShowCustomize] = useState(false);
+  // V3: Stance system removed. Complexity is the new language register dial.
+  const [complexity, setComplexity] = useState('clear'); // 'simple' | 'clear' | 'fluent' | 'eloquent'
+  // V3 compat shims — stance/depth variables referenced by not-yet-cleaned-up code
+  const stance = {}; const setStance = () => {}; const showCustomize = false; const setShowCustomize = () => {};
   const [draws, setDraws] = useState(null);
   const [parsedReading, setParsedReading] = useState(null);
   const [expansions, setExpansions] = useState({}); // {sectionKey: {unpack: '...', clarify: '...'}}
@@ -584,13 +572,15 @@ export default function NirmanakaReader() {
   const [collapsedSections, setCollapsedSections] = useState({}); // {sectionKey: true/false} - tracks collapsed state
   const [synthContextInput, setSynthContextInput] = useState({}); // { summary: true } - which synth sections show converse input
   const [synthContextText, setSynthContextText] = useState({}); // { summary: 'user text' } - converse input values
-  const [defaultDepth, setDefaultDepth] = useState('shallow'); // Master default: 'shallow' | 'wade'
+  // V3: Depth states removed — always full depth. Kept defaultExpanded for section collapse behavior.
   const [defaultExpanded, setDefaultExpanded] = useState(true); // When true, nested sections start expanded
+  // V3 compat shims — depth references not yet cleaned up
+  const defaultDepth = 'deep'; const setDefaultDepth = () => {};
+  const letterDepth = 'deep'; const setLetterDepth = () => {};
+  const pathDepth = 'deep'; const setSummaryDepth = () => {};
+  const summaryDepth = 'deep'; const setPathDepth = () => {};
+  const whyAppearedDepth = 'deep'; const setWhyAppearedDepth = () => {};
   const [controlTooltip, setControlTooltip] = useState(null); // { text: string, x: 'depth'|'cards' } for brief feedback
-  const [letterDepth, setLetterDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [pathDepth, setPathDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [summaryDepth, setSummaryDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
-  const [whyAppearedDepth, setWhyAppearedDepth] = useState('shallow'); // 'shallow' | 'wade' | 'swim' | 'deep'
 
   // Auth state
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -1027,8 +1017,8 @@ export default function NirmanakaReader() {
           if (anyCardsNeedLoad) {
             const systemPrompt = buildSystemPrompt(userLevel, {
               spreadType: data.mode || 'discover',
-              posture, // V1: explicit posture for governance
-              stance,
+              posture,
+              persona, humor, complexity,
               showArchitecture: showArchitectureTerms
             });
             setSystemPromptCache(systemPrompt);
@@ -1311,10 +1301,7 @@ export default function NirmanakaReader() {
     }
   }, [featureConfig, configApplied]);
 
-  // Legacy translation state (kept for potential fallback, will be removed in future)
-  const [translating, setTranslating] = useState(false); // Translation in progress
-  const [rawParsedReading, setRawParsedReading] = useState(null); // Original untranslated reading
-  const [translationUsage, setTranslationUsage] = useState(null); // Separate token tracking for translation
+  // V3: Translation layer removed — voice is baked into generation in one pass
 
   // Thread state for Reflect/Forge operations (Phase 2)
   const [threadData, setThreadData] = useState({}); // {cardIndex: [{draw, interpretation, operation, context, children}, ...]}
@@ -1485,119 +1472,7 @@ export default function NirmanakaReader() {
     await performReadingWithDraws(draws, question);
   };
 
-  // === PERSONA TRANSLATION FUNCTIONS ===
-
-  // Translate the current reading into the selected persona voice
-  const translateReading = async (readingToTranslate) => {
-    if (!readingToTranslate || persona === 'none') return null;
-
-    setTranslating(true);
-    setTranslationUsage(null);
-
-    try {
-      // Reconstruct the reading text with section markers
-      const readingText = reconstructReadingText(readingToTranslate);
-      if (!readingText) {
-        console.warn('No reading text to translate');
-        setTranslating(false);
-        return null;
-      }
-
-      const res = await fetch('/api/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: readingText,
-          persona,
-          humor
-        })
-      });
-
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-
-      // Track translation token usage separately
-      if (data.usage) {
-        setTranslationUsage(data.usage);
-      }
-
-      // Validate marker preservation
-      const validation = validateMarkerPreservation(readingText, data.translated);
-      if (!validation.valid) {
-        console.warn('Translation marker preservation issue:', validation);
-        // Fall back to raw reading if markers were lost
-        setTranslating(false);
-        return null;
-      }
-
-      // Parse the translated text back into structured format
-      const translatedParsed = parseTranslatedReading(data.translated, readingToTranslate);
-
-      // Merge translated content with original structure (preserving non-text fields)
-      const mergedReading = {
-        ...readingToTranslate,
-        cards: readingToTranslate.cards.map((card, i) => ({
-          ...card,
-          wade: translatedParsed.cards[i]?.wade || card.wade,
-          swim: translatedParsed.cards[i]?.swim || card.swim,
-          deep: translatedParsed.cards[i]?.deep || card.deep,
-          surface: translatedParsed.cards[i]?.surface || card.surface
-        })),
-        letter: {
-          ...readingToTranslate.letter,
-          wade: translatedParsed.letter?.wade || readingToTranslate.letter?.wade,
-          swim: translatedParsed.letter?.swim || readingToTranslate.letter?.swim,
-          deep: translatedParsed.letter?.deep || readingToTranslate.letter?.deep,
-          surface: translatedParsed.letter?.surface || readingToTranslate.letter?.surface
-        },
-        summary: readingToTranslate.summary ? {
-          ...readingToTranslate.summary,
-          wade: translatedParsed.summary?.wade || readingToTranslate.summary?.wade,
-          swim: translatedParsed.summary?.swim || readingToTranslate.summary?.swim,
-          deep: translatedParsed.summary?.deep || readingToTranslate.summary?.deep,
-          surface: translatedParsed.summary?.surface || readingToTranslate.summary?.surface
-        } : null,
-        path: readingToTranslate.path ? {
-          ...readingToTranslate.path,
-          wade: translatedParsed.path?.wade || readingToTranslate.path?.wade,
-          swim: translatedParsed.path?.swim || readingToTranslate.path?.swim,
-          deep: translatedParsed.path?.deep || readingToTranslate.path?.deep,
-          surface: translatedParsed.path?.surface || readingToTranslate.path?.surface
-        } : null,
-        _translated: true,
-        _persona: persona
-      };
-
-      setTranslating(false);
-      return mergedReading;
-
-    } catch (e) {
-      console.error('Translation error:', e);
-      setError(`Translation error: ${e.message}`);
-      setTranslating(false);
-      return null;
-    }
-  };
-
-  // Re-translate with current persona settings (called when settings change after reading)
-  const retranslate = async () => {
-    if (!rawParsedReading) return;
-
-    if (persona === 'none') {
-      // Switch back to raw reading
-      setParsedReading(rawParsedReading);
-      setTranslationUsage(null);
-      return;
-    }
-
-    const translated = await translateReading(rawParsedReading);
-    if (translated) {
-      setParsedReading(translated);
-    } else {
-      // Fall back to raw if translation failed
-      setParsedReading(rawParsedReading);
-    }
-  };
+  // V3: translateReading and retranslate removed — voice is single-pass in generation
 
   // Load preferences from localStorage on init (URL params override)
   useEffect(() => {
@@ -1835,8 +1710,7 @@ export default function NirmanakaReader() {
 
   const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
-    // Reset persona translation state
-    setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
+    // V3: Translation state removed — voice is single-pass
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false);
     // Reset depth states to user's chosen default
@@ -1937,11 +1811,10 @@ export default function NirmanakaReader() {
     let systemPrompt = buildSystemPrompt(userLevel, {
       spreadType,
       posture, // V1: explicit posture for verb governance (overrides spreadType in prompt builder)
-      stance,
-      letterTone: VOICE_LETTER_TONE[stance.voice],
-      // Persona Voice V2 params
+      // V3 Voice: three clean dials
       persona,
       humor,
+      complexity,
       // Architecture visibility
       showArchitecture: showArchitectureTerms,
       // Locus control
@@ -2078,7 +1951,6 @@ export default function NirmanakaReader() {
           question: questionToUse,
           spreadType,
           spreadKey: currentSpreadKey,
-          stance,
           system: systemPromptToUse || systemPromptCache,
           letterContent,
           frameLabel, // Frame context from preset spreads
@@ -2093,8 +1965,8 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      // Validate that we got actual content (not just empty strings)
-      const hasContent = data.cardData && (data.cardData.shallow || data.cardData.wade || data.cardData.surface || data.cardData.swim || data.cardData.deep);
+      // Validate that we got actual content (V3: check new flat fields)
+      const hasContent = data.cardData && (data.cardData.summary || data.cardData.reading);
       if (!hasContent) {
         throw new Error('Card generation returned empty content. Please try again.');
       }
@@ -2132,47 +2004,14 @@ export default function NirmanakaReader() {
     setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
   };
 
-  // Progressive deepening: Load SWIM or DEEP for a card (builds on previous content)
-  // sections: ['reading'] | ['rebalancer'] | ['why'] | ['growth'] | null (null = all, legacy)
+  // V3: Progressive deepening removed — cards always load at full depth.
+  // This function is kept as a no-op for backward compat with DepthCard's onLoadDeeper prop.
   const loadDeeperContent = async (cardIndex, targetDepth, previousContent, sections = null) => {
-    // Track depth telemetry
-    updateTelemetry('maxDepth', targetDepth);
-
+    // No-op: progressive deepening removed in V3. Cards load full depth on initial load.
+    return;
+    /* eslint-disable no-unreachable */
     try {
-      const letterContent = getLetterContent(parsedReading?.letter);
-      // Get token from card state for DTP mode
-      const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
-      // Get originalInput for grounded DTP interpretations
-      const originalInput = parsedReading?.originalInput || null;
-      // Compute frame context for this card (centralized)
-      const deepenFc = getFrameContextForCard(cardIndex);
-      const deepenFrameLabel = deepenFc.label;
-      const deepenFrameLens = deepenFc.lens;
-      const res = await fetch('/api/card-depth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          cardIndex,
-          draw: draws[cardIndex],
-          question,
-          spreadType,
-          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
-          stance,
-          system: systemPromptCache,
-          letterContent,
-          frameLabel: deepenFrameLabel,
-          frameLens: deepenFrameLens,
-          token: cardToken, // DTP mode: token context for this card
-          originalInput, // DTP mode: full question context for grounded interpretations
-          model: getModelId(selectedModel),
-          // Progressive deepening params
-          targetDepth,
-          previousContent,
-          sections, // Selective section loading — null means all
-          userContext: userContextRef.current,
-          showArchitecture: showArchitectureTerms
-        })
-      });
+      const res = await fetch('/api/card-depth', { method: 'POST' });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
@@ -2732,7 +2571,7 @@ export default function NirmanakaReader() {
 
     const fullReadingContext = buildReadingContext();
     const safeQuestion = sanitizeForAPI(question);
-    const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
+    const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
 
     let systemPrompt, userMessage;
 
@@ -2988,7 +2827,7 @@ Interpret this new card as the architecture's response to their declared directi
 
     const fullReadingContext = buildReadingContext();
     const safeQuestion = sanitizeForAPI(question);
-    const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
+    const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
 
     let systemPrompt, userMessage;
 
@@ -3328,7 +3167,7 @@ Interpret this new card as the architecture's response to their declared directi
     }
     
     // Pass the original stance to expansion
-    const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
+    const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are expanding on a specific section of a reading. Keep the same tone as the original reading. Be concise but thorough. Always connect your expansion back to the querent's specific question.\n\nCRITICAL FORMATTING RULES:\n1. NEVER write walls of text\n2. Each paragraph must be 2-4 sentences MAX\n3. Put TWO blank lines between each paragraph (this is required for rendering)\n4. Break your response into 3-5 distinct paragraphs\n5. Each paragraph should explore ONE aspect or dimension`;
 
     // Inject user journey context if available
@@ -3662,7 +3501,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
     }
     
     // Pass stance to follow-up
-    const stancePrompt = buildStancePrompt(stance.complexity, stance.voice, stance.focus, stance.density, stance.scope, stance.seriousness);
+    const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
     const systemPrompt = `${BASE_SYSTEM}\n\n${stancePrompt}\n\nYou are conversing about an encounter. The querent wants to go deeper, challenge something, or explore a thread. Respond directly, referencing the reading context as needed. This is a dialogue, not a lecture. No section markers — just respond naturally.
 
 CRITICAL FORMATTING RULES:
@@ -3864,9 +3703,9 @@ CRITICAL FORMATTING RULES:
     const systemPrompt = buildSystemPrompt(userLevel, {
       spreadType,
       posture, // V1: explicit posture for governance (overrides spreadType)
-      stance,
       persona,
       humor,
+      complexity,
       showArchitecture: showArchitectureTerms
     });
 
@@ -6998,16 +6837,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               </div>
             )}
 
-            {/* Translation Loading Indicator - shows when persona translation in progress */}
-            {translating && (
-              <div className="mb-6 rounded-lg border-2 border-amber-600/40 p-5 bg-amber-900/20">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-amber-400 animate-pulse">
-                    Finding your {persona.charAt(0).toUpperCase() + persona.slice(1)} voice...
-                  </span>
-                </div>
-              </div>
-            )}
+            {/* V3: Translation loading indicator removed — voice is single-pass */}
 
             {/* Synthesis Not Yet Available - shows when cards still loading */}
             {parsedReading._onDemand && !parsedReading._isFirstContact && !synthesisLoaded && !synthesisLoading && !parsedReading.summary && (
@@ -8109,14 +7939,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       </div>
                     </div>
 
-                    {/* Stance Grid */}
-                    <StanceSelector
-                      stance={stance}
-                      setStance={setStance}
-                      showCustomize={true}
-                      setShowCustomize={() => {}}
-                      compact={true}
-                    />
+                    {/* V3: StanceSelector removed — stance system killed */}
 
                     {/* Model Selector + Token Display */}
                     <div className="pt-3 border-t border-zinc-700/50">
@@ -8168,14 +7991,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               (tokenUsage.input_tokens * getModelPricing(selectedModel).input / 1000000) +
               (tokenUsage.output_tokens * getModelPricing(selectedModel).output / 1000000)
             ).toFixed(4)} ({getModelLabel(selectedModel).split(' ')[0]})
-            {translationUsage && (
-              <span className="ml-2 text-amber-600/60">
-                + Translation: {translationUsage.input_tokens?.toLocaleString()} in / {translationUsage.output_tokens?.toLocaleString()} out • ${(
-                  (translationUsage.input_tokens * 0.001 / 1000) +
-                  (translationUsage.output_tokens * 0.005 / 1000)
-                ).toFixed(4)} (Haiku)
-              </span>
-            )}
+{/* V3: Translation usage display removed */}
           </div>
         )}
 
