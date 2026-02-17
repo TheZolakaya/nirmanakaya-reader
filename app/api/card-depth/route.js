@@ -320,6 +320,15 @@ ${archInstruction}
 
 Generate a FULL DEPTH interpretation of this signature. No sentence limits on any section.
 
+⚠️ LENGTH EXPECTATIONS — THIS IS THE FULL TRANSMISSION, NOT A SUMMARY:
+- SUMMARY: Exactly 2 sentences (the anchor)
+- READING: The main event. 5-8 substantial paragraphs MINIMUM. This is not a gloss — explore the signature's meaning deeply. Philosophy, psychology, practical implications. Each paragraph should develop a distinct facet. If your READING section is under 4 paragraphs, it's too short — go deeper.
+- MIRROR: 2-3 paragraphs of reflective, poetic second-person address
+- WHY: 3-5 paragraphs on the teleological pressure
+- REBALANCER/GROWTH: 3-5 paragraphs on the path forward
+
+Do NOT confuse brevity with depth. The reading should feel like sitting down with a wise friend for 10 minutes, not scanning a fortune cookie.
+
 ⚠️ POSITION AND FRAME CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
 - THE POSITION (where it landed): ${positionName}
