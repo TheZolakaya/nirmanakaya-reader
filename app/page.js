@@ -5790,7 +5790,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               const spread = REFLECT_SPREADS[derivedSpread.spreadKey];
                               if (!spread) return null;
                               return (
-                                <div className="mt-1.5 px-2 py-2 rounded-lg bg-zinc-900/90 border border-zinc-700/50 backdrop-blur-sm max-w-[360px]">
+                                <div className="mt-1.5 px-2 py-2 rounded-lg bg-zinc-900 border border-zinc-700/50 max-w-[360px]">
                                   {/* Archetype */}
                                   <div className="text-[0.7rem] text-zinc-500 font-mono tracking-wider mb-1.5">
                                     {spread.archetype?.number} {spread.archetype?.verb} — {spread.archetype?.traditional}
