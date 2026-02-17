@@ -2590,17 +2590,40 @@ export default function NirmanakaReader() {
       return;
     }
 
-    // Architecture mode with derived spread: route through the derived spread's frame
-    if (frameSource === 'architecture' && derivedSpread) {
-      const derivedKey = derivedSpread.spreadKey;
-      const derivedCount = REFLECT_SPREADS[derivedKey].count;
-      const newDraws = generateSpread(derivedCount);
-      setDraws(newDraws);
-      await performReadingWithDraws(newDraws, actualQuestion, null, {
-        spreadType: 'reflect',
-        spreadKey: derivedKey
-      });
-      return;
+    // Architecture mode: route through the derived spread's frame
+    // If classification hasn't completed yet (user submitted before debounce), do it synchronously
+    if (frameSource === 'architecture' && actualQuestion.trim().length >= 10) {
+      let spread = derivedSpread;
+      if (!spread) {
+        // Cancel pending debounce and classify synchronously
+        if (derivedTimer.current) clearTimeout(derivedTimer.current);
+        try {
+          const res = await fetch('/api/spread-recommend', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: actualQuestion.trim() })
+          });
+          const data = await res.json();
+          if (data.spreadKey) {
+            spread = data;
+            setDerivedSpread(data); // Update state so UI shows it
+          }
+        } catch (err) {
+          console.error('Spread classification at submit failed:', err);
+        }
+      }
+      if (spread) {
+        const derivedKey = spread.spreadKey;
+        const derivedCount = REFLECT_SPREADS[derivedKey].count;
+        const newDraws = generateSpread(derivedCount);
+        setDraws(newDraws);
+        await performReadingWithDraws(newDraws, actualQuestion, null, {
+          spreadType: 'reflect',
+          spreadKey: derivedKey
+        });
+        return;
+      }
+      // Fallback: classification failed — proceed with standard discover flow
     }
 
     const isReflect = spreadType === 'reflect';
