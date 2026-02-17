@@ -1943,14 +1943,12 @@ const DepthCard = ({
                   <>Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel} appeared</>
                 )}
               </div>
-              {/* THE MIRROR - single poetic reflection, no depth navigation */}
+              {/* THE MIRROR - poetic reflection, no depth navigation */}
               <div className="mb-4">
-                <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">The Mirror</div>
                 {cardData.mirror ? (
                   <MirrorSection
                     content={cardData.mirror}
                     isBalanced={isBalanced}
-                    className="border-0 bg-transparent p-0"
                   />
                 ) : (
                   <span className="text-cyan-500/50 italic text-sm">Mirror generating...</span>
