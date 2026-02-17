@@ -169,46 +169,36 @@ const FRAME_COLORS = {
 const PLACEHOLDER_TEXT = {
   reflect: {
     1: {
-      default: "What aspect of self needs a mirror?",
-      'single-focus': "What needs your focused attention right now?",
-      'core': "What's at the center beneath the noise?",
-      'invitation': "What's waiting for you to notice it?",
-      'ground': "Where do you need to find stability?"
+      default: "What needs your attention right now?",
+      'gestalt-1': "What's the single most important thing right now?",
+      'spirit-1': "Where's the meaning in what you're facing?",
+      'mind-1': "What do you need to see clearly?",
+      'emotion-1': "What are you really feeling about this?",
+      'body-1': "What's actually happening on the ground?"
     },
     2: {
       default: "What dynamic are you navigating?",
-      'ground-sky': "Where does your foundation meet your aspiration?",
-      'inner-outer': "Where is the gap between inside and outside?",
-      'give-receive': "What's the flow of exchange right now?",
-      'self-other': "What's happening in this relationship?"
+      'gestalt-2': "What's pulling you in two directions?",
+      'spirit-2': "Where's the tension between what matters and what's happening?",
+      'mind-2': "What do you know vs. what are you avoiding?",
+      'emotion-2': "What's the push and pull in this relationship?",
+      'body-2': "Where does your energy go vs. where should it?"
     },
     3: {
       default: "What pattern is unfolding?",
-      'arc': "What's in motion? Where is it heading?",
-      'time-lens': "What's ending, present, and emerging?",
-      'creation': "What are you making? How is it developing?",
-      'foundation': "What's supporting what in your structure?"
+      'gestalt-3': "What's in motion? Where is it heading?",
+      'spirit-3': "What are you creating and how is it developing?",
+      'mind-3': "What pattern are you caught in?",
+      'emotion-3': "How is this relationship evolving?",
+      'body-3': "What's the state of your foundation?"
     },
     4: {
-      default: "How are your four domains expressing?",
-      'quadraverse': "How are Spirit, Mind, Emotion, and Body showing up?",
-      'relationship': "What's the full picture of this dynamic?",
-      'decision': "What are the forces around this choice?",
-      'cycle': "Where are you in this cycle?"
-    },
-    5: {
-      default: "What's the full architecture?",
-      'five-houses': "How are your five houses expressing?",
-      'project': "What's the status of this creation?",
-      'alignment': "Where is alignment and misalignment?",
-      'journey': "Where are you on this path?"
-    },
-    6: {
-      default: "What's the complete picture?",
-      'life-domains': "How are all six domains functioning?",
-      'full-cycle': "What does the full cycle reveal?",
-      'spheres': "How do the spheres of life connect?",
-      'integration': "What wants to integrate?"
+      default: "How are all four dimensions showing up?",
+      'gestalt-4': "How are all the pieces fitting together?",
+      'spirit-4': "What does witnessing this fully reveal?",
+      'mind-4': "What forces are shaping your thinking?",
+      'emotion-4': "What's the full landscape of this connection?",
+      'body-4': "What does your reality actually look like right now?"
     }
   },
   discover: {
@@ -575,8 +565,8 @@ export default function NirmanakaReader() {
   const [dtpInput, setDtpInput] = useState(''); // DTP (Dynamic frame) text input
   const [dtpTokens, setDtpTokens] = useState(null); // DTP tokens array for Dynamic frame
   const [spreadKey, setSpreadKey] = useState('three');
-  const [reflectCardCount, setReflectCardCount] = useState(3); // 1-6 for Preset frame
-  const [reflectSpreadKey, setReflectSpreadKey] = useState('arc'); // Selected spread in Preset frame
+  const [reflectCardCount, setReflectCardCount] = useState(3); // 1-4 for Preset frame
+  const [reflectSpreadKey, setReflectSpreadKey] = useState('gestalt-3'); // Selected spread in Preset frame
   // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
   const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic' | 'custom'
   const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'integrate' (internal, set by presets)
@@ -5310,12 +5300,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 <div className="flex flex-col items-center justify-start min-h-[36px]">
                     {/* Spread count selector for Preset frame */}
                     <div className="flex gap-1 justify-center mb-2" data-help="spread-selector">
-                      {[1, 2, 3, 4, 5, 6].map((count, index) => (
+                      {[1, 2, 3, 4].map((count, index) => (
                         <motion.button
                           key={count}
                           onClick={() => {
                             setReflectCardCount(count);
-                            setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'single');
+                            setReflectSpreadKey(SPREADS_BY_COUNT[count]?.[0] || 'gestalt-1');
                           }}
                           className={`w-9 h-9 sm:w-8 sm:h-8 rounded-md text-sm font-medium transition-all ${
                             reflectCardCount === count
