@@ -54,7 +54,7 @@ export async function POST(request) {
   ];
 
   // Token budget scales with reading length
-  const LENGTH_TOKENS = { brief: 3000, standard: 6000, full: 12000 };
+  const LENGTH_TOKENS = { brief: 1500, standard: 4000, full: 12000 };
   const LENGTH_RETRY_THRESHOLD = { brief: 80, standard: 200, full: 300 };
   const maxTokens = LENGTH_TOKENS[effectiveLength] || 12000;
 

@@ -214,6 +214,20 @@ const DepthCard = ({
     }
   }, [isNotLoaded]);
 
+  // Belt-and-suspenders: if card has content but is still collapsed,
+  // force-expand after a tick. Catches edge cases where the primary
+  // useEffect didn't fire due to React batching or timing.
+  const hasContent = cardData && (cardData.reading || cardData.shallow || cardData.summary);
+  useEffect(() => {
+    if (hasContent && !isNotLoaded && depth === DEPTH.COLLAPSED && !hasAutoExpanded.current) {
+      hasAutoExpanded.current = true;
+      setDepth(defaultDepth);
+      setRebalancerDepth(defaultDepth);
+      setGrowthDepth(defaultDepth);
+      setIsWhyCollapsed(false);
+    }
+  }, [hasContent, isNotLoaded, depth]);
+
   // V1: Respond to expand/collapse all triggers from parent
   const expandRef = useRef(expandAllTrigger);
   const collapseRef = useRef(collapseAllTrigger);
