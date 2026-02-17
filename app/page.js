@@ -607,6 +607,11 @@ export default function NirmanakaReader() {
   const [glistenData, setGlistenData] = useState(null); // Full glisten data for saving to My Readings
   const [showGlistenPanel, setShowGlistenPanel] = useState(false); // Show Glistened Tale panel in reading
   const glistenerScrollRef = useRef(null);
+  // Architecture mode: derived spread from question classification
+  const [derivedSpread, setDerivedSpread] = useState(null); // { spreadKey, house, count, name, whenToUse, archetype }
+  const [derivedLoading, setDerivedLoading] = useState(false);
+  const derivedTimer = useRef(null);
+  const activeReadingOverrides = useRef(null); // Stores { spreadType, spreadKey } for on-demand card/synthesis loading
   const [userReadingCount, setUserReadingCount] = useState(0);
   const userContextRef = useRef(''); // Cached user journey context block for prompt injection
   const readingConverseRef = useRef([]); // Reading-level converse accumulator: [{section, userText}]
@@ -785,6 +790,47 @@ export default function NirmanakaReader() {
     }
   }, [cardCount, frameSource]);
 
+  // Architecture mode: debounced spread classification from question text
+  useEffect(() => {
+    // Only classify in architecture mode
+    if (frameSource !== 'architecture') {
+      setDerivedSpread(null);
+      setDerivedLoading(false);
+      if (derivedTimer.current) clearTimeout(derivedTimer.current);
+      return;
+    }
+    // Need at least 10 chars to classify
+    if (question.trim().length < 10) {
+      setDerivedSpread(null);
+      setDerivedLoading(false);
+      if (derivedTimer.current) clearTimeout(derivedTimer.current);
+      return;
+    }
+    // Debounce: wait 1.5s after last keystroke
+    setDerivedLoading(true);
+    if (derivedTimer.current) clearTimeout(derivedTimer.current);
+    derivedTimer.current = setTimeout(async () => {
+      try {
+        const res = await fetch('/api/spread-recommend', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: question.trim() })
+        });
+        const data = await res.json();
+        if (data.spreadKey) {
+          setDerivedSpread(data);
+        } else {
+          setDerivedSpread(null);
+        }
+      } catch (err) {
+        console.error('Spread classification failed:', err);
+        setDerivedSpread(null);
+      }
+      setDerivedLoading(false);
+    }, 1500);
+    return () => { if (derivedTimer.current) clearTimeout(derivedTimer.current); };
+  }, [question, frameSource]);
+
   // Centralized frame context builder — maps frameSource to buildFrameContext mode
   const getFrameContextForCard = (index) => {
     if (frameSource === 'preset') {
@@ -796,7 +842,10 @@ export default function NirmanakaReader() {
     if (frameSource === 'dynamic') {
       return buildFrameContext('explore', { index, label: dtpTokens?.[index] || null });
     }
-    // 'architecture' — no frame context yet
+    // 'architecture' — use derived spread if available, otherwise fall back to discover
+    if (derivedSpread) {
+      return buildFrameContext('preset', { spreadKey: derivedSpread.spreadKey, index });
+    }
     return buildFrameContext('discover');
   };
 
@@ -1833,7 +1882,7 @@ export default function NirmanakaReader() {
     catch { prompt('Copy this link:', shareUrl); }
   };
 
-  const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null) => {
+  const performReadingWithDraws = async (drawsToUse, questionToUse = question, tokens = null, overrides = {}) => {
     setLoading(true); setError(''); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     // Reset persona translation state
     setRawParsedReading(null); setTranslationUsage(null); setTranslating(false);
@@ -1845,8 +1894,12 @@ export default function NirmanakaReader() {
     resetTelemetry();
     // Store tokens for DTP mode (used by card generation)
     setDtpTokens(tokens);
-    const isReflect = spreadType === 'reflect';
-    const currentSpreadKey = isReflect ? reflectSpreadKey : spreadKey;
+    // Architecture mode overrides: route through derived spread's reflect path
+    const effectiveSpreadType = overrides.spreadType || spreadType;
+    const isReflect = effectiveSpreadType === 'reflect';
+    const currentSpreadKey = overrides.spreadKey || (isReflect ? reflectSpreadKey : spreadKey);
+    // Store overrides in ref so on-demand loadCardDepth/loadSynthesis can use them
+    activeReadingOverrides.current = Object.keys(overrides).length > 0 ? overrides : null;
     const safeQuestion = sanitizeForAPI(questionToUse);
 
     // Check if First Contact Mode (Level 0)
@@ -1935,7 +1988,7 @@ export default function NirmanakaReader() {
     // Phase 1: Fetch Letter only (card content loaded on-demand)
     // V2: Include persona params for one-pass voice integration
     let systemPrompt = buildSystemPrompt(userLevel, {
-      spreadType,
+      spreadType: effectiveSpreadType,
       posture, // V1: explicit posture for verb governance (overrides spreadType in prompt builder)
       stance,
       letterTone: VOICE_LETTER_TONE[stance.voice],
@@ -1981,7 +2034,7 @@ export default function NirmanakaReader() {
         body: JSON.stringify({
           question: safeQuestion,
           draws: drawsToUse,
-          spreadType,
+          spreadType: effectiveSpreadType,
           spreadKey: currentSpreadKey,
           stance,
           system: systemPrompt,
@@ -2025,7 +2078,7 @@ export default function NirmanakaReader() {
       if (!incognitoMode) {
         saveReading({
           question: questionToUse,
-          mode: spreadType,
+          mode: effectiveSpreadType,
           spreadType: `${drawsToUse.length}-card`,
           cards: drawsToUse,
           synthesis: null,
@@ -2064,8 +2117,10 @@ export default function NirmanakaReader() {
 
     try {
       const letterContent = letterData?.swim || letterData?.wade || letterData?.shallow || letterData?.surface || '';
-      // Compute frame context for this card (centralized)
-      const currentSpreadKey = spreadType === 'reflect' ? reflectSpreadKey : spreadKey;
+      // Compute frame context for this card (centralized) — uses derivedSpread if architecture mode
+      const ov = activeReadingOverrides.current;
+      const effectiveSpreadType = ov?.spreadType || spreadType;
+      const currentSpreadKey = ov?.spreadKey || (effectiveSpreadType === 'reflect' ? reflectSpreadKey : spreadKey);
       const fc = getFrameContextForCard(cardIndex);
       const frameLabel = fc.label;
       const frameLens = fc.lens;
@@ -2076,7 +2131,7 @@ export default function NirmanakaReader() {
           cardIndex,
           draw: drawsToUse[cardIndex],
           question: questionToUse,
-          spreadType,
+          spreadType: effectiveSpreadType,
           spreadKey: currentSpreadKey,
           stance,
           system: systemPromptToUse || systemPromptCache,
@@ -2241,6 +2296,9 @@ export default function NirmanakaReader() {
       // Get current card data from parsedReading
       const currentCards = parsedReading?.cards || [];
 
+      const ov = activeReadingOverrides.current;
+      const effectiveSpreadType = ov?.spreadType || spreadType;
+      const effectiveSpreadKey = ov?.spreadKey || (effectiveSpreadType === 'reflect' ? reflectSpreadKey : spreadKey);
       const res = await fetch('/api/synthesis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2249,8 +2307,8 @@ export default function NirmanakaReader() {
           draws: drawsToUse,
           cards: currentCards,
           letter: parsedReading?.letter,
-          spreadType,
-          spreadKey: spreadType === 'reflect' ? reflectSpreadKey : spreadKey,
+          spreadType: effectiveSpreadType,
+          spreadKey: effectiveSpreadKey,
           system: systemPromptToUse || systemPromptCache,
           model: getModelId(selectedModel),
           // DTP mode: pass tokens and originalInput for grounded synthesis
@@ -2529,6 +2587,19 @@ export default function NirmanakaReader() {
       const newDraws = generateSpread(1);
       setDraws(newDraws);
       await performReadingWithDraws(newDraws, actualQuestion);
+      return;
+    }
+
+    // Architecture mode with derived spread: route through the derived spread's frame
+    if (frameSource === 'architecture' && derivedSpread) {
+      const derivedKey = derivedSpread.spreadKey;
+      const derivedCount = REFLECT_SPREADS[derivedKey].count;
+      const newDraws = generateSpread(derivedCount);
+      setDraws(newDraws);
+      await performReadingWithDraws(newDraws, actualQuestion, null, {
+        spreadType: 'reflect',
+        spreadKey: derivedKey
+      });
       return;
     }
 
@@ -5644,16 +5715,39 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       )}
                     </div>
                   )}
-                  {/* Glisten trigger - inside textarea, bottom left */}
+                  {/* Glisten trigger / Architecture spread indicator - inside textarea, bottom left */}
                   {!showGlistener && (
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
-                      className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
-                      title="Let a question find its shape"
-                    >
-                      <span className="text-amber-500/70">◇</span>
-                      <span>Glisten</span>
-                    </button>
+                    frameSource === 'architecture' && question.trim().length >= 10 ? (
+                      // Architecture mode: show derived spread or loading indicator
+                      <div className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-2 z-10 transition-all duration-300">
+                        <span className="text-amber-500/70">◇</span>
+                        {derivedLoading ? (
+                          <span className="text-zinc-500 inline-flex gap-0.5">
+                            <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+                            <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+                            <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+                          </span>
+                        ) : derivedSpread ? (
+                          <span className="flex items-center gap-1.5">
+                            <span className="text-amber-400">{derivedSpread.name}</span>
+                            <span className="text-zinc-600">·</span>
+                            <span className="text-blue-400/70">{derivedSpread.house}</span>
+                            <span className="text-zinc-600">·</span>
+                            <span className="text-blue-400/70">{derivedSpread.count}</span>
+                          </span>
+                        ) : null}
+                      </div>
+                    ) : (
+                      // Default: Glisten trigger
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }}
+                        className="absolute bottom-4 left-4 text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-amber-400 transition-colors flex items-center gap-2 z-10"
+                        title="Let a question find its shape"
+                      >
+                        <span className="text-amber-500/70">◇</span>
+                        <span>Glisten</span>
+                      </button>
+                    )
                   )}
                   {/* Initiate button - inside textarea, bottom right */}
                   {/* Shows Cancel when Glistener is running, Initiate otherwise */}
