@@ -78,10 +78,10 @@ export default function BookPage() {
                 className="group flex items-baseline gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800/40 transition-colors"
               >
                 <span className="text-zinc-600 font-mono text-xs w-6 text-right shrink-0">
-                  {app.title.match(/[A-G]/)?.[0]}
+                  {app.title.match(/Appendix ([A-G])/)?.[1]}
                 </span>
                 <span className="text-zinc-300 text-sm group-hover:text-amber-400 transition-colors">
-                  {app.title}
+                  {app.title.replace(/^Appendix [A-G]: /, '')}
                 </span>
               </Link>
             ))}
