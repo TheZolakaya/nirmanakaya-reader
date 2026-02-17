@@ -76,6 +76,7 @@ import {
   PERSONAS,
   HUMOR_LEVELS,
   COMPLEXITY_OPTIONS,
+  LENGTH_OPTIONS,
   DEFAULT_VOICE_SETTINGS,
 } from '../lib/index.js';
 
@@ -1085,6 +1086,7 @@ export default function NirmanakaReader() {
               spreadType: data.mode || 'discover',
               posture,
               persona, humor, complexity,
+              readingLength,
               showArchitecture: showArchitectureTerms
             });
             setSystemPromptCache(systemPrompt);
@@ -1310,6 +1312,7 @@ export default function NirmanakaReader() {
   const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
   const [showArchitectureTerms, setShowArchitectureTerms] = useState(false); // V1: architecture visibility toggle
+  const [readingLength, setReadingLength] = useState('standard'); // 'brief' | 'standard' | 'full'
 
   // Apply config defaults to voice settings when config is loaded
   // ONLY if no saved preferences exist in localStorage (first-time users)
@@ -1584,6 +1587,7 @@ export default function NirmanakaReader() {
         if (prefs.humor !== undefined) setHumor(prefs.humor);
         // V1: Architecture visibility toggle
         if (prefs.showArchitectureTerms !== undefined) setShowArchitectureTerms(prefs.showArchitectureTerms);
+        if (prefs.readingLength !== undefined) setReadingLength(prefs.readingLength);
         if (prefs.animatedBackground !== undefined) setAnimatedBackground(prefs.animatedBackground);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
@@ -1649,6 +1653,7 @@ export default function NirmanakaReader() {
       // Voice settings (V1)
       persona,
       humor,
+      readingLength,
       showArchitectureTerms,
       // Background settings
       animatedBackground,
@@ -1668,7 +1673,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -1885,6 +1890,8 @@ export default function NirmanakaReader() {
       persona,
       humor,
       complexity,
+      // Reading length
+      readingLength,
       // Architecture visibility
       showArchitecture: showArchitectureTerms,
       // Locus control
@@ -2036,7 +2043,8 @@ export default function NirmanakaReader() {
           originalInput, // DTP mode: full question context for grounded interpretations
           model: getModelId(selectedModel),
           userContext: userContextRef.current,
-          showArchitecture: showArchitectureTerms
+          showArchitecture: showArchitectureTerms,
+          readingLength
         })
       });
       const data = await res.json();
@@ -3858,6 +3866,7 @@ CRITICAL FORMATTING RULES:
       persona,
       humor,
       complexity,
+      readingLength,
       showArchitecture: showArchitectureTerms
     });
 
@@ -6028,6 +6037,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         setHumor={setHumor}
                         complexity={complexity}
                         setComplexity={setComplexity}
+                        readingLength={readingLength}
+                        setReadingLength={setReadingLength}
                         compact={true}
                         hasReading={false}
                       />
@@ -7890,7 +7901,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       {showMidReadingStance ? '▾' : '▸'} Adjust Voice
                     </span>
                     <span className="text-xs text-zinc-600 ml-2">
-                      {PERSONAS.find(p => p.key === persona)?.name || 'Friend'} · {COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.name || 'Clear'}
+                      {PERSONAS.find(p => p.key === persona)?.name || 'Friend'} · {COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.name || 'Clear'} · {LENGTH_OPTIONS.find(o => o.key === readingLength)?.name || 'Standard'}
                     </span>
                   </div>
                   <span className="text-xs text-zinc-500">
@@ -7909,7 +7920,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div className="absolute top-full right-0 mt-2 z-50 w-72">
                 <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 shadow-xl">
                   <p className="text-zinc-400 text-xs leading-relaxed">
-                    Voice controls shape how the reading speaks to you. Persona sets who's talking, Humor sets the tone weight, and Complexity controls vocabulary level.
+                    Voice controls shape how the reading speaks to you. Persona sets who's talking, Humor sets the tone weight, Complexity controls vocabulary level, and Length controls how much the reading says.
                   </p>
                   <button
                     onClick={() => setHelpPopover(null)}
@@ -7932,6 +7943,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     setHumor={setHumor}
                     complexity={complexity}
                     setComplexity={setComplexity}
+                    readingLength={readingLength}
+                    setReadingLength={setReadingLength}
                     compact={true}
                     hasReading={!!parsedReading}
                   />

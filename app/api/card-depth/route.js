@@ -30,11 +30,13 @@ export async function POST(request) {
     token,          // e.g., "Fear" - the user's token this card is reading
     originalInput,  // e.g., "I'm worried about my marriage" - full question for grounding
     userContext,     // Optional user journey context block
-    showArchitecture // Whether architecture terms are visible (default: false)
+    showArchitecture, // Whether architecture terms are visible (default: false)
+    readingLength    // 'brief' | 'standard' | 'full' (default: 'full')
   } = await request.json();
 
   const effectiveModel = model || "claude-sonnet-4-20250514";
   const n = cardIndex + 1; // 1-indexed for markers
+  const effectiveLength = readingLength || 'full';
 
   // Build card-specific user message — single pass, all structural data
   const baseMessage = buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens, showArchitecture);
@@ -51,9 +53,10 @@ export async function POST(request) {
     }
   ];
 
-  // Single-depth full interpretation — generous budget for complete transmission
-  // Must accommodate READING (5-8 paras) + MIRROR (2-3) + WHY (3-5) + REBALANCER/GROWTH (3-5)
-  const maxTokens = 12000;
+  // Token budget scales with reading length
+  const LENGTH_TOKENS = { brief: 3000, standard: 6000, full: 12000 };
+  const LENGTH_RETRY_THRESHOLD = { brief: 80, standard: 200, full: 300 };
+  const maxTokens = LENGTH_TOKENS[effectiveLength] || 12000;
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -117,11 +120,12 @@ export async function POST(request) {
       }, { status: 500 });
     }
 
-    // V3: Short-reading retry — if READING section is under 300 words, the model
+    // V3: Short-reading retry — if READING section is under threshold, the model
     // didn't follow length instructions. Send a continuation request.
+    const retryThreshold = LENGTH_RETRY_THRESHOLD[effectiveLength] || 300;
     const readingWordCount = (parsedCard.reading || '').split(/\s+/).filter(w => w).length;
-    if (readingWordCount < 300 && parsedCard.reading) {
-      console.log(`[card-depth] Card ${n} reading too short (${readingWordCount} words, stop: ${stopReason}). Requesting continuation.`);
+    if (readingWordCount < retryThreshold && parsedCard.reading) {
+      console.log(`[card-depth] Card ${n} reading too short (${readingWordCount} words < ${retryThreshold} threshold, stop: ${stopReason}). Requesting continuation.`);
 
       try {
         const continuationResponse = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -139,7 +143,12 @@ export async function POST(request) {
             messages: [
               { role: 'user', content: userMessage },
               { role: 'assistant', content: text },
-              { role: 'user', content: `Your response was too short. The READING section is only ${readingWordCount} words — the minimum is 600 words. The MIRROR, WHY, and REBALANCER/GROWTH sections also need 200-400 words each. Please REGENERATE the entire response from [CARD:${n}:SUMMARY] with substantially more content. Write 1500-2500 words total. This is not optional.` }
+              { role: 'user', content: effectiveLength === 'brief'
+                ? `Your response was too short. The READING section is only ${readingWordCount} words — the minimum is 100 words even for Brief mode. Please REGENERATE the entire response from [CARD:${n}:SUMMARY] with more focused content. Write 300-500 words total. This is not optional.`
+                : effectiveLength === 'standard'
+                  ? `Your response was too short. The READING section is only ${readingWordCount} words — the minimum is 400 words. The MIRROR, WHY, and REBALANCER/GROWTH sections need 150-250 words each. Please REGENERATE the entire response from [CARD:${n}:SUMMARY] with more content. Write 800-1200 words total. This is not optional.`
+                  : `Your response was too short. The READING section is only ${readingWordCount} words — the minimum is 600 words. The MIRROR, WHY, and REBALANCER/GROWTH sections also need 200-400 words each. Please REGENERATE the entire response from [CARD:${n}:SUMMARY] with substantially more content. Write 1500-2500 words total. This is not optional.`
+              }
             ]
           })
         });

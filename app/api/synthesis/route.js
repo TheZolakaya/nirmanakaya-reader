@@ -54,7 +54,7 @@ export async function POST(request) {
   ];
 
   // Adjust max tokens based on what we're generating (now includes whyAppeared)
-  const maxTokens = isDeepening ? 2000 : 2000;
+  const maxTokens = isDeepening ? 4000 : 4000;
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {

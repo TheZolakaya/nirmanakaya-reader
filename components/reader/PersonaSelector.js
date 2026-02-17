@@ -1,8 +1,8 @@
 // === PERSONA SELECTOR COMPONENT ===
-// V3: Three dials — Persona, Humor, Complexity
+// V3: Four dials — Persona, Humor, Complexity, Length
 // No register, no creator, no roast/direct mode
 
-import { PERSONAS, HUMOR_LEVELS, COMPLEXITY_OPTIONS } from '../../lib/personas.js';
+import { PERSONAS, HUMOR_LEVELS, COMPLEXITY_OPTIONS, LENGTH_OPTIONS } from '../../lib/personas.js';
 
 const PersonaSelector = ({
   persona,
@@ -11,6 +11,8 @@ const PersonaSelector = ({
   setHumor,
   complexity,
   setComplexity,
+  readingLength,
+  setReadingLength,
   compact = false,
   hasReading = false
 }) => {
@@ -89,6 +91,32 @@ const PersonaSelector = ({
               ))}
             </div>
           </div>
+
+          {/* Length buttons */}
+          {setReadingLength && (
+            <div className="px-2">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[0.625rem] text-zinc-500 uppercase tracking-wider">Length</span>
+                <span className="text-[0.625rem] text-amber-500/80">{LENGTH_OPTIONS.find(o => o.key === readingLength)?.name || 'Standard'}</span>
+              </div>
+              <div className="flex gap-1 justify-center">
+                {LENGTH_OPTIONS.map(opt => (
+                  <button
+                    key={opt.key}
+                    onClick={() => setReadingLength(opt.key)}
+                    title={opt.desc}
+                    className={`px-2.5 py-1 rounded text-xs transition-all ${
+                      readingLength === opt.key
+                        ? 'bg-zinc-700 text-zinc-100'
+                        : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+                    }`}
+                  >
+                    {opt.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -172,6 +200,33 @@ const PersonaSelector = ({
             {COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.desc || ''}
           </div>
         </div>
+
+        {/* Length buttons */}
+        {setReadingLength && (
+          <div className="px-2 pt-3 border-t border-zinc-800/50 mt-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-zinc-500">Length</span>
+            </div>
+            <div className="flex gap-1.5 justify-center">
+              {LENGTH_OPTIONS.map(opt => (
+                <button
+                  key={opt.key}
+                  onClick={() => setReadingLength(opt.key)}
+                  className={`px-3 py-1.5 rounded-md text-xs transition-all ${
+                    readingLength === opt.key
+                      ? 'bg-[#2e1065] text-amber-400 border border-amber-600/30'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 border border-zinc-800'
+                  }`}
+                >
+                  {opt.name}
+                </button>
+              ))}
+            </div>
+            <div className="text-center text-[0.625rem] text-zinc-600 mt-1.5">
+              {LENGTH_OPTIONS.find(o => o.key === readingLength)?.desc || ''}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
