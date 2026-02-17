@@ -291,7 +291,7 @@ Respond with these markers:
 (2-4 paragraphs: Full interpretation of this signature in this position.${positionFrame ? ` MUST open with the frame: "Looking at ${positionFrame}, ${cardName} in ${positionName}..." — then develop the interpretation through this lens.` : ''} What does it reveal about their question? How does the position shape the meaning? Be specific and substantive. No architectural terminology — write naturally.)
 
 [CARD:${n}:MIRROR]
-(Two lines. Line 1: A poetic recognition — name what this signature sees in them right now, as if speaking directly to them. Line 2: A question or invitation that opens something. Do NOT use headings or markdown. Just two plain-text lines separated by a newline.)
+(A reflective passage spoken directly to the reader — 2-3 short paragraphs. First: name what this signature sees in them right now with poetic specificity, as if the card is looking back at them and recognizing something they may not see in themselves. Second: deepen it — what does this recognition mean for where they are? What's the thing underneath the thing? Third: close with an opening — a question, an invitation, or a gentle redirection that doesn't close the loop but leaves them with something to sit with. Write in second person, warmly, no headings or markdown. Plain text with blank lines between paragraphs.)
 
 [CARD:${n}:WHY:SURFACE]
 (2-3 sentences: The teleological pressure, named plainly.)
