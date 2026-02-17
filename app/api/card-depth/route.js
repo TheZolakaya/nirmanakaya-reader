@@ -92,7 +92,9 @@ export async function POST(request) {
       }, { status: 500 });
     }
 
-    const text = data.content?.map(item => item.text || "").join("\n") || "";
+    let text = data.content?.map(item => item.text || "").join("\n") || "";
+    const stopReason = data.stop_reason || 'unknown';
+    let totalUsage = { ...data.usage };
 
     // Check if we actually got any text content
     if (!text.trim()) {
@@ -103,7 +105,7 @@ export async function POST(request) {
     }
 
     // Parse the card sections from response
-    const parsedCard = parseCardResponse(text, n, draw);
+    let parsedCard = parseCardResponse(text, n, draw);
 
     // Check if parsing produced results
     const hasContent = parsedCard.summary || parsedCard.reading;
@@ -115,13 +117,70 @@ export async function POST(request) {
       }, { status: 500 });
     }
 
+    // V3: Short-reading retry — if READING section is under 300 words, the model
+    // didn't follow length instructions. Send a continuation request.
+    const readingWordCount = (parsedCard.reading || '').split(/\s+/).filter(w => w).length;
+    if (readingWordCount < 300 && parsedCard.reading) {
+      console.log(`[card-depth] Card ${n} reading too short (${readingWordCount} words, stop: ${stopReason}). Requesting continuation.`);
+
+      try {
+        const continuationResponse = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": process.env.ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+            "anthropic-beta": "prompt-caching-2024-07-31"
+          },
+          body: JSON.stringify({
+            model: effectiveModel,
+            max_tokens: maxTokens,
+            system: systemWithCache,
+            messages: [
+              { role: 'user', content: userMessage },
+              { role: 'assistant', content: text },
+              { role: 'user', content: `Your response was too short. The READING section is only ${readingWordCount} words — the minimum is 600 words. The MIRROR, WHY, and REBALANCER/GROWTH sections also need 200-400 words each. Please REGENERATE the entire response from [CARD:${n}:SUMMARY] with substantially more content. Write 1500-2500 words total. This is not optional.` }
+            ]
+          })
+        });
+
+        const contData = await continuationResponse.json();
+        if (contData.content && Array.isArray(contData.content) && contData.content.length > 0) {
+          const contText = contData.content.map(item => item.text || "").join("\n");
+          if (contText.trim()) {
+            const reParsed = parseCardResponse(contText, n, draw);
+            const reReadingWords = (reParsed.reading || '').split(/\s+/).filter(w => w).length;
+            // Only use the retry if it's actually longer
+            if (reReadingWords > readingWordCount) {
+              console.log(`[card-depth] Retry produced ${reReadingWords} words (was ${readingWordCount}). Using retry.`);
+              parsedCard = reParsed;
+              // Accumulate retry usage
+              if (contData.usage) {
+                totalUsage = {
+                  input_tokens: (totalUsage.input_tokens || 0) + (contData.usage.input_tokens || 0),
+                  output_tokens: (totalUsage.output_tokens || 0) + (contData.usage.output_tokens || 0),
+                  cache_creation_input_tokens: (totalUsage.cache_creation_input_tokens || 0) + (contData.usage.cache_creation_input_tokens || 0),
+                  cache_read_input_tokens: (totalUsage.cache_read_input_tokens || 0) + (contData.usage.cache_read_input_tokens || 0)
+                };
+              }
+            } else {
+              console.log(`[card-depth] Retry didn't improve (${reReadingWords} words). Keeping original.`);
+            }
+          }
+        }
+      } catch (retryErr) {
+        console.error('[card-depth] Continuation retry failed:', retryErr.message);
+        // Fall through with original short content
+      }
+    }
+
     return Response.json({
       cardData: parsedCard,
       cardIndex,
       usage: {
-        ...data.usage,
-        cache_creation_input_tokens: data.usage?.cache_creation_input_tokens || 0,
-        cache_read_input_tokens: data.usage?.cache_read_input_tokens || 0
+        ...totalUsage,
+        cache_creation_input_tokens: totalUsage?.cache_creation_input_tokens || 0,
+        cache_read_input_tokens: totalUsage?.cache_read_input_tokens || 0
       }
     });
 
@@ -320,6 +379,8 @@ ${structuralContext}
 ${archInstruction}
 
 Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
+
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Agent IS its archetype in embodied form — interpret with the SAME depth and length.
 
 ⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
 Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
