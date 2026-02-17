@@ -186,6 +186,15 @@ export async function POST(request) {
         cleaned = cleaned.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
         cleaned = cleaned.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
       });
+      // Verb shift: "card" → "signature"
+      cleaned = cleaned.replace(/\bcards\b/gi, 'signatures');
+      cleaned = cleaned.replace(/\bthe card\b/gi, 'the signature');
+      cleaned = cleaned.replace(/\bthis card\b/gi, 'this signature');
+      cleaned = cleaned.replace(/\bthat card\b/gi, 'that signature');
+      cleaned = cleaned.replace(/\beach card\b/gi, 'each signature');
+      cleaned = cleaned.replace(/\bevery card\b/gi, 'every signature');
+      cleaned = cleaned.replace(/\ba card\b/gi, 'a signature');
+      cleaned = cleaned.replace(/\bcard\b/gi, 'signature');
       return cleaned.replace(/\s{2,}/g, ' ').replace(/([.!?]\s+)([a-z])/g, (m, p, l) => p + l.toUpperCase()).trim();
     };
     ['summary', 'reading', 'mirror', 'why', 'rebalancer', 'growth'].forEach(key => {

@@ -74,6 +74,33 @@ export async function POST(request) {
     // Parse the letter sections from response
     const parsedLetter = parseLetterResponse(text, depth, previousContent);
 
+    // Post-process: strip prohibited terms and verb shift card→signature
+    const sanitize = (t) => {
+      if (!t) return t;
+      const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'beloved', 'my friend', 'my dear'];
+      let c = t;
+      terms.forEach(term => {
+        c = c.replace(new RegExp(`\\bOh\\s+${term}\\b[,]?\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`\\b${term}\\b[,]?\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
+      });
+      // Verb shift: card → signature
+      c = c.replace(/\bcards\b/gi, 'signatures');
+      c = c.replace(/\bthe card\b/gi, 'the signature');
+      c = c.replace(/\bthis card\b/gi, 'this signature');
+      c = c.replace(/\bthat card\b/gi, 'that signature');
+      c = c.replace(/\beach card\b/gi, 'each signature');
+      c = c.replace(/\bevery card\b/gi, 'every signature');
+      c = c.replace(/\ba card\b/gi, 'a signature');
+      c = c.replace(/\bcard\b/gi, 'signature');
+      return c.replace(/\s{2,}/g, ' ').replace(/([.!?]\s+)([a-z])/g, (m, p, l) => p + l.toUpperCase()).trim();
+    };
+    // Sanitize all depth tiers
+    for (const key of Object.keys(parsedLetter)) {
+      if (parsedLetter[key]) parsedLetter[key] = sanitize(parsedLetter[key]);
+    }
+
     return Response.json({
       letter: parsedLetter,
       usage: {
@@ -104,7 +131,7 @@ ${spreadConfig.whenToUse ? `Purpose: ${spreadConfig.whenToUse}` : ''}
 Positions:
 ${positionSummary}
 
-IMPORTANT: This is a structured spread. Each card maps to a specific position. Your letter should reference these positions by name when hinting at what the cards suggest. For example, say "in your ${spreadConfig.positions[0].name}..." not just "your first card...".\n`;
+IMPORTANT: This is a structured spread. Each signature maps to a specific position. Your letter should reference these positions by name when hinting at what the signatures suggest. For example, say "in your ${spreadConfig.positions[0].name}..." not just "your first signature...".\n`;
     }
   }
 
@@ -118,7 +145,7 @@ IMPORTANT: This is a structured spread. Each card maps to a specific position. Y
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
     const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
-    return `Card ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
+    return `Signature ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   return `QUESTION: "${question}"
@@ -126,7 +153,7 @@ IMPORTANT: This is a structured spread. Each card maps to a specific position. Y
 READING TYPE: ${spreadType.toUpperCase()} (${spreadName})
 ${spreadContext}
 
-CARDS DRAWN (overview for letter context):
+SIGNATURES DRAWN (overview for letter context):
 ${cardNames}
 
 Generate ONLY the Letter at WADE depth.
@@ -134,7 +161,7 @@ Generate ONLY the Letter at WADE depth.
 The Letter opens the reading. It:
 - Addresses the querent directly
 - Acknowledges their question
-- Hints at the themes the cards suggest (but doesn't interpret yet)
+- Hints at the themes the signatures suggest (but doesn't interpret yet)
 - Sets up what's to come
 
 WADE depth means: 3-4 substantive sentences. Specific to THEIR question and cards.
@@ -157,7 +184,7 @@ function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth,
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
     const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
-    return `Card ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
+    return `Signature ${i + 1}${posLabel}: ${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
   }).join('\n');
 
   const depthInstructions = targetDepth === 'deep'
@@ -168,7 +195,7 @@ function buildDeepenMessage(question, draws, spreadType, spreadKey, targetDepth,
 
 READING TYPE: ${spreadType.toUpperCase()}
 
-CARDS DRAWN:
+SIGNATURES DRAWN:
 ${cardNames}
 
 PREVIOUS CONTENT (what the querent has already read):

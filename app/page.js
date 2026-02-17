@@ -1991,11 +1991,14 @@ export default function NirmanakaReader() {
         }).catch(err => console.log('[AutoSave] Failed:', err));
       }
 
-      // V3: Auto-load all cards immediately after reading creation
-      // Cards auto-expand via DepthCard's useEffect when data arrives
-      drawsToUse.forEach((_, i) => {
-        loadCardDepth(i, drawsToUse, questionToUse, data.letter, systemPrompt, tokens ? tokens[i] : null, tokens && tokens.length > 0 ? questionToUse : null);
-      });
+      // V3: Auto-load all cards after reading creation
+      // Small delay lets React commit the parsedReading state before loadCardDepth fires
+      // (same pattern as First Contact auto-load)
+      setTimeout(() => {
+        drawsToUse.forEach((_, i) => {
+          loadCardDepth(i, drawsToUse, questionToUse, data.letter, systemPrompt, tokens ? tokens[i] : null, tokens && tokens.length > 0 ? questionToUse : null);
+        });
+      }, 150);
 
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);

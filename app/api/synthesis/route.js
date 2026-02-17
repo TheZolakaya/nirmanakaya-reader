@@ -119,6 +119,15 @@ export async function POST(request) {
         c = c.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
         c = c.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
       });
+      // Verb shift: "card" → "signature"
+      c = c.replace(/\bcards\b/gi, 'signatures');
+      c = c.replace(/\bthe card\b/gi, 'the signature');
+      c = c.replace(/\bthis card\b/gi, 'this signature');
+      c = c.replace(/\bthat card\b/gi, 'that signature');
+      c = c.replace(/\beach card\b/gi, 'each signature');
+      c = c.replace(/\bevery card\b/gi, 'every signature');
+      c = c.replace(/\ba card\b/gi, 'a signature');
+      c = c.replace(/\bcard\b/gi, 'signature');
       return c.replace(/\s{2,}/g, ' ').replace(/([.!?]\s+)([a-z])/g, (m, p, l) => p + l.toUpperCase()).trim();
     };
     const sanitizeObj = (obj) => {
