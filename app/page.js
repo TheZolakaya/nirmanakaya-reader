@@ -1991,9 +1991,11 @@ export default function NirmanakaReader() {
         }).catch(err => console.log('[AutoSave] Failed:', err));
       }
 
-      // V1 Spread on Table: Cards start at zero depth (names + positions only)
-      // User taps individual cards to load interpretation
-      // No auto-load — on-demand via DepthCard's onRequestLoad callback
+      // V3: Auto-load all cards immediately after reading creation
+      // Cards auto-expand via DepthCard's useEffect when data arrives
+      drawsToUse.forEach((_, i) => {
+        loadCardDepth(i, drawsToUse, questionToUse, data.letter, systemPrompt, tokens ? tokens[i] : null, tokens && tokens.length > 0 ? questionToUse : null);
+      });
 
     } catch (e) { setError(`Error: ${e.message}`); }
     setLoading(false);
@@ -5999,7 +6001,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   >
                     {/* Header */}
                     <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
-                      <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Persona</h3>
+                      <h3 className="text-[12px] font-mono uppercase tracking-[0.2em] text-zinc-500">Adjust Voice</h3>
                       {/* Close button (LED style) */}
                       <button
                         onClick={() => setShowVoicePanel(false)}
@@ -6008,31 +6010,24 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       />
                     </div>
 
-                    {/* V1: Simplified Voice Controls — Humor + Architecture Toggle */}
-                    <div className="space-y-4">
-                      {/* Humor */}
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] uppercase font-mono text-zinc-400">
-                          <span>Serious</span>
-                          <span className="text-violet-400">{HUMOR_LEVELS[humor]}</span>
-                          <span>Wild</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="10"
-                          value={humor}
-                          onChange={(e) => setHumor(parseInt(e.target.value))}
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500 hover:accent-violet-400"
-                        />
-                      </div>
+                    {/* V3: Full Voice Controls — Persona + Humor + Complexity + Architecture */}
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <PersonaSelector
+                        persona={persona}
+                        setPersona={setPersona}
+                        humor={humor}
+                        setHumor={setHumor}
+                        complexity={complexity}
+                        setComplexity={setComplexity}
+                        compact={true}
+                        hasReading={false}
+                      />
 
                       {/* Architecture Visibility Toggle */}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-3 px-2">
                         <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Show Architecture</span>
                         <button
-                          onClick={(e) => { e.stopPropagation(); setShowArchitectureTerms(!showArchitectureTerms); }}
+                          onClick={() => setShowArchitectureTerms(!showArchitectureTerms)}
                           className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${showArchitectureTerms ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
                         >
                           {showArchitectureTerms ? 'ON' : 'OFF'}
@@ -6041,7 +6036,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </div>
 
                     {/* Model Selector + Token Display */}
-                    <div className="mt-4 pt-3 border-t border-white/5">
+                    <div className="mt-4 pt-3 border-t border-white/5" onClick={(e) => e.stopPropagation()}>
                       {getAvailableModels().length > 1 && (
                         <div className="flex items-center justify-center gap-2 mb-1.5">
                           <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
@@ -6583,12 +6578,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             const sentences = wadeContent.split(/(?<=[.!?])\s+/);
             return sentences.slice(0, 3).join(' ');
           };
+          // V3: Always show deepest available content — no depth tiers
           const letterContent = isLegacy
             ? letter
-            : letterDepth === 'shallow'
-              ? getShallowContent(letter.surface, letter.wade || '')
-              : letter[letterDepth] || letter.deep || letter.swim || letter.wade || letter.surface || '';
-          const hasDepthLevels = !isLegacy && (letter.surface || letter.wade || letter.swim || letter.deep);
+            : letter.deep || letter.swim || letter.wade || letter.surface || '';
           const letterSectionKey = 'letter';
           const sectionExpansions = expansions[letterSectionKey] || {};
           const isExpanding = expanding?.section === letterSectionKey;
@@ -6604,70 +6597,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
           return (
             <div className="content-pane mb-6 rounded-lg border-2 border-violet-500/40 bg-violet-950/20 p-5">
-              <div className={`flex items-center justify-between ${isMobileDepth ? 'mb-1' : 'mb-3'}`}>
-                <div className="flex items-center gap-2">
-                  <span className="text-violet-400">✉</span>
-                  <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Introduction</span>
-                </div>
-                {/* Depth navigation - desktop inline, mobile below */}
-                {hasDepthLevels && !letterLoadingDeeper && !isMobileDepth && (
-                  <div className="flex gap-1">
-                    {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                      const hasContent = level === 'shallow' ? letter.wade : letter[level];
-                      const isActive = letterDepth === level;
-                      return (
-                        <button
-                          key={level}
-                          onClick={() => {
-                            if (level === 'shallow' || level === 'wade') {
-                              setLetterDepth(level);
-                            } else {
-                              loadDeeperLetter(level);
-                            }
-                          }}
-                          disabled={letterLoadingDeeper}
-                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                            isActive
-                              ? 'bg-violet-500 text-white'
-                              : hasContent
-                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
-                                : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700 hover:border-violet-500/50'
-                          }`}
-                        >
-                          {level.charAt(0).toUpperCase() + level.slice(1)}
-                          {!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-                {letterLoadingDeeper && (
-                  <span className="text-xs"><PulsatingLoader color="text-violet-400" /></span>
-                )}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-violet-400">✉</span>
+                <span className="text-sm font-medium text-violet-400 uppercase tracking-wider">Introduction</span>
               </div>
-              {/* Mobile Depth Stepper - under title, left-justified */}
-              {hasDepthLevels && isMobileDepth && (
-                <div className="mb-3">
-                  <MobileDepthStepper
-                    currentDepth={letterDepth}
-                    onDepthChange={(newDepth) => {
-                      if (newDepth === 'shallow' || newDepth === 'wade') {
-                        setLetterDepth(newDepth);
-                      } else {
-                        loadDeeperLetter(newDepth);
-                      }
-                    }}
-                    hasContent={{
-                      shallow: !!letter.wade,
-                      wade: !!letter.wade,
-                      swim: !!letter.swim,
-                      deep: !!letter.deep
-                    }}
-                    accentColor="violet"
-                    loading={letterLoadingDeeper}
-                  />
-                </div>
-              )}
               <div className="text-zinc-300 leading-relaxed text-sm space-y-3 mb-4">
                 {letterContent ? (
                   letterContent.split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
@@ -7554,33 +7487,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             <span className={`text-xs transition-transform duration-200 ${isSynthSummaryCollapsed ? 'text-red-500' : 'text-amber-500'}`} style={{ transform: isSynthSummaryCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
                             <span className="text-sm font-medium text-amber-400 uppercase tracking-wider">The Reading</span>
                           </div>
-                          {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthSummaryCollapsed && synthesisLoadingSection !== 'summary' && !isMobileDepth && (
-                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                                const hasContent = level === 'shallow' ? summary.wade : summary[level];
-                                const isActive = summaryDepth === level;
-                                return (
-                                  <button
-                                    key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setSummaryDepth(level) : loadDeeperSynthesis(level, 'summary')}
-                                    disabled={synthesisLoadingSection === 'summary'}
-                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-amber-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
-                                  >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
                           {synthesisLoadingSection === 'summary' && !isSynthSummaryCollapsed && <span className="text-xs"><PulsatingLoader color="text-amber-400" /></span>}
                         </div>
-                        {/* Mobile Depth Stepper */}
-                        {hasDepthLevels && !isSynthSummaryCollapsed && isMobileDepth && (
-                          <div className="mb-3">
-                            <MobileDepthStepper currentDepth={summaryDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setSummaryDepth(d) : loadDeeperSynthesis(d, 'summary')} hasContent={{shallow: !!summary.wade, wade: !!summary.wade, swim: !!summary.swim, deep: !!summary.deep}} accentColor="amber" loading={synthesisLoadingSection === 'summary'} />
-                          </div>
-                        )}
                         {/* Content */}
                         {!isSynthSummaryCollapsed && (
                           <>
@@ -7638,33 +7546,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             <span className={`text-xs transition-transform duration-200 ${isSynthWhyCollapsed ? 'text-red-500' : 'text-cyan-500'}`} style={{ transform: isSynthWhyCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
                             <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Why This Reading Appeared</span>
                           </div>
-                          {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthWhyCollapsed && synthesisLoadingSection !== 'whyAppeared' && !isMobileDepth && (
-                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                                const hasContent = level === 'shallow' ? whyAppeared.wade : whyAppeared[level];
-                                const isActive = whyAppearedDepth === level;
-                                return (
-                                  <button
-                                    key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setWhyAppearedDepth(level) : loadDeeperSynthesis(level, 'whyAppeared')}
-                                    disabled={synthesisLoadingSection === 'whyAppeared'}
-                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-cyan-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
-                                  >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
                           {synthesisLoadingSection === 'whyAppeared' && !isSynthWhyCollapsed && <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>}
                         </div>
-                        {/* Mobile Depth Stepper */}
-                        {hasDepthLevels && !isSynthWhyCollapsed && isMobileDepth && (
-                          <div className="mb-3">
-                            <MobileDepthStepper currentDepth={whyAppearedDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setWhyAppearedDepth(d) : loadDeeperSynthesis(d, 'whyAppeared')} hasContent={{shallow: !!whyAppeared.wade, wade: !!whyAppeared.wade, swim: !!whyAppeared.swim, deep: !!whyAppeared.deep}} accentColor="cyan" loading={synthesisLoadingSection === 'whyAppeared'} />
-                          </div>
-                        )}
                         {/* Content */}
                         {!isSynthWhyCollapsed && (
                           <>
@@ -7731,33 +7614,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             <span className={`text-xs transition-transform duration-200 ${isSynthPathCollapsed ? 'text-red-500' : 'text-emerald-500'}`} style={{ transform: isSynthPathCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
                             <span className="text-sm font-medium text-emerald-400 uppercase tracking-wider">The Invitation</span>
                           </div>
-                          {/* Depth navigation */}
-                          {hasDepthLevels && !isSynthPathCollapsed && synthesisLoadingSection !== 'path' && !isMobileDepth && (
-                            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                              {['shallow', 'wade', 'swim', 'deep'].map((level) => {
-                                const hasContent = level === 'shallow' ? path.wade : path[level];
-                                const isActive = pathDepth === level;
-                                return (
-                                  <button
-                                    key={level}
-                                    onClick={() => level === 'shallow' || level === 'wade' ? setPathDepth(level) : loadDeeperSynthesis(level, 'path')}
-                                    disabled={synthesisLoadingSection === 'path'}
-                                    className={`px-2 py-0.5 text-xs rounded transition-colors ${isActive ? 'bg-emerald-500 text-white' : hasContent ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' : 'bg-zinc-800/50 text-zinc-600 border border-dashed border-zinc-700'}`}
-                                  >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}{!hasContent && <span className="ml-0.5 opacity-60">+</span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
                           {synthesisLoadingSection === 'path' && !isSynthPathCollapsed && <span className="text-xs"><PulsatingLoader color="text-emerald-400" /></span>}
                         </div>
-                        {/* Mobile Depth Stepper */}
-                        {hasDepthLevels && !isSynthPathCollapsed && isMobileDepth && (
-                          <div className="mb-3">
-                            <MobileDepthStepper currentDepth={pathDepth} onDepthChange={(d) => d === 'shallow' || d === 'wade' ? setPathDepth(d) : loadDeeperSynthesis(d, 'path')} hasContent={{shallow: !!path.wade, wade: !!path.wade, swim: !!path.swim, deep: !!path.deep}} accentColor="emerald" loading={synthesisLoadingSection === 'path'} />
-                          </div>
-                        )}
                         {/* Content */}
                         {!isSynthPathCollapsed && (
                           <>

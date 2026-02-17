@@ -202,6 +202,19 @@ const DepthCard = ({
   const [showGrowthMinimapModal, setShowGrowthMinimapModal] = useState(false);
   const [threadMinimapData, setThreadMinimapData] = useState(null); // Stores data for thread item minimap modal
 
+  // V3: Auto-expand when card transitions from not-loaded to loaded
+  const prevNotLoaded = useRef(isNotLoaded);
+  useEffect(() => {
+    if (prevNotLoaded.current && !isNotLoaded && defaultExpanded) {
+      // Data just arrived — expand all sections
+      setDepth(defaultDepth);
+      setRebalancerDepth(defaultDepth);
+      setGrowthDepth(defaultDepth);
+      setIsWhyCollapsed(false);
+    }
+    prevNotLoaded.current = isNotLoaded;
+  }, [isNotLoaded]);
+
   // V1: Respond to expand/collapse all triggers from parent
   const expandRef = useRef(expandAllTrigger);
   const collapseRef = useRef(collapseAllTrigger);

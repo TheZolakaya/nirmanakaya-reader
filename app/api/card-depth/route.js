@@ -52,7 +52,8 @@ export async function POST(request) {
   ];
 
   // Single-depth full interpretation — generous budget for complete transmission
-  const maxTokens = 8000;
+  // Must accommodate READING (5-8 paras) + MIRROR (2-3) + WHY (3-5) + REBALANCER/GROWTH (3-5)
+  const maxTokens = 12000;
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -318,16 +319,20 @@ STRUCTURAL DATA${!showArchitecture ? ' (for your reasoning — translate into fe
 ${structuralContext}
 ${archInstruction}
 
-Generate a FULL DEPTH interpretation of this signature. No sentence limits on any section.
+Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
 
-⚠️ LENGTH EXPECTATIONS — THIS IS THE FULL TRANSMISSION, NOT A SUMMARY:
-- SUMMARY: Exactly 2 sentences (the anchor)
-- READING: The main event. 5-8 substantial paragraphs MINIMUM. This is not a gloss — explore the signature's meaning deeply. Philosophy, psychology, practical implications. Each paragraph should develop a distinct facet. If your READING section is under 4 paragraphs, it's too short — go deeper.
-- MIRROR: 2-3 paragraphs of reflective, poetic second-person address
-- WHY: 3-5 paragraphs on the teleological pressure
-- REBALANCER/GROWTH: 3-5 paragraphs on the path forward
+⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
+Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
+If your total output is under 800 words, you have FAILED. Start over mentally and write more.
 
-Do NOT confuse brevity with depth. The reading should feel like sitting down with a wise friend for 10 minutes, not scanning a fortune cookie.
+SECTION MINIMUMS (these are MINIMUMS, not targets):
+- SUMMARY: Exactly 2 sentences (the anchor — make them count)
+- READING: 6-10 substantial paragraphs. 600-1200 words. THIS IS THE MAIN EVENT. Explore EVERY dimension: what this signature means philosophically, how it manifests psychologically, what it looks like in daily life, how it connects to the question asked, what the position reveals about WHERE this energy is operating. Each paragraph develops a DISTINCT facet — don't repeat yourself, go wider and deeper with each one.
+- MIRROR: 3-4 paragraphs of reflective, poetic second-person address. 200-400 words.
+- WHY: 3-5 paragraphs on the teleological pressure. 200-400 words. Why THIS signature, why NOW, what is the universe pointing at?
+- REBALANCER/GROWTH: 3-5 paragraphs on the path forward. 200-400 words.
+
+THIS IS A FULL READING, NOT A SUMMARY. Think of yourself as a wise counselor who has been asked a deep question and given one chance to say everything that matters. You are NOT writing an overview. You are writing the kind of interpretation someone would pay $200 for — thorough, insightful, layered, personal, alive. Fortune cookies are 1 sentence. You are writing 1500-2500 words. WRITE THE FULL THING.
 
 ⚠️ POSITION AND FRAME CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
