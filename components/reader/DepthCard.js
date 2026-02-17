@@ -5,13 +5,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { STATUSES, STATUS_INFO, STATUS_COLORS, HOUSES, HOUSE_COLORS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
-import { REFLECT_SPREADS } from '../../lib/spreads.js';
 import { EXPANSION_PROMPTS } from '../../lib/prompts.js';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getBoundCorrection, getAgentCorrection } from '../../lib/corrections.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { ensureParagraphBreaks } from '../../lib/utils.js';
 import { getGlossaryEntry } from '../../lib/glossary.js';
 import ArchitectureBox from './ArchitectureBox.js';
+import FrameContextBox from './FrameContextBox.js';
 import MirrorSection from './MirrorSection.js';
 import MobileDepthStepper from './MobileDepthStepper.js';
 import CardImage from './CardImage.js';
@@ -98,6 +98,7 @@ const WHY_DEPTH = {
 const DepthCard = ({
   cardData,  // { index, surface, wade, swim, architecture, mirror, rebalancer, why }
   draw,      // { transient, status, position }
+  frameContext = null, // { label, lens, source, isEmpty } — from buildFrameContext
   isFirstContact = false,
   showTraditional = false,
   setSelectedInfo,
@@ -206,14 +207,10 @@ const DepthCard = ({
   const stat = STATUSES[draw.status];
   const statusPrefix = stat?.prefix || 'Balanced';
   const isBalanced = draw.status === 1;
-  // V1: isReflect kept for legacy spread config lookup, but all cards now have positions
-  const isReflect = spreadType === 'reflect';
-
   // V1: Position label — always use archetype position name
   const posLabel = ARCHETYPES[draw.position]?.name || `Position ${cardData.index + 1}`;
-  // Optional frame label from preset spread (additional context)
-  const spreadConfig = isReflect ? REFLECT_SPREADS[spreadKey] : null;
-  const frameLabel = isReflect ? spreadConfig?.positions?.[cardData.index]?.name : null;
+  // Frame label from parent-provided frameContext (all modes)
+  const frameLabel = frameContext?.label || null;
 
   // Get house for coloring — V1: always from archetype position
   const house = ARCHETYPES[draw.position]?.house || 'Gestalt';
@@ -873,12 +870,8 @@ const DepthCard = ({
             </>
           )}
 
-          {/* V1: Frame label shown as additional context if preset spread provides one */}
-          {frameLabel && (
-            <div className="flex items-center text-zinc-500 text-xs mt-1">
-              <span className="italic">Frame: {frameLabel}</span>
-            </div>
-          )}
+          {/* Frame context box — color-coded by source (preset/custom/explore) */}
+          <FrameContextBox frameContext={frameContext} />
         </div>
 
         {/* Controls row: collapse, badge, depth */}

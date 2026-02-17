@@ -106,7 +106,7 @@ The Yin-Yang encodes the same Polarity/Recursion alternation that drives the fou
 
 The pentagram — the five-pointed star — appears as a sacred or protective symbol across civilizations that had no contact with each other. It was sacred to the Pythagoreans, inscribed on Sumerian pottery, used in Chinese cosmology to represent the five elements, employed in Christian churches, stamped on flags and military insignia, placed atop Christmas trees, worn as sheriff's badges, and used as military decorations.
 
-Why do cultures instinctively orient the pentagram upright — one point skyward, two points grounded? Because the upright pentagram encodes the architecture: Gestalt at the apex, four houses at the four lower points. The inverted pentagram — two points up, one down — reverses this, placing matter above spirit. Chapter 27 will explore this in depth.
+Why do cultures instinctively orient the pentagram upright — one point ascending, two reaching to the sides, two grounded? Because the upright pentagram encodes the architecture: Gestalt at the apex, Mind and Emotion flanking, Spirit and Body at the base — five points, five houses, five aspects in their correct arrangement. The inverted pentagram — two points ascending, two displaced to the sides, one buried — reverses this, elevating the foundational pair above the observer, displacing the active pair, and burying Soul beneath. Chapter 27 will explore this in depth.
 
 The pentagram's five-fold symmetry is not arbitrary. It is forced by the golden ratio — the mathematical constant that emerges from the Polarity/Recursion operations.
 
@@ -184,6 +184,10 @@ This convergence can be explained only three ways. Either an improbable chain of
 The architecture does not claim that any one of these traditions "got it right" while others got it wrong. It claims that each tradition discovered a fragment of a single structure — the way blind investigators touching different parts of an elephant each accurately describe what they find, even though none describes the whole animal.
 
 The Tarot preserved the twenty-two positions and the seventy-eight total count. The Kabbalah preserved the ten nodes and the twenty-two paths. The Pythagoreans preserved the Tetractys and the sacred geometry. The Chinese preserved the four-stage process and the P/R alternation. The Aztecs preserved the twenty day signs and the central-sun topology. The Hindus preserved the seven-level vertical structure. The alchemists preserved the four elements and the transformation stages.
+
+And not just the numbers. Every carrier civilization that encoded this architecture also built an encounter mechanism. The I Ching is not just sixty-four hexagrams described in a book — you cast them. Ifá is not just a cosmology — you consult it. Runes are not just an alphabet — you draw them. Ganjifa arrived through Sufi mystics, not game designers. The Mamluk cards — the earliest known playing cards — had divinatory text inscribed on them.
+
+No carrier civilization said "here is the architecture, study it." Every one of them said "here is the architecture, USE it." The practice was not added to the map after the fact. The practice is how the map functions. The convergence includes not only the same numbers but the same relationship between structure and encounter — the same insistence that the architecture must be engaged, not merely understood.
 
 Each fragment, on its own, looks partial, mysterious, perhaps arbitrary. But when they are reassembled — when the fragments are recognized as pieces of a single map — the convergence becomes its own evidence. Too many traditions. Too many numbers. Too precise a fit.
 

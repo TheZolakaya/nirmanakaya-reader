@@ -52,6 +52,12 @@ Wisdom is the Seed of the Spirit House — the opening perception that makes all
 
 **Vertical partner:** Imagination (18). Wisdom perceives directly; Imagination perceives symbolically. The High Priestess's stillness and the Moon's shifting depths are the same capacity — Spirit's capacity to know — at the creation and operation phases. Together they form the full spectrum of spiritual perception: clarity AND mystery, the seen AND the dreamed.
 
+**Structural identity:** Cognition channel (Air in Spirit). Seed stage, Sun-aligned, Pillar 4. Governed by Potential (0). Bounds: Reflection (low), Multiplicity (high). Agent: Page of Swords — perception learning to wield discernment.
+
+**Correspondences:** Hebrew letter Gimel (camel — the vessel that carries across thresholds). Moon. Kabbalistic path from Kether to Tiphareth — the vertical descent from Crown to Beauty. Blue-silver, the color of moonlit water.
+
+**In a reading:** Wisdom's appearance asks what you already know but haven't acknowledged. The threshold is present. The scroll is in your lap. What is written there that you have been treating as unreadable?
+
 ---
 
 ### Nurturing — The Empress (3)
@@ -76,6 +82,12 @@ Nurturing is the Medium of the Spirit House — the sustained carrier that trans
 
 **Vertical partner:** Inspiration (17). What Nurturing tends becomes what Inspiration shines. The Empress's garden and the Star's radiance are the same capacity — Spirit's capacity to grow — at the creation and operation phases. Nurturing without Inspiration is endless preparation that never flowers. Inspiration without Nurturing is rootless radiance with nothing behind it. Together they complete the Spirit House's capacity to both cultivate and give.
 
+**Structural identity:** Structure channel (Earth in Spirit). Medium stage, World-aligned, Pillar 4. Governed by Potential (0). Bounds: Poise (low), Flourishing (high). Agent: Page of Pentacles — care learning to build sustainable ground.
+
+**Correspondences:** Hebrew letter Daleth (door — the opening through which new life enters). Venus. Kabbalistic path from Chokmah to Binah — the horizontal bridge between Wisdom and Understanding. Green, the color of growth itself.
+
+**In a reading:** Nurturing's appearance asks what you are tending and whether you are tending it consciously. The garden is already growing. Are you the gardener, or have you mistaken yourself for the soil?
+
 ---
 
 ### Inspiration — The Star (17)
@@ -99,6 +111,12 @@ Inspiration is the Fruition of the Spirit House — the point where aspiration a
 **Unacknowledged:** Others experiencing hope around you while you feel despair. Finding that people are inspired by you without your intending it. The Star that doesn't know it's shining — whose radiance shapes situations invisibly, without the shiner's awareness.
 
 **Vertical partner:** Nurturing (3). Inspiration and Nurturing are the same capacity — Spirit's capacity to grow — at its radiating and cultivating phases. The Empress's sustained care produces real growth, and real growth can safely shine as the Star's luminous aspiration. Together they demonstrate that radiance without roots is empty, and roots without radiance are hidden.
+
+**Structural identity:** Intent channel (Fire in Spirit — the house's own element at Fruition). Fruition stage, Sun-aligned, Pillar 4. Governed by Potential (0). Bounds: Orientation (low), Wellspring (high). Agent: Page of Wands — aspiration learning to radiate sustainably.
+
+**Correspondences:** Hebrew letter Tzaddi (fishhook — what draws the deep to the surface). Aquarius. Kabbalistic path from Netzach to Yesod — Victory flowing into Foundation. Violet-yellow, the meeting of spiritual depth and solar radiance.
+
+**In a reading:** Inspiration's appearance asks what is ready to shine. The cultivation is complete. The Star is already above the horizon. Are you pouring — or are you still filling the pitcher?
 
 ---
 
@@ -125,6 +143,12 @@ Imagination is the Feedback of the Spirit House — the return loop that integra
 **Unacknowledged:** Others experiencing symbolic depth in your "practical" choices. Finding that hidden visions have been shaping your life without your awareness. The Moon operating beneath consciousness, guiding through dreams you don't remember and symbols you don't recognize.
 
 **Vertical partner:** Wisdom (2). Imagination and Wisdom are the same capacity — Spirit's capacity to know — at its symbolic and direct expressions. The High Priestess's still perception and the Moon's flowing vision complete the full spectrum: knowing includes both clarity AND mystery, both the seen and the dreamed. Both archetypes carry lunar symbolism — the crescent at the High Priestess's feet, the full moon overhead in the Moon card — because both traffic in reflected, indirect, threshold knowledge.
+
+**Structural identity:** Resonance channel (Water in Spirit). Feedback stage, World-aligned, Pillar 4. Governed by Potential (0). Bounds: Merge (low), Fulfillment (high). Agent: Page of Cups — vision learning to hold the depths it receives.
+
+**Correspondences:** Hebrew letter Qoph (back of the head — what sees from behind the eyes). Pisces. Kabbalistic path from Netzach to Malkuth — Victory descending into the Kingdom of form. Violet-silver, the color of moonlit depths.
+
+**In a reading:** Imagination's appearance asks what is rising from the depths that you haven't looked at directly. The Moon illuminates by indirection. What does the reflected light show that the direct light cannot?
 
 ---
 
@@ -183,6 +207,12 @@ Fortitude is the Seed of the Body House — the foundational capacity from which
 
 **Vertical partner:** Sacrifice (12). What Fortitude holds, Sacrifice releases. The woman who holds the lion and the Hanged Man who lets go are the same capacity — Body's capacity for engagement with form — at its holding and releasing phases. Fortitude without Sacrifice accumulates but stagnates. Sacrifice without Fortitude releases nothing because nothing was ever truly held. Together they demonstrate the complete breath of embodiment: the inhale of capacity and the exhale of surrender.
 
+**Structural identity:** Structure channel (Earth in Body — the house's own element at Seed). Seed stage, Sun-aligned, Pillar 7. Governed by Will (1). Bounds: Integration (low), Vigilance (high). Agent: King of Pentacles — embodied mastery commanding form through presence.
+
+**Correspondences:** Hebrew letter Teth (serpent — the coiled power held rather than struck). Leo. Kabbalistic path from Chesed to Geburah — Mercy and Severity held in one grip. Yellow-gold, the color of the lion's mane and the solar light of embodied strength.
+
+**In a reading:** Fortitude's appearance asks what you are carrying and whether you know your own capacity. The lion is already in your arms. The question is not whether you can hold it but whether you know you are already holding it.
+
 ---
 
 ### Discipline — The Hermit (9)
@@ -208,6 +238,12 @@ Discipline is the Medium of the Body House — the sustained practice that refin
 **Unacknowledged:** Others experiencing you as highly practiced while you feel amateur. Finding yourself with expertise you "didn't try to develop." The Hermit who has walked the mountain path every day for years but believes he has never climbed. Discipline operating beneath awareness, producing mastery the person doesn't recognize as earned.
 
 **Vertical partner:** Equity (11). What Discipline refines, Equity distributes. The Hermit's cultivated capacity becomes Justice's fair allocation. Practice earns what fairness measures. Together they demonstrate that genuine equity requires genuine discipline — you cannot fairly distribute what you haven't actually developed.
+
+**Structural identity:** Cognition channel (Air in Body). Medium stage, World-aligned, Pillar 7. Governed by Will (1). Bounds: Integration (low), Vigilance (high). Agent: King of Swords — focused intelligence commanding clarity through method.
+
+**Correspondences:** Hebrew letter Yod (hand — the smallest stroke that seeds all others). Virgo. Kabbalistic path from Chesed to Tiphareth — Mercy descending toward Beauty through practice. Yellow-grey, the color of lantern light against mountain stone.
+
+**In a reading:** Discipline's appearance asks what practice you have been sustaining and whether it is the right one. The Hermit's lantern illuminates one step. Is it the step you need, or the step you are used to taking?
 
 ---
 
@@ -235,6 +271,12 @@ Equity is the Fruition of the Body House — the point where embodied practice y
 
 **Vertical partner:** Discipline (9). Equity and Discipline are the same capacity — Body's capacity for refinement — at its distributing and cultivating phases. The Hermit's lamp becomes Justice's scales. What was refined through practice is now measured and distributed through fair exchange. Discipline without Equity is mastery that serves no one. Equity without Discipline is measurement without substance.
 
+**Structural identity:** Resonance channel (Water in Body). Fruition stage, Sun-aligned, Pillar 7. Governed by Will (1). Bounds: Foundation (low), Alignment (high). Agent: King of Cups — measured presence commanding fairness through feeling.
+
+**Correspondences:** Hebrew letter Lamed (ox-goad — what corrects the working animal's path). Libra. Kabbalistic path from Geburah to Tiphareth — Severity ascending toward Beauty through balance. Green-blue, the color of still water reflecting a just sky.
+
+**In a reading:** Equity's appearance asks what exchange is out of balance and whether the imbalance is being measured or avoided. The scales are already in your hand. Are you reading them, or holding them still so they appear level?
+
 ---
 
 ### Sacrifice — The Hanged Man (12)
@@ -260,6 +302,12 @@ Sacrifice is the Feedback of the Body House — the return loop that completes t
 **Unacknowledged:** Others experiencing you as surrendered while you feel fully engaged. Finding yourself having given up without knowing when. The Hanged Man who doesn't know he's hanging — who has been inverted for so long that upside-down seems normal. Release operating beneath awareness, quietly letting go of things the person believes they still hold.
 
 **Vertical partner:** Fortitude (8). Sacrifice and Fortitude are the same capacity — Body's capacity for engagement with form — at its releasing and holding phases. What Fortitude held with steady presence, Sacrifice releases with steady surrender. The paradox is mutual: you cannot truly hold until you know you can release; you cannot truly release until you have genuinely held. The woman with the lion and the man on the tree are the same embodied mastery, breathing in and breathing out.
+
+**Structural identity:** Intent channel (Fire in Body — the most fiery act in the most earthy domain). Feedback stage, World-aligned, Pillar 7. Governed by Will (1). Bounds: Foundation (low), Alignment (high). Agent: King of Wands — directed will commanding release through choice.
+
+**Correspondences:** Hebrew letter Mem (water — the element that yields to everything and dissolves everything). Neptune. Kabbalistic path from Geburah to Hod — Severity descending toward Splendor through surrender. Blue-green, the color of deep water seen from above.
+
+**In a reading:** Sacrifice's appearance asks what you are still holding that is ready to be released. The Hanged Man chose his inversion. What would look different if you stopped gripping — not from exhaustion but from completion?
 
 ---
 

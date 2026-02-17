@@ -65,6 +65,10 @@ Potential governs the Spirit House. The observer's first act is to establish dir
 
 **Vertical partner:** Awareness (20). The Fool's openness, when completed, becomes the mirror that sees itself. Potential and Awareness are the same capacity — consciousness existing — at the beginning and end of the journey.
 
+**Structural identity:** Intent (Fire) channel in Gestalt. Seed stage. Sun-aligned. Pillar 1: Purpose of Existence. Bounds: Activation (Ace of Intent) and Attainment (10 of Intent) — the full range of intentional capacity, from its first spark to its complete expression. No agent — the observer does not perform.
+**Correspondences:** Hebrew letter Aleph (the breath). Uranus. Path: Kether to Chokmah. Color: pale yellow.
+**In a reading:** Something is beginning — or needs to. Fresh potential asking for the willingness to step forward without knowing where the step leads.
+
 ---
 
 ### Will — The Magician (1)
@@ -89,6 +93,10 @@ Will governs the Body House. The observer's second act is to establish the dense
 
 **Vertical partner:** Actualization (19). Will and Actualization are the same capacity — directed agency — at its inception (pointing) and its completion (radiating). The finger that indicates becomes the sun that shines.
 
+**Structural identity:** Structure (Earth) channel in Gestalt. Medium stage. World-aligned. Pillar 2: Free Will and Unique Individuality. Bounds: Initiation (Ace of Structure) and Achievement (10 of Structure) — the full range of structural capacity, from the first grounding act to its complete manifestation. No agent.
+**Correspondences:** Hebrew letter Beth (the house). Mercury. Path: Kether to Binah. Color: yellow.
+**In a reading:** Conscious choice is operating — or needs to be. The question is not what is happening but what you are choosing to make happen.
+
 ---
 
 ### Actualization — The Sun (19)
@@ -110,6 +118,10 @@ Actualization governs the Mind House. The observer's capacity for full expressio
 **Unacknowledged:** Unconscious performance. The person who radiates powerfully without knowing it — whose impact on others is enormous but invisible to themselves. The Sun that doesn't know it's shining.
 
 **Vertical partner:** Will (1). The Magician's pointing, when completed, becomes the Sun's radiating. Direction becomes expression. The finger becomes the light.
+
+**Structural identity:** Cognition (Air) channel in Gestalt. Fruition stage. Sun-aligned. Pillar 5: Agency in Creation. Bounds: Perception (Ace of Cognition) and Realization (10 of Cognition) — the full range of cognitive capacity, from first awareness to complete understanding. No agent.
+**Correspondences:** Hebrew letter Resh (the head). Sun. Path: Hod to Yesod. Color: yellow-gold.
+**In a reading:** Arrival. Radiance. Becoming what you came to become. Not something to achieve — something to recognize as already present.
 
 ---
 
@@ -135,6 +147,10 @@ Awareness governs the Emotion House. The observer's capacity for self-recognitio
 
 **Vertical partner:** Potential (0). Awareness and Potential are the same capacity — consciousness existing — at its completion (recognizing) and its origin (existing). The journey ends where it began. The Fool who stepped off the cliff IS the observer who recognizes the step was always safe.
 
+**Structural identity:** Resonance (Water) channel in Gestalt. Feedback stage. World-aligned. Pillar 7: Present Moment Awareness. Bounds: Receptivity (Ace of Resonance) and Beatitude (10 of Resonance) — the full range of felt knowing, from first receptive opening to complete bliss. No agent.
+**Correspondences:** Hebrew letter Shin (the tooth, fire). Pluto. Path: Malkuth to Hod. Color: red-orange.
+**In a reading:** Recognition arriving. The call to see what you already know. Not new information — the completion of a perception that has been forming beneath awareness.
+
 ---
 
 ### Source — The Wheel of Fortune (10)
@@ -151,6 +167,9 @@ Source governs the Gestalt House itself — the portal that frames the observer.
 
 Source has no bounds and no agents. A door has no breadth to parameterize and no behavior to express. You don't perform the doorway. You walk through it.
 
+**Correspondences:** Hebrew letter Kaph (the palm, the open hand). Jupiter. Path: Chesed to Netzach. Color: violet-blue.
+**In a reading:** A turning point. What was being built is now ready to be lived. The wheel is turning — not randomly, but delivering what your choices have created.
+
 ---
 
 ### Creation — The World (21)
@@ -164,6 +183,9 @@ The dancer in the laurel wreath. Four creatures at the four corners — lion, ea
 Position 21 reduces to 3 (2+1 = 3). It IS Nurturing at the portal level. The same sustained care that the Empress brings to her garden, experienced as the generative field of completed creation. 1 begets 3. Unity expands into multiplicity. The direction of existence — outward, into more.
 
 Creation has no bounds and no agents. Like Source, it is a threshold — pure structure without texture. You don't parameterize an exit. You step through it.
+
+**Correspondences:** Hebrew letter Tav (the mark, the signature). Saturn. Path: Malkuth to Yesod. Color: indigo-black.
+**In a reading:** Completion. A cycle finishing — not as ending but as the moment when the ending contains the next beginning. Integration that enables fresh Potential.
 
 ---
 

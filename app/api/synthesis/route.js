@@ -24,7 +24,8 @@ export async function POST(request) {
     // DTP token context (optional)
     tokens,          // Array of tokens for DTP mode
     originalInput,   // Full question for grounding
-    userContext       // Optional user journey context block
+    userContext,      // Optional user journey context block
+    frameContexts    // Array of { label, lens, source, isEmpty } per card position
   } = await request.json();
 
   const effectiveModel = model || "claude-haiku-4-5-20251001";
@@ -35,8 +36,8 @@ export async function POST(request) {
 
   // Build synthesis user message
   const baseMessage = isDeepening
-    ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent, tokens, originalInput)
-    : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput);
+    ? buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, depth, previousContent, tokens, originalInput, frameContexts)
+    : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput, frameContexts);
 
   // Prepend user journey context if available (only for baseline, not deepening)
   const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
@@ -124,10 +125,23 @@ export async function POST(request) {
 }
 
 // Build baseline message - generates WADE for summary + path (initial load)
-function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens = null, originalInput = null) {
-  // Build spread context for Reflect mode
+function buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens = null, originalInput = null, frameContexts = null) {
+  // Build spread context from frame contexts (all modes, not just Reflect)
   let spreadContext = '';
-  if (spreadType === 'reflect') {
+  const hasFrames = frameContexts?.some(fc => fc && !fc.isEmpty);
+  if (hasFrames) {
+    const positionList = frameContexts
+      .map((fc, i) => fc && !fc.isEmpty ? `  ${i + 1}. "${fc.label}"` : null)
+      .filter(Boolean)
+      .join('\n');
+    if (positionList) {
+      spreadContext = `\nSPREAD POSITIONS:
+${positionList}
+
+Your synthesis should reference these position names when weaving the signatures together. How the signatures relate ACROSS their positions is the synthesis insight.\n`;
+    }
+  } else if (spreadType === 'reflect') {
+    // Fallback: legacy path for readings without frameContexts
     const spreadConfig = REFLECT_SPREADS[spreadKey];
     if (spreadConfig) {
       const positionList = spreadConfig.positions.map((p, i) => `  ${i + 1}. "${p.name}"`).join('\n');
@@ -140,8 +154,6 @@ Your synthesis should reference these position names when weaving the signatures
   }
 
   // Build card summaries for synthesis context
-  // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
-  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
   const cardSummaries = cards.map((card, i) => {
     const draw = draws[i];
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
@@ -151,7 +163,9 @@ Your synthesis should reference these position names when weaving the signatures
     const statusPrefix = stat?.prefix || '';
     const cardName = `${statusPrefix}${statusPrefix ? ' ' : ''}${trans?.name || 'Unknown'}`;
     const isImbalanced = draw.status !== 1;
-    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
+    // Position label from frameContexts (all modes) or fallback to legacy
+    const fc = frameContexts?.[i];
+    const posLabel = (fc && !fc.isEmpty) ? ` [${fc.label}]` : '';
 
     // For balanced cards, include growth opportunity. For imbalanced, include rebalancer.
     const correctionInfo = isImbalanced
@@ -213,9 +227,7 @@ Ground your synthesis in this specific situation. Show how the token themes inte
 }
 
 // Build deepening message - generates SWIM or DEEP that builds on previous
-function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent, tokens = null, originalInput = null) {
-  // Using imported ARCHETYPES, BOUNDS, AGENTS, STATUSES (keyed by transient/status)
-  const spreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[spreadKey] : null;
+function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKey, targetDepth, previousContent, tokens = null, originalInput = null, frameContexts = null) {
   const cardNames = cards.map((card, i) => {
     const draw = draws[i];
     const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
@@ -223,7 +235,8 @@ function buildDeepenMessage(question, draws, cards, letter, spreadType, spreadKe
                   AGENTS[draw.transient];
     const stat = STATUSES[draw.status];
     const prefix = stat?.prefix || '';
-    const posLabel = spreadConfig?.positions?.[i]?.name ? ` [${spreadConfig.positions[i].name}]` : '';
+    const fc = frameContexts?.[i];
+    const posLabel = (fc && !fc.isEmpty) ? ` [${fc.label}]` : '';
     return `${prefix}${prefix ? ' ' : ''}${trans?.name || 'Unknown'}${posLabel}`;
   }).join(', ');
 

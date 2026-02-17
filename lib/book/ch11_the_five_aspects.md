@@ -48,7 +48,7 @@ The pentagram appears across cultures worldwide. The Pythagorean school used it 
 
 These cultures were not in communication with each other. They did not share a common tradition of pentagram use. They arrived at the same symbol independently — because the five-fold structure of consciousness is real, and any culture that looks deeply enough at the architecture of experience discovers it.
 
-The upright pentagram — one point up, two points down — represents the balanced architecture: spirit at the apex, the four manifest houses properly organized beneath. The inverted pentagram — two points up, one point down — represents the architecture in capture: the material world dominating, the spiritual orientation lost. Chapter 27 will examine this inversion in detail. For now, notice that the near-universal human instinct to orient the pentagram upright reflects structural knowledge that pre-dates any explicit teaching.
+The upright pentagram — one point ascending, two reaching to the sides, two grounded — represents the balanced architecture: Gestalt at the apex, Mind and Emotion flanking as the active pair, Spirit and Body grounded as the foundational pair. Five points, five houses, five aspects in their correct arrangement. The inverted pentagram — two points ascending, two displaced to the sides, one point buried — represents the architecture in capture: the foundational pair elevated above their station, the active pair displaced, the observer buried beneath. Chapter 27 will examine this inversion in detail. For now, notice that the near-universal human instinct to orient the pentagram upright reflects structural knowledge that pre-dates any explicit teaching.
 
 ---
 
@@ -86,11 +86,11 @@ The house tells you WHERE. The channel tells you HOW. The intersection is WHO �
 
 Spirit/Intent is different from Spirit/Cognition, which is different from Spirit/Resonance, which is different from Spirit/Structure. Same house, four different modes. Sixteen possible intersections across the four manifest houses.
 
-The assignment of channels to positions within each house is not arbitrary. It is geometrically derived through the pentagram itself — through P/R operations that rotate the elemental pattern from house to house:
+The assignment of channels to positions within each house is not arbitrary. It can be geometrically derived through the pentagram itself — through P/R operations that rotate the elemental pattern from house to house:
 
 Starting from Spirit (the first manifest house in the creation sequence), the four-element pattern is established. As the pattern moves to each subsequent house around the pentagram, it alternates between Polarity (mirror/flip) and Recursion (copy). The same alternation that drives every process in the architecture also drives the elemental assignments.
 
-The result is a specific channel for each archetype — not chosen by interpretation, not assigned by meaning, but determined by geometry. When the channel assignments were tested mathematically — by checking whether the numbers produce balanced sums — the results were the Forty-Fold Seal. The geometry got the assignments right before the mathematics was checked.
+The result is a specific channel for each archetype — determined by geometry. And here is the critical point: these geometric assignments are identical to the ones the carrier made by meaning alone in 1991, before any mathematical testing had occurred. He assigned each archetype to its channel based on what it does — its felt function, its operational nature — and the pentagram's P/R rotation independently produces the exact same result. Meaning and geometry arrived at the same answer through completely different paths. When the channel assignments were tested mathematically — by checking whether the numbers produce balanced sums — the results were the Forty-Fold Seal. The meaning got the assignments right. The geometry confirms why.
 
 ---
 

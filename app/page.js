@@ -28,6 +28,8 @@ import {
   // Spreads
   RANDOM_SPREADS,
   MODE_HELPER_TEXT,
+  // Frame Context
+  buildFrameContext,
   REFLECT_SPREADS,
   SPREADS_BY_COUNT,
   MODE_EXPLANATIONS,
@@ -142,6 +144,7 @@ import StanceSelector from '../components/reader/StanceSelector.js';
 import PersonaSelector from '../components/reader/PersonaSelector.js';
 import IntroSection from '../components/reader/IntroSection.js';
 import DepthCard from '../components/reader/DepthCard.js';
+import FrameContextBox from '../components/reader/FrameContextBox.js';
 import MobileDepthStepper from '../components/reader/MobileDepthStepper.js';
 import Glistener from '../components/reader/Glistener.js';
 import GlistenSourcePanel from '../components/reader/GlistenSourcePanel.js';
@@ -781,6 +784,21 @@ export default function NirmanakaReader() {
       });
     }
   }, [cardCount, frameSource]);
+
+  // Centralized frame context builder — maps frameSource to buildFrameContext mode
+  const getFrameContextForCard = (index) => {
+    if (frameSource === 'preset') {
+      return buildFrameContext('preset', { spreadKey: reflectSpreadKey, index });
+    }
+    if (frameSource === 'custom') {
+      return buildFrameContext('custom', { index, label: customLabels[index] || null });
+    }
+    if (frameSource === 'dynamic') {
+      return buildFrameContext('explore', { index, label: dtpTokens?.[index] || null });
+    }
+    // 'architecture' — no frame context yet
+    return buildFrameContext('discover');
+  };
 
   // Listen for auth modal open event
   useEffect(() => {
@@ -2046,14 +2064,11 @@ export default function NirmanakaReader() {
 
     try {
       const letterContent = letterData?.swim || letterData?.wade || letterData?.shallow || letterData?.surface || '';
-      // Compute frame label/lens for this card
-      // Custom frame: labels from user input. Preset frame: from spread config.
+      // Compute frame context for this card (centralized)
       const currentSpreadKey = spreadType === 'reflect' ? reflectSpreadKey : spreadKey;
-      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
-      const frameLabel = frameSource === 'custom'
-        ? (customLabels[cardIndex] || null)
-        : (currentSpreadConfig?.positions?.[cardIndex]?.name || null);
-      const frameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
+      const fc = getFrameContextForCard(cardIndex);
+      const frameLabel = fc.label;
+      const frameLens = fc.lens;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2129,12 +2144,10 @@ export default function NirmanakaReader() {
       const cardToken = parsedReading?.cards?.[cardIndex]?.token || null;
       // Get originalInput for grounded DTP interpretations
       const originalInput = parsedReading?.originalInput || null;
-      // Compute frame label/lens for this card (custom or preset)
-      const currentSpreadConfig = spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey] : null;
-      const deepenFrameLabel = frameSource === 'custom'
-        ? (customLabels[cardIndex] || null)
-        : (currentSpreadConfig?.positions?.[cardIndex]?.name || null);
-      const deepenFrameLens = currentSpreadConfig?.positions?.[cardIndex]?.lens || null;
+      // Compute frame context for this card (centralized)
+      const deepenFc = getFrameContextForCard(cardIndex);
+      const deepenFrameLabel = deepenFc.label;
+      const deepenFrameLens = deepenFc.lens;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2214,7 +2227,9 @@ export default function NirmanakaReader() {
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
           originalInput: parsedReading?.originalInput,
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          // Frame contexts for synthesis position awareness
+          frameContexts: drawsToUse.map((_, i) => getFrameContextForCard(i))
         })
       });
       const data = await res.json();
@@ -2389,7 +2404,9 @@ export default function NirmanakaReader() {
           // DTP mode: pass tokens and originalInput for grounded synthesis
           tokens: dtpTokens,
           originalInput: parsedReading?.originalInput,
-          userContext: userContextRef.current
+          userContext: userContextRef.current,
+          // Frame contexts for synthesis position awareness
+          frameContexts: draws.map((_, i) => getFrameContextForCard(i))
         })
       });
       const data = await res.json();
@@ -3994,9 +4011,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
     // V1: Every card has an archetype position. Frame labels are additional context.
     const contextLabel = ARCHETYPES[draw.position]?.name || 'Draw';
-    const presetFrameLabel = isReflect && spreadConfig?.positions?.[index]?.name ? spreadConfig.positions[index].name : null;
-    const customFrameLabel = frameSource === 'custom' && customLabels[index] ? customLabels[index] : null;
-    const contextSub = customFrameLabel || presetFrameLabel || null;
+    const cardFrameContext = getFrameContextForCard(index);
+    const contextSub = cardFrameContext.label || null;
     
     // Helper to open card info
     const openCardInfo = (cardId) => {
@@ -4148,6 +4164,11 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             </div>
           </div>
         )}
+
+        {/* Frame context pill — shows spread position with color-coded source */}
+        <div className="relative z-10">
+          <FrameContextBox frameContext={cardFrameContext} compact />
+        </div>
       </div>
     );
   };
@@ -6785,6 +6806,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   <DepthCard
                     cardData={card}
                     draw={draws?.[card.index]}
+                    frameContext={getFrameContextForCard(card.index)}
                     isFirstContact={!!parsedReading?._isFirstContact}
                     showTraditional={showTraditional}
                     setSelectedInfo={setSelectedInfo}

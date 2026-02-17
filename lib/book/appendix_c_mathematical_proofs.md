@@ -280,7 +280,7 @@ Applying both constraint sets to the 24 possible assignments:
 | Actualization | 19 | 2 | Air |
 | Awareness | 20 | 3 | Water |
 
-This is exactly what was intuited in the 1991 transmission — thirty-four years before the mathematical derivation.
+This is exactly what was intuited in the 1991 transmission — thirty-five years before the mathematical derivation.
 
 ### The Complete Pairing Space
 
