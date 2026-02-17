@@ -180,15 +180,15 @@ const PLACEHOLDER_TEXT = {
       default: "What dynamic are you navigating?",
       'gestalt-2': "What's pulling you in two directions?",
       'spirit-2': "Where's the tension between what matters and what's happening?",
-      'mind-2': "What do you know vs. what are you avoiding?",
+      'mind-2': "What's clear and what's unclear right now?",
       'emotion-2': "What's the push and pull in this relationship?",
-      'body-2': "Where does your energy go vs. where should it?"
+      'body-2': "Where is your energy going and where is it not?"
     },
     3: {
       default: "What pattern is unfolding?",
       'gestalt-3': "What's in motion? Where is it heading?",
       'spirit-3': "What are you creating and how is it developing?",
-      'mind-3': "What pattern are you caught in?",
+      'mind-3': "What pattern is running right now?",
       'emotion-3': "How is this relationship evolving?",
       'body-3': "What's the state of your foundation?"
     },
