@@ -5619,7 +5619,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {!showGlistener && (
                     frameSource === 'architecture' && question.trim().length >= 10 ? (
                       // Architecture mode: tappable derived spread indicator with expansion
-                      <div className="absolute bottom-3 left-3 z-10 transition-all duration-300" onClick={(e) => e.stopPropagation()}>
+                      <div className="absolute bottom-3 left-3 right-[13rem] sm:right-[14rem] z-10 transition-all duration-300" onClick={(e) => e.stopPropagation()}>
                         {derivedLoading ? (
                           <div className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-2 px-1 py-0.5">
                             <span className="text-amber-500/70">◇</span>
@@ -5634,15 +5634,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             {/* Collapsed: tappable spread name */}
                             <button
                               onClick={() => setDerivedExpanded(!derivedExpanded)}
-                              className={`text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/5 transition-colors ${derivedExpanded ? 'bg-zinc-950' : ''}`}
+                              className={`text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/5 transition-colors max-w-full ${derivedExpanded ? 'bg-zinc-950' : ''}`}
                             >
-                              <span className="text-amber-500/70">◇</span>
-                              <span className="text-amber-400">{derivedSpread.name}</span>
-                              <span className="text-zinc-600">·</span>
-                              <span className="text-blue-400/70">{derivedSpread.house}</span>
-                              <span className="text-zinc-600">·</span>
-                              <span className="text-blue-400/70">{derivedSpread.count}</span>
-                              <span className={`text-zinc-600 text-[0.65rem] ml-0.5 transition-transform duration-200 ${derivedExpanded ? 'rotate-180' : ''}`}>▾</span>
+                              <span className="text-amber-500/70 shrink-0">◇</span>
+                              <span className="text-amber-400 truncate min-w-0">{derivedSpread.name}</span>
+                              <span className="text-zinc-600 shrink-0">·</span>
+                              <span className="text-blue-400/70 truncate min-w-0">{derivedSpread.house}</span>
+                              <span className="text-zinc-600 shrink-0">·</span>
+                              <span className="text-blue-400/70 shrink-0">{derivedSpread.count}</span>
+                              <span className={`text-zinc-600 text-[0.65rem] ml-0.5 shrink-0 transition-transform duration-200 ${derivedExpanded ? 'rotate-180' : ''}`}>▾</span>
                             </button>
                             {/* Expanded: spread detail panel */}
                             {derivedExpanded && (() => {
