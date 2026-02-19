@@ -215,46 +215,29 @@ export default function TopicBar({ onSelectTopic, activeTopic, currentUser, ques
                 className="px-2 py-0.5 text-xs rounded-full bg-zinc-800 border border-zinc-600 text-zinc-200 outline-none w-32"
               />
             ) : (
-              <div className="flex items-center group/pill">
-                <button
-                  onClick={() => handleSelect(topic)}
-                  className={`px-3 py-1 text-xs rounded-l-full transition-all whitespace-nowrap flex items-center gap-1 ${
-                    activeTopic?.id === topic.id
-                      ? 'bg-amber-500/20 text-amber-400 border border-r-0 border-amber-500/40'
-                      : 'bg-zinc-800/60 text-zinc-400 border border-r-0 border-zinc-700/50 hover:border-zinc-600 hover:text-zinc-300'
-                  }`}
-                  title={`${topic.label} (${topic.reading_count} readings)`}
-                >
-                  {topic.is_private && (
-                    <svg className="w-2.5 h-2.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                  )}
-                  {topic.label.length > 25 ? topic.label.slice(0, 25) + '...' : topic.label}
-                  {topic.reading_count > 0 && (
-                    <span className="ml-1 text-[10px] opacity-60">{topic.reading_count}</span>
-                  )}
-                </button>
-                <button
-                  onClick={(e) => openMenu(e, topic.id)}
-                  className={`py-1 px-1.5 text-xs rounded-r-full transition-all ${
-                    showMenu === topic.id
-                      ? (activeTopic?.id === topic.id
-                          ? 'bg-amber-500/30 text-amber-300 border border-l-0 border-amber-500/40'
-                          : 'bg-zinc-700 text-zinc-300 border border-l-0 border-zinc-600')
-                      : (activeTopic?.id === topic.id
-                          ? 'bg-amber-500/20 text-amber-400/50 border border-l-0 border-amber-500/40 hover:text-amber-300 hover:bg-amber-500/30'
-                          : 'bg-zinc-800/60 text-zinc-600 border border-l-0 border-zinc-700/50 hover:text-zinc-400 hover:bg-zinc-700/60')
-                  }`}
-                  title="Topic options"
-                >
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
-                    <circle cx="8" cy="3" r="1.5" />
-                    <circle cx="8" cy="8" r="1.5" />
-                    <circle cx="8" cy="13" r="1.5" />
+              <button
+                onClick={() => handleSelect(topic)}
+                onContextMenu={(e) => openMenu(e, topic.id)}
+                onTouchStart={() => handleTouchStart(topic.id)}
+                onTouchEnd={handleTouchEnd}
+                onTouchMove={handleTouchMove}
+                className={`px-3 py-1 text-xs rounded-full transition-all whitespace-nowrap flex items-center gap-1 ${
+                  activeTopic?.id === topic.id
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                    : 'bg-zinc-800/60 text-zinc-400 border border-zinc-700/50 hover:border-zinc-600 hover:text-zinc-300'
+                }`}
+                title={`${topic.label} (${topic.reading_count} readings) — right-click or long-press for options`}
+              >
+                {topic.is_private && (
+                  <svg className="w-2.5 h-2.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                   </svg>
-                </button>
-              </div>
+                )}
+                {topic.label.length > 25 ? topic.label.slice(0, 25) + '...' : topic.label}
+                {topic.reading_count > 0 && (
+                  <span className="ml-1 text-[10px] opacity-60">{topic.reading_count}</span>
+                )}
+              </button>
             )}
 
             {/* Context menu */}

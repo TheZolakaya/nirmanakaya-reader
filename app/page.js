@@ -618,6 +618,10 @@ export default function NirmanakaReader() {
   const [locusExpanded, setLocusExpanded] = useState(false);
   const [featureFlags, setFeatureFlags] = useState({ locus_control_enabled: false, email_system_enabled: true });
 
+  // Cycling "ENTER THE FIELD" button text
+  const fieldWords = ['ENTER', 'THE', 'FIELD'];
+  const [fieldWordIndex, setFieldWordIndex] = useState(0);
+
   // Lounge online count
   const [loungeOnlineCount, setLoungeOnlineCount] = useState(0);
   const [featureConfig, setFeatureConfig] = useState({
@@ -1682,6 +1686,14 @@ export default function NirmanakaReader() {
       const today = new Date().toISOString().split('T')[0];
       setPulseUnseen(!lastSeen || lastSeen < today);
     } catch (e) { /* localStorage unavailable */ }
+  }, []);
+
+  // Cycle "ENTER" → "THE" → "FIELD" on the initiate button
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFieldWordIndex(i => (i + 1) % 3);
+    }, 1800);
+    return () => clearInterval(interval);
   }, []);
 
   // Auto-scroll glistener streaming content
@@ -5619,7 +5631,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {!showGlistener && (
                     frameSource === 'architecture' && question.trim().length >= 10 ? (
                       // Architecture mode: tappable derived spread indicator with expansion
-                      <div className="absolute bottom-3 left-3 right-[13rem] sm:right-[14rem] z-10 transition-all duration-300" onClick={(e) => e.stopPropagation()}>
+                      <div className="absolute bottom-3 left-3 right-[7rem] sm:right-[8rem] z-10 transition-all duration-300" onClick={(e) => e.stopPropagation()}>
                         {derivedLoading ? (
                           <div className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] flex items-center gap-2 px-1 py-0.5">
                             <span className="text-amber-500/70">◇</span>
@@ -5730,7 +5742,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       whileTap={{ scale: 0.95 }}
                     >
                       <span
-                        className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium"
+                        className="text-[0.7rem] sm:text-[0.8125rem] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium inline-flex items-center justify-center min-w-[3.5em]"
                         style={{
                           background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
                           backgroundSize: '200% 100%',
@@ -5740,7 +5752,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           animation: 'gradient-shift 3s ease infinite',
                         }}
                       >
-                        {loading ? '...' : 'ENTER THE FIELD'}
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={loading ? 'loading' : fieldWords[fieldWordIndex]}
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {loading ? '...' : fieldWords[fieldWordIndex]}
+                          </motion.span>
+                        </AnimatePresence>
                       </span>
                       {/* Wireframe chevron - translates right on hover */}
                       <svg
