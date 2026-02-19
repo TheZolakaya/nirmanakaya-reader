@@ -1525,7 +1525,7 @@ export default function AdminPanel() {
                     {[
                       { id: 'friend', label: '👋 Friend', icon: '👋' },
                       { id: 'therapist', label: '💭 Therapist', icon: '💭' },
-                      { id: 'spiritualist', label: '✨ Spiritualist', icon: '✨' },
+                      { id: 'spiritualist', label: '✨ Guru', icon: '✨' },
                       { id: 'scientist', label: '🔬 Scientist', icon: '🔬' },
                       { id: 'coach', label: '🎯 Coach', icon: '🎯' },
                     ].map(persona => (
@@ -1548,7 +1548,7 @@ export default function AdminPanel() {
                   <p className="text-xs text-zinc-600 mt-3 text-center italic">
                     {featureConfig.defaultVoice?.persona === 'friend' && 'Warm, direct, like your best friend'}
                     {featureConfig.defaultVoice?.persona === 'therapist' && 'Reflective, supportive, holding space'}
-                    {featureConfig.defaultVoice?.persona === 'spiritualist' && 'Mystical, connected, transcendent'}
+                    {featureConfig.defaultVoice?.persona === 'spiritualist' && 'Sacred wisdom, translated live'}
                     {featureConfig.defaultVoice?.persona === 'scientist' && 'Analytical, precise, evidence-based'}
                     {featureConfig.defaultVoice?.persona === 'coach' && 'Motivating, action-oriented, empowering'}
                   </p>

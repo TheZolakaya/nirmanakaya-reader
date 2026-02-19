@@ -39,7 +39,7 @@ export async function POST(request) {
   const effectiveLength = readingLength || 'full';
 
   // Build card-specific user message — single pass, all structural data
-  const baseMessage = buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens, showArchitecture);
+  const baseMessage = buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens, showArchitecture, effectiveLength);
 
   // Prepend user journey context if available
   const userMessage = userContext ? `${userContext}\n\n${baseMessage}` : baseMessage;
@@ -225,8 +225,65 @@ export async function POST(request) {
   }
 }
 
+// Length-responsive instruction block for card generation
+function getLengthBlock(length) {
+  const blocks = {
+    brief: `Generate a FOCUSED interpretation of this signature. This is the ONE AND ONLY pass — say the true thing and stop.
+
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH OF INSIGHT. Agents and Bounds get the SAME quality as Archetypes. Insight density stays high — word count stays low.
+
+⚠️ LENGTH: BRIEF MODE ⚠️
+Your TOTAL output for this card should be 300-500 words across all sections. This is NOT optional.
+Over 600 words means FAILURE — you are writing too much. BRIEF means concentrated, not shallow.
+
+SECTION TARGETS:
+- SUMMARY: Exactly 2 sentences (the anchor — make them count)
+- READING: 2-3 focused paragraphs, 100-200 words. Hit the essential insight. Every sentence earns its place. Connect to the question asked.
+- MIRROR: 1-2 sentences, 50-80 words.
+- WHY: 1-2 paragraphs, 50-100 words.
+- REBALANCER/GROWTH: 1-2 paragraphs, 50-100 words.
+
+This is the espresso shot — concentrated, potent, done. Say the true thing about THEIR question and stop.`,
+
+    standard: `Generate a THOROUGH interpretation of this signature. This is the ONE AND ONLY pass — cover every important facet without over-explaining.
+
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents and Bounds get the SAME treatment as Archetypes. There is no "lesser" card in this system.
+
+⚠️ LENGTH: STANDARD MODE ⚠️
+Your TOTAL output for this card should be 800-1200 words across all sections. This is NOT optional.
+Under 400 words means too thin. Over 1500 words means too verbose.
+
+SECTION TARGETS:
+- SUMMARY: Exactly 2 sentences (the anchor — make them count)
+- READING: 4-6 paragraphs, 400-600 words. THIS IS THE MAIN EVENT. Explore what this signature means, how it manifests, how it connects to the question asked, what the position reveals. Each paragraph develops a DISTINCT facet.
+- MIRROR: 2-3 sentences, 100-150 words.
+- WHY: 2-3 paragraphs, 150-250 words. Why THIS signature, why NOW.
+- REBALANCER/GROWTH: 2-3 paragraphs, 150-250 words.
+
+Quality over quantity. A solid, satisfying interpretation that engages THEIR specific question throughout.`,
+
+    full: `Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
+
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Agent IS its archetype in embodied form — interpret with the SAME depth and length.
+
+⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
+Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
+If your total output is under 800 words, you have FAILED. Start over mentally and write more.
+
+SECTION MINIMUMS (these are MINIMUMS, not targets):
+- SUMMARY: Exactly 2 sentences (the anchor — make them count)
+- READING: 6-10 substantial paragraphs. 600-1200 words. THIS IS THE MAIN EVENT. Explore EVERY dimension: what this signature means philosophically, how it manifests psychologically, what it looks like in daily life, how it connects to the question asked, what the position reveals about WHERE this energy is operating. Each paragraph develops a DISTINCT facet — don't repeat yourself, go wider and deeper with each one.
+- MIRROR: 3-4 paragraphs of reflective, poetic second-person address. 200-400 words.
+- WHY: 3-5 paragraphs on the teleological pressure. 200-400 words. Why THIS signature, why NOW, what is the universe pointing at?
+- REBALANCER/GROWTH: 3-5 paragraphs on the path forward. 200-400 words.
+
+THIS IS A FULL READING, NOT A SUMMARY. Think of yourself as a wise counselor who has been asked a deep question and given one chance to say everything that matters. You are NOT writing an overview. You are writing the kind of interpretation someone would pay $200 for — thorough, insightful, layered, personal, alive. Fortune cookies are 1 sentence. You are writing 1500-2500 words. WRITE THE FULL THING.`
+  };
+  return blocks[length] || blocks.full;
+}
+
 // Build card message — single pass, ALL structural data injected
-function buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token = null, originalInput = null, frameLabel = null, frameLens = null, showArchitecture = false) {
+function buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token = null, originalInput = null, frameLabel = null, frameLens = null, showArchitecture = false, readingLength = 'full') {
   const trans = draw.transient < 22 ? ARCHETYPES[draw.transient] :
                 draw.transient < 62 ? BOUNDS[draw.transient] :
                 AGENTS[draw.transient];
@@ -414,22 +471,7 @@ STRUCTURAL DATA${!showArchitecture ? ' (for your reasoning — translate into fe
 ${structuralContext}
 ${archInstruction}
 
-Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
-
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Agent IS its archetype in embodied form — interpret with the SAME depth and length.
-
-⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
-Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
-If your total output is under 800 words, you have FAILED. Start over mentally and write more.
-
-SECTION MINIMUMS (these are MINIMUMS, not targets):
-- SUMMARY: Exactly 2 sentences (the anchor — make them count)
-- READING: 6-10 substantial paragraphs. 600-1200 words. THIS IS THE MAIN EVENT. Explore EVERY dimension: what this signature means philosophically, how it manifests psychologically, what it looks like in daily life, how it connects to the question asked, what the position reveals about WHERE this energy is operating. Each paragraph develops a DISTINCT facet — don't repeat yourself, go wider and deeper with each one.
-- MIRROR: 3-4 paragraphs of reflective, poetic second-person address. 200-400 words.
-- WHY: 3-5 paragraphs on the teleological pressure. 200-400 words. Why THIS signature, why NOW, what is the universe pointing at?
-- REBALANCER/GROWTH: 3-5 paragraphs on the path forward. 200-400 words.
-
-THIS IS A FULL READING, NOT A SUMMARY. Think of yourself as a wise counselor who has been asked a deep question and given one chance to say everything that matters. You are NOT writing an overview. You are writing the kind of interpretation someone would pay $200 for — thorough, insightful, layered, personal, alive. Fortune cookies are 1 sentence. You are writing 1500-2500 words. WRITE THE FULL THING.
+${getLengthBlock(readingLength)}
 
 ⚠️ POSITION AND FRAME CONTEXT IS MANDATORY:
 - THE SIGNATURE (what emerged): ${cardName}
