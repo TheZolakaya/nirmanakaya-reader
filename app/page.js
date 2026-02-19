@@ -5742,7 +5742,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       whileTap={{ scale: 0.95 }}
                     >
                       <span
-                        className="text-[0.7rem] sm:text-[0.8125rem] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium inline-flex items-center justify-center min-w-[3.5em]"
+                        className="text-[0.7rem] sm:text-[0.8125rem] font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium inline-flex items-center justify-center w-[5em]"
                         style={{
                           background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)',
                           backgroundSize: '200% 100%',
@@ -5755,10 +5755,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         <AnimatePresence mode="wait">
                           <motion.span
                             key={loading ? 'loading' : fieldWords[fieldWordIndex]}
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.3 }}
+                            initial={{ opacity: 0.15 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0.15 }}
+                            transition={{ duration: 0.7, ease: 'easeInOut' }}
                           >
                             {loading ? '...' : fieldWords[fieldWordIndex]}
                           </motion.span>
