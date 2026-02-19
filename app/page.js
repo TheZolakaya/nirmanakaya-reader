@@ -1692,7 +1692,7 @@ export default function NirmanakaReader() {
   useEffect(() => {
     const interval = setInterval(() => {
       setFieldWordIndex(i => (i + 1) % 3);
-    }, 1800);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -5755,10 +5755,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         <AnimatePresence mode="wait">
                           <motion.span
                             key={loading ? 'loading' : fieldWords[fieldWordIndex]}
-                            initial={{ opacity: 0.15 }}
+                            initial={{ opacity: 0.25 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0.15 }}
-                            transition={{ duration: 0.7, ease: 'easeInOut' }}
+                            exit={{ opacity: 0.25 }}
+                            transition={{ duration: 1.3, ease: 'easeInOut' }}
                           >
                             {loading ? '...' : fieldWords[fieldWordIndex]}
                           </motion.span>
