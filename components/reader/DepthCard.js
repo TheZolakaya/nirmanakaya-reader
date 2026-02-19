@@ -797,10 +797,15 @@ const DepthCard = ({
   const canGoDeeper = depth !== DEPTH.DEEP && depth !== DEPTH.COLLAPSED;
   const canGoShallower = depth !== DEPTH.COLLAPSED;
 
+  // Card appears expanded when content is showing OR when actively loading.
+  // This prevents the "fake collapsed" state where loading cards show red
+  // triangles + "tap to interpret" for several seconds before auto-expanding.
+  const isExpanded = depth !== DEPTH.COLLAPSED || isLoading;
+
   return (
     <div className={`content-pane rounded-lg border-2 p-5 mb-5 transition-all duration-300 ${getSectionStyle()}`}>
       {/* Card Header with Visual Layout - always visible */}
-      <div className={`${depth !== DEPTH.COLLAPSED ? 'mb-3' : ''}`}>
+      <div className={`${isExpanded ? 'mb-3' : ''}`}>
         {/* Visual row: Card → Position → Minimap - responsive layout */}
         {/* Desktop: horizontal flex row | Mobile: vertical stack */}
         <div className={`mb-2 ${isMobile ? 'flex flex-col items-center gap-3' : 'flex items-start gap-2 flex-wrap'}`}>
@@ -815,7 +820,7 @@ const DepthCard = ({
                 status={draw.status}
                 cardName={trans?.name}
                 size="compact"
-                showFrame={depth !== DEPTH.COLLAPSED}
+                showFrame={isExpanded}
                 onImageClick={() => {
                   const data = getComponent(draw.transient);
                   setSelectedInfo?.({ type: 'card', id: draw.transient, data });
@@ -855,7 +860,7 @@ const DepthCard = ({
                     status={1}
                     cardName={ARCHETYPES[positionArchetype]?.name}
                     size="compact"
-                    showFrame={depth !== DEPTH.COLLAPSED}
+                    showFrame={isExpanded}
                     onImageClick={() => {
                       const data = getComponent(positionArchetype);
                       setSelectedInfo?.({ type: 'card', id: positionArchetype, data });
@@ -930,8 +935,8 @@ const DepthCard = ({
           {/* Collapse chevron - click to toggle */}
           <span
             onClick={toggleCollapse}
-            className={`text-xs transition-transform duration-200 cursor-pointer ${depth === DEPTH.COLLAPSED ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
-            style={{ transform: depth === DEPTH.COLLAPSED ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+            className={`text-xs transition-transform duration-200 cursor-pointer ${!isExpanded ? 'text-red-500 group-hover:text-red-400' : 'text-emerald-500 hover:text-emerald-400'}`}
+            style={{ transform: !isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)' }}
           >
             ▼
           </span>
@@ -940,8 +945,8 @@ const DepthCard = ({
             Reading
           </span>
 
-          {/* V3: Collapsed hint only — depth tiers removed */}
-          {depth === DEPTH.COLLAPSED && (
+          {/* V3: Collapsed hint — hidden during loading (card appears open with spinner) */}
+          {!isExpanded && (
             <span className={`ml-auto text-[0.6rem] uppercase tracking-wider transition-colors ${
               isNotLoaded
                 ? 'text-amber-600/60 group-hover:text-amber-500/80'
@@ -951,7 +956,7 @@ const DepthCard = ({
             </span>
           )}
 
-          {showTraditional && trans?.traditional && depth !== DEPTH.COLLAPSED && (
+          {showTraditional && trans?.traditional && isExpanded && (
             <span className="text-xs text-zinc-500 ml-auto">{trans.traditional}</span>
           )}
         </div>
@@ -959,8 +964,8 @@ const DepthCard = ({
 
       {/* V3: MobileDepthStepper removed — single depth, no tier navigation */}
 
-      {/* Main Content */}
-      {depth !== DEPTH.COLLAPSED && (
+      {/* Main Content — visible when expanded OR loading */}
+      {isExpanded && (
         <>
           {/* Card name reminder */}
           <div className="text-xs text-zinc-500 mb-3 italic">
