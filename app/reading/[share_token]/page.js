@@ -99,43 +99,109 @@ export default function SharedReadingPage() {
                   </div>
                 </div>
 
-                {card.interpretation && (
+                {/* Summary */}
+                {card.interpretation?.summary && (
+                  <div className="mb-4 px-3 py-2 rounded-lg bg-zinc-800/40 border border-zinc-700/30">
+                    <p className="text-sm text-zinc-300 italic leading-relaxed">{card.interpretation.summary.trim()}</p>
+                  </div>
+                )}
+
+                {/* Reading (main interpretation) */}
+                {(() => {
+                  // V3: card.interpretation is an object with .reading field
+                  // Legacy: card.interpretation is a string or depth-tiered object
+                  const interpText = typeof card.interpretation === 'string'
+                    ? card.interpretation
+                    : card.interpretation?.reading
+                    || card.interpretation?.deep || card.interpretation?.swim
+                    || card.interpretation?.wade || card.interpretation?.surface || '';
+                  return interpText && interpText.trim() ? (
+                    <div className="mb-4">
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Reading</h3>
+                      <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(interpText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null;
+                })()}
+
+                {/* Mirror */}
+                {card.interpretation?.mirror && (
                   <div className="mb-4">
-                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Interpretation</h3>
-                    <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
-                      {ensureParagraphBreaks(card.interpretation).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Mirror</h3>
+                    <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
+                      {ensureParagraphBreaks(card.interpretation.mirror).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
                         <p key={j}>{para.trim()}</p>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {card.rebalancing && (
-                  <div>
-                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Path to Balance</h3>
+                {/* Why This Card */}
+                {card.interpretation?.why && (
+                  <div className="mb-4">
+                    <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Why This Card</h3>
                     <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
-                      {ensureParagraphBreaks(card.rebalancing).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                      {ensureParagraphBreaks(card.interpretation.why).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
                         <p key={j}>{para.trim()}</p>
                       ))}
                     </div>
                   </div>
                 )}
+
+                {/* Path to Balance / Growth */}
+                {(() => {
+                  const rebalText = typeof card.rebalancing === 'string' ? card.rebalancing
+                    : card.interpretation?.rebalancer || card.interpretation?.growth || '';
+                  const isGrowth = draw.status === 1;
+                  return rebalText && rebalText.trim() ? (
+                    <div>
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">
+                        {isGrowth ? 'Growth' : 'Path to Balance'}
+                      </h3>
+                      <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(rebalText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null;
+                })()}
               </div>
             );
           })}
         </div>
 
-        {/* Synthesis */}
-        {interp.synthesis && (
+        {/* Letter */}
+        {interp.letter && typeof interp.letter === 'string' && interp.letter.trim() && (
           <div className="mt-6 rounded-xl border border-amber-500/20 bg-zinc-900/30 p-5">
-            <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Synthesis</h3>
-            <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
-              {ensureParagraphBreaks(interp.synthesis).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+            <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Letter</h3>
+            <div className="text-sm text-zinc-300 leading-relaxed space-y-3 italic">
+              {ensureParagraphBreaks(interp.letter).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
                 <p key={i}>{para.trim()}</p>
               ))}
             </div>
           </div>
         )}
+
+        {/* Synthesis */}
+        {(() => {
+          const synthText = typeof interp.synthesis === 'string' ? interp.synthesis
+            : interp.synthesis?.summary || interp.synthesis?.path
+            || interp.synthesis?.deep || interp.synthesis?.swim || interp.synthesis?.wade || '';
+          return synthText && synthText.trim() ? (
+            <div className="mt-6 rounded-xl border border-amber-500/20 bg-zinc-900/30 p-5">
+              <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Synthesis</h3>
+              <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
+                {ensureParagraphBreaks(synthText).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                  <p key={i}>{para.trim()}</p>
+                ))}
+              </div>
+            </div>
+          ) : null;
+        })()}
 
         {/* CTA */}
         <div className="mt-8 text-center border-t border-zinc-800/40 pt-6">

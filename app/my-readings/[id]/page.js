@@ -12,13 +12,23 @@ import GlistenSourcePanel from '../../../components/reader/GlistenSourcePanel';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 
-// Extract text from a depth-level object {surface, wade, swim, deep} or a plain string
+// Extract text from a depth-level object {surface, wade, swim, deep} or V3 flat object or a plain string
 function getDepthText(obj, preferredDepth) {
   if (!obj) return '';
   if (typeof obj === 'string') return obj;
-  // Try preferred depth first, then fall back to deepest available
+  // V3 flat structure — reading field is the main interpretation text
+  if (obj.reading !== undefined && !obj.wade && !obj.deep) {
+    return obj.reading;
+  }
+  // Legacy depth-tiered structure
   if (preferredDepth && obj[preferredDepth]) return obj[preferredDepth];
   return obj.deep || obj.swim || obj.wade || obj.surface || '';
+}
+
+// Extract a specific V3 section from a card's interpretation object
+function getV3Section(interp, section) {
+  if (!interp || typeof interp === 'string') return '';
+  return interp[section] || '';
 }
 
 export default function ReadingDetailPage() {
@@ -207,6 +217,18 @@ export default function ReadingDetailPage() {
           </div>
         </div>
 
+        {/* Letter */}
+        {interp.letter && typeof interp.letter === 'string' && interp.letter.trim() && (
+          <div className="mb-6 rounded-xl border border-amber-500/20 bg-zinc-900/30 p-5">
+            <h3 className="text-xs uppercase tracking-wider text-amber-400/70 mb-2">Letter</h3>
+            <div className="text-sm text-zinc-300 leading-relaxed space-y-3 italic">
+              {ensureParagraphBreaks(interp.letter).split(/\n\n+/).filter(p => p.trim()).map((para, i) => (
+                <p key={i}>{para.trim()}</p>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Cards */}
         <div className="space-y-6">
           {reading.draws?.map((draw, i) => {
@@ -231,12 +253,22 @@ export default function ReadingDetailPage() {
                   </div>
                 </div>
 
-                {/* Interpretation */}
+                {/* Summary */}
+                {(() => {
+                  const summaryText = getV3Section(card.interpretation, 'summary');
+                  return summaryText && summaryText.trim() ? (
+                    <div className="mb-4 px-3 py-2 rounded-lg bg-zinc-800/40 border border-zinc-700/30">
+                      <p className="text-sm text-zinc-300 italic leading-relaxed">{summaryText.trim()}</p>
+                    </div>
+                  ) : null;
+                })()}
+
+                {/* Reading (main interpretation) */}
                 {(() => {
                   const interpText = getDepthText(card.interpretation, voiceDepth);
                   return interpText && interpText.trim() ? (
                     <div className="mb-4">
-                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Interpretation</h3>
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Reading</h3>
                       <div className="text-sm text-zinc-300 leading-relaxed space-y-3">
                         {ensureParagraphBreaks(interpText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
                           <p key={j}>{para.trim()}</p>
@@ -246,14 +278,49 @@ export default function ReadingDetailPage() {
                   ) : null;
                 })()}
 
+                {/* Mirror */}
+                {(() => {
+                  const mirrorText = getV3Section(card.interpretation, 'mirror');
+                  return mirrorText && mirrorText.trim() ? (
+                    <div className="mb-4">
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Mirror</h3>
+                      <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(mirrorText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null;
+                })()}
+
+                {/* Why This Card */}
+                {(() => {
+                  const whyText = getV3Section(card.interpretation, 'why');
+                  return whyText && whyText.trim() ? (
+                    <div className="mb-4">
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Why This Card</h3>
+                      <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
+                        {ensureParagraphBreaks(whyText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
+                          <p key={j}>{para.trim()}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null;
+                })()}
+
                 {/* Path to Balance / Growth */}
                 {(() => {
-                  // Rebalancing data may be in card.rebalancing (string), or card.interpretation.rebalancer (depth object)
-                  const rebalText = getDepthText(card.rebalancing, voiceDepth)
+                  const rebalText = typeof card.rebalancing === 'string' ? card.rebalancing
+                    : getV3Section(card.interpretation, 'rebalancer')
+                    || getV3Section(card.interpretation, 'growth')
+                    || getDepthText(card.rebalancing, voiceDepth)
                     || getDepthText(card.interpretation?.rebalancer, voiceDepth);
+                  const isGrowth = draw.status === 1;
                   return rebalText && rebalText.trim() ? (
                     <div>
-                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">Path to Balance</h3>
+                      <h3 className="text-xs uppercase tracking-wider text-zinc-500 mb-2">
+                        {isGrowth ? 'Growth' : 'Path to Balance'}
+                      </h3>
                       <div className="text-sm text-zinc-400 leading-relaxed space-y-3">
                         {ensureParagraphBreaks(rebalText).split(/\n\n+/).filter(p => p.trim()).map((para, j) => (
                           <p key={j}>{para.trim()}</p>
@@ -269,7 +336,8 @@ export default function ReadingDetailPage() {
 
         {/* Synthesis */}
         {(() => {
-          const synthText = getDepthText(interp.synthesis, voiceDepth)
+          const synthText = typeof interp.synthesis === 'string' ? interp.synthesis
+            : getDepthText(interp.synthesis, voiceDepth)
             || getDepthText(interp.synthesis?.summary, voiceDepth)
             || getDepthText(interp.synthesis?.path, voiceDepth);
           return synthText && synthText.trim() ? (
