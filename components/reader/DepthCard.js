@@ -201,32 +201,18 @@ const DepthCard = ({
   const [showGrowthMinimapModal, setShowGrowthMinimapModal] = useState(false);
   const [threadMinimapData, setThreadMinimapData] = useState(null); // Stores data for thread item minimap modal
 
-  // V3: Auto-expand when card transitions from not-loaded to loaded
-  // No defaultExpanded gate — V3 always expands auto-loaded cards
-  const hasAutoExpanded = useRef(!isNotLoaded); // Already expanded if mounted with data
+  // Auto-expand when card content arrives.
+  // Uses functional state updates (prev =>) so there are NO stale closures.
+  // No ref gates — just watches for content and expands anything still collapsed.
+  const hasContent = !!(cardData && (cardData.reading || cardData.shallow || cardData.summary));
   useEffect(() => {
-    if (!isNotLoaded && !hasAutoExpanded.current) {
-      hasAutoExpanded.current = true;
-      setDepth(defaultDepth);
-      setRebalancerDepth(defaultDepth);
-      setGrowthDepth(defaultDepth);
+    if (hasContent) {
+      setDepth(prev => prev === DEPTH.COLLAPSED ? defaultDepth : prev);
+      setRebalancerDepth(prev => prev === DEPTH.COLLAPSED ? defaultDepth : prev);
+      setGrowthDepth(prev => prev === DEPTH.COLLAPSED ? defaultDepth : prev);
       setIsWhyCollapsed(false);
     }
-  }, [isNotLoaded]);
-
-  // Belt-and-suspenders: if card has content but is still collapsed,
-  // force-expand after a tick. Catches edge cases where the primary
-  // useEffect didn't fire due to React batching or timing.
-  const hasContent = cardData && (cardData.reading || cardData.shallow || cardData.summary);
-  useEffect(() => {
-    if (hasContent && !isNotLoaded && depth === DEPTH.COLLAPSED && !hasAutoExpanded.current) {
-      hasAutoExpanded.current = true;
-      setDepth(defaultDepth);
-      setRebalancerDepth(defaultDepth);
-      setGrowthDepth(defaultDepth);
-      setIsWhyCollapsed(false);
-    }
-  }, [hasContent, isNotLoaded, depth]);
+  }, [hasContent]);
 
   // V1: Respond to expand/collapse all triggers from parent
   const expandRef = useRef(expandAllTrigger);
