@@ -5745,20 +5745,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
                           backgroundClip: 'text',
-                          animation: 'gradient-shift 3s ease infinite',
+                          animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite',
                         }}
                       >
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key={loading ? 'loading' : fieldWords[fieldWordIndex]}
-                            initial={{ opacity: 0.25 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0.25 }}
-                            transition={{ duration: 1.3, ease: 'easeInOut' }}
-                          >
-                            {loading ? '...' : fieldWords[fieldWordIndex]}
-                          </motion.span>
-                        </AnimatePresence>
+                        {loading ? '...' : fieldWords[fieldWordIndex]}
                       </span>
                       {/* Wireframe chevron - translates right on hover */}
                       <svg

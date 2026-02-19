@@ -111,6 +111,12 @@ body {
   animation: gradient-shift 2s ease infinite;
 }
 
+/* Breathing pulse for cycling ENTER/THE/FIELD button text */
+@keyframes field-breathe {
+  0%, 100% { opacity: 0.12; }
+  20%, 80% { opacity: 1; }
+}
+
 /* Placeholder flash - slowed to 25% speed (2s instead of 0.5s) */
 .animate-rainbow-cycle-fast {
   animation: rainbow-cycle 2s ease-in-out 1;
