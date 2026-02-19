@@ -133,6 +133,18 @@ DROP POLICY IF EXISTS "Users can delete own replies" ON discussion_replies;
 CREATE POLICY "Users can delete own replies" ON discussion_replies
   FOR DELETE USING (auth.uid() = user_id OR is_admin());
 
+-- Update edit policies to allow admins
+
+-- Discussions: allow owner or admin to edit
+DROP POLICY IF EXISTS "Users can update own discussions" ON discussions;
+CREATE POLICY "Users can update own discussions" ON discussions
+  FOR UPDATE USING (auth.uid() = user_id OR is_admin());
+
+-- Replies: allow owner or admin to edit (no UPDATE policy existed before)
+DROP POLICY IF EXISTS "Users can update own replies" ON discussion_replies;
+CREATE POLICY "Users can update own replies" ON discussion_replies
+  FOR UPDATE USING (auth.uid() = user_id OR is_admin());
+
 -- ============================================
 -- REACTIONS TABLE
 -- ============================================

@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussion, createReply, deleteDiscussion, deleteReply, getUser, isAdmin, toggleReaction, getDiscussionReactions, getReplyReactions, REACTION_EMOJIS } from '../../../lib/supabase';
+import { getDiscussion, createReply, deleteDiscussion, deleteReply, updateDiscussion, updateReply, getUser, isAdmin, toggleReaction, getDiscussionReactions, getReplyReactions, REACTION_EMOJIS } from '../../../lib/supabase';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
@@ -30,6 +30,12 @@ export default function DiscussionPage({ params }) {
   const [replyContent, setReplyContent] = useState('');
   const [posting, setPosting] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [editingDiscussion, setEditingDiscussion] = useState(false);
+  const [editTitle, setEditTitle] = useState('');
+  const [editContent, setEditContent] = useState('');
+  const [editingReplyId, setEditingReplyId] = useState(null);
+  const [editReplyContent, setEditReplyContent] = useState('');
+  const [saving, setSaving] = useState(false);
   const [discussionReactions, setDiscussionReactions] = useState([]);
   const [replyReactions, setReplyReactions] = useState({}); // { replyId: [reactions] }
 
@@ -126,6 +132,51 @@ export default function DiscussionPage({ params }) {
         reply_count: Math.max(0, (prev.reply_count || 1) - 1)
       }));
     }
+  }
+
+  function startEditDiscussion() {
+    setEditTitle(discussion.title);
+    setEditContent(discussion.content);
+    setEditingDiscussion(true);
+  }
+
+  async function handleSaveDiscussion() {
+    if (!editTitle.trim() || !editContent.trim()) return;
+    setSaving(true);
+    const { data, error } = await updateDiscussion(params.id, {
+      title: editTitle.trim(),
+      content: editContent.trim()
+    });
+    if (error) {
+      console.error('Failed to update discussion:', error);
+      alert('Failed to save changes');
+    } else {
+      setDiscussion(prev => ({ ...prev, title: data.title, content: data.content }));
+      setEditingDiscussion(false);
+    }
+    setSaving(false);
+  }
+
+  function startEditReply(reply) {
+    setEditingReplyId(reply.id);
+    setEditReplyContent(reply.content);
+  }
+
+  async function handleSaveReply(replyId) {
+    if (!editReplyContent.trim()) return;
+    setSaving(true);
+    const { data, error } = await updateReply(replyId, editReplyContent.trim());
+    if (error) {
+      console.error('Failed to update reply:', error);
+      alert('Failed to save changes');
+    } else {
+      setDiscussion(prev => ({
+        ...prev,
+        replies: prev.replies.map(r => r.id === replyId ? { ...r, content: data.content } : r)
+      }));
+      setEditingReplyId(null);
+    }
+    setSaving(false);
   }
 
   function formatDate(dateStr) {
@@ -279,13 +330,21 @@ export default function DiscussionPage({ params }) {
             <span className="text-zinc-400 text-sm">Back to Hub</span>
           </div>
           {(isAuthor || userIsAdmin) && (
-            <button
-              onClick={handleDeleteDiscussion}
-              disabled={deleting}
-              className="px-3 py-1.5 rounded-lg bg-rose-900/20 text-rose-400 hover:bg-rose-900/30 transition-colors text-xs disabled:opacity-50"
-            >
-              {deleting ? 'Deleting...' : 'Delete'}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={startEditDiscussion}
+                className="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-amber-400 hover:bg-zinc-700 transition-colors text-xs"
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDeleteDiscussion}
+                disabled={deleting}
+                className="px-3 py-1.5 rounded-lg bg-rose-900/20 text-rose-400 hover:bg-rose-900/30 transition-colors text-xs disabled:opacity-50"
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -303,25 +362,60 @@ export default function DiscussionPage({ params }) {
             </span>
           </div>
 
-          <h1 className="text-2xl font-medium text-zinc-100 mb-4">
-            {discussion.title}
-          </h1>
+          {editingDiscussion ? (
+            <div className="mb-4 space-y-3">
+              <input
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-200 text-lg focus:outline-none focus:border-amber-600/50"
+                placeholder="Title"
+              />
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                rows={6}
+                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-300 text-sm focus:outline-none focus:border-amber-600/50 resize-none"
+                placeholder="Content"
+              />
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleSaveDiscussion}
+                  disabled={saving || !editTitle.trim() || !editContent.trim()}
+                  className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                >
+                  {saving ? 'Saving...' : 'Save'}
+                </button>
+                <button
+                  onClick={() => setEditingDiscussion(false)}
+                  className="px-4 py-2 rounded-lg bg-zinc-800 text-zinc-400 hover:text-zinc-200 text-sm transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h1 className="text-2xl font-medium text-zinc-100 mb-4">
+                {discussion.title}
+              </h1>
 
-          <div className="text-zinc-300 leading-relaxed mb-4">
-            <ReactMarkdown
-              components={{
-                p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
-                strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>,
-                a: ({ href, children }) => (
-                  <a href={href} className="text-amber-400 hover:text-amber-300 underline" target="_blank" rel="noopener noreferrer">
-                    {children}
-                  </a>
-                )
-              }}
-            >
-              {discussion.content}
-            </ReactMarkdown>
-          </div>
+              <div className="text-zinc-300 leading-relaxed mb-4">
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
+                    strong: ({ children }) => <strong className="text-zinc-200">{children}</strong>,
+                    a: ({ href, children }) => (
+                      <a href={href} className="text-amber-400 hover:text-amber-300 underline" target="_blank" rel="noopener noreferrer">
+                        {children}
+                      </a>
+                    )
+                  }}
+                >
+                  {discussion.content}
+                </ReactMarkdown>
+              </div>
+            </>
+          )}
 
           <div className="text-sm text-zinc-500">
             Posted by{' '}
@@ -353,36 +447,75 @@ export default function DiscussionPage({ params }) {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <div className="text-zinc-300 text-sm leading-relaxed mb-2">
-                      <ReactMarkdown
-                        components={{
-                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>
-                        }}
-                      >
-                        {reply.content}
-                      </ReactMarkdown>
-                    </div>
-                    <div className="flex items-center gap-3 text-xs text-zinc-500">
-                      <Link
-                        href={`/profile/${reply.user_id}`}
-                        className="hover:text-amber-400 transition-colors"
-                      >
-                        {reply.profiles?.display_name || 'Anonymous'}
-                      </Link>
-                      <span>{formatRelative(reply.created_at)}</span>
-                    </div>
-                    <ReactionBar reactions={replyReactions[reply.id] || []} replyId={reply.id} />
+                    {editingReplyId === reply.id ? (
+                      <div className="space-y-2">
+                        <textarea
+                          value={editReplyContent}
+                          onChange={(e) => setEditReplyContent(e.target.value)}
+                          rows={3}
+                          className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-300 text-sm focus:outline-none focus:border-amber-600/50 resize-none"
+                        />
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleSaveReply(reply.id)}
+                            disabled={saving || !editReplyContent.trim()}
+                            className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium transition-colors disabled:opacity-50"
+                          >
+                            {saving ? 'Saving...' : 'Save'}
+                          </button>
+                          <button
+                            onClick={() => setEditingReplyId(null)}
+                            className="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="text-zinc-300 text-sm leading-relaxed mb-2">
+                          <ReactMarkdown
+                            components={{
+                              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>
+                            }}
+                          >
+                            {reply.content}
+                          </ReactMarkdown>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-zinc-500">
+                          <Link
+                            href={`/profile/${reply.user_id}`}
+                            className="hover:text-amber-400 transition-colors"
+                          >
+                            {reply.profiles?.display_name || 'Anonymous'}
+                          </Link>
+                          <span>{formatRelative(reply.created_at)}</span>
+                        </div>
+                        <ReactionBar reactions={replyReactions[reply.id] || []} replyId={reply.id} />
+                      </>
+                    )}
                   </div>
-                  {(user?.id === reply.user_id || userIsAdmin) && (
-                    <button
-                      onClick={() => handleDeleteReply(reply.id)}
-                      className="text-zinc-600 hover:text-rose-400 transition-colors"
-                      title="Delete reply"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
+                  {(user?.id === reply.user_id || userIsAdmin) && editingReplyId !== reply.id && (
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => startEditReply(reply)}
+                        className="text-zinc-600 hover:text-amber-400 transition-colors"
+                        title="Edit reply"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteReply(reply.id)}
+                        className="text-zinc-600 hover:text-rose-400 transition-colors"
+                        title="Delete reply"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>

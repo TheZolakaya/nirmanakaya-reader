@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { getDiscussions, getDiscussion, createDiscussion, createReply, getUser, updateLastHubVisit, ensureProfile, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
+import { getDiscussions, getDiscussion, createDiscussion, createReply, deleteDiscussion, updateDiscussion, deleteReply, updateReply, getUser, updateLastHubVisit, ensureProfile, isAdmin, REACTION_EMOJIS, toggleReaction } from '../../lib/supabase';
 import { VERSION } from '../../lib/version';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import { getCached, invalidateCache } from '../../lib/cache';
@@ -108,6 +108,12 @@ export default function HubPage() {
   const [replyContent, setReplyContent] = useState('');
   const [submittingReply, setSubmittingReply] = useState(false);
   const [collapsedReplies, setCollapsedReplies] = useState({});
+  const [editingPostId, setEditingPostId] = useState(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editContent, setEditContent] = useState('');
+  const [editingReplyId, setEditingReplyId] = useState(null);
+  const [editReplyContent, setEditReplyContent] = useState('');
+  const [savingEdit, setSavingEdit] = useState(false);
 
   // Background & theme state (shared with Reader preferences)
   const [theme, setTheme] = useState('dark');
@@ -350,6 +356,79 @@ export default function HubPage() {
 
   function toggleCollapseReply(replyId) {
     setCollapsedReplies(prev => ({ ...prev, [replyId]: !prev[replyId] }));
+  }
+
+  const userIsAdmin = isAdmin(user);
+
+  function startEditPost(discussion) {
+    setEditingPostId(discussion.id);
+    setEditTitle(discussion.title);
+    setEditContent(discussion.content);
+  }
+
+  async function handleSavePost(postId) {
+    if (!editTitle.trim() || !editContent.trim()) return;
+    setSavingEdit(true);
+    const { data, error } = await updateDiscussion(postId, { title: editTitle.trim(), content: editContent.trim() });
+    if (error) {
+      console.error('Failed to update:', error);
+      alert('Failed to save changes');
+    } else {
+      setDiscussions(prev => prev.map(d => d.id === postId ? { ...d, title: data.title, content: data.content } : d));
+      setEditingPostId(null);
+      invalidateCache('discussions');
+    }
+    setSavingEdit(false);
+  }
+
+  async function handleDeletePost(postId) {
+    if (!window.confirm('Delete this discussion? This cannot be undone.')) return;
+    const { error } = await deleteDiscussion(postId);
+    if (error) {
+      console.error('Failed to delete:', error);
+      alert('Failed to delete');
+    } else {
+      setDiscussions(prev => prev.filter(d => d.id !== postId));
+      invalidateCache('discussions');
+    }
+  }
+
+  function startEditReply(reply) {
+    setEditingReplyId(reply.id);
+    setEditReplyContent(reply.content);
+  }
+
+  async function handleSaveReply(replyId, discussionId) {
+    if (!editReplyContent.trim()) return;
+    setSavingEdit(true);
+    const { data, error } = await updateReply(replyId, editReplyContent.trim());
+    if (error) {
+      console.error('Failed to update reply:', error);
+      alert('Failed to save changes');
+    } else {
+      setThreadReplies(prev => ({
+        ...prev,
+        [discussionId]: (prev[discussionId] || []).map(r => r.id === replyId ? { ...r, content: data.content } : r)
+      }));
+      setEditingReplyId(null);
+    }
+    setSavingEdit(false);
+  }
+
+  async function handleDeleteReply(replyId, discussionId) {
+    if (!window.confirm('Delete this reply?')) return;
+    const { error } = await deleteReply(replyId);
+    if (error) {
+      console.error('Failed to delete reply:', error);
+    } else {
+      setThreadReplies(prev => ({
+        ...prev,
+        [discussionId]: (prev[discussionId] || []).filter(r => r.id !== replyId)
+      }));
+      setDiscussions(prev => prev.map(d =>
+        d.id === discussionId ? { ...d, reply_count: Math.max(0, (d.reply_count || 1) - 1) } : d
+      ));
+    }
   }
 
   function getHotScore(discussion) {
@@ -680,13 +759,46 @@ export default function HubPage() {
                           </Link>
                         </span>
                       </div>
-                      <h3 className="text-zinc-200 font-medium mb-2">
-                        {discussion.title}
-                      </h3>
-                      <div className="text-zinc-400 text-sm mb-3 whitespace-pre-wrap">
-                        {linkifyContent(discussion.content.slice(0, 2000))}
-                        {discussion.content.length > 2000 ? '...' : ''}
-                      </div>
+                      {editingPostId === discussion.id ? (
+                        <div className="mb-3 space-y-2">
+                          <input
+                            value={editTitle}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                            className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-200 font-medium focus:outline-none focus:border-amber-600/50"
+                          />
+                          <textarea
+                            value={editContent}
+                            onChange={(e) => setEditContent(e.target.value)}
+                            rows={4}
+                            className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-300 text-sm focus:outline-none focus:border-amber-600/50 resize-none"
+                          />
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleSavePost(discussion.id)}
+                              disabled={savingEdit || !editTitle.trim() || !editContent.trim()}
+                              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium transition-colors disabled:opacity-50"
+                            >
+                              {savingEdit ? 'Saving...' : 'Save'}
+                            </button>
+                            <button
+                              onClick={() => setEditingPostId(null)}
+                              className="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs transition-colors"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <h3 className="text-zinc-200 font-medium mb-2">
+                            {discussion.title}
+                          </h3>
+                          <div className="text-zinc-400 text-sm mb-3 whitespace-pre-wrap">
+                            {linkifyContent(discussion.content.slice(0, 2000))}
+                            {discussion.content.length > 2000 ? '...' : ''}
+                          </div>
+                        </>
+                      )}
 
                       {/* Reaction buttons */}
                       <div className="flex items-center gap-2">
@@ -769,9 +881,35 @@ export default function HubPage() {
                                     </div>
                                     {!isCollapsed && (
                                       <>
-                                        <div className="text-zinc-300 text-sm mt-1 mb-2 whitespace-pre-wrap">
-                                          {linkifyContent(reply.content)}
-                                        </div>
+                                        {editingReplyId === reply.id ? (
+                                          <div className="mt-1 mb-2 space-y-2">
+                                            <textarea
+                                              value={editReplyContent}
+                                              onChange={(e) => setEditReplyContent(e.target.value)}
+                                              rows={2}
+                                              className="w-full px-2 py-1.5 bg-zinc-800 border border-zinc-700 rounded text-zinc-300 text-sm focus:outline-none focus:border-amber-600/50 resize-none"
+                                            />
+                                            <div className="flex items-center gap-2">
+                                              <button
+                                                onClick={() => handleSaveReply(reply.id, discussion.id)}
+                                                disabled={savingEdit || !editReplyContent.trim()}
+                                                className="px-2 py-1 rounded bg-amber-600 hover:bg-amber-500 text-white text-xs transition-colors disabled:opacity-50"
+                                              >
+                                                {savingEdit ? 'Saving...' : 'Save'}
+                                              </button>
+                                              <button
+                                                onClick={() => setEditingReplyId(null)}
+                                                className="px-2 py-1 text-zinc-400 hover:text-zinc-200 text-xs transition-colors"
+                                              >
+                                                Cancel
+                                              </button>
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <div className="text-zinc-300 text-sm mt-1 mb-2 whitespace-pre-wrap">
+                                            {linkifyContent(reply.content)}
+                                          </div>
+                                        )}
                                         <div className="flex items-center gap-2">
                                           <div className="flex items-center gap-1 bg-zinc-800/50 rounded px-1">
                                             <button
@@ -808,6 +946,22 @@ export default function HubPage() {
                                               </button>
                                             );
                                           })}
+                                          {(user?.id === reply.user_id || userIsAdmin) && editingReplyId !== reply.id && (
+                                            <div className="flex items-center gap-1 ml-auto">
+                                              <button
+                                                onClick={() => startEditReply(reply)}
+                                                className="text-zinc-600 hover:text-amber-400 text-xs transition-colors"
+                                              >
+                                                Edit
+                                              </button>
+                                              <button
+                                                onClick={() => handleDeleteReply(reply.id, discussion.id)}
+                                                className="text-zinc-600 hover:text-rose-400 text-xs transition-colors"
+                                              >
+                                                Delete
+                                              </button>
+                                            </div>
+                                          )}
                                         </div>
                                       </>
                                     )}
@@ -883,6 +1037,22 @@ export default function HubPage() {
                           </svg>
                           Reply
                         </button>
+                      )}
+                      {(user?.id === discussion.user_id || userIsAdmin) && editingPostId !== discussion.id && (
+                        <div className="flex items-center gap-2 ml-auto">
+                          <button
+                            onClick={() => startEditPost(discussion)}
+                            className="text-zinc-500 hover:text-amber-400 text-xs transition-colors"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeletePost(discussion.id)}
+                            className="text-zinc-500 hover:text-rose-400 text-xs transition-colors"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       )}
                     </div>
                   </div>
