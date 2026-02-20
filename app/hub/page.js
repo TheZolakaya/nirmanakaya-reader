@@ -190,6 +190,32 @@ export default function HubPage() {
     loadData();
   }, [filter]);
 
+  // Auto-expand threads that have replies
+  useEffect(() => {
+    if (!discussions.length) return;
+    const withReplies = discussions.filter(d => (d.reply_count || 0) > 0);
+    if (!withReplies.length) return;
+    // Only auto-expand threads we haven't touched yet
+    const newExpanded = {};
+    const needsLoad = [];
+    withReplies.forEach(d => {
+      if (expandedThreads[d.id] === undefined) {
+        newExpanded[d.id] = true;
+        if (!threadReplies[d.id]) needsLoad.push(d.id);
+      }
+    });
+    if (Object.keys(newExpanded).length > 0) {
+      setExpandedThreads(prev => ({ ...prev, ...newExpanded }));
+      // Pre-load replies for newly expanded threads
+      needsLoad.forEach(async (id) => {
+        const { data } = await getDiscussion(id);
+        if (data?.replies) {
+          setThreadReplies(prev => ({ ...prev, [id]: data.replies }));
+        }
+      });
+    }
+  }, [discussions]);
+
   // Get current background label
   const getCurrentBackground = () => {
     if (backgroundType === 'video') {

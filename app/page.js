@@ -5273,7 +5273,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     From Your Words
                   </button>
                   <button
-                    onClick={() => { setFrameSource('custom'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
+                    onClick={() => { setFrameSource('custom'); setCardCount(1); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'custom' ? 'bg-rose-600/25 text-rose-300 border border-rose-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
@@ -5282,6 +5282,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </button>
                 </div>
               </div>
+
+              {/* Mode description — static position below tabs */}
+              <p className="text-center text-[0.65rem] text-zinc-500 mb-2 px-4 min-h-[1.2em]">
+                {frameSource === 'architecture' && 'AI reads your question and selects the spread for you'}
+                {frameSource === 'preset' && 'Choose a house and stage to frame your reading'}
+                {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
+                {frameSource === 'custom' && 'Name your own positions and define the frame'}
+              </p>
 
               {/* Scrollable mode content area — tabs stay pinned above */}
               <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
@@ -5406,7 +5414,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 >
                   {/* Mode Trigger - disclosure triangle, upper right */}
                   <button
-                    onClick={(e) => { e.stopPropagation(); setAdvancedMode(!advancedMode); }}
+                    onClick={(e) => { e.stopPropagation(); if (!advancedMode) { setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); } setAdvancedMode(!advancedMode); }}
                     className="absolute top-3 right-3 p-2 rounded-md transition-all duration-300 hover:bg-zinc-800/50 z-10"
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
@@ -5833,7 +5841,11 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     question={question}
                     onSelectTopic={(topic) => {
                       setActiveTopic(topic);
-                      if (topic) setQuestion(topic.label);
+                      if (topic) {
+                        setQuestion(topic.label);
+                        setBorderFlashActive(true);
+                        setTimeout(() => setBorderFlashActive(false), 600);
+                      }
                     }}
                   />
                 </div>
