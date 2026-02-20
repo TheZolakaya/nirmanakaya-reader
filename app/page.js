@@ -1059,9 +1059,10 @@ export default function NirmanakaReader() {
           setDraws(restoredDraws);
 
           // Restore parsed reading from saved interpretations
-          // Check if card has actual content
+          // Check if card has actual content (V2: wade/surface/swim/deep, V3: reading/summary)
           const hasContent = (card) => card?.interpretation &&
-            (card.interpretation.wade || card.interpretation.surface || card.interpretation.swim || card.interpretation.deep);
+            (card.interpretation.wade || card.interpretation.surface || card.interpretation.swim || card.interpretation.deep ||
+             card.interpretation.reading || card.interpretation.summary);
 
           const restoredCards = data.cards.map((card, i) => {
             if (hasContent(card)) {
