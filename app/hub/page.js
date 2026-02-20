@@ -329,20 +329,24 @@ export default function HubPage() {
     }
     const { action, error } = await toggleReaction({ replyId, emoji });
     if (error) return;
+    const updateReply = (r) => {
+      if (r.id !== replyId) return r;
+      const reactions = r.reactions || [];
+      if (action === 'added') {
+        return { ...r, reactions: [...reactions, { emoji, user_id: user.id }] };
+      } else {
+        return { ...r, reactions: reactions.filter(rx => !(rx.emoji === emoji && rx.user_id === user.id)) };
+      }
+    };
+    // Update expanded thread replies
+    setThreadReplies(prev => {
+      if (!prev[discussionId]) return prev;
+      return { ...prev, [discussionId]: prev[discussionId].map(updateReply) };
+    });
+    // Also update inline topReplies
     setDiscussions(prev => prev.map(d => {
       if (d.id !== discussionId) return d;
-      return {
-        ...d,
-        topReplies: (d.topReplies || []).map(r => {
-          if (r.id !== replyId) return r;
-          const reactions = r.reactions || [];
-          if (action === 'added') {
-            return { ...r, reactions: [...reactions, { emoji, user_id: user.id }] };
-          } else {
-            return { ...r, reactions: reactions.filter(rx => !(rx.emoji === emoji && rx.user_id === user.id)) };
-          }
-        })
-      };
+      return { ...d, topReplies: (d.topReplies || []).map(updateReply) };
     }));
   }
 
