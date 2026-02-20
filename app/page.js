@@ -5283,14 +5283,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
 
-              {/* Mode description — static position below tabs */}
-              <p className="text-center text-[0.65rem] text-zinc-500 mb-2 px-4 min-h-[1.2em]">
-                {frameSource === 'architecture' && 'AI reads your question and selects the spread for you'}
-                {frameSource === 'preset' && 'Choose a house and stage to frame your reading'}
-                {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
-                {frameSource === 'custom' && 'Name your own positions and define the frame'}
-              </p>
-
               {/* Scrollable mode content area — tabs stay pinned above */}
               <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
 
@@ -5394,6 +5386,13 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
               )}
+              {/* Mode description — below all mode-specific buttons */}
+              <p className="text-center text-xs text-zinc-500 mt-1 mb-1 px-4 min-h-[1.4em]">
+                {frameSource === 'architecture' && 'AI reads your question and selects the spread for you'}
+                {frameSource === 'preset' && 'Choose a house and stage to frame your reading'}
+                {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
+                {frameSource === 'custom' && 'Name your own positions and define the frame'}
+              </p>
               </div>{/* END scrollable mode content */}
               </motion.div>{/* END controls-above */}
             </div>{/* END controls zone */}
