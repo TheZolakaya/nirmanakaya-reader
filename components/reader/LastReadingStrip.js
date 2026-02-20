@@ -3,11 +3,11 @@
 // === LAST READING STRIP ===
 // Shows 1-5 card thumbnails from the most recent reading
 // Compact display above question input for authenticated users
+// Uses the `readings` table (V3) — not the legacy `user_readings` table
 
 import { useState, useEffect } from 'react';
-import { getSession } from '../../lib/supabase';
+import { getReadings } from '../../lib/supabase';
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../lib/archetypes';
-import { STATUSES } from '../../lib/constants';
 import { getCardImagePath } from '../../lib/cardImages';
 
 function getSignatureName(transientId) {
@@ -37,16 +37,9 @@ export default function LastReadingStrip({ currentUser, compact = false }) {
 
     async function loadLastReading() {
       try {
-        const session = await getSession();
-        const token = session?.session?.access_token;
-        if (!token) return;
-
-        const res = await fetch('/api/user/readings?limit=1', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const data = await res.json();
-        if (data.success && data.readings?.[0]) {
-          setLastReading(data.readings[0]);
+        const { data } = await getReadings(1);
+        if (data?.[0]) {
+          setLastReading(data[0]);
         }
       } catch (e) {
         // Silent failure — strip is optional
@@ -55,9 +48,13 @@ export default function LastReadingStrip({ currentUser, compact = false }) {
     loadLastReading();
   }, [currentUser]);
 
-  if (!lastReading || !lastReading.draws?.length) return null;
+  if (!lastReading) return null;
 
-  const draws = lastReading.draws.slice(0, 5);
+  // Cards array contains draw objects (position, transient, status) + interpretation
+  const cards = lastReading.cards || [];
+  if (!cards.length) return null;
+
+  const draws = cards.slice(0, 5);
 
   return (
     <div className={compact ? '' : 'max-w-2xl mx-auto mb-3 px-1'}>
@@ -85,10 +82,10 @@ export default function LastReadingStrip({ currentUser, compact = false }) {
           })}
         </div>
 
-        {/* Info */}
+        {/* Info — V3 uses `question` not `topic` */}
         <div className="flex-1 min-w-0">
           <p className={`text-zinc-500 truncate group-hover:text-zinc-400 transition-colors ${compact ? 'text-[10px]' : 'text-[11px]'}`}>
-            {lastReading.topic || 'Last reading'}
+            {lastReading.question || 'Last reading'}
           </p>
           {!compact && (
             <p className="text-[10px] text-zinc-600">
