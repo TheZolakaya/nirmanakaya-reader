@@ -5414,7 +5414,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 >
                   {/* Mode Trigger - disclosure triangle, upper right */}
                   <button
-                    onClick={(e) => { e.stopPropagation(); if (!advancedMode) { setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); } setAdvancedMode(!advancedMode); }}
+                    onClick={(e) => { e.stopPropagation(); const expanding = !advancedMode; setAdvancedMode(!advancedMode); if (expanding) { requestAnimationFrame(() => { setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 800); }); } }}
                     className="absolute top-3 right-3 p-2 rounded-md transition-all duration-300 hover:bg-zinc-800/50 z-10"
                     aria-label={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
                     title={advancedMode ? 'Hide advanced controls' : 'Show advanced controls'}
