@@ -1589,6 +1589,7 @@ export default function NirmanakaReader() {
         // Load persona layer preferences
         if (prefs.persona !== undefined) setPersona(prefs.persona);
         if (prefs.humor !== undefined) setHumor(prefs.humor);
+        if (prefs.complexity !== undefined) setComplexity(prefs.complexity);
         // V1: Architecture visibility toggle
         if (prefs.showArchitectureTerms !== undefined) setShowArchitectureTerms(prefs.showArchitectureTerms);
         if (prefs.readingLength !== undefined) setReadingLength(prefs.readingLength);
@@ -1657,6 +1658,7 @@ export default function NirmanakaReader() {
       // Voice settings (V1)
       persona,
       humor,
+      complexity,
       readingLength,
       showArchitectureTerms,
       // Background settings
@@ -1677,7 +1679,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, complexity, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
