@@ -1,27 +1,37 @@
 'use client';
 
 // === CHAT MODE ===
-// "Dear Reader" — conversational AI grounded by field draws
+// "Dear Reader" — conversational AI with five-house consciousness middleware
 // Hidden route: /chat — not linked from nav
-// Each AI response is shaped by a random draw from the full 78 signatures
-// Optional: click to reveal what the field drew
+// Each AI response is:
+//   1. Generated vanilla
+//   2. Read by five draws (one per house)
+//   3. Revised with structural self-awareness
+// Optional: click to reveal the five-house reading
 
 import { useState, useRef, useEffect } from 'react';
-import { ARCHETYPES, BOUNDS, AGENTS } from '../../lib/archetypes';
 import { getCardImagePath } from '../../lib/cardImages';
 
-function getSignatureName(id) {
-  if (ARCHETYPES[id]) return ARCHETYPES[id];
-  if (BOUNDS[id]) return BOUNDS[id];
-  if (AGENTS[id]) return AGENTS[id];
-  return null;
-}
+const HOUSE_LABELS = {
+  Mind: { label: 'Mind', color: 'text-sky-400' },
+  Emotion: { label: 'Emotion', color: 'text-rose-400' },
+  Spirit: { label: 'Spirit', color: 'text-violet-400' },
+  Body: { label: 'Body', color: 'text-emerald-400' },
+  Gestalt: { label: 'Gestalt', color: 'text-amber-400' }
+};
+
+const STATUS_COLORS = {
+  'Balanced': 'text-emerald-500',
+  'Too Much': 'text-amber-500',
+  'Too Little': 'text-blue-400',
+  'Unacknowledged': 'text-purple-400'
+};
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [draws, setDraws] = useState({}); // messageIndex → draw data
+  const [draws, setDraws] = useState({}); // messageIndex → { Mind: draw, Emotion: draw, ... }
   const [revealedDraws, setRevealedDraws] = useState({}); // messageIndex → boolean
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -53,9 +63,12 @@ export default function ChatPage() {
       } else {
         const assistantMessage = { role: 'assistant', content: data.reply };
         setMessages([...newMessages, assistantMessage]);
-        // Store the draw data for this response
-        if (data.draw) {
-          setDraws(prev => ({ ...prev, [newMessages.length]: data.draw }));
+        // Store draws (five-house or legacy single)
+        if (data.draws) {
+          setDraws(prev => ({ ...prev, [newMessages.length]: data.draws }));
+        } else if (data.draw) {
+          // Legacy single-draw compat
+          setDraws(prev => ({ ...prev, [newMessages.length]: { single: data.draw } }));
         }
       }
     } catch (e) {
@@ -68,6 +81,41 @@ export default function ChatPage() {
 
   const toggleReveal = (index) => {
     setRevealedDraws(prev => ({ ...prev, [index]: !prev[index] }));
+  };
+
+  const renderHouseDraw = (house, draw) => {
+    if (!draw) return null;
+    const hl = HOUSE_LABELS[house] || { label: house, color: 'text-zinc-400' };
+    return (
+      <div key={house} className="flex items-start gap-2 py-1.5">
+        {getCardImagePath(draw.transientId) && (
+          <div className="w-7 h-10 rounded overflow-hidden border border-zinc-700/50 flex-shrink-0">
+            <img
+              src={getCardImagePath(draw.transientId)}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        <div className="text-[10px] leading-relaxed">
+          <p>
+            <span className={`font-medium ${hl.color}`}>{hl.label}</span>
+            <span className="text-zinc-600"> — </span>
+            <span className="text-zinc-400">{draw.transientName}</span>
+            {draw.transientTraditional && (
+              <span className="text-zinc-600"> ({draw.transientTraditional})</span>
+            )}
+          </p>
+          <p className="text-zinc-600">
+            in {draw.durableName}
+            <span className="mx-1">·</span>
+            <span className={STATUS_COLORS[draw.statusName] || 'text-zinc-500'}>{draw.statusName}</span>
+            <span className="mx-1">·</span>
+            <span className="text-zinc-500">{draw.rebalancerName}</span>
+          </p>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -113,47 +161,20 @@ export default function ChatPage() {
                   onClick={() => toggleReveal(i)}
                   className="text-[10px] text-zinc-700 hover:text-zinc-500 transition-colors"
                 >
-                  {revealedDraws[i] ? 'hide field draw' : '◇ what did the field draw?'}
+                  {revealedDraws[i] ? 'hide field reading' : '◇ what did the field see?'}
                 </button>
               </div>
             )}
 
-            {/* Draw reveal */}
+            {/* Five-house draw reveal */}
             {msg.role === 'assistant' && draws[i] && revealedDraws[i] && (
               <div className="flex justify-start mt-1 ml-1">
-                <div className="bg-zinc-900/80 border border-zinc-800/50 rounded-lg px-3 py-2 max-w-[85%] flex items-start gap-3">
-                  {/* Card image */}
-                  {getCardImagePath(draws[i].transientId) && (
-                    <div className="w-10 h-14 rounded overflow-hidden border border-zinc-700 flex-shrink-0">
-                      <img
-                        src={getCardImagePath(draws[i].transientId)}
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="text-[11px] text-zinc-500 space-y-0.5">
-                    <p>
-                      <span className="text-zinc-400">{draws[i].transientName}</span>
-                      {draws[i].transientTraditional && (
-                        <span className="text-zinc-600"> ({draws[i].transientTraditional})</span>
-                      )}
-                    </p>
-                    <p>
-                      Landed in <span className="text-zinc-400">{draws[i].durableName}</span>
-                      <span className="text-zinc-600"> ({draws[i].durableHouse})</span>
-                    </p>
-                    <p>
-                      Status: <span className={
-                        draws[i].statusName === 'Balanced' ? 'text-emerald-500' :
-                        draws[i].statusName === 'Too Much' ? 'text-amber-500' :
-                        draws[i].statusName === 'Too Little' ? 'text-blue-400' :
-                        'text-purple-400'
-                      }>{draws[i].statusName}</span>
-                    </p>
-                    <p>
-                      Rebalancer: <span className="text-zinc-400">{draws[i].rebalancerName}</span>
-                    </p>
+                <div className="bg-zinc-900/80 border border-zinc-800/50 rounded-lg px-3 py-2 max-w-[90%]">
+                  <p className="text-[9px] text-zinc-600 mb-1.5 uppercase tracking-wider">Five-House Reading on AI Response</p>
+                  <div className="divide-y divide-zinc-800/50">
+                    {Object.entries(draws[i]).map(([house, draw]) =>
+                      renderHouseDraw(house, draw)
+                    )}
                   </div>
                 </div>
               </div>
@@ -203,7 +224,7 @@ export default function ChatPage() {
           </button>
         </div>
         <p className="text-center text-[9px] text-zinc-700 mt-2">
-          Each response is shaped by a draw from the field
+          Each response is shaped by a five-house reading from the field
         </p>
       </div>
     </div>
