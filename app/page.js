@@ -1870,6 +1870,7 @@ export default function NirmanakaReader() {
             synthesis: null,
             letter: data.letter,
             tokenUsage: data.usage,
+            model: selectedModel,
             ...telemetry
           }).then(result => {
             if (result?.data?.id) {
@@ -1996,6 +1997,7 @@ export default function NirmanakaReader() {
           synthesis: null,
           letter: data.letter,
           tokenUsage: data.usage,
+          model: selectedModel,
           // Telemetry (initial values - will be updated later)
           ...telemetry
         }).then(result => {
@@ -6201,6 +6203,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     synthesis: { firstContactResponse: parsedReading?.firstContact },
                     letter: parsedReading?.firstContact,
                     tokenUsage,
+                    model: selectedModel,
                     threadData // Include thread data for cloud saves
                   }}
                   glisten={glistenData}
@@ -6208,6 +6211,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   locusSubjects={locusSubjects}
                   voice="friend-warm"
                   topicId={activeTopic?.id}
+                  savedReadingId={savedReadingId}
                   onSave={(saved) => setSavedReadingId(saved?.id)}
                   onBadges={(badges) => setPendingBadges(badges)}
                 />
@@ -6292,6 +6296,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         },
                         letter: parsedReading?.letter,
                         tokenUsage,
+                        model: selectedModel,
                         threadData // Include thread data for cloud saves
                       }}
                       glisten={glistenData}
@@ -6299,6 +6304,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       locusSubjects={locusSubjects}
                       voice={`${stance.complexity}-${stance.voice}`}
                       topicId={activeTopic?.id}
+                      savedReadingId={savedReadingId}
                       onSave={(saved) => setSavedReadingId(saved?.id)}
                       onBadges={(badges) => setPendingBadges(badges)}
                     />

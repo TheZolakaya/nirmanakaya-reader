@@ -1,13 +1,14 @@
 'use client';
 
 // === SAVE READING BUTTON ===
-// Saves reading locally and to cloud if authenticated
-// Also saves to user_readings for My Readings feature (with optional glisten data)
+// Saves reading locally and triggers badge check
+// Auto-save (from page.js) handles the user_readings insert
+// This button handles: local save, topic linking, glisten, badges
 
 import { useState } from 'react';
 import { saveReading, saveReadingLocally, getUser, getSession } from '../../lib/supabase';
 
-export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, topicId, onSave, onBadges }) {
+export default function SaveReadingButton({ reading, glisten, draws, locusSubjects, voice, topicId, savedReadingId, onSave, onBadges }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
@@ -18,78 +19,92 @@ export default function SaveReadingButton({ reading, glisten, draws, locusSubjec
     setSaving(true);
     setError('');
 
-    // Debug: log what we're trying to save
-    console.log('Saving reading:', reading);
-
     try {
       // Always save locally first
       const localReading = saveReadingLocally(reading);
 
-      // Try to save to cloud if authenticated
       const { user } = await getUser();
-      console.log('User:', user);
       if (user) {
-        // Save to legacy readings table
-        const { data, error: cloudError } = await saveReading(reading);
-        console.log('Cloud save result:', { data, error: cloudError });
-        if (cloudError) {
-          console.warn('Cloud save failed, saved locally:', cloudError);
-        }
+        const session = await getSession();
+        const token = session?.session?.access_token;
 
-        // Also save to user_readings for My Readings feature
-        try {
-          const session = await getSession();
-          const token = session?.session?.access_token;
-          if (token && draws) {
-            const userReadingRes = await fetch('/api/user/readings', {
+        if (savedReadingId && token) {
+          // Reading already auto-saved — just update with topic/glisten and check badges
+          const patchRes = await fetch('/api/user/readings', {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              id: savedReadingId,
+              interpretation: {
+                cards: reading.cards?.map(c => ({
+                  interpretation: c.interpretation,
+                  rebalancing: c.interpretation?.rebalancer || c.interpretation?.rebalancing || null
+                })) || [],
+                synthesis: reading.synthesis?.summary || reading.synthesis?.path || reading.synthesis,
+                letter: reading.letter,
+                ...(glisten ? { glisten: { ...glisten, createdAt: new Date().toISOString() } } : {})
+              }
+            })
+          });
+          await patchRes.json();
+
+          // Link topic if provided
+          if (topicId) {
+            // Topic linking happens via a separate call since PATCH allowed fields are limited
+            await fetch('/api/user/topic-analysis', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                reading_type: 'manual',
-                topic_mode: reading.question ? 'custom' : 'general',
-                topic: reading.question || null,
-                locus_subjects: locusSubjects || [],
-                card_count: draws.length,
-                voice: voice || 'friend',
-                draws: draws,
-                interpretation: {
-                  cards: reading.cards?.map(c => {
-                    const interp = c.interpretation;
-                    return {
-                      // Preserve full depth object for future multi-depth viewing
-                      interpretation: interp,
-                      // Fix: field is 'rebalancer' not 'rebalancing' in depth format
-                      rebalancing: interp?.rebalancer || interp?.rebalancing || null
-                    };
-                  }) || [],
-                  synthesis: reading.synthesis?.summary || reading.synthesis?.path || reading.synthesis,
-                  letter: reading.letter
-                },
-                glisten: glisten || null,
-                ...(topicId ? { topic_id: topicId } : {})
-              })
-            });
-            const userReadingData = await userReadingRes.json();
-            console.log('User readings save result:', userReadingData);
-            // Surface new badges if any were earned
-            if (userReadingData.newBadges && userReadingData.newBadges.length > 0) {
-              onBadges?.(userReadingData.newBadges);
-            }
-            // Auto-generate topic meta-analysis (non-blocking)
-            if (topicId) {
-              fetch('/api/user/topic-analysis', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ topic_id: topicId })
-              }).catch(err => console.log('[TopicAnalysis] Failed:', err));
-            }
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+              body: JSON.stringify({ topic_id: topicId })
+            }).catch(err => console.log('[TopicAnalysis] Failed:', err));
           }
-        } catch (userReadingError) {
-          console.warn('User readings save failed:', userReadingError);
-          // Don't fail overall save if this fails
+        } else if (token && draws) {
+          // No auto-save (incognito mode or failed) — full save via API
+          const userReadingRes = await fetch('/api/user/readings', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              reading_type: 'manual',
+              topic_mode: reading.question ? 'custom' : 'general',
+              topic: reading.question || null,
+              locus_subjects: locusSubjects || [],
+              card_count: draws.length,
+              voice: voice || 'friend',
+              draws: draws,
+              interpretation: {
+                cards: reading.cards?.map(c => ({
+                  interpretation: c.interpretation,
+                  rebalancing: c.interpretation?.rebalancer || c.interpretation?.rebalancing || null
+                })) || [],
+                synthesis: reading.synthesis?.summary || reading.synthesis?.path || reading.synthesis,
+                letter: reading.letter,
+                ...(glisten ? { glisten: { ...glisten, createdAt: new Date().toISOString() } } : {})
+              },
+              token_usage: reading.tokenUsage || null,
+              model: reading.model || 'sonnet',
+              mode: reading.mode || null,
+              spread_type: reading.spreadType || null,
+              ...(topicId ? { topic_id: topicId } : {})
+            })
+          });
+          const userReadingData = await userReadingRes.json();
+          // Surface new badges if any were earned
+          if (userReadingData.newBadges && userReadingData.newBadges.length > 0) {
+            onBadges?.(userReadingData.newBadges);
+          }
+          // Auto-generate topic meta-analysis (non-blocking)
+          if (topicId) {
+            fetch('/api/user/topic-analysis', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+              body: JSON.stringify({ topic_id: topicId })
+            }).catch(err => console.log('[TopicAnalysis] Failed:', err));
+          }
         }
       }
 

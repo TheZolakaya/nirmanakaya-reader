@@ -62,11 +62,9 @@ export async function POST(request) {
     return Response.json({ error: profileError.message }, { status: 500 });
   }
 
-  // Get all readings - only select columns that definitely exist
-  // The readings table has: id, user_id, question, mode, spread_type, cards, synthesis, letter, created_at, updated_at, is_public, share_slug
-  // Token columns may exist from migration: input_tokens, output_tokens, total_tokens, estimated_cost
+  // Get all readings from unified user_readings table
   const { data: readings, error: readingsError } = await supabaseAdmin
-    .from('readings')
+    .from('user_readings')
     .select('id, user_id, created_at, mode, spread_type, input_tokens, output_tokens, estimated_cost')
     .order('created_at', { ascending: false });
 

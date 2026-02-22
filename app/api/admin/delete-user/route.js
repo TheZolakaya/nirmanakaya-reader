@@ -46,8 +46,8 @@ export async function POST(request) {
     // 2. Delete discussions
     await supabaseAdmin.from('discussions').delete().eq('user_id', userId);
 
-    // 3. Delete readings
-    await supabaseAdmin.from('readings').delete().eq('user_id', userId);
+    // 3. Delete readings (unified table)
+    await supabaseAdmin.from('user_readings').delete().eq('user_id', userId);
 
     // 4. Delete profile
     await supabaseAdmin.from('profiles').delete().eq('id', userId);

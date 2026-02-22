@@ -565,7 +565,7 @@ export default function ProfilePage() {
               readings.map(reading => (
                 <Link
                   key={reading.id}
-                  href={`/r/${reading.share_slug}`}
+                  href={`/r/${reading.share_token}`}
                   className="block bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 hover:border-zinc-700 transition-colors group"
                 >
                   <div className="flex items-start justify-between gap-4">

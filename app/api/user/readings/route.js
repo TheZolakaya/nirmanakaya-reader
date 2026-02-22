@@ -98,7 +98,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation, glisten, topic_id } = body;
+    const { reading_type, topic_mode, topic, locus_subjects, locus, locus_detail, card_count, voice, draws, interpretation, glisten, topic_id, token_usage, model, mode, spread_type, telemetry } = body;
 
     if (!draws || !interpretation) {
       return Response.json({ success: false, error: 'draws and interpretation are required' }, { status: 400 });
@@ -115,9 +115,20 @@ export async function POST(request) {
       } : {})
     };
 
+    // Calculate estimated cost based on model
+    const inputTokens = token_usage?.input_tokens || 0;
+    const outputTokens = token_usage?.output_tokens || 0;
+    const MODEL_PRICING = {
+      haiku: { input: 1.00, output: 5.00 },
+      sonnet: { input: 3.00, output: 15.00 },
+      opus: { input: 15.00, output: 75.00 }
+    };
+    const pricing = MODEL_PRICING[model || 'sonnet'] || MODEL_PRICING.sonnet;
+    const estimatedCost = (inputTokens * pricing.input + outputTokens * pricing.output) / 1000000;
+
     const insertData = {
       user_id: user.id,
-      reading_type: reading_type || 'manual',
+      reading_type: reading_type || 'automated',
       topic_mode: topic_mode || 'general',
       topic: topic || null,
       locus_subjects: Array.isArray(locus_subjects) ? locus_subjects : [],
@@ -128,7 +139,20 @@ export async function POST(request) {
       voice: voice || 'friend',
       draws,
       interpretation: fullInterpretation,
-      is_public: false
+      is_public: false,
+      // Token tracking
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      total_tokens: inputTokens + outputTokens,
+      estimated_cost: estimatedCost,
+      model: model || 'sonnet',
+      // Mode and spread for admin stats
+      mode: mode || null,
+      spread_type: spread_type || null,
+      // Telemetry
+      reflect_count: telemetry?.reflectCount || 0,
+      forge_count: telemetry?.forgeCount || 0,
+      clarify_count: telemetry?.clarifyCount || 0
     };
 
     // Link to saved topic if provided
@@ -225,7 +249,7 @@ export async function PATCH(request) {
     if (!id) return Response.json({ success: false, error: 'id is required' }, { status: 400 });
 
     // Only allow certain fields
-    const allowed = ['draws', 'interpretation', 'card_count', 'is_public'];
+    const allowed = ['draws', 'interpretation', 'card_count', 'is_public', 'input_tokens', 'output_tokens', 'total_tokens', 'estimated_cost', 'reflect_count', 'forge_count', 'clarify_count'];
     const safeUpdates = {};
     for (const key of allowed) {
       if (updates[key] !== undefined) safeUpdates[key] = updates[key];

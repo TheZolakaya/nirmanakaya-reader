@@ -59,7 +59,7 @@ export default function JournalPage() {
     if (error) {
       console.error('Failed to toggle public:', error);
     } else {
-      setReadings(readings.map(r => r.id === id ? { ...r, is_public: !currentState, share_slug: data.share_slug } : r));
+      setReadings(readings.map(r => r.id === id ? { ...r, is_public: !currentState, share_token: data.share_token } : r));
     }
   }
 
@@ -284,11 +284,11 @@ export default function JournalPage() {
                       >
                         {reading.is_public ? 'Make Private' : 'Make Public'}
                       </button>
-                      {reading.is_public && reading.share_slug && (
+                      {reading.is_public && reading.share_token && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            navigator.clipboard.writeText(`${window.location.origin}/r/${reading.share_slug}`);
+                            navigator.clipboard.writeText(`${window.location.origin}/r/${reading.share_token}`);
                             alert('Link copied!');
                           }}
                           className="text-xs px-3 py-1.5 rounded bg-zinc-800/50 text-emerald-400 hover:bg-zinc-700/50 transition-colors"

@@ -52,7 +52,7 @@ export async function POST(request) {
     if (readingId && !reading) {
       // First try with user_id match
       let { data: dbReading, error: readingError } = await supabaseAdmin
-        .from('readings')
+        .from('user_readings')
         .select('*')
         .eq('id', readingId)
         .eq('user_id', userId)
@@ -62,7 +62,7 @@ export async function POST(request) {
       // (safe since email goes to authenticated user's own address)
       if (readingError || !dbReading) {
         const fallback = await supabaseAdmin
-          .from('readings')
+          .from('user_readings')
           .select('*')
           .eq('id', readingId)
           .single();

@@ -32,8 +32,8 @@ export default function ShareReadingButton({ reading, readingId, fallbackUrl, di
         if (shareError) {
           console.error('Share error:', shareError);
           setError('Failed to share');
-        } else if (data?.share_slug) {
-          const url = `${window.location.origin}/r/${data.share_slug}`;
+        } else if (data?.share_token) {
+          const url = `${window.location.origin}/r/${data.share_token}`;
           setShareUrl(url);
           setShowModal(true);
         }
