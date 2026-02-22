@@ -2750,6 +2750,28 @@ export default function NirmanakaReader() {
     const safeQuestion = sanitizeForAPI(question);
     const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
 
+    // Build cross-card thread conversation summary for context continuity
+    const buildThreadConverseSummary = () => {
+      const parts = [];
+      Object.entries(threadData).forEach(([key, threads]) => {
+        if (!threads || threads.length === 0) return;
+        const flattenThreads = (items, prefix = '') => {
+          items.forEach(item => {
+            const trans = item.draw ? getComponent(item.draw.transient) : null;
+            const cardName = trans ? `${(STATUSES[item.draw.status]?.prefix || 'Balanced')} ${trans.name}` : 'Response';
+            const op = item.operation === 'reflect' ? 'Reflected' : 'Forged';
+            parts.push(`${prefix}- On ${key}: User ${op}: "${item.context}" → Drew ${cardName}`);
+            if (item.children?.length > 0) flattenThreads(item.children, prefix + '  ');
+          });
+        };
+        flattenThreads(threads);
+      });
+      return parts.length > 0
+        ? `PRIOR THREAD CONVERSATIONS IN THIS READING:\n${parts.join('\n')}\nThe querent has been actively engaging — honor the thread of their exploration.\n\n`
+        : '';
+    };
+    const threadConverseBlock = buildThreadConverseSummary();
+
     let systemPrompt, userMessage;
 
     // BOTH operations draw a new card - the difference is the framing
@@ -2833,7 +2855,7 @@ ${parentContent}
 FULL READING CONTEXT (for background):
 ${fullReadingContext}
 
-USER'S INQUIRY/QUESTION (about ${parentLabel}):
+${threadConverseBlock}USER'S INQUIRY/QUESTION (about ${parentLabel}):
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}
@@ -2877,7 +2899,7 @@ Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 FULL READING CONTEXT:
 ${fullReadingContext}
 
-SECTION THEY'RE FORGING FROM: ${parentLabel}
+${threadConverseBlock}SECTION THEY'RE FORGING FROM: ${parentLabel}
 ${parentContent}
 
 USER'S DECLARATION/ASSERTION:
@@ -2933,6 +2955,12 @@ Interpret this new card as the architecture's response to their declared directi
           }
         }
       });
+
+      // Push to reading-level converse history so expansions know about thread interactions
+      readingConverseRef.current = [
+        ...readingConverseRef.current,
+        { section: `${threadKey} (${operation})`, userText: userInput }
+      ];
 
       // Accumulate token usage
       if (data.usage) {
@@ -3006,6 +3034,28 @@ Interpret this new card as the architecture's response to their declared directi
     const safeQuestion = sanitizeForAPI(question);
     const stancePrompt = buildPersonaPrompt(persona, humor, complexity);
 
+    // Build cross-card thread conversation summary for context continuity
+    const buildNestedThreadConverseSummary = () => {
+      const parts = [];
+      Object.entries(threadData).forEach(([key, threads]) => {
+        if (!threads || threads.length === 0) return;
+        const flattenThreads = (items, prefix = '') => {
+          items.forEach(item => {
+            const trans = item.draw ? getComponent(item.draw.transient) : null;
+            const cardName = trans ? `${(STATUSES[item.draw.status]?.prefix || 'Balanced')} ${trans.name}` : 'Response';
+            const op = item.operation === 'reflect' ? 'Reflected' : 'Forged';
+            parts.push(`${prefix}- On ${key}: User ${op}: "${item.context}" → Drew ${cardName}`);
+            if (item.children?.length > 0) flattenThreads(item.children, prefix + '  ');
+          });
+        };
+        flattenThreads(threads);
+      });
+      return parts.length > 0
+        ? `PRIOR THREAD CONVERSATIONS IN THIS READING:\n${parts.join('\n')}\nThe querent has been actively engaging — honor the thread of their exploration.\n\n`
+        : '';
+    };
+    const nestedThreadConverseBlock = buildNestedThreadConverseSummary();
+
     let systemPrompt, userMessage;
 
     // BOTH operations draw a new card - the difference is the framing
@@ -3037,7 +3087,7 @@ FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentence
 FULL READING CONTEXT:
 ${fullReadingContext}
 
-CARD BEING DISCUSSED: ${parentCardName}
+${nestedThreadConverseBlock}CARD BEING DISCUSSED: ${parentCardName}
 ${parentThreadItem.interpretation}
 
 USER'S INQUIRY/QUESTION:
@@ -3071,7 +3121,7 @@ FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentence
 FULL READING CONTEXT:
 ${fullReadingContext}
 
-CARD THEY'RE FORGING FROM: ${parentCardName}
+${nestedThreadConverseBlock}CARD THEY'RE FORGING FROM: ${parentCardName}
 ${parentThreadItem.interpretation}
 
 USER'S DECLARATION/ASSERTION:
@@ -3137,6 +3187,12 @@ Interpret this new card as the architecture's response to their declared directi
       // Clear the operation selection
       setThreadOperations(prev => ({ ...prev, [threadKey]: null }));
       setThreadContexts(prev => ({ ...prev, [threadKey]: '' }));
+
+      // Push to reading-level converse history so expansions know about nested thread interactions
+      readingConverseRef.current = [
+        ...readingConverseRef.current,
+        { section: `card-${cardIndex} (nested ${operation})`, userText: userInput }
+      ];
 
       // Accumulate token usage
       if (data.usage) {
@@ -4385,6 +4441,26 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           md += turn.role === 'user' ? `> *"${turn.content}"*\n\n` : `${turn.content}\n\n`;
         });
       }
+
+      // Thread conversations (Reflect/Forge)
+      const cardThreads = threadData[card.index] || [];
+      if (cardThreads.length > 0) {
+        const renderThreadMd = (items, depth = 0) => {
+          const indent = '  '.repeat(depth);
+          items.forEach(item => {
+            const itemTrans = item.draw ? getComponent(item.draw.transient) : null;
+            const itemStat = item.draw ? STATUSES[item.draw.status] : null;
+            const itemName = itemTrans ? `${(itemStat?.prefix || 'Balanced')} ${itemTrans.name}` : 'Response';
+            const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
+            md += `${indent}> **${opLabel}**${item.context ? `: *"${item.context}"*` : ''}\n\n`;
+            md += `${indent}> **Drew: ${itemName}**\n\n`;
+            md += `${indent}${item.interpretation}\n\n`;
+            if (item.children?.length > 0) renderThreadMd(item.children, depth + 1);
+          });
+        };
+        md += `#### Threads\n\n`;
+        renderThreadMd(cardThreads);
+      }
     });
 
     // Path to Balance (new structure with depths - use deep first)
@@ -4423,6 +4499,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           const label = EXPANSION_PROMPTS[expType]?.label || expType;
           md += `### Overview ${label}\n\n${content}\n\n`;
         }
+      });
+    }
+
+    // Follow-up conversation
+    if (followUpMessages.length > 0) {
+      md += `---\n\n## Follow-up Conversation\n\n`;
+      followUpMessages.forEach(msg => {
+        md += msg.role === 'user' ? `> *"${msg.content}"*\n\n` : `${msg.content}\n\n`;
       });
     }
 
