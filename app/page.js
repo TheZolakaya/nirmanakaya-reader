@@ -1476,6 +1476,7 @@ export default function NirmanakaReader() {
 
   // Save synthesis to database when it loads
   const [synthesisSaved, setSynthesisSaved] = useState(false);
+  const narrativeGeneratedRef = useRef(false);
   useEffect(() => {
     if (!savedReadingId || !parsedReading?._onDemand || !synthesisLoaded || synthesisSaved) return;
     if (parsedReading._restored) return; // Don't re-save restored readings
@@ -1487,10 +1488,28 @@ export default function NirmanakaReader() {
           path: parsedReading.path,
           fullArchitecture: parsedReading.fullArchitecture
         }
-      }).then(result => {
+      }).then(async (result) => {
         if (result?.data) {
           setSynthesisSaved(true);
           console.log('[AutoSave] Synthesis saved');
+
+          // Generate narrative micro-summary + hashtags (non-blocking)
+          if (!narrativeGeneratedRef.current && !incognitoMode) {
+            narrativeGeneratedRef.current = true;
+            try {
+              const session = await getSession();
+              const token = session?.session?.access_token;
+              if (token) {
+                fetch('/api/user/reading-summary', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                  body: JSON.stringify({ readingId: savedReadingId })
+                }).then(r => r.json()).then(d => {
+                  if (d.success && !d.skipped) console.log('[Narrative] Summary generated:', d.hashtags);
+                }).catch(err => console.log('[Narrative] Generation failed:', err));
+              }
+            } catch (e) { /* Non-blocking */ }
+          }
         }
       }).catch(err => console.log('[AutoSave] Failed to save synthesis:', err));
     }
@@ -3808,6 +3827,7 @@ CRITICAL FORMATTING RULES:
     setAriadneThread(null); setAriadneLoading(false);
     // Reset on-demand state
     setCardLoaded({}); setCardLoading({}); setSynthesisLoaded(false); setSynthesisLoading(false); setContentSaved(false); setSynthesisSaved(false);
+    narrativeGeneratedRef.current = false;
     // Reset telemetry
     resetTelemetry();
     // Reset depth states to user's chosen default

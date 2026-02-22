@@ -39,6 +39,7 @@ const STATUS_COLORS = {
 export default function StatsPage() {
   const router = useRouter();
   const [stats, setStats] = useState(null);
+  const [topThemes, setTopThemes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,7 +58,10 @@ export default function StatsPage() {
         });
         const data = await res.json();
         console.log('[Stats] API response:', data);
-        if (data.success) setStats(data.stats);
+        if (data.success) {
+          setStats(data.stats);
+          setTopThemes(data.topThemes || []);
+        }
       } catch (e) {
         console.error('Stats load error:', e);
       }
@@ -247,6 +251,24 @@ export default function StatsPage() {
             <span>{78 - stats.uniqueSignatures} remaining</span>
           </div>
         </section>
+
+        {/* Top Themes (from auto-generated hashtags) */}
+        {topThemes.length > 0 && (
+          <section className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 mb-8">
+            <h3 className="text-sm font-medium text-zinc-400 mb-4">Top Themes</h3>
+            <div className="flex flex-wrap gap-2">
+              {topThemes.map(({ tag, count }) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400/80 border border-amber-500/20"
+                >
+                  {tag}
+                  <span className="text-amber-400/40">{count}</span>
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Links */}
         <div className="flex gap-3 flex-wrap">

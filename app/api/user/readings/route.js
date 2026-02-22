@@ -72,7 +72,7 @@ export async function GET(request) {
     const offset = (page - 1) * limit;
     const { data, error, count } = await supabase
       .from('user_readings')
-      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, locus_subjects, card_count, voice, draws, share_token, is_public, topic_id', { count: 'exact' })
+      .select('id, created_at, reading_type, topic_mode, topic, locus, locus_detail, locus_subjects, card_count, voice, draws, share_token, is_public, topic_id, hashtags', { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -249,7 +249,7 @@ export async function PATCH(request) {
     if (!id) return Response.json({ success: false, error: 'id is required' }, { status: 400 });
 
     // Only allow certain fields
-    const allowed = ['draws', 'interpretation', 'card_count', 'is_public', 'input_tokens', 'output_tokens', 'total_tokens', 'estimated_cost', 'reflect_count', 'forge_count', 'clarify_count'];
+    const allowed = ['draws', 'interpretation', 'card_count', 'is_public', 'input_tokens', 'output_tokens', 'total_tokens', 'estimated_cost', 'reflect_count', 'forge_count', 'clarify_count', 'narrative_summary', 'hashtags'];
     const safeUpdates = {};
     for (const key of allowed) {
       if (updates[key] !== undefined) safeUpdates[key] = updates[key];

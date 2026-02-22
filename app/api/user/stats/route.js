@@ -39,7 +39,7 @@ export async function GET(request) {
     // Build query
     let query = supabase
       .from('user_readings')
-      .select('draws, created_at')
+      .select('draws, created_at, hashtags')
       .eq('user_id', user.id)
       .order('created_at', { ascending: true });
 
@@ -63,9 +63,22 @@ export async function GET(request) {
 
     const stats = buildBadgeStats(readings || []);
 
+    // Aggregate hashtag frequencies
+    const tagCounts = {};
+    for (const r of (readings || [])) {
+      for (const tag of (r.hashtags || [])) {
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+      }
+    }
+    const topThemes = Object.entries(tagCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 15)
+      .map(([tag, count]) => ({ tag, count }));
+
     return Response.json({
       success: true,
       stats,
+      topThemes,
       _debug: { queryRows: readings?.length ?? 0, ts: Date.now() },
       ...(topicId ? { topic_id: topicId } : {}),
       ...(days > 0 ? { days } : {})

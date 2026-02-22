@@ -150,6 +150,20 @@ export default function MyReadingsPage() {
                     </span>
                   ))}
                 </div>
+
+                {/* Hashtags */}
+                {reading.hashtags && reading.hashtags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {reading.hashtags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400/70 border border-amber-500/20"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

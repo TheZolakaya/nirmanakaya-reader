@@ -97,11 +97,12 @@ export async function GET(request) {
       .order('created_at', { ascending: true });
 
     // Fetch recent readings for recency context (last 30 days)
+    // Include narrative_summary + hashtags for journey thread
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     const { data: recentReadings } = await supabase
       .from('user_readings')
-      .select('draws, created_at, topic')
+      .select('draws, created_at, topic, narrative_summary, hashtags')
       .eq('user_id', user.id)
       .gte('created_at', thirtyDaysAgo.toISOString())
       .order('created_at', { ascending: false });
@@ -250,7 +251,8 @@ export async function GET(request) {
       recentReadings || [],
       topicData,
       profile,
-      personalFacts
+      personalFacts,
+      recentReadings || []  // Same data, now includes narrative_summary + hashtags
     );
 
     return Response.json({ success: true, contextBlock });
