@@ -43,10 +43,10 @@ async function getAuthUser(request) {
 async function checkAdmin(userId) {
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role')
+    .select('is_admin')
     .eq('id', userId)
     .single();
-  return profile?.role === 'admin';
+  return !!profile?.is_admin;
 }
 
 // Generate summary + hashtags for a single reading using Haiku
