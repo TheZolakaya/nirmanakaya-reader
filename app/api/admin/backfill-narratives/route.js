@@ -205,6 +205,11 @@ export async function POST(request) {
         const result = await generateNarrative(reading);
 
         if (!result) {
+          // Mark as skipped so it doesn't reappear in future queries
+          await supabase
+            .from('user_readings')
+            .update({ narrative_summary: '__no_content__' })
+            .eq('id', reading.id);
           results.skipped++;
           continue;
         }
