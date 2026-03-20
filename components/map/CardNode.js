@@ -174,7 +174,7 @@ const CardNode = memo(({
       )}
 
       {/* Card label - ON the card, white background, dark text (matches original) */}
-      {showLabel && (effectiveType === 'archetype' || effectiveType === 'portal') && name && (
+      {showLabel && name && (
         <div
           className="card-label"
           style={{
