@@ -184,7 +184,7 @@ export async function POST(request) {
     const triage = triageReading(analysis, drawMap);
 
     // === STEP 2: Build the AI seed ===
-    const triageSeed = buildTriageSeed(triage);
+    const triageSeed = buildTriageSeed(triage, drawMap);
 
     // Build the system prompt — shared DNA + specialist method + voice dials
     let systemPrompt = buildDiagnosticSystemPrompt({ persona, complexity, humor, showArchitecture });

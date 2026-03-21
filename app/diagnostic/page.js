@@ -9,6 +9,7 @@ import { STATUSES, HOUSES, INNER_OUTER_HORIZON } from '../../lib/constants.js';
 import { getArchetypeCorrection } from '../../lib/corrections.js';
 import { getCardImagePath } from '../../lib/cardImages.js';
 import { getGestaltCondition } from '../../lib/gestaltConditions.js';
+import { getAllHouseConditions } from '../../lib/houseConditions.js';
 
 // ─── COLOR SYSTEM ───
 const STATUS_COLORS = {
@@ -370,7 +371,7 @@ export default function DiagnosticPage() {
     const drawMap = {};
     for (const d of draws) drawMap[d.position] = d;
     const triage = triageReading(analysis, drawMap);
-    const seed = buildTriageSeed(triage);
+    const seed = buildTriageSeed(triage, drawMap);
     setReadingData({ draws, analysis, drawMap, triage, seed });
     setSelectedArchetype(null);
     setHighlightedPositions(new Set());
@@ -913,6 +914,42 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
             );
           })}
         </SidebarSection>
+
+        {/* House Conditions — named states for each manifest house */}
+        {(() => {
+          const houseConditions = getAllHouseConditions(drawMap);
+          return (
+            <SidebarSection title="CONDITIONS" titleColor="#e2e8f0"
+              help="256 named states per house. Inner pair (Seed × Medium) = foundation. Outer pair (Fruition × Feedback) = expression. Compound name captures the full house character."
+            >
+              {Object.entries(houseConditions).map(([house, hc]) => {
+                if (!hc) return null;
+                const color = HOUSE_COLORS[house] || '#94a3b8';
+                return (
+                  <div key={house} style={{
+                    padding: '5px 7px', marginBottom: 4,
+                    background: color + '11',
+                    border: `1px solid ${color}22`,
+                    borderLeft: `3px solid ${color}55`
+                  }}
+                    title={`${house}: ${hc.name}\n\n${hc.innerPairName} (${hc.innerName}): ${hc.innerDescription}\n\n${hc.outerPairName} (${hc.outerName}): ${hc.outerDescription}\n\n${hc.capacity} · ${hc.character} · ${hc.integration}% integrated`}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
+                      <span style={{ fontSize: 10, color, fontWeight: 600 }}>{house}</span>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: '#e2e8f0', fontFamily: "'IBM Plex Mono', monospace" }}>
+                        {hc.name}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 8, color: '#64748b' }}>
+                      <span title={hc.innerDescription}>{hc.innerPairName}: <span style={{ color: '#94a3b8' }}>{hc.innerName}</span></span>
+                      <span title={hc.outerDescription}>{hc.outerPairName}: <span style={{ color: '#94a3b8' }}>{hc.outerName}</span></span>
+                    </div>
+                  </div>
+                );
+              })}
+            </SidebarSection>
+          );
+        })()}
 
         {/* Channel Health */}
         {l2_processes.byChannel && (
