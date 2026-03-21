@@ -26,7 +26,7 @@ import { getComplexityDescription, getHumorDescription } from '../../../../lib/p
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-sonnet-4-20250514';
-const MAX_TOOL_ROUNDS = 8; // Safety cap — prevent runaway investigation
+const MAX_TOOL_ROUNDS = 12; // Safety cap — prevent runaway investigation
 
 // ─────────────────────────────────────────────
 // DIAGNOSTIC SYSTEM PROMPT — COMPOSABLE
@@ -202,6 +202,7 @@ export async function POST(request) {
     let totalUsage = { input_tokens: 0, output_tokens: 0 };
     let toolCallCount = 0;
     let rounds = 0;
+    const toolTrace = []; // Debug: log every tool call + result
 
     const toolContext = { analysis, triage, drawMap };
 
@@ -234,16 +235,16 @@ export async function POST(request) {
       totalUsage.input_tokens += data.usage?.input_tokens || 0;
       totalUsage.output_tokens += data.usage?.output_tokens || 0;
 
+      // Capture any reasoning text from this round
+      const roundText = data.content
+        ?.filter(block => block.type === 'text')
+        ?.map(block => block.text)
+        ?.join('\n') || '';
+
       // Check stop reason
       if (data.stop_reason === 'end_turn') {
-        // AI is done investigating — extract the final text
-        const finalText = data.content
-          ?.filter(block => block.type === 'text')
-          ?.map(block => block.text)
-          ?.join('\n') || '';
-
         return Response.json({
-          interpretation: finalText,
+          interpretation: roundText,
           triage: {
             severity: triage.severity,
             healthScore: triage.healthScore,
@@ -255,7 +256,8 @@ export async function POST(request) {
             rounds,
             model: MODEL
           },
-          usage: totalUsage
+          usage: totalUsage,
+          toolTrace
         });
       }
 
@@ -269,6 +271,13 @@ export async function POST(request) {
           if (block.type === 'tool_use') {
             toolCallCount++;
             const result = handleToolCall(block.name, block.input, toolContext);
+            toolTrace.push({
+              round: rounds,
+              tool: block.name,
+              input: block.input,
+              result,
+              reasoning: roundText || null
+            });
             toolResults.push({
               type: 'tool_result',
               tool_use_id: block.id,
@@ -282,13 +291,8 @@ export async function POST(request) {
       }
 
       // Unexpected stop reason — return what we have
-      const partialText = data.content
-        ?.filter(block => block.type === 'text')
-        ?.map(block => block.text)
-        ?.join('\n') || '';
-
       return Response.json({
-        interpretation: partialText,
+        interpretation: roundText,
         triage: {
           severity: triage.severity,
           healthScore: triage.healthScore,
@@ -301,35 +305,88 @@ export async function POST(request) {
           model: MODEL,
           stopReason: data.stop_reason
         },
-        usage: totalUsage
+        usage: totalUsage,
+        toolTrace
       });
     }
 
-    // Safety cap hit — return with warning
-    const lastAssistant = messages
-      .filter(m => m.role === 'assistant')
-      .pop();
-    const capText = lastAssistant?.content
-      ?.filter?.(block => block.type === 'text')
-      ?.map(block => block.text)
-      ?.join('\n') || 'Investigation reached maximum depth.';
-
-    return Response.json({
-      interpretation: capText,
-      triage: {
-        severity: triage.severity,
-        healthScore: triage.healthScore,
-        distortionCount: triage.distortionCount,
-        positionCount: triage.positionCount
-      },
-      meta: {
-        toolCallCount,
-        rounds,
-        model: MODEL,
-        cappedAtMaxRounds: true
-      },
-      usage: totalUsage
+    // Safety cap hit — force a final synthesis call WITHOUT tools
+    messages.push({
+      role: 'user',
+      content: 'You have gathered enough data. Please deliver your interpretation now based on everything you have found. Do not call any more tools.'
     });
+
+    try {
+      const finalResponse = await fetchWithRetry(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages
+          // No tools — forces text response
+        })
+      });
+
+      const finalData = await finalResponse.json();
+      totalUsage.input_tokens += finalData.usage?.input_tokens || 0;
+      totalUsage.output_tokens += finalData.usage?.output_tokens || 0;
+
+      const capText = finalData.content
+        ?.filter(block => block.type === 'text')
+        ?.map(block => block.text)
+        ?.join('\n') || 'Investigation reached maximum depth.';
+
+      return Response.json({
+        interpretation: capText,
+        triage: {
+          severity: triage.severity,
+          healthScore: triage.healthScore,
+          distortionCount: triage.distortionCount,
+          positionCount: triage.positionCount
+        },
+        meta: {
+          toolCallCount,
+          rounds: rounds + 1,
+          model: MODEL,
+          cappedAtMaxRounds: true
+        },
+        usage: totalUsage,
+        toolTrace
+      });
+    } catch (capErr) {
+      // If the final synthesis fails, return what we have
+      const lastAssistant = messages
+        .filter(m => m.role === 'assistant')
+        .pop();
+      const fallbackText = lastAssistant?.content
+        ?.filter?.(block => block.type === 'text')
+        ?.map(block => block.text)
+        ?.join('\n') || 'Investigation reached maximum depth.';
+
+      return Response.json({
+        interpretation: fallbackText,
+        triage: {
+          severity: triage.severity,
+          healthScore: triage.healthScore,
+          distortionCount: triage.distortionCount,
+          positionCount: triage.positionCount
+        },
+        meta: {
+          toolCallCount,
+          rounds,
+          model: MODEL,
+          cappedAtMaxRounds: true
+        },
+        usage: totalUsage,
+        toolTrace
+      });
+    }
 
   } catch (e) {
     console.error('Investigate API error:', e);
