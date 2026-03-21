@@ -242,36 +242,99 @@ function buildChainForPosition(positionId, drawMap) {
 
 // Build all unique archetype-level chains (22 archetypes partition into disjoint cycles)
 function buildAllArchetypeChains(drawMap) {
-  const chains = [];
-  const assigned = new Set();
-
+  // Step 1: Build a chain from every archetype
+  const rawChains = [];
   for (let archId = 0; archId < 22; archId++) {
-    if (assigned.has(archId) || !drawMap[archId]) continue;
+    if (!drawMap[archId]) continue;
     const chain = buildChainForPosition(archId, drawMap);
-    if (!chain) continue;
-    // Mark ALL positions in the chain (both tail and loop) so we don't create duplicate entries
-    for (const node of chain.path) assigned.add(node.position);
-    chains.push(chain);
+    if (chain) rawChains.push(chain);
   }
 
-  // Count derivative feeders per chain
+  // Step 2: Group by canonical loop — chains entering the same loop are one group
+  // A loop's canonical key = sorted member positions
+  const loopGroups = new Map(); // canonical key → { loop, tails: [...] }
+  const selfSeated = [];
+  const swaps = new Set(); // track swap canonical keys to deduplicate
+
+  for (const chain of rawChains) {
+    if (chain.type === 'self-seated') {
+      selfSeated.push(chain);
+      continue;
+    }
+
+    if (chain.type === 'swap') {
+      const key = chain.loop.map(n => n.position).sort((a, b) => a - b).join(',');
+      if (!swaps.has(key)) {
+        swaps.add(key);
+        // Only add the first swap chain — the pair is the same either direction
+        if (!loopGroups.has(key)) {
+          loopGroups.set(key, { chain, tails: [] });
+        }
+      }
+      continue;
+    }
+
+    // closed-loop or tail-into-loop — key by the loop members
+    const loopKey = chain.loop.map(n => n.position).sort((a, b) => a - b).join(',');
+    if (!loopGroups.has(loopKey)) {
+      // First chain to discover this loop — use it as the primary
+      loopGroups.set(loopKey, { chain, tails: [] });
+    } else {
+      // This chain enters the same loop from a different tail
+      const group = loopGroups.get(loopKey);
+      if (chain.tail.length > 0) {
+        group.tails.push(chain.tail);
+      }
+    }
+  }
+
+  // Step 3: Build final chain list — one entry per unique loop, with all tails aggregated
+  const chains = [];
+  for (const [, group] of loopGroups) {
+    const primary = group.chain;
+    // Merge all tail feeders into the primary chain's display
+    primary.additionalTails = group.tails;
+    primary.totalTailCount = primary.tailSize + group.tails.reduce((sum, t) => sum + t.length, 0);
+    chains.push(primary);
+  }
+  chains.push(...selfSeated);
+
+  // Step 4: Count derivative feeders per chain
   for (const chain of chains) {
+    if (chain.loop.length === 0) { chain.feederCount = 0; continue; }
     const loopPositions = new Set(chain.loop.map(n => n.position));
+    // Also include all tail positions as "part of this chain" for feeder counting
+    const allChainPositions = new Set(chain.path.map(n => n.position));
+    if (chain.additionalTails) {
+      for (const tail of chain.additionalTails) {
+        for (const node of tail) allChainPositions.add(node.position);
+      }
+    }
     let feeders = 0;
     for (let pos = 22; pos < 78; pos++) {
       if (!drawMap[pos]) continue;
-      // Where does this derivative's visitor resolve to?
       const visitorHome = resolveArchetypePosition(drawMap[pos].transient);
-      // Follow from visitorHome to find which loop it feeds into
+      if (allChainPositions.has(visitorHome)) { feeders++; continue; }
+      // Follow chain to see if it feeds into this loop
       let cur = visitorHome;
       const seen = new Set();
       while (cur != null && !seen.has(cur) && drawMap[cur]) {
-        if (loopPositions.has(cur)) { feeders++; break; }
+        if (allChainPositions.has(cur)) { feeders++; break; }
         seen.add(cur);
         cur = resolveArchetypePosition(drawMap[cur].transient);
       }
     }
     chain.feederCount = feeders;
+  }
+
+  // Update labels with tail info
+  for (const chain of chains) {
+    if (chain.additionalTails && chain.additionalTails.length > 0) {
+      const totalTails = 1 + chain.additionalTails.length; // primary tail + additional
+      chain.label = chain.type === 'tail-into-loop'
+        ? `Loop (${chain.loopSize}) \u2190 ${totalTails} tails`
+        : chain.label;
+    }
   }
 
   chains.sort((a, b) => {
@@ -1476,7 +1539,7 @@ function PositionGrid({ drawMap, triage, analysis, selectedArchetype, highlighte
       {/* Displacement Chains */}
       {(() => {
         const allChains = buildAllArchetypeChains(drawMap);
-        const loops = allChains.filter(c => c.type === 'closed-loop');
+        const loops = allChains.filter(c => c.type === 'closed-loop' || c.type === 'tail-into-loop');
         const swaps = allChains.filter(c => c.type === 'swap');
         const homes = allChains.filter(c => c.type === 'self-seated');
         const chainTypeColors = { 'self-seated': '#fbbf24', 'swap': '#f97316', 'closed-loop': '#60a5fa', 'tail-into-loop': '#a78bfa' };
@@ -1492,7 +1555,14 @@ function PositionGrid({ drawMap, triage, analysis, selectedArchetype, highlighte
               {allChains.map((chain, i) => {
                 const color = chainTypeColors[chain.type] || '#94a3b8';
                 const icon = chainTypeIcons[chain.type] || '';
-                const members = chain.loop.map(n => useTraditional ? getSignatureName(n.position, true) : n.name);
+                const loopMembers = chain.loop.map(n => useTraditional ? getSignatureName(n.position, true) : n.name);
+                const tailMembers = chain.tail.map(n => useTraditional ? getSignatureName(n.position, true) : n.name);
+                // For tail-into-loop with additional tails, show all tail entry points
+                const additionalTailStarts = (chain.additionalTails || []).map(t =>
+                  useTraditional ? getSignatureName(t[0]?.position, true) : t[0]?.name
+                );
+                const totalTails = chain.additionalTails ? 1 + chain.additionalTails.length : (chain.tail.length > 0 ? 1 : 0);
+
                 return (
                   <div key={i}
                     onClick={() => {
@@ -1504,16 +1574,23 @@ function PositionGrid({ drawMap, triage, analysis, selectedArchetype, highlighte
                       fontSize: 10, color: '#94a3b8', cursor: 'pointer',
                       transition: 'border-color 0.2s', borderLeft: `3px solid ${color}55`
                     }}
-                    title={`${chainHelp[chain.type] || HELP.chainTail}\n\nClick to inspect: ${members[0] || (useTraditional ? getSignatureName(chain.path[0]?.position, true) : chain.path[0]?.name)}.\nMembers: ${members.join(' \u2192 ')}${chain.feederCount ? `\n${chain.feederCount} derivative feeders` : ''}`}
+                    title={`${chainHelp[chain.type] || HELP.chainTail}\n\nLoop: ${loopMembers.join(' \u2192 ')}${tailMembers.length ? `\nPrimary tail: ${tailMembers.join(' \u2192 ')}` : ''}${additionalTailStarts.length ? `\n+${additionalTailStarts.length} more tails from: ${additionalTailStarts.join(', ')}` : ''}${chain.feederCount ? `\n${chain.feederCount} derivative feeders` : ''}`}
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = color; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = color + '33'; }}
                   >
                     <span style={{ color, marginRight: 4 }}>{icon}</span>
                     <span style={{ color: '#e2e8f0' }}>{chain.label}</span>
                     <span style={{ color: '#64748b' }}> </span>
-                    {members.join(' \u2192 ')}
+                    {/* Show loop members */}
+                    {loopMembers.join(' \u2192 ')}
                     {chain.type !== 'self-seated' && (
                       <span style={{ color: color + '88', marginLeft: 2 }}>{'\u21BA'}</span>
+                    )}
+                    {/* Show tail count if there are feeders */}
+                    {totalTails > 0 && chain.type !== 'self-seated' && chain.type !== 'swap' && (
+                      <span style={{ color: '#8b5cf6', marginLeft: 6 }}>
+                        \u2190 {totalTails} tail{totalTails > 1 ? 's' : ''}
+                      </span>
                     )}
                     {chain.feederCount > 0 && (
                       <span style={{ color: '#475569', marginLeft: 6 }} title={HELP.chainFeeder}>
