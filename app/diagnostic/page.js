@@ -1,6 +1,37 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, Component } from 'react';
+
+// Error boundary to catch and display render errors
+class DiagnosticErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    this.setState({ errorInfo });
+    console.error('DiagnosticPage render error:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: 40, background: '#030712', color: '#ef4444', fontFamily: 'monospace', minHeight: '100vh' }}>
+          <h2 style={{ color: '#f97316' }}>Diagnostic Page Render Error</h2>
+          <pre style={{ color: '#e2e8f0', whiteSpace: 'pre-wrap', marginTop: 20 }}>
+            {this.state.error?.toString()}
+          </pre>
+          <pre style={{ color: '#94a3b8', whiteSpace: 'pre-wrap', marginTop: 10, fontSize: 10 }}>
+            {this.state.errorInfo?.componentStack}
+          </pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 import { generateSpread } from '../../lib/utils.js';
 import { analyzeFullMap, triageReading } from '../../lib/mapAnalysis.js';
 import { handleToolCall, buildTriageSeed, DIAGNOSTIC_TOOL_DEFINITIONS } from '../../lib/diagnosticTools.js';
@@ -258,7 +289,7 @@ function buildAllArchetypeChains(drawMap) {
   const swaps = new Set(); // track swap canonical keys to deduplicate
 
   for (const chain of rawChains) {
-    if (chain.type === 'self-seated') {
+    if (chain.type === 'self-seated' || chain.type === 'open') {
       selfSeated.push(chain);
       continue;
     }
@@ -352,7 +383,15 @@ const HOUSE_ORDER = ['Gestalt', 'Spirit', 'Mind', 'Emotion', 'Body'];
 const PORTAL_IDS = [10, 21];
 
 // ─── MAIN PAGE ───
-export default function DiagnosticPage() {
+export default function DiagnosticPageWrapper() {
+  return (
+    <DiagnosticErrorBoundary>
+      <DiagnosticPage />
+    </DiagnosticErrorBoundary>
+  );
+}
+
+function DiagnosticPage() {
   const [readingData, setReadingData] = useState(null);
   const [selectedArchetype, setSelectedArchetype] = useState(null);
   const [highlightedPositions, setHighlightedPositions] = useState(new Set());
@@ -965,6 +1004,43 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                     <span style={{ color: channelColor, fontSize: 11 }}>{channel}</span>
+                    {strength?.flag === 'full' && <span style={{ color: '#22c55e', fontSize: 7 }}>{'\u2605'}</span>}
+                    {strength?.flag === 'strong' && <span style={{ color: '#84cc16', fontSize: 7 }}>{'\u25C6'}</span>}
+                    {strength?.flag === 'seeking' && <span style={{ color: '#ef4444', fontSize: 7 }}>{'\u25BC'}</span>}
+                  </div>
+                  <div style={{ display: 'flex', gap: 3 }}>
+                    {data.processes.map((p) => (
+                      <div key={p.archetypeId} style={{
+                        width: 6, height: 6, borderRadius: 1,
+                        background: STATUS_COLORS[p.status] || '#6b7280'
+                      }}
+                        title={`${useTraditional ? getSignatureName(p.archetypeId, true) : p.name} (${p.house}): ${p.status}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </SidebarSection>
+        )}
+
+        {/* Stage Health */}
+        {l2_processes.byStage && (
+          <SidebarSection title="STAGES" titleColor="#eab308"
+            help="Process stage health. Each stage has 5 archetypes (one per house including Gestalt). Stage patterns reveal developmental themes: a sick stage means one phase of the process cycle is struggling across all domains."
+          >
+            {['Seed', 'Medium', 'Fruition', 'Feedback'].map((stage) => {
+              const data = l2_processes.byStage[stage];
+              if (!data) return null;
+              const strength = l2_processes.stageStrength?.[stage];
+              const stageColors = { Seed: '#fbbf24', Medium: '#22d3ee', Fruition: '#a78bfa', Feedback: '#f97316' };
+              const stageColor = stageColors[stage] || '#94a3b8';
+              return (
+                <div key={stage} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 3 }}
+                  title={`${stage}: ${data.healthy} balanced, ${data.distorted} seeking balance.\nMembers: ${data.processes.map(p => p.name + ' (' + p.house + ')').join(', ')}\n${strength?.flag === 'full' ? 'All 5 archetypes balanced — stage coherence.' : strength?.flag === 'strong' ? '4/5 balanced — strong stage flow.' : strength?.flag === 'seeking' ? 'No balanced archetypes — this stage needs attention everywhere.' : ''}`}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ color: stageColor, fontSize: 11 }}>{stage}</span>
                     {strength?.flag === 'full' && <span style={{ color: '#22c55e', fontSize: 7 }}>{'\u2605'}</span>}
                     {strength?.flag === 'strong' && <span style={{ color: '#84cc16', fontSize: 7 }}>{'\u25C6'}</span>}
                     {strength?.flag === 'seeking' && <span style={{ color: '#ef4444', fontSize: 7 }}>{'\u25BC'}</span>}
