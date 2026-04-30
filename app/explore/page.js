@@ -2151,7 +2151,7 @@ function ExploreDesktop() {
 // =============================================
 function ExploreMobile() {
   // === STATE (mirrors desktop's relevant state) ===
-  const [selectedSeed, setSelectedSeed] = useState(8);
+  const [selectedSeed] = useState(8);
   const [showAll, setShowAll] = useState(true);
   const [dimVisible] = useState({ Practice: true, Activity: true, Being: true, Identity: true });
   const [selectedBeingGroups, setSelectedBeingGroups] = useState(new Set());
@@ -2163,8 +2163,11 @@ function ExploreMobile() {
   const [showLabels, setShowLabels] = useState(false);
   const [showTorus, setShowTorus] = useState(false);
   const [showTraditional, setShowTraditional] = useState(false);
+  const [showTessStages, setShowTessStages] = useState(false);
   const [colorMode, setColorMode] = useState('Being');
   const [autoRotate, setAutoRotate] = useState(true);
+  const [showAffinePlanes, setShowAffinePlanes] = useState(true);   // SHADE on by default
+  const [affineShadeFill, setAffineShadeFill] = useState(true);
   const [tessAngleXW, setTessAngleXW] = useState(0.4);
   const [tessAngleYZ, setTessAngleYZ] = useState(0.3);
   const [tessAngleXY, setTessAngleXY] = useState(0);
@@ -2173,7 +2176,7 @@ function ExploreMobile() {
 
   // === MOBILE-SPECIFIC STATE ===
   const [primaryView, setPrimaryView] = useState('tesseract'); // 'tesseract' | 'grid'
-  const [sheetOpen, setSheetOpen] = useState(null); // null | 'filters' | 'info' | 'controls'
+  const [sheetOpen, setSheetOpen] = useState(null); // null | 'settings' | 'info'
 
   // Currently active groups for the selected aspect
   const selectedGroupsForAspect = useMemo(() => {
@@ -2188,124 +2191,153 @@ function ExploreMobile() {
   const currentAspectGroups = selectedAspect ? ASPECTS[selectedAspect]?.groups : null;
 
   const toggleGroupForAspect = useCallback((aspect, name) => {
+    setSelectedArchetype(null);
+    setShowAll(false);
     if (aspect === 'Being') setSelectedBeingGroups(p => { const s = new Set(p); s.has(name) ? s.delete(name) : s.add(name); return s; });
     else if (aspect === 'Identity') setSelectedIdentityGroups(p => { const s = new Set(p); s.has(name) ? s.delete(name) : s.add(name); return s; });
     else if (aspect === 'Practice') setSelectedPracticeGroups(p => { const s = new Set(p); s.has(name) ? s.delete(name) : s.add(name); return s; });
     else if (aspect === 'Activity') setSelectedActivityGroups(p => { const s = new Set(p); s.has(name) ? s.delete(name) : s.add(name); return s; });
     else if (aspect === 'Stage') setSelectedStageGroups(p => { const s = new Set(p); s.has(name) ? s.delete(name) : s.add(name); return s; });
-    setShowAll(false);
   }, []);
 
-  // Compute highlight set from active groups
-  const highlightSet = useMemo(() => {
-    if (showAll && selectedGroupsForAspect.size === 0) return null;
-    const ids = new Set();
-    [...selectedBeingGroups].forEach(g => BEING_GROUPS[g]?.members?.forEach(id => ids.add(id)));
-    [...selectedIdentityGroups].forEach(g => IDENTITY_GROUPS[g]?.members?.forEach(id => ids.add(id)));
-    [...selectedPracticeGroups].forEach(g => PRACTICE_GROUPS[g]?.members?.forEach(id => ids.add(id)));
-    [...selectedActivityGroups].forEach(g => ACTIVITY_GROUPS[g]?.members?.forEach(id => ids.add(id)));
-    [...selectedStageGroups].forEach(g => STAGE_GROUPS[g]?.members?.forEach(id => ids.add(id)));
-    return ids.size > 0 ? ids : null;
-  }, [showAll, selectedGroupsForAspect, selectedBeingGroups, selectedIdentityGroups, selectedPracticeGroups, selectedActivityGroups, selectedStageGroups]);
+  // === GROUP FILTER ACTIVE FLAG ===
+  const groupFilterActive = selectedBeingGroups.size > 0 || selectedIdentityGroups.size > 0 || selectedPracticeGroups.size > 0 || selectedActivityGroups.size > 0 || selectedStageGroups.size > 0;
+
+  // === HIGHLIGHT SET & ACTIVE PATHS (mirrors desktop logic) ===
+  const { highlightSet, activePaths } = useMemo(() => {
+    const set = new Set();
+    const paths = [];
+    const stageOrder = { Se: 0, Me: 1, Fr: 2, Fb: 3 };
+
+    if (selectedArchetype !== null && !groupFilterActive && !showAll) {
+      set.add(selectedArchetype);
+      return { highlightSet: set, activePaths: paths };
+    }
+
+    if (groupFilterActive) {
+      selectedPracticeGroups.forEach(name => {
+        if (PRACTICE_GROUPS[name]) {
+          PRACTICE_GROUPS[name].members.forEach(p => set.add(p));
+          const sorted = [...PRACTICE_GROUPS[name].members].sort((a, b) => (stageOrder[VIZ_STAGES[a]] || 0) - (stageOrder[VIZ_STAGES[b]] || 0));
+          paths.push({ seq: sorted, color: '#4ade80' });
+        }
+      });
+      selectedActivityGroups.forEach(name => {
+        if (ACTIVITY_GROUPS[name]) {
+          ACTIVITY_GROUPS[name].members.forEach(p => set.add(p));
+          const sorted = [...ACTIVITY_GROUPS[name].members].sort((a, b) => (stageOrder[VIZ_STAGES[a]] || 0) - (stageOrder[VIZ_STAGES[b]] || 0));
+          paths.push({ seq: sorted, color: '#ef4444' });
+        }
+      });
+      selectedBeingGroups.forEach(n => {
+        if (BEING_DEFS[n]) {
+          BEING_DEFS[n].members.forEach(p => set.add(p));
+          const sorted = [...BEING_DEFS[n].members].sort((a, b) => (stageOrder[VIZ_STAGES[a]] || 0) - (stageOrder[VIZ_STAGES[b]] || 0));
+          paths.push({ seq: sorted, color: '#fbbf24' });
+        }
+      });
+      selectedIdentityGroups.forEach(n => {
+        if (IDENTITY_DEFS[n]) {
+          IDENTITY_DEFS[n].members.forEach(p => set.add(p));
+          const sorted = [...IDENTITY_DEFS[n].members].sort((a, b) => (stageOrder[VIZ_STAGES[a]] || 0) - (stageOrder[VIZ_STAGES[b]] || 0));
+          paths.push({ seq: sorted, color: '#a855f7' });
+        }
+      });
+      selectedStageGroups.forEach(n => {
+        if (STAGE_GROUPS[n]) {
+          STAGE_GROUPS[n].members.forEach(p => set.add(p));
+          paths.push({ seq: STAGE_GROUPS[n].members, color: '#8b5cf6' });
+        }
+      });
+    } else if (selectedAspect && !showAll) {
+      // Aspect selected but no specific group — highlight all members of that aspect
+      const aspectDef = ASPECTS[selectedAspect];
+      if (aspectDef) {
+        Object.entries(aspectDef.groups).forEach(([gName, g]) => {
+          const members = g.members || [];
+          members.forEach(p => set.add(p));
+        });
+      }
+    }
+
+    return { highlightSet: set, activePaths: paths };
+  }, [selectedArchetype, groupFilterActive, showAll, selectedAspect, selectedPracticeGroups, selectedActivityGroups, selectedBeingGroups, selectedIdentityGroups, selectedStageGroups]);
 
   const swapViews = () => setPrimaryView(p => p === 'tesseract' ? 'grid' : 'tesseract');
   const openSheet = (which) => setSheetOpen(s => s === which ? null : which);
 
-  // Render the primary (full) view
-  const renderPrimary = () => {
-    if (primaryView === 'tesseract') {
-      return (
-        <TesseractView
-          colorMode={colorMode}
-          autoRotate={autoRotate}
-          showAffinePlanes={false}
-          affineShadeFill={true}
-          highlightSet={highlightSet}
-          activePaths={null}
-          compact={false}
-          zoom={0.85}
-          showStages={false}
-          showTraditional={showTraditional}
-          angleXW={tessAngleXW}
-          setAngleXW={setTessAngleXW}
-          angleYZ={tessAngleYZ}
-          setAngleYZ={setTessAngleYZ}
-          angleXY={tessAngleXY}
-          setAngleXY={setTessAngleXY}
-          rotateAxis={tessRotateAxis}
-          onSelectArchetype={(id) => { setSelectedArchetype(id); setSheetOpen('info'); }}
-        />
-      );
-    }
-    return (
-      <GridView
-        selectedSeed={selectedSeed}
-        showAll={showAll}
-        dimVisible={dimVisible}
-        selectedBeingGroups={selectedBeingGroups}
-        selectedIdentityGroups={selectedIdentityGroups}
-        showLabels={showLabels}
-        showTorus={showTorus}
-        compact={false}
-        onSelectArchetype={(id) => { setSelectedArchetype(id); setSheetOpen('info'); }}
-        highlightOverride={highlightSet}
-        pathOverride={null}
-        showTraditional={showTraditional}
-      />
-    );
+  const onTapArchetype = useCallback((id) => {
+    setSelectedArchetype(id);
+    setShowAll(false);
+    setSheetOpen('info');
+  }, []);
+
+  const clearAll = () => {
+    setSelectedBeingGroups(new Set());
+    setSelectedIdentityGroups(new Set());
+    setSelectedPracticeGroups(new Set());
+    setSelectedActivityGroups(new Set());
+    setSelectedStageGroups(new Set());
+    setSelectedArchetype(null);
+    setShowAll(true);
   };
 
-  // Render the mini (corner) view
+  // GridView shared props (mirrors desktop conditional logic)
+  const gridFilteringNow = groupFilterActive || selectedArchetype !== null;
+  const gridProps = {
+    selectedSeed: gridFilteringNow ? null : selectedSeed,
+    showAll: gridFilteringNow ? false : showAll,
+    dimVisible: gridFilteringNow ? { Practice: false, Activity: false, Being: false, Identity: false } : dimVisible,
+    selectedBeingGroups,
+    selectedIdentityGroups,
+    showLabels,
+    showTorus,
+    showTraditional,
+    suppressSeedGlow: gridFilteringNow,
+    highlightOverride: highlightSet.size > 0 ? highlightSet : null,
+    pathOverride: activePaths.length > 0 ? activePaths : null,
+  };
+
+  const tessProps = {
+    colorMode,
+    autoRotate,
+    showAffinePlanes,
+    affineShadeFill,
+    highlightSet: highlightSet.size > 0 ? highlightSet : null,
+    activePaths: activePaths.length > 0 ? activePaths : null,
+    showStages: showTessStages,
+    showTraditional,
+    angleXW: tessAngleXW,
+    setAngleXW: setTessAngleXW,
+    angleYZ: tessAngleYZ,
+    setAngleYZ: setTessAngleYZ,
+    angleXY: tessAngleXY,
+    setAngleXY: setTessAngleXY,
+    rotateAxis: tessRotateAxis,
+  };
+
+  const renderPrimary = () => {
+    if (primaryView === 'tesseract') {
+      return <TesseractView {...tessProps} compact={false} zoom={0.85} onSelectArchetype={onTapArchetype} />;
+    }
+    return <GridView {...gridProps} compact={false} onSelectArchetype={onTapArchetype} />;
+  };
+
   const renderMini = () => {
     if (primaryView === 'tesseract') {
-      // Mini = grid
       return (
         <div style={{ pointerEvents: 'none', transform: 'scale(0.4)', transformOrigin: 'top right' }}>
-          <GridView
-            selectedSeed={selectedSeed}
-            showAll={showAll}
-            dimVisible={dimVisible}
-            selectedBeingGroups={selectedBeingGroups}
-            selectedIdentityGroups={selectedIdentityGroups}
-            showLabels={false}
-            showTorus={false}
-            compact={true}
-            onSelectArchetype={() => {}}
-            highlightOverride={highlightSet}
-            pathOverride={null}
-            showTraditional={false}
-          />
+          <GridView {...gridProps} compact={true} onSelectArchetype={() => {}} showLabels={false} showTorus={false} />
         </div>
       );
     }
-    // Mini = tesseract
     return (
       <div style={{ pointerEvents: 'none', transform: 'scale(0.5)', transformOrigin: 'top right' }}>
-        <TesseractView
-          colorMode={colorMode}
-          autoRotate={autoRotate}
-          showAffinePlanes={false}
-          affineShadeFill={true}
-          highlightSet={highlightSet}
-          activePaths={null}
-          compact={true}
-          zoom={0.5}
-          showStages={false}
-          showTraditional={false}
-          angleXW={tessAngleXW}
-          setAngleXW={setTessAngleXW}
-          angleYZ={tessAngleYZ}
-          setAngleYZ={setTessAngleYZ}
-          angleXY={tessAngleXY}
-          setAngleXY={setTessAngleXY}
-          rotateAxis={tessRotateAxis}
-          onSelectArchetype={() => {}}
-        />
+        <TesseractView {...tessProps} compact={true} zoom={0.5} onSelectArchetype={() => {}} />
       </div>
     );
   };
 
-  // Get info content for selected archetype or current aspect
   const infoContent = useMemo(() => {
     if (selectedArchetype != null) {
       const a = ARCHETYPES[selectedArchetype];
@@ -2334,11 +2366,11 @@ function ExploreMobile() {
           NIRMANAKAYA EXPLORER
         </h1>
         <div style={{ display: 'flex', gap: 6 }}>
-          <button onClick={() => openSheet('filters')} style={mobileBtnStyle(sheetOpen === 'filters')}>
-            ☰ Filters
-          </button>
           <button onClick={() => openSheet('info')} style={mobileBtnStyle(sheetOpen === 'info')}>
             ⓘ Info
+          </button>
+          <button onClick={() => openSheet('settings')} style={mobileBtnStyle(sheetOpen === 'settings')}>
+            ⚙ Settings
           </button>
         </div>
       </header>
@@ -2378,27 +2410,60 @@ function ExploreMobile() {
         </button>
       </main>
 
-      {/* BOTTOM CONTROL BAR */}
-      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderTop: '1px solid #1e293b', overflowX: 'auto', whiteSpace: 'nowrap', background: 'rgba(2, 6, 23, 0.95)' }}>
-        <button onClick={() => setAutoRotate(p => !p)} style={mobileBtnStyle(autoRotate)}>
-          Rotate
-        </button>
-        <button onClick={() => setShowTraditional(p => !p)} style={mobileBtnStyle(showTraditional)}>
-          {showTraditional ? 'TRAD' : 'VERB'}
-        </button>
-        <button onClick={() => setShowLabels(p => !p)} style={mobileBtnStyle(showLabels)}>
-          Labels
-        </button>
-        <button onClick={() => setShowTorus(p => !p)} style={mobileBtnStyle(showTorus)}>
-          Torus
-        </button>
-        <span style={{ flexShrink: 0, width: 1, height: 18, background: '#334155', margin: '0 4px' }} />
-        <span style={{ flexShrink: 0, fontSize: 10, color: '#64748b' }}>Color:</span>
-        {['Being', 'Identity', 'Practice', 'Stage'].map(mode => (
-          <button key={mode} onClick={() => setColorMode(mode)} style={mobileBtnStyle(colorMode === mode)}>
-            {mode}
+      {/* INLINE FILTER CHIP BAR (below imagery, always visible) */}
+      <div style={{ flexShrink: 0, borderTop: '1px solid #1e293b', background: 'rgba(2, 6, 23, 0.98)' }}>
+        {/* Dimension chips (Practice / Activity / Being / Identity / Stage) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px 4px 12px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+          {['Practice', 'Activity', 'Being', 'Identity', 'Stage'].map(dim => {
+            const active = selectedAspect === dim;
+            const hasGroups = (dim === 'Being' && selectedBeingGroups.size > 0) ||
+              (dim === 'Identity' && selectedIdentityGroups.size > 0) ||
+              (dim === 'Practice' && selectedPracticeGroups.size > 0) ||
+              (dim === 'Activity' && selectedActivityGroups.size > 0) ||
+              (dim === 'Stage' && selectedStageGroups.size > 0);
+            return (
+              <button key={dim} onClick={() => {
+                if (selectedAspect === dim) {
+                  setSelectedAspect(null);
+                  if (dim === 'Being') setSelectedBeingGroups(new Set());
+                  if (dim === 'Identity') setSelectedIdentityGroups(new Set());
+                  if (dim === 'Practice') setSelectedPracticeGroups(new Set());
+                  if (dim === 'Activity') setSelectedActivityGroups(new Set());
+                  if (dim === 'Stage') setSelectedStageGroups(new Set());
+                  setShowAll(true);
+                } else {
+                  // Switching aspect: clear ALL previous group selections (mobile clean-slate)
+                  setSelectedBeingGroups(new Set());
+                  setSelectedIdentityGroups(new Set());
+                  setSelectedPracticeGroups(new Set());
+                  setSelectedActivityGroups(new Set());
+                  setSelectedStageGroups(new Set());
+                  setSelectedAspect(dim);
+                  setSelectedArchetype(null);
+                  setShowAll(false);
+                }
+              }} style={mobileBtnStyle(active || hasGroups, C[dim])}>
+                {dim}
+              </button>
+            );
+          })}
+          <button onClick={clearAll} style={{ ...mobileBtnStyle(false), marginLeft: 'auto', flexShrink: 0 }}>
+            Clear
           </button>
-        ))}
+        </div>
+        {/* Sub-chips (groups within the selected aspect) */}
+        {selectedAspect && currentAspectGroups && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 12px 8px 12px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+            {Object.entries(currentAspectGroups).map(([gName, gDef]) => {
+              const isSelected = selectedGroupsForAspect.has(gName);
+              return (
+                <button key={gName} onClick={() => toggleGroupForAspect(selectedAspect, gName)} style={mobileBtnStyle(isSelected, C[selectedAspect])}>
+                  {gName} <span style={{ fontWeight: 400, opacity: 0.7, fontSize: 10 }}>{gDef.verb}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* SHEETS (slide up overlays) */}
@@ -2419,72 +2484,39 @@ function ExploreMobile() {
               borderBottom: 'none',
               padding: 16,
               overflow: 'auto',
-              animation: 'slideUp 0.25s ease',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <h2 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#94a3b8' }}>
-                {sheetOpen === 'filters' ? 'EXPLORE' : sheetOpen === 'info' ? 'INSPECTOR' : ''}
+                {sheetOpen === 'settings' ? 'SETTINGS' : sheetOpen === 'info' ? 'INSPECTOR' : ''}
               </h2>
-              <button onClick={() => setSheetOpen(null)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 18, cursor: 'pointer' }}>
+              <button onClick={() => setSheetOpen(null)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 18, cursor: 'pointer', padding: '4px 8px' }}>
                 ✕
               </button>
             </div>
 
-            {sheetOpen === 'filters' && (
-              <div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
-                  {['Practice', 'Activity', 'Being', 'Identity', 'Stage'].map(dim => {
-                    const active = selectedAspect === dim;
-                    return (
-                      <button key={dim} onClick={() => {
-                        if (selectedAspect === dim) {
-                          setSelectedAspect(null);
-                          if (dim === 'Being') setSelectedBeingGroups(new Set());
-                          if (dim === 'Identity') setSelectedIdentityGroups(new Set());
-                          if (dim === 'Practice') setSelectedPracticeGroups(new Set());
-                          if (dim === 'Activity') setSelectedActivityGroups(new Set());
-                          if (dim === 'Stage') setSelectedStageGroups(new Set());
-                          setShowAll(true);
-                        } else {
-                          setSelectedAspect(dim);
-                          setSelectedArchetype(null);
-                        }
-                      }} style={mobileBtnStyle(active, C[dim])}>
-                        {dim}
-                      </button>
-                    );
-                  })}
-                </div>
-                {selectedAspect && currentAspectGroups && (
-                  <div>
-                    <div style={{ fontSize: 10, color: '#64748b', marginBottom: 8, letterSpacing: '0.08em' }}>
-                      {selectedAspect.toUpperCase()} GROUPS
-                    </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                      {Object.entries(currentAspectGroups).map(([gName, gDef]) => {
-                        const isSelected = selectedGroupsForAspect.has(gName);
-                        return (
-                          <button key={gName} onClick={() => toggleGroupForAspect(selectedAspect, gName)} style={mobileBtnStyle(isSelected, C[selectedAspect])}>
-                            {gName} <span style={{ fontWeight: 400, opacity: 0.7 }}>{gDef.verb}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
+            {sheetOpen === 'settings' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div>
+                  <div style={{ fontSize: 10, color: '#64748b', marginBottom: 6, letterSpacing: '0.08em' }}>VIEW</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    <button onClick={() => setAutoRotate(p => !p)} style={mobileBtnStyle(autoRotate)}>Rotate</button>
+                    <button onClick={() => setShowAffinePlanes(p => !p)} style={mobileBtnStyle(showAffinePlanes)}>Shade</button>
+                    <button onClick={() => setShowTessStages(p => !p)} style={mobileBtnStyle(showTessStages)}>Stages</button>
+                    <button onClick={() => setShowLabels(p => !p)} style={mobileBtnStyle(showLabels)}>Labels</button>
+                    <button onClick={() => setShowTorus(p => !p)} style={mobileBtnStyle(showTorus)}>Torus</button>
+                    <button onClick={() => setShowTraditional(p => !p)} style={mobileBtnStyle(showTraditional)}>{showTraditional ? 'TRAD' : 'VERB'}</button>
                   </div>
-                )}
-                <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px solid #1e293b' }}>
-                  <button onClick={() => {
-                    setSelectedBeingGroups(new Set());
-                    setSelectedIdentityGroups(new Set());
-                    setSelectedPracticeGroups(new Set());
-                    setSelectedActivityGroups(new Set());
-                    setSelectedStageGroups(new Set());
-                    setShowAll(true);
-                    setSelectedArchetype(null);
-                  }} style={mobileBtnStyle(false)}>
-                    Clear All
-                  </button>
+                </div>
+                <div>
+                  <div style={{ fontSize: 10, color: '#64748b', marginBottom: 6, letterSpacing: '0.08em' }}>COLOR</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {['Being', 'Identity', 'Practice', 'Stage'].map(mode => (
+                      <button key={mode} onClick={() => setColorMode(mode)} style={mobileBtnStyle(colorMode === mode)}>
+                        {mode}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -2507,7 +2539,7 @@ function ExploreMobile() {
                   </div>
                 ) : (
                   <div style={{ fontSize: 12, color: '#64748b', textAlign: 'center', padding: 20 }}>
-                    Tap an archetype on the map to see its details, or open Filters to explore by dimension.
+                    Tap an archetype on the map to see its details, or pick a dimension chip below.
                   </div>
                 )}
               </div>
