@@ -2543,43 +2543,7 @@ function ExploreMobile() {
         </div>
       </header>
 
-      {/* PERSISTENT INFO PANEL — top 1/3, expandable to full screen */}
-      <div style={{
-        flexShrink: 0,
-        height: infoExpanded ? 'calc(100vh - 44px)' : '33vh',
-        position: infoExpanded ? 'absolute' : 'relative',
-        top: infoExpanded ? 44 : 'auto',
-        left: 0,
-        right: 0,
-        zIndex: infoExpanded ? 15 : 'auto',
-        background: '#0f172a',
-        borderBottom: '1px solid #1e293b',
-        overflow: 'auto',
-        padding: '12px 16px 16px 16px',
-        WebkitOverflowScrolling: 'touch',
-      }}>
-        {!infoExpanded && (
-          <button
-            onClick={() => setInfoExpanded(true)}
-            aria-label="Expand info"
-            style={{ position: 'absolute', top: 6, right: 8, fontSize: 14, color: '#64748b', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid #334155', borderRadius: 4, padding: '2px 8px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
-          >
-            ↗
-          </button>
-        )}
-        {infoExpanded && (
-          <button
-            onClick={() => setInfoExpanded(false)}
-            aria-label="Collapse info"
-            style={{ position: 'sticky', top: 0, marginLeft: 'auto', display: 'block', fontSize: 16, color: '#94a3b8', background: 'rgba(15, 23, 42, 0.95)', border: '1px solid #334155', borderRadius: 4, padding: '4px 12px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
-          >
-            ✕ Close
-          </button>
-        )}
-        {renderInfoSheet()}
-      </div>
-
-      {/* PRIMARY CANVAS */}
+      {/* PRIMARY CANVAS (now at top) */}
       <main style={{ flex: 1, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 8 }}>
           {renderPrimary()}
@@ -2631,7 +2595,44 @@ function ExploreMobile() {
         </button>
       </main>
 
-      {/* INLINE FILTER CHIP BAR (below imagery, always visible) */}
+      {/* PERSISTENT INFO PANEL (below imagery, above filters) — collapsed = bottom 1/3, expanded = full screen above filters */}
+      <div style={{
+        flexShrink: 0,
+        height: infoExpanded ? 'calc(100vh - 44px)' : '33vh',
+        position: infoExpanded ? 'absolute' : 'relative',
+        top: infoExpanded ? 44 : 'auto',
+        left: 0,
+        right: 0,
+        bottom: infoExpanded ? 0 : 'auto',
+        zIndex: infoExpanded ? 15 : 'auto',
+        background: '#0f172a',
+        borderTop: '1px solid #1e293b',
+        overflow: 'auto',
+        padding: '12px 16px 16px 16px',
+        WebkitOverflowScrolling: 'touch',
+      }}>
+        {!infoExpanded && (
+          <button
+            onClick={() => setInfoExpanded(true)}
+            aria-label="Expand info"
+            style={{ position: 'absolute', top: 6, right: 8, fontSize: 14, color: '#64748b', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid #334155', borderRadius: 4, padding: '2px 8px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
+          >
+            ↗
+          </button>
+        )}
+        {infoExpanded && (
+          <button
+            onClick={() => setInfoExpanded(false)}
+            aria-label="Collapse info"
+            style={{ position: 'sticky', top: 0, marginLeft: 'auto', display: 'block', fontSize: 16, color: '#94a3b8', background: 'rgba(15, 23, 42, 0.95)', border: '1px solid #334155', borderRadius: 4, padding: '4px 12px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
+          >
+            ✕ Close
+          </button>
+        )}
+        {renderInfoSheet()}
+      </div>
+
+      {/* INLINE FILTER CHIP BAR (always at the very bottom) */}
       <div style={{ flexShrink: 0, borderTop: '1px solid #1e293b', background: 'rgba(2, 6, 23, 0.98)' }}>
         {/* Dimension chips (Practice / Activity / Being / Identity / Stage) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px 4px 12px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
