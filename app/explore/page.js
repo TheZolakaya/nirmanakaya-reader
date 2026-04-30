@@ -1032,7 +1032,7 @@ export default function ExplorePage() {
   const [showTraditional, setShowTraditional] = useState(false);
   const [showTorus, setShowTorus] = useState(false);
   const [colorMode, setColorMode] = useState('Being');
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
   const [affinePlaneIdx, setAffinePlaneIdx] = useState(null);
   const [affineShadeFill, setAffineShadeFill] = useState(true);
   const [gridZoom, setGridZoom] = useState(1.15);
@@ -1049,7 +1049,7 @@ export default function ExplorePage() {
 
   // === ASPECT NAV STATE ===
   // Which aspect tab is selected (null = none, show default sidebar)
-  const [selectedAspect, setSelectedAspect] = useState(null);
+  const [selectedAspect, setSelectedAspect] = useState('Practice');
 
   // === SIDEBAR LEVEL: what's driving sidebar content ===
   // Track Practice/Activity/Stage/Neighborhood group selections
