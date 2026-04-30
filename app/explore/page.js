@@ -652,7 +652,7 @@ function GridView({ selectedSeed, showAll, dimVisible, selectedBeingGroups, sele
 // =============================================
 // TESSERACT VIEW COMPONENT (verbatim from /visualize)
 // =============================================
-function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffinePlanes, affineShadeFill, highlightSet, activePaths, compact, zoom = 1, showStages = false, showTraditional = false, angleXW, setAngleXW, angleYZ, setAngleYZ, angleXY, setAngleXY, rotateAxis, onSelectArchetype }) {
+function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffinePlanes, affineShadeFill, highlightSet, activePaths, compact, zoom = 1, showStages = false, showTraditional = false, angleXW, setAngleXW, angleYZ, setAngleYZ, angleXY, setAngleXY, rotateAxis, onSelectArchetype, disableProcessAnimation = false }) {
   const [hovered, setHovered] = useState(null);
   const dragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
@@ -844,7 +844,7 @@ function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffineP
           const dur = 5 + pi * 0.5; // slower, staggered
           // Only animate if nodes span multiple stages (process flow exists)
           const stages = new Set(path.seq.map(id => VIZ_STAGES[id]));
-          const hasProcessFlow = stages.size > 1 && !path.noAnimate;
+          const hasProcessFlow = stages.size > 1 && !path.noAnimate && !disableProcessAnimation;
           return (
             <g key={`path-${pi}`}>
               <defs>
@@ -2181,6 +2181,7 @@ function ExploreMobile() {
   const [autoRotate, setAutoRotate] = useState(true);
   const [showAffinePlanes, setShowAffinePlanes] = useState(true);   // SHADE on by default
   const [affineShadeFill, setAffineShadeFill] = useState(true);
+  const [showStageAnimations, setShowStageAnimations] = useState(false); // OFF on mobile by default — saves battery + smoother
   const [tessAngleXW, setTessAngleXW] = useState(0.4);
   const [tessAngleYZ, setTessAngleYZ] = useState(0.3);
   const [tessAngleXY, setTessAngleXY] = useState(0);
@@ -2189,7 +2190,8 @@ function ExploreMobile() {
 
   // === MOBILE-SPECIFIC STATE ===
   const [primaryView, setPrimaryView] = useState('tesseract'); // 'tesseract' | 'grid'
-  const [sheetOpen, setSheetOpen] = useState(null); // null | 'settings' | 'info'
+  const [sheetOpen, setSheetOpen] = useState(null); // null | 'settings'
+  const [infoExpanded, setInfoExpanded] = useState(false); // info panel: false = top 1/3, true = full screen
 
   // Currently active groups for the selected aspect
   const selectedGroupsForAspect = useMemo(() => {
@@ -2285,7 +2287,7 @@ function ExploreMobile() {
   const onTapArchetype = useCallback((id) => {
     setSelectedArchetype(id);
     setShowAll(false);
-    setSheetOpen('info');
+    // Info panel is persistent — content auto-updates; no need to open a sheet
   }, []);
 
   const clearAll = () => {
@@ -2318,6 +2320,7 @@ function ExploreMobile() {
     colorMode,
     autoRotate,
     autoRotateSpeed: 5,
+    disableProcessAnimation: !showStageAnimations,
     showAffinePlanes,
     affineShadeFill,
     highlightSet: highlightSet.size > 0 ? highlightSet : null,
@@ -2533,17 +2536,50 @@ function ExploreMobile() {
           NIRMANAKAYA EXPLORER
         </h1>
         <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-          <button onClick={() => openSheet('info')} style={mobileBtnStyle(sheetOpen === 'info')}>
-            ⓘ Info
-          </button>
           <button onClick={() => openSheet('settings')} style={mobileBtnStyle(sheetOpen === 'settings')}>
             ⚙ Settings
           </button>
         </div>
       </header>
 
+      {/* PERSISTENT INFO PANEL — top 1/3, expandable to full screen */}
+      <div style={{
+        flexShrink: 0,
+        height: infoExpanded ? 'calc(100vh - 44px)' : '33vh',
+        position: infoExpanded ? 'absolute' : 'relative',
+        top: infoExpanded ? 44 : 'auto',
+        left: 0,
+        right: 0,
+        zIndex: infoExpanded ? 15 : 'auto',
+        background: '#0f172a',
+        borderBottom: '1px solid #1e293b',
+        overflow: 'auto',
+        padding: '12px 16px 16px 16px',
+        WebkitOverflowScrolling: 'touch',
+      }}>
+        {!infoExpanded && (
+          <button
+            onClick={() => setInfoExpanded(true)}
+            aria-label="Expand info"
+            style={{ position: 'absolute', top: 6, right: 8, fontSize: 14, color: '#64748b', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid #334155', borderRadius: 4, padding: '2px 8px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
+          >
+            ↗
+          </button>
+        )}
+        {infoExpanded && (
+          <button
+            onClick={() => setInfoExpanded(false)}
+            aria-label="Collapse info"
+            style={{ position: 'sticky', top: 0, marginLeft: 'auto', display: 'block', fontSize: 16, color: '#94a3b8', background: 'rgba(15, 23, 42, 0.95)', border: '1px solid #334155', borderRadius: 4, padding: '4px 12px', cursor: 'pointer', zIndex: 1, lineHeight: 1 }}
+          >
+            ✕ Close
+          </button>
+        )}
+        {renderInfoSheet()}
+      </div>
+
       {/* PRIMARY CANVAS */}
-      <main style={{ flex: 1, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <main style={{ flex: 1, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 8 }}>
           {renderPrimary()}
         </div>
@@ -2655,7 +2691,7 @@ function ExploreMobile() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <h2 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#94a3b8' }}>
-                {sheetOpen === 'settings' ? 'SETTINGS' : sheetOpen === 'info' ? 'INSPECTOR' : ''}
+                {sheetOpen === 'settings' ? 'SETTINGS' : ''}
               </h2>
               <button onClick={() => setSheetOpen(null)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 18, cursor: 'pointer', padding: '4px 8px' }}>
                 ✕
@@ -2670,6 +2706,7 @@ function ExploreMobile() {
                     <button onClick={() => setAutoRotate(p => !p)} style={mobileBtnStyle(autoRotate)}>Rotate</button>
                     <button onClick={() => setShowAffinePlanes(p => !p)} style={mobileBtnStyle(showAffinePlanes)}>Shade</button>
                     <button onClick={() => setShowTessStages(p => !p)} style={mobileBtnStyle(showTessStages)}>Stages</button>
+                    <button onClick={() => setShowStageAnimations(p => !p)} style={mobileBtnStyle(showStageAnimations)}>Stage Anim</button>
                     <button onClick={() => setShowLabels(p => !p)} style={mobileBtnStyle(showLabels)}>Labels</button>
                     <button onClick={() => setShowTorus(p => !p)} style={mobileBtnStyle(showTorus)}>Torus</button>
                     <button onClick={() => setShowTraditional(p => !p)} style={mobileBtnStyle(showTraditional)}>{showTraditional ? 'TRAD' : 'VERB'}</button>
@@ -2688,7 +2725,6 @@ function ExploreMobile() {
               </div>
             )}
 
-            {sheetOpen === 'info' && renderInfoSheet()}
           </div>
         </div>
       )}
