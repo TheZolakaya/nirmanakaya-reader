@@ -736,11 +736,6 @@ function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffineP
 
   return (
     <div style={{ width: '100%' }}>
-      {rotateMode && (
-        <div style={{ textAlign: 'center', fontSize: 10, color: '#f59e0b', marginBottom: 4, fontWeight: 600 }}>
-          ROTATE MODE ({rotateAxis}) — move mouse to rotate, click to lock
-        </div>
-      )}
       <svg
         viewBox={`${CX - SZ / 2 / zoom} ${CY - SZ / 2 / zoom} ${SZ / zoom} ${SZ / zoom}`}
         style={{ width: '100%', maxWidth: compact ? '100%' : 700, height: 'auto', cursor: rotateMode ? 'crosshair' : 'pointer', touchAction: 'none', display: 'block', margin: '0 auto' }}
