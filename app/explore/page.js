@@ -2318,7 +2318,7 @@ function ExploreMobile() {
   const tessProps = {
     colorMode,
     autoRotate,
-    autoRotateSpeed: 2.5,
+    autoRotateSpeed: 5,
     showAffinePlanes,
     affineShadeFill,
     highlightSet: highlightSet.size > 0 ? highlightSet : null,
@@ -2356,25 +2356,172 @@ function ExploreMobile() {
     );
   };
 
-  const infoContent = useMemo(() => {
-    if (selectedArchetype != null) {
-      const a = ARCHETYPES[selectedArchetype];
-      if (!a) return null;
-      return {
-        title: `${selectedArchetype} — ${a.name}`,
-        subtitle: a.traditional || '',
-        body: a.description || '',
-      };
+  // === ARCHETYPE DETAIL DATA (mirrors desktop) ===
+  const archGroups = useMemo(() => selectedArchetype === null ? {} : getGroupsForArchetype(selectedArchetype), [selectedArchetype]);
+  const archBounds = useMemo(() => selectedArchetype === null ? [] : getBoundsForArchetype(selectedArchetype), [selectedArchetype]);
+  const archAgents = useMemo(() => selectedArchetype === null ? [] : getAgentsForArchetype(selectedArchetype), [selectedArchetype]);
+
+  // === RENDER INFO SHEET CONTENT ===
+  const renderInfoSheet = () => {
+    // ARCHETYPE DETAIL
+    if (selectedArchetype !== null) {
+      const arch = ARCHETYPES[selectedArchetype];
+      const stage = FULL_STAGES[selectedArchetype];
+      const groups = archGroups;
+      if (!arch) return null;
+      return (
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', color: '#22d3ee', marginBottom: 4 }}>
+            {showTraditional ? arch.traditional?.toUpperCase() : arch.name?.toUpperCase()}
+          </div>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 10 }}>
+            {showTraditional ? arch.name : arch.traditional} — Position {selectedArchetype}
+          </div>
+          <div style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 1.6, marginBottom: 16 }}>
+            {arch.extended || arch.description}
+          </div>
+
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#22d3ee', marginBottom: 8 }}>DIMENSIONAL ADDRESS</div>
+          {Object.entries(groups).map(([dim, gName]) => (
+            <div key={dim} style={{ fontSize: 12, marginBottom: 4 }}>
+              <span style={{ color: C[dim] }}>{dim}:</span>{' '}
+              <span style={{ color: '#e2e8f0' }}>{gName}</span>{' '}
+              <span style={{ color: '#64748b' }}>({DIMENSION_VERBS[dim]?.[gName]})</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 8, marginBottom: 14, fontSize: 12, color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.5 }}>
+            &ldquo;The {stage || 'archetype'} of {Object.entries(groups).map(([dim, gName]) => DIMENSION_VERBS[dim]?.[gName] || gName).join(', ')}&rdquo;
+          </div>
+
+          {arch.states && (
+            <div style={{ borderTop: '1px solid #1e293b', paddingTop: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>TRANSIENT STATES</div>
+              {Object.entries(arch.states).map(([key, desc]) => {
+                const stateColors = { balanced: '#22c55e', tooMuch: '#f59e0b', tooLittle: '#3b82f6', unacknowledged: '#a855f7' };
+                const stateLabels = { balanced: 'Balanced', tooMuch: 'Too Much', tooLittle: 'Too Little', unacknowledged: 'Unacknowledged' };
+                return (
+                  <div key={key} style={{ marginBottom: 10 }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: stateColors[key] }}>{stateLabels[key]}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.5 }}>{desc}</div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {(archBounds.length > 0 || archAgents.length > 0) && (
+            <div style={{ borderTop: '1px solid #1e293b', paddingTop: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>SIGNATURE PACKET</div>
+              {archBounds.filter(b => b.horizon === 'inner').length > 0 && (
+                <div style={{ background: '#1e293b', borderRadius: 6, padding: '8px 12px', marginBottom: 6 }}>
+                  <div style={{ fontSize: 9, color: '#64748b', marginBottom: 4, letterSpacing: '0.08em' }}>FLOOR (INNER)</div>
+                  {archBounds.filter(b => b.horizon === 'inner').map(b => (
+                    <div key={b.name} style={{ fontSize: 11, color: '#cbd5e1', marginBottom: 2 }}>
+                      {b.name} <span style={{ color: '#64748b' }}>({b.traditional}) · {b.channel} {b.number}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {archBounds.filter(b => b.horizon === 'outer').length > 0 && (
+                <div style={{ background: '#1e293b', borderRadius: 6, padding: '8px 12px', marginBottom: 6 }}>
+                  <div style={{ fontSize: 9, color: '#64748b', marginBottom: 4, letterSpacing: '0.08em' }}>CEILING (OUTER)</div>
+                  {archBounds.filter(b => b.horizon === 'outer').map(b => (
+                    <div key={b.name} style={{ fontSize: 11, color: '#cbd5e1', marginBottom: 2 }}>
+                      {b.name} <span style={{ color: '#64748b' }}>({b.traditional}) · {b.channel} {b.number}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {archAgents.length > 0 && (
+                <div style={{ background: '#1e293b', borderRadius: 6, padding: '8px 12px' }}>
+                  <div style={{ fontSize: 9, color: '#64748b', marginBottom: 4, letterSpacing: '0.08em' }}>AGENTS</div>
+                  {archAgents.map(a => (
+                    <div key={a.name} style={{ fontSize: 11, color: '#cbd5e1', marginBottom: 2 }}>
+                      {a.name} <span style={{ color: '#64748b' }}>({a.traditional}) · {a.nickname}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <div style={{ borderTop: '1px solid #1e293b', paddingTop: 12 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>STRUCTURAL POSITION</div>
+            <div style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.6 }}>
+              <div><span style={{ color: '#64748b' }}>House:</span> {arch.house}</div>
+              <div><span style={{ color: '#64748b' }}>Channel:</span> {arch.channel || 'None (Gestalt)'}</div>
+              {stage && <div><span style={{ color: '#64748b' }}>Stage:</span> <span style={{ color: FULL_STAGE_COLORS[stage] }}>{stage}</span></div>}
+            </div>
+          </div>
+        </div>
+      );
     }
-    if (selectedAspect && DERIVATION_CONTENT[selectedAspect]) {
-      return {
-        title: DERIVATION_CONTENT[selectedAspect].title || selectedAspect,
-        subtitle: '',
-        body: DERIVATION_CONTENT[selectedAspect].body || '',
-      };
+
+    // ASPECT (Practice/Activity/Being/Identity/Stage) DETAIL
+    if (selectedAspect) {
+      const aspect = ASPECTS[selectedAspect];
+      const dc = DERIVATION_CONTENT[selectedAspect];
+      return (
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', color: C[selectedAspect], marginBottom: 4 }}>
+            {selectedAspect.toUpperCase()}
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 12 }}>{aspect?.question}</div>
+          {dc?.body && (
+            <div style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 1.6, marginBottom: 16, whiteSpace: 'pre-line' }}>
+              {dc.body}
+            </div>
+          )}
+          <div style={{ borderTop: '1px solid #1e293b', paddingTop: 12 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>GROUPS</div>
+            {Object.entries(aspect?.groups || {}).map(([gName, gDef]) => (
+              <div key={gName} style={{ marginBottom: 12 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: C[selectedAspect] }}>{gName}</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+                  {gDef?.verb}{gDef?.description ? ` — ${gDef.description}` : ''}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+                  {gDef?.members?.map(id => `${showTraditional ? (ARCHETYPES[id]?.traditional || ARCHETYPES[id]?.name) : ARCHETYPES[id]?.name} (${id})`).join(', ')}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     }
-    return null;
-  }, [selectedArchetype, selectedAspect]);
+
+    // DEFAULT VIEW
+    return (
+      <div>
+        <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', color: '#94a3b8', marginBottom: 4 }}>THE FOUR ASPECTS</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>Where · How · What · Who</div>
+        {Object.entries(ASPECTS).map(([name, a]) => (
+          <div key={name} style={{ marginBottom: 12 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: C[name] }}>
+              {name} <span style={{ fontWeight: 400, color: '#64748b' }}>({a.question})</span>
+            </div>
+            <div style={{ fontSize: 11, marginTop: 2 }}>
+              {Object.entries(a.groups).map(([gName, gDef], i, arr) => (
+                <span key={gName}>
+                  <span style={{ color: '#94a3b8' }}>{gName}</span>
+                  <span style={{ color: '#64748b' }}> ({gDef.verb}){i < arr.length - 1 ? ', ' : ''}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6 }}>Tap an Aspect chip to explore its groups, or tap any archetype on the map for its detail.</div>
+        </div>
+        <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #1e293b' }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>HOW IT'S DERIVED</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+            {DERIVATION_CONTENT.aspects.body}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div style={{ position: 'fixed', inset: 0, background: '#020617', color: '#e2e8f0', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -2539,29 +2686,7 @@ function ExploreMobile() {
               </div>
             )}
 
-            {sheetOpen === 'info' && (
-              <div>
-                {infoContent ? (
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#e2e8f0', marginBottom: 4 }}>
-                      {infoContent.title}
-                    </div>
-                    {infoContent.subtitle && (
-                      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 12 }}>
-                        {infoContent.subtitle}
-                      </div>
-                    )}
-                    <div style={{ fontSize: 13, lineHeight: 1.6, color: '#cbd5e1', whiteSpace: 'pre-line' }}>
-                      {infoContent.body}
-                    </div>
-                  </div>
-                ) : (
-                  <div style={{ fontSize: 12, color: '#64748b', textAlign: 'center', padding: 20 }}>
-                    Tap an archetype on the map to see its details, or pick a dimension chip below.
-                  </div>
-                )}
-              </div>
-            )}
+            {sheetOpen === 'info' && renderInfoSheet()}
           </div>
         </div>
       )}
