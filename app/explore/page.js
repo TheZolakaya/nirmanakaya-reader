@@ -2340,14 +2340,14 @@ function ExploreMobile() {
   const renderMini = () => {
     if (primaryView === 'tesseract') {
       return (
-        <div style={{ pointerEvents: 'none', transform: 'scale(0.4)', transformOrigin: 'top right' }}>
+        <div style={{ pointerEvents: 'none', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
           <GridView {...gridProps} compact={true} onSelectArchetype={() => {}} showLabels={false} showTorus={false} />
         </div>
       );
     }
     return (
-      <div style={{ pointerEvents: 'none', transform: 'scale(0.5)', transformOrigin: 'top right' }}>
-        <TesseractView {...tessProps} compact={true} zoom={0.5} onSelectArchetype={() => {}} />
+      <div style={{ pointerEvents: 'none', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        <TesseractView {...tessProps} compact={true} zoom={0.6} onSelectArchetype={() => {}} />
       </div>
     );
   };
@@ -2403,14 +2403,14 @@ function ExploreMobile() {
             position: 'absolute',
             bottom: 12,
             right: 12,
-            width: 130,
-            height: 130,
+            width: 160,
+            height: 160,
             background: 'rgba(2, 6, 23, 0.85)',
             border: '1px solid #334155',
             borderRadius: 8,
             overflow: 'hidden',
             cursor: 'pointer',
-            padding: 0,
+            padding: 4,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
