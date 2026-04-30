@@ -689,9 +689,9 @@ function TesseractView({ colorMode, autoRotate, showAffinePlanes, affineShadeFil
 
   useEffect(() => {
     if (!rotateMode) return;
-    const onMove = (e) => {
-      const dx = e.clientX - lastPos.current.x, dy = e.clientY - lastPos.current.y;
-      lastPos.current = { x: e.clientX, y: e.clientY };
+    const applyDelta = (cx, cy) => {
+      const dx = cx - lastPos.current.x, dy = cy - lastPos.current.y;
+      lastPos.current = { x: cx, y: cy };
       if (rotateAxis === 'XW+YZ') {
         setAngleXW(p => p + dx * 0.005);
         setAngleYZ(p => p + dy * 0.005);
@@ -700,14 +700,25 @@ function TesseractView({ colorMode, autoRotate, showAffinePlanes, affineShadeFil
         setAngleYZ(p => p + dy * 0.005);
       }
     };
+    const onMove = (e) => applyDelta(e.clientX, e.clientY);
+    const onTouchMove = (e) => {
+      if (e.touches.length === 0) return;
+      applyDelta(e.touches[0].clientX, e.touches[0].clientY);
+      e.preventDefault();
+    };
     const onClick = (e) => {
       lastPos.current = { x: e.clientX, y: e.clientY };
       setRotateMode(false);
     };
+    const onTouchEnd = () => setRotateMode(false);
     window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
     const timer = setTimeout(() => window.addEventListener('click', onClick), 100);
     return () => {
       window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
       window.removeEventListener('click', onClick);
       clearTimeout(timer);
     };
@@ -2250,12 +2261,15 @@ function ExploreMobile() {
         }
       });
     } else if (selectedAspect && !showAll) {
-      // Aspect selected but no specific group — highlight all members of that aspect
+      // Aspect selected but no specific group — silently shade all groups in this aspect
       const aspectDef = ASPECTS[selectedAspect];
       if (aspectDef) {
+        const aspectColor = { Practice: '#4ade80', Activity: '#ef4444', Being: '#fbbf24', Identity: '#a855f7', Stage: '#8b5cf6' }[selectedAspect] || '#e2e8f0';
         Object.entries(aspectDef.groups).forEach(([gName, g]) => {
           const members = g.members || [];
           members.forEach(p => set.add(p));
+          const sorted = [...members].sort((a, b) => (stageOrder[VIZ_STAGES[a]] || 0) - (stageOrder[VIZ_STAGES[b]] || 0));
+          paths.push({ seq: sorted, color: aspectColor, opacity: 0.4 });
         });
       }
     }
