@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../lib/archetypes.js';
 import { BEING_GROUPS, IDENTITY_GROUPS, HOUSES, DIMENSION_VERBS } from '../../lib/constants.js';
@@ -1712,7 +1713,10 @@ function ExploreDesktop() {
   return (
     <div style={{ minHeight: '100vh', background: C.bg, color: C.text, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* Header */}
-      <div style={{ padding: '12px 24px', borderBottom: `1px solid ${C.border}`, background: C.panel }}>
+      <div style={{ padding: '12px 24px', borderBottom: `1px solid ${C.border}`, background: C.panel, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <Link href="/" style={{ fontSize: 11, color: C.text3, textDecoration: 'none', letterSpacing: '0.08em', fontWeight: 600, padding: '4px 10px', border: `1px solid ${C.border}`, borderRadius: 4 }}>
+          ← HOME
+        </Link>
         <h1 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: C.text, ...headerStyle }}>
           NIRMANAKAYA ARCHITECTURE EXPLORER
         </h1>
@@ -2521,11 +2525,14 @@ function ExploreMobile() {
   return (
     <div style={{ position: 'fixed', inset: 0, background: '#020617', color: '#e2e8f0', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       {/* HEADER */}
-      <header style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: '1px solid #1e293b', background: 'rgba(2, 6, 23, 0.95)' }}>
-        <h1 style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: '#cbd5e1' }}>
+      <header style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: '1px solid #1e293b', background: 'rgba(2, 6, 23, 0.95)', gap: 8 }}>
+        <Link href="/" style={{ fontSize: 14, color: '#94a3b8', textDecoration: 'none', padding: '4px 8px', flexShrink: 0 }} aria-label="Back to home">
+          ←
+        </Link>
+        <h1 style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: '#cbd5e1', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           NIRMANAKAYA EXPLORER
         </h1>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
           <button onClick={() => openSheet('info')} style={mobileBtnStyle(sheetOpen === 'info')}>
             ⓘ Info
           </button>

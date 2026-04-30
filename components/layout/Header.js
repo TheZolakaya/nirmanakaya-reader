@@ -19,6 +19,7 @@ export default function Header({ hasActivity = false }) {
   const isGuideActive = pathname?.startsWith('/guide');
   const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/22-reader');
+  const isExploreActive = pathname?.startsWith('/explore');
   const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
   const isBookActive = pathname?.startsWith('/book');
@@ -103,6 +104,16 @@ export default function Header({ hasActivity = false }) {
           }`}
         >
           Map
+        </Link>
+
+        {/* 5. EXPLORE (The Architecture) */}
+        <Link
+          href="/explore"
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            isExploreActive ? 'text-cyan-300' : 'text-zinc-500 hover:text-cyan-300'
+          }`}
+        >
+          Explore
         </Link>
 
       </div>
