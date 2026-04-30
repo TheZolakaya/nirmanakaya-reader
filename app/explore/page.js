@@ -651,7 +651,7 @@ function GridView({ selectedSeed, showAll, dimVisible, selectedBeingGroups, sele
 // =============================================
 // TESSERACT VIEW COMPONENT (verbatim from /visualize)
 // =============================================
-function TesseractView({ colorMode, autoRotate, showAffinePlanes, affineShadeFill, highlightSet, activePaths, compact, zoom = 1, showStages = false, showTraditional = false, angleXW, setAngleXW, angleYZ, setAngleYZ, angleXY, setAngleXY, rotateAxis, onSelectArchetype }) {
+function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffinePlanes, affineShadeFill, highlightSet, activePaths, compact, zoom = 1, showStages = false, showTraditional = false, angleXW, setAngleXW, angleYZ, setAngleYZ, angleXY, setAngleXY, rotateAxis, onSelectArchetype }) {
   const [hovered, setHovered] = useState(null);
   const dragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
@@ -661,6 +661,8 @@ function TesseractView({ colorMode, autoRotate, showAffinePlanes, affineShadeFil
 
   useEffect(() => { anglesRef.current = { xw: angleXW, yz: angleYZ, xy: angleXY }; }, [angleXW, angleYZ, angleXY]);
   useEffect(() => { autoRef.current = autoRotate; }, [autoRotate]);
+  const speedRef = useRef(1);
+  useEffect(() => { speedRef.current = autoRotateSpeed; }, [autoRotateSpeed]);
 
   useEffect(() => {
     let running = true;
@@ -668,7 +670,8 @@ function TesseractView({ colorMode, autoRotate, showAffinePlanes, affineShadeFil
       if (!running) return;
       if (autoRef.current && !dragging.current) {
         const a = anglesRef.current;
-        anglesRef.current = { xw: a.xw + 0.003, yz: a.yz + 0.002, xy: a.xy + 0.001 };
+        const k = speedRef.current;
+        anglesRef.current = { xw: a.xw + 0.003 * k, yz: a.yz + 0.002 * k, xy: a.xy + 0.001 * k };
         setAngleXW(anglesRef.current.xw);
         setAngleYZ(anglesRef.current.yz);
         setAngleXY(anglesRef.current.xy);
@@ -2315,6 +2318,7 @@ function ExploreMobile() {
   const tessProps = {
     colorMode,
     autoRotate,
+    autoRotateSpeed: 2.5,
     showAffinePlanes,
     affineShadeFill,
     highlightSet: highlightSet.size > 0 ? highlightSet : null,
