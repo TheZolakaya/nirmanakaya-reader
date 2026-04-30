@@ -2192,6 +2192,7 @@ function ExploreMobile() {
   const [primaryView, setPrimaryView] = useState('tesseract'); // 'tesseract' | 'grid'
   const [sheetOpen, setSheetOpen] = useState(null); // null | 'settings'
   const [infoExpanded, setInfoExpanded] = useState(false); // info panel: false = top 1/3, true = full screen
+  const [miniMinimized, setMiniMinimized] = useState(false); // mini-map: false = 160px, true = 50px
 
   // Currently active groups for the selected aspect
   const selectedGroupsForAspect = useMemo(() => {
@@ -2584,32 +2585,49 @@ function ExploreMobile() {
           {renderPrimary()}
         </div>
 
-        {/* MINI-MAP (corner, tap to swap) */}
+        {/* MINI-MAP (corner) — full: tap to swap | minimized: tap to expand */}
         <button
-          onClick={swapViews}
-          aria-label={`Swap to ${primaryView === 'tesseract' ? 'grid' : 'tesseract'} view`}
+          onClick={() => miniMinimized ? setMiniMinimized(false) : swapViews()}
+          aria-label={miniMinimized ? 'Expand mini-map' : `Swap to ${primaryView === 'tesseract' ? 'grid' : 'tesseract'} view`}
           style={{
             position: 'absolute',
             bottom: 12,
             right: 12,
-            width: 160,
-            height: 160,
+            width: miniMinimized ? 50 : 160,
+            height: miniMinimized ? 50 : 160,
             background: 'rgba(2, 6, 23, 0.85)',
             border: '1px solid #334155',
             borderRadius: 8,
             overflow: 'hidden',
             cursor: 'pointer',
-            padding: 4,
+            padding: miniMinimized ? 2 : 4,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             backdropFilter: 'blur(4px)',
+            transition: 'width 0.2s ease, height 0.2s ease',
           }}
         >
-          {renderMini()}
-          <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 9, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', pointerEvents: 'none' }}>
-            TAP TO SWAP
-          </div>
+          {miniMinimized ? (
+            <span style={{ fontSize: 18, color: '#94a3b8', pointerEvents: 'none', lineHeight: 1 }}>
+              {primaryView === 'tesseract' ? '▦' : '◇'}
+            </span>
+          ) : (
+            <>
+              {renderMini()}
+              <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 9, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', pointerEvents: 'none' }}>
+                TAP TO SWAP
+              </div>
+              <span
+                role="button"
+                aria-label="Minimize mini-map"
+                onClick={(e) => { e.stopPropagation(); setMiniMinimized(true); }}
+                style={{ position: 'absolute', top: 2, right: 2, fontSize: 14, color: '#94a3b8', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid #334155', borderRadius: 4, padding: '0 6px', cursor: 'pointer', lineHeight: 1.4 }}
+              >
+                −
+              </span>
+            </>
+          )}
         </button>
       </main>
 
