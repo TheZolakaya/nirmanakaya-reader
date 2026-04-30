@@ -33,10 +33,10 @@ class DiagnosticErrorBoundary extends Component {
   }
 }
 import { generateSpread } from '../../lib/utils.js';
-import { analyzeFullMap, triageReading } from '../../lib/mapAnalysis.js';
+import { analyzeFullMap, triageReading, analyzeBeingGroups, analyzeIdentityGroups, analyzeNeighborhoods, tracePortalChains, analyzeMajorSignals } from '../../lib/mapAnalysis.js';
 import { handleToolCall, buildTriageSeed, DIAGNOSTIC_TOOL_DEFINITIONS } from '../../lib/diagnosticTools.js';
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../lib/archetypes.js';
-import { STATUSES, HOUSES, INNER_OUTER_HORIZON } from '../../lib/constants.js';
+import { STATUSES, HOUSES, INNER_OUTER_HORIZON, BEING_GROUPS, IDENTITY_GROUPS } from '../../lib/constants.js';
 import { getArchetypeCorrection } from '../../lib/corrections.js';
 import { getCardImagePath } from '../../lib/cardImages.js';
 import { getGestaltCondition } from '../../lib/gestaltConditions.js';
@@ -411,7 +411,12 @@ function DiagnosticPage() {
     for (const d of draws) drawMap[d.position] = d;
     const triage = triageReading(analysis, drawMap);
     const seed = buildTriageSeed(triage, drawMap);
-    setReadingData({ draws, analysis, drawMap, triage, seed });
+    const beingHealth = analyzeBeingGroups(drawMap);
+    const identityHealth = analyzeIdentityGroups(drawMap);
+    const neighborhoodHealth = analyzeNeighborhoods(drawMap);
+    const portalChains = tracePortalChains(drawMap);
+    const majorSignals = analyzeMajorSignals(drawMap);
+    setReadingData({ draws, analysis, drawMap, triage, seed, beingHealth, identityHealth, neighborhoodHealth, portalChains, majorSignals });
     setSelectedArchetype(null);
     setHighlightedPositions(new Set());
     setInspectorResults(null);
@@ -526,6 +531,11 @@ function DiagnosticPage() {
         setLiveQuestion={setLiveQuestion}
         onRunTool={runToolExplorer}
         selectedArchetype={selectedArchetype}
+        beingHealth={readingData?.beingHealth}
+        identityHealth={readingData?.identityHealth}
+        neighborhoodHealth={readingData?.neighborhoodHealth}
+        portalChains={readingData?.portalChains}
+        majorSignals={readingData?.majorSignals}
         onFlagClick={(positions) => {
           setHighlightedPositions(new Set(positions));
           setSelectedArchetype(null);
@@ -595,7 +605,7 @@ function DiagnosticPage() {
 // ═══════════════════════════════════════
 // TRIAGE SIDEBAR
 // ═══════════════════════════════════════
-function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, drawMap, useTraditional, setUseTraditional, onRunReading, liveReadingLoading, liveQuestion, setLiveQuestion, onRunTool, selectedArchetype, onFlagClick, onSelectArchetype }) {
+function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, drawMap, useTraditional, setUseTraditional, onRunReading, liveReadingLoading, liveQuestion, setLiveQuestion, onRunTool, selectedArchetype, beingHealth, identityHealth, neighborhoodHealth, portalChains, majorSignals, onFlagClick, onSelectArchetype }) {
   const { severity, healthScore, distortionCount, l0_horizon, l1_portals, l2_processes } = triage;
 
   const severityColors = {
@@ -922,6 +932,97 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
           })}
         </SidebarSection>
 
+        {/* Portal Chain Tracing */}
+        {portalChains && (
+          <SidebarSection title="PORTAL CHAINS" titleColor="#f59e0b" help="Displacement chains from the portals — what's in the crosshairs of attention, and where did the portals go as transients.">
+            {['source', 'creation'].map(key => {
+              const chain = portalChains[key];
+              if (!chain) return null;
+              const label = key === 'source' ? 'Source (Wheel)' : 'Creation (World)';
+              return (
+                <div key={key} style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4 }}>{label}</div>
+                  {chain.visitor && (
+                    <div style={{ fontSize: 11, color: '#e2e8f0', marginBottom: 2 }}>
+                      {'\u2190'} <span style={{ color: STATUS_COLORS[chain.visitor.statusName] || '#94a3b8' }}>{chain.visitor.name}</span>
+                      <span style={{ color: '#64748b', fontSize: 10 }}> [{chain.visitor.class}] {chain.visitor.statusName}</span>
+                    </div>
+                  )}
+                  {chain.chain && chain.chain.length > 0 && (
+                    <div style={{ marginLeft: 8, borderLeft: '1px solid #334155', paddingLeft: 8, marginTop: 4 }}>
+                      {chain.chain.slice(0, 5).map((link, i) => (
+                        <div key={i} style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>
+                          {'\u2192'} <span style={{ color: STATUS_COLORS[link.statusName] || '#94a3b8' }}>{link.durableName}</span>
+                          <span style={{ color: '#475569' }}> {'\u2190'} {link.visitorName}</span>
+                        </div>
+                      ))}
+                      {chain.chain.length > 5 && (
+                        <div style={{ fontSize: 9, color: '#475569' }}>...{chain.chain.length - 5} more links</div>
+                      )}
+                    </div>
+                  )}
+                  {chain.portalAsTransient && (
+                    <div style={{ fontSize: 11, color: '#e2e8f0', marginTop: 4 }}>
+                      {'\u2192'} landed at <span style={{ color: STATUS_COLORS[chain.portalAsTransient.statusName] || '#94a3b8' }}>{chain.portalAsTransient.landedAtName}</span>
+                      <span style={{ color: '#64748b', fontSize: 10 }}> {chain.portalAsTransient.statusName}</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </SidebarSection>
+        )}
+
+        {/* Magnitude Signals */}
+        {majorSignals && (
+          <SidebarSection title="MAGNITUDE" titleColor="#f97316" help="Balanced major count = capacity. Self-seated = gravity anchors. Major-on-major = amplification, especially at portals/Soul House.">
+            <div style={{ display: 'flex', gap: 16, marginBottom: 8 }}>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#22c55e' }}>{majorSignals.balancedDurables?.total || 0}</div>
+                <div style={{ fontSize: 9, color: '#64748b' }}>BALANCED /22</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#fbbf24' }}>{majorSignals.selfSeated?.count || 0}</div>
+                <div style={{ fontSize: 9, color: '#64748b' }}>SELF-SEATED</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#f97316' }}>{majorSignals.majorOnMajor?.count || 0}</div>
+                <div style={{ fontSize: 9, color: '#64748b' }}>MAJOR{'\u00D7'}MAJOR</div>
+              </div>
+            </div>
+            {majorSignals.selfSeated?.majors?.length > 0 && (
+              <div style={{ marginBottom: 8 }}>
+                <div style={{ fontSize: 10, color: '#fbbf24', marginBottom: 2 }}>{'\u2693'} Self-seated majors:</div>
+                {majorSignals.selfSeated.majors.map((m, i) => (
+                  <div key={i} style={{ fontSize: 10, color: '#e2e8f0', marginLeft: 8 }}>
+                    {m.name || `#${m.id}`} — <span style={{ color: STATUS_COLORS[m.statusName] || '#94a3b8' }}>{m.statusName}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {majorSignals.majorOnMajor?.atPortals?.length > 0 && (
+              <div style={{ marginBottom: 4 }}>
+                <div style={{ fontSize: 10, color: '#ef4444', marginBottom: 2 }}>{'\u26A1'} Majors at Portals:</div>
+                {majorSignals.majorOnMajor.atPortals.map((m, i) => (
+                  <div key={i} style={{ fontSize: 10, color: '#e2e8f0', marginLeft: 8 }}>
+                    {m.durableName || `#${m.durableId}`} {'\u2190'} {m.visitorName || `#${m.visitorId}`}
+                  </div>
+                ))}
+              </div>
+            )}
+            {majorSignals.majorOnMajor?.atSoulHouse?.length > 0 && (
+              <div>
+                <div style={{ fontSize: 10, color: '#f59e0b', marginBottom: 2 }}>{'\uD83D\uDC41'} Majors at Soul House:</div>
+                {majorSignals.majorOnMajor.atSoulHouse.map((m, i) => (
+                  <div key={i} style={{ fontSize: 10, color: '#e2e8f0', marginLeft: 8 }}>
+                    {m.durableName || `#${m.durableId}`} {'\u2190'} {m.visitorName || `#${m.visitorId}`}
+                  </div>
+                ))}
+              </div>
+            )}
+          </SidebarSection>
+        )}
+
         {/* House Rollup */}
         <SidebarSection title="HOUSES" help={HELP.houses}>
           {Object.entries(l2_processes.byHouse).map(([house, data]) => {
@@ -1058,6 +1159,138 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
                 </div>
               );
             })}
+          </SidebarSection>
+        )}
+
+        {/* Being Health */}
+        {beingHealth && (
+          <SidebarSection title="BEING (What?)" titleColor="#10b981" help="Four kinds of experiential substance — Mantle (force beneath), Torch (knowing through), Vessel (form around), Clearing (freedom away). Each group has one archetype from every Practice and Activity.">
+            {Object.entries(BEING_GROUPS).map(([groupName, groupDef]) => {
+              const health = beingHealth[groupName];
+              if (!health) return null;
+              const balCount = health.balancedCount || 0;
+              const totalCount = health.members?.length || 4;
+              return (
+                <div key={groupName} style={{ marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 3 }}>
+                    <span style={{ fontSize: 11, color: '#10b981', fontWeight: 600 }}>{groupName}</span>
+                    <span style={{ fontSize: 9, color: '#64748b' }}>{groupDef.verb} {'\u00B7'} {balCount}B/{totalCount - balCount}L</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 3 }}>
+                    {(health.members || []).map((m, i) => {
+                      const statusName = m.durableStatusName || 'unknown';
+                      const color = STATUS_COLORS[statusName] || '#374151';
+                      return (
+                        <div key={i} style={{
+                          flex: 1, padding: '3px 0', textAlign: 'center', borderRadius: 3,
+                          background: color + '20', border: `1px solid ${color}50`,
+                          cursor: 'pointer', fontSize: 9, color: color
+                        }}
+                        onClick={() => onSelectArchetype && onSelectArchetype(m.archetypeId)}
+                        title={`${m.archetypeName}: ${statusName}\nFloor: ${m.floorBound?.name || '\u2014'} (${m.floorBound?.statusName || '\u2014'})\nCeiling: ${m.ceilingBound?.name || '\u2014'} (${m.ceilingBound?.statusName || '\u2014'})`}
+                        >
+                          {(m.archetypeName || '?').substring(0, 4)}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </SidebarSection>
+        )}
+
+        {/* Identity Health */}
+        {identityHealth && (
+          <SidebarSection title="IDENTITY (Who?)" titleColor="#8b5cf6" help="Four postures of self — Composure (holds center), Conviction (acts from center), Exploration (ventures from center), Communion (dissolves center). Each group has one archetype from every Practice, Activity, and Being.">
+            {Object.entries(IDENTITY_GROUPS).map(([groupName, groupDef]) => {
+              const health = identityHealth[groupName];
+              if (!health) return null;
+              const balCount = health.balancedCount || 0;
+              const totalCount = health.members?.length || 4;
+              return (
+                <div key={groupName} style={{ marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 3 }}>
+                    <span style={{ fontSize: 11, color: '#8b5cf6', fontWeight: 600 }}>{groupName}</span>
+                    <span style={{ fontSize: 9, color: '#64748b' }}>{groupDef.verb} {'\u00B7'} {balCount}B/{totalCount - balCount}L</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 3 }}>
+                    {(health.members || []).map((m, i) => {
+                      const statusName = m.durableStatusName || 'unknown';
+                      const color = STATUS_COLORS[statusName] || '#374151';
+                      return (
+                        <div key={i} style={{
+                          flex: 1, padding: '3px 0', textAlign: 'center', borderRadius: 3,
+                          background: color + '20', border: `1px solid ${color}50`,
+                          cursor: 'pointer', fontSize: 9, color: color
+                        }}
+                        onClick={() => onSelectArchetype && onSelectArchetype(m.archetypeId)}
+                        title={`${m.archetypeName}: ${statusName}\nFloor: ${m.floorBound?.name || '\u2014'} (${m.floorBound?.statusName || '\u2014'})\nCeiling: ${m.ceilingBound?.name || '\u2014'} (${m.ceilingBound?.statusName || '\u2014'})`}
+                        >
+                          {(m.archetypeName || '?').substring(0, 4)}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </SidebarSection>
+        )}
+
+        {/* Toroidal Neighborhoods */}
+        {neighborhoodHealth && (
+          <SidebarSection title="NEIGHBORHOODS (Torus)" titleColor="#f0c040"
+            help="16 toroidal 2×2 blocks on the Seal. Each sums to 40. Each is the smallest unit achieving both specificity (3 dimensions) and completeness (2 dimensions). Coherence = % of members balanced.">
+            {/* Second-order grid: 4 modes × 4 arcs */}
+            {['Directed Perception', 'Relational Knowing', 'Grounded Holding', 'Creative Building'].map(mode => (
+              <div key={mode} style={{ marginBottom: 10 }}>
+                <div style={{ fontSize: 9, color: '#64748b', fontWeight: 600, letterSpacing: '0.05em', marginBottom: 3 }}>{mode.toUpperCase()}</div>
+                <div style={{ display: 'flex', gap: 3 }}>
+                  {Object.entries(neighborhoodHealth).filter(([, nh]) => nh.mode === mode).map(([name, nh]) => {
+                    const balRatio = nh.balancedCount / 4;
+                    const bgColor = balRatio === 1 ? '#22c55e' : balRatio >= 0.5 ? '#eab308' : balRatio > 0 ? '#f97316' : '#ef4444';
+                    return (
+                      <div key={name}
+                        onClick={() => {
+                          const posSet = new Set(nh.members.map(m => m.archetypeId));
+                          onFlagClick && onFlagClick(posSet);
+                        }}
+                        title={`${name}\n${nh.practice} × ${nh.activity}\nArc: ${nh.arc} | Collapses: ${nh.collapses}\n${nh.balancedCount}/4 balanced (${nh.coherence}%)\nMembers: ${nh.members.map(m => m.archetypeName).join(', ')}`}
+                        style={{
+                          flex: 1, padding: '4px 2px', textAlign: 'center', borderRadius: 3,
+                          background: bgColor + '18', border: `1px solid ${bgColor}50`,
+                          cursor: 'pointer', transition: 'all 0.15s',
+                        }}>
+                        <div style={{ fontSize: 8, color: bgColor, fontWeight: 600, lineHeight: 1.2 }}>{name}</div>
+                        <div style={{ fontSize: 8, color: '#64748b', marginTop: 1 }}>{nh.balancedCount}B/{4 - nh.balancedCount}L</div>
+                        <div style={{ fontSize: 7, color: '#475569', marginTop: 1 }}>{nh.arc}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            {/* Arc summary */}
+            <div style={{ marginTop: 6, borderTop: '1px solid #1e293b', paddingTop: 6 }}>
+              <div style={{ fontSize: 9, color: '#64748b', fontWeight: 600, letterSpacing: '0.05em', marginBottom: 4 }}>ARC HEALTH</div>
+              {['Creation', 'Intensity', 'Structure', 'Wisdom'].map(arc => {
+                const arcNbs = Object.values(neighborhoodHealth).filter(nh => nh.arc === arc);
+                const totalBal = arcNbs.reduce((s, nh) => s + nh.balancedCount, 0);
+                const total = arcNbs.length * 4;
+                const ratio = total > 0 ? Math.round((totalBal / total) * 100) : 0;
+                const barColor = ratio >= 75 ? '#22c55e' : ratio >= 50 ? '#eab308' : ratio >= 25 ? '#f97316' : '#ef4444';
+                return (
+                  <div key={arc} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+                    <span style={{ fontSize: 9, color: '#94a3b8', minWidth: 55 }}>{arc}</span>
+                    <div style={{ flex: 1, height: 6, background: '#1e293b', borderRadius: 3, overflow: 'hidden' }}>
+                      <div style={{ width: `${ratio}%`, height: '100%', background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
+                    </div>
+                    <span style={{ fontSize: 8, color: '#64748b', minWidth: 28 }}>{ratio}%</span>
+                  </div>
+                );
+              })}
+            </div>
           </SidebarSection>
         )}
 

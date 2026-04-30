@@ -43,7 +43,7 @@ export default function BookLayout({ children }) {
               <span className="text-zinc-700">&middot;</span>
               <a href="/council" className="hover:text-zinc-400 transition-colors">Council</a>
               <span className="text-zinc-700">&middot;</span>
-              <a href="/map" className="hover:text-zinc-400 transition-colors">Map</a>
+              <a href="/22-reader" className="hover:text-zinc-400 transition-colors">Map</a>
             </div>
             <p className="mt-3 text-zinc-600 text-[10px] font-mono">
               Nirmanakaya V7 — A Map of Consciousness

@@ -18,7 +18,7 @@ export default function Header({ hasActivity = false }) {
   const isCommunityActive = pathname?.startsWith('/hub') || pathname?.startsWith('/lounge');
   const isGuideActive = pathname?.startsWith('/guide');
   const isCouncilActive = pathname?.startsWith('/council');
-  const isMapActive = pathname?.startsWith('/map');
+  const isMapActive = pathname?.startsWith('/22-reader');
   const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
   const isBookActive = pathname?.startsWith('/book');
@@ -97,7 +97,7 @@ export default function Header({ hasActivity = false }) {
 
         {/* 4. MAP (The Coordinates) */}
         <Link
-          href="/map"
+          href="/22-reader"
           className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
             isMapActive ? 'text-white' : 'text-zinc-500 hover:text-white'
           }`}
