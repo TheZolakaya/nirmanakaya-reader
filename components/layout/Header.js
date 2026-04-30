@@ -26,8 +26,8 @@ export default function Header({ hasActivity = false }) {
   const isHome = pathname === '/';
 
   return (
-    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none overflow-x-auto">
-      <div className="flex items-center gap-3 sm:gap-6 md:gap-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
+    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none">
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
         {/* HOME - Nirmanakaya wordmark */}
         <Link
