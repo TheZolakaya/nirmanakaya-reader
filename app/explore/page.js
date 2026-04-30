@@ -669,7 +669,7 @@ function TesseractView({ colorMode, autoRotate, autoRotateSpeed = 1, showAffineP
     let running = true;
     function tick() {
       if (!running) return;
-      if (autoRef.current && !dragging.current) {
+      if (autoRef.current && !dragging.current && !rotateModeRef.current) {
         const a = anglesRef.current;
         const k = speedRef.current;
         anglesRef.current = { xw: a.xw + 0.003 * k, yz: a.yz + 0.002 * k, xy: a.xy + 0.001 * k };
