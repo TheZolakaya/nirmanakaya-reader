@@ -35,4 +35,27 @@ execSync('npx quartz build', { cwd: wikiRoot, stdio: 'inherit' });
 console.log(`Copying ${wikiRoot}/public -> ${wikiOut} ...`);
 fs.cpSync(path.join(wikiRoot, 'public'), wikiOut, { recursive: true });
 
+// Inject <base href="/wiki/"> into every HTML file so relative URLs resolve from /wiki/
+// even when the browser URL is /wiki (no trailing slash). See next.config.js for full reasoning.
+console.log('Injecting <base href="/wiki/"> into HTML files...');
+let baseInjected = 0;
+function walkInject(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkInject(fullPath);
+    } else if (entry.name.endsWith('.html')) {
+      const content = fs.readFileSync(fullPath, 'utf8');
+      if (content.includes('<base ')) continue;
+      const updated = content.replace(/<head([^>]*)>/, '<head$1><base href="/wiki/">');
+      if (updated !== content) {
+        fs.writeFileSync(fullPath, updated);
+        baseInjected++;
+      }
+    }
+  }
+}
+walkInject(wikiOut);
+console.log(`Injected <base> into ${baseInjected} HTML files.`);
+
 console.log('\nDone. Commit changes under public/wiki/ and push to deploy.');
