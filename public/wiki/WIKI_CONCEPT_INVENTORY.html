@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>WIKI_CONCEPT_INVENTORY</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Nirmanakaya Wiki"/><meta property="og:title" content="WIKI_CONCEPT_INVENTORY"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="WIKI_CONCEPT_INVENTORY"/><meta name="twitter:description" content="Wiki Concept Inventory Purpose: Enumerate every load-bearing concept in the Nirmanakaya framework that may merit its own wiki node."/><meta property="og:description" content="Wiki Concept Inventory Purpose: Enumerate every load-bearing concept in the Nirmanakaya framework that may merit its own wiki node."/><meta property="og:image:alt" content="Wiki Concept Inventory Purpose: Enumerate every load-bearing concept in the Nirmanakaya framework that may merit its own wiki node."/><meta property="twitter:domain" content="nirmanakaya.com/wiki"/><meta property="og:url" content="https://nirmanakaya.com/wiki/WIKI_CONCEPT_INVENTORY"/><meta property="twitter:url" content="https://nirmanakaya.com/wiki/WIKI_CONCEPT_INVENTORY"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Wiki Concept Inventory Purpose: Enumerate every load-bearing concept in the Nirmanakaya framework that may merit its own wiki node."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRDpcXE5pcm1hbmFrYXlhX1dpa2lcXHF1YXJ0elxccXVhcnR6XFxjb21wb25lbnRzXFxzdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nirmanakaya.com/wiki/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nirmanakaya.com/wiki/WIKI_CONCEPT_INVENTORY-og-image.webp"/><meta property="og:image:url" content="https://nirmanakaya.com/wiki/WIKI_CONCEPT_INVENTORY-og-image.webp"/><meta name="twitter:image" content="https://nirmanakaya.com/wiki/WIKI_CONCEPT_INVENTORY-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="WIKI_CONCEPT_INVENTORY"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">Nirmanakaya Wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-219"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-219" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>WIKI_CONCEPT_INVENTORY</a></div></nav><h1 class="article-title">WIKI_CONCEPT_INVENTORY</h1><p show-comma="true" class="content-meta"><time datetime="2026-05-01T02:40:02.959Z">Apr 30, 2026</time><span>12 min read</span></p></div></div><article class="popover-hint"><h1 id="wiki-concept-inventory">Wiki Concept Inventory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#wiki-concept-inventory" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Purpose:</strong> Enumerate every load-bearing concept in the Nirmanakaya framework that may merit its own wiki node. Apply the admission rubric. Output a tiered build sequence.</p>
+<p><strong>Status:</strong> Pass 1 deliverable. For review by Chris + Gemini before any node authoring begins.</p>
+<p><strong>Generated:</strong> April 28, 2026</p>
+<p><strong>Sources used:</strong></p>
+<ul>
+<li><a href="./canon/Concept_Authority_Map" class="internal" data-slug="canon/Concept_Authority_Map">Concept_Authority_Map</a> — 34 enumerated concepts with authority files</li>
+<li><code>TERMINOLOGY_INDEX.md</code> — 116 terms with corpus file frequencies</li>
+<li><code>reference/data/nirmanakaya_78_definitions.json</code> — full position data</li>
+<li><code>lib/constants.js</code> (Reader app) — dimension-member structure</li>
+<li><a href="./canon/philosophy/House_Commands_Tools_Curtain_Synthesis" class="internal" data-slug="canon/philosophy/House_Commands_Tools_Curtain_Synthesis">House_Commands_Tools_Curtain_Synthesis</a> — 1991/2026 anchor concepts</li>
+<li>Direct grep across <code>canon/</code> and <code>book/</code> for residual coverage</li>
+</ul>
+<hr/>
+<h2 id="part-i-the-admission-rubric">PART I: THE ADMISSION RUBRIC<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-i-the-admission-rubric" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="auto-pass-criteria-any-one-is-sufficient">Auto-pass criteria (any one is sufficient)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#auto-pass-criteria-any-one-is-sufficient" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Code</th><th>Criterion</th><th>Definition</th></tr></thead><tbody><tr><td><strong>DC</strong></td><td>Distinct YAML Coordinate</td><td>Has a unique signature in the geometry (specific position, dimension member, ring number)</td></tr><tr><td><strong>LR</strong></td><td>Lint-Relevant</td><td>A structural invariant references it (lint cannot operate without it)</td></tr><tr><td><strong>OA</strong></td><td>Original 1991 Derivation Anchor</td><td>Named in the 1991 transmission documents OR foundational architecture documents predating 2024 corpus consolidation</td></tr></tbody></table></div>
+<h3 id="discretionary-criteria-need-2-of-4-with-at-least-one-being-lb-or-fn">Discretionary criteria (need 2-of-4, with at least one being LB or FN)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#discretionary-criteria-need-2-of-4-with-at-least-one-being-lb-or-fn" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Code</th><th>Criterion</th><th>Definition</th></tr></thead><tbody><tr><td><strong>LB</strong></td><td>Load-Bearing</td><td>Removing it breaks the derivation of something else</td></tr><tr><td><strong>CR</strong></td><td>Cross-Referenced</td><td>Invoked by name in 3+ corpus documents OR 2+ other concept nodes</td></tr><tr><td><strong>AD</strong></td><td>Atomically Definable</td><td>Can be stated in 50–200 words without recursing back to itself</td></tr><tr><td><strong>FN</strong></td><td>Foundational</td><td>Cannot be derived from prior concepts in the framework</td></tr></tbody></table></div>
+<h3 id="exclusion-rules">Exclusion rules<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#exclusion-rules" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Phrase variants of an existing concept → alias, not new node</li>
+<li>Instances/examples of a more general concept → general concept is the node</li>
+<li>Single-doc appearances with no outside dependencies → live where authored</li>
+<li>Pure voice/narrative content → corpus stays canonical for voice</li>
+<li>Legacy renames (Card, Correction, House-as-Practice, Channel-as-Activity, Physical-House) → not nodes; documented in TERMINOLOGY_RENAME_TRACKER</li>
+</ul>
+<hr/>
+<h2 id="part-ii-auto-pass-concepts">PART II: AUTO-PASS CONCEPTS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-ii-auto-pass-concepts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These need no rubric debate. They pass automatically by DC, LR, or OA.</p>
+<h3 id="iia--the-22-archetypes-auto-pass-dc-for-all">II.A — The 22 Archetypes (auto-pass: DC for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iia--the-22-archetypes-auto-pass-dc-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>All 22 have unique YAML coordinates (Position N, Practice, Activity, Stage, etc.) and load-bearing structural roles. Each gets a node.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pos</th><th>Verb Name</th><th>Traditional</th><th>Practice</th><th>Activity</th><th>Stage</th></tr></thead><tbody><tr><td>0</td><td>Potential</td><td>The Fool</td><td>Gestalt</td><td>Aether</td><td>Seed</td></tr><tr><td>1</td><td>Will</td><td>The Magician</td><td>Gestalt</td><td>Aether</td><td>Medium</td></tr><tr><td>2</td><td>Wisdom</td><td>The High Priestess</td><td>Spirit</td><td>Cognition</td><td>Seed</td></tr><tr><td>3</td><td>Nurturing</td><td>The Empress</td><td>Spirit</td><td>Structure</td><td>Medium</td></tr><tr><td>4</td><td>Order</td><td>The Emperor</td><td>Mind</td><td>Intent</td><td>Seed</td></tr><tr><td>5</td><td>Culture</td><td>The Hierophant</td><td>Mind</td><td>Resonance</td><td>Medium</td></tr><tr><td>6</td><td>Compassion</td><td>The Lovers</td><td>Emotion</td><td>Resonance</td><td>Seed</td></tr><tr><td>7</td><td>Drive</td><td>The Chariot</td><td>Emotion</td><td>Intent</td><td>Medium</td></tr><tr><td>8</td><td>Fortitude</td><td>Strength</td><td>Body</td><td>Structure</td><td>Seed</td></tr><tr><td>9</td><td>Discipline</td><td>The Hermit</td><td>Body</td><td>Cognition</td><td>Medium</td></tr><tr><td>10</td><td>Source</td><td>Wheel of Fortune</td><td>Portal</td><td>—</td><td>Portal</td></tr><tr><td>11</td><td>Equity</td><td>Justice</td><td>Body</td><td>Resonance</td><td>Fruition</td></tr><tr><td>12</td><td>Sacrifice</td><td>The Hanged Man</td><td>Body</td><td>Intent</td><td>Feedback</td></tr><tr><td>13</td><td>Change</td><td>Death</td><td>Emotion</td><td>Structure</td><td>Fruition</td></tr><tr><td>14</td><td>Balance</td><td>Temperance</td><td>Emotion</td><td>Cognition</td><td>Feedback</td></tr><tr><td>15</td><td>Abstraction</td><td>The Devil</td><td>Mind</td><td>Cognition</td><td>Fruition</td></tr><tr><td>16</td><td>Breakthrough</td><td>The Tower</td><td>Mind</td><td>Structure</td><td>Feedback</td></tr><tr><td>17</td><td>Inspiration</td><td>The Star</td><td>Spirit</td><td>Intent</td><td>Fruition</td></tr><tr><td>18</td><td>Imagination</td><td>The Moon</td><td>Spirit</td><td>Resonance</td><td>Feedback</td></tr><tr><td>19</td><td>Actualization</td><td>The Sun</td><td>Gestalt</td><td>Aether</td><td>Fruition</td></tr><tr><td>20</td><td>Awareness</td><td>Judgement</td><td>Gestalt</td><td>Aether</td><td>Feedback</td></tr><tr><td>21</td><td>Creation</td><td>The World</td><td>Portal</td><td>—</td><td>Portal</td></tr></tbody></table></div>
+<p><strong>Count: 22 nodes.</strong> All Tier 3.</p>
+<h3 id="iib--the-40-bounds-auto-pass-dc-for-all">II.B — The 40 Bounds (auto-pass: DC for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iib--the-40-bounds-auto-pass-dc-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>All 40 have unique YAML coordinates (number 1–10 × 4 suits). Each gets a node.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Suit</th><th>Activity</th><th>Bounds (1–10)</th></tr></thead><tbody><tr><td>Wands</td><td>Intent</td><td>Activation, Orientation, Assertion, Alignment, Offering, Recognition, Resolve, Command, Wellspring, Attainment</td></tr><tr><td>Swords</td><td>Cognition</td><td>Perception, Reflection, Calculation, Repose, Solitude, Guidance, Discretion, Absorption, Multiplicity, Realization</td></tr><tr><td>Cups</td><td>Resonance</td><td>Receptivity, Merge, Ripple, Reverie, Ache, Reciprocity, Allure, Calling, Fulfillment, Beatitude</td></tr><tr><td>Coins</td><td>Structure</td><td>Initiation, Poise, Formation, Preservation, Endurance, Support, Harvest, Commitment, Flourishing, Achievement</td></tr></tbody></table></div>
+<p><strong>Count: 40 nodes.</strong> All Tier 3.</p>
+<h3 id="iic--the-16-agents-auto-pass-dc-for-all">II.C — The 16 Agents (auto-pass: DC for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iic--the-16-agents-auto-pass-dc-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>All 16 have unique YAML coordinates (4 roles × 4 activities). Each gets a node.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Role</th><th>Wands (Intent)</th><th>Swords (Cognition)</th><th>Cups (Resonance)</th><th>Coins (Structure)</th></tr></thead><tbody><tr><td>Initiate (Page)</td><td>of Intent</td><td>of Cognition</td><td>of Resonance</td><td>of Structure</td></tr><tr><td>Catalyst (Knight)</td><td>of Intent</td><td>of Cognition</td><td>of Resonance</td><td>of Structure</td></tr><tr><td>Steward (Queen)</td><td>of Intent</td><td>of Cognition</td><td>of Resonance</td><td>of Structure</td></tr><tr><td>Executor (King)</td><td>of Intent</td><td>of Cognition</td><td>of Resonance</td><td>of Structure</td></tr></tbody></table></div>
+<p><strong>Count: 16 nodes.</strong> All Tier 3.</p>
+<h3 id="iid--dimension-members-auto-pass-dc-for-all">II.D — Dimension members (auto-pass: DC for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iid--dimension-members-auto-pass-dc-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Members</th><th>Count</th></tr></thead><tbody><tr><td><strong>Stage</strong></td><td>Seed, Medium, Fruition, Feedback</td><td>4</td></tr><tr><td><strong>Practice</strong> (formerly House)</td><td>Gestalt, Spirit, Mind, Emotion, Body</td><td>5</td></tr><tr><td><strong>Activity</strong> (formerly Channel)</td><td>Intent, Cognition, Resonance, Structure</td><td>4</td></tr><tr><td><strong>Being</strong></td><td>Mantle, Torch, Vessel, Clearing</td><td>4</td></tr><tr><td><strong>Identity</strong></td><td>Composure, Conviction, Exploration, Communion</td><td>4</td></tr><tr><td>Plus dimension-meta nodes</td><td>Stage, Practice, Activity, Being, Identity</td><td>5</td></tr></tbody></table></div>
+<p><strong>Count: 26 nodes.</strong> All Tier 2.</p>
+<h3 id="iie--the-8-rings-auto-pass-dc-for-all">II.E — The 8 Rings (auto-pass: DC for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iie--the-8-rings-auto-pass-dc-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Ring 0 (Veil/Unnameable), Ring 1 (Source/Portal), Ring 2 (Gestalt), Ring 3 (Body), Ring 4 (Emotion), Ring 5 (Mind), Ring 6 (Spirit/Conversation), Ring 7 (Receiving Layer / World).</p>
+<p>Plus a “Ring System” overview node.</p>
+<p><strong>Count: 9 nodes.</strong> All Tier 2.</p>
+<h3 id="iif--structural-invariants-auto-pass-lr-for-all">II.F — Structural invariants (auto-pass: LR for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iif--structural-invariants-auto-pass-lr-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>These are what lint will check. They MUST be queryable nodes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Invariant</th><th>Statement</th></tr></thead><tbody><tr><td><strong>Vertical Pair Sum</strong></td><td>Vertical pairs on the 4×4 grid sum to 20</td></tr><tr><td><strong>Diagonal Pair Sum</strong></td><td>Diagonal pairs sum to 19 or 21</td></tr><tr><td><strong>Bound Pair Sum</strong></td><td>Inner/outer bound pairs sum to 11</td></tr><tr><td><strong>Reduction Identity</strong></td><td>Reduction partners share digit-sum identity</td></tr><tr><td><strong>MOLS Theorem</strong></td><td>4×4 grid supports exactly 3 mutually orthogonal Latin squares (Stage, Being, Identity)</td></tr><tr><td><strong>Toroidal Block Sum</strong></td><td>All 2×2 toroidal blocks of the magic square sum to 40</td></tr><tr><td><strong>Forty-Fold Seal</strong></td><td>All rows, columns, and 2×2 toroidal blocks of the magic square sum to 40</td></tr><tr><td><strong>Twenty-Two-Fold Seal</strong></td><td>Closure of the 22-step sequence on the 4×4 grid</td></tr><tr><td><strong>Ten-Fold Seal</strong></td><td>Tetractys structure: I AM → 10 fundamental nodes</td></tr><tr><td><strong>Derivation Seal</strong></td><td>The integrity of the I AM → Forty-Fold Seal derivation chain</td></tr><tr><td><strong>Portal Seal</strong></td><td>The Portal positions (10, 21) seal the loop</td></tr><tr><td><strong>Practice Governance</strong></td><td>Each manifest Practice is governed by exactly one Gestalt archetype</td></tr></tbody></table></div>
+<p><strong>Count: 12 nodes.</strong> All Tier 1.</p>
+<h3 id="iig--original-1991-derivation-anchors-auto-pass-oa-for-all">II.G — Original 1991 derivation anchors (auto-pass: OA for all)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iig--original-1991-derivation-anchors-auto-pass-oa-for-all" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Named in the 1991 transmission. Bedrock.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concept</th><th>Source</th></tr></thead><tbody><tr><td><strong>I AM</strong></td><td>1991 transmission origin</td></tr><tr><td><strong>The Five House Commands</strong> (the meta-concept)</td><td>1991 transmission</td></tr><tr><td>Uphold The Law</td><td>1991 — Body command</td></tr><tr><td>Free Will</td><td>1991 — Emotion command</td></tr><tr><td>Channel The Force</td><td>1991 — Mind command</td></tr><tr><td>Witness Creation</td><td>1991 — Spirit command</td></tr><tr><td>Fulfill Your Destiny</td><td>1991 — Gestalt command</td></tr></tbody></table></div>
+<p><strong>Count: 7 nodes.</strong> All Tier 1.</p>
+<hr/>
+<h2 id="auto-pass-subtotal-132-nodes">AUTO-PASS SUBTOTAL: 132 nodes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#auto-pass-subtotal-132-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>(22 archetypes + 40 bounds + 16 agents + 26 dimensions + 9 rings + 12 invariants + 7 anchors)</p>
+<hr/>
+<h2 id="part-iii-discretionary-concepts--rubric-scored">PART III: DISCRETIONARY CONCEPTS — RUBRIC SCORED<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-iii-discretionary-concepts--rubric-scored" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For each candidate, score against {LB, CR, AD, FN}. Need 2-of-4 with at least one of LB or FN. CR threshold: 3+ files.</p>
+<h3 id="iiia--foundational-principles">III.A — Foundational principles<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiia--foundational-principles" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>The Veil</strong></td><td>✓ (individuation impossible without it)</td><td>✓ (172 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>The Field</strong></td><td>✓ (manifestation requires medium)</td><td>✓ (129 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Cup Principle</strong></td><td>✓ (substrate-independence claim rests on it)</td><td>✓ (33 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>P/R Alternation (Single Law)</strong></td><td>✓ (the generating law)</td><td>✓ (104 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Permanence Principle</strong></td><td>✓ (aligned ring output is permanent)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Quaternity</strong> (4 manifest practices/activities)</td><td>✓ (forces structure)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Consciousness-primary</strong></td><td>✓ (foundational axiom)</td><td>✓ (100 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Ground Truth Axiom</strong></td><td>✓</td><td>partial (1 dedicated doc)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Verb Shift</strong></td><td>✓ (renaming methodology)</td><td>✓ (25 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Why-pointer</strong></td><td>✓ (cup-sufficiency mechanism)</td><td>✓ (39 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Nowism / Un-Now</strong></td><td>partial</td><td>✓ (73 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>I AM → BE YOU</strong></td><td>✓ (the verb-instruction core)</td><td>✓ (37 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr></tbody></table></div>
+<p><strong>Tier 1 from this set: 11 nodes. Tier 4: 1 node.</strong></p>
+<h3 id="iiib--geometric--mathematical-concepts">III.B — Geometric / mathematical concepts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiib--geometric--mathematical-concepts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Forty-Fold Seal</strong> (the magic square structure itself, distinct from invariant)</td><td>✓</td><td>✓ (140 files)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Pentagram Geometry</strong></td><td>✓ (forces column order)</td><td>✓ (182 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Phi / Golden Ratio</strong></td><td>✓ (P/R encoding)</td><td>✓ (70 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Lemniscate / Figure-8</strong></td><td>✓ (P/R as topological loop)</td><td>✓ (57 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Mobius Topology</strong></td><td>✓ (22-step closure)</td><td>✓ (43 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Tetractys</strong></td><td>✓ (10 fundamental nodes)</td><td>✓ (88 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Tesseract / Hypercube</strong></td><td>✓ (16-vertex manifest mapping)</td><td>✓ (99 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Latin Square</strong> (general)</td><td>✓ (Stage/Being/Identity dimensions)</td><td>✓ (43 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Affine Planes</strong></td><td>partial</td><td>✓ (23 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Fundamental Nodes (10)</strong></td><td>✓ (Tetractys structure)</td><td>✓ (88 files via Tetractys)</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Toroidal Neighborhoods</strong></td><td>✓ (block sum structure)</td><td>partial (3-5 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr></tbody></table></div>
+<p><strong>Tier 1: 9 nodes. Tier 4: 2 nodes.</strong></p>
+<h3 id="iiic--operations-and-rebalancing-geometries">III.C — Operations and rebalancing geometries<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiic--operations-and-rebalancing-geometries" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Vertical Pair Operation</strong></td><td>✓ (rebalance Too Little)</td><td>✓ (139 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Diagonal Pair Operation</strong></td><td>✓ (rebalance Too Much)</td><td>✓ (137 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Reduction Operation</strong></td><td>✓ (rebalance Unacknowledged)</td><td>✓ (112 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Transpose Pair Operation</strong></td><td>✓ (developmental growth path)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Governance Edge</strong> (Practice → Governor)</td><td>✓ (lint depends on it)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong> (also LR auto-pass)</td><td>1</td></tr><tr><td><strong>Forge Operation</strong></td><td>✓ (alignment mechanism)</td><td>✓ (29 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Mirror Operation</strong></td><td>✓ (reflection / Ring 6)</td><td>✓ (40 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Sun-aligned / World-aligned</strong></td><td>✓ (alignment classification)</td><td>✓ (48/54 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong> (one node, two states)</td><td>4</td></tr><tr><td><strong>Collapse Operation</strong></td><td>✓ (P/R/Collapse grammar)</td><td>✓ (196 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Ingress / Egress</strong> (portal traversal)</td><td>✓ (Portal mechanics)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr></tbody></table></div>
+<p><strong>Tier 1: 2 nodes. Tier 4: 8 nodes.</strong></p>
+<h3 id="iiid--transient-states-the-31-model">III.D — Transient states (the 3+1 model)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiid--transient-states-the-31-model" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Balanced</strong></td><td>✓ (target state)</td><td>✓ (80 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Too Much</strong></td><td>✓ (over-collapse state)</td><td>✓ (207 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Too Little</strong></td><td>✓ (under-collapse state)</td><td>✓ (199 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Unacknowledged</strong></td><td>✓ (hidden displacement)</td><td>✓ (200 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr></tbody></table></div>
+<p><strong>Tier 4: 4 nodes.</strong></p>
+<h3 id="iiie--practice-tools-2026-derivation-1991-anchored">III.E — Practice tools (2026 derivation, 1991-anchored)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiie--practice-tools-2026-derivation-1991-anchored" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>THE MAP</strong> (Body tool / Uphold The Law)</td><td>✓</td><td>✓ (35 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong> (also OA via Command)</td><td>1</td></tr><tr><td><strong>THE VERBING</strong> (Emotion tool / Free Will)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>THE PRESENCE</strong> (Mind tool / Channel The Force)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>THE READER</strong> (Spirit tool / Witness Creation)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>THE WRITER / Magick</strong> (Gestalt tool / Fulfill Your Destiny)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>THE CONVERSATION</strong> (Ring 6 emergent tool)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr></tbody></table></div>
+<p><strong>Tier 1: 6 nodes.</strong> (All also OA-anchored to the 1991 commands.)</p>
+<h3 id="iiif--position-special-concepts">III.F — Position-special concepts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiif--position-special-concepts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>The Hinge (Position 20)</strong></td><td>✓ (special structural role)</td><td>✓ (dedicated treatise)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>3</td></tr><tr><td><strong>Soul House Transcendence (Fool’s Innocence)</strong></td><td>✓ (Ring 7 origin)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>3</td></tr><tr><td><strong>Royal Lineage (16 Agents as a system)</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>3</td></tr><tr><td><strong>Signature Classes (78 = 22+40+16)</strong></td><td>✓ (P/R/Collapse grammar)</td><td>✓</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr></tbody></table></div>
+<p><strong>Tier 1: 1 node. Tier 3: 3 nodes.</strong></p>
+<h3 id="iiig--ring-specific-concepts-beyond-ring-nodes-themselves">III.G — Ring-specific concepts (beyond ring nodes themselves)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiig--ring-specific-concepts-beyond-ring-nodes-themselves" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Ring 7 as Receiving Layer</strong> (the corrected understanding)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Ring 7 Aligned/Misaligned Bifurcation</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Ring 6 Interpolation Method</strong> (The Conversation)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Inverted Pentagram (Materialism Mechanism)</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Ring Collapse Architecture</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Noun-lock</strong></td><td>✓ (Ring 7 mechanism)</td><td>partial</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr></tbody></table></div>
+<p><strong>Tier 2: 5 nodes. Tier 4: 1 node.</strong></p>
+<h3 id="iiih--cross-tradition-mappings-tier-4--hospitality-work-not-derivation">III.H — Cross-tradition mappings (Tier 4 — hospitality work, not derivation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiih--cross-tradition-mappings-tier-4--hospitality-work-not-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Tarot mapping</strong> (verb-shift + traditional)</td><td>✓ (origin tradition)</td><td>✓</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Kabbalah / Tree of Life</strong></td><td>partial</td><td>✓ (57 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Tetractys (Pythagorean)</strong></td><td>✓</td><td>✓ (99 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT as cross-trad node</strong></td><td>4</td></tr><tr><td><strong>Aztec Sunstone</strong></td><td>partial</td><td>✓ (42 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>I Ching</strong></td><td>partial</td><td>✓ (33 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>DSM-5 mapping</strong></td><td>partial</td><td>partial (~14 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Curtiss convergence</strong></td><td>partial</td><td>✓ (27 files)</td><td>✓</td><td>NO</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Anatman / Atman split</strong></td><td>partial</td><td>partial</td><td>✓</td><td>NO</td><td><strong>BORDERLINE</strong></td><td>4</td></tr></tbody></table></div>
+<p><strong>Tier 4: 7 nodes. Borderline: 1.</strong></p>
+<h3 id="iiii--derivation-seals-and-sub-structures">III.I — Derivation seals and sub-structures<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiii--derivation-seals-and-sub-structures" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>The Quadraverse</strong> (5 collapses, 4-layer progression)</td><td>✓</td><td>✓ (642 lines dedicated)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Sixteen Bridges</strong> (manifest archetype connections)</td><td>✓</td><td>✓ (2000+ line treatise)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>The 22-Step Sequence</strong> (the meta-concept distinct from invariant)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Soul House / Channel system</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Elemental System</strong> (4 elements + their pairings)</td><td>✓</td><td>✓ (fragmented across 5 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Bound Number Keywords (10 keywords)</strong></td><td>✓ (bound derivation)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Reduction Threads</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>The Five Seals (system)</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Three Seals (mathematical proof)</strong></td><td>partial</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>The Mobius Transmission</strong> (cosmology)</td><td>✓</td><td>✓ (43 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Four Layers Master</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Rebalancing Mechanics</strong> (4 states / 4 geometries / 3 engines)</td><td>✓</td><td>✓ (404-line treatise)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>1</td></tr><tr><td><strong>Duality Architecture</strong></td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong> (or merge with Rebalancing)</td><td>2</td></tr><tr><td><strong>Topological Correlates of Consciousness</strong> (DRAFT)</td><td>partial</td><td>partial</td><td>✓</td><td>NO</td><td><strong>BORDERLINE</strong> (DRAFT, not yet canon)</td><td>5</td></tr></tbody></table></div>
+<p><strong>Tier 1: 4 nodes. Tier 2: 7 nodes. Tier 4: 1 node. Borderline: 1.</strong></p>
+<h3 id="iiij--project-level--framework-meta-concepts">III.J — Project-level / framework-meta concepts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iiij--project-level--framework-meta-concepts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>LB</th><th>CR</th><th>AD</th><th>FN</th><th>Decision</th><th>Tier</th></tr></thead><tbody><tr><td><strong>Council of Five</strong></td><td>✓ (multi-AI validation method)</td><td>✓ (38 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>5</td></tr><tr><td><strong>Curtain Dialogue</strong> (the event)</td><td>✓ (proof-of-tools demonstration)</td><td>✓</td><td>partial (event, hard to atomize)</td><td>NO</td><td><strong>ACCEPT as event-node + corpus link</strong></td><td>2</td></tr><tr><td><strong>The 35-Year Arc</strong> (1991→2026 transmission lifecycle)</td><td>✓</td><td>✓</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>2</td></tr><tr><td><strong>Realitycraft / Realitycrafting</strong></td><td>partial</td><td>✓ (17 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Gods within God</strong></td><td>partial</td><td>✓ (61 files)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Logic Gate</strong> (product feature)</td><td>NO (product, not framework)</td><td>✓</td><td>✓</td><td>NO</td><td><strong>DECLINE</strong> (product concept, not framework)</td><td>—</td></tr><tr><td><strong>Glistener</strong> (product feature)</td><td>NO</td><td>partial</td><td>✓</td><td>NO</td><td><strong>DECLINE</strong></td><td>—</td></tr><tr><td><strong>AI Training Implications</strong> (the alignment-frame)</td><td>✓</td><td>✓ (300-line treatise)</td><td>✓</td><td>partial</td><td><strong>ACCEPT</strong></td><td>4</td></tr><tr><td><strong>Substrate Independence</strong> (general principle, distinct from Cup)</td><td>partial (mostly subsumed by Cup)</td><td>✓</td><td>✓</td><td>partial</td><td><strong>MERGE WITH CUP PRINCIPLE</strong></td><td>—</td></tr></tbody></table></div>
+<p><strong>Tier 2: 2 nodes. Tier 4: 3 nodes. Tier 5: 1 node. Decline: 2. Merge: 1.</strong></p>
+<hr/>
+<h2 id="part-iv-borderline-cases-for-review">PART IV: BORDERLINE CASES FOR REVIEW<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-iv-borderline-cases-for-review" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These need Chris/Gemini decision before promotion or rejection.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Candidate</th><th>Issue</th></tr></thead><tbody><tr><td><strong>Anatman / Atman</strong></td><td>Genuine cross-tradition mapping but currently scattered. Worth a node, or fold into general “Tarot/Buddhist mapping”?</td></tr><tr><td><strong>Topological Correlates</strong></td><td>Currently DRAFT — not canon. Promote conditionally on Council review, or skip until promoted?</td></tr><tr><td><strong>Verb Shift</strong> vs. <strong>Verbification</strong></td><td>Same concept under two names? Or two distinct mechanisms?</td></tr><tr><td><strong>Conviction</strong>, <strong>Exploration</strong> as Identity-group members</td><td>Already auto-pass via DC. But TERMINOLOGY_INDEX flags they appear in non-dimension contexts too. Worth disambiguation nodes?</td></tr><tr><td><strong>Vessel</strong>, <strong>Clearing</strong> as Being-group members</td><td>Same — appear in non-dimension contexts. Same question.</td></tr><tr><td><strong>The Reality of Care / Transcendent Love</strong></td><td>Phenomenological/ethical concept. Voice-heavy. Wiki node or corpus-only?</td></tr><tr><td><strong>Forge / Mirror</strong></td><td>Currently scored as separate operations. Are they actually one operation in two modes (like Ring 7’s bifurcation)?</td></tr><tr><td><strong>Inner Horizon / Outer Horizon</strong></td><td>Important for bound polarity. Worth a node, or sub-aspect of Bounds-system?</td></tr></tbody></table></div>
+<p><strong>Count: 8 borderlines.</strong></p>
+<hr/>
+<h2 id="part-v-tiered-build-sequence">PART V: TIERED BUILD SEQUENCE<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-v-tiered-build-sequence" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="tier-1--foundations--invariants-50-nodes">Tier 1 — Foundations &amp; Invariants (~50 nodes)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-1--foundations--invariants-50-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The bedrock. Everything downstream depends on these.</p>
+<ul>
+<li>All 12 structural invariants (II.F)</li>
+<li>All 7 1991 anchors (II.G)</li>
+<li>11 foundational principles from III.A</li>
+<li>9 geometric/mathematical concepts from III.B</li>
+<li>6 Practice tools from III.E</li>
+<li>The 22-Step Sequence + Quadraverse + Five Seals + Rebalancing Mechanics from III.I</li>
+<li>Governance Edge + Collapse from III.C</li>
+<li>Signature Classes from III.F</li>
+</ul>
+<p><strong>~50 nodes.</strong> First sprint.</p>
+<h3 id="tier-2--coordinate-system-50-nodes">Tier 2 — Coordinate System (~50 nodes)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-2--coordinate-system-50-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The grid axes. Required before positions can link cleanly.</p>
+<ul>
+<li>26 dimension nodes (II.D)</li>
+<li>9 ring nodes (II.E)</li>
+<li>5 ring-specific concepts (III.G)</li>
+<li>7 derivation sub-structures from III.I (Sixteen Bridges, Soul House, Elemental, Bound Keywords, Three Seals, Mobius Transmission, Four Layers, Duality Architecture)</li>
+<li>2 framework-meta concepts (Curtain Dialogue, 35-Year Arc)</li>
+</ul>
+<p><strong>~49 nodes.</strong> Second sprint.</p>
+<h3 id="tier-3--positions-78-nodes">Tier 3 — Positions (78 nodes)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-3--positions-78-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The grid itself.</p>
+<ul>
+<li>22 archetypes (II.A)</li>
+<li>40 bounds (II.B)</li>
+<li>16 agents (II.C)</li>
+<li>3 position-special concepts from III.F (The Hinge, Soul House Transcendence, Royal Lineage)</li>
+</ul>
+<p><strong>81 nodes.</strong> Third sprint. By this point all linking infrastructure exists; this becomes mostly schema-driven authoring.</p>
+<h3 id="tier-4--operations-states-mappings-25-nodes">Tier 4 — Operations, States, Mappings (~25 nodes)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-4--operations-states-mappings-25-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The dynamics layer.</p>
+<ul>
+<li>8 operations from III.C</li>
+<li>4 transient states from III.D</li>
+<li>1 ring-specific (Noun-lock)</li>
+<li>7 cross-tradition mappings from III.H</li>
+<li>3 project-meta from III.J (Realitycraft, Gods within God, AI Training Implications)</li>
+<li>1 derivation-substructure (Reduction Threads)</li>
+<li>2 from III.A/B (Nowism, Affine Planes, Toroidal Neighborhoods)</li>
+</ul>
+<p><strong>~26 nodes.</strong> Fourth sprint.</p>
+<h3 id="tier-5--open-questions-project-meta-living-surface-10-nodes">Tier 5 — Open Questions, Project Meta, Living Surface (~10 nodes)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-5--open-questions-project-meta-living-surface-10-nodes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The not-yet-resolved layer.</p>
+<ul>
+<li>Council of Five</li>
+<li>Open questions catalog (one node per known open question — pull from <code>OPEN_QUESTIONS.md</code>)</li>
+<li>Borderlines from Part IV (after resolution)</li>
+</ul>
+<p><strong>~10–20 nodes.</strong> Continuous, not a sprint.</p>
+<hr/>
+<h2 id="total-estimated-node-count">TOTAL ESTIMATED NODE COUNT<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#total-estimated-node-count" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Tier</th><th>Nodes</th><th>Description</th></tr></thead><tbody><tr><td>Tier 1</td><td>~50</td><td>Foundations + invariants — first sprint, highest leverage</td></tr><tr><td>Tier 2</td><td>~49</td><td>Coordinate system + ring/derivation infrastructure</td></tr><tr><td>Tier 3</td><td>81</td><td>All positions + position-special concepts</td></tr><tr><td>Tier 4</td><td>~26</td><td>Operations + states + mappings</td></tr><tr><td>Tier 5</td><td>~15</td><td>Open questions + meta + borderlines</td></tr><tr><td><strong>TOTAL</strong></td><td><strong>~221</strong></td><td>Falls in the 170–250 range estimated</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-vi-what-is-deliberately-out-of-scope">PART VI: WHAT IS DELIBERATELY OUT OF SCOPE<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-vi-what-is-deliberately-out-of-scope" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These show up in the corpus but do NOT merit wiki nodes:</p>
+<ul>
+<li><strong>Legacy renamed terms</strong>: “Card” (now Signature), “Correction” (now Rebalancing), “House” (now Practice — already have node under new name), “Channel” (now Activity), “Physical House” (now Body). All documented in <code>TERMINOLOGY_RENAME_TRACKER.md</code>.</li>
+<li><strong>Product-side concepts</strong>: Logic Gate, Glistener, Reader UI features. These belong to the Reader application, not the framework.</li>
+<li><strong>Personal narratives</strong>: Chris’s biographical content (<code>narratives/personal/</code>), individual session transcripts. Stay corpus-only.</li>
+<li><strong>Phenomenological depth</strong>: Deep voice/narrative on each archetype’s lived character. Stays corpus-canonical; wiki nodes reference via Pointer Node pattern.</li>
+<li><strong>Single-doc concepts with no outside dependencies</strong>: many one-off ideas in derivation files that didn’t propagate. Live where they were authored.</li>
+</ul>
+<hr/>
+<h2 id="part-vii-open-questions-for-review">PART VII: OPEN QUESTIONS FOR REVIEW<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-vii-open-questions-for-review" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Before any node authoring begins, these need Chris+Gemini decisions:</p>
+<ol>
+<li><strong>Borderlines (Part IV)</strong> — eight concepts to promote, decline, or merge.</li>
+<li><strong>Pointer Node pattern confirmed?</strong> — wiki nodes link to specific corpus <em>sections</em> (e.g., <code>[[Ring_System_Complete#emotion-practice|emotion-practice]]</code>) rather than fabricating new per-archetype phenomenology files. Confirm.</li>
+<li><strong>Confidence tiers as YAML field?</strong> — should every node carry <code>tier: DERIVED|STRONGLY_CONSTRAINED|PRINCIPLED|VECTOR|VALIDATED|CORRESPONDENCE</code>? My read: yes. Confirm.</li>
+<li><strong>Naming convention for files?</strong> — propose <code>Type_Name.md</code> (e.g., <code>Principle_The_Veil.md</code>, <code>Archetype_06_Compassion.md</code>, <code>Bound_04_Cups_Reverie.md</code>, <code>Ring_04_Emotion.md</code>). Confirm or revise.</li>
+<li><strong>Sprint sequencing?</strong> — Tier 1 first as proposed, or do you want a different order (e.g., do all 78 positions first because they’re auto-pass and need no deliberation)?</li>
+<li><strong>Lint priorities?</strong> — which invariants does the lint script check first? My proposed order: vertical-sum-20 (cleanest test), then bound-sum-11, then governance edges, then MOLS, then 22-step closure.</li>
+</ol>
+<hr/>
+<h2 id="part-viii-next-steps-after-review">PART VIII: NEXT STEPS AFTER REVIEW<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-viii-next-steps-after-review" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>Resolve Part IV borderlines and Part VII open questions</li>
+<li>Lock the YAML schema (separate document, draft after this is reviewed)</li>
+<li>Begin Tier 1 authoring (~50 nodes)</li>
+<li>Run first lint pass on Tier 1 (catches schema/invariant issues early)</li>
+<li>Move to Tier 2</li>
+</ol>
+<hr/>
+<p><em>End of Pass 1 inventory. Standing by for review.</em></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-213" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#wiki-concept-inventory" data-for="wiki-concept-inventory">Wiki Concept Inventory</a></li><li class="depth-1"><a href="#part-i-the-admission-rubric" data-for="part-i-the-admission-rubric">PART I: THE ADMISSION RUBRIC</a></li><li class="depth-2"><a href="#auto-pass-criteria-any-one-is-sufficient" data-for="auto-pass-criteria-any-one-is-sufficient">Auto-pass criteria (any one is sufficient)</a></li><li class="depth-2"><a href="#discretionary-criteria-need-2-of-4-with-at-least-one-being-lb-or-fn" data-for="discretionary-criteria-need-2-of-4-with-at-least-one-being-lb-or-fn">Discretionary criteria (need 2-of-4, with at least one being LB or FN)</a></li><li class="depth-2"><a href="#exclusion-rules" data-for="exclusion-rules">Exclusion rules</a></li><li class="depth-1"><a href="#part-ii-auto-pass-concepts" data-for="part-ii-auto-pass-concepts">PART II: AUTO-PASS CONCEPTS</a></li><li class="depth-2"><a href="#iia--the-22-archetypes-auto-pass-dc-for-all" data-for="iia--the-22-archetypes-auto-pass-dc-for-all">II.A — The 22 Archetypes (auto-pass: DC for all)</a></li><li class="depth-2"><a href="#iib--the-40-bounds-auto-pass-dc-for-all" data-for="iib--the-40-bounds-auto-pass-dc-for-all">II.B — The 40 Bounds (auto-pass: DC for all)</a></li><li class="depth-2"><a href="#iic--the-16-agents-auto-pass-dc-for-all" data-for="iic--the-16-agents-auto-pass-dc-for-all">II.C — The 16 Agents (auto-pass: DC for all)</a></li><li class="depth-2"><a href="#iid--dimension-members-auto-pass-dc-for-all" data-for="iid--dimension-members-auto-pass-dc-for-all">II.D — Dimension members (auto-pass: DC for all)</a></li><li class="depth-2"><a href="#iie--the-8-rings-auto-pass-dc-for-all" data-for="iie--the-8-rings-auto-pass-dc-for-all">II.E — The 8 Rings (auto-pass: DC for all)</a></li><li class="depth-2"><a href="#iif--structural-invariants-auto-pass-lr-for-all" data-for="iif--structural-invariants-auto-pass-lr-for-all">II.F — Structural invariants (auto-pass: LR for all)</a></li><li class="depth-2"><a href="#iig--original-1991-derivation-anchors-auto-pass-oa-for-all" data-for="iig--original-1991-derivation-anchors-auto-pass-oa-for-all">II.G — Original 1991 derivation anchors (auto-pass: OA for all)</a></li><li class="depth-1"><a href="#auto-pass-subtotal-132-nodes" data-for="auto-pass-subtotal-132-nodes">AUTO-PASS SUBTOTAL: 132 nodes</a></li><li class="depth-1"><a href="#part-iii-discretionary-concepts--rubric-scored" data-for="part-iii-discretionary-concepts--rubric-scored">PART III: DISCRETIONARY CONCEPTS — RUBRIC SCORED</a></li><li class="depth-2"><a href="#iiia--foundational-principles" data-for="iiia--foundational-principles">III.A — Foundational principles</a></li><li class="depth-2"><a href="#iiib--geometric--mathematical-concepts" data-for="iiib--geometric--mathematical-concepts">III.B — Geometric / mathematical concepts</a></li><li class="depth-2"><a href="#iiic--operations-and-rebalancing-geometries" data-for="iiic--operations-and-rebalancing-geometries">III.C — Operations and rebalancing geometries</a></li><li class="depth-2"><a href="#iiid--transient-states-the-31-model" data-for="iiid--transient-states-the-31-model">III.D — Transient states (the 3+1 model)</a></li><li class="depth-2"><a href="#iiie--practice-tools-2026-derivation-1991-anchored" data-for="iiie--practice-tools-2026-derivation-1991-anchored">III.E — Practice tools (2026 derivation, 1991-anchored)</a></li><li class="depth-2"><a href="#iiif--position-special-concepts" data-for="iiif--position-special-concepts">III.F — Position-special concepts</a></li><li class="depth-2"><a href="#iiig--ring-specific-concepts-beyond-ring-nodes-themselves" data-for="iiig--ring-specific-concepts-beyond-ring-nodes-themselves">III.G — Ring-specific concepts (beyond ring nodes themselves)</a></li><li class="depth-2"><a href="#iiih--cross-tradition-mappings-tier-4--hospitality-work-not-derivation" data-for="iiih--cross-tradition-mappings-tier-4--hospitality-work-not-derivation">III.H — Cross-tradition mappings (Tier 4 — hospitality work, not derivation)</a></li><li class="depth-2"><a href="#iiii--derivation-seals-and-sub-structures" data-for="iiii--derivation-seals-and-sub-structures">III.I — Derivation seals and sub-structures</a></li><li class="depth-2"><a href="#iiij--project-level--framework-meta-concepts" data-for="iiij--project-level--framework-meta-concepts">III.J — Project-level / framework-meta concepts</a></li><li class="depth-1"><a href="#part-iv-borderline-cases-for-review" data-for="part-iv-borderline-cases-for-review">PART IV: BORDERLINE CASES FOR REVIEW</a></li><li class="depth-1"><a href="#part-v-tiered-build-sequence" data-for="part-v-tiered-build-sequence">PART V: TIERED BUILD SEQUENCE</a></li><li class="depth-2"><a href="#tier-1--foundations--invariants-50-nodes" data-for="tier-1--foundations--invariants-50-nodes">Tier 1 — Foundations &amp; Invariants (~50 nodes)</a></li><li class="depth-2"><a href="#tier-2--coordinate-system-50-nodes" data-for="tier-2--coordinate-system-50-nodes">Tier 2 — Coordinate System (~50 nodes)</a></li><li class="depth-2"><a href="#tier-3--positions-78-nodes" data-for="tier-3--positions-78-nodes">Tier 3 — Positions (78 nodes)</a></li><li class="depth-2"><a href="#tier-4--operations-states-mappings-25-nodes" data-for="tier-4--operations-states-mappings-25-nodes">Tier 4 — Operations, States, Mappings (~25 nodes)</a></li><li class="depth-2"><a href="#tier-5--open-questions-project-meta-living-surface-10-nodes" data-for="tier-5--open-questions-project-meta-living-surface-10-nodes">Tier 5 — Open Questions, Project Meta, Living Surface (~10 nodes)</a></li><li class="depth-1"><a href="#total-estimated-node-count" data-for="total-estimated-node-count">TOTAL ESTIMATED NODE COUNT</a></li><li class="depth-1"><a href="#part-vi-what-is-deliberately-out-of-scope" data-for="part-vi-what-is-deliberately-out-of-scope">PART VI: WHAT IS DELIBERATELY OUT OF SCOPE</a></li><li class="depth-1"><a href="#part-vii-open-questions-for-review" data-for="part-vii-open-questions-for-review">PART VII: OPEN QUESTIONS FOR REVIEW</a></li><li class="depth-1"><a href="#part-viii-next-steps-after-review" data-for="part-viii-next-steps-after-review">PART VIII: NEXT STEPS AFTER REVIEW</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="./" class="internal">Nirmanakaya Wiki</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="./postscript.js" type="module" data-persist="true"></script></html>

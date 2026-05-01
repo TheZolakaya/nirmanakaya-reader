@@ -1,11 +1,12 @@
 {
   "name": "nirmanakaya-reader",
-  "version": "0.99.84",
+  "version": "0.99.85",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:wiki": "node scripts/build-wiki.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

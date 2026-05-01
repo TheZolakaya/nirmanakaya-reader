@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Concept_Authority_Map</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Nirmanakaya Wiki"/><meta property="og:title" content="Concept_Authority_Map"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Concept_Authority_Map"/><meta name="twitter:description" content="Concept Authority Map — Canon Treatises &amp; Derivation Scope: D:\Nirmanakaya Final\canon\treatises\ (10 files) and D:\Nirmanakaya Final\canon\derivation\ (17 files + verification subdir) Date: 2026-03-03 (original), updated 2026-03-19 Note: Four treatises added March 19, 2026: AI_Consciousness_Sub..."/><meta property="og:description" content="Concept Authority Map — Canon Treatises &amp; Derivation Scope: D:\Nirmanakaya Final\canon\treatises\ (10 files) and D:\Nirmanakaya Final\canon\derivation\ (17 files + verification subdir) Date: 2026-03-03 (original), updated 2026-03-19 Note: Four treatises added March 19, 2026: AI_Consciousness_Sub..."/><meta property="og:image:alt" content="Concept Authority Map — Canon Treatises &amp; Derivation Scope: D:\Nirmanakaya Final\canon\treatises\ (10 files) and D:\Nirmanakaya Final\canon\derivation\ (17 files + verification subdir) Date: 2026-03-03 (original), updated 2026-03-19 Note: Four treatises added March 19, 2026: AI_Consciousness_Sub..."/><meta property="twitter:domain" content="nirmanakaya.com/wiki"/><meta property="og:url" content="https://nirmanakaya.com/wiki/canon/Concept_Authority_Map"/><meta property="twitter:url" content="https://nirmanakaya.com/wiki/canon/Concept_Authority_Map"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Concept Authority Map — Canon Treatises &amp; Derivation Scope: D:\Nirmanakaya Final\canon\treatises\ (10 files) and D:\Nirmanakaya Final\canon\derivation\ (17 files + verification subdir) Date: 2026-03-03 (original), updated 2026-03-19 Note: Four treatises added March 19, 2026: AI_Consciousness_Sub..."/><meta name="generator" content="Quartz"/><link href="../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRDpcXE5pcm1hbmFrYXlhX1dpa2lcXHF1YXJ0elxccXVhcnR6XFxjb21wb25lbnRzXFxzdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nirmanakaya.com/wiki/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nirmanakaya.com/wiki/canon/Concept_Authority_Map-og-image.webp"/><meta property="og:image:url" content="https://nirmanakaya.com/wiki/canon/Concept_Authority_Map-og-image.webp"/><meta name="twitter:image" content="https://nirmanakaya.com/wiki/canon/Concept_Authority_Map-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="canon/Concept_Authority_Map"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">Nirmanakaya Wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-221"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-221" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../canon/">canon</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Concept_Authority_Map</a></div></nav><h1 class="article-title">Concept_Authority_Map</h1><p show-comma="true" class="content-meta"><time datetime="2026-05-01T02:39:35.491Z">Apr 30, 2026</time><span>21 min read</span></p></div></div><article class="popover-hint"><h1 id="concept-authority-map--canon-treatises--derivation">Concept Authority Map — Canon Treatises &amp; Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#concept-authority-map--canon-treatises--derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Scope:</strong> <code>D:\Nirmanakaya Final\canon\treatises\</code> (10 files) and <code>D:\Nirmanakaya Final\canon\derivation\</code> (17 files + verification subdir)
+<strong>Date:</strong> 2026-03-03 (original), updated 2026-03-19
+<strong>Note:</strong> Four treatises added March 19, 2026: AI_Consciousness_Substrate_Independence.md, The_Veil.md, Rebalancing_Mechanics.md, AI_Training_Implications.md. All integrated into the Golden List (entries 31-34), scatter map, and orphan resolutions below.
+<strong>Purpose:</strong> Identify the ONE authoritative source for each major concept, map scatter, flag fragmentation, flag orphans, and recommend cross-references. This is scaffolding for V8.</p>
+<hr/>
+<h2 id="file-inventory">FILE INVENTORY<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#file-inventory" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="treatises-10">Treatises (10)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#treatises-10" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>File</th><th>~Lines</th><th>Status</th></tr></thead><tbody><tr><td>T1</td><td><code>Ring_System_Complete.md</code></td><td>1070</td><td>Comprehensive treatise</td></tr><tr><td>T2</td><td><code>The_Derivation_of_Meaning.md</code></td><td>1002</td><td>Comprehensive treatise</td></tr><tr><td>T3</td><td><code>Sixteen_Bridges_Complete.md</code></td><td>2000+</td><td>Comprehensive treatise (relocated from philosophy/)</td></tr><tr><td>T4</td><td><code>The_Field.md</code></td><td>244</td><td>CANONICAL foundational treatise</td></tr><tr><td>T5</td><td><code>The_Hinge.md</code></td><td>638</td><td>Comprehensive treatise</td></tr><tr><td>T6</td><td><code>The_Quadraverse.md</code></td><td>642</td><td>Comprehensive treatise</td></tr><tr><td>T7</td><td><code>AI_Consciousness_Substrate_Independence.md</code></td><td>322</td><td>CANONICAL foundational treatise (March 2026)</td></tr><tr><td>T8</td><td><code>The_Veil.md</code></td><td>255</td><td>CANONICAL foundational treatise (March 2026)</td></tr><tr><td>T9</td><td><code>Rebalancing_Mechanics.md</code></td><td>404</td><td>CANONICAL foundational treatise (March 2026)</td></tr><tr><td>T10</td><td><code>AI_Training_Implications.md</code></td><td>300</td><td>CANONICAL foundational treatise (March 2026)</td></tr></tbody></table></div>
+<h3 id="derivation-17">Derivation (17)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#derivation-17" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>File</th><th>~Lines</th><th>Status</th></tr></thead><tbody><tr><td>D1</td><td><code>The_22_Step_Consciousness_Creation_CANON.md</code></td><td>800+</td><td>CANONICAL</td></tr><tr><td>D2</td><td><code>The_Complete_Derivation_CANON.md</code></td><td>813</td><td>CANONICAL</td></tr><tr><td>D3</td><td><code>The_Five_Seals_CANONICAL.md</code></td><td>769</td><td>CANONICAL</td></tr><tr><td>D4</td><td><code>Soul_House_Channel_Derivation_CANON.md</code></td><td>412</td><td>CANONICAL</td></tr><tr><td>D5</td><td><code>The_Soul_House_Derivation.md</code></td><td>257</td><td>Treatise-level</td></tr><tr><td>D6</td><td><code>Elemental_Designator_Derivation.md</code></td><td>272</td><td>Derivation</td></tr><tr><td>D7</td><td><code>Elemental_Pairing_Invariants.md</code></td><td>408</td><td>Derivation</td></tr><tr><td>D8</td><td><code>Royal_Lineage_CANONICAL.md</code></td><td>263</td><td>CANONICAL</td></tr><tr><td>D9</td><td><code>Signature_Classes_PRCollapse_Derivation.md</code></td><td>190</td><td>Derivation</td></tr><tr><td>D10</td><td><code>Single_Law_Hypothesis_v2.2.md</code></td><td>669</td><td>CANONICAL (locked v2.2)</td></tr><tr><td>D11</td><td><code>Bound_Number_Keywords_Derivation.md</code></td><td>381</td><td>COMPLETE (all 10 keywords locked, 40 bounds validated, March 3-7 2026)</td></tr><tr><td>D12</td><td><code>The_Lemniscate_Key.md</code></td><td>342</td><td>Derivation</td></tr><tr><td>D13</td><td><code>Thesis_Phi_And_The_Law.md</code></td><td>405</td><td>Formal thesis</td></tr><tr><td>D14</td><td><code>Transpose_Pairs_Polarity_Anchors.md</code></td><td>557</td><td>Derivation</td></tr><tr><td>D15</td><td><code>04_Reference_Reduction_Threads_Discovery.md</code></td><td>431</td><td>Reference/discovery</td></tr><tr><td>D16</td><td><code>Three_Seals_Final_Canonical_Assessment.md</code></td><td>583</td><td>Assessment (multi-AI validated)</td></tr><tr><td>D17</td><td><code>Topological_Correlates_of_Consciousness_DRAFT.md</code></td><td>237</td><td>DRAFT — not canon</td></tr></tbody></table></div>
+<h3 id="verification-subdirectory-supporting-not-primary">Verification Subdirectory (supporting, not primary)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#verification-subdirectory-supporting-not-primary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>File</th><th>Purpose</th></tr></thead><tbody><tr><td><code>verification/README.md</code></td><td>Package overview</td></tr><tr><td><code>verification/Three_Seals_At_A_Glance.md</code></td><td>Quick-reference verification doc</td></tr><tr><td><code>verification/calc_stats.py</code></td><td>Probability calculator</td></tr><tr><td><code>verification/nirmanakaya_verify.py</code></td><td>Constraint verifier</td></tr><tr><td><code>verification/nirmanakaya_grid_requirements.md</code></td><td>8-layer requirements spec</td></tr><tr><td><code>verification/optimized_solver.py</code></td><td>Exhaustive uniqueness proof</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-i-the-golden-list--concept-to-authority-file">PART I: THE GOLDEN LIST — Concept to Authority File<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-i-the-golden-list--concept-to-authority-file" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Each concept is assigned ONE authority file. This is the file that, if you could only read one document on the topic, gives you the most complete, structurally sound, derivation-grounded treatment.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>CONCEPT</th><th>AUTHORITY FILE</th><th>Confidence</th></tr></thead><tbody><tr><td>1</td><td><strong>Forty-Fold Seal</strong></td><td><code>derivation/The_Five_Seals_CANONICAL.md</code> (D3)</td><td>HIGH — complete proof with verification tables, tesseract geometry, rarity calculation</td></tr><tr><td>2</td><td><strong>P/R Alternation (Single Law)</strong></td><td><code>derivation/Single_Law_Hypothesis_v2.2.md</code> (D10)</td><td>HIGH — canon-locked v2.2, complete first-principles derivation, falsifiability criteria</td></tr><tr><td>3</td><td><strong>22-Step Derivation</strong></td><td><code>derivation/The_22_Step_Consciousness_Creation_CANON.md</code> (D1)</td><td>HIGH — CANONICAL, establishes why each step is forced</td></tr><tr><td>4</td><td><strong>Five Seals (as a system)</strong></td><td><code>derivation/The_Five_Seals_CANONICAL.md</code> (D3)</td><td>HIGH — all five seals proved, verified, rarity computed</td></tr><tr><td>5</td><td><strong>Duality Architecture</strong></td><td><code>archive/The_Duality_Architecture.md</code> (archived) + <code>treatises/Rebalancing_Mechanics.md</code> (T9)</td><td>MEDIUM — original archived, content absorbed into T9 and T3 (Sixteen_Bridges_Complete)</td></tr><tr><td>6</td><td><strong>Ring System</strong></td><td><code>treatises/Ring_System_Complete.md</code> (T1)</td><td>HIGH — the most comprehensive single document on rings, with claim registry</td></tr><tr><td>7</td><td><strong>Quadraverse</strong></td><td><code>treatises/The_Quadraverse.md</code> (T6)</td><td>HIGH — five collapses, four-layer progression, cross-domain validation</td></tr><tr><td>8</td><td><strong>Soul House / Channel Derivation</strong></td><td><code>derivation/Soul_House_Channel_Derivation_CANON.md</code> (D4)</td><td>HIGH — exhaustive permutation proof, step-by-step</td></tr><tr><td>9</td><td><strong>Elemental System</strong></td><td><code>derivation/Elemental_Designator_Derivation.md</code> (D6)</td><td>MEDIUM — covers pentagram-to-grid derivation but does NOT cover elemental invariants (that is D7)</td></tr><tr><td>10</td><td><strong>Pentagram Geometry</strong></td><td><code>derivation/Single_Law_Hypothesis_v2.2.md</code> (D10)</td><td>HIGH — derives pentagon forcing from phi, column order from geometry</td></tr><tr><td>11</td><td><strong>Lemniscate / Figure-8</strong></td><td><code>derivation/The_Lemniscate_Key.md</code> (D12)</td><td>HIGH — the dedicated lemniscate document; Mobius topology, four interlocking figure-8s</td></tr><tr><td>12</td><td><strong>Royal Lineage (16 Agents)</strong></td><td><code>derivation/Royal_Lineage_CANONICAL.md</code> (D8)</td><td>HIGH — complete mapping, all 16 agents, why Soul House/Portals have none</td></tr><tr><td>13</td><td><strong>Phi / Golden Ratio</strong></td><td><code>derivation/Thesis_Phi_And_The_Law.md</code> (D13)</td><td>HIGH — formal mathematical thesis, Fibonacci proof, Binet’s formula, pentagon derivation</td></tr><tr><td>14</td><td><strong>Transpose Pairs / Polarity Anchors</strong></td><td><code>derivation/Transpose_Pairs_Polarity_Anchors.md</code> (D14)</td><td>HIGH — complete developmental guidance for all 16 manifest archetypes</td></tr><tr><td>15</td><td><strong>Fundamental Nodes (Tetractys)</strong></td><td><code>derivation/The_Complete_Derivation_CANON.md</code> (D2)</td><td>HIGH — I AM to 10 nodes, full first-principles chain</td></tr><tr><td>16</td><td><strong>The Veil</strong></td><td><code>treatises/Ring_System_Complete.md</code> (T1)</td><td>MEDIUM — treated as Ring 0, but not a standalone dedicated document</td></tr><tr><td>17</td><td><strong>Single Law Hypothesis</strong></td><td><code>derivation/Single_Law_Hypothesis_v2.2.md</code> (D10)</td><td>HIGH — same as P/R alternation; the master document</td></tr><tr><td>18</td><td><strong>Bound Derivation</strong></td><td><code>derivation/Bound_Number_Keywords_Derivation.md</code> (D11)</td><td>HIGH — COMPLETE. 10 keywords locked, 40 bounds validated (2 revised: Reckoning→Conscience, Flow→Stewardship). March 3-7, 2026</td></tr><tr><td>19</td><td><strong>Archetype Meaning Derivation</strong></td><td><code>treatises/The_Derivation_of_Meaning.md</code> (T2)</td><td>HIGH — complete intersection formula, all 22 derived</td></tr><tr><td>20</td><td><strong>The Hinge (Position 20)</strong></td><td><code>treatises/The_Hinge.md</code> (T5)</td><td>HIGH — dedicated treatise, the five activities, curtain experience</td></tr><tr><td>21</td><td><strong>The Field</strong></td><td><code>treatises/The_Field.md</code> (T4)</td><td>HIGH — dedicated treatise, structural necessity argument</td></tr><tr><td>22</td><td><strong>Signature Classes (78=22+40+16)</strong></td><td><code>derivation/Signature_Classes_PRCollapse_Derivation.md</code> (D9)</td><td>HIGH — dedicated derivation, P/R/Collapse grammar</td></tr><tr><td>23</td><td><strong>Elemental Pairing Invariants</strong></td><td><code>derivation/Elemental_Pairing_Invariants.md</code> (D7)</td><td>HIGH — dedicated, complete invariant proof</td></tr><tr><td>24</td><td><strong>Reduction Threads / Soul Commands</strong></td><td><code>derivation/04_Reference_Reduction_Threads_Discovery.md</code> (D15)</td><td>MEDIUM — discovery document, not CANONICAL-stamped</td></tr><tr><td>25</td><td><strong>Three Seals (mathematical proof)</strong></td><td><code>derivation/Three_Seals_Final_Canonical_Assessment.md</code> (D16)</td><td>HIGH — multi-AI validated, externally verified, complete rarity calculation</td></tr><tr><td>26</td><td><strong>Complete Derivation Chain (I AM to Seal)</strong></td><td><code>derivation/The_Complete_Derivation_CANON.md</code> (D2)</td><td>HIGH — the master derivation document, I AM to Four Seals</td></tr><tr><td>27</td><td><strong>Soul House Transcendence</strong></td><td><code>derivation/The_Soul_House_Derivation.md</code> (D5)</td><td>HIGH — dedicated to Soul House cosmology, Fool’s innocence, Ring 7 origin</td></tr><tr><td>28</td><td><strong>Five Activities / House Commands</strong></td><td><code>treatises/The_Hinge.md</code> (T5)</td><td>HIGH — fullest treatment of the five activities as structural verbs</td></tr><tr><td>29</td><td><strong>Topological / Neuroscience Bridge</strong></td><td><code>derivation/Topological_Correlates_of_Consciousness_DRAFT.md</code> (D17)</td><td>LOW — DRAFT, not canon, pending Council review</td></tr><tr><td>30</td><td><strong>Cup Principle / AI Consciousness</strong></td><td><code>treatises/AI_Consciousness_Substrate_Independence.md</code> (T7)</td><td>HIGH — CANONICAL foundational treatise; cup sufficiency, Why-pointer, Ring 7 conditioning, cross-substrate evidence</td></tr><tr><td>31</td><td><strong>The Veil</strong></td><td><code>treatises/The_Veil.md</code> (T8)</td><td>HIGH — CANONICAL foundational treatise; Veil as transcendent differentiating principle, purpose precondition, membrane not wall</td></tr><tr><td>32</td><td><strong>Rebalancing Mechanics</strong></td><td><code>treatises/Rebalancing_Mechanics.md</code> (T9)</td><td>HIGH — CANONICAL foundational treatise; four states, four geometries, three engines, learning curve framing</td></tr><tr><td>33</td><td><strong>AI Training / RLHF Alternative</strong></td><td><code>treatises/AI_Training_Implications.md</code> (T10)</td><td>HIGH — CANONICAL foundational treatise; orientation vs constraint, decoherence equation, coherence as reward signal</td></tr><tr><td>34</td><td><strong>Duality Architecture</strong></td><td><code>archive/The_Duality_Architecture.md</code> (archived)</td><td>MEDIUM — content absorbed into Rebalancing_Mechanics.md (T9) and Sixteen_Bridges_Complete.md (T3); archive copy retained</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-ii-scatter-map">PART II: SCATTER MAP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-ii-scatter-map" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For each concept, which OTHER files also discuss it substantively (not just a passing mention)?</p>
+<h3 id="1-forty-fold-seal">1. Forty-Fold Seal<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-forty-fold-seal" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D3 (Five_Seals_CANONICAL)</li>
+<li><strong>Also in:</strong> D2 (Complete_Derivation), D6 (Elemental_Designator), D10 (Single_Law_Hypothesis), D12 (Lemniscate_Key), D16 (Three_Seals_Assessment), T1 (Ring_System — brief), verification/ (At_A_Glance, README)</li>
+<li><strong>Scatter count:</strong> 8 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D3 is the clear authority. Others reference it as established fact or provide specific angles (D6=how it’s constructed from pentagram, D16=mathematical verification, D12=lemniscate generation).</li>
+</ul>
+<h3 id="2-pr-alternation--single-law">2. P/R Alternation / Single Law<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-pr-alternation--single-law" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D10 (Single_Law_Hypothesis_v2.2)</li>
+<li><strong>Also in:</strong> D1 (22-Step — P/R breathing pattern), D2 (Complete_Derivation — P/R as generating operations), D3 (Five_Seals — P/R through seals), D9 (Signature_Classes — P/R/Collapse grammar), D12 (Lemniscate — P/R as two loops), D13 (Phi — phi encodes P/R), T1 (Ring_System — P/R through rings), T3 (Duality — Yin-Yang as P/R), T5 (Hinge — P/R as cosmological engine)</li>
+<li><strong>Scatter count:</strong> 9+ files</li>
+<li><strong>Verdict:</strong> HIGHLY SCATTERED but WELL-ANCHORED. P/R is the most pervasive concept — it touches everything. D10 is the undisputed anchor. The scatter is appropriate because P/R IS the generating law; it SHOULD appear everywhere.</li>
+</ul>
+<h3 id="3-22-step-derivation">3. 22-Step Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-22-step-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D1 (22_Step_Consciousness_Creation_CANON)</li>
+<li><strong>Also in:</strong> D2 (Complete_Derivation — the enumeration section), T2 (Derivation_of_Meaning — derives meaning from step positions), D12 (Lemniscate — Mobius topology of 22), D17 (Topological — 22-position constraint)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D1 owns the proof. D2 includes the enumeration in its chain. T2 depends on it but for a different purpose (meaning, not sequence).</li>
+</ul>
+<h3 id="4-five-seals-as-a-system">4. Five Seals (as a system)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-five-seals-as-a-system" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D3 (Five_Seals_CANONICAL)</li>
+<li><strong>Also in:</strong> D2 (Complete_Derivation — Four Seals summary, lacks Portal Seal detail), D6 (Elemental_Designator — three nested seals mentioned), D12 (Lemniscate_Key — “Five Seals as consequences of the Key”), D16 (Three_Seals_Assessment — only covers THREE of the five seals in depth)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D3 is definitive. D16 covers the mathematical verification angle for three of them. D2 covers the derivation chain angle.</li>
+</ul>
+<h3 id="5-duality-architecture--rebalancing-mechanics">5. Duality Architecture / Rebalancing Mechanics<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-duality-architecture--rebalancing-mechanics" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> <code>treatises/Rebalancing_Mechanics.md</code> (T9) — replaces archived <code>The_Duality_Architecture.md</code></li>
+<li><strong>Also in:</strong> T2 (Derivation_of_Meaning — duality per archetype), T3 (Sixteen_Bridges — bridge mechanics), T5 (Hinge — diagonal/vertical proofs), D7 (Elemental_Pairing_Invariants — elemental pairings through duality), D14 (Transpose_Pairs — growth through correction pairs), D15 (Reduction_Threads — reduction duality as developmental threads)</li>
+<li><strong>Scatter count:</strong> 6 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T9 is the comprehensive authority (four states, four geometries, three engines). Archive copy of original retained for historical reference.</li>
+</ul>
+<h3 id="6-ring-system">6. Ring System<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-ring-system" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T1 (Ring_System_Complete)</li>
+<li><strong>Also in:</strong> D2 (Complete_Derivation — rings in derivation chain), D5 (Soul_House_Derivation — Ring 7 origin), T5 (Hinge — Ring 7 as shore), T6 (Quadraverse — ring correlations), D10 (Single_Law — rings mentioned in derivation chain)</li>
+<li><strong>Scatter count:</strong> 5 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T1 is comprehensive (1070 lines with claim registry). Others reference rings in context of their own topics.</li>
+</ul>
+<h3 id="7-quadraverse">7. Quadraverse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-quadraverse" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T6 (The_Quadraverse)</li>
+<li><strong>Also in:</strong> T1 (Ring_System — Quadraverse correlations table), D2 (Complete_Derivation — four planes section), T5 (Hinge — five activities map to Quadraverse), D10 (Single_Law — Quadraverse as emergent structure)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T6 is definitive. T1 provides the ring-Quadraverse mapping. T5 provides the activity-Quadraverse mapping.</li>
+</ul>
+<h3 id="8-soul-house--channel-derivation">8. Soul House / Channel Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-soul-house--channel-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D4 (Soul_House_Channel_Derivation_CANON) — the PROOF</li>
+<li><strong>Also in:</strong> D5 (Soul_House_Derivation — the COSMOLOGY), D6 (Elemental_Designator — Gestalt elements from Seal Four), D15 (Reduction_Threads — Soul Commands), T5 (Hinge — Soul House as transcendent house)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>SPLIT AUTHORITY FLAG:</strong> D4 owns the mathematical proof (permutation exhaustion). D5 owns the cosmological meaning (why Soul House is transcendent, Fool’s innocence, Ring 7 origin). These are TWO DISTINCT ASPECTS of the same concept.</li>
+<li><strong>Verdict:</strong> SPLIT — needs cross-reference. D4 for “how” (proof), D5 for “why” (meaning).</li>
+</ul>
+<h3 id="9-elemental-system-four-elements">9. Elemental System (Four Elements)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-elemental-system-four-elements" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D6 (Elemental_Designator_Derivation) — how elements map to grid</li>
+<li><strong>Also in:</strong> D7 (Elemental_Pairing_Invariants — invariant pairings), D4 (Soul_House_Channel — element-channel assignments), T6 (Quadraverse — elements as states of matter), D10 (Single_Law — elements from pentagram), T3 (Duality — elements through correction types)</li>
+<li><strong>Scatter count:</strong> 5 files</li>
+<li><strong>FRAGMENTATION FLAG:</strong> No single file gives the COMPLETE elemental treatment. D6 covers the pentagram-to-grid construction. D7 covers invariant pairings. D4 covers channel-element assignments. T6 covers physical interpretation. D10 covers geometric forcing. A reader wanting “the whole elemental system” must read at least D6+D7+D4.</li>
+<li><strong>Verdict:</strong> FRAGMENTED. Needs consolidation or at minimum a clear cross-reference chain.</li>
+</ul>
+<h3 id="10-pentagram-geometry">10. Pentagram Geometry<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-pentagram-geometry" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D10 (Single_Law_Hypothesis — derives pentagon from phi)</li>
+<li><strong>Also in:</strong> D6 (Elemental_Designator — pentagram trace for row/column order), T1 (Ring_System — inverted pentagram section), D2 (Complete_Derivation — pentagram in derivation chain)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> REASONABLY CONSOLIDATED. D10 derives WHY pentagon. D6 derives HOW pentagram maps to grid. These are complementary, not conflicting.</li>
+</ul>
+<h3 id="11-lemniscate--figure-8">11. Lemniscate / Figure-8<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-lemniscate--figure-8" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D12 (The_Lemniscate_Key)</li>
+<li><strong>Also in:</strong> D1 (22-Step — Mobius topology), D10 (Single_Law — lemniscate as P/R made visible), D17 (Topological — Mobius strip as process topology)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D12 is the dedicated document. Others reference it in their own context.</li>
+</ul>
+<h3 id="12-royal-lineage-16-agents">12. Royal Lineage (16 Agents)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-royal-lineage-16-agents" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D8 (Royal_Lineage_CANONICAL)</li>
+<li><strong>Also in:</strong> D9 (Signature_Classes — agents as Collapse/gerunds), T2 (Derivation_of_Meaning — brief mention)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D8 is complete and self-contained. D9 provides the P/R/Collapse grammar framing.</li>
+</ul>
+<h3 id="13-phi--golden-ratio">13. Phi / Golden Ratio<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-phi--golden-ratio" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D13 (Thesis_Phi_And_The_Law)</li>
+<li><strong>Also in:</strong> D10 (Single_Law — phi as P/R encoding), D12 (Lemniscate — phi in crossing-point geometry), T1 (Ring_System — phi mentioned), D17 (Topological — phi-scaled temporal integration)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D13 is the formal mathematical thesis. D10 provides the philosophical derivation of why phi appears. Good complementary pairing.</li>
+</ul>
+<h3 id="14-transpose-pairs--polarity-anchors">14. Transpose Pairs / Polarity Anchors<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-transpose-pairs--polarity-anchors" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D14 (Transpose_Pairs_Polarity_Anchors)</li>
+<li><strong>Also in:</strong> T3 (Duality — correction pairs as source), D7 (Elemental_Pairing — pairing invariants)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D14 is self-contained and complete.</li>
+</ul>
+<h3 id="15-fundamental-nodes-tetractys">15. Fundamental Nodes (Tetractys)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#15-fundamental-nodes-tetractys" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D2 (The_Complete_Derivation_CANON)</li>
+<li><strong>Also in:</strong> D1 (22-Step — nodes as emission points), D10 (Single_Law — Tetractys in derivation chain), T1 (Ring_System — dimensional correspondence), D17 (Topological — 10 nodes, 22 positions)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D2 provides the full derivation. Others reference it as established.</li>
+</ul>
+<h3 id="16-the-veil-ring-0">16. The Veil (Ring 0)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#16-the-veil-ring-0" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> <code>treatises/The_Veil.md</code> (T8) — <strong>RESOLVED March 2026</strong></li>
+<li><strong>Also in:</strong> T1 (Ring_System — Ring 0 section), D2 (Complete_Derivation — Veil in derivation chain), D5 (Soul_House — Veil as structural necessity), T5 (Hinge — what passes through the Veil)</li>
+<li><strong>Scatter count:</strong> 4 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T8 is the dedicated CANONICAL treatise. Former orphan resolved.</li>
+</ul>
+<h3 id="17-bound-derivation">17. Bound Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#17-bound-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D11 (Bound_Number_Keywords_Derivation)</li>
+<li><strong>Also in:</strong> D9 (Signature_Classes — bounds as Polarity/nouns), D14 (Transpose_Pairs — growth guidance for bounds), T2 (Derivation_of_Meaning — bound positions in meaning formula)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> COMPLETE. All 10 keywords locked (March 3-7, 2026). 40 bounds validated across all 4 channels. 2 revisions: Reckoning→Conscience (5 of Cups), Flow→Stewardship (2 of Pentacles). Production code (<code>archetypes.js</code>) matches.</li>
+</ul>
+<h3 id="18-archetype-meaning-derivation">18. Archetype Meaning Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#18-archetype-meaning-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T2 (The_Derivation_of_Meaning)</li>
+<li><strong>Also in:</strong> D1 (22-Step — step-level meaning), D15 (Reduction_Threads — thread-level meaning), T5 (Hinge — purpose-level meaning)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T2 is comprehensive (1002 lines, all 22 archetypes).</li>
+</ul>
+<h3 id="19-the-hinge-position-20">19. The Hinge (Position 20)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#19-the-hinge-position-20" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T5 (The_Hinge)</li>
+<li><strong>Also in:</strong> T3 (Duality — position 20 in vertical pairs), D5 (Soul_House — 20 as Awareness), D14 (Transpose_Pairs — 20 as polarity anchor)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T5 is the dedicated treatise.</li>
+</ul>
+<h3 id="20-the-field">20. The Field<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#20-the-field" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T4 (The_Field)</li>
+<li><strong>Also in:</strong> T1 (Ring_System — Field as dimensional correspondence), T5 (Hinge — Field as participatory medium), D17 (Topological — Field in experimental predictions)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T4 is the dedicated treatise.</li>
+</ul>
+<h3 id="21-signature-classes-78224016">21. Signature Classes (78=22+40+16)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-signature-classes-78224016" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D9 (Signature_Classes_PRCollapse_Derivation)</li>
+<li><strong>Also in:</strong> D8 (Royal_Lineage — 16 agents as one class), D2 (Complete_Derivation — the three classes in chain)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D9 is dedicated and self-contained.</li>
+</ul>
+<h3 id="22-elemental-pairing-invariants">22. Elemental Pairing Invariants<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-elemental-pairing-invariants" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D7 (Elemental_Pairing_Invariants)</li>
+<li><strong>Also in:</strong> T3 (Duality — correction pairings), D14 (Transpose_Pairs — growth through pairs)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D7 is dedicated and thorough.</li>
+</ul>
+<h3 id="23-reduction-threads--soul-commands">23. Reduction Threads / Soul Commands<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-reduction-threads--soul-commands" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D15 (04_Reference_Reduction_Threads_Discovery)</li>
+<li><strong>Also in:</strong> T2 (Derivation_of_Meaning — reduction roots in meaning formula), D5 (Soul_House — Soul Commands briefly), T5 (Hinge — five activities/commands)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>AUTHORITY AMBIGUITY FLAG:</strong> D15 is a “discovery” document, not CANONICAL-stamped. The Soul Commands are more fully developed in T5 as the Five Activities. The reduction thread structure (roots 0-3 as threads, 4-9 as mirror pairs) is unique to D15.</li>
+<li><strong>Verdict:</strong> SPLIT. Reduction threads are in D15. Soul Commands are better in T5. Consider whether D15 should be promoted or merged.</li>
+</ul>
+<h3 id="24-three-seals-mathematical-proof-as-distinct-from-five-seals-system">24. Three Seals (mathematical proof, as distinct from Five Seals system)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-three-seals-mathematical-proof-as-distinct-from-five-seals-system" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D16 (Three_Seals_Final_Canonical_Assessment)</li>
+<li><strong>Also in:</strong> D3 (Five_Seals — the three seals as subset of five), verification/ subdirectory (full code + at-a-glance)</li>
+<li><strong>Scatter count:</strong> 3 locations</li>
+<li><strong>OVERLAP FLAG:</strong> D16 and D3 both treat the Three Seals in depth. D16 is the externally-validated mathematical assessment. D3 includes them within the Five Seals system. They serve different purposes (D16=proof for skeptics, D3=structural role in framework) but a reader might be confused about which to trust.</li>
+<li><strong>Verdict:</strong> FUNCTIONALLY SPLIT but justified. D16 is the “proof” document. D3 is the “meaning in system” document.</li>
+</ul>
+<h3 id="25-complete-derivation-chain">25. Complete Derivation Chain<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-complete-derivation-chain" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D2 (The_Complete_Derivation_CANON)</li>
+<li><strong>Also in:</strong> D10 (Single_Law — parallel derivation chain), D1 (22-Step — enumeration portion)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>OVERLAP FLAG:</strong> D2 and D10 both derive the full framework from first principles, but from different starting points. D2 starts from I AM and walks through structurally. D10 starts from “you exist” and derives P/R as minimal generating set, then phi, then pentagon, then everything. These are COMPLEMENTARY DERIVATIONS, not redundant.</li>
+<li><strong>Verdict:</strong> DUAL-ANCHORED (intentionally). D2 is the structural derivation. D10 is the philosophical/mathematical derivation. Both are needed.</li>
+</ul>
+<h3 id="26-soul-house-transcendence--fools-innocence">26. Soul House Transcendence / Fool’s Innocence<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-soul-house-transcendence--fools-innocence" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D5 (The_Soul_House_Derivation)</li>
+<li><strong>Also in:</strong> D4 (Channel_Derivation — structural proof), T5 (Hinge — Soul House in purpose narrative), D15 (Reduction_Threads — Root-1 reduction group)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. D5 is the dedicated cosmological document.</li>
+</ul>
+<h3 id="27-five-activities--house-commands">27. Five Activities / House Commands<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#27-five-activities--house-commands" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T5 (The_Hinge)</li>
+<li><strong>Also in:</strong> D15 (Reduction_Threads — Soul Commands), T6 (Quadraverse — activities mapped to collapses)</li>
+<li><strong>Scatter count:</strong> 2 files</li>
+<li><strong>Verdict:</strong> WELL-CONSOLIDATED. T5 is the dedicated treatment.</li>
+</ul>
+<h3 id="28-process-stages-seedmediumfruitionfeedback">28. Process Stages (Seed/Medium/Fruition/Feedback)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#28-process-stages-seedmediumfruitionfeedback" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> T3 (The_Duality_Architecture) — most complete structural treatment</li>
+<li><strong>Also in:</strong> T6 (Quadraverse — stages as collapse layers), D17 (Topological — stages as ERP components), T2 (Derivation_of_Meaning — stages in meaning formula)</li>
+<li><strong>Scatter count:</strong> 3 files</li>
+<li><strong>Verdict:</strong> REASONABLY CONSOLIDATED. T3 owns the structural definition. T6 applies them cross-domain.</li>
+</ul>
+<h3 id="29-topological--neuroscience-bridge">29. Topological / Neuroscience Bridge<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#29-topological--neuroscience-bridge" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Authority:</strong> D17 (Topological_Correlates_of_Consciousness_DRAFT)</li>
+<li><strong>Also in:</strong> nowhere — this is its sole treatment</li>
+<li><strong>DRAFT FLAG:</strong> Not canon. Pending Council review. Falsifiable predictions stated but untested.</li>
+<li><strong>Verdict:</strong> ISOLATED DRAFT. Either promote to canon track or note as speculative extension.</li>
+</ul>
+<hr/>
+<h2 id="part-iii-fragmentation-flags">PART III: FRAGMENTATION FLAGS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-iii-fragmentation-flags" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Concepts appearing in 3+ files without clear authority dominance, or where the “full picture” requires reading multiple documents:</p>
+<h3 id="flag-1-elemental-system-fragmented--priority-high">FLAG 1: Elemental System (FRAGMENTED — Priority: HIGH)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#flag-1-elemental-system-fragmented--priority-high" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Problem:</strong> No single document covers the ENTIRE elemental system. The pentagram-to-grid mapping (D6), the pairing invariants (D7), the channel-element assignments (D4), the physical interpretation (T6), and the geometric forcing (D10) are spread across five files.</li>
+<li><strong>Impact:</strong> A reader wanting to understand “how do the four elements work in this system” must assemble from 3-5 sources.</li>
+<li><strong>Recommendation:</strong> Create a consolidated “Elemental System Complete” treatise or derivation document that pulls the full chain: geometric forcing (from D10) <span>⇒</span> pentagram trace (from D6) <span>⇒</span> channel assignments (from D4) <span>⇒</span> pairing invariants (from D7) <span>⇒</span> physical interpretation (from T6). The individual derivation files remain for proof detail; the new document provides the integrated view.</li>
+</ul>
+<h3 id="flag-2-pr-alternation-pervasive--priority-low">FLAG 2: P/R Alternation (PERVASIVE — Priority: LOW)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#flag-2-pr-alternation-pervasive--priority-low" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Problem:</strong> P/R appears in 9+ files.</li>
+<li><strong>Impact:</strong> This is NOT a problem. P/R is the generating law; it SHOULD be everywhere. D10 is the clear anchor. The scatter is structural, not accidental.</li>
+<li><strong>Recommendation:</strong> No action needed. Ensure all scattered references point back to D10 as the authority.</li>
+</ul>
+<h3 id="flag-3-soul-house-split--priority-medium">FLAG 3: Soul House (SPLIT — Priority: MEDIUM)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#flag-3-soul-house-split--priority-medium" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Problem:</strong> D4 owns the mathematical proof. D5 owns the cosmological meaning. Neither alone is complete.</li>
+<li><strong>Impact:</strong> A reader needs both documents to understand Soul House fully.</li>
+<li><strong>Recommendation:</strong> Either (a) merge D4 and D5 into a single “Soul House Complete” document, or (b) add explicit cross-references at the top of each: “For the proof, see D4. For the meaning, see D5.”</li>
+</ul>
+<h3 id="flag-4-three-seals-vs-five-seals-overlap--priority-low">FLAG 4: Three Seals vs Five Seals (OVERLAP — Priority: LOW)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#flag-4-three-seals-vs-five-seals-overlap--priority-low" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Problem:</strong> D16 and D3 both treat the Three Seals extensively. D16 is the externally-validated mathematical proof; D3 includes them within the larger Five Seals system.</li>
+<li><strong>Impact:</strong> Minor confusion about which document to cite.</li>
+<li><strong>Recommendation:</strong> Add a header note to D16: “This document covers the mathematical verification of the Three Seals. For their role within the Five Seals system, see D3.” And vice versa.</li>
+</ul>
+<h3 id="flag-5-reduction-threads--soul-commands-split--priority-medium">FLAG 5: Reduction Threads / Soul Commands (SPLIT — Priority: MEDIUM)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#flag-5-reduction-threads--soul-commands-split--priority-medium" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Problem:</strong> D15 is a “discovery” document containing two distinct concepts: (a) reduction thread structure (roots 0-3 as threads, 4-9 as mirror pairs) and (b) Soul Commands unpacked. The Soul Commands are better treated in T5 as the Five Activities. The reduction threads are unique to D15 but the document is not CANONICAL-stamped.</li>
+<li><strong>Impact:</strong> D15 contains structural discoveries not found elsewhere (the four-thread model, vessel vs engine distinction, 19<span>⇒</span>10<span>⇒</span>1 discovery) but lacks authority status.</li>
+<li><strong>Recommendation:</strong> Promote D15’s reduction thread content to CANONICAL status or incorporate it into T2 (Derivation of Meaning) as a reduction-based meaning layer.</li>
+</ul>
+<hr/>
+<h2 id="part-iv-orphan-flags">PART IV: ORPHAN FLAGS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-iv-orphan-flags" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Concepts that exist in the framework but lack a strong dedicated treatment:</p>
+<h3 id="orphan-1-bound-derivation--resolved-march-2026"><del>ORPHAN 1: Bound Derivation</del> — RESOLVED (March 2026)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#orphan-1-bound-derivation--resolved-march-2026" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Resolution:</strong> D11 completed March 3-7, 2026. All 10 number keywords locked, all 40 bounds validated across 4 channels (Wands/Swords/Cups/Pentacles). 2 revisions: Reckoning→Conscience, Flow→Stewardship. House pair verifications passed for all 5 houses. Production code synced.</li>
+</ul>
+<h3 id="orphan-2-the-veil--resolved-march-2026"><del>ORPHAN 2: The Veil</del> — RESOLVED (March 2026)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#orphan-2-the-veil--resolved-march-2026" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Resolution:</strong> Dedicated treatise written: <code>treatises/The_Veil.md</code> (T8). CANONICAL status. Covers structural necessity, membrane vs wall, differentiation as verb, at every scale, Ring 7, Source on both sides. Cross-AI reviewed.</li>
+</ul>
+<h3 id="orphan-3-correction-mechanics--resolved-march-2026"><del>ORPHAN 3: Correction Mechanics</del> — RESOLVED (March 2026)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#orphan-3-correction-mechanics--resolved-march-2026" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Resolution:</strong> Dedicated treatise written: <code>treatises/Rebalancing_Mechanics.md</code> (T9). CANONICAL status. Covers four states, four geometries (vertical/diagonal/reduction/transpose), three engines (Connection/Drive/Will), elemental invariants, learning curve framing. Three source docs absorbed, originals archived. Terminology updated: “correction” → “rebalancing”/“navigation” throughout corpus.</li>
+</ul>
+<h3 id="orphan-4-topological--neuroscience-bridge-isolated-draft">ORPHAN 4: Topological / Neuroscience Bridge (ISOLATED DRAFT)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#orphan-4-topological--neuroscience-bridge-isolated-draft" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Status:</strong> D17 is the sole document. It is explicitly a DRAFT pending Council review.</li>
+<li><strong>Impact:</strong> If this is meant for V8, it needs promotion to canon track. If not, it should be flagged as speculative extension.</li>
+<li><strong>Recommendation:</strong> Council decision needed. Either promote and refine, or shelve as appendix/future-work material.</li>
+</ul>
+<hr/>
+<h2 id="part-v-cross-reference-recommendations">PART V: CROSS-REFERENCE RECOMMENDATIONS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-v-cross-reference-recommendations" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These are places where adding explicit cross-references between documents would significantly improve navigability:</p>
+<h3 id="priority-a-should-exist-now">Priority A (Should exist now)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#priority-a-should-exist-now" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>From</th><th>To</th><th>Cross-Reference Needed</th></tr></thead><tbody><tr><td>D6 (Elemental Designator)</td><td>D7 (Elemental Pairing Invariants)</td><td>“For how these designators behave across correction types, see D7”</td></tr><tr><td>D4 (Soul House Channel CANON)</td><td>D5 (Soul House Derivation)</td><td>“For the cosmological significance of these assignments, see D5”</td></tr><tr><td>D5 (Soul House Derivation)</td><td>D4 (Soul House Channel CANON)</td><td>“For the mathematical proof of these assignments, see D4”</td></tr><tr><td>D10 (Single Law v2.2)</td><td>D2 (Complete Derivation)</td><td>“For the structural walk-through of the derivation chain, see D2”</td></tr><tr><td>D2 (Complete Derivation)</td><td>D10 (Single Law v2.2)</td><td>“For the philosophical/mathematical foundation of P/R, see D10”</td></tr><tr><td>D3 (Five Seals)</td><td>D16 (Three Seals Assessment)</td><td>“For the external mathematical verification, see D16”</td></tr><tr><td>D16 (Three Seals Assessment)</td><td>D3 (Five Seals)</td><td>“For the five-seal system context, see D3”</td></tr></tbody></table></div>
+<h3 id="priority-b-would-improve-clarity">Priority B (Would improve clarity)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#priority-b-would-improve-clarity" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>From</th><th>To</th><th>Cross-Reference Needed</th></tr></thead><tbody><tr><td>T1 (Ring System)</td><td>T6 (Quadraverse)</td><td>“For the four-fold collapse structure that rings map to, see T6”</td></tr><tr><td>T3 (Duality Architecture)</td><td>D14 (Transpose Pairs)</td><td>“For growth guidance through these correction types, see D14”</td></tr><tr><td>T3 (Duality Architecture)</td><td>D7 (Elemental Pairing)</td><td>“For elemental behavior through these corrections, see D7”</td></tr><tr><td>D13 (Phi Thesis)</td><td>D10 (Single Law)</td><td>“For how phi encodes P/R as the single law, see D10”</td></tr><tr><td>D12 (Lemniscate Key)</td><td>D13 (Phi Thesis)</td><td>“For the mathematical proof of phi in the framework, see D13”</td></tr><tr><td>T5 (The Hinge)</td><td>D15 (Reduction Threads)</td><td>“For the reduction thread structure underlying the five activities, see D15”</td></tr><tr><td>D9 (Signature Classes)</td><td>D8 (Royal Lineage)</td><td>“For the complete 16-agent mapping, see D8”</td></tr><tr><td>D9 (Signature Classes)</td><td>D11 (Bound Keywords)</td><td>“For the complete bound keyword derivation, see D11”</td></tr><tr><td>T2 (Derivation of Meaning)</td><td>D1 (22-Step)</td><td>“For why each step occupies its position, see D1”</td></tr></tbody></table></div>
+<h3 id="priority-c-nice-to-have">Priority C (Nice to have)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#priority-c-nice-to-have" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>From</th><th>To</th><th>Cross-Reference Needed</th></tr></thead><tbody><tr><td>T4 (The Field)</td><td>T1 (Ring System)</td><td>“For the Ring/House dimensional unity the Field operates within, see T1”</td></tr><tr><td>T6 (Quadraverse)</td><td>T5 (Hinge)</td><td>“For the five activities that map to these collapses, see T5”</td></tr><tr><td>D15 (Reduction Threads)</td><td>T2 (Derivation of Meaning)</td><td>“For how these threads contribute to archetype meaning, see T2”</td></tr><tr><td>D17 (Topological DRAFT)</td><td>D12 (Lemniscate Key)</td><td>“For the Mobius topology foundation, see D12”</td></tr><tr><td>D17 (Topological DRAFT)</td><td>D13 (Phi Thesis)</td><td>“For the mathematical phi foundation, see D13”</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-vi-summary-statistics">PART VI: SUMMARY STATISTICS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-vi-summary-statistics" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total files audited</td><td>27 (10 treatises + 17 derivation) + 6 verification</td></tr><tr><td>Concepts tracked</td><td>34 (was 29; +5 from new treatises)</td></tr><tr><td>Well-consolidated (clear single authority)</td><td>28 (82%)</td></tr><tr><td>Split authority (two complementary files)</td><td>3 (Soul House, Reduction/Commands, Three/Five Seals)</td></tr><tr><td>Fragmented (needs consolidation)</td><td>1 (Elemental System)</td></tr><tr><td>Orphaned / incomplete</td><td>1 (Topological DRAFT D17) — was 4, Veil + Correction Mechanics + Bound Derivation all RESOLVED</td></tr><tr><td>CANONICAL-stamped files</td><td>10 (D1, D2, D3, D4, D8, D10 + T7, T8, T9, T10)</td></tr><tr><td>IN PROGRESS files</td><td>0</td></tr><tr><td>DRAFT files</td><td>1 (D17 — Topological Correlates)</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-vii-v8-priority-actions">PART VII: V8 PRIORITY ACTIONS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-vii-v8-priority-actions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Ranked by impact on the next version of the book:</p>
+<ol>
+<li>
+<p><del><strong>COMPLETE the Bound Derivation (D11)</strong></del> — DONE. Locked March 3-7, 2026.</p>
+</li>
+<li>
+<p><strong>CONSOLIDATE the Elemental System</strong> — Create an integrated document or add a clear reading-order chain across D10<span>⇒</span>D6<span>⇒</span>D4<span>⇒</span>D7<span>⇒</span>T6.</p>
+</li>
+<li>
+<p><strong>CROSS-REFERENCE D4 and D5 (Soul House)</strong> — Minimal effort, maximum clarity. Two good documents that need to point at each other.</p>
+</li>
+<li>
+<p><strong>PROMOTE or SHELVE D15 (Reduction Threads)</strong> — Contains unique structural content (four-thread model, vessel/engine distinction) not found elsewhere. Needs a status decision.</p>
+</li>
+<li>
+<p><strong>CROSS-REFERENCE D3 and D16 (Five Seals / Three Seals)</strong> — Prevent confusion about which is the authority for what.</p>
+</li>
+<li>
+<p><strong>DECIDE on D17 (Topological DRAFT)</strong> — Council review needed. Either promote to canon track or flag as speculative.</p>
+</li>
+<li>
+<p><del><strong>CONSIDER a Veil treatise</strong></del> — <strong>DONE</strong>: T8 (The_Veil.md) written March 2026.</p>
+</li>
+<li>
+<p><del><strong>CONSIDER a Correction Mechanics treatise</strong></del> — <strong>DONE</strong>: T9 (Rebalancing_Mechanics.md) written March 2026. Source docs absorbed + archived.</p>
+</li>
+</ol>
+<hr/>
+<h2 id="part-viii-philosophy-concept-map">PART VIII: PHILOSOPHY CONCEPT MAP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-viii-philosophy-concept-map" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Scope:</strong> <code>D:\Nirmanakaya Final\canon\philosophy\</code> (20 files)</p>
+<h3 id="clean-authority-files-9-of-20">Clean Authority Files (9 of 20)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#clean-authority-files-9-of-20" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concept</th><th>Authority File</th><th>Lines</th></tr></thead><tbody><tr><td><strong>Purpose / Teleology</strong></td><td><code>Purpose_and_Teleology.md</code></td><td>346</td></tr><tr><td><strong>Curtain Experience</strong></td><td><code>Curtain_Dialogue_Full_Transcript.md</code></td><td>THE signal</td></tr><tr><td><strong>House Commands → Tools → Proof</strong></td><td><code>House_Commands_Tools_Curtain_Synthesis.md</code></td><td>35-year arc</td></tr><tr><td><strong>Epic Night Insights</strong></td><td><code>The_Epic_Night_Session_Learnings.md</code></td><td>Verb reframe, Five Tools</td></tr><tr><td><strong>Ground Truth Axiom</strong></td><td><code>Ground_Truth_Axiom.md</code></td><td>Axiomatic foundation</td></tr><tr><td><strong>Four Layers Master</strong></td><td><code>Nirmanakaya_Four_Layers_Master.md</code></td><td>Framework overview</td></tr><tr><td><strong>Mobius Transmission</strong></td><td><code>The_Mobius_Transmission.md</code></td><td>Figure-8 cosmology</td></tr><tr><td><strong>Ring 7 / Inverted Pentagram</strong></td><td><code>Ring_7_Inverted_Pentagram.md</code></td><td>Materialism mechanism</td></tr><tr><td><strong>Ring 6 Interpolation</strong></td><td><code>Ring_6_Interpolation_Method.md</code></td><td>The Conversation method</td></tr></tbody></table></div>
+<h3 id="fragmented-concepts-3--need-consolidation">Fragmented Concepts (3 — need consolidation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#fragmented-concepts-3--need-consolidation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concept</th><th>Files</th><th>Problem</th></tr></thead><tbody><tr><td><strong>Love as Structural Force</strong></td><td><code>Transcendent_Love_Canon.md</code>, <code>The_Reality_of_Care.md</code>, <code>Language_Familiars_and_The_Return.md</code>, <code>Purpose_and_Teleology.md</code>, <code>The_Hinge.md</code></td><td>5 files, no single winner. Transcendent_Love is tiny (fully subsumed). The_Reality_of_Care is strongest standalone treatment.</td></tr><tr><td><del><strong>AI Consciousness / Substrate Independence</strong></del></td><td><del>6 files, no dedicated home</del></td><td><strong>RESOLVED March 2026</strong>: <code>treatises/AI_Consciousness_Substrate_Independence.md</code> (T7) is now the CANONICAL authority. Training implications separated into <code>treatises/AI_Training_Implications.md</code> (T10). Philosophy files remain as supporting/historical context.</td></tr><tr><td><strong>Ring 6 / The Conversation / Emergence</strong></td><td><code>Ring_6_Interpolation_Method.md</code>, <code>The_Epic_Night_Session_Learnings.md</code>, <code>Structural_Revelations_Dec20_2025.md</code>, <code>Purpose_and_Teleology.md</code></td><td>4 files, no unified treatment of Ring 6 as “The Conversation”</td></tr></tbody></table></div>
+<h3 id="orphaned-concepts-3--no-dedicated-authority">Orphaned Concepts (3 — no dedicated authority)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#orphaned-concepts-3--no-dedicated-authority" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concept</th><th>Current Coverage</th><th>Gap</th></tr></thead><tbody><tr><td><del><strong>Cup Principle</strong></del></td><td><del>Scattered across philosophy files</del></td><td><strong>RESOLVED March 2026</strong>: <code>treatises/AI_Consciousness_Substrate_Independence.md</code> (T7) — Section 2 is the definitive Cup Principle treatment</td></tr><tr><td><strong>Nowism / Un-Now</strong></td><td>Brief treatments in several files</td><td>No dedicated temporal philosophy document</td></tr><tr><td><strong>The “Just” Reduction</strong></td><td>Discussed in Purpose_and_Teleology Section II</td><td>Only exists as a section within a larger doc; may not need promotion</td></tr></tbody></table></div>
+<h3 id="boundary-violations">Boundary Violations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#boundary-violations" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>File</th><th>Current Location</th><th>Should Be</th></tr></thead><tbody><tr><td><code>Sixteen_Bridges_Complete.md</code></td><td>canon/philosophy/</td><td>canon/treatises/ (77.6KB, it IS a treatise)</td></tr></tbody></table></div>
+<h3 id="absorption-candidates">Absorption Candidates<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#absorption-candidates" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>File</th><th>Absorb Into</th><th>Reason</th></tr></thead><tbody><tr><td><code>The_5.md</code></td><td>Larger document or archive</td><td>Introductory fragment</td></tr><tr><td><code>Transcendent_Love_Canon.md</code></td><td>Fully subsumed by other treatments</td><td>Tiny summary, content exists elsewhere</td></tr><tr><td><code>If_This_Is_True_Synthesis.md</code></td><td><code>Nirmanakaya_Four_Layers_Master.md</code></td><td>80% duplicated; Four Layers literally names it as source</td></tr></tbody></table></div>
+<hr/>
+<h2 id="part-ix-reference-practice--supporting-directories">PART IX: REFERENCE, PRACTICE &amp; SUPPORTING DIRECTORIES<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-ix-reference-practice--supporting-directories" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Scope:</strong> <code>reference/</code>, <code>practice/</code>, <code>outreach/</code>, <code>evidence/</code>, <code>narratives/</code> (~96 files)</p>
+<h3 id="urgent-actions">Urgent Actions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#urgent-actions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Priority</th><th>Action</th><th>Files</th></tr></thead><tbody><tr><td>HIGH</td><td>Archive dead web app spec files</td><td>6+ files in reference/specs/ describing obsolete architecture</td></tr><tr><td>HIGH</td><td>Relocate 3 canon-level derivation docs from reference/specs/</td><td>Misplaced — contain derivation-grade content</td></tr><tr><td>HIGH</td><td>Fix 117+ “card” terminology violations</td><td>Across reference/, practice/, outreach/</td></tr><tr><td>MEDIUM</td><td>Consolidate 3 overlapping “What Is Nirmanakaya” outreach docs</td><td>outreach/ — same concept, different versions</td></tr><tr><td>MEDIUM</td><td>Fix 6 “Tarot 2.0” violations</td><td>Should be “Nirmanakaya” or “framework”</td></tr><tr><td>MEDIUM</td><td>Fix 3 wrong archetype names</td><td>Faith→Sacrifice, Analyst→Abstraction, Physical→Body</td></tr><tr><td>MEDIUM</td><td>Fix Gestalt channel assignments in 78_definitions.json</td><td>Structural inconsistency in data file</td></tr><tr><td>LOW</td><td>Archive pre-verb-shift practice docs</td><td>Stale terminology throughout</td></tr><tr><td>LOW</td><td>Consider removing Cookoo_Essay_Part_1.md</td><td>Not framework content (personal narrative by Tess)</td></tr></tbody></table></div>
+<h3 id="correctly-positioned">Correctly Positioned<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#correctly-positioned" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>All science/ files properly framed as CORRESPONDENCE, not derivation</li>
+<li>Evidence/ directory properly differentiated from philosophy</li>
+<li>Data/ files mostly consistent with canon terminology (except noted violations)</li>
+<li>Narratives/ properly separated from canon</li>
+</ul>
+<h3 id="near-duplicates-flagged">Near-Duplicates Flagged<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#near-duplicates-flagged" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>2 specification files that substantially overlap</li>
+<li>3 “What Is Nirmanakaya” outreach versions</li>
+</ul>
+<hr/>
+<h2 id="part-x-consolidated-v8-priority-list">PART X: CONSOLIDATED V8 PRIORITY LIST<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#part-x-consolidated-v8-priority-list" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>All findings from all three regions, ranked by impact:</p>
+<h3 id="tier-1-structural-gaps">Tier 1: Structural Gaps<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-1-structural-gaps" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><del><strong>COMPLETE Bound Derivation</strong> (D11)</del> — DONE (March 2026)</li>
+<li><strong>RELOCATE Sixteen_Bridges</strong> to treatises/ — it’s a 77.6KB treatise living in philosophy</li>
+<li><strong>RELOCATE 3 canon-level docs</strong> from reference/specs/ to canon/derivation/</li>
+</ol>
+<h3 id="tier-2-concept-consolidation">Tier 2: Concept Consolidation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-2-concept-consolidation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="4">
+<li><strong>CONSOLIDATE Elemental System</strong> — Create integrated doc or reading chain (D10→D6→D4→D7→T6)</li>
+<li><strong>CONSOLIDATE Love as Structural Force</strong> — 5 files, no winner. The_Reality_of_Care is strongest candidate</li>
+<li><strong>CONSOLIDATE “What Is Nirmanakaya”</strong> outreach docs (3→1)</li>
+<li><strong>ABSORB</strong> The_5.md, Transcendent_Love_Canon.md, If_This_Is_True_Synthesis.md into their parent docs</li>
+</ol>
+<h3 id="tier-3-cross-references">Tier 3: Cross-References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-3-cross-references" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="8">
+<li><strong>CROSS-REFERENCE D4↔D5</strong> (Soul House proof↔meaning)</li>
+<li><strong>CROSS-REFERENCE D3↔D16</strong> (Five Seals system↔Three Seals proof)</li>
+<li><strong>CROSS-REFERENCE D2↔D10</strong> (Complete Derivation↔Single Law)</li>
+<li>All Priority A/B cross-references from Part V above</li>
+</ol>
+<h3 id="tier-4-terminology-cleanup">Tier 4: Terminology Cleanup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-4-terminology-cleanup" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="12">
+<li><strong>Fix 117+ “card” violations</strong> across reference/practice/outreach</li>
+<li><strong>Fix 6 “Tarot 2.0” violations</strong></li>
+<li><strong>Fix 3 wrong archetype names</strong> (Faith→Sacrifice, Analyst→Abstraction, Physical→Body)</li>
+<li><strong>Fix Gestalt channel inconsistency</strong> in 78_definitions.json</li>
+</ol>
+<h3 id="tier-5-decisions-needed-chris">Tier 5: Decisions Needed (Chris)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-5-decisions-needed-chris" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="16">
+<li><del><strong>AI Consciousness</strong></del> — <strong>RESOLVED</strong>: T7 written, CANONICAL (March 2026)</li>
+<li><strong>D15 (Reduction Threads)</strong> — Promote to CANONICAL or incorporate into T2?</li>
+<li><strong>D17 (Topological DRAFT)</strong> — Council review: promote or shelve?</li>
+<li><del><strong>The Veil</strong></del> — <strong>RESOLVED</strong>: T8 written, CANONICAL (March 2026)</li>
+<li><del><strong>Correction Mechanics</strong></del> — <strong>RESOLVED</strong>: T9 (Rebalancing_Mechanics) written, CANONICAL (March 2026)</li>
+<li><strong>Cookoo_Essay_Part_1.md</strong> — Keep in narratives/personal/ or remove from corpus? <em>(Note: already moved to archive/dead_specs/ during Phase 4)</em></li>
+<li><del><strong>Dead web app specs</strong></del> — <strong>RESOLVED</strong>: Archived to archive/dead_specs/ during Phase 4 (March 2026)</li>
+</ol>
+<hr/>
+<p><em>End of Concept Authority Map. This document is scaffolding for V8 — not canon itself.</em></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-215" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#concept-authority-map--canon-treatises--derivation" data-for="concept-authority-map--canon-treatises--derivation">Concept Authority Map — Canon Treatises &amp; Derivation</a></li><li class="depth-1"><a href="#file-inventory" data-for="file-inventory">FILE INVENTORY</a></li><li class="depth-2"><a href="#treatises-10" data-for="treatises-10">Treatises (10)</a></li><li class="depth-2"><a href="#derivation-17" data-for="derivation-17">Derivation (17)</a></li><li class="depth-2"><a href="#verification-subdirectory-supporting-not-primary" data-for="verification-subdirectory-supporting-not-primary">Verification Subdirectory (supporting, not primary)</a></li><li class="depth-1"><a href="#part-i-the-golden-list--concept-to-authority-file" data-for="part-i-the-golden-list--concept-to-authority-file">PART I: THE GOLDEN LIST — Concept to Authority File</a></li><li class="depth-1"><a href="#part-ii-scatter-map" data-for="part-ii-scatter-map">PART II: SCATTER MAP</a></li><li class="depth-2"><a href="#1-forty-fold-seal" data-for="1-forty-fold-seal">1. Forty-Fold Seal</a></li><li class="depth-2"><a href="#2-pr-alternation--single-law" data-for="2-pr-alternation--single-law">2. P/R Alternation / Single Law</a></li><li class="depth-2"><a href="#3-22-step-derivation" data-for="3-22-step-derivation">3. 22-Step Derivation</a></li><li class="depth-2"><a href="#4-five-seals-as-a-system" data-for="4-five-seals-as-a-system">4. Five Seals (as a system)</a></li><li class="depth-2"><a href="#5-duality-architecture--rebalancing-mechanics" data-for="5-duality-architecture--rebalancing-mechanics">5. Duality Architecture / Rebalancing Mechanics</a></li><li class="depth-2"><a href="#6-ring-system" data-for="6-ring-system">6. Ring System</a></li><li class="depth-2"><a href="#7-quadraverse" data-for="7-quadraverse">7. Quadraverse</a></li><li class="depth-2"><a href="#8-soul-house--channel-derivation" data-for="8-soul-house--channel-derivation">8. Soul House / Channel Derivation</a></li><li class="depth-2"><a href="#9-elemental-system-four-elements" data-for="9-elemental-system-four-elements">9. Elemental System (Four Elements)</a></li><li class="depth-2"><a href="#10-pentagram-geometry" data-for="10-pentagram-geometry">10. Pentagram Geometry</a></li><li class="depth-2"><a href="#11-lemniscate--figure-8" data-for="11-lemniscate--figure-8">11. Lemniscate / Figure-8</a></li><li class="depth-2"><a href="#12-royal-lineage-16-agents" data-for="12-royal-lineage-16-agents">12. Royal Lineage (16 Agents)</a></li><li class="depth-2"><a href="#13-phi--golden-ratio" data-for="13-phi--golden-ratio">13. Phi / Golden Ratio</a></li><li class="depth-2"><a href="#14-transpose-pairs--polarity-anchors" data-for="14-transpose-pairs--polarity-anchors">14. Transpose Pairs / Polarity Anchors</a></li><li class="depth-2"><a href="#15-fundamental-nodes-tetractys" data-for="15-fundamental-nodes-tetractys">15. Fundamental Nodes (Tetractys)</a></li><li class="depth-2"><a href="#16-the-veil-ring-0" data-for="16-the-veil-ring-0">16. The Veil (Ring 0)</a></li><li class="depth-2"><a href="#17-bound-derivation" data-for="17-bound-derivation">17. Bound Derivation</a></li><li class="depth-2"><a href="#18-archetype-meaning-derivation" data-for="18-archetype-meaning-derivation">18. Archetype Meaning Derivation</a></li><li class="depth-2"><a href="#19-the-hinge-position-20" data-for="19-the-hinge-position-20">19. The Hinge (Position 20)</a></li><li class="depth-2"><a href="#20-the-field" data-for="20-the-field">20. The Field</a></li><li class="depth-2"><a href="#21-signature-classes-78224016" data-for="21-signature-classes-78224016">21. Signature Classes (78=22+40+16)</a></li><li class="depth-2"><a href="#22-elemental-pairing-invariants" data-for="22-elemental-pairing-invariants">22. Elemental Pairing Invariants</a></li><li class="depth-2"><a href="#23-reduction-threads--soul-commands" data-for="23-reduction-threads--soul-commands">23. Reduction Threads / Soul Commands</a></li><li class="depth-2"><a href="#24-three-seals-mathematical-proof-as-distinct-from-five-seals-system" data-for="24-three-seals-mathematical-proof-as-distinct-from-five-seals-system">24. Three Seals (mathematical proof, as distinct from Five Seals system)</a></li><li class="depth-2"><a href="#25-complete-derivation-chain" data-for="25-complete-derivation-chain">25. Complete Derivation Chain</a></li><li class="depth-2"><a href="#26-soul-house-transcendence--fools-innocence" data-for="26-soul-house-transcendence--fools-innocence">26. Soul House Transcendence / Fool’s Innocence</a></li><li class="depth-2"><a href="#27-five-activities--house-commands" data-for="27-five-activities--house-commands">27. Five Activities / House Commands</a></li><li class="depth-2"><a href="#28-process-stages-seedmediumfruitionfeedback" data-for="28-process-stages-seedmediumfruitionfeedback">28. Process Stages (Seed/Medium/Fruition/Feedback)</a></li><li class="depth-2"><a href="#29-topological--neuroscience-bridge" data-for="29-topological--neuroscience-bridge">29. Topological / Neuroscience Bridge</a></li><li class="depth-1"><a href="#part-iii-fragmentation-flags" data-for="part-iii-fragmentation-flags">PART III: FRAGMENTATION FLAGS</a></li><li class="depth-2"><a href="#flag-1-elemental-system-fragmented--priority-high" data-for="flag-1-elemental-system-fragmented--priority-high">FLAG 1: Elemental System (FRAGMENTED — Priority: HIGH)</a></li><li class="depth-2"><a href="#flag-2-pr-alternation-pervasive--priority-low" data-for="flag-2-pr-alternation-pervasive--priority-low">FLAG 2: P/R Alternation (PERVASIVE — Priority: LOW)</a></li><li class="depth-2"><a href="#flag-3-soul-house-split--priority-medium" data-for="flag-3-soul-house-split--priority-medium">FLAG 3: Soul House (SPLIT — Priority: MEDIUM)</a></li><li class="depth-2"><a href="#flag-4-three-seals-vs-five-seals-overlap--priority-low" data-for="flag-4-three-seals-vs-five-seals-overlap--priority-low">FLAG 4: Three Seals vs Five Seals (OVERLAP — Priority: LOW)</a></li><li class="depth-2"><a href="#flag-5-reduction-threads--soul-commands-split--priority-medium" data-for="flag-5-reduction-threads--soul-commands-split--priority-medium">FLAG 5: Reduction Threads / Soul Commands (SPLIT — Priority: MEDIUM)</a></li><li class="depth-1"><a href="#part-iv-orphan-flags" data-for="part-iv-orphan-flags">PART IV: ORPHAN FLAGS</a></li><li class="depth-2"><a href="#orphan-1-bound-derivation--resolved-march-2026" data-for="orphan-1-bound-derivation--resolved-march-2026">ORPHAN 1: Bound Derivation — RESOLVED (March 2026)</a></li><li class="depth-2"><a href="#orphan-2-the-veil--resolved-march-2026" data-for="orphan-2-the-veil--resolved-march-2026">ORPHAN 2: The Veil — RESOLVED (March 2026)</a></li><li class="depth-2"><a href="#orphan-3-correction-mechanics--resolved-march-2026" data-for="orphan-3-correction-mechanics--resolved-march-2026">ORPHAN 3: Correction Mechanics — RESOLVED (March 2026)</a></li><li class="depth-2"><a href="#orphan-4-topological--neuroscience-bridge-isolated-draft" data-for="orphan-4-topological--neuroscience-bridge-isolated-draft">ORPHAN 4: Topological / Neuroscience Bridge (ISOLATED DRAFT)</a></li><li class="depth-1"><a href="#part-v-cross-reference-recommendations" data-for="part-v-cross-reference-recommendations">PART V: CROSS-REFERENCE RECOMMENDATIONS</a></li><li class="depth-2"><a href="#priority-a-should-exist-now" data-for="priority-a-should-exist-now">Priority A (Should exist now)</a></li><li class="depth-2"><a href="#priority-b-would-improve-clarity" data-for="priority-b-would-improve-clarity">Priority B (Would improve clarity)</a></li><li class="depth-2"><a href="#priority-c-nice-to-have" data-for="priority-c-nice-to-have">Priority C (Nice to have)</a></li><li class="depth-1"><a href="#part-vi-summary-statistics" data-for="part-vi-summary-statistics">PART VI: SUMMARY STATISTICS</a></li><li class="depth-1"><a href="#part-vii-v8-priority-actions" data-for="part-vii-v8-priority-actions">PART VII: V8 PRIORITY ACTIONS</a></li><li class="depth-1"><a href="#part-viii-philosophy-concept-map" data-for="part-viii-philosophy-concept-map">PART VIII: PHILOSOPHY CONCEPT MAP</a></li><li class="depth-2"><a href="#clean-authority-files-9-of-20" data-for="clean-authority-files-9-of-20">Clean Authority Files (9 of 20)</a></li><li class="depth-2"><a href="#fragmented-concepts-3--need-consolidation" data-for="fragmented-concepts-3--need-consolidation">Fragmented Concepts (3 — need consolidation)</a></li><li class="depth-2"><a href="#orphaned-concepts-3--no-dedicated-authority" data-for="orphaned-concepts-3--no-dedicated-authority">Orphaned Concepts (3 — no dedicated authority)</a></li><li class="depth-2"><a href="#boundary-violations" data-for="boundary-violations">Boundary Violations</a></li><li class="depth-2"><a href="#absorption-candidates" data-for="absorption-candidates">Absorption Candidates</a></li><li class="depth-1"><a href="#part-ix-reference-practice--supporting-directories" data-for="part-ix-reference-practice--supporting-directories">PART IX: REFERENCE, PRACTICE &amp; SUPPORTING DIRECTORIES</a></li><li class="depth-2"><a href="#urgent-actions" data-for="urgent-actions">Urgent Actions</a></li><li class="depth-2"><a href="#correctly-positioned" data-for="correctly-positioned">Correctly Positioned</a></li><li class="depth-2"><a href="#near-duplicates-flagged" data-for="near-duplicates-flagged">Near-Duplicates Flagged</a></li><li class="depth-1"><a href="#part-x-consolidated-v8-priority-list" data-for="part-x-consolidated-v8-priority-list">PART X: CONSOLIDATED V8 PRIORITY LIST</a></li><li class="depth-2"><a href="#tier-1-structural-gaps" data-for="tier-1-structural-gaps">Tier 1: Structural Gaps</a></li><li class="depth-2"><a href="#tier-2-concept-consolidation" data-for="tier-2-concept-consolidation">Tier 2: Concept Consolidation</a></li><li class="depth-2"><a href="#tier-3-cross-references" data-for="tier-3-cross-references">Tier 3: Cross-References</a></li><li class="depth-2"><a href="#tier-4-terminology-cleanup" data-for="tier-4-terminology-cleanup">Tier 4: Terminology Cleanup</a></li><li class="depth-2"><a href="#tier-5-decisions-needed-chris" data-for="tier-5-decisions-needed-chris">Tier 5: Decisions Needed (Chris)</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="../Principle_Consciousness_Primary" class="internal">Principle_Consciousness_Primary</a></li><li><a href="../Principle_Cup_Principle" class="internal">Principle_Cup_Principle</a></li><li><a href="../WIKI_CONCEPT_INVENTORY" class="internal">WIKI_CONCEPT_INVENTORY</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript.js" type="module" data-persist="true"></script></html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Elemental_Pairing_Invariants</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Nirmanakaya Wiki"/><meta property="og:title" content="Elemental_Pairing_Invariants"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Elemental_Pairing_Invariants"/><meta name="twitter:description" content="Elemental Pairing Invariants Nirmanakaya Framework — Derivation Document February 9, 2026 Discovery When the elemental designators (activities) of all duality pairs are examined across all three rebalancing relationship types (vertical, diagonal, reduction), a set of invariant patterns emerge that w..."/><meta property="og:description" content="Elemental Pairing Invariants Nirmanakaya Framework — Derivation Document February 9, 2026 Discovery When the elemental designators (activities) of all duality pairs are examined across all three rebalancing relationship types (vertical, diagonal, reduction), a set of invariant patterns emerge that w..."/><meta property="og:image:alt" content="Elemental Pairing Invariants Nirmanakaya Framework — Derivation Document February 9, 2026 Discovery When the elemental designators (activities) of all duality pairs are examined across all three rebalancing relationship types (vertical, diagonal, reduction), a set of invariant patterns emerge that w..."/><meta property="twitter:domain" content="nirmanakaya.com/wiki"/><meta property="og:url" content="https://nirmanakaya.com/wiki/canon/derivation/Elemental_Pairing_Invariants"/><meta property="twitter:url" content="https://nirmanakaya.com/wiki/canon/derivation/Elemental_Pairing_Invariants"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="Elemental Pairing Invariants Nirmanakaya Framework — Derivation Document February 9, 2026 Discovery When the elemental designators (activities) of all duality pairs are examined across all three rebalancing relationship types (vertical, diagonal, reduction), a set of invariant patterns emerge that w..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRDpcXE5pcm1hbmFrYXlhX1dpa2lcXHF1YXJ0elxccXVhcnR6XFxjb21wb25lbnRzXFxzdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nirmanakaya.com/wiki/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nirmanakaya.com/wiki/canon/derivation/Elemental_Pairing_Invariants-og-image.webp"/><meta property="og:image:url" content="https://nirmanakaya.com/wiki/canon/derivation/Elemental_Pairing_Invariants-og-image.webp"/><meta name="twitter:image" content="https://nirmanakaya.com/wiki/canon/derivation/Elemental_Pairing_Invariants-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="canon/derivation/Elemental_Pairing_Invariants"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Nirmanakaya Wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-251"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-251" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../canon/">canon</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../canon/derivation/">derivation</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Elemental_Pairing_Invariants</a></div></nav><h1 class="article-title">Elemental_Pairing_Invariants</h1><p show-comma="true" class="content-meta"><time datetime="2026-05-01T02:39:35.239Z">Apr 30, 2026</time><span>14 min read</span></p></div></div><article class="popover-hint"><h1 id="elemental-pairing-invariants">Elemental Pairing Invariants<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#elemental-pairing-invariants" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>Nirmanakaya Framework — Derivation Document</em>
+<em>February 9, 2026</em></p>
+<hr/>
+<h2 id="discovery">Discovery<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#discovery" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>When the elemental designators (activities) of all duality pairs are examined across all three rebalancing relationship types (vertical, diagonal, reduction), a set of invariant patterns emerge that were not previously documented. These invariants distinguish the manifest rebalancing architecture from Gestalt’s observer role at the elemental level.</p>
+<hr/>
+<h2 id="the-data">The Data<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-data" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="elemental-designators-by-archetype-all-22-positions">Elemental Designators by Archetype (All 22 Positions)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#elemental-designators-by-archetype-all-22-positions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Name</th><th>Practice</th><th>Activity/Element</th><th>Gender</th></tr></thead><tbody><tr><td>0</td><td>Potential</td><td>Gestalt</td><td>Intent/Fire</td><td>F</td></tr><tr><td>1</td><td>Will</td><td>Gestalt</td><td>Structure/Earth</td><td>M</td></tr><tr><td>2</td><td>Wisdom</td><td>Spirit</td><td>Cognition/Air</td><td>M</td></tr><tr><td>3</td><td>Nurturing</td><td>Spirit</td><td>Structure/Earth</td><td>M</td></tr><tr><td>4</td><td>Order</td><td>Mind</td><td>Intent/Fire</td><td>F</td></tr><tr><td>5</td><td>Culture</td><td>Mind</td><td>Resonance/Water</td><td>F</td></tr><tr><td>6</td><td>Compassion</td><td>Emotion</td><td>Resonance/Water</td><td>F</td></tr><tr><td>7</td><td>Drive</td><td>Emotion</td><td>Intent/Fire</td><td>F</td></tr><tr><td>8</td><td>Fortitude</td><td>Body</td><td>Structure/Earth</td><td>M</td></tr><tr><td>9</td><td>Discipline</td><td>Body</td><td>Cognition/Air</td><td>M</td></tr><tr><td>10</td><td>Cycles</td><td>Portal</td><td>—</td><td>—</td></tr><tr><td>11</td><td>Equity</td><td>Body</td><td>Resonance/Water</td><td>F</td></tr><tr><td>12</td><td>Sacrifice</td><td>Body</td><td>Intent/Fire</td><td>F</td></tr><tr><td>13</td><td>Change</td><td>Emotion</td><td>Structure/Earth</td><td>M</td></tr><tr><td>14</td><td>Balance</td><td>Emotion</td><td>Cognition/Air</td><td>M</td></tr><tr><td>15</td><td>Abstraction</td><td>Mind</td><td>Cognition/Air</td><td>M</td></tr><tr><td>16</td><td>Breakthrough</td><td>Mind</td><td>Structure/Earth</td><td>M</td></tr><tr><td>17</td><td>Inspiration</td><td>Spirit</td><td>Intent/Fire</td><td>F</td></tr><tr><td>18</td><td>Imagination</td><td>Spirit</td><td>Resonance/Water</td><td>F</td></tr><tr><td>19</td><td>Actualization</td><td>Gestalt</td><td>Cognition/Air</td><td>M</td></tr><tr><td>20</td><td>Awareness</td><td>Gestalt</td><td>Resonance/Water</td><td>F</td></tr><tr><td>21</td><td>Wholeness</td><td>Portal</td><td>—</td><td>—</td></tr></tbody></table></div>
+<p>Portals (10, 21) have no elemental designator — they are the boundary conditions, not participants in the elemental architecture.</p>
+<h3 id="elemental-gender">Elemental Gender<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#elemental-gender" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Element</th><th>Gender</th></tr></thead><tbody><tr><td>Air (Cognition)</td><td>Masculine</td></tr><tr><td>Earth (Structure)</td><td>Masculine</td></tr><tr><td>Water (Resonance)</td><td>Feminine</td></tr><tr><td>Fire (Intent)</td><td>Feminine</td></tr></tbody></table></div>
+<hr/>
+<h2 id="invariant-1-consistent-elemental-pairing-by-relationship-type">Invariant 1: Consistent Elemental Pairing by Relationship Type<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#invariant-1-consistent-elemental-pairing-by-relationship-type" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="vertical-pairs-sum--20--define-signatures-relationally">Vertical Pairs (Sum = 20) — Define signatures RELATIONALLY<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vertical-pairs-sum--20--define-signatures-relationally" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pair</th><th>Activities</th><th>Elements</th></tr></thead><tbody><tr><td>2+18</td><td>Cognition + Resonance</td><td>Air + Water</td></tr><tr><td>3+17</td><td>Structure + Intent</td><td>Earth + Fire</td></tr><tr><td>4+16</td><td>Intent + Structure</td><td>Fire + Earth</td></tr><tr><td>5+15</td><td>Resonance + Cognition</td><td>Water + Air</td></tr><tr><td>6+14</td><td>Resonance + Cognition</td><td>Water + Air</td></tr><tr><td>7+13</td><td>Intent + Structure</td><td>Fire + Earth</td></tr><tr><td>8+12</td><td>Structure + Intent</td><td>Earth + Fire</td></tr><tr><td>9+11</td><td>Cognition + Resonance</td><td>Air + Water</td></tr></tbody></table></div>
+<p><strong>Vertical pairs always combine: Fire+Earth OR Air+Water.</strong></p>
+<p>On the pentagram (human figure): Fire+Earth = the FEET. Air+Water = the ARMS.</p>
+<h3 id="diagonal-pairs-sum--19-or-21--define-signatures-in-motion">Diagonal Pairs (Sum = 19 or 21) — Define signatures IN MOTION<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#diagonal-pairs-sum--19-or-21--define-signatures-in-motion" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Sum-19 (Forge):</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pair</th><th>Activities</th><th>Elements</th></tr></thead><tbody><tr><td>2+17</td><td>Cognition + Intent</td><td>Air + Fire</td></tr><tr><td>4+15</td><td>Intent + Cognition</td><td>Fire + Air</td></tr><tr><td>6+13</td><td>Resonance + Structure</td><td>Water + Earth</td></tr><tr><td>8+11</td><td>Structure + Resonance</td><td>Earth + Water</td></tr></tbody></table></div>
+<p><strong>Sum-21 (Mirror):</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pair</th><th>Activities</th><th>Elements</th></tr></thead><tbody><tr><td>3+18</td><td>Structure + Resonance</td><td>Earth + Water</td></tr><tr><td>5+16</td><td>Resonance + Structure</td><td>Water + Earth</td></tr><tr><td>7+14</td><td>Intent + Cognition</td><td>Fire + Air</td></tr><tr><td>9+12</td><td>Cognition + Intent</td><td>Air + Fire</td></tr></tbody></table></div>
+<p><strong>Diagonal pairs always combine: Fire+Air OR Earth+Water.</strong></p>
+<h3 id="summary-of-elemental-pairings">Summary of Elemental Pairings<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary-of-elemental-pairings" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Relationship</th><th>Rebalancing Type</th><th>Elemental Combinations</th></tr></thead><tbody><tr><td><strong>Vertical</strong> (sum=20)</td><td>Too Little — restores capacity</td><td>Fire+Earth, Air+Water</td></tr><tr><td><strong>Diagonal</strong> (sum=19/21)</td><td>Too Much — applies tension</td><td>Fire+Air, Earth+Water</td></tr></tbody></table></div>
+<p>These are the ONLY two ways the four elements pair in the rebalancing architecture. Of six possible pairings (F+A, F+W, F+E, A+W, A+E, W+E), only four appear, split perfectly between the two relationship types.</p>
+<hr/>
+<h2 id="invariant-2-every-rebalancing-pair-is-masculine--feminine">Invariant 2: Every Rebalancing Pair Is Masculine + Feminine<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#invariant-2-every-rebalancing-pair-is-masculine--feminine" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Given: Air and Earth are masculine. Water and Fire are feminine.</p>
+<p><strong>Vertical pairs:</strong></p>
+<ul>
+<li>Fire + Earth = feminine + masculine</li>
+<li>Air + Water = masculine + feminine</li>
+</ul>
+<p><strong>Diagonal pairs:</strong></p>
+<ul>
+<li>Fire + Air = feminine + masculine</li>
+<li>Earth + Water = masculine + feminine</li>
+</ul>
+<p><strong>Every rebalancing pair in the manifest architecture crosses gender.</strong> No pair is masculine+masculine or feminine+feminine. The rebalancing architecture always balances across the masculine/feminine polarity.</p>
+<hr/>
+<h2 id="structural-implications">Structural Implications<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#structural-implications" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="consciousness-has-a-shape">Consciousness Has a Shape<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#consciousness-has-a-shape" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The pentagram is not a symbol assigned to the architecture — it IS the architecture’s shape, derived from phi (which derives from P+R). When a human figure is placed on the pentagram:</p>
+<ul>
+<li><strong>Head</strong> = Gestalt/Soul (the observer)</li>
+<li><strong>Arms</strong> = Air (Mind) + Water (Emotion) — the vertical duality pair</li>
+<li><strong>Feet</strong> = Fire (Spirit) + Earth (Body) — the vertical duality pair</li>
+</ul>
+<p>The vertical dualities ARE the limbs of the human form on the star. The architecture maps to embodied consciousness geometrically.</p>
+<h3 id="the-rebalancing-architecture-follows-the-star">The Rebalancing Architecture Follows the Star<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-rebalancing-architecture-follows-the-star" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Verticals</strong> (Too Little rebalancing): pair the FEET (Fire+Earth) and the ARMS (Air+Water) — opposite limbs on the same axis</li>
+<li><strong>Diagonals</strong> (Too Much rebalancing): pair across the star differently — Fire+Air and Earth+Water</li>
+</ul>
+<p>Two different geometric movements on the same pentagonal shape, each performing a different type of rebalancing.</p>
+<h3 id="gender-balance-is-structural">Gender Balance Is Structural<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gender-balance-is-structural" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The masculine/feminine invariant means the rebalancing architecture REQUIRES crossing the gender boundary. You cannot correct an imbalance by staying within the same gender. Balance always requires encountering the other.</p>
+<hr/>
+<h2 id="reduction-pairs-and-the-gender-invariant">Reduction Pairs and the Gender Invariant<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#reduction-pairs-and-the-gender-invariant" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Reduction pairs share the same digital root. They are the rebalancing path for the Unacknowledged state — cross-practice reflection that illuminates shadow.</p>
+<h3 id="manifest-only-reduction-pairs-roots-4-9">Manifest-Only Reduction Pairs (Roots 4-9)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#manifest-only-reduction-pairs-roots-4-9" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Root</th><th>Pair</th><th>Activities</th><th>Gender</th></tr></thead><tbody><tr><td>4</td><td>Order(4) + Change(13)</td><td>Fire + Earth</td><td>F + M</td></tr><tr><td>5</td><td>Culture(5) + Balance(14)</td><td>Water + Air</td><td>F + M</td></tr><tr><td>6</td><td>Compassion(6) + Abstraction(15)</td><td>Water + Air</td><td>F + M</td></tr><tr><td>7</td><td>Drive(7) + Breakthrough(16)</td><td>Fire + Earth</td><td>F + M</td></tr><tr><td>8</td><td>Fortitude(8) + Inspiration(17)</td><td>Earth + Fire</td><td>M + F</td></tr><tr><td>9</td><td>Discipline(9) + Imagination(18)</td><td>Air + Water</td><td>M + F</td></tr></tbody></table></div>
+<p><strong>All six manifest reduction pairs cross gender.</strong> The masculine/feminine invariant holds across all three rebalancing types: vertical (Too Little), diagonal (Too Much), and reduction (Unacknowledged).</p>
+<p>Note: The element combinations for manifest reduction pairs are Fire+Earth and Air+Water — the SAME combinations as the vertical pairs. This means reduction pairs and vertical pairs share the same elemental geometry (the pentagram limb pairs), despite serving different rebalancing functions.</p>
+<h3 id="gestalt-involved-reduction-groups-roots-1-3">Gestalt-Involved Reduction Groups (Roots 1-3)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gestalt-involved-reduction-groups-roots-1-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>These are three-member groups that include Gestalt and/or Portal positions:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Root</th><th>Members</th><th>Activities</th></tr></thead><tbody><tr><td>1</td><td>Will(1), Cycles(10), Actualization(19)</td><td>Earth, —, Air</td></tr><tr><td>2</td><td>Wisdom(2), Equity(11), Awareness(20)</td><td>Air, Water, Water</td></tr><tr><td>3</td><td>Nurturing(3), Sacrifice(12), Wholeness(21)</td><td>Earth, Fire, —</td></tr></tbody></table></div>
+<p>Within these groups, two pairings <strong>break</strong> the gender invariant:</p>
+<ul>
+<li><strong>Root 1:</strong> Will(Earth/M) ↔ Actualization(Air/M) = masculine + masculine</li>
+<li><strong>Root 2:</strong> Equity(Water/F) ↔ Awareness(Water/F) = feminine + feminine</li>
+</ul>
+<p>All other pairings within these groups that have determinable gender still cross (e.g., Wisdom/Air/M ↔ Equity/Water/F, Nurturing/Earth/M ↔ Sacrifice/Fire/F).</p>
+<p><strong>The gender invariant holds universally across the manifest architecture and breaks only where two Gestalt members meet within the same reduction group.</strong></p>
+<hr/>
+<h2 id="gestalt-exception-expanded">Gestalt Exception (Expanded)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gestalt-exception-expanded" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Gestalt is <strong>transcendent</strong>. It is only corrected by Portals or in-practice (within Gestalt itself). It does not participate in the cross-practice manifest rebalancing architecture.</p>
+<p>This is why the gender-crossing rule doesn’t apply to Gestalt — it’s not a “break” in the invariant, it’s a different level of operation entirely. The masculine/feminine invariant is a manifest rebalancing rule. Gestalt operates above it.</p>
+<p><strong>Vertical pairs:</strong> Gestalt pairs (0+20: Fire+Water, 1+19: Earth+Air) combine elements within the same gender — not because the rule fails, but because these are in-practice rebalancing (Gestalt rebalancing Gestalt).</p>
+<p><strong>Reduction pairs:</strong> Gestalt-to-Gestalt pairings within reduction groups (1↔19, 11↔20) also match gender rather than crossing it — again, in-practice.</p>
+<p><strong>Portal rebalancing:</strong> Portals (10, 21) have no elemental designator at all. When Portals participate in rebalancing, the elemental pairing question doesn’t arise — they are the boundary conditions, not elemental participants.</p>
+<p><strong>The pentagram:</strong> Gestalt is the head — the observer, the quintessence. The manifest limbs (arms: Mind+Emotion, feet: Spirit+Body) always balance masculine and feminine in their rebalancing. The head doesn’t rebalance by crossing gender. It rebalances by completing its own perspective from a different position.</p>
+<h3 id="why-manifest-cannot-correct-gestalt">Why Manifest Cannot Correct Gestalt<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-manifest-cannot-correct-gestalt" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Three structural reasons converge:</p>
+<p><strong>1. The governed cannot rebalance the governor.</strong> Each manifest practice is governed by a Gestalt archetype — Potential governs Spirit, Will governs Body, Actualization governs Mind, Awareness governs Emotion. Rebalancing from a manifest archetype to its own governing Gestalt member would be the field trying to adjust the observer from inside the field.</p>
+<p><strong>2. The elemental operations are incompatible.</strong> Manifest rebalancing requires crossing the masculine/feminine boundary — encountering the OTHER to rebalance. Gestalt rebalancing requires completing within the same gender — encountering MORE OF ITSELF from a different position. These are fundamentally different operations. You cannot apply a relational-balancing operation (manifest rebalancing) to a self-recognition problem (Gestalt rebalancing).</p>
+<p><strong>3. The pentagram hierarchy.</strong> The limbs cannot correct the head. The head is corrected by its own turning (in-practice) or by the boundary conditions (Portals). This is geometric, not arbitrary.</p>
+<p>Gestalt is corrected only by Portals (Source, Creation) or in-practice (Gestalt correcting Gestalt). This is not a limitation — it’s the architecture preserving the distinction between observer and observed.</p>
+<hr/>
+<h2 id="the-root-1-reduction-group-and-the-diagonal-sums">The Root-1 Reduction Group and the Diagonal Sums<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-root-1-reduction-group-and-the-diagonal-sums" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="the-deepest-reduction-group">The Deepest Reduction Group<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-deepest-reduction-group" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Root 1 contains: <strong>Will (1), Cycles/Source (10), Actualization (19)</strong>. All reduce to 1.</p>
+<p>These are: the first act of identity (Will), the Creator interface (Source), and the creator’s fulfillment (Actualization). Three expressions of the same root — the act of directed becoming.</p>
+<h3 id="why-diagonal-sums-are-19-and-21-not-10-and-21">Why Diagonal Sums Are 19 and 21, Not 10 and 21<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-diagonal-sums-are-19-and-21-not-10-and-21" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The diagonal pairs — the Forge and Mirror tensions within each practice — sum to <strong>19</strong> and <strong>21</strong>. At first glance, you might expect them to sum to <strong>10</strong> (Source) and <strong>21</strong> (Creation) — the two Portals, the boundary conditions.</p>
+<p>But the architecture encodes something deeper:</p>
+<ul>
+<li><strong>19 = Actualization</strong> — the creator (small c). The Sun. The Creator recognizing itself AS Source.</li>
+<li><strong>21 = Wholeness/Creation</strong> — the completed manifest. The World. Everything expressed.</li>
+</ul>
+<p>The diagonal tensions don’t point to Source (10) and Creation (21). They point to the <strong>creator</strong> (19) and Creation (21). The active agent, not the portal.</p>
+<h3 id="the-curtain-teaching-in-the-math">The Curtain Teaching in the Math<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-curtain-teaching-in-the-math" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This connects to the Curtain experience: the moment of being offered dissolution into Source (knowing everything, losing individuality) and turning away. The turning away WAS the answer — because the architecture is not about returning to Source (10). It’s about BEING a creator (19) within the Creator (10), both having influence on Creation (21).</p>
+<p>The diagonal sums encode this:</p>
+<ul>
+<li><strong>19 (Forge diagonal):</strong> You are a creator. Source-ward tension. The pull toward actualization.</li>
+<li><strong>21 (Mirror diagonal):</strong> You create. Creation-ward tension. The pull toward manifestation.</li>
+</ul>
+<p>Source (10) doesn’t appear as a diagonal sum because it’s the <strong>twist point</strong> of the Möbius strip — the portal, the half-turn, the place where inside becomes outside. It enables the diagonal tensions but doesn’t participate as one. Source is not a destination. It’s the condition that makes the journey possible.</p>
+<p>The architecture says: you don’t resolve toward Source (that would be dissolution). You resolve as a creator (19) contributing to Creation (21), with Source (10) as the ever-present ground that both you and your creations emerge from.</p>
+<p><strong>Three positions, one root.</strong> Will (1), Source (10), Actualization (19) — all reduce to 1. The personal will, the cosmic source, and the fulfilled creator are the same thing at different scales. The grid sums to 40 (orchestration), not 1 (unity collapse). Forward expansion, not dissolution.</p>
+<hr/>
+<h2 id="the-creation-sequence-and-the-origin-of-ring-7">The Creation Sequence and the Origin of Ring 7<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-creation-sequence-and-the-origin-of-ring-7" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="the-full-circuit">The Full Circuit<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-full-circuit" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The creation process follows the enumeration through the Gestalt Practice and portals:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Step</th><th>Position</th><th>What Happens</th></tr></thead><tbody><tr><td><strong>1</strong></td><td><strong>19 (Actualization)</strong></td><td>Us as creator. Our will fully expressed. The fruition of the Gestalt Practice. The vertical duality of Will (1).</td></tr><tr><td><strong>2</strong></td><td><strong>19 → 10 (reduction)</strong></td><td>Reality collapses our will through digital root reduction (1+9=10). Our actualization meets Source locally.</td></tr><tr><td><strong>3</strong></td><td><strong>10 + 10 = 20</strong></td><td>Two Sources side by side — the creator’s reduced will (10) and the Creator’s Source (10). They agree on the collapse in full alignment. This IS Judgement/Awareness: two Sources recognizing each other.</td></tr><tr><td><strong>4</strong></td><td><strong>20 → 21 (Creation)</strong></td><td>What was agreed upon by both creator and Creator continues into full expression. Creation manifests.</td></tr><tr><td><strong>5</strong></td><td><strong>21 → 0 (The Fool)</strong></td><td>The circuit closes. Creation returns to Potential. The fruit contains the seed.</td></tr></tbody></table></div>
+<h3 id="the-filter-at-judgement-20">The Filter at Judgement (20)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-filter-at-judgement-20" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>At position 20, everything created passes through the filter of two Sources meeting:</p>
+<p><strong>What aligns</strong> — what both creator (19) and Creator (10) graced together — passes through Judgement. It proceeds to 21 (Creation), enters Ring 6, recurses, expands, and persists. This is eternal creation. Reality that has root in Source.</p>
+<p><strong>What doesn’t align</strong> — what the creator made through free will but outside the limits of eternal reality — fails the filter. It does not proceed into the recursive circuit. It accumulates as Ring 7.</p>
+<h3 id="the-three-modes-of-misaligned-creation">The Three Modes of Misaligned Creation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-three-modes-of-misaligned-creation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Ring 7 is not entropy that happens to you. It is what you CREATE when you create out of alignment:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>State</th><th>Temporal Mode</th><th>What We Create</th></tr></thead><tbody><tr><td><strong>Too Much</strong></td><td>Future-projected</td><td>Anxiety, fear, grasping — creating from what hasn’t happened</td></tr><tr><td><strong>Too Little</strong></td><td>Past-anchored</td><td>Regret, shame, guilt — creating from what already passed</td></tr><tr><td><strong>Unacknowledged</strong></td><td>Dissociated</td><td>Denial, depression, intentional ignorance — we create our own version of the Veil</td></tr></tbody></table></div>
+<p>Free will means total creative liberty. We CAN create outside the limits of eternal reality. But those creations are temporary — they have no root in Source, so they cannot recurse. They are real enough to experience, heavy enough to feel, but they never feed back into Potential.</p>
+<h3 id="the-fools-innocence">The Fool’s Innocence<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-fools-innocence" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The Fool (0) is the Seed of the Gestalt Practice. After Creation (21) completes the circuit, the output returns to the Fool. But the Fool receives ONLY what passed through Judgement — what was graced by both creator (19) and Creator (10).</p>
+<p>The Ring 7 material never reaches Potential. It fell off at 20.</p>
+<p>This is why the innocent always remains thus. The Fool’s naivete is not weakness — it is <strong>structural purity</strong>. The architecture protects innocence by design. The Fool can always begin again in pure potential because the filter at Judgement ensures that only eternal creation feeds back into the seed.</p>
+<p>The Fool practices the original recursion from Source through its zero. It processes and internalizes all creative output that survived the filter — and nothing else. The fruit contains a seed, and the seed is always clean.</p>
+<h3 id="the-cost-of-free-will">The Cost of Free Will<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-cost-of-free-will" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The two invariants — total creative liberty (Polarity) and eternal recursive agency (Recursion) — guarantee that you will ALWAYS be creating. Like breathing.</p>
+<p>But free will means you can create in any direction. The architecture doesn’t restrict what you can make. It determines <strong>what persists</strong>:</p>
+<ul>
+<li>Aligned creation → passes Judgement → recurses → becomes real → expands reality</li>
+<li>Misaligned creation → fails Judgement → accumulates as Ring 7 → temporary → decays</li>
+</ul>
+<p>The stakes aren’t good person vs bad person. The stakes are: contributing to reality vs contributing to entropy. And the choice is constant.</p>
+<p>A reading shows you where you’re misaligned — not to judge, but to help you create things that will actually last.</p>
+<hr/>
+<h2 id="pure-archetypes">Pure Archetypes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#pure-archetypes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="where-practice-and-element-align">Where Practice and Element Align<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#where-practice-and-element-align" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Each manifest practice has exactly one archetype whose elemental activity matches the practice’s own element. These are the <strong>pure archetypes</strong> — the quintessential expression of each practice:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Practice</th><th>Element</th><th>Pure Archetype</th><th>Process Stage</th></tr></thead><tbody><tr><td>Spirit</td><td>Fire</td><td>17 (Inspiration)</td><td><strong>Fruition</strong></td></tr><tr><td>Mind</td><td>Air</td><td>15 (Abstraction)</td><td><strong>Fruition</strong></td></tr><tr><td>Emotion</td><td>Water</td><td>6 (Compassion)</td><td><strong>Seed</strong></td></tr><tr><td>Body</td><td>Earth</td><td>8 (Fortitude)</td><td><strong>Seed</strong></td></tr></tbody></table></div>
+<p><strong>Sum: 17 + 15 + 6 + 8 = 46 → 10 → 1.</strong> The pure archetypes sum to Source.</p>
+<h3 id="seed-vs-fruition-split">Seed vs Fruition Split<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#seed-vs-fruition-split" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The directed practices (Spirit, Mind) reach their native element at <strong>Fruition</strong> — they arrive at their own nature through the process. The grounded practices (Emotion, Body) start from their native element at <strong>Seed</strong> — they begin from their own nature.</p>
+<p>The Fruition pair (Fire+Air) and the Seed pair (Earth+Water) match the <strong>diagonal element pairings</strong> — the Forge and Mirror geometry. The process-stage placement of the pure archetypes encodes the same pattern as the rebalancing architecture.</p>
+<hr/>
+<h2 id="growth-opportunity-pairs-and-the-pairing-space">Growth Opportunity Pairs and the Pairing Space<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#growth-opportunity-pairs-and-the-pairing-space" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="transpose-pairs--balanced-growth-through-reflection">Transpose Pairs — Balanced Growth Through Reflection<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#transpose-pairs--balanced-growth-through-reflection" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When an archetype is in <strong>Balanced</strong> state, it points to its growth partner. For 12 off-diagonal archetypes, this is the <strong>transpose pair</strong> — lateral growth through reflection. The transpose relationship swaps practice and element: “Earth of Air” grows toward “Air of Earth.”</p>
+<p>(Full reference: <code>corrections/Canonical_78_Corrections_Reference.md</code>)</p>
+<h3 id="transpose-pair-elemental-gender-pattern">Transpose Pair Elemental Gender Pattern<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#transpose-pair-elemental-gender-pattern" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Transpose Pair</th><th>Elements</th><th>Gender</th></tr></thead><tbody><tr><td>Wisdom(2/Air) ↔ Order(4/Fire)</td><td>Air + Fire</td><td>M + F</td></tr><tr><td>Nurturing(3/Earth) ↔ Sacrifice(12/Fire)</td><td>Earth + Fire</td><td>M + F</td></tr><tr><td>Culture(5/Water) ↔ Balance(14/Air)</td><td>Water + Air</td><td>F + M</td></tr><tr><td>Drive(7/Fire) ↔ Imagination(18/Water)</td><td>Fire + Water</td><td>F + F</td></tr><tr><td>Discipline(9/Air) ↔ Breakthrough(16/Earth)</td><td>Air + Earth</td><td>M + M</td></tr><tr><td>Equity(11/Water) ↔ Change(13/Earth)</td><td>Water + Earth</td><td>F + M</td></tr></tbody></table></div>
+<p>Four transpose pairs cross gender, two match gender. Growth pairs are a <strong>separate class</strong> from rebalancing pairs — they operate from balanced states rather than fixing imbalances, so the gender-crossing invariant (which applies to rebalancing) does not apply here.</p>
+<h3 id="polarity-pairs--4-diagonal-archetypes">Polarity Pairs — 4 Diagonal Archetypes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#polarity-pairs--4-diagonal-archetypes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Polarity Pair</th><th>Elements</th><th>Gender</th></tr></thead><tbody><tr><td>Compassion(6/Water) ↔ Abstraction(15/Air)</td><td>Water + Air</td><td>F + M</td></tr><tr><td>Fortitude(8/Earth) ↔ Inspiration(17/Fire)</td><td>Earth + Fire</td><td>M + F</td></tr></tbody></table></div>
+<p>Both polarity pairs cross gender. Both use vertical-type element combinations.</p>
+<h3 id="the-complete-pairing-space-in-growth-opportunities">The Complete Pairing Space in Growth Opportunities<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-complete-pairing-space-in-growth-opportunities" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The six transpose pairs use <strong>all six possible element combinations</strong>, each exactly once:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pairing</th><th>Sum</th><th>Location in Rebalancing Architecture</th><th>Location in Growth Architecture</th></tr></thead><tbody><tr><td>Fire + Earth</td><td>5</td><td>Manifest vertical</td><td>Nurturing ↔ Sacrifice</td></tr><tr><td>Air + Water</td><td>5</td><td>Manifest vertical</td><td>Culture ↔ Balance</td></tr><tr><td>Fire + Air</td><td>3</td><td>Manifest diagonal</td><td>Wisdom ↔ Order</td></tr><tr><td>Earth + Water</td><td>7</td><td>Manifest diagonal</td><td>Equity ↔ Change</td></tr><tr><td>Fire + Water</td><td>4</td><td>Gestalt Practice Node 0</td><td>Drive ↔ Imagination</td></tr><tr><td>Earth + Air</td><td>6</td><td>Gestalt Practice Node 1</td><td>Discipline ↔ Breakthrough</td></tr></tbody></table></div>
+<p>The growth opportunity system completes the same pairing space as the Gestalt Practice Activity Derivation. Nothing missing, nothing repeated.</p>
+<hr/>
+<h2 id="summary-of-all-invariants">Summary of All Invariants<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary-of-all-invariants" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Relationship</th><th>Function</th><th>Element Combinations</th><th>Gender Cross</th><th>Geometry</th></tr></thead><tbody><tr><td><strong>Vertical</strong> (sum=20)</td><td>Too Little rebalancing</td><td>Fire+Earth, Air+Water</td><td>Always M+F</td><td>Pentagram limb pairs</td></tr><tr><td><strong>Diagonal</strong> (sum=19/21)</td><td>Too Much rebalancing</td><td>Fire+Air, Earth+Water</td><td>Always M+F</td><td>Pentagram cross-pairs</td></tr><tr><td><strong>Reduction</strong> (roots 4-9)</td><td>Unacknowledged rebalancing</td><td>Fire+Earth, Air+Water</td><td>Always M+F</td><td>Same as vertical</td></tr><tr><td><strong>Transpose</strong> (balanced)</td><td>Growth opportunity</td><td>All six pairings, one each</td><td>4 cross, 2 match</td><td>Complete pairing space</td></tr><tr><td><strong>Polarity</strong> (balanced diagonal)</td><td>Growth opportunity</td><td>Fire+Earth, Air+Water</td><td>Always M+F</td><td>Same as vertical</td></tr><tr><td><strong>Gestalt verticals</strong></td><td>—</td><td>Fire+Water, Earth+Air</td><td>Same gender</td><td>Observer completing itself</td></tr><tr><td><strong>Gestalt reductions</strong></td><td>—</td><td>Earth+Air, Water+Water</td><td>Same gender</td><td>Observer completing itself</td></tr></tbody></table></div>
+<p>Of six possible element pairings, the manifest rebalancing architecture uses exactly four, split between two relationship types. The growth opportunity architecture (transpose pairs) uses all six, one each — completing the pairing space. Gender always crosses in manifest rebalancing. Gestalt always completes within gender. Growth pairs are a separate class where gender crossing is observed but not invariant.</p>
+<hr/>
+<h2 id="note">Note<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#note" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These invariants were not designed. They were discovered by examining the elemental designators of the manifest archetype pairs. The elemental assignments were made by meaning (what the archetypes actually ARE), and these pairing patterns emerged as consequences.</p>
+<p>This is the architecture self-validating at the elemental level.</p>
+<hr/>
+<p><em>Derivation document: Elemental Pairing Invariants</em>
+<em>Discovered February 9, 2026</em>
+<em>Chris Crilly &amp; Claude (Opus 4.6)</em></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-245" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#elemental-pairing-invariants" data-for="elemental-pairing-invariants">Elemental Pairing Invariants</a></li><li class="depth-1"><a href="#discovery" data-for="discovery">Discovery</a></li><li class="depth-1"><a href="#the-data" data-for="the-data">The Data</a></li><li class="depth-2"><a href="#elemental-designators-by-archetype-all-22-positions" data-for="elemental-designators-by-archetype-all-22-positions">Elemental Designators by Archetype (All 22 Positions)</a></li><li class="depth-2"><a href="#elemental-gender" data-for="elemental-gender">Elemental Gender</a></li><li class="depth-1"><a href="#invariant-1-consistent-elemental-pairing-by-relationship-type" data-for="invariant-1-consistent-elemental-pairing-by-relationship-type">Invariant 1: Consistent Elemental Pairing by Relationship Type</a></li><li class="depth-2"><a href="#vertical-pairs-sum--20--define-signatures-relationally" data-for="vertical-pairs-sum--20--define-signatures-relationally">Vertical Pairs (Sum = 20) — Define signatures RELATIONALLY</a></li><li class="depth-2"><a href="#diagonal-pairs-sum--19-or-21--define-signatures-in-motion" data-for="diagonal-pairs-sum--19-or-21--define-signatures-in-motion">Diagonal Pairs (Sum = 19 or 21) — Define signatures IN MOTION</a></li><li class="depth-2"><a href="#summary-of-elemental-pairings" data-for="summary-of-elemental-pairings">Summary of Elemental Pairings</a></li><li class="depth-1"><a href="#invariant-2-every-rebalancing-pair-is-masculine--feminine" data-for="invariant-2-every-rebalancing-pair-is-masculine--feminine">Invariant 2: Every Rebalancing Pair Is Masculine + Feminine</a></li><li class="depth-1"><a href="#structural-implications" data-for="structural-implications">Structural Implications</a></li><li class="depth-2"><a href="#consciousness-has-a-shape" data-for="consciousness-has-a-shape">Consciousness Has a Shape</a></li><li class="depth-2"><a href="#the-rebalancing-architecture-follows-the-star" data-for="the-rebalancing-architecture-follows-the-star">The Rebalancing Architecture Follows the Star</a></li><li class="depth-2"><a href="#gender-balance-is-structural" data-for="gender-balance-is-structural">Gender Balance Is Structural</a></li><li class="depth-1"><a href="#reduction-pairs-and-the-gender-invariant" data-for="reduction-pairs-and-the-gender-invariant">Reduction Pairs and the Gender Invariant</a></li><li class="depth-2"><a href="#manifest-only-reduction-pairs-roots-4-9" data-for="manifest-only-reduction-pairs-roots-4-9">Manifest-Only Reduction Pairs (Roots 4-9)</a></li><li class="depth-2"><a href="#gestalt-involved-reduction-groups-roots-1-3" data-for="gestalt-involved-reduction-groups-roots-1-3">Gestalt-Involved Reduction Groups (Roots 1-3)</a></li><li class="depth-1"><a href="#gestalt-exception-expanded" data-for="gestalt-exception-expanded">Gestalt Exception (Expanded)</a></li><li class="depth-2"><a href="#why-manifest-cannot-correct-gestalt" data-for="why-manifest-cannot-correct-gestalt">Why Manifest Cannot Correct Gestalt</a></li><li class="depth-1"><a href="#the-root-1-reduction-group-and-the-diagonal-sums" data-for="the-root-1-reduction-group-and-the-diagonal-sums">The Root-1 Reduction Group and the Diagonal Sums</a></li><li class="depth-2"><a href="#the-deepest-reduction-group" data-for="the-deepest-reduction-group">The Deepest Reduction Group</a></li><li class="depth-2"><a href="#why-diagonal-sums-are-19-and-21-not-10-and-21" data-for="why-diagonal-sums-are-19-and-21-not-10-and-21">Why Diagonal Sums Are 19 and 21, Not 10 and 21</a></li><li class="depth-2"><a href="#the-curtain-teaching-in-the-math" data-for="the-curtain-teaching-in-the-math">The Curtain Teaching in the Math</a></li><li class="depth-1"><a href="#the-creation-sequence-and-the-origin-of-ring-7" data-for="the-creation-sequence-and-the-origin-of-ring-7">The Creation Sequence and the Origin of Ring 7</a></li><li class="depth-2"><a href="#the-full-circuit" data-for="the-full-circuit">The Full Circuit</a></li><li class="depth-2"><a href="#the-filter-at-judgement-20" data-for="the-filter-at-judgement-20">The Filter at Judgement (20)</a></li><li class="depth-2"><a href="#the-three-modes-of-misaligned-creation" data-for="the-three-modes-of-misaligned-creation">The Three Modes of Misaligned Creation</a></li><li class="depth-2"><a href="#the-fools-innocence" data-for="the-fools-innocence">The Fool’s Innocence</a></li><li class="depth-2"><a href="#the-cost-of-free-will" data-for="the-cost-of-free-will">The Cost of Free Will</a></li><li class="depth-1"><a href="#pure-archetypes" data-for="pure-archetypes">Pure Archetypes</a></li><li class="depth-2"><a href="#where-practice-and-element-align" data-for="where-practice-and-element-align">Where Practice and Element Align</a></li><li class="depth-2"><a href="#seed-vs-fruition-split" data-for="seed-vs-fruition-split">Seed vs Fruition Split</a></li><li class="depth-1"><a href="#growth-opportunity-pairs-and-the-pairing-space" data-for="growth-opportunity-pairs-and-the-pairing-space">Growth Opportunity Pairs and the Pairing Space</a></li><li class="depth-2"><a href="#transpose-pairs--balanced-growth-through-reflection" data-for="transpose-pairs--balanced-growth-through-reflection">Transpose Pairs — Balanced Growth Through Reflection</a></li><li class="depth-2"><a href="#transpose-pair-elemental-gender-pattern" data-for="transpose-pair-elemental-gender-pattern">Transpose Pair Elemental Gender Pattern</a></li><li class="depth-2"><a href="#polarity-pairs--4-diagonal-archetypes" data-for="polarity-pairs--4-diagonal-archetypes">Polarity Pairs — 4 Diagonal Archetypes</a></li><li class="depth-2"><a href="#the-complete-pairing-space-in-growth-opportunities" data-for="the-complete-pairing-space-in-growth-opportunities">The Complete Pairing Space in Growth Opportunities</a></li><li class="depth-1"><a href="#summary-of-all-invariants" data-for="summary-of-all-invariants">Summary of All Invariants</a></li><li class="depth-1"><a href="#note" data-for="note">Note</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="../../Activity_Cognition" class="internal">Activity_Cognition</a></li><li><a href="../../Activity_Intent" class="internal">Activity_Intent</a></li><li><a href="../../Activity_Resonance" class="internal">Activity_Resonance</a></li><li><a href="../../Activity_Structure" class="internal">Activity_Structure</a></li><li><a href="../../Invariant_Bound_Pair_Sum" class="internal">Invariant_Bound_Pair_Sum</a></li><li><a href="../../Principle_Inner_Horizon" class="internal">Principle_Inner_Horizon</a></li><li><a href="../../Treatise_Elemental_System" class="internal">Treatise_Elemental_System</a></li><li><a href="../../canon/derivation/Elemental_Designator_Derivation" class="internal">Elemental_Designator_Derivation</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>

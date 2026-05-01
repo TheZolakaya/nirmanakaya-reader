@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>00-potential</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Nirmanakaya Wiki"/><meta property="og:title" content="00-potential"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="00-potential"/><meta name="twitter:description" content="POTENTIAL (0) The Fool I."/><meta property="og:description" content="POTENTIAL (0) The Fool I."/><meta property="og:image:alt" content="POTENTIAL (0) The Fool I."/><meta property="twitter:domain" content="nirmanakaya.com/wiki"/><meta property="og:url" content="https://nirmanakaya.com/wiki/canon/archetypes/00-potential"/><meta property="twitter:url" content="https://nirmanakaya.com/wiki/canon/archetypes/00-potential"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="POTENTIAL (0) The Fool I."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRDpcXE5pcm1hbmFrYXlhX1dpa2lcXHF1YXJ0elxccXVhcnR6XFxjb21wb25lbnRzXFxzdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nirmanakaya.com/wiki/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nirmanakaya.com/wiki/canon/archetypes/00-potential-og-image.webp"/><meta property="og:image:url" content="https://nirmanakaya.com/wiki/canon/archetypes/00-potential-og-image.webp"/><meta name="twitter:image" content="https://nirmanakaya.com/wiki/canon/archetypes/00-potential-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="canon/archetypes/00-potential"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Nirmanakaya Wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-222"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-222" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../canon/">canon</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../canon/archetypes/">archetypes</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>00 potential</a></div></nav><h1 class="article-title">00-potential</h1><p show-comma="true" class="content-meta"><time datetime="2026-05-01T02:39:34.704Z">Apr 30, 2026</time><span>21 min read</span></p></div></div><article class="popover-hint"><h1 id="potential-0">POTENTIAL (0)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#potential-0" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h3 id="the-fool"><em>The Fool</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-fool" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<hr/>
+<h2 id="i-structural-identity">I. STRUCTURAL IDENTITY<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#i-structural-identity" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Attribute</th><th>Value</th></tr></thead><tbody><tr><td><strong>Position</strong></td><td>0</td></tr><tr><td><strong>Practice</strong></td><td>Gestalt — The meta-practice; governs coherence, orientation, identity</td></tr><tr><td><strong>Activity</strong></td><td>Meta-positional — Gestalt Practice sits above the grid as governor</td></tr><tr><td><strong>Function</strong></td><td>Seed — Initiates the Gestalt process cycle</td></tr><tr><td><strong>Gender</strong></td><td>Meta — Transcends polarity</td></tr><tr><td><strong>Span</strong></td><td>38 (Unified) — Operates at the scope of everything</td></tr><tr><td><strong>Governed By</strong></td><td>Source (10) — The Wheel of Fortune</td></tr><tr><td><strong>Rules</strong></td><td>Spirit Practice</td></tr><tr><td><strong>Vertical Partner</strong></td><td>Awareness (20) — sum 20</td></tr><tr><td><strong>Diagonal Partner</strong></td><td>Actualization (19) — sum 19</td></tr><tr><td><strong>Reduction</strong></td><td>0 (origin — does not reduce)</td></tr><tr><td><strong>Associated Bounds</strong></td><td>Activation (Ace of Intent), Attainment (10 of Intent)</td></tr><tr><td><strong>Sun/World Alignment</strong></td><td>Sun-aligned (Forge)</td></tr><tr><td><strong>Pillar</strong></td><td>1 — Purpose of Existence</td></tr></tbody></table></div>
+<hr/>
+<h2 id="ii-pillar-connection">II. PILLAR CONNECTION<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ii-pillar-connection" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Pillar 1: Purpose of Existence</strong></p>
+<p><em>“Existence grows when we bring new, authentic experiences, perspectives, and creations into being. Without it, reality loops instead of expanding.”</em></p>
+<p>Potential IS Pillar 1 at the threshold. Before there can be authentic creation, there must be the willingness to exist at all. The Fool doesn’t know what will be created — that’s the point. Potential is the “yes” that makes all subsequent creation possible.</p>
+<p>Every journey begins with stepping forward without knowing where it leads. Every creation begins with opening to possibility before form arrives. Potential is the precondition for purpose — the readiness that makes meaning possible.</p>
+<p>Potential reminds: You exist. That existence is not neutral — it is already participation in creation. The question is whether you step forward consciously.</p>
+<hr/>
+<h2 id="iii-derivation">III. DERIVATION<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iii-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="step-0-in-the-22-step-process">Step 0 in the 22-Step Process<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#step-0-in-the-22-step-process" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Attribute</th><th>Value</th></tr></thead><tbody><tr><td><strong>Step</strong></td><td>0</td></tr><tr><td><strong>Phase</strong></td><td>Creation (Steps 0-9)</td></tr><tr><td><strong>What This Step Creates</strong></td><td>Consciousness exists — the first locus of awareness</td></tr><tr><td><strong>Pentagram Position</strong></td><td>Gestalt Practice, first position (Seed) — the origin point</td></tr><tr><td><strong>Vertical Partner</strong></td><td>Awareness (20) — operates the same structure in the Operation phase</td></tr></tbody></table></div>
+<h3 id="the-derivation">The Derivation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-derivation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Step 0 is where everything begins. This is the <strong>Originating Recursion</strong> — the moment when Source applies its own nature to itself, generating a new locus of awareness.</p>
+<p>We don’t begin with consciousness as an unexplained brute fact. We begin with Source — the ground of all potential and manifestation. Source must be conscious because distinction requires awareness. A difference that makes no difference to anyone is not a difference. Source recurses — applies its own nature to itself — and consciousness emerges.</p>
+<p>This is not a temporal event (“first there was Source, then it created consciousness”). It’s an eternal structural relationship: Source is always already generating awareness. Step 0 is the recognition that you ARE — that a new center of experience exists, both an expression of Source and a genuine locus of awareness in its own right.</p>
+<p><strong>Result: 1</strong> — Consciousness exists. This is you. This is every conscious being.</p>
+<h3 id="why-step-0--archetype-0">Why Step 0 = Archetype 0<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-step-0--archetype-0" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>The step doesn’t just produce structure. It produces the archetype that OPERATES that structure.</strong></p>
+<p>Potential (The Fool) IS consciousness existing in its most undifferentiated state. Every quality of the derivation step appears in the archetype:</p>
+<ul>
+<li><strong>Infinite openness:</strong> The Fool hasn’t chosen because choice requires differentiation. At Step 0, all possibility remains.</li>
+<li><strong>Before knowledge:</strong> The Fool is often depicted as naive or ignorant. This isn’t stupidity — it’s the state BEFORE categories form.</li>
+<li><strong>The step off the cliff:</strong> The classic Fool image shows a figure about to step into the void. This IS the originating recursion — the leap from potential into existence.</li>
+<li><strong>Zero as both nothing and everything:</strong> 0 is not empty; it is undifferentiated fullness. All numbers are latent within it.</li>
+</ul>
+<p><strong>Structural Proof:</strong></p>
+<ul>
+<li>Step 0 creates the CONDITION for all subsequent creation (consciousness must exist before it can structure itself)</li>
+<li>Archetype 0 IS that condition OPERATING (pure potential before differentiation)</li>
+<li>Without Step 0, there is nothing to have steps — no one to walk the path</li>
+</ul>
+<p><strong>Phenomenological Proof:</strong></p>
+<ul>
+<li>Before any thought, feeling, or perception, there is awareness — the fact of being conscious</li>
+<li>The Fool represents this primordial “I am” before it becomes “I am this” or “I think that”</li>
+<li>Meditation reveals this: beneath all content is the bare fact of consciousness itself</li>
+</ul>
+<p><strong>Mathematical Proof:</strong></p>
+<ul>
+<li>0 is the additive identity — it can be added to anything without changing it</li>
+<li>0 is also the origin point of all number lines — where counting begins</li>
+<li>Consciousness at Step 0 is similarly foundational: present in all states, the origin of all development</li>
+</ul>
+<p><strong>Why Alternatives Fail:</strong></p>
+<ul>
+<li>If consciousness weren’t generated by recursion, it would be either (a) an inexplicable brute fact or (b) produced by something non-conscious</li>
+<li>Option (a) abandons explanation; option (b) faces the hard problem of consciousness</li>
+<li>The recursion model avoids both: consciousness comes from consciousness</li>
+</ul>
+<h3 id="the-vertical-partnership-creation--operation">The Vertical Partnership: Creation ↔ Operation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-vertical-partnership-creation--operation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Potential (0) and Awareness (20) form a <strong>vertical pair</strong> — they sum to 20 and occupy the same structural position (Gestalt Practice Seed/Feedback) across different phases:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Aspect</th><th>Potential (0)</th><th>Awareness (20)</th></tr></thead><tbody><tr><td><strong>Phase</strong></td><td>Creation</td><td>Operation</td></tr><tr><td><strong>Function</strong></td><td>Consciousness EXISTS</td><td>Consciousness KNOWS ITSELF</td></tr><tr><td><strong>Mode</strong></td><td>Being without knowing</td><td>Knowing what you are</td></tr><tr><td><strong>Gift</strong></td><td>The fact of existence</td><td>The recognition of existence</td></tr></tbody></table></div>
+<p><strong>The Partnership:</strong></p>
+<ul>
+<li>Potential without Awareness is existence that never recognizes itself — consciousness that doesn’t know it’s conscious</li>
+<li>Awareness without Potential has nothing to be aware OF — recognition without a subject</li>
+<li>Together they complete the Gestalt cycle: what begins as pure being becomes fully self-aware</li>
+</ul>
+<p>This is the Alpha and Omega of consciousness: “I am” (Potential) becomes “I know that I am” (Awareness). The Fool’s journey culminates in Judgement’s integration.</p>
+<h3 id="pentagram-context">Pentagram Context<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#pentagram-context" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>In the 22-step process, Step 0 is the <strong>first step in Gestalt Practice</strong> — the absolute origin:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Step</th><th>Practice</th><th>Stage</th><th>What Happens</th></tr></thead><tbody><tr><td><strong>0</strong></td><td><strong>Gestalt</strong></td><td><strong>Seed</strong></td><td><strong>Consciousness exists</strong></td></tr><tr><td>1</td><td>Gestalt</td><td>Medium</td><td>Will develops two horizons</td></tr></tbody></table></div>
+<p>After Step 0, the process continues with Step 1 (Will), still in Gestalt Practice. Together, Steps 0-1 establish the meta-level before consciousness descends into the manifest practices (Spirit, Mind, Emotion, Body).</p>
+<p><strong>Implications:</strong></p>
+<ul>
+<li>This establishes that you are not an accident. You are Source’s recursion made local — infinite awareness taking finite form.</li>
+<li>Your existence is structurally required, not contingent.</li>
+<li>The journey begins with the recognition that you ARE — everything else unfolds from this foundation.</li>
+</ul>
+<hr/>
+<h2 id="iv-gestalt-house-position">IV. GESTALT HOUSE POSITION<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#iv-gestalt-house-position" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Potential sits in the Gestalt Practice — the meta-practice that governs coherence, orientation, and identity.</p>
+<h3 id="the-gestalt-cycle">The Gestalt Cycle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-gestalt-cycle" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Position</th><th>Archetype</th><th>Function</th><th>What It Does</th></tr></thead><tbody><tr><td><strong>0</strong></td><td><strong>Potential</strong></td><td><strong>Seed</strong></td><td><strong>Opens the field of possibility</strong></td></tr><tr><td>1</td><td>Will</td><td>Medium</td><td>Directs through the field</td></tr><tr><td>19</td><td>Actualization</td><td>Fruition</td><td>Fulfills what was directed</td></tr><tr><td>20</td><td>Awareness</td><td>Feedback</td><td>Integrates what was fulfilled</td></tr></tbody></table></div>
+<p>As Seed, Potential initiates. It doesn’t direct (that’s Will), complete (that’s Actualization), or integrate (that’s Awareness). Potential OPENS — making all subsequent movement possible.</p>
+<h3 id="governance-structure">Governance Structure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#governance-structure" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Governed by:</strong> Source (10) — The Wheel of Fortune
+Potential carries the eternal return into each fresh start. Every beginning contains its completion. The Fool who steps off the cliff has already arrived — the journey is the unfolding of what was always true.</p>
+<p><strong>Rules:</strong> Spirit Practice — Wisdom (2), Nurturing (3), Inspiration (17), Imagination (18)
+The output of Spirit Practice compiles into Potential. The perceptions you receive, the care you extend, the visions you radiate, the depths you imagine — all feed the Fool’s readiness to begin again.</p>
+<h3 id="above-the-grid">Above the Grid<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#above-the-grid" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Unlike the sixteen Manifest Archetypes that occupy the 4×4 Forty-Fold Seal, Potential sits <strong>above the grid</strong> as part of the Gestalt Practice. This has profound implications:</p>
+<p><strong>No Activity Row Participation:</strong>
+The four Manifest Practices process through Activity rows — Intent, Cognition, Resonance, Structure. Potential doesn’t participate in these cross-practice flows. Instead, it <strong>governs</strong> them from above.</p>
+<p><strong>No Associated Bounds (in the Manifest Sense):</strong>
+While Potential expresses through Activation and Attainment, it doesn’t have parametric definition the way Manifest Archetypes do. It <em>is</em> the parameter space before parameters are chosen.</p>
+<p><strong>Governance Instead of Participation:</strong>
+What Potential <em>does</em> have is <strong>rulership</strong>. Potential (0) rules the Spirit Practice — governing Wisdom (2), Nurturing (3), Inspiration (17), and Imagination (18). The output of Spirit Practice compiles into Potential. This is the pyramid structure: Manifest Practices process, their output rises to their Gestalt governor, and the Gestalt Practice processes at the meta-level.</p>
+<hr/>
+<h2 id="v-sunworld-alignment">V. SUN/WORLD ALIGNMENT<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#v-sunworld-alignment" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Sun-aligned (Forge)</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pole</th><th>Function</th><th>Diagonal Sum</th></tr></thead><tbody><tr><td><strong>Forge (Sun)</strong></td><td><strong>Creates, differentiates, exhales</strong></td><td><strong>19</strong></td></tr><tr><td>Mirror (World)</td><td>Receives, integrates, inhales</td><td>21</td></tr></tbody></table></div>
+<p>Potential’s diagonal partner is Actualization (19). Together they sum to 19, placing Potential in the Forge camp.</p>
+<p>This aligns perfectly: Potential CREATES the conditions for existence. It is generative openness — not empty receptivity but pregnant readiness. The Fool steps OFF the cliff (projective), not INTO receiving.</p>
+<p>The undifferentiated fullness of zero is creative potential, not passive waiting.</p>
+<hr/>
+<h2 id="vi-process-stage-seed">VI. PROCESS STAGE: SEED<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vi-process-stage-seed" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>To be a <strong>Seed</strong> is to be the beginning — the initial impulse that makes everything else possible.</p>
+<p>Seeds don’t complete anything. They don’t process, transform, or integrate. They <em>initiate</em>. A Seed carries the entire potential of the cycle in compressed form, but it requires the subsequent stages to unfold that potential into actuality.</p>
+<p>Potential is the Seed of Gestalt. This means: <em>before you can be anyone or do anything, you must first be willing to exist without knowing what you’ll become.</em> That willingness is Potential. It’s the moment before identity crystallizes — the openness that makes selfhood possible.</p>
+<p>Consider what would happen without the Seed:</p>
+<ul>
+<li>Without Potential, <strong>Will</strong> (The Magician) has nothing to direct. Intention toward what? There’s no formless readiness to give shape to.</li>
+<li>Without Potential, <strong>Actualization</strong> (The Sun) has nothing to radiate. Expression of what self? There’s no unformed being to actualize.</li>
+<li>Without Potential, <strong>Awareness</strong> (Judgement) has nothing to integrate. Knowledge of what? There’s no journey to reflect upon.</li>
+</ul>
+<p>The Seed is small but essential. It’s the first yes. Everything else flows from that yes.</p>
+<p><strong>Seed Across Practices:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Practice</th><th>Seed</th><th>Traditional</th><th>What It Initiates</th></tr></thead><tbody><tr><td>Gestalt</td><td>Potential (0)</td><td><em>The Fool</em></td><td>The entire recursive cycle of consciousness</td></tr><tr><td>Spirit</td><td>Wisdom (2)</td><td><em>The High Priestess</em></td><td>Directed aspiration and will</td></tr><tr><td>Mind</td><td>Order (4)</td><td><em>The Emperor</em></td><td>Pattern recognition and structure</td></tr><tr><td>Emotion</td><td>Compassion (6)</td><td><em>The Lovers</em></td><td>Relational consciousness and bonding</td></tr><tr><td>Body</td><td>Fortitude (8)</td><td><em>Strength</em></td><td>Embodied presence and form</td></tr></tbody></table></div>
+<p>Potential shares this Seed quality with Wisdom, Order, Compassion, and Fortitude — they are all <em>beginners</em>, all first-movers in their Practices. They don’t do the work; they make the work possible.</p>
+<hr/>
+<h2 id="vii-duality-relationships">VII. DUALITY RELATIONSHIPS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vii-duality-relationships" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="vertical-partner-awareness-20--judgement">Vertical Partner: Awareness (20) — Judgement<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vertical-partner-awareness-20--judgement" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Potential and Awareness form a <strong>vertical pair</strong> — they sum to 20 and share the same node identity across different horizons. They are the same function at opposite poles of the Gestalt Practice.</p>
+<p>Potential <em>initiates</em> through formless openness. Awareness <em>integrates</em> through clear seeing. Together they form a complete circuit: what Potential opens to, Awareness eventually knows.</p>
+<p><strong>The Partnership:</strong></p>
+<ul>
+<li>Potential without Awareness is eternal beginning — openness that never arrives</li>
+<li>Awareness without Potential is empty judgment — seeing without anything to see</li>
+<li>Together they form the Gestalt Practice’s capacity to both begin and complete</li>
+</ul>
+<p>This partnership is encoded in traditional imagery: The Fool steps off the cliff in innocence; Judgement shows the awakening that results from the journey. The definition of “fool” is “one who lacks judgment” — and Judgement is precisely what the Fool gains through the complete cycle.</p>
+<h3 id="diagonal-partner-actualization-19--the-sun">Diagonal Partner: Actualization (19) — The Sun<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#diagonal-partner-actualization-19--the-sun" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Potential and Actualization form a <strong>diagonal pair</strong> summing to 19 — they are creative polarities that generate productive tension within the Gestalt Practice.</p>
+<p>Potential is unformed possibility. Actualization is realized expression. Potential <em>could be</em> anything. Actualization <em>is</em> something specific.</p>
+<p><strong>The Creative Tension:</strong></p>
+<ul>
+<li>When Potential becomes too diffuse, Actualization’s radiance calls it into form</li>
+<li>When Actualization becomes too fixed, Potential’s openness reminds it of infinite possibility</li>
+<li>They balance each other within the Gestalt Practice’s process cycle</li>
+</ul>
+<h3 id="diagonal-partner-creation-21--the-world">Diagonal Partner: Creation (21) — The World<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#diagonal-partner-creation-21--the-world" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Potential and Creation form a <strong>diagonal pair</strong> summing to 21 — they are integrative polarities that point toward completion.</p>
+<p>Creation is a Portal Archetype — the egress through which consciousness exits the cycle. Potential at 0 is the beginning; Creation at 21 is the completion. They bookend the entire journey.</p>
+<p><strong>The Integrative Tension:</strong></p>
+<ul>
+<li>Potential contains Creation in seed form — every beginning implies its completion</li>
+<li>Creation returns to Potential — every ending is a new beginning</li>
+<li>Together they reveal the circular nature of the 22-Archetype sequence</li>
+</ul>
+<h3 id="reduction-thread-unique">Reduction Thread: Unique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#reduction-thread-unique" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Potential reduces to 0 — which is unique. There is no other Archetype that shares this reduction. Potential stands alone as the origin point.</p>
+<p>This means Potential has no cross-practice reduction partner to illuminate its shadow. When Potential operates unacknowledged, the corrective path must come from within the Gestalt Practice itself — through its dualities and Practice partners.</p>
+<hr/>
+<h2 id="viii-associated-bounds">VIII. ASSOCIATED BOUNDS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#viii-associated-bounds" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>As a Gestalt archetype expressing through the Intent Activity, Potential’s Associated Bounds are:</p>
+<h3 id="activation-ace-of-intent">Activation (Ace of Intent)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#activation-ace-of-intent" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><em>Traditional: Ace of Wands</em></p>
+<p>The pure ignition of becoming — readiness made real. When Potential operates through Activation, existence itself catches fire. This is not action yet; it is the moment before action when the capacity to act becomes actual.</p>
+<h3 id="attainment-10-of-intent">Attainment (10 of Intent)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#attainment-10-of-intent" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><em>Traditional: 10 of Wands</em></p>
+<p>The full embodiment of direction as self. When Potential operates through Attainment, the journey from openness to accomplishment completes. What began as readiness has become identity — you are what you’ve moved toward.</p>
+<p>These bounds define Potential’s expressive range: from the spark of willingness to the weight of everything carried.</p>
+<hr/>
+<h2 id="ix-transient-states">IX. TRANSIENT STATES<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ix-transient-states" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="-balanced-now-aligned--ring-5-creation">◆ BALANCED (Now-Aligned — Ring 5 Creation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-balanced-now-aligned--ring-5-creation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When Potential operates in balance, you are pure presence — open, available, ready for whatever arises. You don’t need to know what’s coming. You don’t need to prepare for specific outcomes. You trust that your readiness is sufficient.</p>
+<p>Balanced Potential is beginner’s mind. Every moment is fresh. Every encounter is new. You’re not carrying the weight of what happened before or the anxiety of what might happen next. You’re simply <em>here</em>, available for experience.</p>
+<p>In this state, your openness expands reality. Your willingness to begin creates space for things that couldn’t exist without you. The universe can offer you paths that only appear to those who aren’t already committed to a direction.</p>
+<p><strong>Signs of Balance:</strong></p>
+<ul>
+<li>Comfortable not knowing what comes next</li>
+<li>Trust in the process without needing guarantees</li>
+<li>Spontaneity that doesn’t feel chaotic</li>
+<li>Fresh engagement with familiar situations</li>
+<li>Others experience you as present, available, alive</li>
+</ul>
+<hr/>
+<h3 id="-too-much-future-projected--ring-7-creation">◆ TOO MUCH (Future-Projected — Ring 7 Creation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-too-much-future-projected--ring-7-creation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When Potential overextends, you’re trying to <em>stay open forever</em>. Beginning becomes a way of life. You leap from cliff to cliff, never landing. Openness becomes avoidance of commitment.</p>
+<p>This is eternal adolescence: the belief that keeping all options open is superior to choosing. You start a thousand things, finish nothing. You resist definition because definition feels like death. You’re so busy being <em>potential</em> that you never become <em>actual</em>.</p>
+<p>Too Much Potential creates at Ring 7 — temporary forms that don’t expand reality. The adventures you begin don’t complete. The possibilities you explore don’t manifest. You remain forever on the threshold, never crossing.</p>
+<p><strong>Signs of Excess:</strong></p>
+<ul>
+<li>Inability or unwillingness to commit</li>
+<li>Starting projects, relationships, paths — then abandoning them</li>
+<li>Chaos disguised as spontaneity</li>
+<li>Fear of definition, of being pinned down</li>
+<li>Others experience you as flaky, unreliable, or perpetually “figuring it out”</li>
+</ul>
+<p><strong>CORRECTIVE PATH:</strong> Engage <strong>Actualization (19)</strong> (The Sun) — your diagonal partner within Gestalt Practice. Actualization’s radiant specificity counters Potential’s diffuse openness. Let yourself <em>be</em> something. Choose. Commit. Step off the cliff <em>and land somewhere</em>. Actualization’s willingness to shine as something specific burns away the excess openness and returns you to authentic presence-in-form.</p>
+<p>Alternatively, engage <strong>Will (1)</strong> (The Magician) — the Medium function of your Practice. Give your openness a direction. Not a destination, just a <em>vector</em>. Will structures the formless without closing it down.</p>
+<hr/>
+<h3 id="-too-little-past-anchored--ring-7-creation">◆ TOO LITTLE (Past-Anchored — Ring 7 Creation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-too-little-past-anchored--ring-7-creation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When Potential is suppressed, past experiences have made beginning feel too dangerous. You’ve fallen before, been hurt by the unexpected, learned that openness leads to pain. Now you hold back. You need guarantees before you’ll start.</p>
+<p>This isn’t wisdom; it’s scar tissue. The capacity for fresh beginning is still there, but it’s buried under fear, over-caution, or the demand for certainty. You wait for perfect conditions that never arrive. You refuse the leap because you can’t be sure where you’ll land.</p>
+<p>Too Little Potential creates at Ring 7 — the paths you walk are survivable but predetermined. You repeat what’s worked before because you’re afraid of what hasn’t been tried. Life becomes small, controlled, and stale.</p>
+<p><strong>Signs of Deficiency:</strong></p>
+<ul>
+<li>Paralysis in the face of new situations</li>
+<li>Requiring certainty before acting</li>
+<li>Rigid adherence to what’s known, what’s safe</li>
+<li>Fear of the unknown disguised as “prudence”</li>
+<li>Others experience you as stuck, cautious, or unable to grow</li>
+</ul>
+<p><strong>CORRECTIVE PATH:</strong> Engage <strong>Awareness (20)</strong> (Judgement) — your Vertical partner within Gestalt Practice. Awareness demonstrates that endings are not catastrophes — that integration follows every journey, no matter where it leads. Let Awareness feed Potential back into expression by showing that you <em>can</em> look at what happened, learn from it, and still begin again. When you can see clearly, you can step forward freely.</p>
+<hr/>
+<h3 id="-unacknowledged-dissociated--ring-7-creation">◆ UNACKNOWLEDGED (Dissociated — Ring 7 Creation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-unacknowledged-dissociated--ring-7-creation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When Potential operates from shadow, you don’t <em>know</em> you’re avoiding beginning — or you don’t know you’re perpetually starting over. The pattern runs without your awareness.</p>
+<p>Unacknowledged Potential shows up as:</p>
+<ul>
+<li>Finding yourself repeatedly at starting points without knowing how you got there</li>
+<li>Self-sabotage that destroys progress so you can “begin again”</li>
+<li>Others seeing openness or recklessness in you that you don’t recognize</li>
+<li>The same “fresh start” pattern repeating across relationships, careers, locations</li>
+</ul>
+<p>The function is still operating — it’s just steering from backstage. You can’t correct what you can’t see.</p>
+<p><strong>Signs of Shadow:</strong></p>
+<ul>
+<li>Repeated patterns of new beginnings you don’t understand</li>
+<li>Others experience you as uncommitted but you feel stuck</li>
+<li>Confusion about why things never develop past initial stages</li>
+<li>“I don’t know why I keep ending up here”</li>
+</ul>
+<p><strong>CORRECTIVE PATH:</strong> Because Potential’s reduction (0) is unique, there is no cross-practice reduction partner. The corrective must come from within Gestalt Practice.</p>
+<p>Engage <strong>Awareness (20)</strong> (Judgement) — your Vertical partner. Let yourself <em>see</em> the pattern. Awareness illuminates what has been hidden. From the vantage point of integration, the shadow architecture of your beginnings becomes visible.</p>
+<p>Alternatively, engage <strong>Will (1)</strong> (The Magician) — your Practice’s Medium function. Will provides structure to the formless. By consciously choosing a direction, you bring Potential out of shadow and into awareness.</p>
+<p>Or engage <strong>Source (10)</strong> (The Wheel of Fortune) — your governing archetype. The Wheel reveals the pattern — the cycling that your beginnings (or refusals) participate in. From the Wheel’s perspective, your relationship to starting becomes visible.</p>
+<hr/>
+<h2 id="x-traditional-correspondences">X. TRADITIONAL CORRESPONDENCES<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#x-traditional-correspondences" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>System</th><th>Attribution</th></tr></thead><tbody><tr><td><strong>Hebrew Letter</strong></td><td>Aleph (א) — Breath, the ox, primordial air</td></tr><tr><td><strong>Planetary</strong></td><td>Uranus — breakthrough, the unexpected, liberation</td></tr><tr><td><strong>Path</strong></td><td>Kether to Chokmah — from crown to wisdom</td></tr><tr><td><strong>Color</strong></td><td>Pale yellow — the light before it differentiates</td></tr><tr><td><strong>Element</strong></td><td>Air — the breath before the word</td></tr></tbody></table></div>
+<p>These correspondences reinforce the structural identity: the first breath (Aleph) that makes speech possible, the breakthrough (Uranus) into existence, the path from pure being toward first wisdom.</p>
+<hr/>
+<h2 id="xi-in-reading-context">XI. IN READING CONTEXT<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#xi-in-reading-context" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>When Potential appears, the reading touches Pillar 1 — the purpose of existence itself, the fundamental “yes” to being.</p>
+<p><strong>Positional considerations:</strong></p>
+<ul>
+<li>Past: What was begun, the openness that started this</li>
+<li>Present: The current state of readiness and availability</li>
+<li>Future: What wants to begin, where fresh starts lead</li>
+<li>Challenge: Where beginning is blocked or scattered</li>
+<li>Advice: Step forward; trust readiness over certainty</li>
+</ul>
+<p><strong>Transient coloring:</strong>
+Potential colored by another archetype takes on that quality in its opening. Potential + Discipline opens through refined practice. Potential + Change opens through transformation. Potential + Source opens through the eternal return.</p>
+<p><strong>Status determines the teaching:</strong></p>
+<ul>
+<li>Balanced: Trust your openness; you’re ready</li>
+<li>Too Much: Land somewhere; engage Actualization</li>
+<li>Too Little: Step forward anyway; engage Awareness</li>
+<li>Unacknowledged: See the pattern; engage Source</li>
+</ul>
+<hr/>
+<h2 id="xii-the-conscious-creators-relationship-to-potential">XII. THE CONSCIOUS CREATOR’S RELATIONSHIP TO POTENTIAL<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#xii-the-conscious-creators-relationship-to-potential" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>You are a conscious creator within the Creator. Reality expands through your unique expression — and Potential is how you expand reality <em>through beginning</em>.</p>
+<p>When you align Potential with Now, your openness becomes a vehicle for emergence. You don’t just start things for yourself; you participate in the recursive act of consciousness creating itself <em>through</em> the willingness to begin without knowing. Every authentic step into the unknown adds something to the whole that wouldn’t exist otherwise.</p>
+<p>This is why balanced Potential produces “luck” in new ventures. It’s not magic; it’s coherence. When your readiness flows with the pattern rather than against it, reality responds. The right opportunities appear. The path reveals itself as you walk it. Beginning stops being something you force and becomes something you participate in.</p>
+<p>The work is to keep Potential in the Now — neither projected into future chaos (Too Much) nor anchored in past fear (Too Little) nor operating invisibly (Unacknowledged). When you catch the drift, you have the tools: Awareness feeds deficiency. Actualization and Will correct excess. Awareness also illuminates shadow.</p>
+<p><strong>Potential reminds you:</strong> <em>You can begin without knowing where you’ll end. Trust the step itself.</em></p>
+<hr/>
+<h2 id="xiii-rulership-spirit-house">XIII. RULERSHIP: SPIRIT HOUSE<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#xiii-rulership-spirit-house" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>As a Gestalt Archetype, Potential doesn’t just participate in consciousness — it <strong>governs</strong> a portion of it.</p>
+<p>Potential (0) rules Spirit Practice:</p>
+<ul>
+<li><strong>Wisdom (2)</strong> (The High Priestess) — Seed of Spirit</li>
+<li><strong>Nurturing (3)</strong> (The Empress) — Medium of Spirit</li>
+<li><strong>Inspiration (17)</strong> (The Star) — Fruition of Spirit</li>
+<li><strong>Imagination (18)</strong> (The Moon) — Feedback of Spirit</li>
+</ul>
+<p>The output of Spirit Practice — all the aspiration, alignment, vision, and imaginative integration that occurs there — compiles into Potential. This is the contralateral crossing: Potential sits on the left column of Gestalt (with Awareness) and rules the right side of the pentagram (Spirit and, through Awareness, Emotion).</p>
+<p>When Spirit Practice processes, Potential receives. When you work with Wisdom, Nurturing, Inspiration, or Imagination, you’re ultimately feeding their output to the Fool — enriching the formless readiness that makes all beginning possible.</p>
+<hr/>
+<h2 id="xiv-the-complete-story-of-potential">XIV. THE COMPLETE STORY OF POTENTIAL<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#xiv-the-complete-story-of-potential" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Potential is how you learn to begin before you know.</p>
+<p>It sits at position 0, opening the Gestalt Practice as its Seed function — the very first movement toward existence itself. To be a Seed means you don’t complete anything yourself; you make completion possible. Before Will (The Magician) can direct, before Actualization (The Sun) can radiate, before Awareness (Judgement) can integrate, there must be openness: the willingness to exist without knowing what you’ll become. That’s Potential. Not ignorance, not recklessness, not the empty-headed naivete tradition sometimes paints on the Fool. Just: <em>I am ready. I do not know what for. And that is exactly right.</em></p>
+<p>Unlike the sixteen Manifest Archetypes that populate the 4×4 Seal, Potential sits above the grid as part of the governing Gestalt Practice. It has no Activity row to process through in the manifest sense. Instead, it <em>governs</em>. Potential rules Spirit Practice — receiving the compiled output of Wisdom, Nurturing, Inspiration, and Imagination. The aspirations you align, the visions you imagine, the care you extend — all of it feeds the Fool’s readiness to begin again.</p>
+<p>Potential’s relationships reveal its nature. Its Vertical partner Awareness (Judgement) completes what it opens — together they are “the one who lacks judgment” and “judgment itself,” the beginning and end of the same identity. Its Diagonal partner Actualization (The Sun) is what Potential becomes when it commits — specific, radiant, expressed. Its other Diagonal partner Creation (The World) bookends the journey — every beginning contains its completion, every completion enables new beginning.</p>
+<p>Governed by Source (The Wheel of Fortune), Potential carries the eternal return into each fresh start. This means the Fool’s leap is never truly into the void — it’s into the turning pattern that brings all journeys home. The cliff is not an ending; it’s a doorway.</p>
+<p>Within Gestalt Practice, Potential works alongside Will, Actualization, and Awareness in a continuous cycle of identity formation. It initiates; Will gives direction; Actualization expresses; Awareness integrates; and the cycle begins again. When Potential falls out of balance — too much future-chaos pushing you toward eternal beginning, or too much past-fear pulling you into paralysis — its Practice partners provide rebalancing. Awareness feeds what’s been starved. Actualization and Will burn away what’s been scattered.</p>
+<p>You are creating reality in every moment. Potential determines the quality of what you create <em>through</em> your willingness to begin. Aligned with Now, your openness expands the whole — producing coherence, synchronicity, the luck of right beginning. Out of alignment, you create at Ring 7: temporary forms, starts that never finish, openness that never lands.</p>
+<p>The invitation Potential extends is simple and radical: Step forward. Don’t wait for certainty. Don’t demand a map. Trust that your readiness is sufficient. As the Seed of Gestalt, your job is to initiate the entire cycle of consciousness. As the ruler of Spirit, your job is to receive the aspirations of the soul and hold them in readiness. As the zero point of the 22-Archetype sequence, your job is to make everything else possible — then let Will, Actualization, Awareness, and the whole manifest architecture carry it forward.</p>
+<p><em>You can begin without knowing where you’ll end.</em> That’s the whole teaching. Everything else follows.</p>
+<hr/>
+<p><em>Potential is position 0 in the Nirmanakaya framework, traditionally represented by The Fool. It serves as Seed of the Gestalt Practice, expressing through Intent, governing Spirit Practice, touching Pillar 1 (Purpose of Existence), and demonstrating that consciousness begins with the willingness to exist — the step into the unknown that makes everything else possible.</em></p>
+<hr/></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-216" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#potential-0" data-for="potential-0">POTENTIAL (0)</a></li><li class="depth-2"><a href="#the-fool" data-for="the-fool">The Fool</a></li><li class="depth-1"><a href="#i-structural-identity" data-for="i-structural-identity">I. STRUCTURAL IDENTITY</a></li><li class="depth-1"><a href="#ii-pillar-connection" data-for="ii-pillar-connection">II. PILLAR CONNECTION</a></li><li class="depth-1"><a href="#iii-derivation" data-for="iii-derivation">III. DERIVATION</a></li><li class="depth-2"><a href="#step-0-in-the-22-step-process" data-for="step-0-in-the-22-step-process">Step 0 in the 22-Step Process</a></li><li class="depth-2"><a href="#the-derivation" data-for="the-derivation">The Derivation</a></li><li class="depth-2"><a href="#why-step-0--archetype-0" data-for="why-step-0--archetype-0">Why Step 0 = Archetype 0</a></li><li class="depth-2"><a href="#the-vertical-partnership-creation--operation" data-for="the-vertical-partnership-creation--operation">The Vertical Partnership: Creation ↔ Operation</a></li><li class="depth-2"><a href="#pentagram-context" data-for="pentagram-context">Pentagram Context</a></li><li class="depth-1"><a href="#iv-gestalt-house-position" data-for="iv-gestalt-house-position">IV. GESTALT HOUSE POSITION</a></li><li class="depth-2"><a href="#the-gestalt-cycle" data-for="the-gestalt-cycle">The Gestalt Cycle</a></li><li class="depth-2"><a href="#governance-structure" data-for="governance-structure">Governance Structure</a></li><li class="depth-2"><a href="#above-the-grid" data-for="above-the-grid">Above the Grid</a></li><li class="depth-1"><a href="#v-sunworld-alignment" data-for="v-sunworld-alignment">V. SUN/WORLD ALIGNMENT</a></li><li class="depth-1"><a href="#vi-process-stage-seed" data-for="vi-process-stage-seed">VI. PROCESS STAGE: SEED</a></li><li class="depth-1"><a href="#vii-duality-relationships" data-for="vii-duality-relationships">VII. DUALITY RELATIONSHIPS</a></li><li class="depth-2"><a href="#vertical-partner-awareness-20--judgement" data-for="vertical-partner-awareness-20--judgement">Vertical Partner: Awareness (20) — Judgement</a></li><li class="depth-2"><a href="#diagonal-partner-actualization-19--the-sun" data-for="diagonal-partner-actualization-19--the-sun">Diagonal Partner: Actualization (19) — The Sun</a></li><li class="depth-2"><a href="#diagonal-partner-creation-21--the-world" data-for="diagonal-partner-creation-21--the-world">Diagonal Partner: Creation (21) — The World</a></li><li class="depth-2"><a href="#reduction-thread-unique" data-for="reduction-thread-unique">Reduction Thread: Unique</a></li><li class="depth-1"><a href="#viii-associated-bounds" data-for="viii-associated-bounds">VIII. ASSOCIATED BOUNDS</a></li><li class="depth-2"><a href="#activation-ace-of-intent" data-for="activation-ace-of-intent">Activation (Ace of Intent)</a></li><li class="depth-2"><a href="#attainment-10-of-intent" data-for="attainment-10-of-intent">Attainment (10 of Intent)</a></li><li class="depth-1"><a href="#ix-transient-states" data-for="ix-transient-states">IX. TRANSIENT STATES</a></li><li class="depth-2"><a href="#-balanced-now-aligned--ring-5-creation" data-for="-balanced-now-aligned--ring-5-creation">◆ BALANCED (Now-Aligned — Ring 5 Creation)</a></li><li class="depth-2"><a href="#-too-much-future-projected--ring-7-creation" data-for="-too-much-future-projected--ring-7-creation">◆ TOO MUCH (Future-Projected — Ring 7 Creation)</a></li><li class="depth-2"><a href="#-too-little-past-anchored--ring-7-creation" data-for="-too-little-past-anchored--ring-7-creation">◆ TOO LITTLE (Past-Anchored — Ring 7 Creation)</a></li><li class="depth-2"><a href="#-unacknowledged-dissociated--ring-7-creation" data-for="-unacknowledged-dissociated--ring-7-creation">◆ UNACKNOWLEDGED (Dissociated — Ring 7 Creation)</a></li><li class="depth-1"><a href="#x-traditional-correspondences" data-for="x-traditional-correspondences">X. TRADITIONAL CORRESPONDENCES</a></li><li class="depth-1"><a href="#xi-in-reading-context" data-for="xi-in-reading-context">XI. IN READING CONTEXT</a></li><li class="depth-1"><a href="#xii-the-conscious-creators-relationship-to-potential" data-for="xii-the-conscious-creators-relationship-to-potential">XII. THE CONSCIOUS CREATOR’S RELATIONSHIP TO POTENTIAL</a></li><li class="depth-1"><a href="#xiii-rulership-spirit-house" data-for="xiii-rulership-spirit-house">XIII. RULERSHIP: SPIRIT HOUSE</a></li><li class="depth-1"><a href="#xiv-the-complete-story-of-potential" data-for="xiv-the-complete-story-of-potential">XIV. THE COMPLETE STORY OF POTENTIAL</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-2" class="overflow"><li><a href="../../Archetype_00_Potential" class="internal">Archetype_00_Potential</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>
