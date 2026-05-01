@@ -23,6 +23,7 @@ export default function Header({ hasActivity = false }) {
   const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
   const isBookActive = pathname?.startsWith('/book');
+  const isWikiActive = pathname?.startsWith('/wiki');
   const isHome = pathname === '/';
 
   return (
@@ -64,6 +65,16 @@ export default function Header({ hasActivity = false }) {
         >
           Book
         </Link>
+
+        {/* WIKI — static site served from public/wiki/, plain anchor */}
+        <a
+          href="/wiki"
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            isWikiActive ? 'text-fuchsia-300' : 'text-zinc-500 hover:text-fuchsia-300'
+          }`}
+        >
+          Wiki
+        </a>
 
         {/* JOURNEY (Stats / Collection) */}
         <Link
