@@ -35,19 +35,33 @@ execSync('npx quartz build', { cwd: wikiRoot, stdio: 'inherit' });
 console.log(`Copying ${wikiRoot}/public -> ${wikiOut} ...`);
 fs.cpSync(path.join(wikiRoot, 'public'), wikiOut, { recursive: true });
 
-// Inject <base href="/wiki/"> into every HTML file so relative URLs resolve from /wiki/
-// even when the browser URL is /wiki (no trailing slash). See next.config.js for full reasoning.
-console.log('Injecting <base href="/wiki/"> into HTML files...');
+// Inject <base href="..."> ONLY into directory index.html files.
+//
+// Why: Next.js with trailingSlash:false serves /wiki/canon (no trailing slash)
+// for the file public/wiki/canon/index.html. At that URL, the browser resolves
+// relative refs like "../index.css" against /wiki/canon → strips last segment
+// → "/wiki/" → applies "../" → "/index.css" (404). The <base> tag fixes that
+// by giving the browser the correct directory context.
+//
+// Crucially, we must NOT inject <base> into non-index pages. Quartz emits
+// paths like "../../index.css" and "../../canon/archetypes/02-wisdom" from
+// nested pages. With a /wiki/ base, those "../.." segments climb above /wiki/
+// and break (you'd see /canon/archetypes/02-wisdom → 404). Without <base>,
+// the browser resolves them against the actual page URL and they land
+// correctly inside /wiki/.
+console.log('Injecting <base href> into directory index.html files...');
 let baseInjected = 0;
-function walkInject(dir) {
+function walkInject(dir, relFromWikiRoot = '') {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
+    const relPath = relFromWikiRoot ? `${relFromWikiRoot}/${entry.name}` : entry.name;
     if (entry.isDirectory()) {
-      walkInject(fullPath);
-    } else if (entry.name.endsWith('.html')) {
+      walkInject(fullPath, relPath);
+    } else if (entry.name === 'index.html') {
+      const baseHref = relFromWikiRoot ? `/wiki/${relFromWikiRoot}/` : '/wiki/';
       const content = fs.readFileSync(fullPath, 'utf8');
       if (content.includes('<base ')) continue;
-      const updated = content.replace(/<head([^>]*)>/, '<head$1><base href="/wiki/">');
+      const updated = content.replace(/<head([^>]*)>/, `<head$1><base href="${baseHref}">`);
       if (updated !== content) {
         fs.writeFileSync(fullPath, updated);
         baseInjected++;
@@ -56,6 +70,6 @@ function walkInject(dir) {
   }
 }
 walkInject(wikiOut);
-console.log(`Injected <base> into ${baseInjected} HTML files.`);
+console.log(`Injected <base> into ${baseInjected} index.html files.`);
 
 console.log('\nDone. Commit changes under public/wiki/ and push to deploy.');
