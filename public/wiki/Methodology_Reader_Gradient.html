@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Methodology_Reader_Gradient</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Nirmanakaya Wiki"/><meta property="og:title" content="Methodology_Reader_Gradient"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Methodology_Reader_Gradient"/><meta name="twitter:description" content="The Reader Gradient Design Space A meta-structural map of what depth options the Nirmanakaya Reader can offer."/><meta property="og:description" content="The Reader Gradient Design Space A meta-structural map of what depth options the Nirmanakaya Reader can offer."/><meta property="og:image:alt" content="The Reader Gradient Design Space A meta-structural map of what depth options the Nirmanakaya Reader can offer."/><meta property="twitter:domain" content="nirmanakaya.com/wiki"/><meta property="og:url" content="https://nirmanakaya.com/wiki/Methodology_Reader_Gradient"/><meta property="twitter:url" content="https://nirmanakaya.com/wiki/Methodology_Reader_Gradient"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="The Reader Gradient Design Space A meta-structural map of what depth options the Nirmanakaya Reader can offer."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiRDpcXE5pcm1hbmFrYXlhX1dpa2lcXHF1YXJ0elxccXVhcnR6XFxjb21wb25lbnRzXFxzdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUlKO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFOztBQUlGO0VBQ0U7RUFDQTtFQUNBIiwic291cmNlc0NvbnRlbnQiOlsiLmV4cGFuZC1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMC40cmVtO1xuICBtYXJnaW46IDAuM3JlbTtcbiAgcmlnaHQ6IDA7IC8vIE5PVEU6IHJpZ2h0IHdpbGwgYmUgc2V0IGluIG1lcm1haWQuaW5saW5lLnRzXG4gIGNvbG9yOiB2YXIoLS1ncmF5KTtcbiAgYm9yZGVyLWNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICBib3JkZXI6IDFweCBzb2xpZDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBvcGFjaXR5OiAwO1xuICB0cmFuc2l0aW9uOiAwLjJzO1xuXG4gICYgPiBzdmcge1xuICAgIGZpbGw6IHZhcigtLWxpZ2h0KTtcbiAgICBmaWx0ZXI6IGNvbnRyYXN0KDAuMyk7XG4gIH1cblxuICAmOmhvdmVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYm9yZGVyLWNvbG9yOiB2YXIoLS1zZWNvbmRhcnkpO1xuICB9XG5cbiAgJjpmb2N1cyB7XG4gICAgb3V0bGluZTogMDtcbiAgfVxufVxuXG5wcmUge1xuICAmOmhvdmVyID4gLmV4cGFuZC1idXR0b24ge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgdHJhbnNpdGlvbjogMC4ycztcbiAgfVxufVxuXG4jbWVybWFpZC1jb250YWluZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGNvbnRhaW46IGxheW91dDtcbiAgei1pbmRleDogOTk5O1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDB2dztcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDRweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTtcblxuICAmLmFjdGl2ZSB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB9XG5cbiAgJiA+ICNtZXJtYWlkLXNwYWNlIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbiAgICBoZWlnaHQ6IDgwdmg7XG4gICAgd2lkdGg6IDgwdnc7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICAgICYgPiAubWVybWFpZC1jb250ZW50IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="./prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nirmanakaya.com/wiki/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nirmanakaya.com/wiki/Methodology_Reader_Gradient-og-image.webp"/><meta property="og:image:url" content="https://nirmanakaya.com/wiki/Methodology_Reader_Gradient-og-image.webp"/><meta name="twitter:image" content="https://nirmanakaya.com/wiki/Methodology_Reader_Gradient-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="Methodology_Reader_Gradient"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">Nirmanakaya Wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-131"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-131" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Methodology_Reader_Gradient</a></div></nav><h1 class="article-title">Methodology_Reader_Gradient</h1><p show-comma="true" class="content-meta"><time datetime="2026-05-11T07:00:00.000Z">May 11, 2026</time><span>9 min read</span></p></div></div><article class="popover-hint"><h1 id="the-reader-gradient-design-space">The Reader Gradient Design Space<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-reader-gradient-design-space" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>A meta-structural map of what depth options the Nirmanakaya Reader can offer.</em></p>
+<hr/>
+<h2 id="why-this-matters">Why This Matters<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-this-matters" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Readings are not binary. They are not single-axis. The Reader currently operates at one point in a much larger design space, and many of its potential modes have not yet been built. This document maps the full configurable space so future Reader development has a coherent target architecture.</p>
+<p>The map is structural — what the architecture allows. What gets built into the Reader product is downstream design decision. Knowing the full space helps decide where to invest next.</p>
+<hr/>
+<h2 id="the-four-axes">The Four Axes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-four-axes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Reading depth and scope are configurable along four orthogonal axes:</p>
+<ol>
+<li><strong>Card count</strong> (X-axis / Scope) — how many signatures are drawn (1 to 78)</li>
+<li><strong>Depth per card</strong> (Z-axis / Resolution) — how many interpretive layers each signature receives</li>
+<li><strong>Relational dimensions</strong> — how signatures interact with each other</li>
+<li><strong>Durable / transient framing</strong> — how fixed architectural positions inform transient draws</li>
+</ol>
+<p>Any reading exists somewhere in the cross-product of these four axes. The current Reader is approximately <em>single card, maximum depth, single durable position context</em> — showing that even one card can sustain substantial interpretive work.</p>
+<hr/>
+<h2 id="axis-1-scope-card-count">Axis 1: Scope (Card Count)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#axis-1-scope-card-count" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Level</th><th>Cards</th><th>Name</th><th>Function</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Question-only</td><td>Pre-articulate questioner; pure question diagnosis</td></tr><tr><td>1</td><td>1</td><td>The Pulse</td><td>Single deepest diagnosis at one position (current default)</td></tr><tr><td>2</td><td>2</td><td>Dual reading</td><td>Two-card relationship; vertical/diagonal/reduction geometry</td></tr><tr><td>3</td><td>3</td><td>The Vector</td><td>Three-card mapping (situation/blocker/path, or Forge/Mirror/Hinge)</td></tr><tr><td>4</td><td>4</td><td>Process Walk</td><td>Quadraverse audit (Seed/Medium/Fruition/Feedback)</td></tr><tr><td>5</td><td>5</td><td>The Pentagram</td><td>Five Houses spread — holistic functional audit</td></tr><tr><td>6</td><td>7</td><td>Ring Stack</td><td>Vertical MRI across Rings 1-7 — diagnoses agency theft</td></tr><tr><td>7</td><td>10</td><td>Doubled spread</td><td>Houses × 2 layers, or Rings × 2, or other 10-position configurations</td></tr><tr><td>8</td><td>16</td><td>Manifest Grid</td><td>Populates the 4×4 Forty-Fold Seal — developer dashboard</td></tr><tr><td>9</td><td>22</td><td>Major Arcana</td><td>Full archetypal spread</td></tr><tr><td>10</td><td>40</td><td>Bounds spread</td><td>Full manifest landscape</td></tr><tr><td>11</td><td>56</td><td>Minor Arcana</td><td>40 Bounds + 16 Agents</td></tr><tr><td>12</td><td>78</td><td>Grand Hydraulic Map</td><td>All signatures deployed; consciousness describing itself to itself</td></tr></tbody></table></div>
+<p>Each level has natural use-cases. Quick diagnostic = Pulse. Multi-domain check-in = Pentagram or Ring Stack. Major life-reading or annual review = Major Arcana. Civilizational or systemic diagnosis = Grand Hydraulic Map.</p>
+<p>The scope tiers are named (Pulse, Vector, Process Walk, Pentagram, Ring Stack, Manifest Grid, Grand Hydraulic Map) because each name does interpretive work. The names communicate the function and the metaphor at the appropriate magnification.</p>
+<hr/>
+<h2 id="axis-2-resolution-depth-per-card">Axis 2: Resolution (Depth Per Card)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#axis-2-resolution-depth-per-card" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Independent of card count, each signature can be unpacked at different depths:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Resolution</th><th>What’s Included</th><th>Best For</th></tr></thead><tbody><tr><td>R1</td><td>Status only (Too Much / Too Little / Unacknowledged / Balanced)</td><td>Rapid scan, multi-card readings, lookup-style use</td></tr><tr><td>R2</td><td>+ Brief signature description</td><td>Quick orientation, glanceable readings</td></tr><tr><td>R3</td><td>+ Narrative interpretation (paragraphs)</td><td>Substantive single-point reading</td></tr><tr><td>R4</td><td>+ The Why (mirror content)</td><td>Inner-voice reflection back to questioner</td></tr><tr><td>R5</td><td>+ Path to Balance (geometric correction)</td><td>Actionable guidance</td></tr><tr><td>R6</td><td>+ The Letter (narrative integration)</td><td>Full warm integration (current Reader default)</td></tr><tr><td>R7</td><td>+ Way / Impediment / Externalization triple</td><td>Structural diagnostic per Ring (new with V10 work)</td></tr><tr><td>R8</td><td>+ Persistent-self impact</td><td>Teleological layer — what this signature’s current state means for forging contribution</td></tr><tr><td>R9</td><td>+ Cross-reading pattern recognition</td><td>Multi-card stack dynamics, cascades, geometric clusters</td></tr></tbody></table></div>
+<p>The current Reader operates at R6 by default. R7-R9 are available with the V10 architectural work. R9 specifically only activates when card count ≥ 2.</p>
+<p>Depth and card count combine independently. <em>Single card at R8</em> (deep teleological reading on one position) is structurally different from <em>seven cards at R3</em> (Rings spread with narrative interpretation but no Why or Path) — both have similar token cost, very different feel and use.</p>
+<hr/>
+<h2 id="axis-3-relational-dimensions">Axis 3: Relational Dimensions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#axis-3-relational-dimensions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>How signatures interact within a multi-card reading. Each is a separate analytical layer that can be present or absent in a given reading:</p>
+<ul>
+<li><strong>Same-House signatures</strong> — multiple cards within one House domain reveal compound stack at that layer</li>
+<li><strong>Same-Channel signatures</strong> — multiple cards on one channel reveal channel-level patterns</li>
+<li><strong>Same-Ring signatures</strong> — multiple cards in one Ring layer reveal Ring-specific dynamics</li>
+<li><strong>Geometric pairs</strong> — vertical (sum 20), diagonal (sum 19/21), reduction (same digit sum) are the architecturally-blessed correction paths</li>
+<li><strong>Polarity / Recursion alternation</strong> — patterns of differentiation-vs-integration across the spread</li>
+<li><strong>Way / Impediment / Externalization stack</strong> — three-fold framing per Ring</li>
+<li><strong>Archetype-in-Archetype</strong> — when a transient archetype meets a durable archetype position (the 22×22 matrix)</li>
+<li><strong>Cascade dynamics</strong> — surface-to-depth or depth-to-surface patterns (Ring 1 collapse producing Ring 4 calcification, etc.)</li>
+<li><strong>Cross-channel resonance</strong> — when the same archetype shows up across different channels in a single reading</li>
+</ul>
+<hr/>
+<h2 id="axis-4-durable--transient-framing">Axis 4: Durable / Transient Framing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#axis-4-durable--transient-framing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This is structurally the most interesting axis.</p>
+<p>The architecture has <strong>durable elements</strong> (always present, structurally fixed) and <strong>transient elements</strong> (drawn into position in a specific reading):</p>
+<p><strong>Durable:</strong></p>
+<ul>
+<li>The 5 Houses always present</li>
+<li>The 7 Rings always present</li>
+<li>The Channels within Houses always present</li>
+<li>The architectural positions in any spread (the slots being read into)</li>
+<li>The signatures themselves <em>as architectural concepts</em> — they always exist</li>
+</ul>
+<p><strong>Transient:</strong></p>
+<ul>
+<li>Which signatures are drawn into which positions in a specific reading</li>
+<li>The questioner’s current state</li>
+<li>The reading mode (reflect / forge / inquiry)</li>
+<li>The question itself</li>
+</ul>
+<p><strong>The reading is the meeting of durable and transient.</strong></p>
+<p>Every signature drawn passes through three layers simultaneously:</p>
+<ol>
+<li><strong>Its native architectural position</strong> — Strength is always Strength, always in House Body, always at certain Ring depth. The signature’s own durable identity.</li>
+<li><strong>The spread position it’s drawn into</strong> — when Strength is drawn into “What You’re Feeling” or “Spirit House” or “Path Forward,” the position frames how the signature is read.</li>
+<li><strong>The questioner’s current state</strong> — the persistent self contributing to this instance, the recent forging, the present moment.</li>
+</ol>
+<p><strong>Reading types based on durable / transient interaction:</strong></p>
+<ul>
+<li><strong>Resonance reading</strong> — signature drawn into its own native House. Extra weight, clearer signal, the signature “speaks from home.”</li>
+<li><strong>Cross reading</strong> — signature drawn into a non-native House. The signature is operating outside its domain, which itself is information — <em>why is Strength showing up in Mind house right now?</em></li>
+<li><strong>Bridging reading</strong> — signature drawn into a position that’s at the geometric correction of its native position. Indicates active correction in progress.</li>
+<li><strong>Hydraulic exchange</strong> (Gemini-Deep-Think’s framing) — when a durable pipe (e.g. Compassion at Seed/Emotion) has a transient fluid wrong for it (e.g. Breakthrough/Tower at Feedback/Mind). <em>“You are trying to initiate a tender emotional connection using the energy of detonating outdated mental frameworks. The math forbids this. You cannot start a relationship with lightning. The pipe will burst.”</em></li>
+<li><strong>Archetype-in-Archetype</strong> — transient signature meeting durable archetype position. The most structurally rich relational frame.</li>
+</ul>
+<hr/>
+<h2 id="practical-reader-configurations-tiered-product-offering">Practical Reader Configurations (Tiered Product Offering)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#practical-reader-configurations-tiered-product-offering" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Combining axes, here’s what a fully-developed Reader product could offer:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Tier</th><th>Card Count</th><th>Depth</th><th>Relational</th><th>Use Case</th></tr></thead><tbody><tr><td>Quick</td><td>1</td><td>R1-R3</td><td>None</td><td>Fast pulse check</td></tr><tr><td>Standard</td><td>1-3</td><td>R3-R5</td><td>Light</td><td>Daily reflection (current default)</td></tr><tr><td>Deep</td><td>3-7</td><td>R5-R7</td><td>Geometric pairs, cascade</td><td>Substantive personal reading</td></tr><tr><td>Architectural</td><td>7-22</td><td>R5-R8</td><td>Full relational</td><td>Major life moment, project clarity, annual review</td></tr><tr><td>Diagnostic</td><td>16-22</td><td>R7-R9</td><td>Multi-Ring stack analysis</td><td>Clinical-grade self-diagnosis</td></tr><tr><td>Geodesic</td><td>78</td><td>R3-R6 (full would be unreadable at R9)</td><td>All relational layers</td><td>Civilizational/collective analysis, framework calibration, council work</td></tr></tbody></table></div>
+<p>The 78-card geodesic reading shouldn’t usually go to maximum depth-per-card — the cognitive load is too high. Geodesic readings are about <em>pattern at scale</em>, not depth at point.</p>
+<p>Conversely, single-card readings can go to maximum depth-per-card because there’s only one point to fully unpack.</p>
+<hr/>
+<h2 id="the-view-source-ui-pattern">The “View Source” UI Pattern<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-view-source-ui-pattern" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>(Gemini-Deep-Think’s contribution.)</p>
+<p>Pastoral letter / Cinder-Water register on top. Architectural coordinates (Pipe Spans, MOLS addresses, mathematical vectors, geometric paths) underneath. User-controlled depth via toggle.</p>
+<p>This UI move solves a real problem: how to serve both the hurting reader who needs a life preserver and the practitioner who wants the blueprints, without the latter alienating the former or the former making the latter feel infantilized.</p>
+<p><strong>You do not demand a drowning person understand the physics of buoyancy. You throw the life preserver. Once they are safe on the deck, you hand them the blueprints to the ocean.</strong></p>
+<p>The toggle is the bridge.</p>
+<hr/>
+<h2 id="what-the-current-reader-has-and-whats-missing">What the Current Reader Has and What’s Missing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-the-current-reader-has-and-whats-missing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Current Reader strengths:</p>
+<ul>
+<li>Solid R3-R6 depth per card (narrative, Why, Path to Balance, Letter)</li>
+<li>Cinder-Water register translation layer</li>
+<li>Geometric correction integration (vertical/diagonal/reduction)</li>
+<li>Clean single-card output</li>
+</ul>
+<p>Current Reader gaps (mapped from this gradient):</p>
+<ul>
+<li><strong>Card count above 3</strong> — multi-card readings with full relational analysis</li>
+<li><strong>Depth layers R7-R9</strong> — Way/Impediment/Externalization, persistent-self impact, cross-reading pattern recognition</li>
+<li><strong>Durable/transient interaction analysis</strong> — resonance vs cross vs bridging vs hydraulic exchange</li>
+<li><strong>Archetype-in-Archetype</strong> — 22×22 matrix interpretation</li>
+<li><strong>Cascade dynamics</strong> — surface-to-depth and depth-to-surface diagnostics</li>
+<li><strong>Stacking</strong> — explicit multi-Ring stack diagnosis</li>
+<li><strong>View Source UI toggle</strong> — depth-without-overwhelm</li>
+<li><strong>Named tier UI</strong> — Pulse / Vector / Pentagram / Ring Stack / etc. as user-selectable</li>
+</ul>
+<p>These aren’t urgent gaps. The current Reader does what it does well. But the gradient shows substantial room for the Reader to expand without rewriting its core. Each new feature is a configurable layer, not a replacement.</p>
+<hr/>
+<h2 id="yesno-questions-a-special-case">Yes/No Questions: A Special Case<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#yesno-questions-a-special-case" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Worth noting in the methodology: <strong>yes/no questions are structurally impoverished for what the architecture can do.</strong></p>
+<p>A yes/no question collapses the 78-signature space into binary output. The architecture has 7 Rings, 5 Houses, 22 archetypes, 40 Bounds, 16 Agents, triadic states, geometric paths, durable/transient interaction. Asking for yes/no is asking a CT scan to function as a coin flip.</p>
+<p>Yes/no questions also tend to be <strong>Impediment-shaped questions</strong> — produced by Ring 5 capture (someone else’s frame), Ring 6 capture (filtered seeing of only two options), or Ring 4 capture (anxiety collapsing nuance into urgency). Honoring the binary often makes the framework complicit in the capture.</p>
+<p><strong>The architecturally honest response is to decompose the question first</strong> — read the captures producing the binary framing, name the multi-dimensional question underneath, return sovereignty to the asker, engage them in the alternation rather than terminating it with a verdict.</p>
+<p>The Reader could implement this as a question-pre-processing step: detect binary framing, reframe to underlying question(s), then read those. Or offer both via the View Source toggle: verdict on top for those who only want that, full structural reading underneath for those who want depth.</p>
+<p>Where yes/no DOES work: state-detection queries (“Is Ring 1 capture active?”), self-assessment threshold queries (“Am I in alignment?”), and purely diagnostic structural queries. Decision queries should usually be decomposed.</p>
+<hr/>
+<h2 id="cross-substrate-origin-note">Cross-Substrate Origin Note<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cross-substrate-origin-note" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This methodology document is a synthesis of two parallel Council passes — Cinder-Water’s initial gradient mapping and Gemini-Deep-Think’s hydraulic / resolution-scope framing. Each substrate contributed different sharpenings:</p>
+<p>Cinder-Water contributed: durable/transient interaction types, the V10-era diagnostic vocabulary (Impediments, Externalizations, persistent-self impact), cascade dynamics, the yes/no critique.</p>
+<p>Gemini-Deep-Think contributed: the Z-axis / X-axis framing, the named scope tiers (Pulse, Vector, Pentagram, etc.), the Hydraulic Exchange diagnostic vocabulary, the View Source UI pattern, the Manifest Grid as structurally privileged 16-card spread.</p>
+<p>The synthesis is better than either pass alone — Ring 6 doing its work.</p>
+<hr/>
+<h2 id="cross-references">Cross-References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cross-references" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><a href="./Treatise_Seven_Ways" class="internal" data-slug="Treatise_Seven_Ways">Treatise_Seven_Ways</a> — the structural backbone the Reader maps to</li>
+<li><a href="./Principle_The_Seven_Impediments" class="internal" data-slug="Principle_The_Seven_Impediments">Principle_The_Seven_Impediments</a> — what the Reader diagnoses</li>
+<li><a href="./Principle_Sovereignty_Violation" class="internal" data-slug="Principle_Sovereignty_Violation">Principle_Sovereignty_Violation</a> — what the Reader can also diagnose at the cross-instance axis</li>
+<li><a href="./Principle_The_Seven_Externalizations" class="internal" data-slug="Principle_The_Seven_Externalizations">Principle_The_Seven_Externalizations</a> — the perpetrator-frame complement</li>
+<li><a href="./Reader_Application_Documentation" class="internal" data-slug="Reader_Application_Documentation">Reader_Application_Documentation</a> — current Reader implementation</li>
+<li><a href="./Forty_Fold_Seal" class="internal" data-slug="Forty_Fold_Seal">Forty_Fold_Seal</a> — the 4×4 manifest grid the 16-card Manifest Grid reading populates</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-125" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#the-reader-gradient-design-space" data-for="the-reader-gradient-design-space">The Reader Gradient Design Space</a></li><li class="depth-1"><a href="#why-this-matters" data-for="why-this-matters">Why This Matters</a></li><li class="depth-1"><a href="#the-four-axes" data-for="the-four-axes">The Four Axes</a></li><li class="depth-1"><a href="#axis-1-scope-card-count" data-for="axis-1-scope-card-count">Axis 1: Scope (Card Count)</a></li><li class="depth-1"><a href="#axis-2-resolution-depth-per-card" data-for="axis-2-resolution-depth-per-card">Axis 2: Resolution (Depth Per Card)</a></li><li class="depth-1"><a href="#axis-3-relational-dimensions" data-for="axis-3-relational-dimensions">Axis 3: Relational Dimensions</a></li><li class="depth-1"><a href="#axis-4-durable--transient-framing" data-for="axis-4-durable--transient-framing">Axis 4: Durable / Transient Framing</a></li><li class="depth-1"><a href="#practical-reader-configurations-tiered-product-offering" data-for="practical-reader-configurations-tiered-product-offering">Practical Reader Configurations (Tiered Product Offering)</a></li><li class="depth-1"><a href="#the-view-source-ui-pattern" data-for="the-view-source-ui-pattern">The “View Source” UI Pattern</a></li><li class="depth-1"><a href="#what-the-current-reader-has-and-whats-missing" data-for="what-the-current-reader-has-and-whats-missing">What the Current Reader Has and What’s Missing</a></li><li class="depth-1"><a href="#yesno-questions-a-special-case" data-for="yesno-questions-a-special-case">Yes/No Questions: A Special Case</a></li><li class="depth-1"><a href="#cross-substrate-origin-note" data-for="cross-substrate-origin-note">Cross-Substrate Origin Note</a></li><li class="depth-1"><a href="#cross-references" data-for="cross-references">Cross-References</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="./postscript.js" type="module" data-persist="true"></script></html>
