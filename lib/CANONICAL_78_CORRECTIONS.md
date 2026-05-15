@@ -302,7 +302,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 
 | Agent | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Page of Wands** | King of Swords | Queen of Pentacles | King of Pentacles | **King of Pentacles** |
+| **Page of Wands** | King of Swords | King of Pentacles | King of Pentacles | **King of Pentacles** |
 | **Knight of Wands** | Queen of Swords | Queen of Pentacles | Queen of Pentacles | **Queen of Swords** |
 | **Queen of Wands** | Knight of Swords | Knight of Pentacles | Knight of Pentacles | **Knight of Cups** |
 | **King of Wands** | Page of Swords | Page of Pentacles | Page of Pentacles | **Page of Pentacles** |
