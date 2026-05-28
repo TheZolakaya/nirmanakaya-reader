@@ -1164,7 +1164,7 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
 
         {/* Being Health */}
         {beingHealth && (
-          <SidebarSection title="BEING (What?)" titleColor="#10b981" help="Four kinds of experiential substance — Mantle (force beneath), Torch (knowing through), Vessel (form around), Clearing (freedom away). Each group has one archetype from every Practice and Activity.">
+          <SidebarSection title="BEING (What?)" titleColor="#10b981" help="Four kinds of experiential substance — Mantle (force beneath), Kindle (knowing through), Vessel (form around), Passage (freedom away). Each group has one archetype from every Practice and Activity.">
             {Object.entries(BEING_GROUPS).map(([groupName, groupDef]) => {
               const health = beingHealth[groupName];
               if (!health) return null;
@@ -1202,7 +1202,7 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
 
         {/* Identity Health */}
         {identityHealth && (
-          <SidebarSection title="IDENTITY (Who?)" titleColor="#8b5cf6" help="Four postures of self — Composure (holds center), Conviction (acts from center), Exploration (ventures from center), Communion (dissolves center). Each group has one archetype from every Practice, Activity, and Being.">
+          <SidebarSection title="IDENTITY (Who?)" titleColor="#8b5cf6" help="Four postures of self — Composure (holds center), Conviction (acts from center), Exploration (ventures from center), Intimacy (dissolves center). Each group has one archetype from every Practice, Activity, and Being.">
             {Object.entries(IDENTITY_GROUPS).map(([groupName, groupDef]) => {
               const health = identityHealth[groupName];
               if (!health) return null;

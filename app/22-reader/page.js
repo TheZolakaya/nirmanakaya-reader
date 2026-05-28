@@ -21,8 +21,8 @@ const STATUS_GLOW = {
 // Dimensional color maps for overlay layers
 const PRACTICE_COLORS = { Spirit: '#c084fc', Emotion: '#fb7185', Mind: '#22d3ee', Body: '#4ade80' };
 const ACTIVITY_COLORS = { Intent: '#ef4444', Cognition: '#22d3ee', Resonance: '#f59e0b', Structure: '#4ade80' };
-const BEING_COLORS = { Mantle: '#fbbf24', Torch: '#22d3ee', Vessel: '#4ade80', Clearing: '#fb7185' };
-const IDENTITY_COLORS = { Composure: '#22d3ee', Conviction: '#fbbf24', Exploration: '#4ade80', Communion: '#fb7185' };
+const BEING_COLORS = { Mantle: '#fbbf24', Kindle: '#22d3ee', Vessel: '#4ade80', Passage: '#fb7185' };
+const IDENTITY_COLORS = { Composure: '#22d3ee', Conviction: '#fbbf24', Exploration: '#4ade80', Intimacy: '#fb7185' };
 const STAGE_COLORS_MAP = { Seed: '#22c55e', Medium: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
 
 // Archetype → dimension group lookups
@@ -39,9 +39,9 @@ const IDENTITY_LOOKUP_MAP = {};
 // Stage
 [['Seed',[2,4,6,8]],['Medium',[3,5,7,9]],['Fruition',[11,13,15,17]],['Feedback',[12,14,16,18]]].forEach(([g,ids]) => ids.forEach(id => STAGE_LOOKUP[id] = g));
 // Being
-[['Mantle',[8,7,15,18]],['Torch',[2,5,13,12]],['Vessel',[4,3,11,14]],['Clearing',[6,9,17,16]]].forEach(([g,ids]) => ids.forEach(id => BEING_LOOKUP_MAP[id] = g));
+[['Mantle',[8,7,15,18]],['Kindle',[2,5,13,12]],['Vessel',[4,3,11,14]],['Passage',[6,9,17,16]]].forEach(([g,ids]) => ids.forEach(id => BEING_LOOKUP_MAP[id] = g));
 // Identity
-[['Composure',[8,5,17,14]],['Conviction',[2,7,11,16]],['Exploration',[4,9,13,18]],['Communion',[6,3,15,12]]].forEach(([g,ids]) => ids.forEach(id => IDENTITY_LOOKUP_MAP[id] = g));
+[['Composure',[8,5,17,14]],['Conviction',[2,7,11,16]],['Exploration',[4,9,13,18]],['Intimacy',[6,3,15,12]]].forEach(([g,ids]) => ids.forEach(id => IDENTITY_LOOKUP_MAP[id] = g));
 
 // House label positions (offsets from house center)
 const HOUSE_LABELS = {

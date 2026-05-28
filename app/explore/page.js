@@ -38,13 +38,13 @@ const SEEDS = {
   8: { name: 'Fortitude', traditional: 'Strength', paths: {
     Practice: { group: 'Body', verb: 'Embody', color: '#4ade80', seq: [8, 9, 11, 12] },
     Activity: { group: 'Structure', verb: 'Build', color: '#ef4444', seq: [8, 3, 13, 16] },
-    Being: { group: 'Mantle', verb: 'Create', color: '#fbbf24', seq: [8, 7, 15, 18] },
+    Being: { group: 'Mantle', verb: 'Underlie', color: '#fbbf24', seq: [8, 7, 15, 18] },
     Identity: { group: 'Composure', verb: 'Center', color: '#a855f7', seq: [8, 5, 17, 14] },
   }},
   2: { name: 'Wisdom', traditional: 'High Priestess', paths: {
     Practice: { group: 'Spirit', verb: 'Witness', color: '#4ade80', seq: [2, 3, 17, 18] },
     Activity: { group: 'Cognition', verb: 'Distinguish', color: '#ef4444', seq: [2, 14, 15, 9] },
-    Being: { group: 'Torch', verb: 'Understand', color: '#fbbf24', seq: [2, 5, 13, 12] },
+    Being: { group: 'Kindle', verb: 'Understand', color: '#fbbf24', seq: [2, 5, 13, 12] },
     Identity: { group: 'Conviction', verb: 'Act', color: '#a855f7', seq: [2, 7, 11, 16] },
   }},
   4: { name: 'Order', traditional: 'Emperor', paths: {
@@ -56,8 +56,8 @@ const SEEDS = {
   6: { name: 'Compassion', traditional: 'Lovers', paths: {
     Practice: { group: 'Emotion', verb: 'Will', color: '#4ade80', seq: [6, 7, 13, 14] },
     Activity: { group: 'Resonance', verb: 'Connect', color: '#ef4444', seq: [6, 5, 11, 18] },
-    Being: { group: 'Clearing', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
-    Identity: { group: 'Communion', verb: 'Merge', color: '#a855f7', seq: [6, 3, 15, 12] },
+    Being: { group: 'Passage', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
+    Identity: { group: 'Intimacy', verb: 'Merge', color: '#a855f7', seq: [6, 3, 15, 12] },
   }},
 };
 
@@ -70,16 +70,16 @@ const VIZ_STAGES = {
 const VIZ_STAGE_COLORS = { Se: '#22c55e', Me: '#f59e0b', Fr: '#06b6d4', Fb: '#7c3aed' };
 
 const BEING_DEFS = {
-  Mantle:   { verb: 'Create',     members: [8, 7, 15, 18] },
-  Torch:    { verb: 'Understand', members: [2, 5, 13, 12] },
-  Vessel:   { verb: 'Hold',       members: [4, 3, 11, 14] },
-  Clearing: { verb: 'Release',    members: [6, 9, 17, 16] },
+  Mantle:  { verb: 'Underlie',   members: [8, 7, 15, 18] },
+  Kindle:  { verb: 'Understand', members: [2, 5, 13, 12] },
+  Vessel:  { verb: 'Hold',       members: [4, 3, 11, 14] },
+  Passage: { verb: 'Release',    members: [6, 9, 17, 16] },
 };
 const IDENTITY_DEFS = {
   Composure:   { verb: 'Center',  members: [8, 5, 17, 14] },
   Conviction:  { verb: 'Act',     members: [2, 7, 11, 16] },
   Exploration: { verb: 'Venture', members: [4, 9, 13, 18] },
-  Communion:   { verb: 'Merge',   members: [6, 3, 15, 12] },
+  Intimacy:    { verb: 'Merge',   members: [6, 3, 15, 12] },
 };
 
 const BEING_LOOKUP = {}, IDENTITY_LOOKUP = {};
@@ -98,8 +98,8 @@ const DIMENSION_ORDER = ['Practice', 'Activity', 'Being', 'Identity'];
 const OFFSETS = [-6, -2, 2, 6];
 
 // Tesseract constants
-const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Torch: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Clearing: { ids: [6,9,17,16], color: '#fb7185' } };
-const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Communion: { ids: [6,3,15,12], color: '#fb7185' } };
+const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Passage: { ids: [6,9,17,16], color: '#fb7185' } };
+const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Intimacy: { ids: [6,3,15,12], color: '#fb7185' } };
 const PRACTICE_T = { Spirit: { ids: [17,2,18,3], color: '#c084fc' }, Emotion: { ids: [7,14,6,13], color: '#fb7185' }, Mind: { ids: [4,15,5,16], color: '#22d3ee' }, Body: { ids: [12,9,11,8], color: '#4ade80' } };
 const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Medium: { ids: [7,9,5,3], color: '#f59e0b' }, Fruition: { ids: [17,15,11,13], color: '#06b6d4' }, Feedback: { ids: [12,14,18,16], color: '#7c3aed' } };
 const COLOR_MODES = { Being: BEING_T, Identity: IDENTITY_T, Practice: PRACTICE_T, Stage: STAGE_T };
@@ -110,9 +110,9 @@ const GROUP_COLORS = {
   // Activity groups (distinct colors for channels)
   Intent: '#ef4444', Cognition: '#22d3ee', Resonance: '#f59e0b', Structure: '#4ade80',
   // Being groups (from BEING_T)
-  Mantle: BEING_T.Mantle.color, Torch: BEING_T.Torch.color, Vessel: BEING_T.Vessel.color, Clearing: BEING_T.Clearing.color,
+  Mantle: BEING_T.Mantle.color, Kindle: BEING_T.Kindle.color, Vessel: BEING_T.Vessel.color, Passage: BEING_T.Passage.color,
   // Identity groups (from IDENTITY_T)
-  Composure: IDENTITY_T.Composure.color, Conviction: IDENTITY_T.Conviction.color, Exploration: IDENTITY_T.Exploration.color, Communion: IDENTITY_T.Communion.color,
+  Composure: IDENTITY_T.Composure.color, Conviction: IDENTITY_T.Conviction.color, Exploration: IDENTITY_T.Exploration.color, Intimacy: IDENTITY_T.Intimacy.color,
   // Stage groups (from STAGE_T)
   Seed: STAGE_T.Seed.color, Medium: STAGE_T.Medium.color, Fruition: STAGE_T.Fruition.color, Feedback: STAGE_T.Feedback.color,
 };
@@ -240,7 +240,7 @@ const MIXED_ORBITS = {
     weight: 'Medium-low',
     weightNote: 'Anomaly worth flagging',
     oneLine: 'Three companions and a stranger — 2 anomaly quads in the receptive Beings.',
-    desc: 'The only orbit where three members share a single Being group while one stands alone. {3,11,12,14}: three Vessels (Nurturing, Equity, Balance) with Sacrifice as the lone Torch. {6,8,9,17}: three Clearings (Compassion, Discipline, Inspiration) with Fortitude as the lone Mantle. Both quads center on the "receptive" Beings (Vessel, Clearing) with a single expressive break. Both completely fall apart under the opposite-corner flip — neither survives as a sum-40 quad. Worth a footnote in the canon, not a feature.',
+    desc: 'The only orbit where three members share a single Being group while one stands alone. {3,11,12,14}: three Vessels (Nurturing, Equity, Balance) with Sacrifice as the lone Kindle. {6,8,9,17}: three Passages (Compassion, Discipline, Inspiration) with Fortitude as the lone Mantle. Both quads center on the "receptive" Beings (Vessel, Passage) with a single expressive break. Both completely fall apart under the opposite-corner flip — neither survives as a sum-40 quad. Worth a footnote in the canon, not a feature.',
     members: [[3,11,12,14],[6,8,9,17]],
   },
   O2: {
@@ -386,11 +386,11 @@ const DERIVATION_CONTENT = {
   },
   Being: {
     title: 'BEING -- Latin Square Overlay',
-    body: 'Being answers WHAT. The four Being groups (Mantle, Torch, Vessel, Clearing) are a Latin square overlay on the grid -- an invisible fourth dimension that cuts diagonally across both Practice and Activity.\n\nEach group contains one archetype from every Practice, every Activity, every Stage, and every Identity. Maximum diversity. This guarantees that Being groups reveal patterns invisible to Practice or Activity alone.',
+    body: 'Being answers WHAT. The four Being groups (Mantle, Kindle, Vessel, Passage) are a Latin square overlay on the grid -- an invisible fourth dimension that cuts diagonally across both Practice and Activity.\n\nEach group contains one archetype from every Practice, every Activity, every Stage, and every Identity. Maximum diversity. This guarantees that Being groups reveal patterns invisible to Practice or Activity alone.',
   },
   Identity: {
     title: 'IDENTITY -- Latin Square Overlay',
-    body: 'Identity answers WHO. The four Identity groups (Composure, Conviction, Exploration, Communion) are the third Latin square on the grid -- a fifth mathematical dimension.\n\nIdentity\'s correction geometry differs from Being\'s: shadow identity (Unacknowledged) is corrected WITHIN the same group, not across groups. The architecture protects WHO you are. Your shadow self is illuminated by your own deepest mirror, not by becoming someone else.',
+    body: 'Identity answers WHO. The four Identity groups (Composure, Conviction, Exploration, Intimacy) are the third Latin square on the grid -- a fifth mathematical dimension.\n\nIdentity\'s correction geometry differs from Being\'s: shadow identity (Unacknowledged) is corrected WITHIN the same group, not across groups. The architecture protects WHO you are. Your shadow self is illuminated by your own deepest mirror, not by becoming someone else.',
   },
 };
 
