@@ -134,7 +134,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   const sourceGrp = useRef(), srcCore = useRef(), srcCorona = useRef();
   const creationRingGrp = useRef(), creationRipple = useRef(), creationNode = useRef();
   const edgeLine = useRef(), radialLine = useRef(), tetraEdge = useRef(), nodeA = useRef(), nodeB = useRef();
-  const pulse = useRef(), cycleEdges = useRef(), tenLinks = useRef(), emergeLines = useRef();
+  const pulse = useRef(), cycleEdges = useRef(), tenLinks = useRef(), emergeLines = useRef(), meaningPulse = useRef();
   const cycleArr = useMemo(() => new Float32Array(2 * 2 * 3), []);
   const tenLinkArr = useMemo(() => new Float32Array(TEN_LINKS.length * 2 * 3), []);
   const emergeArr = useMemo(() => new Float32Array(ALL_ARCH.length * 2 * 3), []);
@@ -230,7 +230,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       }
       const cubeTarget = CUBE_VIEWS.has(view) ? gestaltVis(id) : 0;
       const sphereTarget = view === 'axis' ? axisEmerge : (SPHERE_VIEWS.has(view) ? gestaltVis(id) : 0);
-      if (gCube.current[id]) { const o = approach(gCube.current[id].material.opacity, cubeTarget, ok); gCube.current[id].material.opacity = o; gCube.current[id].visible = o > 0.02; }
+      if (gCube.current[id]) { const o = approach(gCube.current[id].material.opacity, cubeTarget, ok); gCube.current[id].material.opacity = o; gCube.current[id].visible = o > 0.02; const swell = (view === 'four' && (id === CYCLE_ORDER[fourStep] || (fourStep === 3 && id === 0))) ? 1.5 : 1; gCube.current[id].scale.setScalar(approach(gCube.current[id].scale.x, swell, Math.min(1, dt * 6))); }
       if (gSphere.current[id]) { const o = approach(gSphere.current[id].material.opacity, sphereTarget, ok); gSphere.current[id].material.opacity = o; gSphere.current[id].visible = o > 0.02; }
     });
     // fundamental nodes
@@ -294,15 +294,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       const seedP = gestalt.current[0]?.position, fbP = gestalt.current[20]?.position;
       if (view === 'first' && seedP && fbP) {
         pulse.current.position.lerpVectors(seedP, fbP, 0.5 + 0.5 * Math.sin(t * 2.3));
-      } else if (view === 'four' && seedP && fbP) {
-        if (viewT.current < BOUNCE) {
-          pulse.current.position.lerpVectors(seedP, fbP, 0.5 + 0.5 * Math.sin(t * 2.3)); // still just up-and-down
-        } else {
-          const cp = ((viewT.current - BOUNCE) * 0.55) % 4;            // travel the cycle
-          const seg = Math.floor(cp), fr = cp - seg;
-          const A = gestalt.current[CYCLE_ORDER[seg]]?.position, B = gestalt.current[CYCLE_ORDER[(seg + 1) % 4]]?.position;
-          if (A && B) pulse.current.position.lerpVectors(A, B, fr);
-        }
+      } else if (view === 'four') {
+        const A = gestalt.current[CYCLE_ORDER[fourStep]]?.position;   // step to the active stage
+        if (A) pulse.current.position.lerp(A, Math.min(1, dt * 4.5));
       } else if (view === 'ten') {
         const A = gestalt.current[HEADER_BY_STAGE[tenActiveStage]]?.position, B = gestalt.current[HEADER_BY_STAGE[(tenActiveStage + 1) % 4]]?.position;
         if (A && B) pulse.current.position.lerpVectors(A, B, ease(tenPhase - tenActiveStage));
@@ -318,7 +312,13 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         a[6]=Fb.x;a[7]=Fb.y;a[8]=Fb.z; a[9]=F.x;a[10]=F.y;a[11]=F.z;   // top: Feedback–Fruition
         cycleEdges.current.geometry.attributes.position.needsUpdate = true;
       }
-      cycleEdges.current.material.opacity = approach(cycleEdges.current.material.opacity, (view === 'four' && viewT.current >= BOUNCE) ? 0.45 : 0, ok);
+      cycleEdges.current.material.opacity = approach(cycleEdges.current.material.opacity, (view === 'four') ? 0.4 : 0, ok);
+    }
+    // Feedback integrates meaning back into the Seed ("I AM") — a pulse streams 20 → 0
+    if (meaningPulse.current) {
+      const F = gestalt.current[20]?.position, S = gestalt.current[0]?.position;
+      if (F && S) meaningPulse.current.position.lerpVectors(F, S, (t * 0.6) % 1);
+      meaningPulse.current.material.opacity = approach(meaningPulse.current.material.opacity, (view === 'four' && fourStep === 3) ? 0.9 : 0, ok);
     }
 
     // seal-only structure lines
@@ -397,6 +397,14 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     if (view === 'axis') { setLabelsOn(false); const id = setTimeout(() => setLabelsOn(true), (AXIS_PAUSE + AXIS_EMERGE) * 1000 + 150); return () => clearTimeout(id); }
     setLabelsOn(true);
   }, [view]);
+  // The Four steps Seed → Medium → Fruition → Feedback; only the active stage lights up
+  const [fourStep, setFourStep] = useState(0);
+  useEffect(() => {
+    if (view !== 'four') { setFourStep(0); return; }
+    setFourStep(0);
+    const id = setInterval(() => setFourStep((s) => (s + 1) % 4), 1700);
+    return () => clearInterval(id);
+  }, [view]);
   return (
     <group>
       <lineSegments ref={radialLine}><bufferGeometry><bufferAttribute attach="attributes-position" count={IDS.length * 2} array={radialArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={SOURCE_GLOW} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} /></lineSegments>
@@ -435,7 +443,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       {/* gestalt tetra edges (seal) + the four */}
       <lineSegments ref={tetraEdge}><bufferGeometry><bufferAttribute attach="attributes-position" count={6 * 2} array={tetraArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={AETHER} transparent opacity={0} /></lineSegments>
       {GESTALT_IDS.map((gid) => { const a = ARCHETYPES[gid]; const stage = STAGE_OF[gid];
-        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === 0 || gid === 20) : view === 'axis' ? labelsOn : view === 'grid' ? false : true;
+        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === 0 || gid === 20) : view === 'four' ? (gid === CYCLE_ORDER[fourStep]) : view === 'axis' ? labelsOn : view === 'grid' ? false : true;
         const text = view === 'iam' ? 'I AM'
           : view === 'first' ? FOUR_PHRASE[gid]
           : view === 'four' ? `${FOUR_PHRASE[gid]} · ${stage}`
