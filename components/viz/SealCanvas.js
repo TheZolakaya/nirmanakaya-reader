@@ -507,38 +507,54 @@ export default function SealCanvas() {
   const segments = isMobile ? 16 : 28;
   const starCount = isMobile ? 350 : 900;
   const cap = VIEWS.find((v) => v.id === view)?.cap;
+  const togglePlay = () => { setPlaying((p) => !p); if (!playing && view === 'seal') setView('iam'); };
+  const chip = (active) => ({ flex: '0 0 auto', fontFamily: 'ui-monospace, Menlo, monospace', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', cursor: 'pointer', color: active ? '#fff' : '#aab2c5', background: active ? 'rgba(91,33,182,.6)' : 'rgba(20,24,34,.75)', border: `1px solid ${active ? '#7c4dff' : '#2a3344'}`, borderRadius: 18, padding: '8px 13px' });
 
   const btn = (active) => ({ display: 'block', width: '100%', textAlign: 'left', marginBottom: 5, cursor: 'pointer', fontFamily: 'ui-monospace, Menlo, monospace', fontSize: 12.5, fontWeight: 700, letterSpacing: '.03em', color: active ? '#fff' : '#aab2c5', background: active ? 'rgba(91,33,182,.55)' : 'rgba(20,24,34,.6)', border: `1px solid ${active ? '#7c4dff' : '#2a3344'}`, borderRadius: 7, padding: '7px 11px' });
 
   return (
     <div style={{ position: 'fixed', inset: 0, background: '#06070b' }}>
-      <div style={{ position: 'fixed', top: 16, left: 0, right: 0, textAlign: 'center', zIndex: 2, pointerEvents: 'none', fontFamily: 'ui-monospace, Menlo, monospace' }}>
-        <div style={{ fontSize: 'clamp(14px,2.2vw,19px)', fontWeight: 700, letterSpacing: '.06em', color: VIZ_INK }}>THE LIVING MAP</div>
+      <div style={{ position: 'fixed', top: 14, left: 0, right: 0, textAlign: 'center', zIndex: 2, pointerEvents: 'none', fontFamily: 'ui-monospace, Menlo, monospace' }}>
+        <div style={{ fontSize: 'clamp(13px,2.2vw,19px)', fontWeight: 700, letterSpacing: '.06em', color: VIZ_INK }}>THE LIVING MAP</div>
       </div>
 
-      {/* control panel */}
-      <div style={{ position: 'fixed', top: 60, left: 16, zIndex: 4, width: 184, background: 'rgba(10,12,18,.74)', border: '1px solid #222a38', borderRadius: 12, padding: 13, backdropFilter: 'blur(6px)', fontFamily: 'ui-monospace, Menlo, monospace' }}>
-        <button onClick={() => { setPlaying((p) => !p); if (!playing && view === 'seal') setView('iam'); }}
-          style={{ ...btn(false), background: playing ? 'rgba(91,33,182,.55)' : 'rgba(20,24,34,.6)', color: playing ? '#fff' : '#cdbcff', marginBottom: 10, textAlign: 'center', letterSpacing: '.1em' }}>
-          {playing ? '❚❚ PAUSE' : '▶ PLAY DERIVATION'}
-        </button>
-        <div style={{ fontSize: 10, letterSpacing: '.16em', color: VIZ_DIM, marginBottom: 8 }}>STATES</div>
-        {VIEWS.map((v) => (
-          <button key={v.id} onClick={() => { setPlaying(false); setView(v.id); }} style={btn(view === v.id)}>
-            {v.label}<div style={{ fontSize: 9.5, fontWeight: 400, color: view === v.id ? '#cdbcff' : '#6b7488', marginTop: 1 }}>{v.sub}</div>
+      {/* desktop control panel */}
+      {!isMobile && (
+        <div style={{ position: 'fixed', top: 60, left: 16, zIndex: 4, width: 184, background: 'rgba(10,12,18,.74)', border: '1px solid #222a38', borderRadius: 12, padding: 13, backdropFilter: 'blur(6px)', fontFamily: 'ui-monospace, Menlo, monospace' }}>
+          <button onClick={togglePlay}
+            style={{ ...btn(false), background: playing ? 'rgba(91,33,182,.55)' : 'rgba(20,24,34,.6)', color: playing ? '#fff' : '#cdbcff', marginBottom: 10, textAlign: 'center', letterSpacing: '.1em' }}>
+            {playing ? '❚❚ PAUSE' : '▶ PLAY DERIVATION'}
           </button>
-        ))}
-        <div style={{ height: 1, background: '#222a38', margin: '11px 0' }} />
-        <div style={{ fontSize: 10, letterSpacing: '.16em', color: VIZ_DIM, marginBottom: 7 }}>LAYERS</div>
-        <button disabled style={{ ...btn(false), opacity: 0.45, cursor: 'not-allowed', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Elemental designators</span><span style={{ fontSize: 9, color: '#6b7488' }}>soon</span>
-        </button>
+          <div style={{ fontSize: 10, letterSpacing: '.16em', color: VIZ_DIM, marginBottom: 8 }}>STATES</div>
+          {VIEWS.map((v) => (
+            <button key={v.id} onClick={() => { setPlaying(false); setView(v.id); }} style={btn(view === v.id)}>
+              {v.label}<div style={{ fontSize: 9.5, fontWeight: 400, color: view === v.id ? '#cdbcff' : '#6b7488', marginTop: 1 }}>{v.sub}</div>
+            </button>
+          ))}
+          <div style={{ height: 1, background: '#222a38', margin: '11px 0' }} />
+          <div style={{ fontSize: 10, letterSpacing: '.16em', color: VIZ_DIM, marginBottom: 7 }}>LAYERS</div>
+          <button disabled style={{ ...btn(false), opacity: 0.45, cursor: 'not-allowed', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>Elemental designators</span><span style={{ fontSize: 9, color: '#6b7488' }}>soon</span>
+          </button>
+        </div>
+      )}
+
+      {/* caption (sits above the mobile bar) */}
+      <div style={{ position: 'fixed', bottom: isMobile ? 86 : 26, left: 0, right: 0, textAlign: 'center', zIndex: 3, pointerEvents: 'none', padding: '0 18px' }}>
+        <div style={{ maxWidth: 640, margin: '0 auto', fontFamily: 'ui-monospace, Menlo, monospace', fontSize: isMobile ? 12 : 13, color: VIZ_DIM, lineHeight: 1.45, textShadow: '0 1px 8px #000' }}>{cap}</div>
       </div>
 
-      {/* caption */}
-      <div style={{ position: 'fixed', bottom: 26, left: 0, right: 0, textAlign: 'center', zIndex: 3, pointerEvents: 'none', padding: '0 24px' }}>
-        <div style={{ maxWidth: 640, margin: '0 auto', fontFamily: 'ui-monospace, Menlo, monospace', fontSize: 13, color: VIZ_DIM, lineHeight: 1.5, textShadow: '0 1px 8px #000' }}>{cap}</div>
-      </div>
+      {/* mobile bottom bar: play + horizontally-scrollable state chips */}
+      {isMobile && (
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 4, background: 'linear-gradient(to top, rgba(6,7,11,.96), rgba(6,7,11,0))', padding: '12px 8px 14px' }}>
+          <div style={{ display: 'flex', gap: 7, alignItems: 'center', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+            <button onClick={togglePlay} style={{ ...chip(playing), color: playing ? '#fff' : '#cdbcff' }}>{playing ? '❚❚' : '▶'}</button>
+            {VIEWS.map((v) => (
+              <button key={v.id} onClick={() => { setPlaying(false); setView(v.id); }} style={chip(view === v.id)}>{v.label}</button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <Canvas camera={{ position: [0, 0, 9], fov: 50 }} dpr={dpr}>
         <color attach="background" args={['#06070b']} />
