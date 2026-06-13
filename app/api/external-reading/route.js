@@ -397,7 +397,7 @@ async function generateReading({
 
   const response = await client.messages.create({
     model,
-    max_tokens: 2500,
+    max_tokens: 8000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]
   });

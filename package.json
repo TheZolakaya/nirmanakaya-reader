@@ -1,6 +1,6 @@
 {
   "name": "nirmanakaya-reader",
-  "version": "0.99.97",
+  "version": "0.99.127",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,15 +10,19 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
-    "framer-motion": "^11.0.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.19.1",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.90.1",
+    "framer-motion": "^11.0.0",
     "next": "14.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
-    "resend": "^6.7.0"
+    "resend": "^6.7.0",
+    "three": "^0.161.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
