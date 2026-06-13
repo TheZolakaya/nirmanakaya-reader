@@ -112,6 +112,15 @@ const ORBIT_VIEWS = new Set(['seal']);
 const CUBE_VIEWS = new Set(['iam', 'first', 'four', 'ten']);   // the transcendent Four render as cubes
 const SPHERE_VIEWS = new Set(['map', 'axis', 'seal']);          // in manifestation they become spheres
 const flatZ = { iam: 8, first: 8, four: 8, ten: 11, map: 14, axis: 13.5, grid: 11 };
+// content extents per state (scene units, incl. label margin) → fit the camera to any screen/aspect
+const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, ten: { w: 8, h: 6 }, axis: { w: 13, h: 5.5 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
+const TANHALF = Math.tan((50 * Math.PI / 180) / 2);
+function fitZ(view, aspect) {
+  const c = CONTENT[view]; if (!c) return 12;
+  const zH = (c.h / 2) / TANHALF;
+  const zW = (c.w / 2) / (TANHALF * Math.max(aspect, 0.4));
+  return Math.max(zH, zW) * 1.08;
+}
 const AXIS_PAUSE = 1.7, AXIS_EMERGE = 1.5;   // axis: pillar instantiates, a beat, then the 20 emerge
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 
@@ -119,7 +128,7 @@ function labelStyle(color, dy = -22, size = 13) {
   return { fontFamily: 'ui-monospace, Menlo, monospace', color, fontSize: size, fontWeight: 700, whiteSpace: 'nowrap', textShadow: '0 1px 6px #000', transform: `translateY(${dy}px)`, pointerEvents: 'none' };
 }
 
-function SealScene({ view, segments, controlsRef }) {
+function SealScene({ view, segments, controlsRef, aspect }) {
   const manifest = useRef({}), gestalt = useRef({}), fnode = useRef({});
   const gCube = useRef({}), gSphere = useRef({});
   const sourceGrp = useRef(), srcCore = useRef(), srcCorona = useRef();
@@ -145,6 +154,7 @@ function SealScene({ view, segments, controlsRef }) {
   const fromSrc = useMemo(() => new THREE.Vector3(), []);
   const tmpT = useMemo(() => new THREE.Vector3(), []);
   const tmpC = useMemo(() => new THREE.Vector3(), []);
+  const camTarget = useMemo(() => new THREE.Vector3(), []);
   const crescentShape = useMemo(() => {
     const o = new THREE.Shape(); o.absarc(0, 0, 0.16, 0, Math.PI * 2, false);
     const h = new THREE.Path(); h.absarc(0.085, 0, 0.135, 0, Math.PI * 2, true); o.holes.push(h);
@@ -362,10 +372,22 @@ function SealScene({ view, segments, controlsRef }) {
       creationNode.current.material.emissiveIntensity = 2.6 * creationNode.current.material.opacity;
     }
 
-    // camera
+    // camera — flat views fit to screen then hand pan/zoom to the user; seal orbits
     if (controlsRef.current) {
-      controlsRef.current.enabled = !flat; controlsRef.current.autoRotate = !flat;
-      if (flat) { state.camera.position.lerp(tmpC.set(0, 0.2, flatZ[view] ?? 12), Math.min(1, dt * 2)); state.camera.lookAt(0, 0, 0); }
+      const ctrl = controlsRef.current;
+      if (flat) {
+        ctrl.enableRotate = false; ctrl.autoRotate = false; ctrl.enablePan = true; ctrl.enableZoom = true;
+        if (morph.current < 0.985) {
+          ctrl.enabled = false;
+          const zT = Math.max(flatZ[view] ?? 12, fitZ(view, aspect));
+          state.camera.position.lerp(tmpC.set(0, 0.2, zT), Math.min(1, dt * 2.2));
+          ctrl.target.lerp(camTarget.set(0, 0, 0), Math.min(1, dt * 2.2));
+        } else {
+          ctrl.enabled = true; // pinch-zoom + pan now belong to the user
+        }
+      } else {
+        ctrl.enableRotate = true; ctrl.autoRotate = true; ctrl.enablePan = true; ctrl.enableZoom = true; ctrl.enabled = true;
+      }
     }
   });
 
@@ -514,10 +536,15 @@ const VIEWS = [
 
 export default function SealCanvas() {
   const [isMobile, setIsMobile] = useState(false);
+  const [aspect, setAspect] = useState(1.6);
   const [view, setView] = useState('iam');
   const [playing, setPlaying] = useState(false);
   const controlsRef = useRef();
-  useEffect(() => { const f = () => setIsMobile(window.innerWidth < 768); f(); window.addEventListener('resize', f); return () => window.removeEventListener('resize', f); }, []);
+  useEffect(() => {
+    const f = () => { setIsMobile(window.innerWidth < 768); setAspect(window.innerWidth / Math.max(1, window.innerHeight)); };
+    f(); window.addEventListener('resize', f); window.addEventListener('orientationchange', f);
+    return () => { window.removeEventListener('resize', f); window.removeEventListener('orientationchange', f); };
+  }, []);
   useEffect(() => {
     if (!playing) return;
     const id = setInterval(() => setView((v) => { const i = VIEWS.findIndex((x) => x.id === v); if (i >= VIEWS.length - 1) { setPlaying(false); return v; } return VIEWS[i + 1].id; }), 4200);
@@ -583,8 +610,8 @@ export default function SealCanvas() {
         <pointLight position={[6, 6, 8]} intensity={120} />
         <pointLight position={[-8, -4, -6]} intensity={60} color="#5b7fd0" />
         <Stars count={starCount} />
-        <SealScene view={view} segments={segments} controlsRef={controlsRef} />
-        <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.08} autoRotate autoRotateSpeed={isMobile ? 0.35 : 0.5} minDistance={1.0} maxDistance={26} />
+        <SealScene view={view} segments={segments} controlsRef={controlsRef} aspect={aspect} />
+        <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.08} autoRotate autoRotateSpeed={isMobile ? 0.35 : 0.5} minDistance={0.8} maxDistance={48} />
         <AdaptiveDpr pixelated />
         <EffectComposer enabled={!isMobile} multisampling={isMobile ? 0 : 4}>
           <Bloom intensity={isMobile ? 0.6 : 1.1} luminanceThreshold={0.25} luminanceSmoothing={0.9} mipmapBlur={!isMobile} />
