@@ -396,10 +396,14 @@ function SealScene({ view, segments, controlsRef }) {
             <meshStandardMaterial color={col} emissive={col} emissiveIntensity={2.2} roughness={0.35} metalness={0.1} transparent opacity={0} />
             {(view === 'map' || view === 'grid' || view === 'seal' || (view === 'axis' && labelsOn)) && (
               <Html center distanceFactor={9}>
-                <div style={labelStyle(VIZ_INK, view === 'axis' ? (id <= 9 ? 42 : -42) : -22, view === 'axis' ? 15 : 13)}>
-                  <span style={{ color: col }}>{id}</span> {a.name}
-                  {view === 'axis' && <div style={{ fontSize: 11, fontWeight: 400, color: VIZ_DIM }}>{a.function}</div>}
-                </div>
+                {view === 'axis' ? (
+                  <div style={{ ...labelStyle(VIZ_INK, id <= 9 ? 34 : -34, 14), textAlign: 'center' }}>
+                    <span style={{ color: col }}>{id}</span>
+                    <div style={{ fontSize: 10, fontWeight: 400, color: VIZ_DIM }}>{a.function}</div>
+                  </div>
+                ) : (
+                  <div style={labelStyle(VIZ_INK)}><span style={{ color: col }}>{id}</span> {a.name}</div>
+                )}
               </Html>
             )}
           </mesh>
@@ -427,11 +431,16 @@ function SealScene({ view, segments, controlsRef }) {
             </mesh>
             {gShown && (
               <Html center distanceFactor={9}>
-                <div style={{ ...labelStyle('#cdbcff', view === 'axis' ? ((gid === 0 || gid === 1) ? 42 : -42) : -22, view === 'ten' ? 17 : view === 'axis' ? 15 : 13), textAlign: 'center' }}>
-                  {text}
-                  {view === 'iam' && <><br /><span style={{ fontSize: 10, color: VIZ_DIM }}>awareness</span></>}
-                  {view === 'axis' && <div style={{ fontSize: 11, fontWeight: 400, color: VIZ_DIM }}>{stage}</div>}
-                </div>
+                {view === 'axis' ? (
+                  <div style={{ ...labelStyle('#cdbcff', (gid === 0 || gid === 1) ? 34 : -34, 14), textAlign: 'center' }}>
+                    {gid}
+                    <div style={{ fontSize: 10, fontWeight: 400, color: VIZ_DIM }}>{stage}</div>
+                  </div>
+                ) : (
+                  <div style={{ ...labelStyle('#cdbcff', -22, view === 'ten' ? 17 : 13), textAlign: 'center' }}>
+                    {text}{view === 'iam' && <><br /><span style={{ fontSize: 10, color: VIZ_DIM }}>awareness</span></>}
+                  </div>
+                )}
               </Html>
             )}
           </group>
