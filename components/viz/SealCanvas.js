@@ -220,7 +220,7 @@ function SealScene({ view, segments, controlsRef }) {
       }
       const cubeTarget = CUBE_VIEWS.has(view) ? gestaltVis(id) : 0;
       const sphereTarget = view === 'axis' ? axisEmerge : (SPHERE_VIEWS.has(view) ? gestaltVis(id) : 0);
-      if (gCube.current[id]) { const o = approach(gCube.current[id].material.opacity, cubeTarget, ok); gCube.current[id].material.opacity = o; gCube.current[id].visible = o > 0.02; if (id === 0 || id === 20) { gCube.current[id].rotation.y += dt * 0.55; gCube.current[id].rotation.x += dt * 0.28; } }
+      if (gCube.current[id]) { const o = approach(gCube.current[id].material.opacity, cubeTarget, ok); gCube.current[id].material.opacity = o; gCube.current[id].visible = o > 0.02; }
       if (gSphere.current[id]) { const o = approach(gSphere.current[id].material.opacity, sphereTarget, ok); gSphere.current[id].material.opacity = o; gSphere.current[id].visible = o > 0.02; }
     });
     // fundamental nodes
@@ -394,7 +394,14 @@ function SealScene({ view, segments, controlsRef }) {
           <mesh key={id} ref={(el) => (manifest.current[id] = el)}>
             <sphereGeometry args={[0.13, segments, segments]} />
             <meshStandardMaterial color={col} emissive={col} emissiveIntensity={2.2} roughness={0.35} metalness={0.1} transparent opacity={0} />
-            {(view === 'map' || view === 'grid' || view === 'seal' || (view === 'axis' && labelsOn)) && <Html center distanceFactor={9}><div style={labelStyle(VIZ_INK)}><span style={{ color: col }}>{id}</span> {a.name}</div></Html>}
+            {(view === 'map' || view === 'grid' || view === 'seal' || (view === 'axis' && labelsOn)) && (
+              <Html center distanceFactor={9}>
+                <div style={labelStyle(VIZ_INK, view === 'axis' ? (id <= 9 ? 42 : -42) : -22, view === 'axis' ? 15 : 13)}>
+                  <span style={{ color: col }}>{id}</span> {a.name}
+                  {view === 'axis' && <div style={{ fontSize: 11, fontWeight: 400, color: VIZ_DIM }}>{a.function}</div>}
+                </div>
+              </Html>
+            )}
           </mesh>
         );
       })}
@@ -411,17 +418,22 @@ function SealScene({ view, segments, controlsRef }) {
         return (
           <group key={gid} ref={(el) => (gestalt.current[gid] = el)}>
             <mesh ref={(el) => (gCube.current[gid] = el)}>
-              {SHAPE_OF[gid] === 'cube' && <boxGeometry args={[0.2, 0.2, 0.2]} />}
-              {SHAPE_OF[gid] === 'pyramid' && <coneGeometry args={[0.17, 0.27, 4]} />}
-              {SHAPE_OF[gid] === 'circle' && <sphereGeometry args={[0.14, segments, segments]} />}
-              {SHAPE_OF[gid] === 'crescent' && <shapeGeometry args={[crescentShape]} />}
-              <meshStandardMaterial color="#b3a3ff" emissive={AETHER} emissiveIntensity={2.4} roughness={0.3} transparent opacity={0} side={THREE.DoubleSide} />
+              <sphereGeometry args={[0.13, segments, segments]} />
+              <meshStandardMaterial color="#b3a3ff" emissive={AETHER} emissiveIntensity={2.6} roughness={0.3} transparent opacity={0} />
             </mesh>
             <mesh ref={(el) => (gSphere.current[gid] = el)}>
               <sphereGeometry args={[0.13, segments, segments]} />
               <meshStandardMaterial color="#b3a3ff" emissive={AETHER} emissiveIntensity={2.6} roughness={0.3} transparent opacity={0} />
             </mesh>
-            {gShown && <Html center distanceFactor={9}><div style={{ ...labelStyle('#cdbcff', -22, view === 'ten' ? 17 : 13), textAlign: 'center' }}>{text}{view === 'iam' && <><br /><span style={{ fontSize: 10, color: VIZ_DIM }}>awareness</span></>}</div></Html>}
+            {gShown && (
+              <Html center distanceFactor={9}>
+                <div style={{ ...labelStyle('#cdbcff', view === 'axis' ? ((gid === 0 || gid === 1) ? 42 : -42) : -22, view === 'ten' ? 17 : view === 'axis' ? 15 : 13), textAlign: 'center' }}>
+                  {text}
+                  {view === 'iam' && <><br /><span style={{ fontSize: 10, color: VIZ_DIM }}>awareness</span></>}
+                  {view === 'axis' && <div style={{ fontSize: 11, fontWeight: 400, color: VIZ_DIM }}>{stage}</div>}
+                </div>
+              </Html>
+            )}
           </group>
         );
       })}
@@ -440,7 +452,7 @@ function SealScene({ view, segments, controlsRef }) {
         <mesh key={`fn${n.count}`} ref={(el) => (fnode.current[n.count] = el)}>
           <sphereGeometry args={[0.13, segments, segments]} />
           <meshStandardMaterial color="#f4f7ff" emissive="#dfe8ff" emissiveIntensity={1.1} roughness={0.4} transparent opacity={0} />
-          {showFnLabels && <Html center distanceFactor={9}><div style={labelStyle(VIZ_INK, -24, 14)}>{n.count}</div></Html>}
+          {showFnLabels && <Html center distanceFactor={9}><div style={labelStyle(VIZ_INK, -30, 16)}>{n.count}</div></Html>}
         </mesh>
       ))}
 
