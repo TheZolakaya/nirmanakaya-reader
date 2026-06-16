@@ -34,7 +34,7 @@ export async function POST(request) {
     readingLength    // 'brief' | 'standard' | 'full' (default: 'full')
   } = await request.json();
 
-  const effectiveModel = model || "claude-sonnet-4-20250514";
+  const effectiveModel = model || "claude-sonnet-4-6";
   const n = cardIndex + 1; // 1-indexed for markers
   const effectiveLength = readingLength || 'full';
 

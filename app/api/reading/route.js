@@ -131,7 +131,7 @@ export async function POST(request) {
           "anthropic-version": "2023-06-01"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-6",
           max_tokens: 500,  // Small - only extracting tokens
           system: dtpSystem,
           messages: dtpMessages
@@ -191,8 +191,8 @@ export async function POST(request) {
 
   // First Contact mode uses Sonnet for quality interpretations
   const effectiveModel = isFirstContact
-    ? "claude-sonnet-4-20250514"
-    : (model || "claude-sonnet-4-20250514");
+    ? "claude-sonnet-4-6"
+    : (model || "claude-sonnet-4-6");
 
   const effectiveMaxTokens = isFirstContact
     ? 4000

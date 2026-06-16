@@ -1249,8 +1249,8 @@ export default function NirmanakaReader() {
   const getModelId = (model) => {
     const modelIds = {
       haiku: 'claude-haiku-4-5-20251001',
-      sonnet: 'claude-sonnet-4-20250514',
-      opus: 'claude-opus-4-20250514'
+      sonnet: 'claude-sonnet-4-6',
+      opus: 'claude-opus-4-8'
     };
     return modelIds[model] || modelIds.sonnet;
   };
@@ -1851,7 +1851,7 @@ export default function NirmanakaReader() {
             spreadKey: 'one',
             stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'playful' },
             system: systemPrompt,
-            model: "claude-sonnet-4-20250514",
+            model: "claude-sonnet-4-6",
             userContext: userContextRef.current
           })
         });

@@ -25,7 +25,7 @@ import { PERSONA_PROMPTS } from '../../../../lib/personas.js';
 import { getComplexityDescription, getHumorDescription } from '../../../../lib/personas.js';
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-20250514';
+const MODEL = 'claude-sonnet-4-6';
 const MAX_TOOL_ROUNDS = 12; // Safety cap — prevent runaway investigation
 
 // ─────────────────────────────────────────────

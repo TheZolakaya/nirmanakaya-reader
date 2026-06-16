@@ -230,7 +230,7 @@ async function generateReading({
     scope: 'here',
     seriousness: 'grounded'
   },
-  model = 'claude-sonnet-4-20250514',
+  model = 'claude-sonnet-4-6',
   includeInterpretation = true,
   fast = false,
   fixedDraw = null,

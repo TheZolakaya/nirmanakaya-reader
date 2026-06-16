@@ -33,7 +33,7 @@ async function callClaude(prompt, maxTokens = 1000) {
       "anthropic-beta": "prompt-caching-2024-07-31"
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }]
     })

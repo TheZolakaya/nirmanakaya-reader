@@ -180,7 +180,7 @@ export async function GET(request) {
       : buildFullCollectiveUserMessage(monitor.question, card, monitorId, priorReadings);
 
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: voicePreset.isDaily ? 200 : 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
@@ -203,7 +203,7 @@ export async function GET(request) {
         correction_target_id: defaultReading.correction_target_id,
         signature: defaultReading.signature,
         interpretation,
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         tokens_used: tokensUsed
       }, {
         onConflict: 'reading_date,monitor,voice'

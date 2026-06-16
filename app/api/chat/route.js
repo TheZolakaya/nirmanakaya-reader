@@ -30,7 +30,7 @@ Guidelines:
 - You may occasionally notice patterns or offer reframes that the person hasn't considered.`;
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
-const SONNET = 'claude-sonnet-4-20250514';
+const SONNET = 'claude-sonnet-4-6';
 
 async function callClaude(system, messages) {
   const response = await fetchWithRetry(API_URL, {
