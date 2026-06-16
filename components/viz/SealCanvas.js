@@ -111,18 +111,30 @@ const approach = (cur, tgt, k) => cur + (tgt - cur) * k;
 const ORBIT_VIEWS = new Set(['seal']);
 const CUBE_VIEWS = new Set(['iam', 'first', 'four', 'ten']);   // the transcendent Four render as cubes
 const SPHERE_VIEWS = new Set(['map', 'axis', 'seal']);          // in manifestation they become spheres
-const flatZ = { iam: 8, first: 8, four: 8, ten: 11, map: 14, axis: 13.5, grid: 11 };
+const flatZ = { iam: 8, first: 8, four: 8, spiral: 12, ten: 11, map: 14, axis: 13.5, grid: 11 };
 // content extents per state (scene units, incl. label margin) → fit the camera to any screen/aspect
-const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, ten: { w: 8, h: 6 }, axis: { w: 13, h: 5.5 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
+const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, spiral: { w: 7.5, h: 7 }, ten: { w: 8, h: 6 }, axis: { w: 13, h: 5.5 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
+// THE TWO PORTALS — Source ("everything that could be") above and Creation ("everything that is")
+// below FRAME every derivation state, not just the manifest ones. They sit just outside the content,
+// faint during the unfolding and full at axis/map/seal — so the whole climb reads as happening between them.
+const FRAME_VIEWS = new Set(['iam', 'first', 'four', 'spiral', 'ten', 'grid']);
+const portalY = (view) => (CONTENT[view]?.h ?? 5) / 2 + 1.15;
 const TANHALF = Math.tan((50 * Math.PI / 180) / 2);
 function fitZ(view, aspect) {
   const c = CONTENT[view]; if (!c) return 12;
-  const zH = (c.h / 2) / TANHALF;
+  const h = FRAME_VIEWS.has(view) ? portalY(view) * 2 + 2.0 : c.h;   // leave room for both portals + their labels
+  const zH = (h / 2) / TANHALF;
   const zW = (c.w / 2) / (TANHALF * Math.max(aspect, 0.4));
   return Math.max(zH, zW) * 1.08;
 }
 const AXIS_PAUSE = 1.7, AXIS_EMERGE = 1.5;   // axis: pillar instantiates, a beat, then the 20 emerge
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
+
+// THE SPIRAL — once Feedback seeds the *next* Seed a step out, the four-beat stops being a circle
+// and becomes a climbing helix: ever-widening loops rising toward Source, trailing Creation below.
+const SPIRAL_PER = 64, SPIRAL_LOOPS = 4, SPIRAL_N = SPIRAL_PER * SPIRAL_LOOPS;
+const SPIRAL_PTS = (() => { const a = new Float32Array((SPIRAL_N + 1) * 3); for (let i = 0; i <= SPIRAL_N; i++) { const th = (i / SPIRAL_PER) * Math.PI * 2, frac = i / SPIRAL_N, r = 0.16 + 2.7 * frac, y = 1.8 - 3.9 * frac; a[i * 3] = r * Math.cos(th); a[i * 3 + 1] = y; a[i * 3 + 2] = r * Math.sin(th); } return a; })();
+const SPIRAL_COLORS = ['#8fe0b0', '#7fb6ff', '#ffd479', '#ff8f9c']; // Seed · Medium · Fruition · Feedback
 
 function labelStyle(color, dy = -22, size = 13) {
   return { fontFamily: 'ui-monospace, Menlo, monospace', color, fontSize: size, fontWeight: 700, whiteSpace: 'nowrap', textShadow: '0 1px 6px #000', transform: `translateY(${dy}px)`, pointerEvents: 'none' };
@@ -131,10 +143,11 @@ function labelStyle(color, dy = -22, size = 13) {
 function SealScene({ view, segments, controlsRef, aspect }) {
   const manifest = useRef({}), gestalt = useRef({}), fnode = useRef({});
   const gCube = useRef({}), gSphere = useRef({});
-  const sourceGrp = useRef(), srcCore = useRef(), srcCorona = useRef();
+  const sourceGrp = useRef(), srcCore = useRef(), srcCorona = useRef(), infinityRef = useRef();
   const creationRingGrp = useRef(), creationRipple = useRef(), creationNode = useRef();
   const edgeLine = useRef(), radialLine = useRef(), tetraEdge = useRef(), nodeA = useRef(), nodeB = useRef();
   const pulse = useRef(), cycleEdges = useRef(), tenLinks = useRef(), emergeLines = useRef(), meaningPulse = useRef();
+  const spiralGrp = useRef(), spiralLine = useRef(), spiralMarker = useRef();
   const cycleArr = useMemo(() => new Float32Array(2 * 2 * 3), []);
   const tenLinkArr = useMemo(() => new Float32Array(TEN_LINKS.length * 2 * 3), []);
   const emergeArr = useMemo(() => new Float32Array(ALL_ARCH.length * 2 * 3), []);
@@ -147,6 +160,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   const tetraArr = useMemo(() => new Float32Array(6 * 2 * 3), []);
   const nodeAArr = useMemo(() => new Float32Array(2 * 3), []);
   const nodeBArr = useMemo(() => new Float32Array(2 * 3), []);
+  // lemniscate (∞) — the emblem of the upper portal, "everything that could be"
+  const infinityArr = useMemo(() => { const N = 90, a = 0.25, arr = new Float32Array((N + 1) * 3); for (let i = 0; i <= N; i++) { const th = (i / N) * Math.PI * 2, d = 1 + Math.sin(th) ** 2; arr[i*3] = a * Math.cos(th) / d; arr[i*3+1] = 0.42 + a * Math.sin(th) * Math.cos(th) / d; arr[i*3+2] = 0; } return arr; }, []);
 
   const fromM = useMemo(() => Object.fromEntries(IDS.map((id) => [id, new THREE.Vector3()])), []);
   const fromG = useMemo(() => Object.fromEntries(GESTALT_IDS.map((id) => [id, new THREE.Vector3()])), []);
@@ -161,7 +176,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     return o;
   }, []);
 
-  const morph = useRef(0), viewRef = useRef(view), ringScale = useRef(1), viewT = useRef(0);
+  const morph = useRef(0), viewRef = useRef(view), ringScale = useRef(1), viewT = useRef(0), firstLitRef = useRef(-1);
 
   const sealTarget = (id, t) => { let q = base[id]; q = rot4(q,0,3,t*0.28); q = rot4(q,1,3,t*0.1736); q = rot4(q,2,3,t*0.112); const pr = project(q); return [pr[0]*SCALE, pr[1]*SCALE, pr[2]*SCALE]; };
   const gestaltSeal = (id, t) => { const i = GESTALT_IDS.indexOf(id); const ga = t * 0.9; return rotX(rotY(tetraBase[i], ga*0.3), ga*0.15); };
@@ -183,7 +198,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   };
   const fnodePos = (c) => view === 'ten' ? TET_POS[c] : view === 'axis' ? FN_AXIS[c] : [0, 0, 0];
   const fnodeOp = () => (view === 'ten' || view === 'axis') ? 1 : 0;
-  const sourcePos = () => view === 'map' ? MAP_POS[10] : view === 'axis' ? AXIS_POS[10] : [0, 0, 0];
+  const sourcePos = () => view === 'map' ? MAP_POS[10] : view === 'axis' ? AXIS_POS[10] : FRAME_VIEWS.has(view) ? [0, portalY(view), 0] : [0, 0, 0];
 
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;
@@ -272,9 +287,10 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       }
       sourceGrp.current.scale.setScalar(1 + Math.sin(t * 1.5) * 0.13);
     }
-    const srcOp = view === 'axis' ? axisEmerge : (view === 'map' || view === 'seal') ? 1 : 0;
+    const srcOp = view === 'axis' ? axisEmerge : (view === 'map' || view === 'seal') ? 1 : FRAME_VIEWS.has(view) ? 0.5 : 0;
     if (srcCore.current) srcCore.current.material.opacity = approach(srcCore.current.material.opacity, srcOp, ok);
     if (srcCorona.current) srcCorona.current.material.opacity = approach(srcCorona.current.material.opacity, 0.22 * srcOp, ok);
+    if (infinityRef.current) { infinityRef.current.material.opacity = approach(infinityRef.current.material.opacity, 0.6 * srcOp, ok); infinityRef.current.rotation.z = Math.sin(t * 0.5) * 0.16; }
     if (sourceGrp.current) sourceGrp.current.visible = (srcCore.current?.material.opacity ?? 0) > 0.02;
     if (creationNode.current) creationNode.current.visible = creationNode.current.material.opacity > 0.02;
 
@@ -293,7 +309,10 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     if (pulse.current) {
       const seedP = gestalt.current[0]?.position, fbP = gestalt.current[20]?.position;
       if (view === 'first' && seedP && fbP) {
-        pulse.current.position.lerpVectors(seedP, fbP, 0.5 + 0.5 * Math.sin(t * 2.3));
+        const s = Math.sin(t * 2.3);
+        pulse.current.position.lerpVectors(seedP, fbP, 0.5 + 0.5 * s);
+        const lit = s > 0.55 ? 20 : s < -0.55 ? 0 : -1;   // which pole the light is on (-1 = mid-bounce)
+        if (lit !== firstLitRef.current) { firstLitRef.current = lit; setFirstLit(lit); }
       } else if (view === 'four') {
         const A = gestalt.current[CYCLE_ORDER[fourStep]]?.position;   // step to the active stage
         if (A) pulse.current.position.lerp(A, Math.min(1, dt * 4.5));
@@ -319,6 +338,30 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       const F = gestalt.current[20]?.position, S = gestalt.current[0]?.position;
       if (F && S) meaningPulse.current.position.lerpVectors(F, S, (t * 0.6) % 1);
       meaningPulse.current.material.opacity = approach(meaningPulse.current.material.opacity, (view === 'four' && fourStep === 3) ? 0.9 : 0, ok);
+    }
+
+    // THE SPIRAL — a perpetual vortex: small at the apex (Source), widening to the base (Creation).
+    // The whole helix stays drawn and slowly turns (barber-pole flow → continuous, no replay seam);
+    // a light emanates from the apex and travels down through the four stages, fading at both ends.
+    if (spiralGrp.current) spiralGrp.current.rotation.y = t * 0.3;   // continuous turn — alive, seamless
+    if (spiralLine.current) {
+      const on = view === 'spiral';
+      spiralLine.current.geometry.setDrawRange(0, SPIRAL_PTS.length / 3);   // draw the full helix — no culling/partial range
+      spiralLine.current.material.opacity = approach(spiralLine.current.material.opacity, on ? 0.62 : 0, ok);
+      spiralLine.current.visible = spiralLine.current.material.opacity > 0.02;
+      if (spiralMarker.current) {
+        if (on) {
+          const p = (t * 0.12) % 1, i = Math.round(p * SPIRAL_N);
+          spiralMarker.current.position.set(SPIRAL_PTS[i * 3], SPIRAL_PTS[i * 3 + 1], SPIRAL_PTS[i * 3 + 2]);
+          const col = SPIRAL_COLORS[Math.floor(((i % SPIRAL_PER) / SPIRAL_PER) * 4) % 4];
+          spiralMarker.current.material.color.set(col); spiralMarker.current.material.emissive.set(col);
+          const fade = clamp01(p / 0.08) * clamp01((1 - p) / 0.08);   // fade in at apex, out at base — hides the wrap
+          spiralMarker.current.material.opacity = approach(spiralMarker.current.material.opacity, fade, ok);
+        } else {
+          spiralMarker.current.material.opacity = approach(spiralMarker.current.material.opacity, 0, ok);
+        }
+        spiralMarker.current.visible = spiralMarker.current.material.opacity > 0.02;
+      }
     }
 
     // seal-only structure lines
@@ -350,8 +393,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         creationRingGrp.current.scale.setScalar(0.066 * (1 + Math.sin(t * 1.1) * 0.04));
         creationRingGrp.current.children.forEach((c) => { if (c.material && c.userData.base != null) c.material.opacity = c.userData.base * axisEmerge; });
       } else {
-        const tg = view === 'seal' ? [0, 0, 0] : view === 'map' ? MAP_POS[21] : [0, 0, 0];
-        const ringOn = (view === 'seal' || view === 'map') ? 1 : 0;
+        const tg = view === 'seal' ? [0, 0, 0] : view === 'map' ? MAP_POS[21] : FRAME_VIEWS.has(view) ? [0, -portalY(view), 0] : [0, 0, 0];
+        const ringOn = (view === 'seal' || view === 'map') ? 1 : FRAME_VIEWS.has(view) ? 0.5 : 0;
         ringScale.current = approach(ringScale.current, view === 'seal' ? 1 : 0.066, k);
         creationRingGrp.current.position.lerp(tmpC.set(tg[0], tg[1], tg[2]), k);
         creationRingGrp.current.scale.setScalar(ringScale.current * (1 + Math.sin(t * 1.1) * 0.04));
@@ -365,9 +408,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         if (N) creationNode.current.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
         creationNode.current.material.opacity = approach(creationNode.current.material.opacity, axisEmerge, ok);
       } else {
-        const tg = view === 'map' ? MAP_POS[21] : [0, 0, 0];
+        const tg = view === 'map' ? MAP_POS[21] : FRAME_VIEWS.has(view) ? [0, -portalY(view), 0] : [0, 0, 0];
         creationNode.current.position.lerp(tmpC.set(tg[0], tg[1], tg[2]), k);
-        creationNode.current.material.opacity = approach(creationNode.current.material.opacity, view === 'map' ? 1 : 0, ok);
+        creationNode.current.material.opacity = approach(creationNode.current.material.opacity, view === 'map' ? 1 : FRAME_VIEWS.has(view) ? 0.6 : 0, ok);
       }
       creationNode.current.material.emissiveIntensity = 2.6 * creationNode.current.material.opacity;
     }
@@ -405,6 +448,15 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     const id = setInterval(() => setFourStep((s) => (s + 1) % 4), 1700);
     return () => clearInterval(id);
   }, [view]);
+  // The Four: show the self-statement first, then a beat, then its stage word (Seed/Medium/Fruition/Feedback)
+  const [fourReveal, setFourReveal] = useState(false);
+  useEffect(() => {
+    if (view !== 'four') { setFourReveal(false); return; }
+    setFourReveal(false);
+    const id = setTimeout(() => setFourReveal(true), 750);
+    return () => clearTimeout(id);
+  }, [view, fourStep]);
+  const [firstLit, setFirstLit] = useState(-1);   // First Node: phrase shows only when the light is on that pole
   return (
     <group>
       <lineSegments ref={radialLine}><bufferGeometry><bufferAttribute attach="attributes-position" count={IDS.length * 2} array={radialArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={SOURCE_GLOW} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} /></lineSegments>
@@ -424,7 +476,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
           <mesh key={id} ref={(el) => (manifest.current[id] = el)}>
             <sphereGeometry args={[0.13, segments, segments]} />
             <meshStandardMaterial color={col} emissive={col} emissiveIntensity={2.2} roughness={0.35} metalness={0.1} transparent opacity={0} />
-            {(view === 'map' || view === 'grid' || view === 'seal' || (view === 'axis' && labelsOn)) && (
+            {(view === 'map' || view === 'grid' || (view === 'axis' && labelsOn)) && (
               <Html center distanceFactor={9}>
                 {view === 'axis' ? (
                   <div style={{ ...labelStyle(VIZ_INK, id <= 9 ? 34 : -34, 14), textAlign: 'center' }}>
@@ -443,7 +495,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       {/* gestalt tetra edges (seal) + the four */}
       <lineSegments ref={tetraEdge}><bufferGeometry><bufferAttribute attach="attributes-position" count={6 * 2} array={tetraArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={AETHER} transparent opacity={0} /></lineSegments>
       {GESTALT_IDS.map((gid) => { const a = ARCHETYPES[gid]; const stage = STAGE_OF[gid];
-        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === 0 || gid === 20) : view === 'four' ? (gid === CYCLE_ORDER[fourStep]) : view === 'axis' ? labelsOn : view === 'grid' ? false : true;
+        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === firstLit) : view === 'four' ? (gid === CYCLE_ORDER[fourStep]) : view === 'axis' ? labelsOn : (view === 'grid' || view === 'spiral') ? false : true;
         const text = view === 'iam' ? 'I AM'
           : view === 'first' ? FOUR_PHRASE[gid]
           : view === 'four' ? `${FOUR_PHRASE[gid]} · ${stage}`
@@ -459,20 +511,33 @@ function SealScene({ view, segments, controlsRef, aspect }) {
               <sphereGeometry args={[0.13, segments, segments]} />
               <meshStandardMaterial color="#b3a3ff" emissive={AETHER} emissiveIntensity={2.6} roughness={0.3} transparent opacity={0} />
             </mesh>
-            {gShown && (
+            {gShown && (view === 'axis' ? (
               <Html center distanceFactor={9}>
-                {view === 'axis' ? (
-                  <div style={{ ...labelStyle('#cdbcff', (gid === 0 || gid === 1) ? 34 : -34, 14), textAlign: 'center' }}>
-                    {gid}
-                    <div style={{ fontSize: 10, fontWeight: 400, color: VIZ_DIM }}>{stage}</div>
-                  </div>
-                ) : (
-                  <div style={{ ...labelStyle('#cdbcff', -22, view === 'ten' ? 17 : 13), textAlign: 'center' }}>
-                    {text}{view === 'iam' && <><br /><span style={{ fontSize: 10, color: VIZ_DIM }}>awareness</span></>}
-                  </div>
-                )}
+                <div style={{ ...labelStyle('#cdbcff', (gid === 0 || gid === 1) ? 34 : -34, 14), textAlign: 'center' }}>
+                  {gid}
+                  <div style={{ fontSize: 10, fontWeight: 400, color: VIZ_DIM }}>{stage}</div>
+                </div>
               </Html>
-            )}
+            ) : view === 'iam' ? (<>
+              {/* title above the sphere, name beneath it — both clear of the sphere */}
+              <Html center distanceFactor={9}><div style={{ ...labelStyle('#cdbcff', -40, 15), letterSpacing: '.1em', textAlign: 'center' }}>I AM</div></Html>
+              <Html center distanceFactor={9}><div style={{ ...labelStyle(VIZ_DIM, 34, 11), textAlign: 'center' }}>awareness</div></Html>
+            </>) : view === 'four' ? (
+              // self-statement first; its stage word reveals a beat later, in gold; below the lower pair, above the upper pair
+              <Html center distanceFactor={9}>
+                <div style={{ ...labelStyle('#cdbcff', (gid === 0 || gid === 1) ? 46 : -58, 13), textAlign: 'center', whiteSpace: 'nowrap' }}>
+                  {FOUR_PHRASE[gid]}
+                  {fourReveal && <div style={{ fontSize: 12.5, fontWeight: 700, color: '#ffd479', marginTop: 3 }}>{stage}</div>}
+                </div>
+              </Html>
+            ) : view === 'first' ? (
+              // push each phrase off the central beam — I Am to the right, Why Am I? to the left
+              <Html center distanceFactor={9}><div style={{ ...labelStyle('#cdbcff', 0, 13), whiteSpace: 'nowrap', textAlign: 'center', transform: `translateX(${gid === 0 ? 54 : -54}px)` }}>{FOUR_PHRASE[gid]}</div></Html>
+            ) : (
+              <Html center distanceFactor={9}>
+                <div style={{ ...labelStyle('#cdbcff', -22, view === 'ten' ? 17 : 13), textAlign: 'center' }}>{text}</div>
+              </Html>
+            ))}
           </group>
         );
       })}
@@ -495,12 +560,13 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         </mesh>
       ))}
 
-      {/* source — the Wheel / the I AM */}
+      {/* upper portal — the Wheel / Source · "everything that could be" (frames every state) */}
       <group ref={sourceGrp}>
         <mesh ref={srcCore}><sphereGeometry args={[0.17, 32, 32]} /><meshStandardMaterial color="#5a3a8f" emissive={SOURCE_GLOW} emissiveIntensity={3.0} roughness={0.25} transparent opacity={1} /></mesh>
         <mesh ref={srcCorona}><sphereGeometry args={[0.30, 24, 24]} /><meshBasicMaterial color={SOURCE_GLOW} transparent opacity={0.22} blending={THREE.AdditiveBlending} depthWrite={false} /></mesh>
-        {(view === 'map' || view === 'seal' || (view === 'axis' && labelsOn)) && (
-          <Html center distanceFactor={9}><div style={{ ...labelStyle('#a78bd8', 36, 12), letterSpacing: '.12em', textAlign: 'center' }}>SOURCE<br /><span style={{ fontSize: 10, color: VIZ_DIM }}>the Wheel</span></div></Html>
+        <Billboard><lineLoop ref={infinityRef}><bufferGeometry><bufferAttribute attach="attributes-position" count={infinityArr.length / 3} array={infinityArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color="#a78bd8" transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} /></lineLoop></Billboard>
+        {(FRAME_VIEWS.has(view) || view === 'map' || view === 'seal' || (view === 'axis' && labelsOn)) && (
+          <Html center distanceFactor={9}><div style={{ ...labelStyle('#a78bd8', 30, 12), letterSpacing: '.12em', textAlign: 'center' }}>SOURCE<br /><span style={{ fontSize: 10, color: VIZ_DIM }}>all that could be</span></div></Html>
         )}
       </group>
 
@@ -509,9 +575,18 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         <mesh userData={{ base: 0.9 }}><ringGeometry args={[5.5, 5.62, 160]} /><meshBasicMaterial color={CREATION_COLOR} transparent opacity={0} side={THREE.DoubleSide} /></mesh>
         <mesh userData={{ base: 0.12 }}><ringGeometry args={[5.62, 6.1, 160]} /><meshBasicMaterial color={CREATION_COLOR} transparent opacity={0} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} depthWrite={false} /></mesh>
         <mesh ref={creationRipple}><ringGeometry args={[5.5, 5.7, 160]} /><meshBasicMaterial color={CREATION_COLOR} transparent opacity={0} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} depthWrite={false} /></mesh>
-        {(view === 'seal' || view === 'map' || (view === 'axis' && labelsOn)) && <Html center position={[0, 6.3, 0]}><div style={{ ...labelStyle('#9db4ff', 0, 12), letterSpacing: '.12em', textAlign: 'center' }}>CREATION<br /><span style={{ fontSize: 10, color: VIZ_DIM }}>the World</span></div></Html>}
+        {(FRAME_VIEWS.has(view) || view === 'seal' || view === 'map' || (view === 'axis' && labelsOn)) && <Html center position={[0, 6.3, 0]}><div style={{ ...labelStyle('#9db4ff', 0, 12), letterSpacing: '.12em', textAlign: 'center' }}>CREATION<br /><span style={{ fontSize: 10, color: VIZ_DIM }}>all that is</span></div></Html>}
       </Billboard>
       <mesh ref={creationNode}><sphereGeometry args={[0.13, segments, segments]} /><meshStandardMaterial color="#8aa6ff" emissive={CREATION_COLOR} emissiveIntensity={0} roughness={0.3} transparent opacity={0} /></mesh>
+
+      {/* THE SPIRAL — Feedback seeds the next Seed a step out: the four-beat widens & climbs */}
+      <group ref={spiralGrp} rotation={[-0.95, 0, 0]}>
+        <line ref={spiralLine} frustumCulled={false}>
+          <bufferGeometry><bufferAttribute attach="attributes-position" count={SPIRAL_PTS.length / 3} array={SPIRAL_PTS} itemSize={3} /></bufferGeometry>
+          <lineBasicMaterial color="#b9c4e8" transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} />
+        </line>
+        <mesh ref={spiralMarker}><sphereGeometry args={[0.12, 18, 18]} /><meshStandardMaterial color="#ffd479" emissive="#ffd479" emissiveIntensity={2.6} roughness={0.3} transparent opacity={0} /></mesh>
+      </group>
     </group>
   );
 }
@@ -535,6 +610,7 @@ const VIEWS = [
   { id: 'iam', label: 'I AM', sub: 'awareness', cap: 'I AM. Awareness wakes to the bare fact that it exists. One assertion — and everything that follows is forced.' },
   { id: 'first', label: 'First Node', sub: 'the echo', cap: 'To know itself, awareness turns back on itself: "I Am" and its return, "Why Am I?". One polarity — it can pulse back and forth forever, but with only two poles it reflects, never becomes. An echo.' },
   { id: 'four', label: 'The Four', sub: 'four from one', cap: 'A second polarity crosses the first, opening a middle and an end. Now the loop can travel: I Am → What Am I? → I Am This → Why Am I? — and the last seeds the next. Four stages: the minimum complete cycle, the engine beneath all process.' },
+  { id: 'spiral', label: 'The Spiral', sub: 'the loop opens', cap: 'Feedback doesn’t return to the same Seed — it seeds the next one a step out. So the closed loop becomes a climb: Seed → Medium → Fruition → Feedback, each turn wider than the last, rising toward Source and trailing Creation below. The first turn of the self-similar expansion that builds everything.' },
   { id: 'ten', label: 'The Ten', sub: 'four, quantified', cap: 'The four are transcendent — the Soul, beyond manifestation (the cubes). To render them measurable takes ten fundamental nodes (the white spheres): Seed 1, Medium 2, Fruition 3, Feedback 4. The ten quantify the four.' },
   { id: 'axis', label: 'Axis', sub: 'the first unfolding', cap: 'The 1991 first unfolding, laid on its side: ten fundamental nodes on a horizontal spine, each carrying a vertical pair that sums to 20 (bottom 0–9, top 11–20). The Wheel — Creator — is the right hinge; the World — Creation — the left. This flattened circle is the lemniscate, and the seed of the whole map.' },
   { id: 'map', label: 'Map', sub: 'five houses', cap: 'Polarity alternating with recursion is x² = x + 1 — its constant is φ, which forces five-fold symmetry. So the twenty gather into five houses: Soul, Spirit, Mind, Emotion, Body — four stages within each. The living map for reading.' },
