@@ -1,3 +1,5 @@
+> ⚠️ **DEPRECATED (2026-06-22).** This is a v0.30.7 prompt fix, ~70 versions behind current (0.99.139). The terminology/grammar rules it describes now live in `lib/prompts.js` (BASE_SYSTEM). Kept for history only. See `ARCHITECTURE.md`.
+
 # CRITICAL PROMPT FIX v0.30.7: Remove Traditional Tarot Names from API
 
 The Reader is bleeding traditional tarot meanings into interpretations. This causes Claude to interpret "Abstraction" as "The Devil" with all its historical baggage.

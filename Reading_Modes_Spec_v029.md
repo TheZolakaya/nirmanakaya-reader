@@ -1,3 +1,5 @@
+> ⚠️ **DEPRECATED (2026-06-22).** Superseded by the posture system (`lib/postures.js` — Reflect/Discover/Forge/Integrate) and `Mode_Governance_Guardrails_v1.md`. Kept for history only. See `ARCHITECTURE.md`.
+
 # Reading Modes Spec v0.29
 
 ## Executive Summary

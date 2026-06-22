@@ -137,6 +137,7 @@ import Glistener from '../components/reader/Glistener.js';
 import GlistenSourcePanel from '../components/reader/GlistenSourcePanel.js';
 import CardImage from '../components/reader/CardImage.js';
 import Minimap from '../components/reader/Minimap.js';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { getHomeArchetype, getCardType, getCardImagePath } from '../lib/cardImages.js';
 import TextSizeSlider from '../components/shared/TextSizeSlider.js';
 import HelpTooltip from '../components/shared/HelpTooltip.js';
@@ -481,6 +482,19 @@ const getWhyAppearedContent = (whyInput, depth = 'shallow') => {
   if (whyAppeared.wade != null && whyAppeared.wade !== '') return whyAppeared.wade;
   if (whyAppeared.swim != null && whyAppeared.swim !== '') return whyAppeared.swim;
   if (whyAppeared.deep != null && whyAppeared.deep !== '') return whyAppeared.deep;
+  return '';
+};
+
+// Normalize a card section to its fullest text. V3 stores reading/why/rebalancer/growth
+// as flat strings; legacy/synthesis sections are depth-tiered objects. Handles both
+// (plus JSON-stringified objects) so exports match what the live render shows.
+const pickContent = (val) => {
+  if (!val) return '';
+  if (typeof val === 'string') {
+    if (val.startsWith('{')) { try { val = JSON.parse(val); } catch { return val; } }
+    else return val;
+  }
+  if (typeof val === 'object') return val.deep || val.swim || val.wade || val.surface || val.shallow || '';
   return '';
 };
 
@@ -4385,6 +4399,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       md += `## Summary\n\n${getSummaryContent(parsedReading.summary)}\n\n`;
     }
 
+    // Why This Reading Appeared (synthesis)
+    const whyAppearedMd = getWhyAppearedContent(parsedReading.whyAppeared, 'deep');
+    if (whyAppearedMd) {
+      md += `## Why This Reading Appeared\n\n${whyAppearedMd}\n\n`;
+    }
+
     // Cards with rebalancers (new structure)
     md += `## Signatures\n\n`;
     parsedReading.cards.forEach((card) => {
@@ -4401,6 +4421,18 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       md += `### Signature ${card.index + 1} — ${context}\n\n`;
       md += `**${statusPhrase}** (${trans.traditional})  \n`;
       md += `*Status: ${stat.name}*\n\n`;
+
+      // Frame context (position lens)
+      const fcMd = getFrameContextForCard(card.index);
+      if (fcMd && !fcMd.isEmpty && fcMd.label) {
+        md += `**${fcMd.label}**${fcMd.lens ? ` — ${fcMd.lens}` : ''}\n\n`;
+      }
+
+      // Card art (absolute URL — Markdown can't embed the geometry SVG; HTML export carries that)
+      const mdImgPath = getCardImagePath(draw.transient);
+      if (mdImgPath && typeof window !== 'undefined') {
+        md += `![${trans.name}](${window.location.origin}${mdImgPath})\n\n`;
+      }
 
       // Architecture details
       if (trans.type === 'Archetype') {
@@ -4423,7 +4455,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
         md += `#### Rebalancer: ${corrText || 'See below'}\n\n`;
-        const rebalancerContent = rebalancer.deep || rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
+        const rebalancerContent = pickContent(rebalancer);
         md += `${rebalancerContent}\n\n`;
       }
 
@@ -4432,7 +4464,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
         md += `#### Growth Opportunity: ${corrText || 'See below'}\n\n`;
-        const growthContent = card.growth.deep || card.growth.swim || card.growth.wade || '';
+        const growthContent = pickContent(card.growth);
         md += `${growthContent}\n\n`;
       }
 
@@ -4440,7 +4472,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       if (card.mirror) {
         md += `#### The Mirror\n\n${card.mirror}\n\n`;
       }
-      const whyContent = card.why?.deep || card.why?.swim || card.why?.wade || card.why?.surface;
+      const whyContent = pickContent(card.why);
       if (whyContent) {
         md += `#### Words to the Whys\n\n${whyContent}\n\n`;
       }
@@ -4545,7 +4577,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   };
 
   // Export reading to HTML
-  const exportToHTML = () => {
+  const exportToHTML = async () => {
     if (!parsedReading || !draws) return;
 
     const isReflect = spreadType === 'reflect';
@@ -4556,6 +4588,62 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
         : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`;
     const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
+
+    // --- Visual assets: embed card art (base64) + render geometry diagrams (inline SVG) ---
+    // Card images are local PNGs (/map/...); a relative path won't resolve in a downloaded
+    // file, so we fetch + base64-encode them into the HTML to make it fully self-contained.
+    const toDataURI = async (path) => {
+      if (!path) return null;
+      try {
+        const res = await fetch(path);
+        if (!res.ok) return null;
+        const blob = await res.blob();
+        return await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = () => resolve(null);
+          reader.readAsDataURL(blob);
+        });
+      } catch { return null; }
+    };
+
+    // Collect every card image path the reading references (signatures + rebalancer/growth targets).
+    const imagePaths = new Set();
+    parsedReading.cards.forEach((card) => {
+      const draw = draws[card.index];
+      if (!draw) return;
+      const p = getCardImagePath(draw.transient);
+      if (p) imagePaths.add(p);
+      if (draw.status !== 1) {
+        const corr = getFullCorrection(draw.transient, draw.status);
+        const targetId = corr ? getCorrectionTargetId(corr, getComponent(draw.transient)) : null;
+        const tp = targetId != null ? getCardImagePath(targetId) : null;
+        if (tp) imagePaths.add(tp);
+      }
+    });
+    // Fetch + encode all unique images in parallel.
+    const imageMap = new Map();
+    await Promise.all([...imagePaths].map(async (p) => {
+      const uri = await toDataURI(p);
+      if (uri) imageMap.set(p, uri);
+    }));
+
+    // Embedded <img> from a card transient id (returns '' if art unavailable).
+    const cardImgTag = (transient, label) => {
+      const path = getCardImagePath(transient);
+      const uri = path ? imageMap.get(path) : null;
+      if (!uri) return '';
+      return `<img class="card-art" src="${uri}" alt="${escapeAttr(label || '')}" />`;
+    };
+
+    // Render the geometry minimap (pure SVG component) to a self-contained string.
+    const minimapSVG = (props) => {
+      try { return renderToStaticMarkup(<Minimap size="card" singleMode={true} {...props} />); }
+      catch { return ''; }
+    };
+
+    const escapeAttr = (text) => String(text || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const escapeHtml = (text) => text
       .replace(/&/g, '&amp;')
@@ -4609,6 +4697,21 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       const context = ARCHETYPES[draw.position]?.name || `Position ${card.index + 1}`;
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
+      // Visual props (mirror DepthCard's minimap derivation)
+      const cardHomeArchetype = getHomeArchetype(draw.transient);
+      const positionArchetype = draw.position;
+      const cardTypeForMinimap = trans?.type?.toLowerCase() || 'archetype';
+      const boundIsInner = cardTypeForMinimap === 'bound' && trans?.number <= 5;
+
+      // Signature visual row: card art + (card → position) geometry minimap
+      const mainMinimap = minimapSVG({ fromId: cardHomeArchetype, toId: positionArchetype, fromCardType: cardTypeForMinimap, boundIsInner });
+      const mainArt = cardImgTag(draw.transient, trans.name);
+      const visualRowHtml = (mainArt || mainMinimap) ? `
+          <div class="visual-row">
+            ${mainArt ? `<div class="visual-cell">${mainArt}<span class="visual-cap">${escapeHtml(trans.name)}</span></div>` : ''}
+            ${mainMinimap ? `<div class="visual-cell"><div class="minimap-box">${mainMinimap}</div><span class="visual-cap">${escapeHtml(trans.name)} → ${escapeHtml(context)}</span></div>` : ''}
+          </div>` : '';
+
       let archDetails = '';
       if (trans.type === 'Archetype') {
         archDetails = `<div class="arch-details">House: ${trans.house}${trans.channel ? ` • Channel: ${trans.channel}` : ''}</div>`;
@@ -4624,11 +4727,30 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       if (rebalancer) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
-        const rebalancerContent = rebalancer.deep || rebalancer.swim || rebalancer.wade || rebalancer.surface || '';
+        const rebalancerContent = pickContent(rebalancer);
+
+        // Rebalancer visual: source card → path-to-balance minimap → target card
+        const targetId = fullCorr ? getCorrectionTargetId(fullCorr, trans) : null;
+        const targetCard = targetId != null ? getComponent(targetId) : null;
+        const targetType = targetCard?.type?.toLowerCase() || 'archetype';
+        const rebMinimap = minimapSVG({
+          fromId: cardHomeArchetype, toId: positionArchetype, fromCardType: cardTypeForMinimap, boundIsInner,
+          secondToId: targetId != null ? getHomeArchetype(targetId) : null,
+          secondToCardType: targetType,
+          secondToBoundIsInner: targetType === 'bound' && targetCard?.number <= 5
+        });
+        const rebVisual = `
+            <div class="visual-row">
+              ${mainArt ? `<div class="visual-cell">${mainArt}<span class="visual-cap">${escapeHtml(trans.name)}</span></div>` : ''}
+              ${rebMinimap ? `<div class="visual-cell"><div class="minimap-box">${rebMinimap}</div><span class="visual-cap">Path to Balance</span></div>` : ''}
+              ${targetCard ? `<div class="visual-cell">${cardImgTag(targetId, targetCard.name)}<span class="visual-cap">${escapeHtml(targetCard.name)}</span></div>` : ''}
+            </div>`;
+
         rebalancerHtml = `
           <div class="rebalancer">
             <span class="rebalancer-badge">Rebalancer</span>
             <div class="rebalancer-header">${trans.name} → ${corrText || ''}</div>
+            ${rebVisual}
             <div class="rebalancer-content">${escapeHtml(rebalancerContent)}</div>
           </div>`;
       }
@@ -4638,7 +4760,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       if (card.growth) {
         const fullCorr = getFullCorrection(draw.transient, draw.status);
         const corrText = getCorrectionText(fullCorr, trans, draw.status);
-        const growthContent = card.growth.deep || card.growth.swim || card.growth.wade || '';
+        const growthContent = pickContent(card.growth);
         growthHtml = `
           <div class="growth-opportunity" style="border-color: rgba(20, 184, 166, 0.4); background: rgba(17, 94, 89, 0.2);">
             <span class="growth-badge" style="background: rgba(20, 184, 166, 0.3); color: rgb(94, 234, 212);">Growth</span>
@@ -4652,7 +4774,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       if (card.mirror || card.why) {
         const mirrorContent = card.mirror ? `<div class="mirror-content">${escapeHtml(card.mirror)}</div>` : '';
         // WHY already has deep as first fallback
-        const whyContent = card.why?.deep || card.why?.swim || card.why?.wade || card.why?.surface;
+        const whyContent = pickContent(card.why);
         const wordsContent = whyContent ? `<div class="why-content"><span class="why-label">Words to the Whys</span>${escapeHtml(whyContent)}</div>` : '';
         if (mirrorContent || wordsContent) {
           whyHtml = `
@@ -4698,6 +4820,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         ? `<div class="signature-content">${escapeHtml(cardContent)}</div>`
         : '';
 
+      // Frame context (position lens)
+      const fc = getFrameContextForCard(card.index);
+      const frameHtml = (fc && !fc.isEmpty && fc.label)
+        ? `<div class="frame-context"><span class="frame-label">${escapeHtml(fc.label)}</span>${fc.lens ? `<div class="frame-lens">${escapeHtml(fc.lens)}</div>` : ''}</div>`
+        : '';
+
       signaturesHtml += `
         <div class="signature">
           <div class="signature-header">
@@ -4709,6 +4837,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           </div>
           <div class="signature-name">${statusPhrase}</div>
           ${archDetails}
+          ${frameHtml}
+          ${visualRowHtml}
           ${signatureContentHtml}
           ${expansionsHtml}
           ${rebalancerHtml}
@@ -4809,6 +4939,19 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     .expansion { margin-top: 1rem; padding: 1rem; background: rgba(63, 63, 70, 0.3); border: 1px solid rgba(113, 113, 122, 0.4); border-radius: 0.5rem; margin-left: 1rem; }
     .expansion-badge { display: inline-block; background: rgba(113, 113, 122, 0.3); color: #a1a1aa; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
     .expansion-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
+    .frame-context { margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: rgba(139, 92, 246, 0.12); border-left: 2px solid rgba(139, 92, 246, 0.5); border-radius: 0.375rem; }
+    .frame-label { display: block; font-size: 0.75rem; font-weight: 500; color: #c4b5fd; }
+    .frame-lens { font-size: 0.6875rem; color: #a1a1aa; margin-top: 0.15rem; line-height: 1.4; }
+    .why-appeared-box { background: rgba(8, 51, 68, 0.3); border: 2px solid rgba(6, 182, 212, 0.5); border-radius: 0.75rem; padding: 1.5rem; }
+    .why-appeared-badge { display: inline-block; background: rgba(6, 182, 212, 0.3); color: #67e8f9; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; margin-bottom: 0.75rem; }
+    .why-appeared-content { color: #cffafe; line-height: 1.6; }
+    .visual-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; justify-content: center; margin: 0.75rem 0 1rem; }
+    .visual-cell { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; max-width: 180px; }
+    .visual-cap { font-size: 0.6875rem; color: #a1a1aa; text-align: center; }
+    .card-art { width: 100%; max-width: 150px; height: auto; border-radius: 0.5rem; display: block; box-shadow: 0 2px 10px rgba(0,0,0,0.45); }
+    .minimap-box { background: rgba(13,13,26,0.85); border: 1px solid rgba(107,77,138,0.4); border-radius: 0.5rem; padding: 0.35rem; display: flex; align-items: center; justify-content: center; }
+    .minimap-box svg, .minimap-container svg { max-width: 170px; height: auto; }
+    .minimap-container { line-height: 0; }
   </style>
 </head>
 <body>
@@ -4835,6 +4978,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     <div class="section-title">Signatures</div>
     ${signaturesHtml}
   </div>
+
+  ${getWhyAppearedContent(parsedReading.whyAppeared, 'deep') ? `
+  <div class="section">
+    <div class="why-appeared-box">
+      <span class="why-appeared-badge">Why This Reading Appeared</span>
+      <div class="why-appeared-content">${escapeHtml(getWhyAppearedContent(parsedReading.whyAppeared, 'deep'))}</div>
+    </div>
+  </div>` : ''}
 
   ${(parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary) ? `
   <div class="section">

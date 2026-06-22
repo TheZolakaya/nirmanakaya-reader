@@ -1,766 +1,369 @@
-# Nirmanakaya Reader - Complete Architecture Reference
+# Nirmanakaya Reader — Complete Architecture Reference
 
-**Version:** 0.74.12
-**Last Updated:** 2026-01-23
+**Version:** 0.99.139
+**Last Updated:** 2026-06-22 (full refresh from v0.74.12 / 2026-01-23 — see Changelog at bottom)
 
-> **Note:** Keep this document updated when making architectural changes. Claude Code references this for debugging.
+> **Note:** Keep this document updated when making architectural changes. Claude Code references this for debugging. This is the canonical code-structural overview for the Reader app. The visualization layer has its own detailed companion set under `codemap/` (see Documentation Map below).
 
-This document provides a comprehensive technical overview of the Nirmanakaya Reader codebase, with special emphasis on how interpretations are generated and prompts are built.
+This document is a comprehensive technical overview of the Nirmanakaya Reader codebase, with emphasis on how readings are generated and prompts are built.
 
 ---
 
 ## Table of Contents
 
 1. [System Overview](#system-overview)
-2. [The 78-Card System](#the-78-card-system)
-3. [Status & Correction System](#status--correction-system)
-4. [Reading Modes](#reading-modes)
-5. [User Levels & Progressive Disclosure](#user-levels--progressive-disclosure)
-6. [Prompt Building System (DETAILED)](#prompt-building-system)
-7. [Interpretation Flow (DETAILED)](#interpretation-flow)
-8. [Voice/Stance System](#voicestance-system)
-9. [API Routes](#api-routes)
-10. [Key Files Reference](#key-files-reference)
+2. [Documentation Map](#documentation-map)
+3. [Tech Stack](#tech-stack)
+4. [The 78-Signature System](#the-78-signature-system)
+5. [Status & Correction System](#status--correction-system)
+6. [Postures (Reading Stances)](#postures-reading-stances)
+7. [User Levels & Progressive Disclosure](#user-levels--progressive-disclosure)
+8. [Prompt Building System](#prompt-building-system)
+9. [Voice System (personas.js)](#voice-system)
+10. [The Computation Engine](#the-computation-engine)
+11. [API Routes](#api-routes)
+12. [Data Layer (Supabase)](#data-layer-supabase)
+13. [Visualization Layer](#visualization-layer)
+14. [Components](#components)
+15. [Key Files Reference](#key-files-reference)
+16. [Changelog](#changelog)
 
 ---
 
 ## System Overview
 
-Nirmanakaya Reader is a **consciousness navigation system** (not a fortune teller). It generates AI-interpreted readings using a proprietary 78-card system built on archetypal patterns, channels, houses, and mathematical correction relationships.
+Nirmanakaya Reader is a **consciousness navigation system** (not a fortune teller). It generates AI-interpreted readings using a 78-signature system built on archetypal patterns, channels, houses, and mathematical correction relationships.
 
 ### Core Principle
 > "You are a creator. You have meaning. You're eternal. Love solves everything."
 
-The system treats users as **creators within the Creator** - navigation assistance, not prophecy.
+The system treats users as **creators within the Creator** — navigation assistance, not prophecy.
+
+Two layers do the work:
+- A **deterministic structural engine** (`lib/mapAnalysis.js` and friends) — no AI, no API calls. Given draws, it computes status, rebalancers, horizon balance, portal states, trace loops, house/gestalt conditions.
+- An **AI interpretation layer** (`lib/prompts.js` + `lib/promptBuilder.js` + `lib/drawForAI.js`) that turns that structure into prose, with strict grammar and terminology rules.
 
 ---
 
-## The 78-Card System
+## Documentation Map
 
-**Source:** `lib/archetypes.js`
+Where the code-structural docs live and which are current. **When you change architecture, update the matching doc here.**
 
-### Three Card Types
+### Current (authoritative)
+- **ARCHITECTURE.md** (this file) — the reading engine, data model, routes, stack. The front door.
+- **codemap/CODE_MAP_Visualization_MASTER.md** — visualization layer master (2026-06-12). *See correction note in that file re: Three.js.*
+- **codemap/CODEMAP_A_Routes_Rendering.md** — viz routes & SVG/4D rendering detail.
+- **codemap/CODEMAP_B_Data_Engine.md** — how the 78 data + computation engine feed the views.
+- **codemap/CODEMAP_C_Components_Reuse.md** — viz component reuse seams.
+- **codemap/VISUALIZATION_TOOLKIT_SPEC.md** — design spec for the composable node/layout viz layer.
+- **CLAUDE.md / BOOTSTRAP.md / README.md** — setup & project orientation.
+- **COVENANT.md / LICENSE.md** — licensing (AGPL-3.0 code, CC BY-NC-SA 4.0 data).
 
-| Type | Count | ID Range | Description |
-|------|-------|----------|-------------|
-| **Archetypes** | 22 | 0-21 | Major signatures (like Major Arcana) |
-| **Bounds** | 40 | 22-61 | Minor cards by Channel (like Minor Arcana) |
-| **Agents** | 16 | 62-77 | Role cards (like Court Cards) |
+### Deprecated (kept for history; do not build from these)
+- **CLAUDE_CODE_PROMPT_v0.30.7.md** — early prompt spec, ~70 versions stale.
+- **Reading_Modes_Spec_v029.md** — superseded by the posture system (`lib/postures.js`) and `Mode_Governance_Guardrails_v1.md`.
 
-### Archetypes (Majors)
+### Implementation specs / handoffs (historical once shipped — not architecture)
+Files like `CC_Build_Spec_*`, `CC_Spec_16_Royal_Voice_Presets.md`, `*_HANDOFF.md`, `Words_to_the_Whys_v2_Spec.md`, `Mode_Governance_Guardrails_v1.md`, `Forge_Language_Spec_v1.md`, `Glistener_Implementation_Code.md`, `IMAGE_GENERATION_SPEC.md`, `EXTERNAL_READING_API_DEPLOYMENT.md`. These describe features that are now built; the code is the source of truth. They are working history, not deprecated docs — leave in place unless Chris says otherwise. (`EXTERNAL_READING_API_DEPLOYMENT.md` documents the live `/api/external-reading` route and is still relevant.)
 
-Each archetype belongs to a **House** and optionally a **Channel**:
+---
+
+## Tech Stack
+
+**Source:** `package.json`
+
+- **Next.js 14.2** (App Router) + **React 18.2**
+- **@anthropic-ai/sdk 0.71** — Claude API
+- **@supabase/supabase-js 2.90** + **@supabase/ssr 0.8** — Postgres, auth, RLS
+- **framer-motion 11** — animation (the workhorse for most motion)
+- **three 0.161** + **@react-three/fiber / drei / postprocessing** — WebGL, used in exactly one place today: `components/viz/SealCanvas.js` (the `/seal` morph). Everything else is SVG/DOM.
+- **tailwindcss 3.4**, **react-markdown 10** + **remark-gfm**, **resend 6** (email), **jimp** (image processing)
+
+**Notable script:** `npm run build:wiki` (`scripts/build-wiki.js`) — rebuilds the Quartz wiki from `D:\Nirmanakaya_Wiki\quartz\content\` into `public/wiki/`.
+
+---
+
+## The 78-Signature System
+
+**Source:** `lib/archetypes.js` (529 lines) + `lib/constants.js` (437 lines)
+
+### Three signature types
+
+| Type | Count | ID Range | Role | P/R class |
+|------|-------|----------|------|-----------|
+| **Archetypes** | 22 | 0–21 | Major signatures (verbs) | Recursion |
+| **Bounds** | 40 | 22–61 | Channel pips (nouns) | Polarity |
+| **Agents** | 16 | 62–77 | Royals (gerunds) | Collapse |
+
+> Terminology: these are **signatures**, never "cards." Use "emerges/surfaces," never "you drew." Never mention tarot unless the user does.
+
+### Archetypes — Houses & Channels
 
 ```
 HOUSES (6):
-├── Gestalt (governed by Source) → Potential(0), Will(1), Actualization(19), Awareness(20)
-├── Spirit (governed by Potential) → Wisdom(2), Nurturing(3), Inspiration(17), Imagination(18)
-├── Mind (governed by Actualization) → Order(4), Culture(5), Abstraction(15), Breakthrough(16)
-├── Emotion (governed by Awareness) → Compassion(6), Drive(7), Balance(14), Change(13)
-├── Body (governed by Will) → Fortitude(8), Discipline(9), Equity(11), Sacrifice(12)
-└── Portal → Source(10), Creation(21)
+├── Gestalt  → Potential(0), Will(1), Actualization(19), Awareness(20)
+├── Spirit   → Wisdom(2), Nurturing(3), Inspiration(17), Imagination(18)
+├── Mind     → Order(4), Culture(5), Abstraction(15), Breakthrough(16)
+├── Emotion  → Compassion(6), Drive(7), Change(13), Balance(14)
+├── Body     → Fortitude(8), Discipline(9), Equity(11), Sacrifice(12)
+└── Portal   → Source(10) = Ingress, Creation(21) = Egress
 
-CHANNELS (4 - like Elements):
-├── Intent (Fire/Wands) → Directed action
-├── Cognition (Air/Swords) → Mental clarity
-├── Resonance (Water/Cups) → Emotional connection
-└── Structure (Earth/Pentacles) → Material form
+CHANNELS (4):
+├── Intent    (Fire / Wands)     → directed will, action
+├── Cognition (Air / Swords)     → mental clarity
+├── Resonance (Water / Cups)     → emotional attunement
+└── Structure (Earth / Pentacles)→ material form
 ```
 
-### Bounds (Minors)
+Each archetype carries `name` (canonical), `traditional` (tarot ref — never used in prose), `house`, `channel`, `function` (Seed/Medium/Fruition/Feedback/Ingress/Egress), `description`, `extended`, and a `states` object with four transient portraits (balanced / tooMuch / tooLittle / unacknowledged).
 
-40 cards organized as 10 cards per Channel:
+### Bounds — 10 pips × 4 channels (IDs 22–61)
+Each bound has `number` (1–10), `channel`, parent `archetype`, `horizon` (inner/outer), `wheelWorld`, `scale` (formative/operative/completive), `numberHouse`, `numberKeyword`. **Bounds are nouns** (boundary conditions) — the Verb Shift does not apply to them.
 
-```
-Intent Channel (Wands):     Activation(1) → Realization(10)
-Cognition Channel (Swords): Perception(1) → Clarity(10)
-Resonance Channel (Cups):   Receptivity(1) → Completion(10)
-Structure Channel (Pents):  Initiation(1) → Achievement(10)
-```
+### Agents — 4 roles × 4 channels (IDs 62–77)
+Roles: **Initiate** (Page), **Catalyst** (Knight), **Steward** (Queen), **Executor** (King). Each has channel, parent archetype, traditional name, horizon, and a nickname (e.g. "The Judge" = King of Swords). **Agents always represent the querent's own consciousness, never external people.**
 
-Each Bound **expresses** an Archetype based on its number:
-- Numbers 1, 10 → Gestalt domain
-- Numbers 2, 9 → Spirit domain
-- Numbers 3, 8 → Mind domain
-- Numbers 4, 7 → Emotion domain
-- Numbers 5, 6 → Body domain
+### Group structures (`lib/constants.js`)
+- **Being groups:** Mantle, Kindle, Vessel, Passage
+- **Identity groups:** Composure, Conviction, Exploration, Intimacy
 
-### Agents (Royals)
-
-16 cards = 4 Roles × 4 Channels:
-
-```
-Roles (by House):
-├── Initiate (Page) → Spirit House → Enters with openness, curiosity
-├── Catalyst (Knight) → Mind House → Disrupts stagnation, sparks change
-├── Steward (Queen) → Emotion House → Maintains, nurtures, holds space
-└── Executor (King) → Body House → Transforms intention into action
-```
-
-**CRITICAL RULE:** Agents ALWAYS represent aspects of the **querent's own consciousness**, never external people.
+> Current nomenclature is locked: **Kindle / Passage / Intimacy / Underlie** (formerly Torch / Clearing / Communion / Mantle-Create).
 
 ---
 
 ## Status & Correction System
 
-**Source:** `lib/constants.js`, `lib/corrections.js`
+**Source:** `lib/constants.js`, `lib/corrections.js` (569 lines)
 
-### The Four Statuses
+### The four statuses
 
-| Status | ID | Temporal Frame | Meaning | Correction Type |
-|--------|----|--------------------|---------|-----------------|
-| **Balanced** | 1 | Now-aligned | Authentic expression | Growth opportunity |
-| **Too Much** | 2 | Future-projected | Over-expressing, anxiety | Diagonal |
-| **Too Little** | 3 | Past-anchored | Under-expressing, withdrawn | Vertical |
-| **Unacknowledged** | 4 | Shadow | Operating without awareness | Reduction |
+| Status | ID | Temporal frame | Meaning | Correction geometry |
+|--------|----|----|---------|---------------------|
+| Balanced | 1 | Now-aligned | Authentic expression | Growth (transpose) |
+| Too Much | 2 | Future-projected | Over-expressing | Diagonal |
+| Too Little | 3 | Past-anchored | Under-expressing | Vertical |
+| Unacknowledged | 4 | Shadow | Operating without awareness | Reduction |
 
-### Correction Logic
+### Correction logic
+`getFullCorrection(transientId, status)` routes by signature class to `getArchetypeCorrection` / `getBoundCorrection` / `getAgentCorrection`. Corrections are **pre-derived lookup tables**, not formulas:
 
-**Source:** `lib/corrections.js`
+- **GROWTH_PAIRS** — balanced → growth direction (null for Gestalt/Portal)
+- **DIAGONAL_PAIRS** — too much → polarity flip (e.g. Potential 0 → Actualization 19)
+- **VERTICAL_PAIRS** — too little → same archetype, other scale
+- **REDUCTION_PAIRS** — unacknowledged → generating source (null for Gestalt/Portal)
+- **BOUND_GROWTH_TARGETS** / **AGENT_{GROWTH,DIAGONAL,VERTICAL}_TARGETS** — bound/agent variants (agents = archetype correction + role flip)
 
-Corrections are **pre-calculated lookups**, not formulas:
-
-```javascript
-// DIAGONAL_PAIRS (Too Much → opposite pole)
-0: 19,   // Potential → Actualization
-1: 20,   // Will → Awareness
-2: 17,   // Wisdom → Inspiration
-// ... etc
-
-// VERTICAL_PAIRS (Too Little → same archetype, different phase)
-0: 20,   // Potential → Awareness
-1: 19,   // Will → Actualization
-2: 18,   // Wisdom → Imagination
-// ... etc
-
-// REDUCTION_PAIRS (Unacknowledged → generating source)
-2: 11,   // Wisdom → Equity
-3: 12,   // Nurturing → Sacrifice
-// ... etc (Gestalt/Portal have no reduction pairs)
-```
-
-**For Bounds:** Follow archetype correction + polarity flip (inner↔outer)
-**For Agents:** Follow archetype correction + channel crossing + role rules
+Canonical correction tables also mirrored in `lib/CANONICAL_78_CORRECTIONS.md`, `lib/CANONICAL_BOUND_CORRECTIONS.md`, `lib/BOUND_CORRECTIONS_LOOKUP.md`.
 
 ---
 
-## Reading Modes
+## Postures (Reading Stances)
 
-**Source:** `lib/modes.js`
+**Source:** `lib/postures.js` (212), `lib/posturePrompts.js` (105). *Legacy: `lib/modes.js` (134) + `lib/modePrompts.js` (81) retained for back-compat.*
 
-### Mode Governance System
+The four postures map to the 4-stage process cycle:
 
-```javascript
-const MODE_CONSTRAINTS = {
-  reflect: {
-    label: 'Reflect',
-    operation: 'consume',  // Read-only observation
-    coreQuestion: 'What is already happening?',
-    allowedVerbs: ['is', 'appears', 'shows up as', 'is operating', 'tends to'],
-    bannedVerbs: ['should', 'need to', 'must', 'fix', 'change', 'build'],
-    canSurfaceLevers: false,
-    canAskQuestions: false
-  },
+| Posture | Stage | Core question | Constraints |
+|---------|-------|---------------|-------------|
+| **Reflect** | Seed | "What is already happening?" | Witness only; no levers, no questions |
+| **Discover** | Medium | "Where is authorship available?" | Name capacities, surface levers, ONE question |
+| **Forge** | Fruition | "What changes when intention is asserted?" | First-person ownership, return authorship |
+| **Integrate** | Feedback | "What came back? How does it connect?" | Pattern recognition, loop closure |
 
-  discover: {
-    label: 'Discover',
-    operation: 'consume_to_latent_create',  // Find authorship locations
-    coreQuestion: 'Where is authorship already available?',
-    allowedVerbs: ['is already doing', 'is available', 'could be claimed'],
-    conditionalVerbs: ['step in', 'lean into', 'name', 'claim'],
-    bannedVerbs: ['do this', 'replace', 'implement'],
-    canSurfaceLevers: true,
-    canAskQuestions: true,  // ONE present-tense question only
-    requiresTransitionMarker: true
-  },
-
-  forge: {
-    label: 'Forge',
-    operation: 'create',  // Active intention-setting
-    coreQuestion: 'What changes when intention is asserted?',
-    allowedVerbs: ['I am choosing', 'I am asserting', 'I am building'],
-    bannedVerbs: ['guarantee', 'ensure', 'will cause', 'force'],
-    requiresOwnership: true,  // First-person required
-    requiresAuthorshipReturn: true,
-    canSurfaceLevers: true
-  },
-
-  explore: {
-    label: 'Explore',
-    operation: 'discover_tokens',  // DTP mode
-    coreQuestion: 'What is active for you right now?',
-    allowedVerbs: ['is expressing as', 'is structured by', 'points to'],
-    bannedVerbs: ['will cause', 'destiny', 'should'],
-    canAskQuestions: false  // Declarative only
-  }
-};
-```
+`buildPostureHeader(posture)` injects the preamble; `TONE_GOVERNANCE` enforces hard rules (never dramatize status, never imply severity, state plainly).
 
 ---
 
 ## User Levels & Progressive Disclosure
 
-**Source:** `lib/promptBuilder.js`
+**Source:** `lib/promptBuilder.js`, `lib/userContext.js`
 
-```javascript
-const USER_LEVELS = {
-  FIRST_CONTACT: 0,  // New user - Claude Haiku, 300 tokens, minimal prompts
-  EXPLORER: 1,       // Learning - full prompts with some terms
-  PRACTITIONER: 2,   // Comfortable - full feature set
-  ARCHITECT: 3,      // Advanced - derivation visible
-  MASTER: 4          // Expert - everything unlocked
-};
+```
+FIRST_CONTACT (0) → minimal prompt, Haiku, single signature
+EXPLORER      (1) → full prompts, some terms
+PRACTITIONER  (2) → full feature set
+ARCHITECT     (3) → derivation visible
+MASTER        (4) → everything unlocked
 ```
 
-### Level 0 vs Level 1+ Differences
-
-| Aspect | Level 0 | Level 1+ |
-|--------|---------|----------|
-| Model | Claude Haiku | Claude Sonnet |
-| Max Tokens | 300 | 16,000 |
-| System Prompt | CORE_PROMPT + FIRST_CONTACT_FORMAT (~600 tokens) | Full BASE_SYSTEM + FORMAT_INSTRUCTIONS + Stance + Persona |
-| Cards | Single card only | Up to 5 cards |
-| Output | Plain paragraph | Progressive depth sections |
-| Terminology | Plain English only | Architecture terms allowed |
+Level 0 uses a stripped prompt and Haiku; Level 1+ uses the full assembly and Sonnet.
 
 ---
 
 ## Prompt Building System
 
-**Source:** `lib/promptBuilder.js`, `lib/prompts.js`, `lib/modePrompts.js`
+**Source:** `lib/promptBuilder.js` (202), `lib/prompts.js` (1152), `lib/drawForAI.js` (502)
 
-### System Prompt Assembly
+### Assembly
+`buildSystemPrompt(userLevel, options)` orders blocks: **Posture → Locus → BASE_SYSTEM → Architecture toggle → FORMAT → WHY → Voice (last, for recency)**. `buildUserMessage(question, draws, userLevel, options)` assembles the draw text (`formatDrawForAI` in `lib/utils.js`) plus teleological context (`lib/teleology-utils.js`).
 
-```javascript
-function buildSystemPrompt(userLevel, options) {
-  // Level 0: Minimal prompt
-  if (userLevel === USER_LEVELS.FIRST_CONTACT) {
-    return `${CORE_PROMPT}\n\n${FIRST_CONTACT_FORMAT}`;  // ~600 tokens
-  }
+### Core blocks in `prompts.js`
+- **BASE_SYSTEM** — kernel metaphysics, ontology, ethos, and the mandatory rules:
+  1. **No pet names** (honey, dear, love, my friend… banned)
+  2. **Agents = querent's own consciousness**, never external people
+  3. **Agency grammar** — signature is the grammatical subject (verb), position is context (noun), status is the adverb. Validation: if removing the signature leaves a sensible sentence, the position became the subject — rewrite.
+  4. **Canonical names only** — the 78 have fixed names; never invent substitutes
+  5. **Emergence language** — "Wisdom emerges," never "you drew Wisdom"
+- **FORMAT_INSTRUCTIONS** / `getFormatInstructions(readingLength)` — section structure and length-adaptive word targets
+- **WHY_MOMENT_PROMPT** — meaning attribution (paired with `lib/whyVector.js`)
 
-  // Level 1+: Full prompt assembly
-  const modeHeader = buildModeHeader(spreadType);      // Mode-specific intro
-  const stancePrompt = buildStancePrompt(stance);      // 6-dimensional voice config
-  const personaPrompt = buildPersonaPrompt(...);       // Creator/humor/register/roast/direct
-
-  // Order matters - persona prompt LAST for recency
-  return `${modeHeader}
-${BASE_SYSTEM}
-${stancePrompt}
-${FORMAT_INSTRUCTIONS}
-${WHY_MOMENT_PROMPT}
-Letter tone for this stance: ${tone}
-${personaPrompt}`;
-}
-```
-
-### BASE_SYSTEM Critical Rules (~400 lines in prompts.js)
-
-The BASE_SYSTEM contains these **mandatory constraints**:
-
-#### 1. No Pet Names Rule
-```
-NEVER use: honey, sweetheart, dear, sweetie, love, darling, my friend, sugar, babe
-Show warmth through TONE and CARE, not pet names.
-```
-
-#### 2. Agent Interpretation Rule
-```
-Agents ALWAYS refer to the QUERENT'S OWN consciousness — never external people.
-WRONG: "There's someone in your life who..."
-RIGHT: "The part of you that..."
-```
-
-#### 3. Agency Grammar Rule (CRITICAL)
-```
-CARD = verb (the agency being exercised) — GRAMMATICAL SUBJECT
-POSITION = noun (the domain where agency occurs) — CONTEXT
-STATUS = adverb (how the agency is expressed) — MODIFIER
-
-WRONG: "Creation is being forced" (position as subject)
-RIGHT: "Flourishing is over-applied in Creation" (card as subject)
-
-VALIDATION: If you remove the card and the sentence still makes sense,
-you've made the position the subject. Rewrite it.
-```
-
-#### 4. Canonical Names Rule
-```
-Each draw provides the EXACT canonical name. You MUST use it.
-NEVER invent alternatives like "Fulfillment", "Completion", "Achievement"
-The 78 signatures have FIXED canonical names.
-```
-
-#### 5. Emergence Language Rule
-```
-This is consciousness architecture, not fortune-telling.
-NEVER: "You drew Wisdom"
-ALWAYS: "Wisdom emerges"
-Use: emerges, surfaces, what emerges, the emergence
-```
-
-### FORMAT_INSTRUCTIONS (~450 lines)
-
-Defines the **progressive depth output structure**:
-
-```
-DEPTH GENERATION MODEL (write DEEP first, condense down):
-
-1. Write DEEP first — full transmission, no constraints
-2. Condense DEEP → SWIM — same insight, tightened (6-10 sentences)
-3. Condense SWIM → WADE — same insight, more essential (3-5 sentences)
-4. Distill WADE → SURFACE — absolute essence (1-2 sentences MAX)
-
-VALIDATION: Surface IS the seed that Deep fully expresses.
-            If they feel like different interpretations, rewrite.
-```
-
-### Section Markers
-
-The AI must use these exact markers:
-
-```
-[LETTER:SURFACE/WADE/SWIM/DEEP]        - Personal greeting
-[SUMMARY:SURFACE/WADE/SWIM/DEEP]       - Core answer to question
-[CARD:N:SURFACE/WADE/SWIM/DEEP]        - Card interpretation
-[CARD:N:ARCHITECTURE]                   - Factual card data
-[CARD:N:MIRROR]                         - 2-3 line poetic reflection
-[CARD:N:WHY:SURFACE/WADE/SWIM/DEEP/ARCHITECTURE]  - Teleological data
-[CARD:N:REBALANCER:SURFACE/WADE/SWIM/DEEP/ARCHITECTURE]  - Correction path
-[CARD:N:GROWTH:...]                     - Growth opportunity (balanced only)
-[PATH:SURFACE/WADE/SWIM/DEEP/ARCHITECTURE]  - Holistic synthesis
-[FULL_ARCHITECTURE]                     - Complete structural derivation
-```
-
-### User Message Building
-
-**Source:** `lib/promptBuilder.js:buildUserMessage()`
-
-```javascript
-function buildUserMessage(question, draws, userLevel, options) {
-  // Level 0: Simple format
-  if (userLevel === USER_LEVELS.FIRST_CONTACT) {
-    return `Their question: "${question}"
-THE SIGNATURE DRAWN: ${trans.name}
-Status: ${statusPrefix} (${stat.name} — ${stat.desc})
-IMPORTANT: Start your response with "${trans.name}".`;
-  }
-
-  // Level 1+: Full format
-  const drawText = formatDrawForAI(draws, spreadType, spreadKey);
-  const teleologicalPrompt = buildReadingTeleologicalPrompt(draws);
-
-  return `QUESTION: "${question}"
-
-THE DRAW (${spreadName}):
-
-${drawText}
-
-${teleologicalPrompt}
-
-Respond using the PROGRESSIVE DEPTH section markers:
-[LETTER:SURFACE], [LETTER:WADE], ... ${cardMarkers} ... [FULL_ARCHITECTURE]
-
-CRITICAL: Generate sections in this EXACT order...`;
-}
-```
-
-### formatDrawForAI Function
-
-**Source:** `lib/utils.js:formatDrawForAI()`
-
-This is where each card is prepared for the AI:
-
-```javascript
-function formatDrawForAI(draws, spreadType, spreadKey) {
-  return draws.map((draw, i) => {
-    const trans = getComponent(draw.transient);
-    const stat = STATUSES[draw.status];
-    const correction = getFullCorrection(draw.transient, draw.status);
-
-    return `**Signature ${i + 1}**: ${statusPhrase}
-⚠️ MANDATORY: Your interpretation MUST include the word "${positionName}" at least once.
-Agency (THE SUBJECT): ${agencyInfo}
-Domain (POSITION): ${positionName}
-Status: ${stat.name} — ${stat.desc}
-${correctionText ? `Correction: ${correctionText}
-REBALANCER TARGET: ${rebalancerTargetName}. This is the ONLY card to discuss in rebalancer sections.` : 'No correction needed (Balanced)'}
-Grammar rule: ${trans.name} is the subject. Say "${trans.name} in ${positionName}".`;
-  }).join('\n\n');
-}
-```
+### The reading/self-correction engine — `drawForAI.js`
+- **`buildSingleReadingV9(draw)`** — **current live** single-draw self-reading ("find where you hedged honesty"). 
+- `fiveHouseReading()` — five parallel draws (Mind/Emotion/Spirit/Body/Gestalt)
+- `SYNTHESIS_SYSTEM` + `buildRevisionContext()` — Haiku synthesizes; Sonnet rewrites
+- Legacy builders retained: `buildSingleReadingV8`, `buildFullReadingContext` (V7), `buildPrescriptionContext` (V6), `buildFiveHouseContext` (V3)
 
 ---
 
-## Interpretation Flow
+## Voice System
 
-### Complete Data Flow Diagram
+**Source:** `lib/personas.js` (312). **⚠️ The old `lib/voice.js` 6-dimension system is GONE.**
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ 1. USER INPUT                                                    │
-│    Question + Spread Size + Mode + Voice/Stance                  │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 2. SPREAD GENERATION (lib/utils.js:generateSpread)              │
-│    ├── Shuffle positions (0-21 archetypes)                       │
-│    ├── Shuffle transients (0-77 cards)                           │
-│    ├── Random status (1-4) per card                              │
-│    └── Returns: [{ position, transient, status }, ...]           │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 3. SYSTEM PROMPT BUILD (lib/promptBuilder.js:buildSystemPrompt)  │
-│    Level 0:                                                      │
-│    └── CORE_PROMPT + FIRST_CONTACT_FORMAT (~600 tokens)          │
-│                                                                  │
-│    Level 1+:                                                     │
-│    ├── buildModeHeader(spreadType)      // Mode-specific intro   │
-│    ├── BASE_SYSTEM                      // ~400 lines of rules   │
-│    ├── buildStancePrompt(stance)        // 6-dimension voice     │
-│    ├── FORMAT_INSTRUCTIONS              // ~450 lines of format  │
-│    ├── WHY_MOMENT_PROMPT                // Teleological grounding│
-│    └── buildPersonaPrompt(...)          // Humor/register/creator│
-│                                                                  │
-│    Wrap in: cache_control: { type: "ephemeral" }                 │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 4. USER MESSAGE BUILD (lib/promptBuilder.js:buildUserMessage)    │
-│    ├── sanitizeForAPI(question)                                  │
-│    ├── formatDrawForAI(draws) - Convert cards to AI format       │
-│    │   └── For each card:                                        │
-│    │       ├── Card name + type + channel/house                  │
-│    │       ├── Position name (the domain context)                │
-│    │       ├── Status name + description                         │
-│    │       ├── Correction target (if imbalanced)                 │
-│    │       └── Grammar enforcement notes                         │
-│    ├── buildReadingTeleologicalPrompt(draws) - Words to Whys     │
-│    └── Section marker instructions                               │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 5. API CALL (app/api/reading/route.js)                          │
-│    ├── Check user access (ban/throttle via Supabase)             │
-│    ├── Send to Anthropic API:                                    │
-│    │   ├── Model: Haiku (Level 0) or Sonnet (Level 1+)           │
-│    │   ├── System prompt with cache_control                      │
-│    │   ├── User message with question + formatted draws          │
-│    │   └── max_tokens: 300 (Level 0) or 16000 (Level 1+)         │
-│    ├── Record token usage                                        │
-│    └── Return response + cache statistics                        │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 6. RESPONSE PARSING (lib/utils.js:parseReadingResponse)          │
-│    ├── Detect format (progressive depth vs legacy)               │
-│    └── Extract sections by markers:                              │
-│        ├── [LETTER:*] → letter { surface, wade, swim, deep }     │
-│        ├── [SUMMARY:*] → summary { surface, wade, swim, deep }   │
-│        ├── [CARD:N:*] → cards[N] with all subsections            │
-│        ├── [PATH:*] → path { surface, wade, swim, deep, arch }   │
-│        └── [FULL_ARCHITECTURE] → fullArchitecture                │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 7. CONTENT FILTERING (lib/contentFilter.js)                      │
-│    ├── Strip prohibited terms                                    │
-│    ├── Remove banned verbs for current mode                      │
-│    └── Validate no terms of endearment                           │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 8. HOTLINK RENDERING (lib/hotlinks.js)                           │
-│    ├── Convert [bracketed] card names to clickable links         │
-│    ├── Add glossary tooltips                                     │
-│    └── Process framework term references                         │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 9. UI RENDERING (app/page.js)                                    │
-│    ├── Display letter with depth controls (Surface→Deep)         │
-│    ├── Display summary with progressive reveal                   │
-│    ├── Display cards with threaded UI                            │
-│    ├── Display corrections/rebalancers if imbalanced             │
-│    ├── Display path to balance (synthesis)                       │
-│    └── Optional: full architecture view                          │
-└─────────────────────────────────────────────────────────────────┘
-```
+Current = **3 orthogonal dials**, emitted by `buildPersonaPrompt(persona, humor, complexity)` (placed last in the system prompt):
 
-### What the AI Actually Receives
+- **Persona** (5): friend, therapist, spiritualist, scientist, coach — each must engage the specific question, not sermonize
+- **Complexity / register** (4): simple, clear, fluent, eloquent — changes *how* you speak, not *how much*
+- **Humor** (1–10): Unhinged → … → Sacred (1–4 must be light; 8–10 must stay grave)
 
-For a Level 1+ reading with one card, the AI receives:
+**Length** is separate (`LENGTH_CONFIGS`): brief (300–500w), standard (800–1200w), full (1500–2500w). Orthogonal to persona/complexity.
 
-**System Prompt (~2500 tokens):**
-```
-[MODE HEADER - from modePrompts.js]
-This reading is in DISCOVER mode...
-
-[BASE_SYSTEM - ~400 lines]
-CRITICAL: Never use pet names...
-CRITICAL RULE: ROYAL/AGENT INTERPRETATION...
-CRITICAL RULE: AGENCY GRAMMAR...
-[Full derivation system, canonical names, all constraints]
-
-[STANCE PROMPT]
-COMPLEXITY: guide - Warm, clear, walking together
-VOICE: warm - Grandmotherly, no judgment
-... etc
-
-[FORMAT_INSTRUCTIONS - ~450 lines]
-RESPONSE FORMAT — PROGRESSIVE DEPTH LAYERS:
-[All section markers and requirements]
-
-[WHY_MOMENT_PROMPT]
-[Teleological grounding instructions]
-
-[PERSONA PROMPT]
-Creator emphasis: 5/10
-Humor: 3/10
-... etc
-```
-
-**User Message (~300 tokens per card):**
-```
-QUESTION: "What do I need to see right now?"
-
-THE DRAW (Discover Emergent):
-
-**Signature 1**: Too Much Discipline
-⚠️ MANDATORY: Your interpretation MUST include the word "Awareness" at least once.
-Agency (THE SUBJECT): Discipline — Major Archetype
-Domain (POSITION): Awareness
-Status: Too Much — Future-projected expression; the function is over-applied
-Correction: Sacrifice via DIAGONAL duality
-REBALANCER TARGET: Sacrifice. This is the ONLY card to discuss in rebalancer sections.
-Grammar rule: Discipline is the subject. Say "Discipline in Awareness".
-
-[TELEOLOGICAL DATA]
-Archetype: Discipline (9)
-House: Body | Channel: Cognition
-Function: Repetition with purpose, attunement through action
-...
-
-Respond using the PROGRESSIVE DEPTH section markers:
-[LETTER:SURFACE], [LETTER:WADE], ... [FULL_ARCHITECTURE]
-```
+16 **Royal voice presets** are stored in Supabase (`voice_presets` table) and surfaced via the Glistener UI.
 
 ---
 
-## Voice/Stance System
+## The Computation Engine
 
-**Source:** `lib/voice.js`
+Pure, deterministic, AI-free structural analysis.
 
-Six independent dimensions, each with multiple settings:
-
-```javascript
-// COMPLEXITY (Language Register)
-friend   → "Dude", short words, playful
-guide    → Warm, clear, walking together
-teacher  → Structured, educational
-mentor   → Philosophical depth, wisdom
-master   → Full transmission, framework depth
-
-// VOICE (Emotional Tone)
-wonder   → Delighted, fascinated, "Oh wow!"
-warm     → Grandmotherly, fierce love
-direct   → No bullshit, tough love
-grounded → Calm, seasoned, dry humor
-
-// FOCUS (Emphasis)
-do       → Action-oriented, "do this"
-feel     → Emotional truth, name feelings
-see      → Understanding, "oh NOW I get it"
-build    → Practical steps, tangible form
-
-// DENSITY (Language Richness)
-luminous → Full, layered, poetic, spacious
-rich     → Warm, expansive, satisfying
-clear    → Accessible, flowing, balanced
-essential→ Minimal, bare, core truth only
-
-// SCOPE (Framing Context)
-resonant → Widest context, archetypal
-patterned→ Recurring dynamics, cycles
-connected→ Relational context, ripple effects
-here     → Immediate situation, close
-
-// SERIOUSNESS (Tone Weight)
-playful  → Funny, jokes, "lol" energy
-light    → Gentle humor, breezy
-balanced → Read the room
-earnest  → Sincere, heart-forward
-grave    → Full weight, sacred
-```
-
-**Presets:** Clear, Kind, Playful, Wise, Oracle
+- **`lib/mapAnalysis.js` (1947)** — the harness. Input: 22 or 78 draws → output: full structural analysis. Key fns: `getArchetypeStatus`, `getBoundAnalysis`, `getHorizonBalance`, `getPortalState`, `traceCirculation`, `getProcessMetadata`. Consumers: Reader cartography, RLHF signal, map viz.
+- **`lib/diagnosticTools.js` (1137)** — tool-use API: diagnostic instruments the model can call for deeper investigation (horizon balance, portal state, process detail, bound diagnosis, manifest readout, correction path, signature state).
+- **`lib/houseConditions.js`**, **`lib/gestaltConditions.js`** — state pattern recognition per house and system-wide.
+- **`lib/neighborhoods_canon.js` (204)** — the 16 consciousness states (4×4 neighborhood grid).
+- **`lib/whyVector.js` (190)** — the Why-moment algorithm (house vocabulary × status tone × portal gating).
 
 ---
 
 ## API Routes
 
-### Level 1+ Reading Flow (On-Demand Architecture)
+App Router, under `app/api/`. ~40 routes total; 20 call Claude. **Only two model IDs are hardcoded today:** `claude-sonnet-4-6` (19 call sites) and `claude-haiku-4-5-20251001` (11). No Opus in routes.
 
-For Level 1+ users, readings use **on-demand loading** via multiple API endpoints:
+> ⚠️ **Dated model snapshots retire ~yearly and 404 readings when they do.** When refreshing, sweep all `app/api/**/route.js` for `claude-*` strings. See the team's webapp-model-ID note for the fast-fix recipe.
 
-```
-User submits question
-       │
-       ▼
-POST /api/letter ──────────► Returns Letter content (WADE depth)
-       │
-       ▼
-POST /api/card-depth ──────► Returns card interpretations (per card)
-  (called for each card)     Supports progressive deepening (WADE→SWIM→DEEP)
-       │
-       ▼
-POST /api/synthesis ───────► Returns Path to Balance, Summary (optional)
-```
+### Reading / synthesis (Claude)
+| Route | Method | Purpose | Model |
+|-------|--------|---------|-------|
+| `/api/reading` | POST | Core generation; First Contact + DTP | sonnet-4-6 (DTP), haiku default |
+| `/api/reading/expand` | POST | Deepen an existing reading | sonnet-4-6 |
+| `/api/reading/investigate` | POST | Interrogate a reading | sonnet-4-6 |
+| `/api/reading/shared` | GET | Fetch shared reading by token | — |
+| `/api/synthesis` | POST | Summary / Why / Path, progressive | haiku-4-5 |
+| `/api/card-depth` | POST | Deep per-signature interpretation | sonnet-4-6 |
+| `/api/letter` | POST | Personalized letter | haiku-4-5 |
+| `/api/spread-recommend` | POST | Recommend a spread from the question | sonnet-4-6 |
 
-### POST /api/letter
+### Chat & Glisten (Claude)
+| Route | Method | Purpose | Model |
+|-------|--------|---------|-------|
+| `/api/chat` | POST | "Dear Reader" — two-pass (vanilla → drawing-guided revision) | sonnet-4-6 |
+| `/api/glisten` | POST | Bones → Symbolism → Transmission → Integration → Crystal | sonnet-4-6 |
+| `/api/glisten/plain` | POST | Plain-language Glisten | sonnet-4-6 |
+| `/api/glisten/simplify` | POST | Simplify reading language | sonnet-4-6 |
 
-**Source:** `app/api/letter/route.js`
+### Collective Pulse (Claude)
+`/api/collective-pulse` (GET/POST), `/api/collective-pulse/settings` (GET/PATCH), `/api/collective-pulse/voice` (GET).
 
-Generates the Letter section for readings.
+### User context (Claude)
+`/api/user/context` (GET, **`force-dynamic`** — the one route that opts out of edge caching), `/api/user/reading-summary` (POST), `/api/user/topic-analysis` (POST).
 
-```javascript
-// Request body
-{
-  question: string,          // User's question
-  draws: [...],              // All draws for context
-  spreadType: string,        // 'discover' | 'reflect' | 'forge' | 'explore'
-  spreadKey: string,         // Spread name
-  stance: {...},             // Voice settings
-  system: string,            // System prompt (cached)
-  model: string,             // Model selection
-  targetDepth: string,       // 'wade' | 'swim' | 'deep' (for deepening)
-  previousContent: {...}     // Content to build on (for deepening)
-}
-```
+### Non-Claude: user data, admin, email, utility
+- **User:** `/api/user/{readings,profile-context,badges,email-preferences,stats,topics}`
+- **Admin:** `/api/admin/{config,stats,broadcast,delete-user,backfill-context,backfill-narratives,resend-confirmations}`
+- **Email:** `/api/email-readings`, `/api/email-settings`, `/api/email/{welcome,reading,reply-notify,unsubscribe}`
+- **Utility:** `/api/book-search`, `/api/external-reading` (GET/POST), `/api/feature-flags`
 
-### POST /api/card-depth
+> ⚠️ **Vercel edge caching:** any GET route returning user-specific data needs `export const dynamic = 'force-dynamic'` and a per-request Supabase client. Currently only `/api/user/context` sets it — audit new user-specific GETs against this.
 
-**Source:** `app/api/card-depth/route.js`
+---
 
-Generates interpretation for a single card. This is where most AI generation happens.
+## Data Layer (Supabase)
 
-```javascript
-// Request body
-{
-  cardIndex: number,         // Which card (0-indexed)
-  draw: {                    // Single card draw data
-    transient: number,       // Card ID (0-77)
-    status: number,          // Status (1-4)
-    position: number         // Position archetype ID (0-21) ⚠️ CAN BE UNDEFINED
-  },
-  question: string,
-  spreadType: string,
-  spreadKey: string,
-  stance: {...},
-  system: string,            // System prompt (cached)
-  letterContent: string,     // Letter for context
-  model: string,
-  targetDepth: string,       // 'wade' | 'swim' | 'deep'
-  previousContent: {...},    // For deepening
-  token: string,             // DTP mode: the user's token
-  originalInput: string      // DTP mode: full question for grounding
-}
+**Clients:** `lib/supabase.js` (1743, browser/auth + queries), `lib/supabase-server.js` (server read-only). Schema is versioned as individual `supabase-*.sql` files at repo root (no `migrations/` folder). RLS on all tables; auth via Google OAuth + email/password.
 
-// ⚠️ IMPORTANT: draw.position can be undefined in some code paths
-// Always check: draw.position !== null && draw.position !== undefined
-// Bug fixed in v0.74.10
+Key tables:
+- **profiles** (extends `auth.users`) — level, preferences, admin flag, token limits, email prefs, personalization toggle
+- **user_readings** (unified) — draws, interpretation JSONB (letter/synthesis/cards/thread), mode, spread, token counts + cost + model, share_token
+- **discussions / discussion_replies / reactions** — community hub
+- **chat_rooms / chat_messages / room_members** — realtime chat
+- **voice_presets** — 16 Royal voice configs
+- **collective_readings / pulse_settings** — Collective Pulse
+- **profile_context** — personalization facts injected into prompts
 
-// ⚠️ PROMPT FORMAT: Card vs Position must be unambiguous
-// Old format "CARD 1 — Position: CardName" caused AI to reverse them
-// New format (v0.74.12):
-//   THE CARD: CardName
-//   IN POSITION: PositionName
-// Plus explicit directive: "DO NOT reverse these"
-```
+---
 
-### POST /api/reading
+## Visualization Layer
 
-**Source:** `app/api/reading/route.js`
+Full detail in `codemap/`. Summary:
 
-Used for **Level 0 (First Contact)** readings and DTP token extraction.
+- Most views are **inline SVG + framer-motion + hand-rolled 4D math** (`/explore`, `/visualize`, `/tesseract`, `/seeds`). `/22-reader` and `/diagnostic` are DOM/CSS.
+- **One WebGL view:** `/seal` via `components/viz/SealCanvas.js` (three + react-three-fiber). This is the exception to the codemap's original "no Three.js" headline.
+- `/map` was removed (404).
 
-```javascript
-// Request body
-{
-  messages: [...],           // Conversation history
-  system: "prompt text",     // System prompt
-  model: "sonnet|haiku",     // Model selection
-  isFirstContact: boolean,   // Level 0 flag
-  max_tokens: number,        // Output limit
-  isDTP: boolean,            // Direct Token Protocol mode
-  dtpInput: string,          // DTP: user input for token extraction
-  draws: [...],              // Pre-generated draws
-  userId: "uuid"             // For token tracking
-}
+---
 
-// Features:
-// - Prompt caching (90% input token savings)
-// - User access control (ban/throttle)
-// - Daily token limit tracking
-// - Usage recording to Supabase
-```
+## Components
 
-### POST /api/external-reading
+**Source:** `components/` (~60 files)
 
-External API for third-party integrations.
+- **reader/** — core reading UI (ReadingSection, DepthCard, WhyMoment, MirrorSection, Glistener, CardDetailModal, Minimap, ArchitectureBox…)
+- **map/** — `MapCanvas`, `HouseGroup`, `CardNode`, `LayoutSwitcher`
+- **viz/** — `SealCanvas` (WebGL), `AxisOfBecoming`, `SelflessLove`, `Derivation`
+- **book/** — reader, search, annotations, ReadAloud, TextSizer
+- **reading/** — Save / Share / Email buttons
+- **layout/** — Header, BrandHeader, Footer, CommunityNav
+- **shared/** — MarkdownRenderer, glossary tooltips, badges, theming, modals
+- **auth/** — AuthModal, AuthButton
 
 ---
 
 ## Key Files Reference
 
+Verified line counts (2026-06-22).
+
 | File | Lines | Purpose |
-|------|-------|---------|
-| `app/page.js` | ~6,800 | Main React component, all UI state |
-| `lib/prompts.js` | ~1,200 | BASE_SYSTEM, FORMAT_INSTRUCTIONS, CORE_PROMPT |
-| `lib/promptBuilder.js` | ~170 | Level-based prompt assembly |
-| `lib/archetypes.js` | ~300 | Card data: ARCHETYPES, BOUNDS, AGENTS |
-| `lib/constants.js` | ~400 | STATUSES, CHANNELS, HOUSES, colors |
-| `lib/corrections.js` | ~540 | Correction system with lookup tables |
-| `lib/modes.js` | ~135 | Mode governance (Reflect/Discover/Forge/Explore) |
-| `lib/voice.js` | ~400 | 6-dimensional voice/stance system |
-| `lib/utils.js` | ~800 | Spread generation, encoding, parsing, formatDrawForAI |
-| `lib/spreads.js` | ~300 | Spread definitions |
-| `lib/teleology-utils.js` | ~200 | Words to the Whys grounding |
-| `lib/hotlinks.js` | ~150 | Clickable framework term rendering |
-| `lib/contentFilter.js` | ~100 | Post-processing content filtering |
-| `app/api/reading/route.js` | ~250 | Main API endpoint |
+|------|------:|---------|
+| `lib/mapAnalysis.js` | 1947 | Deterministic structural analysis harness |
+| `lib/supabase.js` | 1743 | Browser Supabase client + all queries |
+| `lib/prompts.js` | 1152 | BASE_SYSTEM, FORMAT_INSTRUCTIONS, CORE_PROMPT |
+| `lib/diagnosticTools.js` | 1137 | Tool-use diagnostic instruments |
+| `lib/corrections.js` | 569 | Correction geometry + lookup tables |
+| `lib/archetypes.js` | 529 | The 78 signatures (archetypes/bounds/agents) |
+| `lib/constants.js` | 437 | Houses, channels, statuses, groups, governance map |
+| `lib/personas.js` | 312 | Voice: 3 dials + length configs |
+| `lib/teleology-utils.js` | 308 | Words-to-the-Whys grounding |
+| `lib/postures.js` | 212 | Reflect/Discover/Forge/Integrate definitions |
+| `lib/promptBuilder.js` | 202 | System + user prompt assembly |
+| `lib/whyVector.js` | 190 | Why-moment algorithm |
+| `lib/neighborhoods_canon.js` | 204 | 16 consciousness states |
+| `lib/drawForAI.js` | 502 | AI self-reading (buildSingleReadingV9 + legacy) |
+| `app/page.js` | ~monolith | Main Reader UI + state |
+
+**Finding things:**
+- AI prompt content → `lib/prompts.js` (+ assembly in `lib/promptBuilder.js`)
+- Signature formatting for AI → `lib/utils.js:formatDrawForAI()`
+- Corrections → `lib/corrections.js`
+- Postures → `lib/postures.js` (legacy: `lib/modes.js`)
+- Voice → `lib/personas.js`
+- Structural math → `lib/mapAnalysis.js`
+- Visualization → start at `codemap/CODE_MAP_Visualization_MASTER.md`
 
 ---
 
-## Quick Reference: Finding Things
+## Changelog
 
-**"How do I change what the AI receives?"**
-→ `lib/prompts.js` (BASE_SYSTEM, FORMAT_INSTRUCTIONS)
-→ `lib/promptBuilder.js` (assembly)
-
-**"How do I change card formatting for AI?"**
-→ `lib/utils.js:formatDrawForAI()`
-
-**"How do corrections work?"**
-→ `lib/corrections.js` (lookup tables + getFullCorrection)
-
-**"How do modes enforce constraints?"**
-→ `lib/modes.js` (MODE_CONSTRAINTS)
-
-**"How do I change voice options?"**
-→ `lib/voice.js` (COMPLEXITY, VOICE, FOCUS, DENSITY, SCOPE, SERIOUSNESS)
-
-**"How is the response parsed?"**
-→ `lib/utils.js:parseReadingResponse()`
-
-**"Where is the main UI?"**
-→ `app/page.js` (monolithic ~6800 lines)
+**2026-06-22 (v0.99.139) — full refresh.** Rebuilt from the v0.74.12 (2026-01-23) draft against current code. Corrections vs. the old version:
+- **Voice system rewritten:** `lib/voice.js` (6 dimensions) no longer exists; replaced by `lib/personas.js` 3-dial system (persona / complexity / humor) + separate length configs.
+- **Modes → Postures:** the live system is `lib/postures.js` (Reflect/Discover/Forge/Integrate mapped to the process cycle); `lib/modes.js` is legacy.
+- **Added:** computation engine (mapAnalysis, diagnosticTools), neighborhoods, whyVector, teleology, Collective Pulse, community hub/chat, voice presets, email system, data layer, full route table with verified model IDs, visualization summary + `codemap/` cross-links, documentation map.
+- **Verified line counts** (several were inflated in the old draft and in interim surveys).
+- **Three.js:** now present (one view, `SealCanvas.js`); the `codemap/` "no Three.js" headline predates it.
+- Terminology aligned to current canon (Kindle/Passage/Intimacy/Underlie; signatures not cards).
