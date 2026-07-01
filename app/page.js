@@ -6110,6 +6110,21 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       }
                     }}
                   />
+                  {/* Use My History toggle — front-card so it's reachable before any reading */}
+                  <div className="flex items-center justify-end gap-2 mt-2 pr-1">
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-wider text-zinc-500"
+                      title="OFF: this reading ignores your past readings — use when reading for someone else"
+                    >
+                      Use my history
+                    </span>
+                    <button
+                      onClick={() => setIncludeHistory(!includeHistory)}
+                      className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border transition-colors ${includeHistory ? 'bg-cyan-500/10 border-cyan-500/60 text-cyan-400' : 'border-amber-500/60 bg-amber-500/10 text-amber-400'}`}
+                    >
+                      {includeHistory ? 'ON' : 'OFF'}
+                    </button>
+                  </div>
                 </div>
               )}
 
