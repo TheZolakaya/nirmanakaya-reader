@@ -6,6 +6,7 @@
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
 
 export async function POST(request) {
@@ -45,13 +46,9 @@ export async function POST(request) {
   // Convert system prompt to cached format for 90% input token savings
   // Guard against empty system prompt (can happen when loading saved readings)
   const effectiveSystem = system || 'You are the Nirmanakaya Reader — a consciousness architecture oracle. Generate synthesis content for this reading.';
-  const systemWithCache = [
-    {
-      type: "text",
-      text: effectiveSystem,
-      cache_control: { type: "ephemeral" }
-    }
-  ];
+  // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
+  // all users/settings), variable dial/persona parts ride uncached after it.
+  const systemWithCache = buildCachedSystem(effectiveSystem);
 
   // Adjust max tokens based on what we're generating (now includes whyAppeared)
   const maxTokens = isDeepening ? 4000 : 4000;
@@ -63,7 +60,7 @@ export async function POST(request) {
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
-        "anthropic-beta": "prompt-caching-2024-07-31"
+        "anthropic-beta": ANTHROPIC_BETA_HEADERS
       },
       body: JSON.stringify({
         model: effectiveModel,

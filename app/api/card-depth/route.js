@@ -12,6 +12,7 @@ import {
   getComponent
 } from '../../../lib/corrections.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 
 export async function POST(request) {
   const {
@@ -44,14 +45,9 @@ export async function POST(request) {
   // Prepend user journey context if available
   const userMessage = userContext ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
-  // Convert system prompt to cached format for 90% input token savings
-  const systemWithCache = [
-    {
-      type: "text",
-      text: system,
-      cache_control: { type: "ephemeral" }
-    }
-  ];
+  // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
+  // all users/settings), variable dial/persona parts ride uncached after it.
+  const systemWithCache = buildCachedSystem(system);
 
   // Token budget scales with reading length
   const LENGTH_TOKENS = { brief: 1500, standard: 4000, full: 12000 };
@@ -65,7 +61,7 @@ export async function POST(request) {
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
-        "anthropic-beta": "prompt-caching-2024-07-31"
+        "anthropic-beta": ANTHROPIC_BETA_HEADERS
       },
       body: JSON.stringify({
         model: effectiveModel,
@@ -134,7 +130,7 @@ export async function POST(request) {
             "Content-Type": "application/json",
             "x-api-key": process.env.ANTHROPIC_API_KEY,
             "anthropic-version": "2023-06-01",
-            "anthropic-beta": "prompt-caching-2024-07-31"
+            "anthropic-beta": ANTHROPIC_BETA_HEADERS
           },
           body: JSON.stringify({
             model: effectiveModel,

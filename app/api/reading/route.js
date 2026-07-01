@@ -8,6 +8,7 @@ import { ARCHETYPES } from '../../../lib/archetypes.js';
 import { STATUSES } from '../../../lib/constants.js';
 import { getComponent } from '../../../lib/corrections.js';
 import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
+import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from '../../../lib/cachedSystem.js';
 import { createClient } from '@supabase/supabase-js';
 
 // Server-side Supabase client for ban/throttle checks
@@ -198,15 +199,9 @@ export async function POST(request) {
     ? 4000
     : (max_tokens || 4000);
 
-  // Convert system prompt to cached format for 90% input token savings
-  // Cache lasts 5 minutes and refreshes on each use
-  const systemWithCache = [
-    {
-      type: "text",
-      text: system,
-      cache_control: { type: "ephemeral" }
-    }
-  ];
+  // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
+  // all users/settings), variable dial/persona parts ride uncached after it.
+  const systemWithCache = buildCachedSystem(system);
 
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -215,7 +210,7 @@ export async function POST(request) {
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
-        "anthropic-beta": "prompt-caching-2024-07-31"
+        "anthropic-beta": ANTHROPIC_BETA_HEADERS
       },
       body: JSON.stringify({
         model: effectiveModel,

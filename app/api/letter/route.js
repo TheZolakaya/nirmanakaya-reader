@@ -6,6 +6,7 @@
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
 
 export async function POST(request) {
@@ -34,14 +35,9 @@ export async function POST(request) {
   // Prepend user journey context if available (only for baseline, not deepening)
   const userMessage = (userContext && !previousContent) ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
-  // Convert system prompt to cached format for 90% input token savings
-  const systemWithCache = [
-    {
-      type: "text",
-      text: system,
-      cache_control: { type: "ephemeral" }
-    }
-  ];
+  // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
+  // all users/settings), variable dial/persona parts ride uncached after it.
+  const systemWithCache = buildCachedSystem(system);
 
   // Adjust max tokens based on depth
   const maxTokens = depth === 'deep' ? 800 : depth === 'swim' ? 500 : 400;
@@ -53,7 +49,7 @@ export async function POST(request) {
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
-        "anthropic-beta": "prompt-caching-2024-07-31"
+        "anthropic-beta": ANTHROPIC_BETA_HEADERS
       },
       body: JSON.stringify({
         model: effectiveModel,
