@@ -4,7 +4,7 @@
 // Each ping is a cheap cache read on ~6.5k tokens; without it, the first reading
 // after an idle hour pays a fresh cache write instead.
 
-import { BASE_SYSTEM } from '../../../lib/prompts.js';
+import { BASE_SYSTEM, getFormatInstructions } from '../../../lib/prompts.js';
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from '../../../lib/cachedSystem.js';
 
 export const dynamic = 'force-dynamic';
@@ -35,7 +35,10 @@ export async function GET(request) {
         body: JSON.stringify({
           model,
           max_tokens: 1,
-          system: buildCachedSystem(BASE_SYSTEM),
+          // Warm BASE_SYSTEM + the site-default 'standard' format block.
+          // One ping refreshes both cache breakpoints; other length variants
+          // pay their own (small) write at most once per idle hour.
+          system: buildCachedSystem(`${BASE_SYSTEM}\n\n${getFormatInstructions('standard')}`),
           messages: [{ role: 'user', content: 'ping' }]
         })
       });
