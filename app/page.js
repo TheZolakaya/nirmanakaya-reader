@@ -6096,22 +6096,24 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               )}
               {/* Saved Topics — always visible so "+ Save topic" works while typing */}
               {currentUser && !parsedReading && (
-                <div className="mt-2">
-                  <TopicBar
-                    currentUser={currentUser}
-                    activeTopic={activeTopic}
-                    question={question}
-                    onSelectTopic={(topic) => {
-                      setActiveTopic(topic);
-                      if (topic) {
-                        setQuestion(topic.label);
-                        setBorderFlashActive(true);
-                        setTimeout(() => setBorderFlashActive(false), 600);
-                      }
-                    }}
-                  />
-                  {/* Use My History toggle — front-card so it's reachable before any reading */}
-                  <div className="flex items-center justify-end gap-2 mt-2 pr-1">
+                <div className="mt-2 flex items-center gap-2">
+                  <div className="flex-1 min-w-0">
+                    <TopicBar
+                      currentUser={currentUser}
+                      activeTopic={activeTopic}
+                      question={question}
+                      onSelectTopic={(topic) => {
+                        setActiveTopic(topic);
+                        if (topic) {
+                          setQuestion(topic.label);
+                          setBorderFlashActive(true);
+                          setTimeout(() => setBorderFlashActive(false), 600);
+                        }
+                      }}
+                    />
+                  </div>
+                  {/* Use My History toggle — inline with Topics row, no extra height */}
+                  <div className="flex items-center gap-2 shrink-0">
                     <span
                       className="text-[10px] font-mono uppercase tracking-wider text-zinc-500"
                       title="OFF: this reading ignores your past readings — use when reading for someone else"
