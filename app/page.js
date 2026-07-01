@@ -1332,6 +1332,7 @@ export default function NirmanakaReader() {
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
   const [showArchitectureTerms, setShowArchitectureTerms] = useState(false); // V1: architecture visibility toggle
   const [readingLength, setReadingLength] = useState('standard'); // 'brief' | 'standard' | 'full'
+  const [includeHistory, setIncludeHistory] = useState(true); // OFF = fresh reading: no journey context injected (for QA or reading on behalf of someone else). Session-only, not persisted.
 
   // Apply config defaults to voice settings when config is loaded
   // ONLY if no saved preferences exist in localStorage (first-time users)
@@ -1955,8 +1956,10 @@ export default function NirmanakaReader() {
     setSystemPromptCache(systemPrompt);
 
     // Fetch user journey context for prompt enrichment (non-blocking for unauthenticated)
+    // Skipped entirely when Include History is OFF — keeps the account's journey
+    // out of readings run for someone else (or QA runs)
     let userContext = '';
-    if (currentUser) {
+    if (currentUser && includeHistory) {
       try {
         const session = await getSession();
         const token = session?.session?.access_token;
@@ -6332,6 +6335,19 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           {showArchitectureTerms ? 'ON' : 'OFF'}
                         </button>
                       </div>
+
+                      {/* Include History Toggle — OFF = fresh reading, no journey context */}
+                      {currentUser && (
+                        <div className="flex items-center justify-between mt-3 px-2">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400" title="OFF: this reading ignores your past readings — use when reading for someone else">Use My History</span>
+                          <button
+                            onClick={() => setIncludeHistory(!includeHistory)}
+                            className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1.5 rounded border transition-colors ${includeHistory ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400' : 'border-zinc-800 text-zinc-600 hover:text-zinc-400'}`}
+                          >
+                            {includeHistory ? 'ON' : 'OFF'}
+                          </button>
+                        </div>
+                      )}
                     </div>
 
                     {/* Model Selector + Token Display */}
