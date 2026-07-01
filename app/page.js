@@ -5034,7 +5034,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   <div class="section">
     <div style="text-align: center; color: #52525b; font-size: 0.75rem;">
       Tokens: ${tokenUsage.input_tokens?.toLocaleString()} in / ${tokenUsage.output_tokens?.toLocaleString()} out •
-      Cost: $${((tokenUsage.input_tokens * getModelPricing(selectedModel).input / 1000000) + (tokenUsage.output_tokens * getModelPricing(selectedModel).output / 1000000)).toFixed(4)}
+      Cost: $${(((tokenUsage.input_tokens || 0) * getModelPricing(selectedModel).input + (tokenUsage.cache_read_input_tokens || 0) * getModelPricing(selectedModel).input * 0.1 + (tokenUsage.cache_creation_input_tokens || 0) * getModelPricing(selectedModel).input * 2 + (tokenUsage.output_tokens || 0) * getModelPricing(selectedModel).output) / 1000000).toFixed(4)}
     </div>
   </div>` : ''}
 
@@ -8298,9 +8298,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         {/* Token Usage Display */}
         {showTokenUsage && tokenUsage && parsedReading && (
           <div className="text-center text-zinc-500 text-[0.625rem] mt-4">
-            Tokens: {tokenUsage.input_tokens?.toLocaleString()} in / {tokenUsage.output_tokens?.toLocaleString()} out • Cost: ${(
-              (tokenUsage.input_tokens * getModelPricing(selectedModel).input / 1000000) +
-              (tokenUsage.output_tokens * getModelPricing(selectedModel).output / 1000000)
+            Tokens: {tokenUsage.input_tokens?.toLocaleString()} in / {tokenUsage.output_tokens?.toLocaleString()} out
+            {((tokenUsage.cache_read_input_tokens || 0) > 0 || (tokenUsage.cache_creation_input_tokens || 0) > 0) && (
+              <> • Cache: {(tokenUsage.cache_read_input_tokens || 0).toLocaleString()} read / {(tokenUsage.cache_creation_input_tokens || 0).toLocaleString()} written</>
+            )}
+            {' '}• Cost: ${(
+              // Cache-aware pricing: uncached input full rate, cache reads 10%, cache writes 2x (1h TTL)
+              ((tokenUsage.input_tokens || 0) * getModelPricing(selectedModel).input +
+               (tokenUsage.cache_read_input_tokens || 0) * getModelPricing(selectedModel).input * 0.1 +
+               (tokenUsage.cache_creation_input_tokens || 0) * getModelPricing(selectedModel).input * 2 +
+               (tokenUsage.output_tokens || 0) * getModelPricing(selectedModel).output) / 1000000
             ).toFixed(4)} ({getModelLabel(selectedModel).split(' ')[0]})
 {/* V3: Translation usage display removed */}
           </div>
