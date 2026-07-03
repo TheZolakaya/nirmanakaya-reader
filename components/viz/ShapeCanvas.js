@@ -1,30 +1,30 @@
 'use client';
 // components/viz/ShapeCanvas.js
-// THE SIGNATURE SHAPE GRAMMAR — prototype (/shape)
+// THE CARD — container + story (/shape, v2)
 //
-// Shapes are DERIVED, not designed. Each manifest archetype's body is generated
-// from its five-part canonical address (spec: SPEC_Signature_Shape_Grammar_2026-07-02):
-//   Being      → base form   (Mantle shell · Kindle radiant core · Vessel cup · Passage ring)
-//   Activity   → motion      (Intent pulse · Cognition orbit · Resonance wave · Structure stillness)
-//   Identity   → material    (Composure matte · Conviction facets · Exploration wireframe · Intimacy translucent)
-//   Practice   → color       (element-true, lib/viz/palette.js)
-//   Stage      → life-phase  (Seed compact → Feedback return-loop)
-// Status is rendered, never labeled (Balanced / Too Much / Too Little / Unacknowledged).
+// Chris's synthesis (2026-07-02): "why can't both be right?"
+//   CONTAINER = the architecture. A glass SQUARE PYRAMID — four faces for the four
+//   dimensions (Practice/Activity/Being/Identity), apex = the Why (Gestalt).
+//   Four around One — the quincunx (deck slides 54-57, the Sunstone).
+//   The container carries the STATUS: clear / running hot / fogged / one face dark.
+//   INTERIOR = the story. A meaning-first low-poly scene anyone can read
+//   (Fortitude = the mountain). Scenes are chosen by MEANING (Chris's ear),
+//   the address grammar renders them (color/motion/material/life-phase).
 //
-// Addresses verified against lib/constants.js BEING_GROUPS / IDENTITY_GROUPS (Latin squares).
+// v2 status: Fortitude (8) has its real scene; the other 15 carry placeholder
+// interiors from the v1 grammar until their scenes are chosen.
+// Addresses verified against lib/constants.js BEING_GROUPS / IDENTITY_GROUPS.
 
 import { useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, AdaptiveDpr } from '@react-three/drei';
+import { OrbitControls, AdaptiveDpr, Edges } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { ELEMENT_COLORS, HOUSE_ELEMENT, VIZ_BG, VIZ_INK, VIZ_DIM } from '../../lib/viz/palette.js';
-import { DIMENSION_VERBS, BEING_GROUPS, IDENTITY_GROUPS } from '../../lib/constants.js';
+import { DIMENSION_VERBS } from '../../lib/constants.js';
 import { ARCHETYPES } from '../../lib/archetypes.js';
 
 // The 16 canonical addresses (Practice · Activity · Being · Identity · Stage).
-// Source of truth: lib/constants.js group tables; hardcoded here for render speed,
-// cross-checked in the spec. Latin square: Being×Identity intersections ARE the 16.
 const ADDRESSES = {
   2:  { practice: 'Spirit',  activity: 'Cognition', being: 'Kindle',  identity: 'Conviction',  stage: 'Seed'     },
   3:  { practice: 'Spirit',  activity: 'Structure', being: 'Vessel',  identity: 'Intimacy',    stage: 'Medium'   },
@@ -45,8 +45,6 @@ const ADDRESSES = {
 };
 const MANIFEST_IDS = Object.keys(ADDRESSES).map(Number);
 
-const STAGE_SCALE = { Seed: 0.62, Medium: 0.82, Fruition: 1.0, Feedback: 1.0 };
-
 const STATUSES = [
   { key: 'balanced',       label: 'Balanced' },
   { key: 'tooMuch',        label: 'Too Much' },
@@ -54,215 +52,172 @@ const STATUSES = [
   { key: 'unacknowledged', label: 'Unacknowledged' },
 ];
 
-// ---------- material by Identity ----------
-function useIdentityMaterial(identity, color, status) {
-  return useMemo(() => {
-    const c = new THREE.Color(color);
-    const dim = status === 'tooLittle' || status === 'unacknowledged';
-    if (dim) c.multiplyScalar(0.45);
-    const hot = status === 'tooMuch';
-    const base = {
-      color: c,
-      emissive: c.clone().multiplyScalar(hot ? 0.9 : dim ? 0.08 : 0.3),
-      roughness: 0.9, metalness: 0.05, flatShading: false,
-      transparent: false, opacity: 1,
-    };
-    if (identity === 'Conviction')  { base.flatShading = true; base.metalness = 0.6; base.roughness = 0.25; }
-    if (identity === 'Exploration') { base.roughness = 0.7; base.metalness = 0.2; base.flatShading = true; }
-    if (identity === 'Intimacy')    { base.transparent = true; base.opacity = 0.55; base.roughness = 0.4;
-                                      base.emissive = c.clone().multiplyScalar(hot ? 1.0 : 0.45); }
-    return base;
-  }, [identity, color, status]);
-}
+// Pyramid dimensions (the container)
+const PYR_R = 1.5;   // base "radius" (center to corner)
+const PYR_H = 2.2;   // height
 
-// ---------- base form by Being ----------
-function BeingForm({ being, identity, color, status }) {
-  const mat = useIdentityMaterial(identity, color, status);
-  const wire = identity === 'Exploration';
-  const inner = new THREE.Color(color).multiplyScalar(status === 'tooLittle' ? 0.5 : 1.4);
-
-  if (being === 'Mantle') {
-    // shell around a core: force beneath the surface
-    return (
-      <group>
-        <mesh>
-          <icosahedronGeometry args={[1, wire ? 1 : 2]} />
-          <meshStandardMaterial {...mat} transparent opacity={identity === 'Intimacy' ? 0.4 : 0.55} side={THREE.DoubleSide} />
-        </mesh>
-        {wire && (
-          <mesh scale={1.001}>
-            <icosahedronGeometry args={[1, 1]} />
-            <meshBasicMaterial color={color} wireframe transparent opacity={0.5} />
-          </mesh>
-        )}
-        <mesh scale={0.5}>
-          <icosahedronGeometry args={[1, 1]} />
-          <meshStandardMaterial color={inner} emissive={inner} emissiveIntensity={1.4} />
-        </mesh>
-      </group>
-    );
-  }
-
-  if (being === 'Kindle') {
-    // radiant core: light passes through the carrier
-    return (
-      <group>
-        <mesh>
-          <octahedronGeometry args={[0.85, wire ? 0 : 1]} />
-          <meshStandardMaterial {...mat} emissiveIntensity={status === 'tooMuch' ? 2.2 : 1.3} />
-        </mesh>
-        {wire && (
-          <mesh scale={1.002}>
-            <octahedronGeometry args={[0.85, 0]} />
-            <meshBasicMaterial color={color} wireframe transparent opacity={0.55} />
-          </mesh>
-        )}
-        <mesh scale={1.25}>
-          <octahedronGeometry args={[0.85, 1]} />
-          <meshBasicMaterial color={inner} transparent opacity={0.12} />
-        </mesh>
-        <pointLight color={color} intensity={status === 'tooMuch' ? 6 : 3} distance={8} />
-      </group>
-    );
-  }
-
-  if (being === 'Vessel') {
-    // open cup holding a float: form that contains
-    const points = [];
-    for (let i = 0; i <= 20; i++) {
-      const t = i / 20;
-      points.push(new THREE.Vector2(0.25 + 0.75 * Math.pow(t, 0.65), -0.8 + 1.6 * t));
-    }
-    return (
-      <group>
-        <mesh>
-          <latheGeometry args={[points, wire ? 12 : 40]} />
-          <meshStandardMaterial {...mat} side={THREE.DoubleSide} />
-        </mesh>
-        {wire && (
-          <mesh scale={1.002}>
-            <latheGeometry args={[points, 12]} />
-            <meshBasicMaterial color={color} wireframe transparent opacity={0.4} />
-          </mesh>
-        )}
-        <mesh position={[0, 0.45, 0]} scale={0.3}>
-          <icosahedronGeometry args={[1, 1]} />
-          <meshStandardMaterial color={inner} emissive={inner} emissiveIntensity={1.2} />
-        </mesh>
-      </group>
-    );
-  }
-
-  // Passage: the ring — density gives way, you can see through
-  return (
-    <group>
-      <mesh rotation={[Math.PI / 2 - 0.35, 0, 0]}>
-        <torusGeometry args={[0.85, 0.24, wire ? 8 : 24, wire ? 24 : 64]} />
-        <meshStandardMaterial {...mat} />
-      </mesh>
-      {wire && (
-        <mesh rotation={[Math.PI / 2 - 0.35, 0, 0]} scale={1.002}>
-          <torusGeometry args={[0.85, 0.24, 8, 24]} />
-          <meshBasicMaterial color={color} wireframe transparent opacity={0.5} />
-        </mesh>
-      )}
-      <PassingLight color={inner} />
-    </group>
-  );
-}
-
-// small sphere that passes through the Passage aperture
-function PassingLight({ color }) {
-  const ref = useRef();
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    const z = Math.sin(t * 0.9) * 1.6;
-    if (ref.current) {
-      ref.current.position.set(0, z * 0.33, z);
-      ref.current.scale.setScalar(0.14 * (1 - Math.abs(Math.sin(t * 0.9)) * 0.4));
-    }
-  });
-  return (
-    <mesh ref={ref}>
-      <sphereGeometry args={[1, 12, 12]} />
-      <meshBasicMaterial color={color} transparent opacity={0.85} />
-    </mesh>
-  );
-}
-
-// Cognition satellites
-function Satellites({ color }) {
-  const ref = useRef();
-  useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = clock.getElapsedTime() * 0.9;
-  });
-  return (
-    <group ref={ref}>
-      {[0, 1, 2].map((i) => (
-        <mesh key={i} position={[
-          Math.cos((i / 3) * Math.PI * 2) * 1.5, Math.sin(i * 2.1) * 0.25,
-          Math.sin((i / 3) * Math.PI * 2) * 1.5]} scale={0.12}>
-          <octahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.8} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-// dark twin for Unacknowledged
-function DarkTwin({ being }) {
-  const geo = being === 'Kindle' ? <octahedronGeometry args={[0.85, 1]} />
-    : being === 'Passage' ? <torusGeometry args={[0.85, 0.24, 16, 48]} />
-    : <icosahedronGeometry args={[1, 2]} />;
-  const rot = being === 'Passage' ? [Math.PI / 2 - 0.35, 0, 0] : [0, 0, 0];
-  return (
-    <mesh position={[0.45, 0.3, -1.1]} scale={1.08} rotation={rot}>
-      {geo}
-      <meshStandardMaterial color="#000000" roughness={1} transparent opacity={0.82} />
-    </mesh>
-  );
-}
-
-// ---------- the assembled signature: motion (Activity) + life-phase (Stage) + status ----------
-function Signature({ id, status }) {
-  const addr = ADDRESSES[id];
-  const color = ELEMENT_COLORS[HOUSE_ELEMENT[addr.practice]];
+// ============================================================
+// THE CONTAINER — glass square pyramid; four faces, apex Why.
+// Status lives HERE: clear / hot / fogged / one face dark.
+// ============================================================
+function Container({ color, status, children }) {
   const group = useRef();
-  const base = STAGE_SCALE[addr.stage]
-    * (status === 'tooMuch' ? 1.22 : status === 'tooLittle' ? 0.72 : 1);
+  const glassRef = useRef();
 
   useFrame(({ clock }) => {
     const g = group.current; if (!g) return;
     const t = clock.getElapsedTime();
-    let s = base, x = 0, y = 0, rotY = t * 0.15, rotZ = 0;
-
-    // Activity → motion
-    if (addr.activity === 'Intent')      { s *= 1 + Math.sin(t * 4.2) * 0.05 + Math.sin(t * 9.1) * 0.015; rotY = t * 0.45; }
-    if (addr.activity === 'Cognition')   { rotY = t * 0.7; }
-    if (addr.activity === 'Resonance')   { y = Math.sin(t * 1.1) * 0.12; rotZ = Math.sin(t * 0.7) * 0.08; s *= 1 + Math.sin(t * 1.1) * 0.02; }
-    if (addr.activity === 'Structure')   { rotY = t * 0.06; y = Math.sin(t * 0.4) * 0.02; }
-
-    // Stage → Feedback return-loop drift
-    if (addr.stage === 'Feedback') { x = Math.cos(t * 0.5) * 0.18; y += Math.sin(t * 0.5) * 0.18; }
-
-    // Status → strain / flicker
-    if (status === 'tooMuch')   { rotZ += Math.sin(t * 13) * 0.02; s *= 1 + Math.sin(t * 11) * 0.02; }
-    if (status === 'tooLittle') { s *= 1 + Math.sin(t * 0.9) * 0.03; }
-
+    let s = 1, rotY = t * 0.22, rotZ = 0;
+    if (status === 'tooMuch')   { s = 1.1 + Math.sin(t * 10) * 0.015; rotZ = Math.sin(t * 12) * 0.012; rotY = t * 0.38; }
+    if (status === 'tooLittle') { s = 0.86 + Math.sin(t * 0.8) * 0.01; rotY = t * 0.1; }
     g.scale.setScalar(s);
-    g.position.set(x, y, 0);
     g.rotation.y = rotY; g.rotation.z = rotZ;
   });
 
+  const hot = status === 'tooMuch';
+  const fog = status === 'tooLittle';
+  const edgeColor = hot ? '#ffb03c' : fog ? '#39404f' : color;
+
+  return (
+    <group ref={group}>
+      {/* glass faces */}
+      <mesh ref={glassRef}>
+        <coneGeometry args={[PYR_R, PYR_H, 4, 1, true]} />
+        <meshPhysicalMaterial color={hot ? '#ff5a3c' : fog ? '#626b7a' : color}
+          transparent opacity={fog ? 0.38 : hot ? 0.2 : 0.1}
+          roughness={fog ? 0.9 : 0.12} metalness={0.05} side={THREE.DoubleSide} depthWrite={false} />
+        <Edges scale={1.001} threshold={1}>
+          <lineBasicMaterial color={edgeColor} transparent opacity={hot ? 1 : 0.85} />
+        </Edges>
+      </mesh>
+      {/* base */}
+      <mesh position={[0, -PYR_H / 2, 0]} rotation={[-Math.PI / 2, Math.PI / 4, 0]}>
+        <circleGeometry args={[PYR_R, 4]} />
+        <meshStandardMaterial color="#0b0e16" transparent opacity={0.9} side={THREE.DoubleSide} />
+        <Edges scale={1.001}><lineBasicMaterial color={edgeColor} transparent opacity={0.6} /></Edges>
+      </mesh>
+      {/* the Why — apex light */}
+      <mesh position={[0, PYR_H / 2 + 0.12, 0]} scale={0.07}>
+        <sphereGeometry args={[1, 12, 12]} />
+        <meshBasicMaterial color={status === 'unacknowledged' ? '#3a3f4d' : '#ffffff'} />
+      </mesh>
+      {!fog && status !== 'unacknowledged' && (
+        <pointLight position={[0, PYR_H / 2 + 0.1, 0]} color="#ffffff" intensity={1.2} distance={5} />
+      )}
+      {/* Unacknowledged: one face goes dark and shadows the interior */}
+      {status === 'unacknowledged' && <DarkFace />}
+      {/* the story, seated inside */}
+      <group position={[0, -PYR_H / 2 + 0.08, 0]} scale={fog ? 0.5 : 0.58}>
+        {children}
+      </group>
+    </group>
+  );
+}
+
+// one darkened face of the pyramid (apex + two adjacent base corners)
+function DarkFace() {
+  const geo = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    const apex = [0, PYR_H / 2, 0];
+    const a = [0, -PYR_H / 2, PYR_R];
+    const b = [PYR_R, -PYR_H / 2, 0];
+    g.setAttribute('position', new THREE.Float32BufferAttribute([...apex, ...a, ...b], 3));
+    g.computeVertexNormals();
+    return g;
+  }, []);
+  return (
+    <mesh geometry={geo} scale={1.015}>
+      <meshStandardMaterial color="#000000" transparent opacity={0.88} side={THREE.DoubleSide} roughness={1} />
+    </mesh>
+  );
+}
+
+// ============================================================
+// THE STORY — meaning-first interior scenes.
+// Fortitude (8): the mountain. Others: placeholder grammar forms until chosen.
+// ============================================================
+function MountainScene({ status }) {
+  const gold = ELEMENT_COLORS.Earth;
+  const dim = status === 'tooLittle' || status === 'unacknowledged';
+  const main = new THREE.Color(gold); if (dim) main.multiplyScalar(0.4);
+  const rock = main.clone().multiplyScalar(0.75);
+  const jag = status === 'tooMuch' ? 1.35 : 1; // Too Much: over-towering
+
   return (
     <group>
-      <group ref={group}>
-        <BeingForm being={addr.being} identity={addr.identity} color={color} status={status} />
-        {addr.activity === 'Cognition' && <Satellites color={color} />}
-      </group>
-      {status === 'unacknowledged' && <DarkTwin being={addr.being} />}
+      {/* main peak */}
+      <mesh position={[0, 0.85 * jag, 0]} scale={[1, jag, 1]}>
+        <coneGeometry args={[0.95, 1.7, 6]} />
+        <meshStandardMaterial color={main} flatShading roughness={0.95}
+          emissive={main} emissiveIntensity={dim ? 0.03 : 0.12} />
+      </mesh>
+      {/* snow cap */}
+      <mesh position={[0, 1.42 * jag, 0]} scale={[1, jag, 1]}>
+        <coneGeometry args={[0.34, 0.55, 6]} />
+        <meshStandardMaterial color={dim ? '#3c3f47' : '#f5f2e8'} flatShading roughness={0.8} />
+      </mesh>
+      {/* shoulder peak */}
+      <mesh position={[0.75, 0.45, -0.25]}>
+        <coneGeometry args={[0.5, 0.9, 5]} />
+        <meshStandardMaterial color={rock} flatShading roughness={0.95} />
+      </mesh>
+      {/* foothill */}
+      <mesh position={[-0.7, 0.28, 0.3]}>
+        <coneGeometry args={[0.42, 0.56, 5]} />
+        <meshStandardMaterial color={rock} flatShading roughness={0.95} />
+      </mesh>
+      {/* ground */}
+      <mesh rotation={[-Math.PI / 2, 0, Math.PI / 4]} position={[0, 0.01, 0]}>
+        <circleGeometry args={[2.2, 4]} />
+        <meshStandardMaterial color={dim ? '#14161c' : '#232018'} roughness={1} />
+      </mesh>
     </group>
+  );
+}
+
+// v1 grammar forms, kept as placeholder interiors until each scene is chosen
+function PlaceholderForm({ id, status }) {
+  const addr = ADDRESSES[id];
+  const color = ELEMENT_COLORS[HOUSE_ELEMENT[addr.practice]];
+  const ref = useRef();
+  const dim = status === 'tooLittle' || status === 'unacknowledged';
+  const c = new THREE.Color(color); if (dim) c.multiplyScalar(0.45);
+
+  useFrame(({ clock }) => {
+    const g = ref.current; if (!g) return;
+    const t = clock.getElapsedTime();
+    let s = 1;
+    if (addr.activity === 'Intent')    s = 1 + Math.sin(t * 4) * 0.05;
+    if (addr.activity === 'Resonance') g.position.y = 1 + Math.sin(t * 1.1) * 0.1;
+    g.rotation.y = t * (addr.activity === 'Cognition' ? 0.8 : 0.2);
+    g.scale.setScalar(s);
+  });
+
+  const geo = addr.being === 'Kindle' ? <octahedronGeometry args={[0.8, 0]} />
+    : addr.being === 'Passage' ? <torusGeometry args={[0.7, 0.2, 16, 48]} />
+    : addr.being === 'Vessel' ? <cylinderGeometry args={[0.75, 0.4, 1, 5, 1, true]} />
+    : <icosahedronGeometry args={[0.8, 0]} />;
+
+  return (
+    <group ref={ref} position={[0, 1, 0]}>
+      <mesh>
+        {geo}
+        <meshStandardMaterial color={c} flatShading roughness={0.6}
+          emissive={c} emissiveIntensity={dim ? 0.1 : 0.5}
+          side={THREE.DoubleSide}
+          transparent={addr.identity === 'Intimacy'} opacity={addr.identity === 'Intimacy' ? 0.6 : 1} />
+      </mesh>
+    </group>
+  );
+}
+
+function Card({ id, status }) {
+  const addr = ADDRESSES[id];
+  const color = ELEMENT_COLORS[HOUSE_ELEMENT[addr.practice]];
+  return (
+    <Container color={color} status={status}>
+      {id === 8 ? <MountainScene status={status} /> : <PlaceholderForm id={id} status={status} />}
+    </Container>
   );
 }
 
@@ -278,9 +233,9 @@ function addressSentence(id) {
 }
 
 export default function ShapeCanvas() {
-  const [id, setId] = useState(7); // Drive — the Chariot charges
+  const [id, setId] = useState(8); // Fortitude — the mountain (first real scene)
   const [status, setStatus] = useState('balanced');
-  const [depth, setDepth] = useState(0); // text pyramid: 0 name, 1 address, 2 description
+  const [depth, setDepth] = useState(0);
   const arch = ARCHETYPES[id] || {};
   const addr = ADDRESSES[id];
   const color = ELEMENT_COLORS[HOUSE_ELEMENT[addr.practice]];
@@ -288,14 +243,14 @@ export default function ShapeCanvas() {
   return (
     <div style={{ position: 'fixed', inset: 0, background: VIZ_BG, overflow: 'hidden',
       fontFamily: 'ui-monospace, Menlo, monospace', userSelect: 'none' }}>
-      <Canvas camera={{ position: [0, 0.4, 4.2], fov: 45 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 0.8, 5.2], fov: 45 }} dpr={[1, 2]}>
         <color attach="background" args={[VIZ_BG]} />
-        <ambientLight intensity={0.35} />
-        <directionalLight position={[3, 4, 5]} intensity={1.1} />
-        <directionalLight position={[-4, -2, -3]} intensity={0.25} color="#8899ff" />
-        <Signature id={id} status={status} />
-        <OrbitControls enablePan={false} minDistance={2.2} maxDistance={8} />
-        <EffectComposer><Bloom intensity={0.7} luminanceThreshold={0.35} mipmapBlur /></EffectComposer>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[3, 5, 4]} intensity={1.2} />
+        <directionalLight position={[-4, -1, -3]} intensity={0.25} color="#8899ff" />
+        <Card id={id} status={status} />
+        <OrbitControls enablePan={false} minDistance={3} maxDistance={9} target={[0, 0.1, 0]} />
+        <EffectComposer><Bloom intensity={0.6} luminanceThreshold={0.4} mipmapBlur /></EffectComposer>
         <AdaptiveDpr pixelated />
       </Canvas>
 
@@ -351,7 +306,7 @@ export default function ShapeCanvas() {
 
       <div style={{ position: 'absolute', top: 14, left: 0, right: 0, textAlign: 'center',
         fontSize: 10, letterSpacing: '.3em', color: '#3a4152' }}>
-        THE SHAPE GRAMMAR — DERIVED, NOT DESIGNED
+        THE CARD — FOUR FACES AROUND THE WHY
       </div>
     </div>
   );
