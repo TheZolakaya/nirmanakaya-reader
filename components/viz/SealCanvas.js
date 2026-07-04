@@ -56,15 +56,20 @@ setHouse(HOUSE.Spirit,  { 2:[0,D], 18:[D,0], 17:[0,-D], 3:[-D,0] });
 setHouse(HOUSE.Soul,    { 20:[-DD,DD], 19:[DD,DD], 0:[-DD,-DD], 1:[DD,-DD] });
 MAP_POS[10] = [0, 5.9, 0]; MAP_POS[21] = [0, -5.8, 0];
 
-// AXIS / SOURCE PATTERN — the 1991 "first unfolding", laid on its side:
-// ten fundamental nodes on a horizontal spine; each carries a vertical pair summing to 20
-// (bottom id c, top id 20−c). Wheel(10)=Creator at the right hinge, World(21)=Creation at the left.
-const AX_GAP = 0.95, AX_ROW = 1.6, AX_END = 1.5;
+// AXIS / SOURCE PATTERN — the 1991 "first unfolding":
+// ten fundamental nodes on a horizontal spine BETWEEN the two transcendent poles —
+// the Wheel (Creator, "all that could be") hovering ABOVE, the World (Creation, "all that is") BELOW.
+// The poles' gravity draws the two faces out of every node: the return arm (11–20) rises toward
+// the Wheel, the descent arm (0–9) reaches toward the World. Vertical pairs sum to 20 — same node, both pulls.
+const AX_GAP = 0.95, AX_ROW = 1.6, AX_POLE = 3.7;
 const axCol = (c) => (c - 4.5) * AX_GAP;     // column c = 0..9, left → right
 const AXIS_POS = {};
 for (let c = 0; c <= 9; c++) { AXIS_POS[c] = [axCol(c), -AX_ROW, 0]; AXIS_POS[20 - c] = [axCol(c), AX_ROW, 0]; }
-AXIS_POS[10] = [axCol(9) + AX_END, 0, 0];    // Wheel / Creator — right hinge
-AXIS_POS[21] = [axCol(0) - AX_END, 0, 0];    // World / Creation — left hinge
+AXIS_POS[10] = [0, AX_POLE, 0];              // Wheel / Creator — the pole above
+AXIS_POS[21] = [0, -AX_POLE, 0];             // World / Creation — the pole below
+const AX_COL_OF = (id) => (id <= 9 ? id : 20 - id);   // which spine column an archetype belongs to
+// gravity ease — drawn out with a slight overshoot, like being pulled free
+const easeOutBack = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
 const FN_AXIS = {}; for (let N = 1; N <= 10; N++) FN_AXIS[N] = [axCol(10 - N), 0, 0];  // node N at col 10−N (node 1 by the Wheel)
 // each fundamental node sources two signatures: node k → left (10−k) and right (10+k)
 const ARCH_NODE = {};
@@ -113,7 +118,7 @@ const CUBE_VIEWS = new Set(['iam', 'first', 'four', 'ten']);   // the transcende
 const SPHERE_VIEWS = new Set(['map', 'axis', 'seal']);          // in manifestation they become spheres
 const flatZ = { iam: 8, first: 8, four: 8, spiral: 12, ten: 11, map: 14, axis: 13.5, grid: 11 };
 // content extents per state (scene units, incl. label margin) → fit the camera to any screen/aspect
-const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, spiral: { w: 7.5, h: 7 }, ten: { w: 8, h: 6 }, axis: { w: 13, h: 5.5 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
+const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, spiral: { w: 7.5, h: 7 }, ten: { w: 8, h: 6 }, axis: { w: 11, h: 9.4 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
 // THE TWO PORTALS — Source ("everything that could be") above and Creation ("everything that is")
 // below FRAME every derivation state, not just the manifest ones. They sit just outside the content,
 // faint during the unfolding and full at axis/map/seal — so the whole climb reads as happening between them.
@@ -213,8 +218,10 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     viewT.current += dt;
     const m = ease(morph.current);
     const ok = Math.min(1, dt * 3.2); // opacity ease
-    // axis: the pillar forms first (morph m), then after a beat the 20 emerge (axisEmerge)
+    // axis: the spine forms first (morph m), then after a beat the poles' gravity draws the 20 out —
+    // staggered column by column (left → right), with a slight overshoot: pulled free, then settling
     const axisEmerge = view === 'axis' ? ease(clamp01((viewT.current - AXIS_PAUSE) / AXIS_EMERGE)) : 0;
+    const axRaw = (id) => view === 'axis' ? clamp01((viewT.current - AXIS_PAUSE - AX_COL_OF(id) * 0.12) / AXIS_EMERGE) : 0;
     const tenPhase = (viewT.current * 0.5) % 4;          // the Ten's traveling light
     const tenActiveStage = Math.floor(tenPhase);
     const flat = !ORBIT_VIEWS.has(view);
@@ -224,8 +231,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       const me = manifest.current[id]; if (!me) return;
       if (view === 'axis') {
         const N = fnode.current[ARCH_NODE[id]]?.position; const tg = AXIS_POS[id];
-        if (N) me.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
-        me.material.opacity = approach(me.material.opacity, axisEmerge, ok);
+        const r = axRaw(id), em = r <= 0 ? 0 : easeOutBack(r);   // gravity: pulled free with overshoot
+        if (N) me.position.set(N.x + (tg[0] - N.x) * em, N.y + (tg[1] - N.y) * em, N.z + (tg[2] - N.z) * em);
+        me.material.opacity = approach(me.material.opacity, r, ok);
       } else {
         const tg = manifestPos(id, t); tmpT.set(tg[0], tg[1], tg[2]);
         me.position.lerpVectors(fromM[id], tmpT, m);
@@ -238,7 +246,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       const grp = gestalt.current[id]; if (!grp) return;
       if (view === 'axis') {
         const N = fnode.current[ARCH_NODE[id]]?.position; const tg = AXIS_POS[id];
-        if (N) grp.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
+        const r = axRaw(id), em = r <= 0 ? 0 : easeOutBack(r);
+        if (N) grp.position.set(N.x + (tg[0] - N.x) * em, N.y + (tg[1] - N.y) * em, N.z + (tg[2] - N.z) * em);
       } else {
         const tg = gestaltPos(id, t); tmpT.set(tg[0], tg[1], tg[2]);
         grp.position.lerpVectors(fromG[id], tmpT, m);
@@ -279,8 +288,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     // source core — in the axis it emerges from the top of the pillar, synced with the rest
     if (sourceGrp.current) {
       if (view === 'axis') {
-        const N = fnode.current[1]?.position; const tg = AXIS_POS[10];
-        if (N) sourceGrp.current.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
+        // the Creator pole rises from the spine's center to its station above — the pull made visible
+        const tg = AXIS_POS[10];
+        sourceGrp.current.position.set(tg[0] * axisEmerge, tg[1] * axisEmerge, 0);
       } else {
         const tg = sourcePos(); tmpT.set(tg[0], tg[1], tg[2]);
         sourceGrp.current.position.lerpVectors(fromSrc, tmpT, m);
@@ -388,8 +398,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     const k = Math.min(1, dt * 2.2);
     if (creationRingGrp.current) {
       if (view === 'axis') {
-        const N = fnode.current[10]?.position; const tg = AXIS_POS[21];
-        if (N) creationRingGrp.current.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
+        const tg = AXIS_POS[21];   // the Creation pole descends from the spine's center to its station below
+        creationRingGrp.current.position.set(tg[0] * axisEmerge, tg[1] * axisEmerge, 0);
         creationRingGrp.current.scale.setScalar(0.066 * (1 + Math.sin(t * 1.1) * 0.04));
         creationRingGrp.current.children.forEach((c) => { if (c.material && c.userData.base != null) c.material.opacity = c.userData.base * axisEmerge; });
       } else {
@@ -404,8 +414,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     if (creationRipple.current) { const T = 4.5, ph = (t % T) / T; creationRipple.current.scale.setScalar(1 + ph * 0.42); creationRipple.current.material.opacity = 0.24 * (1 - ph) * (view === 'seal' ? 1 : 0); }
     if (creationNode.current) {
       if (view === 'axis') {
-        const N = fnode.current[10]?.position; const tg = AXIS_POS[21];
-        if (N) creationNode.current.position.set(N.x + (tg[0] - N.x) * axisEmerge, N.y + (tg[1] - N.y) * axisEmerge, N.z + (tg[2] - N.z) * axisEmerge);
+        const tg = AXIS_POS[21];
+        creationNode.current.position.set(tg[0] * axisEmerge, tg[1] * axisEmerge, 0);
         creationNode.current.material.opacity = approach(creationNode.current.material.opacity, axisEmerge, ok);
       } else {
         const tg = view === 'map' ? MAP_POS[21] : FRAME_VIEWS.has(view) ? [0, -portalY(view), 0] : [0, 0, 0];
@@ -437,7 +447,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   const showFnLabels = view === 'ten' || view === 'axis';
   const [labelsOn, setLabelsOn] = useState(true);
   useEffect(() => {
-    if (view === 'axis') { setLabelsOn(false); const id = setTimeout(() => setLabelsOn(true), (AXIS_PAUSE + AXIS_EMERGE) * 1000 + 150); return () => clearTimeout(id); }
+    if (view === 'axis') { setLabelsOn(false); const id = setTimeout(() => setLabelsOn(true), (AXIS_PAUSE + AXIS_EMERGE + 9 * 0.12) * 1000 + 150); return () => clearTimeout(id); }
     setLabelsOn(true);
   }, [view]);
   // The Four steps Seed → Medium → Fruition → Feedback; only the active stage lights up
@@ -611,11 +621,11 @@ const VIEWS = [
   { id: 'first', label: 'First Node', sub: 'the echo', cap: 'To know itself, awareness turns back on itself: "I Am" and its return, "Why Am I?". One polarity — it can pulse back and forth forever, but with only two poles it reflects, never becomes. An echo.' },
   { id: 'four', label: 'The Four', sub: 'four from one', cap: 'A second polarity crosses the first, opening a middle and an end. Now the loop can travel: I Am → What Am I? → I Am This → Why Am I? — and the last seeds the next. Four stages: the minimum complete cycle, the engine beneath all process.' },
   { id: 'spiral', label: 'The Spiral', sub: 'the loop opens', cap: 'Feedback doesn’t return to the same Seed — it seeds the next one a step out. So the closed loop becomes a climb: Seed → Medium → Fruition → Feedback, each turn wider than the last, rising toward Source and trailing Creation below. The first turn of the self-similar expansion that builds everything.' },
-  { id: 'ten', label: 'The Ten', sub: 'four, quantified', cap: 'The four are transcendent — the Soul, beyond manifestation (the cubes). To render them measurable takes ten fundamental nodes (the white spheres): Seed 1, Medium 2, Fruition 3, Feedback 4. The ten quantify the four.' },
-  { id: 'axis', label: 'Axis', sub: 'the first unfolding', cap: 'The 1991 first unfolding, laid on its side: ten fundamental nodes on a horizontal spine, each carrying a vertical pair that sums to 20 (bottom 0–9, top 11–20). The Wheel — Creator — is the right hinge; the World — Creation — the left. This flattened circle is the lemniscate, and the seed of the whole map.' },
-  { id: 'map', label: 'Map', sub: 'five houses', cap: 'Polarity alternating with recursion is x² = x + 1 — its constant is φ, which forces five-fold symmetry. So the twenty gather into five houses: Soul, Spirit, Mind, Emotion, Body — four stages within each. The living map for reading.' },
-  { id: 'grid', label: 'Forty-Fold Seal', sub: 'every line = 40', cap: 'The sixteen manifest signatures fall into a 4×4 square where every row, every column, every quadrant sums to 40. Intuited in 1991, derived from pentagram geometry decades later — and they converge exactly. This is the Forty-Fold Seal.' },
-  { id: 'seal', label: 'Hypercube', sub: 'the 4D seal', cap: 'The 4×4 seal lifts into four dimensions — the sixteen on the vertices of a tesseract, every plane still summing to 40. Source at the core, the Gestalt around it, Creation enclosing all. Drag to orbit.' },
+  { id: 'ten', label: 'The Ten', sub: 'four, quantified', cap: 'The four stages are transcendent — Soul-level process, beyond manifestation (the cubes). To tell four DIFFERENT things apart takes one node for the first, two for the second, three for the third, four for the fourth: 1+2+3+4 = 10 (the white spheres). Ten is not a choice — it is the minimum cost of quantifying four. These ten become the roots of everything manifest.' },
+  { id: 'axis', label: 'Axis', sub: 'the two pulls', cap: 'The ten stand as a spine between the two transcendent poles: the Wheel — Creator, all that could be — above; the World — Creation, all that is — below. Their gravity draws two faces out of every node: the descent (0–9) reaching down toward manifestation, the return (11–20) climbing home toward Source. Every vertical pair sums to 20 — the same node, seen from both pulls. Ten nodes, two faces each, plus the two poles: 22. This is the 1991 first unfolding, and nothing about it is arbitrary.' },
+  { id: 'map', label: 'Map', sub: 'five houses', cap: 'Polarity alternating with recursion is x² = x + 1 — the golden ratio φ, which forces five-fold symmetry. So the twenty-two gather into five houses of four — Soul at the apex, Spirit, Mind, Emotion, Body at the points — the pentagram the old traditions kept without knowing why it worked. This is the living map every reading is drawn on.' },
+  { id: 'grid', label: 'Forty-Fold Seal', sub: 'every line = 40', cap: 'The sixteen manifest signatures fall into a 4×4 square where every row, every column, every quadrant sums to 40 — twenty-eight ways at once. Assigned by MEANING in 1991; the arithmetic checked out afterward. Exhaustive enumeration has since counted every alternative: among all possible arrangements, this family stands alone. Counted, not estimated.' },
+  { id: 'seal', label: 'Hypercube', sub: 'the 4D seal', cap: 'The square lifts into four dimensions — the sixteen on the vertices of a tesseract, every plane still summing to 40, the four dimensions of the address (where, how, what, who) now literal axes. Source at the core, the Gestalt four around it, Creation enclosing all. A hand-drawn intuition from 1991, revealed as a four-dimensional object. Drag to orbit it.' },
 ];
 
 export default function SealCanvas() {
