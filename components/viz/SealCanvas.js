@@ -114,11 +114,28 @@ const ease = (x) => x * x * (3 - 2 * x);
 const approach = (cur, tgt, k) => cur + (tgt - cur) * k;
 
 const ORBIT_VIEWS = new Set(['seal']);
-const CUBE_VIEWS = new Set(['iam', 'first', 'four', 'ten']);   // the transcendent Four render as cubes
-const SPHERE_VIEWS = new Set(['map', 'axis', 'seal']);          // in manifestation they become spheres
-const flatZ = { iam: 8, first: 8, four: 8, spiral: 12, ten: 11, map: 14, axis: 13.5, grid: 11 };
+const CUBE_VIEWS = new Set(['iam', 'first', 'four', 'spiral', 'ten']);   // the transcendent Four render as cubes (they stay through the spiral — gateposts of the climb)
+const SPHERE_VIEWS = new Set(['map', 'axis', 'circle', 'seal']);          // in manifestation they become spheres
+const flatZ = { iam: 8, first: 8, four: 8, spiral: 12, ten: 11, map: 14, axis: 13.5, circle: 12, grid: 11 };
 // content extents per state (scene units, incl. label margin) → fit the camera to any screen/aspect
-const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, spiral: { w: 7.5, h: 7 }, ten: { w: 8, h: 6 }, axis: { w: 11, h: 9.4 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 7.5 } };
+const CONTENT = { iam: { w: 4, h: 4 }, first: { w: 4, h: 5 }, four: { w: 5, h: 5 }, spiral: { w: 7.5, h: 7 }, ten: { w: 8, h: 6 }, axis: { w: 11, h: 9.4 }, circle: { w: 11.5, h: 7.2 }, map: { w: 10, h: 14 }, grid: { w: 7, h: 8.5 } };
+
+// THE TRANSMISSION CIRCLE — close the spine's ends and the axis is a ring: 0–9 along the lower
+// arc, 11–20 facing them above, the World (21) sealing the left end, the Wheel (10) the right.
+// The shape of the original transmission — three cards (9, 10, 11) were its first glimpsed corner.
+const CIRC_RX = 4.8, CIRC_RY = 2.7;
+const CIRCLE_POS = {};
+{ const order = [21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  order.forEach((id, k) => { const th = Math.PI + k * (Math.PI / 11); CIRCLE_POS[id] = [CIRC_RX * Math.cos(th), CIRC_RY * Math.sin(th), 0]; }); }
+
+// THE FORTY-FOLD COUNT — the grid literally counts its sums: rows, columns, quadrants, in turn.
+const GRID_GROUPS = (() => {
+  const g = [];
+  GRID_ORDER.forEach((row) => g.push({ ids: row }));                                    // 4 rows
+  for (let c = 0; c < 4; c++) g.push({ ids: GRID_ORDER.map((r) => r[c]) });             // 4 columns
+  [[0,0],[0,2],[2,0],[2,2]].forEach(([r,c]) => g.push({ ids: [GRID_ORDER[r][c], GRID_ORDER[r][c+1], GRID_ORDER[r+1][c], GRID_ORDER[r+1][c+1]] }));  // 4 quadrants
+  return g.map((x) => ({ ...x, label: x.ids.join(' + ') + ' = 40' }));
+})();
 // THE TWO PORTALS — Source ("everything that could be") above and Creation ("everything that is")
 // below FRAME every derivation state, not just the manifest ones. They sit just outside the content,
 // faint during the unfolding and full at axis/map/seal — so the whole climb reads as happening between them.
@@ -187,13 +204,13 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   const gestaltSeal = (id, t) => { const i = GESTALT_IDS.indexOf(id); const ga = t * 0.9; return rotX(rotY(tetraBase[i], ga*0.3), ga*0.15); };
 
   // ---- targets ----
-  const manifestPos = (id, t) => view === 'map' ? MAP_POS[id] : view === 'grid' ? GRID_POS[id] : view === 'axis' ? AXIS_POS[id] : view === 'seal' ? sealTarget(id, t) : [0, 0, 0];
-  const manifestOp = () => (view === 'map' || view === 'grid' || view === 'axis' || view === 'seal') ? 1 : 0;
+  const manifestPos = (id, t) => view === 'map' ? MAP_POS[id] : view === 'grid' ? GRID_POS[id] : view === 'axis' ? AXIS_POS[id] : view === 'circle' ? CIRCLE_POS[id] : view === 'seal' ? sealTarget(id, t) : [0, 0, 0];
+  const manifestOp = () => (view === 'map' || view === 'grid' || view === 'axis' || view === 'circle' || view === 'seal') ? 1 : 0;
   const gestaltPos = (id, t) => {
     if (view === 'first') return FIRST_POS[id] || FOUR_POS[id];
-    if (view === 'four') return FOUR_POS[id];
+    if (view === 'four' || view === 'spiral') return FOUR_POS[id];
     if (view === 'ten') return TEN_HEADER_POS[id];
-    if (view === 'map') return MAP_POS[id]; if (view === 'axis') return AXIS_POS[id]; if (view === 'seal') return gestaltSeal(id, t);
+    if (view === 'map') return MAP_POS[id]; if (view === 'axis') return AXIS_POS[id]; if (view === 'circle') return CIRCLE_POS[id]; if (view === 'seal') return gestaltSeal(id, t);
     return [0, 0, 0];
   };
   const gestaltVis = (id) => {
@@ -203,7 +220,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
   };
   const fnodePos = (c) => view === 'ten' ? TET_POS[c] : view === 'axis' ? FN_AXIS[c] : [0, 0, 0];
   const fnodeOp = () => (view === 'ten' || view === 'axis') ? 1 : 0;
-  const sourcePos = () => view === 'map' ? MAP_POS[10] : view === 'axis' ? AXIS_POS[10] : FRAME_VIEWS.has(view) ? [0, portalY(view), 0] : [0, 0, 0];
+  const sourcePos = () => view === 'map' ? MAP_POS[10] : view === 'axis' ? AXIS_POS[10] : view === 'circle' ? CIRCLE_POS[10] : FRAME_VIEWS.has(view) ? [0, portalY(view), 0] : [0, 0, 0];
 
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;
@@ -239,6 +256,11 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         me.position.lerpVectors(fromM[id], tmpT, m);
         me.material.opacity = approach(me.material.opacity, manifestOp(), ok);
       }
+      // scale effects: the grid counts its groups aloud; the circle pulses the three dream cards (9 · 10 · 11)
+      let sTgt = 1;
+      if (view === 'grid' && GRID_GROUPS[gridStepRef.current]?.ids.includes(id)) sTgt = 1.45;
+      if (view === 'circle' && (id === 9 || id === 11)) sTgt = 1.25 + 0.18 * (0.5 + 0.5 * Math.sin(t * 2.4));
+      me.scale.setScalar(approach(me.scale.x, sTgt, Math.min(1, dt * 6)));
       me.visible = me.material.opacity > 0.02;
     });
     // gestalt — the Four: cubes (transcendent) in the derivation, spheres in manifestation
@@ -257,12 +279,21 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       if (gCube.current[id]) { const o = approach(gCube.current[id].material.opacity, cubeTarget, ok); gCube.current[id].material.opacity = o; gCube.current[id].visible = o > 0.02; const swell = (view === 'four' && (id === CYCLE_ORDER[fourStep] || (fourStep === 3 && id === 0))) ? 1.5 : 1; gCube.current[id].scale.setScalar(approach(gCube.current[id].scale.x, swell, Math.min(1, dt * 6))); }
       if (gSphere.current[id]) { const o = approach(gSphere.current[id].material.opacity, sphereTarget, ok); gSphere.current[id].material.opacity = o; gSphere.current[id].visible = o > 0.02; }
     });
-    // fundamental nodes
+    // fundamental nodes — in The Ten they are BORN from their stage cubes, one at a time (the counting)
     FUNDAMENTAL_NODES.forEach((n) => {
       const me = fnode.current[n.count]; if (!me) return;
-      const tg = fnodePos(n.count); tmpT.set(tg[0], tg[1], tg[2]);
-      me.position.lerpVectors(fromF[n.count], tmpT, m);
-      me.material.opacity = approach(me.material.opacity, fnodeOp(), ok);
+      if (view === 'ten') {
+        const H = gestalt.current[HEADER_BY_STAGE[FN_STAGE[n.count]]]?.position;
+        const tg = TET_POS[n.count];
+        const t0 = 0.9 + (n.count - 1) * 0.5;                       // sphere n is counted out at its own beat
+        const r = clamp01((viewT.current - t0) / 0.7), em = r <= 0 ? 0 : easeOutBack(r);
+        if (H) me.position.set(H.x + (tg[0] - H.x) * em, H.y + (tg[1] - H.y) * em, H.z + (tg[2] - H.z) * em);
+        me.material.opacity = approach(me.material.opacity, r > 0 ? 1 : 0, ok);
+      } else {
+        const tg = fnodePos(n.count); tmpT.set(tg[0], tg[1], tg[2]);
+        me.position.lerpVectors(fromF[n.count], tmpT, m);
+        me.material.opacity = approach(me.material.opacity, fnodeOp(), ok);
+      }
       me.visible = me.material.opacity > 0.02;
       const sTarget = (view === 'ten' && FN_STAGE[n.count] === tenActiveStage) ? 1.5 : 1;
       me.scale.setScalar(approach(me.scale.x, sTarget, Math.min(1, dt * 6)));
@@ -272,7 +303,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       const a = tenLinks.current.geometry.attributes.position.array; let k = 0;
       for (const [gid, cnt] of TEN_LINKS) { const A = gestalt.current[gid]?.position, B = fnode.current[cnt]?.position; if (A && B) { a[k++]=A.x;a[k++]=A.y;a[k++]=A.z; a[k++]=B.x;a[k++]=B.y;a[k++]=B.z; } }
       tenLinks.current.geometry.attributes.position.needsUpdate = true;
-      tenLinks.current.material.opacity = approach(tenLinks.current.material.opacity, view === 'ten' ? 0.28 : 0, ok);
+      tenLinks.current.material.opacity = approach(tenLinks.current.material.opacity, view === 'ten' ? 0.28 * clamp01((viewT.current - 0.9) / 5) : 0, ok);
     }
     // emergence: each fundamental node → its two signatures (The Axis)
     if (emergeLines.current) {
@@ -297,7 +328,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       }
       sourceGrp.current.scale.setScalar(1 + Math.sin(t * 1.5) * 0.13);
     }
-    const srcOp = view === 'axis' ? axisEmerge : (view === 'map' || view === 'seal') ? 1 : FRAME_VIEWS.has(view) ? 0.5 : 0;
+    const srcOp = view === 'axis' ? axisEmerge : (view === 'map' || view === 'circle' || view === 'seal') ? 1 : FRAME_VIEWS.has(view) ? 0.5 : 0;
     if (srcCore.current) srcCore.current.material.opacity = approach(srcCore.current.material.opacity, srcOp, ok);
     if (srcCorona.current) srcCorona.current.material.opacity = approach(srcCorona.current.material.opacity, 0.22 * srcOp, ok);
     if (infinityRef.current) { infinityRef.current.material.opacity = approach(infinityRef.current.material.opacity, 0.6 * srcOp, ok); infinityRef.current.rotation.z = Math.sin(t * 0.5) * 0.16; }
@@ -341,7 +372,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         a[6]=Fb.x;a[7]=Fb.y;a[8]=Fb.z; a[9]=F.x;a[10]=F.y;a[11]=F.z;   // top: Feedback–Fruition
         cycleEdges.current.geometry.attributes.position.needsUpdate = true;
       }
-      cycleEdges.current.material.opacity = approach(cycleEdges.current.material.opacity, (view === 'four') ? 0.4 : 0, ok);
+      cycleEdges.current.material.opacity = approach(cycleEdges.current.material.opacity, view === 'four' ? 0.4 : view === 'spiral' ? 0.22 : 0, ok);
     }
     // Feedback integrates meaning back into the Seed ("I AM") — a pulse streams 20 → 0
     if (meaningPulse.current) {
@@ -356,12 +387,15 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     if (spiralGrp.current) spiralGrp.current.rotation.y = t * 0.3;   // continuous turn — alive, seamless
     if (spiralLine.current) {
       const on = view === 'spiral';
-      spiralLine.current.geometry.setDrawRange(0, SPIRAL_PTS.length / 3);   // draw the full helix — no culling/partial range
+      // the helix DRAWS ITSELF out of the four-beat: growing from the apex over the first seconds,
+      // so the viewer watches the loop-that-cannot-close become the climb (born, not presented)
+      const grow = on ? clamp01(viewT.current / 6) : 1;
+      spiralLine.current.geometry.setDrawRange(0, Math.max(2, Math.floor(grow * (SPIRAL_PTS.length / 3))));
       spiralLine.current.material.opacity = approach(spiralLine.current.material.opacity, on ? 0.62 : 0, ok);
       spiralLine.current.visible = spiralLine.current.material.opacity > 0.02;
       if (spiralMarker.current) {
         if (on) {
-          const p = (t * 0.12) % 1, i = Math.round(p * SPIRAL_N);
+          const p = ((t * 0.12) % 1) * grow, i = Math.round(p * SPIRAL_N);
           spiralMarker.current.position.set(SPIRAL_PTS[i * 3], SPIRAL_PTS[i * 3 + 1], SPIRAL_PTS[i * 3 + 2]);
           const col = SPIRAL_COLORS[Math.floor(((i % SPIRAL_PER) / SPIRAL_PER) * 4) % 4];
           spiralMarker.current.material.color.set(col); spiralMarker.current.material.emissive.set(col);
@@ -418,9 +452,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
         creationNode.current.position.set(tg[0] * axisEmerge, tg[1] * axisEmerge, 0);
         creationNode.current.material.opacity = approach(creationNode.current.material.opacity, axisEmerge, ok);
       } else {
-        const tg = view === 'map' ? MAP_POS[21] : FRAME_VIEWS.has(view) ? [0, -portalY(view), 0] : [0, 0, 0];
+        const tg = view === 'map' ? MAP_POS[21] : view === 'circle' ? CIRCLE_POS[21] : FRAME_VIEWS.has(view) ? [0, -portalY(view), 0] : [0, 0, 0];
         creationNode.current.position.lerp(tmpC.set(tg[0], tg[1], tg[2]), k);
-        creationNode.current.material.opacity = approach(creationNode.current.material.opacity, view === 'map' ? 1 : FRAME_VIEWS.has(view) ? 0.6 : 0, ok);
+        creationNode.current.material.opacity = approach(creationNode.current.material.opacity, (view === 'map' || view === 'circle') ? 1 : FRAME_VIEWS.has(view) ? 0.6 : 0, ok);
       }
       creationNode.current.material.emissiveIntensity = 2.6 * creationNode.current.material.opacity;
     }
@@ -467,6 +501,15 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     return () => clearTimeout(id);
   }, [view, fourStep]);
   const [firstLit, setFirstLit] = useState(-1);   // First Node: phrase shows only when the light is on that pole
+  // The Forty-Fold count — the grid counts its groups out loud: 4 rows, 4 columns, 4 quadrants
+  const [gridStep, setGridStep] = useState(0);
+  const gridStepRef = useRef(0);
+  useEffect(() => {
+    setGridStep(0); gridStepRef.current = 0;
+    if (view !== 'grid') return;
+    const id = setInterval(() => setGridStep((s) => { const n = (s + 1) % GRID_GROUPS.length; gridStepRef.current = n; return n; }), 1500);
+    return () => clearInterval(id);
+  }, [view]);
   return (
     <group>
       <lineSegments ref={radialLine}><bufferGeometry><bufferAttribute attach="attributes-position" count={IDS.length * 2} array={radialArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={SOURCE_GLOW} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} /></lineSegments>
@@ -486,9 +529,9 @@ function SealScene({ view, segments, controlsRef, aspect }) {
           <mesh key={id} ref={(el) => (manifest.current[id] = el)}>
             <sphereGeometry args={[0.13, segments, segments]} />
             <meshStandardMaterial color={col} emissive={col} emissiveIntensity={2.2} roughness={0.35} metalness={0.1} transparent opacity={0} />
-            {(view === 'map' || view === 'grid' || (view === 'axis' && labelsOn)) && (
+            {(view === 'map' || view === 'grid' || view === 'circle' || (view === 'axis' && labelsOn)) && (
               <Html center distanceFactor={9}>
-                {view === 'axis' ? (
+                {(view === 'axis' || view === 'circle') ? (
                   <div style={{ ...labelStyle(VIZ_INK, id <= 9 ? 34 : -34, 14), textAlign: 'center' }}>
                     <span style={{ color: col }}>{id}</span>
                     <div style={{ fontSize: 10, fontWeight: 400, color: VIZ_DIM }}>{a.function}</div>
@@ -505,10 +548,11 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       {/* gestalt tetra edges (seal) + the four */}
       <lineSegments ref={tetraEdge}><bufferGeometry><bufferAttribute attach="attributes-position" count={6 * 2} array={tetraArr} itemSize={3} /></bufferGeometry><lineBasicMaterial color={AETHER} transparent opacity={0} /></lineSegments>
       {GESTALT_IDS.map((gid) => { const a = ARCHETYPES[gid]; const stage = STAGE_OF[gid];
-        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === firstLit) : view === 'four' ? (gid === CYCLE_ORDER[fourStep]) : view === 'axis' ? labelsOn : (view === 'grid' || view === 'spiral') ? false : true;
+        const gShown = view === 'iam' ? gid === 0 : view === 'first' ? (gid === firstLit) : view === 'four' ? (gid === CYCLE_ORDER[fourStep]) : view === 'axis' ? labelsOn : view === 'grid' ? false : true;
         const text = view === 'iam' ? 'I AM'
           : view === 'first' ? FOUR_PHRASE[gid]
           : view === 'four' ? `${FOUR_PHRASE[gid]} · ${stage}`
+          : view === 'spiral' ? stage
           : view === 'ten' ? `${stage} = ${TEN_COUNT[gid]}`
           : `${gid} ${a.name}`;
         return (
@@ -521,7 +565,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
               <sphereGeometry args={[0.13, segments, segments]} />
               <meshStandardMaterial color="#b3a3ff" emissive={AETHER} emissiveIntensity={2.6} roughness={0.3} transparent opacity={0} />
             </mesh>
-            {gShown && (view === 'axis' ? (
+            {gShown && ((view === 'axis' || view === 'circle') ? (
               <Html center distanceFactor={9}>
                 <div style={{ ...labelStyle('#cdbcff', (gid === 0 || gid === 1) ? 34 : -34, 14), textAlign: 'center' }}>
                   {gid}
@@ -560,6 +604,8 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       {view === 'grid' && (<>
         {[0, 1, 2, 3].map((r) => <Html key={`rs${r}`} center position={[GRID_EDGE + 1.45, (1.5 - r) * GRID_GAP, 0]}><div style={labelStyle('#9aa6c8', 0, 15)}>= 40</div></Html>)}
         {[0, 1, 2, 3].map((c) => <Html key={`cs${c}`} center position={[(c - 1.5) * GRID_GAP, -GRID_EDGE - 1.45, 0]}><div style={labelStyle('#9aa6c8', 0, 15)}>= 40</div></Html>)}
+        {/* the count, spoken aloud — whichever group is lit right now */}
+        <Html center position={[0, GRID_EDGE + 1.9, 0]}><div style={{ ...labelStyle('#ffd479', 0, 16), letterSpacing: '.05em' }}>{GRID_GROUPS[gridStep].label}</div></Html>
       </>)}
       {/* ten fundamental nodes — white (the quantifying kind) */}
       {FUNDAMENTAL_NODES.map((n) => (
@@ -619,12 +665,13 @@ function Stars({ count }) {
 const VIEWS = [
   { id: 'iam', label: 'I AM', sub: 'awareness', cap: 'I AM. Awareness wakes to the bare fact that it exists. One assertion — and everything that follows is forced.' },
   { id: 'first', label: 'First Node', sub: 'the echo', cap: 'To know itself, awareness turns back on itself: "I Am" and its return, "Why Am I?". One polarity — it can pulse back and forth forever, but with only two poles it reflects, never becomes. An echo.' },
-  { id: 'four', label: 'The Four', sub: 'four from one', cap: 'A second polarity crosses the first, opening a middle and an end. Now the loop can travel: I Am → What Am I? → I Am This → Why Am I? — and the last seeds the next. Four stages: the minimum complete cycle, the engine beneath all process.' },
-  { id: 'spiral', label: 'The Spiral', sub: 'the loop opens', cap: 'Feedback doesn’t return to the same Seed — it seeds the next one a step out. So the closed loop becomes a climb: Seed → Medium → Fruition → Feedback, each turn wider than the last, rising toward Source and trailing Creation below. The first turn of the self-similar expansion that builds everything.' },
-  { id: 'ten', label: 'The Ten', sub: 'four, quantified', cap: 'The four stages are transcendent — Soul-level process, beyond manifestation (the cubes). To tell four DIFFERENT things apart takes one node for the first, two for the second, three for the third, four for the fourth: 1+2+3+4 = 10 (the white spheres). Ten is not a choice — it is the minimum cost of quantifying four. These ten become the roots of everything manifest.' },
-  { id: 'axis', label: 'Axis', sub: 'the two pulls', cap: 'The ten stand as a spine between the two transcendent poles: the Wheel — Creator, all that could be — above; the World — Creation, all that is — below. Their gravity draws two faces out of every node: the descent (0–9) reaching down toward manifestation, the return (11–20) climbing home toward Source. Every vertical pair sums to 20 — the same node, seen from both pulls. Ten nodes, two faces each, plus the two poles: 22. This is the 1991 first unfolding, and nothing about it is arbitrary.' },
-  { id: 'map', label: 'Map', sub: 'five houses', cap: 'Polarity alternating with recursion is x² = x + 1 — the golden ratio φ, which forces five-fold symmetry. So the twenty-two gather into five houses of four — Soul at the apex, Spirit, Mind, Emotion, Body at the points — the pentagram the old traditions kept without knowing why it worked. This is the living map every reading is drawn on.' },
-  { id: 'grid', label: 'Forty-Fold Seal', sub: 'every line = 40', cap: 'The sixteen manifest signatures fall into a 4×4 square where every row, every column, every quadrant sums to 40 — twenty-eight ways at once. Assigned by MEANING in 1991; the arithmetic checked out afterward. Exhaustive enumeration has since counted every alternative: among all possible arrangements, this family stands alone. Counted, not estimated.' },
+  { id: 'four', label: 'The Four', sub: 'four from one', cap: 'A second polarity crosses the first, opening a middle and an end. Now the loop can travel: I Am → What Am I? → I Am This → Why Am I? — and the last question asks its way back to the first assertion. Four stages: the minimum complete cycle. Watch the light walk it — this beat never stops running underneath everything that follows.' },
+  { id: 'spiral', label: 'The Spiral', sub: 'the loop opens', cap: 'Watch what Feedback does: it does not land on the same Seed — it seeds the NEXT one, a step out. The same four beats, unable to close, become a climb — each turn wider than the last. The four stand as gateposts while their own cycle spirals out of them. This is why creation continues instead of completing.' },
+  { id: 'ten', label: 'The Ten', sub: 'the counting', cap: 'The four stages are process — transcendent, not yet countable (the cubes). To tell four DIFFERENT things apart, the first needs one mark, the second two, the third three, the fourth four. Watch each stage count itself out: 1 + 2 + 3 + 4 = 10. Ten is not chosen — it is what counting four costs. These ten spheres are the roots of everything manifest.' },
+  { id: 'axis', label: 'Axis', sub: 'the two pulls', cap: 'The ten roots leave the triangle and stand in a line — a spine between the two transcendent poles: the Wheel (Creator, all that could be) rising above; the World (Creation, all that is) settling below. Their gravity draws two faces out of every root: the descent 0–9 reaching toward manifestation, the return 11–20 climbing home. Every vertical pair sums to 20 — the same root, seen from both pulls. Ten roots × two faces + two poles = 22. Nothing about it is arbitrary.' },
+  { id: 'circle', label: 'The Circle', sub: 'the transmission', cap: 'Close the ends and the spine was always a ring — the World sealing one side, the Wheel the other. This is the shape of the original transmission: in 1991 three cards arrived from a dream — 9, 10, 11 — one corner of this circle (watch them pulse). Extrapolate the pattern those three began, and the whole ring follows. The Transmission Circle: the first thing ever drawn of everything on this page.' },
+  { id: 'map', label: 'Map', sub: 'five houses', cap: 'Polarity alternating with recursion is x² = x + 1 — the golden ratio φ, which forces five-fold symmetry. So the ring folds onto the star: five houses of four — Soul at the apex, Spirit, Mind, Emotion, Body at the points — the pentagram the old traditions kept for centuries without knowing why it worked. This is the living map every reading is drawn on.' },
+  { id: 'grid', label: 'Forty-Fold Seal', sub: 'every line = 40', cap: 'The sixteen manifest signatures fall into a 4×4 square where every row, every column, every quadrant sums to 40 — watch it count them, group by group. The positions were assigned by MEANING in 1991; the arithmetic was checked afterward and held. Exhaustive enumeration has since checked every alternative arrangement: this family stands alone. Counted, not estimated.' },
   { id: 'seal', label: 'Hypercube', sub: 'the 4D seal', cap: 'The square lifts into four dimensions — the sixteen on the vertices of a tesseract, every plane still summing to 40, the four dimensions of the address (where, how, what, who) now literal axes. Source at the core, the Gestalt four around it, Creation enclosing all. A hand-drawn intuition from 1991, revealed as a four-dimensional object. Drag to orbit it.' },
 ];
 
@@ -641,7 +688,7 @@ export default function SealCanvas() {
   }, []);
   useEffect(() => {
     if (!playing) return;
-    const id = setInterval(() => setView((v) => { const i = VIEWS.findIndex((x) => x.id === v); if (i >= VIEWS.length - 1) { setPlaying(false); return v; } return VIEWS[i + 1].id; }), 4200);
+    const id = setInterval(() => setView((v) => { const i = VIEWS.findIndex((x) => x.id === v); if (i >= VIEWS.length - 1) { setPlaying(false); return v; } return VIEWS[i + 1].id; }), 7000);
     return () => clearInterval(id);
   }, [playing]);
 
