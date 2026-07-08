@@ -2109,6 +2109,33 @@ export default function NirmanakaReader() {
     return () => { pageMountedRef.current = false; };
   }, []);
 
+  // ANSWER BOX (Integrate mode) — fetch the discernment verdict once per draw.
+  // Kill-switched server-side (VERDICT_ENABLED); fail-quiet: any error just means no box.
+  const [verdictResult, setVerdictResult] = useState(null);
+  const [verdictLoading, setVerdictLoading] = useState(false);
+  const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
+  useEffect(() => {
+    if (posture !== 'integrate') return;
+    if (!draws?.length || !question || !parsedReading) return;
+    if (parsedReading._restored || parsedReading._isFirstContact || parsedReading.firstContact) return;
+    if (verdictDrawsRef.current === draws) return; // one verdict per draw — never re-ask the field
+    verdictDrawsRef.current = draws;
+    setVerdictResult(null);
+    setVerdictLoading(true);
+    fetch('/api/verdict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, draws })
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!pageMountedRef.current) return;
+        if (!data.error && !data.disabled) setVerdictResult(data);
+        setVerdictLoading(false);
+      })
+      .catch(() => { if (pageMountedRef.current) setVerdictLoading(false); });
+  }, [posture, draws, question, parsedReading]);
+
   // On-demand: Load a single card's depth content
   const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {
     if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
@@ -3880,6 +3907,7 @@ CRITICAL FORMATTING RULES:
     // Clear auto-resume so new reading starts fresh
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
+    setVerdictResult(null); verdictDrawsRef.current = null;
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -4451,6 +4479,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     md += `**Spread:** ${spreadName}  \n`;
     md += `**Voice:** ${getCurrentStanceLabel()}\n\n`;
     md += `---\n\n`;
+
+    // Integrate mode: the Answer leads the export
+    if (verdictResult?.verdict) {
+      const v = verdictResult.verdict;
+      md += `## The Answer\n\n`;
+      md += `**${(verdictResult.verdictMeta?.label || v.verdict)}** — ${v.headline}\n\n`;
+      if (v.qualifier) md += `${v.qualifier}\n\n`;
+      if (v.authorshipReturn) md += `*${v.authorshipReturn}*\n\n`;
+      if (verdictResult.lean) md += `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band}) — ${verdictResult.lean.label}\n\n`;
+      md += `---\n\n`;
+    }
 
     // Summary
     if (parsedReading.summary) {
@@ -6649,6 +6688,71 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
                 </span>
               </div>
+
+              {/* ANSWER BOX — Integrate mode verdict, appended at the top of the reading.
+                  The verdict is a weather report, never a command: it reads field conditions;
+                  the person keeps the helm. */}
+              {posture === 'integrate' && (verdictLoading || verdictResult) && (
+                <div className="content-pane max-w-2xl mx-auto mb-6 rounded-lg border border-zinc-700/60 bg-zinc-900/60 p-4 sm:p-5">
+                  {verdictLoading && !verdictResult && (
+                    <div className="text-center text-xs text-zinc-500 animate-pulse py-2">Reading the field for an answer…</div>
+                  )}
+                  {verdictResult?.careFloor && (
+                    <div>
+                      <div className="text-sm text-zinc-200 leading-relaxed mb-3">{verdictResult.careFloor.message}</div>
+                      <ul className="text-xs text-zinc-400 space-y-1">
+                        {verdictResult.careFloor.resources.map((r, i) => (
+                          <li key={i}>{r.name} — {r.contact}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {verdictResult?.verdict && (() => {
+                    const v = verdictResult.verdict;
+                    const meta = verdictResult.verdictMeta || {};
+                    const toneClass = {
+                      emerald: 'text-emerald-300 border-emerald-500/40 bg-emerald-600/10',
+                      rose: 'text-rose-300 border-rose-500/40 bg-rose-600/10',
+                      violet: 'text-violet-300 border-violet-500/40 bg-violet-600/10',
+                      amber: 'text-amber-300 border-amber-500/40 bg-amber-600/10',
+                      zinc: 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20'
+                    }[meta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
+                    return (
+                      <div>
+                        <div className="flex items-center gap-2 mb-2 flex-wrap">
+                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600">The Answer</span>
+                          <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${toneClass}`}>
+                            {meta.label || v.verdict}
+                          </span>
+                        </div>
+                        <div className="text-base text-zinc-100 leading-relaxed mb-1">{v.headline}</div>
+                        {v.qualifier && <div className="text-sm text-zinc-400 leading-relaxed mb-2">{v.qualifier}</div>}
+                        {v.authorshipReturn && <div className="text-xs text-zinc-500 italic">{v.authorshipReturn}</div>}
+                        {v.chainRequest?.subQuestion && (
+                          <div className="text-xs text-amber-400/80 mt-2">
+                            The field left this genuinely open. A sharper question to ask next: “{v.chainRequest.subQuestion}”
+                          </div>
+                        )}
+                        <details className="mt-3">
+                          <summary className="text-[10px] font-mono uppercase tracking-wider text-zinc-600 cursor-pointer hover:text-zinc-400">
+                            How this was discerned
+                          </summary>
+                          <div className="mt-2 text-xs text-zinc-500 space-y-1 leading-relaxed">
+                            {verdictResult.lean && (
+                              <div>
+                                Field lean (computed): {verdictResult.lean.value} · {verdictResult.lean.band}
+                                {verdictResult.lean.portalPresent ? ' · portal present' : ''} — {verdictResult.lean.label}
+                              </div>
+                            )}
+                            {v.leanNote && <div>{v.leanNote}</div>}
+                            {Array.isArray(v.walk) && v.walk.map((s, i) => <div key={i}>• {s}</div>)}
+                          </div>
+                        </details>
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
               {/* Incognito indicator */}
               {incognitoMode && !savedReadingId && parsedReading && (
                 <div className="text-center mb-2">
