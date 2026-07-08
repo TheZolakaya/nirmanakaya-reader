@@ -6612,11 +6612,19 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       <EmailReadingButton readingId={savedReadingId} disabled={helpMode} />
                     </div>
                     {!parsedReading?._isFirstContact && (
-                      <button
-                        data-help="action-export"
-                        onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
-                        className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
-                      >Export</button>
+                      <>
+                        <button
+                          data-help="action-export"
+                          onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToHTML(); }}
+                          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
+                        >Export</button>
+                        <button
+                          data-help="action-export"
+                          onClick={(e) => { if (!handleHelpClick('action-export', e)) exportToMarkdown(); }}
+                          title="Text-only export — no images or SVGs, tiny file, easy to share"
+                          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded bg-zinc-800/90"
+                        >Lite</button>
+                      </>
                     )}
                   </>
                 )}
