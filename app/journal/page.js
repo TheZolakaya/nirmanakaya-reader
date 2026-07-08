@@ -34,7 +34,18 @@ export default function JournalPage() {
       if (error) {
         console.error('Failed to load readings:', error);
       }
-      setReadings(data || []);
+      // SCHEMA MAPPING (months-of-blanks bugfix): the June migration renamed the columns
+      // (question->topic, cards->draws, letter->interpretation.letter) and this page was
+      // never updated — every reading since rendered "No question / No cards" while the
+      // data sat intact in the DB. Map old render names onto the current schema.
+      const mapped = (data || []).map((r) => ({
+        ...r,
+        question: r.question ?? r.topic ?? null,
+        cards: (Array.isArray(r.cards) && r.cards.length ? r.cards : null)
+          ?? (Array.isArray(r.draws) && r.draws.length ? r.draws : null),
+        letter: r.letter ?? r.interpretation?.letter ?? null,
+      }));
+      setReadings(mapped);
       setLoading(false);
     }
     loadData();
