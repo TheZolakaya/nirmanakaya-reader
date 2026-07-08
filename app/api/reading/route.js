@@ -9,6 +9,11 @@ import { STATUSES } from '../../../lib/constants.js';
 import { getComponent } from '../../../lib/corrections.js';
 import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from '../../../lib/cachedSystem.js';
+import { buildDossier } from '../../../lib/geometryEngine.js';
+
+// GEOMETRY ENGINE dossier injection (Reader V2 Layer 2) — kill switch.
+// Set false and redeploy to disable instantly; injection is fail-open (errors skip it).
+const DOSSIER_ENABLED = true;
 import { createClient } from '@supabase/supabase-js';
 
 // Server-side Supabase client for ban/throttle checks
@@ -203,6 +208,33 @@ export async function POST(request) {
   // all users/settings), variable dial/persona parts ride uncached after it.
   const systemWithCache = buildCachedSystem(system);
 
+  // GEOMETRY ENGINE: compute the Structural Dossier for this draw and append it to the
+  // final user message (NOT the system prompt — the cached blocks must stay byte-stable).
+  // The interpreter receives math; it never derives math. Fail-open: any error skips it.
+  let messagesOut = messages;
+  if (DOSSIER_ENABLED && Array.isArray(draws) && draws.length && Array.isArray(messages) && messages.length) {
+    try {
+      const cards = draws
+        .filter((d) => d && d.position != null && d.transient != null && d.status != null)
+        .map((d) => ({ position: d.position, transient: d.transient, status: d.status }));
+      const lastUserIdx = messages.map((m) => m.role).lastIndexOf('user');
+      if (cards.length && lastUserIdx >= 0 && typeof messages[lastUserIdx].content === 'string') {
+        const dossier = buildDossier({
+          question: messages.find((m) => m.role === 'user')?.content?.slice(0, 500) ?? null,
+          cards
+        });
+        const block = '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS draw. '
+          + 'Every value below is fact, not interpretation: use these relations, do not re-derive or invent arithmetic. '
+          + 'State geometry as fact; own synthesis as synthesis. Surface the most meaningful relations '
+          + '(literal-name hits, pattern hints, meaningful sums, medicine distances) naturally in the reading.]\n'
+          + JSON.stringify(dossier);
+        messagesOut = messages.map((m, i) => i === lastUserIdx ? { ...m, content: m.content + block } : m);
+      }
+    } catch (e) {
+      console.error('Dossier injection skipped:', e?.message);
+    }
+  }
+
   try {
     const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -216,7 +248,7 @@ export async function POST(request) {
         model: effectiveModel,
         max_tokens: effectiveMaxTokens,
         system: systemWithCache,
-        messages: messages
+        messages: messagesOut
       })
     });
 
