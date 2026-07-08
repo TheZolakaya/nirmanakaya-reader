@@ -8,6 +8,7 @@ import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
+import { buildDigest, drawsToCards } from '../../../lib/geometryEngine.js';
 
 export async function POST(request) {
   const {
@@ -33,7 +34,18 @@ export async function POST(request) {
     : buildBaselineMessage(question, draws, spreadType, spreadKey);
 
   // Prepend user journey context if available (only for baseline, not deepening)
-  const userMessage = (userContext && !previousContent) ? `${userContext}\n\n${baseMessage}` : baseMessage;
+  let userMessage = (userContext && !previousContent) ? `${userContext}\n\n${baseMessage}` : baseMessage;
+
+  // GEOMETRY ENGINE digest (baseline only) — deterministic draw facts; fail-open
+  if (!previousContent) {
+    try {
+      const cards = drawsToCards(draws);
+      if (cards.length) {
+        userMessage += '\n\n[STRUCTURAL DIGEST — computed deterministically for this draw. Use these facts; do not re-derive.]\n'
+          + JSON.stringify(buildDigest({ question, cards }));
+      }
+    } catch (e) { console.error('Letter digest skipped:', e?.message); }
+  }
 
   // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
   // all users/settings), variable dial/persona parts ride uncached after it.

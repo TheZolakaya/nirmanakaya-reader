@@ -8,6 +8,7 @@ import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
+import { buildDossier, drawsToCards } from '../../../lib/geometryEngine.js';
 
 export async function POST(request) {
   const {
@@ -41,7 +42,21 @@ export async function POST(request) {
     : buildBaselineMessage(question, draws, cards, letter, spreadType, spreadKey, tokens, originalInput, frameContexts);
 
   // Prepend user journey context if available (only for baseline, not deepening)
-  const userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
+  let userMessage = (userContext && !isDeepening) ? `${userContext}\n\n${baseMessage}` : baseMessage;
+
+  // GEOMETRY ENGINE full dossier (baseline only) — the synthesis writes the pattern/architecture
+  // section, so it receives the complete structural picture: all relations, aggregates, hints; fail-open
+  if (!isDeepening) {
+    try {
+      const cardList = drawsToCards(draws);
+      if (cardList.length) {
+        userMessage += '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for this whole draw. '
+          + 'Every value is fact, not interpretation: use these relations (pattern hints, meaningful sums, medicine distances, '
+          + 'literal-name hits, cross-card bonds); do not re-derive or invent arithmetic. State geometry as fact; own synthesis as synthesis.]\n'
+          + JSON.stringify(buildDossier({ question, cards: cardList }));
+      }
+    } catch (e) { console.error('Synthesis dossier skipped:', e?.message); }
+  }
 
   // Convert system prompt to cached format for 90% input token savings
   // Guard against empty system prompt (can happen when loading saved readings)

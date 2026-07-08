@@ -13,6 +13,7 @@ import {
 } from '../../../lib/corrections.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
+import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
 
 export async function POST(request) {
   const {
@@ -32,7 +33,8 @@ export async function POST(request) {
     originalInput,  // e.g., "I'm worried about my marriage" - full question for grounding
     userContext,     // Optional user journey context block
     showArchitecture, // Whether architecture terms are visible (default: false)
-    readingLength    // 'brief' | 'standard' | 'full' (default: 'full')
+    readingLength,   // 'brief' | 'standard' | 'full' (default: 'full')
+    draws            // ALL draws (optional) — enables the Geometry Engine card dossier
   } = await request.json();
 
   const effectiveModel = model || "claude-sonnet-4-6";
@@ -43,7 +45,20 @@ export async function POST(request) {
   const baseMessage = buildCardMessage(n, draw, question, spreadType, spreadKey, letterContent, token, originalInput, frameLabel, frameLens, showArchitecture, effectiveLength);
 
   // Prepend user journey context if available
-  const userMessage = userContext ? `${userContext}\n\n${baseMessage}` : baseMessage;
+  let userMessage = userContext ? `${userContext}\n\n${baseMessage}` : baseMessage;
+
+  // GEOMETRY ENGINE card dossier — this card's full relations + bonds to the other cards; fail-open
+  try {
+    const cards = drawsToCards(Array.isArray(draws) && draws.length ? draws : [draw]);
+    const idx = Array.isArray(draws) && draws.length ? cardIndex : 0;
+    const dossier = buildCardDossier({ question, cards, index: idx });
+    if (dossier) {
+      userMessage += '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS card. '
+        + 'Every value is fact, not interpretation: use these relations, do not re-derive or invent arithmetic. '
+        + 'State geometry as fact; own synthesis as synthesis. Weave the most meaningful relations naturally.]\n'
+        + JSON.stringify(dossier);
+    }
+  } catch (e) { console.error('Card dossier skipped:', e?.message); }
 
   // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
   // all users/settings), variable dial/persona parts ride uncached after it.

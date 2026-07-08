@@ -2105,7 +2105,8 @@ export default function NirmanakaReader() {
           model: getModelId(selectedModel),
           userContext: userContextRef.current,
           showArchitecture: showArchitectureTerms,
-          readingLength
+          readingLength,
+          draws: drawsToUse // full draw set — enables the Geometry Engine card dossier server-side
         })
       });
       const data = await res.json();
