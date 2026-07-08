@@ -111,7 +111,19 @@ import { filterProhibitedTerms } from '../lib/contentFilter.js';
 import { buildModeHeader } from '../lib/modePrompts.js';
 
 // Import V1 presets
-import { READING_PRESETS } from '../lib/postures.js';
+import { READING_PRESETS, POSTURE_CONSTRAINTS } from '../lib/postures.js';
+
+// Posture selector UI — the four modes of reading, one per process stage.
+// Grid order is row-major and mirrors the cycle rising from ground to return:
+// upper-left Feedback (Integrate), upper-right Fruition (Forge),
+// lower-left Seed (Reflect), lower-right Medium (Discover).
+const POSTURE_GRID = ['integrate', 'forge', 'reflect', 'discover'];
+const POSTURE_UI = {
+  reflect: { stage: 'Seed', color: 'cyan', active: 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50' },
+  discover: { stage: 'Medium', color: 'amber', active: 'bg-amber-600/25 text-amber-300 border-amber-500/50' },
+  forge: { stage: 'Fruition', color: 'rose', active: 'bg-rose-600/25 text-rose-300 border-rose-500/50' },
+  integrate: { stage: 'Feedback', color: 'emerald', active: 'bg-emerald-600/25 text-emerald-300 border-emerald-500/50' }
+};
 import { buildNowismGovernance } from '../lib/nowism.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
 import { WHY_MOMENT_PROMPT } from '../lib/whyVector.js';
@@ -578,7 +590,7 @@ export default function NirmanakaReader() {
   const [reflectSpreadKey, setReflectSpreadKey] = useState('gestalt-3'); // Selected spread in Preset frame
   // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
   const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic' | 'custom'
-  const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'integrate' (internal, set by presets)
+  const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'integrate' — set by presets or the 2x2 Reading Mode grid
   const [cardCount, setCardCount] = useState(3); // 1-5 for architecture/custom frame
   const [customLabels, setCustomLabels] = useState(['', '', '']); // Position labels for custom frame
   // V3: Stance system removed. Complexity is the new language register dial.
@@ -5704,6 +5716,33 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
                 {frameSource === 'custom' && 'Name your own positions and define the frame'}
               </p>
+
+              {/* Posture selector — the four modes of reading (Seed / Medium / Fruition / Feedback).
+                  Frame answers "where do positions come from"; posture answers "what kind of reading".
+                  Default Discover = existing behavior; untouched, nothing changes. */}
+              <div className="w-full max-w-[260px] mx-auto mt-2 mb-2 pt-2 border-t border-zinc-800/40">
+                <div className="text-center text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-600 mb-1.5">Reading Mode</div>
+                <div className="grid grid-cols-2 gap-1">
+                  {POSTURE_GRID.map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => setPosture(key)}
+                      className={`px-2 py-1.5 rounded-md border text-center transition-all ${
+                        posture === key
+                          ? POSTURE_UI[key].active
+                          : 'border-zinc-800/60 text-zinc-500 hover:text-zinc-300 hover:border-zinc-700/60'
+                      }`}
+                      title={POSTURE_CONSTRAINTS[key].coreQuestion}
+                    >
+                      <div className="text-[0.7rem] font-medium leading-tight">{POSTURE_CONSTRAINTS[key].label}</div>
+                      <div className="text-[8px] font-mono uppercase tracking-wider opacity-60 leading-tight">{POSTURE_UI[key].stage}</div>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-center text-[0.65rem] text-zinc-500 italic mt-1.5 min-h-[1.2em]">
+                  {POSTURE_CONSTRAINTS[posture]?.coreQuestion}
+                </p>
+              </div>
               </div>{/* END scrollable mode content */}
               </motion.div>{/* END controls-above */}
             </div>{/* END controls zone */}
@@ -6160,6 +6199,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       }}
                     />
                   </div>
+                  {/* Posture whisper badge — only when a non-default reading mode is active */}
+                  {posture !== 'discover' && POSTURE_UI[posture] && (
+                    <button
+                      onClick={() => setAdvancedMode(true)}
+                      className={`shrink-0 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border transition-colors ${POSTURE_UI[posture].active}`}
+                      title={`Reading mode: ${POSTURE_CONSTRAINTS[posture].label} — ${POSTURE_CONSTRAINTS[posture].coreQuestion}`}
+                    >
+                      {POSTURE_CONSTRAINTS[posture].label}
+                    </button>
+                  )}
                   {/* Use My History toggle — inline with Topics row, no extra height */}
                   <div className="flex items-center gap-2 shrink-0">
                     <span
