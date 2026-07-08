@@ -1460,19 +1460,21 @@ export default function NirmanakaReader() {
     if (!savedReadingId || !draws || !parsedReading?._onDemand || contentSaved) return;
     if (parsedReading._restored) return; // Don't re-save restored readings
 
-    // Check if all cards have content (V3: check flat fields too)
-    const allCardsHaveContent = parsedReading.cards?.every(card =>
-      card && (card.wade || card.surface || card.swim || card.deep || card.reading || card.summary) && !card._notLoaded
-    );
+    // INCREMENTAL SAVE (blank-readings bugfix): save interpretations as EACH card lands,
+    // not only when all have loaded. The old all-or-nothing trigger meant navigating away
+    // (or any card error) before completion left the reading permanently blank in My Readings.
+    const hasContent = (card) => card && !card._notLoaded
+      && (card.wade || card.surface || card.swim || card.deep || card.reading || card.summary);
+    const loadedCount = parsedReading.cards?.filter(hasContent).length || 0;
+    if (loadedCount === 0 || !draws.length) return;
+    const allLoaded = parsedReading.cards.every(hasContent);
 
-    if (allCardsHaveContent && draws.length > 0) {
-      // Build cards array with both draw data and interpretations
+    // Debounce so multiple cards landing close together produce one write
+    const t = setTimeout(() => {
       const cardsWithContent = draws.map((draw, i) => ({
         ...draw,
         interpretation: parsedReading.cards[i]
       }));
-
-      // Update saved reading with card interpretations
       updateReadingContent(savedReadingId, {
         cards: cardsWithContent,
         synthesis: parsedReading.summary || parsedReading.path ? {
@@ -1482,11 +1484,12 @@ export default function NirmanakaReader() {
         } : undefined
       }).then(result => {
         if (result?.data) {
-          setContentSaved(true);
-          console.log('[AutoSave] Card interpretations saved');
+          if (allLoaded) setContentSaved(true); // stop once the complete set is persisted
+          console.log(`[AutoSave] Card interpretations saved (${loadedCount}/${draws.length}${allLoaded ? ', complete' : ''})`);
         }
       }).catch(err => console.log('[AutoSave] Failed to save interpretations:', err));
-    }
+    }, 1500);
+    return () => clearTimeout(t);
   }, [cardLoaded, draws, parsedReading, savedReadingId, contentSaved]);
 
   // Save synthesis to database when it loads
