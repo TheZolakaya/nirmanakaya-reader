@@ -2064,6 +2064,14 @@ export default function NirmanakaReader() {
     setLoading(false);
   };
 
+  // Unmount guard — card-depth fetches resolve after the user navigates away mid-build;
+  // without this, their setError/setState land on a dead page and surface as code errors.
+  const pageMountedRef = useRef(true);
+  useEffect(() => {
+    pageMountedRef.current = true;
+    return () => { pageMountedRef.current = false; };
+  }, []);
+
   // On-demand: Load a single card's depth content
   const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {
     if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
@@ -2142,10 +2150,10 @@ export default function NirmanakaReader() {
       // Synthesis check is handled by useEffect watching cardLoaded state
 
     } catch (e) {
-      setError(`Error loading card ${cardIndex + 1}: ${e.message}`);
+      if (pageMountedRef.current) setError(`Error loading card ${cardIndex + 1}: ${e.message}`);
     }
 
-    setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
+    if (pageMountedRef.current) setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
   };
 
   // V3: Progressive deepening removed — cards always load at full depth.
@@ -4359,6 +4367,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   };
 
   // Generate smart export filename
+  // READING COMPLETENESS GATE — true only when the letter AND every card's depth content
+  // has arrived. Action buttons (Save/Share/Email/Export/Lite) and the export functions
+  // are gated on this: firing them against _notLoaded placeholders breaks with code errors.
+  const readingComplete = !loading
+    && !!parsedReading
+    && Array.isArray(parsedReading.cards)
+    && parsedReading.cards.length > 0
+    && parsedReading.cards.every((c) => c && !c._notLoaded)
+    && !Object.values(cardLoading || {}).some(Boolean);
+
   const generateExportFilename = (extension) => {
     const date = new Date().toISOString().split('T')[0];
     let slug = '';
@@ -4382,7 +4400,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
   // Export reading to markdown
   const exportToMarkdown = () => {
-    if (!parsedReading || !draws) return;
+    if (!parsedReading || !draws || !readingComplete) return;
 
     const isReflect = spreadType === 'reflect';
     const spreadName = isReflect
@@ -4581,7 +4599,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
   // Export reading to HTML
   const exportToHTML = async () => {
-    if (!parsedReading || !draws) return;
+    if (!parsedReading || !draws || !readingComplete) return;
 
     const isReflect = spreadType === 'reflect';
     const isExplore = spreadType === 'explore';
@@ -6564,9 +6582,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </span>
                 </div>
               )}
-              {/* Action buttons row */}
+              {/* Action buttons row — gated on readingComplete: firing Save/Share/Email/Export
+                  against still-loading cards breaks with code errors */}
               <div className="flex justify-center gap-2 items-center relative mb-4 flex-wrap">
-                {parsedReading && !loading && (
+                {parsedReading && !loading && !readingComplete && (
+                  <span className="text-xs text-zinc-600 animate-pulse px-2 py-1">
+                    save · share · export — available when the reading finishes…
+                  </span>
+                )}
+                {readingComplete && (
                   <>
                     <SaveReadingButton
                       reading={{
