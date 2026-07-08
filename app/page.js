@@ -4317,16 +4317,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     );
   };
 
-  // Get current stance label for display
+  // Get current voice label for display (V3: stance system removed — report the live dials)
   const getCurrentStanceLabel = () => {
-    const preset = Object.entries(DELIVERY_PRESETS).find(([_, p]) =>
-      p.complexity === stance.complexity &&
-      p.voice === stance.voice && p.focus === stance.focus &&
-      p.density === stance.density && p.scope === stance.scope
-    );
-    const complexityLabel = COMPLEXITY_OPTIONS[stance.complexity]?.label || stance.complexity;
-    if (preset) return `${complexityLabel} • ${preset[1].name}`;
-    return `${complexityLabel} • Custom`;
+    const personaName = PERSONAS.find(p => p.key === persona)?.name || 'Friend';
+    const complexityName = COMPLEXITY_OPTIONS.find(o => o.key === complexity)?.name || 'Clear';
+    const lengthName = LENGTH_OPTIONS.find(o => o.key === readingLength)?.name || 'Standard';
+    return `${personaName} • ${complexityName} • ${lengthName}`;
   };
 
   // Get current delivery preset (if any)
@@ -4441,7 +4437,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     md += `**Date:** ${new Date().toLocaleDateString()}\n\n`;
     md += `## Question\n\n${question}\n\n`;
     md += `**Spread:** ${spreadName}  \n`;
-    md += `**Stance:** ${getCurrentStanceLabel()}\n\n`;
+    md += `**Voice:** ${getCurrentStanceLabel()}\n\n`;
     md += `---\n\n`;
 
     // Summary
