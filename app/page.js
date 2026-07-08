@@ -6201,8 +6201,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       }}
                     />
                   </div>
-                  {/* Posture whisper badge — only when a non-default reading mode is active */}
-                  {posture !== 'discover' && POSTURE_UI[posture] && (
+                  {/* Posture whisper badge — always shows the active reading mode */}
+                  {POSTURE_UI[posture] && (
                     <button
                       onClick={() => setAdvancedMode(true)}
                       className={`shrink-0 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border transition-colors ${POSTURE_UI[posture].active}`}
