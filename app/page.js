@@ -4375,6 +4375,24 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     return `${personaName} • ${complexityName} • ${lengthName}`;
   };
 
+  // Label for the frame the CURRENT reading was actually built with. Architecture mode
+  // runs readings through override {spreadType,spreadKey} without touching control state,
+  // so raw state here showed the wrong frame ("Reflect • undefined" / "Spread: Custom").
+  const getReadingFrameLabel = () => {
+    const ov = activeReadingOverrides.current;
+    const effType = ov?.spreadType || spreadType;
+    if (effType === 'reflect') {
+      const key = ov?.spreadKey || reflectSpreadKey;
+      return `Reflect • ${REFLECT_SPREADS[key]?.name || 'Custom'}`;
+    }
+    if (effType === 'explore') {
+      const n = dtpTokens?.length || 0;
+      return `Explore • ${n} token${n !== 1 ? 's' : ''}`;
+    }
+    const key = ov?.spreadKey || spreadKey;
+    return `Discover • ${RANDOM_SPREADS[key]?.name || 'Custom'}`;
+  };
+
   // Get current delivery preset (if any)
   const getCurrentDeliveryPreset = () => {
     return Object.entries(DELIVERY_PRESETS).find(([_, p]) =>
@@ -4477,11 +4495,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   const exportToMarkdown = () => {
     if (!parsedReading || !draws || !readingComplete) return;
 
-    const isReflect = spreadType === 'reflect';
+    const ovExport = activeReadingOverrides.current;
+    const effTypeExport = ovExport?.spreadType || spreadType;
+    const isReflect = effTypeExport === 'reflect';
+    const effKeyExport = ovExport?.spreadKey || (isReflect ? reflectSpreadKey : spreadKey);
     const spreadName = isReflect
-      ? (REFLECT_SPREADS[reflectSpreadKey]?.name || 'Custom')
-      : (RANDOM_SPREADS[spreadKey]?.name ? `${RANDOM_SPREADS[spreadKey].name} Emergent` : 'Emergent');
-    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
+      ? (REFLECT_SPREADS[effKeyExport]?.name || 'Custom')
+      : (RANDOM_SPREADS[effKeyExport]?.name ? `${RANDOM_SPREADS[effKeyExport].name} Emergent` : 'Emergent');
+    const spreadConfig = isReflect ? REFLECT_SPREADS[effKeyExport] : null;
 
     let md = `# Nirmanakaya Reading\n\n`;
     md += `**Date:** ${new Date().toLocaleDateString()}\n\n`;
@@ -4692,14 +4713,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   const exportToHTML = async () => {
     if (!parsedReading || !draws || !readingComplete) return;
 
-    const isReflect = spreadType === 'reflect';
-    const isExplore = spreadType === 'explore';
-    const spreadName = isReflect
-      ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}`
-      : isExplore
-        ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
-        : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`;
-    const spreadConfig = isReflect ? REFLECT_SPREADS[reflectSpreadKey] : null;
+    const ovHtml = activeReadingOverrides.current;
+    const effTypeHtml = ovHtml?.spreadType || spreadType;
+    const isReflect = effTypeHtml === 'reflect';
+    const effKeyHtml = ovHtml?.spreadKey || (isReflect ? reflectSpreadKey : spreadKey);
+    const spreadName = getReadingFrameLabel();
+    const spreadConfig = isReflect ? REFLECT_SPREADS[effKeyHtml] : null;
 
     // --- Visual assets: embed card art (base64) + render geometry diagrams (inline SVG) ---
     // Card images are local PNGs (/map/...); a relative path won't resolve in a downloaded
@@ -6691,11 +6710,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
                   {parsedReading?._isFirstContact
                     ? 'Single Card Reading'
-                    : spreadType === 'reflect'
-                    ? `Reflect • ${REFLECT_SPREADS[reflectSpreadKey]?.name}`
-                    : spreadType === 'explore'
-                      ? `Explore • ${dtpTokens?.length || 0} token${(dtpTokens?.length || 0) !== 1 ? 's' : ''}`
-                      : `Discover • ${RANDOM_SPREADS[spreadKey]?.name}`} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
+                    : getReadingFrameLabel()} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
                 </span>
               </div>
 
