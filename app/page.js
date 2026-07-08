@@ -4379,7 +4379,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     && Array.isArray(parsedReading.cards)
     && parsedReading.cards.length > 0
     && parsedReading.cards.every((c) => c && !c._notLoaded)
-    && !Object.values(cardLoading || {}).some(Boolean);
+    && !Object.values(cardLoading || {}).some(Boolean)
+    // Synthesis must be in too — exporting between cards-done and synthesis-done threw
+    // "error loading synthesis" (on-demand readings only; restored readings are complete by definition)
+    && (!parsedReading._onDemand || parsedReading._restored || (synthesisLoaded && !synthesisLoading));
 
   const generateExportFilename = (extension) => {
     const date = new Date().toISOString().split('T')[0];
@@ -6586,6 +6589,28 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </span>
                 </div>
               )}
+              {/* Floating nav — back to top / jump to summary (long readings are a scroll marathon) */}
+              {parsedReading && !loading && (
+                <div className="fixed right-3 bottom-24 z-40 flex flex-col gap-2">
+                  <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    title="Back to top"
+                    aria-label="Back to top"
+                    className="w-9 h-9 rounded-full bg-zinc-800/80 backdrop-blur border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 transition-colors text-base"
+                  >↑</button>
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById('depth-synth-reading');
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      else window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    }}
+                    title="Jump to summary"
+                    aria-label="Jump to summary"
+                    className="w-9 h-9 rounded-full bg-zinc-800/80 backdrop-blur border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 transition-colors text-sm"
+                  >◈</button>
+                </div>
+              )}
+
               {/* Action buttons row — gated on readingComplete: firing Save/Share/Email/Export
                   against still-loading cards breaks with code errors */}
               <div className="flex justify-center gap-2 items-center relative mb-4 flex-wrap">

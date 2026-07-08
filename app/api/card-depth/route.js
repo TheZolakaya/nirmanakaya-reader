@@ -13,7 +13,7 @@ import {
 } from '../../../lib/corrections.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
-import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
+import { buildCardDossier, drawsToCards, formatCardGeometry } from '../../../lib/geometryEngine.js';
 
 export async function POST(request) {
   const {
@@ -48,10 +48,12 @@ export async function POST(request) {
   let userMessage = userContext ? `${userContext}\n\n${baseMessage}` : baseMessage;
 
   // GEOMETRY ENGINE card dossier — this card's full relations + bonds to the other cards; fail-open
+  let cardDossier = null;
   try {
     const cards = drawsToCards(Array.isArray(draws) && draws.length ? draws : [draw]);
     const idx = Array.isArray(draws) && draws.length ? cardIndex : 0;
     const dossier = buildCardDossier({ question, cards, index: idx });
+    cardDossier = dossier;
     if (dossier) {
       userMessage += '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS card. '
         + 'Every value is fact, not interpretation: use these relations, do not re-derive or invent arithmetic. '
@@ -220,6 +222,13 @@ export async function POST(request) {
     ['summary', 'reading', 'mirror', 'why', 'rebalancer', 'growth'].forEach(key => {
       if (parsedCard[key]) parsedCard[key] = sanitizeText(parsedCard[key]);
     });
+
+    // Append the DETERMINISTIC geometry block to the Architecture section — computed, not
+    // generated: always accurate, zero AI cost. The proof-of-work the dossier leaves visible.
+    try {
+      const geo = formatCardGeometry(cardDossier);
+      if (geo) parsedCard.architecture = (parsedCard.architecture ? parsedCard.architecture + '\n\n' : '') + geo;
+    } catch (e) { console.error('Geometry block skipped:', e?.message); }
 
     return Response.json({
       cardData: parsedCard,
