@@ -1057,8 +1057,20 @@ export default function NirmanakaReader() {
           return;
         }
 
+        // SCHEMA MAPPING (same June-migration mismatch as the Journal fix):
+        // current rows store topic / draws / interpretation.{letter, synthesis, cards, thread_data}
+        // while this handler was still reading question / cards / letter / synthesis —
+        // so every reload silently restored nothing and fell through to the landing page.
+        const interp = data.interpretation || {};
+        const savedQuestion = data.question ?? data.topic ?? '';
+        const savedCards = (Array.isArray(data.cards) && data.cards.length ? data.cards : null)
+          ?? (Array.isArray(data.draws) && data.draws.length ? data.draws : null);
+        const savedLetter = data.letter ?? interp.letter ?? null;
+        const savedSynthesis = data.synthesis ?? interp.synthesis ?? null;
+        const savedThreadData = data.thread_data ?? interp.thread_data ?? null;
+
         // Restore state from saved reading
-        setQuestion(data.question || '');
+        setQuestion(savedQuestion);
         setSpreadType(data.mode || 'discover');
         if (data.spread_type) {
           if (data.mode === 'reflect') {
@@ -1069,8 +1081,8 @@ export default function NirmanakaReader() {
         }
 
         // Restore draws (cards array contains both draw data and interpretations)
-        if (data.cards && Array.isArray(data.cards)) {
-          const restoredDraws = data.cards.map(card => ({
+        if (savedCards) {
+          const restoredDraws = savedCards.map(card => ({
             position: card.position,
             transient: card.transient,
             status: card.status
@@ -1083,9 +1095,14 @@ export default function NirmanakaReader() {
             (card.interpretation.wade || card.interpretation.surface || card.interpretation.swim || card.interpretation.deep ||
              card.interpretation.reading || card.interpretation.summary);
 
-          const restoredCards = data.cards.map((card, i) => {
-            if (hasContent(card)) {
-              return { ...card.interpretation, index: i, _notLoaded: false };
+          const restoredCards = savedCards.map((card, i) => {
+            // Interpretation lives on the draw object (post-autosave draws) or,
+            // as a fallback, in interpretation.cards[i] from updateReadingContent.
+            const cardWithInterp = hasContent(card)
+              ? card
+              : { ...card, interpretation: interp.cards?.[i]?.interpretation };
+            if (hasContent(cardWithInterp)) {
+              return { ...cardWithInterp.interpretation, index: i, _notLoaded: false };
             }
             return {
               index: i,
@@ -1118,10 +1135,10 @@ export default function NirmanakaReader() {
 
           setParsedReading({
             cards: restoredCards,
-            letter: data.letter || { surface: null, wade: null, swim: null, deep: null },
-            summary: data.synthesis?.summary || { surface: null, wade: null, swim: null, deep: null },
-            path: data.synthesis?.path || { surface: null, wade: null, swim: null, deep: null, architecture: null },
-            fullArchitecture: data.synthesis?.fullArchitecture || null,
+            letter: savedLetter || { surface: null, wade: null, swim: null, deep: null },
+            summary: savedSynthesis?.summary || { surface: null, wade: null, swim: null, deep: null },
+            path: savedSynthesis?.path || { surface: null, wade: null, swim: null, deep: null, architecture: null },
+            fullArchitecture: savedSynthesis?.fullArchitecture || null,
             _restored: true,
             _onDemand: anyCardsNeedLoad // Enable on-demand loading if content missing
           });
@@ -1130,16 +1147,16 @@ export default function NirmanakaReader() {
         setSavedReadingId(data.id);
 
         // Restore expansions and follow-up messages from synthesis JSONB
-        if (data.synthesis?._expansions) {
-          setExpansions(data.synthesis._expansions);
+        if (savedSynthesis?._expansions) {
+          setExpansions(savedSynthesis._expansions);
         }
-        if (data.synthesis?._followUpMessages) {
-          setFollowUpMessages(data.synthesis._followUpMessages);
+        if (savedSynthesis?._followUpMessages) {
+          setFollowUpMessages(savedSynthesis._followUpMessages);
         }
 
         // Restore thread data
-        if (data.thread_data && typeof data.thread_data === 'object') {
-          setThreadData(data.thread_data);
+        if (savedThreadData && typeof savedThreadData === 'object') {
+          setThreadData(savedThreadData);
         }
 
         // Clear the URL param after loading
