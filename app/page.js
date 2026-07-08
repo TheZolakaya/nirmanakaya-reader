@@ -119,10 +119,10 @@ import { READING_PRESETS, POSTURE_CONSTRAINTS } from '../lib/postures.js';
 // lower-left Seed (Reflect), lower-right Medium (Discover).
 const POSTURE_GRID = ['integrate', 'forge', 'reflect', 'discover'];
 const POSTURE_UI = {
-  reflect: { stage: 'Seed', color: 'cyan', active: 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50' },
-  discover: { stage: 'Medium', color: 'amber', active: 'bg-amber-600/25 text-amber-300 border-amber-500/50' },
-  forge: { stage: 'Fruition', color: 'rose', active: 'bg-rose-600/25 text-rose-300 border-rose-500/50' },
-  integrate: { stage: 'Feedback', color: 'emerald', active: 'bg-emerald-600/25 text-emerald-300 border-emerald-500/50' }
+  reflect: { stage: 'Seed', icon: '●', text: 'text-cyan-400', active: 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50' },
+  discover: { stage: 'Medium', icon: '◐', text: 'text-amber-400', active: 'bg-amber-600/25 text-amber-300 border-amber-500/50' },
+  forge: { stage: 'Fruition', icon: '▲', text: 'text-rose-400', active: 'bg-rose-600/25 text-rose-300 border-rose-500/50' },
+  integrate: { stage: 'Feedback', icon: '↻', text: 'text-emerald-400', active: 'bg-emerald-600/25 text-emerald-300 border-emerald-500/50' }
 };
 import { buildNowismGovernance } from '../lib/nowism.js';
 import { postProcessModeTransitions } from '../lib/modeTransition.js';
@@ -5545,7 +5545,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             <>
             {/* CONTROLS ZONE — fixed height, outside pane border. Textarea never moves. */}
             <div
-              className={`mx-auto max-w-2xl overflow-hidden transition-colors duration-300 border border-b-0 rounded-t-lg px-4 sm:px-6 pt-3 ${
+              className={`relative mx-auto max-w-2xl overflow-hidden transition-colors duration-300 border border-b-0 rounded-t-lg px-4 sm:px-6 pt-3 ${
                 advancedMode
                   ? 'bg-zinc-900/30 border-zinc-800/50'
                   : 'bg-transparent border-transparent'
@@ -5603,6 +5603,34 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   >
                     Make Your Own
                   </button>
+                </div>
+              </div>
+
+              {/* MODE — floating 2x2 posture square, absolutely positioned so it never
+                  affects layout flow (no scrolling, textarea never moves). Icon-only cells
+                  with hairline dividers; name appears beneath the selected cell.
+                  Grid: UL Feedback/Integrate · UR Fruition/Forge · LL Seed/Reflect · LR Medium/Discover. */}
+              <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 mt-2 flex flex-col items-center z-10">
+                <div className="text-[8px] font-mono uppercase tracking-[0.25em] text-zinc-600 mb-1">Mode</div>
+                <div className="grid grid-cols-2 w-14 h-14 gap-px bg-zinc-800/60 border border-zinc-800/60 rounded-md overflow-hidden">
+                  {POSTURE_GRID.map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => setPosture(key)}
+                      className={`flex items-center justify-center text-[13px] leading-none transition-colors ${
+                        posture === key
+                          ? POSTURE_UI[key].active
+                          : 'bg-zinc-900/90 text-zinc-600 hover:text-zinc-300'
+                      }`}
+                      title={`${POSTURE_CONSTRAINTS[key].label} (${POSTURE_UI[key].stage}) — ${POSTURE_CONSTRAINTS[key].coreQuestion}`}
+                      aria-label={`${POSTURE_CONSTRAINTS[key].label} reading mode`}
+                    >
+                      {POSTURE_UI[key].icon}
+                    </button>
+                  ))}
+                </div>
+                <div className={`mt-1 text-[8px] font-mono uppercase tracking-wider h-3 leading-3 ${POSTURE_UI[posture]?.text || 'text-zinc-500'}`}>
+                  {POSTURE_CONSTRAINTS[posture]?.label}
                 </div>
               </div>
 
@@ -5717,32 +5745,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 {frameSource === 'custom' && 'Name your own positions and define the frame'}
               </p>
 
-              {/* Posture selector — the four modes of reading (Seed / Medium / Fruition / Feedback).
-                  Frame answers "where do positions come from"; posture answers "what kind of reading".
-                  Default Discover = existing behavior; untouched, nothing changes. */}
-              <div className="w-full max-w-[260px] mx-auto mt-2 mb-2 pt-2 border-t border-zinc-800/40">
-                <div className="text-center text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-600 mb-1.5">Reading Mode</div>
-                <div className="grid grid-cols-2 gap-1">
-                  {POSTURE_GRID.map((key) => (
-                    <button
-                      key={key}
-                      onClick={() => setPosture(key)}
-                      className={`px-2 py-1.5 rounded-md border text-center transition-all ${
-                        posture === key
-                          ? POSTURE_UI[key].active
-                          : 'border-zinc-800/60 text-zinc-500 hover:text-zinc-300 hover:border-zinc-700/60'
-                      }`}
-                      title={POSTURE_CONSTRAINTS[key].coreQuestion}
-                    >
-                      <div className="text-[0.7rem] font-medium leading-tight">{POSTURE_CONSTRAINTS[key].label}</div>
-                      <div className="text-[8px] font-mono uppercase tracking-wider opacity-60 leading-tight">{POSTURE_UI[key].stage}</div>
-                    </button>
-                  ))}
-                </div>
-                <p className="text-center text-[0.65rem] text-zinc-500 italic mt-1.5 min-h-[1.2em]">
-                  {POSTURE_CONSTRAINTS[posture]?.coreQuestion}
-                </p>
-              </div>
               </div>{/* END scrollable mode content */}
               </motion.div>{/* END controls-above */}
             </div>{/* END controls zone */}
