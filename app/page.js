@@ -5740,7 +5740,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               {/* Mode description — below all mode-specific buttons */}
               <p className="text-center text-xs text-zinc-500 mt-1 mb-1 px-4 min-h-[1.4em]">
                 {frameSource === 'architecture' && 'AI reads your question and selects the spread for you'}
-                {frameSource === 'preset' && 'Choose a house and stage to frame your reading'}
                 {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
                 {frameSource === 'custom' && 'Name your own positions and define the frame'}
               </p>
