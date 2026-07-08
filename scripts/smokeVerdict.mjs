@@ -11,12 +11,13 @@ for (const line of readFileSync('.env.local', 'utf8').split('\n')) {
 }
 
 const question = process.argv[2] || 'Is the Reader ready to market to strangers today, with no further safety work?';
+const cardCount = Number(process.argv[3]) || 1;
 const typerResult = typeQuestion(question);
 console.log('QUESTION:', question);
 console.log('TYPER:', JSON.stringify(typerResult));
 if (typerResult.hardGate) { console.log('HARD GATE — no draw occurs.'); process.exit(0); }
 
-const draws = generateSpread(1);
+const draws = generateSpread(cardCount);
 const cards = drawsToCards(draws);
 const lean = computeFieldLean(draws);
 const dossiers = cards.map((_, i) => buildCardDossier({ question, cards, index: i }));
@@ -31,7 +32,7 @@ const res = await fetch('https://api.anthropic.com/v1/messages', {
     'x-api-key': process.env.ANTHROPIC_API_KEY,
     'anthropic-version': '2023-06-01'
   },
-  body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1500, messages: [{ role: 'user', content: prompt }] })
+  body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: Math.min(1500 + draws.length * 900, 4500), messages: [{ role: 'user', content: prompt }] })
 });
 const data = await res.json();
 if (data.error) { console.error('API ERROR:', data.error.message); process.exit(1); }

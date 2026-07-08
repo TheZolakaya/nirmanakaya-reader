@@ -52,7 +52,8 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: model || 'claude-sonnet-4-6',
-        max_tokens: 1500,
+        // scale with spread size — a 2-card walk truncated at 1500 and broke the JSON
+        max_tokens: Math.min(1500 + draws.length * 900, 4500),
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -62,7 +63,10 @@ export async function POST(request) {
 
     const text = data.content?.map((item) => item.text || '').join('\n') || '';
     const verdict = parseVerdictResponse(text);
-    if (!verdict) return Response.json({ error: 'unparseable discernment response' }, { status: 500 });
+    if (!verdict) {
+      const why = data.stop_reason === 'max_tokens' ? 'discernment truncated at token cap' : 'unparseable discernment response';
+      return Response.json({ error: why }, { status: 500 });
+    }
 
     return Response.json({
       verdict,

@@ -2113,27 +2113,37 @@ export default function NirmanakaReader() {
   // Kill-switched server-side (VERDICT_ENABLED); fail-quiet: any error just means no box.
   const [verdictResult, setVerdictResult] = useState(null);
   const [verdictLoading, setVerdictLoading] = useState(false);
+  const [verdictError, setVerdictError] = useState(false);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
+  const fetchVerdict = (drawsToUse, questionToUse) => {
+    setVerdictResult(null);
+    setVerdictError(false);
+    setVerdictLoading(true);
+    fetch('/api/verdict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: questionToUse, draws: drawsToUse })
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!pageMountedRef.current) return;
+        if (!data.error && !data.disabled) setVerdictResult(data);
+        else if (data.error) setVerdictError(true);
+        setVerdictLoading(false);
+      })
+      .catch(() => {
+        if (!pageMountedRef.current) return;
+        setVerdictError(true);
+        setVerdictLoading(false);
+      });
+  };
   useEffect(() => {
     if (posture !== 'integrate') return;
     if (!draws?.length || !question || !parsedReading) return;
     if (parsedReading._restored || parsedReading._isFirstContact || parsedReading.firstContact) return;
     if (verdictDrawsRef.current === draws) return; // one verdict per draw — never re-ask the field
     verdictDrawsRef.current = draws;
-    setVerdictResult(null);
-    setVerdictLoading(true);
-    fetch('/api/verdict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question, draws })
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (!pageMountedRef.current) return;
-        if (!data.error && !data.disabled) setVerdictResult(data);
-        setVerdictLoading(false);
-      })
-      .catch(() => { if (pageMountedRef.current) setVerdictLoading(false); });
+    fetchVerdict(draws, question);
   }, [posture, draws, question, parsedReading]);
 
   // On-demand: Load a single card's depth content
@@ -3907,7 +3917,7 @@ CRITICAL FORMATTING RULES:
     // Clear auto-resume so new reading starts fresh
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
-    setVerdictResult(null); verdictDrawsRef.current = null;
+    setVerdictResult(null); setVerdictError(false); verdictDrawsRef.current = null;
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -6692,10 +6702,22 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               {/* ANSWER BOX — Integrate mode verdict, appended at the top of the reading.
                   The verdict is a weather report, never a command: it reads field conditions;
                   the person keeps the helm. */}
-              {posture === 'integrate' && (verdictLoading || verdictResult) && (
+              {posture === 'integrate' && (verdictLoading || verdictResult || verdictError) && (
                 <div className="content-pane max-w-2xl mx-auto mb-6 rounded-lg border border-zinc-700/60 bg-zinc-900/60 p-4 sm:p-5">
                   {verdictLoading && !verdictResult && (
                     <div className="text-center text-xs text-zinc-500 animate-pulse py-2">Reading the field for an answer…</div>
+                  )}
+                  {verdictError && !verdictLoading && !verdictResult && (
+                    <div className="text-center text-xs text-zinc-500 py-2">
+                      The answer pass didn't complete.{' '}
+                      {/* Re-runs discernment on the SAME draw — never a re-draw */}
+                      <button
+                        onClick={() => fetchVerdict(draws, question)}
+                        className="text-amber-400/80 hover:text-amber-300 underline underline-offset-2"
+                      >
+                        Try again
+                      </button>
+                    </div>
                   )}
                   {verdictResult?.careFloor && (
                     <div>
