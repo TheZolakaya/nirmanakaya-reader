@@ -2114,6 +2114,7 @@ export default function NirmanakaReader() {
   const [verdictResult, setVerdictResult] = useState(null);
   const [verdictLoading, setVerdictLoading] = useState(false);
   const [verdictError, setVerdictError] = useState(false);
+  const [verdictWalkOpen, setVerdictWalkOpen] = useState(false);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
     setVerdictResult(null);
@@ -3917,7 +3918,7 @@ CRITICAL FORMATTING RULES:
     // Clear auto-resume so new reading starts fresh
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
-    setVerdictResult(null); setVerdictError(false); verdictDrawsRef.current = null;
+    setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -6770,21 +6771,28 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             The field left this genuinely open. A sharper question to ask next: “{v.chainRequest.subQuestion}”
                           </div>
                         )}
-                        <details className="mt-3">
-                          <summary className="text-[10px] font-mono uppercase tracking-wider text-zinc-600 cursor-pointer hover:text-zinc-400">
+                        <div className="mt-3">
+                          <button
+                            onClick={() => setVerdictWalkOpen(o => !o)}
+                            className="text-[10px] font-mono uppercase tracking-wider text-zinc-600 hover:text-zinc-400 py-1.5 -my-1.5 flex items-center gap-1.5"
+                          >
+                            <span className="text-zinc-500">{verdictWalkOpen ? '▾' : '▸'}</span>
                             How this was discerned
-                          </summary>
-                          <div className="mt-2 text-xs text-zinc-500 space-y-1 leading-relaxed">
-                            {verdictResult.lean && (
-                              <div>
-                                Field lean (computed): {verdictResult.lean.value} · {verdictResult.lean.band}
-                                {verdictResult.lean.portalPresent ? ' · portal present' : ''} — {verdictResult.lean.label}
-                              </div>
-                            )}
-                            {v.leanNote && <div>{v.leanNote}</div>}
-                            {Array.isArray(v.walk) && v.walk.map((s, i) => <div key={i}>• {s}</div>)}
-                          </div>
-                        </details>
+                            {verdictWalkOpen && <span className="normal-case tracking-normal text-zinc-600">(tap to close)</span>}
+                          </button>
+                          {verdictWalkOpen && (
+                            <div className="mt-2 text-xs text-zinc-500 space-y-1 leading-relaxed">
+                              {verdictResult.lean && (
+                                <div>
+                                  Field lean (computed): {verdictResult.lean.value} · {verdictResult.lean.band}
+                                  {verdictResult.lean.portalPresent ? ' · portal present' : ''} — {verdictResult.lean.label}
+                                </div>
+                              )}
+                              {v.leanNote && <div>{v.leanNote}</div>}
+                              {Array.isArray(v.walk) && v.walk.map((s, i) => <div key={i}>• {s}</div>)}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })()}
