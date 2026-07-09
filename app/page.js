@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect, Suspense } from 'react';
-import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -807,7 +806,7 @@ export default function NirmanakaReader() {
   // Posture is internal (set by presets), frame determines the reading type
   const COUNT_TO_KEY = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
   useEffect(() => {
-    if (frameSource === 'architecture' || frameSource === 'custom') {
+    if (frameSource === 'architecture' || frameSource === 'custom' || frameSource === 'choice') {
       setSpreadType('discover');
       setSpreadKey(COUNT_TO_KEY[cardCount] || 'three');
     } else if (frameSource === 'preset') {
@@ -2121,12 +2120,10 @@ export default function NirmanakaReader() {
   const [verdictLoading, setVerdictLoading] = useState(false);
   const [verdictError, setVerdictError] = useState(false);
   const [verdictWalkOpen, setVerdictWalkOpen] = useState(false);
-  // CHOICE READING — user-supplied options entered via the popover next to MODE.
-  // 2-5 options; when >=2 are filled in Integrate mode, submit draws one card per option.
-  const [choicesOpen, setChoicesOpen] = useState(false);
+  // CHOICE READING — options live in the Choices FRAME tab (source of truth).
+  // 2-5 options; submit draws one card per option. Comparative verdict fires only
+  // when mode is Integrate; other modes read the branches without a verdict.
   const [choiceInputs, setChoiceInputs] = useState(['', '']);
-  const choicesBtnRef = useRef(null);
-  const [choicesAnchorTop, setChoicesAnchorTop] = useState(120);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
     setVerdictResult(null);
@@ -2608,13 +2605,14 @@ export default function NirmanakaReader() {
     const actualQuestion = question.trim() || (spreadType === 'forge' ? 'Forging intention' : 'General reading');
     setQuestion(actualQuestion);
 
-    // CHOICE READING (Integrate mode + filled choices): one card per option. The options
-    // become the position frames; the verdict pass compares the branches. Takes precedence
-    // over frame routing — the user's menu IS the spread.
-    const filledChoices = posture === 'integrate'
-      ? choiceInputs.map(c => c.trim()).filter(Boolean)
-      : [];
-    if (filledChoices.length >= 2 && userLevel !== USER_LEVELS.FIRST_CONTACT) {
+    // CHOICE READING (Choices frame): one card per option; the options ARE the positions.
+    // Works in every mode — the comparative verdict only fires in Integrate (verdict effect).
+    if (frameSource === 'choice' && userLevel !== USER_LEVELS.FIRST_CONTACT) {
+      const filledChoices = choiceInputs.map(c => c.trim()).filter(Boolean);
+      if (filledChoices.length < 2) {
+        setError('Enter at least two choices to compare.');
+        return;
+      }
       const newDraws = generateSpread(filledChoices.length);
       setDraws(newDraws);
       await performReadingWithDraws(newDraws, actualQuestion, null, {
@@ -5701,6 +5699,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     Architecture
                   </button>
                   <button
+                    onClick={() => { setFrameSource('choice'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
+                    className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
+                      frameSource === 'choice' ? 'bg-sky-600/25 text-sky-300 border border-sky-500/40' : 'text-zinc-500 hover:text-zinc-300'
+                    }`}
+                  >
+                    Choices
+                  </button>
+                  <button
                     onClick={() => { setFrameSource('preset'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'preset' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40' : 'text-zinc-500 hover:text-zinc-300'
@@ -5761,38 +5767,33 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
                 {/* CHOICES — Integrate-only. Trigger under the mode square; the panel FLOATS
                     (absolutely positioned) so nothing in the controls zone ever moves. */}
+                {/* CHOICES shortcut — jumps to the Choices frame tab (the single source of
+                    truth for options). Sky = armed and applying; dim = inputs exist but a
+                    different frame is selected, so they are NOT in play. */}
                 {posture === 'integrate' && (
                   <button
-                    ref={choicesBtnRef}
-                    onClick={() => {
-                      const r = choicesBtnRef.current?.getBoundingClientRect();
-                      if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
-                      setChoicesOpen(o => !o);
-                    }}
+                    onClick={() => { setFrameSource('choice'); setAdvancedMode(true); }}
                     className={`mt-1.5 text-[8px] font-mono uppercase tracking-[0.2em] flex items-center gap-0.5 transition-colors ${
-                      choiceInputs.filter(c => c.trim()).length >= 2 ? 'text-sky-400' : 'text-zinc-600 hover:text-zinc-400'
+                      frameSource === 'choice' && choiceInputs.filter(c => c.trim()).length >= 2
+                        ? 'text-sky-400'
+                        : 'text-zinc-600 hover:text-zinc-400'
                     }`}
-                    title="Enter specific options — one card is drawn per choice and the answer compares them"
+                    title="Compare specific options — opens the Choices frame; one card per choice"
                   >
-                    <span>{choicesOpen ? '▾' : '▸'}</span>
+                    <span>▸</span>
                     Choices{choiceInputs.filter(c => c.trim()).length >= 2 ? ` (${choiceInputs.filter(c => c.trim()).length})` : ''}
                   </button>
                 )}
+              </div>
 
-                {/* Floating choices panel — PORTALED to document.body so no ancestor's
-                    overflow window can clip it (the controls zone clips by design; the
-                    panel must live outside it). Fixed-position, anchored under the
-                    trigger; overlays, never displaces. */}
-                {posture === 'integrate' && choicesOpen && typeof document !== 'undefined' && createPortal(
-                  <div
-                    className="fixed right-3 z-[90] w-60 sm:w-64 max-h-[70vh] overflow-y-auto bg-zinc-900 border border-zinc-700/70 rounded-lg shadow-xl shadow-black/50 p-3"
-                    style={{ top: choicesAnchorTop }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-sky-400/80">Your Choices</span>
-                      <button onClick={() => setChoicesOpen(false)} className="text-zinc-500 hover:text-zinc-300 text-xs px-1" aria-label="Close choices">✕</button>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
+              {/* Scrollable mode content area — tabs stay pinned above */}
+              <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
+
+              {/* CHOICES frame — the user's alternatives ARE the positions; one card each. */}
+              {frameSource === 'choice' && (
+              <div className="w-full max-w-2xl mx-auto mb-3">
+                <div className="flex flex-col items-center justify-start">
+                    <div className="flex flex-col gap-1.5 w-full max-w-sm px-4">
                       {choiceInputs.map((c, i) => (
                         <input
                           key={i}
@@ -5804,28 +5805,21 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             setChoiceInputs(next);
                           }}
                           placeholder={`Choice ${i + 1}`}
-                          className="bg-zinc-950 border border-zinc-700/50 rounded-md px-2.5 py-1.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-sky-500/50 transition-colors"
+                          className="bg-zinc-900 border border-zinc-700/50 rounded-md px-3 py-1.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sky-500/50 transition-colors"
                         />
                       ))}
                     </div>
-                    <div className="flex items-center justify-between mt-2">
-                      {choiceInputs.length < 5 ? (
-                        <button onClick={() => setChoiceInputs([...choiceInputs, ''])} className="text-[10px] text-zinc-500 hover:text-sky-400 transition-colors">+ add choice</button>
-                      ) : <span />}
+                    <div className="flex items-center gap-4 mt-1.5">
+                      {choiceInputs.length < 5 && (
+                        <button onClick={() => setChoiceInputs([...choiceInputs, ''])} className="text-[11px] text-zinc-500 hover:text-sky-400 transition-colors">+ add choice</button>
+                      )}
                       {choiceInputs.some(c => c.trim()) && (
-                        <button onClick={() => { setChoiceInputs(['', '']); }} className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors">clear</button>
+                        <button onClick={() => setChoiceInputs(['', ''])} className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">clear</button>
                       )}
                     </div>
-                    <div className="mt-2 text-[9px] text-zinc-600 leading-snug">
-                      One card per choice. The answer compares them — every branch gets read.
-                    </div>
-                  </div>,
-                  document.body
-                )}
+                </div>
               </div>
-
-              {/* Scrollable mode content area — tabs stay pinned above */}
-              <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
+              )}
 
               {/* V1: Custom Frame — card count + position name inputs */}
               {frameSource === 'custom' && (
@@ -5932,6 +5926,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 {frameSource === 'architecture' && 'AI reads your question and selects the spread for you'}
                 {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
                 {frameSource === 'custom' && 'Name your own positions and define the frame'}
+                {frameSource === 'choice' && (posture === 'integrate'
+                  ? 'One card per choice — the answer compares them'
+                  : 'One card per choice, each read in its own frame — no verdict outside Integrate')}
               </p>
 
               </div>{/* END scrollable mode content */}
