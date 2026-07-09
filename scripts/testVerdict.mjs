@@ -66,6 +66,8 @@ check('empty draws safe', computeBranchScores([], []).branches.length === 0);
 console.log('PARSER:');
 const good = parseVerdictResponse('```json\n{"verdict":"NO_BUT","assertion":"x","walk":[]}\n```');
 check('parses fenced JSON', good?.verdict === 'NO_BUT');
+check('accepts STATE grid verdict', parseVerdictResponse('{"verdict":"WELL_BUT"}')?.verdict === 'WELL_BUT');
+check('accepts CHOICE verdict', parseVerdictResponse('{"verdict":"NONE_OF_THESE"}')?.verdict === 'NONE_OF_THESE');
 check('rejects unknown verdict', parseVerdictResponse('{"verdict":"MAYBE"}') === null);
 check('rejects garbage', parseVerdictResponse('the answer is yes') === null);
 
