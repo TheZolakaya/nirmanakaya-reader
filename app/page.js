@@ -238,6 +238,14 @@ const DEFAULT_PLACEHOLDER = "What would you like clarity on?";
  * Get context-aware placeholder text based on mode, count, and layout
  * Includes safety fallbacks at every level
  */
+// Posture-level placeholder overrides — the input's JOB differs by posture:
+// Forge takes an ASSERTION (choice made explicit), Integrate takes an answerable
+// question. Discover/Reflect keep the frame-based placeholders (null = no override).
+const POSTURE_PLACEHOLDERS = {
+  forge: 'Assert your intention — what are you choosing? The field responds.',
+  integrate: 'Ask for an answer — yes/no, how it stands, or what to do.'
+};
+
 function getPlaceholder(mode, count, layout) {
   // Safety: If no mode, return default
   if (!mode) return DEFAULT_PLACEHOLDER;
@@ -6141,7 +6149,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       <AnimatePresence mode="wait">
                         {!question && !glistenerContent && (
                           <motion.div
-                            key={advancedMode ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey) : 'default'}
+                            key={advancedMode ? (POSTURE_PLACEHOLDERS[posture] || getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)) : 'default'}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.5 }}
                             exit={{ opacity: 0 }}
@@ -6149,7 +6157,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             className={`absolute inset-0 p-4 pb-16 pr-12 pointer-events-none text-[1rem] sm:text-base ${placeholderFlash ? 'animate-rainbow-cycle-fast' : 'text-zinc-500'}`}
                           >
                             {advancedMode
-                              ? getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey)
+                              ? (POSTURE_PLACEHOLDERS[posture] || getPlaceholder(spreadType, spreadType === 'reflect' ? REFLECT_SPREADS[reflectSpreadKey]?.count : (spreadType === 'forge' ? 1 : RANDOM_SPREADS[spreadKey]?.count), reflectSpreadKey))
                               : DEFAULT_PLACEHOLDER
                             }
                           </motion.div>
