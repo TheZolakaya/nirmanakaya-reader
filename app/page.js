@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, Suspense } from 'react';
+import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -2124,6 +2125,8 @@ export default function NirmanakaReader() {
   // 2-5 options; when >=2 are filled in Integrate mode, submit draws one card per option.
   const [choicesOpen, setChoicesOpen] = useState(false);
   const [choiceInputs, setChoiceInputs] = useState(['', '']);
+  const choicesBtnRef = useRef(null);
+  const [choicesAnchorTop, setChoicesAnchorTop] = useState(120);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
     setVerdictResult(null);
@@ -5760,7 +5763,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     (absolutely positioned) so nothing in the controls zone ever moves. */}
                 {posture === 'integrate' && (
                   <button
-                    onClick={() => setChoicesOpen(o => !o)}
+                    ref={choicesBtnRef}
+                    onClick={() => {
+                      const r = choicesBtnRef.current?.getBoundingClientRect();
+                      if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
+                      setChoicesOpen(o => !o);
+                    }}
                     className={`mt-1.5 text-[8px] font-mono uppercase tracking-[0.2em] flex items-center gap-0.5 transition-colors ${
                       choiceInputs.filter(c => c.trim()).length >= 2 ? 'text-sky-400' : 'text-zinc-600 hover:text-zinc-400'
                     }`}
@@ -5771,9 +5779,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   </button>
                 )}
 
-                {/* Floating choices panel — overlays, never displaces */}
-                {posture === 'integrate' && choicesOpen && (
-                  <div className="absolute right-16 sm:right-20 top-0 z-30 w-56 sm:w-64 bg-zinc-900 border border-zinc-700/70 rounded-lg shadow-xl shadow-black/50 p-3">
+                {/* Floating choices panel — PORTALED to document.body so no ancestor's
+                    overflow window can clip it (the controls zone clips by design; the
+                    panel must live outside it). Fixed-position, anchored under the
+                    trigger; overlays, never displaces. */}
+                {posture === 'integrate' && choicesOpen && typeof document !== 'undefined' && createPortal(
+                  <div
+                    className="fixed right-3 z-[90] w-60 sm:w-64 max-h-[70vh] overflow-y-auto bg-zinc-900 border border-zinc-700/70 rounded-lg shadow-xl shadow-black/50 p-3"
+                    style={{ top: choicesAnchorTop }}
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-sky-400/80">Your Choices</span>
                       <button onClick={() => setChoicesOpen(false)} className="text-zinc-500 hover:text-zinc-300 text-xs px-1" aria-label="Close choices">✕</button>
@@ -5805,7 +5819,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     <div className="mt-2 text-[9px] text-zinc-600 leading-snug">
                       One card per choice. The answer compares them — every branch gets read.
                     </div>
-                  </div>
+                  </div>,
+                  document.body
                 )}
               </div>
 
