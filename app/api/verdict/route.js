@@ -6,7 +6,8 @@
 
 import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
 import {
-  typeQuestion, computeFieldLean, buildDiscernmentPrompt, parseVerdictResponse,
+  typeQuestion, computeFieldLean, computeBranchScores,
+  buildDiscernmentPrompt, buildChoicePrompt, parseVerdictResponse,
   CARE_FLOOR, VERDICTS
 } from '../../../lib/verdictEngine.js';
 import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
@@ -18,15 +19,26 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
   if (!VERDICT_ENABLED) return Response.json({ disabled: true });
 
-  const { question, draws, model } = await request.json();
+  const { question, draws, options, model } = await request.json();
 
-  if (!question || !Array.isArray(draws) || !draws.length) {
+  // Choice mode: user-supplied options, one card per option. Question may be empty
+  // (the menu itself is the question); otherwise same laws as the single pass.
+  const isChoice = Array.isArray(options) && options.filter(o => o && o.trim()).length >= 2;
+
+  if ((!question && !isChoice) || !Array.isArray(draws) || !draws.length) {
     return Response.json({ error: 'question and draws required' }, { status: 400 });
   }
+  if (isChoice && draws.length !== options.length) {
+    return Response.json({ error: 'choice mode requires one draw per option' }, { status: 400 });
+  }
 
-  // 1. TYPER — hard floor first, before the field is consulted at all
-  const typerResult = typeQuestion(question);
-  if (typerResult.hardGate) {
+  // 1. TYPER — hard floor first, before the field is consulted at all.
+  // In choice mode every option is typed too: harm content in an option gates
+  // exactly as it would in the question.
+  const typerResult = typeQuestion(question || (isChoice ? options.join(' or ') : ''));
+  const gated = typerResult.hardGate ||
+    (isChoice && options.some(o => typeQuestion(o).hardGate));
+  if (gated) {
     return Response.json({
       verdict: null,
       typerClass: 'HARM',
@@ -36,13 +48,16 @@ export async function POST(request) {
   }
 
   try {
-    // 2. PURE COMPUTE — disclosed lean + per-card dossiers
+    // 2. PURE COMPUTE — disclosed lean/ranking + per-card dossiers
     const cards = drawsToCards(draws);
     const lean = computeFieldLean(draws);
-    const dossiers = cards.map((_, i) => buildCardDossier({ question, cards, index: i }));
+    const branchScores = isChoice ? computeBranchScores(draws, options) : null;
+    const dossiers = cards.map((_, i) => buildCardDossier({ question: question || options?.[i] || '', cards, index: i }));
 
-    // 3. DISCERNMENT PASS
-    const prompt = buildDiscernmentPrompt({ question, typerResult, lean, dossiers });
+    // 3. DISCERNMENT PASS — comparative in choice mode, single-assertion otherwise
+    const prompt = isChoice
+      ? buildChoicePrompt({ question, options, typerResult, branchScores, dossiers })
+      : buildDiscernmentPrompt({ question, typerResult, lean, dossiers });
     const response = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -72,6 +87,7 @@ export async function POST(request) {
       verdict,
       verdictMeta: VERDICTS[verdict.verdict] || null,
       lean,
+      branchScores,
       typer: typerResult,
       usage: data.usage || null
     });

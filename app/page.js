@@ -871,6 +871,11 @@ export default function NirmanakaReader() {
 
   // Centralized frame context builder — maps frameSource to buildFrameContext mode
   const getFrameContextForCard = (index) => {
+    // Choice reading: each card's frame IS its option, in the asker's own words.
+    const choiceOpts = activeReadingOverrides.current?.choiceOptions;
+    if (choiceOpts?.length) {
+      return buildFrameContext('custom', { index, label: choiceOpts[index] || null });
+    }
     if (frameSource === 'preset') {
       return buildFrameContext('preset', { spreadKey: reflectSpreadKey, index });
     }
@@ -2115,15 +2120,21 @@ export default function NirmanakaReader() {
   const [verdictLoading, setVerdictLoading] = useState(false);
   const [verdictError, setVerdictError] = useState(false);
   const [verdictWalkOpen, setVerdictWalkOpen] = useState(false);
+  // CHOICE READING — user-supplied options entered via the popover next to MODE.
+  // 2-5 options; when >=2 are filled in Integrate mode, submit draws one card per option.
+  const [choicesOpen, setChoicesOpen] = useState(false);
+  const [choiceInputs, setChoiceInputs] = useState(['', '']);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
     setVerdictResult(null);
     setVerdictError(false);
     setVerdictLoading(true);
+    // Choice reading: the active options ride along; the route runs the comparative pass.
+    const choiceOpts = activeReadingOverrides.current?.choiceOptions || null;
     fetch('/api/verdict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: questionToUse, draws: drawsToUse })
+      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, options: choiceOpts })
     })
       .then((r) => r.json())
       .then((data) => {
@@ -2593,6 +2604,23 @@ export default function NirmanakaReader() {
 
     const actualQuestion = question.trim() || (spreadType === 'forge' ? 'Forging intention' : 'General reading');
     setQuestion(actualQuestion);
+
+    // CHOICE READING (Integrate mode + filled choices): one card per option. The options
+    // become the position frames; the verdict pass compares the branches. Takes precedence
+    // over frame routing — the user's menu IS the spread.
+    const filledChoices = posture === 'integrate'
+      ? choiceInputs.map(c => c.trim()).filter(Boolean)
+      : [];
+    if (filledChoices.length >= 2 && userLevel !== USER_LEVELS.FIRST_CONTACT) {
+      const newDraws = generateSpread(filledChoices.length);
+      setDraws(newDraws);
+      await performReadingWithDraws(newDraws, actualQuestion, null, {
+        spreadType: 'discover',
+        spreadKey: COUNT_TO_KEY[filledChoices.length] || 'three',
+        choiceOptions: filledChoices
+      });
+      return;
+    }
 
     // First Contact Mode: Always 1 card, always Discover mode
     if (userLevel === USER_LEVELS.FIRST_CONTACT) {
@@ -3880,7 +3908,7 @@ CRITICAL FORMATTING RULES:
     // independent by design; this shares the RESULT, it does not merge the passes).
     const v = verdictResult?.verdict;
     const fuVerdictBlock = v
-      ? `THE ANSWER (verdict already delivered to the user for this same draw):\n${verdictResult.verdictMeta?.label || v.verdict} — ${v.headline}\n${v.qualifier ? `Qualifier: ${v.qualifier}\n` : ''}${verdictResult.lean ? `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band})\n` : ''}If the follow-up concerns this answer, engage it directly — explain, deepen, or honestly examine it. Never re-answer the question with a different verdict, and never treat the verdict as unknown to you.\n\n`
+      ? `THE ANSWER (verdict already delivered to the user for this same draw):\n${verdictResult.verdictMeta?.label || v.verdict}${v.selection ? `: "${v.selection}"` : ''} — ${v.headline}\n${v.qualifier ? `Qualifier: ${v.qualifier}\n` : ''}${verdictResult.branchScores ? `Branch ranking (mechanical): ${verdictResult.branchScores.ranked.map(b => `${b.option} ${b.score}`).join(' · ')}\n` : ''}${verdictResult.lean && !verdictResult.branchScores ? `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band})\n` : ''}If the follow-up concerns this answer, engage it directly — explain, deepen, or honestly examine it. Never re-answer the question with a different verdict, and never treat the verdict as unknown to you.\n\n`
       : '';
 
     const contextMessage = `${fuContextPrefix}${fuConverseBlock}${fuVerdictBlock}THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
@@ -4389,6 +4417,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   // so raw state here showed the wrong frame ("Reflect • undefined" / "Spread: Custom").
   const getReadingFrameLabel = () => {
     const ov = activeReadingOverrides.current;
+    if (ov?.choiceOptions?.length) {
+      return `Choice • ${ov.choiceOptions.length} options`;
+    }
     const effType = ov?.spreadType || spreadType;
     if (effType === 'reflect') {
       const key = ov?.spreadKey || reflectSpreadKey;
@@ -4524,10 +4555,25 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     if (verdictResult?.verdict) {
       const v = verdictResult.verdict;
       md += `## The Answer\n\n`;
-      md += `**${(verdictResult.verdictMeta?.label || v.verdict)}** — ${v.headline}\n\n`;
+      if (v.verdict === 'CHOICE' && v.selection) {
+        md += `**${(verdictResult.verdictMeta?.label || v.verdict)}: “${v.selection}”** — ${v.headline}\n\n`;
+      } else {
+        md += `**${(verdictResult.verdictMeta?.label || v.verdict)}** — ${v.headline}\n\n`;
+      }
       if (v.qualifier) md += `${v.qualifier}\n\n`;
+      if (verdictResult.branchScores?.ranked) {
+        md += `**The branches** (mechanical lean per option, not a judgment):\n\n`;
+        for (const b of verdictResult.branchScores.ranked) {
+          const note = v.branchNotes?.find(n => n.option === b.option)?.note;
+          md += `- **${b.option}** (${b.score > 0 ? '+' : ''}${b.score})${note ? ` — ${note}` : ''}\n`;
+        }
+        if (verdictResult.branchScores.ties?.length) {
+          md += `\n*Within noise of each other: ${verdictResult.branchScores.ties.map(t => t.join(' ↔ ')).join('; ')}.*\n`;
+        }
+        md += `\n`;
+      }
       if (v.authorshipReturn) md += `*${v.authorshipReturn}*\n\n`;
-      if (verdictResult.lean) md += `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band}) — ${verdictResult.lean.label}\n\n`;
+      if (verdictResult.lean && !verdictResult.branchScores) md += `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band}) — ${verdictResult.lean.label}\n\n`;
       md += `---\n\n`;
     }
 
@@ -5709,6 +5755,58 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 <div className={`mt-1 text-[8px] font-mono uppercase tracking-wider h-3 leading-3 ${POSTURE_UI[posture]?.text || 'text-zinc-500'}`}>
                   {POSTURE_CONSTRAINTS[posture]?.label}
                 </div>
+
+                {/* CHOICES — Integrate-only. Trigger under the mode square; the panel FLOATS
+                    (absolutely positioned) so nothing in the controls zone ever moves. */}
+                {posture === 'integrate' && (
+                  <button
+                    onClick={() => setChoicesOpen(o => !o)}
+                    className={`mt-1.5 text-[8px] font-mono uppercase tracking-[0.2em] flex items-center gap-0.5 transition-colors ${
+                      choiceInputs.filter(c => c.trim()).length >= 2 ? 'text-sky-400' : 'text-zinc-600 hover:text-zinc-400'
+                    }`}
+                    title="Enter specific options — one card is drawn per choice and the answer compares them"
+                  >
+                    <span>{choicesOpen ? '▾' : '▸'}</span>
+                    Choices{choiceInputs.filter(c => c.trim()).length >= 2 ? ` (${choiceInputs.filter(c => c.trim()).length})` : ''}
+                  </button>
+                )}
+
+                {/* Floating choices panel — overlays, never displaces */}
+                {posture === 'integrate' && choicesOpen && (
+                  <div className="absolute right-16 sm:right-20 top-0 z-30 w-56 sm:w-64 bg-zinc-900 border border-zinc-700/70 rounded-lg shadow-xl shadow-black/50 p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-sky-400/80">Your Choices</span>
+                      <button onClick={() => setChoicesOpen(false)} className="text-zinc-500 hover:text-zinc-300 text-xs px-1" aria-label="Close choices">✕</button>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      {choiceInputs.map((c, i) => (
+                        <input
+                          key={i}
+                          type="text"
+                          value={c}
+                          onChange={(e) => {
+                            const next = [...choiceInputs];
+                            next[i] = e.target.value;
+                            setChoiceInputs(next);
+                          }}
+                          placeholder={`Choice ${i + 1}`}
+                          className="bg-zinc-950 border border-zinc-700/50 rounded-md px-2.5 py-1.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-sky-500/50 transition-colors"
+                        />
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      {choiceInputs.length < 5 ? (
+                        <button onClick={() => setChoiceInputs([...choiceInputs, ''])} className="text-[10px] text-zinc-500 hover:text-sky-400 transition-colors">+ add choice</button>
+                      ) : <span />}
+                      {choiceInputs.some(c => c.trim()) && (
+                        <button onClick={() => { setChoiceInputs(['', '']); }} className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors">clear</button>
+                      )}
+                    </div>
+                    <div className="mt-2 text-[9px] text-zinc-600 leading-snug">
+                      One card per choice. The answer compares them — every branch gets read.
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Scrollable mode content area — tabs stay pinned above */}
@@ -6761,8 +6859,11 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       rose: 'text-rose-300 border-rose-500/40 bg-rose-600/10',
                       violet: 'text-violet-300 border-violet-500/40 bg-violet-600/10',
                       amber: 'text-amber-300 border-amber-500/40 bg-amber-600/10',
+                      sky: 'text-sky-300 border-sky-500/40 bg-sky-600/10',
                       zinc: 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20'
                     }[meta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
+                    const isChoiceVerdict = v.verdict === 'CHOICE' || v.verdict === 'NONE_OF_THESE';
+                    const noteFor = (opt) => v.branchNotes?.find(n => n.option === opt)?.note;
                     return (
                       <div>
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -6771,8 +6872,38 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             {meta.label || v.verdict}
                           </span>
                         </div>
+                        {v.verdict === 'CHOICE' && v.selection && (
+                          <div className="text-lg text-sky-200 font-medium leading-snug mb-1">“{v.selection}”</div>
+                        )}
                         <div className="text-base text-zinc-100 leading-relaxed mb-1">{v.headline}</div>
                         {v.qualifier && <div className="text-sm text-zinc-400 leading-relaxed mb-2">{v.qualifier}</div>}
+                        {isChoiceVerdict && verdictResult.branchScores?.ranked && (
+                          <div className="mt-2 mb-2 space-y-1.5">
+                            {verdictResult.branchScores.ranked.map((b) => {
+                              const selected = v.verdict === 'CHOICE' && b.option === v.selection;
+                              // score in [-1,1] → bar width 0-100%
+                              const pct = Math.round(((b.score + 1) / 2) * 100);
+                              return (
+                                <div key={b.index} className={`rounded-md border px-2.5 py-1.5 ${selected ? 'border-sky-500/40 bg-sky-600/10' : 'border-zinc-800 bg-zinc-900/40'}`}>
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className={`text-xs ${selected ? 'text-sky-200' : 'text-zinc-300'}`}>{b.option}</span>
+                                    <span className="text-[10px] font-mono text-zinc-500">{b.score > 0 ? '+' : ''}{b.score}</span>
+                                  </div>
+                                  <div className="h-1 mt-1 rounded bg-zinc-800 overflow-hidden">
+                                    <div className={`h-full ${selected ? 'bg-sky-500/70' : 'bg-zinc-600/70'}`} style={{ width: `${pct}%` }} />
+                                  </div>
+                                  {noteFor(b.option) && <div className="text-[11px] text-zinc-500 mt-1 leading-snug">{noteFor(b.option)}</div>}
+                                </div>
+                              );
+                            })}
+                            {verdictResult.branchScores.ties?.length > 0 && (
+                              <div className="text-[10px] text-zinc-500 italic">
+                                Within noise of each other: {verdictResult.branchScores.ties.map(t => t.join(' ↔ ')).join('; ')} — the numbers alone don’t separate them.
+                              </div>
+                            )}
+                            <div className="text-[9px] text-zinc-600">{verdictResult.branchScores.label}</div>
+                          </div>
+                        )}
                         {v.authorshipReturn && <div className="text-xs text-zinc-500 italic">{v.authorshipReturn}</div>}
                         {v.chainRequest?.subQuestion && (
                           <div className="text-xs text-amber-400/80 mt-2">
@@ -6797,6 +6928,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                                 </div>
                               )}
                               {v.leanNote && <div>{v.leanNote}</div>}
+                              {v.rankNote && <div>{v.rankNote} ({v.rankAgreement})</div>}
                               {Array.isArray(v.walk) && v.walk.map((s, i) => <div key={i}>• {s}</div>)}
                             </div>
                           )}
