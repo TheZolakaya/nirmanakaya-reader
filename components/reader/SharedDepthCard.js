@@ -186,6 +186,25 @@ export default function SharedDepthCard({ card, index, mode }) {
           </div>
         </div>
 
+        {/* Position card — the live header's "IN YOUR [position art]" leg */}
+        {card.position !== undefined && card.position !== null && (
+          <div className="hidden md:flex flex-col items-center shrink-0 pt-5">
+            <div className="text-[0.6rem] text-zinc-500 uppercase tracking-wider mb-1">in your</div>
+            <CardImage
+              transient={card.position}
+              status={1}
+              cardName={ARCHETYPES[card.position]?.name}
+              size="compact"
+            />
+            <div className={`text-sm font-medium mt-2 text-center ${houseColors.text}`}>
+              {ARCHETYPES[card.position]?.name || ''}
+            </div>
+            {card.frameLabel && (
+              <div className="text-[0.6rem] text-zinc-500 text-center">({card.frameLabel})</div>
+            )}
+          </div>
+        )}
+
         {/* Signature strip — mirrors the live reading's identity header:
             "[Status] Name → in your Position", chips, channel/archetype line.
             Position ALWAYS shows (the old mode!=='reflect' gate hid it from
@@ -207,6 +226,7 @@ export default function SharedDepthCard({ card, index, mode }) {
           {card.position !== undefined && card.position !== null && (
             <div className="text-sm text-zinc-400 mt-1">
               in your <span className={houseColors.text}>{ARCHETYPES[card.position]?.name || ''}</span>
+              {card.frameLabel && <span className="text-zinc-500"> ({card.frameLabel})</span>}
             </div>
           )}
 
@@ -247,9 +267,22 @@ export default function SharedDepthCard({ card, index, mode }) {
         )}
       </div>
 
+      {/* Frame lens — what this position asks (the live page's lens chip box) */}
+      {card.frameLens && (
+        <div className={`mb-4 px-4 py-3 rounded-lg border ${houseColors.border.replace('/50', '/30')} bg-zinc-900/40`}>
+          {card.frameLabel && <div className={`text-xs font-medium mb-1 ${houseColors.text}`}>● {card.frameLabel}</div>}
+          <div className="text-xs text-zinc-400 leading-relaxed">{card.frameLens}</div>
+        </div>
+      )}
+
       {/* Interpretation Sections */}
       {interpretation && (
         <Section title="Reading" color="amber">
+          {interpretation.summary && (
+            <div className="text-base font-semibold text-amber-200/90 leading-relaxed mb-4 pb-4 border-b border-zinc-800/50">
+              <MarkdownContent content={interpretation.summary} className="!text-amber-200/90 font-semibold text-base" />
+            </div>
+          )}
           <DepthContent depths={getAllDepths(interpretation)} />
         </Section>
       )}

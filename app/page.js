@@ -1541,10 +1541,17 @@ export default function NirmanakaReader() {
 
     // Debounce so multiple cards landing close together produce one write
     const t = setTimeout(() => {
-      const cardsWithContent = draws.map((draw, i) => ({
-        ...draw,
-        interpretation: parsedReading.cards[i]
-      }));
+      const cardsWithContent = draws.map((draw, i) => {
+        // Persist the frame that actually framed this card (label + lens) — shares and
+        // restores were losing "What's Solid"-style position context (never saved).
+        const fc = getFrameContextForCard(i);
+        return {
+          ...draw,
+          frameLabel: fc?.label ?? null,
+          frameLens: fc?.lens ?? null,
+          interpretation: parsedReading.cards[i]
+        };
+      });
       updateReadingContent(savedReadingId, {
         cards: cardsWithContent,
         synthesis: parsedReading.summary || parsedReading.path ? {
