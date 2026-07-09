@@ -191,7 +191,7 @@ export default function SharedReading({ reading, error }) {
   }[vMeta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
 
   return (
-    <DocsBackground>
+    <DocsBackground fixedContentDim={0}>
     <div className="min-h-screen text-zinc-100 flex flex-col">
       <BrandHeader compact />
       {/* Text size slider */}

@@ -30,16 +30,18 @@ const imageBackgrounds = [
   { id: "tunnel-2", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png", label: "Tunnel 2" },
 ];
 
-export default function DocsBackground({ children }) {
+export default function DocsBackground({ children, fixedContentDim = null }) {
   const [theme, setTheme] = useState('dark');
   const [backgroundType, setBackgroundType] = useState('video');
   const [backgroundOpacity, setBackgroundOpacity] = useState(30);
-  const [contentDim, setContentDim] = useState(0);
+  const [contentDim, setContentDim] = useState(fixedContentDim !== null ? fixedContentDim : 0);
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [showBgControls, setShowBgControls] = useState(false);
 
-  // Load preferences from localStorage (shared with Reader)
+  // Load preferences from localStorage (shared with Reader).
+  // fixedContentDim: pages meant for OTHER readers (shared readings) must not inherit
+  // the viewer's saved dim — content arrives at the given value; the slider still works.
   useEffect(() => {
     try {
       const saved = localStorage.getItem('nirmanakaya_prefs');
@@ -48,7 +50,7 @@ export default function DocsBackground({ children }) {
         if (prefs.theme !== undefined) setTheme(prefs.theme);
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
         if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
-        if (prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
+        if (fixedContentDim === null && prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);
       }
