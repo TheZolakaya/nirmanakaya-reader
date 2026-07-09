@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, Suspense } from 'react';
+import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -2120,10 +2121,22 @@ export default function NirmanakaReader() {
   const [verdictLoading, setVerdictLoading] = useState(false);
   const [verdictError, setVerdictError] = useState(false);
   const [verdictWalkOpen, setVerdictWalkOpen] = useState(false);
-  // CHOICE READING — options live in the Choices FRAME tab (source of truth).
-  // 2-5 options; submit draws one card per option. Comparative verdict fires only
-  // when mode is Integrate; other modes read the branches without a verdict.
+  // CHOICE READING — the Choices FRAME tab arms the comparison; the INPUTS live in a
+  // portaled side panel (the controls zone clips its contents by design, so the panel
+  // must float outside it — Chris's ruling after two clipping rounds). 2-5 options;
+  // one card per option; comparative verdict only in Integrate mode.
   const [choiceInputs, setChoiceInputs] = useState(['', '']);
+  const [choicesOpen, setChoicesOpen] = useState(false);
+  const choicesBtnRef = useRef(null);
+  const [choicesAnchorTop, setChoicesAnchorTop] = useState(140);
+  // Selecting the Choices frame auto-opens the panel; leaving it closes it.
+  useEffect(() => {
+    setChoicesOpen(frameSource === 'choice');
+    if (frameSource === 'choice') {
+      const r = choicesBtnRef.current?.getBoundingClientRect();
+      if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
+    }
+  }, [frameSource]);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
     setVerdictResult(null);
@@ -5767,33 +5780,42 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
                 {/* CHOICES — Integrate-only. Trigger under the mode square; the panel FLOATS
                     (absolutely positioned) so nothing in the controls zone ever moves. */}
-                {/* CHOICES shortcut — jumps to the Choices frame tab (the single source of
-                    truth for options). Sky = armed and applying; dim = inputs exist but a
-                    different frame is selected, so they are NOT in play. */}
-                {posture === 'integrate' && (
+                {/* CHOICES trigger — selects the Choices frame and toggles the floating
+                    input panel. Sky = armed and applying; dim = a different frame is
+                    selected, so any typed choices are NOT in play. */}
+                {(posture === 'integrate' || frameSource === 'choice') && (
                   <button
-                    onClick={() => { setFrameSource('choice'); setAdvancedMode(true); }}
+                    ref={choicesBtnRef}
+                    onClick={() => {
+                      const r = choicesBtnRef.current?.getBoundingClientRect();
+                      if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
+                      if (frameSource !== 'choice') { setFrameSource('choice'); setAdvancedMode(true); }
+                      else setChoicesOpen(o => !o);
+                    }}
                     className={`mt-1.5 text-[8px] font-mono uppercase tracking-[0.2em] flex items-center gap-0.5 transition-colors ${
                       frameSource === 'choice' && choiceInputs.filter(c => c.trim()).length >= 2
                         ? 'text-sky-400'
                         : 'text-zinc-600 hover:text-zinc-400'
                     }`}
-                    title="Compare specific options — opens the Choices frame; one card per choice"
+                    title="Compare specific options — one card per choice; the panel opens to enter them"
                   >
-                    <span>▸</span>
+                    <span>{choicesOpen ? '▾' : '▸'}</span>
                     Choices{choiceInputs.filter(c => c.trim()).length >= 2 ? ` (${choiceInputs.filter(c => c.trim()).length})` : ''}
                   </button>
                 )}
-              </div>
 
-              {/* Scrollable mode content area — tabs stay pinned above */}
-              <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
-
-              {/* CHOICES frame — the user's alternatives ARE the positions; one card each. */}
-              {frameSource === 'choice' && (
-              <div className="w-full max-w-2xl mx-auto mb-3">
-                <div className="flex flex-col items-center justify-start">
-                    <div className="flex flex-col gap-1.5 w-full max-w-sm px-4">
+                {/* Floating choices panel — PORTALED to document.body so no ancestor's
+                    clip window can cut it off. Fixed-position; overlays, never displaces. */}
+                {choicesOpen && frameSource === 'choice' && typeof document !== 'undefined' && createPortal(
+                  <div
+                    className="fixed right-3 z-[90] w-60 sm:w-64 max-h-[70vh] overflow-y-auto bg-zinc-900 border border-sky-700/40 rounded-lg shadow-xl shadow-black/50 p-3"
+                    style={{ top: choicesAnchorTop }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-sky-400/80">Your Choices</span>
+                      <button onClick={() => setChoicesOpen(false)} className="text-zinc-500 hover:text-zinc-300 text-xs px-1" aria-label="Close choices">✕</button>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
                       {choiceInputs.map((c, i) => (
                         <input
                           key={i}
@@ -5805,18 +5827,45 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             setChoiceInputs(next);
                           }}
                           placeholder={`Choice ${i + 1}`}
-                          className="bg-zinc-900 border border-zinc-700/50 rounded-md px-3 py-1.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sky-500/50 transition-colors"
+                          className="bg-zinc-950 border border-zinc-700/50 rounded-md px-2.5 py-1.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-sky-500/50 transition-colors"
                         />
                       ))}
                     </div>
-                    <div className="flex items-center gap-4 mt-1.5">
-                      {choiceInputs.length < 5 && (
-                        <button onClick={() => setChoiceInputs([...choiceInputs, ''])} className="text-[11px] text-zinc-500 hover:text-sky-400 transition-colors">+ add choice</button>
-                      )}
+                    <div className="flex items-center justify-between mt-2">
+                      {choiceInputs.length < 5 ? (
+                        <button onClick={() => setChoiceInputs([...choiceInputs, ''])} className="text-[10px] text-zinc-500 hover:text-sky-400 transition-colors">+ add choice</button>
+                      ) : <span />}
                       {choiceInputs.some(c => c.trim()) && (
-                        <button onClick={() => setChoiceInputs(['', ''])} className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">clear</button>
+                        <button onClick={() => setChoiceInputs(['', ''])} className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors">clear</button>
                       )}
                     </div>
+                    <div className="mt-2 text-[9px] text-zinc-600 leading-snug">
+                      One card per choice. {posture === 'integrate' ? 'The answer compares them — every branch gets read.' : 'Each is read in its own frame; switch to Integrate (↻) for a compared answer.'}
+                    </div>
+                  </div>,
+                  document.body
+                )}
+              </div>
+
+              {/* Scrollable mode content area — tabs stay pinned above */}
+              <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
+
+              {/* CHOICES frame — the alternatives ARE the positions; one card each.
+                  Inputs live in the floating side panel (portaled — the controls zone
+                  clips its own contents by design). The tab body just points there. */}
+              {frameSource === 'choice' && (
+              <div className="w-full max-w-2xl mx-auto mb-3">
+                <div className="flex flex-col items-center justify-center pt-2 text-center">
+                  {choiceInputs.filter(c => c.trim()).length >= 2 ? (
+                    <div className="text-sm text-sky-300">
+                      {choiceInputs.filter(c => c.trim()).length} choices set — one card each
+                      <button onClick={() => setChoicesOpen(true)} className="ml-2 text-xs text-zinc-500 hover:text-sky-400 underline underline-offset-2">edit</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setChoicesOpen(true)} className="text-sm text-zinc-400 hover:text-sky-300 transition-colors">
+                      Add your choices in the panel to the right ▸
+                    </button>
+                  )}
                 </div>
               </div>
               )}
