@@ -622,6 +622,10 @@ export default function NirmanakaReader() {
   // V1 Layer Architecture: Frame + Posture + Card Count (replaces mode tabs)
   const [frameSource, setFrameSource] = useState('architecture'); // 'architecture' | 'preset' | 'dynamic' | 'custom'
   const [posture, setPosture] = useState('discover'); // 'reflect' | 'discover' | 'forge' | 'integrate' — set by presets or the 2x2 Reading Mode grid
+  // "Auto select for me" — declared HERE (not with the suggestion machinery below) because
+  // the prefs auto-save effect reads it in its deps; declaring it later is a render-time TDZ
+  // crash that took prod down on 2026-07-09 (minified as 'sm').
+  const [autoPosture, setAutoPosture] = useState(false);
   const [cardCount, setCardCount] = useState(3); // 1-5 for architecture/custom frame
   const [customLabels, setCustomLabels] = useState(['', '', '']); // Position labels for custom frame
   // V3: Stance system removed. Complexity is the new language register dial.
@@ -2171,7 +2175,7 @@ export default function NirmanakaReader() {
   // MODE AUTO-SELECT — "Auto select for me" (Chris 2026-07-09). OFF: whisper suggestion,
   // user decides. ON: durable consent — the question's shape sets the mode, always
   // disclosed on the square. A manual mode tap always wins for the current question.
-  const [autoPosture, setAutoPosture] = useState(false);
+  // (autoPosture state itself is declared up beside `posture` — prefs effect needs it early.)
   const [postureSuggestion, setPostureSuggestion] = useState(null); // {posture, auto}
   const postureTouchedRef = useRef(false);
   useEffect(() => {
