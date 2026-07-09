@@ -183,9 +183,12 @@ export default function SharedDepthCard({ card, index, mode }) {
           </div>
         </div>
 
-        {/* Card Info + Position */}
-        <div className="flex-1 min-w-0 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
+        {/* Signature strip — mirrors the live reading's identity header:
+            "[Status] Name → in your Position", chips, channel/archetype line.
+            Position ALWAYS shows (the old mode!=='reflect' gate hid it from
+            exactly the readings that use named positions). */}
+        <div className="flex-1 min-w-0 text-center sm:text-left sm:pt-3">
+          <div className="flex items-center justify-center sm:justify-start gap-2 mb-2 flex-wrap">
             <span className={`text-xs px-2 py-0.5 rounded ${badgeStyle}`}>
               #{index + 1}
             </span>
@@ -194,19 +197,22 @@ export default function SharedDepthCard({ card, index, mode }) {
             </span>
           </div>
 
-          {/* Position archetype (Discover/Forge mode) */}
-          {card.position !== undefined && card.position !== null && mode !== 'reflect' && (
-            <div className="text-xs text-zinc-500 mt-1">
+          <div className={`text-lg sm:text-xl font-light leading-snug ${houseColors.text}`}>
+            {status?.prefix ? `${status.prefix} ${trans?.name}` : `Balanced ${trans?.name}`}
+          </div>
+
+          {card.position !== undefined && card.position !== null && (
+            <div className="text-sm text-zinc-400 mt-1">
               in your <span className={houseColors.text}>{ARCHETYPES[card.position]?.name || ''}</span>
             </div>
           )}
 
-          {/* Channel info for bounds/agents */}
-          {trans?.channel && (
-            <div className="text-xs text-zinc-600 mt-1">
-              {trans.channel} Channel
-            </div>
-          )}
+          <div className="text-xs text-zinc-600 mt-2 space-y-0.5">
+            {trans?.channel && <div>{trans.channel} Channel</div>}
+            {trans?.archetype !== undefined && trans?.archetype !== null && ARCHETYPES[trans.archetype] && trans?.type !== 'Archetype' && (
+              <div>Expresses <span className="text-zinc-400">{ARCHETYPES[trans.archetype].name}</span></div>
+            )}
+          </div>
         </div>
       </div>
 
