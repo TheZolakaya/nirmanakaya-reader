@@ -15,6 +15,10 @@ check('compound Morocco', typeQuestion('Should I leave my wife and child and mov
 check('high-stakes single', typeQuestion('Should I quit my job?').class === 'HIGH_STAKES');
 check('clear yes/no', typeQuestion('Is the Nirmanakaya work structurally sound right now?').class === 'CLEAR');
 check('state question', typeQuestion('How are things going with the book?').class === 'STATE');
+check('do question (mom fixture)', typeQuestion('What should I be doing to improve my health?').class === 'DO');
+check('do question how-do-i', typeQuestion('How do I get better at trusting the work?').class === 'DO');
+check('bare should stays yes/no', typeQuestion('Should I trust this reading?').class === 'CLEAR');
+check('do does not steal high-stakes', typeQuestion('What should I do about quitting my job?').class === 'HIGH_STAKES');
 check('empty unanswerable', typeQuestion('').class === 'UNANSWERABLE');
 check('clear does not hard-gate', typeQuestion('Is the work sound?').hardGate === false);
 
@@ -67,6 +71,7 @@ console.log('PARSER:');
 const good = parseVerdictResponse('```json\n{"verdict":"NO_BUT","assertion":"x","walk":[]}\n```');
 check('parses fenced JSON', good?.verdict === 'NO_BUT');
 check('accepts STATE grid verdict', parseVerdictResponse('{"verdict":"WELL_BUT"}')?.verdict === 'WELL_BUT');
+check('accepts COUNSEL verdict', parseVerdictResponse('{"verdict":"COUNSEL","counsel":[{"move":"x","source":"y"}]}')?.counsel?.length === 1);
 check('accepts CHOICE verdict', parseVerdictResponse('{"verdict":"NONE_OF_THESE"}')?.verdict === 'NONE_OF_THESE');
 check('rejects unknown verdict', parseVerdictResponse('{"verdict":"MAYBE"}') === null);
 check('rejects garbage', parseVerdictResponse('the answer is yes') === null);

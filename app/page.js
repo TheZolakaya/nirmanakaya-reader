@@ -4597,6 +4597,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         md += `**${(verdictResult.verdictMeta?.label || v.verdict)}** — ${v.headline}\n\n`;
       }
       if (v.qualifier) md += `${v.qualifier}\n\n`;
+      if (Array.isArray(v.counsel) && v.counsel.length) {
+        for (const c of v.counsel) md += `- ${c.move}${c.source ? ` *(from: ${c.source})*` : ''}\n`;
+        md += `\n`;
+      }
       if (verdictResult.branchScores?.ranked) {
         md += `**The branches** (mechanical lean per option, not a judgment):\n\n`;
         for (const b of verdictResult.branchScores.ranked) {
@@ -6960,6 +6964,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         )}
                         <div className="text-base text-zinc-100 leading-relaxed mb-1">{v.headline}</div>
                         {v.qualifier && <div className="text-sm text-zinc-400 leading-relaxed mb-2">{v.qualifier}</div>}
+                        {Array.isArray(v.counsel) && v.counsel.length > 0 && (
+                          <div className="mt-2 mb-2 space-y-1.5">
+                            {v.counsel.map((c, i) => (
+                              <div key={i} className="rounded-md border border-amber-700/30 bg-amber-600/5 px-3 py-2">
+                                <div className="text-sm text-zinc-200 leading-snug">{c.move}</div>
+                                {c.source && <div className="text-[10px] text-zinc-500 mt-0.5">from: {c.source}</div>}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                         {isChoiceVerdict && verdictResult.branchScores?.ranked && (
                           <div className="mt-2 mb-2 space-y-1.5">
                             {verdictResult.branchScores.ranked.map((b) => {

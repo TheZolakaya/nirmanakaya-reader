@@ -248,6 +248,16 @@ export default function SharedReading({ reading, error }) {
             )}
             <div className="text-base text-zinc-100 leading-relaxed mb-1">{v.headline}</div>
             {v.qualifier && <div className="text-sm text-zinc-400 leading-relaxed mb-2">{v.qualifier}</div>}
+            {Array.isArray(v.counsel) && v.counsel.length > 0 && (
+              <div className="mt-2 mb-2 space-y-1.5">
+                {v.counsel.map((c, i) => (
+                  <div key={i} className="rounded-md border border-amber-700/30 bg-amber-600/5 px-3 py-2">
+                    <div className="text-sm text-zinc-200 leading-snug">{c.move}</div>
+                    {c.source && <div className="text-[10px] text-zinc-500 mt-0.5">from: {c.source}</div>}
+                  </div>
+                ))}
+              </div>
+            )}
             {vBranches?.ranked && (
               <div className="mt-2 mb-2 space-y-1.5">
                 {vBranches.ranked.map((b) => {
