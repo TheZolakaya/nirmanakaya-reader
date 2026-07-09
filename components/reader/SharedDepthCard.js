@@ -310,6 +310,26 @@ export default function SharedDepthCard({ card, index, mode }) {
       {hasGrowth && (
         <div className="border-t border-zinc-800/30 pt-4 mt-4">
           <Section title="Growth Opportunity" color="emerald">
+            {card.computed && card.status === 1 && (
+              <div className="mb-4">
+                <div className="flex items-center justify-center gap-6 sm:gap-10">
+                  <div className="flex flex-col items-center">
+                    <div className="text-[0.6rem] text-emerald-400/70 uppercase tracking-wider mb-1">{status?.name || 'Balanced'}</div>
+                    <CardImage transient={card.transient} status={card.status} cardName={trans?.name} size="compact" />
+                    <div className="text-xs text-zinc-300 mt-1">{trans?.name}</div>
+                  </div>
+                  <div className="text-zinc-500 text-xl">→</div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-[0.6rem] text-emerald-400/70 uppercase tracking-wider mb-1">Growth Context</div>
+                    <CardImage transient={card.computed.targetId} status={1} cardName={card.computed.targetName} size="compact" />
+                    <div className="text-xs text-zinc-300 mt-1">{card.computed.targetName}</div>
+                  </div>
+                </div>
+                <div className="text-xs text-emerald-400/60 italic text-center mt-2">
+                  {card.frameLabel ? `${card.frameLabel}: ` : ''}Growth from {status?.prefix ? `${status.prefix} ` : 'Balanced '}{trans?.name}{card.position !== undefined && card.position !== null ? ` in ${ARCHETYPES[card.position]?.name}` : ''}
+                </div>
+              </div>
+            )}
             <DepthContent depths={getAllDepths(interpretation.growth)} />
           </Section>
         </div>
@@ -334,6 +354,29 @@ export default function SharedDepthCard({ card, index, mode }) {
       {hasRebalancer && (
         <div className="border-t border-zinc-800/30 pt-4 mt-4">
           <Section title="Path to Balance" color="emerald">
+            {card.computed && card.status !== 1 && (
+              <div className="mb-4">
+                <div className="flex items-center justify-center gap-6 sm:gap-10">
+                  <div className="flex flex-col items-center">
+                    <div className={`text-[0.6rem] uppercase tracking-wider mb-1 ${STATUS_COLORS[card.status]?.split(' ')[0] || 'text-zinc-400'}`}>{status?.name || ''}</div>
+                    <CardImage transient={card.transient} status={card.status} cardName={trans?.name} size="compact" />
+                    <div className="text-xs text-zinc-300 mt-1">{trans?.name}</div>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-zinc-500 text-xl">→</div>
+                    {card.computed.pathway && <div className="text-[0.6rem] text-zinc-500 uppercase tracking-wider mt-1">{card.computed.pathway}</div>}
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-[0.6rem] text-emerald-400/70 uppercase tracking-wider mb-1">Rebalance with</div>
+                    <CardImage transient={card.computed.targetId} status={1} cardName={card.computed.targetName} size="compact" />
+                    <div className="text-xs text-zinc-300 mt-1">{card.computed.targetName}</div>
+                  </div>
+                </div>
+                <div className="text-xs text-emerald-400/60 italic text-center mt-2">
+                  {card.frameLabel ? `${card.frameLabel}: ` : ''}Rebalancing {status?.prefix ? `${status.prefix} ` : ''}{trans?.name}{card.position !== undefined && card.position !== null ? ` in ${ARCHETYPES[card.position]?.name}` : ''}
+                </div>
+              </div>
+            )}
             <DepthContent depths={getAllDepths(interpretation.rebalancer)} />
           </Section>
         </div>
