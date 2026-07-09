@@ -142,6 +142,7 @@ function getModeLabel(mode) {
     reflect: 'Reflect',
     discover: 'Discover',
     forge: 'Forge',
+    integrate: 'Integrate',
     explore: 'Explore',
     firstContact: 'First Contact'
   };
@@ -152,6 +153,7 @@ const MODE_COLORS = {
   reflect: 'text-blue-400',
   discover: 'text-amber-400',
   forge: 'text-orange-400',
+  integrate: 'text-emerald-400',
   explore: 'text-emerald-400',
   firstContact: 'text-zinc-400'
 };
@@ -177,8 +179,11 @@ export default function SharedReading({ reading, error }) {
     );
   }
 
-  const modeLabel = getModeLabel(reading.mode);
-  const modeColor = MODE_COLORS[reading.mode] || 'text-zinc-400';
+  // The saved posture is the truth (interpretation.posture, .180+); the old `mode`
+  // column speaks the retired spread-frame vocabulary and mislabels readings.
+  const effectiveMode = reading.posture || reading.mode;
+  const modeLabel = getModeLabel(effectiveMode);
+  const modeColor = MODE_COLORS[effectiveMode] || 'text-zinc-400';
 
   // The saved Integrate answer (interpretation.verdict): {verdict: parsedVerdictObj, verdictMeta, lean, branchScores}
   const v = reading.verdict?.verdict || null;

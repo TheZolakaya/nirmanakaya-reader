@@ -13,6 +13,7 @@ function getModeLabel(mode) {
     reflect: 'Reflect',
     discover: 'Discover',
     forge: 'Forge',
+    integrate: 'Integrate',
     explore: 'Explore',
     firstContact: 'First Contact'
   };
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const modeLabel = getModeLabel(reading.mode);
+  const modeLabel = getModeLabel(reading.posture || reading.mode);
   const title = `${modeLabel} Reading | Nirmanakaya`;
 
   // Build description from question + card names
