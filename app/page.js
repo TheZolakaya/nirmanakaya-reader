@@ -2179,6 +2179,7 @@ export default function NirmanakaReader() {
   const [postureSuggestion, setPostureSuggestion] = useState(null); // {posture, auto}
   const postureTouchedRef = useRef(false);
   useEffect(() => {
+    if (frameSource === 'choice') return; // Choices frame owns the mode intent — never reclassify under it
     const t = setTimeout(() => {
       const suggested = classifyPostureShape(question);
       if (!suggested) { setPostureSuggestion(null); return; }
@@ -2191,16 +2192,23 @@ export default function NirmanakaReader() {
       }
     }, 900);
     return () => clearTimeout(t);
-  }, [question, autoPosture, posture]);
+  }, [question, autoPosture, posture, frameSource]);
   const [choicesOpen, setChoicesOpen] = useState(false);
   const choicesBtnRef = useRef(null);
   const [choicesAnchorTop, setChoicesAnchorTop] = useState(140);
   // Selecting the Choices frame auto-opens the panel; leaving it closes it.
+  // Choices declares COMPARE intent: it sets Integrate (disclosed) unless the user
+  // has manually chosen a mode — an explicit mode tap outranks everything (Chris's
+  // ruling: choosing Choices overrides auto; choosing a mode overrides Choices).
   useEffect(() => {
     setChoicesOpen(frameSource === 'choice');
     if (frameSource === 'choice') {
       const r = choicesBtnRef.current?.getBoundingClientRect();
       if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
+      if (!postureTouchedRef.current) {
+        setPosture('integrate');
+        setPostureSuggestion({ posture: 'integrate', auto: true });
+      }
     }
   }, [frameSource]);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
