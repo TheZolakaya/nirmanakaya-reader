@@ -250,6 +250,24 @@ const POSTURE_PLACEHOLDERS = {
 // engine and its geometry data stay out of the client bundle)
 const YIELD_TITLES = { REFLECT: 'Recognitions', DISCOVER: 'Discoveries', FORGE: 'The Landing' };
 
+// Local, dependency-free mirror of the typer's shape detection (the full typer lives
+// server-side with the geometry engine). Returns a suggested posture or null.
+// Reflect is never auto-suggested — pure witness is always a deliberate stance.
+function classifyPostureShape(q) {
+  const s = (q || '').trim();
+  if (s.length < 8) return null;
+  // Assertion openers → Forge (choice made explicit)
+  if (/^i\s*(am|'m|will|intend|choose|commit|refuse|release)\b/i.test(s) || /^i'm\s+(choosing|going|committing|building|done)\b/i.test(s)) return 'forge';
+  // DO-shaped → Integrate (Counsel)
+  if (/^(what|how)\b[\s\S]*\b(should|can|could|do|does|might|must)\s+i\b/i.test(s)) return 'integrate';
+  // Yes/no-shaped → Integrate (verdict)
+  if (/^(should|is|are|am|do|does|will|can|would|could|has|have|was|were)\b/i.test(s)) return 'integrate';
+  // Condition question with a question mark → Integrate (state grid)
+  if (/^how\s+(is|are)\b/i.test(s) && /\?\s*$/.test(s)) return 'integrate';
+  return null;
+}
+const POSTURE_SUGGEST_LABEL = { integrate: 'Integrate ↻', forge: 'Forge ▲' };
+
 function getPlaceholder(mode, count, layout) {
   // Safety: If no mode, return default
   if (!mode) return DEFAULT_PLACEHOLDER;
@@ -1670,6 +1688,7 @@ export default function NirmanakaReader() {
         // V1: Load frame/posture/cardCount (these override spreadType/spreadKey via sync effects)
         if (prefs.frameSource) setFrameSource(prefs.frameSource);
         if (prefs.posture) setPosture(prefs.posture);
+        if (prefs.autoPosture !== undefined) setAutoPosture(prefs.autoPosture);
         if (prefs.cardCount) setCardCount(prefs.cardCount);
         if (prefs.stance) {
           // Ensure seriousness has a default if loading old prefs
@@ -1747,6 +1766,7 @@ export default function NirmanakaReader() {
       // V1 Layer Architecture
       frameSource,
       posture,
+      autoPosture,
       cardCount,
       // Voice settings (V1)
       persona,
@@ -1772,7 +1792,7 @@ export default function NirmanakaReader() {
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, cardCount, persona, humor, complexity, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, autoPosture, cardCount, persona, humor, complexity, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -2141,6 +2161,26 @@ export default function NirmanakaReader() {
   // must float outside it — Chris's ruling after two clipping rounds). 2-5 options;
   // one card per option; comparative verdict only in Integrate mode.
   const [choiceInputs, setChoiceInputs] = useState(['', '']);
+  // MODE AUTO-SELECT — "Auto select for me" (Chris 2026-07-09). OFF: whisper suggestion,
+  // user decides. ON: durable consent — the question's shape sets the mode, always
+  // disclosed on the square. A manual mode tap always wins for the current question.
+  const [autoPosture, setAutoPosture] = useState(false);
+  const [postureSuggestion, setPostureSuggestion] = useState(null); // {posture, auto}
+  const postureTouchedRef = useRef(false);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const suggested = classifyPostureShape(question);
+      if (!suggested) { setPostureSuggestion(null); return; }
+      if (suggested === posture) return; // already there — keep any auto disclosure
+      if (autoPosture && !postureTouchedRef.current) {
+        setPosture(suggested);
+        setPostureSuggestion({ posture: suggested, auto: true });
+      } else if (!autoPosture && posture === 'discover' && !postureTouchedRef.current) {
+        setPostureSuggestion({ posture: suggested, auto: false });
+      }
+    }, 900);
+    return () => clearTimeout(t);
+  }, [question, autoPosture, posture]);
   const [choicesOpen, setChoicesOpen] = useState(false);
   const choicesBtnRef = useRef(null);
   const [choicesAnchorTop, setChoicesAnchorTop] = useState(140);
@@ -4053,6 +4093,7 @@ CRITICAL FORMATTING RULES:
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
     setYieldResult(null); setYieldError(false); yieldDrawsRef.current = null;
+    postureTouchedRef.current = false; setPostureSuggestion(null);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -5860,7 +5901,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {POSTURE_GRID.map((key) => (
                     <button
                       key={key}
-                      onClick={() => setPosture(key)}
+                      onClick={() => { setPosture(key); postureTouchedRef.current = true; setPostureSuggestion(null); }}
                       className={`flex items-center justify-center text-[13px] leading-none transition-colors ${
                         posture === key
                           ? POSTURE_UI[key].active
@@ -5877,8 +5918,34 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   {POSTURE_CONSTRAINTS[posture]?.label}
                 </div>
 
-                {/* CHOICES — Integrate-only. Trigger under the mode square; the panel FLOATS
-                    (absolutely positioned) so nothing in the controls zone ever moves. */}
+                {/* AUTO — "Auto select for me": durable consent for question-shape mode routing */}
+                <button
+                  onClick={() => { setAutoPosture(v => !v); setPostureSuggestion(null); }}
+                  className={`mt-1 text-[8px] font-mono uppercase tracking-[0.2em] transition-colors ${
+                    autoPosture ? 'text-emerald-400' : 'text-zinc-600 hover:text-zinc-400'
+                  }`}
+                  title="Auto-select the reading mode from your question's shape — assertions go to Forge, answerable questions to Integrate. A manual mode tap always wins."
+                >
+                  auto{autoPosture ? ' ✓' : ''}
+                </button>
+
+                {/* Mode whisper / auto disclosure — suggestion when off, receipt when on */}
+                {postureSuggestion && (
+                  postureSuggestion.auto ? (
+                    <div className="mt-0.5 text-[8px] font-mono lowercase tracking-wider text-emerald-400/80">
+                      auto-set
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => { setPosture(postureSuggestion.posture); postureTouchedRef.current = true; setPostureSuggestion(null); }}
+                      className="mt-0.5 text-[8px] font-mono lowercase tracking-wider text-sky-400/80 hover:text-sky-300"
+                      title="This question's shape fits another mode — tap to switch"
+                    >
+                      try {POSTURE_SUGGEST_LABEL[postureSuggestion.posture] || postureSuggestion.posture}?
+                    </button>
+                  )
+                )}
+
                 {/* CHOICES trigger — selects the Choices frame and toggles the floating
                     input panel. Sky = armed and applying; dim = a different frame is
                     selected, so any typed choices are NOT in play. */}
