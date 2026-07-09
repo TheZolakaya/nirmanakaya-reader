@@ -246,6 +246,10 @@ const POSTURE_PLACEHOLDERS = {
   integrate: 'Ask for an answer — yes/no, how it stands, or what to do.'
 };
 
+// Yield block titles (mirror of verdictEngine.YIELD_TITLES — kept local so the
+// engine and its geometry data stay out of the client bundle)
+const YIELD_TITLES = { REFLECT: 'Recognitions', DISCOVER: 'Discoveries', FORGE: 'The Landing' };
+
 function getPlaceholder(mode, count, layout) {
   // Safety: If no mode, return default
   if (!mode) return DEFAULT_PLACEHOLDER;
@@ -2182,6 +2186,44 @@ export default function NirmanakaReader() {
     fetchVerdict(draws, question);
   }, [posture, draws, question, parsedReading]);
 
+  // YIELD (Reflect/Discover/Forge) — the mode's end-state artifact, rendered at the
+  // BOTTOM of the reading: Recognitions / Discoveries / The Landing. Same pattern as
+  // the Answer Box: once per draw, fail-quiet with retry, kill-switched server-side.
+  const [yieldResult, setYieldResult] = useState(null);
+  const [yieldLoading, setYieldLoading] = useState(false);
+  const [yieldError, setYieldError] = useState(false);
+  const yieldDrawsRef = useRef(null);
+  const fetchYield = (drawsToUse, questionToUse, postureToUse) => {
+    setYieldResult(null);
+    setYieldError(false);
+    setYieldLoading(true);
+    fetch('/api/verdict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, posture: postureToUse })
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!pageMountedRef.current) return;
+        if (data.yield) setYieldResult(data);
+        else if (data.error) setYieldError(true);
+        setYieldLoading(false);
+      })
+      .catch(() => {
+        if (!pageMountedRef.current) return;
+        setYieldError(true);
+        setYieldLoading(false);
+      });
+  };
+  useEffect(() => {
+    if (!['reflect', 'discover', 'forge'].includes(posture)) return;
+    if (!draws?.length || !question || !parsedReading) return;
+    if (parsedReading._restored || parsedReading._isFirstContact || parsedReading.firstContact) return;
+    if (yieldDrawsRef.current === draws) return; // one yield per draw
+    yieldDrawsRef.current = draws;
+    fetchYield(draws, question, posture);
+  }, [posture, draws, question, parsedReading]);
+
   // Persist the verdict + posture with the reading — a share or restore without its
   // Answer is headless. Saved into interpretation.{verdict,posture} (additive JSON).
   const verdictSavedRef = useRef(null);
@@ -2200,6 +2242,17 @@ export default function NirmanakaReader() {
     }).then(r => { if (r?.data) console.log('[AutoSave] Verdict saved'); })
       .catch(err => console.log('[AutoSave] Failed to save verdict:', err));
   }, [verdictResult, savedReadingId, posture]);
+
+  // Persist the yield the same way — the end-state artifact travels with the reading.
+  const yieldSavedRef = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId || !yieldResult?.yield) return;
+    if (yieldSavedRef.current === yieldResult) return;
+    yieldSavedRef.current = yieldResult;
+    updateReadingContent(savedReadingId, { yieldData: yieldResult.yield, posture })
+      .then(r => { if (r?.data) console.log('[AutoSave] Yield saved'); })
+      .catch(err => console.log('[AutoSave] Failed to save yield:', err));
+  }, [yieldResult, savedReadingId, posture]);
 
   // On-demand: Load a single card's depth content
   const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {
@@ -3999,6 +4052,7 @@ CRITICAL FORMATTING RULES:
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
+    setYieldResult(null); setYieldError(false); yieldDrawsRef.current = null;
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -4763,6 +4817,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     // Full Architecture (global reading architecture)
     if (parsedReading.fullArchitecture) {
       md += `---\n\n## ⚙ Full Architecture\n\n${parsedReading.fullArchitecture}\n\n`;
+    }
+
+    // The Yield — the mode's end-state artifact (Recognitions / Discoveries / The Landing)
+    if (yieldResult?.yield?.items?.length) {
+      const y = yieldResult.yield;
+      md += `---\n\n## ${YIELD_TITLES[y.yield] || y.yield}\n\n`;
+      if (y.assertion) md += `*"${y.assertion}"*\n\n`;
+      md += `${y.headline}\n\n`;
+      for (const it of y.items) md += `- ${it.statement}${it.source ? ` *(from: ${it.source})*` : ''}\n`;
+      md += `\n`;
+      if (y.authorshipReturn) md += `*${y.authorshipReturn}*\n\n`;
     }
 
     // Letter (new structure with depths, now includes deep)
@@ -8682,6 +8747,56 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* THE YIELD — the mode's end-state artifact at the BOTTOM of the reading:
+            Reflect → Recognitions · Discover → Discoveries · Forge → The Landing.
+            (Integrate's artifact is the Answer Box at the top.) */}
+        {parsedReading && !loading && !parsedReading._isFirstContact && (yieldLoading || yieldResult || yieldError) && (
+          <div className="content-pane max-w-2xl mx-auto mt-6 rounded-lg border border-zinc-700/60 bg-zinc-900/60 p-4 sm:p-5">
+            {yieldLoading && !yieldResult && (
+              <div className="text-center text-xs text-zinc-500 animate-pulse py-2">Distilling what this reading yields…</div>
+            )}
+            {yieldError && !yieldLoading && !yieldResult && (
+              <div className="text-center text-xs text-zinc-500 py-2">
+                The yield pass didn't complete.{' '}
+                <button
+                  onClick={() => fetchYield(draws, question, posture)}
+                  className="text-amber-400/80 hover:text-amber-300 underline underline-offset-2"
+                >
+                  Try again
+                </button>
+              </div>
+            )}
+            {yieldResult?.yield && (() => {
+              const y = yieldResult.yield;
+              const yTone = {
+                REFLECT: 'text-blue-300 border-blue-500/40 bg-blue-600/10',
+                DISCOVER: 'text-amber-300 border-amber-500/40 bg-amber-600/10',
+                FORGE: 'text-orange-300 border-orange-500/40 bg-orange-600/10'
+              }[y.yield] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
+              return (
+                <div>
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${yTone}`}>
+                      {YIELD_TITLES[y.yield] || y.yield}
+                    </span>
+                  </div>
+                  {y.assertion && <div className="text-sm text-zinc-300 italic mb-1">“{y.assertion}”</div>}
+                  <div className="text-base text-zinc-100 leading-relaxed mb-2">{y.headline}</div>
+                  <div className="space-y-1.5">
+                    {y.items.map((it, i) => (
+                      <div key={i} className="rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2">
+                        <div className="text-sm text-zinc-200 leading-snug">{it.statement}</div>
+                        {it.source && <div className="text-[10px] text-zinc-500 mt-0.5">from: {it.source}</div>}
+                      </div>
+                    ))}
+                  </div>
+                  {y.authorshipReturn && <div className="text-xs text-zinc-500 italic mt-2">{y.authorshipReturn}</div>}
+                </div>
+              );
+            })()}
           </div>
         )}
 

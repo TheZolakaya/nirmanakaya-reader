@@ -379,6 +379,37 @@ export default function SharedReading({ reading, error }) {
           </div>
         )}
 
+        {/* THE YIELD — the mode's end-state artifact (Recognitions / Discoveries / The Landing) */}
+        {reading.yieldData?.items?.length > 0 && (() => {
+          const y = reading.yieldData;
+          const titles = { REFLECT: 'Recognitions', DISCOVER: 'Discoveries', FORGE: 'The Landing' };
+          const yTone = {
+            REFLECT: 'text-blue-300 border-blue-500/40 bg-blue-600/10',
+            DISCOVER: 'text-amber-300 border-amber-500/40 bg-amber-600/10',
+            FORGE: 'text-orange-300 border-orange-500/40 bg-orange-600/10'
+          }[y.yield] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
+          return (
+            <div className="mb-8 p-6 bg-zinc-900/60 border border-zinc-700/60 rounded-lg">
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${yTone}`}>
+                  {titles[y.yield] || y.yield}
+                </span>
+              </div>
+              {y.assertion && <div className="text-sm text-zinc-300 italic mb-1">&ldquo;{y.assertion}&rdquo;</div>}
+              <div className="text-base text-zinc-100 leading-relaxed mb-2">{y.headline}</div>
+              <div className="space-y-1.5">
+                {y.items.map((it, i) => (
+                  <div key={i} className="rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2">
+                    <div className="text-sm text-zinc-200 leading-snug">{it.statement}</div>
+                    {it.source && <div className="text-[10px] text-zinc-500 mt-0.5">from: {it.source}</div>}
+                  </div>
+                ))}
+              </div>
+              {y.authorshipReturn && <div className="text-xs text-zinc-500 italic mt-2">{y.authorshipReturn}</div>}
+            </div>
+          );
+        })()}
+
         {/* CTA */}
         <div className="text-center py-8">
           <div className="text-zinc-500 text-sm mb-4">

@@ -1,5 +1,5 @@
 // Verdict engine fixtures — typer classes, harm gate (fail-closed), field lean signs.
-import { typeQuestion, computeFieldLean, computeBranchScores, parseVerdictResponse } from '../lib/verdictEngine.js';
+import { typeQuestion, computeFieldLean, computeBranchScores, parseVerdictResponse, buildYieldPrompt, parseYieldResponse } from '../lib/verdictEngine.js';
 
 let pass = 0, fail = 0;
 function check(name, cond, detail = '') {
@@ -75,6 +75,14 @@ check('accepts COUNSEL verdict', parseVerdictResponse('{"verdict":"COUNSEL","cou
 check('accepts CHOICE verdict', parseVerdictResponse('{"verdict":"NONE_OF_THESE"}')?.verdict === 'NONE_OF_THESE');
 check('rejects unknown verdict', parseVerdictResponse('{"verdict":"MAYBE"}') === null);
 check('rejects garbage', parseVerdictResponse('the answer is yes') === null);
+
+console.log('YIELD:');
+check('yield prompt for reflect', buildYieldPrompt({ posture: 'reflect', question: 'x', dossiers: [] })?.includes('Recognitions'));
+check('yield prompt for forge treats input as assertion', buildYieldPrompt({ posture: 'forge', question: 'x', dossiers: [] })?.includes('ASSERTION'));
+check('no yield prompt for integrate', buildYieldPrompt({ posture: 'integrate', question: 'x', dossiers: [] }) === null);
+check('parses valid yield', parseYieldResponse('{"yield":"DISCOVER","headline":"h","items":[{"statement":"s","source":"c"}]}')?.yield === 'DISCOVER');
+check('rejects unknown yield kind', parseYieldResponse('{"yield":"JUDGE","items":[{"statement":"s"}]}') === null);
+check('rejects empty items', parseYieldResponse('{"yield":"REFLECT","items":[]}') === null);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

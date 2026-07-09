@@ -8,6 +8,7 @@ import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
 import {
   typeQuestion, computeFieldLean, computeBranchScores,
   buildDiscernmentPrompt, buildChoicePrompt, parseVerdictResponse,
+  buildYieldPrompt, parseYieldResponse,
   CARE_FLOOR, VERDICTS
 } from '../../../lib/verdictEngine.js';
 import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
@@ -19,7 +20,10 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
   if (!VERDICT_ENABLED) return Response.json({ disabled: true });
 
-  const { question, draws, options, model } = await request.json();
+  const { question, draws, options, posture, model } = await request.json();
+  // Yield pass: reflect/discover/forge get their mode's end-state artifact instead
+  // of a verdict. Same harm gate, same geometry discipline.
+  const isYield = ['reflect', 'discover', 'forge'].includes(posture);
 
   // Choice mode: user-supplied options, one card per option. Question may be empty
   // (the menu itself is the question); otherwise same laws as the single pass.
@@ -54,10 +58,13 @@ export async function POST(request) {
     const branchScores = isChoice ? computeBranchScores(draws, options) : null;
     const dossiers = cards.map((_, i) => buildCardDossier({ question: question || options?.[i] || '', cards, index: i }));
 
-    // 3. DISCERNMENT PASS — comparative in choice mode, single-assertion otherwise
-    const prompt = isChoice
-      ? buildChoicePrompt({ question, options, typerResult, branchScores, dossiers })
-      : buildDiscernmentPrompt({ question, typerResult, lean, dossiers });
+    // 3. DISCERNMENT PASS — yield for reflect/discover/forge, comparative in
+    // choice mode, single-assertion discernment otherwise
+    const prompt = isYield
+      ? buildYieldPrompt({ posture, question, dossiers })
+      : isChoice
+        ? buildChoicePrompt({ question, options, typerResult, branchScores, dossiers })
+        : buildDiscernmentPrompt({ question, typerResult, lean, dossiers });
     const response = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -77,6 +84,16 @@ export async function POST(request) {
     if (data.error) return Response.json({ error: data.error.message }, { status: 500 });
 
     const text = data.content?.map((item) => item.text || '').join('\n') || '';
+
+    if (isYield) {
+      const yieldResult = parseYieldResponse(text);
+      if (!yieldResult) {
+        const why = data.stop_reason === 'max_tokens' ? 'yield truncated at token cap' : 'unparseable yield response';
+        return Response.json({ error: why }, { status: 500 });
+      }
+      return Response.json({ yield: yieldResult, typer: typerResult, usage: data.usage || null });
+    }
+
     const verdict = parseVerdictResponse(text);
     if (!verdict) {
       const why = data.stop_reason === 'max_tokens' ? 'discernment truncated at token cap' : 'unparseable discernment response';
