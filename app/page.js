@@ -3875,7 +3875,15 @@ CRITICAL FORMATTING RULES:
       ? `PRIOR CONVERSATIONS IN THIS READING:\n${fuConverseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\n\n`
       : '';
 
-    const contextMessage = `${fuContextPrefix}${fuConverseBlock}THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
+    // Integrate mode: the Answer Box verdict is part of this reading — let Converse see it,
+    // so dialog can engage the answer instead of talking past it (the two passes are otherwise
+    // independent by design; this shares the RESULT, it does not merge the passes).
+    const v = verdictResult?.verdict;
+    const fuVerdictBlock = v
+      ? `THE ANSWER (verdict already delivered to the user for this same draw):\n${verdictResult.verdictMeta?.label || v.verdict} — ${v.headline}\n${v.qualifier ? `Qualifier: ${v.qualifier}\n` : ''}${verdictResult.lean ? `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band})\n` : ''}If the follow-up concerns this answer, engage it directly — explain, deepen, or honestly examine it. Never re-answer the question with a different verdict, and never treat the verdict as unknown to you.\n\n`
+      : '';
+
+    const contextMessage = `${fuContextPrefix}${fuConverseBlock}${fuVerdictBlock}THE DRAW:\n${drawText}\n\n${readingContext}\n\nFOLLOW-UP QUESTION: ${followUp}\n\nREMINDER: Use short paragraphs with blank lines between them.`;
 
     try {
       const res = await fetch('/api/reading', {
