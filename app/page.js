@@ -277,7 +277,7 @@ function parseChoicesFromQuestion(q) {
   if (s.length < 12) return null;
   const quoted = [...s.matchAll(/"([^"]{2,80})"/g)].map(m => m[1].trim()).filter(Boolean);
   if (quoted.length >= 2 && quoted.length <= 5) return quoted;
-  if (!/^(should|which|do)\b/i.test(s)) return null;
+  if (!/^(should|which|do|does|are|is|will|can|could|would|currently)\b/i.test(s)) return null;
   if (!/\b(or|vs\.?|versus)\b/i.test(s)) return null;
   let body = s.replace(/\?+\s*$/, '');
   body = body.replace(/^(should (i|we)|which (one|way|option|path)?\s*(should|do)?\s*(i|we)?\s*(choose|pick|take)?|do (i|we))\s*/i, '');
@@ -2799,11 +2799,20 @@ export default function NirmanakaReader() {
     // CHOICE READING (Choices frame): one card per option; the options ARE the positions.
     // Works in every mode — the comparative verdict only fires in Integrate (verdict effect).
     if (frameSource === 'choice' && userLevel !== USER_LEVELS.FIRST_CONTACT) {
-      const filledChoices = choiceInputs.map(c => c.trim()).filter(Boolean);
+      let filledChoices = choiceInputs.map(c => c.trim()).filter(Boolean);
+      // NO DEAD-ENDS: empty panel + fork-shaped question → parse the choices out of
+      // the question itself; unparseable → fall through to a normal reading (Integrate
+      // still answers, with the .197 guards) instead of blocking with an error.
       if (filledChoices.length < 2) {
-        setError('Enter at least two choices to compare.');
-        return;
+        const parsed = parseChoicesFromQuestion(actualQuestion);
+        if (parsed && parsed.length >= 2) {
+          filledChoices = parsed;
+          setChoiceInputs(parsed);
+        }
       }
+      if (filledChoices.length < 2) {
+        // graceful fallthrough: run as a normal (non-choice) reading below
+      } else {
       // The pipeline must know the menu WITHOUT the user restating it in the question
       // (the sisters' complaint): compose the options into the reading context unless
       // the question already contains them. The question box itself is never touched.
@@ -2821,6 +2830,7 @@ export default function NirmanakaReader() {
         choiceOptions: filledChoices
       });
       return;
+      }
     }
 
     // First Contact Mode: Always 1 card, always Discover mode
