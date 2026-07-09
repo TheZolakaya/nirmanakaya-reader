@@ -1520,6 +1520,7 @@ export default function NirmanakaReader() {
         synthesis: parsedReading.summary || parsedReading.path ? {
           summary: parsedReading.summary,
           path: parsedReading.path,
+          whyAppeared: parsedReading.whyAppeared,
           fullArchitecture: parsedReading.fullArchitecture
         } : undefined
       }).then(result => {
@@ -1544,6 +1545,7 @@ export default function NirmanakaReader() {
         synthesis: {
           summary: parsedReading.summary,
           path: parsedReading.path,
+          whyAppeared: parsedReading.whyAppeared,
           fullArchitecture: parsedReading.fullArchitecture
         }
       }).then(async (result) => {
@@ -1594,6 +1596,7 @@ export default function NirmanakaReader() {
         const currentSynthesis = {};
         if (parsedReading?.summary) currentSynthesis.summary = parsedReading.summary;
         if (parsedReading?.path) currentSynthesis.path = parsedReading.path;
+        if (parsedReading?.whyAppeared) currentSynthesis.whyAppeared = parsedReading.whyAppeared;
         if (parsedReading?.fullArchitecture) currentSynthesis.fullArchitecture = parsedReading.fullArchitecture;
         if (hasExpansions) currentSynthesis._expansions = expansions;
         if (hasFollowUps) currentSynthesis._followUpMessages = followUpMessages;
@@ -2170,6 +2173,25 @@ export default function NirmanakaReader() {
     verdictDrawsRef.current = draws;
     fetchVerdict(draws, question);
   }, [posture, draws, question, parsedReading]);
+
+  // Persist the verdict + posture with the reading — a share or restore without its
+  // Answer is headless. Saved into interpretation.{verdict,posture} (additive JSON).
+  const verdictSavedRef = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId || !verdictResult?.verdict) return;
+    if (verdictSavedRef.current === verdictResult) return;
+    verdictSavedRef.current = verdictResult;
+    updateReadingContent(savedReadingId, {
+      verdict: {
+        verdict: verdictResult.verdict,
+        verdictMeta: verdictResult.verdictMeta || null,
+        lean: verdictResult.lean || null,
+        branchScores: verdictResult.branchScores || null
+      },
+      posture
+    }).then(r => { if (r?.data) console.log('[AutoSave] Verdict saved'); })
+      .catch(err => console.log('[AutoSave] Failed to save verdict:', err));
+  }, [verdictResult, savedReadingId, posture]);
 
   // On-demand: Load a single card's depth content
   const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {

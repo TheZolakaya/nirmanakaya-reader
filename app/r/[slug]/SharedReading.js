@@ -12,6 +12,7 @@ import SharedDepthCard from '../../../components/reader/SharedDepthCard';
 import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
+import DocsBackground from '../../../components/shared/DocsBackground';
 
 // Helper to safely get content from depth objects
 function getDepthContent(obj) {
@@ -176,8 +177,22 @@ export default function SharedReading({ reading, error }) {
   const modeLabel = getModeLabel(reading.mode);
   const modeColor = MODE_COLORS[reading.mode] || 'text-zinc-400';
 
+  // The saved Integrate answer (interpretation.verdict): {verdict: parsedVerdictObj, verdictMeta, lean, branchScores}
+  const v = reading.verdict?.verdict || null;
+  const vMeta = reading.verdict?.verdictMeta || {};
+  const vBranches = reading.verdict?.branchScores || null;
+  const verdictTone = {
+    emerald: 'text-emerald-300 border-emerald-500/40 bg-emerald-600/10',
+    rose: 'text-rose-300 border-rose-500/40 bg-rose-600/10',
+    violet: 'text-violet-300 border-violet-500/40 bg-violet-600/10',
+    amber: 'text-amber-300 border-amber-500/40 bg-amber-600/10',
+    sky: 'text-sky-300 border-sky-500/40 bg-sky-600/10',
+    zinc: 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20'
+  }[vMeta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 flex flex-col">
+    <DocsBackground>
+    <div className="min-h-screen text-zinc-100 flex flex-col">
       <BrandHeader compact />
       {/* Text size slider */}
       <div className="fixed top-3 right-3 z-50">
@@ -216,6 +231,51 @@ export default function SharedReading({ reading, error }) {
             <div className="text-lg text-zinc-200 italic">
               &ldquo;{reading.question}&rdquo;
             </div>
+          </div>
+        )}
+
+        {/* THE ANSWER — Integrate verdict, when the reading carries one */}
+        {v && (
+          <div className="mb-8 p-6 bg-zinc-900/60 border border-zinc-700/60 rounded-lg">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600">The Answer</span>
+              <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${verdictTone}`}>
+                {vMeta.label || v.verdict}
+              </span>
+            </div>
+            {v.verdict === 'CHOICE' && v.selection && (
+              <div className="text-lg text-sky-200 font-medium leading-snug mb-1">&ldquo;{v.selection}&rdquo;</div>
+            )}
+            <div className="text-base text-zinc-100 leading-relaxed mb-1">{v.headline}</div>
+            {v.qualifier && <div className="text-sm text-zinc-400 leading-relaxed mb-2">{v.qualifier}</div>}
+            {vBranches?.ranked && (
+              <div className="mt-2 mb-2 space-y-1.5">
+                {vBranches.ranked.map((b) => {
+                  const selected = v.verdict === 'CHOICE' && b.option === v.selection;
+                  const pct = Math.round(((b.score + 1) / 2) * 100);
+                  const note = v.branchNotes?.find(n => n.option === b.option)?.note;
+                  return (
+                    <div key={b.index} className={`rounded-md border px-2.5 py-1.5 ${selected ? 'border-sky-500/40 bg-sky-600/10' : 'border-zinc-800 bg-zinc-900/40'}`}>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-xs ${selected ? 'text-sky-200' : 'text-zinc-300'}`}>{b.option}</span>
+                        <span className="text-[10px] font-mono text-zinc-500">{b.score > 0 ? '+' : ''}{b.score}</span>
+                      </div>
+                      <div className="h-1 mt-1 rounded bg-zinc-800 overflow-hidden">
+                        <div className={`h-full ${selected ? 'bg-sky-500/70' : 'bg-zinc-600/70'}`} style={{ width: `${pct}%` }} />
+                      </div>
+                      {note && <div className="text-[11px] text-zinc-500 mt-1 leading-snug">{note}</div>}
+                    </div>
+                  );
+                })}
+                <div className="text-[9px] text-zinc-600">{vBranches.label}</div>
+              </div>
+            )}
+            {v.authorshipReturn && <div className="text-xs text-zinc-500 italic">{v.authorshipReturn}</div>}
+            {reading.verdict?.lean && !vBranches && (
+              <div className="text-[10px] text-zinc-600 mt-2">
+                Field lean (computed): {reading.verdict.lean.value} · {reading.verdict.lean.band} — {reading.verdict.lean.label}
+              </div>
+            )}
           </div>
         )}
 
@@ -325,5 +385,6 @@ export default function SharedReading({ reading, error }) {
 
       <Footer />
     </div>
+    </DocsBackground>
   );
 }
