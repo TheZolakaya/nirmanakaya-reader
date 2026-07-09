@@ -5859,16 +5859,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   opacity: { duration: 0.25 }
                 }}
               >
-              {/* V1: Frame Selector — replaces mode tabs */}
-              <div className="flex justify-center mb-2 px-2 flex-shrink-0">
-                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0">
+              {/* V1: Frame Selector — replaces mode tabs. Five tabs: full labels on sm+,
+                  short labels on mobile, horizontal scroll as the safety net (no squish). */}
+              <div className="flex justify-center mb-2 px-2 flex-shrink-0 overflow-x-auto scrollbar-none">
+                <div className="inline-flex rounded-lg bg-zinc-900 p-0.5 gap-0.5 flex-shrink-0 whitespace-nowrap">
                   <button
                     onClick={() => { setFrameSource('architecture'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
                     className={`px-2 sm:px-3 py-1 rounded-md text-[0.65rem] sm:text-xs font-medium transition-all ${
                       frameSource === 'architecture' ? 'bg-blue-600/25 text-blue-300 border border-blue-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
-                    Architecture
+                    <span className="sm:hidden">AI Pick</span><span className="hidden sm:inline">Architecture</span>
                   </button>
                   <button
                     onClick={() => { setFrameSource('choice'); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
@@ -5884,7 +5885,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       frameSource === 'preset' ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
-                    Choose a Spread
+                    <span className="sm:hidden">Spreads</span><span className="hidden sm:inline">Choose a Spread</span>
                   </button>
                   <button
                     onClick={() => {
@@ -5897,7 +5898,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       frameSource === 'dynamic' ? 'bg-emerald-600/25 text-emerald-300 border border-emerald-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
-                    From Your Words
+                    <span className="sm:hidden">Words</span><span className="hidden sm:inline">From Your Words</span>
                   </button>
                   <button
                     onClick={() => { setFrameSource('custom'); setCardCount(1); setBorderFlashActive(true); setTimeout(() => setBorderFlashActive(false), 600); }}
@@ -5905,7 +5906,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       frameSource === 'custom' ? 'bg-rose-600/25 text-rose-300 border border-rose-500/40' : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                   >
-                    Make Your Own
+                    <span className="sm:hidden">Custom</span><span className="hidden sm:inline">Make Your Own</span>
                   </button>
                 </div>
               </div>
@@ -5977,10 +5978,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       if (frameSource !== 'choice') { setFrameSource('choice'); setAdvancedMode(true); }
                       else setChoicesOpen(o => !o);
                     }}
-                    className={`mt-1.5 text-[8px] font-mono uppercase tracking-[0.2em] flex items-center gap-0.5 transition-colors ${
+                    className={`mt-1.5 text-[9px] font-mono uppercase tracking-[0.15em] flex items-center gap-1 px-1.5 py-0.5 rounded border transition-colors ${
                       frameSource === 'choice' && choiceInputs.filter(c => c.trim()).length >= 2
-                        ? 'text-sky-400'
-                        : 'text-zinc-600 hover:text-zinc-400'
+                        ? 'text-sky-300 border-sky-500/50 bg-sky-600/15'
+                        : 'text-zinc-400 border-zinc-700/60 bg-zinc-900/60 hover:text-sky-300 hover:border-sky-600/40'
                     }`}
                     title="Compare specific options — one card per choice; the panel opens to enter them"
                   >
@@ -5993,7 +5994,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     clip window can cut it off. Fixed-position; overlays, never displaces. */}
                 {choicesOpen && frameSource === 'choice' && typeof document !== 'undefined' && createPortal(
                   <div
-                    className="fixed right-3 z-[90] w-60 sm:w-64 max-h-[70vh] overflow-y-auto bg-zinc-900 border border-sky-700/40 rounded-lg shadow-xl shadow-black/50 p-3"
+                    className="fixed left-1/2 -translate-x-1/2 z-[90] w-[min(20rem,calc(100vw-2rem))] max-h-[70vh] overflow-y-auto bg-zinc-900 border border-sky-700/40 rounded-lg shadow-xl shadow-black/50 p-3"
                     style={{ top: choicesAnchorTop }}
                   >
                     <div className="flex items-center justify-between mb-2">
