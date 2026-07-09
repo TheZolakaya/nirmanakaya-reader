@@ -13,9 +13,11 @@ import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 import DocsBackground from '../../../components/shared/DocsBackground';
-import { STATUSES, STATUS_COLORS } from '../../../lib/constants.js';
+import { STATUSES, STATUS_COLORS, HOUSE_COLORS } from '../../../lib/constants.js';
 import { ARCHETYPES } from '../../../lib/archetypes.js';
 import { getComponent } from '../../../lib/corrections.js';
+import { getHomeArchetype } from '../../../lib/cardImages.js';
+import CardImage from '../../../components/reader/CardImage.js';
 
 // Helper to safely get content from depth objects
 function getDepthContent(obj) {
@@ -306,28 +308,50 @@ export default function SharedReading({ reading, error }) {
           </div>
         )}
 
-        {/* Signatures overview — the whole draw at a glance, before the individual
-            readings (mirrors the live page's signatures strip). Rows jump to cards. */}
+        {/* Signatures overview — the whole draw at a glance as ART TILES (mirrors the
+            live page's signatures strip): card image, status, name, position, channel,
+            rebalancer, house-colored border. Tiles jump to their full readings. */}
         {reading.cards && Array.isArray(reading.cards) && reading.cards.length > 0 && (
           <div className="mb-8 p-5 bg-zinc-900/70 border border-zinc-800/60 rounded-lg backdrop-blur-sm">
-            <div className="text-sm text-zinc-400 mb-3">Signatures ({reading.cards.length} card{reading.cards.length !== 1 ? 's' : ''})</div>
-            <div className="space-y-2">
+            <div className="text-sm text-zinc-400 mb-4">Signatures ({reading.cards.length} card{reading.cards.length !== 1 ? 's' : ''})</div>
+            <div className={`grid gap-3 ${reading.cards.length === 1 ? 'grid-cols-1 max-w-sm mx-auto' : reading.cards.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
               {reading.cards.map((card, i) => {
                 const t = getComponent(card.transient);
                 const st = STATUSES[card.status];
                 const pos = card.position !== undefined && card.position !== null ? ARCHETYPES[card.position]?.name : null;
+                const tileHouse = (card.position !== undefined && card.position !== null)
+                  ? (ARCHETYPES[card.position]?.house || 'Gestalt')
+                  : (ARCHETYPES[getHomeArchetype(card.transient)]?.house || 'Gestalt');
+                const hc = HOUSE_COLORS[tileHouse] || HOUSE_COLORS.Gestalt;
                 return (
                   <a
                     key={i}
                     href={`#shared-card-${i}`}
-                    className="flex items-center gap-2 flex-wrap rounded-md border border-zinc-800/60 bg-zinc-900/50 px-3 py-2 hover:border-zinc-700 transition-colors"
+                    className={`block rounded-lg border-2 ${hc.border} ${hc.bg} p-4 hover:brightness-110 transition-all`}
                   >
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_COLORS[card.status] || 'bg-zinc-800 text-zinc-400'}`}>
-                      {st?.name || ''}
-                    </span>
-                    <span className="text-sm text-zinc-200">{t?.name || `Card ${card.transient}`}</span>
-                    {pos && <span className="text-xs text-zinc-500">in your <span className="text-zinc-400">{pos}</span></span>}
-                    <span className="ml-auto text-[10px] text-zinc-600">#{i + 1} ↓</span>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_COLORS[card.status] || 'bg-zinc-800 text-zinc-400'}`}>
+                        {st?.name || ''}
+                      </span>
+                      <span className="text-[10px] text-zinc-500">#{i + 1} ↓</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CardImage transient={card.transient} status={card.status} cardName={t?.name} size="compact" />
+                      <div className="min-w-0">
+                        <div className={`text-base font-medium leading-snug ${hc.text}`}>{t?.name || `Card ${card.transient}`}</div>
+                        {pos && <div className="text-xs text-zinc-400 mt-0.5">in your <span className={hc.text}>{pos}</span></div>}
+                        {t?.channel && <div className="text-[11px] text-zinc-500 mt-1">{t.channel} Channel</div>}
+                        {t?.archetype !== undefined && t?.archetype !== null && ARCHETYPES[t.archetype] && t?.type !== 'Archetype' && (
+                          <div className="text-[11px] text-zinc-500">Expresses {ARCHETYPES[t.archetype].name}</div>
+                        )}
+                      </div>
+                    </div>
+                    {card.computed && (
+                      <div className="mt-3 pt-2 border-t border-zinc-800/50 text-[11px] text-zinc-500 uppercase tracking-wider">
+                        {card.status === 1 ? 'Growth' : 'Rebalancer'}
+                        <span className="normal-case tracking-normal text-zinc-300"> → {card.computed.targetName}{card.computed.pathway ? ` via ${card.computed.pathway}` : ''}</span>
+                      </div>
+                    )}
                   </a>
                 );
               })}

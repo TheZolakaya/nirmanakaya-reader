@@ -163,8 +163,10 @@ export default function SharedDepthCard({ card, index, mode }) {
 
   return (
     <div className={`rounded-lg border-2 p-5 mb-5 transition-all duration-300 ${containerStyle}`}>
-      {/* Card Visual + Header */}
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 mb-4">
+      {/* Card Visual + Header — a CENTERED, balanced composition: card art, signature
+          info, medicine card. No flex-1 stretching (it flung the medicine card to the
+          far edge and left a void in the middle). */}
+      <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-5 sm:gap-10 mb-4">
         {/* Card Image */}
         <div className="flex flex-col items-center shrink-0">
           <div className={`text-xs mb-1 ${STATUS_COLORS[card.status]?.split(' ')[0] || 'text-zinc-400'}`}>
@@ -188,7 +190,7 @@ export default function SharedDepthCard({ card, index, mode }) {
             "[Status] Name → in your Position", chips, channel/archetype line.
             Position ALWAYS shows (the old mode!=='reflect' gate hid it from
             exactly the readings that use named positions). */}
-        <div className="flex-1 min-w-0 text-center sm:text-left sm:pt-3">
+        <div className="min-w-0 max-w-md text-center sm:text-left sm:pt-3">
           <div className="flex items-center justify-center sm:justify-start gap-2 mb-2 flex-wrap">
             <span className={`text-xs px-2 py-0.5 rounded ${badgeStyle}`}>
               #{index + 1}
@@ -226,7 +228,7 @@ export default function SharedDepthCard({ card, index, mode }) {
         {/* Medicine card — the computed rebalancer/growth target, arrow pointing the way
             (mirrors the live reading's "Rebalance with" visual) */}
         {card.computed && (
-          <div className="hidden sm:flex flex-col items-center shrink-0 pt-5">
+          <div className="flex sm:flex flex-col items-center shrink-0 pt-1 sm:pt-5">
             <div className="text-[0.6rem] text-zinc-500 uppercase tracking-wider mb-1">
               {card.status === 1 ? 'Grow with' : 'Rebalance with'}
             </div>
