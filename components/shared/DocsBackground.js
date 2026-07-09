@@ -30,10 +30,10 @@ const imageBackgrounds = [
   { id: "tunnel-2", src: "/images/Zolakaya_The_beautiful_glowing_circular_tunnel_to_heaven_no_f_ba01ff35-10b4-4a2b-a941-6d3f084b6e44_3.png", label: "Tunnel 2" },
 ];
 
-export default function DocsBackground({ children, fixedContentDim = null }) {
+export default function DocsBackground({ children, fixedContentDim = null, fixedBackgroundOpacity = null }) {
   const [theme, setTheme] = useState('dark');
   const [backgroundType, setBackgroundType] = useState('video');
-  const [backgroundOpacity, setBackgroundOpacity] = useState(30);
+  const [backgroundOpacity, setBackgroundOpacity] = useState(fixedBackgroundOpacity !== null ? fixedBackgroundOpacity : 30);
   const [contentDim, setContentDim] = useState(fixedContentDim !== null ? fixedContentDim : 0);
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -49,7 +49,7 @@ export default function DocsBackground({ children, fixedContentDim = null }) {
         const prefs = JSON.parse(saved);
         if (prefs.theme !== undefined) setTheme(prefs.theme);
         if (prefs.backgroundType !== undefined) setBackgroundType(prefs.backgroundType);
-        if (prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
+        if (fixedBackgroundOpacity === null && prefs.backgroundOpacity !== undefined) setBackgroundOpacity(prefs.backgroundOpacity);
         if (fixedContentDim === null && prefs.contentDim !== undefined) setContentDim(prefs.contentDim);
         if (prefs.selectedVideo !== undefined) setSelectedVideo(prefs.selectedVideo);
         if (prefs.selectedImage !== undefined) setSelectedImage(prefs.selectedImage);

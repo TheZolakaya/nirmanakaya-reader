@@ -13,6 +13,9 @@ import TextSizeSlider from '../../../components/shared/TextSizeSlider';
 import BrandHeader from '../../../components/layout/BrandHeader';
 import Footer from '../../../components/layout/Footer';
 import DocsBackground from '../../../components/shared/DocsBackground';
+import { STATUSES, STATUS_COLORS } from '../../../lib/constants.js';
+import { ARCHETYPES } from '../../../lib/archetypes.js';
+import { getComponent } from '../../../lib/corrections.js';
 
 // Helper to safely get content from depth objects
 function getDepthContent(obj) {
@@ -191,7 +194,7 @@ export default function SharedReading({ reading, error }) {
   }[vMeta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
 
   return (
-    <DocsBackground fixedContentDim={0}>
+    <DocsBackground fixedContentDim={0} fixedBackgroundOpacity={22}>
     <div className="min-h-screen text-zinc-100 flex flex-col">
       <BrandHeader compact />
       {/* Text size slider */}
@@ -298,17 +301,46 @@ export default function SharedReading({ reading, error }) {
           </div>
         )}
 
+        {/* Signatures overview — the whole draw at a glance, before the individual
+            readings (mirrors the live page's signatures strip). Rows jump to cards. */}
+        {reading.cards && Array.isArray(reading.cards) && reading.cards.length > 0 && (
+          <div className="mb-8 p-5 bg-zinc-900/70 border border-zinc-800/60 rounded-lg backdrop-blur-sm">
+            <div className="text-sm text-zinc-400 mb-3">Signatures ({reading.cards.length} card{reading.cards.length !== 1 ? 's' : ''})</div>
+            <div className="space-y-2">
+              {reading.cards.map((card, i) => {
+                const t = getComponent(card.transient);
+                const st = STATUSES[card.status];
+                const pos = card.position !== undefined && card.position !== null ? ARCHETYPES[card.position]?.name : null;
+                return (
+                  <a
+                    key={i}
+                    href={`#shared-card-${i}`}
+                    className="flex items-center gap-2 flex-wrap rounded-md border border-zinc-800/60 bg-zinc-900/50 px-3 py-2 hover:border-zinc-700 transition-colors"
+                  >
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_COLORS[card.status] || 'bg-zinc-800 text-zinc-400'}`}>
+                      {st?.name || ''}
+                    </span>
+                    <span className="text-sm text-zinc-200">{t?.name || `Card ${card.transient}`}</span>
+                    {pos && <span className="text-xs text-zinc-500">in your <span className="text-zinc-400">{pos}</span></span>}
+                    <span className="ml-auto text-[10px] text-zinc-600">#{i + 1} ↓</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Cards drawn */}
         {reading.cards && Array.isArray(reading.cards) && (
           <div className="mb-8">
-            <div className="text-sm text-zinc-400 mb-4">Cards Drawn ({reading.cards.length})</div>
             {reading.cards.map((card, i) => (
-              <SharedDepthCard
-                key={i}
-                card={card}
-                index={i}
-                mode={reading.mode}
-              />
+              <div key={i} id={`shared-card-${i}`}>
+                <SharedDepthCard
+                  card={card}
+                  index={i}
+                  mode={reading.mode}
+                />
+              </div>
             ))}
           </div>
         )}
