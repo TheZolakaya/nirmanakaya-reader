@@ -268,6 +268,27 @@ function classifyPostureShape(q) {
 }
 const POSTURE_SUGGEST_LABEL = { integrate: 'Integrate ↻', forge: 'Forge ▲' };
 
+// Parse a choice-shaped question into its options. Conservative on purpose: quoted
+// lists always win; otherwise only clear "should I / which ..." + or/versus splits
+// with 2-5 plausible segments. Bad parses are worse than no parse — the user can
+// always edit the panel after accepting.
+function parseChoicesFromQuestion(q) {
+  const s = (q || '').trim();
+  if (s.length < 12) return null;
+  const quoted = [...s.matchAll(/"([^"]{2,80})"/g)].map(m => m[1].trim()).filter(Boolean);
+  if (quoted.length >= 2 && quoted.length <= 5) return quoted;
+  if (!/^(should|which|do)\b/i.test(s)) return null;
+  if (!/\b(or|vs\.?|versus)\b/i.test(s)) return null;
+  let body = s.replace(/\?+\s*$/, '');
+  body = body.replace(/^(should (i|we)|which (one|way|option|path)?\s*(should|do)?\s*(i|we)?\s*(choose|pick|take)?|do (i|we))\s*/i, '');
+  const parts = body.split(/\s*(?:\bor\b|\bversus\b|\bvs\.?\b)\s*/i)
+    .flatMap(p => p.split(/\s*,\s*/))
+    .map(p => p.trim())
+    .filter(p => p.length >= 2 && p.length <= 80);
+  if (parts.length >= 2 && parts.length <= 5) return parts;
+  return null;
+}
+
 function getPlaceholder(mode, count, layout) {
   // Safety: If no mode, return default
   if (!mode) return DEFAULT_PLACEHOLDER;
@@ -2177,10 +2198,25 @@ export default function NirmanakaReader() {
   // disclosed on the square. A manual mode tap always wins for the current question.
   // (autoPosture state itself is declared up beside `posture` — prefs effect needs it early.)
   const [postureSuggestion, setPostureSuggestion] = useState(null); // {posture, auto}
+  const [choiceSuggestion, setChoiceSuggestion] = useState(null); // parsed options awaiting accept
   const postureTouchedRef = useRef(false);
   useEffect(() => {
-    if (frameSource === 'choice') return; // Choices frame owns the mode intent — never reclassify under it
+    if (frameSource === 'choice') { setChoiceSuggestion(null); return; } // Choices frame owns the mode intent
     const t = setTimeout(() => {
+      // Choice-shaped question? Parse the menu out of it — nobody should type their
+      // options twice (the sisters' complaint, 2026-07-09).
+      const parsed = parseChoicesFromQuestion(question);
+      if (parsed) {
+        if (autoPosture && !postureTouchedRef.current) {
+          setChoiceInputs(parsed);
+          setFrameSource('choice'); // .194 effect sets Integrate + opens panel + receipt
+          setChoiceSuggestion(null);
+        } else {
+          setChoiceSuggestion(parsed);
+        }
+        return;
+      }
+      setChoiceSuggestion(null);
       const suggested = classifyPostureShape(question);
       if (!suggested) { setPostureSuggestion(null); return; }
       if (suggested === posture) return; // already there — keep any auto disclosure
@@ -2768,9 +2804,18 @@ export default function NirmanakaReader() {
         setError('Enter at least two choices to compare.');
         return;
       }
+      // The pipeline must know the menu WITHOUT the user restating it in the question
+      // (the sisters' complaint): compose the options into the reading context unless
+      // the question already contains them. The question box itself is never touched.
+      const baseQ = question.trim() || 'Which of these choices is most supported right now?';
+      const qLower = baseQ.toLowerCase();
+      const optsAlreadyStated = filledChoices.every(c => qLower.includes(c.toLowerCase().slice(0, Math.min(24, c.length))));
+      const choiceQuestion = optsAlreadyStated
+        ? baseQ
+        : `${baseQ}\n\nThe choices being compared:\n${filledChoices.map((c, i) => `${i + 1}. ${c}`).join('\n')}`;
       const newDraws = generateSpread(filledChoices.length);
       setDraws(newDraws);
-      await performReadingWithDraws(newDraws, actualQuestion, null, {
+      await performReadingWithDraws(newDraws, choiceQuestion, null, {
         spreadType: 'discover',
         spreadKey: COUNT_TO_KEY[filledChoices.length] || 'three',
         choiceOptions: filledChoices
@@ -4112,7 +4157,7 @@ CRITICAL FORMATTING RULES:
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
     setYieldResult(null); setYieldError(false); yieldDrawsRef.current = null;
-    postureTouchedRef.current = false; setPostureSuggestion(null);
+    postureTouchedRef.current = false; setPostureSuggestion(null); setChoiceSuggestion(null);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
     setShowMidReadingStance(false);
@@ -5948,6 +5993,21 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 >
                   auto{autoPosture ? ' ✓' : ''}
                 </button>
+
+                {/* Choice-parse whisper — the question contains a menu; one tap arms it */}
+                {choiceSuggestion && frameSource !== 'choice' && (
+                  <button
+                    onClick={() => {
+                      setChoiceInputs(choiceSuggestion);
+                      setFrameSource('choice');
+                      setChoiceSuggestion(null);
+                    }}
+                    className="mt-1 text-[9px] font-mono lowercase tracking-wider text-sky-300 border border-sky-600/50 bg-sky-600/15 rounded px-1.5 py-0.5 hover:bg-sky-600/25 transition-colors"
+                    title={`Compare as choices: ${choiceSuggestion.join(' · ')}`}
+                  >
+                    compare {choiceSuggestion.length} choices?
+                  </button>
+                )}
 
                 {/* Mode whisper / auto disclosure — suggestion when off, receipt when on */}
                 {postureSuggestion && (
