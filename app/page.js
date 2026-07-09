@@ -7169,7 +7169,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       sky: 'text-sky-300 border-sky-500/40 bg-sky-600/10',
                       zinc: 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20'
                     }[meta.tone] || 'text-zinc-300 border-zinc-600/40 bg-zinc-700/20';
-                    const isChoiceVerdict = v.verdict === 'CHOICE' || v.verdict === 'NONE_OF_THESE';
+                    const isChoiceVerdict = v.verdict === 'CHOICE' || v.verdict === 'NONE_OF_THESE' || (v.verdict === 'CONDITIONS' && !!verdictResult.branchScores);
                     const noteFor = (opt) => v.branchNotes?.find(n => n.option === opt)?.note;
                     return (
                       <div>
