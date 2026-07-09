@@ -145,8 +145,9 @@ export default function SharedDepthCard({ card, index, mode }) {
   }
 
   const houseColors = HOUSE_COLORS[house] || HOUSE_COLORS.Gestalt;
-  const softerBorder = houseColors.border.replace('/50', '/30');
-  const containerStyle = `${houseColors.bg} ${softerBorder}`;
+  // Full-strength house outline — the softened border read as "sloppy/plain" next
+  // to the live reading's vivid container colors.
+  const containerStyle = `${houseColors.bg} ${houseColors.border}`;
   const badgeStyle = `${houseColors.bg} ${houseColors.text}`;
 
   // Card type label
@@ -213,7 +214,35 @@ export default function SharedDepthCard({ card, index, mode }) {
               <div>Expresses <span className="text-zinc-400">{ARCHETYPES[trans.archetype].name}</span></div>
             )}
           </div>
+
+          {card.computed && (
+            <div className="text-xs text-zinc-500 mt-2 uppercase tracking-wider">
+              {card.status === 1 ? 'Growth Opportunity' : 'Rebalancer'}
+              <span className="normal-case tracking-normal text-zinc-400"> → {card.computed.targetName}{card.computed.pathway ? ` via ${card.computed.pathway}` : ''}</span>
+            </div>
+          )}
         </div>
+
+        {/* Medicine card — the computed rebalancer/growth target, arrow pointing the way
+            (mirrors the live reading's "Rebalance with" visual) */}
+        {card.computed && (
+          <div className="hidden sm:flex flex-col items-center shrink-0 pt-5">
+            <div className="text-[0.6rem] text-zinc-500 uppercase tracking-wider mb-1">
+              {card.status === 1 ? 'Grow with' : 'Rebalance with'}
+            </div>
+            <div className="text-zinc-500 text-xl leading-none mb-1">→</div>
+            <CardImage
+              transient={card.computed.targetId}
+              status={1}
+              cardName={card.computed.targetName}
+              size="compact"
+            />
+            <div className="text-sm font-medium mt-2 text-center text-zinc-300">{card.computed.targetName}</div>
+            {card.computed.pathway && (
+              <div className="text-[0.6rem] text-zinc-500 uppercase tracking-wider">via {card.computed.pathway}</div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Interpretation Sections */}
