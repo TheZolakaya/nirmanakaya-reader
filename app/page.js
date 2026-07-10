@@ -2236,8 +2236,11 @@ export default function NirmanakaReader() {
   // Choices declares COMPARE intent: it sets Integrate (disclosed) unless the user
   // has manually chosen a mode — an explicit mode tap outranks everything (Chris's
   // ruling: choosing Choices overrides auto; choosing a mode overrides Choices).
+  // MOUNT GUARD: prefs restore frameSource on page-land; the panel must NOT pop
+  // open on arrival — only on a real in-session switch to the tab.
+  const choicesMountTimeRef = useRef(Date.now());
   useEffect(() => {
-    setChoicesOpen(frameSource === 'choice');
+    setChoicesOpen(frameSource === 'choice' && (Date.now() - choicesMountTimeRef.current) > 2000);
     if (frameSource === 'choice') {
       const r = choicesBtnRef.current?.getBoundingClientRect();
       if (r) setChoicesAnchorTop(Math.max(8, Math.round(r.bottom + 8)));
