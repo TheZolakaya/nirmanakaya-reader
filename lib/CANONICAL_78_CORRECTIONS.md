@@ -17,7 +17,7 @@ Archetypes correct to their duality partner:
 For Bounds and Agents: Follow the associated Archetype's correction path with **polarity flip**.
 
 ### For Balanced State (Growth Opportunity)
-Balance isn't a destination — it's a launchpad. When balanced, the archetype points to its **growth partner**:
+Tune isn't a destination — it's a launchpad. When balanced, the archetype points to its **growth partner**:
 
 - **12 Off-Diagonal Archetypes → Transpose Partner** (lateral growth through reflection)
 - **4 Diagonal Archetypes → Polarity Anchor** (vertical growth through elemental opposition)
@@ -36,49 +36,49 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Archetype | Traditional | Diagonal Partner | Traditional |
 |-----------|-------------|------------------|-------------|
 | Potential (0) | Fool | Actualization (19) | Sun |
-| Will (1) | Magician | Awareness (20) | Judgement |
+| Will (1) | Magician | Recognition (20) | Judgement |
 | Wisdom (2) | High Priestess | Inspiration (17) | Star |
 | Nurturing (3) | Empress | Imagination (18) | Moon |
 | Order (4) | Emperor | Abstraction (15) | Devil |
 | Culture (5) | Hierophant | Breakthrough (16) | Tower |
 | Compassion (6) | Lovers | Change (13) | Death |
-| Drive (7) | Chariot | Balance (14) | Temperance |
+| Drive (7) | Chariot | Tune (14) | Temperance |
 | Fortitude (8) | Strength | Equity (11) | Justice |
 | Discipline (9) | Hermit | Sacrifice (12) | Hanged Man |
 | Equity (11) | Justice | Fortitude (8) | Strength |
 | Sacrifice (12) | Hanged Man | Discipline (9) | Hermit |
 | Change (13) | Death | Compassion (6) | Lovers |
-| Balance (14) | Temperance | Drive (7) | Chariot |
+| Tune (14) | Temperance | Drive (7) | Chariot |
 | Abstraction (15) | Devil | Order (4) | Emperor |
 | Breakthrough (16) | Tower | Culture (5) | Hierophant |
 | Inspiration (17) | Star | Wisdom (2) | High Priestess |
 | Imagination (18) | Moon | Nurturing (3) | Empress |
 | Actualization (19) | Sun | Potential (0) | Fool |
-| Awareness (20) | Judgement | Will (1) | Magician |
+| Recognition (20) | Judgement | Will (1) | Magician |
 
 ### Vertical Pairs (Too Little correction)
 | Archetype | Traditional | Vertical Partner | Traditional |
 |-----------|-------------|------------------|-------------|
-| Potential (0) | Fool | Awareness (20) | Judgement |
+| Potential (0) | Fool | Recognition (20) | Judgement |
 | Will (1) | Magician | Actualization (19) | Sun |
 | Wisdom (2) | High Priestess | Imagination (18) | Moon |
 | Nurturing (3) | Empress | Inspiration (17) | Star |
 | Order (4) | Emperor | Breakthrough (16) | Tower |
 | Culture (5) | Hierophant | Abstraction (15) | Devil |
-| Compassion (6) | Lovers | Balance (14) | Temperance |
+| Compassion (6) | Lovers | Tune (14) | Temperance |
 | Drive (7) | Chariot | Change (13) | Death |
 | Fortitude (8) | Strength | Sacrifice (12) | Hanged Man |
 | Discipline (9) | Hermit | Equity (11) | Justice |
 | Equity (11) | Justice | Discipline (9) | Hermit |
 | Sacrifice (12) | Hanged Man | Fortitude (8) | Strength |
 | Change (13) | Death | Drive (7) | Chariot |
-| Balance (14) | Temperance | Compassion (6) | Lovers |
+| Tune (14) | Temperance | Compassion (6) | Lovers |
 | Abstraction (15) | Devil | Culture (5) | Hierophant |
 | Breakthrough (16) | Tower | Order (4) | Emperor |
 | Inspiration (17) | Star | Nurturing (3) | Empress |
 | Imagination (18) | Moon | Wisdom (2) | High Priestess |
 | Actualization (19) | Sun | Will (1) | Magician |
-| Awareness (20) | Judgement | Potential (0) | Fool |
+| Recognition (20) | Judgement | Potential (0) | Fool |
 
 ### Reduction Pairs (Unacknowledged correction)
 | Archetype | Traditional | Reduction Partner | Traditional |
@@ -88,7 +88,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Wisdom (2) | High Priestess | Equity (11) | Justice |
 | Nurturing (3) | Empress | Sacrifice (12) | Hanged Man |
 | Order (4) | Emperor | Change (13) | Death |
-| Culture (5) | Hierophant | Balance (14) | Temperance |
+| Culture (5) | Hierophant | Tune (14) | Temperance |
 | Compassion (6) | Lovers | Abstraction (15) | Devil |
 | Drive (7) | Chariot | Breakthrough (16) | Tower |
 | Fortitude (8) | Strength | Inspiration (17) | Star |
@@ -97,13 +97,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Equity (11) | Justice | Wisdom (2) | High Priestess |
 | Sacrifice (12) | Hanged Man | Nurturing (3) | Empress |
 | Change (13) | Death | Order (4) | Emperor |
-| Balance (14) | Temperance | Culture (5) | Hierophant |
+| Tune (14) | Temperance | Culture (5) | Hierophant |
 | Abstraction (15) | Devil | Compassion (6) | Lovers |
 | Breakthrough (16) | Tower | Drive (7) | Chariot |
 | Inspiration (17) | Star | Fortitude (8) | Strength |
 | Imagination (18) | Moon | Discipline (9) | Hermit |
 | Actualization (19) | Sun | — | No reduction pair |
-| Awareness (20) | Judgement | — | No reduction pair |
+| Recognition (20) | Judgement | — | No reduction pair |
 | Creation (21) | World | — | No reduction pair |
 
 ---
@@ -117,13 +117,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Wisdom (2) | High Priestess | Order (4) | Emperor | Reception → Structure |
 | Nurturing (3) | Empress | Sacrifice (12) | Hanged Man | Cultivation → Surrender |
 | Order (4) | Emperor | Wisdom (2) | High Priestess | Structure → Reception |
-| Culture (5) | Hierophant | Balance (14) | Temperance | Transmission → Integration |
+| Culture (5) | Hierophant | Tune (14) | Temperance | Transmission → Integration |
 | Drive (7) | Chariot | Imagination (18) | Moon | Momentum → Vision |
 | Discipline (9) | Hermit | Breakthrough (16) | Tower | Method → Clearing |
 | Equity (11) | Justice | Change (13) | Death | Fairness → Transformation |
 | Sacrifice (12) | Hanged Man | Nurturing (3) | Empress | Surrender → Cultivation |
 | Change (13) | Death | Equity (11) | Justice | Transformation → Fairness |
-| Balance (14) | Temperance | Culture (5) | Hierophant | Integration → Transmission |
+| Tune (14) | Temperance | Culture (5) | Hierophant | Integration → Transmission |
 | Breakthrough (16) | Tower | Discipline (9) | Hermit | Clearing → Method |
 | Imagination (18) | Moon | Drive (7) | Chariot | Vision → Momentum |
 
@@ -144,7 +144,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Order (4) + Wisdom (2) | 6 | 6 | Connection |
 | Drive (7) + Imagination (18) | 25 | 7 | Momentum |
 | Sacrifice (12) + Nurturing (3) | 15 | 6 | Connection |
-| Balance (14) + Culture (5) | 19 | 1 | Will |
+| Tune (14) + Culture (5) | 19 | 1 | Will |
 | Discipline (9) + Breakthrough (16) | 25 | 7 | Momentum |
 | Equity (11) + Change (13) | 24 | 6 | Connection |
 
@@ -202,13 +202,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Equity (11) | Justice | 5 of Cups | 6 of Cups | — | King of Cups |
 | Sacrifice (12) | Hanged Man | 5 of Wands | 6 of Wands | — | King of Wands |
 | Change (13) | Death | 4 of Pentacles | 7 of Pentacles | — | Queen of Pentacles |
-| Balance (14) | Temperance | 4 of Swords | 7 of Swords | — | Queen of Swords |
+| Tune (14) | Temperance | 4 of Swords | 7 of Swords | — | Queen of Swords |
 | Abstraction (15) | Devil | 3 of Swords | 8 of Swords | Knight of Swords | — |
 | Breakthrough (16) | Tower | 3 of Pentacles | 8 of Pentacles | Knight of Pentacles | — |
 | Inspiration (17) | Star | 2 of Wands | 9 of Wands | Page of Wands | — |
 | Imagination (18) | Moon | 2 of Cups | 9 of Cups | Page of Cups | — |
 | Actualization (19) | Sun | Ace of Swords | 10 of Swords | — | — |
-| Awareness (20) | Judgement | Ace of Cups | 10 of Cups | — | — |
+| Recognition (20) | Judgement | Ace of Cups | 10 of Cups | — | — |
 
 ---
 
@@ -287,7 +287,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | King of Wands | Executor of Intent | Sacrifice (12) | Outer |
 | Page of Swords | Initiate of Cognition | Wisdom (2) | Inner |
 | Knight of Swords | Catalyst of Cognition | Abstraction (15) | Inner |
-| Queen of Swords | Steward of Cognition | Balance (14) | Outer |
+| Queen of Swords | Steward of Cognition | Tune (14) | Outer |
 | King of Swords | Executor of Cognition | Discipline (9) | Outer |
 | Page of Cups | Initiate of Resonance | Imagination (18) | Inner |
 | Knight of Cups | Catalyst of Resonance | Culture (5) | Inner |
@@ -370,7 +370,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 4. Fortitude's Inner bound: **5 of Pentacles**
 ✓ Too Little 6 of Wands → 5 of Pentacles
 
-**Example 2: Too Little Ace of Pentacles (Initiation)**
+**Example 2: Too Little Ace of Pentacles (Definition)**
 1. Associated Archetype: Will (Magician)
 2. Too Little → Vertical partner: Actualization (Sun)
 3. Ace is Inner → flip to Outer
@@ -403,9 +403,9 @@ Actually, looking at the Archetype → Bounds/Agents table:
 - Imagination (18) has: Page of Cups (Inner), and NO Outer Agent
 
 So if we flip from Outer → Inner, we get Page of Cups. But what if the source is Inner (Knight of Cups)?
-- Culture (5) → Balance (14)
+- Culture (5) → Tune (14)
 - Knight is Inner → flip to Outer
-- Balance's Outer agent: Queen of Swords ✓
+- Tune's Outer agent: Queen of Swords ✓
 
 **Example 5: Balanced 4 of Cups (Reverie)**
 1. Associated Archetype: Compassion (Lovers) — DIAGONAL
@@ -418,7 +418,7 @@ So if we flip from Outer → Inner, we get Page of Cups. But what if the source 
 
 ## NOTES ON GESTALT ARCHETYPES
 
-Potential (0), Will (1), Actualization (19), Awareness (20), Source (10), and Creation (21) do not participate in the Transpose/Polarity growth system because:
+Potential (0), Will (1), Actualization (19), Recognition (20), Source (10), and Creation (21) do not participate in the Transpose/Polarity growth system because:
 - Gestalt archetypes (0, 1, 19, 20) sit above the manifest matrix
 - Portal archetypes (10, 21) are the frame, not the content
 

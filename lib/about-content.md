@@ -225,13 +225,13 @@ Apply P/R alternation starting from undifferentiated potential:
 | 11 | P | **Equity** — discernment from Source | Justice |
 | 12 | R | **Sacrifice** — release to align | Hanged Man |
 | 13 | P | **Change** — transformation | Death |
-| 14 | R | **Balance** — equilibrium | Temperance |
+| 14 | R | **Tune** — equilibrium | Temperance |
 | 15 | P | **Abstraction** — pattern recognition | The Devil |
 | 16 | R | **Breakthrough** — patterns collapse | The Tower |
 | 17 | P | **Inspiration** — guidance received | The Star |
 | 18 | R | **Imagination** — creative vision | The Moon |
 | 19 | P | **Actualization** — full manifestation | The Sun |
-| 20 | R | **Awareness** — self-recognition | Judgement |
+| 20 | R | **Recognition** — self-recognition | Judgement |
 | **21** | **P** | **Creation** — completion (CLOSURE) | The World |
 
 **Then 21 → 0: Creation returns to Potential. The cycle continues.**
@@ -311,7 +311,7 @@ The framework encodes its own cardinality.
 
 ### The Ten-Fold Seal
 
-Every process moves through four stages: **Seed** (initiation), **Medium** (development), **Fruition** (completion), **Feedback** (integration). Within each House, archetypes are assigned stages by ascending numeric value — lowest number = Seed (1), highest = Feedback (4).
+Every process moves through four stages: **Seed** (initiation), **Bridge** (the through-which), **Fruition** (completion), **Feedback** (integration). Within each House, archetypes are assigned stages by ascending numeric value — lowest number = Seed (1), highest = Feedback (4).
 
 When each archetype in the grid is replaced by its process stage:
 

@@ -88,7 +88,7 @@ Consider a specific example. Position 7 — Drive. The Chariot. Momentum. The em
 
 **Drive displaced Too Much:** Future-projected momentum. The person is racing toward something that hasn't materialized, generating anxiety about outcomes, pushing past capacity, burning fuel for destinations that may not exist. The chariot at full gallop with no reins.
 
-Correction: Balance (14), the diagonal partner (sum = 21). Balance provides counter-tension — the capacity to pause, weigh, integrate. Not to stop the chariot but to introduce the calibration that converts reckless speed into directed force. Drive + Balance = purposeful momentum.
+Correction: Tune (14), the diagonal partner (sum = 21). Balance provides counter-tension — the capacity to pause, weigh, integrate. Not to stop the chariot but to introduce the calibration that converts reckless speed into directed force. Drive + Balance = purposeful momentum.
 
 **Drive displaced Too Little:** Past-anchored stagnation. The person once had momentum and has lost it. The emotional engine runs on memory, generating no new movement. The chariot stands still, the driver staring at where it used to be going.
 

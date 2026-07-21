@@ -64,9 +64,9 @@ Destiny begins before direction exists. Potential — the Fool — steps off the
 
 And Potential governs Spirit — meaning the seed of your destiny IS your capacity to witness. You can't fulfill what you can't perceive. The Fool's innocence isn't naivete to be outgrown. It's the structural prerequisite for genuine seeing.
 
-**Medium — Will (1) directs.**
+**Bridge — Will (1) directs.**
 
-Once potential opens the field, will sustains the direction. The Magician holds the wand and points. This isn't the dramatic moment of choosing — it's the quiet, ongoing act of maintaining orientation. Will at Medium means destiny doesn't drift. There's a sustained force holding the trajectory in place while everything else processes.
+Once potential opens the field, will sustains the direction. The Magician holds the wand and points. This isn't the dramatic moment of choosing — it's the quiet, ongoing act of maintaining orientation. Will at Bridge means destiny doesn't drift. There's a sustained force holding the trajectory in place while everything else processes.
 
 And Will governs Body — meaning the sustaining force of destiny IS structural integrity. The endurance, the discipline, the law — these are how directed will maintains itself in form. The Magician doesn't just point once. He holds.
 
@@ -78,7 +78,7 @@ And the numerology tells a story: 19 (The Sun) reduces to 10 (1+9 = 10, Source �
 
 Actualization governs Mind — meaning the fruition of destiny IS the capacity to channel force. When you've become what you are, the structured expression of that becoming is consciousness directing energy through pattern. The creator doesn't just exist. The creator channels.
 
-**Feedback — Awareness (20) integrates.**
+**Feedback — Recognition (20) integrates.**
 
 And here we arrive at the hinge. The Feedback of the Gestalt. The final matter. The last archetype in the entire sequence before the egress portal.
 
@@ -100,9 +100,9 @@ Spirit is governed by the Fool — the Gestalt's Seed, the purest openness. This
 
 Witnessing begins with the opening of perception itself. Not interpretation — reception. The quiet faculty of seeing what's actually there. Before you can witness creation, you must develop the capacity to let reality register without immediately filtering it through what you already believe. Wisdom seeds the command by getting out of the way.
 
-**Medium — Nurturing (3) tends.**
+**Bridge — Nurturing (3) tends.**
 
-You don't witness creation in a glance. Once perception opens, it must be sustained — patiently, carefully, the way you tend a garden. Nurturing at Medium is the ongoing care that keeps the witness present. Most witnessing fails here: eyes open briefly, then attention wanders. The Empress doesn't just see the garden. She stays with it. The Medium of witnessing is the patience most people skip.
+You don't witness creation in a glance. Once perception opens, it must be sustained — patiently, carefully, the way you tend a garden. Nurturing at Bridge is the ongoing care that keeps the witness present. Most witnessing fails here: eyes open briefly, then attention wanders. The Empress doesn't just see the garden. She stays with it. The Medium of witnessing is the patience most people skip.
 
 **Fruition — Inspiration (17) aspires.**
 
@@ -124,7 +124,7 @@ Mind is governed by the Sun — the Gestalt's Fruition, the fully actualized cre
 
 Channeling begins with establishing the structure through which force can flow. Think of riverbanks: they don't fight the water — they give it somewhere to go. Before force can be directed, there must be channels to direct it through. Without Order's Seed, force disperses into noise.
 
-**Medium — Culture (5) transmits.**
+**Bridge — Culture (5) transmits.**
 
 Once the channels exist, the force must be carried as living tradition. Language, teaching, ritual, shared practice — these are the media through which directed force sustains itself across time and between people. The Medium of channeling is the recognition that force must be shared to be sustained. What stays in one mind dies with it.
 
@@ -140,7 +140,7 @@ Pattern recognition leads inevitably to breakthrough. When you see the patterns 
 
 #### Free Will — Emotion
 
-*Governed by Awareness (20). Element: Water.*
+*Governed by Recognition (20). Element: Water.*
 
 Here is where the architecture reveals something extraordinary. The house of free will — of choice itself — is governed by Judgement. Not constrained by it. *Governed*. The way a riverbank governs a river: by giving it coherent direction. Without Awareness governing Emotion, free will would be arbitrary — choice without orientation, selection without meaning. With it, every choice carries a meta-perspective: does this align?
 
@@ -150,15 +150,15 @@ And this is the deeper structural truth: the alignment check and the free choice
 
 Free will begins with connection. Before you can choose authentically, you must care about something. Compassion opens the relational field — the space in which choices carry weight. An isolated will choosing in a vacuum isn't free — it's disconnected. The Seed of "Free Will" is the opening of the heart to what matters. This is why free will can't be reduced to arbitrary selection from a menu. Genuine free will starts with genuine caring. Connection is the ground every authentic choice grows from.
 
-**Medium — Drive (7) moves.**
+**Bridge — Drive (7) moves.**
 
-Once connection establishes what matters, will must move. Drive at Medium is commitment in motion — the sustained momentum of a choice being lived, not just made. Choosing isn't enough. You must carry your choice forward through time, through resistance, through the long middle where initial inspiration fades and only momentum remains. Most free will fails here — at the Medium — when connection fades and movement stalls. Drive sustains what compassion opened.
+Once connection establishes what matters, will must move. Drive at Bridge is commitment in motion — the sustained momentum of a choice being lived, not just made. Choosing isn't enough. You must carry your choice forward through time, through resistance, through the long middle where initial inspiration fades and only momentum remains. Most free will fails here — at the Bridge — when connection fades and movement stalls. Drive sustains what compassion opened.
 
 **Fruition — Change (13) transforms.**
 
 Sustained freely-willed momentum inevitably arrives at transformation. When you connected authentically, moved on that connection with sustained drive, what you arrive at is irreversible change. Something that was must end so that something new can be born. The Fruition of "Free Will" IS transformation — the proof that your choices mattered, because look: something is fundamentally different now. Change doesn't happen to you. You drove yourself here. This is free will bearing fruit — and the fruit is the death of the old form so that a new one can emerge.
 
-**Feedback — Balance (14) integrates.**
+**Feedback — Tune (14) integrates.**
 
 After transformation, integration. Not returning to the old center but finding new equilibrium that includes the transformation. What was and what is now must be mixed. The Feedback of "Free Will" is the active work of integrating what your freedom produced. And this feeds back to Compassion's Seed: a rebalanced system opens new relational capacity. New connections become possible because the old ones transformed and integrated. The cycle of free will deepens with each revolution.
 
@@ -174,9 +174,9 @@ Body is governed by the Magician — the Gestalt's Medium, directed will sustain
 
 Upholding the law begins with the capacity to hold. Not brute force — quiet, sustained endurance. The lion doesn't need to roar; it simply doesn't yield. Before you can maintain structure, before you can be relied upon, you must establish what can bear weight. Can you hold? That's the foundational question. Without Fortitude's Seed, law is theoretical. Endurance makes it real.
 
-**Medium — Discipline (9) focuses.**
+**Bridge — Discipline (9) focuses.**
 
-Raw endurance must be refined through sustained practice. Discipline at Medium means the capacity to hold isn't enough — it must be honed, tested, focused. The Hermit walks alone because this refinement is internal work. No one else can do your discipline for you. The Medium of "Uphold the Law" is the ongoing practice that keeps the structure precise. The law holds not because it's strong but because it's sharp.
+Raw endurance must be refined through sustained practice. Discipline at Bridge means the capacity to hold isn't enough — it must be honed, tested, focused. The Hermit walks alone because this refinement is internal work. No one else can do your discipline for you. The Medium of "Uphold the Law" is the ongoing practice that keeps the structure precise. The law holds not because it's strong but because it's sharp.
 
 **Fruition — Equity (11) measures.**
 
@@ -208,9 +208,9 @@ The other diagonal in every house sums to **21** — Creation, the egress portal
 
 - Spirit: Nurturing (3) + Imagination (18) = 21
 - Mind: Culture (5) + Breakthrough (16) = 21
-- Emotion: Drive (7) + Balance (14) = 21
+- Emotion: Drive (7) + Tune (14) = 21
 - Body: Discipline (9) + Sacrifice (12) = 21
-- Gestalt: Will (1) + Awareness (20) = 21
+- Gestalt: Will (1) + Recognition (20) = 21
 
 Every house. Both diagonals. 19 and 21. Without exception.
 
@@ -225,7 +225,7 @@ Now look at what happens when you pair archetypes across the central axis — ev
 - Nurturing (3) + Inspiration (17) = **20**
 - Order (4) + Breakthrough (16) = **20**
 - Culture (5) + Abstraction (15) = **20**
-- Compassion (6) + Balance (14) = **20**
+- Compassion (6) + Tune (14) = **20**
 - Drive (7) + Change (13) = **20**
 - Fortitude (8) + Sacrifice (12) = **20**
 - Discipline (9) + Equity (11) = **20**

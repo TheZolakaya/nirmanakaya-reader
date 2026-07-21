@@ -94,7 +94,7 @@ The Chinese Yin-Yang symbol is not merely a picture of duality. It encodes a fou
 | Stage | Yin-Yang | Architecture |
 |-------|----------|-------------|
 | Yang-pure | White ascending | Seed — pure initiation |
-| Yin-in-Yang | Black dot in white | Medium — development through encounter |
+| Yin-in-Yang | Black dot in white | Bridge — development through encounter |
 | Yin-pure | Black descending | Fruition — full expression |
 | Yang-in-Yin | White dot in black | Feedback — integration, return |
 

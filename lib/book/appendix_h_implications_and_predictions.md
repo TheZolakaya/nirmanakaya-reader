@@ -234,7 +234,7 @@ A framework that cannot be disproven is not a framework — it is a belief syste
 
 **Prediction 1: φ-Scaled Neural Timing.**
 
-The four process stages (Seed, Medium, Fruition, Feedback) should produce event-related potentials whose latencies scale by successive powers of the golden ratio. If the base latency T₀ corresponds to the N1 component at approximately 100 milliseconds, then: N200 at ~160ms (φ¹ × T₀), P300 at ~260ms (φ² × T₀), and late positive potential at ~420ms (φ³ × T₀). These are ratios, not absolute values — the base can shift across tasks and individuals. What should remain constant is the φ relationship between successive stages.
+The four process stages (Seed, Bridge, Fruition, Feedback) should produce event-related potentials whose latencies scale by successive powers of the golden ratio. If the base latency T₀ corresponds to the N1 component at approximately 100 milliseconds, then: N200 at ~160ms (φ¹ × T₀), P300 at ~260ms (φ² × T₀), and late positive potential at ~420ms (φ³ × T₀). These are ratios, not absolute values — the base can shift across tasks and individuals. What should remain constant is the φ relationship between successive stages.
 
 *Falsification:* If meta-analysis of ERP latencies across diverse cognitive paradigms (oddball, Stroop, recognition memory, semantic priming) shows ratios clustering around values significantly different from 1.618 — say 1.3 or 2.0 — the prediction fails.
 

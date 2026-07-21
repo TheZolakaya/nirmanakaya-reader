@@ -64,7 +64,7 @@ The upright pentagram — one point ascending, two reaching to the sides, two gr
 
 The pentagram has a specific geometry. Two feet, two hands, one head. The feet are grounded; the hands reach; the head oversees. Spirit and Body form the two feet — the most grounded pair, fire and earth, aspiration and manifestation. Mind and Emotion form the two hands — the most active pair, air and water, modeling and connecting. Gestalt crowns them all.
 
-**Gestalt** is the observer. The "I" that synthesizes the other four. It cannot be observed FROM because there is no vantage point outside it — the eye cannot see itself except in a mirror. Gestalt is the house of identity, coherence, and unified awareness. Its archetypes (Potential, Will, Actualization, Awareness) describe the structure of the observer itself.
+**Gestalt** is the observer. The "I" that synthesizes the other four. It cannot be observed FROM because there is no vantage point outside it — the eye cannot see itself except in a mirror. Gestalt is the house of identity, coherence, and unified awareness. Its archetypes (Potential, Will, Actualization, Recognition) describe the structure of the observer itself.
 
 **Spirit** is aspiration. The orientation toward meaning. What you aim for, what you strive toward, what pulls you forward. Spirit is not religion — it is the structural capacity for direction. Without it, consciousness operates but goes nowhere.
 
@@ -105,13 +105,13 @@ Within each house, the four archetypes correspond to the four process stages:
 | Stage | Function | Position | Pair Type |
 |-------|----------|----------|-----------|
 | **Seed** | Initiates | Lowest number in house | Vertical partner with Feedback |
-| **Medium** | Develops | Second lowest | Vertical partner with Fruition |
+| **Bridge** | Develops | Second lowest | Vertical partner with Fruition |
 | **Fruition** | Completes | Second highest | Vertical partner with Medium |
 | **Feedback** | Integrates | Highest number | Vertical partner with Seed |
 
 So within the Spirit house (positions 2, 3, 17, 18):
 - Wisdom (2) is the Seed — where aspiration begins
-- Nurturing (3) is the Medium — where aspiration develops through care
+- Nurturing (3) is the Bridge — where aspiration develops through care
 - Inspiration (17) is the Fruition — where aspiration reaches full expression
 - Imagination (18) is the Feedback — where aspiration integrates and prepares to begin again
 
@@ -127,13 +127,13 @@ No archetype exists in isolation. Every position is connected to three partners 
 
 | Pair | Sum | Relationship |
 |------|-----|-------------|
-| Potential (0) ↔ Awareness (20) | 20 | The observer: empty capacity and full recognition |
+| Potential (0) ↔ Recognition (20) | 20 | The observer: empty capacity and full recognition |
 | Will (1) ↔ Actualization (19) | 20 | The creator: directed intent and fulfilled purpose |
 | Wisdom (2) ↔ Imagination (18) | 20 | The visionary: structured insight and creative flow |
 | Nurturing (3) ↔ Inspiration (17) | 20 | The guide: grounded care and expansive calling |
 | Order (4) ↔ Breakthrough (16) | 20 | The architect: stable structure and revolutionary change |
 | Culture (5) ↔ Abstraction (15) | 20 | The teacher: embodied tradition and pure concept |
-| Compassion (6) ↔ Balance (14) | 20 | The healer: emotional opening and centered harmony |
+| Compassion (6) ↔ Tune (14) | 20 | The healer: emotional opening and centered harmony |
 | Drive (7) ↔ Change (13) | 20 | The warrior: passionate momentum and necessary transformation |
 | Fortitude (8) ↔ Sacrifice (12) | 20 | The endurer: resilient strength and willing release |
 | Discipline (9) ↔ Equity (11) | 20 | The steward: rigorous practice and balanced fairness |

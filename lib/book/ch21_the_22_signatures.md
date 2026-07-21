@@ -54,7 +54,7 @@ Spirit sits at the upper right point of the pentagram. It governs aspiration, pu
 | Position | Signature | Verb | Channel | Stage |
 |----------|-----------|------|---------|-------|
 | 2 | Wisdom (High Priestess) | PERCEIVES | Cognition | Seed |
-| 3 | Nurturing (The Empress) | TENDS | Structure | Medium |
+| 3 | Nurturing (The Empress) | TENDS | Structure | Bridge |
 | 17 | Inspiration (The Star) | ASPIRES | Intent | Fruition |
 | 18 | Imagination (The Moon) | ENVISIONS | Resonance | Feedback |
 
@@ -67,7 +67,7 @@ Mind sits at the upper left point of the pentagram. It governs cognition, modeli
 | Position | Signature | Verb | Channel | Stage |
 |----------|-----------|------|---------|-------|
 | 4 | Order (The Emperor) | COMMANDS | Intent | Seed |
-| 5 | Culture (The Hierophant) | TRANSMITS | Resonance | Medium |
+| 5 | Culture (The Hierophant) | TRANSMITS | Resonance | Bridge |
 | 15 | Abstraction (The Devil) | PATTERNS | Cognition | Feedback |
 | 16 | Breakthrough (The Tower) | CLEARS | Structure | Feedback |
 
@@ -80,7 +80,7 @@ Emotion sits at the lower left point of the pentagram. It governs felt meaning, 
 | Position | Signature | Verb | Channel | Stage |
 |----------|-----------|------|---------|-------|
 | 6 | Compassion (The Lovers) | CONNECTS | Resonance | Seed |
-| 7 | Drive (The Chariot) | MOVES | Intent | Medium |
+| 7 | Drive (The Chariot) | MOVES | Intent | Bridge |
 | 13 | Change (Death) | TRANSFORMS | Structure | Fruition |
 | 14 | Balance (Temperance) | INTEGRATES | Cognition | Fruition |
 
@@ -93,7 +93,7 @@ Body sits at the lower right point of the pentagram. It governs form, structure,
 | Position | Signature | Verb | Channel | Stage |
 |----------|-----------|------|---------|-------|
 | 8 | Fortitude (Strength) | ENDURES | Structure | Seed |
-| 9 | Discipline (The Hermit) | FOCUSES | Cognition | Medium |
+| 9 | Discipline (The Hermit) | FOCUSES | Cognition | Bridge |
 | 11 | Equity (Justice) | MEASURES | Resonance | Fruition |
 | 12 | Sacrifice (The Hanged Man) | RELEASES | Intent | Feedback |
 
@@ -235,7 +235,7 @@ Roots 0 through 3 behave differently from roots 4 through 9. The higher roots cr
 
 **Thread 1: The Creator.** Will (1) → Source (10) → Actualization (19). Gestalt to Portal to Gestalt. The thread of directed consciousness completing its own circuit. Will points. Source turns. Actualization radiates. The Creator is consciousness discovering that what it pointed toward was itself.
 
-**Thread 2: The Witness.** Wisdom (2) → Equity (11) → Awareness (20). Spirit to Body to Gestalt. The thread of perception deepening into recognition. Wisdom perceives. Equity measures. Awareness recognizes. The Witness is consciousness watching itself until it realizes it is both the watcher and the watched.
+**Thread 2: The Witness.** Wisdom (2) → Equity (11) → Recognition (20). Spirit to Body to Gestalt. The thread of perception deepening into recognition. Wisdom perceives. Equity measures. Awareness recognizes. The Witness is consciousness watching itself until it realizes it is both the watcher and the watched.
 
 **Thread 3: The Steward.** Nurturing (3) → Sacrifice (12) → Creation (21). Spirit to Body to Portal. The thread of care completing its purpose. Nurturing tends. Sacrifice releases. Creation completes. The Steward is consciousness that gives everything to the work and then lets the work go.
 
@@ -261,9 +261,9 @@ The elemental mirrors ensure that no house operates in isolation. Every creation
 
 This is the central insight of the signature architecture: no position means anything in isolation. Every signature is defined by its relationships.
 
-Potential (0) is not just "pure capacity." It is the vertical partner of Awareness (20), the forge diagonal of Actualization (19), the mystery thread that stands alone at root 0. Its meaning includes all of these connections. When you encounter Potential in a reading, you encounter not a single word but a web of geometric relationships — all the ways this position connects to every other position in the architecture.
+Potential (0) is not just "pure capacity." It is the vertical partner of Recognition (20), the forge diagonal of Actualization (19), the mystery thread that stands alone at root 0. Its meaning includes all of these connections. When you encounter Potential in a reading, you encounter not a single word but a web of geometric relationships — all the ways this position connects to every other position in the architecture.
 
-Drive (7) is not just "momentum." It is the vertical partner of Change (13), the mirror diagonal of Balance (14), the reduction partner of Breakthrough (16). Its full meaning includes the stalled engine and its corrective (Change), the excess that needs braking (Balance), and the shadow that operates as unacknowledged force (Breakthrough). When Drive appears, its partners appear with it — not literally, but as the structural context that defines what "momentum" means for this consciousness at this moment.
+Drive (7) is not just "momentum." It is the vertical partner of Change (13), the mirror diagonal of Tune (14), the reduction partner of Breakthrough (16). Its full meaning includes the stalled engine and its corrective (Change), the excess that needs braking (Balance), and the shadow that operates as unacknowledged force (Breakthrough). When Drive appears, its partners appear with it — not literally, but as the structural context that defines what "momentum" means for this consciousness at this moment.
 
 The twenty-two signatures are not twenty-two separate ideas. They are twenty-two nodes in a single geometric web, each defined by its position relative to all the others. The web is the meaning. The relationships are the content. The architecture IS the vocabulary.
 

@@ -346,7 +346,7 @@ The **Seven Rings** — the vertical dimension of the architecture. If the twent
 
 The **correction architecture** — three types of geometric relationship (vertical, diagonal, reduction), each corresponding to a specific type of imbalance (dampened, amplified, hidden), each providing a structural path back to coherence. Not someone's opinion about what you should do. The geometry of the map itself, showing where balance lies relative to where you are.
 
-The **process cycle** — four stages (Seed, Medium, Fruition, Feedback) appearing within each house, mirroring the four channels, producing the circular rhythm through which every experience initiates, develops, completes, and integrates.
+The **process cycle** — four stages (Seed, Bridge, Fruition, Feedback) appearing within each house, mirroring the four channels, producing the circular rhythm through which every experience initiates, develops, completes, and integrates.
 
 Each discovery confirmed the others. The system was self-validating — not because its carrier made it so, but because it was built that way. The same way a crystal's internal structure determines its external geometry, the architecture's deep mathematics determined its surface properties. Every time he checked a new implication against the existing structure, it fit. Not approximately. Precisely.
 

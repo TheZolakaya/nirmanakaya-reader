@@ -90,13 +90,13 @@ The sequence continues, now through the operational archetypes:
 | 11 | Equity | The work must be fair. |
 | 12 | Sacrifice | What must be released for this to manifest. |
 | 13 | Change | What must transform. |
-| 14 | Balance | What must be integrated. |
+| 14 | Tune | What must be integrated. |
 | 15 | Abstraction | The pattern beneath the intention. |
 | 16 | Breakthrough | What false structure must clear. |
 | 17 | Inspiration | The aspiration at full radiance. |
 | 18 | Imagination | The vision returning to source. |
 | 19 | Actualization | The self, fully expressed in this creation. |
-| 20 | Awareness | Recognition of self and Source as co-creators. |
+| 20 | Recognition | Recognition of self and Source as co-creators. |
 
 Then position 21 — Creation. The World. The egress portal. The intention manifests.
 

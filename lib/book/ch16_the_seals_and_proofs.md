@@ -196,7 +196,7 @@ The constants themselves tell the story: 40, 22, 10. The capacity of the archite
 
 ### The Derivation Seal
 
-The first three Seals validate the manifest grid — the sixteen archetypes in the four houses. But what about the Gestalt House? The four Gestalt archetypes (Potential, Will, Actualization, Awareness) sit at the apex of the pentagram, governing the four manifest houses. Their channel assignments — Potential to Fire, Will to Earth, Actualization to Air, Awareness to Water — were intuited in 1991. For decades, they were classified as received, not derived.
+The first three Seals validate the manifest grid — the sixteen archetypes in the four houses. But what about the Gestalt House? The four Gestalt archetypes (Potential, Will, Actualization, Recognition) sit at the apex of the pentagram, governing the four manifest houses. Their channel assignments — Potential to Fire, Will to Earth, Actualization to Air, Awareness to Water — were intuited in 1991. For decades, they were classified as received, not derived.
 
 On January 6, 2026, they were derived. The result: of twenty-four possible assignments (4! = 24), only one satisfies all constraints.
 
@@ -213,7 +213,7 @@ Apply both constraint sets to all twenty-four possible arrangements. Twenty-thre
 | Potential | 0 | 1 | Fire |
 | Will | 1 | 4 | Earth |
 | Actualization | 19 | 2 | Air |
-| Awareness | 20 | 3 | Water |
+| Recognition | 20 | 3 | Water |
 
 This is exactly what was intuited in 1991.
 

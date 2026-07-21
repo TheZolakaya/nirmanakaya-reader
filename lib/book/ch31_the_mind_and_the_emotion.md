@@ -18,7 +18,7 @@ Air. Cognition. Thought as architecture.
 
 The Mind House governs the domain of conceptual structure — not what you know (that's Spirit's perception) but how you organize what you know. Mind is the domain of framework, transmission, pattern recognition, and structural testing. It asks: how do you order things? What do you pass on? What patterns do you see beneath the surface? What structures need to shatter?
 
-Four archetypes occupy the Mind House: Order (4), Culture (5), Abstraction (15), and Breakthrough (16). They process thought through the four Quadraverse stages — Seed, Medium, Fruition, Feedback — with an elemental rotation of Fire, Water, Air, Earth.
+Four archetypes occupy the Mind House: Order (4), Culture (5), Abstraction (15), and Breakthrough (16). They process thought through the four Quadraverse stages — Seed, Bridge, Fruition, Feedback — with an elemental rotation of Fire, Water, Air, Earth.
 
 Mind reaches its own element — Air — at Fruition. This means the Mind House achieves its purest expression when it recognizes patterns. Thought fulfilled IS abstraction — the capacity to see what's really there beneath what appears to be there.
 
@@ -34,7 +34,7 @@ The Mind House's process cycle: Order establishes the framework. Culture transmi
 
 The Emperor sits on a throne of stone. Behind him, mountains — nothing moves. His armor is iron. His scepter is an ankh — the symbol of life, held as instrument of authority. His throne is carved with four rams' heads, echoing the four process stages his position creates. Everything about this image says: HERE IS STRUCTURE.
 
-This is not tyranny. This is architecture. Before the Emperor, there were three positions — existence, direction, perception, cultivation. But no FRAMEWORK to hold them in relation. The Emperor introduces the four-fold structure that makes all process possible: Seed, Medium, Fruition, Feedback. Without this framework, the previous archetypes would drift without relation. With it, they become a process.
+This is not tyranny. This is architecture. Before the Emperor, there were three positions — existence, direction, perception, cultivation. But no FRAMEWORK to hold them in relation. The Emperor introduces the four-fold structure that makes all process possible: Seed, Bridge, Fruition, Feedback. Without this framework, the previous archetypes would drift without relation. With it, they become a process.
 
 Position 4 is the first composite number — the first number made of other numbers (2 × 2). It is the minimum structure for stability: four legs of a table, four walls of a room, four seasons of a year, four stages of a process. The Emperor IS the number 4 — the structural minimum that makes organized existence possible.
 
@@ -80,7 +80,7 @@ Culture is the Medium of the Mind House — the sustained carrier that transform
 
 **Vertical partner:** Abstraction (15). What Culture transmits on the surface, Abstraction reveals beneath. The Hierophant's teaching and the Devil's pattern-seeing are the same capacity — Mind's capacity for shared understanding — at its transmitting and penetrating phases. Culture without Abstraction is surface without depth. Abstraction without Culture is depth without communication.
 
-**Structural identity:** Resonance channel (Water in Mind). Medium stage, World-aligned, Pillar 5. Governed by Actualization (19). Bounds: Reflection (low), Consideration (high). Agent: Knight of Cups — tradition learning to transmit feeling through form.
+**Structural identity:** Resonance channel (Water in Mind). Bridge stage, World-aligned, Pillar 5. Governed by Actualization (19). Bounds: Reflection (low), Consideration (high). Agent: Knight of Cups — tradition learning to transmit feeling through form.
 
 **Correspondences:** Hebrew letter Vav (nail — what joins two things that would otherwise separate). Taurus. Kabbalistic path from Chokmah to Chesed — Wisdom flowing into Mercy through shared knowledge. Red-orange, the color of sustained teaching warmth.
 
@@ -155,7 +155,7 @@ The Mind House processes thought through a complete cycle:
 | Stage | Archetype | Verb | What Happens |
 |-------|-----------|------|-------------|
 | Seed | Order (4) | Commands | Establishes the structural framework |
-| Medium | Culture (5) | Transmits | Shares the framework as living tradition |
+| Bridge | Culture (5) | Transmits | Shares the framework as living tradition |
 | Fruition | Abstraction (15) | Patterns | Reveals what operates beneath the surface |
 | Feedback | Breakthrough (16) | Clears | Shatters what has calcified — liberates |
 
@@ -171,11 +171,11 @@ Water. Resonance. Feeling as intelligence.
 
 The Emotion House governs the domain of felt meaning — not what you think about something (that's Mind's job) but what it MEANS to you, felt in the body, carried in the heart. Emotion is the domain of connection, momentum, transformation, and integration. It asks: what do you connect with? What moves you? What needs to die? How do you find center?
 
-Four archetypes occupy the Emotion House: Compassion (6), Drive (7), Change (13), and Balance (14). They process feeling through the four Quadraverse stages — Seed, Medium, Fruition, Feedback — with an elemental rotation of Water, Fire, Earth, Air.
+Four archetypes occupy the Emotion House: Compassion (6), Drive (7), Change (13), and Tune (14). They process feeling through the four Quadraverse stages — Seed, Bridge, Fruition, Feedback — with an elemental rotation of Water, Fire, Earth, Air.
 
 Emotion begins in its own element — Water — at Seed. Like the Body House (which begins in Earth), the Emotion House starts from its essential nature: connection itself. Compassion IS feeling being feeling — the capacity to connect that precedes all other emotional operations.
 
-All four Emotion archetypes are governed by Awareness (20) — Judgement. This means the Emotion House never operates blindly. Even the most intense feeling carries a meta-perspective — the observer watching the feeling, the recognition operating within the experience. Awareness governs Emotion because felt meaning, at its deepest, IS recognition — the body's way of saying "yes, this is true."
+All four Emotion archetypes are governed by Recognition (20) — Judgement. This means the Emotion House never operates blindly. Even the most intense feeling carries a meta-perspective — the observer watching the feeling, the recognition operating within the experience. Awareness governs Emotion because felt meaning, at its deepest, IS recognition — the body's way of saying "yes, this is true."
 
 The Emotion House's process cycle: Compassion opens the relational field. Drive carries momentum through it. Change transforms what momentum has brought to completion. Balance integrates everything back to center. The cycle returns to Compassion, ready to connect again. Connect, move, transform, integrate. Connect again.
 
@@ -203,9 +203,9 @@ Compassion is the Seed of the Emotion House — the opening recognition that mak
 
 **Unacknowledged:** Relationship patterns that surprise you. Connections forming or breaking without your conscious participation. The person who merges or distances without awareness — whose relational style operates underground, shaping every interaction while the conscious mind remains unaware.
 
-**Vertical partner:** Balance (14). What Compassion opens, Balance steadies. The Lovers' recognition and Temperance's integration are the same capacity — Emotion's capacity for relational intelligence — at its initiating and completing phases. Compassion without Balance is connection without equilibrium. Balance without Compassion is equilibrium without substance.
+**Vertical partner:** Tune (14). What Compassion opens, Balance steadies. The Lovers' recognition and Temperance's integration are the same capacity — Emotion's capacity for relational intelligence — at its initiating and completing phases. Compassion without Balance is connection without equilibrium. Balance without Compassion is equilibrium without substance.
 
-**Structural identity:** Resonance channel (Water in Emotion — the house's own element at Seed). Seed stage, Sun-aligned, Pillar 6. Governed by Awareness (20). Bounds: Openness (low), Consideration (high). Agent: Queen of Cups — connection learning to hold depth without drowning.
+**Structural identity:** Resonance channel (Water in Emotion — the house's own element at Seed). Seed stage, Sun-aligned, Pillar 6. Governed by Recognition (20). Bounds: Openness (low), Consideration (high). Agent: Queen of Cups — connection learning to hold depth without drowning.
 
 **Correspondences:** Hebrew letter Zayin (sword — the blade that distinguishes Self from Other so both can meet). Gemini. Kabbalistic path from Binah to Tiphareth — Understanding descending toward Beauty through relationship. Orange, the color of warmth reaching across the gap.
 
@@ -235,7 +235,7 @@ Drive is the Medium of the Emotion House — the sustained carrier that transfor
 
 **Vertical partner:** Change (13). What Drive moves toward, Change transforms. The Chariot's trajectory and Death's metamorphosis are the same capacity — Emotion's capacity for motion — at its carrying and releasing phases. Drive without Change is momentum that never arrives. Change without Drive is transformation without direction. Together they demonstrate that emotional movement IS transformation — you cannot travel and remain who you were.
 
-**Structural identity:** Intent channel (Fire in Emotion). Medium stage, World-aligned, Pillar 6. Governed by Awareness (20). Bounds: Passion (low), Resilience (high). Agent: Queen of Wands — momentum learning to carry others without consuming them.
+**Structural identity:** Intent channel (Fire in Emotion). Bridge stage, World-aligned, Pillar 6. Governed by Recognition (20). Bounds: Passion (low), Resilience (high). Agent: Queen of Wands — momentum learning to carry others without consuming them.
 
 **Correspondences:** Hebrew letter Cheth (fence — the boundary that channels force into direction). Cancer. Kabbalistic path from Binah to Geburah — Understanding descending toward Severity through passionate motion. Yellow-orange, the color of fire harnessed to movement.
 
@@ -267,7 +267,7 @@ Change is the Fruition of the Emotion House — the point where felt meaning ach
 
 **Vertical partner:** Drive (7). Change and Drive are the same capacity — Emotion's capacity for motion — at its transforming and carrying phases. The Chariot's momentum and Death's metamorphosis need each other. You cannot travel without being changed. You cannot change without having traveled. Together they complete the emotional truth: motion IS transformation.
 
-**Structural identity:** Structure channel (Earth in Emotion). Fruition stage, Sun-aligned, Pillar 6. Governed by Awareness (20). Bounds: Preservation (low), Harvest (high). Agent: Queen of Pentacles — transformation learning to serve life rather than destroy it.
+**Structural identity:** Structure channel (Earth in Emotion). Fruition stage, Sun-aligned, Pillar 6. Governed by Recognition (20). Bounds: Preservation (low), Harvest (high). Agent: Queen of Pentacles — transformation learning to serve life rather than destroy it.
 
 **Correspondences:** Hebrew letter Nun (fish — what moves through the deep unseen). Scorpio. Kabbalistic path from Tiphareth to Netzach — Beauty crossing into Victory through necessary ending. Blue-green over black, the color of deep water where old forms dissolve.
 
@@ -297,7 +297,7 @@ Balance is the Feedback of the Emotion House — the return loop that integrates
 
 **Vertical partner:** Compassion (6). Balance and Compassion are the same capacity — Emotion's capacity for relational intelligence — at its integrating and initiating phases. The Lovers' recognition becomes Temperance's integration. What was differentiated becomes harmonized. Together they complete the relational cycle: distinguish, then integrate. See clearly, then find proportion.
 
-**Structural identity:** Cognition channel (Air in Emotion). Feedback stage, World-aligned, Pillar 6. Governed by Awareness (20). Bounds: Repose (low), Discretion (high). Agent: Queen of Swords — equilibrium learning to hold contradiction with clarity rather than avoidance.
+**Structural identity:** Cognition channel (Air in Emotion). Feedback stage, World-aligned, Pillar 6. Governed by Recognition (20). Bounds: Repose (low), Discretion (high). Agent: Queen of Swords — equilibrium learning to hold contradiction with clarity rather than avoidance.
 
 **Correspondences:** Hebrew letter Samekh (prop — what supports without constraining). Sagittarius. Kabbalistic path from Tiphareth to Yesod — Beauty descending toward Foundation through centered harmony. Blue, the color of still sky reflected in still water.
 
@@ -312,9 +312,9 @@ The Emotion House processes feeling through a complete cycle:
 | Stage | Archetype | Verb | What Happens |
 |-------|-----------|------|-------------|
 | Seed | Compassion (6) | Connects | Opens the relational field — recognition |
-| Medium | Drive (7) | Moves | Carries momentum through the field |
+| Bridge | Drive (7) | Moves | Carries momentum through the field |
 | Fruition | Change (13) | Transforms | Completes what momentum brought to term |
-| Feedback | Balance (14) | Integrates | Returns to center — finds proportion |
+| Feedback | Tune (14) | Integrates | Returns to center — finds proportion |
 
 The cycle turns: what Balance integrates becomes the ground for new Compassion. The angel's equilibrium enables the Lovers' recognition. Each revolution deepens the spiral of feeling — not repetitive emotion but ascending relational intelligence.
 
@@ -351,7 +351,7 @@ Breakthrough (16) reduces to 7 — Drive. Mind's structural clearing and Emotion
 
 Change (13) reduces to 4 — Order. Emotion's transformation and Mind's structural framework share a root. Death's clearing and the Emperor's building are the same capacity — what falls becomes the foundation. You cannot transform without creating new structure.
 
-Balance (14) reduces to 5 — Culture. Emotion's integration and Mind's transmission share a root. Temperance's pouring and the Hierophant's teaching are the same act — what is harmonized can be shared. You cannot integrate without becoming transmissible.
+Tune (14) reduces to 5 — Culture. Emotion's integration and Mind's transmission share a root. Temperance's pouring and the Hierophant's teaching are the same act — what is harmonized can be shared. You cannot integrate without becoming transmissible.
 
 Every upper-register Mind archetype reduces to an Emotion archetype. Every upper-register Emotion archetype reduces to a Mind archetype. The two houses are not just partners but MIRRORS — each containing the root of the other, each revealing the other's shadow.
 
@@ -361,7 +361,7 @@ This is the architecture's guarantee that thought and feeling cannot separate. C
 
 ### Governed by Completion
 
-The Mind House is governed by Actualization (19) — the Sun. The Emotion House is governed by Awareness (20) — Judgement. The last two Gestalt archetypes — the two that flank the end of the number sequence — each govern one arm of the pentagram.
+The Mind House is governed by Actualization (19) — the Sun. The Emotion House is governed by Recognition (20) — Judgement. The last two Gestalt archetypes — the two that flank the end of the number sequence — each govern one arm of the pentagram.
 
 This means the pentagram's arms reach from the journey's completion. Where Spirit and Body are governed by the BEGINNING (Potential and Will), Mind and Emotion are governed by the END (Actualization and Awareness). The arms extend from what consciousness BECOMES — fully expressed (the Sun) and fully recognized (Judgement).
 
@@ -378,9 +378,9 @@ The sixteen manifest archetypes — four per house — create a cross pattern th
 | Position | Spirit | Mind | Emotion | Body |
 |----------|--------|------|---------|------|
 | **Seed** | Wisdom (2) | Order (4) | Compassion (6) | Fortitude (8) |
-| **Medium** | Nurturing (3) | Culture (5) | Drive (7) | Discipline (9) |
+| **Bridge** | Nurturing (3) | Culture (5) | Drive (7) | Discipline (9) |
 | **Fruition** | Inspiration (17) | Abstraction (15) | Change (13) | Equity (11) |
-| **Feedback** | Imagination (18) | Breakthrough (16) | Balance (14) | Sacrifice (12) |
+| **Feedback** | Imagination (18) | Breakthrough (16) | Tune (14) | Sacrifice (12) |
 
 Read across each row to see how a single Quadraverse stage expresses differently in each domain:
 

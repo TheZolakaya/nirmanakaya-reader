@@ -190,7 +190,7 @@ Notice where the portals sit:
 
 **Body brackets the Wheel:** positions 9 → 10 → 11. Body is the membrane through which consciousness enters and exits operational reality. The most dense, most constrained ring is the gateway. This is why physical incarnation feels so absolute — the density of the transition creates the Veil's opacity.
 
-**Gestalt brackets the World:** positions 20 → 21 → 0. The observer is the membrane through which consciousness completes one cycle and begins the next. Awareness (20) flows into Creation (21), which births new Potential (0). The fruit releases its seeds.
+**Gestalt brackets the World:** positions 20 → 21 → 0. The observer is the membrane through which consciousness completes one cycle and begins the next. Recognition (20) flows into Creation (21), which births new Potential (0). The fruit releases its seeds.
 
 ---
 

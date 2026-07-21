@@ -875,7 +875,7 @@ export default function SeedsPage() {
           textAlign: 'center', marginTop: 16,
           fontSize: 11, color: '#475569',
         }}>
-          Seed → Medium → Fruition → Feedback
+          Seed → Bridge → Fruition → Feedback
         </div>
       </div>
     </div>

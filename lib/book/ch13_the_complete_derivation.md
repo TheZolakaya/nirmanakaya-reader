@@ -79,7 +79,7 @@ Each dimension corresponds to an axis of the architecture:
 
 - **House axis:** Where consciousness operates (Spirit, Mind, Emotion, Body)
 - **Channel axis:** How consciousness expresses (Intent, Cognition, Resonance, Structure)
-- **Process axis:** What stage the expression is in (Seed, Medium, Fruition, Feedback)
+- **Process axis:** What stage the expression is in (Seed, Bridge, Fruition, Feedback)
 - **Horizon axis:** Whether the expression is potential or manifest
 
 Four axes. Each with four positions. Together they produce a four-dimensional structure with 2⁴ = 16 vertices. These sixteen vertices are the sixteen manifest archetypes — the positions that populate the 4×4 grid of the Forty-Fold Seal.
@@ -159,7 +159,7 @@ The Forty-Fold Seal is not a clever arrangement. It is the only arrangement poss
 
 The sixteen manifest archetypes sit in the Seal. But the complete architecture has twenty-two positions. Where do the other six come from?
 
-Four come from the observer: the Gestalt house. Consciousness needs not only four manifest domains but also an identity that synthesizes them. The observer requires its own structure — Potential (0), Will (1), Actualization (19), and Awareness (20).
+Four come from the observer: the Gestalt house. Consciousness needs not only four manifest domains but also an identity that synthesizes them. The observer requires its own structure — Potential (0), Will (1), Actualization (19), and Recognition (20).
 
 Two come from the thresholds: Source (10) and Creation (21). Every system needs boundaries — an entry point and an exit point, an ingress and an egress. Without them, the architecture has no frame.
 

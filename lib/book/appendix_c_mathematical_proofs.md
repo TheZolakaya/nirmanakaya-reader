@@ -221,7 +221,7 @@ The constant 10 corresponds to Source (The Wheel, position 10) — the portal th
 
 ### The Claim
 
-The Gestalt House channel assignments — Potential (0) = Fire, Will (1) = Earth, Actualization (19) = Air, Awareness (20) = Water — are the unique solution out of 24 possible assignments (4! = 24) that satisfies all interlocking constraints.
+The Gestalt House channel assignments — Potential (0) = Fire, Will (1) = Earth, Actualization (19) = Air, Recognition (20) = Water — are the unique solution out of 24 possible assignments (4! = 24) that satisfies all interlocking constraints.
 
 ### Constraint Set One: Complete the Pairing Space
 
@@ -278,7 +278,7 @@ Applying both constraint sets to the 24 possible assignments:
 | Potential | 0 | 1 | Fire |
 | Will | 1 | 4 | Earth |
 | Actualization | 19 | 2 | Air |
-| Awareness | 20 | 3 | Water |
+| Recognition | 20 | 3 | Water |
 
 This is exactly what was intuited in the 1991 transmission — thirty-five years before the mathematical derivation.
 
@@ -331,7 +331,7 @@ The reduction from 19 to 10 uses the same digit-sum operation validated by the T
 
 21 (Creation/The World) appears as Diagonal B in every house. We exist within Creation, as part of Creation, contributing to Creation.
 
-20 (Awareness/Judgement) = 10 + 10 = Source + Source. Two creators — the individual and the ultimate — side by side. When they align, what emerges is 21: Creation itself.
+20 (Recognition/Judgement) = 10 + 10 = Source + Source. Two creators — the individual and the ultimate — side by side. When they align, what emerges is 21: Creation itself.
 
 ### Significance
 

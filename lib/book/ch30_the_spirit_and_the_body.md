@@ -18,7 +18,7 @@ Fire. Intent. Aspiration.
 
 The Spirit House governs the domain of direction — not where you are going (that's Mind's job) but WHY you are going anywhere at all. Spirit is the domain of purpose, alignment, and aspiration. It asks: what calls you? What do you orient toward? What star do you navigate by?
 
-Four archetypes occupy the Spirit House: Wisdom (2), Nurturing (3), Inspiration (17), and Imagination (18). They process aspiration through the four stages of the Quadraverse — Seed, Medium, Fruition, Feedback — with an elemental rotation of Air, Earth, Fire, Water.
+Four archetypes occupy the Spirit House: Wisdom (2), Nurturing (3), Inspiration (17), and Imagination (18). They process aspiration through the four stages of the Quadraverse — Seed, Bridge, Fruition, Feedback — with an elemental rotation of Air, Earth, Fire, Water.
 
 Spirit reaches its own element — Fire — at Fruition. This means the Spirit House achieves its purest expression when it radiates. Aspiration fulfilled IS inspiration. The star you navigate by, when you reach it, shines.
 
@@ -82,7 +82,7 @@ Nurturing is the Medium of the Spirit House — the sustained carrier that trans
 
 **Vertical partner:** Inspiration (17). What Nurturing tends becomes what Inspiration shines. The Empress's garden and the Star's radiance are the same capacity — Spirit's capacity to grow — at the creation and operation phases. Nurturing without Inspiration is endless preparation that never flowers. Inspiration without Nurturing is rootless radiance with nothing behind it. Together they complete the Spirit House's capacity to both cultivate and give.
 
-**Structural identity:** Structure channel (Earth in Spirit). Medium stage, World-aligned, Pillar 4. Governed by Potential (0). Bounds: Poise (low), Flourishing (high). Agent: Page of Pentacles — care learning to build sustainable ground.
+**Structural identity:** Structure channel (Earth in Spirit). Bridge stage, World-aligned, Pillar 4. Governed by Potential (0). Bounds: Poise (low), Flourishing (high). Agent: Page of Pentacles — care learning to build sustainable ground.
 
 **Correspondences:** Hebrew letter Daleth (door — the opening through which new life enters). Venus. Kabbalistic path from Chokmah to Binah — the horizontal bridge between Wisdom and Understanding. Green, the color of growth itself.
 
@@ -159,7 +159,7 @@ The Spirit House processes aspiration through a complete cycle:
 | Stage | Archetype | Verb | What Happens |
 |-------|-----------|------|-------------|
 | Seed | Wisdom (2) | Perceives | Opens spiritual perception — sees what's there |
-| Medium | Nurturing (3) | Tends | Sustains what was perceived — grows the seeing |
+| Bridge | Nurturing (3) | Tends | Sustains what was perceived — grows the seeing |
 | Fruition | Inspiration (17) | Aspires | Radiates what was cultivated — shines the growth |
 | Feedback | Imagination (18) | Envisions | Integrates through symbolic depth — dreams the light |
 
@@ -175,7 +175,7 @@ Earth. Structure. Manifestation.
 
 The Body House governs the domain of form — not what form looks like (that's Mind's job) but what it takes to BE in form. Body is the domain of embodiment, endurance, practice, and exchange. It asks: what can you hold? What have you refined? What do you measure? What can you release?
 
-Four archetypes occupy the Body House: Fortitude (8), Discipline (9), Equity (11), and Sacrifice (12). They process embodiment through the four stages of the Quadraverse — Seed, Medium, Fruition, Feedback — with an elemental rotation of Earth, Air, Water, Fire.
+Four archetypes occupy the Body House: Fortitude (8), Discipline (9), Equity (11), and Sacrifice (12). They process embodiment through the four stages of the Quadraverse — Seed, Bridge, Fruition, Feedback — with an elemental rotation of Earth, Air, Water, Fire.
 
 Body begins in its own element — Earth — at Seed. This means the Body House starts from its most essential nature: embodied presence itself. Fortitude IS the body being a body — the capacity to hold, to endure, to be present in form. Everything else in the Body House builds from that ground.
 
@@ -239,7 +239,7 @@ Discipline is the Medium of the Body House — the sustained practice that refin
 
 **Vertical partner:** Equity (11). What Discipline refines, Equity distributes. The Hermit's cultivated capacity becomes Justice's fair allocation. Practice earns what fairness measures. Together they demonstrate that genuine equity requires genuine discipline — you cannot fairly distribute what you haven't actually developed.
 
-**Structural identity:** Cognition channel (Air in Body). Medium stage, World-aligned, Pillar 7. Governed by Will (1). Bounds: Integration (low), Vigilance (high). Agent: King of Swords — focused intelligence commanding clarity through method.
+**Structural identity:** Cognition channel (Air in Body). Bridge stage, World-aligned, Pillar 7. Governed by Will (1). Bounds: Integration (low), Vigilance (high). Agent: King of Swords — focused intelligence commanding clarity through method.
 
 **Correspondences:** Hebrew letter Yod (hand — the smallest stroke that seeds all others). Virgo. Kabbalistic path from Chesed to Tiphareth — Mercy descending toward Beauty through practice. Yellow-grey, the color of lantern light against mountain stone.
 
@@ -318,7 +318,7 @@ The Body House processes embodiment through a complete cycle:
 | Stage | Archetype | Verb | What Happens |
 |-------|-----------|------|-------------|
 | Seed | Fortitude (8) | Endures | Establishes the capacity to hold — presence in form |
-| Medium | Discipline (9) | Focuses | Refines capacity through sustained practice |
+| Bridge | Discipline (9) | Focuses | Refines capacity through sustained practice |
 | Fruition | Equity (11) | Measures | Distributes refined capacity through fair exchange |
 | Feedback | Sacrifice (12) | Releases | Surrenders what was held — completes the cycle |
 

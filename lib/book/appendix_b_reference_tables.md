@@ -8,25 +8,25 @@
 |----------|------|------|-------|---------|---------|---------------|---------|-------------|
 | 0 | Potential | EXISTS | Gestalt | Intent | Fire | Seed | Spirit House | Source (10) |
 | 1 | Will | DIRECTS | Gestalt | Structure | Earth | Feedback | Body House | Source (10) |
-| 2 | Wisdom | DISCERNS | Spirit | Cognition | Air | Medium | — | Potential (0) |
+| 2 | Wisdom | DISCERNS | Spirit | Cognition | Air | Bridge | — | Potential (0) |
 | 3 | Nurturing | TENDS | Spirit | Structure | Earth | Feedback | — | Potential (0) |
 | 4 | Order | STRUCTURES | Mind | Intent | Fire | Seed | — | Actualization (19) |
 | 5 | Culture | SHARES | Mind | Resonance | Water | Fruition | — | Actualization (19) |
-| 6 | Compassion | CONNECTS | Emotion | Resonance | Water | Seed | — | Awareness (20) |
-| 7 | Drive | MOVES | Emotion | Intent | Fire | Fruition | — | Awareness (20) |
+| 6 | Compassion | CONNECTS | Emotion | Resonance | Water | Seed | — | Recognition (20) |
+| 7 | Drive | MOVES | Emotion | Intent | Fire | Fruition | — | Recognition (20) |
 | 8 | Fortitude | ENDURES | Body | Structure | Earth | Fruition | — | Will (1) |
 | 9 | Discipline | FOCUSES | Body | Cognition | Air | Feedback | — | Will (1) |
 | **10** | **Source** | **TURNS** | **Portal** | **—** | **—** | **—** | **Gestalt House** | **—** |
 | 11 | Equity | CALIBRATES | Body | Resonance | Water | Seed | — | Will (1) |
-| 12 | Sacrifice | RELEASES | Body | Intent | Fire | Medium | — | Will (1) |
-| 13 | Change | TRANSFORMS | Emotion | Structure | Earth | Medium | — | Awareness (20) |
-| 14 | Balance | REGULATES | Emotion | Cognition | Air | Feedback | — | Awareness (20) |
+| 12 | Sacrifice | RELEASES | Body | Intent | Fire | Bridge | — | Will (1) |
+| 13 | Change | TRANSFORMS | Emotion | Structure | Earth | Bridge | — | Recognition (20) |
+| 14 | Tune | REGULATES | Emotion | Cognition | Air | Feedback | — | Recognition (20) |
 | 15 | Abstraction | PATTERNS | Mind | Cognition | Air | Fruition | — | Actualization (19) |
 | 16 | Breakthrough | CLEARS | Mind | Structure | Earth | Feedback | — | Actualization (19) |
 | 17 | Inspiration | ILLUMINATES | Spirit | Intent | Fire | Seed | — | Potential (0) |
-| 18 | Imagination | ENVISIONS | Spirit | Resonance | Water | Medium | — | Potential (0) |
+| 18 | Imagination | ENVISIONS | Spirit | Resonance | Water | Bridge | — | Potential (0) |
 | 19 | Actualization | BECOMES | Gestalt | Cognition | Air | Fruition | Mind House | Source (10) |
-| 20 | Awareness | INTEGRATES | Gestalt | Resonance | Water | Medium | Emotion House | Source (10) |
+| 20 | Recognition | INTEGRATES | Gestalt | Resonance | Water | Bridge | Emotion House | Source (10) |
 | **21** | **Creation** | **COMPLETES** | **Portal** | **—** | **—** | **—** | **—** | **—** |
 
 ---
@@ -38,7 +38,7 @@
 | Gestalt | Aether | Coherence, identity, unified observer | 0, 1, 19, 20 | Source (10) | "Fulfill Your Destiny" |
 | Spirit | Fire | Orientation, aim, directed will | 2, 3, 17, 18 | Potential (0) | "Witness Creation" |
 | Mind | Air | Modeling, processing, abstraction | 4, 5, 15, 16 | Actualization (19) | "Channel the Force" |
-| Emotion | Water | Valuation, connection, felt meaning | 6, 7, 13, 14 | Awareness (20) | "Free Will" |
+| Emotion | Water | Valuation, connection, felt meaning | 6, 7, 13, 14 | Recognition (20) | "Free Will" |
 | Body | Earth | Manifestation, form, embodied action | 8, 9, 11, 12 | Will (1) | "Uphold the Law" |
 
 ---
@@ -47,7 +47,7 @@
 
 Each house achieves its own element at a specific process stage and cycles through all four elements in a unique order.
 
-| House | Seed | Medium | Fruition | Feedback | Element Achieved At |
+| House | Seed | Bridge | Fruition | Feedback | Element Achieved At |
 |-------|------|--------|----------|----------|---------------------|
 | Gestalt | Fire (0) | Water (20) | Air (19) | Earth (1) | Seed |
 | Spirit | Air (2) | Earth (3) | Fire (17) / Water (18) | — | Fruition |
@@ -73,7 +73,7 @@ Each house achieves its own element at a specific process stage and cycles throu
 | Stage | Quality | Yang/Yin | Character |
 |-------|---------|----------|-----------|
 | Seed | Yang-pure | Initiating | Where potential first differentiates into specific intent |
-| Medium | Yin-in-Yang | Developing | Where the seed encounters relationship and begins to elaborate |
+| Bridge | Yin-in-Yang | Developing | Where the seed encounters relationship and begins to elaborate |
 | Fruition | Yin-pure | Completing | Where the planted seed reaches its full expression |
 | Feedback | Yang-in-Yin | Integrating | Where the cycle folds back and feeds what was learned into the next beginning |
 
@@ -106,7 +106,7 @@ Same identity across two horizons. Corrects Too Little states.
 | 3 (Nurturing) | 17 (Inspiration) | 20 |
 | 4 (Order) | 16 (Breakthrough) | 20 |
 | 5 (Culture) | 15 (Abstraction) | 20 |
-| 6 (Compassion) | 14 (Balance) | 20 |
+| 6 (Compassion) | 14 (Tune) | 20 |
 | 7 (Drive) | 13 (Change) | 20 |
 | 8 (Fortitude) | 12 (Sacrifice) | 20 |
 | 9 (Discipline) | 11 (Equity) | 20 |
@@ -122,7 +122,7 @@ Complementary force across polarity. Corrects Too Much states.
 | 4 (Order) | 15 (Abstraction) | 19 |
 | 5 (Culture) | 16 (Breakthrough) | 21 |
 | 6 (Compassion) | 13 (Change) | 19 |
-| 7 (Drive) | 14 (Balance) | 21 |
+| 7 (Drive) | 14 (Tune) | 21 |
 | 8 (Fortitude) | 11 (Equity) | 19 |
 | 9 (Discipline) | 12 (Sacrifice) | 21 |
 
@@ -135,7 +135,7 @@ Maximally distant on the tesseract. Corrects Unacknowledged states.
 | 2 (Wisdom) | 11 (Equity) | 2 |
 | 3 (Nurturing) | 12 (Sacrifice) | 3 |
 | 4 (Order) | 13 (Change) | 4 |
-| 5 (Culture) | 14 (Balance) | 5 |
+| 5 (Culture) | 14 (Tune) | 5 |
 | 6 (Compassion) | 15 (Abstraction) | 6 |
 | 7 (Drive) | 16 (Breakthrough) | 7 |
 | 8 (Fortitude) | 17 (Inspiration) | 8 |
@@ -178,10 +178,10 @@ Maximally distant on the tesseract. Corrects Unacknowledged states.
 | Ace | Perception | Actualization (19) | Inner | Clarity initiating |
 | 2 | Reflection | Wisdom (2) | Inner | Discernment weighing options |
 | 3 | Calculation | Abstraction (15) | Inner | Logic cutting through |
-| 4 | Dissonance | Balance (14) | Inner | Regulation in stillness |
+| 4 | Dissonance | Tune (14) | Inner | Regulation in stillness |
 | 5 | Clash | Discipline (9) | Inner | Focused practice in conflict |
 | 6 | Guidance | Discipline (9) | Outer | Focused practice directing movement |
-| 7 | Reconciliation | Balance (14) | Outer | Regulation through strategy |
+| 7 | Reconciliation | Tune (14) | Outer | Regulation through strategy |
 | 8 | Absorption | Abstraction (15) | Outer | Logic at its limit |
 | 9 | Multiplicity | Wisdom (2) | Outer | Discernment holding many patterns |
 | 10 | Realization | Actualization (19) | Outer | Clarity fully realized |
@@ -190,23 +190,23 @@ Maximally distant on the tesseract. Corrects Unacknowledged states.
 
 | # | Nirmanakaya Name | Associated Archetype | Range | Interpretation |
 |---|-----------------|---------------------|-------|----------------|
-| Ace | Receptivity | Awareness (20) | Inner | Integrative recognition opening |
+| Ace | Receptivity | Recognition (20) | Inner | Integrative recognition opening |
 | 2 | Merge | Compassion (6) | Inner | Relational connection meeting |
 | 3 | Ripple | Culture (5) | Inner | Shared meaning celebrating |
-| 4 | Drift | Balance (14) | Inner | Regulation in contemplation |
+| 4 | Drift | Tune (14) | Inner | Regulation in contemplation |
 | 5 | Ache | Equity (11) | Inner | Fair calibration feeling loss |
 | 6 | Reciprocity | Equity (11) | Outer | Fair calibration in exchange |
-| 7 | Curation | Balance (14) | Outer | Regulation amid possibility |
+| 7 | Curation | Tune (14) | Outer | Regulation amid possibility |
 | 8 | Release | Culture (5) | Outer | Shared meaning moving on |
 | 9 | Fulfillment | Compassion (6) | Outer | Relational connection satisfied |
-| 10 | Completion | Awareness (20) | Outer | Integrative recognition fulfilled |
+| 10 | Completion | Recognition (20) | Outer | Integrative recognition fulfilled |
 
 ### Structure Channel (Pentacles/Earth)
 
 | # | Nirmanakaya Name | Associated Archetype | Range | Interpretation |
 |---|-----------------|---------------------|-------|----------------|
-| Ace | Initiation | Will (1) | Inner | Directed agency beginning |
-| 2 | Balance | Nurturing (3) | Inner | Tending in dynamic flow |
+| Ace | Definition | Will (1) | Inner | Directed agency beginning |
+| 2 | Tune | Nurturing (3) | Inner | Tending in dynamic flow |
 | 3 | Formation | Breakthrough (16) | Inner | Clearing creating form |
 | 4 | Preservation | Change (13) | Inner | Transformation holding firm |
 | 5 | Endurance | Fortitude (8) | Inner | Endurance through hardship |
@@ -226,7 +226,7 @@ Agents are the externalized behavioral expressions of the sixteen manifest arche
 |------|--------------|-----------------|-------------------|-------------------|
 | **Initiate** | Inspiration (17) | Wisdom (2) | Imagination (18) | Nurturing (3) |
 | **Catalyst** | Order (4) | Abstraction (15) | Culture (5) | Breakthrough (16) |
-| **Steward** | Drive (7) | Balance (14) | Compassion (6) | Change (13) |
+| **Steward** | Drive (7) | Tune (14) | Compassion (6) | Change (13) |
 | **Adept** | Sacrifice (12) | Discipline (9) | Equity (11) | Fortitude (8) |
 
 ---
@@ -276,7 +276,7 @@ Gestalt at apex. Spirit and Body as feet. Mind and Emotion as arms. The upright 
 | State of Matter | Plasma | Gas | Liquid | Solid |
 | DNA Base | Guanine | Cytosine | Adenine | Thymine |
 | Dimension | Time | Height | Width | Depth |
-| Process Stage | Seed | Medium | Fruition | Feedback |
+| Process Stage | Seed | Bridge | Fruition | Feedback |
 | Channel | Intent | Cognition | Resonance | Structure |
 | Element | Fire | Air | Water | Earth |
 

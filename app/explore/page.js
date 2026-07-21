@@ -21,7 +21,7 @@ const VERTICES = {
    4: { bits: [0,1,0,0], name: 'Order' },
   12: { bits: [1,1,0,0], name: 'Sacrifice' },
    2: { bits: [0,0,0,1], name: 'Wisdom' },
-  14: { bits: [1,0,0,1], name: 'Balance' },
+  14: { bits: [1,0,0,1], name: 'Tune' },
   15: { bits: [0,1,0,1], name: 'Abstraction' },
    9: { bits: [1,1,0,1], name: 'Discipline' },
   18: { bits: [0,0,1,0], name: 'Imagination' },
@@ -101,7 +101,7 @@ const OFFSETS = [-6, -2, 2, 6];
 const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Passage: { ids: [6,9,17,16], color: '#fb7185' } };
 const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Intimacy: { ids: [6,3,15,12], color: '#fb7185' } };
 const PRACTICE_T = { Spirit: { ids: [17,2,18,3], color: '#c084fc' }, Emotion: { ids: [7,14,6,13], color: '#fb7185' }, Mind: { ids: [4,15,5,16], color: '#22d3ee' }, Body: { ids: [12,9,11,8], color: '#4ade80' } };
-const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Medium: { ids: [7,9,5,3], color: '#f59e0b' }, Fruition: { ids: [17,15,11,13], color: '#06b6d4' }, Feedback: { ids: [12,14,18,16], color: '#7c3aed' } };
+const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Bridge: { ids: [7,9,5,3], color: '#f59e0b' }, Fruition: { ids: [17,15,11,13], color: '#06b6d4' }, Feedback: { ids: [12,14,18,16], color: '#7c3aed' } };
 const COLOR_MODES = { Being: BEING_T, Identity: IDENTITY_T, Practice: PRACTICE_T, Stage: STAGE_T };
 // Group-specific colors: each group gets its own color from its aspect's tesseract color table
 const GROUP_COLORS = {
@@ -114,7 +114,7 @@ const GROUP_COLORS = {
   // Identity groups (from IDENTITY_T)
   Composure: IDENTITY_T.Composure.color, Conviction: IDENTITY_T.Conviction.color, Exploration: IDENTITY_T.Exploration.color, Intimacy: IDENTITY_T.Intimacy.color,
   // Stage groups (from STAGE_T)
-  Seed: STAGE_T.Seed.color, Medium: STAGE_T.Medium.color, Fruition: STAGE_T.Fruition.color, Feedback: STAGE_T.Feedback.color,
+  Seed: STAGE_T.Seed.color, Bridge: STAGE_T.Bridge.color, Fruition: STAGE_T.Fruition.color, Feedback: STAGE_T.Feedback.color,
 };
 const EDGE_COLORS = ['#4ade80', '#22d3ee', '#ef4444', '#f59e0b'];
 
@@ -142,10 +142,10 @@ const EDGES = (() => {
 
 // === EXPLORE-SPECIFIC CONSTANTS ===
 const FULL_STAGES = {
-  17: 'Fruition', 7: 'Medium', 4: 'Seed', 12: 'Feedback',
-   2: 'Seed', 14: 'Feedback', 15: 'Fruition', 9: 'Medium',
-  18: 'Feedback', 6: 'Seed', 5: 'Medium', 11: 'Fruition',
-   3: 'Medium', 13: 'Fruition', 16: 'Feedback', 8: 'Seed',
+  17: 'Fruition', 7: 'Bridge', 4: 'Seed', 12: 'Feedback',
+   2: 'Seed', 14: 'Feedback', 15: 'Fruition', 9: 'Bridge',
+  18: 'Feedback', 6: 'Seed', 5: 'Bridge', 11: 'Fruition',
+   3: 'Bridge', 13: 'Fruition', 16: 'Feedback', 8: 'Seed',
 };
 const STAGE_SYMBOLS = { Seed: '\u2600', Medium: '\u263D', Fruition: '\u2600', Feedback: '\u263D' };
 const FULL_STAGE_COLORS = { Seed: '#22c55e', Medium: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
@@ -153,7 +153,7 @@ const FULL_STAGE_COLORS = { Seed: '#22c55e', Medium: '#f59e0b', Fruition: '#06b6
 // === STAGE GROUPS ===
 const STAGE_GROUPS = {
   Seed:     { name: 'Seed',     verb: 'Initiate', members: [2, 4, 6, 8], description: 'The origin point in each house.' },
-  Medium:   { name: 'Medium',   verb: 'Develop',  members: [3, 5, 7, 9], description: 'The developmental midpoint.' },
+  Bridge: { name: 'Bridge',   verb: 'Develop',  members: [3, 5, 7, 9], description: 'The developmental midpoint.' },
   Fruition: { name: 'Fruition', verb: 'Complete', members: [11, 13, 15, 17], description: 'The point of completion.' },
   Feedback: { name: 'Feedback', verb: 'Return',   members: [12, 14, 16, 18], description: 'The return and reflection.' },
 };
@@ -399,7 +399,7 @@ const SOUL_HOUSE = [
   { id: 0, name: 'Potential', house: 'Spirit', symbol: '\u2600' },
   { id: 1, name: 'Will', house: 'Body', symbol: null },
   { id: 19, name: 'Actualization', house: 'Mind', symbol: null },
-  { id: 20, name: 'Awareness', house: 'Emotion', symbol: null },
+  { id: 20, name: 'Recognition', house: 'Emotion', symbol: null },
 ];
 
 // === VISUALIZATION HELPERS ===

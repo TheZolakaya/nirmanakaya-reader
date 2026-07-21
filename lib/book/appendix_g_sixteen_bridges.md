@@ -17,7 +17,7 @@ Every human engages with four irreducible existential concerns (independently va
 | **Isolation** | Emotion | Connection, feeling, value | "Unbridgeable gap" | Mitwelt (social) |
 | **Death** | Body | Form, embodiment, finitude | "Inevitability of death" | Umwelt (physical) |
 
-Each concern is engaged through four channels (Intent/Fire, Cognition/Air, Resonance/Water, Structure/Earth), producing sixteen intersections — sixteen bridges — that map exactly to the sixteen agents of the Nirmanakaya architecture.
+Each concern is engaged through four channels (Intent/Fire, Cognition/Air, Resonance/Water, Structure/Earth), producing sixteen intersections — that map exactly to the sixteen agents of the Nirmanakaya architecture.
 
 ### How to Read Each Bridge
 
@@ -39,7 +39,7 @@ Spirit House: Wisdom (2) ↔ Inspiration (17) = 19 | Nurturing (3) ↔ Imaginati
 
 Mind House: Order (4) ↔ Abstraction (15) = 19 | Culture (5) ↔ Breakthrough (16) = 21 | Order (4) ↔ Breakthrough (16) = 20 | Culture (5) ↔ Abstraction (15) = 20
 
-Emotion House: Compassion (6) ↔ Change (13) = 19 | Drive (7) ↔ Balance (14) = 21 | Compassion (6) ↔ Balance (14) = 20 | Drive (7) ↔ Change (13) = 20
+Emotion House: Compassion (6) ↔ Change (13) = 19 | Drive (7) ↔ Tune (14) = 21 | Compassion (6) ↔ Tune (14) = 20 | Drive (7) ↔ Change (13) = 20
 
 Body House: Fortitude (8) ↔ Equity (11) = 19 | Discipline (9) ↔ Sacrifice (12) = 21 | Fortitude (8) ↔ Sacrifice (12) = 20 | Discipline (9) ↔ Equity (11) = 20
 
@@ -50,7 +50,7 @@ Body House: Fortitude (8) ↔ Equity (11) = 19 | Discipline (9) ↔ Sacrifice (1
 | Wisdom (2) ↔ Equity (11) | 1+1=2 | Spirit ↔ Body |
 | Nurturing (3) ↔ Sacrifice (12) | 1+2=3 | Spirit ↔ Body |
 | Order (4) ↔ Change (13) | 1+3=4 | Mind ↔ Emotion |
-| Culture (5) ↔ Balance (14) | 1+4=5 | Mind ↔ Emotion |
+| Culture (5) ↔ Tune (14) | 1+4=5 | Mind ↔ Emotion |
 | Compassion (6) ↔ Abstraction (15) | 1+5=6 | Emotion ↔ Mind |
 | Drive (7) ↔ Breakthrough (16) | 1+6=7 | Emotion ↔ Mind |
 | Fortitude (8) ↔ Inspiration (17) | 1+7=8 | Body ↔ Spirit |
@@ -247,7 +247,7 @@ Mind House agents are **Catalysts** — activating, transforming, applying force
 
 **Unacknowledged — "I'm a complete individualist. I don't need a tribe."**
 *Misaligned Perspective:* The person insists they're self-contained, autonomous, needing no group identity. Meanwhile, they perform their individualism for an invisible audience of peers. Their rejection of belonging IS their tribal identity — they belong to the tribe of people who don't belong. Every lifestyle choice, aesthetic preference, and opinion is calibrated against a group they claim doesn't matter to them. They are the most tribal person in the room and the last to know it.
-*Correction → Balance (14):* The reduction partner from Emotion House. Maximum perspective shift. Temperance — precise calibration of opposing forces — confronts the Tribalist's shadow with: "You claim you need no group, but you're in constant relational negotiation with groups you pretend don't affect you. Calibrate honestly. How much belonging do you actually need? Not zero and not total — what's the real number? Balance reveals the actual need that your denial is hiding."
+*Correction → Tune (14):* The reduction partner from Emotion House. Maximum perspective shift. Temperance — precise calibration of opposing forces — confronts the Tribalist's shadow with: "You claim you need no group, but you're in constant relational negotiation with groups you pretend don't affect you. Calibrate honestly. How much belonging do you actually need? Not zero and not total — what's the real number? Balance reveals the actual need that your denial is hiding."
 
 ---
 
@@ -297,7 +297,7 @@ Emotion House agents are **Stewards** — nurturing, maintaining, holding space.
 
 **Too Much — "If I just love hard enough, the gap will close."**
 *Misaligned Perspective:* Pursuit that creates the isolation it fears. The harder they push toward connection, the more the other person retreats, widening the very gap that terrifies them. They interpret the other's withdrawal as evidence that they need to pursue harder. Smothering. Desperate intensity. Love expressed at a volume that deafens rather than connects. They've confused force with intimacy and can't understand why their fierce love keeps driving people away.
-*Correction → Balance (14):* The diagonal counter-tension within Emotion House. Stop driving. Start calibrating. The correction isn't less love — it's love applied with precision rather than force. Balance asks: "What does this specific person need from you right now? Not what you need to give — what they need to receive?" The Chariot's correction is Temperance — the same passion, measured in the exact right dose.
+*Correction → Tune (14):* The diagonal counter-tension within Emotion House. Stop driving. Start calibrating. The correction isn't less love — it's love applied with precision rather than force. Balance asks: "What does this specific person need from you right now? Not what you need to give — what they need to receive?" The Chariot's correction is Temperance — the same passion, measured in the exact right dose.
 
 **Too Little — "I pursued and was rejected. I won't approach again."**
 *Misaligned Perspective:* The pursuer who got hurt. They drove toward connection with everything they had — and were rejected, abandoned, or betrayed. Now the engine is off. They've concluded that pursuing intimacy is an invitation to pain, and they've withdrawn into a self-protective stillness that confirms the very isolation they were trying to overcome. "I tried and it broke me" has become "I won't try."
@@ -311,7 +311,7 @@ Emotion House agents are **Stewards** — nurturing, maintaining, holding space.
 
 ### Bridge 10: The Calibrator
 
-**Archetype:** Balance (14) — Temperance
+**Archetype:** Tune (14) — Temperance
 **Agent:** Steward of Cognition — Regulation in relationship
 **Existential Concern:** Isolation
 **Channel:** Air — engagement through measurement, equilibrium, precise regulation
@@ -351,7 +351,7 @@ Emotion House agents are **Stewards** — nurturing, maintaining, holding space.
 
 **Too Little — "I used to feel everything. Now I feel nothing."**
 *Misaligned Perspective:* Empathy fatigue. The Empath who felt too much for too long and burned out. The therapist who can no longer feel their clients' pain. The caretaker who went numb. The person who was once the most attuned soul in every room and now can't access their own emotional register, let alone anyone else's. "I gave my empathy away and there's none left." The channels are closed. The resonance is silent.
-*Correction → Balance (14):* The vertical partner within Emotion House. You don't need to feel more. You need to regulate what you feel. Temperance doesn't ask the Empath to open the floodgates again. It offers calibration — measured reconnection with feeling at a sustainable rate. The correction isn't the full ocean. It's a controlled pour. One person at a time. One feeling at a time. Balance restores the channel by refusing to overwhelm it.
+*Correction → Tune (14):* The vertical partner within Emotion House. You don't need to feel more. You need to regulate what you feel. Temperance doesn't ask the Empath to open the floodgates again. It offers calibration — measured reconnection with feeling at a sustainable rate. The correction isn't the full ocean. It's a controlled pour. One person at a time. One feeling at a time. Balance restores the channel by refusing to overwhelm it.
 
 **Unacknowledged — "I'm not emotional. I deal in logic."**
 *Misaligned Perspective:* The person identifies entirely with rationality. They don't do feelings. They analyze, decide, execute. Meanwhile, every decision they make is unconsciously informed by a deep empathic reading of everyone around them. They know exactly who's upset, who needs support, who's being dishonest — and they act on this information while attributing it to "logic" or "intuition" or "reading the room." Their empathy is their most powerful tool and they've completely disowned it.
@@ -507,7 +507,7 @@ Body House agents are **Adepts** — mastered, completed, fully embodied. The na
 | 7 | The Tribalist | Culture (5) | Catalyst of Resonance | Mind | Freedom | Water |
 | 8 | The Disruptor | Breakthrough (16) | Catalyst of Structure | Mind | Freedom | Earth |
 | 9 | The Pursuer | Drive (7) | Steward of Intent | Emotion | Isolation | Fire |
-| 10 | The Calibrator | Balance (14) | Steward of Cognition | Emotion | Isolation | Air |
+| 10 | The Calibrator | Tune (14) | Steward of Cognition | Emotion | Isolation | Air |
 | 11 | The Empath | Compassion (6) | Steward of Resonance | Emotion | Isolation | Water |
 | 12 | The Transformer | Change (13) | Steward of Structure | Emotion | Isolation | Earth |
 | 13 | The Devoted | Sacrifice (12) | Adept of Intent | Body | Death | Fire |
@@ -525,11 +525,11 @@ Body House agents are **Adepts** — mastered, completed, fully embodied. The na
 | 4 | The Gardener (3) | Imagination (18) = 21 | Inspiration (17) = 20 | Sacrifice (12) 1+2=3 |
 | 5 | The Commander (4) | Abstraction (15) = 19 | Breakthrough (16) = 20 | Change (13) 1+3=4 |
 | 6 | The Analyst (15) | Order (4) = 19 | Culture (5) = 20 | Compassion (6) 1+5=6 |
-| 7 | The Tribalist (5) | Breakthrough (16) = 21 | Abstraction (15) = 20 | Balance (14) 1+4=5 |
+| 7 | The Tribalist (5) | Breakthrough (16) = 21 | Abstraction (15) = 20 | Tune (14) 1+4=5 |
 | 8 | The Disruptor (16) | Culture (5) = 21 | Order (4) = 20 | Drive (7) 1+6=7 |
-| 9 | The Pursuer (7) | Balance (14) = 21 | Change (13) = 20 | Breakthrough (16) 1+6=7 |
+| 9 | The Pursuer (7) | Tune (14) = 21 | Change (13) = 20 | Breakthrough (16) 1+6=7 |
 | 10 | The Calibrator (14) | Drive (7) = 21 | Compassion (6) = 20 | Culture (5) 1+4=5 |
-| 11 | The Empath (6) | Change (13) = 19 | Balance (14) = 20 | Abstraction (15) 1+5=6 |
+| 11 | The Empath (6) | Change (13) = 19 | Tune (14) = 20 | Abstraction (15) 1+5=6 |
 | 12 | The Transformer (13) | Compassion (6) = 19 | Drive (7) = 20 | Order (4) 1+3=4 |
 | 13 | The Devoted (12) | Discipline (9) = 21 | Fortitude (8) = 20 | Nurturing (3) 1+2=3 |
 | 14 | The Disciplined (9) | Sacrifice (12) = 21 | Equity (11) = 20 | Imagination (18) 1+8=9 |
@@ -549,7 +549,7 @@ The Unacknowledged corrections always cross between maximally distant houses:
 **Mind ↔ Emotion:** Freedom shadow corrects through isolation. Isolation shadow corrects through agency.
 - Order (4) ↔ Change (13)
 - Abstraction (15) ↔ Compassion (6)
-- Culture (5) ↔ Balance (14)
+- Culture (5) ↔ Tune (14)
 - Breakthrough (16) ↔ Drive (7)
 
 The existential concerns you can't see in yourself are always illuminated by the concern that is maximally distant from your position. This is architecturally necessary — the shadow requires the widest possible perspective shift to become visible.

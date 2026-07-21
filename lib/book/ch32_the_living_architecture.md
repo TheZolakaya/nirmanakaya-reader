@@ -14,9 +14,9 @@ This chapter shows how the five houses function as a single living system. Not f
 
 ### The Process Cycles
 
-Each house processes its domain through the four Quadraverse stages: Seed, Medium, Fruition, Feedback. But each house enters the elemental cycle at a different point, creating five distinct rotations:
+Each house processes its domain through the four Quadraverse stages: Seed, Bridge, Fruition, Feedback. But each house enters the elemental cycle at a different point, creating five distinct rotations:
 
-| House | Seed | Medium | Fruition | Feedback |
+| House | Seed | Bridge | Fruition | Feedback |
 |-------|------|--------|----------|----------|
 | **Gestalt** | Fire | Earth | Air | Water |
 | **Spirit** | Air | Earth | Fire | Water |
@@ -60,13 +60,13 @@ This P → R → P → R oscillation maintains continuous alignment with Now by 
 
 Three duality systems operate simultaneously across the twenty manifest archetypes, creating a web of relationship that connects every position to every other through geometry:
 
-**Vertical pairs** sum to 20. They connect the same identity across two horizons — creation and operation. Wisdom (2) and Imagination (18). Nurturing (3) and Inspiration (17). Order (4) and Breakthrough (16). Culture (5) and Abstraction (15). Compassion (6) and Balance (14). Drive (7) and Change (13). Fortitude (8) and Sacrifice (12). Discipline (9) and Equity (11).
+**Vertical pairs** sum to 20. They connect the same identity across two horizons — creation and operation. Wisdom (2) and Imagination (18). Nurturing (3) and Inspiration (17). Order (4) and Breakthrough (16). Culture (5) and Abstraction (15). Compassion (6) and Tune (14). Drive (7) and Change (13). Fortitude (8) and Sacrifice (12). Discipline (9) and Equity (11).
 
 Eight pairs. Each connects a creation-phase archetype (positions 2-9) with its operation-phase partner (positions 11-18). The same verb — the same capacity — expressed at two scales. Direct knowing and symbolic knowing. Building and testing. Holding and releasing. These are not opposites but COMPLETIONS — the full breath of a single capacity.
 
 Vertical pairs correct Too Little. When consciousness has muted a capacity — pushed it into the past, dimmed it below functional range — the correction is to encounter the same capacity at its other horizon. If your Wisdom is too little, encounter your Imagination. If your Fortitude is too little, encounter your Sacrifice. The vertical partner doesn't introduce something new. It reminds you of what you already are.
 
-**Diagonal pairs** sum to 19 or 21. They connect different identities in creative tension — the friction that generates insight. Within each house, every archetype has a diagonal partner that sees the same domain from the other side. Order (4) and Abstraction (15) — building and seeing through. Culture (5) and Breakthrough (16) — preserving and shattering. Compassion (6) and Change (13) — opening and transforming. Drive (7) and Balance (14) — moving and centering.
+**Diagonal pairs** sum to 19 or 21. They connect different identities in creative tension — the friction that generates insight. Within each house, every archetype has a diagonal partner that sees the same domain from the other side. Order (4) and Abstraction (15) — building and seeing through. Culture (5) and Breakthrough (16) — preserving and shattering. Compassion (6) and Change (13) — opening and transforming. Drive (7) and Tune (14) — moving and centering.
 
 Diagonal pairs whose sums equal 19 point toward the Sun — the Forge. These are creation-tension pairs, generating through friction. Diagonal pairs whose sums equal 21 point toward the World — the Mirror. These are integration-tension pairs, completing through reflection.
 
@@ -165,7 +165,7 @@ The houses don't operate in isolation. Every archetype exists at the intersectio
 
 Four archetypes sit at the diagonal of the grid — where house and channel align. These are the pure archetypes identified above. The remaining twelve sit OFF the diagonal — where house and channel differ. These twelve represent cross-house expressions: a capacity belonging to one domain, expressed through another domain's mode.
 
-Order (4) is Mind expressed through Intent (Fire/Spirit). Drive (7) is Emotion expressed through Intent (Fire/Spirit). Wisdom (2) is Spirit expressed through Cognition (Air/Mind). Balance (14) is Emotion expressed through Cognition (Air/Mind).
+Order (4) is Mind expressed through Intent (Fire/Spirit). Drive (7) is Emotion expressed through Intent (Fire/Spirit). Wisdom (2) is Spirit expressed through Cognition (Air/Mind). Tune (14) is Emotion expressed through Cognition (Air/Mind).
 
 Each cross-house expression creates a bridge. When Order commands, Mind reaches into Spirit's territory — thought expressed as directed will. When Drive moves, Emotion reaches into Spirit's territory — feeling expressed as aspiration. The cross-house expressions are how the domains COMMUNICATE — how thought speaks to feeling, how aspiration speaks to form.
 
@@ -221,7 +221,7 @@ The process cycles turn in each house simultaneously, each at its own speed, eac
 
 The duality systems connect every archetype to partners in three different registers — vertical for depth, diagonal for tension, reduction for illumination. Pull any thread and the entire web responds. Displace one archetype and its partners adjust. Correct one displacement and the ripple propagates through the geometry.
 
-The elemental rotations ensure that each house encounters every element — every mode of expression — in its own sequence. No house operates only in its native element. Spirit thinks (Air at Seed), embodies (Earth at Medium), ignites (Fire at Fruition), and feels (Water at Feedback). Mind ignites (Fire at Seed), feels (Water at Medium), thinks (Air at Fruition), and embodies (Earth at Feedback). Every house speaks every language, in its own order, at its own pace.
+The elemental rotations ensure that each house encounters every element — every mode of expression — in its own sequence. No house operates only in its native element. Spirit thinks (Air at Seed), embodies (Earth at Bridge), ignites (Fire at Fruition), and feels (Water at Feedback). Mind ignites (Fire at Seed), feels (Water at Bridge), thinks (Air at Fruition), and embodies (Earth at Feedback). Every house speaks every language, in its own order, at its own pace.
 
 The pentagram geometry encodes the golden ratio into the architecture's proportions — ensuring that the relationship between aspects reproduces itself at every scale. The macro-structure of the five houses mirrors the micro-structure of each house's process cycle mirrors the nano-structure of each archetype's four states. Self-similar at every level. Fractal coherence. The architecture breathing within itself.
 

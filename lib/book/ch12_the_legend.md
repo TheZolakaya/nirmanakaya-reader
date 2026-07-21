@@ -27,9 +27,9 @@ The complete architecture contains twenty-two fundamental positions — twenty a
 | # | Name | Stage | Function |
 |---|------|-------|----------|
 | **0** | **Potential** | Seed | The unshaped force. Pure capacity before direction. The blank state of becoming. |
-| **1** | **Will** | Medium | The first distinction. Identity directed. The creator at the threshold of creation. |
+| **1** | **Will** | Bridge | The first distinction. Identity directed. The creator at the threshold of creation. |
 | **19** | **Actualization** | Fruition | Purpose fulfilled. The creator realized. What Will was aiming at, arrived. |
-| **20** | **Awareness** | Feedback | Self-recognition. The mirror that sees itself seeing. Consciousness knowing it is conscious. |
+| **20** | **Recognition** | Feedback | Self-recognition. The mirror that sees itself seeing. Consciousness knowing it is conscious. |
 
 Gestalt is the "I" — gods within God, mini-sources within Source. These four archetypes describe what the observer *does*: holds potential, directs will, fulfills purpose, recognizes itself. They operate the pentagram from the apex. They have no channel assignment because they ARE the observer, not what is observed.
 
@@ -38,7 +38,7 @@ Gestalt is the "I" — gods within God, mini-sources within Source. These four a
 | # | Name | Stage | Channel | Function |
 |---|------|-------|---------|----------|
 | **2** | **Wisdom** | Seed | Cognition (Air) | The threshold of aspiration. Discernment. Seeing what is before reaching for what could be. |
-| **3** | **Nurturing** | Medium | Structure (Earth) | Care that grows things. The development of aspiration through sustained attention. |
+| **3** | **Nurturing** | Bridge | Structure (Earth) | Care that grows things. The development of aspiration through sustained attention. |
 | **17** | **Inspiration** | Fruition | Intent (Fire) | Aspiration fully expressed. The star that guides. Direction made luminous. |
 | **18** | **Imagination** | Feedback | Resonance (Water) | Creative flow returning to source. The integration of aspiration through dreaming. |
 
@@ -49,7 +49,7 @@ Spirit is the fire at the left foot of the pentagram. It provides direction — 
 | # | Name | Stage | Channel | Function |
 |---|------|-------|---------|----------|
 | **4** | **Order** | Seed | Intent (Fire) | The initiation of structure. Rules, boundaries, the framework that makes thought possible. |
-| **5** | **Culture** | Medium | Resonance (Water) | Shared understanding. The development of cognition through relationship and tradition. |
+| **5** | **Culture** | Bridge | Resonance (Water) | Shared understanding. The development of cognition through relationship and tradition. |
 | **15** | **Abstraction** | Fruition | Cognition (Air) | Pure concept. The completion of thought at its most refined — pattern without content. |
 | **16** | **Breakthrough** | Feedback | Structure (Earth) | The structure that shatters structure. Revolution. The integration of cognition through disruption. |
 
@@ -60,9 +60,9 @@ Mind is the air at the left hand of the pentagram. It provides the modeling capa
 | # | Name | Stage | Channel | Function |
 |---|------|-------|---------|----------|
 | **6** | **Compassion** | Seed | Resonance (Water) | The initiation of connection. Opening to another. The beginning of felt relationship. |
-| **7** | **Drive** | Medium | Intent (Fire) | Passionate momentum. The development of feeling through directed energy. |
+| **7** | **Drive** | Bridge | Intent (Fire) | Passionate momentum. The development of feeling through directed energy. |
 | **13** | **Change** | Fruition | Structure (Earth) | Transformation. The completion of emotional process — the release that makes room for the new. |
-| **14** | **Balance** | Feedback | Cognition (Air) | Centered harmony. The integration of feeling through clarity and equilibrium. |
+| **14** | **Tune** | Feedback | Cognition (Air) | Centered harmony. The integration of feeling through clarity and equilibrium. |
 
 Emotion is the water at the right hand of the pentagram. It provides the valuation capacity — the felt sense of what matters, what connects, what means something. Without emotion, you can think and act and aspire, but nothing has weight.
 
@@ -71,7 +71,7 @@ Emotion is the water at the right hand of the pentagram. It provides the valuati
 | # | Name | Stage | Channel | Function |
 |---|------|-------|---------|----------|
 | **8** | **Fortitude** | Seed | Cognition (Air) | The initiation of form. Strength that endures. The beginning of embodied existence. |
-| **9** | **Discipline** | Medium | Structure (Earth) | Method and practice. The development of form through rigorous engagement. |
+| **9** | **Discipline** | Bridge | Structure (Earth) | Method and practice. The development of form through rigorous engagement. |
 | **11** | **Equity** | Fruition | Resonance (Water) | Fair measure. The completion of embodied process — justice that flows from balanced form. |
 | **12** | **Sacrifice** | Feedback | Intent (Fire) | Willing release. The integration of form through letting go. What must be surrendered so the next cycle can begin. |
 
@@ -201,7 +201,7 @@ Stand back and see what Part 3 has built:
 
 **From Chapter 9:** Two thresholds (Source and Creation) framing your existence. Seven Rings describing the depth at which you operate. Ring 0 as the unnavigable ground. Rings 3-6 in functionally derived order: Body, Emotion, Mind, Spirit.
 
-**From Chapter 10:** The four-stage process (Seed, Medium, Fruition, Feedback) driving every cycle. Ten nodes encoding the complete progression from one to ten. Five Quadraverses applying the four-fold process across five domains.
+**From Chapter 10:** The four-stage process (Seed, Bridge, Fruition, Feedback) driving every cycle. Ten nodes encoding the complete progression from one to ten. Five Quadraverses applying the four-fold process across five domains.
 
 **From Chapter 11:** Five houses organized around the pentagram of Phi. Twenty archetypes at the intersections of house and channel. Three types of duality (vertical, diagonal, reduction) creating a complete correction system.
 

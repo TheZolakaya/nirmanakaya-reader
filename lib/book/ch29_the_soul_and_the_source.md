@@ -14,7 +14,7 @@ This chapter begins where consciousness begins: with the Gestalt House — the o
 
 The Gestalt sits at the apex of the pentagram. It is not one domain among five. It is the domain that contains the other four — the observer that looks down at Spirit, Mind, Emotion, and Body and says "these are MINE." My spirit. My mind. My emotions. My body. The possessive is the clue. The Gestalt is the possessor.
 
-Four archetypes occupy the Gestalt: Potential (0), Will (1), Actualization (19), and Awareness (20). They sit at the outer edges of the number sequence — 0 and 1 at the beginning, 19 and 20 at the end — flanking the entire journey from both sides. The Self before the journey begins and the Self that recognizes itself at the journey's completion.
+Four archetypes occupy the Gestalt: Potential (0), Will (1), Actualization (19), and Recognition (20). They sit at the outer edges of the number sequence — 0 and 1 at the beginning, 19 and 20 at the end — flanking the entire journey from both sides. The Self before the journey begins and the Self that recognizes itself at the journey's completion.
 
 The Gestalt archetypes have a unique structural property: they have bounds but no agents. You can parameterize the range of identity — its inner potential and outer completion — but you cannot behaviorally express the observer. You can only BE the observer. The Gestalt is not something you do. It is what you are while doing everything else.
 
@@ -37,7 +37,7 @@ These two constraints intersect at exactly one solution out of twenty-four possi
 | 0 | Potential | Intent (1) | Fire |
 | 1 | Will | Structure (4) | Earth |
 | 19 | Actualization | Cognition (2) | Air |
-| 20 | Awareness | Resonance (3) | Water |
+| 20 | Recognition | Resonance (3) | Water |
 
 One of twenty-four. Uniquely determined. The Gestalt House's channel assignments are as forced as the Seals — not chosen but derived, leaving no room for the designer's preference.
 
@@ -63,7 +63,7 @@ Potential governs the Spirit House. The observer's first act is to establish dir
 
 **Unacknowledged:** Unconscious avoidance masquerading as stability. The person who doesn't know they're refusing to begin — who has built an elaborate life around never stepping off the cliff, never admitting the cliff exists.
 
-**Vertical partner:** Awareness (20). The Fool's openness, when completed, becomes the mirror that sees itself. Potential and Awareness are the same capacity — consciousness existing — at the beginning and end of the journey.
+**Vertical partner:** Recognition (20). The Fool's openness, when completed, becomes the mirror that sees itself. Potential and Awareness are the same capacity — consciousness existing — at the beginning and end of the journey.
 
 **Structural identity:** Intent (Fire) channel in Gestalt. Seed stage. Sun-aligned. Pillar 1: Purpose of Existence. Bounds: Activation (Ace of Intent) and Attainment (10 of Intent) — the full range of intentional capacity, from its first spark to its complete expression. No agent — the observer does not perform.
 **Correspondences:** Hebrew letter Aleph (the breath). Uranus. Path: Kether to Chokmah. Color: pale yellow.
@@ -93,7 +93,7 @@ Will governs the Body House. The observer's second act is to establish the dense
 
 **Vertical partner:** Actualization (19). Will and Actualization are the same capacity — directed agency — at its inception (pointing) and its completion (radiating). The finger that indicates becomes the sun that shines.
 
-**Structural identity:** Structure (Earth) channel in Gestalt. Medium stage. World-aligned. Pillar 2: Free Will and Unique Individuality. Bounds: Initiation (Ace of Structure) and Achievement (10 of Structure) — the full range of structural capacity, from the first grounding act to its complete manifestation. No agent.
+**Structural identity:** Structure (Earth) channel in Gestalt. Bridge stage. World-aligned. Pillar 2: Free Will and Unique Individuality. Bounds: Initiation (Ace of Structure) and Achievement (10 of Structure) — the full range of structural capacity, from the first grounding act to its complete manifestation. No agent.
 **Correspondences:** Hebrew letter Beth (the house). Mercury. Path: Kether to Binah. Color: yellow.
 **In a reading:** Conscious choice is operating — or needs to be. The question is not what is happening but what you are choosing to make happen.
 
@@ -209,7 +209,7 @@ The thread traces the path of consciousness from its first pointed act (the Magi
 
 The architecture contains a built-in quality filter at position 20.
 
-The sequence runs: Actualization (19) → Source (10) → Awareness (20) → Creation (21) → Potential (0). The creator's will (19), collapsed to Source (10), meets the observer (20). Two Sources — 10 + 10 = 20 — recognizing each other. And at this meeting, aligned creation passes through to Creation (21) and recurses into Potential (0). Misaligned creation fails the filter and accumulates as Ring 7 residue.
+The sequence runs: Actualization (19) → Source (10) → Recognition (20) → Creation (21) → Potential (0). The creator's will (19), collapsed to Source (10), meets the observer (20). Two Sources — 10 + 10 = 20 — recognizing each other. And at this meeting, aligned creation passes through to Creation (21) and recurses into Potential (0). Misaligned creation fails the filter and accumulates as Ring 7 residue.
 
 This is why the Fool always remains innocent. The filter at Judgement ensures that only eternal creation — creation aligned with Source — feeds into Potential. Ring 7 material never reaches the Seed. The architecture protects innocence by design. The Fool's willingness to step off the cliff remains pure because only purity reaches the cliff.
 

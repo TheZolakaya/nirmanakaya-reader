@@ -63,10 +63,10 @@ Each bound sits at the intersection of a number (determining house and polarity)
 
 |           | Intent | Cognition | Resonance | Structure |
 |-----------|--------|-----------|-----------|-----------|
-| **Gestalt** | Potential (0) | Actualization (19) | Awareness (20) | Will (1) |
+| **Gestalt** | Potential (0) | Actualization (19) | Recognition (20) | Will (1) |
 | **Spirit** | Inspiration (17) | Wisdom (2) | Imagination (18) | Nurturing (3) |
 | **Mind** | Order (4) | Abstraction (15) | Culture (5) | Breakthrough (16) |
-| **Emotion** | Drive (7) | Balance (14) | Compassion (6) | Change (13) |
+| **Emotion** | Drive (7) | Tune (14) | Compassion (6) | Change (13) |
 | **Body** | Sacrifice (12) | Discipline (9) | Equity (11) | Fortitude (8) |
 
 Read a bound like a coordinate: "This archetype's capacity, at this range, through this channel."
@@ -109,7 +109,7 @@ The bounds parameterize an archetype's range. The agents describe how an archety
 
 Each of the sixteen manifest archetypes has one agent — the archetype expressed as a behavioral pattern. Not who you are (that's identity, Ring 2), but how you habitually move when meaning demands response.
 
-**Why only sixteen.** The four Gestalt archetypes — Potential (0), Will (1), Actualization (19), Awareness (20) — have no agents. You cannot behaviorally express the observer. You can only BE the observer. The Self is not an action you take but the ground from which all actions emerge.
+**Why only sixteen.** The four Gestalt archetypes — Potential (0), Will (1), Actualization (19), Recognition (20) — have no agents. You cannot behaviorally express the observer. You can only BE the observer. The Self is not an action you take but the ground from which all actions emerge.
 
 The two portals — Source (10) and Creation (21) — have no agents either. Portals are thresholds, not operations. You don't behave as a doorway. You walk through it.
 
@@ -169,7 +169,7 @@ Each agent keeps the same channel as its parent archetype. The agent IS that arc
 | Steward of Resonance | Compassion (6) | Resonance | Connection in action — empathy, presence, the Empath |
 | Steward of Intent | Drive (7) | Intent | Motivation in action — sustained courage, the Inspirer |
 | Steward of Structure | Change (13) | Structure | Transformation in action — composting old into new, the Provider |
-| Steward of Cognition | Balance (14) | Cognition | Calibration in action — active integration, the Analyst |
+| Steward of Cognition | Tune (14) | Cognition | Calibration in action — active integration, the Analyst |
 
 **Adepts — Body House Archetypes in Action:**
 
@@ -188,7 +188,7 @@ But agents are not identities. They are postures — current behavioral orientat
 
 ### The Governance Hierarchy
 
-The Gestalt House — Potential (0), Will (1), Actualization (19), and Awareness (20) — has a unique structural role. It governs the four manifest houses the way the apex of the pentagram presides over the four lower points.
+The Gestalt House — Potential (0), Will (1), Actualization (19), and Recognition (20) — has a unique structural role. It governs the four manifest houses the way the apex of the pentagram presides over the four lower points.
 
 The governance operates through the bound system. Gestalt archetypes occupy the Ace (1) and 10 positions — the widest span, the beginning and completion of every channel. When a reading produces a Gestalt-level bound, it signals that the issue is not within a specific domain but at the level of identity itself.
 

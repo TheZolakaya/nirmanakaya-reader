@@ -28,7 +28,7 @@ The Nirmanakaya framework doesn't just map consciousness. It reveals why conscio
 | **Fundamental Forces** | Strong → Electromagnetic → Weak → Gravity | Local to cosmic |
 | **Dimensions** | X → Y → Z → Time | Spatial to temporal |
 | **DNA Bases** | A → T → C → G | Structural encoding |
-| **Process Stages** | Seed → Medium → Fruition → Feedback | Initiation to integration |
+| **Process Stages** | Seed → Bridge → Fruition → Feedback | Initiation to integration |
 | **Channels** | Structure → Resonance → Cognition → Intent | Form to direction |
 | **Elements** | Earth → Water → Air → Fire | Dense to refined |
 
@@ -42,7 +42,7 @@ Every experience — every process, every project, every relationship, every bre
 
 **Seed.** The initiation. Yang-pure. The spark that begins. A seed contains the complete pattern of the tree but has not yet expressed any of it. The seed is pure potential directed toward a specific form.
 
-**Medium.** The development. Yin-in-Yang. Growth through engagement, through relationship, through the exchange between the initial impulse and the environment it enters. The seedling pushing through soil, encountering resistance, adapting, growing.
+**Bridge.** The through-which. Yin-in-Yang. Growth through engagement, through relationship, through the exchange between the initial impulse and the environment it enters. The seedling pushing through soil, encountering resistance, adapting, growing.
 
 **Fruition.** The completion. Yin-pure. Full expression. The tree bearing fruit. The process arriving at what it was always moving toward. Not ending — fulfilling. The maturation that comes when the seed's pattern has been fully expressed.
 
@@ -65,7 +65,7 @@ The four stages aren't just descriptive. They are driven by the two fundamental 
 
 | Transition | Operation | What Happens |
 |------------|-----------|--------------|
-| Seed → Medium | **Polarity** | Differentiate — the initial impulse encounters something different from itself |
+| Seed → Bridge | **Polarity** | Differentiate — the initial impulse encounters something different from itself |
 | Medium → Fruition | **Recursion** | Integrate — the differentiated elements are brought back together at a new level |
 | Fruition → Feedback | **Polarity** | Differentiate — the completed expression separates from the process that created it |
 | Feedback → Seed | **Recursion** | Integrate — the feedback is absorbed back into the ground from which the next seed will emerge |
@@ -86,7 +86,7 @@ A complete process cycle must alternate between Polarity and Recursion and retur
 
 **Four is exact.** P → R → P → R → return. Each transition performs a unique, irreducible function:
 
-1. **Seed → Medium** (Polarity): introduce the first distinction — the impulse meets something other than itself
+1. **Seed → Bridge** (Polarity): introduce the first distinction — the impulse meets something other than itself
 2. **Medium → Fruition** (Recursion): integrate the distinction into completed expression
 3. **Fruition → Feedback** (Polarity): differentiate the completed output from the process that created it
 4. **Feedback → Seed** (Recursion): integrate the result back into the ground from which the next cycle begins
@@ -193,7 +193,7 @@ The practical implication is this: if you understand the four-stage process, you
 
 When you're stuck, you can locate *where* in the process you're stuck:
 
-- **Stuck in Seed:** All beginning, no development. Ideas that never grow. Relationships that never deepen. Enthusiasm that burns out before it produces anything. The correction is to enter Medium — to engage with something different from yourself, to allow the initial impulse to be changed by encounter.
+- **Stuck in Seed:** All beginning, no development. Ideas that never grow. Relationships that never deepen. Enthusiasm that burns out before it produces anything. The correction is to enter Bridge — to engage with something different from yourself, to allow the initial impulse to be changed by encounter.
 
 - **Stuck in Medium:** All development, no completion. Projects that grow forever without finishing. Relationships that deepen without committing. Learning that never converts into knowing. The correction is to allow Fruition — to let the process arrive at its natural expression, even if that expression is imperfect.
 

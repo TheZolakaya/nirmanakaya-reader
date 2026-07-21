@@ -19,7 +19,7 @@ The number four is not a mystical preference. It is a structural constant that p
 | Force | Strength | Range | What It Does |
 |-------|----------|-------|-------------|
 | Strong nuclear | Strongest | Short | Binds nuclei, creates matter |
-| Electromagnetic | Medium | Infinite | Binds atoms, enables chemistry and light |
+| Electromagnetic | Bridge | Infinite | Binds atoms, enables chemistry and light |
 | Weak nuclear | Weak | Short | Governs decay, enables transformation |
 | Gravity | Weakest | Infinite | Shapes cosmic structure, creates time |
 
@@ -50,7 +50,7 @@ These four-fold patterns are not merely coincidental counts. They map structural
 | States | Plasma | Gas | Liquid | Solid |
 | Dimensions | Time | Depth (z) | Height (y) | Width (x) |
 | DNA bases | Adenine | Thymine | Guanine | Cytosine |
-| Stages | Seed | Medium | Fruition | Feedback |
+| Stages | Seed | Bridge | Fruition | Feedback |
 
 The mapping is not imposed by interpretation. It follows the same gradient in every domain: from the most expansive, most directing, most energetic (Fire/Spirit) to the most constraining, most structured, most material (Earth/Body).
 

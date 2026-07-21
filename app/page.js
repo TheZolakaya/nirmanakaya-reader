@@ -117,11 +117,11 @@ import { READING_PRESETS, POSTURE_CONSTRAINTS } from '../lib/postures.js';
 // Posture selector UI — the four modes of reading, one per process stage.
 // Grid order is row-major and mirrors the cycle rising from ground to return:
 // upper-left Feedback (Integrate), upper-right Fruition (Forge),
-// lower-left Seed (Reflect), lower-right Medium (Discover).
+// lower-left Seed (Reflect), lower-right Bridge (Discover).
 const POSTURE_GRID = ['integrate', 'forge', 'reflect', 'discover'];
 const POSTURE_UI = {
   reflect: { stage: 'Seed', icon: '●', text: 'text-cyan-400', active: 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50' },
-  discover: { stage: 'Medium', icon: '◐', text: 'text-amber-400', active: 'bg-amber-600/25 text-amber-300 border-amber-500/50' },
+  discover: { stage: 'Bridge', icon: '◐', text: 'text-amber-400', active: 'bg-amber-600/25 text-amber-300 border-amber-500/50' },
   forge: { stage: 'Fruition', icon: '▲', text: 'text-rose-400', active: 'bg-rose-600/25 text-rose-300 border-rose-500/50' },
   integrate: { stage: 'Feedback', icon: '↻', text: 'text-emerald-400', active: 'bg-emerald-600/25 text-emerald-300 border-emerald-500/50' }
 };

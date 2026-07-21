@@ -48,7 +48,7 @@
       "house": "Gestalt",
       "channel": null,
       "element": null,
-      "function": "Medium",
+      "function": "Bridge",
       "horizon": "inner",
       "wheelWorld": "World",
       "governorId": 10,
@@ -100,7 +100,7 @@
       "house": "Spirit",
       "channel": "Structure",
       "element": "Earth",
-      "function": "Medium",
+      "function": "Bridge",
       "horizon": "inner",
       "wheelWorld": "World",
       "governorId": 0,
@@ -152,7 +152,7 @@
       "house": "Mind",
       "channel": "Resonance",
       "element": "Water",
-      "function": "Medium",
+      "function": "Bridge",
       "horizon": "inner",
       "wheelWorld": "World",
       "governorId": 19,
@@ -182,7 +182,7 @@
       "horizon": "inner",
       "wheelWorld": "Wheel",
       "governorId": 20,
-      "governorName": "Awareness",
+      "governorName": "Recognition",
       "governs": null,
       "diagonalPartnerId": 13,
       "verticalPartnerId": 14,
@@ -204,11 +204,11 @@
       "house": "Emotion",
       "channel": "Intent",
       "element": "Fire",
-      "function": "Medium",
+      "function": "Bridge",
       "horizon": "inner",
       "wheelWorld": "World",
       "governorId": 20,
-      "governorName": "Awareness",
+      "governorName": "Recognition",
       "governs": null,
       "diagonalPartnerId": 14,
       "verticalPartnerId": 13,
@@ -256,7 +256,7 @@
       "house": "Body",
       "channel": "Cognition",
       "element": "Air",
-      "function": "Medium",
+      "function": "Bridge",
       "horizon": "inner",
       "wheelWorld": "World",
       "governorId": 1,
@@ -364,7 +364,7 @@
       "horizon": "outer",
       "wheelWorld": "Wheel",
       "governorId": 20,
-      "governorName": "Awareness",
+      "governorName": "Recognition",
       "governs": null,
       "diagonalPartnerId": 6,
       "verticalPartnerId": 7,
@@ -381,7 +381,7 @@
     },
     "14": {
       "id": 14,
-      "name": "Balance",
+      "name": "Tune",
       "traditional": "Temperance",
       "house": "Emotion",
       "channel": "Cognition",
@@ -390,7 +390,7 @@
       "horizon": "outer",
       "wheelWorld": "World",
       "governorId": 20,
-      "governorName": "Awareness",
+      "governorName": "Recognition",
       "governs": null,
       "diagonalPartnerId": 7,
       "verticalPartnerId": 6,
@@ -537,7 +537,7 @@
     },
     "20": {
       "id": 20,
-      "name": "Awareness",
+      "name": "Recognition",
       "traditional": "Judgement",
       "house": "Gestalt",
       "channel": null,
@@ -658,7 +658,7 @@
         "tooLittle": {
           "correctionType": "vertical",
           "targetId": 20,
-          "targetName": "Awareness",
+          "targetName": "Recognition",
           "targetType": "Archetype",
           "targetTraditional": "Judgement",
           "isSelf": false
@@ -735,7 +735,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -748,7 +748,7 @@
         "tooMuch": {
           "correctionType": "diagonal",
           "targetId": 20,
-          "targetName": "Awareness",
+          "targetName": "Recognition",
           "targetType": "Archetype",
           "targetTraditional": "Judgement",
           "isSelf": false
@@ -951,7 +951,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -1167,12 +1167,12 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
           "targetId": 14,
-          "targetName": "Balance",
+          "targetName": "Tune",
           "targetType": "Archetype",
           "targetTraditional": "Temperance",
           "isSelf": false
@@ -1196,7 +1196,7 @@
         "unacknowledged": {
           "correctionType": "reduction",
           "targetId": 14,
-          "targetName": "Balance",
+          "targetName": "Tune",
           "targetType": "Archetype",
           "targetTraditional": "Temperance",
           "isSelf": false
@@ -1296,7 +1296,7 @@
         "tooLittle": {
           "correctionType": "vertical",
           "targetId": 14,
-          "targetName": "Balance",
+          "targetName": "Tune",
           "targetType": "Archetype",
           "targetTraditional": "Temperance",
           "isSelf": false
@@ -1383,7 +1383,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -1396,7 +1396,7 @@
         "tooMuch": {
           "correctionType": "diagonal",
           "targetId": 14,
-          "targetName": "Balance",
+          "targetName": "Tune",
           "targetType": "Archetype",
           "targetTraditional": "Temperance",
           "isSelf": false
@@ -1599,7 +1599,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -2077,7 +2077,7 @@
     },
     "14": {
       "id": 14,
-      "name": "Balance",
+      "name": "Tune",
       "traditional": "Temperance",
       "class": "Archetype",
       "house": "Emotion",
@@ -2722,7 +2722,7 @@
     },
     "20": {
       "id": 20,
-      "name": "Awareness",
+      "name": "Recognition",
       "traditional": "Judgement",
       "class": "Archetype",
       "house": "Gestalt",
@@ -2774,7 +2774,7 @@
         "balanced": {
           "correctionType": "growth",
           "targetId": 20,
-          "targetName": "Awareness",
+          "targetName": "Recognition",
           "targetType": "Archetype",
           "targetTraditional": "Judgement",
           "isSelf": true
@@ -2798,7 +2798,7 @@
         "unacknowledged": {
           "correctionType": "reduction",
           "targetId": 20,
-          "targetName": "Awareness",
+          "targetName": "Recognition",
           "targetType": "Archetype",
           "targetTraditional": "Judgement",
           "isSelf": true
@@ -2889,7 +2889,7 @@
         "tooLittle": {
           "correctionType": "vertical",
           "targetId": 20,
-          "targetName": "Awareness",
+          "targetName": "Recognition",
           "targetType": "Archetype",
           "targetTraditional": "Judgement",
           "isSelf": false
@@ -3251,7 +3251,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -3287,7 +3287,7 @@
         }
       },
       "description": "Peaceful momentum, stable drive. Intent finding its natural rhythm.",
-      "extended": "Drive (7) expressed through Fire at the operative scale. The Chariot archetype channels emotional momentum toward goals; through Intent, this becomes aligned action — will and feeling moving in the same direction. Emotion Medium through Fire: the sustained transmission of motivated energy. Number 4 is Peace/Stillness — the inner face of the Emotion pair, where Drive has found its groove before it needs to defend it. The four wands form a gateway, a celebration of momentum at rest in its own rhythm. When this appears as a transient, effort feels natural rather than forced; the doing is itself the reward.",
+      "extended": "Drive (7) expressed through Fire at the operative scale. The Chariot archetype channels emotional momentum toward goals; through Intent, this becomes aligned action — will and feeling moving in the same direction. Emotion Bridge through Fire: the sustained transmission of motivated energy. Number 4 is Peace/Stillness — the inner face of the Emotion pair, where Drive has found its groove before it needs to defend it. The four wands form a gateway, a celebration of momentum at rest in its own rhythm. When this appears as a transient, effort feels natural rather than forced; the doing is itself the reward.",
       "states": {
         "balanced": "Movement from feeling — direction from genuine engagement",
         "tooMuch": "Driving past the destination — momentum that can't stop",
@@ -3399,7 +3399,7 @@
     },
     "27": {
       "id": 27,
-      "name": "Recognition",
+      "name": "Honor",
       "traditional": "6 of Wands",
       "class": "Bound",
       "house": "Body",
@@ -3540,7 +3540,7 @@
         "innerOuterHorizon": "outer",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -3576,7 +3576,7 @@
         }
       },
       "description": "Gathered determination, harvested momentum. Defending chosen direction.",
-      "extended": "Drive (7) expressed through Fire at the operative scale. Same parent as Alignment (25) but at the outer face: where Alignment finds natural rhythm (inner/peaceful), Resolve defends it against resistance (outer/gathering). Emotion Medium through Fire: the sustained transmission of motivated energy now facing opposition. Number 7 is Gathering/Reaping — the outer face of the Emotion pair, where all that was sown must be harvested or defended. Holding ground requires gathering everything that was scattered and directing it at the single point of defense. When this appears as a transient, something worth protecting is under pressure and the question is whether the momentum holds.",
+      "extended": "Drive (7) expressed through Fire at the operative scale. Same parent as Alignment (25) but at the outer face: where Alignment finds natural rhythm (inner/peaceful), Resolve defends it against resistance (outer/gathering). Emotion Bridge through Fire: the sustained transmission of motivated energy now facing opposition. Number 7 is Gathering/Reaping — the outer face of the Emotion pair, where all that was sown must be harvested or defended. Holding ground requires gathering everything that was scattered and directing it at the single point of defense. When this appears as a transient, something worth protecting is under pressure and the question is whether the momentum holds.",
       "states": {
         "balanced": "Movement from feeling — direction from genuine engagement",
         "tooMuch": "Driving past the destination — momentum that can't stop",
@@ -4247,7 +4247,7 @@
         }
       },
       "description": "Peaceful stability through cognition. Mind at rest, calibrating.",
-      "extended": "Balance (14) expressed through Air at the operative scale. The Temperance archetype's dynamic equilibrium meets Cognition and produces mental repose — the mind finding stillness through calibration rather than activity. Emotion Feedback through Air: integrating emotional learning through thought. Number 4 is Peace/Stillness — the inner face of the Emotion pair, where the mind rests in its own balance before it needs to strategize. This is recovery through mental quieting — the knight lying still to heal. When this appears as a transient, the mind needs rest, not more thinking.",
+      "extended": "Tune (14) expressed through Air at the operative scale. The Temperance archetype's dynamic equilibrium meets Cognition and produces mental repose — the mind finding stillness through calibration rather than activity. Emotion Feedback through Air: integrating emotional learning through thought. Number 4 is Peace/Stillness — the inner face of the Emotion pair, where the mind rests in its own balance before it needs to strategize. This is recovery through mental quieting — the knight lying still to heal. When this appears as a transient, the mind needs rest, not more thinking.",
       "states": {
         "balanced": "Equilibrium flows from genuine integration — centered presence holding complexity",
         "tooMuch": "Premature harmony — conflict avoidance, suppressing necessary distinctions",
@@ -4307,7 +4307,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -4320,7 +4320,7 @@
         "tooMuch": {
           "correctionType": "diagonal",
           "targetId": 27,
-          "targetName": "Recognition",
+          "targetName": "Honor",
           "targetType": "Bound",
           "targetTraditional": "6 of Wands",
           "isSelf": false
@@ -4343,7 +4343,7 @@
         }
       },
       "description": "Internal practical cognition. Refining perception through careful distinction.",
-      "extended": "Discipline (9) expressed through Air at the operative scale. The Hermit archetype's focused practice meets Cognition and produces discernment — the capacity to distinguish what matters from what doesn't through rigorous attention. Body Medium through Air: sustained disciplined thinking. Number 5 is Internal/Personal — the inner face of the Body pair, where the mental work is private and personal. This is the solitary thinker refining distinctions nobody else can see yet. When this appears as a transient, careful private analysis is needed before any public position.",
+      "extended": "Discipline (9) expressed through Air at the operative scale. The Hermit archetype's focused practice meets Cognition and produces discernment — the capacity to distinguish what matters from what doesn't through rigorous attention. Body Bridge through Air: sustained disciplined thinking. Number 5 is Internal/Personal — the inner face of the Body pair, where the mental work is private and personal. This is the solitary thinker refining distinctions nobody else can see yet. When this appears as a transient, careful private analysis is needed before any public position.",
       "states": {
         "balanced": "Practice flows without force — solitude connects rather than isolates; refinement serves growth, not anxiety",
         "tooMuch": "Practice becomes perfectionism — isolation feels necessary rather than chosen; refining compulsively, fearing what happens if you stop",
@@ -4404,7 +4404,7 @@
         "innerOuterHorizon": "outer",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -4440,7 +4440,7 @@
         }
       },
       "description": "External direction through discipline. Mind finding passage, showing the way.",
-      "extended": "Discipline (9) expressed through Air at the operative scale. Same parent as Discernment (36) but at the outer face: where Discernment refines distinctions privately (inner/practical), Guidance directs others toward clarity (outer/group). Body Medium through Air: sustained disciplined thinking now serving others. Number 6 is External/Shared — the outer face of the Body pair, where private understanding becomes public direction. The boat crossing water — Discipline's careful perception charting passage for those who can't yet see the way. When this appears as a transient, what you know needs to become what you share.",
+      "extended": "Discipline (9) expressed through Air at the operative scale. Same parent as Discernment (36) but at the outer face: where Discernment refines distinctions privately (inner/practical), Guidance directs others toward clarity (outer/group). Body Bridge through Air: sustained disciplined thinking now serving others. Number 6 is External/Shared — the outer face of the Body pair, where private understanding becomes public direction. The boat crossing water — Discipline's careful perception charting passage for those who can't yet see the way. When this appears as a transient, what you know needs to become what you share.",
       "states": {
         "balanced": "Practice flows without force — solitude connects rather than isolates; refinement serves growth, not anxiety",
         "tooMuch": "Practice becomes perfectionism — isolation feels necessary rather than chosen; refining compulsively, fearing what happens if you stop",
@@ -4537,7 +4537,7 @@
         }
       },
       "description": "Gathering thoughts into alignment. Strategic mental integration.",
-      "extended": "Balance (14) expressed through Air at the operative scale. Same parent as Repose (35) but at the outer face: where Repose rests in mental stillness (inner/peaceful), Reconciliation gathers scattered thoughts into strategic alignment (outer/gathering). Emotion Feedback through Air: integrating emotional learning through active mental work. Number 7 is Gathering/Reaping — the outer face of the Emotion pair, where the harvest of mental equilibrium requires effort to collect. When this appears as a transient, multiple lines of thought need gathering into a coherent strategy.",
+      "extended": "Tune (14) expressed through Air at the operative scale. Same parent as Repose (35) but at the outer face: where Repose rests in mental stillness (inner/peaceful), Reconciliation gathers scattered thoughts into strategic alignment (outer/gathering). Emotion Feedback through Air: integrating emotional learning through active mental work. Number 7 is Gathering/Reaping — the outer face of the Emotion pair, where the harvest of mental equilibrium requires effort to collect. When this appears as a transient, multiple lines of thought need gathering into a coherent strategy.",
       "states": {
         "balanced": "Equilibrium flows from genuine integration — centered presence holding complexity",
         "tooMuch": "Premature harmony — conflict avoidance, suppressing necessary distinctions",
@@ -4810,7 +4810,7 @@
         "tooLittle": {
           "correctionType": "vertical",
           "targetId": 52,
-          "targetName": "Initiation",
+          "targetName": "Definition",
           "targetType": "Bound",
           "targetTraditional": "Ace of Pentacles",
           "isSelf": false
@@ -4920,7 +4920,7 @@
         }
       },
       "description": "Beginning of felt awareness. Heart open, ready to receive.",
-      "extended": "Awareness (20) expressed through Water at the threshold of emergence. The Judgement archetype's integrative seeing meets the Resonance channel's demand for emotional attunement and produces the opening of feeling — the cup offered before anything has been poured. Number 1 is Beginning/Perfection — the inner face of the Gestalt pair, the pristine moment before emotional experience begins. This is felt awareness at its most nascent: the capacity to feel before there's anything specific to feel about. When this appears as a transient, the heart is opening to something new; readiness without attachment.",
+      "extended": "Recognition (20) expressed through Water at the threshold of emergence. The Judgement archetype's integrative seeing meets the Resonance channel's demand for emotional attunement and produces the opening of feeling — the cup offered before anything has been poured. Number 1 is Beginning/Perfection — the inner face of the Gestalt pair, the pristine moment before emotional experience begins. This is felt awareness at its most nascent: the capacity to feel before there's anything specific to feel about. When this appears as a transient, the heart is opening to something new; readiness without attachment.",
       "states": {
         "balanced": "Recognition without finality — knowing that continues to deepen",
         "tooMuch": "Rigid judgement — recognition becoming condemnation, spiritual arrogance",
@@ -5076,7 +5076,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -5112,7 +5112,7 @@
         }
       },
       "description": "Primal joy through shared meaning. Community in celebration.",
-      "extended": "Culture (5) expressed through Water at the formative scale. The Hierophant archetype's transmission of shared meaning meets Resonance and produces communal joy — feeling that expands outward into shared celebration. Mind Medium through Water: the sustained transmission of cultural meaning through emotional experience. Number 3 is Primal/Expansive — the inner face of the Mind pair, where shared feeling radiates outward before it deepens. Three cups raised together — community feeling at its most immediate and expansive. When this appears as a transient, joy wants to be shared; meaning is found in celebrating together.",
+      "extended": "Culture (5) expressed through Water at the formative scale. The Hierophant archetype's transmission of shared meaning meets Resonance and produces communal joy — feeling that expands outward into shared celebration. Mind Bridge through Water: the sustained transmission of cultural meaning through emotional experience. Number 3 is Primal/Expansive — the inner face of the Mind pair, where shared feeling radiates outward before it deepens. Three cups raised together — community feeling at its most immediate and expansive. When this appears as a transient, joy wants to be shared; meaning is found in celebrating together.",
       "states": {
         "balanced": "Living transmission of meaning — teaching that adapts; tradition that breathes; belonging without conformity",
         "tooMuch": "Rigid orthodoxy, dogma — conformity demanded; the letter kills the spirit; windows sealed",
@@ -5560,7 +5560,7 @@
         "innerOuterHorizon": "outer",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -5596,7 +5596,7 @@
         }
       },
       "description": "Deep threshold of shared meaning. Walking toward what connects.",
-      "extended": "Culture (5) expressed through Water at the completive scale. Same parent as Celebration (44) but at the outer face: where Celebration radiates shared joy outward (inner/expansive), Passage goes deep into what shared meaning actually requires — leaving what no longer serves connection (outer/profound). Mind Medium through Water: the sustained transmission of cultural meaning now at its threshold. Number 8 is Unfathomable/Deep — the outer face of the Mind pair, where emotional depth has reached the point of necessary departure. Walking away from eight cups — not abandonment but the profound recognition that deeper connection lies elsewhere. When this appears as a transient, a threshold of emotional meaning has been reached.",
+      "extended": "Culture (5) expressed through Water at the completive scale. Same parent as Celebration (44) but at the outer face: where Celebration radiates shared joy outward (inner/expansive), Passage goes deep into what shared meaning actually requires — leaving what no longer serves connection (outer/profound). Mind Bridge through Water: the sustained transmission of cultural meaning now at its threshold. Number 8 is Unfathomable/Deep — the outer face of the Mind pair, where emotional depth has reached the point of necessary departure. Walking away from eight cups — not abandonment but the profound recognition that deeper connection lies elsewhere. When this appears as a transient, a threshold of emotional meaning has been reached.",
       "states": {
         "balanced": "Living transmission of meaning — teaching that adapts; tradition that breathes; belonging without conformity",
         "tooMuch": "Rigid orthodoxy, dogma — conformity demanded; the letter kills the spirit; windows sealed",
@@ -5764,7 +5764,7 @@
         "tooMuch": {
           "correctionType": "diagonal",
           "targetId": 52,
-          "targetName": "Initiation",
+          "targetName": "Definition",
           "targetType": "Bound",
           "targetTraditional": "Ace of Pentacles",
           "isSelf": false
@@ -5787,7 +5787,7 @@
         }
       },
       "description": "Emotional wholeness achieved. Full awareness of felt connection.",
-      "extended": "Awareness (20) expressed through Water at the completion of the cycle. Same parent as Receptivity (42) but at the outer face: where Receptivity opened to feeling (inner/beginning), Completion is the full rainbow of emotional awareness achieved (outer/completion). Gestalt Feedback through Water: the whole self's integrative seeing fully expressed through felt connection. Number 10 is Completion/Finality — the outer face of the Gestalt pair, the widest span complete. The ten cups forming a rainbow — not a single feeling but the entire spectrum of emotional awareness realized. When this appears as a transient, an emotional cycle has reached its natural wholeness.",
+      "extended": "Recognition (20) expressed through Water at the completion of the cycle. Same parent as Receptivity (42) but at the outer face: where Receptivity opened to feeling (inner/beginning), Completion is the full rainbow of emotional awareness achieved (outer/completion). Gestalt Feedback through Water: the whole self's integrative seeing fully expressed through felt connection. Number 10 is Completion/Finality — the outer face of the Gestalt pair, the widest span complete. The ten cups forming a rainbow — not a single feeling but the entire spectrum of emotional awareness realized. When this appears as a transient, an emotional cycle has reached its natural wholeness.",
       "states": {
         "balanced": "Recognition without finality — knowing that continues to deepen",
         "tooMuch": "Rigid judgement — recognition becoming condemnation, spiritual arrogance",
@@ -5803,7 +5803,7 @@
     },
     "52": {
       "id": 52,
-      "name": "Initiation",
+      "name": "Definition",
       "traditional": "Ace of Pentacles",
       "class": "Bound",
       "house": "Gestalt",
@@ -5846,12 +5846,12 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
           "targetId": 52,
-          "targetName": "Initiation",
+          "targetName": "Definition",
           "targetType": "Bound",
           "targetTraditional": "Ace of Pentacles",
           "isSelf": true
@@ -5875,7 +5875,7 @@
         "unacknowledged": {
           "correctionType": "reduction",
           "targetId": 52,
-          "targetName": "Initiation",
+          "targetName": "Definition",
           "targetType": "Bound",
           "targetTraditional": "Ace of Pentacles",
           "isSelf": true
@@ -5942,12 +5942,12 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
           "targetId": 27,
-          "targetName": "Recognition",
+          "targetName": "Honor",
           "targetType": "Bound",
           "targetTraditional": "6 of Wands",
           "isSelf": false
@@ -5971,14 +5971,14 @@
         "unacknowledged": {
           "correctionType": "reduction",
           "targetId": 27,
-          "targetName": "Recognition",
+          "targetName": "Honor",
           "targetType": "Bound",
           "targetTraditional": "6 of Wands",
           "isSelf": false
         }
       },
       "description": "Decisive cultivation through form. Tending what grows with responsible care.",
-      "extended": "Nurturing (3) expressed through Earth at the formative scale. The Empress archetype's care for growth meets Structure and produces stewardship — the responsible tending of material resources. Spirit Medium through Earth: the sustained transmission of nurturing wisdom through practical form. Number 2 is Balanced/Decisive — the inner face of the Spirit pair, where competing demands must be held in dynamic balance through careful tending rather than force. The juggler with two coins — not choosing between priorities but stewarding both with grace. When this appears as a transient, material resources need responsible tending; the question is care, not control.",
+      "extended": "Nurturing (3) expressed through Earth at the formative scale. The Empress archetype's care for growth meets Structure and produces stewardship — the responsible tending of material resources. Spirit Bridge through Earth: the sustained transmission of nurturing wisdom through practical form. Number 2 is Balanced/Decisive — the inner face of the Spirit pair, where competing demands must be held in dynamic balance through careful tending rather than force. The juggler with two coins — not choosing between priorities but stewarding both with grace. When this appears as a transient, material resources need responsible tending; the question is care, not control.",
       "states": {
         "balanced": "Growth happening without forcing — care that doesn't exhaust; holding space without clutching",
         "tooMuch": "Controlling under the guise of care — smothering, martyrdom, boundary dissolution",
@@ -6253,7 +6253,7 @@
         "tooLittle": {
           "correctionType": "vertical",
           "targetId": 27,
-          "targetName": "Recognition",
+          "targetName": "Honor",
           "targetType": "Bound",
           "targetTraditional": "6 of Wands",
           "isSelf": false
@@ -6619,7 +6619,7 @@
         "innerOuterHorizon": "outer",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -6655,7 +6655,7 @@
         }
       },
       "description": "Abundant growth achieved. Enjoying what careful tending produced.",
-      "extended": "Nurturing (3) expressed through Earth at the completive scale. Same parent as Flow (53) but at the outer face: where Flow balances competing demands with grace (inner/decisive), Flourishing arrives at the abundant result of sustained tending (outer/abundant). Spirit Medium through Earth: the sustained transmission of nurturing wisdom now visible in material abundance. Number 9 is Abundance/Myriad — the outer face of the Spirit pair, where careful cultivation has multiplied into rich harvest. The figure in the garden with nine coins — Nurturing's patient care expressed as material flourishing. When this appears as a transient, what you've tended is bearing abundant fruit.",
+      "extended": "Nurturing (3) expressed through Earth at the completive scale. Same parent as Flow (53) but at the outer face: where Flow balances competing demands with grace (inner/decisive), Flourishing arrives at the abundant result of sustained tending (outer/abundant). Spirit Bridge through Earth: the sustained transmission of nurturing wisdom now visible in material abundance. Number 9 is Abundance/Myriad — the outer face of the Spirit pair, where careful cultivation has multiplied into rich harvest. The figure in the garden with nine coins — Nurturing's patient care expressed as material flourishing. When this appears as a transient, what you've tended is bearing abundant fruit.",
       "states": {
         "balanced": "Growth happening without forcing — care that doesn't exhaust; holding space without clutching",
         "tooMuch": "Controlling under the guise of care — smothering, martyrdom, boundary dissolution",
@@ -6714,7 +6714,7 @@
         "innerOuterHorizon": "outer",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -6750,7 +6750,7 @@
         }
       },
       "description": "Completion of directed form. Legacy established through sustained will.",
-      "extended": "Will (1) expressed through Earth at the completion of the cycle. Same parent as Initiation (52) but at the outer face: where Initiation was the seed of what would be built (inner/beginning), Achievement is the legacy fully established (outer/completion). Gestalt Medium through Earth: the whole self's directed agency fully materialized through sustained effort. Number 10 is Completion/Finality — the outer face of the Gestalt pair, the widest span complete. The ten coins forming the Tree of Life pattern — Will's capacity to direct attention has produced lasting material form. When this appears as a transient, a material cycle has reached its natural completion; what was willed into being now stands.",
+      "extended": "Will (1) expressed through Earth at the completion of the cycle. Same parent as Definition (52) but at the outer face: where Initiation was the seed of what would be built (inner/beginning), Achievement is the legacy fully established (outer/completion). Gestalt Bridge through Earth: the whole self's directed agency fully materialized through sustained effort. Number 10 is Completion/Finality — the outer face of the Gestalt pair, the widest span complete. The ten coins forming the Tree of Life pattern — Will's capacity to direct attention has produced lasting material form. When this appears as a transient, a material cycle has reached its natural completion; what was willed into being now stands.",
       "states": {
         "balanced": "Conscious direction aligned with Now — choosing from clarity, not compulsion",
         "tooMuch": "Future-projected control — manipulation, forcing outcomes, white-knuckling reality",
@@ -7000,7 +7000,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -7423,8 +7423,8 @@
           "isSelf": false
         }
       },
-      "description": "Balance-as-behavior: calibration, truth-telling tempered with discernment.",
-      "extended": "Balance (14) showing up as observable behavior through the Cognition channel. The Analyst — holding, maintaining clarity with care and mature discernment. Truth-telling tempered with the wisdom of when and how to speak. The Temperance archetype doesn't just calibrate here — she holds the space for clear perception, relating to others through precise and compassionate thought. Emotion domain through Air: dynamic equilibrium expressed as analytical presence. Outer horizon (operation phase parent) — this is Balance fully operational, its calibrating wisdom applied with mature authority. Bounds: Repose (4S, inner) and Reconciliation (7S, outer) define the operational range of this behavior.",
+      "description": "Tune-as-behavior: calibration, truth-telling tempered with discernment.",
+      "extended": "Tune (14) showing up as observable behavior through the Cognition channel. The Analyst — holding, maintaining clarity with care and mature discernment. Truth-telling tempered with the wisdom of when and how to speak. The Temperance archetype doesn't just calibrate here — she holds the space for clear perception, relating to others through precise and compassionate thought. Emotion domain through Air: dynamic equilibrium expressed as analytical presence. Outer horizon (operation phase parent) — this is Balance fully operational, its calibrating wisdom applied with mature authority. Bounds: Repose (4S, inner) and Reconciliation (7S, outer) define the operational range of this behavior.",
       "states": {
         "balanced": "Equilibrium flows from genuine integration — centered presence holding complexity",
         "tooMuch": "Premature harmony — conflict avoidance, suppressing necessary distinctions",
@@ -7485,7 +7485,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -7677,7 +7677,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",
@@ -7967,7 +7967,7 @@
         "innerOuterHorizon": "inner",
         "wheelWorld": "World"
       },
-      "stage": "Medium",
+      "stage": "Bridge",
       "corrections": {
         "balanced": {
           "correctionType": "growth",

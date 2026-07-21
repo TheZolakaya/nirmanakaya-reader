@@ -92,11 +92,11 @@ If the opening reveals "where things stand," the closing reveals "what it costs.
 
 The geometry completes through the final sequence:
 
-Will (1) prepares for Awareness (20). Your directed intention — the focus that initiated this operation — now faces its completion. What you asserted must be integrated. The Magician's pointed finger meets Judgement's full recognition.
+Will (1) prepares for Recognition (20). Your directed intention — the focus that initiated this operation — now faces its completion. What you asserted must be integrated. The Magician's pointed finger meets Judgement's full recognition.
 
 Actualization (19) reduces to Source (10). Your full expression — consciousness at maximum radiance — reduces to the portal itself. Your individual creation IS the Creator creating.
 
-Awareness (20) recognizes two creators side by side. You and the Creator. You and the Whole recognizing itself through you. The doubled nature: 10 + 10 = 20. Two Sources meeting.
+Recognition (20) recognizes two creators side by side. You and the Creator. You and the Whole recognizing itself through you. The doubled nature: 10 + 10 = 20. Two Sources meeting.
 
 Creation (21) releases. Completion. The cycle is finished. The assertion has been made, the architecture engaged, the commitment accepted. Now — RELEASE.
 

@@ -38,7 +38,7 @@ And the three consecutive numbers — 19, 20, 21 — encode the entire teaching:
 
 The whole architecture resolves to three adjacent positions: the creator completed (19), the creator recognized as equal to Source (20), the creator stepping through into new creation (21). Input → Process → Output. Unity → Awareness → Expansion.
 
-Consciousness moves between Source (19→10) and Creation (21→3) through the mirror of Awareness (20). The journey and the destination were always the same.
+Consciousness moves between Source (19→10) and Creation (21→3) through the mirror of Recognition (20). The journey and the destination were always the same.
 
 ---
 

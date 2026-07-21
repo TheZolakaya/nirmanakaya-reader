@@ -30,7 +30,7 @@
 
 **Elemental Designator** — The specific element (Fire, Air, Water, Earth) assigned to each channel position within a house. Determines the archetype's mode of expression.
 
-**Emotion House** — The Water house. Governs valuation, connection, felt meaning. Contains Compassion (6), Drive (7), Change (13), Balance (14). Governed by Awareness (20). Element achieved at Fruition; process cycle: Water → Fire → Earth → Air.
+**Emotion House** — The Water house. Governs valuation, connection, felt meaning. Contains Compassion (6), Drive (7), Change (13), Tune (14). Governed by Recognition (20). Element achieved at Fruition; process cycle: Water → Fire → Earth → Air.
 
 **Feedback** — The fourth process stage. Yang-in-Yin. Integration, return to source. Where the cycle folds back and feeds what was learned into the next beginning.
 
@@ -44,7 +44,7 @@
 
 **Fruition** — The third process stage. Yin-pure. Completion, maturation. Where the seed that was planted and developed reaches its full expression.
 
-**Gestalt House** — The Aether house. Governs coherence, identity, the unified observer. Contains Potential (0), Will (1), Actualization (19), Awareness (20). Governed by Source (10). Meta-positional — observes and unifies the other four houses. Has bounds but no agents (cannot be behaviorally externalized).
+**Gestalt House** — The Aether house. Governs coherence, identity, the unified observer. Contains Potential (0), Will (1), Actualization (19), Recognition (20). Governed by Source (10). Meta-positional — observes and unifies the other four houses. Has bounds but no agents (cannot be behaviorally externalized).
 
 **House** — One of five irreducible domains of conscious experience: Gestalt (Aether), Spirit (Fire), Mind (Air), Emotion (Water), Body (Earth). Remove any one and consciousness becomes incoherent.
 
@@ -54,11 +54,11 @@
 
 **Lemniscate Key** — The discovery that infinity (the lemniscate symbol) is the generator of the entire architecture. Not a symbol of infinity but the mathematical operator that produces the structure.
 
-**Medium** — The second process stage. Yin-in-Yang. Development, growth, nurturing. Where the seed encounters relationship and begins to elaborate.
+**Bridge** — The second process stage. Yin-in-Yang. The through-which: the medium of transmission, as vibration is the medium through which sound travels. Where possibility becomes trajectory — the Seed's intent carried and conditioned toward form. (Renamed from Medium, 2026-07-20: the stage's meaning was always the through-which; the old title required explaining and the explanation was always "it's the bridge.")
 
 **Mind House** — The Air house. Governs modeling, processing, abstraction. Contains Order (4), Culture (5), Abstraction (15), Breakthrough (16). Governed by Actualization (19). Element achieved at Fruition; process cycle: Fire → Water → Air → Earth.
 
-**Mobius Transmission** — The discovery that the twenty-two step creation/operation sequence has the topology of a Mobius strip, with Source (10) as the twist point. All duality relationships resolve to the triad 19-20-21 (Actualization-Awareness-Creation).
+**Mobius Transmission** — The discovery that the twenty-two step creation/operation sequence has the topology of a Mobius strip, with Source (10) as the twist point. All duality relationships resolve to the triad 19-20-21 (Actualization-Recognition-Creation).
 
 **Node** — One of ten fundamental reference positions that allow consciousness to remain itself while differentiating into four dimensions of experience. The minimum viable self. The floor tiles consciousness stands on so it does not fall into infinity.
 
@@ -78,7 +78,7 @@
 
 **Potential Collapse** — One of two mechanisms of the Field. Crystallizes infinite possibility into specific actuality. The inward-facing dimension of Field participation. What happens when a reading selects a specific signature.
 
-**Process Stage** — One of four phases of any cycle: Seed (initiates), Medium (develops), Fruition (completes), Feedback (integrates). Maps to the Quadraverse's four-fold structure.
+**Process Stage** — One of four phases of any cycle: Seed (initiates), Bridge (carries), Fruition (completes), Feedback (integrates). Maps to the Quadraverse's four-fold structure.
 
 **Quadraverse** — The four-fold structure that pervades the architecture. Four questions (WHO/HOW/WHAT/WHERE-WHEN), four forces, four states of matter, four DNA bases, four dimensions, four process stages, four channels, four elements. The architecture's fundamental rhythm.
 

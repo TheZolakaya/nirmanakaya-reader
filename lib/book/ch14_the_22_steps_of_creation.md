@@ -24,7 +24,7 @@ The Fool. Gestalt house, Seed stage. Before direction, before content, before fo
 
 **Step 1 — Will POINTS.**
 
-The Magician. Gestalt house, Medium stage. The first distinction. From "I AM" to "I AM THIS." Will creates direction where none existed. It takes infinite potential and collapses it into a vector — not limiting possibility, but focusing it. The first act of creation is choosing where to look.
+The Magician. Gestalt house, Bridge stage. The first distinction. From "I AM" to "I AM THIS." Will creates direction where none existed. It takes infinite potential and collapses it into a vector — not limiting possibility, but focusing it. The first act of creation is choosing where to look.
 
 **Step 2 — Wisdom DISCERNS.**
 
@@ -32,7 +32,7 @@ The High Priestess. Spirit house, Seed stage. The first threshold. Before aspira
 
 **Step 3 — Nurturing DEVELOPS.**
 
-The Empress. Spirit house, Medium stage. Care that grows things. The capacity for sustained attention — not just seeing the structure (Step 2) but cultivating it, feeding it, holding space for it to develop. Nurturing is aspiration's patience. The garden before the harvest.
+The Empress. Spirit house, Bridge stage. Care that grows things. The capacity for sustained attention — not just seeing the structure (Step 2) but cultivating it, feeding it, holding space for it to develop. Nurturing is aspiration's patience. The garden before the harvest.
 
 **Step 4 — Order STRUCTURES.**
 
@@ -40,7 +40,7 @@ The Emperor. Mind house, Seed stage. The initiation of structure. Rules, boundar
 
 **Step 5 — Culture TRANSMITS.**
 
-The Hierophant. Mind house, Medium stage. Shared understanding passed through relationship and tradition. The development of cognition from individual insight into collective knowledge. Culture is the bridge between one mind's discovery and everyone else's inheritance.
+The Hierophant. Mind house, Bridge stage. Shared understanding passed through relationship and tradition. The development of cognition from individual insight into collective knowledge. Culture is the bridge between one mind's discovery and everyone else's inheritance.
 
 **Step 6 — Compassion CONNECTS.**
 
@@ -48,7 +48,7 @@ The Lovers. Emotion house, Seed stage. The initiation of relationship. Opening t
 
 **Step 7 — Drive PROPELS.**
 
-The Chariot. Emotion house, Medium stage. Passionate momentum. The development of feeling through directed energy. Drive takes the raw connection of compassion and converts it into forward motion — the emotional engine that moves consciousness through its territory.
+The Chariot. Emotion house, Bridge stage. Passionate momentum. The development of feeling through directed energy. Drive takes the raw connection of compassion and converts it into forward motion — the emotional engine that moves consciousness through its territory.
 
 **Step 8 — Fortitude ENDURES.**
 
@@ -56,7 +56,7 @@ Strength. Body house, Seed stage. The initiation of form. Not brute force — st
 
 **Step 9 — Discipline FOCUSES.**
 
-The Hermit. Body house, Medium stage. Method and practice. The development of form through rigorous engagement. Discipline is the Hermit's lantern — not illuminating everything, but focusing on exactly what matters. The seeker who finds by narrowing, not widening.
+The Hermit. Body house, Bridge stage. Method and practice. The development of form through rigorous engagement. Discipline is the Hermit's lantern — not illuminating everything, but focusing on exactly what matters. The seeker who finds by narrowing, not widening.
 
 ---
 

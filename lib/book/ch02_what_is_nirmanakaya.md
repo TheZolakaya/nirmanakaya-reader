@@ -67,12 +67,12 @@ The twenty-two positions include:
 - Potential (0) — the unshaped force, the blank state of becoming
 - Will (1) — the first distinction, directed identity
 - Actualization (19) — fulfilled purpose, the creator realized
-- Awareness (20) — self-recognition, the mirror that sees itself
+- Recognition (20) — self-recognition, the mirror that sees itself
 
 **Sixteen manifest archetypes** — the territory consciousness navigates:
 - Four in each manifest house (Spirit, Mind, Emotion, Body)
 - Each at the intersection of a house and a channel
-- Each with a specific process stage (Seed, Medium, Fruition, Feedback)
+- Each with a specific process stage (Seed, Bridge, Fruition, Feedback)
 
 **Two portals** — the boundary conditions:
 - Source (10) — the ingress, the turning point, the Wheel
@@ -89,7 +89,7 @@ Every experience moves through four stages:
 | Stage | Function | Character |
 |-------|----------|-----------|
 | **Seed** | Initiates | The spark, the beginning |
-| **Medium** | Develops | Growth through engagement |
+| **Bridge** | Develops | Growth through engagement |
 | **Fruition** | Completes | The maturation, full expression |
 | **Feedback** | Integrates | Return, incorporation, cycling back |
 
