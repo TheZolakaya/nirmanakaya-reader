@@ -429,3 +429,16 @@ Their Bounds (Aces and 10s) therefore have no growth opportunity defined. When b
 *The structure is the authority. This table is derived from the Archetype correction pairs (diagonal/vertical/reduction) and growth pairs (transpose/polarity) with polarity flip for Bounds and Agents.*
 
 *January 11, 2026*
+
+
+---
+
+## CORRECTION — 2026-07-27 (founder-caught, live): Agent Vertical & Diagonal columns
+
+**Ruling (founder, 2026-07-27):** agents inherit their underlying archetype's correction geometry wholesale. Too Little = resident agent of the archetype's VERTICAL pair; Too Much = resident agent of the DIAGONAL pair; Unacknowledged = resident agent of the REDUCTION pair. Rank (Initiate/Catalyst/Steward/Executor) is preserved automatically for growth, vertical, and diagonal because each rank-quad of archetypes ({2,3,17,18}, {4,5,15,16}, {6,7,13,14}, {8,9,11,12}) is closed under those pairings. Only REDUCTION flips rank, because the mod-9 pairs cross the quads.
+
+**Defect corrected:** the Agents Complete Reference table's "Too Little" and "Too Much" columns applied a ROLE_FLIP belonging only to reduction geometry — the Too Little column was entry-for-entry identical to the Unacknowledged column. All 16 vertical and all 16 diagonal agent cells were wrong. The 2026-05-13 edit to line 305 (Page of Wands Too Little, Queen of Pentacles -> King of Pentacles) fitted the doc to the wrong pattern and is superseded: the correct Too Little target for the Initiate of Intent is the Initiate of Structure (Nurturing's resident agent).
+
+**Authoritative values now live in lib/corrections.js AGENT_VERTICAL_TARGETS and AGENT_DIAGONAL_TARGETS (bug fix 2026-07-27), each row derived and machine-verified against ARCHETYPE pair tables + resident-agent map (8/8 live-function spot checks). The Agents Complete Reference table above is UNRELIABLE for the Too Little and Too Much columns until regenerated; Growth and Unacknowledged columns verified correct.**
+
+**Discovery context:** caught by the founder from an iPad, from memory, against a live reading served to the production seat (Too Little Executor of Structure had returned Initiate of Intent; true target Executor of Intent). Engine fixed same night.
