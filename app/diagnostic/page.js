@@ -2469,7 +2469,7 @@ function ChainInspector({ archetypeId, results, drawMap, analysis, expandedTools
             onToggle={() => toggleTool('manifestReadout')}
             summary={results.manifestReadout?.available !== false && (
               <div style={{ fontSize: 10, lineHeight: 1.6 }}>
-                <KeyVal label="Agent" value={results.manifestReadout.agentName} />
+                <KeyVal label="Ambassador" value={results.manifestReadout.agentName} />
                 <KeyVal label="Visitor" value={`${results.manifestReadout.visitor} [${results.manifestReadout.visitorClass}]`} />
                 <KeyVal
                   label="Status"

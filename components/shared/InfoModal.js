@@ -249,7 +249,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
 
               {associations.agents.length > 0 && (
                 <div>
-                  <p className="text-xs text-zinc-600 mb-1">Agents:</p>
+                  <p className="text-xs text-zinc-600 mb-1">Ambassadors:</p>
                   <div className="flex flex-wrap gap-1">
                     {associations.agents.map(a => (
                       <ClickableTerm key={a.id} type="card" id={a.id}>
@@ -389,7 +389,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
           <div className="mb-4">
             <GlossaryTerm slug="agent">
               <span className="text-xs px-2 py-1 rounded-full bg-violet-500/20 text-violet-300 cursor-pointer hover:opacity-80">
-                Agent Role
+                Ambassador Role
               </span>
             </GlossaryTerm>
           </div>

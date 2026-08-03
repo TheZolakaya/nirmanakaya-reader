@@ -1475,7 +1475,7 @@ const DepthCard = ({
                     const growthTargetCard = getComponent(growthTargetId);
                     const growthTargetIsAgent = cardTypeForMinimap === 'agent' && growthTargetCard?.type === 'Agent';
                     const growthTargetName = growthTargetCard?.name || ARCHETYPES[positionArchetype]?.name;
-                    const growthTargetLabel = isGestaltCard ? 'Self-Expression' : (growthTargetIsAgent ? 'Agent' : 'Position');
+                    const growthTargetLabel = isGestaltCard ? 'Self-Expression' : (growthTargetIsAgent ? 'Ambassador' : 'Position');
 
                     return (
                       <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>

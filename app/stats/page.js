@@ -205,7 +205,7 @@ export default function StatsPage() {
                     <div className="w-12 bg-zinc-800 rounded-t-lg overflow-hidden" style={{ height: `${Math.max(pct, 5)}%` }}>
                       <div className={`w-full h-full ${color} opacity-50`} />
                     </div>
-                    <span className="text-[10px] text-zinc-500">{type === 'ARCHETYPE' ? 'Major' : type === 'BOUND' ? 'Bound' : 'Agent'}</span>
+                    <span className="text-[10px] text-zinc-500">{type === 'ARCHETYPE' ? 'Major' : type === 'BOUND' ? 'Bound' : 'Ambassador'}</span>
                   </div>
                 );
               })}

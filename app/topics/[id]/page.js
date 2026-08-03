@@ -24,7 +24,7 @@ function getSignatureType(transientId) {
   const id = Number(transientId);
   if (id >= 0 && id <= 21) return 'Archetype';
   if (id >= 22 && id <= 61) return 'Bound';
-  if (id >= 62 && id <= 77) return 'Agent';
+  if (id >= 62 && id <= 77) return 'Ambassador';
   return 'Unknown';
 }
 

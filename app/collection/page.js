@@ -123,7 +123,7 @@ export default function CollectionPage() {
           </div>
           <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-3 text-center">
             <div className="text-lg font-bold text-violet-400">{uniqueAgents}/16</div>
-            <div className="text-xs text-zinc-500">Agents</div>
+            <div className="text-xs text-zinc-500">Ambassadors</div>
             <div className="h-1 bg-zinc-800 rounded-full mt-2 overflow-hidden">
               <div className="h-full bg-violet-500/50 rounded-full" style={{ width: `${(uniqueAgents / 16) * 100}%` }} />
             </div>

@@ -7526,7 +7526,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               )}
                               {trans.type === "Agent" && correction.target !== undefined && (
                                 <>
-                                  <div>Agent corrects through embodied Archetype ({transArchetype?.name}, position {trans.archetype})</div>
+                                  <div>Ambassador corrects through embodied Archetype ({transArchetype?.name}, position {trans.archetype})</div>
                                   {draw.status === 2 && <div>Diagonal: {trans.archetype} ↔ {DIAGONAL_PAIRS[trans.archetype]} → {ARCHETYPES[correction.target]?.name}</div>}
                                   {draw.status === 3 && <div>Vertical: {trans.archetype} ↔ {VERTICAL_PAIRS[trans.archetype]} → {ARCHETYPES[correction.target]?.name}</div>}
                                 </>
