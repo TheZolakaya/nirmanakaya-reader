@@ -250,7 +250,7 @@ function getLengthBlock(length) {
   const blocks = {
     brief: `Generate a FOCUSED interpretation of this signature. This is the ONE AND ONLY pass — say the true thing and stop.
 
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH OF INSIGHT. Agents and Bounds get the SAME quality as Archetypes. Insight density stays high — word count stays low.
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH OF INSIGHT. Ambassadors and Bounds get the SAME quality as Archetypes. Insight density stays high — word count stays low.
 
 ⚠️ LENGTH: BRIEF MODE ⚠️
 Your TOTAL output for this card should be 300-500 words across all sections. This is NOT optional.
@@ -267,7 +267,7 @@ This is the espresso shot — concentrated, potent, done. Say the true thing abo
 
     standard: `Generate a THOROUGH interpretation of this signature. This is the ONE AND ONLY pass — cover every important facet without over-explaining.
 
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents and Bounds get the SAME treatment as Archetypes. There is no "lesser" card in this system.
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors and Bounds get the SAME treatment as Archetypes. There is no "lesser" card in this system.
 
 ⚠️ LENGTH: STANDARD MODE ⚠️
 Your TOTAL output for this card should be 800-1200 words across all sections. This is NOT optional.
@@ -284,7 +284,7 @@ Quality over quantity. A solid, satisfying interpretation that engages THEIR spe
 
     full: `Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
 
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Agents (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Agent IS its archetype in embodied form — interpret with the SAME depth and length.
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Ambassador IS its archetype in embodied form — interpret with the SAME depth and length.
 
 ⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
 Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
@@ -651,7 +651,7 @@ function generateArchitectureText(draw) {
     lines.push(`**Channel:** ${agent.channel}`);
     lines.push(`**Role:** ${agent.role}`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**Card Type:** Agent (Court)`);
+    lines.push(`**Card Type:** Ambassador (Court)`);
     lines.push(`**Embodies:** ${associatedArch.name} — ${associatedArch.house} House`);
 
     const correction = getAgentCorrection(trans, status);
