@@ -1232,6 +1232,25 @@ export default function NirmanakaReader() {
           setThreadData(savedThreadData);
         }
 
+        // Restore the Answer Box (Integrate verdict) + mode yield + posture — the
+        // autosave writes them into interpretation.{verdict,posture,yield}, and the
+        // _restored guard rightly blocks a re-ask, so without this the reload came
+        // back headless (the share page at /r/[slug] already renders them; only the
+        // owner's own reload had the hole).
+        if (interp.posture) {
+          postureTouchedRef.current = true; // restored posture is authoritative — no auto-reclassify
+          setPosture(interp.posture);
+        }
+        if (interp.verdict?.verdict) {
+          verdictSavedRef.current = interp.verdict; // just loaded — don't re-save it
+          setVerdictResult(interp.verdict);
+        }
+        if (interp.yield) {
+          const restoredYield = { yield: interp.yield };
+          yieldSavedRef.current = restoredYield;
+          setYieldResult(restoredYield);
+        }
+
         // Clear the URL param after loading
         window.history.replaceState({}, '', window.location.pathname);
       } catch (e) {
