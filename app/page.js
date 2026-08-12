@@ -4835,6 +4835,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         md += `\n`;
       }
       if (v.authorshipReturn) md += `*${v.authorshipReturn}*\n\n`;
+      md += `*This reads the current vector — where things point as they stand, not a ruling on the future. The medicine is how the vector turns.*\n\n`;
       if (verdictResult.lean && !verdictResult.branchScores) md += `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band}) — ${verdictResult.lean.label}\n\n`;
       // The discernment walk — the show-your-work behind the Answer travels with it
       if (Array.isArray(v.walk) && v.walk.length) {
@@ -7301,6 +7302,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           </div>
                         )}
                         {v.authorshipReturn && <div className="text-xs text-zinc-500 italic">{v.authorshipReturn}</div>}
+                        {/* The temporal frame, always disclosed: mirror, not prophecy */}
+                        <div className="text-[10px] text-zinc-600 mt-2">
+                          This reads your current vector — where things point as they stand, not a ruling on the future. The medicine is how the vector turns.
+                        </div>
                         {v.chainRequest?.subQuestion && (
                           <div className="text-xs text-amber-400/80 mt-2">
                             The field left this genuinely open. A sharper question to ask next: “{v.chainRequest.subQuestion}”
