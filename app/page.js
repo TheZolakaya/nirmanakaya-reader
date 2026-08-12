@@ -2212,6 +2212,16 @@ export default function NirmanakaReader() {
   // never a re-draw). Client kill switch below; server VERDICT_ENABLED kills all passes.
   const ANSWER_ON_DEMAND_ENABLED = true;
   const [answerRequested, setAnswerRequested] = useState(false);
+  // THE ANSWER as shared chat context — every dialog surface in a reading must see the
+  // delivered verdict (founder catch 2026-08-12: per-section Unpack/Clarify/Example/
+  // Converse and the Reflect/Forge threads were blind to it; only the general follow-up
+  // box had it). Delivering an answer and then chatting as if it doesn't exist reads
+  // as incoherence to the querent.
+  const answerContextBlock = () => {
+    const v = verdictResult?.verdict;
+    if (!v) return '';
+    return `THE ANSWER (already delivered to the user for this same draw):\n${verdictResult.verdictMeta?.label || v.verdict}${v.selection ? `: "${v.selection}"` : ''} — ${v.headline}\n${v.qualifier ? `Qualifier: ${v.qualifier}\n` : ''}If the exchange concerns this answer, engage it directly — explain, deepen, or honestly examine it. Never re-answer the question with a different verdict, and never treat the verdict as unknown to you.\n\n`;
+  };
   // CHOICE READING — the Choices FRAME tab arms the comparison; the INPUTS live in a
   // portaled side panel (the controls zone clips its contents by design, so the panel
   // must float outside it — Chris's ruling after two clipping rounds). 2-5 options;
@@ -3077,6 +3087,10 @@ export default function NirmanakaReader() {
       const parts = [];
 
       // Overview/Summary
+      // The delivered Answer leads the context — threads must not talk past it
+      const answerBlock = answerContextBlock();
+      if (answerBlock) parts.push(answerBlock.trim());
+
       if (parsedReading?.summary) {
         parts.push(`OVERVIEW:\n${getSummaryContent(parsedReading.summary)}`);
       }
@@ -3386,6 +3400,9 @@ Interpret this new card as the architecture's response to their declared directi
     // Build comprehensive reading context for follow-up grounding
     const buildReadingContext = () => {
       const parts = [];
+      // The delivered Answer leads the context — threads must not talk past it
+      const answerBlock = answerContextBlock();
+      if (answerBlock) parts.push(answerBlock.trim());
       if (parsedReading?.summary) parts.push(`OVERVIEW:\n${getSummaryContent(parsedReading.summary)}`);
       if (parsedReading?.letter) {
         const letter = parsedReading.letter;
@@ -3835,7 +3852,7 @@ Ground your expansion in this specific context.`;
     if (expansionType === 'context' && userText) {
       // Multi-turn context: build conversation history
       const existingContext = expansions[sectionKey]?.context || [];
-      const baseInfo = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
+      const baseInfo = `${contextPrefix}${converseBlock}${answerContextBlock()}QUERENT'S QUESTION: "${question}"\n\nTHE DRAW:\n${drawText}\n\nSECTION BEING EXPANDED (${sectionContext}):\n${sectionContent}`;
 
       if (existingContext.length === 0) {
         // First context submission
@@ -3867,7 +3884,7 @@ Ground your expansion in this specific context.`;
       }
     } else {
       // Standard one-shot expansion
-      const userMessage = `${contextPrefix}${converseBlock}QUERENT'S QUESTION: "${question}"
+      const userMessage = `${contextPrefix}${converseBlock}${answerContextBlock()}QUERENT'S QUESTION: "${question}"
 
 THE DRAW:
 ${drawText}
@@ -4819,6 +4836,13 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       }
       if (v.authorshipReturn) md += `*${v.authorshipReturn}*\n\n`;
       if (verdictResult.lean && !verdictResult.branchScores) md += `Field lean (computed): ${verdictResult.lean.value} (${verdictResult.lean.band}) — ${verdictResult.lean.label}\n\n`;
+      // The discernment walk — the show-your-work behind the Answer travels with it
+      if (Array.isArray(v.walk) && v.walk.length) {
+        md += `### How this was discerned\n\n`;
+        if (v.leanNote) md += `*${v.leanNote}*\n\n`;
+        for (const s of v.walk) md += `- ${s}\n`;
+        md += `\n`;
+      }
       md += `---\n\n`;
     }
 
