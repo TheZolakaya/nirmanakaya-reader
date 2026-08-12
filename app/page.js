@@ -2207,6 +2207,11 @@ export default function NirmanakaReader() {
   const [verdictLoading, setVerdictLoading] = useState(false);
   const [verdictError, setVerdictError] = useState(false);
   const [verdictWalkOpen, setVerdictWalkOpen] = useState(false);
+  // ANSWER ON DEMAND — any mode can request its question's answer after the reading.
+  // Same route, same harm gate, same one-draw law (discernment runs on the SAME draw,
+  // never a re-draw). Client kill switch below; server VERDICT_ENABLED kills all passes.
+  const ANSWER_ON_DEMAND_ENABLED = true;
+  const [answerRequested, setAnswerRequested] = useState(false);
   // CHOICE READING — the Choices FRAME tab arms the comparison; the INPUTS live in a
   // portaled side panel (the controls zone clips its contents by design, so the panel
   // must float outside it — Chris's ruling after two clipping rounds). 2-5 options;
@@ -4188,6 +4193,7 @@ CRITICAL FORMATTING RULES:
     try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ }
     setDraws(null); setParsedReading(null); setExpansions({}); setFollowUpMessages([]); readingConverseRef.current = [];
     setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
+    setAnswerRequested(false);
     setYieldResult(null); setYieldError(false); yieldDrawsRef.current = null;
     postureTouchedRef.current = false; setPostureSuggestion(null); setChoiceSuggestion(null);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
@@ -7160,10 +7166,27 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 </span>
               </div>
 
-              {/* ANSWER BOX — Integrate mode verdict, appended at the top of the reading.
-                  The verdict is a weather report, never a command: it reads field conditions;
+              {/* ANSWER ON DEMAND — outside Integrate mode, a reading with a question can
+                  request its answer. Fires the same discernment pass on the SAME draw. */}
+              {ANSWER_ON_DEMAND_ENABLED && posture !== 'integrate' && !answerRequested &&
+                !verdictResult && !verdictLoading && question && draws?.length > 0 &&
+                parsedReading && !parsedReading._isFirstContact && !parsedReading.firstContact && (
+                <div className="max-w-2xl mx-auto mb-6 text-center">
+                  <button
+                    onClick={() => { setAnswerRequested(true); fetchVerdict(draws, question); }}
+                    className="text-xs font-mono uppercase tracking-wider px-4 py-2 rounded border border-zinc-700/60 text-zinc-400 hover:text-amber-300 hover:border-amber-500/40 transition-colors"
+                    title="Distill this reading into a direct answer to your question — same signatures, no new draw"
+                  >
+                    ◈ Give me the answer
+                  </button>
+                </div>
+              )}
+
+              {/* ANSWER BOX — the question's verdict, appended at the top of the reading.
+                  Automatic in Integrate mode; on request everywhere else. The verdict is a
+                  weather report, never a command: it reads field conditions;
                   the person keeps the helm. */}
-              {posture === 'integrate' && (verdictLoading || verdictResult || verdictError) && (
+              {(posture === 'integrate' || answerRequested || verdictResult) && (verdictLoading || verdictResult || verdictError) && (
                 <div className="content-pane max-w-2xl mx-auto mb-6 rounded-lg border border-zinc-700/60 bg-zinc-900/60 p-4 sm:p-5">
                   {verdictLoading && !verdictResult && (
                     <div className="text-center text-xs text-zinc-500 animate-pulse py-2">Reading the field for an answer…</div>
