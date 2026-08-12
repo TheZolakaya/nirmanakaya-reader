@@ -1776,12 +1776,14 @@ const DepthCard = ({
               <button
                 onClick={(e) => { e.stopPropagation(); onSetThreadOperation('reflect'); }}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
               >
                 <span className="text-[0.5rem] text-red-500">▶</span> Reflect
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); onSetThreadOperation('forge'); }}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+              title="Forge: continue by declaring — state an intention or assertion and let the field respond"
               >
                 <span className="text-[0.5rem] text-red-500">▶</span> Forge
               </button>
@@ -1799,6 +1801,7 @@ const DepthCard = ({
                       ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60'
                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                   }`}
+                title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
                 >
                   ↩ Reflect
                 </button>
@@ -1809,6 +1812,7 @@ const DepthCard = ({
                       ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60'
                       : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600'
                   }`}
+                title="Forge: continue by declaring — state an intention or assertion and let the field respond"
                 >
                   ⚡ Forge
                 </button>

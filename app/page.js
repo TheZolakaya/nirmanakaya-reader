@@ -8293,12 +8293,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               <button
                                 onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'reflect' })); }}
                                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+                              title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
                               >
                                 <span className="text-[0.5rem] text-red-500">▶</span> Reflect
                               </button>
                               <button
                                 onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
                                 className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-1.5"
+                              title="Forge: continue by declaring — state an intention or assertion and let the field respond"
                               >
                                 <span className="text-[0.5rem] text-red-500">▶</span> Forge
                               </button>
@@ -8310,10 +8312,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                                 <button
                                   onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'reflect' })); }}
                                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${threadOperations['path'] === 'reflect' ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                                title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
                                 >↩ Reflect</button>
                                 <button
                                   onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: 'forge' })); }}
                                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${threadOperations['path'] === 'forge' ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                                title="Forge: continue by declaring — state an intention or assertion and let the field respond"
                                 >⚡ Forge</button>
                                 <button onClick={(e) => { e.stopPropagation(); setThreadOperations(prev => ({ ...prev, path: null })); }} className="px-2 py-2 rounded-lg text-xs text-zinc-500 hover:text-zinc-300">✕</button>
                               </div>
@@ -8751,12 +8755,14 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         <button
                           onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
                           className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                        title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
                         >
                           <span className="text-[0.625rem] text-red-500">▶</span> Reflect
                         </button>
                         <button
                           onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
                           className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200 hover:border-zinc-600 flex items-center gap-2"
+                        title="Forge: continue by declaring — state an intention or assertion and let the field respond"
                         >
                           <span className="text-[0.625rem] text-red-500">▶</span> Forge
                         </button>
@@ -8770,10 +8776,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           <button
                             onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'reflect' }))}
                             className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${threadOperations['unified'] === 'reflect' ? 'bg-sky-900/60 text-sky-300 border-2 border-sky-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                          title="Reflect: continue by asking — turn the reading over, question it, explore what it means"
                           >↩ Reflect</button>
                           <button
                             onClick={() => setThreadOperations(prev => ({ ...prev, unified: 'forge' }))}
                             className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${threadOperations['unified'] === 'forge' ? 'bg-orange-900/60 text-orange-300 border-2 border-orange-500/60' : 'bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 hover:text-zinc-200'}`}
+                          title="Forge: continue by declaring — state an intention or assertion and let the field respond"
                           >⚡ Forge</button>
                         </div>
                         <textarea
