@@ -7234,6 +7234,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   request its answer. Fires the same discernment pass on the SAME draw. */}
               {ANSWER_ON_DEMAND_ENABLED && posture !== 'integrate' && !answerRequested &&
                 !verdictResult && !verdictLoading && question && draws?.length > 0 &&
+                readingComplete &&
                 parsedReading && !parsedReading._isFirstContact && !parsedReading.firstContact && (
                 <div className="max-w-2xl mx-auto mb-6 text-center">
                   <button
