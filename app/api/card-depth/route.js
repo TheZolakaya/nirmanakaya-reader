@@ -14,6 +14,7 @@ import {
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { buildCardDossier, drawsToCards, formatCardGeometry } from '../../../lib/geometryEngine.js';
+import { resolveModelId } from '../../../lib/modelConfig.js';
 
 export async function POST(request) {
   const {
@@ -37,7 +38,7 @@ export async function POST(request) {
     draws            // ALL draws (optional) — enables the Geometry Engine card dossier
   } = await request.json();
 
-  const effectiveModel = model || "claude-sonnet-4-6";
+  const effectiveModel = resolveModelId(model);
   const n = cardIndex + 1; // 1-indexed for markers
   const effectiveLength = readingLength || 'full';
 

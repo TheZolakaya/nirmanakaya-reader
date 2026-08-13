@@ -27,6 +27,7 @@ import {
   locusToSubjects
 } from '../../../lib/index.js';
 import { sendAutomatedReadingEmail } from '../../../lib/email.js';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 export const maxDuration = 300; // 5 minutes for batch processing
 
@@ -166,7 +167,7 @@ async function generateUserReading(userPrefs) {
 
   // Call Anthropic
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: MODEL_IDS.sonnet,
     max_tokens: 2500,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]

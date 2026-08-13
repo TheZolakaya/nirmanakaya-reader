@@ -23,9 +23,10 @@ import {
 import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
 import { PERSONA_PROMPTS } from '../../../../lib/personas.js';
 import { getComplexityDescription, getHumorDescription } from '../../../../lib/personas.js';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = MODEL_IDS.sonnet;
 const MAX_TOOL_ROUNDS = 12; // Safety cap — prevent runaway investigation
 
 // ─────────────────────────────────────────────

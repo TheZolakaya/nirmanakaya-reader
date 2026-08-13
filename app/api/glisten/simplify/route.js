@@ -7,6 +7,7 @@
  */
 
 import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
+import { resolveModelId } from '../../../../lib/modelConfig.js';
 
 const DEPTH_PROMPTS = {
   deep: `Refine this question for clarity while preserving its philosophical depth and poetic quality.
@@ -40,7 +41,7 @@ async function callClaude(prompt, maxTokens = 100) {
       "anthropic-version": "2023-06-01"
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-6",
+      model: resolveModelId(null),
       max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }]
     })

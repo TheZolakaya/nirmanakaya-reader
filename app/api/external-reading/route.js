@@ -5,6 +5,7 @@
 
 import { randomBytes } from 'crypto';
 import Anthropic from '@anthropic-ai/sdk';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 import {
   ARCHETYPES,
   BOUNDS,
@@ -230,7 +231,7 @@ async function generateReading({
     scope: 'here',
     seriousness: 'grounded'
   },
-  model = 'claude-sonnet-4-6',
+  model = MODEL_IDS.sonnet,
   includeInterpretation = true,
   fast = false,
   fixedDraw = null,
@@ -307,7 +308,7 @@ async function generateReading({
     }
 
     const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: MODEL_IDS.haiku,
       max_tokens: cards.length === 1 ? 200 : 400,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
@@ -342,7 +343,7 @@ async function generateReading({
       usage: {
         input_tokens: response.usage?.input_tokens,
         output_tokens: response.usage?.output_tokens,
-        model: 'claude-haiku-4-5-20251001'
+        model: MODEL_IDS.haiku
       }
     };
   }

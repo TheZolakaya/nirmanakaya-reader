@@ -83,6 +83,7 @@ import {
 
 // Import renderWithHotlinks for reading text parsing
 import { renderWithHotlinks, processBracketHotlinks } from '../lib/hotlinks.js';
+import { resolveModelId, MODEL_PRICING, MODEL_LABELS, costOfUsage, addUsage } from '../lib/modelConfig.js';
 
 // Import glossary utilities
 import { getGlossaryEntry } from '../lib/glossary.js';
@@ -1366,35 +1367,42 @@ export default function NirmanakaReader() {
       });
     }
   };
-  const [selectedModel, setSelectedModel] = useState('sonnet'); // 'haiku', 'sonnet', or 'opus'
+  const [selectedModel, setSelectedModel] = useState('sonnet'); // 'haiku', 'sonnet', or 'opus' — config default applied by effect below
   const [showTokenUsage, setShowTokenUsage] = useState(true); // Show token costs (default ON)
   const [tokenUsage, setTokenUsage] = useState(null); // { input_tokens, output_tokens }
+  const modelTouchedRef = useRef(false); // user picked a model this session or via saved pref — config default must not override
+  const modelDefaultAppliedRef = useRef(false);
 
   // Model helpers - determine available models based on config and admin status
   const getAvailableModels = () => {
     return userIsAdmin ? (featureConfig.modelsForAdmins || ['sonnet']) : (featureConfig.modelsForUsers || ['sonnet']);
   };
-  const getModelId = (model) => {
-    const modelIds = {
-      haiku: 'claude-haiku-4-5-20251001',
-      sonnet: 'claude-sonnet-4-6',
-      opus: 'claude-opus-4-8'
-    };
-    return modelIds[model] || modelIds.sonnet;
-  };
-  const getModelPricing = (model) => {
-    // Per 1M tokens: { input, output }
-    const pricing = {
-      haiku: { input: 1.00, output: 5.00 },
-      sonnet: { input: 3.00, output: 15.00 },
-      opus: { input: 15.00, output: 75.00 }
-    };
-    return pricing[model] || pricing.sonnet;
-  };
-  const getModelLabel = (model) => {
-    const labels = { haiku: 'Haiku (fast)', sonnet: 'Sonnet', opus: 'Opus (best)' };
-    return labels[model] || model;
-  };
+  // Model IDs, pricing, labels live in lib/modelConfig.js — the ONLY place they're defined
+  // (founder rule 2026-08-13: model settings are configurable, never hardcoded again).
+  const getModelId = (model) => resolveModelId(model);
+  const getModelPricing = (model) => MODEL_PRICING[model] || MODEL_PRICING.sonnet;
+  const getModelLabel = (model) => MODEL_LABELS[model] || model;
+
+  // Apply the admin-console model default + clamp to the allowed list.
+  // THE BUG THIS FIXES (found 2026-08-13): selectedModel started at 'sonnet' and the
+  // config defaults (defaultModelUser/defaultModelAdmin) were never applied — every
+  // user who didn't touch the selector ran Sonnet regardless of the admin console.
+  useEffect(() => {
+    if (!authChecked) return; // need to know admin status before choosing which default applies
+    const available = userIsAdmin
+      ? (featureConfig.modelsForAdmins || ['sonnet'])
+      : (featureConfig.modelsForUsers || ['sonnet']);
+    if (!modelTouchedRef.current && !modelDefaultAppliedRef.current) {
+      const def = userIsAdmin ? featureConfig.defaultModelAdmin : featureConfig.defaultModelUser;
+      if (def && available.includes(def)) {
+        setSelectedModel(def);
+        modelDefaultAppliedRef.current = true;
+        return;
+      }
+    }
+    // Clamp: never let a session sit on a model its tier can't select
+    setSelectedModel((prev) => (available.includes(prev) ? prev : (available[0] || 'sonnet')));
+  }, [featureConfig, userIsAdmin, authChecked]);
   const showAdvancedVoice = featureConfig.advancedVoiceFor === 'everyone' || (featureConfig.advancedVoiceFor === 'admins' && userIsAdmin);
 
   // Legacy compatibility: useHaiku derived from selectedModel
@@ -1767,6 +1775,12 @@ export default function NirmanakaReader() {
         // Reading defaults
         if (prefs.defaultDepth !== undefined) setDefaultDepth(prefs.defaultDepth);
         if (prefs.defaultExpanded !== undefined) setDefaultExpanded(prefs.defaultExpanded);
+        // Model choice — a saved pref counts as "touched": config default won't override it
+        // (the allowed-models clamp still applies after auth resolves)
+        if (prefs.selectedModel !== undefined) {
+          modelTouchedRef.current = true;
+          setSelectedModel(prefs.selectedModel);
+        }
       }
     } catch (e) {
       console.warn('Failed to load preferences:', e);
@@ -1836,14 +1850,18 @@ export default function NirmanakaReader() {
       showCardImages,
       // Reading defaults
       defaultDepth,
-      defaultExpanded
+      defaultExpanded,
+      // Model: persisted ONLY once the user has explicitly chosen one — an
+      // untouched config default stays un-persisted so admin-console changes
+      // keep flowing to users who never picked
+      ...(modelTouchedRef.current ? { selectedModel } : {})
     };
     try {
       localStorage.setItem('nirmanakaya_prefs', JSON.stringify(prefs));
     } catch (e) {
       console.warn('Failed to save preferences:', e);
     }
-  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, autoPosture, cardCount, persona, humor, complexity, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded]);
+  }, [spreadType, spreadKey, stance, showVoicePreview, frameSource, posture, autoPosture, cardCount, persona, humor, complexity, readingLength, showArchitectureTerms, animatedBackground, backgroundOpacity, contentDim, theme, backgroundType, selectedVideo, selectedImage, showCardImages, defaultDepth, defaultExpanded, selectedModel]);
 
   // Check if user has seen today's pulse (for flash indicator)
   useEffect(() => {
@@ -1995,7 +2013,7 @@ export default function NirmanakaReader() {
             spreadKey: 'one',
             stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'playful' },
             system: systemPrompt,
-            model: "claude-sonnet-4-6",
+            model: getModelId(selectedModel),
             userContext: userContextRef.current
           })
         });
@@ -2294,13 +2312,14 @@ export default function NirmanakaReader() {
     fetch('/api/verdict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, options: choiceOpts })
+      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, options: choiceOpts, model: getModelId(selectedModel) })
     })
       .then((r) => r.json())
       .then((data) => {
         if (!pageMountedRef.current) return;
         if (!data.error && !data.disabled) setVerdictResult(data);
         else if (data.error) setVerdictError(true);
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); // count the Answer in the meter
         setVerdictLoading(false);
       })
       .catch(() => {
@@ -2332,13 +2351,14 @@ export default function NirmanakaReader() {
     fetch('/api/verdict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, posture: postureToUse })
+      body: JSON.stringify({ question: questionToUse, draws: drawsToUse, posture: postureToUse, model: getModelId(selectedModel) })
     })
       .then((r) => r.json())
       .then((data) => {
         if (!pageMountedRef.current) return;
         if (data.yield) setYieldResult(data);
         else if (data.error) setYieldError(true);
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); // count the yield in the meter
         setYieldLoading(false);
       })
       .catch(() => {
@@ -2374,6 +2394,25 @@ export default function NirmanakaReader() {
     }).then(r => { if (r?.data) console.log('[AutoSave] Verdict saved'); })
       .catch(err => console.log('[AutoSave] Failed to save verdict:', err));
   }, [verdictResult, savedReadingId, posture]);
+
+  // COST TELEMETRY (the pricing build, 2026-08-13): the reading's accumulated token
+  // usage + estimated cost persist into interpretation.usage, debounced — the beta
+  // runs on real numbers per reading/model, not estimates. Additive JSON, no schema change.
+  const usageSaveTimer = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId || !tokenUsage) return;
+    if (usageSaveTimer.current) clearTimeout(usageSaveTimer.current);
+    usageSaveTimer.current = setTimeout(() => {
+      updateReadingContent(savedReadingId, {
+        usage: {
+          tokens: tokenUsage,
+          model: selectedModel,
+          estCostUSD: Number(costOfUsage(tokenUsage, selectedModel).toFixed(6))
+        }
+      }).catch(() => {});
+    }, 3000);
+    return () => { if (usageSaveTimer.current) clearTimeout(usageSaveTimer.current); };
+  }, [tokenUsage, savedReadingId, selectedModel]);
 
   // Persist the yield the same way — the end-state artifact travels with the reading.
   const yieldSavedRef = useRef(null);
@@ -5498,7 +5537,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   <div class="section">
     <div style="text-align: center; color: #52525b; font-size: 0.75rem;">
       Tokens: ${tokenUsage.input_tokens?.toLocaleString()} in / ${tokenUsage.output_tokens?.toLocaleString()} out •
-      Cost: $${(((tokenUsage.input_tokens || 0) * getModelPricing(selectedModel).input + (tokenUsage.cache_read_input_tokens || 0) * getModelPricing(selectedModel).input * 0.1 + (tokenUsage.cache_creation_input_tokens || 0) * getModelPricing(selectedModel).input * 2 + (tokenUsage.output_tokens || 0) * getModelPricing(selectedModel).output) / 1000000).toFixed(4)}
+      Cost: $${costOfUsage(tokenUsage, selectedModel).toFixed(4)}
     </div>
   </div>` : ''}
 
@@ -7017,7 +7056,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           <span className="text-[10px] text-zinc-500 font-mono">Model:</span>
                           <select
                             value={selectedModel}
-                            onChange={(e) => setSelectedModel(e.target.value)}
+                            onChange={(e) => { modelTouchedRef.current = true; setSelectedModel(e.target.value); }}
                             className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
                           >
                             {getAvailableModels().map(m => (
@@ -9161,7 +9200,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           <span className="text-xs text-zinc-500">Model:</span>
                           <select
                             value={selectedModel}
-                            onChange={(e) => setSelectedModel(e.target.value)}
+                            onChange={(e) => { modelTouchedRef.current = true; setSelectedModel(e.target.value); }}
                             className="text-xs px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 focus:outline-none focus:border-amber-500"
                           >
                             {getAvailableModels().map(m => (
@@ -9204,13 +9243,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             {((tokenUsage.cache_read_input_tokens || 0) > 0 || (tokenUsage.cache_creation_input_tokens || 0) > 0) && (
               <> • Cache: {(tokenUsage.cache_read_input_tokens || 0).toLocaleString()} read / {(tokenUsage.cache_creation_input_tokens || 0).toLocaleString()} written</>
             )}
-            {' '}• Cost: ${(
-              // Cache-aware pricing: uncached input full rate, cache reads 10%, cache writes 2x (1h TTL)
-              ((tokenUsage.input_tokens || 0) * getModelPricing(selectedModel).input +
-               (tokenUsage.cache_read_input_tokens || 0) * getModelPricing(selectedModel).input * 0.1 +
-               (tokenUsage.cache_creation_input_tokens || 0) * getModelPricing(selectedModel).input * 2 +
-               (tokenUsage.output_tokens || 0) * getModelPricing(selectedModel).output) / 1000000
-            ).toFixed(4)} ({getModelLabel(selectedModel).split(' ')[0]})
+            {/* Cache-aware pricing via lib/modelConfig costOfUsage — one formula everywhere */}
+            {' '}• Cost: ${costOfUsage(tokenUsage, selectedModel).toFixed(4)} ({getModelLabel(selectedModel).split(' ')[0]})
 {/* V3: Translation usage display removed */}
           </div>
         )}

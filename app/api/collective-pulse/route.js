@@ -9,6 +9,7 @@ export const maxDuration = 300;
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { randomBytes } from 'crypto';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 import {
   ARCHETYPES,
   STATUSES,
@@ -122,7 +123,7 @@ async function generateMonitorReading(monitorId, voicePreset = null, priorReadin
 
   // Call Anthropic for interpretation
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: MODEL_IDS.sonnet,
     max_tokens: 2000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]
@@ -153,7 +154,7 @@ async function storeReading(reading, readingDate, voice = 'default') {
     correction_target_id: reading.card.correctionTargetId,
     signature: reading.card.signature,
     interpretation: reading.interpretation,
-    model: 'claude-sonnet-4-6',
+    model: MODEL_IDS.sonnet,
     tokens_used: (reading.usage?.input_tokens || 0) + (reading.usage?.output_tokens || 0)
   };
 
@@ -199,7 +200,7 @@ async function generateVoicedReading(monitorId, card, draw, voicePreset, priorRe
   );
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: MODEL_IDS.sonnet,
     max_tokens: 2000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]
@@ -241,7 +242,7 @@ ${monitorSummaries}
 Write a 4-6 sentence throughline paragraph that captures the overall pattern across all five monitors.`;
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: MODEL_IDS.sonnet,
     max_tokens: 500,
     system: THROUGHLINE_SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }]
@@ -446,7 +447,7 @@ export async function POST(request) {
               priorReadings
             );
             const response = await client.messages.create({
-              model: 'claude-sonnet-4-6',
+              model: MODEL_IDS.sonnet,
               max_tokens: 200,
               system: systemPrompt,
               messages: [{ role: 'user', content: userMessage }]
@@ -493,7 +494,7 @@ export async function POST(request) {
               const weekContext = weekStatusSummary ? `\nWEEK TREND (status progression, newest first):\n${weekStatusSummary}\n` : '';
 
               const dailyThroughlineResponse = await client.messages.create({
-                model: 'claude-sonnet-4-6',
+                model: MODEL_IDS.sonnet,
                 max_tokens: 200,
                 system: DAILY_THROUGHLINE_SYSTEM_PROMPT,
                 messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline that normalizes today against the week's arc.${weekContext}\n${monitorSummaries}` }]

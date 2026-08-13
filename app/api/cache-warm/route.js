@@ -6,10 +6,11 @@
 
 import { BASE_SYSTEM, getFormatInstructions } from '../../../lib/prompts.js';
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from '../../../lib/cachedSystem.js';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 export const dynamic = 'force-dynamic';
 
-const MODELS = ['claude-sonnet-4-6', 'claude-haiku-4-5-20251001'];
+const MODELS = [MODEL_IDS.sonnet, MODEL_IDS.haiku];
 
 export async function GET(request) {
   // Vercel cron sends "Authorization: Bearer <CRON_SECRET>" when the env var is set

@@ -4,6 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { ARCHETYPES, BOUNDS, AGENTS, STATUSES } from '../../../../lib/archetypes.js';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -94,7 +95,7 @@ export async function POST(request) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: MODEL_IDS.haiku,
         max_tokens: 300,
         system: `You generate brief reading summaries for a consciousness mapping system called Nirmanakaya. Each reading draws "signatures" (not cards) that reflect the querent's inner landscape. Respond with ONLY valid JSON, no other text.`,
         messages: [{

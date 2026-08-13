@@ -15,6 +15,7 @@ import { buildDossier } from '../../../lib/geometryEngine.js';
 // Set false and redeploy to disable instantly; injection is fail-open (errors skip it).
 const DOSSIER_ENABLED = true;
 import { createClient } from '@supabase/supabase-js';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 // Server-side Supabase client for ban/throttle checks
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -137,7 +138,7 @@ export async function POST(request) {
           "anthropic-version": "2023-06-01"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6",
+          model: MODEL_IDS.sonnet,
           max_tokens: 500,  // Small - only extracting tokens
           system: dtpSystem,
           messages: dtpMessages
@@ -197,8 +198,8 @@ export async function POST(request) {
 
   // First Contact mode uses Sonnet for quality interpretations
   const effectiveModel = isFirstContact
-    ? "claude-sonnet-4-6"
-    : (model || "claude-sonnet-4-6");
+    ? MODEL_IDS.sonnet
+    : (model || MODEL_IDS.sonnet);
 
   const effectiveMaxTokens = isFirstContact
     ? 4000

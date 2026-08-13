@@ -9,6 +9,7 @@ import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
 import { buildDigest, drawsToCards } from '../../../lib/geometryEngine.js';
+import { resolveModelId } from '../../../lib/modelConfig.js';
 
 export async function POST(request) {
   const {
@@ -25,7 +26,7 @@ export async function POST(request) {
     userContext       // Optional user journey context block
   } = await request.json();
 
-  const effectiveModel = model || "claude-haiku-4-5-20251001";
+  const effectiveModel = resolveModelId(model, 'haiku');
   const depth = targetDepth || 'wade';
 
   // Build user message based on mode

@@ -5,6 +5,7 @@
 import { randomBytes } from 'crypto';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 import {
   ARCHETYPES,
   STATUSES,
@@ -200,7 +201,7 @@ Respond using these markers:
 Each marker on its own line.`;
 
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
+      model: MODEL_IDS.sonnet,
       max_tokens: 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]

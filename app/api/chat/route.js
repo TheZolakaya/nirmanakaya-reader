@@ -15,6 +15,7 @@
 
 import { drawForAI, buildSingleReadingV9 } from '../../../lib/drawForAI.js';
 import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 const CHAT_SYSTEM = `You are a warm, perceptive conversational companion. You listen deeply, reflect honestly, and offer insight that helps people see their situation more clearly.
 
@@ -30,7 +31,7 @@ Guidelines:
 - You may occasionally notice patterns or offer reframes that the person hasn't considered.`;
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
-const SONNET = 'claude-sonnet-4-6';
+const SONNET = MODEL_IDS.sonnet;
 
 async function callClaude(system, messages) {
   const response = await fetchWithRetry(API_URL, {

@@ -4,6 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -33,7 +34,7 @@ async function extractPersonalFacts(userMessages) {
   try {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: MODEL_IDS.haiku,
       max_tokens: 500,
       messages: [{
         role: 'user',

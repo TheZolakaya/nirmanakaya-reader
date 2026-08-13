@@ -5,6 +5,7 @@
 
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 // Build the classification system prompt with the full routing map
 // This caches across users via Anthropic prompt caching
@@ -94,7 +95,7 @@ export async function POST(request) {
         "anthropic-beta": "prompt-caching-2024-07-31"
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
+        model: MODEL_IDS.haiku,
         max_tokens: 50,
         system: systemWithCache,
         messages: [

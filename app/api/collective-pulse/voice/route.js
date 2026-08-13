@@ -5,6 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 import {
   STATUSES,
   getComponent,
@@ -180,7 +181,7 @@ export async function GET(request) {
       : buildFullCollectiveUserMessage(monitor.question, card, monitorId, priorReadings);
 
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
+      model: MODEL_IDS.sonnet,
       max_tokens: voicePreset.isDaily ? 200 : 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
@@ -203,7 +204,7 @@ export async function GET(request) {
         correction_target_id: defaultReading.correction_target_id,
         signature: defaultReading.signature,
         interpretation,
-        model: 'claude-sonnet-4-6',
+        model: MODEL_IDS.sonnet,
         tokens_used: tokensUsed
       }, {
         onConflict: 'reading_date,monitor,voice'

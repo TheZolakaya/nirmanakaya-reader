@@ -12,6 +12,7 @@ import {
   CARE_FLOOR, VERDICTS
 } from '../../../lib/verdictEngine.js';
 import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
+import { resolveModelId } from '../../../lib/modelConfig.js';
 
 const VERDICT_ENABLED = true; // kill switch — set false to disable the Answer Box everywhere
 
@@ -73,7 +74,7 @@ export async function POST(request) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: model || 'claude-sonnet-4-6',
+        model: resolveModelId(model), // client sends the session model; config default if absent — never hardcoded
         // scale with spread size — a 2-card walk truncated at 1500 and broke the JSON
         max_tokens: Math.min(1500 + draws.length * 900, 4500),
         messages: [{ role: 'user', content: prompt }]

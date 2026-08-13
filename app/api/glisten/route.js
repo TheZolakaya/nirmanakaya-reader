@@ -17,6 +17,7 @@ import {
   validateTransmission,
   validateCrystal
 } from '../../../lib/glistener/index.js';
+import { resolveModelId } from '../../../lib/modelConfig.js';
 
 const MAX_RETRIES = 1;
 
@@ -33,7 +34,7 @@ async function callClaude(prompt, maxTokens = 1000) {
       "anthropic-beta": "prompt-caching-2024-07-31"
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-6",
+      model: resolveModelId(null), // config default — never hardcoded
       max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }]
     })

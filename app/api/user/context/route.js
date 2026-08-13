@@ -7,6 +7,7 @@ import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { buildBadgeStats } from '../../../../lib/badgeStats.js';
 import { buildUserContextBlock } from '../../../../lib/userContext.js';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 
 // Force dynamic — Vercel edge will cache this route otherwise
 export const dynamic = 'force-dynamic';
@@ -43,7 +44,7 @@ async function extractPersonalFacts(userMessages) {
   try {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: MODEL_IDS.haiku,
       max_tokens: 500,
       messages: [{
         role: 'user',

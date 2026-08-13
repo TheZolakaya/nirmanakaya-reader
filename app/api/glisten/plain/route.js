@@ -7,6 +7,7 @@
 
 import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
 import { buildPlainLanguagePrompt } from '../../../../lib/glistener/index.js';
+import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 
 export async function POST(request) {
   try {
@@ -30,7 +31,7 @@ export async function POST(request) {
         "anthropic-beta": "prompt-caching-2024-07-31"
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",  // Use Haiku for simple translation
+        model: MODEL_IDS.haiku,  // Haiku for simple translation — cheap by design
         max_tokens: 300,
         messages: [{ role: 'user', content: prompt }]
       })
