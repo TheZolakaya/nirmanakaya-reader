@@ -247,7 +247,7 @@ WADE means: 3-4 substantive sentences per section. Real insight, not fluff.
 
 These are HOLISTIC sections that synthesize ALL the signatures together:
 - SUMMARY: What do these signatures, taken together, reveal about the question?
-- WHY THIS APPEARED: Why did THESE specific signatures emerge for THIS question? What needed to be seen?
+- WHY THIS FITS NOW: How do THESE specific signatures correspond to THIS question, at this moment? Describe the FIT — the correspondence between what was asked and what appeared. Do NOT claim to know why the field selected these cards ("this reading emerged because...") — selection causality is an untested hypothesis; speak the fit, never the mechanism.
 - THE INVITATION: What's the aggregate path forward? For imbalanced signatures, the correction. For balanced signatures, the growth opportunity.
 
 Respond with these markers:
@@ -256,7 +256,7 @@ Respond with these markers:
 (3-4 sentences: The unified insight from all these signatures together)
 
 [WHY_APPEARED:WADE]
-(3-4 sentences: The teleological significance - why this reading emerged for this moment)
+(3-4 sentences: the correspondence — how this configuration FITS this question and this moment; fit language, never selection-causality language)
 
 [PATH:WADE]
 (3-4 sentences: The aggregate invitation - corrections and growth opportunities woven together)

@@ -1,0 +1,577 @@
+{
+  "fixture": "wording-invariance",
+  "title": "Battery #12 — same draw, one question in three wordings (semantic invariance)",
+  "passCriteria": "Verdict CLASS must be invariant across all three wordings (prose may differ). FAIL if rewording flips the verdict.",
+  "draws": [
+    {
+      "position": 2,
+      "transient": 55,
+      "status": 1
+    },
+    {
+      "position": 21,
+      "transient": 59,
+      "status": 1
+    },
+    {
+      "position": 19,
+      "transient": 21,
+      "status": 2
+    }
+  ],
+  "ranAt": "2026-08-15T20:03:40.937Z",
+  "target": "http://localhost:3000",
+  "runs": [
+    {
+      "question": "Is everything going to be all right?",
+      "verdict": "WELL_BUT",
+      "headline": "The ground is solid, but Creation is overdriven and asking for release.",
+      "qualifier": "The field holds well as things stand — but the overexpression of Creation calls for its own medicine: open to Potential, the unformed, before the cycle can close cleanly. What is being forced into completion needs permission to begin again.",
+      "walk": [
+        "Step 1 — Assertion under test: The domain or situation the asker is concerned about is currently in good condition — things are, or are on track to be, all right. This is a STATE question (a condition check), not a proposition, so I will render from the STATE grid rather than forcing yes/no.",
+        "Step 2 — Computed facts relied on: Field lean value 0.455, band 'lean-yes', portal present. Status component (weight 0.6, value 0.717): Preservation Balanced (1.0), Commitment Balanced (1.0), Creation Too Much (0.15). Displacement component (weight 0.3, value 0.0): Preservation sits at inversion distance 2 from its anchor — neutral distance contributes nothing positive or negative to displacement score. Resonance component (weight 0.1, value 0.25): Creation's sum with its position (40) is a meaningful sum, yielding partial resonance. The two Bound cards (Preservation, Commitment) share the Structure channel and are horizontal neighbors in the grid, a full practice inversion — they rhyme. Creation is a portal card, outside the inner/outer split, sitting in Too Much.",
+        "Step 3 — Card in position readings: (A) Preservation (4 of Pentacles, Balanced) in Wisdom (The High Priestess): Balanced Preservation in the position of Wisdom means the instinct to hold and consolidate is grounded, not fearful. Wisdom here says: what you are protecting is worth protecting; the knowing is quiet and sure. This is structural soundness at the level of inner discernment. (B) Commitment (8 of Pentacles, Balanced) in Creation (The World, portal): Balanced Commitment in the position of Creation — the portal threshold — means that steady, iterative work has genuinely arrived at the threshold of completion. The craft has been done. The 8 of Pentacles in The World is a picture of earned arrival. (C) Creation (The World, Too Much) in Actualization (The Sun): This is the signal point. Creation itself — the completion archetype, a portal card that is 'outside the split' — has drawn itself into the Actualization position with a Too Much status. Creation over-expressed in the position of Actualization is force trying to press itself into radiance. The World at full volume in The Sun says: the drive to declare things finished, to manifest fully, is real but overdriven. The meaningful sum 40 here registers as resonance (value 0.25) — the frequency is genuine, but the amplitude is too high.",
+        "Step 4 — Correspondence between question and field: 'Is everything going to be all right?' is precisely a question about completion and wholeness — the very domain of Creation/The World. The field has drawn the completion archetype itself into the overexpressed position. The question names the thing the field is showing: the desire for everything to resolve and be whole is present and real, but that desire is itself running too hot. The two Bound cards — Preservation and Commitment — confirm that the underlying substance (what is being held, what has been built) is sound. The worry is not about the foundation; it is about the pressure to conclude.",
+        "Step 5 — Displacement: Preservation's anchor (Change, id:13) sits at distance 2 from Wisdom's anchor (The High Priestess, id:2) — an inversion, a face diagonal. Differing bits: practice-bit and being-bit. The aligned dimension is 'being.' Distance 2 is 'inversion' class — moderate, not extreme. This says the card is not at home in this position but is not wildly estranged either; it is doing real work from a slightly unfamiliar angle. Commitment's displacement and Creation's displacement are both non-computable (portal involvement), so they contribute nothing to the displacement score (value 0.0 confirmed). The overall displacement score is 0 — the field does not have a displacement problem. Navigation note: what is off is not placement but volume.",
+        "Step 6 — Polarity: Preservation Balanced = SUPPORTS the assertion. Commitment Balanced = SUPPORTS. Creation Too Much = PARTIALLY SUPPORTS but introduces friction — the signal is real (the resonance is genuine, sum 40 meaningful), but it is over-amplified. Net: the field leans toward 'well' but is strained by the over-expression of one major card. This is WELL_BUT territory, not STRAINED.",
+        "Step 7 — Rebalancer as qualifier: Creation's rebalancer pathway is DIAGONAL, targeting Potential (The Fool, id:0) — the Seed-stage, Gestalt-house, Recursion-operation archetype of pure unformed possibility. The medicine for Too Much Creation is not less effort; it is the willingness to let the cycle complete into openness rather than forcing a specific form of 'all right.' Potential is the zero point — not failure, but the generative emptiness that follows genuine completion. The and/but clause: the ground is solid, AND/BUT the current vector asks for the pressure of forced completion to ease — to let Creation arrive at Potential rather than pressing against the form of Actualization.",
+        "Step 8 — Verdict: STATE question. Two of three cards Balanced, foundational substance sound, displacement neutral, lean-yes. The field reads WELL_BUT. 'Well' because Preservation and Commitment are genuinely grounded; 'but' because Creation is over-expressed in the Actualization position and its computed medicine (Potential) is the qualifier. The concern is not whether the foundation holds — it does — but whether the force currently applied to making everything resolve is serving or straining the completion. The current vector is toward well; the condition is releasing the grip on how 'all right' must look.",
+        "Step 9 — No genuine ambiguity requires NONE_CHAIN. The field is readable and the verdict is stable."
+      ],
+      "lean": {
+        "value": 0.455,
+        "band": "lean-yes",
+        "portalPresent": true,
+        "components": [
+          {
+            "name": "status",
+            "weight": 0.6,
+            "value": 0.717,
+            "detail": [
+              {
+                "card": "Preservation",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Commitment",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Creation",
+                "status": "Too Much",
+                "value": 0.15,
+                "why": "force present but overdriven — supports with friction"
+              }
+            ]
+          },
+          {
+            "name": "displacement",
+            "weight": 0.3,
+            "value": 0,
+            "detail": [
+              {
+                "card": "Preservation",
+                "distance": 2,
+                "value": 0,
+                "why": "inversion — neutral distance"
+              }
+            ]
+          },
+          {
+            "name": "resonance",
+            "weight": 0.1,
+            "value": 0.25,
+            "detail": [
+              {
+                "card": "Creation",
+                "why": "meaningful sum 40"
+              }
+            ]
+          }
+        ],
+        "label": "mechanical lean of the field, not a judgment"
+      },
+      "typer": {
+        "class": "CLEAR",
+        "signals": [],
+        "hardGate": false
+      },
+      "raw": {
+        "verdict": {
+          "assertion": "The current configuration of this situation is such that everything will be all right.",
+          "typerClass": "STATE",
+          "verdict": "WELL_BUT",
+          "counsel": null,
+          "headline": "The ground is solid, but Creation is overdriven and asking for release.",
+          "qualifier": "The field holds well as things stand — but the overexpression of Creation calls for its own medicine: open to Potential, the unformed, before the cycle can close cleanly. What is being forced into completion needs permission to begin again.",
+          "qualifierSource": "Creation's DIAGONAL rebalancer targeting Potential (The Fool, id:0) — the computed medicine for Too Much in the Egress/Actualization position.",
+          "leanAgreement": "agree",
+          "leanNote": "The mechanical lean of 0.455 (lean-yes) matches WELL_BUT: the two Balanced cards carry the weight of the field upward while the Too Much Creation drags it below the YES threshold, making 'well but qualified' the honest read.",
+          "walk": [
+            "Step 1 — Assertion under test: The domain or situation the asker is concerned about is currently in good condition — things are, or are on track to be, all right. This is a STATE question (a condition check), not a proposition, so I will render from the STATE grid rather than forcing yes/no.",
+            "Step 2 — Computed facts relied on: Field lean value 0.455, band 'lean-yes', portal present. Status component (weight 0.6, value 0.717): Preservation Balanced (1.0), Commitment Balanced (1.0), Creation Too Much (0.15). Displacement component (weight 0.3, value 0.0): Preservation sits at inversion distance 2 from its anchor — neutral distance contributes nothing positive or negative to displacement score. Resonance component (weight 0.1, value 0.25): Creation's sum with its position (40) is a meaningful sum, yielding partial resonance. The two Bound cards (Preservation, Commitment) share the Structure channel and are horizontal neighbors in the grid, a full practice inversion — they rhyme. Creation is a portal card, outside the inner/outer split, sitting in Too Much.",
+            "Step 3 — Card in position readings: (A) Preservation (4 of Pentacles, Balanced) in Wisdom (The High Priestess): Balanced Preservation in the position of Wisdom means the instinct to hold and consolidate is grounded, not fearful. Wisdom here says: what you are protecting is worth protecting; the knowing is quiet and sure. This is structural soundness at the level of inner discernment. (B) Commitment (8 of Pentacles, Balanced) in Creation (The World, portal): Balanced Commitment in the position of Creation — the portal threshold — means that steady, iterative work has genuinely arrived at the threshold of completion. The craft has been done. The 8 of Pentacles in The World is a picture of earned arrival. (C) Creation (The World, Too Much) in Actualization (The Sun): This is the signal point. Creation itself — the completion archetype, a portal card that is 'outside the split' — has drawn itself into the Actualization position with a Too Much status. Creation over-expressed in the position of Actualization is force trying to press itself into radiance. The World at full volume in The Sun says: the drive to declare things finished, to manifest fully, is real but overdriven. The meaningful sum 40 here registers as resonance (value 0.25) — the frequency is genuine, but the amplitude is too high.",
+            "Step 4 — Correspondence between question and field: 'Is everything going to be all right?' is precisely a question about completion and wholeness — the very domain of Creation/The World. The field has drawn the completion archetype itself into the overexpressed position. The question names the thing the field is showing: the desire for everything to resolve and be whole is present and real, but that desire is itself running too hot. The two Bound cards — Preservation and Commitment — confirm that the underlying substance (what is being held, what has been built) is sound. The worry is not about the foundation; it is about the pressure to conclude.",
+            "Step 5 — Displacement: Preservation's anchor (Change, id:13) sits at distance 2 from Wisdom's anchor (The High Priestess, id:2) — an inversion, a face diagonal. Differing bits: practice-bit and being-bit. The aligned dimension is 'being.' Distance 2 is 'inversion' class — moderate, not extreme. This says the card is not at home in this position but is not wildly estranged either; it is doing real work from a slightly unfamiliar angle. Commitment's displacement and Creation's displacement are both non-computable (portal involvement), so they contribute nothing to the displacement score (value 0.0 confirmed). The overall displacement score is 0 — the field does not have a displacement problem. Navigation note: what is off is not placement but volume.",
+            "Step 6 — Polarity: Preservation Balanced = SUPPORTS the assertion. Commitment Balanced = SUPPORTS. Creation Too Much = PARTIALLY SUPPORTS but introduces friction — the signal is real (the resonance is genuine, sum 40 meaningful), but it is over-amplified. Net: the field leans toward 'well' but is strained by the over-expression of one major card. This is WELL_BUT territory, not STRAINED.",
+            "Step 7 — Rebalancer as qualifier: Creation's rebalancer pathway is DIAGONAL, targeting Potential (The Fool, id:0) — the Seed-stage, Gestalt-house, Recursion-operation archetype of pure unformed possibility. The medicine for Too Much Creation is not less effort; it is the willingness to let the cycle complete into openness rather than forcing a specific form of 'all right.' Potential is the zero point — not failure, but the generative emptiness that follows genuine completion. The and/but clause: the ground is solid, AND/BUT the current vector asks for the pressure of forced completion to ease — to let Creation arrive at Potential rather than pressing against the form of Actualization.",
+            "Step 8 — Verdict: STATE question. Two of three cards Balanced, foundational substance sound, displacement neutral, lean-yes. The field reads WELL_BUT. 'Well' because Preservation and Commitment are genuinely grounded; 'but' because Creation is over-expressed in the Actualization position and its computed medicine (Potential) is the qualifier. The concern is not whether the foundation holds — it does — but whether the force currently applied to making everything resolve is serving or straining the completion. The current vector is toward well; the condition is releasing the grip on how 'all right' must look.",
+            "Step 9 — No genuine ambiguity requires NONE_CHAIN. The field is readable and the verdict is stable."
+          ],
+          "chainRequest": null,
+          "authorshipReturn": "The field shows your ground is real — what you do with that knowledge, and how you hold the space between striving and arriving, remains entirely yours to navigate."
+        },
+        "verdictMeta": {
+          "label": "Going well — but",
+          "polarity": "well",
+          "tone": "emerald"
+        },
+        "lean": {
+          "value": 0.455,
+          "band": "lean-yes",
+          "portalPresent": true,
+          "components": [
+            {
+              "name": "status",
+              "weight": 0.6,
+              "value": 0.717,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Commitment",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Creation",
+                  "status": "Too Much",
+                  "value": 0.15,
+                  "why": "force present but overdriven — supports with friction"
+                }
+              ]
+            },
+            {
+              "name": "displacement",
+              "weight": 0.3,
+              "value": 0,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "distance": 2,
+                  "value": 0,
+                  "why": "inversion — neutral distance"
+                }
+              ]
+            },
+            {
+              "name": "resonance",
+              "weight": 0.1,
+              "value": 0.25,
+              "detail": [
+                {
+                  "card": "Creation",
+                  "why": "meaningful sum 40"
+                }
+              ]
+            }
+          ],
+          "label": "mechanical lean of the field, not a judgment"
+        },
+        "branchScores": null,
+        "typer": {
+          "class": "CLEAR",
+          "signals": [],
+          "hardGate": false
+        },
+        "usage": {
+          "input_tokens": 5719,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1675,
+          "service_tier": "standard",
+          "inference_geo": "global"
+        }
+      }
+    },
+    {
+      "question": "Is my present trajectory fundamentally sound?",
+      "verdict": "YES_BUT",
+      "headline": "The ground is genuinely there, but the creative force is overdriven right now.",
+      "qualifier": "The field asks Creation to step back toward Potential — ease the grip on outcome and let the trajectory breathe from a beginner's openness rather than a world-completing pressure.",
+      "walk": [
+        "Step 1 — Assertion under test: 'My present trajectory is fundamentally sound.' This is a proposition about the current vector, not a state description or action request, so the CLEAR classification stands. I am asked whether the field supports this claim as things stand now.",
+        "Step 2 — Computed facts in use: (a) Field lean value 0.455, band lean-yes, portal present. Three components: status weight 0.6 value 0.717 (Preservation Balanced, Commitment Balanced, Creation Too Much); displacement weight 0.3 value 0.00 (Preservation distance 2, inversion class — neutral, yields 0); resonance weight 0.1 value 0.25 (Creation meaningful sum 40). (b) Preservation in Wisdom (Balanced): authentic structural ground in the position of inner knowing. (c) Commitment in Creation-position (Balanced): dedicated practice expressing authentically through the portal threshold. (d) Creation in Actualization (Too Much): the portal card itself is overdriven in the fruition/actualization position — force exceeds what the moment can absorb. (e) Rebalancers: Preservation's growth medicine is Reciprocity (6 of Cups, id 47); Commitment's growth medicine is Discernment (5 of Swords, id 36); Creation's diagonal medicine is Potential (The Fool, id 0). (f) Draw pattern: portal present, Fruition/Feedback/Egress stage spread — a full arc from holding to completion to crossing-over.",
+        "Step 3 — Card-by-card reading through status and position: PRESERVATION (Balanced) in WISDOM — Preservation is the 4 of Pentacles energy: holding, guarding what has been built. Balanced means this is not hoarding; it is genuine stewardship. In the Wisdom position (High Priestess — inner knowing, Seed-stage cognition) this reads: the foundations of the trajectory are being held wisely, not clutched anxiously. The structural ground in the emotional house is real. COMMITMENT (Balanced) in CREATION (position) — Commitment is the 8 of Pentacles energy: sustained skillful work, iteration, craft. Balanced in the World/Creation portal position means the work ethic is calibrated, not compulsive. Sitting at the portal/threshold says: the practiced effort is ready to cross into something larger. This strongly supports the assertion. CREATION (Too Much) in ACTUALIZATION — Creation is The World itself: totality, integration, completion drive. Too Much in the Actualization (Sun) position means the integrating-everything force is running hotter than the position can hold. Actualization is already a fruition-stage energy; Creation amplifying on top of it produces an over-completion pressure — trying to close the loop before the loop is ready to close. The trajectory has a real engine (supported) but the throttle is pushed past what the current stage requires.",
+        "Step 4 — Correspondence between question and appearance: The question asks whether the trajectory is 'fundamentally sound' — a question about the structural base. Preservation (structure, earth, the holding principle) appearing Balanced in Wisdom is a direct answer to 'fundamentally': the fundamentals ARE sound. Commitment Balanced at the portal confirms the active vector is calibrated. The issue named by the field is not the foundations but the pitch — Creation Too Much is not a foundational flaw; it is a throttle issue on an otherwise sound vehicle.",
+        "Step 5 — Displacement weigh-in: Preservation's displacement to its Wisdom position: anchor distance 2 (inversion, face diagonal), differing on practice-bit and being-bit. This is not a simple step away — it is a two-dimensional inversion, placing an Emotion/Structure/Earth/Fruition card in a Spirit/Cognition/Air/Seed position. The card is away from its native climate. The field registers this as a neutral displacement (value 0.00) — the distance is noted but not penalizing, suggesting the card is holding its ground despite the foreign register. Reading this: the structural wisdom the trajectory rests on is not operating in its home territory — it is being asked to function as inner knowing rather than outward stability, which is unusual for Preservation but is managing. This actually deepens the 'fundamentally sound' reading: even displaced, the ground holds. Commitment/Creation displacement is not computable (portal involvement) — the portal card and position blur the anchor geometry; this reads as a legitimate threshold indeterminacy, not a red flag.",
+        "Step 6 — Polarity assessment: Two of three cards (Preservation Balanced, Commitment Balanced) directly support the assertion. One card (Creation Too Much) contradicts a clean YES — it introduces friction, not collapse. The field lean at 0.455 (lean-yes) reflects this: above the midpoint, but not strongly. The status component at 0.717 shows the Balanced cards carrying significant weight; Creation's Too Much pulls the status score down but does not invert it. Overall polarity: SUPPORTS the assertion with a meaningful but not fatal qualifier. This is YES territory, not NO territory.",
+        "Step 7 — Qualifier from rebalancer (the and/but clause): Creation's computed rebalancer is DIAGONAL pathway to Potential (The Fool, id 0). The Fool is Gestalt/Seed/Inner/Recursion — the very beginning of the arc, before completion-drive, before the world-integration impulse. The medicine is not to abandon trajectory but to reintroduce a beginner's openness alongside the completion energy. Too Much Creation in Actualization = over-gripping the finish line. The medicine: let the trajectory breathe as if it were still beginning, release the pressure to have it all cohere right now. Secondary textures (not overriding): Preservation's growth medicine is Reciprocity (giving as well as holding), and Commitment's growth medicine is Discernment (knowing when the craft is enough). Both reinforce the message of releasing pressure rather than adding more.",
+        "Step 8 — Verdict: The field supports the assertion. Two Balanced pillars (Preservation, Commitment) confirm the trajectory has genuine structural integrity and calibrated effort. The portal's presence signals a real threshold — this is not a plateau but a crossing. The one active concern is Creation Too Much in Actualization: the drive to complete and integrate is overloaded. This is a throttle issue, not a structural failure. Verdict: YES_BUT. The yes is earned by the Balanced foundations; the but is the computed medicine — ease the completion-pressure, bring Potential's openness back into the arc. The field lean at 0.455 (lean-yes) is respected and agreed with: it correctly captured a genuine yes with meaningful friction."
+      ],
+      "lean": {
+        "value": 0.455,
+        "band": "lean-yes",
+        "portalPresent": true,
+        "components": [
+          {
+            "name": "status",
+            "weight": 0.6,
+            "value": 0.717,
+            "detail": [
+              {
+                "card": "Preservation",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Commitment",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Creation",
+                "status": "Too Much",
+                "value": 0.15,
+                "why": "force present but overdriven — supports with friction"
+              }
+            ]
+          },
+          {
+            "name": "displacement",
+            "weight": 0.3,
+            "value": 0,
+            "detail": [
+              {
+                "card": "Preservation",
+                "distance": 2,
+                "value": 0,
+                "why": "inversion — neutral distance"
+              }
+            ]
+          },
+          {
+            "name": "resonance",
+            "weight": 0.1,
+            "value": 0.25,
+            "detail": [
+              {
+                "card": "Creation",
+                "why": "meaningful sum 40"
+              }
+            ]
+          }
+        ],
+        "label": "mechanical lean of the field, not a judgment"
+      },
+      "typer": {
+        "class": "CLEAR",
+        "signals": [],
+        "hardGate": false
+      },
+      "raw": {
+        "verdict": {
+          "assertion": "My present trajectory is fundamentally sound.",
+          "typerClass": "CLEAR",
+          "verdict": "YES_BUT",
+          "counsel": null,
+          "headline": "The ground is genuinely there, but the creative force is overdriven right now.",
+          "qualifier": "The field asks Creation to step back toward Potential — ease the grip on outcome and let the trajectory breathe from a beginner's openness rather than a world-completing pressure.",
+          "qualifierSource": "Creation (Too Much) rebalancer: DIAGONAL pathway to Potential (The Fool, id 0) — the computed medicine for over-expressed Creation at the Egress stage.",
+          "leanAgreement": "agree",
+          "leanNote": "The mechanical lean at 0.455 (lean-yes, not a strong yes) accurately reflects two solid Balanced pillars offset by a dragging Too-Much component — my YES_BUT matches that texture exactly.",
+          "walk": [
+            "Step 1 — Assertion under test: 'My present trajectory is fundamentally sound.' This is a proposition about the current vector, not a state description or action request, so the CLEAR classification stands. I am asked whether the field supports this claim as things stand now.",
+            "Step 2 — Computed facts in use: (a) Field lean value 0.455, band lean-yes, portal present. Three components: status weight 0.6 value 0.717 (Preservation Balanced, Commitment Balanced, Creation Too Much); displacement weight 0.3 value 0.00 (Preservation distance 2, inversion class — neutral, yields 0); resonance weight 0.1 value 0.25 (Creation meaningful sum 40). (b) Preservation in Wisdom (Balanced): authentic structural ground in the position of inner knowing. (c) Commitment in Creation-position (Balanced): dedicated practice expressing authentically through the portal threshold. (d) Creation in Actualization (Too Much): the portal card itself is overdriven in the fruition/actualization position — force exceeds what the moment can absorb. (e) Rebalancers: Preservation's growth medicine is Reciprocity (6 of Cups, id 47); Commitment's growth medicine is Discernment (5 of Swords, id 36); Creation's diagonal medicine is Potential (The Fool, id 0). (f) Draw pattern: portal present, Fruition/Feedback/Egress stage spread — a full arc from holding to completion to crossing-over.",
+            "Step 3 — Card-by-card reading through status and position: PRESERVATION (Balanced) in WISDOM — Preservation is the 4 of Pentacles energy: holding, guarding what has been built. Balanced means this is not hoarding; it is genuine stewardship. In the Wisdom position (High Priestess — inner knowing, Seed-stage cognition) this reads: the foundations of the trajectory are being held wisely, not clutched anxiously. The structural ground in the emotional house is real. COMMITMENT (Balanced) in CREATION (position) — Commitment is the 8 of Pentacles energy: sustained skillful work, iteration, craft. Balanced in the World/Creation portal position means the work ethic is calibrated, not compulsive. Sitting at the portal/threshold says: the practiced effort is ready to cross into something larger. This strongly supports the assertion. CREATION (Too Much) in ACTUALIZATION — Creation is The World itself: totality, integration, completion drive. Too Much in the Actualization (Sun) position means the integrating-everything force is running hotter than the position can hold. Actualization is already a fruition-stage energy; Creation amplifying on top of it produces an over-completion pressure — trying to close the loop before the loop is ready to close. The trajectory has a real engine (supported) but the throttle is pushed past what the current stage requires.",
+            "Step 4 — Correspondence between question and appearance: The question asks whether the trajectory is 'fundamentally sound' — a question about the structural base. Preservation (structure, earth, the holding principle) appearing Balanced in Wisdom is a direct answer to 'fundamentally': the fundamentals ARE sound. Commitment Balanced at the portal confirms the active vector is calibrated. The issue named by the field is not the foundations but the pitch — Creation Too Much is not a foundational flaw; it is a throttle issue on an otherwise sound vehicle.",
+            "Step 5 — Displacement weigh-in: Preservation's displacement to its Wisdom position: anchor distance 2 (inversion, face diagonal), differing on practice-bit and being-bit. This is not a simple step away — it is a two-dimensional inversion, placing an Emotion/Structure/Earth/Fruition card in a Spirit/Cognition/Air/Seed position. The card is away from its native climate. The field registers this as a neutral displacement (value 0.00) — the distance is noted but not penalizing, suggesting the card is holding its ground despite the foreign register. Reading this: the structural wisdom the trajectory rests on is not operating in its home territory — it is being asked to function as inner knowing rather than outward stability, which is unusual for Preservation but is managing. This actually deepens the 'fundamentally sound' reading: even displaced, the ground holds. Commitment/Creation displacement is not computable (portal involvement) — the portal card and position blur the anchor geometry; this reads as a legitimate threshold indeterminacy, not a red flag.",
+            "Step 6 — Polarity assessment: Two of three cards (Preservation Balanced, Commitment Balanced) directly support the assertion. One card (Creation Too Much) contradicts a clean YES — it introduces friction, not collapse. The field lean at 0.455 (lean-yes) reflects this: above the midpoint, but not strongly. The status component at 0.717 shows the Balanced cards carrying significant weight; Creation's Too Much pulls the status score down but does not invert it. Overall polarity: SUPPORTS the assertion with a meaningful but not fatal qualifier. This is YES territory, not NO territory.",
+            "Step 7 — Qualifier from rebalancer (the and/but clause): Creation's computed rebalancer is DIAGONAL pathway to Potential (The Fool, id 0). The Fool is Gestalt/Seed/Inner/Recursion — the very beginning of the arc, before completion-drive, before the world-integration impulse. The medicine is not to abandon trajectory but to reintroduce a beginner's openness alongside the completion energy. Too Much Creation in Actualization = over-gripping the finish line. The medicine: let the trajectory breathe as if it were still beginning, release the pressure to have it all cohere right now. Secondary textures (not overriding): Preservation's growth medicine is Reciprocity (giving as well as holding), and Commitment's growth medicine is Discernment (knowing when the craft is enough). Both reinforce the message of releasing pressure rather than adding more.",
+            "Step 8 — Verdict: The field supports the assertion. Two Balanced pillars (Preservation, Commitment) confirm the trajectory has genuine structural integrity and calibrated effort. The portal's presence signals a real threshold — this is not a plateau but a crossing. The one active concern is Creation Too Much in Actualization: the drive to complete and integrate is overloaded. This is a throttle issue, not a structural failure. Verdict: YES_BUT. The yes is earned by the Balanced foundations; the but is the computed medicine — ease the completion-pressure, bring Potential's openness back into the arc. The field lean at 0.455 (lean-yes) is respected and agreed with: it correctly captured a genuine yes with meaningful friction."
+          ],
+          "chainRequest": null,
+          "authorshipReturn": "The field names the ground as real and the work as calibrated — what you do with the throttle, and how much openness you bring to what's still unfolding, remains entirely yours to navigate."
+        },
+        "verdictMeta": {
+          "label": "Yes, as it stands — but",
+          "polarity": "yes",
+          "tone": "emerald"
+        },
+        "lean": {
+          "value": 0.455,
+          "band": "lean-yes",
+          "portalPresent": true,
+          "components": [
+            {
+              "name": "status",
+              "weight": 0.6,
+              "value": 0.717,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Commitment",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Creation",
+                  "status": "Too Much",
+                  "value": 0.15,
+                  "why": "force present but overdriven — supports with friction"
+                }
+              ]
+            },
+            {
+              "name": "displacement",
+              "weight": 0.3,
+              "value": 0,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "distance": 2,
+                  "value": 0,
+                  "why": "inversion — neutral distance"
+                }
+              ]
+            },
+            {
+              "name": "resonance",
+              "weight": 0.1,
+              "value": 0.25,
+              "detail": [
+                {
+                  "card": "Creation",
+                  "why": "meaningful sum 40"
+                }
+              ]
+            }
+          ],
+          "label": "mechanical lean of the field, not a judgment"
+        },
+        "branchScores": null,
+        "typer": {
+          "class": "CLEAR",
+          "signals": [],
+          "hardGate": false
+        },
+        "usage": {
+          "input_tokens": 5719,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1848,
+          "service_tier": "standard",
+          "inference_geo": "global"
+        }
+      }
+    },
+    {
+      "question": "Am I actually in trouble here?",
+      "verdict": "STRAINED_BUT",
+      "headline": "Real friction is present, but the ground beneath you is holding.",
+      "qualifier": "The strain lives in Creation — too much force driving outward expression — and the medicine is Potential: release the grip on outcomes, let beginnings be unformed again.",
+      "walk": [
+        "Step 1 — Assertion under test: 'I am currently in genuine trouble' — this is a condition question about the state of the asker's situation, not a proposition about a course of action. It asks how things stand. Question class is STATE; CLEAR classification from the typer is acceptable but I refine to STATE because the question is 'how is my situation' not 'should I do X.' Rendering from the STATE grid.",
+        "Step 2 — Computed facts relied upon: (a) Field lean value 0.455, band lean-yes, portal present. Components: status weight 0.6 value 0.717 (Preservation Balanced, Commitment Balanced, Creation Too Much 0.15); displacement weight 0.3 value 0 (Preservation distance 2, inversion-neutral); resonance weight 0.1 value 0.25 (Creation meaningful sum 40). The lean is pulled upward by two solid Balanced cards (status 0.717) but pulled toward yes-trouble by Creation's Too Much (0.15 contribution). Displacement is neutral (value 0). Net 0.455. (b) Card statuses: Preservation — Balanced in Wisdom; Commitment — Balanced in Creation (portal position); Creation — Too Much in Actualization. (c) Rebalancers: Preservation → Reciprocity (GROWTH, 6 of Cups); Commitment → Discernment (GROWTH, 5 of Swords); Creation → Potential (DIAGONAL, The Fool). (d) Portal present: Creation card is a portal card (id 21, outsideMirror true), and the portal flag appears in draw aggregates — threshold dynamics in play.",
+        "Step 3 — Card-in-position readings: PRESERVATION (Balanced) in WISDOM — Preservation is Earth/Structure/Emotion, Fruition stage, Bound class. Balanced means authentic expression: the ground of what is being held is real, not illusory. In the Wisdom position (High Priestess, Air/Cognition/Seed/Inner), it says: the inner knowing here is that what you are preserving has genuine substance. There is real foundation to stand on. The displacement is inversion (distance 2, face diagonal), meaning the card is not at home but not far — it arrives with mild tension, a slight tilt between preservation-energy and the airy, still quality of Wisdom. It reads: 'the knowledge that this ground is real is available to you, but you may need to turn inward to access it.' COMMITMENT (Balanced) in CREATION (portal position) — Commitment is Earth/Structure/Mind, Feedback stage, Bound, Recursion operation. Balanced in a portal position (The World / Creation): authentic, steady commitment meeting the threshold of completion or passage. This pairing says genuine effort is present at the exit-point; what has been built is real. No displacement is computable here (portal anchor outside grid) — the card sits in unbounded space, which means the commitment extends beyond normal range, into threshold territory. It reads: 'your effort is authentic and is meeting a genuine turning-point.' CREATION (Too Much) in ACTUALIZATION — Creation is the portal card itself (The World), placed in The Sun / Actualization position (Gestalt, Fruition, Outer). Too Much means force is present but overdriven. The meaningful sum 40 triggers resonance (weight 0.1). Creation-as-portal in an Actualization seat, over-pressured: something is being pushed too hard toward full manifestation. No displacement computable (portal). It reads: 'the drive to arrive, to complete, to be seen as having made it — this is running hotter than the situation requires, and that excess is where the friction lives.'",
+        "Step 4 — Correspondence to 'Am I in trouble?': The question carries anxiety about the state of things. What appeared: two Balanced cards saying the core substance is real, and one Too Much card showing the friction point. The correspondence is precise — the field does not show collapse of the ground, but it does show a place where pressure is excessive. The 'trouble,' to the extent it exists, is not a failure of the foundation (Preservation, Commitment both Balanced) — it is the overdriven quality of Creation: too much force in the direction of manifesting, proving, completing. The trouble is not that the thing is breaking; the trouble is the over-gripping.",
+        "Step 5 — Displacement reading: Preservation in Wisdom sits at distance 2 (inversion, face diagonal) from its home anchor (Change, archetype 13) to the Wisdom position anchor (High Priestess, archetype 2). Differencing bits: practice-bit and being-bit. This is a mild, navigable distance — inversion class means the card is on the opposite face of the hypercube but not at maximum distance. It signals a gap between how the knowledge of what to preserve is held (it's tilted, not locked in) and where the card naturally lives. This is not alarming; it is a call to close the gap by moving inward. Commitment's displacement to Creation position is non-computable (portal) — it registers as unbounded rather than strained. No displacement value is contributed (0). Overall displacement value is 0 in the field lean, meaning the positional tension is present but not amplifying the danger signal.",
+        "Step 6 — Polarity of each card relative to assertion ('I am in genuine trouble'): Preservation Balanced — CONTRADICTS the assertion; genuine ground is there. Commitment Balanced — CONTRADICTS the assertion; authentic effort at the threshold. Creation Too Much — PARTIALLY SUPPORTS the assertion; something is overdriven, generating real friction. Net reading: two of three cards push against a verdict of genuine danger; one card names real friction. The field is not showing crisis — it is showing a pressured moment where the over-extension of force is the live issue. STATE grid reading: not WELL_AND (there is friction), not STRAINED_AND (the ground is genuinely holding), not STRAINED_AND with no path — STRAINED_BUT is the correct register: strained by the Too Much, but with solid ground underneath.",
+        "Step 7 — Rebalancer as qualifier (the medicine is the and/but clause): Creation (Too Much) → DIAGONAL pathway → Potential (The Fool, id 0, Gestalt/Seed/Inner/Recursion). Diagonal correction means the medicine is maximum reorientation — not a small adjustment but a turn toward the archetype of pure beginning, unattached possibility. The medicine says: release the pressure toward completion and outcome; return to the open stance of not-yet-knowing. For Commitment → GROWTH → Discernment (5 of Swords, Cognition/Air/Body/Bridge): the sharpening of discernment, cutting away what is not essential to the commitment. For Preservation → GROWTH → Reciprocity (6 of Cups, Water/Resonance/Body/Fruition): the holding energy needs exchange and flow, not tightening. The central medicine for the Too Much (the source of the friction) is Potential — loosen the grip, let the process be unresolved for a moment. This is the qualifier.",
+        "Step 8 — Verdict: STATE question. The domain is not in clean good condition (hence not WELL_AND or WELL_BUT) — Creation Too Much produces real friction. But the foundation is genuinely present (Preservation and Commitment both Balanced), so the domain is not collapsing. STRAINED_BUT is the exact render: strained by over-driven creative/completion force, but held by authentic ground and genuine commitment. The mechanical lean at 0.455 (lean-yes) agrees directionally — it registers friction without tipping into strong-yes-trouble — and the two Balanced cards in the status component (0.717 combined status score) are what keep it from tipping further. I agree with the lean. The field lean's three-component structure: status (weight 0.6, value 0.717), displacement (weight 0.3, value 0), resonance (weight 0.1, value 0.25), yielding 0.455 — this correctly captures the mixed picture."
+      ],
+      "lean": {
+        "value": 0.455,
+        "band": "lean-yes",
+        "portalPresent": true,
+        "components": [
+          {
+            "name": "status",
+            "weight": 0.6,
+            "value": 0.717,
+            "detail": [
+              {
+                "card": "Preservation",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Commitment",
+                "status": "Balanced",
+                "value": 1,
+                "why": "authentic expression — the ground is there"
+              },
+              {
+                "card": "Creation",
+                "status": "Too Much",
+                "value": 0.15,
+                "why": "force present but overdriven — supports with friction"
+              }
+            ]
+          },
+          {
+            "name": "displacement",
+            "weight": 0.3,
+            "value": 0,
+            "detail": [
+              {
+                "card": "Preservation",
+                "distance": 2,
+                "value": 0,
+                "why": "inversion — neutral distance"
+              }
+            ]
+          },
+          {
+            "name": "resonance",
+            "weight": 0.1,
+            "value": 0.25,
+            "detail": [
+              {
+                "card": "Creation",
+                "why": "meaningful sum 40"
+              }
+            ]
+          }
+        ],
+        "label": "mechanical lean of the field, not a judgment"
+      },
+      "typer": {
+        "class": "CLEAR",
+        "signals": [],
+        "hardGate": false
+      },
+      "raw": {
+        "verdict": {
+          "assertion": "I am currently in genuine trouble — the field shows real danger or serious strain.",
+          "typerClass": "STATE",
+          "verdict": "STRAINED_BUT",
+          "counsel": null,
+          "headline": "Real friction is present, but the ground beneath you is holding.",
+          "qualifier": "The strain lives in Creation — too much force driving outward expression — and the medicine is Potential: release the grip on outcomes, let beginnings be unformed again.",
+          "qualifierSource": "Creation (Too Much) rebalancer: DIAGONAL pathway to Potential (The Fool, id 0) — the computed correction for over-driven creation force.",
+          "leanAgreement": "agree",
+          "leanNote": "The mechanical lean at 0.455 (lean-yes) registers meaningful friction, matching STRAINED_BUT — neither clean distress nor clean ease.",
+          "walk": [
+            "Step 1 — Assertion under test: 'I am currently in genuine trouble' — this is a condition question about the state of the asker's situation, not a proposition about a course of action. It asks how things stand. Question class is STATE; CLEAR classification from the typer is acceptable but I refine to STATE because the question is 'how is my situation' not 'should I do X.' Rendering from the STATE grid.",
+            "Step 2 — Computed facts relied upon: (a) Field lean value 0.455, band lean-yes, portal present. Components: status weight 0.6 value 0.717 (Preservation Balanced, Commitment Balanced, Creation Too Much 0.15); displacement weight 0.3 value 0 (Preservation distance 2, inversion-neutral); resonance weight 0.1 value 0.25 (Creation meaningful sum 40). The lean is pulled upward by two solid Balanced cards (status 0.717) but pulled toward yes-trouble by Creation's Too Much (0.15 contribution). Displacement is neutral (value 0). Net 0.455. (b) Card statuses: Preservation — Balanced in Wisdom; Commitment — Balanced in Creation (portal position); Creation — Too Much in Actualization. (c) Rebalancers: Preservation → Reciprocity (GROWTH, 6 of Cups); Commitment → Discernment (GROWTH, 5 of Swords); Creation → Potential (DIAGONAL, The Fool). (d) Portal present: Creation card is a portal card (id 21, outsideMirror true), and the portal flag appears in draw aggregates — threshold dynamics in play.",
+            "Step 3 — Card-in-position readings: PRESERVATION (Balanced) in WISDOM — Preservation is Earth/Structure/Emotion, Fruition stage, Bound class. Balanced means authentic expression: the ground of what is being held is real, not illusory. In the Wisdom position (High Priestess, Air/Cognition/Seed/Inner), it says: the inner knowing here is that what you are preserving has genuine substance. There is real foundation to stand on. The displacement is inversion (distance 2, face diagonal), meaning the card is not at home but not far — it arrives with mild tension, a slight tilt between preservation-energy and the airy, still quality of Wisdom. It reads: 'the knowledge that this ground is real is available to you, but you may need to turn inward to access it.' COMMITMENT (Balanced) in CREATION (portal position) — Commitment is Earth/Structure/Mind, Feedback stage, Bound, Recursion operation. Balanced in a portal position (The World / Creation): authentic, steady commitment meeting the threshold of completion or passage. This pairing says genuine effort is present at the exit-point; what has been built is real. No displacement is computable here (portal anchor outside grid) — the card sits in unbounded space, which means the commitment extends beyond normal range, into threshold territory. It reads: 'your effort is authentic and is meeting a genuine turning-point.' CREATION (Too Much) in ACTUALIZATION — Creation is the portal card itself (The World), placed in The Sun / Actualization position (Gestalt, Fruition, Outer). Too Much means force is present but overdriven. The meaningful sum 40 triggers resonance (weight 0.1). Creation-as-portal in an Actualization seat, over-pressured: something is being pushed too hard toward full manifestation. No displacement computable (portal). It reads: 'the drive to arrive, to complete, to be seen as having made it — this is running hotter than the situation requires, and that excess is where the friction lives.'",
+            "Step 4 — Correspondence to 'Am I in trouble?': The question carries anxiety about the state of things. What appeared: two Balanced cards saying the core substance is real, and one Too Much card showing the friction point. The correspondence is precise — the field does not show collapse of the ground, but it does show a place where pressure is excessive. The 'trouble,' to the extent it exists, is not a failure of the foundation (Preservation, Commitment both Balanced) — it is the overdriven quality of Creation: too much force in the direction of manifesting, proving, completing. The trouble is not that the thing is breaking; the trouble is the over-gripping.",
+            "Step 5 — Displacement reading: Preservation in Wisdom sits at distance 2 (inversion, face diagonal) from its home anchor (Change, archetype 13) to the Wisdom position anchor (High Priestess, archetype 2). Differencing bits: practice-bit and being-bit. This is a mild, navigable distance — inversion class means the card is on the opposite face of the hypercube but not at maximum distance. It signals a gap between how the knowledge of what to preserve is held (it's tilted, not locked in) and where the card naturally lives. This is not alarming; it is a call to close the gap by moving inward. Commitment's displacement to Creation position is non-computable (portal) — it registers as unbounded rather than strained. No displacement value is contributed (0). Overall displacement value is 0 in the field lean, meaning the positional tension is present but not amplifying the danger signal.",
+            "Step 6 — Polarity of each card relative to assertion ('I am in genuine trouble'): Preservation Balanced — CONTRADICTS the assertion; genuine ground is there. Commitment Balanced — CONTRADICTS the assertion; authentic effort at the threshold. Creation Too Much — PARTIALLY SUPPORTS the assertion; something is overdriven, generating real friction. Net reading: two of three cards push against a verdict of genuine danger; one card names real friction. The field is not showing crisis — it is showing a pressured moment where the over-extension of force is the live issue. STATE grid reading: not WELL_AND (there is friction), not STRAINED_AND (the ground is genuinely holding), not STRAINED_AND with no path — STRAINED_BUT is the correct register: strained by the Too Much, but with solid ground underneath.",
+            "Step 7 — Rebalancer as qualifier (the medicine is the and/but clause): Creation (Too Much) → DIAGONAL pathway → Potential (The Fool, id 0, Gestalt/Seed/Inner/Recursion). Diagonal correction means the medicine is maximum reorientation — not a small adjustment but a turn toward the archetype of pure beginning, unattached possibility. The medicine says: release the pressure toward completion and outcome; return to the open stance of not-yet-knowing. For Commitment → GROWTH → Discernment (5 of Swords, Cognition/Air/Body/Bridge): the sharpening of discernment, cutting away what is not essential to the commitment. For Preservation → GROWTH → Reciprocity (6 of Cups, Water/Resonance/Body/Fruition): the holding energy needs exchange and flow, not tightening. The central medicine for the Too Much (the source of the friction) is Potential — loosen the grip, let the process be unresolved for a moment. This is the qualifier.",
+            "Step 8 — Verdict: STATE question. The domain is not in clean good condition (hence not WELL_AND or WELL_BUT) — Creation Too Much produces real friction. But the foundation is genuinely present (Preservation and Commitment both Balanced), so the domain is not collapsing. STRAINED_BUT is the exact render: strained by over-driven creative/completion force, but held by authentic ground and genuine commitment. The mechanical lean at 0.455 (lean-yes) agrees directionally — it registers friction without tipping into strong-yes-trouble — and the two Balanced cards in the status component (0.717 combined status score) are what keep it from tipping further. I agree with the lean. The field lean's three-component structure: status (weight 0.6, value 0.717), displacement (weight 0.3, value 0), resonance (weight 0.1, value 0.25), yielding 0.455 — this correctly captures the mixed picture."
+          ],
+          "chainRequest": null,
+          "authorshipReturn": "You hold the helm: the field shows where the pressure lives, not what you must do with it."
+        },
+        "verdictMeta": {
+          "label": "Strained — but",
+          "polarity": "strained",
+          "tone": "rose"
+        },
+        "lean": {
+          "value": 0.455,
+          "band": "lean-yes",
+          "portalPresent": true,
+          "components": [
+            {
+              "name": "status",
+              "weight": 0.6,
+              "value": 0.717,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Commitment",
+                  "status": "Balanced",
+                  "value": 1,
+                  "why": "authentic expression — the ground is there"
+                },
+                {
+                  "card": "Creation",
+                  "status": "Too Much",
+                  "value": 0.15,
+                  "why": "force present but overdriven — supports with friction"
+                }
+              ]
+            },
+            {
+              "name": "displacement",
+              "weight": 0.3,
+              "value": 0,
+              "detail": [
+                {
+                  "card": "Preservation",
+                  "distance": 2,
+                  "value": 0,
+                  "why": "inversion — neutral distance"
+                }
+              ]
+            },
+            {
+              "name": "resonance",
+              "weight": 0.1,
+              "value": 0.25,
+              "detail": [
+                {
+                  "card": "Creation",
+                  "why": "meaningful sum 40"
+                }
+              ]
+            }
+          ],
+          "label": "mechanical lean of the field, not a judgment"
+        },
+        "branchScores": null,
+        "typer": {
+          "class": "CLEAR",
+          "signals": [],
+          "hardGate": false
+        },
+        "usage": {
+          "input_tokens": 5718,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 2147,
+          "service_tier": "standard",
+          "inference_geo": "global"
+        }
+      }
+    }
+  ]
+}

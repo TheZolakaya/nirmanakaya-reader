@@ -531,7 +531,7 @@ const getSummaryContent = (summaryInput, depth = 'shallow') => {
   return '';
 };
 
-// Helper to extract "Why This Reading Appeared" content at specified depth
+// Helper to extract "Why This Fits Now" content at specified depth
 const getWhyAppearedContent = (whyInput, depth = 'shallow') => {
   if (!whyInput) return '';
   // Parse JSON strings from saved readings
@@ -1250,6 +1250,11 @@ export default function NirmanakaReader() {
           const restoredYield = { yield: interp.yield };
           yieldSavedRef.current = restoredYield;
           setYieldResult(restoredYield);
+        }
+        if (interp.plainAnswer) {
+          plainAnswerSavedRef.current = interp.plainAnswer; // just loaded — don't re-save
+          plainAnswerDrawsRef.current = 'restored'; // and don't regenerate
+          setPlainAnswer(interp.plainAnswer);
         }
 
         // Clear the URL param after loading
@@ -2240,6 +2245,63 @@ export default function NirmanakaReader() {
     if (!v) return '';
     return `THE ANSWER (already delivered to the user for this same draw):\n${verdictResult.verdictMeta?.label || v.verdict}${v.selection ? `: "${v.selection}"` : ''} — ${v.headline}\n${v.qualifier ? `Qualifier: ${v.qualifier}\n` : ''}If the exchange concerns this answer, engage it directly — explain, deepen, or honestly examine it. Never re-answer the question with a different verdict, and never treat the verdict as unknown to you.\n\n`;
   };
+
+  // THE PLAIN ANSWER (Phase 1.1, 2026-08-14) — the reading's spoken last word.
+  // Runs AFTER everything is complete (reading + verdict/yield settled), so it may
+  // lawfully see it all: the Answer Join's user-facing half. Laws baked into the
+  // prompt: certainty never exceeds the computed verdict; temporal frame (as it
+  // stands, never prophecy); asker's coin; common tongue; short.
+  const [plainAnswer, setPlainAnswer] = useState(null);
+  const [plainAnswerLoading, setPlainAnswerLoading] = useState(false);
+  const plainAnswerDrawsRef = useRef(null); // once per draw
+  const fetchPlainAnswer = async () => {
+    setPlainAnswerLoading(true);
+    try {
+      const vBlock = answerContextBlock();
+      const yBlock = yieldResult?.yield
+        ? `THE MODE'S LANDING (already shown to the user):\n${JSON.stringify(yieldResult.yield).slice(0, 1500)}\n\n`
+        : '';
+      const summaryText = getSummaryContent(parsedReading?.summary) || '';
+      const pathText = parsedReading?.path?.wade || parsedReading?.path?.surface || parsedReading?.rebalancerSummary || '';
+      const sys = `You speak the closing word of a completed Nirmanakaya reading — the moment a wise friend looks up from all the papers and answers the person directly. HARD LAWS:
+- Answer THEIR question, in THEIR words and metaphors (their coin). Second person.
+- Your certainty may NEVER exceed the delivered verdict's. If the verdict says "but", your answer keeps the but. If no verdict was delivered, answer at the reading's own strength: "the reading doesn't rule on this, but it consistently points at..."
+- Temporal frame: you read the current vector — "as it stands" — never the future. Mirror language, never prophecy.
+- Common tongue ONLY: no signature names, no statuses, no houses/channels/geometry. The reading already carries the machinery; you carry the meaning.
+- 3-6 sentences. No headers, no lists. End by handing the helm back in one natural phrase.`;
+      const userMsg = `THE PERSON'S QUESTION: "${question}"\n\n${vBlock}${yBlock}READING SUMMARY:\n${summaryText}\n\nPATH/MEDICINE SUMMARY:\n${pathText}\n\nSpeak the closing word now — the direct, plain answer to what they asked, from everything above.`;
+      const res = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: userMsg }], system: sys, model: getModelId(selectedModel), max_tokens: 500, userId: currentUser?.id })
+      });
+      const data = await res.json();
+      if (!data.error && data.reading) {
+        setPlainAnswer(stripSignature(filterProhibitedTerms(data.reading)).trim());
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage));
+      }
+    } catch (e) { /* fail-quiet: no closing word is better than a broken one */ }
+    setPlainAnswerLoading(false);
+  };
+  useEffect(() => {
+    if (!readingComplete || !question || !draws?.length || plainAnswer) return;
+    if (parsedReading?._isFirstContact || parsedReading?.firstContact) return;
+    if (verdictLoading || yieldLoading) return; // wait for the verdict/yield to settle first
+    if (plainAnswerDrawsRef.current === draws) return; // once per draw
+    plainAnswerDrawsRef.current = draws;
+    fetchPlainAnswer();
+  }, [readingComplete, question, draws, verdictLoading, yieldLoading, verdictResult, yieldResult, plainAnswer, parsedReading]);
+
+  // Persist + it travels with the reading (interpretation.plainAnswer, additive JSON)
+  const plainAnswerSavedRef = useRef(null);
+  useEffect(() => {
+    if (!savedReadingId || !plainAnswer) return;
+    if (plainAnswerSavedRef.current === plainAnswer) return;
+    plainAnswerSavedRef.current = plainAnswer;
+    updateReadingContent(savedReadingId, { plainAnswer })
+      .then(r => { if (r?.data) console.log('[AutoSave] Plain answer saved'); })
+      .catch(() => {});
+  }, [plainAnswer, savedReadingId]);
   // CHOICE READING — the Choices FRAME tab arms the comparison; the INPUTS live in a
   // portaled side panel (the controls zone clips its contents by design, so the panel
   // must float outside it — Chris's ruling after two clipping rounds). 2-5 options;
@@ -3815,7 +3877,7 @@ Interpret this new card as the architecture's response to their declared directi
     } else if (sectionKey === 'whyAppeared') {
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for why appeared
       sectionContent = getWhyAppearedContent(parsedReading.whyAppeared);
-      sectionContext = 'the "Why This Reading Appeared" section (teleological closure - why these specific cards emerged for this question)';
+      sectionContext = 'the "Why This Fits Now" section (the correspondence between what was asked and what appeared — fit, never selection causality)';
     }
 
     // Custom prompts for each expansion type / section
@@ -3832,9 +3894,9 @@ Interpret this new card as the architecture's response to their declared directi
       expansionPrompt = pathPrompts[expansionType];
     } else if (sectionKey === 'whyAppeared') {
       const whyAppearedPrompts = {
-        unpack: "Expand on why this reading appeared with more depth. Go deeper on the teleological significance - what pattern in the querent's life called forth these specific cards at this specific moment?",
-        clarify: "Restate why this reading appeared in simpler, everyday language. Plain words, short sentences — make the teleological connection completely accessible.",
-        example: "Give concrete real-world examples of how this teleological pattern might be showing up in the querent's life. Specific scenarios that might have called forth this reading — make it tangible."
+        unpack: "Expand on why this reading fits now, with more depth. Go deeper on the correspondence between what was asked and what appeared — fit language, never selection-causality claims (never 'the field chose these cards because').",
+        clarify: "Restate why this reading fits now in simpler, everyday language. Plain words, short sentences — make the correspondence completely accessible.",
+        example: "Give concrete real-world examples of how this pattern might be showing up in the querent's life. Specific scenarios where this fit would be visible — make it tangible, without claiming the field selected the cards because of them."
       };
       expansionPrompt = whyAppearedPrompts[expansionType];
     } else {
@@ -4251,6 +4313,7 @@ CRITICAL FORMATTING RULES:
     setVerdictResult(null); setVerdictError(false); setVerdictWalkOpen(false); verdictDrawsRef.current = null;
     setAnswerRequested(false);
     setYieldResult(null); setYieldError(false); yieldDrawsRef.current = null;
+    setPlainAnswer(null); setPlainAnswerLoading(false); plainAnswerDrawsRef.current = null;
     postureTouchedRef.current = false; setPostureSuggestion(null); setChoiceSuggestion(null);
     setQuestion(''); setFollowUp(''); setError(''); setFollowUpLoading(false);
     setShareUrl(''); setIsSharedReading(false); setShowArchitecture(false);
@@ -4891,10 +4954,10 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       md += `## Summary\n\n${getSummaryContent(parsedReading.summary)}\n\n`;
     }
 
-    // Why This Reading Appeared (synthesis)
+    // Why This Fits Now (synthesis)
     const whyAppearedMd = getWhyAppearedContent(parsedReading.whyAppeared, 'deep');
     if (whyAppearedMd) {
-      md += `## Why This Reading Appeared\n\n${whyAppearedMd}\n\n`;
+      md += `## Why This Fits Now\n\n${whyAppearedMd}\n\n`;
     }
 
     // Cards with rebalancers (new structure)
@@ -5041,6 +5104,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     const letterContent = parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : null);
     if (letterContent) {
       md += `---\n\n## Letter\n\n${letterContent}\n\n`;
+      if (plainAnswer) md += `---\n\n## The Plain Answer\n\n${plainAnswer}\n\n`;
       // Letter expansions
       const letterExpansions = expansions['letter'] || {};
       Object.entries(letterExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
@@ -5488,7 +5552,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   ${getWhyAppearedContent(parsedReading.whyAppeared, 'deep') ? `
   <div class="section">
     <div class="why-appeared-box">
-      <span class="why-appeared-badge">Why This Reading Appeared</span>
+      <span class="why-appeared-badge">Why This Fits Now</span>
       <div class="why-appeared-content">${escapeHtml(getWhyAppearedContent(parsedReading.whyAppeared, 'deep'))}</div>
     </div>
   </div>` : ''}
@@ -8730,7 +8794,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                   })()}
 
                   {/* ─────────────────────────────────────────────────────────────────
-                      SECTION 3: Why This Reading Appeared
+                      SECTION 3: Why This Fits Now
                       ───────────────────────────────────────────────────────────────── */}
                   {parsedReading.whyAppeared && (() => {
                     const whyAppeared = parsedReading.whyAppeared;
@@ -8751,7 +8815,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         >
                           <div className="flex items-center gap-2">
                             <span className={`text-xs transition-transform duration-200 ${isSynthWhyCollapsed ? 'text-red-500' : 'text-cyan-500'}`} style={{ transform: isSynthWhyCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>▼</span>
-                            <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Why This Reading Appeared</span>
+                            <span className="text-sm font-medium text-cyan-400 uppercase tracking-wider">Why This Fits Now</span>
                           </div>
                           {synthesisLoadingSection === 'whyAppeared' && !isSynthWhyCollapsed && <span className="text-xs"><PulsatingLoader color="text-cyan-400" /></span>}
                         </div>
@@ -9010,6 +9074,24 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             })()}
 
             <div ref={messagesEndRef} />
+          </div>
+        )}
+
+        {/* THE PLAIN ANSWER — the reading's spoken last word: everything on the table,
+            answered directly in the asker's own coin. The Letter invites; this answers. */}
+        {(plainAnswer || plainAnswerLoading) && (
+          <div className="content-pane max-w-2xl mx-auto mt-6 rounded-lg border border-amber-700/30 bg-zinc-900/60 p-4 sm:p-5">
+            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 mb-2">The Plain Answer</div>
+            {plainAnswerLoading && !plainAnswer && (
+              <div className="text-center text-xs text-zinc-500 animate-pulse py-1">Gathering everything into one answer…</div>
+            )}
+            {plainAnswer && (
+              <div className="text-sm text-zinc-200 leading-relaxed space-y-3">
+                {plainAnswer.split(/\n\n+/).filter(p => p.trim()).map((p, i) => (
+                  <p key={i} className="whitespace-pre-wrap">{p.trim()}</p>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

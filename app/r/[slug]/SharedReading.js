@@ -386,7 +386,7 @@ export default function SharedReading({ reading, error }) {
             )}
 
             {reading.synthesis.whyAppeared && getDepthContent(reading.synthesis.whyAppeared) && (
-              <CollapsibleSection title="Why This Reading Appeared" color="cyan">
+              <CollapsibleSection title="Why This Fits Now" color="cyan">
                 <DepthContent depths={getAllDepths(reading.synthesis.whyAppeared)} />
               </CollapsibleSection>
             )}
