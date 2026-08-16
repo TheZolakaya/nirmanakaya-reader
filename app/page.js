@@ -2251,6 +2251,9 @@ export default function NirmanakaReader() {
   // lawfully see it all: the Answer Join's user-facing half. Laws baked into the
   // prompt: certainty never exceeds the computed verdict; temporal frame (as it
   // stands, never prophecy); asker's coin; common tongue; short.
+  // NOTE: the auto-fire effect lives BELOW the readingComplete declaration (its dep
+  // array evaluates at render — referencing readingComplete from up here is a TDZ
+  // crash; that bug took production down on 2026-08-14).
   const [plainAnswer, setPlainAnswer] = useState(null);
   const [plainAnswerLoading, setPlainAnswerLoading] = useState(false);
   const plainAnswerDrawsRef = useRef(null); // once per draw
@@ -2283,15 +2286,6 @@ export default function NirmanakaReader() {
     } catch (e) { /* fail-quiet: no closing word is better than a broken one */ }
     setPlainAnswerLoading(false);
   };
-  useEffect(() => {
-    if (!readingComplete || !question || !draws?.length || plainAnswer) return;
-    if (parsedReading?._isFirstContact || parsedReading?.firstContact) return;
-    if (verdictLoading || yieldLoading) return; // wait for the verdict/yield to settle first
-    if (plainAnswerDrawsRef.current === draws) return; // once per draw
-    plainAnswerDrawsRef.current = draws;
-    fetchPlainAnswer();
-  }, [readingComplete, question, draws, verdictLoading, yieldLoading, verdictResult, yieldResult, plainAnswer, parsedReading]);
-
   // Persist + it travels with the reading (interpretation.plainAnswer, additive JSON)
   const plainAnswerSavedRef = useRef(null);
   useEffect(() => {
@@ -4869,6 +4863,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     // Synthesis must be in too — exporting between cards-done and synthesis-done threw
     // "error loading synthesis" (on-demand readings only; restored readings are complete by definition)
     && (!parsedReading._onDemand || parsedReading._restored || (synthesisLoaded && !synthesisLoading));
+
+  // PLAIN ANSWER auto-fire — lives here, BELOW readingComplete, because the dep array
+  // evaluates at render (a reference from above the declaration is a TDZ crash).
+  useEffect(() => {
+    if (!readingComplete || !question || !draws?.length || plainAnswer) return;
+    if (parsedReading?._isFirstContact || parsedReading?.firstContact) return;
+    if (verdictLoading || yieldLoading) return; // wait for the verdict/yield to settle first
+    if (plainAnswerDrawsRef.current === draws) return; // once per draw
+    plainAnswerDrawsRef.current = draws;
+    fetchPlainAnswer();
+  }, [readingComplete, question, draws, verdictLoading, yieldLoading, verdictResult, yieldResult, plainAnswer, parsedReading]);
 
   const generateExportFilename = (extension) => {
     const date = new Date().toISOString().split('T')[0];
