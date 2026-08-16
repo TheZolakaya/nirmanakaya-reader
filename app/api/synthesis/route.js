@@ -126,11 +126,19 @@ export async function POST(request) {
       if (!t) return t;
       const terms = ['honey', 'sweetie', 'sweetheart', 'dear', 'darling', 'hun', 'sugar', 'babe', 'beloved', 'my friend', 'my dear'];
       let c = t;
+      // Scrub leaked section scaffolding (2026-08-16: Haiku emits [SIGNATURE N: ...] marker
+      // blocks inside prose; the tail section swallowed them whole). Cut at the first leaked
+      // marker, then strip any stray inline markers.
+      const leak = c.search(/(^|\n)\s*#{0,6}\s*\[signature\b/i);
+      if (leak !== -1) c = c.slice(0, leak);
+      c = c.replace(/\[signature:[^\]]{0,60}\]/gi, '');
+      // VOCATIVE-ONLY endearment stripping (2026-08-16 fix: the old anywhere-match ate
+      // legitimate words mid-sentence — "That's beautiful." lost its object). Only remove
+      // terms used as direct address: "Oh dear," / sentence-start "Honey, ..." / ", dear."
       terms.forEach(term => {
-        c = c.replace(new RegExp(`\\bOh\\s+${term}\\b[,]?\\s*`, 'gi'), '');
-        c = c.replace(new RegExp(`\\b${term}\\b[,]?\\s*`, 'gi'), '');
-        c = c.replace(new RegExp(`\\b${term}\\b\\s*[—–-]\\s*`, 'gi'), '');
-        c = c.replace(new RegExp(`[,]\\s*\\b${term}\\b[.]?`, 'gi'), '');
+        c = c.replace(new RegExp(`\\bOh\\s+${term}\\b[,.!]?\\s*`, 'gi'), '');
+        c = c.replace(new RegExp(`(^|[.!?]\\s+)${term}\\s*[,—–-]\\s*`, 'gi'), '$1');
+        c = c.replace(new RegExp(`,\\s*${term}\\s*([.!?,])`, 'gi'), '$1');
       });
       // Verb shift: "card" → "signature"
       c = c.replace(/\bcards\b/gi, 'signatures');

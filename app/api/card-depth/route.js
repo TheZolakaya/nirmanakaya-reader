@@ -522,6 +522,7 @@ Respond with these markers:
 (Full transmission on the teleological pressure. Why did THIS signature emerge for THIS question? What is it pointing at? No sentence limits.)
 ${isImbalanced ? `
 ${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} rebalancing. You MUST discuss ${correctionTarget} specifically.
+⚠️ EXACT NAME LAW: the rebalancer is named "${correctionTarget}" — use that name VERBATIM every time. Never substitute a different rank or role (e.g. do not write "Initiate of X" when the computed target is "Executor of X"); the rank is computed, not stylistic. Cite the name, never paraphrase it.
 REBALANCER CONTEXT: This rebalancing is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the rebalancing.` : ''}
 
 [CARD:${n}:REBALANCER]

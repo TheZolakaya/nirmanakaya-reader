@@ -2672,18 +2672,41 @@ export default function NirmanakaReader() {
           frameContexts: drawsToUse.map((_, i) => getFrameContextForCard(i))
         })
       });
-      const data = await res.json();
+      let data = await res.json();
       if (data.error) throw new Error(data.error);
 
       // Validate that we got actual synthesis content
-      const hasSummary = data.summary && (data.summary.wade || data.summary.swim || data.summary.deep);
-      const hasPath = data.path && (data.path.wade || data.path.swim || data.path.deep);
+      let hasSummary = data.summary && (data.summary.wade || data.summary.swim || data.summary.deep);
+      let hasPath = data.path && (data.path.wade || data.path.swim || data.path.deep);
 
+      // One quiet retry on empty (2026-08-16: an empty first response threw a red
+      // "try refreshing" banner over readings whose retry-by-hand then succeeded —
+      // the machine can do its own retry before alarming anyone)
       if (!hasSummary && !hasPath) {
-        console.warn('Synthesis returned empty content:', data);
-        throw new Error('Synthesis generation returned empty content. Please try refreshing.');
+        console.warn('Synthesis returned empty content — retrying once:', data);
+        const retryRes = await fetch('/api/synthesis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question: questionToUse, draws: drawsToUse, cards: currentCards,
+            letter: parsedReading?.letter, spreadType: effectiveSpreadType, spreadKey: effectiveSpreadKey,
+            system: systemPromptToUse || systemPromptCache, model: getModelId(selectedModel),
+            tokens: dtpTokens, originalInput: parsedReading?.originalInput,
+            userContext: userContextRef.current,
+            frameContexts: drawsToUse.map((_, i) => getFrameContextForCard(i))
+          })
+        });
+        data = await retryRes.json();
+        if (data.error) throw new Error(data.error);
+        hasSummary = data.summary && (data.summary.wade || data.summary.swim || data.summary.deep);
+        hasPath = data.path && (data.path.wade || data.path.swim || data.path.deep);
+        if (!hasSummary && !hasPath) {
+          throw new Error('Synthesis generation returned empty content. Please try refreshing.');
+        }
       }
 
+      // Success — clear any stale synthesis error banner from a prior attempt
+      setError(prev => (prev && prev.startsWith('Error loading synthesis')) ? null : prev);
       setSynthesisLoaded(true);
 
       // Build complete reading (now includes whyAppeared)
@@ -5663,7 +5686,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           loop
           muted
           playsInline
-          ref={(el) => { if (el) el.playbackRate = 1.0; }}
+          ref={(el) => {
+            if (!el) return;
+            el.playbackRate = 1.0;
+            // iOS Low Power Mode refuses autoplay, leaving a paused video with the
+            // OS's giant play-glyph painted center-screen (founder hit this 2026-08-16).
+            // If playback is refused, hide the video — a quiet background beats a
+            // stuck one wearing a button.
+            const p = el.play();
+            if (p && p.catch) p.catch(() => { el.style.display = 'none'; });
+          }}
           className="fixed inset-0 w-full h-full object-cover z-0"
           style={{ pointerEvents: "none", opacity: backgroundOpacity / 100 }}
         >
