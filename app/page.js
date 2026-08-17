@@ -1814,6 +1814,16 @@ export default function NirmanakaReader() {
       }
     } catch (e) { /* localStorage unavailable */ }
 
+    // One-time migration (founder ruling 2026-08-18: "set everything to brief right now —
+    // our settings are just way too high"): move ALL users to Brief once. The length
+    // control stays in settings; any new choice persists as before.
+    try {
+      if (!localStorage.getItem('nkya_migrated_brief_default')) {
+        setReadingLength('brief');
+        localStorage.setItem('nkya_migrated_brief_default', '1');
+      }
+    } catch (e) { /* localStorage unavailable */ }
+
     prefsLoaded.current = true;
 
     // Then, check for URL params (these override localStorage)
