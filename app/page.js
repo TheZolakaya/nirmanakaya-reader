@@ -1465,7 +1465,10 @@ export default function NirmanakaReader() {
   const [persona, setPersona] = useState('friend'); // 'friend' | 'therapist' | 'spiritualist' | 'scientist' | 'coach'
   const [humor, setHumor] = useState(5); // 1-10: Unhinged Comedy to Sacred
   const [showArchitectureTerms, setShowArchitectureTerms] = useState(false); // V1: architecture visibility toggle
-  const [readingLength, setReadingLength] = useState('standard'); // 'brief' | 'standard' | 'full'
+  // BREVITY DEFAULT (founder ruling 2026-08-18: "reduce the text output in readings
+  // considerably"): new users land on 'brief' — the kitchen-register espresso tier;
+  // depth stays one unfold away. A saved pref (existing users) overrides on load.
+  const [readingLength, setReadingLength] = useState('brief'); // 'brief' | 'standard' | 'full'
   const [includeHistory, setIncludeHistory] = useState(true); // OFF = fresh reading: no journey context injected (for QA or reading on behalf of someone else). Session-only, not persisted.
 
   // Apply config defaults to voice settings when config is loaded
