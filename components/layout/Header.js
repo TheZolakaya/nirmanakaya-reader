@@ -27,7 +27,9 @@ export default function Header({ hasActivity = false }) {
   const isHome = pathname === '/';
 
   return (
-    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none">
+    // px reserves the corner lanes on mobile so the wrapping nav pill can't slide
+    // under the floating icon buttons (blur-over-icons bug, founder 2026-08-18)
+    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-14 md:px-4">
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
         {/* HOME - Nirmanakaya wordmark */}
