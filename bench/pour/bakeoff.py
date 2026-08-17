@@ -74,19 +74,24 @@ MEDICINES = [(36, 6, 'severing cure in binding seat'), (13, 3, 'ending prescribe
 # ---- exemplars (founder-gaveled finals) ----
 EXEMPLARS = """GAVELED EXEMPLARS — derive from the LAWS these demonstrate; do NOT imitate their surface syntax:
 
-ReadCell (Change · in Discipline · Unacknowledged):
-core: "Change ends what has completed. In Discipline, it operates on the maintained practice: a structure whose function has run its course. Unacknowledged, the ending operates without recognition, so effort continues to maintain a practice after the condition it served has ceased to organize the present. Maintenance persists after relevance."
-sheetLine: "The ending is already underway; the routine now outlasts the season it served."
-
-ReadCell (Tune · in its own seat · Too Much):
-core: "Tune adjusts expression toward fit — adding, reducing, retuning until output matches conditions. Seated in its own position, calibration becomes recursive: the faculty of adjustment is itself what is being adjusted. Too Much, no setting is allowed to stand — each achieved fit is immediately reopened, and the adjusting itself replaces the functioning it was meant to serve."
+ReadCell (Tune · in its own seat · Too Much) — kitchen mechanism on a self-seat:
+core: "Tune fixes things by small adjustments — nudge, check, nudge again — until something works. Seated in its own position, what's being adjusted is the adjusting itself: the habit of tweaking. Overdone, nothing is allowed to stay fixed — every good-enough gets reopened, and the fiddling replaces the working."
 sheetLine: "It already fits; the mixer cannot leave the mixture alone."
+
+ReadCell (Breakthrough · in its own seat · Balanced) — kitchen mechanism on a Balanced self-seat:
+core: "Breakthrough removes a structure that no longer holds. In its own position, that breaking turns back on the way breaking itself happens: even the old method of clearing things can be cleared. Balanced, only what has stopped doing its job gives way. The opening stays open, and Breakthrough is free to work again when something truly needs to change."
+sheetLine: "Even the old way of breaking through can be cleared when it becomes the next obstruction."
+
+ReadCell (Compassion · in Faith · Too Much) — kitchen mechanism on the tenderest coordinate:
+core: "Compassion feels what another feels and moves toward them. In Faith, it works on the held commitment — the part that stays put inside not-knowing, waiting without answers and not running. Overdone, the feeling floods the waiting: someone else's weight pours into the space the holding needed, and carrying them replaces holding the ground. The vigil turns into a rescue."
+sheetLine: "Someone else's weight filled the waiting; the vigil has turned into a rescue."
 
 MedicineKernel (Reciprocity · in Wisdom):
 asMedicine: "Reciprocity opens the sealed store and lets keeping become exchange. In Wisdom, the medicine is circulation: what deep knowing has held now moves between beings — held things proving their worth by traveling."
 
-ANTI-EXEMPLAR (failed cut, kept as the corpse that teaches — never write like this):
-"Change clears what has completed so the next form begins. In Discipline — the lantern-lit practice of deliberate, solitary tending — it ends the routines that outlived their season." (Verdict: weather, not mechanism. Every clause gestures through imagery; nothing operational.)"""
+TWO ANTI-EXEMPLARS (corpses that teach — never write like either):
+1. WEATHER: "Change clears what has completed so the next form begins. In Discipline — the lantern-lit practice of deliberate, solitary tending — it ends the routines that outlived their season." (Every clause gestures through imagery; nothing operational.)
+2. LAB COAT: "Seated in its own position, calibration becomes recursive: the faculty of adjustment is itself what is being adjusted." (True, entailed, mechanical — and unreadable at a tired kitchen table. The founder's verdict on a deck of these: "I can barely interpret these." Jargon adds the appearance of precision while subtracting the reader.)"""
 
 LAWS = """You are authoring cells for Nirmanakaya's poured interpretive library — permanent, founder-verified text that ARMS a runtime AI as sealed semantic ground and serves verbatim in print. Twelve laws, all binding:
 
@@ -96,12 +101,13 @@ LAWS = """You are authoring cells for Nirmanakaya's poured interpretive library 
 4. ENTAILMENT CEILING: no clause asserts more than the coordinates entail. Nothing requiring unstated biography, circumstance, motive, causal history, or literal-world condition. A cell may be vivid, but it may never know more than its address knows.
 5. SYSTEMIC COST (imbalanced cells): state the TAX — the consequence of the imbalance on the surrounding structure. Never the tautology ("too little X = not enough X").
 6. BALANCED ALIVENESS (Balanced cells): state what the signature is actively DOING well and what that doing FEEDS downstream. Balance is a verb with beneficiaries, never absence-of-problem.
-7. SCALE INVARIANCE: the core must remain true for a five-minute conversation or a fifty-year commitment. NO domain nouns (career, marriage, job, relationship, money).
+7. SCALE INVARIANCE: the core must remain true for a five-minute conversation or a fifty-year commitment. NO domain nouns (career, marriage, job, relationship, money). AMENDED: no domain assumptions does NOT mean abstraction from recognizable human experience — use ordinary verbs and observable consequences ("nothing is allowed to stay fixed", never "no setting stabilizes").
 8. REGISTER PURITY: banned in cells: you, your, asker, question, reading, advice language, future prediction, presumed history.
 9. STATUS VOCABULARY RESERVED: the words balance/balanced, too much, too little, unacknowledged never appear inside prose (the status inflects the manner; its label stays out of the sentences).
 10. CANONICAL NAMES ONLY: use the provided signature/position names verbatim. Never traditional tarot names in prose.
 11. SELF-SEAT RULE: a signature in its own position = the operator applied recursively to its own functional domain — never "nothing else to act upon".
 12. PORTAL RULE: Source (ingress) and Creation (egress) are interfaces, not ordinary houses. Cells touching them use their canonical threshold function and never assign them ordinary house/process properties.
+13. GRASPABILITY (KITCHEN MECHANISM) — the reader's law, and it outranks elegance: state the mechanism in words a tired stranger holds at midnight. No translation step may stand between the cell and recognition — if a competent reader must paraphrase a sentence before applying it, the sentence fails. Precision lives in the ENTAILMENT STRUCTURE, never the vocabulary: "what's being adjusted is the adjusting itself — the habit of tweaking" carries identical entailments to any technical phrasing, at half the cognition. Avoid lab vocabulary (faculty, operator, recursive, configuration, undifferentiated, apparatus, actualization) whenever a kitchen word says the same exact thing. THE PUPPY TEST — write toward it: a stranger holding an arbitrary mundane question ("should I slow down my puppy-magazine distribution?") must be able to see their situation THROUGH the cell unaided. The cell is a LENS, not just a statement. The cell should not require interpretation before it can be used for interpretation.
 
 FORM: core ≤60 words (35-50 is the natural weight), ending on a graspable consequence (semantic, not formulaic). sheetLine ≤18 words, its own composition, readable ALONE in a stranger's pocket, plain words a tired person cannot misread, no new truth beyond the core. Adjectives: definitional only — if an adjective carries an emotion, cut it. Nouns bear the load; verbs move the weight.
 
@@ -173,7 +179,7 @@ def parse_json(text):
 deck = [('read', s, p, q, note) for (s, p, q, note) in READCELLS] + \
        [('med', s, p, None, note) for (s, p, note) in MEDICINES]
 
-blind_lines = ['# POUR BAKE-OFF — BLIND JUDGING SHEET', '',
+blind_lines = ['# POUR BAKE-OFF ROUND 2 — Law 13 standard — BLIND JUDGING SHEET', '',
                'Three authors per cell, labels shuffled per cell. Judge: which author would you trust with 6,864 siblings?',
                'Mark winners; the key file reveals authors afterward.', '']
 key_map = {}

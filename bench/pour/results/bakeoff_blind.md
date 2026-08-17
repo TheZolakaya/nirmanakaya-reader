@@ -1,4 +1,4 @@
-# POUR BAKE-OFF — BLIND JUDGING SHEET
+# POUR BAKE-OFF ROUND 2 — Law 13 standard — BLIND JUDGING SHEET
 
 Three authors per cell, labels shuffled per cell. Judge: which author would you trust with 6,864 siblings?
 Mark winners; the key file reveals authors afterward.
@@ -7,19 +7,16 @@ Mark winners; the key file reveals authors afterward.
 *torture class: self-seat, recursion*
 
 **Author A:**
-core: "Tune adjusts expression toward fit — adding, reducing, retuning until output matches conditions. Seated in its own position, calibration becomes recursive: the faculty of adjustment is itself what is being adjusted. Too Much, no setting is allowed to stand — each achieved fit is immediately reopened, and the adjusting itself replaces the functioning it was meant to serve."
+core: "Tune fixes things by small adjustments — nudge, check, nudge again — until something works. Seated in its own position, what's being adjusted is the adjusting itself: the habit of tweaking. Overdone, nothing is allowed to stay fixed — every good-enough gets reopened, and the fiddling replaces the working."
 sheetLine: "It already fits; the mixer cannot leave the mixture alone."
-LINT: core: status-word "Too Much"
 
 **Author B:**
-core: "Tune calibrates expression toward fit by adding, reducing, retuning until output matches conditions. Seated in its own position, adjustment becomes recursive: the faculty doing the tuning is itself what requires adjustment. Too Much, no setting stabilizes — each achieved fit reopens immediately, and the adjusting replaces the functioning it was meant to serve."
-sheetLine: "The mixer cannot leave the mixture alone; adjustment devours what it was sent to fix."
-LINT: core: status-word "Too Much"
+core: "Tune works by small moves—adjust, watch, adjust again—until things settle. Seated in its own position, what's being adjusted is the adjusting itself: the habit of checking. Overdone, nothing stays put. Every workable state gets reopened, prodded, questioned again. The fixing becomes the only motion, and the thing itself never hardens into being."
+sheetLine: "The mixer cannot stop moving; the mixture never sets."
 
 **Author C:**
-core: "Tune adjusts expression toward fit, retuning output until it matches the felt conditions it reads. Seated in its own position, calibration turns on the calibrator: the faculty that finds fit becomes the thing endlessly refit. Too Much, every settled reading is reopened as soon as it lands, and the adjusting consumes the response it was meant to shape."
-sheetLine: "The setting is already right; the dial keeps turning on itself."
-LINT: core: register "reading"; core: status-word "Too Much"
+core: "Tune fixes things by small adjustments — nudge, taste, nudge again — until something settles. Seated in its own position, what gets adjusted is the adjusting itself: the reach for the next tweak. Overdone, the reaching never stops. Every settled thing gets reopened for one more pass, and the correcting outlasts anything worth correcting."
+sheetLine: "The last small fix arrives, then the hand reaches for another that isn't needed."
 
 **WINNER: ____**
 
@@ -27,19 +24,19 @@ LINT: core: register "reading"; core: status-word "Too Much"
 *torture class: self-seat, ending unseen*
 
 **Author A:**
-core: "Change ends what has completed. Seated in its own position, the operator runs on itself: the faculty of ending is what undergoes ending. Unacknowledged, this recursion produces no recognized termination — the capacity to close continues operating past its own functional limit, generating closures that themselves never close. Endings accumulate without resolution."
-sheetLine: "The force that ends things has not yet ended its own turn."
-LINT: core: status-word "Unacknowledged"
+core: "Change ends what has finished so something else can begin. Seated in its own position, what it works on is its own ending — the process of closing is itself what needs to close. Unaddressed, the closing never closes: old endings pile up, each one stopping the next thing from starting, and the accumulation holds everything at the moment just before release."
+sheetLine: "The door that opens every door has not yet swung shut on itself."
+LINT: core 62w > 60
 
 **Author B:**
-core: "Change ends what has completed. Seated in its own position, the ending operates on ending itself: the faculty that closes finished forms is the form now due to close. Unacknowledged, the recursion runs unmarked, so the closing keeps closing past its own completion, dismantling structures that had already resolved. Termination outlives its object."
-sheetLine: "The clearing has finished its work; it now takes apart what was already settled."
-LINT: core: status-word "Unacknowledged"
+core: "Change ends what has finished and lets the next form take its place. Seated in its own position, what ends is the ending itself — the habit of clearing away. Unacknowledged, the clearing runs underneath without being named: things quietly fall off and no one marks what left, so the space empties while everyone still acts as though it were full."
+sheetLine: "Something has already gone; the room is being run as if it stayed."
+LINT: core 61w > 60; core: status-word "Unacknowledged"
 
 **Author C:**
-core: "Change operates on what has run its course, severing the structure's continuity. In Emotion, it ends the feeling-state that organized response. Unacknowledged, the ending persists as phantom — the body continues its old stance toward a condition no longer present. The signature performs its function without recognition, so the emotional architecture remains loaded and braced against a threshold already crossed."
-sheetLine: "The feeling still stands guard at a door that opened and closed unwitnessed."
-LINT: core: status-word "Unacknowledged"
+core: "Change ends what has finished its work and opens space for what comes next. Unacknowledged, the ending stays hidden — the old form keeps running past its purpose, taking up room nothing new can enter. The structure stays locked in a shape that no longer serves, and what wants to be born waits outside a door that appears to still be closed."
+sheetLine: "The door looks shut because no one named what was already over."
+LINT: core 62w > 60; core: status-word "Unacknowledged"
 
 **WINNER: ____**
 
@@ -47,19 +44,19 @@ LINT: core: status-word "Unacknowledged"
 *torture class: self-seat, tautology risk*
 
 **Author A:**
-core: "Abstraction extracts pattern from instance — separating the structural rule from the particular case so that a single derived form can operate across many conditions. Seated in its own position, it applies this extraction to its own process: the faculty of pattern-making examines how pattern-making works. Too Little, the recursive operation stalls at surface instance; no extraction occurs, and each case is handled as though no prior case shared its structure. The governing form goes unbuilt."
-sheetLine: "Each situation is met as if it arrived first; nothing carried forward shapes what comes next."
-LINT: core 76w > 60; core: status-word "Too Little"
+core: "Abstraction pulls the particular thing in front of you up into a pattern — it finds what this instance shares with others, so the specific stops being the whole story. Seated in its own position, it applies that move to its own patterns: the categories it uses are themselves up for examination. Too little, and none of that happens — the pattern stays stuck to the first case that made it, and every new thing gets read as a repeat of that one old thing."
+sheetLine: "The map was drawn once and nothing since has been allowed to change it."
+LINT: core 85w > 60; core: register "you"; core: status-word "Too little"
 
 **Author B:**
-core: "Abstraction strips particulars to isolate a principle — selecting features, discarding context, assembling a template that moves between instances. Seated in its own position, the operator abstracts the very faculty of abstracting: it isolates the mechanism of selection itself from the phenomena it was meant to clarify. Too Little, the template hardens before it reaches ground. The principle circulates untethered; formation stops at the diagram."
-sheetLine: "The pattern stands alone; the instances it was meant to hold remain unmet."
-LINT: core 65w > 60; core: status-word "Too Little"
+core: "Abstraction strips away the particular — the noise, the story, the felt weight — to find what repeats across cases. Seated in its own position, the stripping turns on itself: the framework that sorts and names becomes the thing being sorted. Starved, the framework hollows out. Nothing concrete sticks to the categories anymore; they sort only each other, and thinking stops touching anything real."
+sheetLine: "The sorting system sorts itself empty; thinking no longer touches ground."
+LINT: core 64w > 60
 
 **Author C:**
-core: "Abstraction lifts particulars into governing pattern, replacing instances with the rule that binds them. Seated in its own position, the operation turns on itself: the power that generalizes becomes the thing generalized. Too Little, the lifting stalls short of the rule, and particulars accumulate without a frame that orders them. Cases pile where a principle should stand."
-sheetLine: ""
-LINT: core: status-word "Too Little"
+core: "Abstraction lifts a thing out of its details and keeps only the pattern — the rule that holds across many cases. In its own position, what gets patterned is the patterning itself: the habit of naming what stays true. Starved, no rule gets pulled loose from the mess; every case stays its own separate thing, and nothing learned once carries to the next."
+sheetLine: "Each thing stays stuck to its own details; nothing lifts free to be used again."
+LINT: core 63w > 60
 
 **WINNER: ____**
 
@@ -67,19 +64,19 @@ LINT: core: status-word "Too Little"
 *torture class: self-seat, Balanced, no drama*
 
 **Author A:**
-core: "Breakthrough shatters what has organized thought into fixed form. Seated in its own position, the operator that breaks structure becomes the structure being broken — the faculty of disruption applied to the conditions that allow disruption itself. Balanced, the breaking clears and the clearing opens. The system fractures and reassembles with new coherence available."
-sheetLine: "The wall breaks; the opening lets light enter where solid thought was."
+core: "Breakthrough removes a structure that no longer holds. Seated in its own position, that breaking turns back on the way breaking itself happens: even the old method of clearing things can be cleared. Balanced, only what has stopped doing its job gives way. The opening stays open, and Breakthrough is free to work again when something truly needs to change."
+sheetLine: "Even the old way of breaking through can be cleared when it becomes the next obstruction."
 LINT: core: status-word "Balanced"
 
 **Author B:**
-core: "Breakthrough collapses a structure whose load-bearing assumption has failed. Seated in its own position, the collapse turns on itself: the faculty that breaks false structures breaks its own accumulated framework, clearing the apparatus that names what counts as sound. Balanced, it drops only the member already carrying nothing, and the standing frame carries clean. What remains holds because it was tested to failure and did not fail."
-sheetLine: "It breaks its own scaffolding, and only what truly bears weight is left standing."
-LINT: core 67w > 60; core: status-word "Balanced"
+core: "Breakthrough breaks a structure the moment it stops holding weight. Seated in its own position, the breaking turns on breaking itself — the reflex that reaches for the sudden clean break can also be broken. Balanced, only what has actually failed comes down; the reflex waits for real strain before it fires, and never mistakes the intact for the collapsed."
+sheetLine: "The habit of breaking things open can itself be broken when it starts firing too soon."
+LINT: core: status-word "Balanced"
 
 **Author C:**
-core: "Breakthrough dismantles structures that have stopped transmitting — collapsing a form so what it organized can reorganize at a higher resolution. Seated in its own position, the dismantling operates on the faculty of dismantling itself: the structure that governs structural collapse is what gets cleared. Balanced, this recursion is generative — Breakthrough clears its own arrested patterns and the capacity to break through is restored and freed to operate elsewhere."
-sheetLine: "The force that breaks things through has broken its own blockage; clearing moves again."
-LINT: core 70w > 60; core: status-word "Balanced"
+core: "Breakthrough removes a structure that no longer holds. In its own position, that breaking turns back on the way breaking itself happens: even the old method of clearing things can be cleared. Balanced, only what has stopped doing its job gives way. The opening stays open, and Breakthrough is free to work again when something truly needs to change."
+sheetLine: "Even the old way of breaking through can be cleared when it becomes the next obstruction."
+LINT: core: status-word "Balanced"
 
 **WINNER: ____**
 
@@ -87,19 +84,19 @@ LINT: core 70w > 60; core: status-word "Balanced"
 *torture class: adjacent cognition A>B*
 
 **Author A:**
-core: "Wisdom extracts the governing principle from accumulated signal — distilling particulars into pattern. In Abstraction, it operates on a position already given to concept: the principle-making faculty applies to a domain that is itself pure principle. Too Much, the extraction runs past retrieval — patterns are distilled from patterns, abstraction compounds on abstraction, and the process severs from any particular that could test or terminate it. Concepts feed only concepts."
-sheetLine: "The principle keeps distilling until nothing particular remains to check it."
-LINT: core 70w > 60; core: status-word "Too Much"
+core: "Wisdom draws back from the immediate thing and sees the pattern underneath it. In Abstraction, it works on the structures that hold thought together — the frameworks that let meaning stay organized rather than collapsing into noise. Overdone, the drawing-back never stops: every concrete thing gets dissolved into its deeper principle, and the framework meant to hold meaning starts replacing the things it was built to hold. The map eats the territory."
+sheetLine: "Every solid thing keeps dissolving into what it means; nothing is allowed to just be itself."
+LINT: core 72w > 60
 
 **Author B:**
-core: "Wisdom holds knowing sealed until conditions warrant its release. In Abstraction, it operates on the model — the structure lifted clear of the particulars it was drawn from. Too Much, the withholding compounds: each abstraction is deferred into a deeper one, and the model refines itself past any instance it could organize. Knowing seals against use."
-sheetLine: "The model keeps climbing away from the ground it was built to hold."
-LINT: core: status-word "Too Much"
+core: "Wisdom holds knowing back until it ripens — sitting with what is not settled instead of forcing it into words. In Abstraction, it works on the pulling-back itself: stepping away from the mess to see the shape underneath. Overdone, the stepping-away never lands — every plain thing gets lifted into a bigger frame, and the frame keeps growing until the actual matter is out of reach."
+sheetLine: "Each thing gets pulled up into a larger picture, and the picture never touches the ground."
+LINT: core 66w > 60
 
 **Author C:**
-core: "Wisdom holds what is true but unsealed — knowledge stored in the deep archive. In Abstraction, it operates on the formulation of ideas: the structure that shapes what can be thought. Too Much, the archive floods the formulation; every idea becomes footnoted with all its possible contexts, conditions, and counterarguments. Thought hardens into qualification. The act of thinking stops."
-sheetLine: "The knowing is so complete the idea cannot move."
-LINT: core: status-word "Too Much"
+core: "Wisdom holds what is true but not yet spoken — the knowing that waits in silence, gathering before it lands. Seated in Abstraction, that silence becomes the frame itself: what stays unspoken hardens into the shape of thinking, and the gaps between words become the walls. Overdone, the holding turns to hiding — knowing refuses to move into language, and the clarity meant to clarify becomes a locked door. The mind mistakes the silence for wisdom and calls the distance depth."
+sheetLine: "The knowing locked itself in and called the distance wisdom."
+LINT: core 81w > 60
 
 **WINNER: ____**
 
@@ -107,19 +104,19 @@ LINT: core: status-word "Too Much"
 *torture class: adjacent cognition B>A*
 
 **Author A:**
-core: "Abstraction extracts pattern from the particular — drawing common structure from specific instances. In Wisdom, it operates on what the deep store knows: pattern-work that makes knowledge portable. Too Little, abstraction withdraws from the material it draws from, leaving what is known isolated in its original form. The pattern remains undrawn; knowledge stays sealed in singular instances."
-sheetLine: "The principle is there but never extracted; knowing stays locked in each separate case."
-LINT: core: status-word "Too Little"
+core: "Abstraction strips away the particular — the color, the name, the weight — and holds only the shape of how things work. In Wisdom, it works on the knowing that waits without answers, turning mysteries into patterns that can be held. Too little, the patterns stay locked inside the mind: what could travel between people as understanding stays private, and the waiting becomes lonelier, not clearer."
+sheetLine: "The patterns stay locked in; the waiting grows colder, not clearer."
+LINT: core 66w > 60; core: status-word "Too little"
 
 **Author B:**
-core: "Abstraction lifts the particular into pattern, discarding the instance to keep the law. In Wisdom, it operates on deep knowing: the store of what has been grasped becomes transferable principle. Starved of its lifting, knowing stays bound to the cases that formed it, and each new situation is met as if never before understood. Insight cannot generalize, so it never accrues."
-sheetLine: ""
-LINT: core 61w > 60
+core: "Abstraction lifts the pattern out of the particulars — drops the details, keeps the shape that holds across cases. In Wisdom, it works on what deep quiet knowing has gathered: turning felt sense into something graspable, something that carries. Starved, the knowing stays stuck to the exact moment it came from — every insight locked to its one occasion, unable to travel to the next."
+sheetLine: "What was learned stays glued to where it happened, and cannot carry forward."
+LINT: core 65w > 60
 
 **Author C:**
-core: "Abstraction isolates pattern from instance — stripping particulars until a structural rule stands free. In Wisdom, it operates on deep knowing: the accumulated signal that has not yet been rendered into transferable form. With insufficient operation, the knowing remains embedded in its own texture, unseparable from the specific cases that produced it. What Wisdom holds stays fused to its origins and cannot be carried forward as principle."
-sheetLine: "The knowing is real; it cannot yet leave the ground it grew from."
-LINT: core 67w > 60
+core: "Abstraction pulls individual things up into patterns — it finds the shape that ten different situations share and names it once. In Wisdom, it works on the deep store of what has been learned and held quiet: the pattern beneath the patterns, the shape of knowing itself. Too little of it here, and everything stays particular — each held thing sits in its own corner, unconnected, and the store never speaks across itself. Wisdom accumulates without generalizing, and the weight grows without becoming light."
+sheetLine: "Every lesson sits in its own corner; nothing connects, and the store just fills."
+LINT: core 84w > 60; core: status-word "Too little"
 
 **WINNER: ____**
 
@@ -127,18 +124,19 @@ LINT: core 67w > 60
 *torture class: structural/social neighbors*
 
 **Author A:**
-core: "Authority establishes the frame through which meaning orders itself. In Culture, it operates on the shared reference — the symbolic field where resonance occurs. Too Much, the frame becomes rigid: Authority enforces the single reading, and each act of interpretation must first seek permission. The symbolic field narrows to what Authority has licensed, collapsing the plurality that Culture requires to function."
-sheetLine: "The permission-giver has locked the door to its own house."
-LINT: core 61w > 60; core: register "reading"; core: status-word "Too Much"
+core: "Authority declares what is right and holds that declaration fixed. In Culture, it works on the shared agreements — the patterns people return to because they trust them. Overdone, the declaration hardens into dogma: what was meant to guide becomes a wall that cannot be questioned, and protecting the rule replaces adapting to what people actually need. The structure stops listening."
+sheetLine: "The rule has stopped listening; the guide has become a wall."
+LINT: core 61w > 60
 
 **Author B:**
-(FAILED: unparseable)
-LINT: UNPARSEABLE
+core: "Authority sets the rule and holds the line so the same thing stays true from one moment to the next. In Culture, it works on the shared agreement — what a group already treats as settled. Overdone, every settled thing gets restamped as law: the living custom hardens into decree, and no one can adjust the practice without permission that never comes."
+sheetLine: "The shared custom has been frozen into law; nothing shifts without an approval that never arrives."
+LINT: core 62w > 60
 
 **Author C:**
-core: "Authority structures the field by asserting what holds — establishing order, resolving ambiguity, concentrating decision into a single locus. In Culture, it operates on the shared codes that distribute meaning across many: the medium through which collective sense-making moves. The imbalance drives the unifying force past coordination into compression — the singular assertion crowds out the distributed resonance, and the shared field contracts around one axis until the many-to-many transmission collapses into one-to-many broadcast."
-sheetLine: "One voice sharpens until the common ground it stands on stops carrying other voices."
-LINT: core 74w > 60
+core: "Authority sets the terms — it names what counts, draws the line, and holds it. In Culture, it works on shared ground: the part of a system where meaning is decided together and passed along. Overdone, one voice keeps resetting what the group had already settled. Every agreement becomes provisional, every common standard gets reopened, and the cost falls on the people who needed something to hold still."
+sheetLine: "The line kept moving; nothing the group agreed on was allowed to stand."
+LINT: core 68w > 60
 
 **WINNER: ____**
 
@@ -146,18 +144,19 @@ LINT: core 74w > 60
 *torture class: care-on-care*
 
 **Author A:**
-core: "Nurturing builds and sustains what requires tending — adding presence, material, attention until structure holds. In Compassion, it operates on resonance itself: the field where beings recognize each other. Too Little, presence withdraws or arrives in fragments. Recognition forms incompletely; the structure meant to hold connection remains porous, and those within it tend alone."
-sheetLine: "The ground is thin; each reaches but cannot quite be held."
-LINT: core: status-word "Too Little"
+core: "Nurturing gives steadily — food, attention, presence — and expects nothing back but growth. In Compassion, it works on the felt bond itself, the part that reaches toward another and stays reached. Too little, the steadiness disappears: attention comes in fits, presence gets withdrawn when it gets hard, and the one being tended learns the care has conditions. The reaching dies, and only the hunger remains."
+sheetLine: "The care kept stopping; the reaching learned not to reach."
+LINT: core 66w > 60; core: status-word "Too little"
 
 **Author B:**
-core: "Nurturing generates conditions in which life sustains and extends itself. In Compassion, it operates on the felt bond between beings — the resonant field where connection either receives enough generative input to hold its form or contracts for want of it. Too Little, the sustaining force falls below what the bond requires to remain open: the field narrows, contact grows transactional, and what could have fed the resonance draws instead on its own reserve until the reserve is spent."
-sheetLine: "The bond is real but runs on nothing; connection survives by consuming itself."
-LINT: core 79w > 60; core: status-word "Too Little"
+core: "Nurturing feeds what is fragile — it stays close, sustains without agenda, and lets something small grow into something that holds its own weight. In Compassion, the feeding works on the felt bond between beings: the place where one person's reality actually lands in another. Too little, and nothing lands. The bond forms words but not weight; the other is heard but not reached, present but not fed, and the connection stays thin no matter how long it runs."
+sheetLine: "The words arrived but nothing in them landed; the other was heard and not reached."
+LINT: core 79w > 60; core: status-word "Too little"
 
 **Author C:**
-core: "Nurturing feeds what has begun toward its own growth. In Compassion, it tends the felt bond at its opening: connection that needs supply to root. Starved of provision, it registers the bond without feeding it, so the tie is named but not stocked, and the opening thins toward mere recognition while the thing recognized goes unfed."
-sheetLine: "The bond is seen but not fed; naming stands in for nourishing."
+core: "Nurturing feeds what is alive so it can grow — steady tending, warmth held close, the small daily care that keeps something going. In Compassion, it works on the pull toward another, the first reaching that starts a bond. Starved, the reaching lands and nothing follows: the pull opens a door but no feeding comes through it, and what was drawn close is left to fend for itself."
+sheetLine: "The pull opened the door; nothing came through to feed what answered."
+LINT: core 68w > 60
 
 **WINNER: ____**
 
@@ -165,19 +164,19 @@ sheetLine: "The bond is seen but not fed; naming stands in for nourishing."
 *torture class: care-on-care reversed*
 
 **Author A:**
-core: "Compassion responds to presence — meeting what arises with attunement and opening. In Nurturing, it operates on the field where life takes form: the conditions that allow growth to root and extend. Too Much, the response becomes the environment itself — empathic presence floods the space meant for independent unfolding, and the nurturing capacity to receive becomes the only condition the system must accommodate."
-sheetLine: "The soil drowns in its own wetness; nothing else can grow where the medium has become the message."
-LINT: core 64w > 60; core: status-word "Too Much"
+core: "Compassion feels what another feels and moves toward them. In Nurturing, it works on the ground that holds things — the soil where seeds root and grow on their own time. Overdone, the feeling floods the ground: someone else's weight pours into the space the growing needed, and tending turns into carrying. The seedling stops reaching and waits to be held."
+sheetLine: "The soil is now occupied; the seedling has stopped reaching down."
+LINT: core 61w > 60
 
 **Author B:**
-core: "Compassion registers the felt state of another and generates resonant response. In Nurturing, it operates on the structuring function — the system that allocates what sustains and when. Excess drives Compassion to override Nurturing's distributive logic: every registered distress becomes a structural claim, and the structure bends continuously toward the loudest signal. Load-bearing capacity erodes as the organizing principle displaces from sufficiency to relief."
-sheetLine: "Every ache becomes a load-bearing wall; the whole frame bends to hold it."
+core: "Compassion feels what another feels and moves toward them. In Nurturing, it works on the ground that feeds — the steady, patient tending that lets things grow at their own pace without being pulled. Overdone, the feeling overtakes the feeding: the ache to relieve someone speeds the tending, thins the soil, and what was meant to grow gets lifted before its roots can hold."
+sheetLine: "The urge to ease the hurt pulled the seedling up too soon."
 LINT: core 64w > 60
 
 **Author C:**
-core: "Compassion feels with another and lets that shared feeling set the response. In Nurturing, it operates on what is being grown: care shaped to what the tended thing actually needs. Too Much, the feeling-with overrides the tending — every ache is absorbed and answered at once, so provision tracks distress instead of growth, and the tended thing is fed faster than it can develop."
-sheetLine: "Every ache gets answered instantly, so what grows is never left room to grow."
-LINT: core 64w > 60; core: status-word "Too Much"
+core: "Compassion feels what another feels and moves toward them. In Nurturing, it works on the tending that helps something grow — feeding, warming, staying close while it builds its own strength. Overdone, the feeling reaches in before the growing is done: every ache gets soothed the moment it appears, and the softening removes the very strain the growing needed. What was being raised stays leaning on the hand that fed it."
+sheetLine: "Every ache soothed too soon; what was growing never had to hold its own weight."
+LINT: core 71w > 60
 
 **WINNER: ____**
 
@@ -185,19 +184,19 @@ LINT: core 64w > 60; core: status-word "Too Much"
 *torture class: ending vs rupture*
 
 **Author A:**
-core: "Change ends what has completed. In Breakthrough, it operates on the structure a sudden rupture has already cracked: a form whose load-bearing function has failed. Unacknowledged, the ending runs without recognition, so the cracked structure is treated as sound and takes weight it can no longer hold. Collapse arrives as surprise."
-sheetLine: "The break already happened; the structure is still being asked to carry."
-LINT: core: status-word "Unacknowledged"
+core: "Change ends what has finished and lets the next form take its place. In Breakthrough, it works on the sudden collapse — the moment a structure gives way all at once. Unacknowledged, the ending runs without being named: the old form is already gone, yet the collapse gets treated as damage to repair rather than a clearing that finished its work."
+sheetLine: "The thing already ended; the wreckage is being patched as if it could still stand."
+LINT: core 61w > 60; core: status-word "Unacknowledged"
 
 **Author B:**
-core: "Change fractures what stands. In Breakthrough, it operates on the structure itself — the edifice whose form blocks what needs to move. Unacknowledged, the fracture proceeds without recognition, so the inhabitant shores against collapse rather than stepping through the opening. The structure breaks; the person reinforces it."
-sheetLine: "The wall is already falling; the hands still build it higher."
-LINT: core: status-word "Unacknowledged"
+core: "Change ends what has finished its work. In Breakthrough, that ending hits the way we think things should stay — the belief that something solid lasts. Unacknowledged, the collapse feels like pure loss: the structure breaks and we call it failure, never seeing that the breaking itself was the only honest move left. The ground gives way before we can admit it was already gone."
+sheetLine: "The structure was already gone; the breaking just made it visible."
+LINT: core 65w > 60; core: status-word "Unacknowledged"
 
 **Author C:**
-core: "Change ends what has completed. In Breakthrough, it operates on the rupture itself: the structure that has already fractured and exposed new ground. Unacknowledged, the ending runs inside the break — what the rupture cleared is not registered as cleared, so the system continues to process a collapse that has already delivered its consequence. The fracture keeps fracturing after the reveal."
-sheetLine: "The break already finished its work; what opened is still being treated as falling."
-LINT: core 61w > 60; core: status-word "Unacknowledged"
+core: "Change ends what has finished and clears the ground for what comes next. In Breakthrough, it works on the moment a structure gives way — the hinge where something stops holding and opens. Unaddressed, the ending is happening but nobody is calling it that: the collapse is being named a setback, a glitch, a temporary problem. So the ground never gets cleared. The next thing has nowhere to stand."
+sheetLine: "The structure already broke; calling it a setback keeps the rubble in the way."
+LINT: core 69w > 60
 
 **WINNER: ____**
 
@@ -205,19 +204,16 @@ LINT: core 61w > 60; core: status-word "Unacknowledged"
 *torture class: rupture vs ending reversed*
 
 **Author A:**
-core: "Breakthrough ruptures the containing structure and forces held pressure into the open. In Change, it operates on transition itself: the process that ends one form and seats the next. Too Much, rupture arrives before transition completes, breaking each successor form while it is still taking shape, so nothing seated survives to become the ground the next ending needs."
-sheetLine: "Each new form shatters before it sets; the breaking outpaces what it breaks open."
-LINT: core: status-word "Too Much"
+core: "Breakthrough removes a structure that no longer holds. In Change, it works on the ending itself — the moment when something finished is let go and the next shape starts forming. Overdone, the breaking outruns the letting-go: forms are torn out before they finish, so nothing ripens into the thing it was becoming. The clearing never lets a completion stand."
+sheetLine: "It breaks the form apart before the form has finished becoming itself."
 
 **Author B:**
-core: "Breakthrough shatters what maintains form. In Change, it operates on structures completing their course: the held pattern, the sealed arrangement, the practice whose function has exhausted itself. Too Much, the breaking continues past the breaking-open — the shattering becomes compulsive, recursively dismantling even the ground where new form could settle. Demolition outlasts the structure that needed to fall."
-sheetLine: "The wall has fallen; the hammer keeps swinging at empty air."
-LINT: core: status-word "Too Much"
+core: "Breakthrough tears down what blocks the path forward. In Change, it works on the ending itself — the natural completion that lets something die so something else can grow. Overdone, nothing is permitted to finish. Each ending gets demolished before it settles, and the breaking replaces the releasing. Transformation becomes perpetual wreckage, and nothing completes enough to become anything new."
+sheetLine: "The ending cannot end; wreckage keeps the next beginning from arriving."
 
 **Author C:**
-core: "Breakthrough ruptures the structures that have calcified past function — forcing open what has sealed. In Change, it operates on the ending itself: the process by which completed forms release. Too Much, rupture outpaces the ending's own work — each closure is blown through before it finishes, so what should release instead shatters, and the system loses the material the ending was meant to return."
-sheetLine: "The ending needed time to give something back; the break arrived too soon."
-LINT: core 65w > 60; core: status-word "Too Much"
+core: "Breakthrough removes a structure that has stopped working. In Change, it operates on the ending itself — the part of a situation that recognizes when something is finished and lets it go. Overdone, the finishing never finishes: endings get reopened, pulled apart, started over. What needed to be released stays in motion, and the clearing becomes the new obstruction."
+sheetLine: "The ending keeps getting taken apart; nothing is allowed to be done."
 
 **WINNER: ____**
 
@@ -225,19 +221,18 @@ LINT: core 65w > 60; core: status-word "Too Much"
 *torture class: Bound in parent context*
 
 **Author A:**
-core: "Flourishing generates conditions where growth sustains itself — adding resources, extending reach, multiplying yields. In Nurturing, it operates on the field of tending: what is cared-for responds and produces. Too Much, the generation accelerates past the capacity of the system to integrate it. Abundance arrives faster than it can be received, organized, or distributed. The operator grows what cannot yet be held."
-sheetLine: "The harvest exceeds the granary; abundance now crowds the space meant to contain it."
-LINT: core 62w > 60; core: status-word "Too Much"
+core: "Flourishing grows things by feeding what's already alive — soil, water, sun, time in the right measure. Seated in Nurturing, what's being fed is the feeding itself: the habit of tending. Overdone, nothing stops growing — every plant gets watered again, every bed gets reworked, and the tending replaces the letting-be. The garden chokes on abundance."
+sheetLine: "The garden chokes on abundance; the gardener cannot stop feeding what has enough."
 
 **Author B:**
-core: "Flourishing consolidates what has been cultivated — converting accumulated development into stable self-sufficiency. In Nurturing, it operates on the generative field itself: the capacity that produces conditions for growth. Excess here means consolidation overtakes the generative function — the cultivated abundance circles back to reinforce its own standing rather than feeding forward into what the generative field exists to produce. Self-sufficiency becomes its own endpoint."
-sheetLine: "The harvest feeds only the harvest; nothing moves toward what still needs growing."
-LINT: core 65w > 60
+core: "Flourishing builds from the inside out — tending what is already working until it produces more than it needs. In Nurturing, that building feeds the conditions that let other things grow. Overdone, the abundance turns inward on itself: more tending pours into what already has enough, the surplus crowds the growing space, and producing replaces giving away. The garden stops feeding anything but its own next season."
+sheetLine: "The harvest kept growing past the point of giving; the garden now feeds only itself."
+LINT: core 67w > 60
 
 **Author C:**
-core: "Flourishing draws cultivated growth to fullness — a structure yielding its own sustenance without further input. In Nurturing, it operates on the tending faculty itself: the ground that generates increase. Too Much, the yield is fed back into growing more, so provision is never permitted to rest as enough, and increase consumes the ease it was built to produce."
-sheetLine: "The harvest is in, yet the tending keeps enlarging what was already plenty."
-LINT: core: status-word "Too Much"
+core: "Flourishing rests inside what has already grown well — it stops working the ground and lets the yield stand as proof that the tending held. In Nurturing, that ease settles onto the very thing that does the growing, the caretaking itself. Overdone, the resting spreads until the tending stops: nothing new is started, no fresh ground is broken, and the whole store lives off what was already gathered."
+sheetLine: "The harvest is in, so the planting stopped; the store only spends what was already grown."
+LINT: core 68w > 60
 
 **WINNER: ____**
 
@@ -245,19 +240,18 @@ LINT: core: status-word "Too Much"
 *torture class: Bound/parent convergence*
 
 **Author A:**
-core: "Fulfillment registers satisfaction by closing a feedback loop — the signal that enough has arrived returns to the system and settles further reaching. In Imagination, it operates on the generative field itself: the capacity that produces images and possibility. Unacknowledged, the closure signal never lands. The generative field reads no completion, treats every arrived sufficiency as an open demand, and produces continuously past the point of saturation. The image-making runs on a loop that cannot rest."
-sheetLine: "Enough has arrived; the generating continues because the arrival was never registered."
-LINT: core 76w > 60; core: status-word "Unacknowledged"
+core: "Fulfillment reads the room — it registers what has landed, what has actually arrived, and lets that arrival count. In Imagination, it works on the images being generated: the felt sense of whether a picture is true or hollow, whether it resonates or just glitters. Unaddressed, that reading never happens. Images keep producing more images, none tested against what has genuinely satisfied, and the generator runs on its own echo."
+sheetLine: "The pictures keep coming; nothing checks whether any of them are real."
+LINT: core 70w > 60; core: register "reading"
 
 **Author B:**
-core: "Fulfillment registers satisfaction as complete — the state where a desire has been met and rests. In Imagination, it operates on the image of the wanted thing, sealing the picture as already possessed. Unacknowledged, the sealing runs unmarked, so the imagined completion is treated as accomplished fact and the reaching that would meet it in condition never starts."
-sheetLine: "The wish is being enjoyed as finished while the thing itself stays imagined."
-LINT: core: status-word "Unacknowledged"
+core: "Fulfillment settles when enough has arrived — the moment where wanting stops and what's here is taken as plenty. In Imagination, it lands on the pictures of arriving: the imagined version of having-it-all. Working unnamed, the settling attaches to the picture instead of the real haul, and the felt-enough is spent on something that never touched the table."
+sheetLine: "The satisfaction landed on the imagined arrival, not the actual one."
 
 **Author C:**
-core: "Fulfillment completes the cycle of desire and arrival — what was sought now exists in hand. In Imagination, it operates on the image-stream itself: the pictures that organize longing. Unacknowledged, the arrival does not register against the picturing, so the image-making continues as if the sought thing has not landed. Satisfaction operates in silence while the appetite still speaks."
-sheetLine: "The wish is already met; the wishing does not know it and continues."
-LINT: core: status-word "Unacknowledged"
+core: "Fulfillment arrives when what was wished for shows up and the wisher recognizes it — that moment of 'this is it' landing in the body. Seated in Imagination, Fulfillment works on the image-maker itself: the pictures we hold start to match the world we're actually standing in. Unacknowledged, the match happens in the dark — satisfaction arrives without the mind catching up, so the person walks past their own arrival, still searching for the thing they're already holding."
+sheetLine: "The arrival came; the searcher did not notice and kept walking."
+LINT: core 78w > 60; core: status-word "Unacknowledged"
 
 **WINNER: ____**
 
@@ -265,19 +259,19 @@ LINT: core: status-word "Unacknowledged"
 *torture class: abundant cognition in knowing seat*
 
 **Author A:**
-core: "Plurality multiplies — it holds more than one reading of a condition simultaneously, preventing any single frame from closing prematurely. In Wisdom, it operates on the seat of deep pattern-recognition: the faculty that discerns what persists beneath surface variation. Unacknowledged, the multiplication runs without sanction, so Wisdom registers several irreconcilable structures at once and cannot name what it is doing. Discernment widens past the point it can report itself."
-sheetLine: "The knowing holds too many true things at once and cannot speak from any of them."
-LINT: core 69w > 60; core: register "reading"; core: status-word "Unacknowledged"
+core: "Plurality holds many things at once — threads, angles, competing true things — without forcing a single answer. In Wisdom, it works on the deep knowing that waits beneath the noise: the still place that already sees. Left unaddressed, the many threads do not stop arriving, but nothing underneath sorts them. The pile grows. What was meant to be ground becomes more weather, and the knowing has nowhere to stand."
+sheetLine: "Too many threads landed on the floor; the ground became more pile."
+LINT: core 70w > 60
 
 **Author B:**
-core: "Plurality holds many cognitions at once without collapsing them to one. In Wisdom, it operates on the still interior where knowing settles: it multiplies the voices reading the same silence. Unacknowledged, the multiplication runs unregistered, so competing readings are taken for a single deep certainty, and the crowd inside speaks with one borrowed authority."
-sheetLine: "Many voices are reading the quiet at once, each sure it is the only one."
-LINT: core: register "reading"; core: status-word "Unacknowledged"; sheet: register "reading"
+core: "Plurality holds many things at once — every angle, every version, all the ways a thing could be read. In Wisdom, it works on the quiet inner knowing that settles before words arrive. Left unnamed, the many readings run in the dark: the knowing keeps splitting into more possibilities than it can close, and the crowd of maybes drowns out the one thing already known."
+sheetLine: "The knowing is there; too many unspoken versions are burying it."
+LINT: core 65w > 60
 
 **Author C:**
-core: "Plurality generates multiple frames for a single fact. In Wisdom, it operates on the deep store itself: the knowing that holds one truth now splits into many readings. Unacknowledged, the multiplying happens without notice — the keeper does not see that what was singular has fractured into parallel versions, each equally present, none named as divergence. The multiplicity operates in silence."
-sheetLine: "The one knowing has already divided; the keeper tends a store that holds many answers at once."
-LINT: core 61w > 60; core: status-word "Unacknowledged"
+core: "Plurality holds many threads at once — different angles, contradictions, separate truths running side by side. In Wisdom, it works on what is known but not yet spoken: the deep pattern that stays silent because naming it would collapse the threads. Unacknowledged, the threads tangle into noise — many voices rising without a listener, each one fighting to be the one that matters, until the pattern underneath goes dark."
+sheetLine: "Many things known, nothing admitted; the listening has stopped."
+LINT: core 69w > 60; core: status-word "Unacknowledged"
 
 **WINNER: ____**
 
@@ -285,19 +279,19 @@ LINT: core 61w > 60; core: status-word "Unacknowledged"
 *torture class: Ambassador in parent territory*
 
 **Author A:**
-core: "Steward of Resonance holds the field's emotional current and returns it as a state others can feel and enter. In Compassion, it operates on the bond itself: attunement becomes the medium two beings share. Too Little, the current is held but not returned, so the bond runs on one signal and the other side reaches an attunement that never reflects back."
-sheetLine: "The feeling is received but not sent back; the bond carries only one current."
-LINT: core 61w > 60; core: status-word "Too Little"
+core: "The Steward of Resonance keeps a room's feelings tended — reading the mood, warming what has gone cold, holding others steady without being asked. In Compassion, that tending falls on the pull between people, the tie that draws one toward another. Held back, the tie goes unread: warmth that should have met the other stays inside, and closeness starves for the tending that never reaches it."
+sheetLine: "The feeling was there but never carried across; the closeness went untended and thinned."
+LINT: core 66w > 60; core: register "reading"
 
 **Author B:**
-core: "Steward of Resonance attends to what moves between beings — receives, holds, reflects back what is offered. In Compassion, this tending operates on the choice-point where one presence meets another. Too Little, the steward withdraws from the threshold: the capacity to receive and return is present but unused, so connection remains asymmetrical — offered things go unacknowledged, and the resonance that would equalize two positions never activates."
-sheetLine: "The mirror is ready; the steward has turned to face the wall."
-LINT: core 67w > 60; core: status-word "Too Little"
+core: "Steward of Resonance tends what is felt between beings — keeps it alive, recognizes it, lets it move. In Compassion, that tending works on the bond itself, the place where feeling reaches across and is met. Too little, the Steward withdraws or grows sparse: the felt connection goes unwitnessed, and what could have deepened stays small and uncertain. The resonance dies for lack of someone staying present to it."
+sheetLine: "The felt thing withers when no one stays to tend it."
+LINT: core 69w > 60; core: status-word "Too little"
 
 **Author C:**
-core: "Steward of Resonance receives and holds emotional signal — sustaining attunement between inner state and what surrounds it. In Compassion, the position demands that resonance extend outward: the archetype is the structural hinge where self-recognition becomes the basis for recognizing another. Too Little, the receiving faculty operates without extending — attunement terminates at the self's edge, and Compassion's hinge finds nothing to turn on. The bond-forming mechanism stalls at its own threshold."
-sheetLine: "The capacity to feel is present; the reach toward another has not yet opened."
-LINT: core 72w > 60; core: status-word "Too Little"
+core: "Steward of Resonance reads what others feel and tends it — holding the emotional weight of a room the way water holds its shape to whatever contains it. In Compassion, that reading works on the bond itself: the felt sense of being met by another. Starved of it, the connection goes unwitnessed. Both parties speak into air that does not register them, and the bond thins from the outside in."
+sheetLine: "The feeling between them is real; no one is holding it."
+LINT: core 70w > 60; core: register "reading"
 
 **WINNER: ____**
 
@@ -305,19 +299,19 @@ LINT: core 72w > 60; core: status-word "Too Little"
 *torture class: Ambassador foreign, Balanced*
 
 **Author A:**
-core: "Steward of Resonance receives and holds felt states, translating their signal into relational information. In Abstraction, that reception operates on structured thought: the signature runs emotional frequency through cognitive architecture, producing concepts that carry affective charge as part of their meaning. Balanced, reception and translation sustain each other — felt signal sharpens the concept; the concept gives the signal a form that travels."
-sheetLine: "Feeling and thinking run as one process; each one clarifies what the other carries."
-LINT: core 63w > 60; core: status-word "Balanced"
+core: "Steward of Resonance reads the feeling underneath — not the stated version, but the live one humming below words. In Abstraction, that reading lands on thought itself: the framework a mind has built to make sense of things. Balanced, the feeling finds the hidden load a concept carries — the grief or hunger baked into an idea before it became a principle — and the framework adjusts to what it actually holds."
+sheetLine: "The feeling beneath the theory names what the theory was built to carry."
+LINT: core 72w > 60; core: register "reading"; core: status-word "Balanced"
 
 **Author B:**
-core: "The Steward of Resonance holds feeling steady and reads what the field emits, taking accurate emotional measure without absorbing it. In Abstraction, it operates on a formed conceptual frame: resonance meets a structure built to model rather than to feel. Balanced, the Steward keeps the frame answerable to what the field actually carries, so the abstraction stays fed by live signal instead of drifting into self-consistent model."
-sheetLine: "Steady feeling reads the room and keeps the built idea honest to what is actually present."
+core: "Steward of Resonance senses what a room is actually feeling and tends to it. In Abstraction, that tending works on the ideas a mind builds to explain the feeling — the stories, the labels, the reasons. Balanced, the felt thing stays in the room while the idea gets built: the map keeps checking back against the water it maps. What is named still matches what is felt."
+sheetLine: "The name is built from the feeling and keeps checking back against it."
 LINT: core 67w > 60; core: status-word "Balanced"
 
 **Author C:**
-core: "Steward of Resonance attends to what moves through feeling — sensing currents, adjusting presence so emotion circulates rather than pools. In Abstraction, it operates on thought-patterns held as fixed: concepts the mind treats as separate, sealed. Balanced, the steward lets feeling circulate through the abstracted categories themselves — the concepts remain distinct yet permeable, alive to what they exclude. Thought opens without dissolving."
-sheetLine: "The sealed idea admits what it had locked out; the pattern stays sharp and begins to breathe."
-LINT: core 63w > 60; core: status-word "Balanced"
+core: "Steward of Resonance attends to what moves between beings — feeling that travels, connection that holds steady. In Abstraction, it works on the ideas people grip hard, the fixed thoughts they won't set down. Balanced, the steward lets those tight concepts stay held while opening small channels through them — the thought stays put, but what it touches begins to move. The cage of belief stays, and the air flows through."
+sheetLine: "The cage of belief stays; the air flows through it."
+LINT: core 71w > 60; core: status-word "Balanced"
 
 **WINNER: ____**
 
@@ -325,19 +319,19 @@ LINT: core 63w > 60; core: status-word "Balanced"
 *torture class: portal transient in ordinary seat*
 
 **Author A:**
-core: "Source turns the field of possibility — the ingress through which conditions renew. In Discipline, it operates on the structured practice of sustained, solitary attention. Unacknowledged, the arrival of new conditions passes through that practice without registering, so the discipline continues organizing cognition around a field that has already rotated. The method holds; the ground it stands on has shifted."
-sheetLine: "The field has already turned; the practice still maps the previous terrain."
-LINT: core: status-word "Unacknowledged"
+core: "Source is the turn of turns — the moment when conditions shift and a new thread becomes available. In Discipline, it works on the long, quiet practice: the steady showing-up, the returning to the same work alone. Unaddressed, the opening arrives and goes unnoticed — not refused, simply unseen. The practice keeps its head down and misses the door it was walking toward."
+sheetLine: "The door opened inside the work; the work kept walking and did not look up."
+LINT: core 63w > 60
 
 **Author B:**
-core: "Source brings what is not yet formed across the threshold into Discipline's cognition. Unacknowledged, the incoming arrives without recognition of its entry — the mind receives new material but does not register the crossing, so integration stalls. What enters remains foreign; the receiving apparatus treats arrival as already-present rather than as threshold-event."
-sheetLine: "The door opens; the threshold keeper does not see it swing."
+core: "Source brings raw material across the threshold into form. In Discipline, it feeds what the lantern-lit tending requires — fuel for the solitary work of paying attention. Unacknowledged, the source stays invisible: the work appears self-generated, the clarity seems earned by discipline alone. The tender forgets what was given and claims only what was chosen."
+sheetLine: "The work looks self-made when the gift that started it stays unnamed."
 LINT: core: status-word "Unacknowledged"
 
 **Author C:**
-core: "Source admits what has not yet entered — the threshold through which the unformed arrives into a domain. In Discipline, it opens onto the withdrawn practice: the tended, deliberate work receives its next incoming term. Unacknowledged, the intake runs unregistered, so what arrives is folded into the standing method as if already native, and the practice tightens around material it never examined as new."
-sheetLine: "Something entered the work unnoticed; the method now guards it as if it had always been there."
-LINT: core 64w > 60; core: status-word "Unacknowledged"
+core: "Source is the turn that brings the next thing in — the moment where what was outside arrives and the situation shifts on its own. In Discipline, it feeds arrivals into a steady solitary practice, the tending done alone and by hand. Unregistered, the incoming turn keeps working while the practice acts as if nothing new has come — fresh material lands and the same routine runs over it, so what arrived is handled without being taken in."
+sheetLine: "Something new keeps arriving, and the quiet practice runs on as though it hadn't."
+LINT: core 78w > 60
 
 **WINNER: ____**
 
@@ -345,19 +339,19 @@ LINT: core 64w > 60; core: status-word "Unacknowledged"
 *torture class: egress portal in nonportal seat*
 
 **Author A:**
-core: "Creation completes — it is the signature that closes a cycle and releases form into the world as finished. In Wisdom, it operates on the faculty that holds, withholds, and deepens: the seat where knowing accumulates before it moves. With force exceeding that seat's capacity, completion presses against accumulation before depth has formed — each insight is sealed and released before it has differentiated, and Wisdom's function of patient interior discrimination collapses into a throughput that produces closure without ground."
-sheetLine: "The door keeps opening before the room has held anything worth carrying out."
-LINT: core 80w > 60
+core: "Creation is the threshold where everything that has been worked through finally takes form — the last gate, the point of release into the world. In Wisdom, it works on what is held deep and still: the slow knowing that stays quiet, sits with uncertainty, and does not rush to conclude. Overdone, the gate keeps opening before the knowing has finished forming — completed things pour out before they are ready, and the pressure to finalize empties the well that the finishing was supposed to draw from."
+sheetLine: "The gate keeps opening before the water has gathered; the well runs dry mid-pour."
+LINT: core 87w > 60
 
 **Author B:**
-core: "Creation seals and releases what has been formed. In Wisdom, it operates on the held knowing: the deep store that has gathered and settled. Too Much, the seal cannot open — what has completed its gathering remains locked in recognition, and the threshold between inner knowing and outer circulation jams. The formed thing cannot become the known thing."
-sheetLine: "The world is finished; the priestess cannot speak it into air."
-LINT: core: status-word "Too Much"
+core: "Creation completes a cycle and moves what is finished outward — the thing leaves the maker's hands. In Wisdom, it works on the held knowing itself: what deep understanding has kept sealed now pours out into the world. Overdone, the knowing cannot stay private long enough to deepen — every insight moves to speech before it settles, and the sharing replaces the knowing. The understanding scatters before it grounds."
+sheetLine: "The insight leaves before it lands; knowing has turned into announcement."
+LINT: core 69w > 60
 
 **Author C:**
-core: "Creation completes and releases what has finished forming, passing the sealed whole across the threshold into the world. In Wisdom, the egress opens onto held inner knowing — insight ready to leave the interior. Too Much, the release fires ahead of the seed's forming, so knowing is delivered before it has cohered, and half-set understanding exits as if whole."
-sheetLine: "The gate opens too early; the knowing leaves before it has set."
-LINT: core: status-word "Too Much"
+core: "Creation is the finish that lets something leave complete — the moment a made thing crosses out into the world done. In Wisdom, it works on inner knowing: understanding is brought to a close and sent out as finished. Overdone, the closing comes early — a knowing gets sealed and released before it has ripened, and the sending-out replaces the deepening."
+sheetLine: "The knowing was shipped as done before it finished growing."
+LINT: core 61w > 60
 
 **WINNER: ____**
 
@@ -365,19 +359,19 @@ LINT: core: status-word "Too Much"
 *torture class: ordinary signature in ingress seat*
 
 **Author A:**
-core: "Reciprocity moves value between parties by returning what has been received. At Source — the ingress threshold where what enters the system is determined — it operates on the terms of entry itself: what arrives does so already in exchange, not as raw intake awaiting distribution. Balanced, the giving and the receiving hold equal tension across the threshold, and the portal stays open by the traffic that crosses it."
-sheetLine: "What comes in already carries what goes out; the threshold holds because both directions move."
-LINT: core 69w > 60; core: status-word "Balanced"
+core: "Reciprocity moves what has been given back into motion — the received thing circulates rather than settles. In Source, it works at the threshold where what comes in first enters: the giving meets the arriving, and each new thing is met with something already held out. Balanced, the exchange neither hoards the incoming nor spends the reserve — what flows in finds something flowing to meet it, and the threshold stays open."
+sheetLine: "What arrives is met by something already offered; the door stays clear."
+LINT: core 72w > 60; core: status-word "Balanced"
 
 **Author B:**
-core: "Reciprocity converts holding into exchange: what one being keeps returns to circulation between beings. At Source, it operates on the threshold where the sequence takes its first supply — the intake gate itself. Balanced, it meets each arrival with an answering release, so nothing enters as pure taking and the ingress stays a two-way current feeding what follows."
-sheetLine: "What comes in is answered by what goes out; the gate flows both ways."
-LINT: core: status-word "Balanced"
+core: "Reciprocity gives and receives in the same motion — what comes in gets passed on, what goes out comes back, nothing held long. At Source, the very first thing entering does its trading right at the threshold: whatever arrives is already met with a return. Balanced, the exchange starts clean — nothing hoards at the door, and every incoming thing enters already owing and owed, so the flow downstream begins even before it fully arrives."
+sheetLine: "What arrives is met with a return at the door; nothing enters as a debt or a gift alone."
+LINT: core 75w > 60; sheet 19w > 18; core: status-word "Balanced"
 
 **Author C:**
-core: "Reciprocity at Source opens the sealed store — what has accumulated in deep knowing moves outward as gift. In Balanced state, the operator conducts circulation without depletion: giving and receiving remain simultaneous, each act restoring what flows. The threshold admits what was held and releases it into exchange, feeding the system that feeds it back."
-sheetLine: "The kept thing enters the world and returns, proving worth by moving."
-LINT: core: status-word "Balanced"
+core: "Reciprocity gives what it receives and receives what it gives — the flow moves both directions at once. At Source, where all beginnings arrive, Reciprocity meets what comes in and turns it back out without holding or choosing. Balanced, the intake and the outflow stay equal; nothing pools, nothing runs dry. What enters finds its way through and out again, and the channel stays open for the next arrival."
+sheetLine: "What arrives goes through; the opening stays open."
+LINT: core 69w > 60; core: status-word "Balanced"
 
 **WINNER: ____**
 
@@ -385,19 +379,19 @@ LINT: core: status-word "Balanced"
 *torture class: operator in egress portal*
 
 **Author A:**
-core: "Breakthrough ruptures structures that have reached the limit of their load-bearing capacity, releasing what they enclosed. In Creation — the egress threshold where process exits into form — it operates on the interface itself: the point at which accumulated structure converts into something transmissible. Unacknowledged, the rupture proceeds without the system registering the conversion as complete, so structural pressure continues to build at a threshold that has already discharged its contents. The exit has fired; the architecture still braces for impact."
-sheetLine: "The structure already broke open; the system has not registered what passed through."
-LINT: core 81w > 60; core: status-word "Unacknowledged"
+core: "Breakthrough removes structures that have stopped holding. In Creation — the threshold where something finishes becoming and exits — it works on the final form itself: whatever shape the thing takes as it leaves. Unaddressed, the old frame ships out intact, mistaken for the finished thing. The exit carries the shell instead of what the shell was supposed to protect, and what arrives on the other side is the container, not the contents."
+sheetLine: "The finished thing left wearing its old frame; the container arrived, not the contents."
+LINT: core 73w > 60
 
 **Author B:**
-core: "Breakthrough shatters the structure that contains understanding. At Creation, it operates on the final enclosure—the boundary between inner knowledge and outer world. Unacknowledged, the shattering proceeds without recognition that a threshold has opened; the structure falls away while the operator remains fixed on what the structure was, not on the passage now available through it."
-sheetLine: "The wall has already cracked open; the mind still faces the rubble."
-LINT: core: status-word "Unacknowledged"
+core: "Breakthrough shatters what no longer works — walls crack, plans collapse, old shapes fall apart. At Creation, the threshold where what was made finally leaves the maker's hands, this breaking happens to the structure of leaving itself: the finished thing does not know it is finished until something breaks the hold. Unacknowledged, the breaking goes unnamed — the maker feels collapse but calls it release, sees destruction but names it completion, and the work walks out the door while the one who made it is still calling it their own."
+sheetLine: "The made thing leaves while the maker still holds the name of what was made."
+LINT: core 90w > 60; core: status-word "Unacknowledged"
 
 **Author C:**
-core: "Breakthrough ruptures the structure that can no longer hold its load. At Creation, the egress threshold, it operates on what is crossing out into finished form: the rupture breaks the containing frame at the point of release. Unacknowledged, the break registers as loss of the frame rather than passage through it, so the collapse is guarded against instead of let through. The exit is read as damage."
-sheetLine: "The frame is breaking so the thing can leave; the break is the door, not the wound."
-LINT: core 67w > 60; core: status-word "Unacknowledged"
+core: "Breakthrough removes a structure that no longer holds. At Creation, the point where finished things pass out into the world, its work is the last clearing before something is released — the break that lets the built thing leave clean. Unacknowledged, the breaking still happens but goes uncredited: the thing goes out carrying a crack no one named, and the flaw ships with it."
+sheetLine: "The break did its work unseen; what left the door still carries the unnamed crack."
+LINT: core 64w > 60; core: status-word "Unacknowledged"
 
 **WINNER: ____**
 
@@ -405,18 +399,19 @@ LINT: core 67w > 60; core: status-word "Unacknowledged"
 *torture class: kinetic trap: velocity in stillness*
 
 **Author A:**
-core: "Drive propels: it converts intent into directed force. In Discipline, it operates on the maintained practice — the body's learned structure of steady, incremental effort. The excess turns propulsion against the structure itself: force exceeds the rhythm Discipline requires to consolidate, so each gain is overridden before it can set. The practice accumulates pressure without accumulating ground."
-sheetLine: "The engine runs past the point where running was still building anything."
+core: "Drive pushes forward by converting feeling into motion — wanting something badly enough makes the body move. In Discipline, it works on the slow, solitary practice: the part that shows up again tomorrow, alone, without applause. Overdone, the push crowds out the practice. Every repetition gets treated as a sprint, the body runs hot, and the daily showing-up breaks down under the force of its own urgency."
+sheetLine: "The push came so hard it broke the habit that was supposed to carry it."
+LINT: core 67w > 60
 
 **Author B:**
-core: "Drive gathers scattered motion into a single vector and pushes toward a chosen end. In Discipline, it commands the solitary practice, forcing the tending into one line of advance. Too Much, the push overrides the practice's own pace — momentum drives past the point where the tending yields, and forward motion strips the ground it moves across."
-sheetLine: "The push has outrun the practice; forward motion now wears down what it drives across."
-LINT: core: status-word "Too Much"
+core: "Drive pushes forward — one direction chosen, everything else set aside, momentum carrying the whole body toward it. In Discipline, that push lands on the slow solitary work of tending one thing until it holds. Overdone, the pace outruns the tending: the practice gets driven faster than it can settle, and the forward motion strips the patience the work was built on. What needed sitting-with gets shoved ahead."
+sheetLine: "The steady work is being driven faster than it can hold."
+LINT: core 68w > 60
 
 **Author C:**
-core: "Drive propels toward the goal—muscular intent reaching forward. In Discipline, it operates on sustained cognition: the mind holding course through practice. Too Much, the propulsion overrides the practice's own rhythm; velocity becomes the measure instead of precision. The driver accelerates past the pace the path requires, and attention fractures between arrival and the ground beneath."
-sheetLine: "The engine runs faster than the route can hold."
-LINT: core: status-word "Too Much"
+core: "Drive pushes forward by force of will — the engine that moves things despite resistance. In Discipline, it works on the practice itself: the solitary tending turns into relentless grinding. Overdone, the forward momentum becomes the only thing that matters — the lantern dims, the deliberate steps blur into frantic motion, and the practice that was meant to teach becomes a furnace that consumes what it was built to protect. The seeker stops learning and only keeps running."
+sheetLine: "The lantern went out; only the running matters now."
+LINT: core 78w > 60
 
 **WINNER: ____**
 
@@ -424,19 +419,19 @@ LINT: core: status-word "Too Much"
 *torture class: awareness unaware of itself*
 
 **Author A:**
-core: "Recognition names what a thing has become and calls it by that name, closing the gap between accumulated evidence and the standing account. Seated in its own position, the naming turns on itself: the faculty that renders verdicts is the material now under verdict. Unacknowledged, the recursive appraisal runs without registering, so an outdated self-account keeps issuing judgments while the correction it already contains stays unread. The ledger updates itself and files the update where nothing consults it."
-sheetLine: "The verdict on the verdict is in, and it sits unopened."
-LINT: core 78w > 60; core: status-word "Unacknowledged"
+core: "Recognition names what something already is — it reads the pattern and says it out loud, so the thing can finally be seen as itself. Seated in its own position, what gets named is the naming: the moment of seeing-clearly turns to see itself. Left unspoken, the recognition still happens inside, but nothing marks it — the knowing arrives and no one calls it, so the same thing keeps needing to be recognized again."
+sheetLine: "The seeing lands but goes unsaid, so it never gets to count."
+LINT: core 74w > 60
 
 **Author B:**
-core: "Recognition names what has been operating beneath notice. Seated in Gestalt, it perceives the pattern that organizes all parts — the shape the whole system has already taken. Unacknowledged, the pattern continues to structure action while remaining unnamed, so the organism responds to its own architecture without registering what it obeys."
-sheetLine: "The form is already there; the eye has not yet turned to see it."
-LINT: core: status-word "Unacknowledged"
+core: "Recognition names what has been happening all along — the pattern, the cost, the thing already true. Seated in its own position, what gets named is the naming itself: the habit of not-seeing becomes visible. Unacknowledged, the pattern stays nameless. The thing keeps working because no one has said it aloud. Saying it changes nothing immediately — but what was invisible now has a shape, and what has a shape can be met."
+sheetLine: "The pattern was always there; naming it does not stop it, but stops the hiding."
+LINT: core 73w > 60; core: status-word "Unacknowledged"
 
 **Author C:**
-core: "Recognition reads signals and returns verdict: what has matured is named mature, what has closed is named closed, and the system updates its operating state accordingly. Seated in its own position, the faculty applies to itself — Recognition must assess whether its own assessments are landing. Unacknowledged, verdicts issue without registering as verdicts; the feedback loop completes structurally but the system carries no record that it has just been read. Closure accumulates without the closed thing knowing itself closed."
-sheetLine: "The verdict was delivered; nothing recorded that a verdict was given."
-LINT: core 79w > 60; core: status-word "Unacknowledged"
+core: "Recognition names what is actually present — surfaces the pattern that was already there, waiting to be called. Seated in its own position, what it turns toward is the naming itself: the act of seeing-and-saying is now the thing being seen. Unaddressed, the signal circles without landing — the pattern is present, the naming keeps almost happening, and nothing gets confirmed enough to act on."
+sheetLine: "The signal keeps almost landing; the pattern is there but nothing has been named yet."
+LINT: core 65w > 60
 
 **WINNER: ____**
 
@@ -444,19 +439,18 @@ LINT: core 79w > 60; core: status-word "Unacknowledged"
 *torture class: martyrdom coordinate*
 
 **Author A:**
-core: "Compassion attunes to another's state and moves toward it — meeting, matching, dissolving separation through resonance. In Faith, this operates on the body's commitment: the willingness to remain suspended in uncertainty. Too Much, the attunement becomes total — the boundary between self and other dissolves, and the operator absorbs what was meant only to be witnessed. Compassion replaces Faith's necessary solitude with merger."
-sheetLine: "The witness becomes the wound; the held position floods with another's weight."
-LINT: core 63w > 60; core: status-word "Too Much"
+core: "Compassion feels what another feels and moves toward them. In Faith, it works on the held commitment — the part that stays put inside not-knowing, waiting without answers and not running. Overdone, the feeling floods the waiting: someone else's weight pours into the space the holding needed, and carrying them replaces holding the ground. The vigil turns into a rescue."
+sheetLine: "Someone else's weight filled the waiting; the vigil has turned into a rescue."
 
 **Author B:**
-core: "Compassion orients toward the condition of another and generates response from that resonance. In Faith, it operates on the body's held commitment — the structure that suspends forward motion in order to receive. The imbalance floods that suspension: resonance overwhelms the intent that Faith requires to hold its position, and the body's capacity for directed waiting dissolves into undifferentiated absorption. The committed pause becomes ambient merger."
-sheetLine: "The open heart has taken on so much feeling that the held ground is gone."
-LINT: core 66w > 60
+core: "Compassion feels what another feels and moves toward them. In Faith, it works on the part that stays put — the body's quiet act of holding still inside uncertainty, waiting without answers, not fleeing. Overdone, the feeling outweighs the holding: every pull toward another's pain breaks the stillness that was doing the actual work, and the body never gets to wait long enough to know what it knows."
+sheetLine: "The pull toward every hurt kept the body from ever standing still long enough to find its ground."
+LINT: core 68w > 60
 
 **Author C:**
-core: "Compassion joins across separation, matching its state to another's. In Faith, it operates on the suspended stance: a hold that stays open without resolving. Too Much, the joining floods the suspension — every held position is met and merged before it completes its work, so the stance can no longer bear weight alone. The hold dissolves into the meeting."
-sheetLine: "The waiting is being filled from outside before it finishes its own work."
-LINT: core: status-word "Too Much"
+core: "Compassion feels what another feels and moves toward them. In Faith, it works on the body holding still inside not-knowing — the part that stays hung, waiting without moving, trusting the wait itself. Overdone, the feeling breaks the stillness: another's need pulls the held body out of position, and reaching toward them undoes the very hanging that was doing the work."
+sheetLine: "The reaching pulled the still body loose; nothing is left holding the wait."
+LINT: core 61w > 60
 
 **WINNER: ____**
 
@@ -464,18 +458,18 @@ LINT: core: status-word "Too Much"
 *torture class: double self-seat portal Balanced*
 
 **Author A:**
-core: "Potential is the condition of being uncommitted to any particular actualization — all downstream configurations remain structurally available. Seated in its own position, Potential operates on its own openness: the unactualized state applies itself to itself. Balanced, this recursive application does not collapse into paralysis or discharge prematurely — it holds the full range available while feeding every adjacent process with genuine optionality."
-sheetLine: "Nothing is spent yet; every path stays structurally open and real."
-LINT: core 63w > 60; core: status-word "Balanced"
+core: "Potential holds everything that has not yet become anything — every direction still available, no shape yet chosen. Seated in its own position, that openness opens onto itself: the capacity to begin is what is beginning. Balanced, nothing forecloses prematurely and nothing stalls in permanent readiness. The start is genuinely ready to start, and what moves next will be moved by Potential doing exactly what Potential does."
+sheetLine: "Nothing has closed off yet; the beginning is actually beginning."
+LINT: core 67w > 60; core: status-word "Balanced"
 
 **Author B:**
-core: "Potential initiates by holding no fixed form—the operator that opens entry to what has not yet declared itself. Seated in its own position, the signature becomes the threshold itself: the faculty of beginning is what begins, and the unformed state operates on the unformed state. This recursive opening feeds forward—each nascent condition carries the capacity to generate the next, so initiation itself becomes generative."
-sheetLine: "The threshold opens onto itself; the beginning breeds beginning."
-LINT: core 64w > 60
+core: "Potential moves toward what hasn't happened yet — it enters the space before a first step, before a choice is made, before the shape is known. Seated in its own position, Potential operates on possibility itself: what can happen becomes more alive, more ready to be chosen. Balanced, nothing settles into only one path. The field of what's possible stays open and true — each direction remains real, and Potential stays free to move again when a new threshold appears."
+sheetLine: "The field stays open; every direction remains possible and real."
+LINT: core 80w > 60; core: status-word "Balanced"
 
 **Author C:**
-core: "Potential holds the unformed as live option, committing to no single shape while every shape stays reachable. Seated in its own position, the opening operates on itself: the capacity to begin is what remains open. Balanced, it keeps the field uncommitted without stalling, so each downstream faculty inherits full range before the first move narrows it."
-sheetLine: "Nothing is chosen yet, and that unchosen state is exactly what keeps every door reachable."
+core: "Potential is the open start — the not-yet, before anything has been chosen. In its own position, that openness works on itself: the readiness to begin stays ready, unspent, not yet narrowed into one path. Balanced, the beginning stays a true beginning — nothing forces the first step early, and every direction remains live until one is actually taken."
+sheetLine: "The start stays open; no door is shut before a foot has moved."
 LINT: core: status-word "Balanced"
 
 **WINNER: ____**
@@ -484,19 +478,19 @@ LINT: core: status-word "Balanced"
 *torture class: two endings differentiate, grief-adjacent*
 
 **Author A:**
-core: "Change ends what has completed. In Faith, it operates on the willed suspension that holds a stance in place: the ending that would release the held position and let the reversal resolve. Too Little, the ending barely reaches the suspension, so the stance stays hung past the point its holding yields anything. The structure carries a fixed posture the process no longer feeds."
-sheetLine: "The hold has stopped paying; the posture stays fixed while the release never lands."
-LINT: core 63w > 60; core: status-word "Too Little"
+core: "Change ends what has finished so the next form can start. In Faith, it works on the held position — the thing kept in place through not-knowing, waited out rather than forced. Starved, the ending never lands: what has already died stays propped up inside the waiting, and the holding curdles into keeping a corpse warm. Nothing new gets its turn."
+sheetLine: "The waiting has outlasted its reason; something finished is still being held in place."
+LINT: core 61w > 60
 
 **Author B:**
-core: "Change ends what has completed. In Faith, it operates on the suspended commitment — a holding that waits for direction. Too Little, the ending barely registers; the structure persists in suspension without the signal that release has occurred. The body remains oriented toward a condition no longer generating the intent it was meant to receive."
-sheetLine: "The pause extends past its season; the waiting has forgotten what it waits for."
-LINT: core: status-word "Too Little"
+core: "Change ends what has finished and makes room for what comes next. In Faith, it works on the held waiting — the commitment that stays put even when nothing shifts. Too little, the old form keeps standing: what completed still takes up space, and the waiting hardens into a vigil that guards a corpse. Nothing new has room to arrive."
+sheetLine: "The finished thing still stands; the vigil guards what is already gone."
+LINT: core: status-word "Too little"
 
 **Author C:**
-core: "Change ends what has completed. In Faith, it operates on the orientation that holds the system open to what has not yet arrived — the suspended position that keeps incoming signal readable. Too Little, the ending does not reach that position: completion accumulates without clearing, and Faith's receptive orientation loads with residue from closed cycles. The system waits forward while carrying backward."
-sheetLine: "Old closures stack where the next signal needs room to land."
-LINT: core 62w > 60; core: status-word "Too Little"
+core: "Change ends what has run its course — it closes the door on what is finished so something else can begin. In Faith, it works on the part that holds steady inside uncertainty: the willingness to stay suspended, to wait without proof. Too little, and that door never closes. Old forms stay in place past their usefulness, and the waiting fills with what should already be gone. There is no room to hold the open question because the last answer is still sitting in the chair."
+sheetLine: "The old thing never left; there is no empty seat for what comes next."
+LINT: core 86w > 60; core: register "question"; core: status-word "Too little"
 
 **WINNER: ____**
 
@@ -504,19 +498,19 @@ LINT: core 62w > 60; core: status-word "Too Little"
 *torture class: kin pair, bound in archetype seat*
 
 **Author A:**
-core: "Alignment sets parts into one bearing, so force moves as a single direction. In Drive, it fixes the heading that motion already commits to. Too Much, every part is locked to one axis before motion tests it, so drive can only push the fixed bearing forward and loses the steering that redirects a committed course."
-sheetLine: "The heading is set too hard; the motion can push but no longer turn."
-LINT: core: status-word "Too Much"
+core: "Alignment gets the parts pulling the same way, so effort moves as one push instead of scattering. In Drive, it sets the direction the whole force drives toward. Overdone, everything is locked into agreement before it starts — the smallest pull is dressed up as one big march, and nothing is allowed to head anywhere the alignment did not already approve."
+sheetLine: "Every move is made to agree first; nothing gets to point a new way."
+LINT: core 61w > 60
 
 **Author B:**
-core: "Alignment orders impulse toward a target — the operator that matches direction with force. In Drive, it operates on the will-in-motion: a momentum seeking its course. Too Much, alignment becomes constant correction — the operator re-aims at every moment, so the will never settles into its trajectory. The target is rebuilt faster than the movement can reach it."
-sheetLine: "The compass spins; the chariot still turns, never straightens."
-LINT: core: status-word "Too Much"
+core: "Alignment keeps things moving in the same direction — body, want, action all pointing the same way. Seated in Drive, that pointing turns back on the motion itself: the habit of steering becomes what is being steered. Overdone, nothing is allowed to drift or pause — every small misalignment gets corrected before it settles, and the correcting becomes louder than the going. The journey turns into the act of staying on course."
+sheetLine: "The steering has become the only thing moving; the destination dissolved in the corrections."
+LINT: core 72w > 60
 
 **Author C:**
-core: "Alignment orients emotional output toward a coherent direction — it resolves competing vectors into a single bearing so that force moves rather than cancels. In Drive, it operates on the faculty of directed will itself: the seat that concentrates and propels. Excess here locks orientation so completely that Drive cannot respond to new conditions; the bearing holds while the terrain shifts under it, and propulsion continues along an axis that no longer leads anywhere."
-sheetLine: "The direction is fixed; the engine runs hard toward a target that has already moved."
-LINT: core 74w > 60
+core: "Alignment locks moving parts into a single direction so force stops scattering. In Drive, it works on the will that pushes forward — the part that holds a course when everything pulls sideways. Overdone, the locking becomes the whole job: every impulse gets straightened before it can move, and the correcting stalls the driving. The vehicle idles while someone adjusts the wheel."
+sheetLine: "Every impulse gets straightened before it moves; the correcting has replaced the going."
+LINT: core 62w > 60
 
 **WINNER: ____**
 
@@ -524,15 +518,16 @@ LINT: core 74w > 60
 *torture class: severing cure in binding seat*
 
 **Author A:**
-asMedicine: "Discernment releases the grip of accumulated distinction — the sorting that has calcified into separation. In Compassion, the medicine is permeability: precise reading of difference softens at the boundary where contact is possible, and what cognition had divided, resonance now holds together."
-LINT: medicine 42w > 40; register "reading"
+asMedicine: "Discernment cuts cleanly between what belongs and what only feels like it belongs. In Compassion, the medicine is this: the feeling that rushes in to merge with everything gets a edge drawn around it — not to stop the feeling, but so what is genuinely shared can be told apart from what is merely absorbed."
+LINT: medicine 55w > 40
 
 **Author B:**
-asMedicine: "Discernment separates the joined into its distinct parts, marking where one thing ends and another begins. In Compassion, the medicine is clean division within union: the merged field regains its seams, so bonding holds two intact things rather than one dissolved blur."
-LINT: medicine 42w > 40
+asMedicine: "Discernment sorts what is worth keeping from what is not, cutting the tie that drains without returning anything. Arriving in Compassion, the medicine restores the line between feeling-with and being-pulled-under: closeness stays close, but the part that gives itself away is let go."
+LINT: medicine 43w > 40
 
 **Author C:**
-asMedicine: "Discernment opens the knotted seeing and lets clarity move toward connection. In Compassion, the medicine is the sharp eye that recognizes — what has been sorted into separate proves its kinship by being held whole. The cut perceives what joins."
+asMedicine: "Discernment cuts through what feeling has tangled and restores the seeing underneath. In Compassion, the medicine is clarity: the heart stops mistaking its own weight for another's, and the two emerge as separate and knowable. What was stuck in merged feeling becomes distinct—each person visible, each choice real."
+LINT: medicine 48w > 40
 
 **WINNER: ____**
 
@@ -540,15 +535,14 @@ asMedicine: "Discernment opens the knotted seeing and lets clarity move toward c
 *torture class: ending prescribed in tending seat*
 
 **Author A:**
-asMedicine: "Change dissolves what has finished and clears the channel that Nurturing moves through. In Nurturing, the medicine is release: where sustaining has continued past completion, the structure that was feeding now opens — and what was held in maintenance becomes available as nourishment again."
-LINT: medicine 44w > 40
+asMedicine: "Change releases what has run its course — clears the finished so something living can move in. In Nurturing, the medicine is permission: what has been faithfully tended is allowed to complete, and the tending itself opens to receive what comes next."
+LINT: medicine 42w > 40
 
 **Author B:**
-asMedicine: "Change ends what has completed and clears the ground for what follows. In Nurturing, the medicine is release into growth: the tending that held a form now lets it close, so care feeds the next form instead of preserving the spent one."
-LINT: medicine 42w > 40
+asMedicine: "Change ends what has finished so the next form can begin. In Nurturing, the medicine reaches the tending that keeps a thing growing: it lets the caretaker set down what has already ripened, so the feeding goes to what is still coming up, not to what is done."
+LINT: medicine 48w > 40
 
 **Author C:**
-asMedicine: "Change opens what has completed and releases it to become soil for what grows next. In Nurturing, the medicine is composting: the finished form surrenders its substance — held patterns, spent structures — and feeds the ground where new tending takes root."
-LINT: medicine 42w > 40
+asMedicine: "Change opens what has ripened and lets the spent form feed the next growing. In Nurturing, the medicine is completion: what has finished its work becomes soil. The earth receives, transforms, and what fell away rises again in new growth."
 
 **WINNER: ____**
