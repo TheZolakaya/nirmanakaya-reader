@@ -1110,7 +1110,7 @@ const ARCHETYPES = {
     1: { name: 'Will', trad: 'The Magician', channel: null, desc: 'The capacity to direct attention and energy toward chosen ends. Not force but focused intention — the ability to say "this, not that" and mean it.' },
     2: { name: 'Wisdom', trad: 'The High Priestess', channel: 'Cognition', desc: "Deep knowing that precedes analysis. The capacity to recognize what matters before understanding why. Wisdom isn't accumulated knowledge — it's seeing through to essence." },
     3: { name: 'Nurturing', trad: 'The Empress', channel: 'Structure', desc: 'Tending what needs to develop. Creating conditions for growth without forcing outcomes. The patient attention that allows emergence.' },
-    4: { name: 'Order', trad: 'The Emperor', channel: 'Intent', desc: 'The impulse to organize chaos into workable form. Not rigid control but functional architecture — creating containers that allow complexity to be navigated.' },
+    4: { name: 'Authority', trad: 'The Emperor', channel: 'Intent', desc: 'The impulse to organize chaos into workable form. Not rigid control but functional architecture — creating containers that allow complexity to be navigated.' },
     5: { name: 'Culture', trad: 'The Hierophant', channel: 'Resonance', desc: 'The transmission of meaning across time and between people. Rituals, languages, practices that carry wisdom forward. Living connection to what has proven valuable.' },
     6: { name: 'Compassion', trad: 'The Lovers', channel: 'Resonance', desc: 'The capacity to feel with rather than just about. Genuine alignment between beings that recognizes shared experience. Connection that honors difference.' },
     7: { name: 'Drive', trad: 'The Chariot', channel: 'Intent', desc: 'Energy channeled toward destination. Not aggression but focused motion — the capacity to maintain direction through resistance without being consumed.' },
@@ -1118,15 +1118,15 @@ const ARCHETYPES = {
     9: { name: 'Discipline', trad: 'The Hermit', channel: 'Cognition', desc: "Solitary cultivation of capacity through repetition. The hermit's lamp illuminates through sustained attention, not flash. Intention transformed into embodied skill." },
     10: { name: 'Source', trad: 'Wheel of Fortune', channel: null, desc: "The turning point where what was outside enters the system. Not fate but timing — recognizing what's arriving and how to meet it." },
     11: { name: 'Equity', trad: 'Justice', channel: 'Resonance', desc: "Right relationship made manifest. Not punishment but recalibration — adjusting what's out of proportion until balance returns." },
-    12: { name: 'Sacrifice', trad: 'The Hanged Man', channel: 'Intent', desc: 'Conscious letting go of what no longer serves. Not loss but clearing — creating space by releasing grip. Revealing value hidden by habitual grasping.' },
+    12: { name: 'Faith', trad: 'The Hanged Man', channel: 'Intent', desc: 'Conscious letting go of what no longer serves. Not loss but clearing — creating space by releasing grip. Revealing value hidden by habitual grasping.' },
     13: { name: 'Change', trad: 'Death', channel: 'Structure', desc: 'The completion that allows new beginning. Not destruction but transformation — the moment when what was must fully end for what will be to emerge.' },
-    14: { name: 'Balance', trad: 'Temperance', channel: 'Cognition', desc: 'Continuous adjustment that maintains flow. Not static middle but active calibration — sensing when to add, when to subtract, how to blend.' },
+    14: { name: 'Tune', trad: 'Temperance', channel: 'Cognition', desc: 'Continuous adjustment that maintains flow. Not static middle but active calibration — sensing when to add, when to subtract, how to blend.' },
     15: { name: 'Abstraction', trad: 'The Devil', channel: 'Cognition', desc: 'Recognition of pattern stripped of content. Not temptation but clarity about mechanism — seeing how things work beneath surface appearance.' },
     16: { name: 'Breakthrough', trad: 'The Tower', channel: 'Structure', desc: "Rapid dissolution of what couldn't hold. Not catastrophe but liberation — structures built on false premises collapse when truth arrives." },
     17: { name: 'Inspiration', trad: 'The Star', channel: 'Intent', desc: "The draw toward what's genuinely desired. Not fantasy but orientation — knowing which star to steer by. Recognized, not given; remembered, not arrived." },
     18: { name: 'Imagination', trad: 'The Moon', channel: 'Resonance', desc: 'Capacity to move through uncertainty without forcing clarity. The moon illuminates enough to walk, not enough to see everything. Trust the path that reveals itself.' },
     19: { name: 'Actualization', trad: 'The Sun', channel: null, desc: 'Full expression of inherent nature. Not achievement but authenticity — allowing what you are to shine without dimming or distortion.' },
-    20: { name: 'Awareness', trad: 'Judgement', channel: null, desc: "The capacity to perceive from outside the system while remaining within it. Not judgment but recognition — seeing what's true across all layers." },
+    20: { name: 'Recognition', trad: 'Judgment', channel: null, desc: "The capacity to perceive from outside the system while remaining within it. Not judgment but recognition — seeing what's true across all layers." },
     21: { name: 'Creation', trad: 'The World', channel: null, desc: 'The point of departure that is also arrival. Full integration that allows release into next becoming. Completion that opens rather than closes.' }
 };
 
@@ -1144,7 +1144,7 @@ const GESTALT_ARCHETYPE_CHANNELS = {
     0: 'Intent',      // Potential (Fool) governs Spirit → Fire/Red
     1: 'Structure',   // Will (Magician) governs Body → Earth/Brown
     19: 'Cognition',  // Revelation (Sun) governs Mind → Air/Green
-    20: 'Resonance'   // Awareness (Judgement) governs Emotion → Water/Blue
+    20: 'Resonance'   // Recognition (Judgment) governs Emotion → Water/Blue
 };
 
 // Bounds data (numeric cards) - matches lib/archetypes.js
@@ -1218,15 +1218,15 @@ const AGENTS = {
 // Archetype metadata (house, function) for associated archetype display
 const ARCHETYPE_META = {
     0: { house: 'Gestalt', function: 'Seed' },
-    1: { house: 'Gestalt', function: 'Medium' },
+    1: { house: 'Gestalt', function: 'Bridge' },
     2: { house: 'Spirit', function: 'Seed' },
-    3: { house: 'Spirit', function: 'Medium' },
+    3: { house: 'Spirit', function: 'Bridge' },
     4: { house: 'Mind', function: 'Seed' },
-    5: { house: 'Mind', function: 'Medium' },
+    5: { house: 'Mind', function: 'Bridge' },
     6: { house: 'Emotion', function: 'Seed' },
-    7: { house: 'Emotion', function: 'Medium' },
+    7: { house: 'Emotion', function: 'Bridge' },
     8: { house: 'Body', function: 'Seed' },
-    9: { house: 'Body', function: 'Medium' },
+    9: { house: 'Body', function: 'Bridge' },
     10: { house: 'Portal', function: 'Ingress' },
     11: { house: 'Body', function: 'Fruition' },
     12: { house: 'Body', function: 'Feedback' },
@@ -1254,7 +1254,7 @@ const HOUSES = {
         color: 'multi',
         // Custom card offsets (archetypeOrder: 20, 19, 0, 1) - balanced spacing
         cardOffsets: [
-            { x: -68, y: -40 },   // pos 0: id 20 (Awareness) - top left
+            { x: -68, y: -40 },   // pos 0: id 20 (Recognition) - top left
             { x: 68, y: -40 },    // pos 1: id 19 (Actualization) - top right
             { x: -68, y: 97 },    // pos 2: id 0 (Potential) - bottom left
             { x: 68, y: 97 }      // pos 3: id 1 (Will) - bottom right
@@ -1268,7 +1268,7 @@ const HOUSES = {
         groupRotation: -45,  // Counter-clockwise
         // Custom card offsets (local coords): bottom-left, bottom-right, top-right, top-left
         cardOffsets: [
-            { x: -68, y: 97 },   // pos 0: id 4 (Order) - bottom left
+            { x: -68, y: 97 },   // pos 0: id 4 (Authority) - bottom left
             { x: 68, y: 97 },    // pos 1: id 5 (Culture) - bottom right
             { x: 68, y: -40 },   // pos 2: id 15 (Abstraction) - top right
             { x: -68, y: -40 }   // pos 3: id 16 (Breakthrough) - top left
@@ -1285,7 +1285,7 @@ const HOUSES = {
             { x: -68, y: 97 },   // pos 0: id 6 (Compassion) - bottom left
             { x: 68, y: 97 },    // pos 1: id 7 (Drive) - bottom right
             { x: 68, y: -40 },   // pos 2: id 13 (Change) - top right
-            { x: -68, y: -40 }   // pos 3: id 14 (Balance) - top left
+            { x: -68, y: -40 }   // pos 3: id 14 (Tune) - top left
         ]
     },
     body: {
@@ -1299,7 +1299,7 @@ const HOUSES = {
             { x: 68, y: -40 },   // pos 0: id 8 (Fortitude) - top right
             { x: -68, y: -40 },  // pos 1: id 9 (Discipline) - top left
             { x: -68, y: 97 },   // pos 2: id 11 (Equity) - bottom left
-            { x: 68, y: 97 }     // pos 3: id 12 (Sacrifice) - bottom right
+            { x: 68, y: 97 }     // pos 3: id 12 (Faith) - bottom right
         ]
     },
     spirit: {

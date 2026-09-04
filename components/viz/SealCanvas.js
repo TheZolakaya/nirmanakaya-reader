@@ -5,8 +5,8 @@
 //   I AM → First Node → The Four → The Ten → Map → Axis → Seal
 //
 // The four stages ARE the four Gestalt archetypes (canonical, RPA §IV.B):
-//   Fool(0)=Seed · Magician(1)=Medium · Sun(19)=Fruition · Judgment(20)=Feedback.
-// Node A = Fool↔Judgment (Seed/Feedback). Node B = Magician↔Sun (Medium/Fruition).
+//   Fool(0)=Seed · Magician(1)=Bridge · Sun(19)=Fruition · Judgment(20)=Feedback.
+// Node A = Fool↔Judgment (Seed/Feedback). Node B = Magician↔Sun (Bridge/Fruition).
 // Two polarities require four positions — four from one. From there: the ten fundamental
 // nodes (Tetractys), the five houses (Map / Axis), and the 40-fold tesseract (Seal).
 //
@@ -89,18 +89,18 @@ const GRID_EDGE = 1.5 * GRID_GAP;
 // FIRST NODE — the single polarity. I Am lower, Why Am I? on top — matches the Four (no flip).
 const FIRST_POS = { 0: [0, -1.6, 0], 20: [0, 1.6, 0] };
 // THE FOUR — two parallel vertical nodes. Node A (left): Seed bottom, Feedback top.
-// Node B (right): Medium bottom, Fruition top. The light cycles Seed→Medium→Fruition→Feedback.
+// Node B (right): Bridge bottom, Fruition top. The light cycles Seed→Bridge→Fruition→Feedback.
 const FOUR_POS = { 0: [-1.05, -1.5, 0], 20: [-1.05, 1.5, 0], 1: [1.05, -1.5, 0], 19: [1.05, 1.5, 0] };
-const CYCLE_ORDER = [0, 1, 19, 20]; // Seed → Medium → Fruition → Feedback
+const CYCLE_ORDER = [0, 1, 19, 20]; // Seed → Bridge → Fruition → Feedback
 
 // THE TEN — the Four (cubes) become row headers on the left; each header spawns its count
-// of spheres (Seed=1, Medium=2, Fruition=3, Feedback=4 → 10). The ten quantify the four.
+// of spheres (Seed=1, Bridge=2, Fruition=3, Feedback=4 → 10). The ten quantify the four.
 const TEN_HEADER_POS = { 0: [-2.8, 1.7, 0], 1: [-2.8, 0.55, 0], 19: [-2.8, -0.6, 0], 20: [-2.8, -1.75, 0] };
 const TEN_COUNT = { 0: 1, 1: 2, 19: 3, 20: 4 };
 // links from each header cube to the fundamental-node spheres of its row: [gid, fnodeCount]
 const TEN_LINKS = [[0, 1], [1, 2], [1, 3], [19, 4], [19, 5], [19, 6], [20, 7], [20, 8], [20, 9], [20, 10]];
 // the Ten's traveling light cycles the four headers; each row pulses when its stage is active
-const HEADER_BY_STAGE = [0, 1, 19, 20]; // Seed, Medium, Fruition, Feedback
+const HEADER_BY_STAGE = [0, 1, 19, 20]; // Seed, Bridge, Fruition, Feedback
 const FN_STAGE = { 1: 0, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3, 10: 3 };
 const TET_POS = {}; { let n = 0; for (let r = 0; r < 4; r++) { const y = 1.7 - r * 1.15; for (let i = 0; i <= r; i++) TET_POS[++n] = [0.6 + (i - r / 2) * 1.05, y, 0]; } }
 
@@ -156,7 +156,7 @@ const clamp01 = (x) => Math.min(1, Math.max(0, x));
 // and becomes a climbing helix: ever-widening loops rising toward Source, trailing Creation below.
 const SPIRAL_PER = 64, SPIRAL_LOOPS = 4, SPIRAL_N = SPIRAL_PER * SPIRAL_LOOPS;
 const SPIRAL_PTS = (() => { const a = new Float32Array((SPIRAL_N + 1) * 3); for (let i = 0; i <= SPIRAL_N; i++) { const th = (i / SPIRAL_PER) * Math.PI * 2, frac = i / SPIRAL_N, r = 0.16 + 2.7 * frac, y = 1.8 - 3.9 * frac; a[i * 3] = r * Math.cos(th); a[i * 3 + 1] = y; a[i * 3 + 2] = r * Math.sin(th); } return a; })();
-const SPIRAL_COLORS = ['#8fe0b0', '#7fb6ff', '#ffd479', '#ff8f9c']; // Seed · Medium · Fruition · Feedback
+const SPIRAL_COLORS = ['#8fe0b0', '#7fb6ff', '#ffd479', '#ff8f9c']; // Seed · Bridge · Fruition · Feedback
 
 function labelStyle(color, dy = -22, size = 13) {
   return { fontFamily: 'ui-monospace, Menlo, monospace', color, fontSize: size, fontWeight: 700, whiteSpace: 'nowrap', textShadow: '0 1px 6px #000', transform: `translateY(${dy}px)`, pointerEvents: 'none' };
@@ -363,12 +363,12 @@ function SealScene({ view, segments, controlsRef, aspect }) {
       }
       pulse.current.material.opacity = approach(pulse.current.material.opacity, (view === 'first' || view === 'four' || view === 'ten') ? 0.95 : 0, ok);
     }
-    // the cycle rectangle's horizontals (bottom Seed–Medium, top Feedback–Fruition) appear once it cycles
+    // the cycle rectangle's horizontals (bottom Seed–Bridge, top Feedback–Fruition) appear once it cycles
     if (cycleEdges.current) {
       const S = gestalt.current[0]?.position, M = gestalt.current[1]?.position, F = gestalt.current[19]?.position, Fb = gestalt.current[20]?.position;
       if (S && M && F && Fb) {
         const a = cycleEdges.current.geometry.attributes.position.array;
-        a[0]=S.x;a[1]=S.y;a[2]=S.z; a[3]=M.x;a[4]=M.y;a[5]=M.z;       // bottom: Seed–Medium
+        a[0]=S.x;a[1]=S.y;a[2]=S.z; a[3]=M.x;a[4]=M.y;a[5]=M.z;       // bottom: Seed–Bridge
         a[6]=Fb.x;a[7]=Fb.y;a[8]=Fb.z; a[9]=F.x;a[10]=F.y;a[11]=F.z;   // top: Feedback–Fruition
         cycleEdges.current.geometry.attributes.position.needsUpdate = true;
       }
@@ -484,7 +484,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     if (view === 'axis') { setLabelsOn(false); const id = setTimeout(() => setLabelsOn(true), (AXIS_PAUSE + AXIS_EMERGE + 9 * 0.12) * 1000 + 150); return () => clearTimeout(id); }
     setLabelsOn(true);
   }, [view]);
-  // The Four steps Seed → Medium → Fruition → Feedback; only the active stage lights up
+  // The Four steps Seed → Bridge → Fruition → Feedback; only the active stage lights up
   const [fourStep, setFourStep] = useState(0);
   useEffect(() => {
     if (view !== 'four') { setFourStep(0); return; }
@@ -492,7 +492,7 @@ function SealScene({ view, segments, controlsRef, aspect }) {
     const id = setInterval(() => setFourStep((s) => (s + 1) % 4), 1700);
     return () => clearInterval(id);
   }, [view]);
-  // The Four: show the self-statement first, then a beat, then its stage word (Seed/Medium/Fruition/Feedback)
+  // The Four: show the self-statement first, then a beat, then its stage word (Seed/Bridge/Fruition/Feedback)
   const [fourReveal, setFourReveal] = useState(false);
   useEffect(() => {
     if (view !== 'four') { setFourReveal(false); return; }
@@ -648,11 +648,11 @@ function SealScene({ view, segments, controlsRef, aspect }) {
 }
 
 const MIND_COLOR = '#cfe0ff';
-const STAGE_OF = { 0: 'Seed', 1: 'Medium', 19: 'Fruition', 20: 'Feedback' };
-// the four elemental shapes of the prototype stages: Seed=cube(Earth) · Medium=crescent(Water) · Fruition=circle(Air) · Feedback=pyramid(Fire)
+const STAGE_OF = { 0: 'Seed', 1: 'Bridge', 19: 'Fruition', 20: 'Feedback' };
+// the four elemental shapes of the prototype stages: Seed=cube(Earth) · Bridge=crescent(Water) · Fruition=circle(Air) · Feedback=pyramid(Fire)
 const SHAPE_OF = { 0: 'cube', 1: 'crescent', 19: 'circle', 20: 'pyramid' };
 // the four recursive self-statements (RPA, Chris+GPT canon):
-// I Am (Seed) · What Am I? (Medium) · I Am This (Fruition) · Why Am I? (Feedback = the Why-pointer)
+// I Am (Seed) · What Am I? (Bridge) · I Am This (Fruition) · Why Am I? (Feedback = the Why-pointer)
 const FOUR_PHRASE = { 0: 'I Am', 1: 'What Am I?', 19: 'I Am This', 20: 'Why Am I?' };
 
 function Stars({ count }) {

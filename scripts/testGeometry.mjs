@@ -7,14 +7,14 @@ const A = (cond, msg) => { if (cond) console.log('  ok —', msg); else { consol
 console.log('axis / diagonal / reduction:');
 A(relate(2, 18).axisPair === true && relate(2, 18).sum === 20, 'Wisdom+Imagination axis pair, sum 20');
 const d912 = relate(9, 12);
-A(d912.diagonalPair === true && d912.sum === 21 && d912.sameHouse === 'Body', 'Discipline+Sacrifice diagonal 21, same house Body');
+A(d912.diagonalPair === true && d912.sum === 21 && d912.sameHouse === 'Body', 'Discipline+Faith diagonal 21, same house Body');
 A(relate(17, 8).reductionKin === true, '17 and 8 share digit root (reduction kin)');
 
 console.log('displacement:');
 const disp = displacement(17, 8);
 A(disp.computable && disp.distance === 4 && disp.distanceClass.startsWith('antipode'), '17->8 antipode (4-bit)');
 const d1 = displacement(9, 12);
-A(d1.computable && d1.distance === 1, 'Discipline->Sacrifice 1-bit (nearest door)');
+A(d1.computable && d1.distance === 1, 'Discipline->Faith 1-bit (nearest door)');
 A(displacement(0, 8).computable === false, 'Gestalt anchor not computable (outside 4x4)');
 
 console.log('grid adjacency (medicine cabinet):');
@@ -24,16 +24,16 @@ const adj2 = relate(2, 18);
 A(adj2.gridAdjacency?.type === 'vertical-neighbor' && adj2.gridAdjacency.medicineClass.startsWith('vertical-duality'), '2/18 vertical-duality seam (sum 20)');
 
 console.log('rebalancer:');
-const rb = rebalancerFor(9, 2); // Too Much Discipline -> Sacrifice via diagonal
+const rb = rebalancerFor(9, 2); // Too Much Discipline -> Faith via diagonal
 console.log('   raw shape sample:', JSON.stringify(sig(9).corrections?.tooMuch ?? sig(9).corrections, null, 0)?.slice(0, 220));
 A(rb !== null, 'rebalancer object returned for Too Much Discipline');
-if (rb?.target) A(rb.target.id === 12, `Too Much Discipline medicine = Sacrifice (12), got ${rb.target?.id}`);
+if (rb?.target) A(rb.target.id === 12, `Too Much Discipline medicine = Faith (12), got ${rb.target?.id}`);
 
 console.log('dossier (fear-reading-shaped fixture):');
 const dossier = buildDossier({
   question: 'Is the guidance now saying finish the work',
   cards: [
-    { position: 4, transient: 34, status: 2 },   // Too Much (bound) in Order
+    { position: 4, transient: 34, status: 2 },   // Too Much (bound) in Authority
     { position: 7, transient: 19, status: 3 },   // Too Little Actualization in Drive
     { position: 8, transient: 37, status: 1 },   // Balanced Guidance in Fortitude
   ],

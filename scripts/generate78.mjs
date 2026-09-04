@@ -97,7 +97,7 @@ for (let id = 0; id <= 77; id++) {
       innerOuterHorizon: s.horizon ?? null,       // engine's existing horizon field, preserved
       wheelWorld: s.wheelWorld ?? null,
     },
-    stage: s.function ?? null,                    // Seed/Medium/Fruition/Feedback where known
+    stage: s.function ?? null,                    // Seed/Bridge/Fruition/Feedback where known
     // Tier 2 — pairwise systems (per-signature resolution)
     corrections: s.corrections ?? null,           // all four pathways pre-resolved (growth/diagonal/vertical/reduction)
     // descriptive canon

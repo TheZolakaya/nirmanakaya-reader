@@ -50,7 +50,7 @@ RESPOND IN EXACTLY THIS FORMAT:
 {2-3 sentences interpreting the card in context of the question}
 
 [CORRECTION]
-{If imbalanced: 1 sentence naming the correction path. If balanced: skip this section.}
+{If imbalanced: 1 sentence naming the correction path. If Balanced: 1 sentence naming the GROWTH pair as invitation, never prescription.}
 
 RULES:
 - Maximum 100 words total
@@ -65,6 +65,7 @@ function buildFastUserMessage(question, card) {
   const statusNote = status === 'Balanced' ? 'This is balanced — nothing to correct.' :
     status === 'Too Much' ? 'This is excessive — pulling from future, needs diagonal correction.' :
     status === 'Too Little' ? 'This is deficient — anchored in past, needs vertical correction.' :
+    status === 'Balanced' ? 'This is balanced — its growth pair is offered as invitation, not correction.' :
     'This is unacknowledged — shadow material, needs reduction pair illumination.';
 
   const correction = card.correction ?
@@ -179,16 +180,21 @@ function buildCardData(draw) {
   const status = STATUSES[draw.status];
   const position = ARCHETYPES[draw.position];
 
+  // P-7 fix (2026-09-02): Balanced draws now emit their GROWTH pair; type read from the
+  // live correction object instead of being recomputed from status (which could never say GROWTH).
   let correction = null;
-  if (draw.status !== 1) {
+  {
     const fullCorrection = getFullCorrection(draw.transient, draw.status);
-    const correctionTarget = getComponent(getCorrectionTargetId(fullCorrection, component));
-    correction = {
-      target: correctionTarget?.name || 'Unknown',
-      targetId: getCorrectionTargetId(fullCorrection, component),
-      type: draw.status === 2 ? 'DIAGONAL' : draw.status === 3 ? 'VERTICAL' : 'REDUCTION',
-      via: getCorrectionText(fullCorrection, component)
-    };
+    const targetId = getCorrectionTargetId(fullCorrection, component);
+    if (fullCorrection && targetId != null && !fullCorrection.isSelf) {
+      const correctionTarget = getComponent(targetId);
+      correction = {
+        target: correctionTarget?.name || 'Unknown',
+        targetId,
+        type: (fullCorrection.type || (draw.status === 1 ? 'growth' : draw.status === 2 ? 'diagonal' : draw.status === 3 ? 'vertical' : 'reduction')).toUpperCase(),
+        via: getCorrectionText(fullCorrection, component)
+      };
+    }
   }
 
   return {

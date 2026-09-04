@@ -27,13 +27,13 @@ import { ARCHETYPES } from '../../lib/archetypes.js';
 // The 16 canonical addresses (Practice · Activity · Being · Identity · Stage).
 const ADDRESSES = {
   2:  { practice: 'Spirit',  activity: 'Cognition', being: 'Kindle',  identity: 'Conviction',  stage: 'Seed'     },
-  3:  { practice: 'Spirit',  activity: 'Structure', being: 'Vessel',  identity: 'Intimacy',    stage: 'Medium'   },
+  3:  { practice: 'Spirit',  activity: 'Structure', being: 'Vessel',  identity: 'Intimacy',    stage: 'Bridge'   },
   4:  { practice: 'Mind',    activity: 'Intent',    being: 'Vessel',  identity: 'Exploration', stage: 'Seed'     },
-  5:  { practice: 'Mind',    activity: 'Resonance', being: 'Kindle',  identity: 'Composure',   stage: 'Medium'   },
+  5:  { practice: 'Mind',    activity: 'Resonance', being: 'Kindle',  identity: 'Composure',   stage: 'Bridge'   },
   6:  { practice: 'Emotion', activity: 'Resonance', being: 'Passage', identity: 'Intimacy',    stage: 'Seed'     },
-  7:  { practice: 'Emotion', activity: 'Intent',    being: 'Mantle',  identity: 'Conviction',  stage: 'Medium'   },
+  7:  { practice: 'Emotion', activity: 'Intent',    being: 'Mantle',  identity: 'Conviction',  stage: 'Bridge'   },
   8:  { practice: 'Body',    activity: 'Structure', being: 'Mantle',  identity: 'Composure',   stage: 'Seed'     },
-  9:  { practice: 'Body',    activity: 'Cognition', being: 'Passage', identity: 'Exploration', stage: 'Medium'   },
+  9:  { practice: 'Body',    activity: 'Cognition', being: 'Passage', identity: 'Exploration', stage: 'Bridge'   },
   11: { practice: 'Body',    activity: 'Resonance', being: 'Vessel',  identity: 'Conviction',  stage: 'Fruition' },
   12: { practice: 'Body',    activity: 'Intent',    being: 'Kindle',  identity: 'Intimacy',    stage: 'Feedback' },
   13: { practice: 'Emotion', activity: 'Structure', being: 'Kindle',  identity: 'Exploration', stage: 'Fruition' },

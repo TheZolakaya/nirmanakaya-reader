@@ -18,8 +18,8 @@ const C = {
 const VERTICES = {
   17: { bits: [0,0,0,0], name: 'Inspiration' },
    7: { bits: [1,0,0,0], name: 'Drive' },
-   4: { bits: [0,1,0,0], name: 'Order' },
-  12: { bits: [1,1,0,0], name: 'Sacrifice' },
+   4: { bits: [0,1,0,0], name: 'Authority' },
+  12: { bits: [1,1,0,0], name: 'Faith' },
    2: { bits: [0,0,0,1], name: 'Wisdom' },
   14: { bits: [1,0,0,1], name: 'Tune' },
   15: { bits: [0,1,0,1], name: 'Abstraction' },
@@ -47,7 +47,7 @@ const SEEDS = {
     Being: { group: 'Kindle', verb: 'Understand', color: '#fbbf24', seq: [2, 5, 13, 12] },
     Identity: { group: 'Conviction', verb: 'Act', color: '#a855f7', seq: [2, 7, 11, 16] },
   }},
-  4: { name: 'Order', traditional: 'Emperor', paths: {
+  4: { name: 'Authority', traditional: 'Emperor', paths: {
     Practice: { group: 'Mind', verb: 'Channel', color: '#4ade80', seq: [4, 5, 15, 16] },
     Activity: { group: 'Intent', verb: 'Point', color: '#ef4444', seq: [4, 7, 17, 12] },
     Being: { group: 'Vessel', verb: 'Hold', color: '#fbbf24', seq: [4, 3, 11, 14] },
@@ -147,8 +147,8 @@ const FULL_STAGES = {
   18: 'Feedback', 6: 'Seed', 5: 'Bridge', 11: 'Fruition',
    3: 'Bridge', 13: 'Fruition', 16: 'Feedback', 8: 'Seed',
 };
-const STAGE_SYMBOLS = { Seed: '\u2600', Medium: '\u263D', Fruition: '\u2600', Feedback: '\u263D' };
-const FULL_STAGE_COLORS = { Seed: '#22c55e', Medium: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
+const STAGE_SYMBOLS = { Seed: '\u2600', Bridge: '\u263D', Fruition: '\u2600', Feedback: '\u263D' };
+const FULL_STAGE_COLORS = { Seed: '#22c55e', Bridge: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
 
 // === STAGE GROUPS ===
 const STAGE_GROUPS = {
@@ -1267,7 +1267,7 @@ function ExploreDesktop() {
           <span style={{ fontSize: 10, color: C.text2, ...headerStyle }}>Creation</span>
         </div>
         <span style={{ color: '#334155', margin: '0 6px' }}>|</span>
-        {['Seed', 'Medium', 'Fruition', 'Feedback'].map(s => (
+        {['Seed', 'Bridge', 'Fruition', 'Feedback'].map(s => (
           <span key={s} style={{ color: FULL_STAGE_COLORS[s], fontSize: 10 }}>
             {STAGE_SYMBOLS[s]} {s}
           </span>

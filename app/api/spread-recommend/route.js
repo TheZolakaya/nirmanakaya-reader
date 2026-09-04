@@ -41,7 +41,7 @@ Each house addresses a specific existential concern:
 - "What's the most important thing right now?"
 - Short questions, single-focus requests, "just tell me one thing"
 
-**2 (Medium)** — A polarity/tension. Use when there's a clear duality, tension, or "torn between" energy.
+**2 (Bridge)** — A polarity/tension. Use when there's a clear duality, tension, or "torn between" energy.
 - "What's the core tension?"
 - "On one hand... on the other", comparison, either/or, balance between two forces
 

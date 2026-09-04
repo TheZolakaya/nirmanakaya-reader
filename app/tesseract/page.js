@@ -10,10 +10,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 const VERTICES = {
   17: { bits: [0,0,0,0], name: 'Inspiration' },   // Spirit, Intent
    7: { bits: [1,0,0,0], name: 'Drive' },          // Emotion, Intent
-   4: { bits: [0,1,0,0], name: 'Order' },          // Mind, Intent
-  12: { bits: [1,1,0,0], name: 'Sacrifice' },      // Body, Intent
+   4: { bits: [0,1,0,0], name: 'Authority' },          // Mind, Intent
+  12: { bits: [1,1,0,0], name: 'Faith' },      // Body, Intent
    2: { bits: [0,0,0,1], name: 'Wisdom' },         // Spirit, Cognition
-  14: { bits: [1,0,0,1], name: 'Balance' },        // Emotion, Cognition
+  14: { bits: [1,0,0,1], name: 'Tune' },        // Emotion, Cognition
   15: { bits: [0,1,0,1], name: 'Abstraction' },    // Mind, Cognition
    9: { bits: [1,1,0,1], name: 'Discipline' },     // Body, Cognition
   18: { bits: [0,0,1,0], name: 'Imagination' },    // Spirit, Resonance
@@ -53,7 +53,7 @@ const PRACTICE = {
 // Stage groups
 const STAGE = {
   Seed:     { ids: [4,2,6,8],    color: '#22c55e' },
-  Medium:   { ids: [7,9,5,3],    color: '#3b82f6' },
+  Bridge:   { ids: [7,9,5,3],    color: '#3b82f6' },
   Fruition: { ids: [17,15,11,13],color: '#22c55e' },
   Feedback: { ids: [12,14,18,16],color: '#3b82f6' },
 };

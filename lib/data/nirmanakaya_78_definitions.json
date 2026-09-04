@@ -2,7 +2,7 @@
   "_meta": {
     "title": "Nirmanakaya 78 — the all-encompassing signature spec",
     "version": "1.0.0",
-    "generated": "2026-07-08T06:41:08.699Z",
+    "generated": "2026-09-02T20:24:11.831Z",
     "provenance": "Generated from canonical lib sources (archetypes.js, constants.js, corrections.js via signatureIndex.js) + ruled attributes per SPEC_Reader_V2_Addendum_A_Variable_Manifest_2026-07-07. Lib remains single source of truth; regenerate with npx tsx scripts/generate78.mjs. Excel workbooks are NOT a source.",
     "pendingRulings": {
       "A": "Gestalt/portal gender — gender.value null on those records",
@@ -290,8 +290,8 @@
       "governs": "Gestalt",
       "diagonalPartnerId": 1,
       "verticalPartnerId": 19,
-      "reductionPartnerId": null,
-      "growthPartnerId": null,
+      "reductionPartnerId": 1,
+      "growthPartnerId": 21,
       "states": {
         "balanced": "You recognize yourself as the turning — each moment is fresh entry. Present-moment awareness as natural state",
         "tooMuch": "The Wheel seems to turn you — fate replaces choice; patterns repeat without awareness; external locus of control",
@@ -524,7 +524,7 @@
       "governs": "Mind",
       "diagonalPartnerId": 0,
       "verticalPartnerId": 1,
-      "reductionPartnerId": null,
+      "reductionPartnerId": 10,
       "growthPartnerId": null,
       "states": {
         "balanced": "Radiance without ego — shining because you ARE light, not to prove it",
@@ -550,7 +550,7 @@
       "governs": "Emotion",
       "diagonalPartnerId": 1,
       "verticalPartnerId": 0,
-      "reductionPartnerId": null,
+      "reductionPartnerId": 2,
       "growthPartnerId": null,
       "states": {
         "balanced": "Recognition without finality — knowing that continues to deepen",
@@ -576,8 +576,8 @@
       "governs": null,
       "diagonalPartnerId": 0,
       "verticalPartnerId": 20,
-      "reductionPartnerId": null,
-      "growthPartnerId": null,
+      "reductionPartnerId": 3,
+      "growthPartnerId": 10,
       "states": {
         "balanced": "Completion without finality — recognizing the cycle closes while remaining open to new cycles",
         "tooMuch": "Premature completion — claiming arrival before the journey is done",
@@ -1702,11 +1702,11 @@
       "corrections": {
         "balanced": {
           "correctionType": "growth",
-          "targetId": 10,
-          "targetName": "Source",
+          "targetId": 21,
+          "targetName": "Creation",
           "targetType": "Archetype",
-          "targetTraditional": "Wheel of Fortune",
-          "isSelf": true
+          "targetTraditional": "The World",
+          "isSelf": false
         },
         "tooMuch": {
           "correctionType": "diagonal",
@@ -1726,11 +1726,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 10,
-          "targetName": "Source",
+          "targetId": 1,
+          "targetName": "Will",
           "targetType": "Archetype",
-          "targetTraditional": "Wheel of Fortune",
-          "isSelf": true
+          "targetTraditional": "The Magician",
+          "isSelf": false
         }
       },
       "description": "What is entering now",
@@ -2698,11 +2698,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 19,
-          "targetName": "Actualization",
+          "targetId": 10,
+          "targetName": "Source",
           "targetType": "Archetype",
-          "targetTraditional": "The Sun",
-          "isSelf": true
+          "targetTraditional": "Wheel of Fortune",
+          "isSelf": false
         }
       },
       "description": "Becoming what you are",
@@ -2797,11 +2797,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 20,
-          "targetName": "Recognition",
+          "targetId": 2,
+          "targetName": "Wisdom",
           "targetType": "Archetype",
-          "targetTraditional": "Judgement",
-          "isSelf": true
+          "targetTraditional": "The High Priestess",
+          "isSelf": false
         }
       },
       "description": "Seeing the whole pattern",
@@ -2872,11 +2872,11 @@
       "corrections": {
         "balanced": {
           "correctionType": "growth",
-          "targetId": 21,
-          "targetName": "Creation",
+          "targetId": 10,
+          "targetName": "Source",
           "targetType": "Archetype",
-          "targetTraditional": "The World",
-          "isSelf": true
+          "targetTraditional": "Wheel of Fortune",
+          "isSelf": false
         },
         "tooMuch": {
           "correctionType": "diagonal",
@@ -2896,11 +2896,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 21,
-          "targetName": "Creation",
+          "targetId": 3,
+          "targetName": "Nurturing",
           "targetType": "Archetype",
-          "targetTraditional": "The World",
-          "isSelf": true
+          "targetTraditional": "The Empress",
+          "isSelf": false
         }
       },
       "description": "Integration and completion",
@@ -3191,7 +3191,7 @@
         }
       },
       "description": "Primal claim of structure through Intent. Expansive declaration outward.",
-      "extended": "Order (4) expressed through Fire at the formative scale. The Emperor archetype organizes chaos into structure; through Intent, this becomes the assertive declaration of pattern outward into the world. Mind Seed through Fire: the first impulse to impose structure as a willed act. Number 3 is Primal/Expansive — the inner face of the Mind pair, where structure is broadcasting outward before it deepens. Assertion doesn't just establish order internally, it claims territory. When this appears as a transient, there's an urge to organize, to declare, to establish framework through forceful clarity.",
+      "extended": "Authority (4) expressed through Fire at the formative scale. The Emperor archetype organizes chaos into structure; through Intent, this becomes the assertive declaration of pattern outward into the world. Mind Seed through Fire: the first impulse to impose structure as a willed act. Number 3 is Primal/Expansive — the inner face of the Mind pair, where structure is broadcasting outward before it deepens. Assertion doesn't just establish order internally, it claims territory. When this appears as a transient, there's an urge to organize, to declare, to establish framework through forceful clarity.",
       "states": {
         "balanced": "Structure that serves what it organizes — clear, reliable; things make sense in your presence",
         "tooMuch": "Rigid over-organization, control — mistaking the throne for the kingdom",
@@ -3383,7 +3383,7 @@
         }
       },
       "description": "Internal practical release through Intent. Testing commitment through engagement.",
-      "extended": "Sacrifice (12) expressed through Fire at the operative scale. The Hanged Man archetype releases what no longer serves; through Intent, this becomes dedication tested through friction. Body Feedback through Fire: the integration that comes from letting go of the wrong approach and finding the right one through active engagement. Number 5 is Internal/Personal — the inner face of the Body pair, where the testing is private and personal. The five wands crossing are not public combat but internal clarification, burning away assumptions to reveal what you're actually committed to. When this appears as a transient, dedication is being pressure-tested behind closed doors.",
+      "extended": "Faith (12) expressed through Fire at the operative scale. The Hanged Man archetype releases what no longer serves; through Intent, this becomes dedication tested through friction. Body Feedback through Fire: the integration that comes from letting go of the wrong approach and finding the right one through active engagement. Number 5 is Internal/Personal — the inner face of the Body pair, where the testing is private and personal. The five wands crossing are not public combat but internal clarification, burning away assumptions to reveal what you're actually committed to. When this appears as a transient, dedication is being pressure-tested behind closed doors.",
       "states": {
         "balanced": "Release flows naturally from completion — surrender as fulfillment, not defeat",
         "tooMuch": "Releasing before completion — martyrdom, premature surrender, performative self-denial",
@@ -3479,7 +3479,7 @@
         }
       },
       "description": "External acknowledgment of sacrifice. Intent visible and honored.",
-      "extended": "Sacrifice (12) expressed through Fire at the operative scale. Same parent as Dedication (26) but at the outer face: where Dedication tests commitment internally, Recognition is commitment made visible and witnessed by others. Body Feedback through Fire: the cycle completes when what was sacrificed for is publicly honored. Number 6 is External/Shared — the outer face of the Body pair, where private effort becomes social acknowledgment. The victory parade, the laurel wreath — not ego gratification but the natural consequence of sustained release becoming visible achievement. When this appears as a transient, what was quietly given up is now seen and valued by the group.",
+      "extended": "Faith (12) expressed through Fire at the operative scale. Same parent as Dedication (26) but at the outer face: where Dedication tests commitment internally, Recognition is commitment made visible and witnessed by others. Body Feedback through Fire: the cycle completes when what was sacrificed for is publicly honored. Number 6 is External/Shared — the outer face of the Body pair, where private effort becomes social acknowledgment. The victory parade, the laurel wreath — not ego gratification but the natural consequence of sustained release becoming visible achievement. When this appears as a transient, what was quietly given up is now seen and valued by the group.",
       "states": {
         "balanced": "Release flows naturally from completion — surrender as fulfillment, not defeat",
         "tooMuch": "Releasing before completion — martyrdom, premature surrender, performative self-denial",
@@ -3673,7 +3673,7 @@
         }
       },
       "description": "Deep authority, threshold structure. Intent moving with unstoppable clarity.",
-      "extended": "Order (4) expressed through Fire at the completive scale. Same parent as Assertion (24) but at the outer face: where Assertion declares structure outward (inner/primal), Command IS structure in motion — authority so complete it doesn't need to assert (outer/profound). Mind Seed through Fire: the initiating impulse of mental organization now operating at its deepest threshold. Number 8 is Unfathomable/Deep — the outer face of the Mind pair, where accumulated pattern achieves self-sustaining momentum. When this appears as a transient, decisions move with clarity and speed because the structural understanding is total.",
+      "extended": "Authority (4) expressed through Fire at the completive scale. Same parent as Assertion (24) but at the outer face: where Assertion declares structure outward (inner/primal), Command IS structure in motion — authority so complete it doesn't need to assert (outer/profound). Mind Seed through Fire: the initiating impulse of mental organization now operating at its deepest threshold. Number 8 is Unfathomable/Deep — the outer face of the Mind pair, where accumulated pattern achieves self-sustaining momentum. When this appears as a transient, decisions move with clarity and speed because the structural understanding is total.",
       "states": {
         "balanced": "Structure that serves what it organizes — clear, reliable; things make sense in your presence",
         "tooMuch": "Rigid over-organization, control — mistaking the throne for the kingdom",
@@ -4178,7 +4178,7 @@
       "agentRank": null,
       "agentRankHouse": null,
       "associatedArchetype": 14,
-      "associatedArchetypeName": "Balance",
+      "associatedArchetypeName": "Tune",
       "operation": null,
       "parentOperation": "Recursion",
       "operationNote": "FLAG: own-operation semantics for bounds/agents not yet ruled; parentOperation provided",
@@ -4467,7 +4467,7 @@
       "agentRank": null,
       "agentRankHouse": null,
       "associatedArchetype": 14,
-      "associatedArchetypeName": "Balance",
+      "associatedArchetypeName": "Tune",
       "operation": null,
       "parentOperation": "Recursion",
       "operationNote": "FLAG: own-operation semantics for bounds/agents not yet ruled; parentOperation provided",
@@ -4852,7 +4852,7 @@
       "agentRank": null,
       "agentRankHouse": null,
       "associatedArchetype": 20,
-      "associatedArchetypeName": "Awareness",
+      "associatedArchetypeName": "Recognition",
       "operation": null,
       "parentOperation": "Recursion",
       "operationNote": "FLAG: own-operation semantics for bounds/agents not yet ruled; parentOperation provided",
@@ -4912,11 +4912,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 42,
-          "targetName": "Receptivity",
+          "targetId": 40,
+          "targetName": "Plurality",
           "targetType": "Bound",
-          "targetTraditional": "Ace of Cups",
-          "isSelf": true
+          "targetTraditional": "9 of Swords",
+          "isSelf": false
         }
       },
       "description": "Beginning of felt awareness. Heart open, ready to receive.",
@@ -5719,7 +5719,7 @@
       "agentRank": null,
       "agentRankHouse": null,
       "associatedArchetype": 20,
-      "associatedArchetypeName": "Awareness",
+      "associatedArchetypeName": "Recognition",
       "operation": null,
       "parentOperation": "Recursion",
       "operationNote": "FLAG: own-operation semantics for bounds/agents not yet ruled; parentOperation provided",
@@ -5779,11 +5779,11 @@
         },
         "unacknowledged": {
           "correctionType": "reduction",
-          "targetId": 51,
-          "targetName": "Completion",
+          "targetId": 33,
+          "targetName": "Reflection",
           "targetType": "Bound",
-          "targetTraditional": "10 of Cups",
-          "isSelf": true
+          "targetTraditional": "2 of Swords",
+          "isSelf": false
         }
       },
       "description": "Emotional wholeness achieved. Full awareness of felt connection.",
@@ -6819,18 +6819,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 69,
-          "targetName": "Executor of Cognition",
+          "targetId": 66,
+          "targetName": "Initiate of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "King of Swords",
+          "targetTraditional": "Page of Swords",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 77,
-          "targetName": "Executor of Structure",
+          "targetId": 74,
+          "targetName": "Initiate of Structure",
           "targetType": "Agent",
-          "targetTraditional": "King of Pentacles",
+          "targetTraditional": "Page of Pentacles",
           "isSelf": false
         },
         "unacknowledged": {
@@ -6915,18 +6915,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 68,
-          "targetName": "Steward of Cognition",
+          "targetId": 67,
+          "targetName": "Catalyst of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Swords",
+          "targetTraditional": "Knight of Swords",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 76,
-          "targetName": "Steward of Structure",
+          "targetId": 75,
+          "targetName": "Catalyst of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Pentacles",
+          "targetTraditional": "Knight of Pentacles",
           "isSelf": false
         },
         "unacknowledged": {
@@ -6938,8 +6938,8 @@
           "isSelf": false
         }
       },
-      "description": "Order-as-behavior: decisive leadership, boundary-setting, charging forward.",
-      "extended": "Order (4) showing up as observable behavior through the Intent channel. The Warrior — moving, transforming, cutting through inertia with decisive action. As Catalyst, this is activating energy: creating change through momentum. The Emperor archetype doesn't just organize here — it charges, leads from the front, sets boundaries by crossing them. Mind domain through Fire: structural pattern expressed as forceful action. Inner horizon (creation phase parent) — this is Order still forming, discovering its power through motion. Bounds: Assertion (3W, inner) and Command (8W, outer) define the operational range of this behavior.",
+      "description": "Authority-as-behavior: decisive leadership, boundary-setting, charging forward.",
+      "extended": "Authority (4) showing up as observable behavior through the Intent channel. The Warrior — moving, transforming, cutting through inertia with decisive action. As Catalyst, this is activating energy: creating change through momentum. The Emperor archetype doesn't just organize here — it charges, leads from the front, sets boundaries by crossing them. Mind domain through Fire: structural pattern expressed as forceful action. Inner horizon (creation phase parent) — this is Order still forming, discovering its power through motion. Bounds: Assertion (3W, inner) and Command (8W, outer) define the operational range of this behavior.",
       "states": {
         "balanced": "Structure that serves what it organizes — clear, reliable; things make sense in your presence",
         "tooMuch": "Rigid over-organization, control — mistaking the throne for the kingdom",
@@ -7012,18 +7012,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 67,
-          "targetName": "Catalyst of Cognition",
+          "targetId": 68,
+          "targetName": "Steward of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Swords",
+          "targetTraditional": "Queen of Swords",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 75,
-          "targetName": "Catalyst of Structure",
+          "targetId": 76,
+          "targetName": "Steward of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Pentacles",
+          "targetTraditional": "Queen of Pentacles",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7109,18 +7109,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 66,
-          "targetName": "Initiate of Cognition",
+          "targetId": 69,
+          "targetName": "Executor of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Page of Swords",
+          "targetTraditional": "King of Swords",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 74,
-          "targetName": "Initiate of Structure",
+          "targetId": 77,
+          "targetName": "Executor of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Page of Pentacles",
+          "targetTraditional": "King of Pentacles",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7132,8 +7132,8 @@
           "isSelf": false
         }
       },
-      "description": "Sacrifice-as-behavior: surrender, duty-bearing, knowing when to release as well as push.",
-      "extended": "Sacrifice (12) showing up as observable behavior through the Intent channel. The Commander — completing, embodying, governing with the authority that comes from knowing what to let go of. As Executor, this is mastery energy: directing the fire with full knowledge of its cost. The Hanged Man archetype doesn't just release here — it commands through the wisdom of release, governing with authority earned by sacrifice. Body domain through Fire: embodied surrender expressed as masterful direction. Outer horizon (operation phase parent) — this is Sacrifice fully operational, applying its wisdom of release with authority. Bounds: Dedication (5W, inner) and Recognition (6W, outer) define the operational range — the tightest span (Body pair), the most concrete expression.",
+      "description": "Faith-as-behavior: surrender, duty-bearing, knowing when to release as well as push.",
+      "extended": "Faith (12) showing up as observable behavior through the Intent channel. The Commander — completing, embodying, governing with the authority that comes from knowing what to let go of. As Executor, this is mastery energy: directing the fire with full knowledge of its cost. The Hanged Man archetype doesn't just release here — it commands through the wisdom of release, governing with authority earned by sacrifice. Body domain through Fire: embodied surrender expressed as masterful direction. Outer horizon (operation phase parent) — this is Sacrifice fully operational, applying its wisdom of release with authority. Bounds: Dedication (5W, inner) and Recognition (6W, outer) define the operational range — the tightest span (Body pair), the most concrete expression.",
       "states": {
         "balanced": "Release flows naturally from completion — surrender as fulfillment, not defeat",
         "tooMuch": "Releasing before completion — martyrdom, premature surrender, performative self-denial",
@@ -7206,18 +7206,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 65,
-          "targetName": "Executor of Intent",
+          "targetId": 62,
+          "targetName": "Initiate of Intent",
           "targetType": "Agent",
-          "targetTraditional": "King of Wands",
+          "targetTraditional": "Page of Wands",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 73,
-          "targetName": "Executor of Resonance",
+          "targetId": 70,
+          "targetName": "Initiate of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "King of Cups",
+          "targetTraditional": "Page of Cups",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7303,18 +7303,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 64,
-          "targetName": "Steward of Intent",
+          "targetId": 63,
+          "targetName": "Catalyst of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Wands",
+          "targetTraditional": "Knight of Wands",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 72,
-          "targetName": "Steward of Resonance",
+          "targetId": 71,
+          "targetName": "Catalyst of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Cups",
+          "targetTraditional": "Knight of Cups",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7357,7 +7357,7 @@
       "agentRank": "Steward",
       "agentRankHouse": "Emotion",
       "associatedArchetype": 14,
-      "associatedArchetypeName": "Balance",
+      "associatedArchetypeName": "Tune",
       "operation": null,
       "parentOperation": "Recursion",
       "operationNote": "FLAG: own-operation semantics for bounds/agents not yet ruled; parentOperation provided",
@@ -7400,18 +7400,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 63,
-          "targetName": "Catalyst of Intent",
+          "targetId": 64,
+          "targetName": "Steward of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Wands",
+          "targetTraditional": "Queen of Wands",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 71,
-          "targetName": "Catalyst of Resonance",
+          "targetId": 72,
+          "targetName": "Steward of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Cups",
+          "targetTraditional": "Queen of Cups",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7497,18 +7497,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 62,
-          "targetName": "Initiate of Intent",
+          "targetId": 65,
+          "targetName": "Executor of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Page of Wands",
+          "targetTraditional": "King of Wands",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 70,
-          "targetName": "Initiate of Resonance",
+          "targetId": 73,
+          "targetName": "Executor of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Page of Cups",
+          "targetTraditional": "King of Cups",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7593,18 +7593,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 77,
-          "targetName": "Executor of Structure",
+          "targetId": 74,
+          "targetName": "Initiate of Structure",
           "targetType": "Agent",
-          "targetTraditional": "King of Pentacles",
+          "targetTraditional": "Page of Pentacles",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 69,
-          "targetName": "Executor of Cognition",
+          "targetId": 66,
+          "targetName": "Initiate of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "King of Swords",
+          "targetTraditional": "Page of Swords",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7689,18 +7689,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 76,
-          "targetName": "Steward of Structure",
+          "targetId": 75,
+          "targetName": "Catalyst of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Pentacles",
+          "targetTraditional": "Knight of Pentacles",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 68,
-          "targetName": "Steward of Cognition",
+          "targetId": 67,
+          "targetName": "Catalyst of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Swords",
+          "targetTraditional": "Knight of Swords",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7785,18 +7785,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 75,
-          "targetName": "Catalyst of Structure",
+          "targetId": 76,
+          "targetName": "Steward of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Pentacles",
+          "targetTraditional": "Queen of Pentacles",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 67,
-          "targetName": "Catalyst of Cognition",
+          "targetId": 68,
+          "targetName": "Steward of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Swords",
+          "targetTraditional": "Queen of Swords",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7882,18 +7882,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 74,
-          "targetName": "Initiate of Structure",
+          "targetId": 77,
+          "targetName": "Executor of Structure",
           "targetType": "Agent",
-          "targetTraditional": "Page of Pentacles",
+          "targetTraditional": "King of Pentacles",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 66,
-          "targetName": "Initiate of Cognition",
+          "targetId": 69,
+          "targetName": "Executor of Cognition",
           "targetType": "Agent",
-          "targetTraditional": "Page of Swords",
+          "targetTraditional": "King of Swords",
           "isSelf": false
         },
         "unacknowledged": {
@@ -7979,18 +7979,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 73,
-          "targetName": "Executor of Resonance",
+          "targetId": 70,
+          "targetName": "Initiate of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "King of Cups",
+          "targetTraditional": "Page of Cups",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 65,
-          "targetName": "Executor of Intent",
+          "targetId": 62,
+          "targetName": "Initiate of Intent",
           "targetType": "Agent",
-          "targetTraditional": "King of Wands",
+          "targetTraditional": "Page of Wands",
           "isSelf": false
         },
         "unacknowledged": {
@@ -8076,18 +8076,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 72,
-          "targetName": "Steward of Resonance",
+          "targetId": 71,
+          "targetName": "Catalyst of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Cups",
+          "targetTraditional": "Knight of Cups",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 64,
-          "targetName": "Steward of Intent",
+          "targetId": 63,
+          "targetName": "Catalyst of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Queen of Wands",
+          "targetTraditional": "Knight of Wands",
           "isSelf": false
         },
         "unacknowledged": {
@@ -8173,18 +8173,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 71,
-          "targetName": "Catalyst of Resonance",
+          "targetId": 72,
+          "targetName": "Steward of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Cups",
+          "targetTraditional": "Queen of Cups",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 63,
-          "targetName": "Catalyst of Intent",
+          "targetId": 64,
+          "targetName": "Steward of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Knight of Wands",
+          "targetTraditional": "Queen of Wands",
           "isSelf": false
         },
         "unacknowledged": {
@@ -8270,18 +8270,18 @@
         },
         "tooMuch": {
           "correctionType": "diagonal",
-          "targetId": 70,
-          "targetName": "Initiate of Resonance",
+          "targetId": 73,
+          "targetName": "Executor of Resonance",
           "targetType": "Agent",
-          "targetTraditional": "Page of Cups",
+          "targetTraditional": "King of Cups",
           "isSelf": false
         },
         "tooLittle": {
           "correctionType": "vertical",
-          "targetId": 62,
-          "targetName": "Initiate of Intent",
+          "targetId": 65,
+          "targetName": "Executor of Intent",
           "targetType": "Agent",
-          "targetTraditional": "Page of Wands",
+          "targetTraditional": "King of Wands",
           "isSelf": false
         },
         "unacknowledged": {

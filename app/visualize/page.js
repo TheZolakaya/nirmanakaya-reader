@@ -6,10 +6,10 @@ import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 const VERTICES = {
   17: { bits: [0,0,0,0], name: 'Inspiration' },
    7: { bits: [1,0,0,0], name: 'Drive' },
-   4: { bits: [0,1,0,0], name: 'Order' },
-  12: { bits: [1,1,0,0], name: 'Sacrifice' },
+   4: { bits: [0,1,0,0], name: 'Authority' },
+  12: { bits: [1,1,0,0], name: 'Faith' },
    2: { bits: [0,0,0,1], name: 'Wisdom' },
-  14: { bits: [1,0,0,1], name: 'Balance' },
+  14: { bits: [1,0,0,1], name: 'Tune' },
   15: { bits: [0,1,0,1], name: 'Abstraction' },
    9: { bits: [1,1,0,1], name: 'Discipline' },
   18: { bits: [0,0,1,0], name: 'Imagination' },
@@ -35,7 +35,7 @@ const SEEDS = {
     Being: { group: 'Kindle', verb: 'Understand', color: '#fbbf24', seq: [2, 5, 13, 12] },
     Identity: { group: 'Conviction', verb: 'Act', color: '#a855f7', seq: [2, 7, 11, 16] },
   }},
-  4: { name: 'Order', traditional: 'Emperor', paths: {
+  4: { name: 'Authority', traditional: 'Emperor', paths: {
     Practice: { group: 'Mind', verb: 'Channel', color: '#4ade80', seq: [4, 5, 15, 16] },
     Activity: { group: 'Intent', verb: 'Point', color: '#ef4444', seq: [4, 7, 17, 12] },
     Being: { group: 'Vessel', verb: 'Hold', color: '#fbbf24', seq: [4, 3, 11, 14] },
@@ -89,7 +89,7 @@ const OFFSETS = [-6, -2, 2, 6];
 const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Passage: { ids: [6,9,17,16], color: '#fb7185' } };
 const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Intimacy: { ids: [6,3,15,12], color: '#fb7185' } };
 const PRACTICE_T = { Spirit: { ids: [17,2,18,3], color: '#c084fc' }, Emotion: { ids: [7,14,6,13], color: '#fb7185' }, Mind: { ids: [4,15,5,16], color: '#22d3ee' }, Body: { ids: [12,9,11,8], color: '#4ade80' } };
-const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Medium: { ids: [7,9,5,3], color: '#3b82f6' }, Fruition: { ids: [17,15,11,13], color: '#22c55e' }, Feedback: { ids: [12,14,18,16], color: '#3b82f6' } };
+const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Bridge: { ids: [7,9,5,3], color: '#3b82f6' }, Fruition: { ids: [17,15,11,13], color: '#22c55e' }, Feedback: { ids: [12,14,18,16], color: '#3b82f6' } };
 const COLOR_MODES = { Being: BEING_T, Identity: IDENTITY_T, Practice: PRACTICE_T, Stage: STAGE_T };
 const EDGE_COLORS = ['#4ade80', '#22d3ee', '#ef4444', '#f59e0b'];
 
@@ -822,7 +822,7 @@ export default function VisualizePage() {
 
       {/* FOOTER */}
       <div style={{ textAlign: 'center', marginTop: 16, fontSize: 11, color: '#475569' }}>
-        Seed &rarr; Medium &rarr; Fruition &rarr; Feedback &nbsp;&middot;&nbsp; 16 archetypes at vertices of a 4D hypercube
+        Seed &rarr; Bridge &rarr; Fruition &rarr; Feedback &nbsp;&middot;&nbsp; 16 archetypes at vertices of a 4D hypercube
       </div>
     </div>
   );

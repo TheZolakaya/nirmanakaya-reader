@@ -24,7 +24,7 @@ const SEEDS = {
     }
   },
   4: {
-    name: 'Order', traditional: 'Emperor',
+    name: 'Authority', traditional: 'Emperor',
     paths: {
       Practice:  { group: 'Mind',        verb: 'Channel',    color: '#4ade80', seq: [4, 5, 15, 16] },
       Activity:  { group: 'Intent',      verb: 'Point',      color: '#ef4444', seq: [4, 7, 17, 12] },
@@ -54,7 +54,7 @@ const STAGES = {
 
 const STAGE_COLORS = {
   Se: '#22c55e', // Seed — green (Wheel)
-  Me: '#3b82f6', // Medium — blue (World)
+  Me: '#3b82f6', // Bridge — blue (World)
   Fr: '#22c55e', // Fruition — green (Wheel)
   Fb: '#3b82f6', // Feedback — blue (World)
 };
@@ -793,7 +793,7 @@ export default function SeedsPage() {
           }}>
             <thead>
               <tr>
-                {['Dimension', 'Group', 'Verb', 'Seed', 'Medium', 'Fruition', 'Feedback'].map(h => (
+                {['Dimension', 'Group', 'Verb', 'Seed', 'Bridge', 'Fruition', 'Feedback'].map(h => (
                   <th key={h} style={{
                     padding: '8px 10px',
                     textAlign: 'left',
@@ -830,7 +830,7 @@ export default function SeedsPage() {
                     const pos = row.positions[i];
                     const being = BEING_LOOKUP[pos];
                     const identity = IDENTITY_LOOKUP[pos];
-                    const stageLabel = STAGES[pos] === 'Se' ? 'Seed' : STAGES[pos] === 'Me' ? 'Medium' : STAGES[pos] === 'Fr' ? 'Fruition' : 'Feedback';
+                    const stageLabel = STAGES[pos] === 'Se' ? 'Seed' : STAGES[pos] === 'Me' ? 'Bridge' : STAGES[pos] === 'Fr' ? 'Fruition' : 'Feedback';
                     return (
                       <td key={i} style={{
                         padding: '7px 10px',

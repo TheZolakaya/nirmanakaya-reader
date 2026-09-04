@@ -1130,11 +1130,11 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
           <SidebarSection title="STAGES" titleColor="#eab308"
             help="Process stage health. Each stage has 5 archetypes (one per house including Gestalt). Stage patterns reveal developmental themes: a sick stage means one phase of the process cycle is struggling across all domains."
           >
-            {['Seed', 'Medium', 'Fruition', 'Feedback'].map((stage) => {
+            {['Seed', 'Bridge', 'Fruition', 'Feedback'].map((stage) => {
               const data = l2_processes.byStage[stage];
               if (!data) return null;
               const strength = l2_processes.stageStrength?.[stage];
-              const stageColors = { Seed: '#fbbf24', Medium: '#22d3ee', Fruition: '#a78bfa', Feedback: '#f97316' };
+              const stageColors = { Seed: '#fbbf24', Bridge: '#22d3ee', Fruition: '#a78bfa', Feedback: '#f97316' };
               const stageColor = stageColors[stage] || '#94a3b8';
               return (
                 <div key={stage} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 3 }}
@@ -1300,7 +1300,7 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
           const intColor = gc.integration >= 80 ? '#22c55e' : gc.integration >= 50 ? '#84cc16' : gc.integration >= 30 ? '#eab308' : '#f97316';
           return (
             <SidebarSection title="GESTALT CONDITION" titleColor={HOUSE_COLORS.Gestalt}
-              help="The Gestalt house condition reflects the state of the four governor archetypes. Engine (Potential × Will) = inner drive. Lens (Actualization × Awareness) = outer expression. Together they name the full governance state."
+              help="The Gestalt house condition reflects the state of the four governor archetypes. Engine (Potential × Will) = inner drive. Lens (Actualization × Recognition) = outer expression. Together they name the full governance state."
             >
               <div style={{
                 padding: '6px 8px',
@@ -1687,7 +1687,7 @@ function PositionGrid({ drawMap, triage, analysis, selectedArchetype, highlighte
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <div style={{ fontSize: 8, color: '#334155' }} title="Source governs Gestalt">{'\u2193'}</div>
               <div style={{ fontSize: 8, color: HOUSE_COLORS.Gestalt, letterSpacing: '0.05em' }}
-                title="Observer house — Potential, Will, Actualization, Awareness. Governs the four manifest houses."
+                title="Observer house — Potential, Will, Actualization, Recognition. Governs the four manifest houses."
               >
                 GESTALT
               </div>
@@ -1970,7 +1970,7 @@ function GridSection({ title, subtitle, help, children }) {
 function HouseColumn({ house, drawMap, selectedArchetype, highlightedPositions, onSelect }) {
   const members = HOUSES[house].members;
   const houseHelp = {
-    Gestalt: 'Observer house — Potential, Will, Actualization, Awareness. No agents (observer can\'t be collapsed).',
+    Gestalt: 'Observer house — Potential, Will, Actualization, Recognition. No agents (observer can\'t be collapsed).',
     Spirit: 'Fire house — Intent channel. Inner creative force.',
     Mind: 'Air house — Cognition channel. Pattern recognition.',
     Emotion: 'Water house — Resonance channel. Feeling and connection.',

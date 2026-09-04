@@ -338,3 +338,20 @@ Based on full inventory, recommended priorities:
 *Document generated from comprehensive corpus scan*
 *Sources: 16+ spec files across two directories, 4 backlog files, session handoffs*
 *Status verified through conversation with Chris (January 14, 2026)*
+
+---
+
+## BUGS FILED 2026-08-29 (from a friend's live Reflect reading on v0.99.230, founder-reviewed)
+
+### BUG-2026-08-29-A — WHY-question buried in preamble gets a STATE verdict ("Strained — but") instead of NAMED
+- Question: "I'm still kind of hung up on Kevin so like I guess my main question right now would be like why why am I so desperate in my head to reconcile with him..." (a grief WHY-question).
+- Observed: Answer box rendered STRAINED_BUT with a condition headline ("The longing is real and overdriven; the ground to stand on is thin right now"). The Plain Answer, by contrast, answered the WHY directly ("your love for Kevin didn't go anywhere when he died...") and landed.
+- Root cause: lib/verdictEngine.js typeQuestion — stateShaped tests `/^(how|what|where|why|who)\b/` at the START of the string only. Spoken-style questions front-load context, so "why am I..." mid-string is never seen; falls to the default `return { class: 'STATE' ... 'no yes/no shape detected' }` → STRAINED grid. The LLM renderer is allowed to reclassify but did not.
+- Fix: detect the interrogative clause anywhere: (1) explicit frame "my (main )?question( right now)? (is|would be)"; (2) `\b(why|what|where|who|how come)\s+(am|is|are|do|does|did|have|has|was|were|can|would|could)\s+i\b` anywhere; take the LAST such clause as the question shape. Also strengthen the renderer instruction: if the asker writes "why", the headline must complete the why in their coin (NAMED), never a condition report. Add a bench case (wording-invariance) with this exact question.
+- Same family as the 2026-08-12 founder-caught case (condition report answering a name-question). Regression test: headline for a why-question must contain a because-shape or complete the asker's verb.
+
+### BUG-2026-08-29-B — HTML export omits The Answer (Integrate verdict) and The Plain Answer
+- app/page.js exportToHTML (~5206–5670) has zero references to verdictResult or plainAnswer; markdown export has both. Export must include the Answer box (label + headline + qualifier + medicine line + "How this was discerned" walk) and the Plain Answer block.
+- Also in markdown export: The Plain Answer is nested inside `if (letterContent)` — a reading with a plain answer but no letter loses it. Move it out to top level (after The Answer or after Synthesis).
+- Related standing item: "Export missing card depth content" (HTML export lacks reading/rebalancer/mirror/why text). Fix together.
+- Email/share paths (/api/email/reading, /r/[slug]) to be checked for the same omission when fixing.

@@ -23,7 +23,7 @@ const PRACTICE_COLORS = { Spirit: '#c084fc', Emotion: '#fb7185', Mind: '#22d3ee'
 const ACTIVITY_COLORS = { Intent: '#ef4444', Cognition: '#22d3ee', Resonance: '#f59e0b', Structure: '#4ade80' };
 const BEING_COLORS = { Mantle: '#fbbf24', Kindle: '#22d3ee', Vessel: '#4ade80', Passage: '#fb7185' };
 const IDENTITY_COLORS = { Composure: '#22d3ee', Conviction: '#fbbf24', Exploration: '#4ade80', Intimacy: '#fb7185' };
-const STAGE_COLORS_MAP = { Seed: '#22c55e', Medium: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
+const STAGE_COLORS_MAP = { Seed: '#22c55e', Bridge: '#f59e0b', Fruition: '#06b6d4', Feedback: '#7c3aed' };
 
 // Archetype → dimension group lookups
 const PRACTICE_LOOKUP = {};
@@ -37,7 +37,7 @@ const IDENTITY_LOOKUP_MAP = {};
 // Activity (channels = rows): Intent=[17,7,4,12], Cognition=[2,14,15,9], Resonance=[18,6,5,11], Structure=[3,13,16,8]
 [['Intent',[17,7,4,12]],['Cognition',[2,14,15,9]],['Resonance',[18,6,5,11]],['Structure',[3,13,16,8]]].forEach(([g,ids]) => ids.forEach(id => ACTIVITY_LOOKUP[id] = g));
 // Stage
-[['Seed',[2,4,6,8]],['Medium',[3,5,7,9]],['Fruition',[11,13,15,17]],['Feedback',[12,14,16,18]]].forEach(([g,ids]) => ids.forEach(id => STAGE_LOOKUP[id] = g));
+[['Seed',[2,4,6,8]],['Bridge',[3,5,7,9]],['Fruition',[11,13,15,17]],['Feedback',[12,14,16,18]]].forEach(([g,ids]) => ids.forEach(id => STAGE_LOOKUP[id] = g));
 // Being
 [['Mantle',[8,7,15,18]],['Kindle',[2,5,13,12]],['Vessel',[4,3,11,14]],['Passage',[6,9,17,16]]].forEach(([g,ids]) => ids.forEach(id => BEING_LOOKUP_MAP[id] = g));
 // Identity

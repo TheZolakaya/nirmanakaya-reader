@@ -24,25 +24,25 @@ const HOUSES = {
     x: CX,
     y: CY + Math.round((540 - ORIG_CY) * COMPRESS),  // ~154
     rotation: 0,
-    archetypes: [20, 19, 0, 1]  // Awareness, Actualization, Potential, Will
+    archetypes: [20, 19, 0, 1]  // Recognition, Actualization, Potential, Will
   },
   mind: {
     x: CX + Math.round(-450 * COMPRESS),  // ~115
     y: CY + Math.round((735 - ORIG_CY) * COMPRESS),  // ~232
     rotation: -45,
-    archetypes: [4, 5, 15, 16]  // Order, Culture, Abstraction, Breakthrough
+    archetypes: [4, 5, 15, 16]  // Authority, Culture, Abstraction, Breakthrough
   },
   emotion: {
     x: CX + Math.round(450 * COMPRESS),   // ~475
     y: CY + Math.round((735 - ORIG_CY) * COMPRESS),  // ~232
     rotation: 45,
-    archetypes: [6, 7, 13, 14]  // Compassion, Drive, Change, Balance
+    archetypes: [6, 7, 13, 14]  // Compassion, Drive, Change, Tune
   },
   body: {
     x: CX + Math.round(-450 * COMPRESS),  // ~115
     y: CY + Math.round((1205 - ORIG_CY) * COMPRESS), // ~420
     rotation: 45,
-    archetypes: [8, 9, 11, 12]  // Fortitude, Discipline, Equity, Sacrifice
+    archetypes: [8, 9, 11, 12]  // Fortitude, Discipline, Equity, Faith
   },
   spirit: {
     x: CX + Math.round(450 * COMPRESS),   // ~475
@@ -61,13 +61,13 @@ const PORTALS = {
 // Card offsets within houses (from experiment)
 const CARD_OFFSETS = {
   gestalt: [
-    { x: -68, y: -40 },   // pos 0: Awareness (20)
+    { x: -68, y: -40 },   // pos 0: Recognition (20)
     { x: 68, y: -40 },    // pos 1: Actualization (19)
     { x: -68, y: 97 },    // pos 2: Potential (0)
     { x: 68, y: 97 }      // pos 3: Will (1)
   ],
   mind: [
-    { x: -68, y: 97 },    // pos 0: Order (4)
+    { x: -68, y: 97 },    // pos 0: Authority (4)
     { x: 68, y: 97 },     // pos 1: Culture (5)
     { x: 68, y: -40 },    // pos 2: Abstraction (15)
     { x: -68, y: -40 }    // pos 3: Breakthrough (16)
@@ -76,13 +76,13 @@ const CARD_OFFSETS = {
     { x: -68, y: 97 },    // pos 0: Compassion (6)
     { x: 68, y: 97 },     // pos 1: Drive (7)
     { x: 68, y: -40 },    // pos 2: Change (13)
-    { x: -68, y: -40 }    // pos 3: Balance (14)
+    { x: -68, y: -40 }    // pos 3: Tune (14)
   ],
   body: [
     { x: 68, y: -40 },    // pos 0: Fortitude (8)
     { x: -68, y: -40 },   // pos 1: Discipline (9)
     { x: -68, y: 97 },    // pos 2: Equity (11)
-    { x: 68, y: 97 }      // pos 3: Sacrifice (12)
+    { x: 68, y: 97 }      // pos 3: Faith (12)
   ],
   spirit: [
     { x: 68, y: -40 },    // pos 0: Wisdom (2)
@@ -98,7 +98,7 @@ const ARCHETYPE_LOCATIONS = {
   1: { house: 'gestalt', pos: 3 },   // Will
   2: { house: 'spirit', pos: 0 },    // Wisdom
   3: { house: 'spirit', pos: 1 },    // Nurturing
-  4: { house: 'mind', pos: 0 },      // Order
+  4: { house: 'mind', pos: 0 },      // Authority
   5: { house: 'mind', pos: 1 },      // Culture
   6: { house: 'emotion', pos: 0 },   // Compassion
   7: { house: 'emotion', pos: 1 },   // Drive
@@ -106,15 +106,15 @@ const ARCHETYPE_LOCATIONS = {
   9: { house: 'body', pos: 1 },      // Discipline
   10: { house: 'portal', pos: 0 },   // Source (portal)
   11: { house: 'body', pos: 2 },     // Equity
-  12: { house: 'body', pos: 3 },     // Sacrifice
+  12: { house: 'body', pos: 3 },     // Faith
   13: { house: 'emotion', pos: 2 },  // Change
-  14: { house: 'emotion', pos: 3 },  // Balance
+  14: { house: 'emotion', pos: 3 },  // Tune
   15: { house: 'mind', pos: 2 },     // Abstraction
   16: { house: 'mind', pos: 3 },     // Breakthrough
   17: { house: 'spirit', pos: 2 },   // Inspiration
   18: { house: 'spirit', pos: 3 },   // Imagination
   19: { house: 'gestalt', pos: 1 },  // Actualization
-  20: { house: 'gestalt', pos: 0 },  // Awareness
+  20: { house: 'gestalt', pos: 0 },  // Recognition
   21: { house: 'portal', pos: 1 }    // Creation (portal)
 };
 

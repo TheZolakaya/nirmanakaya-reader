@@ -28,7 +28,7 @@ const GESTALT_ARCHETYPE_CHANNELS = {
   0: 'Intent',      // Potential governs Spirit → Fire/Red
   1: 'Structure',   // Will governs Body → Earth/Brown
   19: 'Cognition',  // Actualization governs Mind → Air/Green
-  20: 'Resonance'   // Awareness governs Emotion → Water/Blue
+  20: 'Resonance'   // Recognition governs Emotion → Water/Blue
 };
 
 const CardNode = memo(({

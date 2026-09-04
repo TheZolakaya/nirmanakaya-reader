@@ -57,7 +57,7 @@ const BEATS = [
   { h: 'I AM.', p: 'Before form, there is awareness — aware only that it exists. The first collapse of infinity into presence.' },
   { h: 'What am I?', p: 'Awareness turns inward and asks. The first distinction — observer and observed. The first loop.' },
   { h: 'The first node.', p: 'One polarity: origin and return. Seed and Feedback. Continuity — but not yet change.' },
-  { h: 'The second node — four from one.', p: 'A second polarity. Now four positions are structurally required: Seed · Medium · Fruition · Feedback.' },
+  { h: 'The second node — four from one.', p: 'A second polarity. Now four positions are structurally required: Seed · Bridge · Fruition · Feedback.' },
   { h: 'The four-stage cycle.', p: 'Process is born. This four will hold through everything that follows — it is the fifth thread that weaves the rest.' },
   { h: 'One, two, three, four — ten.', p: 'The Tetractys. 1 + 2 + 3 + 4 = the ten fundamental nodes. Five processors, two polarities each.' },
   { h: 'Five houses.', p: 'Soul, Spirit, Mind, Emotion, Body — five recursive engines. And the map is born.' },
@@ -138,7 +138,7 @@ export default function Derivation({ autoplay = true, interval = 5200 }) {
           <motion.g animate={{ opacity: gNode }} transition={{ duration: 0.5 }}>
             {/* node A — vertical (Seed / Feedback) */}
             <line x1={SEED[0]} y1={SEED[1]} x2={FEEDBACK[0]} y2={FEEDBACK[1]} stroke={NODE} strokeWidth={1.3} opacity={0.55} />
-            {/* node B — horizontal (Medium / Fruition) appears at beat 3 */}
+            {/* node B — horizontal (Bridge / Fruition) appears at beat 3 */}
             <motion.line x1={MEDIUM[0]} y1={MEDIUM[1]} x2={FRUITION[0]} y2={FRUITION[1]} stroke={NODE} strokeWidth={1.3} animate={{ opacity: showSecond ? 0.55 : 0 }} transition={{ duration: 0.6 }} />
             {/* diamond edges (beat 4) */}
             <motion.polygon points={`${SEED[0]},${SEED[1]} ${FRUITION[0]},${FRUITION[1]} ${FEEDBACK[0]},${FEEDBACK[1]} ${MEDIUM[0]},${MEDIUM[1]}`}
@@ -152,7 +152,7 @@ export default function Derivation({ autoplay = true, interval = 5200 }) {
             <motion.g animate={{ opacity: labelFour }} transition={{ duration: 0.6 }} fontFamily={MONO} fontSize={12} fill={VIZ_DIM}>
               <text x={SEED[0]} y={SEED[1] - 18} textAnchor="middle">Seed</text>
               <text x={FEEDBACK[0]} y={FEEDBACK[1] + 28} textAnchor="middle">Feedback</text>
-              <text x={MEDIUM[0] - 16} y={MEDIUM[1] + 4} textAnchor="end">Medium</text>
+              <text x={MEDIUM[0] - 16} y={MEDIUM[1] + 4} textAnchor="end">Bridge</text>
               <text x={FRUITION[0] + 16} y={FRUITION[1] + 4} textAnchor="start">Fruition</text>
             </motion.g>
           </motion.g>
