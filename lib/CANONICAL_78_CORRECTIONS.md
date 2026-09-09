@@ -41,13 +41,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Nurturing (3) | Empress | Imagination (18) | Moon |
 | Order (4) | Emperor | Abstraction (15) | Devil |
 | Culture (5) | Hierophant | Breakthrough (16) | Tower |
-| Compassion (6) | Lovers | Change (13) | Death |
+| Compassion (6) | Lovers | Transformation (13) | Death |
 | Drive (7) | Chariot | Tune (14) | Temperance |
 | Fortitude (8) | Strength | Equity (11) | Justice |
 | Discipline (9) | Hermit | Sacrifice (12) | Hanged Man |
 | Equity (11) | Justice | Fortitude (8) | Strength |
 | Sacrifice (12) | Hanged Man | Discipline (9) | Hermit |
-| Change (13) | Death | Compassion (6) | Lovers |
+| Transformation (13) | Death | Compassion (6) | Lovers |
 | Tune (14) | Temperance | Drive (7) | Chariot |
 | Abstraction (15) | Devil | Order (4) | Emperor |
 | Breakthrough (16) | Tower | Culture (5) | Hierophant |
@@ -66,12 +66,12 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Order (4) | Emperor | Breakthrough (16) | Tower |
 | Culture (5) | Hierophant | Abstraction (15) | Devil |
 | Compassion (6) | Lovers | Tune (14) | Temperance |
-| Drive (7) | Chariot | Change (13) | Death |
+| Drive (7) | Chariot | Transformation (13) | Death |
 | Fortitude (8) | Strength | Sacrifice (12) | Hanged Man |
 | Discipline (9) | Hermit | Equity (11) | Justice |
 | Equity (11) | Justice | Discipline (9) | Hermit |
 | Sacrifice (12) | Hanged Man | Fortitude (8) | Strength |
-| Change (13) | Death | Drive (7) | Chariot |
+| Transformation (13) | Death | Drive (7) | Chariot |
 | Tune (14) | Temperance | Compassion (6) | Lovers |
 | Abstraction (15) | Devil | Culture (5) | Hierophant |
 | Breakthrough (16) | Tower | Order (4) | Emperor |
@@ -87,7 +87,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Will (1) | Magician | — | No reduction pair |
 | Wisdom (2) | High Priestess | Equity (11) | Justice |
 | Nurturing (3) | Empress | Sacrifice (12) | Hanged Man |
-| Order (4) | Emperor | Change (13) | Death |
+| Order (4) | Emperor | Transformation (13) | Death |
 | Culture (5) | Hierophant | Tune (14) | Temperance |
 | Compassion (6) | Lovers | Abstraction (15) | Devil |
 | Drive (7) | Chariot | Breakthrough (16) | Tower |
@@ -96,7 +96,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Source (10) | Wheel | — | No reduction pair |
 | Equity (11) | Justice | Wisdom (2) | High Priestess |
 | Sacrifice (12) | Hanged Man | Nurturing (3) | Empress |
-| Change (13) | Death | Order (4) | Emperor |
+| Transformation (13) | Death | Order (4) | Emperor |
 | Tune (14) | Temperance | Culture (5) | Hierophant |
 | Abstraction (15) | Devil | Compassion (6) | Lovers |
 | Breakthrough (16) | Tower | Drive (7) | Chariot |
@@ -120,9 +120,9 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Culture (5) | Hierophant | Tune (14) | Temperance | Transmission → Integration |
 | Drive (7) | Chariot | Imagination (18) | Moon | Momentum → Vision |
 | Discipline (9) | Hermit | Breakthrough (16) | Tower | Method → Clearing |
-| Equity (11) | Justice | Change (13) | Death | Fairness → Transformation |
+| Equity (11) | Justice | Transformation (13) | Death | Fairness → Transformation |
 | Sacrifice (12) | Hanged Man | Nurturing (3) | Empress | Surrender → Cultivation |
-| Change (13) | Death | Equity (11) | Justice | Transformation → Fairness |
+| Transformation (13) | Death | Equity (11) | Justice | Transformation → Fairness |
 | Tune (14) | Temperance | Culture (5) | Hierophant | Integration → Transmission |
 | Breakthrough (16) | Tower | Discipline (9) | Hermit | Clearing → Method |
 | Imagination (18) | Moon | Drive (7) | Chariot | Vision → Momentum |
@@ -146,7 +146,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Sacrifice (12) + Nurturing (3) | 15 | 6 | Connection |
 | Tune (14) + Culture (5) | 19 | 1 | Will |
 | Discipline (9) + Breakthrough (16) | 25 | 7 | Momentum |
-| Equity (11) + Change (13) | 24 | 6 | Connection |
+| Equity (11) + Transformation (13) | 24 | 6 | Connection |
 
 **Polarity Pairs Mod-9 Twinning:**
 | Pair | Mod-9 |
@@ -201,7 +201,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | Discipline (9) | Hermit | 5 of Swords | 6 of Swords | — | King of Swords |
 | Equity (11) | Justice | 5 of Cups | 6 of Cups | — | King of Cups |
 | Sacrifice (12) | Hanged Man | 5 of Wands | 6 of Wands | — | King of Wands |
-| Change (13) | Death | 4 of Pentacles | 7 of Pentacles | — | Queen of Pentacles |
+| Transformation (13) | Death | 4 of Pentacles | 7 of Pentacles | — | Queen of Pentacles |
 | Tune (14) | Temperance | 4 of Swords | 7 of Swords | — | Queen of Swords |
 | Abstraction (15) | Devil | 3 of Swords | 8 of Swords | Knight of Swords | — |
 | Breakthrough (16) | Tower | 3 of Pentacles | 8 of Pentacles | Knight of Pentacles | — |
@@ -295,7 +295,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | King of Cups | Executor of Resonance | Equity (11) | Outer |
 | Page of Pentacles | Initiate of Structure | Nurturing (3) | Inner |
 | Knight of Pentacles | Catalyst of Structure | Breakthrough (16) | Inner |
-| Queen of Pentacles | Steward of Structure | Change (13) | Outer |
+| Queen of Pentacles | Steward of Structure | Transformation (13) | Outer |
 | King of Pentacles | Executor of Structure | Fortitude (8) | Outer |
 
 ### Agents Complete Reference

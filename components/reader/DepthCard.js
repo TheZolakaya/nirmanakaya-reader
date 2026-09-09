@@ -301,7 +301,7 @@ const DepthCard = ({
   // Gestalt archetypes (0, 1, 19, 20) and Portals (10, 21) have no lateral growth - they loop back to themselves
   // Polarity Anchors: Compassion(6), Fortitude(8), Abstraction(15), Inspiration(17) - pure element expressions
   // Transpose Pairs: Authority(4)↔Wisdom(2), Nurturing(3)↔Faith(12), Culture(5)↔Tune(14),
-  //                  Drive(7)↔Imagination(18), Discipline(9)↔Breakthrough(16), Equity(11)↔Change(13)
+  //                  Drive(7)↔Imagination(18), Discipline(9)↔Breakthrough(16), Equity(11)↔Transformation(13)
   const GESTALT_ARCHETYPES = new Set([0, 1, 10, 19, 20, 21]); // Gestalt house + Portals - completion points
   const POLARITY_ANCHOR_ARCHETYPES = new Set([6, 8, 15, 17]);
   const TRANSPOSE_PAIR_ARCHETYPES = new Set([2, 3, 4, 5, 7, 9, 11, 12, 13, 14, 16, 18]);

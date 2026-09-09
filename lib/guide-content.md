@@ -465,7 +465,7 @@ Structural verbs — acts consciousness performs:
 0. Potential    1. Will        2. Wisdom      3. Nurturing
 4. Order        5. Culture     6. Compassion  7. Drive
 8. Fortitude    9. Discipline  10. Source     11. Equity
-12. Sacrifice   13. Change     14. Balance    15. Abstraction
+12. Sacrifice   13. Transformation     14. Balance    15. Abstraction
 16. Breakthrough 17. Inspiration 18. Imagination 19. Actualization
 20. Awareness   21. Creation
 ```

@@ -36,7 +36,7 @@ const HOUSES = {
     x: CX + Math.round(450 * COMPRESS),   // ~475
     y: CY + Math.round((735 - ORIG_CY) * COMPRESS),  // ~232
     rotation: 45,
-    archetypes: [6, 7, 13, 14]  // Compassion, Drive, Change, Tune
+    archetypes: [6, 7, 13, 14]  // Compassion, Drive, Transformation, Tune
   },
   body: {
     x: CX + Math.round(-450 * COMPRESS),  // ~115
@@ -75,7 +75,7 @@ const CARD_OFFSETS = {
   emotion: [
     { x: -68, y: 97 },    // pos 0: Compassion (6)
     { x: 68, y: 97 },     // pos 1: Drive (7)
-    { x: 68, y: -40 },    // pos 2: Change (13)
+    { x: 68, y: -40 },    // pos 2: Transformation (13)
     { x: -68, y: -40 }    // pos 3: Tune (14)
   ],
   body: [
@@ -107,7 +107,7 @@ const ARCHETYPE_LOCATIONS = {
   10: { house: 'portal', pos: 0 },   // Source (portal)
   11: { house: 'body', pos: 2 },     // Equity
   12: { house: 'body', pos: 3 },     // Faith
-  13: { house: 'emotion', pos: 2 },  // Change
+  13: { house: 'emotion', pos: 2 },  // Transformation
   14: { house: 'emotion', pos: 3 },  // Tune
   15: { house: 'mind', pos: 2 },     // Abstraction
   16: { house: 'mind', pos: 3 },     // Breakthrough

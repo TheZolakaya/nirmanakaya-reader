@@ -21,7 +21,7 @@ const VERTICES = {
    5: { bits: [0,1,1,0], name: 'Culture' },        // Mind, Resonance
   11: { bits: [1,1,1,0], name: 'Equity' },         // Body, Resonance
    3: { bits: [0,0,1,1], name: 'Nurturing' },      // Spirit, Structure
-  13: { bits: [1,0,1,1], name: 'Change' },         // Emotion, Structure
+  13: { bits: [1,0,1,1], name: 'Transformation' },         // Emotion, Structure
   16: { bits: [0,1,1,1], name: 'Breakthrough' },   // Mind, Structure
    8: { bits: [1,1,1,1], name: 'Fortitude' },      // Body, Structure
 };

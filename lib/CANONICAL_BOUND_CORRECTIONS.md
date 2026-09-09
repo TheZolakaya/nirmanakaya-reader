@@ -33,7 +33,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 | Nurturing (Empress) | Imagination (Moon) |
 | Order (Emperor) | Abstraction (Devil) |
 | Culture (Hierophant) | Breakthrough (Tower) |
-| Compassion (Lovers) | Change (Death) |
+| Compassion (Lovers) | Transformation (Death) |
 | Drive (Chariot) | Tune (Temperance) |
 | Fortitude (Strength) | Equity (Justice) |
 | Discipline (Hermit) | Sacrifice (Hanged Man) |
@@ -48,7 +48,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 | Order (Emperor) | Breakthrough (Tower) |
 | Culture (Hierophant) | Abstraction (Devil) |
 | Compassion (Lovers) | Tune (Temperance) |
-| Drive (Chariot) | Change (Death) |
+| Drive (Chariot) | Transformation (Death) |
 | Fortitude (Strength) | Sacrifice (Hanged Man) |
 | Discipline (Hermit) | Equity (Justice) |
 
@@ -57,7 +57,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 |-----------|-------------------|
 | Wisdom (High Priestess) | Equity (Justice) |
 | Nurturing (Empress) | Sacrifice (Hanged Man) |
-| Order (Emperor) | Change (Death) |
+| Order (Emperor) | Transformation (Death) |
 | Culture (Hierophant) | Tune (Temperance) |
 | Compassion (Lovers) | Abstraction (Devil) |
 | Drive (Chariot) | Breakthrough (Tower) |
@@ -65,7 +65,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 | Discipline (Hermit) | Imagination (Moon) |
 | Equity (Justice) | Wisdom (High Priestess) |
 | Sacrifice (Hanged Man) | Nurturing (Empress) |
-| Change (Death) | Order (Emperor) |
+| Transformation (Death) | Order (Emperor) |
 | Tune (Temperance) | Culture (Hierophant) |
 | Abstraction (Devil) | Compassion (Lovers) |
 | Breakthrough (Tower) | Drive (Chariot) |
@@ -88,7 +88,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 | Discipline (Hermit) | 5 of Swords | 6 of Swords |
 | Equity (Justice) | 5 of Cups | 6 of Cups |
 | Sacrifice (Hanged Man) | 5 of Wands | 6 of Wands |
-| Change (Death) | 4 of Pentacles | 7 of Pentacles |
+| Transformation (Death) | 4 of Pentacles | 7 of Pentacles |
 | Tune (Temperance) | 4 of Swords | 7 of Swords |
 | Abstraction (Devil) | 3 of Swords | 8 of Swords |
 | Breakthrough (Tower) | 3 of Pentacles | 8 of Pentacles |
@@ -122,13 +122,13 @@ Bound corrections follow the Archetype correction path with polarity flip:
 - **Polarity:** Inner
 - **Too Much → Diagonal:** Abstraction (Devil) → Outer → **8 of Swords**
 - **Too Little → Vertical:** Breakthrough (Tower) → Outer → **8 of Pentacles**
-- **Unacknowledged → Reduction:** Change (Death) → Outer → **7 of Pentacles**
+- **Unacknowledged → Reduction:** Transformation (Death) → Outer → **7 of Pentacles**
 
 #### 4 of Wands (Alignment)
 - **Archetype:** Drive (Chariot)
 - **Polarity:** Inner
 - **Too Much → Diagonal:** Tune (Temperance) → Outer → **7 of Swords**
-- **Too Little → Vertical:** Change (Death) → Outer → **7 of Pentacles**
+- **Too Little → Vertical:** Transformation (Death) → Outer → **7 of Pentacles**
 - **Unacknowledged → Reduction:** Breakthrough (Tower) → Outer → **8 of Pentacles**
 
 #### 5 of Wands (Dedication)
@@ -149,7 +149,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 - **Archetype:** Drive (Chariot)
 - **Polarity:** Outer
 - **Too Much → Diagonal:** Tune (Temperance) → Inner → **4 of Swords**
-- **Too Little → Vertical:** Change (Death) → Inner → **4 of Pentacles**
+- **Too Little → Vertical:** Transformation (Death) → Inner → **4 of Pentacles**
 - **Unacknowledged → Reduction:** Breakthrough (Tower) → Inner → **3 of Pentacles**
 
 #### 8 of Wands (Command)
@@ -157,7 +157,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 - **Polarity:** Outer
 - **Too Much → Diagonal:** Abstraction (Devil) → Inner → **3 of Swords**
 - **Too Little → Vertical:** Breakthrough (Tower) → Inner → **3 of Pentacles**
-- **Unacknowledged → Reduction:** Change (Death) → Inner → **4 of Pentacles**
+- **Unacknowledged → Reduction:** Transformation (Death) → Inner → **4 of Pentacles**
 
 #### 9 of Wands (Resilience)
 - **Archetype:** Inspiration (Star)
@@ -275,7 +275,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 #### 4 of Cups (Reverie)
 - **Archetype:** Compassion (Lovers)
 - **Polarity:** Inner
-- **Too Much → Diagonal:** Change (Death) → Outer → **7 of Pentacles**
+- **Too Much → Diagonal:** Transformation (Death) → Outer → **7 of Pentacles**
 - **Too Little → Vertical:** Tune (Temperance) → Outer → **7 of Swords**
 - **Unacknowledged → Reduction:** Abstraction (Devil) → Outer → **8 of Swords**
 
@@ -296,7 +296,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 #### 7 of Cups (Allure)
 - **Archetype:** Compassion (Lovers)
 - **Polarity:** Outer
-- **Too Much → Diagonal:** Change (Death) → Inner → **4 of Pentacles**
+- **Too Much → Diagonal:** Transformation (Death) → Inner → **4 of Pentacles**
 - **Too Little → Vertical:** Tune (Temperance) → Inner → **4 of Swords**
 - **Unacknowledged → Reduction:** Abstraction (Devil) → Inner → **3 of Swords**
 
@@ -347,7 +347,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 - **Unacknowledged → Reduction:** Drive (Chariot) → Outer → **7 of Wands**
 
 #### 4 of Pentacles (Preservation)
-- **Archetype:** Change (Death)
+- **Archetype:** Transformation (Death)
 - **Polarity:** Inner
 - **Too Much → Diagonal:** Compassion (Lovers) → Outer → **7 of Cups**
 - **Too Little → Vertical:** Drive (Chariot) → Outer → **7 of Wands**
@@ -368,7 +368,7 @@ Bound corrections follow the Archetype correction path with polarity flip:
 - **Unacknowledged → Reduction:** Inspiration (Star) → Inner → **2 of Wands**
 
 #### 7 of Pentacles (Harvest)
-- **Archetype:** Change (Death)
+- **Archetype:** Transformation (Death)
 - **Polarity:** Outer
 - **Too Much → Diagonal:** Compassion (Lovers) → Inner → **4 of Cups**
 - **Too Little → Vertical:** Drive (Chariot) → Inner → **4 of Wands**

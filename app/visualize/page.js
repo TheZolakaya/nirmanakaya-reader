@@ -17,7 +17,7 @@ const VERTICES = {
    5: { bits: [0,1,1,0], name: 'Culture' },
   11: { bits: [1,1,1,0], name: 'Equity' },
    3: { bits: [0,0,1,1], name: 'Nurturing' },
-  13: { bits: [1,0,1,1], name: 'Change' },
+  13: { bits: [1,0,1,1], name: 'Transformation' },
   16: { bits: [0,1,1,1], name: 'Breakthrough' },
    8: { bits: [1,1,1,1], name: 'Fortitude' },
 };

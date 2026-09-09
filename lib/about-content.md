@@ -224,7 +224,7 @@ Apply P/R alternation starting from undifferentiated potential:
 | **10** | **R** | **Source** — return to origin (THE TURN) | Wheel of Fortune |
 | 11 | P | **Equity** — discernment from Source | Justice |
 | 12 | R | **Sacrifice** — release to align | Hanged Man |
-| 13 | P | **Change** — transformation | Death |
+| 13 | P | **Transformation** — necessary ending | Death |
 | 14 | R | **Tune** — equilibrium | Temperance |
 | 15 | P | **Abstraction** — pattern recognition | The Devil |
 | 16 | R | **Breakthrough** — patterns collapse | The Tower |
