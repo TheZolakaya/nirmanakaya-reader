@@ -3,6 +3,7 @@
 // "Card laid is a card played" — locked interpretations, regenerated synthesis
 
 import { randomBytes } from 'crypto';
+import { uniformInt } from '../../../../lib/uniformInt.js';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
@@ -56,18 +57,15 @@ function generateNewDraw(existingDraws) {
 
   let transient;
   do {
-    const bytes = randomBytes(1);
-    transient = bytes[0] % 78;
+    transient = uniformInt(78);              // uniform rejection sampler (v0.99.236)
   } while (usedTransients.has(transient));
 
   let position;
   do {
-    const bytes = randomBytes(1);
-    position = bytes[0] % 22;
+    position = uniformInt(22);
   } while (usedPositions.has(position));
 
-  const statusBytes = randomBytes(1);
-  const status = (statusBytes[0] % 4) + 1;
+  const status = uniformInt(4) + 1;
 
   return { position, transient, status };
 }

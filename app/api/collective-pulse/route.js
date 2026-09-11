@@ -9,6 +9,7 @@ export const maxDuration = 300;
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { randomBytes } from 'crypto';
+import { uniformInt } from '../../../lib/uniformInt.js';
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
 import {
   ARCHETYPES,
@@ -39,17 +40,11 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Generate a single draw with crypto randomness
+// Generate a single draw with crypto randomness (uniform: rejection sampler, v0.99.236)
 function generateSingleDraw() {
-  const transientBytes = randomBytes(1);
-  const transient = transientBytes[0] % 78;
-  
-  const positionBytes = randomBytes(1);
-  const position = positionBytes[0] % 22;
-  
-  const statusBytes = randomBytes(1);
-  const status = (statusBytes[0] % 4) + 1;
-  
+  const transient = uniformInt(78);
+  const position = uniformInt(22);
+  const status = uniformInt(4) + 1;
   return { transient, position, status };
 }
 

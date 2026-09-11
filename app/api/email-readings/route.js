@@ -3,6 +3,7 @@
 // Schedule: runs after Collective Pulse (e.g., 7am UTC)
 
 import { randomBytes } from 'crypto';
+import { uniformInt } from '../../../lib/uniformInt.js';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
 import {
@@ -60,20 +61,17 @@ function generateServerDraws(count) {
   for (let i = 0; i < count; i++) {
     let transient;
     do {
-      const bytes = randomBytes(1);
-      transient = bytes[0] % 78;
+      transient = uniformInt(78);            // uniform rejection sampler (v0.99.236)
     } while (usedTransients.has(transient));
     usedTransients.add(transient);
 
     let position;
     do {
-      const bytes = randomBytes(1);
-      position = bytes[0] % 22;
+      position = uniformInt(22);
     } while (usedPositions.has(position));
     usedPositions.add(position);
 
-    const statusBytes = randomBytes(1);
-    const status = (statusBytes[0] % 4) + 1;
+    const status = uniformInt(4) + 1;
 
     draws.push({ position, transient, status });
   }
