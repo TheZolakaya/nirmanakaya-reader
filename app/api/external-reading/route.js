@@ -150,23 +150,33 @@ function generateServerDraws(count, fixedDraw = null) {
   const usedTransients = new Set();
   const usedPositions = new Set();
 
+  // UNIFORM SAMPLER (v0.99.235, 2026-09-11). `byte % n` is biased whenever 256 is not a
+  // multiple of n: for n=78 the ids 0-21 (the archetypes) were drawn 4/256 each vs 3/256 for
+  // every bound/ambassador (+33%); for n=22 the ids 0-13 got 12/256 vs 11/256 (+9%).
+  // Caught by Lumen (Mind seat) during the why-readings-work prereg. Rejection sampling:
+  // draw a byte, discard it if it falls in the biased tail, so every residue is equally likely.
+  // n=4 was already exact (256 % 4 === 0), kept on the same helper for uniformity.
+  const uniformInt = (n) => {
+    const limit = 256 - (256 % n);           // largest multiple of n that fits in a byte
+    let b;
+    do { b = randomBytes(1)[0]; } while (b >= limit);
+    return b % n;
+  };
+
   for (let i = 0; i < count; i++) {
     let transient;
     do {
-      const bytes = randomBytes(1);
-      transient = bytes[0] % 78;
+      transient = uniformInt(78);
     } while (usedTransients.has(transient));
     usedTransients.add(transient);
 
     let position;
     do {
-      const bytes = randomBytes(1);
-      position = bytes[0] % 22;
+      position = uniformInt(22);
     } while (usedPositions.has(position));
     usedPositions.add(position);
 
-    const statusBytes = randomBytes(1);
-    const status = (statusBytes[0] % 4) + 1;
+    const status = uniformInt(4) + 1;
 
     draws.push({ position, transient, status, isFixed: false });
   }
