@@ -3122,8 +3122,10 @@ export default function NirmanakaReader() {
     const transientPool = shuffleArray([...Array(78).keys()]);
     const statusArr = new Uint32Array(1);
     crypto.getRandomValues(statusArr);
+    const posArr = new Uint32Array(1);
+    crypto.getRandomValues(posArr);
     return {
-      position: Math.floor(Math.random() * 22), // Random position
+      position: posArr[0] % 22, // durable seat — 2^32 % 22 bias is negligible (< 1e-8)
       transient: transientPool[0],
       status: (statusArr[0] % 4) + 1
     };
@@ -3318,6 +3320,9 @@ export default function NirmanakaReader() {
     const newStat = STATUSES[newDraw.status];
     const newStatusPrefix = newStat.prefix || 'Balanced';
     const newCardName = `${newStatusPrefix} ${newTrans.name}`;
+    // The thread draw is a transient IN a durable, like every other draw — tell the model the seat.
+    const newCardSeat = ARCHETYPES[newDraw.position]?.name || null;
+    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new card through this seat, as you would any signature in a spread.` : '';
 
     // Get correction info if new card is imbalanced
     const newCorrection = newDraw.status !== 1 ? getFullCorrection(newDraw.transient, newDraw.status) : null;
@@ -3396,7 +3401,7 @@ ${fullReadingContext}
 ${threadConverseBlock}USER'S INQUIRY/QUESTION (about ${parentLabel}):
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}
+NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
@@ -3443,7 +3448,7 @@ ${parentContent}
 USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}
+NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
@@ -3605,6 +3610,9 @@ Interpret this new card as the architecture's response to their declared directi
     const newStat = STATUSES[newDraw.status];
     const newStatusPrefix = newStat.prefix || 'Balanced';
     const newCardName = `${newStatusPrefix} ${newTrans.name}`;
+    // The thread draw is a transient IN a durable, like every other draw — tell the model the seat.
+    const newCardSeat = ARCHETYPES[newDraw.position]?.name || null;
+    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new card through this seat, as you would any signature in a spread.` : '';
 
     if (operation === 'reflect') {
       // REFLECT: User is INQUIRING - architecture responds to their QUESTION with a new card
@@ -3634,7 +3642,7 @@ ${parentThreadItem.interpretation}
 USER'S INQUIRY/QUESTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}
+NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
@@ -3668,7 +3676,7 @@ ${parentThreadItem.interpretation}
 USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}
+NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
@@ -4953,6 +4961,43 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       : (RANDOM_SPREADS[effKeyExport]?.name ? `${RANDOM_SPREADS[effKeyExport].name} Emergent` : 'Emergent');
     const spreadConfig = isReflect ? REFLECT_SPREADS[effKeyExport] : null;
 
+    // Threads are keyed 'card-N' for signatures (DepthCard's cardSectionKey) and by name for
+    // sections ('unified' | 'path' | 'summary' | 'letter' | 'words-to-whys'). The export used
+    // to read threadData[N] for cards — a key that was never written — so every Reflect/Forge
+    // thread silently vanished from the file.
+    const threadsFor = (key) => threadData[key] || [];
+    const cardThreadsFor = (i) => threadsFor(`card-${i}`).length ? threadsFor(`card-${i}`) : threadsFor(i);
+    const threadDrawLabel = (draw) => {
+      if (!draw) return 'Response';
+      const t = getComponent(draw.transient);
+      const s = STATUSES[draw.status];
+      const seat = ARCHETYPES[draw.position]?.name;
+      return `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat}` : ''}`;
+    };
+    const renderThreadMd = (items, depth = 0) => {
+      const indent = '  '.repeat(depth);
+      items.forEach(item => {
+        const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
+        md += `${indent}> **${opLabel}**${item.context ? `: *"${item.context}"*` : ''}\n\n`;
+        md += `${indent}> **Drew: ${threadDrawLabel(item.draw)}**\n\n`;
+        md += `${indent}${item.interpretation}\n\n`;
+        if (item.children?.length > 0) renderThreadMd(item.children, depth + 1);
+      });
+    };
+    // Converse turns on a section (expansions[key].context) — the discourse after the reading.
+    const renderContextMd = (key, heading = '#### Converse') => {
+      const ctx = expansions[key]?.context;
+      if (!Array.isArray(ctx) || ctx.length === 0) return;
+      md += `${heading}\n\n`;
+      ctx.forEach(turn => { md += turn.role === 'user' ? `> *"${turn.content}"*\n\n` : `${turn.content}\n\n`; });
+    };
+    const renderSectionThreadsMd = (key, heading = '#### Threads') => {
+      const items = threadsFor(key);
+      if (!items.length) return;
+      md += `${heading}\n\n`;
+      renderThreadMd(items);
+    };
+
     let md = `# Nirmanakaya Reading\n\n`;
     md += `**Date:** ${new Date().toLocaleDateString()}\n\n`;
     md += `## Question\n\n${question}\n\n`;
@@ -5001,12 +5046,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     // Summary
     if (parsedReading.summary) {
       md += `## Summary\n\n${getSummaryContent(parsedReading.summary)}\n\n`;
+      renderContextMd('summary');
+      renderSectionThreadsMd('summary');
     }
 
     // Why This Fits Now (synthesis)
     const whyAppearedMd = getWhyAppearedContent(parsedReading.whyAppeared, 'deep');
     if (whyAppearedMd) {
       md += `## Why This Fits Now\n\n${whyAppearedMd}\n\n`;
+      renderContextMd('whyAppeared');
     }
 
     // Cards with rebalancers (new structure)
@@ -5104,21 +5152,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       }
 
       // Thread conversations (Reflect/Forge)
-      const cardThreads = threadData[card.index] || [];
+      const cardThreads = cardThreadsFor(card.index);
       if (cardThreads.length > 0) {
-        const renderThreadMd = (items, depth = 0) => {
-          const indent = '  '.repeat(depth);
-          items.forEach(item => {
-            const itemTrans = item.draw ? getComponent(item.draw.transient) : null;
-            const itemStat = item.draw ? STATUSES[item.draw.status] : null;
-            const itemName = itemTrans ? `${(itemStat?.prefix || 'Balanced')} ${itemTrans.name}` : 'Response';
-            const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
-            md += `${indent}> **${opLabel}**${item.context ? `: *"${item.context}"*` : ''}\n\n`;
-            md += `${indent}> **Drew: ${itemName}**\n\n`;
-            md += `${indent}${item.interpretation}\n\n`;
-            if (item.children?.length > 0) renderThreadMd(item.children, depth + 1);
-          });
-        };
         md += `#### Threads\n\n`;
         renderThreadMd(cardThreads);
       }
@@ -5131,6 +5166,15 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       if (parsedReading.path?.architecture) {
         md += `### Architecture\n\n${parsedReading.path.architecture}\n\n`;
       }
+      const pathExpansions = expansions['path'] || {};
+      Object.entries(pathExpansions).filter(([k]) => k !== 'context').forEach(([expType, content]) => {
+        if (content && typeof content === 'string') {
+          const label = EXPANSION_PROMPTS[expType]?.label || expType;
+          md += `### ${label}\n\n${content}\n\n`;
+        }
+      });
+      renderContextMd('path', '### Converse');
+      renderSectionThreadsMd('path', '### Threads');
     }
 
     // Full Architecture (global reading architecture)
@@ -5162,6 +5206,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           md += `### ${label}\n\n${content}\n\n`;
         }
       });
+      renderContextMd('letter', '### Converse');
+      renderSectionThreadsMd('letter', '### Threads');
     }
 
     // Summary expansions
@@ -5173,6 +5219,16 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           md += `### Overview ${label}\n\n${content}\n\n`;
         }
       });
+    }
+
+    // Words to the Whys section (converse + threads live under their own key)
+    renderContextMd('words-to-whys', '### Words to the Whys — Converse');
+    renderSectionThreadsMd('words-to-whys', '### Words to the Whys — Threads');
+
+    // Continuing the reading: Reflect/Forge from the bottom of the synthesis ('unified')
+    if (threadsFor('unified').length > 0) {
+      md += `---\n\n## Continuing the Reading\n\n`;
+      renderThreadMd(threadsFor('unified'));
     }
 
     // Follow-up conversation
@@ -5281,6 +5337,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       const itemTrans = getComponent(item.draw.transient);
       const itemStat = STATUSES[item.draw.status];
       const itemStatusPrefix = itemStat.prefix || 'Balanced';
+      const itemSeat = ARCHETYPES[item.draw.position]?.name;
       const opLabel = item.operation === 'reflect' ? 'Reflecting' : 'Forging';
       const opClass = item.operation === 'reflect' ? 'thread-reflect' : 'thread-forge';
 
@@ -5295,7 +5352,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
           <div class="thread-card">
             <div class="thread-header">
               <span class="signature-status status-${itemStat.name.toLowerCase().replace(' ', '-')}">${itemStat.name}</span>
-              <span class="thread-name">${itemStatusPrefix} ${itemTrans.name}</span>
+              <span class="thread-name">${itemStatusPrefix} ${itemTrans.name}${itemSeat ? ` <span class="thread-seat">in ${escapeHtml(itemSeat)}</span>` : ''}</span>
             </div>
             <div class="thread-content">${escapeHtml(item.interpretation)}</div>
           </div>
@@ -5303,11 +5360,24 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         </div>`;
     };
 
-    // Helper to render threads for a section
+    // Helper to render threads for a section. Signature threads are keyed 'card-N'
+    // (DepthCard's cardSectionKey); a bare number is accepted for legacy saves.
     const renderSectionThreads = (key) => {
-      const threads = threadData[key] || [];
+      const threads = (typeof key === 'number')
+        ? (threadData[`card-${key}`]?.length ? threadData[`card-${key}`] : (threadData[key] || []))
+        : (threadData[key] || []);
       if (threads.length === 0) return '';
       return `<div class="threads">${threads.map(t => renderThreadItem(t)).join('')}</div>`;
+    };
+    // Converse turns on a section (expansions[key].context) — the discourse after the reading.
+    const renderSectionContext = (key) => {
+      const ctx = expansions[key]?.context;
+      if (!Array.isArray(ctx) || ctx.length === 0) return '';
+      return `<div class="expansion" style="margin-left: 0;"><span class="expansion-badge">Converse</span><div class="expansion-content">${
+        ctx.map(turn => turn.role === 'user'
+          ? `<p style="color:#fbbf24;font-style:italic">&ldquo;${escapeHtml(turn.content)}&rdquo;</p>`
+          : `<p>${escapeHtml(turn.content)}</p>`).join('')
+      }</div></div>`;
     };
 
     let signaturesHtml = '';
@@ -5554,6 +5624,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     .thread-forge .thread-card { background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); }
     .thread-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
     .thread-name { color: #e4e4e7; font-weight: 500; }
+    .thread-seat { color: #a1a1aa; font-weight: 400; }
     .thread-content { color: #d4d4d8; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
     .the-why { margin-top: 1rem; padding: 1rem; background: rgba(8, 51, 68, 0.3); border: 2px solid rgba(6, 182, 212, 0.4); border-radius: 0.5rem; margin-left: 1rem; }
     .why-badge { display: inline-block; background: rgba(6, 182, 212, 0.3); color: #67e8f9; font-size: 0.625rem; padding: 0.2rem 0.5rem; border-radius: 1rem; margin-bottom: 0.75rem; }
@@ -5594,6 +5665,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       <span class="summary-badge">Overview</span>
       <div class="summary">${escapeHtml(getSummaryContent(parsedReading.summary))}</div>
       ${summaryExpansionsHtml}
+      ${renderSectionContext('summary')}
       ${renderSectionThreads('summary')}
     </div>
   </div>` : ''}
@@ -5608,6 +5680,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     <div class="why-appeared-box">
       <span class="why-appeared-badge">Why This Fits Now</span>
       <div class="why-appeared-content">${escapeHtml(getWhyAppearedContent(parsedReading.whyAppeared, 'deep'))}</div>
+      ${renderSectionContext('whyAppeared')}
     </div>
   </div>` : ''}
 
@@ -5616,6 +5689,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     <div class="path-box">
       <span class="path-badge">◈ Path to Balance</span>
       <div class="path-content">${escapeHtml(parsedReading.path?.deep || parsedReading.path?.swim || parsedReading.path?.wade || parsedReading.path?.surface || parsedReading.rebalancerSummary)}</div>
+      ${Object.entries(expansions['path'] || {}).filter(([k, v]) => k !== 'context' && typeof v === 'string' && v).map(([expType, content]) => `
+          <div class="expansion" style="margin-left: 0;"><span class="expansion-badge">${EXPANSION_PROMPTS[expType]?.label || expType}</span><div class="expansion-content">${escapeHtml(content)}</div></div>`).join('')}
+      ${renderSectionContext('path')}
       ${renderSectionThreads('path')}
     </div>
   </div>` : ''}
@@ -5634,8 +5710,22 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       <span class="letter-badge">Letter</span>
       <div class="letter">${escapeHtml(parsedReading.letter?.deep || parsedReading.letter?.swim || parsedReading.letter?.wade || parsedReading.letter?.surface || (typeof parsedReading.letter === 'string' ? parsedReading.letter : ''))}</div>
       ${letterExpansionsHtml}
+      ${renderSectionContext('letter')}
       ${renderSectionThreads('letter')}
     </div>
+  </div>` : ''}
+
+  ${(renderSectionContext('words-to-whys') || renderSectionThreads('words-to-whys')) ? `
+  <div class="section">
+    <div class="section-title">Words to the Whys</div>
+    ${renderSectionContext('words-to-whys')}
+    ${renderSectionThreads('words-to-whys')}
+  </div>` : ''}
+
+  ${renderSectionThreads('unified') ? `
+  <div class="section">
+    <div class="section-title">Continuing the Reading</div>
+    ${renderSectionThreads('unified')}
   </div>` : ''}
 
   ${followUpMessages.length > 0 ? `
@@ -8629,7 +8719,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                                         onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                       />
                                       <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
-                                        {trans?.name}
+                                        {trans?.name}{ARCHETYPES[threadItem.draw.position]?.name ? <span className="text-zinc-400"> in {ARCHETYPES[threadItem.draw.position].name}</span> : null}
                                       </span>
                                     </div>
 
@@ -9079,7 +9169,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                                     onImageClick={() => openCardDetail(threadItem.draw.transient)}
                                   />
                                   <span className="cursor-pointer hover:underline decoration-dotted underline-offset-2 text-xs text-amber-300/90 mt-1 text-center" onClick={() => setSelectedInfo({ type: 'card', id: threadItem.draw.transient, data: trans })}>
-                                    {trans?.name}
+                                    {trans?.name}{ARCHETYPES[threadItem.draw.position]?.name ? <span className="text-zinc-400"> in {ARCHETYPES[threadItem.draw.position].name}</span> : null}
                                   </span>
                                 </div>
 

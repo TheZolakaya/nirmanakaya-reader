@@ -3,6 +3,7 @@
 
 import { STATUSES, STATUS_INFO, STATUS_COLORS } from '../../lib/constants.js';
 import { getComponent } from '../../lib/corrections.js';
+import { ARCHETYPES } from '../../lib/archetypes.js';
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { ensureParagraphBreaks } from '../../lib/utils.js';
 
@@ -87,6 +88,9 @@ const ThreadedCard = ({
               >
                 {threadTrans.name}
               </span>
+              {ARCHETYPES[threadItem.draw.position]?.name && (
+                <span className="text-zinc-400 font-normal"> in {ARCHETYPES[threadItem.draw.position].name}</span>
+              )}
             </span>
           </div>
           {showTraditional && (
