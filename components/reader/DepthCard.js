@@ -730,7 +730,7 @@ const DepthCard = ({
               {isCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-1">tap to expand</span>}
             </div>
             {!isCollapsed && (
-              <div className="px-3 pb-3 border-t border-amber-700/30 space-y-3">
+              <div className="px-3 pb-3 border-t border-amber-700/30 space-y-3" data-converse={expKey}>
                 {contextData.map((turn, i) => (
                   <div key={i}>
                     {turn.role === 'user' ? (
@@ -1077,7 +1077,7 @@ const DepthCard = ({
         // Split content into paragraphs for proper formatting
         const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
         return (
-          <div key={key} className="mb-4 rounded-lg border border-zinc-700/30 overflow-hidden animate-fadeIn bg-zinc-800/30">
+          <div key={key} className="mb-4 rounded-lg border border-zinc-700/30 overflow-hidden animate-fadeIn bg-zinc-800/30" data-expansion={`${expansionKey}:${key}`}>
             <div
               className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-zinc-700/20 transition-colors"
               onClick={(e) => { e.stopPropagation(); setCollapsedExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
@@ -1319,7 +1319,7 @@ const DepthCard = ({
                 const isExpCollapsed = collapsedRebalancerExpansions[key] === true;
                 const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
                 return (
-                  <div key={key} className="mb-4 rounded-lg border border-emerald-700/30 overflow-hidden animate-fadeIn bg-emerald-900/20">
+                  <div key={key} className="mb-4 rounded-lg border border-emerald-700/30 overflow-hidden animate-fadeIn bg-emerald-900/20" data-expansion={`${rebalancerExpansionKey}:${key}`}>
                     <div
                       className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-emerald-800/20 transition-colors"
                       onClick={(e) => { e.stopPropagation(); setCollapsedRebalancerExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
@@ -1574,7 +1574,7 @@ const DepthCard = ({
                 const isExpCollapsed = collapsedGrowthExpansions[key] === true;
                 const paragraphs = ensureParagraphBreaks(expansionContent).split(/\n\n+/).filter(p => p.trim());
                 return (
-                  <div key={key} className="mb-4 rounded-lg border border-teal-700/30 overflow-hidden animate-fadeIn bg-teal-900/20">
+                  <div key={key} className="mb-4 rounded-lg border border-teal-700/30 overflow-hidden animate-fadeIn bg-teal-900/20" data-expansion={`${growthExpansionKey}:${key}`}>
                     <div
                       className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-teal-800/20 transition-colors"
                       onClick={(e) => { e.stopPropagation(); setCollapsedGrowthExpansions(prev => ({ ...prev, [key]: !prev[key] })); }}
@@ -1883,7 +1883,7 @@ const DepthCard = ({
                 const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
 
                 return (
-                  <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                  <div key={threadIndex} data-thread-id={threadItem.id} className={`thread-item rounded-lg p-4 ${isReflectItem ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                     <div className="flex items-center gap-2 mb-3">
                       <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflectItem ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
                         {isReflectItem ? '↩ Reflect' : '⚡ Forge'}

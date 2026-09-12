@@ -398,8 +398,8 @@ const ReadingSection = ({
       )}
 
       {/* Expansion Content - only when not collapsed */}
-      {!isCollapsed && Object.entries(sectionExpansions).map(([expType, expContent]) => (
-        <div key={expType} className="mt-4 pt-4 border-t border-zinc-700/50">
+      {!isCollapsed && Object.entries(sectionExpansions).filter(([, v]) => typeof v === 'string').map(([expType, expContent]) => (
+        <div key={expType} className="mt-4 pt-4 border-t border-zinc-700/50" data-expansion={`${sectionKey}:${expType}`}>
           <div className="flex justify-between items-center mb-2">
             <span className="text-xs uppercase tracking-wider text-zinc-500">
               {EXPANSION_PROMPTS[expType]?.label}

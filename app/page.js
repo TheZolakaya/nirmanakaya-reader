@@ -694,7 +694,20 @@ export default function NirmanakaReader() {
   const activeReadingOverrides = useRef(null); // Stores { spreadType, spreadKey } for on-demand card/synthesis loading
   const [userReadingCount, setUserReadingCount] = useState(0);
   const userContextRef = useRef(''); // Cached user journey context block for prompt injection
-  const readingConverseRef = useRef([]); // Reading-level converse accumulator: [{section, userText}]
+  const readingConverseRef = useRef([]); // Reading-level converse accumulator: [{section, userText}] (legacy; the prompts now use buildDiscourseBlock)
+
+  // Scroll the newest AI message into view once React has painted it. Every reply site
+  // (Converse, Unpack/Clarify, Reflect/Forge, nested threads) calls this with a selector that
+  // the renderers stamp as data attributes — so the scroll works for every message, not just
+  // top-level threads.
+  const scrollToNew = (selector) => {
+    if (typeof document === 'undefined') return;
+    requestAnimationFrame(() => setTimeout(() => {
+      const el = document.querySelector(selector);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80));
+  };
+  const newMsgId = () => (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `m${Date.now()}${Math.random().toString(36).slice(2, 8)}`;
   const [pendingBadges, setPendingBadges] = useState(null); // Newly earned badges to display
   const [activeTopic, setActiveTopic] = useState(null); // Currently selected saved topic
   const [cardDetailId, setCardDetailId] = useState(null); // Transient ID for CardDetailModal (null = closed)
@@ -3310,7 +3323,7 @@ export default function NirmanakaReader() {
         ? `PRIOR THREAD CONVERSATIONS IN THIS READING:\n${parts.join('\n')}\nThe querent has been actively engaging — honor the thread of their exploration.\n\n`
         : '';
     };
-    const threadConverseBlock = buildThreadConverseSummary();
+    const threadConverseBlock = buildDiscourseBlock();
 
     let systemPrompt, userMessage;
 
@@ -3473,6 +3486,8 @@ Interpret this new card as the architecture's response to their declared directi
 
       // Add to thread (filter prohibited terms)
       const newThreadItem = {
+        id: newMsgId(),
+        ts: Date.now(),
         draw: newDraw, // both reflect and forge draw a new card
         interpretation: ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading))),
         operation: operation,
@@ -3489,15 +3504,7 @@ Interpret this new card as the architecture's response to their declared directi
       setThreadContexts(prev => ({ ...prev, [threadKey]: '' }));
 
       // Scroll to the new thread item after it renders
-      requestAnimationFrame(() => {
-        const threadContainer = document.querySelector(`[data-thread-key="${threadKey}"]`);
-        if (threadContainer) {
-          const lastThread = threadContainer.querySelector('.thread-item:last-child');
-          if (lastThread) {
-            lastThread.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      });
+      scrollToNew(`[data-thread-id="${newThreadItem.id}"]`);
 
       // Push to reading-level converse history so expansions know about thread interactions
       readingConverseRef.current = [
@@ -3600,7 +3607,7 @@ Interpret this new card as the architecture's response to their declared directi
         ? `PRIOR THREAD CONVERSATIONS IN THIS READING:\n${parts.join('\n')}\nThe querent has been actively engaging — honor the thread of their exploration.\n\n`
         : '';
     };
-    const nestedThreadConverseBlock = buildNestedThreadConverseSummary();
+    const nestedThreadConverseBlock = buildDiscourseBlock();
 
     let systemPrompt, userMessage;
 
@@ -3701,6 +3708,8 @@ Interpret this new card as the architecture's response to their declared directi
 
       // Create new thread item (filter prohibited terms)
       const newThreadItem = {
+        id: newMsgId(),
+        ts: Date.now(),
         draw: newDraw, // both reflect and forge draw a new card
         interpretation: ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading))),
         operation: operation,
@@ -3732,6 +3741,7 @@ Interpret this new card as the architecture's response to their declared directi
         ...prev,
         [cardIndex]: addChildToThread(prev[cardIndex] || [], threadKey, newThreadItem)
       }));
+      scrollToNew(`[data-thread-id="${newThreadItem.id}"]`);
 
       // Clear the operation selection
       setThreadOperations(prev => ({ ...prev, [threadKey]: null }));
@@ -3831,6 +3841,57 @@ Interpret this new card as the architecture's response to their declared directi
       position: { x: Math.min(rect.left, window.innerWidth - 300), y: rect.bottom + 8 }
     });
     return true; // Indicate help was shown
+  };
+
+  // THE DISCOURSE: everything the asker and the Reader have said to each other in this reading —
+  // every Converse turn on any section (cards, rebalancers, growth, synthesis), every Reflect/Forge
+  // thread and nested thread (the asker's words, the card drawn, and the Reader's interpretation),
+  // and the follow-up chat — in the order it happened. Built from live state, so it survives a
+  // reload of a saved reading (readingConverseRef did not) and carries the Reader's own replies,
+  // not just the asker's prompts. The asker may pick any of these up from anywhere.
+  const buildDiscourseBlock = ({ includeFollowUps = true } = {}) => {
+    const clip = (s, n = 500) => { const t = String(s || '').replace(/\s+/g, ' ').trim(); return t.length > n ? `${t.slice(0, n)}…` : t; };
+    const sigLabel = (i) => {
+      const d = draws?.[i];
+      const seat = d ? ARCHETYPES[d.position]?.name : null;
+      const t = d ? getComponent(d.transient)?.name : null;
+      return `Signature ${Number(i) + 1}${t ? ` (${t}${seat ? ` in ${seat}` : ''})` : ''}`;
+    };
+    const sectionLabel = (key) => {
+      const k = String(key);
+      let m;
+      if ((m = k.match(/^card[-:](\d+)$/))) return sigLabel(m[1]);
+      if ((m = k.match(/^(rebalancer|correction)[-:](\d+)$/))) return `${sigLabel(m[2])} rebalancer`;
+      if ((m = k.match(/^growth[-:](\d+)$/))) return `${sigLabel(m[2])} growth`;
+      if (/^\d+$/.test(k)) return sigLabel(k);
+      return { summary: 'The Reading (overview)', whyAppeared: 'Why This Fits Now', path: 'Path to Balance', letter: 'The Letter', 'words-to-whys': 'Words to the Whys', unified: 'the whole reading' }[k] || k;
+    };
+    const drawLabel = (d) => d ? `${STATUSES[d.status]?.prefix || 'Balanced'} ${getComponent(d.transient)?.name || '?'}${ARCHETYPES[d.position]?.name ? ` in ${ARCHETYPES[d.position].name}` : ''}` : 'a card';
+    const items = [];
+    let order = 0;
+    Object.entries(expansions || {}).forEach(([key, exp]) => {
+      (Array.isArray(exp?.context) ? exp.context : []).forEach(turn => {
+        items.push({ ts: turn.ts || 0, order: order++, text: turn.role === 'user'
+          ? `[Converse on ${sectionLabel(key)}] Asker: "${clip(turn.content, 300)}"`
+          : `[Converse on ${sectionLabel(key)}] Reader: ${clip(turn.content)}` });
+      });
+    });
+    const walk = (list, key, depth) => (list || []).forEach(item => {
+      const op = item.operation === 'reflect' ? 'Reflect' : 'Forge';
+      items.push({ ts: item.ts || 0, order: order++, text: `[${op}${depth ? ' (nested)' : ''} on ${sectionLabel(key)}] Asker: "${clip(item.context, 300)}" → drew ${drawLabel(item.draw)}. Reader: ${clip(item.interpretation)}` });
+      if (item.children?.length) walk(item.children, key, depth + 1);
+    });
+    Object.entries(threadData || {}).forEach(([key, list]) => walk(list, key, 0));
+    if (includeFollowUps) (followUpMessages || []).forEach(msg => {
+      items.push({ ts: msg.ts || 0, order: order++, text: msg.role === 'user' ? `[Follow-up] Asker: "${clip(msg.content, 300)}"` : `[Follow-up] Reader: ${clip(msg.content)}` });
+    });
+    if (!items.length) return '';
+    items.sort((a, b) => (a.ts - b.ts) || (a.order - b.order));
+    let lines = items.map(i => i.text);
+    const CAP = 14000; // keep the newest if the discourse is long
+    while (lines.length > 1 && lines.join('\n').length > CAP) lines = lines.slice(1);
+    const dropped = items.length - lines.length;
+    return `THE DISCOURSE SO FAR — every Converse, Reflect, Forge, and follow-up in this reading, in the order they happened${dropped ? ` (${dropped} earliest omitted for length)` : ''}. The asker may continue any of these from any section; treat them as one conversation:\n${lines.join('\n')}\n\n`;
   };
 
   const handleExpand = async (sectionKey, expansionType, remove = false, userText = null) => {
@@ -3956,10 +4017,7 @@ Interpret this new card as the architecture's response to their declared directi
     const contextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
 
     // V1: Build reading-level converse history (compact summary for cross-card awareness)
-    const converseHistory = readingConverseRef.current;
-    const converseBlock = converseHistory.length > 0
-      ? `PRIOR CONVERSATIONS IN THIS READING:\n${converseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\nKeep awareness of these prior exchanges — the querent's exploration has a thread.\n\n`
-      : '';
+    const converseBlock = buildDiscourseBlock();
 
     // Build DTP context for Explore mode expansions
     const expansionDtpContext = (() => {
@@ -4067,8 +4125,8 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
             ...(prev[sectionKey] || {}),
             context: [
               ...(prev[sectionKey]?.context || []),
-              { role: 'user', content: userText },
-              { role: 'assistant', content: formattedContent }
+              { role: 'user', content: userText, ts: Date.now() },
+              { role: 'assistant', content: formattedContent, ts: Date.now() + 1 }
             ]
           }
         }));
@@ -4077,6 +4135,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
           ...readingConverseRef.current,
           { section: sectionKey, userText }
         ];
+        scrollToNew(`[data-converse="${sectionKey}"] > div:last-child`);
       } else {
         // Store as string (one-shot expansion)
         setExpansions(prev => ({
@@ -4086,6 +4145,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
             [expansionType]: formattedContent
           }
         }));
+        scrollToNew(`[data-expansion="${sectionKey}:${expansionType}"]`);
       }
 
       // Accumulate token usage
@@ -4134,7 +4194,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
               {isCollapsed && <span className="text-[0.6rem] text-zinc-600 ml-1">tap to expand</span>}
             </div>
             {!isCollapsed && (
-              <div className={`px-3 pb-3 border-t ${c.border} space-y-3`}>
+              <div className={`px-3 pb-3 border-t ${c.border} space-y-3`} data-converse={sectionKey}>
                 {contextData.map((turn, i) => (
                   <div key={i}>
                     {turn.role === 'user' ? (
@@ -4299,10 +4359,8 @@ CRITICAL FORMATTING RULES:
 
     // V1: Inject user journey context + reading-level converse history
     const fuContextPrefix = userContextRef.current ? `${userContextRef.current}\n\n` : '';
-    const fuConverseHistory = readingConverseRef.current;
-    const fuConverseBlock = fuConverseHistory.length > 0
-      ? `PRIOR CONVERSATIONS IN THIS READING:\n${fuConverseHistory.map(c => `- On ${c.section}: "${c.userText}"`).join('\n')}\n\n`
-      : '';
+    // The follow-up chat already travels as messages; the block carries everything else.
+    const fuConverseBlock = buildDiscourseBlock({ includeFollowUps: false });
 
     // Integrate mode: the Answer Box verdict is part of this reading — let Converse see it,
     // so dialog can engage the answer instead of talking past it (the two passes are otherwise
@@ -4330,7 +4388,7 @@ CRITICAL FORMATTING RULES:
       if (data.error) throw new Error(data.error);
       // Post-process to ensure paragraph breaks
       const formattedResponse = ensureParagraphBreaks(stripSignature(filterProhibitedTerms(data.reading)));
-      setFollowUpMessages([...messages, { role: 'assistant', content: formattedResponse }]);
+      setFollowUpMessages([...messages.slice(0, -1), { ...messages[messages.length - 1], ts: Date.now() }, { role: 'assistant', content: formattedResponse, ts: Date.now() + 1 }]);
       // V1: Accumulate follow-up into reading-level converse history
       readingConverseRef.current = [...readingConverseRef.current, { section: 'follow-up', userText: followUp }];
       setFollowUp('');
@@ -8696,7 +8754,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
 
                               return (
-                                <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                                <div key={threadIndex} data-thread-id={threadItem.id} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                                   <div className="flex items-center gap-2 mb-3">
                                     <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>
                                       {isReflect ? '↩ Reflect' : '⚡ Forge'}
@@ -8935,7 +8993,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             {renderSynthConverseUI('summary', summaryExpansions, isSummaryExpanding, 'amber')}
                             {/* Expansion Results */}
                             {Object.entries(summaryExpansions).filter(([k]) => typeof summaryExpansions[k] === 'string').map(([expKey, content]) => (
-                              <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30">
+                              <div key={expKey} className="mt-4 pt-4 border-t border-amber-700/30" data-expansion={`summary:${expKey}`}>
                                 <div className="text-xs font-medium text-amber-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
                               </div>
@@ -8994,7 +9052,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             {renderSynthConverseUI('whyAppeared', whyExpansions, isWhyExpanding, 'cyan')}
                             {/* Expansion Results */}
                             {Object.entries(whyExpansions).filter(([k]) => typeof whyExpansions[k] === 'string').map(([expKey, content]) => (
-                              <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30">
+                              <div key={expKey} className="mt-4 pt-4 border-t border-cyan-700/30" data-expansion={`whyAppeared:${expKey}`}>
                                 <div className="text-xs font-medium text-cyan-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
                               </div>
@@ -9062,7 +9120,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             {renderSynthConverseUI('path', pathExpansions, isPathExpanding, 'emerald')}
                             {/* Expansion Results */}
                             {Object.entries(pathExpansions).filter(([k]) => typeof pathExpansions[k] === 'string').map(([expKey, content]) => (
-                              <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30">
+                              <div key={expKey} className="mt-4 pt-4 border-t border-emerald-700/30" data-expansion={`path:${expKey}`}>
                                 <div className="text-xs font-medium text-emerald-400/70 uppercase tracking-wider mb-2">{EXPANSION_PROMPTS[expKey]?.label || expKey}</div>
                                 <div className="text-sm text-zinc-300 leading-relaxed">{content.split(/\n\n+/).filter(p => p.trim()).map((para, i) => <p key={i} className="mb-3 last:mb-0">{renderWithHotlinks(para.trim(), setSelectedInfo, showTraditional)}</p>)}</div>
                               </div>
@@ -9152,7 +9210,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                           const itemCorrectionBoundIsInner = itemCorrectionCardType === 'bound' && itemCorrectionCard?.number <= 5;
 
                           return (
-                            <div key={threadIndex} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
+                            <div key={threadIndex} data-thread-id={threadItem.id} className={`thread-item rounded-lg p-4 ${isReflect ? 'border border-sky-500/30 bg-sky-950/20' : 'border border-orange-500/30 bg-orange-950/20'}`}>
                               <div className="flex items-center gap-2 mb-3">
                                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${isReflect ? 'bg-sky-500/20 text-sky-400' : 'bg-orange-500/20 text-orange-400'}`}>{isReflect ? '↩ Reflect' : '⚡ Forge'}</span>
                               </div>

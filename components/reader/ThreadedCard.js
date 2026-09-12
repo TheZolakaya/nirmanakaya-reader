@@ -38,7 +38,7 @@ const ThreadedCard = ({
   const indentClass = depth === 0 ? 'ml-4 border-l-2 border-zinc-700/50 pl-4' : 'mt-3';
 
   return (
-    <div className={indentClass}>
+    <div className={indentClass} data-thread-id={threadItem.id}>
       {/* Thread connector label with collapse toggle */}
       <div
         className={`text-xs mb-2 flex items-center gap-2 cursor-pointer ${isReflect ? 'text-sky-400' : 'text-orange-400'}`}
