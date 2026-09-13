@@ -700,11 +700,17 @@ export default function NirmanakaReader() {
   // (Converse, Unpack/Clarify, Reflect/Forge, nested threads) calls this with a selector that
   // the renderers stamp as data attributes — so the scroll works for every message, not just
   // top-level threads.
+  // Some sections render twice (the Path box and the Synthesis path both carry data-converse="path"
+  // and data-expansion="path:*"); querySelector took the FIRST match, which could be a collapsed or
+  // off-screen copy, and the page leapt up to it. Pick the last VISIBLE match, and use 'nearest' so a
+  // reply that is already on screen does not move the page at all.
   const scrollToNew = (selector) => {
     if (typeof document === 'undefined') return;
     requestAnimationFrame(() => setTimeout(() => {
-      const el = document.querySelector(selector);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const all = Array.from(document.querySelectorAll(selector));
+      const visible = all.filter(el => el.getClientRects().length > 0);
+      const el = (visible.length ? visible : all).slice(-1)[0];
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 80));
   };
   const newMsgId = () => (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `m${Date.now()}${Math.random().toString(36).slice(2, 8)}`;
