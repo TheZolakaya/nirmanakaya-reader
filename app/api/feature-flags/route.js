@@ -24,7 +24,8 @@ export async function GET() {
         flags: {
           locus_control_enabled: false,
           email_system_enabled: true,
-          pulse_enabled: false
+          pulse_enabled: false,
+          ez_enabled: false
         }
       });
     }
@@ -34,7 +35,8 @@ export async function GET() {
       flags: {
         locus_control_enabled: data.locus_control_enabled || false,
         email_system_enabled: data.email_system_enabled !== false,
-        pulse_enabled: data.pulse_enabled || false
+        pulse_enabled: data.pulse_enabled || false,
+        ez_enabled: data.ez_enabled || false
       }
     });
   } catch (err) {
