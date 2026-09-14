@@ -28,19 +28,18 @@ export default function AnimationBench() {
   const clearCards = () => {
     document.querySelectorAll('[data-position]').forEach((el) => {
       el.style.transform = ''; el.style.filter = ''; el.style.zIndex = '';
-      el.style.willChange = ''; el.style.transition = '';
+      el.style.willChange = ''; el.style.transition = ''; el.style.opacity = '';
+    });
+    document.querySelectorAll('[data-house-label]').forEach((el) => {
+      el.style.transition = ''; el.style.opacity = '';
     });
   };
 
-  // THE LANDING — five movements.
-  //   1. the seek runs on, so there is time to watch the field turn
-  //   2. it decelerates until it comes to rest
-  //   3. the camera TRAVELS to the chosen card, slowly, so you see where it is going
-  //   4. the card rises to the centre, then turns itself upright
-  //   5. and the camera pushes in on it
+  // THE LANDING — the field keeps turning right up until the card is centred.
   //
-  // The draw is decided before any of this; the animation reveals it. What the wait actually
-  // covers is the interpretation being written, which is real work on a real clock.
+  // The flicker is its own engine (a self-rescheduling timeout with a mutable gap) rather than a
+  // sequence of blocking waits, so it can keep running THROUGH the camera flight instead of
+  // stopping dead the moment the camera starts to move.
   const land = useCallback(async () => {
     if (landing) return;
     setScanning(false);
@@ -51,6 +50,7 @@ export default function AnimationBench() {
     if (!cards.length) { setLanding(false); return; }
     const target = cards[Math.floor(Math.random() * cards.length)];
     const targetId = Number(target.dataset.position);
+    const others = cards.filter(el => el !== target);
 
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     const flash = (el, scale, ms) => {
@@ -62,63 +62,79 @@ export default function AnimationBench() {
       window.setTimeout(() => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
     };
 
-    // 1. the field turns over its cards, at pace, for a while
-    const prerollMs = 4200;
-    const t0 = Date.now();
-    while (Date.now() - t0 < prerollMs) {
-      flash(cards[Math.floor(Math.random() * cards.length)], lift, 400);
-      if (Math.random() < 0.35) flash(cards[Math.floor(Math.random() * cards.length)], lift, 400);
-      await wait(pace);
-    }
+    // --- the flicker engine: runs until told to stop, at whatever gap is current ---
+    const state = { gap: pace, alive: true, pool: cards, scale: lift };
+    const tick = () => {
+      if (!state.alive) return;
+      const pick = () => state.pool[Math.floor(Math.random() * state.pool.length)];
+      flash(pick(), state.scale, 400);
+      if (Math.random() < 0.35) flash(pick(), state.scale, 400);
+      window.setTimeout(tick, state.gap);
+    };
+    tick();
 
-    // 2. and slows to a stop
-    const gaps = [90, 110, 135, 165, 200, 245, 300, 370, 450, 560, 700];
-    for (const g of gaps) {
-      flash(cards[Math.floor(Math.random() * cards.length)], 1.35, 420);
+    // 1. the field turns, at pace
+    await wait(4200);
+
+    // 2. and slows — the engine keeps running, the gaps just stretch
+    for (const g of [90, 110, 135, 165, 200, 245, 300, 370, 450, 560, 700]) {
+      state.gap = g;
       await wait(g);
     }
-    await wait(350);
 
-    // 3. the camera travels — slow, and only part of the way in, leaving room to push further
-    cameraRef.current?.centreOn(target, 0.8, 2800);
-    await wait(2950);
+    // 3. the camera travels, and the field KEEPS TURNING while it does. The chosen card drops
+    //    out of the flicker pool so it sits steady as the camera comes for it.
+    state.pool = others;
+    state.gap = 260;
+    state.scale = 1.3;
+    cameraRef.current?.centreOn(target, 0.8, 3000);
+    await wait(3150);
 
-    // 4a. the card rises to the centre
+    // 4. centred. NOW the field goes still.
+    state.alive = false;
+    others.forEach(el => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; el.style.zIndex = ''; });
+    await wait(250);
+
+    // 4a. the card rises. Every class lands at the SAME size on screen: a Bound starts a third
+    //     the width of an Archetype on the map, so the scale is solved for the final pixel size
+    //     rather than fixed, and the coming camera push is factored in.
+    const Z_NOW = 0.8, Z_END = 2.0;
+    const natural = target.getBoundingClientRect().width;           // at Z_NOW, scale 1
+    const targetPx = Math.min(window.innerWidth * 0.6, window.innerHeight * 0.6, 560);
+    const heroScale = targetPx / (natural * (Z_END / Z_NOW));
+
     const inner = target.firstElementChild;
     target.style.transition = 'transform 900ms cubic-bezier(.16,1,.3,1), filter 900ms ease';
     target.style.transformOrigin = 'center center';
     target.style.zIndex = '60';
-    target.style.transform = 'scale(1.9)';
-    target.style.filter = 'brightness(1.12) drop-shadow(0 18px 40px rgba(0,0,0,0.75))';
-    await wait(1100);
+    target.style.transform = `scale(${heroScale})`;
+    target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
+    await wait(1050);
 
-    // 4b. and turns itself upright.
-    // A card inherits tilt from two places: its house container (the 45-degree diamonds) and,
-    // for bounds and agents, its own seat rotation. A drawn STATUS also rotates it, and that
-    // one carries meaning — upright / right / left / inverted — so it is preserved. We cancel
-    // the seat tilt only, by measuring the card's true on-screen angle and subtracting the
-    // status from it.
+    // 4b. and turns itself upright — cancelling the SEAT tilt only. A drawn status also rotates
+    //     the card and that rotation carries meaning, so it is measured out and kept.
     const screenAngle = (el) => {
       let deg = 0, node = el;
       while (node && node !== document.body) {
         const tr = getComputedStyle(node).transform;
-        if (tr && tr !== 'none') {
-          const m = new DOMMatrix(tr);
-          deg += Math.atan2(m.b, m.a) * 180 / Math.PI;
-        }
+        if (tr && tr !== 'none') { const m = new DOMMatrix(tr); deg += Math.atan2(m.b, m.a) * 180 / Math.PI; }
         node = node.parentElement;
       }
       return deg;
     };
     const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
     const seatTilt = screenAngle(inner) - statusRot;
-    target.style.transition = 'transform 1000ms cubic-bezier(.2,.9,.25,1), filter 900ms ease';
-    target.style.transform = `scale(1.9) rotate(${-seatTilt}deg)`;
-    await wait(1150);
+    target.style.transition = 'transform 1000ms cubic-bezier(.2,.9,.25,1)';
+    target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
+    await wait(700);
 
-    // 5. and the camera pushes in on it
-    cameraRef.current?.centreOn(target, 1.75, 1600);
-    await wait(1700);
+    // 5. the rest of the map eases away, and the camera pushes the last of the way in
+    [...others, ...document.querySelectorAll('[data-house-label]')].forEach(el => {
+      el.style.transition = 'opacity 1100ms ease';
+      el.style.opacity = '0';
+    });
+    cameraRef.current?.centreOn(target, Z_END, 1800);
+    await wait(1900);
 
     setLanding(false);
   }, [landing, pace, lift, drawMap]);

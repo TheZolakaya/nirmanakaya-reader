@@ -382,7 +382,7 @@ export default function TheMap({
         if (!center) return null;
         const houseHealth = analysis?.governance?.houseHealth?.[label.name.charAt(0) + label.name.slice(1).toLowerCase()];
         return (
-          <div key={houseName} style={{
+          <div key={houseName} data-house-label={houseName} style={{
             position: 'absolute',
             left: `${center.x + label.dx}px`,
             top: `${center.y + label.dy}px`,
