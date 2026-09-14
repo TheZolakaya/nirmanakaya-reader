@@ -523,10 +523,22 @@ body {
     padding-bottom: 1rem;
   }
 
-  /* ===== TEXTAREA ===== */
-  /* Ensure proper sizing on mobile - min 16px prevents iOS zoom on focus */
-  textarea {
-    font-size: max(16px, calc(16px * var(--text-scale)));
+  /* ===== TEXT INPUTS ===== */
+  /* iOS Safari auto-zooms any focused text field under 16px, which leaves the page
+     wider than the screen and makes it drift sideways while scrolling. The floor has
+     to beat Tailwind's own text-sm/text-xs classes, hence !important. Pinch zoom is
+     deliberately NOT disabled — the fix removes the unwanted zoom, not the useful one. */
+  textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"],
+  input[type="url"],
+  input[type="tel"],
+  input:not([type]),
+  select {
+    font-size: max(16px, calc(16px * var(--text-scale))) !important;
   }
 
   /* ===== CARDS ===== */

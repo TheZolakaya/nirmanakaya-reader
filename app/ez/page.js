@@ -18,6 +18,7 @@ import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
 import { getUser, isAdmin, saveReading, updateReadingContent } from '../../lib/supabase';
 import CardImage from '../../components/reader/CardImage';
+import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 
@@ -200,12 +201,15 @@ export default function EZPage() {
   const lastReader = [...turns].reverse().find(t => t.role === 'reader');
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-x-hidden">
       <BrandHeader compact />
-      <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24">
+      <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
         <div className="flex items-center justify-between mt-4 mb-6">
           <span className="text-[10px] uppercase tracking-[0.2em] text-amber-400/80">EZ mode · shell</span>
-          <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300">full reader →</Link>
+          <div className="flex items-center gap-3">
+            <TextSizeSlider />
+            <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300">full reader →</Link>
+          </div>
         </div>
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
@@ -240,11 +244,11 @@ export default function EZPage() {
         {allowed && draws && (
           <>
             {/* The cards: the reference, not the reading */}
-            <div className="flex flex-wrap justify-center gap-4 mb-6">
+            <div className="flex flex-wrap justify-center gap-4 mb-6 max-w-full">
               {draws.map((d, i) => {
                 const t = getComponent(d.transient);
                 return (
-                  <div key={i} className="flex flex-col items-center">
+                  <div key={i} className="flex flex-col items-center max-w-full">
                     <CardImage transient={d.transient} status={d.status} cardName={t?.name} size="compact" showFrame={true} />
                     <span className="text-xs text-amber-300/90 mt-1">{drawLabel(d)}</span>
                   </div>
@@ -258,13 +262,13 @@ export default function EZPage() {
               {turns.map(t => (
                 <div key={t.id} data-ez-turn={t.id}
                   className={t.role === 'you'
-                    ? 'ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic'
+                    ? 'ml-4 sm:ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic break-words'
                     : t.role === 'catchup'
                       ? 'rounded-xl border border-violet-700/40 bg-violet-950/20 p-4 text-sm text-violet-100'
                       : 'rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[15px] leading-relaxed text-zinc-200'}>
                   {t.role === 'catchup' && <div className="text-[10px] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
                   {ensureParagraphBreaks(t.text).split(/\n\n+/).filter(p => p.trim()).map((p, i) => (
-                    <p key={i} className="mb-3 last:mb-0 whitespace-pre-wrap">{p.trim()}</p>
+                    <p key={i} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{p.trim()}</p>
                   ))}
                 </div>
               ))}
@@ -278,7 +282,7 @@ export default function EZPage() {
               <div className="mt-4 flex flex-col gap-2">
                 {lastReader.chips.filter(c => c?.text).map((c, i) => (
                   <button key={i} onClick={() => send(c.text)}
-                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
+                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind] || c.kind}</span>{c.text}
                   </button>
                 ))}
@@ -290,7 +294,7 @@ export default function EZPage() {
               <input value={input} onChange={e => setInput(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
                 placeholder={lastReader?.question ? 'Answer in your own words…' : 'Say what you see…'}
-                className="flex-1 rounded-lg bg-zinc-900/70 border border-zinc-700/60 px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                className="flex-1 min-w-0 rounded-lg bg-zinc-900/70 border border-zinc-700/60 px-3 py-2.5 text-base sm:text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
               <button onClick={() => send()} disabled={loading || !input.trim()}
                 className="px-4 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm">Say</button>
             </div>
