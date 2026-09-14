@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback, useEffect, memo } from 'react';
 import { getCardImagePath, getCardType } from '../../lib/cardImages.js';
 
 // Convert full image path to thumbnail path (lighter weight for bounds/agents)
@@ -68,6 +68,11 @@ const CardNode = memo(({
   const imagePath = (effectiveType === 'bound' || effectiveType === 'agent')
     ? getThumbPath(fullImagePath)
     : fullImagePath;
+
+  // A re-deal changes this seat's card without remounting the component (the wrapper is keyed by
+  // position, not by card). Without this reset, a single failed load blacks the seat out forever
+  // and the failures pile up deal after deal until the map is mostly empty boxes.
+  useEffect(() => { setImageError(false); }, [imagePath]);
 
   const handleImageError = useCallback(() => {
     setImageError(true);
@@ -167,7 +172,8 @@ const CardNode = memo(({
           textAlign: 'center',
           padding: '4px',
           borderRadius: '4px',
-          aspectRatio: '1 / 1.4'  // Fallback aspect ratio
+          width: '100%',
+          aspectRatio: '1 / 1'  // Fill the square slot — a taller box overflows and covers neighbours
         }}>
           {id}
         </div>
