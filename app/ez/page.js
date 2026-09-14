@@ -109,6 +109,18 @@ function medicineFor(draws) {
   }).filter(Boolean);
 }
 
+// THE FIVE DOORS — derived by Keel (Water seat, 2026-09-14) from the five houses, which are
+// already the taxonomy of human concern. Phrased as a person half-says it to themselves, not as
+// the architecture names it. The house rides along to the Reader as framing, never as a verdict.
+// The open field stays: the fluent keep their blank page, the pills carry everyone else.
+const DOORS = [
+  { id: 'spirit',  house: 'Spirit',  label: 'My purpose',    sub: 'what my life is really about',   breath: 'Your purpose — what your life is really about.' },
+  { id: 'mind',    house: 'Mind',    label: 'A decision',     sub: "one I'm trying to make",          breath: "A decision you're trying to make." },
+  { id: 'emotion', house: 'Emotion', label: 'Someone I love', sub: 'or the space between us',         breath: 'Someone you love — or the space between you.' },
+  { id: 'body',    house: 'Body',    label: 'Work & money',   sub: 'or my day-to-day',                breath: 'Work, money, or your day-to-day.' },
+  { id: 'gestalt', house: 'Gestalt', label: 'My patterns',    sub: "who I'm becoming",                breath: "Your patterns — and who you're becoming." },
+];
+
 const CHIP_STYLE = {
   build: 'border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/30',
   pushback: 'border-orange-500/40 text-orange-200 hover:bg-orange-900/30',
@@ -129,6 +141,9 @@ export default function EZPage() {
   const [input, setInput] = useState('');
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
   const [hasHistory, setHasHistory] = useState(false);
+  const [door, setDoor] = useState(null);            // the chosen house door, or null
+  const [threadPill, setThreadPill] = useState(''); // a question drawn from this account's own history
+  const [threadOn, setThreadOn] = useState(true);   // the founder's toggle: history-derived pill on/off
   const userContextRef = useRef(''); // history: the journey block the full reader injects
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -146,7 +161,34 @@ export default function EZPage() {
         let flag = false;
         try { const r = await fetch('/api/feature-flags'); const j = await r.json(); flag = !!j?.flags?.ez_enabled; } catch {}
         setAllowed(!!u && (isAdmin(u) || flag));
-        if (u) setHasHistory(true);
+        if (u) {
+          setHasHistory(true);
+          // The thread pill: one question drawn from this account's own recent readings.
+          // Private by nature — it can name a person — so it is toggleable and never
+          // shown to a signed-out visitor. Cheap model, tiny prompt.
+          try {
+            const session = await getSession();
+            const token = session?.session?.access_token;
+            if (token) {
+              const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
+              const cj = await cr.json();
+              if (cj?.contextBlock) {
+                const res = await fetch('/api/reading', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    messages: [{ role: 'user', content: `${cj.contextBlock}\n\nFrom this person's recent readings, write ONE short question they might want to pick back up today — the live thread, in their own voice, under 12 words. Name the actual subject if the history names one. If nothing is genuinely unfinished, answer with an empty string. Respond with ONLY JSON: {"q": "..."}` }],
+                    system: 'You write one short question and nothing else. JSON only.',
+                    model: MODEL_IDS.haiku, max_tokens: 120, userId: u.id
+                  })
+                });
+                const rj = await res.json();
+                const q = parseJson(rj?.reading)?.q;
+                if (q && typeof q === 'string' && q.trim().length > 3) setThreadPill(q.trim());
+              }
+            }
+          } catch {}
+        }
       } catch { setAllowed(false); }
     })();
   }, []);
@@ -226,8 +268,11 @@ export default function EZPage() {
 
   // ---- the opening turn ----
   const begin = async () => {
-    const q = sanitizeForAPI(question.trim());
-    if (!q) { setError('Ask something first.'); return; }
+    // A door with no added context is a complete question on its own — tap-and-draw must always
+    // work. Added context, when there is any, IS the question; the door only frames it.
+    const typed = sanitizeForAPI(question.trim());
+    const q = typed || (door ? sanitizeForAPI(door.breath) : '');
+    if (!q) { setError('Pick something, or say what is on your mind.'); return; }
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
@@ -237,7 +282,10 @@ export default function EZPage() {
       const history = await loadHistory(newDraws);
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
-      const msg = `${ctx}QUESTION: "${q}"\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const doorBlock = door
+        ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house). This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
+        : '';
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
@@ -245,7 +293,7 @@ export default function EZPage() {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
           synthesis: { _ez: { version: EZ_VERSION, turns: [first] } },
-          mode: 'ez', spreadType: `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
+          mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) setSavedId(data.id);
       } catch {}
@@ -310,7 +358,7 @@ export default function EZPage() {
   };
 
   const reset = () => {
-    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError('');
+    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
   };
 
@@ -359,12 +407,77 @@ export default function EZPage() {
           </div>
         )}
 
-        {allowed && !draws && (
-          <div className="space-y-4">
-            <label className="block text-xs uppercase tracking-wider text-zinc-500">Your question</label>
-            <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={3}
-              placeholder="Ask it the way you would say it out loud."
-              className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+        {allowed && !draws && !door && (
+          <div className="space-y-5">
+            <p className="text-lg text-zinc-200 font-light">What&rsquo;s on your mind?</p>
+
+            {/* THE FIVE DOORS — one per house. Tapping one opens the context step, not a draw. */}
+            <div className="flex flex-col gap-2">
+              {DOORS.map((d) => (
+                <button key={d.id} onClick={() => { setDoor(d); setQuestion(''); setError(''); }}
+                  className="text-left rounded-xl border border-zinc-700/60 bg-zinc-900/50 px-4 py-3 hover:border-amber-500/50 hover:bg-zinc-900 transition-colors break-words">
+                  <span className="text-[15px] text-zinc-100">{d.label}</span>
+                  <span className="block text-xs text-zinc-500 mt-0.5">{d.sub}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* The thread pill: this account's own live thread, from its own readings. */}
+            {threadPill && threadOn && (
+              <div className="flex items-start gap-2">
+                <button onClick={() => { setDoor(null); setQuestion(threadPill); setError(''); }}
+                  className="flex-1 text-left rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
+                  <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">Still open, from your readings</span>
+                  <span className="text-[15px] text-violet-100">{threadPill}</span>
+                </button>
+                <button onClick={() => setThreadOn(false)} title="hide history suggestions"
+                  className="text-zinc-600 hover:text-zinc-400 text-xs px-2 py-3">hide</button>
+              </div>
+            )}
+
+            <div className="pt-1">
+              <p className="text-xs text-zinc-600 mb-2">or say it your own way</p>
+              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={2}
+                placeholder="Ask it the way you would say it out loud."
+                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-zinc-500">cards</span>
+              {[1, 2, 3].map((n) => (
+                <button key={n} onClick={() => setCardCount(n)}
+                  className={`w-8 h-8 rounded-full text-sm border ${cardCount === n ? 'border-amber-500 text-amber-300' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'}`}>{n}</button>
+              ))}
+              <button onClick={begin} disabled={loading || !question.trim()}
+                className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
+                {loading ? 'Drawing…' : 'Ask'}
+              </button>
+            </div>
+            {error && <p className="text-xs text-red-400 break-words">{error}</p>}
+            <p className="text-xs text-zinc-600 leading-relaxed">
+              The Reader opens brief and asks you one question. The reading unfolds from there.
+              {hasHistory ? ' Your recent readings are in the room with you.' : ''}
+            </p>
+          </div>
+        )}
+
+        {/* The context step: the door has been chosen, the box becomes "add anything that matters". */}
+        {allowed && !draws && door && (
+          <div className="space-y-5">
+            <button onClick={() => { setDoor(null); setQuestion(''); setError(''); }}
+              className="text-xs text-zinc-600 hover:text-zinc-300">&larr; something else</button>
+
+            <p className="text-lg text-zinc-200 font-light break-words">{door.breath}</p>
+
+            <div>
+              <label className="block text-xs text-zinc-500 mb-2">
+                Add anything that matters — or draw as it stands.
+              </label>
+              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={3}
+                placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
+                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+            </div>
+
             <div className="flex items-center gap-3">
               <span className="text-xs text-zinc-500">cards</span>
               {[1, 2, 3].map((n) => (
@@ -373,13 +486,10 @@ export default function EZPage() {
               ))}
               <button onClick={begin} disabled={loading}
                 className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                {loading ? 'Drawing…' : 'Ask'}
+                {loading ? 'Drawing…' : 'Draw'}
               </button>
             </div>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              The Reader opens brief and asks you one question. The reading unfolds from there.
-              {hasHistory ? ' Your recent readings are in the room with you.' : ''}
-            </p>
+            {error && <p className="text-xs text-red-400 break-words">{error}</p>}
           </div>
         )}
 
