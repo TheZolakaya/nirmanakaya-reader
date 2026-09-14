@@ -225,6 +225,11 @@ export default function EZPage() {
           // Private by nature — it can name a person — so it is toggleable and never
           // shown to a signed-out visitor. Cheap model, tiny prompt.
           try {
+            // Cached for the browser session: this used to fire a model call on every page
+            // load, including a bounce, and nothing about it changes minute to minute.
+            const cacheKey = `ez-thread-${u.id}`;
+            const cached = sessionStorage.getItem(cacheKey);
+            if (cached !== null) { if (cached) setThreadPill(cached); return; }
             const session = await getSession();
             const token = session?.session?.access_token;
             if (token) {
@@ -242,7 +247,9 @@ export default function EZPage() {
                 });
                 const rj = await res.json();
                 const q = parseJson(rj?.reading)?.q;
-                if (q && typeof q === 'string' && q.trim().length > 3) setThreadPill(q.trim());
+                const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
+                sessionStorage.setItem(cacheKey, clean);
+                if (clean) setThreadPill(clean);
               }
             }
           } catch {}
@@ -271,9 +278,20 @@ export default function EZPage() {
     }
     if (t.role === 'catchup') return '[catch-up card shown]';
     return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : ''}: ${t.text}`;
-  }).join('\n\n'), []);
+  }), []);
 
-  const callReader = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+  // Every turn used to be re-sent in full on every call, so a long session paid more and more
+  // for its own history. Keep the newest within a budget and say how much was dropped.
+  const discourseBlock = useCallback((list) => {
+    let lines = discourseText(list);
+    const CAP = 12000;
+    let dropped = 0;
+    while (lines.length > 1 && lines.join('\n\n').length > CAP) { lines = lines.slice(1); dropped += 1; }
+    const note = dropped ? `\n\n(${dropped} earlier turn${dropped > 1 ? 's' : ''} omitted for length; the reading and its cards are unchanged.)` : '';
+    return lines.join('\n\n') + note;
+  }, [discourseText]);
+
+  const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
     const res = await fetch('/api/reading', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -287,8 +305,22 @@ export default function EZPage() {
       cache_read_input_tokens: (u.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0),
       cache_creation_input_tokens: (u.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0)
     }));
-    const obj = parseJson(data.reading);
-    if (!obj || !obj.reader) throw new Error('The Reader did not answer in the expected shape. Try again.');
+    return data;
+  };
+
+  // One strict retry before giving up. A dropped brace used to cost the person their turn and
+  // the tokens both; now it costs one cheap re-ask.
+  const callReader = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+    let data = await rawCall(userMessage, system, maxTokens);
+    let obj = parseJson(data.reading);
+    if (!obj || !obj.reader) {
+      data = await rawCall(
+        `${userMessage}\n\nYOUR LAST REPLY WAS NOT VALID JSON AND COULD NOT BE READ. Send the same answer again as ONE JSON object and nothing else — no preamble, no code fence, no trailing text.`,
+        system, maxTokens
+      );
+      obj = parseJson(data.reading);
+    }
+    if (!obj || !obj.reader) throw new Error('The Reader answered in a shape I could not read, twice. Nothing was lost — try that again.');
     return { obj, usage: data.usage };
   };
 
@@ -418,11 +450,18 @@ export default function EZPage() {
       const newCardBlock = newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE: ${drawLabel(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table.`
         : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseText(withYou)}${newCardBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
       setTurns((list) => [...list, readerTurn(obj, newDraw ? { draw: newDraw, mode } : {})]);
       scrollToEnd();
-    } catch (e) { setError(e.message); }
+    } catch (e) {
+      // Take the orphaned turn back out and hand the person their words again, so a failure
+      // costs a tap instead of a thought.
+      setTurns((list) => list.filter((x) => x.id !== you.id));
+      setInput(text);
+      setFieldMode(mode || null);
+      setError(e.message);
+    }
     setLoading(false);
   };
 
@@ -447,7 +486,7 @@ export default function EZPage() {
     if (loading || !draws || turns.length === 0) return;
     setLoading(true); setError('');
     try {
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseText(turns)}\n\n${CATCHUP_RULES}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CATCHUP_RULES}`, 400);
       setTurns((list) => [...list, { id: `c${Date.now()}`, role: 'catchup', text: obj.reader, question: obj.question || '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
       scrollToEnd();
