@@ -116,7 +116,7 @@ function medicineFor(draws) {
 const DOORS = [
   { id: 'spirit',  house: 'Spirit',  label: 'My purpose',    sub: 'what my life is really about',   breath: 'Your purpose — what your life is really about.' },
   { id: 'mind',    house: 'Mind',    label: 'A decision',     sub: "one I'm trying to make",          breath: "A decision you're trying to make." },
-  { id: 'emotion', house: 'Emotion', label: 'Someone I love', sub: 'or the space between us',         breath: 'Someone you love — or the space between you.' },
+  { id: 'emotion', house: 'Emotion', label: 'Someone in my life', sub: 'or the space between us',      breath: 'Someone in your life — or the space between you.' },
   { id: 'body',    house: 'Body',    label: 'Work & money',   sub: 'or my day-to-day',                breath: 'Work, money, or your day-to-day.' },
   { id: 'gestalt', house: 'Gestalt', label: 'My patterns',    sub: "who I'm becoming",                breath: "Your patterns — and who you're becoming." },
 ];
