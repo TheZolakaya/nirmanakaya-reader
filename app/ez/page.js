@@ -81,7 +81,7 @@ export default function EZPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
-  const [usage, setUsage] = useState({ input_tokens: 0, output_tokens: 0 });
+  const [usage, setUsage] = useState({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
   const endRef = useRef(null);
   const saveTimer = useRef(null);
 
@@ -123,7 +123,12 @@ export default function EZPage() {
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    if (data.usage) setUsage(u => ({ input_tokens: (u.input_tokens || 0) + (data.usage.input_tokens || 0), output_tokens: (u.output_tokens || 0) + (data.usage.output_tokens || 0) }));
+    if (data.usage) setUsage(u => ({
+      input_tokens: (u.input_tokens || 0) + (data.usage.input_tokens || 0),
+      output_tokens: (u.output_tokens || 0) + (data.usage.output_tokens || 0),
+      cache_read_input_tokens: (u.cache_read_input_tokens || 0) + (data.usage.cache_read_input_tokens || 0),
+      cache_creation_input_tokens: (u.cache_creation_input_tokens || 0) + (data.usage.cache_creation_input_tokens || 0)
+    }));
     const obj = parseJson(data.reading);
     if (!obj || !obj.reader) throw new Error('The Reader did not answer in the expected shape. Try again.');
     return { obj, usage: data.usage };
@@ -188,7 +193,9 @@ export default function EZPage() {
     setLoading(false);
   };
 
-  const reset = () => { setDraws(null); setTurns([]); setSavedId(null); setUsage({ input_tokens: 0, output_tokens: 0 }); setError(''); };
+  const reset = () => { setDraws(null); setTurns([]); setSavedId(null); setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 }); setError(''); };
+  // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
+  const estCost = ((usage.input_tokens || 0) * 3 + (usage.cache_read_input_tokens || 0) * 0.3 + (usage.cache_creation_input_tokens || 0) * 3.75 + (usage.output_tokens || 0) * 15) / 1e6;
 
   const lastReader = [...turns].reverse().find(t => t.role === 'reader');
 
@@ -291,7 +298,7 @@ export default function EZPage() {
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
-              <span className="ml-auto font-mono text-zinc-600">{(usage.input_tokens || 0).toLocaleString()} in / {(usage.output_tokens || 0).toLocaleString()} out{savedId ? ' · saved' : ''}</span>
+              <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (system prompt, billed at 10%) / output">{(usage.input_tokens || 0).toLocaleString()} in + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}</span>
             </div>
           </>
         )}
