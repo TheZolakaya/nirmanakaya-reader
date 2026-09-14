@@ -146,6 +146,7 @@ export default function MapCanvas({
   return (
     <div
       ref={containerRef}
+      data-map-surface=""
       className={`relative overflow-hidden ${className}`}
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       onWheel={handleWheel}

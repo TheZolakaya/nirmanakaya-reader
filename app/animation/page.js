@@ -10,9 +10,11 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import TheMap, { STATUS_GLOW } from '../../components/map/TheMap.js';
+import TheMap, { STATUS_GLOW, signatureFor } from '../../components/map/TheMap.js';
 import { generateSpread } from '../../lib/utils.js';
 import { getCardImagePath } from '../../lib/cardImages.js';
+import { ARCHETYPES } from '../../lib/archetypes.js';
+import { STATUSES } from '../../lib/constants.js';
 
 export default function AnimationBench() {
   const [drawMap, setDrawMap] = useState({});
@@ -20,11 +22,12 @@ export default function AnimationBench() {
   const [zoom, setZoom] = useState(0.45);
   const [labels, setLabels] = useState(true);
   const [scanning, setScanning] = useState(false);
-  const [pace, setPace] = useState(70);      // ms between pulses
+  const [pace, setPace] = useState(160);     // ms between pulses — 70 read as nervous
   const [lift, setLift] = useState(1.45);    // how big a pulse gets
   const timerRef = useRef(null);
   const cameraRef = useRef(null);
   const [landing, setLanding] = useState(false);
+  const [landedLabel, setLandedLabel] = useState(null);
 
   const clearCards = () => {
     document.querySelectorAll('[data-position]').forEach((el) => {
@@ -34,6 +37,8 @@ export default function AnimationBench() {
     document.querySelectorAll('[data-house-label]').forEach((el) => {
       el.style.transition = ''; el.style.opacity = '';
     });
+    document.querySelectorAll('.archetype-group').forEach((el) => { el.style.zIndex = ''; });
+    setLandedLabel(null);
   };
 
   // THE LANDING — the field keeps turning right up until the card is centred.
@@ -47,8 +52,12 @@ export default function AnimationBench() {
     setLanding(true);
     clearCards();
 
+    // Hover scales the card too, and fights every transform we write. Off for the duration.
+    const mapEl = document.querySelector('[data-map-surface]');
+    if (mapEl) mapEl.style.pointerEvents = 'none';
+
     const cards = Array.from(document.querySelectorAll('[data-position]'));
-    if (!cards.length) { setLanding(false); return; }
+    if (!cards.length) { setLanding(false); if (mapEl) mapEl.style.pointerEvents = ''; return; }
     const target = cards[Math.floor(Math.random() * cards.length)];
     const targetId = Number(target.dataset.position);
     const others = cards.filter(el => el !== target);
@@ -64,13 +73,32 @@ export default function AnimationBench() {
     };
 
     // --- the flicker engine: runs until told to stop, at whatever gap is current ---
-    const state = { gap: pace, alive: true, pool: cards, scale: lift };
+    // ONE card at a time. Two firing together read as frantic rather than searching, and a fixed
+    // gap ticks like a metronome — so each gap is jittered around the pace instead.
+    // Exactly ONE card up at a time. Firing on a timer alone is not enough: the hold is longer
+    // than the gap, so a second card lifts before the first has come down and you see pairs.
+    // Instead the outgoing card is released at the moment the next is lifted — it eases down
+    // while the new one eases up, which reads as a handoff rather than two pops. The gap is
+    // jittered so it breathes rather than ticking.
+    const state = { gap: pace, alive: true, pool: cards, scale: lift, last: null };
+    const release = (el) => {
+      if (!el) return;
+      el.style.transform = 'scale(1)';
+      el.style.filter = 'brightness(1)';
+      window.setTimeout(() => { if (el.style.zIndex === '40') el.style.zIndex = ''; }, 500);
+    };
     const tick = () => {
       if (!state.alive) return;
-      const pick = () => state.pool[Math.floor(Math.random() * state.pool.length)];
-      flash(pick(), state.scale, 400);
-      if (Math.random() < 0.35) flash(pick(), state.scale, 400);
-      window.setTimeout(tick, state.gap);
+      let el = state.pool[Math.floor(Math.random() * state.pool.length)];
+      if (el === state.last && state.pool.length > 1) el = state.pool[Math.floor(Math.random() * state.pool.length)];
+      release(state.last);
+      state.last = el;
+      el.style.transition = 'transform 520ms cubic-bezier(.22,1,.36,1), filter 520ms ease';
+      el.style.transformOrigin = 'center center';
+      el.style.zIndex = '40';
+      el.style.transform = `scale(${state.scale})`;
+      el.style.filter = 'brightness(1.45)';
+      window.setTimeout(tick, Math.round(state.gap * (0.75 + Math.random() * 0.5)));
     };
     tick();
 
@@ -135,6 +163,10 @@ export default function AnimationBench() {
         `transform ${FLIGHT - RISE_AT}ms cubic-bezier(.33,.9,.2,1), filter ${FLIGHT - RISE_AT}ms ease`;
       target.style.transformOrigin = 'center center';
       target.style.zIndex = '60';
+      // zIndex 60 only wins INSIDE its own house container, and the containers all sit at 2 —
+      // so without raising the parent too, cards from later containers paint over the hero as
+      // it grows. Bounds and agents have no container and are already above them at 60.
+      target.closest('.archetype-group')?.style.setProperty('z-index', '100');
       target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
       target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
     }, RISE_AT);
@@ -158,9 +190,19 @@ export default function AnimationBench() {
       await wait(70);
     }
     state.alive = false;
+    release(state.last);
     others.forEach(el => { el.style.transform = 'scale(1)'; el.style.zIndex = ''; });
 
     await wait(FLIGHT - STOP_AT + 250);
+
+    const sig = signatureFor(displayId);
+    const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
+    setLandedLabel({
+      name: sig?.name || `Signature ${displayId}`,
+      prefix: st ? (st.prefix || 'Balanced') : null,
+      seat: ARCHETYPES[targetId]?.name || null
+    });
+    if (mapEl) mapEl.style.pointerEvents = '';
 
     setLanding(false);
   }, [landing, pace, lift, drawMap]);
@@ -294,6 +336,21 @@ export default function AnimationBench() {
           content above the viewport. /22-reader works because it uses h-screen.
           So: the wrapper below takes an explicit height. Never flex-1 around this component. */}
       <div className="flex-1 min-h-0 relative overflow-hidden">
+        {/* The name, once the card has landed at full resolution. */}
+        {landedLabel && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-[8%] z-[70] flex flex-col items-center gap-1 px-4 text-center animate-fadeIn"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            {landedLabel.prefix && (
+              <span className="text-[11px] uppercase tracking-[0.35em] text-zinc-400/80">{landedLabel.prefix}</span>
+            )}
+            <span className="text-3xl sm:text-4xl tracking-[0.12em] text-amber-200/95 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+              {landedLabel.name}
+            </span>
+            {landedLabel.seat && landedLabel.seat !== landedLabel.name && (
+              <span className="text-sm tracking-[0.2em] text-zinc-400/80">in {landedLabel.seat}</span>
+            )}
+          </div>
+        )}
         <TheMap
           key={zoom}
           drawMap={drawMap}
