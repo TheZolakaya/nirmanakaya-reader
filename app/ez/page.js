@@ -17,15 +17,18 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { STATUSES } from '../../lib/constants';
+import { STATUSES, STATUS_INFO } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
-import { getUser, getSession, isAdmin, saveReading, updateReadingContent } from '../../lib/supabase';
+import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading } from '../../lib/supabase';
+import { getHomeArchetype, getCardType } from '../../lib/cardImages';
 import CardImage from '../../components/reader/CardImage';
+import Minimap from '../../components/reader/Minimap';
+import InfoModal from '../../components/shared/InfoModal';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
@@ -40,12 +43,12 @@ THE OPENING TURN (first reply only):
 - One sentence tying the cards to the question.
 - If the reading amounts to a verdict on the question (yes / no / not yet / not as it stands), that verdict is the FIRST sentence, plainly. Brief never means softened.
 - Hard cap: 150 words for one or two cards, 220 for three or more.
-- Then exactly ONE question back to the person, aimed at them, drawn from the reading. Not a menu.
+- Do NOT end the prose with your question. The prose ends on the reading. The question travels alone, in the "question" field, because it is shown to the person AFTER the medicine.
 
 EVERY LATER TURN:
 - Respond to what they just said, briefly (under 120 words). Build on their thread; catch a deflection when you see one; return the choice to them.
 - The cards, statuses, and any verdict never change. You may change the interpretation and the conversation; you may not bend the field.
-- End with exactly ONE question.
+- Do NOT end the prose with your question. It travels alone in the "question" field.
 
 WHEN A NEW CARD IS DRAWN (a reflect or a forge): interpret that new card as the field's response — to their inquiry if they reflected, to their declaration if they forged — always in relation to the reading already on the table. The new card is a lens on what they brought, never a replacement for the original reading. Same brevity, same one question at the end.
 
@@ -66,6 +69,8 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - The medicine always speaks from the correction card's balanced face. It opens, restores, releases, invites. It never orders, demands, prescribes, or promises an outcome, and it never diagnoses the person.
 - If every card is Balanced, "medicine" carries the growth opportunity instead: what this balance is free to feed next.
 - On a later turn, rewrite "medicine" only when the conversation has genuinely moved the ground under it. Otherwise repeat it unchanged.
+
+THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
 {"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>"}`;
@@ -131,6 +136,54 @@ const CHIP_STYLE = {
 };
 const CHIP_LABEL = { build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair' };
 
+// A drawn card and its geometry, together. The minimap is ALWAYS shown, by the founder's
+// ruling (2026-09-14): the map is how a person sees that this is a derivation with boundaries
+// and not an LLM being agreeable. Tapping either opens the main reader's own detail modal.
+function CardWithMap({ draw, onInfo, label }) {
+  if (!draw) return null;
+  const trans = getComponent(draw.transient);
+  const home = getHomeArchetype(draw.transient);
+  const cardType = getCardType(draw.transient);
+  const boundIsInner = cardType === 'bound' && trans?.number <= 5;
+  return (
+    <div className="flex flex-col items-center max-w-full">
+      <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
+        size="compact" showFrame={true}
+        onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
+      <button onClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })}
+        title="the geometry of this draw — tap for detail"
+        className="mt-2 rounded-lg overflow-hidden flex items-center justify-center hover:ring-1 hover:ring-amber-500/40 transition-shadow"
+        style={{
+          background: 'linear-gradient(135deg, rgba(120,113,108,0.10) 0%, rgba(24,24,27,0.5) 100%)',
+          border: '1px solid rgba(113,113,122,0.30)', width: '104px', height: '104px'
+        }}>
+        <Minimap fromId={home} toId={draw.position} size="md" singleMode={true}
+          fromCardType={cardType} boundIsInner={boundIsInner} />
+      </button>
+      <div className="mt-1 text-center text-xs break-words">
+        <button onClick={() => onInfo({ type: 'status', id: draw.status, data: STATUS_INFO[draw.status] })}
+          title="what this status means"
+          className="text-zinc-400 hover:text-zinc-200 underline decoration-dotted underline-offset-2">
+          {STATUSES[draw.status]?.prefix || 'Balanced'}
+        </button>{' '}
+        <button onClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })}
+          className="text-amber-300/90 hover:text-amber-200 underline decoration-dotted underline-offset-2">
+          {trans?.name}
+        </button>
+        {ARCHETYPES[draw.position]?.name && (
+          <>
+            <span className="text-zinc-500"> in </span>
+            <button onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })}
+              className="text-zinc-300 hover:text-zinc-100 underline decoration-dotted underline-offset-2">
+              {ARCHETYPES[draw.position].name}
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function EZPage() {
   const [user, setUser] = useState(null);
   const [allowed, setAllowed] = useState(null); // null = checking
@@ -144,6 +197,11 @@ export default function EZPage() {
   const [door, setDoor] = useState(null);            // the chosen house door, or null
   const [threadPill, setThreadPill] = useState(''); // a question drawn from this account's own history
   const [threadOn, setThreadOn] = useState(true);   // the founder's toggle: history-derived pill on/off
+  const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
+  const [infoHistory, setInfoHistory] = useState([]);
+  const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
+  const [showPast, setShowPast] = useState(false);
+  const [explain, setExplain] = useState(null);           // 'reflect' | 'forge' | null
   const userContextRef = useRef(''); // history: the journey block the full reader injects
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -260,6 +318,46 @@ export default function EZPage() {
       const data = await res.json();
       return data?.contextBlock || '';
     } catch { return ''; }
+  };
+
+  const openInfo = (info) => {
+    setInfoHistory((h) => (selectedInfo ? [...h, selectedInfo] : h));
+    setSelectedInfo(info);
+  };
+  const goBackInfo = () => {
+    setInfoHistory((h) => {
+      if (!h.length) { setSelectedInfo(null); return h; }
+      setSelectedInfo(h[h.length - 1]);
+      return h.slice(0, -1);
+    });
+  };
+
+  // EZ readings save into the same table as every other reading, so reload is a filtered
+  // query and four pieces of state — no separate save/load path was ever built.
+  const loadPastList = async () => {
+    try {
+      const { data } = await getReadings(50);
+      setPastReadings((data || []).filter((r) => r.mode === 'ez'));
+      setShowPast(true);
+    } catch { setError('Could not load your readings.'); }
+  };
+
+  const openPast = async (id) => {
+    setLoading(true); setError('');
+    try {
+      const { data } = await getReading(id);
+      const saved = data?.interpretation?.synthesis?._ez || data?.synthesis?._ez;
+      const savedDraws = Array.isArray(data?.draws) ? data.draws : null;
+      if (!saved?.turns?.length || !savedDraws) throw new Error('That reading has no conversation saved.');
+      setQuestion(data.topic || data.question || '');
+      setDraws(savedDraws.map((d) => ({ position: d.position, transient: d.transient, status: d.status })));
+      setTurns(saved.turns);
+      setSavedId(data.id);
+      setShowPast(false); setDoor(null); setFieldMode(null);
+      userContextRef.current = await loadHistory(savedDraws);
+      scrollToEnd();
+    } catch (e) { setError(e.message); }
+    setLoading(false);
   };
 
   const scrollToEnd = () => requestAnimationFrame(() => setTimeout(() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80));
@@ -435,6 +533,30 @@ export default function EZPage() {
               </div>
             )}
 
+            {/* Live reload: EZ readings resume where they stopped. */}
+            <div>
+              {!showPast ? (
+                <button onClick={loadPastList} className="text-xs text-zinc-500 hover:text-zinc-300 underline decoration-dotted">
+                  open a reading I already started
+                </button>
+              ) : (
+                <div className="rounded-xl border border-zinc-700/60 bg-zinc-900/50 p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-wider text-zinc-500">Your EZ readings</span>
+                    <button onClick={() => setShowPast(false)} className="text-xs text-zinc-600 hover:text-zinc-300">close</button>
+                  </div>
+                  {pastReadings.length === 0 && <p className="text-xs text-zinc-600">Nothing here yet.</p>}
+                  {pastReadings.slice(0, 12).map((r) => (
+                    <button key={r.id} onClick={() => openPast(r.id)} disabled={loading}
+                      className="w-full text-left rounded-lg border border-zinc-700/50 px-3 py-2 hover:border-amber-500/40 transition-colors break-words disabled:opacity-40">
+                      <span className="text-sm text-zinc-200 break-words">{r.topic || 'Untitled'}</span>
+                      <span className="block text-[10px] text-zinc-600 mt-0.5">{new Date(r.created_at).toLocaleDateString()}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <div className="pt-1">
               <p className="text-xs text-zinc-600 mb-2">or say it your own way</p>
               <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={2}
@@ -497,15 +619,9 @@ export default function EZPage() {
           <>
             {/* The original cards: the reference, not the reading */}
             <div className="flex flex-wrap justify-center gap-4 mb-6 max-w-full">
-              {draws.map((d, i) => {
-                const t = getComponent(d.transient);
-                return (
-                  <div key={i} className="flex flex-col items-center max-w-full">
-                    <CardImage transient={d.transient} status={d.status} cardName={t?.name} size="compact" showFrame={true} />
-                    <span className="text-xs text-amber-300/90 mt-1 text-center">{drawLabel(d)}</span>
-                  </div>
-                );
-              })}
+              {draws.map((d, i) => (
+                <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} />
+              ))}
             </div>
             <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{question}”</p>
 
@@ -528,9 +644,8 @@ export default function EZPage() {
 
                   {/* A card drawn in answer to a reflect or a forge */}
                   {t.draw && (
-                    <div className="flex flex-col items-center mb-3">
-                      <CardImage transient={t.draw.transient} status={t.draw.status} cardName={getComponent(t.draw.transient)?.name} size="compact" showFrame={true} />
-                      <span className="text-xs text-amber-300/90 mt-1 text-center">{drawLabel(t.draw)}</span>
+                    <div className="flex justify-center mb-3">
+                      <CardWithMap draw={t.draw} onInfo={openInfo} label={drawLabel(t.draw)} />
                     </div>
                   )}
 
@@ -548,7 +663,8 @@ export default function EZPage() {
                       <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
                         {(t.draw ? medicineFor([t.draw]) : medicineFor(draws)).map((m, mi) => (
                           <div key={mi} className="flex flex-col items-center max-w-full">
-                            <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true} />
+                            <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true}
+                              onImageClick={() => openInfo({ type: 'card', id: m.toId, data: getComponent(m.toId) })} />
                             <span className="text-[11px] text-emerald-300/90 mt-1 text-center break-words">
                               {m.from} → {m.to}
                             </span>
@@ -562,6 +678,13 @@ export default function EZPage() {
                         ))}
                       </div>
                     </div>
+                  )}
+
+                  {/* The question, handed over AFTER the move. Founder's ruling 2026-09-14:
+                      a question composed without the medicine in view ignores the very thing
+                      the person just read. */}
+                  {t.role === 'reader' && t.question && (
+                    <p className="mt-4 text-[17px] leading-snug text-amber-300/90 break-words">{t.question}</p>
                   )}
 
                   {t.role === 'reader' && !t.simplified && !loading && (
@@ -580,13 +703,39 @@ export default function EZPage() {
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-5 flex items-center gap-2 flex-wrap">
               {switchBtn('reflect', 'Reflect', '↩')}
+              <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')}
+                className="w-5 h-5 rounded-full border border-zinc-700 text-zinc-500 hover:text-sky-300 hover:border-sky-700 text-[10px] leading-none">?</button>
               {switchBtn('forge', 'Forge', '⚡')}
+              <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')}
+                className="w-5 h-5 rounded-full border border-zinc-700 text-zinc-500 hover:text-orange-300 hover:border-orange-700 text-[10px] leading-none">?</button>
               {fieldMode && (
                 <span className="text-[11px] text-zinc-600">
                   {fieldMode === 'reflect' ? 'ask the field — a card will answer' : 'declare — a card will answer'}
                 </span>
               )}
             </div>
+
+            {explain && (
+              <div className={`mt-3 rounded-lg border p-3 text-sm break-words ${explain === 'reflect' ? 'border-sky-700/40 bg-sky-950/20 text-sky-100' : 'border-orange-700/40 bg-orange-950/20 text-orange-100'}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    {explain === 'reflect' ? (
+                      <>
+                        <p className="font-medium mb-1">Reflect — you ask, the field answers.</p>
+                        <p className="text-[13px] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-medium mb-1">Forge — you declare, the field responds.</p>
+                        <p className="text-[13px] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
+                      </>
+                    )}
+                    <p className="text-[12px] opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
+                  </div>
+                  <button onClick={() => setExplain(null)} className="text-xs opacity-60 hover:opacity-100">close</button>
+                </div>
+              </div>
+            )}
 
             {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
             {activePills.length > 0 && !loading && (
@@ -623,6 +772,18 @@ export default function EZPage() {
           </>
         )}
       </main>
+
+      {selectedInfo && (
+        <InfoModal
+          info={selectedInfo}
+          onClose={() => { setSelectedInfo(null); setInfoHistory([]); }}
+          setSelectedInfo={openInfo}
+          showTraditional={false}
+          canGoBack={infoHistory.length > 0}
+          onGoBack={goBackInfo}
+        />
+      )}
+
       <Footer />
     </div>
   );
