@@ -8,7 +8,7 @@
 //
 // Controls are deliberately crude. This is a bench, not a product.
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import TheMap from '../../components/map/TheMap.js';
 import { generateSpread } from '../../lib/utils.js';
@@ -18,6 +18,59 @@ export default function AnimationBench() {
   const [colorLayer, setColorLayer] = useState('status');
   const [zoom, setZoom] = useState(0.45);
   const [labels, setLabels] = useState(true);
+  const [scanning, setScanning] = useState(false);
+  const [pace, setPace] = useState(70);      // ms between pulses
+  const [lift, setLift] = useState(1.45);    // how big a pulse gets
+  const timerRef = useRef(null);
+
+  // THE SEEK — the field turning over its own cards while the reading is written.
+  //
+  // Driven by direct transform writes rather than React state: a pulse every ~70ms over twelve
+  // seconds is ~170 ticks, and re-rendering 78 components that many times would be wasteful for
+  // no gain. Transform and opacity are the only properties touched, so the browser composites
+  // them on the GPU and never re-lays-out the page. The decay is a CSS transition, so each card
+  // falls back on its own with no bookkeeping.
+  useEffect(() => {
+    if (!scanning) return;
+    const cards = Array.from(document.querySelectorAll('[data-position]'));
+    if (!cards.length) return;
+
+    cards.forEach((el) => {
+      el.style.transition = 'transform 420ms cubic-bezier(.22,1,.36,1), filter 420ms ease';
+      el.style.transformOrigin = 'center center';
+      el.style.willChange = 'transform';
+    });
+
+    const pulse = () => {
+      // one or two at a time, so the sweep overlaps itself instead of marching
+      const n = Math.random() < 0.35 ? 2 : 1;
+      for (let i = 0; i < n; i++) {
+        const el = cards[Math.floor(Math.random() * cards.length)];
+        el.style.zIndex = '40';
+        el.style.transform = `scale(${lift})`;
+        el.style.filter = 'brightness(1.5)';
+        window.setTimeout(() => {
+          el.style.transform = 'scale(1)';
+          el.style.filter = 'brightness(1)';
+          window.setTimeout(() => { el.style.zIndex = ''; }, 420);
+        }, 140);
+      }
+    };
+
+    pulse();
+    timerRef.current = window.setInterval(pulse, pace);
+
+    return () => {
+      window.clearInterval(timerRef.current);
+      cards.forEach((el) => {
+        el.style.transform = '';
+        el.style.filter = '';
+        el.style.zIndex = '';
+        el.style.willChange = '';
+        el.style.transition = '';
+      });
+    };
+  }, [scanning, pace, lift]);
 
   // A full 22-position draw, the same call the reading uses.
   const deal = useCallback(() => {
@@ -55,6 +108,19 @@ export default function AnimationBench() {
         <input type="range" min="0.2" max="1" step="0.05" value={zoom}
           onChange={(e) => setZoom(parseFloat(e.target.value))} className="w-28" />
         <span className="text-zinc-500 w-10 font-mono">{zoom.toFixed(2)}</span>
+
+        <button onClick={() => setScanning(v => !v)}
+          className={`px-3 py-1.5 rounded border ${scanning ? 'border-amber-500 bg-amber-950/40 text-amber-300' : 'border-violet-700/60 text-violet-300 hover:bg-violet-950/40'}`}>
+          {scanning ? 'Stop' : 'Seek'}
+        </button>
+        <span className="text-zinc-600">pace</span>
+        <input type="range" min="30" max="200" step="10" value={pace}
+          onChange={(e) => setPace(parseInt(e.target.value, 10))} className="w-20" />
+        <span className="text-zinc-500 w-10 font-mono">{pace}</span>
+        <span className="text-zinc-600">lift</span>
+        <input type="range" min="1.1" max="2" step="0.05" value={lift}
+          onChange={(e) => setLift(parseFloat(e.target.value))} className="w-20" />
+        <span className="text-zinc-500 w-10 font-mono">{lift.toFixed(2)}</span>
 
         <button onClick={() => setLabels(v => !v)}
           className={`px-2 py-1 rounded border ${labels ? 'border-zinc-500 text-zinc-300' : 'border-zinc-700 text-zinc-600'}`}>
