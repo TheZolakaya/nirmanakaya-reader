@@ -12,6 +12,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import TheMap, { STATUS_GLOW } from '../../components/map/TheMap.js';
 import { generateSpread } from '../../lib/utils.js';
+import { getCardImagePath } from '../../lib/cardImages.js';
 
 export default function AnimationBench() {
   const [drawMap, setDrawMap] = useState({});
@@ -73,24 +74,38 @@ export default function AnimationBench() {
     };
     tick();
 
-    // 1. the field turns, at pace
-    await wait(4200);
+    // 1. the field turns, at full pace. No slowing yet — the slowing belongs to the approach.
+    await wait(5000);
 
-    // 2. and slows — the engine keeps running, the gaps just stretch
-    for (const g of [90, 110, 135, 165, 200, 245, 300, 370, 450, 560, 700]) {
-      state.gap = g;
-      await wait(g);
+    // The chosen card leaves the flicker so it sits steady while the camera comes for it, and
+    // its FULL-RESOLUTION art starts loading now. Bounds and agents are drawn from 200px
+    // thumbnails on the map, which is right at map size and visibly soft at hero size, so the
+    // real 2134px image is swapped in the moment it has loaded — during the flight, well before
+    // the card is large enough for anyone to catch the change.
+    state.pool = others;
+    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
+    const fullArt = getCardImagePath(displayId);
+    const img = target.querySelector('img');
+    if (img && fullArt && !img.src.endsWith(fullArt)) {
+      const pre = new window.Image();
+      pre.onload = () => { img.src = fullArt; };
+      pre.src = fullArt;
     }
 
-    // 3. the camera travels, and the field KEEPS TURNING while it does. The chosen card drops
-    //    out of the flicker pool so it sits steady as the camera comes for it.
-    state.pool = others;
-    state.gap = 260;
-    state.scale = 1.3;
-    cameraRef.current?.centreOn(target, 0.8, 3000);
-    await wait(3150);
+    // 2. the camera travels, and the field slows GENTLY as it goes — the deceleration and the
+    //    approach are the same movement, rather than the flicker dying before the camera moves.
+    const FLIGHT = 3200;
+    cameraRef.current?.centreOn(target, 0.8, FLIGHT);
+    const tStart = Date.now();
+    while (Date.now() - tStart < FLIGHT) {
+      const k = (Date.now() - tStart) / FLIGHT;
+      state.gap = Math.round(pace + (640 - pace) * (k * k));   // holds pace, then lets go
+      state.scale = lift - (lift - 1.2) * k;
+      await wait(80);
+    }
+    await wait(150);
 
-    // 4. centred. NOW the field goes still.
+    // 3. centred. NOW the field goes still.
     state.alive = false;
     others.forEach(el => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; el.style.zIndex = ''; });
     await wait(250);
@@ -99,9 +114,12 @@ export default function AnimationBench() {
     //     the width of an Archetype on the map, so the scale is solved for the final pixel size
     //     rather than fixed, and the coming camera push is factored in.
     const Z_NOW = 0.8, Z_END = 2.0;
-    const natural = target.getBoundingClientRect().width;           // at Z_NOW, scale 1
-    const targetPx = Math.min(window.innerWidth * 0.6, window.innerHeight * 0.6, 560);
-    const heroScale = targetPx / (natural * (Z_END / Z_NOW));
+    // offsetWidth is the LAYOUT width and ignores transforms. getBoundingClientRect would return
+    // the axis-aligned box, which for a 45-degree card is inflated by root two — enough to throw
+    // the final size out by 40% and differently for each class, which defeats the whole point.
+    const layoutW = target.offsetWidth;
+    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.62, 700);
+    const heroScale = targetPx / (layoutW * Z_END);
 
     const inner = target.firstElementChild;
     target.style.transition = 'transform 900ms cubic-bezier(.16,1,.3,1), filter 900ms ease';
