@@ -134,7 +134,7 @@ export default function AnimationBench() {
     // getBoundingClientRect would return the axis-aligned box, inflated by root two for a
     // 45-degree card, which throws the size out differently for every class.
     const layoutW = target.offsetWidth;
-    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.62, 700);
+    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
     const heroScale = targetPx / (layoutW * Z_END);
 
     // The seat tilt is measured before anything moves. A card is tilted by its house (the
@@ -223,6 +223,9 @@ export default function AnimationBench() {
     if (!scanning) return;
     const cards = Array.from(document.querySelectorAll('[data-position]'));
     if (!cards.length) return;
+    // Hover scales a card too and fights every transform written here — off while seeking.
+    const surface = document.querySelector('[data-map-surface]');
+    if (surface) surface.style.pointerEvents = 'none';
 
     cards.forEach((el) => {
       el.style.transition = 'transform 420ms cubic-bezier(.22,1,.36,1), filter 420ms ease';
@@ -251,6 +254,7 @@ export default function AnimationBench() {
 
     return () => {
       window.clearInterval(timerRef.current);
+      if (surface) surface.style.pointerEvents = '';
       cards.forEach((el) => {
         el.style.transform = '';
         el.style.filter = '';
@@ -338,8 +342,11 @@ export default function AnimationBench() {
       <div className="flex-1 min-h-0 relative overflow-hidden">
         {/* The name, once the card has landed at full resolution. */}
         {landedLabel && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-[8%] z-[70] flex flex-col items-center gap-1 px-4 text-center animate-fadeIn"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+          <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[200] flex flex-col items-center gap-1 px-4 pt-16 pb-8 text-center animate-fadeIn"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              background: 'linear-gradient(to top, rgba(10,10,15,0.92) 0%, rgba(10,10,15,0.75) 45%, rgba(10,10,15,0) 100%)'
+            }}>
             {landedLabel.prefix && (
               <span className="text-[11px] uppercase tracking-[0.35em] text-zinc-400/80">{landedLabel.prefix}</span>
             )}
