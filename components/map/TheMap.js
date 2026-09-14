@@ -132,7 +132,11 @@ export default function TheMap({
               height: `${container.height}px`,
               transform: container.rotation !== 0 ? `rotate(${container.rotation}deg)` : undefined,
               transformOrigin: 'center center',
-              zIndex: 2
+              zIndex: 2,
+              // This container draws nothing; it only positions. Left hit-testable it covers the
+              // bounds and agents beneath it, which is why only the 22 ever responded to hover.
+              // The cards inside take their pointer events back individually.
+              pointerEvents: 'none'
             }}
           >
             {container.archetypeOrder.map(archetypeId => {
@@ -156,6 +160,7 @@ export default function TheMap({
                   width: `${localPos.width + 12}px`,
                   aspectRatio: '1 / 1',
                   zIndex: 1,
+                  pointerEvents: 'auto',
                   ...extra(archetypeId)
                 }}>
                   <div style={{
@@ -315,6 +320,7 @@ export default function TheMap({
                 revealed={true}
                 highlighted={false}
                 dimmed={selectedPos !== null}
+                onClick={onCardClick ? () => onCardClick(numId) : undefined}
                 showLabel={false}
               />
             </div>
@@ -361,6 +367,7 @@ export default function TheMap({
                 revealed={true}
                 highlighted={false}
                 dimmed={selectedPos !== null}
+                onClick={onCardClick ? () => onCardClick(numId) : undefined}
                 showLabel={false}
               />
             </div>
