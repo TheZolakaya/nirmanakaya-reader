@@ -92,45 +92,27 @@ export default function AnimationBench() {
       pre.src = fullArt;
     }
 
-    // 2. the camera travels, and the field slows GENTLY as it goes — the deceleration and the
-    //    approach are the same movement, rather than the flicker dying before the camera moves.
-    const FLIGHT = 3200;
-    cameraRef.current?.centreOn(target, 0.8, FLIGHT);
-    const tStart = Date.now();
-    while (Date.now() - tStart < FLIGHT) {
-      const k = (Date.now() - tStart) / FLIGHT;
-      state.gap = Math.round(pace + (640 - pace) * (k * k));   // holds pace, then lets go
-      state.scale = lift - (lift - 1.2) * k;
-      await wait(80);
-    }
-    await wait(150);
+    // 2..5 — ONE MOVEMENT.
+    //
+    // These used to be four separate steps with waits between them, and the seams showed: the
+    // camera stopped, then the card rose, then it rotated, then the camera pushed again. Now the
+    // camera makes a single flight all the way to its final zoom, and the card's rise, its turn
+    // upright and the field's fade are started PART WAY THROUGH that flight on overlapping
+    // curves, so everything arrives together and nothing has to stop and restart.
+    const Z_END = 2.0;
+    const FLIGHT = 4200;
 
-    // 3. centred. NOW the field goes still.
-    state.alive = false;
-    others.forEach(el => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; el.style.zIndex = ''; });
-    await wait(250);
-
-    // 4a. the card rises. Every class lands at the SAME size on screen: a Bound starts a third
-    //     the width of an Archetype on the map, so the scale is solved for the final pixel size
-    //     rather than fixed, and the coming camera push is factored in.
-    const Z_NOW = 0.8, Z_END = 2.0;
-    // offsetWidth is the LAYOUT width and ignores transforms. getBoundingClientRect would return
-    // the axis-aligned box, which for a 45-degree card is inflated by root two — enough to throw
-    // the final size out by 40% and differently for each class, which defeats the whole point.
+    // The final scale is solved up front. offsetWidth is the LAYOUT width and ignores transforms;
+    // getBoundingClientRect would return the axis-aligned box, inflated by root two for a
+    // 45-degree card, which throws the size out differently for every class.
     const layoutW = target.offsetWidth;
     const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.62, 700);
     const heroScale = targetPx / (layoutW * Z_END);
 
+    // The seat tilt is measured before anything moves. A card is tilted by its house (the
+    // 45-degree diamonds) and, for bounds and agents, by its own seat — but a drawn STATUS also
+    // rotates it and that rotation carries meaning, so it is measured out and kept.
     const inner = target.firstElementChild;
-    target.style.transition = 'transform 900ms cubic-bezier(.16,1,.3,1), filter 900ms ease';
-    target.style.transformOrigin = 'center center';
-    target.style.zIndex = '60';
-    target.style.transform = `scale(${heroScale})`;
-    target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
-    await wait(1050);
-
-    // 4b. and turns itself upright — cancelling the SEAT tilt only. A drawn status also rotates
-    //     the card and that rotation carries meaning, so it is measured out and kept.
     const screenAngle = (el) => {
       let deg = 0, node = el;
       while (node && node !== document.body) {
@@ -142,17 +124,43 @@ export default function AnimationBench() {
     };
     const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
     const seatTilt = screenAngle(inner) - statusRot;
-    target.style.transition = 'transform 1000ms cubic-bezier(.2,.9,.25,1)';
-    target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
-    await wait(700);
 
-    // 5. the rest of the map eases away, and the camera pushes the last of the way in
-    [...others, ...document.querySelectorAll('[data-house-label]')].forEach(el => {
-      el.style.transition = 'opacity 1100ms ease';
-      el.style.opacity = '0';
-    });
-    cameraRef.current?.centreOn(target, Z_END, 1800);
-    await wait(1900);
+    // the camera departs — one flight, all the way in
+    cameraRef.current?.centreOn(target, Z_END, FLIGHT);
+
+    // the card begins to rise and turn once the camera is well on its way, and settles with it
+    const RISE_AT = Math.round(FLIGHT * 0.42);
+    window.setTimeout(() => {
+      target.style.transition =
+        `transform ${FLIGHT - RISE_AT}ms cubic-bezier(.33,.9,.2,1), filter ${FLIGHT - RISE_AT}ms ease`;
+      target.style.transformOrigin = 'center center';
+      target.style.zIndex = '60';
+      target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
+      target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
+    }, RISE_AT);
+
+    // the field eases away underneath it, finishing a beat before the card settles
+    const FADE_AT = Math.round(FLIGHT * 0.52);
+    window.setTimeout(() => {
+      [...others, ...document.querySelectorAll('[data-house-label]')].forEach(el => {
+        el.style.transition = 'opacity 1500ms ease';
+        el.style.opacity = '0';
+      });
+    }, FADE_AT);
+
+    // the flicker keeps its life almost to the end, slowing the whole way
+    const tStart = Date.now();
+    const STOP_AT = Math.round(FLIGHT * 0.74);
+    while (Date.now() - tStart < STOP_AT) {
+      const k = (Date.now() - tStart) / STOP_AT;
+      state.gap = Math.round(pace + (640 - pace) * (k * k));
+      state.scale = lift - (lift - 1.15) * k;
+      await wait(70);
+    }
+    state.alive = false;
+    others.forEach(el => { el.style.transform = 'scale(1)'; el.style.zIndex = ''; });
+
+    await wait(FLIGHT - STOP_AT + 250);
 
     setLanding(false);
   }, [landing, pace, lift, drawMap]);
