@@ -29,6 +29,7 @@ import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType } from '../../lib/cardImages';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
+import MinimapModal from '../../components/reader/MinimapModal';
 import InfoModal from '../../components/shared/InfoModal';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
@@ -137,31 +138,42 @@ const CHIP_STYLE = {
 };
 const CHIP_LABEL = { build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair' };
 
-// A drawn card and its geometry, together. The minimap is ALWAYS shown, by the founder's
-// ruling (2026-09-14): the map is how a person sees that this is a derivation with boundaries
-// and not an LLM being agreeable. Tapping either opens the main reader's own detail modal.
+// A drawn card and its geometry, SIDE BY SIDE and the same width — the founder's ruling
+// 2026-09-14: "I think they're equally significant." The minimap is always shown, because the
+// map is how a person sees this is a derivation with boundaries and not an agreeable machine.
+// Tapping the art opens the card; tapping the map opens the RELATIONSHIP (this card, in this
+// seat) through the same MinimapModal the full reader uses — not the card alone.
 function CardWithMap({ draw, onInfo, label }) {
+  const [mapOpen, setMapOpen] = useState(false);
   if (!draw) return null;
   const trans = getComponent(draw.transient);
   const home = getHomeArchetype(draw.transient);
   const cardType = getCardType(draw.transient);
   const boundIsInner = cardType === 'bound' && trans?.number <= 5;
+  const seat = ARCHETYPES[draw.position]?.name;
+
   return (
     <div className="flex flex-col items-center max-w-full">
-      <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
-        size="compact" showFrame={true}
-        onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
-      <button onClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })}
-        title="the geometry of this draw — tap for detail"
-        className="mt-2 rounded-lg overflow-hidden flex items-center justify-center hover:ring-1 hover:ring-amber-500/40 transition-shadow"
-        style={{
-          background: 'linear-gradient(135deg, rgba(120,113,108,0.10) 0%, rgba(24,24,27,0.5) 100%)',
-          border: '1px solid rgba(113,113,122,0.30)', width: '104px', height: '104px'
-        }}>
-        <Minimap fromId={home} toId={draw.position} size="md" singleMode={true}
-          fromCardType={cardType} boundIsInner={boundIsInner} />
-      </button>
-      <div className="mt-1 text-center text-xs break-words">
+      <div className="flex items-center justify-center gap-2 sm:gap-3 max-w-full">
+        <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
+          size="compact" showFrame={true}
+          className="!w-[140px] sm:!w-[185px]"
+          onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
+
+        <button onClick={() => setMapOpen(true)}
+          title="the geometry of this draw — tap to expand"
+          className="w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03]"
+          style={{
+            background: 'rgba(13, 13, 26, 0.85)',
+            border: '1px solid rgba(107, 77, 138, 0.4)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px rgba(107,77,138,0.1)'
+          }}>
+          <Minimap fromId={home} toId={draw.position} size="card" singleMode={true}
+            fromCardType={cardType} boundIsInner={boundIsInner} />
+        </button>
+      </div>
+
+      <div className="mt-2 text-center text-xs break-words">
         <button onClick={() => onInfo({ type: 'status', id: draw.status, data: STATUS_INFO[draw.status] })}
           title="what this status means"
           className="text-zinc-400 hover:text-zinc-200 underline decoration-dotted underline-offset-2">
@@ -171,16 +183,29 @@ function CardWithMap({ draw, onInfo, label }) {
           className="text-amber-300/90 hover:text-amber-200 underline decoration-dotted underline-offset-2">
           {trans?.name}
         </button>
-        {ARCHETYPES[draw.position]?.name && (
+        {seat && (
           <>
             <span className="text-zinc-500"> in </span>
             <button onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })}
               className="text-zinc-300 hover:text-zinc-100 underline decoration-dotted underline-offset-2">
-              {ARCHETYPES[draw.position].name}
+              {seat}
             </button>
           </>
         )}
       </div>
+
+      <MinimapModal
+        isOpen={mapOpen}
+        onClose={() => setMapOpen(false)}
+        onReopen={() => setMapOpen(true)}
+        fromId={home}
+        toId={draw.position}
+        transient={draw.transient}
+        cardType={cardType}
+        boundIsInner={boundIsInner}
+        setSelectedInfo={onInfo}
+        colorTheme="violet"
+      />
     </div>
   );
 }
@@ -680,7 +705,7 @@ export default function EZPage() {
         {allowed && draws && (
           <>
             {/* The original cards: the reference, not the reading */}
-            <div className="flex flex-wrap justify-center gap-4 mb-6 max-w-full">
+            <div className="flex flex-col items-center gap-5 mb-6 max-w-full">
               {draws.map((d, i) => (
                 <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} />
               ))}
