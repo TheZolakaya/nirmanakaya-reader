@@ -17,7 +17,11 @@ export default function MapCanvas({
   height = 1650,
   initialZoom = 0.5,
   onViewChange,
-  className = ''
+  className = '',
+  // Optional camera door. Pass a ref and MapCanvas fills it with an imperative handle so an
+  // animation can fly the view without MapCanvas losing ownership of pan/zoom — a drag after a
+  // flight still works, because the flight went through the same state.
+  cameraRef = null
 }) {
   const containerRef = useRef(null);
   const [zoom, setZoom] = useState(initialZoom);
@@ -25,6 +29,43 @@ export default function MapCanvas({
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+  const [flightMs, setFlightMs] = useState(0); // >0 while the camera is being flown
+
+  // The camera handle. centreOn takes a DOM element inside the map and works purely from screen
+  // geometry — no map-coordinate maths, so it is correct for rotated house containers too.
+  useEffect(() => {
+    if (!cameraRef) return;
+    cameraRef.current = {
+      getView: () => ({ pan, zoom }),
+      flyTo: (nextPan, nextZoom, ms = 1200) => {
+        setFlightMs(ms);
+        if (typeof nextZoom === 'number') setZoom(nextZoom);
+        if (nextPan) setPan(nextPan);
+        window.setTimeout(() => setFlightMs(0), ms + 60);
+      },
+      centreOn: (el, nextZoom, ms = 1200) => {
+        if (!el || !containerRef.current) return;
+        const view = containerRef.current.getBoundingClientRect();
+        const card = el.getBoundingClientRect();
+        const dx = (view.left + view.width / 2) - (card.left + card.width / 2);
+        const dy = (view.top + view.height / 2) - (card.top + card.height / 2);
+        const z = typeof nextZoom === 'number' ? nextZoom : zoom;
+        // The pan delta is in screen pixels; if we also change zoom, the card's offset from the
+        // map centre scales with it, so the delta has to scale too.
+        const k = z / zoom;
+        setFlightMs(ms);
+        setZoom(z);
+        setPan(p => ({ x: (p.x + dx) * k, y: (p.y + dy) * k }));
+        window.setTimeout(() => setFlightMs(0), ms + 60);
+      },
+      reset: (ms = 800) => {
+        setFlightMs(ms);
+        setPan({ x: 0, y: 0 });
+        setZoom(initialZoom);
+        window.setTimeout(() => setFlightMs(0), ms + 60);
+      }
+    };
+  }, [cameraRef, pan, zoom, initialZoom]);
 
   // Notify parent of view changes
   useEffect(() => {
@@ -123,7 +164,11 @@ export default function MapCanvas({
           top: '50%',
           transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
           transformOrigin: 'center center',
-          transition: isDragging ? 'none' : 'transform 0.1s ease-out'
+          transition: isDragging
+            ? 'none'
+            : flightMs > 0
+              ? `transform ${flightMs}ms cubic-bezier(.33,.9,.2,1)`
+              : 'transform 0.1s ease-out'
         }}
       >
         {children}

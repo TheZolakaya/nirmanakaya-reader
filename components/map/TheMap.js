@@ -85,6 +85,7 @@ export default function TheMap({
   initialZoom = 0.45,
   showLabels = true,
   className = 'w-full h-full',
+  cameraRef = null,            // passed straight through to MapCanvas
   // Animation hook: given a position id, return extra inline styles for that card's wrapper.
   // Transform-only styles keep this cheap on a phone. Returning nothing leaves the card alone.
   styleForPosition = null
@@ -114,7 +115,7 @@ export default function TheMap({
   const extra = (id) => (styleForPosition ? styleForPosition(id) || {} : {});
 
   return (
-    <MapCanvas width={CONFIG.mapWidth} height={CONFIG.mapHeight} initialZoom={initialZoom} className={className}>
+    <MapCanvas width={CONFIG.mapWidth} height={CONFIG.mapHeight} initialZoom={initialZoom} className={className} cameraRef={cameraRef}>
 
       {/* House groups: the 20 archetype seats, laid out inside their rotated house containers */}
       {getHouseNames().map(houseName => {

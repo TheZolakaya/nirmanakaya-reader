@@ -22,6 +22,63 @@ export default function AnimationBench() {
   const [pace, setPace] = useState(70);      // ms between pulses
   const [lift, setLift] = useState(1.45);    // how big a pulse gets
   const timerRef = useRef(null);
+  const cameraRef = useRef(null);
+  const [landing, setLanding] = useState(false);
+
+  const clearCards = () => {
+    document.querySelectorAll('[data-position]').forEach((el) => {
+      el.style.transform = ''; el.style.filter = ''; el.style.zIndex = '';
+      el.style.willChange = ''; el.style.transition = '';
+    });
+  };
+
+  // THE LANDING — the seek slows, the camera travels to the card that was chosen, and the card
+  // comes up to the middle of the screen. The draw happens FIRST and the animation reveals it;
+  // the wait it covers is the interpretation being written, which is real work on a real clock.
+  const land = useCallback(async () => {
+    if (landing) return;
+    setScanning(false);
+    setLanding(true);
+    clearCards();
+
+    const cards = Array.from(document.querySelectorAll('[data-position]'));
+    if (!cards.length) { setLanding(false); return; }
+    const target = cards[Math.floor(Math.random() * cards.length)];
+
+    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+    const flash = (el, scale, ms) => {
+      el.style.transition = `transform ${ms}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
+      el.style.transformOrigin = 'center center';
+      el.style.zIndex = '40';
+      el.style.transform = `scale(${scale})`;
+      el.style.filter = 'brightness(1.5)';
+      window.setTimeout(() => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
+    };
+
+    // 1. the flicker slows: the gaps stretch until it comes to rest
+    const gaps = [70, 85, 105, 130, 165, 210, 270, 350, 450];
+    for (const g of gaps) {
+      flash(cards[Math.floor(Math.random() * cards.length)], 1.4, 380);
+      await wait(g);
+    }
+
+    // 2. the camera travels, so you can see where it is going before it arrives
+    cameraRef.current?.centreOn(target, 0.95, 1600);
+    await wait(1750);
+
+    // 3. and the card comes up to the middle of the screen
+    target.style.transition = 'transform 650ms cubic-bezier(.16,1,.3,1), filter 650ms ease';
+    target.style.transformOrigin = 'center center';
+    target.style.zIndex = '60';
+    target.style.transform = 'scale(2.6)';
+    target.style.filter = 'brightness(1.15) drop-shadow(0 18px 40px rgba(0,0,0,0.75))';
+    setLanding(false);
+  }, [landing]);
+
+  const resetView = useCallback(() => {
+    clearCards();
+    cameraRef.current?.reset(700);
+  }, []);
 
   // THE SEEK — the field turning over its own cards while the reading is written.
   //
@@ -109,6 +166,15 @@ export default function AnimationBench() {
           onChange={(e) => setZoom(parseFloat(e.target.value))} className="w-28" />
         <span className="text-zinc-500 w-10 font-mono">{zoom.toFixed(2)}</span>
 
+        <button onClick={land} disabled={landing}
+          className="px-3 py-1.5 rounded border border-emerald-700/60 text-emerald-300 hover:bg-emerald-950/40 disabled:opacity-40">
+          {landing ? 'Landing…' : 'Land'}
+        </button>
+        <button onClick={resetView}
+          className="px-3 py-1.5 rounded border border-zinc-700 text-zinc-400 hover:text-zinc-200">
+          Reset view
+        </button>
+
         <button onClick={() => setScanning(v => !v)}
           className={`px-3 py-1.5 rounded border ${scanning ? 'border-amber-500 bg-amber-950/40 text-amber-300' : 'border-violet-700/60 text-violet-300 hover:bg-violet-950/40'}`}>
           {scanning ? 'Stop' : 'Seek'}
@@ -137,13 +203,14 @@ export default function AnimationBench() {
           canvas simply has no height, and MapCanvas's centring transform then throws the
           content above the viewport. /22-reader works because it uses h-screen.
           So: the wrapper below takes an explicit height. Never flex-1 around this component. */}
-      <div className="relative overflow-hidden" style={{ height: 'calc(100vh - 56px)' }}>
+      <div className="flex-1 min-h-0 relative overflow-hidden">
         <TheMap
           key={zoom}
           drawMap={drawMap}
           colorLayer={colorLayer}
           initialZoom={zoom}
           showLabels={labels}
+          cameraRef={cameraRef}
           className="w-full h-full"
         />
       </div>
