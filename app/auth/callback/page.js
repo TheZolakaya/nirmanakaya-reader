@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../../lib/supabase';
+import { supabase, takeAuthReturn } from '../../../lib/supabase';
 
 // Send welcome email for new users
 async function sendWelcomeEmailIfNew(userId) {
@@ -70,7 +70,7 @@ export default function AuthCallbackPage() {
               sendWelcomeEmailIfNew(verifySession.user.id);
 
               await new Promise(resolve => setTimeout(resolve, 1000));
-              window.location.href = window.location.origin + '/';
+              window.location.href = window.location.origin + takeAuthReturn();
               return;
             } else {
               setStatus('Session set but not persisted - check localStorage');
@@ -103,7 +103,7 @@ export default function AuthCallbackPage() {
             sendWelcomeEmailIfNew(session.user.id);
           }
 
-          router.push('/');
+          router.push(takeAuthReturn());
           return;
         } else {
           setStatus(`Error: ${error.message}`);
@@ -117,7 +117,7 @@ export default function AuthCallbackPage() {
         // Send welcome email for new users
         sendWelcomeEmailIfNew(session.user.id);
 
-        router.push('/');
+        router.push(takeAuthReturn());
         return;
       }
 

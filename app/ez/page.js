@@ -24,7 +24,8 @@ import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks 
 import { BASE_SYSTEM } from '../../lib/prompts';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
-import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading } from '../../lib/supabase';
+import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
+import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType } from '../../lib/cardImages';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
@@ -202,6 +203,8 @@ export default function EZPage() {
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
   const [showPast, setShowPast] = useState(false);
   const [explain, setExplain] = useState(null);           // 'reflect' | 'forge' | null
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('signin');
   const userContextRef = useRef(''); // history: the journey block the full reader injects
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -211,8 +214,8 @@ export default function EZPage() {
   const saveTimer = useRef(null);
 
   // Gate: signed in AND (admin OR ez_enabled flag). Then load the history block.
-  useEffect(() => {
-    (async () => {
+  // Runs on mount and again the moment someone signs in, so the door opens in place.
+  const checkGate = useCallback(async () => {
       try {
         const { user: u } = await getUser();
         setUser(u || null);
@@ -255,8 +258,9 @@ export default function EZPage() {
           } catch {}
         }
       } catch { setAllowed(false); }
-    })();
   }, []);
+
+  useEffect(() => { rememberAuthReturn('/ez'); checkGate(); }, [checkGate]);
 
   // Persist the discourse with the reading (debounced), same table as every other reading.
   useEffect(() => {
@@ -537,10 +541,29 @@ export default function EZPage() {
         </div>
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
-        {allowed === false && (
+        {allowed === false && !user && (
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 space-y-4">
+            <div>
+              <p className="text-base text-zinc-200 mb-1">Sign in to begin.</p>
+              <p className="text-sm text-zinc-500">Your readings are saved to your account so you can come back to them.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => { setAuthMode('signin'); setAuthOpen(true); }}
+                className="px-5 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] text-sm font-medium">
+                Sign in
+              </button>
+              <button onClick={() => { setAuthMode('signup'); setAuthOpen(true); }}
+                className="px-5 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 text-sm">
+                Create an account
+              </button>
+            </div>
+          </div>
+        )}
+
+        {allowed === false && user && (
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 text-sm text-zinc-300">
             <p className="mb-2">EZ mode is invite-only while it is being built.</p>
-            <p className="text-zinc-500">{user ? 'Your account is not on the list yet.' : 'Sign in on the main page first.'}</p>
+            <p className="text-zinc-500">You are signed in as {user.email}, but this account is not on the list yet.</p>
           </div>
         )}
 
@@ -811,6 +834,12 @@ export default function EZPage() {
           </>
         )}
       </main>
+
+      <AuthModal
+        isOpen={authOpen}
+        onClose={() => { setAuthOpen(false); setAllowed(null); checkGate(); }}
+        initialMode={authMode}
+      />
 
       {selectedInfo && (
         <InfoModal
