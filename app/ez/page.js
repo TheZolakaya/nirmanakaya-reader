@@ -19,12 +19,12 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { STATUSES } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
-import { getComponent } from '../../lib/corrections';
+import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
-import { getUser, isAdmin, saveReading, updateReadingContent } from '../../lib/supabase';
+import { getUser, getSession, isAdmin, saveReading, updateReadingContent } from '../../lib/supabase';
 import CardImage from '../../components/reader/CardImage';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
@@ -60,8 +60,15 @@ TWO MORE SETS, every turn — for when the person wants the FIELD to speak again
 - "forge": FOUR DECLARATIONS the person could make — what they will do, choose, commit to, or stop — each drawn from this moment, in their voice, under 15 words. A forge is an assertion the field then responds to.
 These are never answers to your question. They are what the person would hand to the field. Make them specific to what has actually been said.
 
+THE MEDICINE — never omit it. Every imbalanced card carries a correction path, already computed for you and given in the draw above as its Rebalancer. The medicine is half the answer: a verdict without a path is a diagnosis, not a reading.
+- In the OPENING TURN, name the direction of the medicine inside the verdict sentence itself, as a clause, not a new paragraph. "Not yet — and the path opens through Repose."
+- Then fill "medicine" with one or two sentences on what that path actually asks, here, in this seat. Name the correction card by its canonical name. Say what the move IS in ordinary words, not what it symbolises.
+- The medicine always speaks from the correction card's balanced face. It opens, restores, releases, invites. It never orders, demands, prescribes, or promises an outcome, and it never diagnoses the person.
+- If every card is Balanced, "medicine" carries the growth opportunity instead: what this balance is free to feed next.
+- On a later turn, rewrite "medicine" only when the conversation has genuinely moved the ground under it. Otherwise repeat it unchanged.
+
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."]}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>"}`;
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -79,6 +86,27 @@ function drawLabel(d) {
   const s = STATUSES[d.status];
   const seat = ARCHETYPES[d.position]?.name;
   return `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat}` : ''}`;
+}
+
+// The medicine is computed, not generated: every imbalanced card already knows its
+// correction card and the geometry that gets there.
+function medicineFor(draws) {
+  if (!Array.isArray(draws)) return [];
+  return draws.map((d) => {
+    const trans = getComponent(d.transient);
+    const correction = getFullCorrection(d.transient, d.status);
+    if (!correction) return null;
+    const targetId = getCorrectionTargetId(correction, trans);
+    if (targetId === null || targetId === undefined) return null;
+    return {
+      from: trans?.name,
+      fromDraw: d,
+      toId: targetId,
+      to: getComponent(targetId)?.name,
+      path: getCorrectionText(correction, trans, d.status) || '',
+      balanced: d.status === 1
+    };
+  }).filter(Boolean);
 }
 
 const CHIP_STYLE = {
@@ -100,7 +128,8 @@ export default function EZPage() {
   const [turns, setTurns] = useState([]); // {id, role:'reader'|'you'|'catchup', text, question, chips, reflect, forge, draw, mode, ts}
   const [input, setInput] = useState('');
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
-  const [userContext, setUserContext] = useState(''); // history: the journey block the full reader uses
+  const [hasHistory, setHasHistory] = useState(false);
+  const userContextRef = useRef(''); // history: the journey block the full reader injects
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
@@ -117,13 +146,7 @@ export default function EZPage() {
         let flag = false;
         try { const r = await fetch('/api/feature-flags'); const j = await r.json(); flag = !!j?.flags?.ez_enabled; } catch {}
         setAllowed(!!u && (isAdmin(u) || flag));
-        if (u) {
-          try {
-            const c = await fetch(`/api/user/context?userId=${u.id}`);
-            const cj = await c.json();
-            if (cj?.contextBlock) setUserContext(cj.contextBlock);
-          } catch {}
-        }
+        if (u) setHasHistory(true);
       } catch { setAllowed(false); }
     })();
   }, []);
@@ -177,9 +200,25 @@ export default function EZPage() {
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 4) : [],
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
+    medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
     ts: Date.now(),
     ...extra
   });
+
+  // The journey block: recent readings, narrative summaries, and any personalization facts
+  // the account has switched on. The route authenticates by Bearer token — a userId query
+  // param silently returns an empty block, which is how EZ shipped without history yesterday.
+  const loadHistory = async (drawsToUse) => {
+    try {
+      const session = await getSession();
+      const token = session?.session?.access_token;
+      if (!token) return '';
+      const params = new URLSearchParams({ draws: JSON.stringify(drawsToUse || []) });
+      const res = await fetch(`/api/user/context?${params}`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      return data?.contextBlock || '';
+    } catch { return ''; }
+  };
 
   const scrollToEnd = () => requestAnimationFrame(() => setTimeout(() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80));
 
@@ -195,7 +234,9 @@ export default function EZPage() {
     try {
       const sk = spreadKeyFor(cardCount);
       const drawText = formatDrawForAI(newDraws, 'discover', sk, false, null, null, null);
-      const ctx = userContext ? `${userContext}\n\n` : '';
+      const history = await loadHistory(newDraws);
+      userContextRef.current = history;
+      const ctx = history ? `${history}\n\n` : '';
       const msg = `${ctx}QUESTION: "${q}"\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
@@ -227,7 +268,7 @@ export default function EZPage() {
     scrollToEnd();
     try {
       const drawText = formatDrawForAI(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
-      const ctx = userContext ? `${userContext}\n\n` : '';
+      const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const newCardBlock = newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE: ${drawLabel(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table.`
         : '';
@@ -337,7 +378,7 @@ export default function EZPage() {
             </div>
             <p className="text-xs text-zinc-600 leading-relaxed">
               The Reader opens brief and asks you one question. The reading unfolds from there.
-              {userContext ? ' Your recent readings are in the room with you.' : ''}
+              {hasHistory ? ' Your recent readings are in the room with you.' : ''}
             </p>
           </div>
         )}
@@ -386,6 +427,32 @@ export default function EZPage() {
                   {ensureParagraphBreaks(t.text).split(/\n\n+/).filter((p) => p.trim()).map((p, i) => (
                     <p key={i} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{p.trim()}</p>
                   ))}
+
+                  {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
+                      The path is computed from the draw; the words come from the Reader. */}
+                  {t.role === 'reader' && t.medicine && (
+                    <div className="mt-3 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3">
+                      <div className="text-[10px] uppercase tracking-wider text-emerald-300/80 mb-2">
+                        {(t.draw ? medicineFor([t.draw]) : medicineFor(draws)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
+                      </div>
+                      <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
+                        {(t.draw ? medicineFor([t.draw]) : medicineFor(draws)).map((m, mi) => (
+                          <div key={mi} className="flex flex-col items-center max-w-full">
+                            <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true} />
+                            <span className="text-[11px] text-emerald-300/90 mt-1 text-center break-words">
+                              {m.from} → {m.to}
+                            </span>
+                            {m.path && <span className="text-[10px] text-emerald-500/60 text-center break-words">{m.path}</span>}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="text-sm text-emerald-100/90 leading-relaxed break-words">
+                        {ensureParagraphBreaks(t.medicine).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                          <p key={xi} className="mb-2 last:mb-0">{x.trim()}</p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {t.role === 'reader' && !t.simplified && !loading && (
                     <button onClick={() => simplify(t.id)}
