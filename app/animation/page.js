@@ -10,7 +10,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import TheMap from '../../components/map/TheMap.js';
+import TheMap, { STATUS_GLOW } from '../../components/map/TheMap.js';
 import { generateSpread } from '../../lib/utils.js';
 
 export default function AnimationBench() {
@@ -32,9 +32,15 @@ export default function AnimationBench() {
     });
   };
 
-  // THE LANDING — the seek slows, the camera travels to the card that was chosen, and the card
-  // comes up to the middle of the screen. The draw happens FIRST and the animation reveals it;
-  // the wait it covers is the interpretation being written, which is real work on a real clock.
+  // THE LANDING — five movements.
+  //   1. the seek runs on, so there is time to watch the field turn
+  //   2. it decelerates until it comes to rest
+  //   3. the camera TRAVELS to the chosen card, slowly, so you see where it is going
+  //   4. the card rises to the centre, then turns itself upright
+  //   5. and the camera pushes in on it
+  //
+  // The draw is decided before any of this; the animation reveals it. What the wait actually
+  // covers is the interpretation being written, which is real work on a real clock.
   const land = useCallback(async () => {
     if (landing) return;
     setScanning(false);
@@ -44,6 +50,7 @@ export default function AnimationBench() {
     const cards = Array.from(document.querySelectorAll('[data-position]'));
     if (!cards.length) { setLanding(false); return; }
     const target = cards[Math.floor(Math.random() * cards.length)];
+    const targetId = Number(target.dataset.position);
 
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     const flash = (el, scale, ms) => {
@@ -55,25 +62,66 @@ export default function AnimationBench() {
       window.setTimeout(() => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
     };
 
-    // 1. the flicker slows: the gaps stretch until it comes to rest
-    const gaps = [70, 85, 105, 130, 165, 210, 270, 350, 450];
-    for (const g of gaps) {
-      flash(cards[Math.floor(Math.random() * cards.length)], 1.4, 380);
-      await wait(g);
+    // 1. the field turns over its cards, at pace, for a while
+    const prerollMs = 4200;
+    const t0 = Date.now();
+    while (Date.now() - t0 < prerollMs) {
+      flash(cards[Math.floor(Math.random() * cards.length)], lift, 400);
+      if (Math.random() < 0.35) flash(cards[Math.floor(Math.random() * cards.length)], lift, 400);
+      await wait(pace);
     }
 
-    // 2. the camera travels, so you can see where it is going before it arrives
-    cameraRef.current?.centreOn(target, 0.95, 1600);
-    await wait(1750);
+    // 2. and slows to a stop
+    const gaps = [90, 110, 135, 165, 200, 245, 300, 370, 450, 560, 700];
+    for (const g of gaps) {
+      flash(cards[Math.floor(Math.random() * cards.length)], 1.35, 420);
+      await wait(g);
+    }
+    await wait(350);
 
-    // 3. and the card comes up to the middle of the screen
-    target.style.transition = 'transform 650ms cubic-bezier(.16,1,.3,1), filter 650ms ease';
+    // 3. the camera travels — slow, and only part of the way in, leaving room to push further
+    cameraRef.current?.centreOn(target, 0.8, 2800);
+    await wait(2950);
+
+    // 4a. the card rises to the centre
+    const inner = target.firstElementChild;
+    target.style.transition = 'transform 900ms cubic-bezier(.16,1,.3,1), filter 900ms ease';
     target.style.transformOrigin = 'center center';
     target.style.zIndex = '60';
-    target.style.transform = 'scale(2.6)';
-    target.style.filter = 'brightness(1.15) drop-shadow(0 18px 40px rgba(0,0,0,0.75))';
+    target.style.transform = 'scale(1.9)';
+    target.style.filter = 'brightness(1.12) drop-shadow(0 18px 40px rgba(0,0,0,0.75))';
+    await wait(1100);
+
+    // 4b. and turns itself upright.
+    // A card inherits tilt from two places: its house container (the 45-degree diamonds) and,
+    // for bounds and agents, its own seat rotation. A drawn STATUS also rotates it, and that
+    // one carries meaning — upright / right / left / inverted — so it is preserved. We cancel
+    // the seat tilt only, by measuring the card's true on-screen angle and subtracting the
+    // status from it.
+    const screenAngle = (el) => {
+      let deg = 0, node = el;
+      while (node && node !== document.body) {
+        const tr = getComputedStyle(node).transform;
+        if (tr && tr !== 'none') {
+          const m = new DOMMatrix(tr);
+          deg += Math.atan2(m.b, m.a) * 180 / Math.PI;
+        }
+        node = node.parentElement;
+      }
+      return deg;
+    };
+    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
+    const seatTilt = screenAngle(inner) - statusRot;
+    target.style.transition = 'transform 1000ms cubic-bezier(.2,.9,.25,1), filter 900ms ease';
+    target.style.transform = `scale(1.9) rotate(${-seatTilt}deg)`;
+    await wait(1150);
+
+    // 5. and the camera pushes in on it
+    cameraRef.current?.centreOn(target, 1.75, 1600);
+    await wait(1700);
+
     setLanding(false);
-  }, [landing]);
+  }, [landing, pace, lift, drawMap]);
 
   const resetView = useCallback(() => {
     clearCards();
