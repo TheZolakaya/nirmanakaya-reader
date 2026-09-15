@@ -992,13 +992,29 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
         word.style.transition = 'none'; word.style.opacity = '0';
       }
 
-      // the stack in the header: durable upper-left, transient down and to the right, both upright
+      // THE REAL TARGETS. The header renders the transient image, the durable image and the
+      // minimap in known places; when they exist (EZ), the clones fly to THOSE boxes, so size
+      // and position match by construction. The bench's mock header has only the slots, so
+      // the computed layout below stays as the fallback.
+      const realBox = (sel) => document.querySelector(`${slotsSelector} ${sel}`)?.getBoundingClientRect() || null;
+      const aim = () => {
+        const t = realBox('[data-slot="stack"] > div img'), d = realBox('[data-slot="stack"] > img');
+        const m = realBox('[data-slot="minimap"] svg') || realBox('[data-slot="minimap"]');
+        return (t && d && m && t.width > 10 && d.width > 10) ? { t, d, m } : null;
+      };
       const S = Math.min(stackSlot.width * 0.66, stackSlot.height * 0.9);
-      // transient LEFT and in front; durable to its right and behind
-      flyTo(tClone, stackSlot.left, stackSlot.top, S, S, 0);
-      flyTo(dClone, stackSlot.left + S * PEEK_HEADER.x, stackSlot.top + S * PEEK_HEADER.y, S, S, 0);
       const mw = Math.min(mapSlot.width, mapSlot.height * (MINIMAP_W / MINIMAP_H));
-      flyTo(mClone, mapSlot.left + (mapSlot.width - mw) / 2, mapSlot.top, mw, mw * (MINIMAP_H / MINIMAP_W), 0);
+      const goals = aim();
+      if (goals) {
+        flyTo(tClone, goals.t.left, goals.t.top, goals.t.width, goals.t.height, 0);
+        flyTo(dClone, goals.d.left, goals.d.top, goals.d.width, goals.d.height, 0);
+        flyTo(mClone, goals.m.left, goals.m.top, goals.m.width, goals.m.height, 0);
+      } else {
+        // transient LEFT and in front; durable to its right and behind
+        flyTo(tClone, stackSlot.left, stackSlot.top, S, S, 0);
+        flyTo(dClone, stackSlot.left + S * PEEK_HEADER.x, stackSlot.top + S * PEEK_HEADER.y, S, S, 0);
+        flyTo(mClone, mapSlot.left + (mapSlot.width - mw) / 2, mapSlot.top, mw, mw * (MINIMAP_H / MINIMAP_W), 0);
+      }
       if (wClone && wordSlot) {
         const k = Math.min(wordSlot.width / word.offsetWidth, wordSlot.height / word.offsetHeight);
         requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1007,7 +1023,24 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       }
       window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), FLY - 250);
 
-      await wait(FLY + 1200);
+      await wait(FLY + 900);
+
+      // SETTLE ONTO THE PAGE. The page can move under a fixed clone between the moment the
+      // header was measured and the handoff (a toolbar on a phone, a line arriving above the
+      // header) — the founder saw a ten-pixel stutter at the end. So the header is measured
+      // AGAIN now, and each clone eases onto the box it will actually be replaced by.
+      const fresh = aim();
+      if (fresh) {
+        const settle = (c, b) => {
+          const r = c.getBoundingClientRect();
+          const dx = b.left - r.left, dy = b.top - r.top;
+          c.style.transition = 'left 260ms ease, top 260ms ease, width 260ms ease, height 260ms ease';
+          Object.assign(c.style, { left: `${b.left}px`, top: `${b.top}px`, width: `${b.width}px`, height: `${b.height}px` });
+          return Math.hypot(dx, dy);
+        };
+        window.__handoffPx = [settle(tClone, fresh.t), settle(dClone, fresh.d), settle(mClone, fresh.m)].map((v) => +v.toFixed(1));
+        await wait(300);
+      }
     }
     if (mapEl) mapEl.classList.remove('nkya-animating');
     return true;
