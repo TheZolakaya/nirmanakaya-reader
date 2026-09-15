@@ -70,8 +70,12 @@ export default function AnimationBench() {
     // Before this, an undealt Land picked from all 78 cards, and a bound or an agent is not a
     // seat: its minimap point came back empty and the card quietly landed on the map's centre,
     // on the Gestalt axis just below the house's divider, with no status and no seat named.
+    // A fresh pair EVERY time unless the founder dealt the full 22 himself. Land's own single
+    // draw is put on the map so the transient shows in its seat, which meant the next Land found
+    // that same pair sitting there and reused it — "it just does the same one over and over
+    // again". Anything short of a full deal is treated as Land's own and redrawn.
     let draws = drawMap;
-    if (!Object.keys(draws).length) {
+    if (Object.keys(draws).length < 22) {
       const d = generateSpread(1)[0];
       draws = { [d.position]: { transient: d.transient, status: d.status } };
       setDrawMap(draws);
