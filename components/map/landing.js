@@ -560,6 +560,20 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
     await wait(ARRIVE_AT - STOP_AT + 400);
 
+    // ARRIVAL, MEASURED. On a slow phone the spring can still be short of the card when the
+    // clock says it has arrived, and the hero then rises wherever the camera happens to be (a
+    // phone photo showed it half off the right edge). One measured correction, before anything
+    // else happens: where is the card, and how far is that from the middle of the screen.
+    {
+      const hr = target.getBoundingClientRect();
+      const ex = window.innerWidth / 2 - (hr.left + hr.width / 2), ey = window.innerHeight / 2 - (hr.top + hr.height / 2);
+      if (Math.hypot(ex, ey) > 2) {
+        cam.x += ex; cam.y += ey;
+        if (cameraRef.current?.flyTo) { cameraRef.current.flyTo({ x: cam.x, y: cam.y }, cam.z, 320); await wait(340); }
+        cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z);
+      }
+    }
+
     const sig = signatureFor(displayId);
     const st = draws[targetId] ? STATUSES[draws[targetId].status] : null;
     const cardName = sig?.name || `Signature ${displayId}`;
