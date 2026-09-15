@@ -75,6 +75,7 @@ export default function AnimationBench() {
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
     });
     document.querySelectorAll('[data-flight-clone], [data-plate], [data-flash]').forEach((el) => el.remove());
+    document.querySelector('[data-map-surface]')?.classList.remove('nkya-animating');
     document.querySelectorAll('.element-bg').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-map-wordmark]').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-house-label]').forEach((el) => {
@@ -98,10 +99,10 @@ export default function AnimationBench() {
 
     // Hover scales the card too, and fights every transform we write. Off for the duration.
     const mapEl = document.querySelector('[data-map-surface]');
-    if (mapEl) mapEl.style.pointerEvents = 'none';
+    if (mapEl) mapEl.classList.add('nkya-animating');
 
     const cards = Array.from(document.querySelectorAll('[data-position]'));
-    if (!cards.length) { setLanding(false); if (mapEl) mapEl.style.pointerEvents = ''; return; }
+    if (!cards.length) { setLanding(false); if (mapEl) mapEl.classList.remove('nkya-animating'); return; }
     // THE PAIR. In the founder's words: "one is a random durable, and one is a random
     // transient. The transient goes to the durable's location." So Land ALWAYS has a real pair.
     // With a deal on the table the seat is taken from it. With nothing dealt, Land draws its own
@@ -204,13 +205,16 @@ export default function AnimationBench() {
     // bottom of the screen ... as well as the destination card." The plate lives INSIDE the card
     // element, so it scales, turns and travels with it — on an inverted card it hangs off the
     // top, upside down, exactly as the card is. Sizes are fractions of the card's own width.
-    const plateFor = (el, lines) => {
+    // side: 'below' for the name, 'above' for the status — the founder: "put the transient status
+    // name on the top, above the card instead of below the card."
+    const plateFor = (el, lines, side = 'below') => {
       const host = el.querySelector('.card') || el;
-      let pl = host.querySelector(':scope > [data-plate]');
-      if (!pl) { pl = document.createElement('div'); pl.setAttribute('data-plate', ''); host.appendChild(pl); }
+      let pl = host.querySelector(`:scope > [data-plate="${side}"]`);
+      if (!pl) { pl = document.createElement('div'); pl.setAttribute('data-plate', side); host.appendChild(pl); }
       const w = host.offsetWidth || el.offsetWidth || 100;
-      Object.assign(pl.style, { position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-        marginTop: `${(w * 0.06).toFixed(1)}px`, width: 'max-content', maxWidth: `${(w * 2.2).toFixed(0)}px`, textAlign: 'center',
+      const edge = side === 'above' ? { bottom: '100%', marginBottom: `${(w * 0.06).toFixed(1)}px` } : { top: '100%', marginTop: `${(w * 0.06).toFixed(1)}px` };
+      Object.assign(pl.style, { position: 'absolute', left: '50%', transform: 'translateX(-50%)', ...edge,
+        width: 'max-content', maxWidth: `${(w * 2.2).toFixed(0)}px`, textAlign: 'center',
         pointerEvents: 'none', lineHeight: '1.15', textShadow: '0 2px 8px rgba(0,0,0,0.95)', opacity: '0', transition: 'opacity 600ms ease' });
       pl.innerHTML = lines.map(l =>
         `<div style="font-size:${(w * l.size).toFixed(1)}px;font-family:${l.font};font-weight:${l.weight};letter-spacing:${l.ls};color:${l.color};text-transform:${l.upper ? 'uppercase' : 'none'};white-space:nowrap">${l.text}</div>`
@@ -226,16 +230,49 @@ export default function AnimationBench() {
     // THE FLASH. "a bright flash type of thing, emanating" — when the card is finally chosen, and
     // again when the spin stops on its status. A fixed disc at the card's own centre, so it is
     // untouched by the map's transform, that swells and fades in three quarters of a second.
-    const burst = (el, color) => {
+    // Four moments, four shapes, so each one says what just happened:
+    //   'disc'    the choosing — a bloom that swells out of the card
+    //   'ring'    the status — a hard ring thrown off the card as the spin stops
+    //   'implode' the seating — the reverse: light gathers INTO the durable as the card lands
+    //   (the header has its own, below: a sweep of light across the whole header)
+    const burst = (el, color, kind = 'disc') => {
       const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * 1.1;
       const f = document.createElement('div');
-      f.setAttribute('data-flash', '');
-      Object.assign(f.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`,
-        width: `${d}px`, height: `${d}px`, borderRadius: '50%', pointerEvents: 'none', zIndex: '250',
-        background: `radial-gradient(circle, ${color} 0%, ${color}66 35%, transparent 70%)`, mixBlendMode: 'screen' });
+      f.setAttribute('data-flash', kind);
+      const base = { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`,
+        width: `${d}px`, height: `${d}px`, borderRadius: '50%', pointerEvents: 'none', zIndex: '250', mixBlendMode: 'screen' };
+      let frames, timing;
+      if (kind === 'ring') {
+        Object.assign(f.style, base, { border: `${Math.max(3, d * 0.035)}px solid ${color}`, boxShadow: `0 0 ${d * 0.12}px ${color}`, background: 'transparent' });
+        frames = [{ transform: 'scale(0.5)', opacity: 1 }, { transform: 'scale(2.6)', opacity: 0 }];
+        timing = { duration: 800, easing: 'cubic-bezier(.1,.8,.2,1)' };
+      } else if (kind === 'implode') {
+        Object.assign(f.style, base, { background: `radial-gradient(circle, ${color} 0%, ${color}77 40%, transparent 70%)` });
+        frames = [{ transform: 'scale(2.6)', opacity: 0 }, { transform: 'scale(1.2)', opacity: 0.9, offset: 0.7 }, { transform: 'scale(0.3)', opacity: 0 }];
+        timing = { duration: 900, easing: 'cubic-bezier(.4,0,.6,1)' };
+      } else {
+        Object.assign(f.style, base, { background: `radial-gradient(circle, ${color} 0%, ${color}66 35%, transparent 70%)` });
+        frames = [{ transform: 'scale(0.35)', opacity: 0.95 }, { transform: 'scale(2.4)', opacity: 0 }];
+        timing = { duration: 750, easing: 'cubic-bezier(.2,.7,.3,1)' };
+      }
       document.body.appendChild(f);
-      f.animate([{ transform: 'scale(0.35)', opacity: 0.95 }, { transform: 'scale(2.4)', opacity: 0 }],
-        { duration: 750, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => f.remove();
+      f.animate(frames, timing).onfinish = () => f.remove();
+    };
+    const sweep = (top, height) => {
+      // the header's arrival: a band of light crossing the whole header, and a bloom behind it
+      const band = document.createElement('div');
+      band.setAttribute('data-flash', 'sweep');
+      Object.assign(band.style, { position: 'fixed', left: '0', top: `${top}px`, width: '100vw', height: `${height}px`, pointerEvents: 'none',
+        zIndex: '320', mixBlendMode: 'screen', overflow: 'hidden' });
+      band.innerHTML = `<div style="position:absolute;top:-20%;left:-40%;width:40%;height:140%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent 0%,rgba(255,240,200,0.0) 20%,rgba(255,240,200,0.55) 50%,rgba(255,240,200,0.0) 80%,transparent 100%)"></div>`;
+      document.body.appendChild(band);
+      band.firstElementChild.animate([{ left: '-40%' }, { left: '110%' }], { duration: 1100, easing: 'cubic-bezier(.3,.1,.2,1)' }).onfinish = () => band.remove();
+      const bloom = document.createElement('div');
+      bloom.setAttribute('data-flash', 'bloom');
+      Object.assign(bloom.style, { position: 'fixed', left: '0', top: `${top}px`, width: '100vw', height: `${height}px`, pointerEvents: 'none', zIndex: '240',
+        background: 'radial-gradient(ellipse at 50% 45%, rgba(253,230,138,0.35) 0%, rgba(253,230,138,0.12) 35%, transparent 70%)', mixBlendMode: 'screen' });
+      document.body.appendChild(bloom);
+      bloom.animate([{ opacity: 0 }, { opacity: 1, offset: 0.35 }, { opacity: 0 }], { duration: 1600, easing: 'ease-out' }).onfinish = () => bloom.remove();
     };
     const flash = (el, scale, ms) => {
       el.style.transition = `transform ${Math.max(ms, POP_MS)}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
@@ -451,10 +488,13 @@ export default function AnimationBench() {
     const seatTilt = homeAngle0;
 
     // the card begins to rise and turn once the camera is well on its way, and settles with it
-    const RISE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.30);
-    window.setTimeout(() => {
-      target.style.transition =
-        `transform ${ARRIVE_AT - RISE_AT}ms cubic-bezier(.4,0,.2,1), filter ${ARRIVE_AT - RISE_AT}ms ease`;
+    // The rise no longer happens during the flight. The founder: "it should be right when we
+    // center on the card before we pull it off of the map ... As soon as we zoom into that
+    // particular card, splash bam, that's the card that we selected. Maybe that's when we put
+    // the name on it. And then we pull it up." So: arrive, splash, name, and only then the rise.
+    const RISE_MS = 1500;
+    const rise = () => {
+      target.style.transition = `transform ${RISE_MS}ms cubic-bezier(.4,0,.2,1), filter ${RISE_MS}ms ease`;
       target.style.transformOrigin = 'center center';
       target.style.zIndex = '60';
       // zIndex 60 only wins INSIDE its own house container, and the containers all sit at 2 —
@@ -467,7 +507,7 @@ export default function AnimationBench() {
       // coloured frame is the element background behind the image; it goes as the card rises.
       const bg = target.querySelector('.element-bg');
       if (bg) { bg.style.transition = 'opacity 900ms ease'; bg.style.opacity = '0'; }
-    }, RISE_AT);
+    };
 
     // the field eases away underneath it, finishing a beat before the card settles
     const FADE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.42);
@@ -503,8 +543,14 @@ export default function AnimationBench() {
     // Names live on the chosen cards and nowhere else — the founder: "we've basically got it in
     // three places ... I think we just want them on the card and specifically on the ones that
     // are selected only." So no screen label; the plate is the name.
-    burst(target, '#fde68a');
+    // the camera has settled on the card: this is the selection
+    target.style.zIndex = '60';
+    target.closest('.archetype-group')?.style.setProperty('z-index', '100');
+    burst(target, '#fde68a', 'disc');
     plateFor(target, [NAME(cardName)]);
+    await wait(700);
+    rise();
+    await wait(RISE_MS + 100);
 
     // ================= THE LAST ACT: THE CARD TAKES ITS SEAT =================
     //
@@ -533,8 +579,8 @@ export default function AnimationBench() {
     target.style.transform = `scale(${heroScale}) rotate(${-seatTilt + spinBase + spinStatusRot}deg)`;
     await wait(2300 + 150);
     const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
-    burst(target, statusColor);
-    plateFor(target, [STATUS(st ? (st.prefix || 'Balanced') : '', statusColor), NAME(cardName)]);
+    burst(target, statusColor, 'ring');
+    plateFor(target, [STATUS(st ? (st.prefix || 'Balanced') : '', statusColor)], 'above');
     await wait(1100);
 
     // ============================ THE LAST ACT, as the founder laid it out ============================
@@ -681,6 +727,8 @@ export default function AnimationBench() {
         await wait(300);
       }
     }
+    // "a reverse splash for when it lands in the durable, like on the durable itself"
+    burst(seatEl, '#fde68a', 'implode');
     await wait(250);
     await wait(1200);
 
@@ -716,7 +764,7 @@ export default function AnimationBench() {
     // A card clone is a box holding the art AND its plate, so the name flies with the card and
     // is still there in the header — "I can't tell which card is which if I'm not someone who's
     // familiar with everything." The plate is set in header-sized type from the start.
-    const clone = (src, box, radius, plateHtml) => {
+    const clone = (src, box, radius, plateHtml, topHtml) => {
       const c = document.createElement('div');
       c.setAttribute('data-flight-clone', '');
       Object.assign(c.style, { position: 'fixed', left: `${box.cx - box.w / 2}px`, top: `${box.cy - box.h / 2}px`,
@@ -735,6 +783,13 @@ export default function AnimationBench() {
         pl.innerHTML = plateHtml;
         c.appendChild(pl);
       }
+      if (topHtml) {
+        const pt = document.createElement('div');
+        Object.assign(pt.style, { position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '8px',
+          width: 'max-content', textAlign: 'center', lineHeight: '1.15', whiteSpace: 'nowrap', textShadow: '0 2px 8px rgba(0,0,0,0.95)' });
+        pt.innerHTML = topHtml;
+        c.appendChild(pt);
+      }
       document.body.appendChild(c);
       return c;
     };
@@ -750,8 +805,8 @@ export default function AnimationBench() {
       const dClone = clone(seatOwnArt, dBox, '10px',
         `<div style="font-size:17px;font-family:'Cormorant Garamond',serif;color:#b4b4bc;letter-spacing:0.06em">${seatName || ''}</div>`);
       const tClone = clone(fullArt, tBox, '10px',
-        `<div style="font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${statusColor};font-family:ui-sans-serif,system-ui,sans-serif">${statusWord}</div>` +
-        `<div style="font-size:19px;font-family:'Cormorant Garamond',serif;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`);
+        `<div style="font-size:19px;font-family:'Cormorant Garamond',serif;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`,
+        `<div style="font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${statusColor};font-family:ui-sans-serif,system-ui,sans-serif">${statusWord}</div>`);
       dClone.style.zIndex = '299';
       target.style.opacity = '0'; seatEl.style.opacity = '0';
 
@@ -801,10 +856,11 @@ export default function AnimationBench() {
           Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})`, opacity: '1' });
         }));
       }
-      await wait(FLY + 200);
+      window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), FLY - 250);
+      await wait(FLY + 1200);
     }
     setLandedLabel(null);
-    if (mapEl) mapEl.style.pointerEvents = '';
+    if (mapEl) mapEl.classList.remove('nkya-animating');
 
     setLanding(false);
   }, [landing, pace, lift, drawMap]);
@@ -827,7 +883,7 @@ export default function AnimationBench() {
     if (!cards.length) return;
     // Hover scales a card too and fights every transform written here — off while seeking.
     const surface = document.querySelector('[data-map-surface]');
-    if (surface) surface.style.pointerEvents = 'none';
+    if (surface) surface.classList.add('nkya-animating');
 
     cards.forEach((el) => {
       el.style.transition = 'transform 900ms cubic-bezier(.22,1,.36,1), filter 420ms ease';
@@ -857,7 +913,7 @@ export default function AnimationBench() {
 
     return () => {
       window.clearInterval(timerRef.current);
-      if (surface) surface.style.pointerEvents = '';
+      if (surface) surface.classList.remove('nkya-animating');
       cards.forEach((el) => {
         el.style.transform = '';
         el.style.filter = '';

@@ -734,3 +734,9 @@ textarea.user-input-area {
 textarea.user-input-area::placeholder {
   opacity: calc(var(--text-brightness) * 0.5);
 }
+
+/* The animation bench: while a sequence runs, nothing on the map may respond to the mouse.
+   The surface alone cannot switch this off, because every card carries its own inline
+   pointer-events:auto (so bounds and agents can be hovered at all), and an inline value beats a
+   plain parent rule — only !important from a stylesheet outranks it. */
+.nkya-animating, .nkya-animating * { pointer-events: none !important; cursor: default !important; }
