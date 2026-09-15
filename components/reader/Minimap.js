@@ -738,3 +738,10 @@ const Minimap = ({
 };
 
 export default Minimap;
+
+// The minimap's own geometry, published so other surfaces can land things ON it rather than
+// drawing a second map that has to agree with this one. Coordinates are in the SVG's viewBox
+// space (MINIMAP_W x MINIMAP_H), so a caller scales them the same way the <svg> itself does.
+export const MINIMAP_W = MAP_WIDTH;
+export const MINIMAP_H = MAP_HEIGHT;
+export const minimapPoint = (archetypeId) => getArchetypePosition(archetypeId);

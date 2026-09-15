@@ -12,7 +12,9 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import TheMap, { STATUS_GLOW, signatureFor } from '../../components/map/TheMap.js';
 import { generateSpread } from '../../lib/utils.js';
-import { getCardImagePath } from '../../lib/cardImages.js';
+import { getCardImagePath, getHomeArchetype, getCardType } from '../../lib/cardImages.js';
+import { renderToStaticMarkup } from 'react-dom/server';
+import Minimap, { MINIMAP_W, MINIMAP_H, minimapPoint } from '../../components/reader/Minimap';
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { STATUSES } from '../../lib/constants.js';
 
@@ -398,52 +400,37 @@ export default function AnimationBench() {
     // agree with the map is a frame that will one day disagree with it. Measured, it cannot.
     await wait(1500);
 
-    const NS = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('width', canvas.offsetWidth);
-    svg.setAttribute('height', canvas.offsetHeight);
-    Object.assign(svg.style, { position: 'absolute', left: '0', top: '0', overflow: 'visible',
-      pointerEvents: 'none', zIndex: '5', opacity: '0', transition: 'opacity 1100ms ease' });
+    // THE FRAME IS THE MINIMAP ITSELF, not a second drawing of it.
+    //
+    // The first attempt traced house outlines from the live map. It was correctly placed and it
+    // looked nothing like the minimap, because the minimap is not outlines — it is a shape per
+    // signature, house dividers, channel badges and portal glyphs, and it already draws the
+    // marching arrow from a card's HOME to the seat it was drawn into. That is this whole
+    // sequence stated as a diagram. So the real component is rendered here, at size, and the
+    // card lands on the very point the minimap itself marks as the destination.
+    const fromArch = getHomeArchetype(displayId);
+    const fromType = getCardType(displayId);
+    const trans = signatureFor(displayId);
+    const frameSvg = renderToStaticMarkup(
+      <Minimap fromId={fromArch} toId={targetId} fromCardType={fromType}
+               boundIsInner={fromType === 'bound' && (trans?.number ?? 99) <= 5} size="xl" />
+    );
 
-    const line = (a, b, w, o) => {
-      const el = document.createElementNS(NS, 'line');
-      el.setAttribute('x1', a.x); el.setAttribute('y1', a.y);
-      el.setAttribute('x2', b.x); el.setAttribute('y2', b.y);
-      el.setAttribute('stroke', '#d4af6a'); el.setAttribute('stroke-width', w);
-      el.setAttribute('stroke-linecap', 'round'); el.setAttribute('opacity', o);
-      svg.appendChild(el);
-    };
-    const dot = (p, r, o) => {
-      const el = document.createElementNS(NS, 'circle');
-      el.setAttribute('cx', p.x); el.setAttribute('cy', p.y); el.setAttribute('r', r);
-      el.setAttribute('fill', 'none'); el.setAttribute('stroke', '#d4af6a');
-      el.setAttribute('stroke-width', 1.5); el.setAttribute('opacity', o);
-      svg.appendChild(el);
-    };
+    // fitted into the field the big map occupied, so the camera framing still holds
+    const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
+    const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
+    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
 
-    // Each house becomes the quadrilateral through its four archetypes, corners taken in order
-    // around their own centre so the shape closes however the DOM happens to list them.
-    document.querySelectorAll('.archetype-group').forEach(group => {
-      const pts = [...group.querySelectorAll('[data-position]')]
-        .filter(el => Number(el.dataset.position) <= 21).map(mapPoint);
-      if (pts.length < 3) return;
-      const c = pts.reduce((a, p) => ({ x: a.x + p.x / pts.length, y: a.y + p.y / pts.length }), { x: 0, y: 0 });
-      pts.sort((a, b) => Math.atan2(a.y - c.y, a.x - c.x) - Math.atan2(b.y - c.y, b.x - c.x));
-      pts.forEach((p, i) => line(p, pts[(i + 1) % pts.length], 2, 0.55));
-    });
-    // every other card is a mark, so the frame holds the whole field and not just the five houses
-    cards.forEach(el => {
-      if (Number(el.dataset.position) <= 21) return;
-      dot(mapPoint(el), 3, 0.28);
-    });
-    // the two portals, named by their seats
-    [10, 21].forEach(n => {
-      const el = document.querySelector(`[data-position="${n}"]`);
-      if (el) dot(mapPoint(el), 13, 0.75);
-    });
-    svg.setAttribute('data-map-frame', '');
-    canvas.appendChild(svg);
-    requestAnimationFrame(() => { svg.style.opacity = '1'; });
+    const holder = document.createElement('div');
+    holder.setAttribute('data-map-frame', '');
+    Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
+      width: `${fw}px`, height: `${fh}px`, pointerEvents: 'none', zIndex: '5',
+      opacity: '0', transition: 'opacity 1100ms ease' });
+    holder.innerHTML = frameSvg;
+    const inner2 = holder.querySelector('svg');
+    if (inner2) { inner2.setAttribute('width', fw); inner2.setAttribute('height', fh); }
+    canvas.appendChild(holder);
+    requestAnimationFrame(() => { holder.style.opacity = '1'; });
 
     // the camera opens back out to hold the whole frame, on the same drive/commit as the flight
     // The pull-back CENTRES ITSELF each frame instead of flying to a stored pan. A pan that
@@ -498,14 +485,22 @@ export default function AnimationBench() {
     // and the card crosses to its seat. The translate is in the card's OWN parent space, so a
     // world delta has to be turned back through whatever rotation its house carries — the
     // houses are diamonds, and a 45-degree parent would send it off at 45 degrees otherwise.
+    const mp = minimapPoint(targetId) || { x: MINIMAP_W / 2, y: MINIMAP_H / 2 };
+    const dest = { x: fx + mp.x * fit, y: fy + mp.y * fit };
+
+    // On the minimap nothing is tilted by its house, so the card lands UPRIGHT and keeps only
+    // the turn that means something: its status.
+    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
+    const landScale = (fieldW * 0.085) / wHome;
+
     const th = -par.deg * Math.PI / 180;
-    const wx = (pSeat.x - pHome.x) / par.scale, wy = (pSeat.y - pHome.y) / par.scale;
+    const wx = (dest.x - pHome.x) / par.scale, wy = (dest.y - pHome.y) / par.scale;
     const dx = wx * Math.cos(th) - wy * Math.sin(th);
     const dy = wx * Math.sin(th) + wy * Math.cos(th);
     const TRAVEL = 2600;
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
-      `translate(${dx}px, ${dy}px) scale(${wSeat / wHome}) rotate(${seatAngle0 - homeAngle0}deg)`;
+      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${statusRot - homeAngle0}deg)`;
     target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
 
     await wait(TRAVEL + 250);
