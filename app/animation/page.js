@@ -31,12 +31,51 @@ export default function AnimationBench() {
   const [landing, setLanding] = useState(false);
   const [landedLabel, setLandedLabel] = useState(null);
 
+  // THE WORDMARK, at the centre of the map. The founder: "directly beneath the Gestalt house,
+  // and between the four manifest houses ... right in the middle of those four." It is the same
+  // rainbow letters and shimmering tagline as the top of the EZ page, placed inside the camera's
+  // transform so it pans and zooms with the map as text, crisp at any zoom. Its position is
+  // measured from the four manifest houses themselves, not stored.
+  useEffect(() => {
+    let tries = 0;
+    const place = () => {
+      const canvas = document.querySelector('[data-map-surface]')?.firstElementChild;
+      const groups = [...document.querySelectorAll('.archetype-group')];
+      if (!canvas || groups.length < 5) { if (tries++ < 40) window.setTimeout(place, 150); return; }
+      const z = new DOMMatrix(getComputedStyle(canvas).transform).a || 1;
+      const cb = canvas.getBoundingClientRect();
+      const centre = (el) => { const r = el.getBoundingClientRect(); return { x: (r.left + r.width / 2 - cb.left) / z, y: (r.top + r.height / 2 - cb.top) / z, w: r.width / z }; };
+      const cs = groups.map(centre);
+      // the Gestalt is the one nearest the top; the other four are the manifest houses
+      const manifest = [...cs].sort((a, b) => a.y - b.y).slice(1);
+      const mx = manifest.reduce((a, c) => a + c.x, 0) / 4, my = manifest.reduce((a, c) => a + c.y, 0) / 4;
+      const span = Math.max(...manifest.map(c => c.x)) - Math.min(...manifest.map(c => c.x));
+      const fs = Math.max(18, span * 0.054);   // sized to the gap between the inner agents, with air
+      let el = canvas.querySelector('[data-map-wordmark]');
+      if (!el) { el = document.createElement('div'); el.setAttribute('data-map-wordmark', ''); canvas.appendChild(el); }
+      el.innerHTML =
+        `<div style="text-align:center;white-space:nowrap;line-height:1.1">` +
+        `<div class="font-extralight" style="font-size:${fs}px;letter-spacing:0.32em;padding-left:0.32em">` +
+        'NIRMANAKAYA'.split('').map((c, i) => `<span class="rainbow-letter rainbow-letter-${i}">${c}</span>`).join('') +
+        `</div><div class="font-mono uppercase" style="font-size:${(fs * 0.42).toFixed(1)}px;letter-spacing:0.22em;padding-left:0.22em;color:rgba(161,161,170,0.62);margin-top:${(fs * 0.25).toFixed(1)}px">` +
+        'The Soul Search Engine'.split('').map((c, i) => `<span class="shimmer-letter" style="animation-delay:${-(i * 0.1 + 0.1)}s">${c === ' ' ? '&nbsp;' : c}</span>`).join('') +
+        `</div></div>`;
+      Object.assign(el.style, { position: 'absolute', left: `${mx}px`, top: `${my}px`, transform: 'translate(-50%, -50%)',
+        pointerEvents: 'none', zIndex: '1' });
+    };
+    place();
+  }, []);
+
   const clearCards = () => {
     document.querySelectorAll('[data-position]').forEach((el) => {
       el.style.transform = ''; el.style.filter = ''; el.style.zIndex = '';
       el.style.willChange = ''; el.style.transition = ''; el.style.opacity = '';
       delete el.dataset.turn;
+      const im = el.querySelector('img');
+      if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
     });
+    document.querySelectorAll('[data-flight-clone]').forEach((el) => el.remove());
+    document.querySelectorAll('[data-map-wordmark]').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-house-label]').forEach((el) => {
       el.style.transition = ''; el.style.opacity = '';
     });
@@ -78,9 +117,9 @@ export default function AnimationBench() {
     if (Object.keys(draws).length < 22) {
       const d = generateSpread(1)[0];
       draws = { [d.position]: { transient: d.transient, status: d.status } };
-      setDrawMap(draws);
-      // let React paint the drawn card into its seat before the field is measured
-      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      // The pair is NOT put on the map. An undealt seat shows its own face, which is what the
+      // durable IS before anything is placed on it, and the home seat of the transient already
+      // shows the transient. Both are exactly what the landing needs to find.
     }
     const dealt = cards.filter(el => draws[Number(el.dataset.position)]);
     const seatEl = dealt[Math.floor(Math.random() * dealt.length)];
@@ -440,119 +479,66 @@ export default function AnimationBench() {
     target.style.transition = 'transform 2300ms cubic-bezier(.08,.72,.16,1)';
     target.style.transform = `scale(${heroScale}) rotate(${-seatTilt + spinBase + spinStatusRot}deg)`;
     await wait(2300 + 150);
-    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: null });
+    const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
+    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: null, color: statusColor });
     await wait(1100);
 
-    // THE FRAME IS THE MINIMAP ITSELF, not a second drawing of it.
+    // ============================ THE LAST ACT, as the founder laid it out ============================
     //
-    // The first attempt traced house outlines from the live map. It was correctly placed and it
-    // looked nothing like the minimap, because the minimap is not outlines — it is a shape per
-    // signature, house dividers, channel badges and portal glyphs, and it already draws the
-    // marching arrow from a card's HOME to the seat it was drawn into. That is this whole
-    // sequence stated as a diagram. So the real component is rendered here, at size, and the
-    // card lands on the very point the minimap itself marks as the destination.
-    const fromArch = getHomeArchetype(displayId);
-    const fromType = getCardType(displayId);
-    const trans = signatureFor(displayId);
-    const frameSvg = renderToStaticMarkup(
-      <Minimap fromId={fromArch} toId={targetId} fromCardType={fromType}
-               boundIsInner={fromType === 'bound' && (trans?.number ?? 99) <= 5} size="xl" />
-    );
-
-    // fitted into the field the big map occupied, so the camera framing still holds
-    const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
-    const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
-    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
-
-    const holder = document.createElement('div');
-    holder.setAttribute('data-map-frame', '');
-    Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
-      width: `${fw}px`, height: `${fh}px`, pointerEvents: 'none', zIndex: '5',
-      opacity: '0', transition: 'opacity 1100ms ease' });
-    holder.innerHTML = frameSvg;
-    const inner2 = holder.querySelector('svg');
-    if (inner2) { inner2.setAttribute('width', fw); inner2.setAttribute('height', fh); }
-    canvas.appendChild(holder);
-    requestAnimationFrame(() => { holder.style.opacity = '1'; });
-
-    // the camera opens back out to hold the whole frame, on the same drive/commit as the flight
-    // The pull-back CENTRES ITSELF each frame instead of flying to a stored pan. A pan that
-    // centres the map at one zoom does not centre it at another — the two are bound together —
-    // and that is why the first attempt left the frame hanging off the bottom of the screen.
-    // Measuring where the field actually IS and correcting toward the middle cannot get this
-    // wrong, whatever the zoom or the window size happen to be.
-    // STRAIGHT TO THE SEAT. The card is no longer held at the centre of the screen while the
-    // frame is drawn — the founder read that hold as a stop at the Gestalt's zero point on the
-    // way to the seat, and he is right that it is one stop too many. The card now sets off for
-    // its seat the instant the frame begins to appear, and the camera opens out underneath it,
-    // so the shrink, the travel and the reveal of the frame are a single movement.
+    //   1. the map comes back, reset, and the seat shows its own face
+    //   2. the transient crosses the REAL map and sets down on the durable, which stays peeking out
+    //   3. as the camera opens out the field dissolves and the minimap comes up underneath
+    //   4. the stack, the minimap and the wordmark shrink into the header
     //
-    // The translate lives in the card's OWN parent space, so the world delta is turned back
-    // through whatever rotation its house carries — a 45-degree parent would otherwise send
-    // it off at 45 degrees.
-    const mp0 = minimapPoint(targetId);
-    if (!mp0) console.warn(`animation: seat ${targetId} has no minimap point; landing at centre`);
-    const mp = mp0 || { x: MINIMAP_W / 2, y: MINIMAP_H / 2 };
-    const dest = { x: fx + mp.x * fit, y: fy + mp.y * fit };
+    // His reason, and it is the design law again: "people have never seen the minimap before, so
+    // they're not going to know what the heck has happened." Land on the map they were just
+    // looking at; only then let it become the diagram.
 
-    // THE ANGLE IS RELATIVE TO THE HOUSE, not to the screen. The four corner houses are diamonds
-    // tilted 45 degrees, and "upright" for a card in one of them means upright along the house's
-    // own axis, the way the minimap sets its four seats around the divider. So the landing turn
-    // is the house's tilt first, and the status — 90 to the right for Too Much, upside down for
-    // Unacknowledged — laid on top of that.
-    const houseRot = minimapSeatRotation(targetId);
+    // --- 1. the field returns, square, and the durable shows its face ---
+    const seatImg = seatEl.querySelector('img');
+    const seatOwnArt = getCardImagePath(targetId);
+    if (seatImg && seatOwnArt && !seatImg.src.endsWith(seatOwnArt)) {
+      seatImg.dataset.prevSrc = seatImg.getAttribute('src');
+      seatImg.src = seatOwnArt;
+    }
+    others.forEach(el => {
+      el.style.transition = 'opacity 900ms ease, transform 900ms ease';
+      el.style.transform = 'scale(1) rotate(0deg)';
+      delete el.dataset.turn;
+      el.style.opacity = '1';
+    });
+    document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 900ms ease'; el.style.opacity = '1'; });
+    await wait(1000);
+
+    // --- 2. the transient sets down ON the durable, which peeks out from beneath ---
+    // ASSUMPTION (founder to confirm by eye): the transient sits down and to the right of the
+    // seat by a little over half a card, so the durable shows to the upper-left, about 60% of it.
+    const PEEK = { x: 0.55, y: 0.14 };
     const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
-    // par.scale: a home inside a house group inherits that group's scale, and it has to be
-    // divided out here or a major and a minor land at different sizes.
-    const landScale = (fieldW * 0.085) / (wHome * par.scale);
-
+    // seatAngle0 was measured at rest; if the founder had dealt the table, that seat already
+    // carried this status turn, and it must not be applied twice.
+    const seatTiltOnly = seatAngle0 - (drawMap[targetId] ? statusRot : 0);
+    const destMap = { x: pSeat.x + PEEK.x * wSeat, y: pSeat.y + PEEK.y * wSeat };
+    const landScale = wSeat / (wHome * par.scale);          // the seat's own size
     const th = -par.deg * Math.PI / 180;
-    const wx = (dest.x - pHome.x) / par.scale, wy = (dest.y - pHome.y) / par.scale;
+    const wx = (destMap.x - pHome.x) / par.scale, wy = (destMap.y - pHome.y) / par.scale;
     const dx = wx * Math.cos(th) - wy * Math.sin(th);
     const dy = wx * Math.sin(th) + wy * Math.cos(th);
     const TRAVEL = 2900;
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
-      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + houseRot + statusRot - homeAngle0}deg)`;
-    target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
+      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
+    target.style.filter = 'brightness(1) drop-shadow(0 10px 24px rgba(0,0,0,0.75))';
 
-    // THE CAMERA FOLLOWS THE CARD. The founder: "as soon as it starts that animation, the camera
-    // pans to that zero zero centre point right at the Gestalt, and then moves to the other
-    // location." It did — the pull-back centred the FIELD, which is the map's middle, so the card
-    // slid away from the middle of the screen while it travelled. Now the camera keeps the card
-    // centred the whole way and arrives on the seat with it.
-    //
-    // Which changes the zoom question. Fitting the frame to the screen assumes the camera sits on
-    // the frame's centre; centred on a seat near a corner, the same zoom pushes part of the
-    // frame off screen. So the zoom is solved per landing from THIS seat's distance to the
-    // frame's farthest edge, and the frame is whole on screen whichever seat the camera holds.
-    // ONE ENDING SIZE. The founder: "the starting size for the majors and the minors is
-    // different. What we need is the ending size to be the same." The card's size in map units
-    // was already one number for every class — what varied was the ZOOM, solved per seat, so the
-    // same card came out a different size on screen every landing. The final zoom is now fixed
-    // for the frame's full extent (the far corner is the worst case, so the whole frame still
-    // fits from any seat), and the card's on-screen size at the end is one number.
-    // The open-out centres the FRAME, not the seat, so the zoom can be the full field fit rather
-    // than the worst-case seat fit (which made the frame less than half the screen). The tight
-    // follow still holds the card all the way into its seat; only the final reveal re-centres.
-    const fitZ = Math.max(0.18, Math.min(1.2,
-      Math.min(window.innerWidth * 0.80 / fw, window.innerHeight * 0.66 / fh)));
-    // TIGHT, THEN OPEN. The founder: "stay tight, like zoom out just a little bit, but stay
-    // tight on the card with the center as it follows the card to its new location. Then
-    // another beat, we're going to zoom out at the end of it." So the journey is made close in
-    // — the camera eases out only a little and holds the card centred all the way to the seat —
-    // then the card settles, the name arrives, a beat passes, and only then does the camera
-    // open out to the whole frame, still centred on the seat it just filled.
-    const tightZ = Math.max(fitZ, Math.min(1.25, cam.z * 0.62));
     const centreOnCard = (gain) => {
       const hr = target.getBoundingClientRect();
       cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * gain;
       cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * gain;
     };
-    const centreOnFrame = (gain) => {
+    const centreOnMap = (cx, cy) => (gain) => {
       const cr = canvas.getBoundingClientRect();
-      cam.x += (window.innerWidth / 2 - (cr.left + (fx + fw / 2) * cam.z)) * gain;
-      cam.y += (window.innerHeight / 2 - (cr.top + (fy + fh / 2) * cam.z)) * gain;
+      cam.x += (window.innerWidth / 2 - (cr.left + cx * cam.z)) * gain;
+      cam.y += (window.innerHeight / 2 - (cr.top + cy * cam.z)) * gain;
     };
     const glide = (toZ, ms, centre = centreOnCard) => new Promise(done => {
       const fromZ = cam.z, t = Date.now();
@@ -568,11 +554,129 @@ export default function AnimationBench() {
       requestAnimationFrame(stepZ);
     });
 
-    await glide(tightZ, TRAVEL);           // the journey, close in
+    // "the camera's still zoomed way up on it, so you can see what's going on"
+    const tightZ = Math.max(0.9, cam.z * 0.70);
+    await glide(tightZ, TRAVEL);
     await wait(250);
-    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
-    await wait(1100);                      // the beat
-    await glide(fitZ, 2300, centreOnFrame); // and the whole frame, centred as a frame
+    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName, color: statusColor });
+    await wait(1200);
+
+    // --- 3. the field dissolves into the minimap as the camera opens out ---
+    const fromArch = getHomeArchetype(displayId);
+    const fromType = getCardType(displayId);
+    const trans = signatureFor(displayId);
+    const frameSvg = renderToStaticMarkup(
+      <Minimap fromId={fromArch} toId={targetId} fromCardType={fromType}
+               boundIsInner={fromType === 'bound' && (trans?.number ?? 99) <= 5} size="xl" />
+    );
+    const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
+    const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
+    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
+    const holder = document.createElement('div');
+    holder.setAttribute('data-map-frame', '');
+    Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
+      width: `${fw}px`, height: `${fh}px`, pointerEvents: 'none', zIndex: '5',
+      opacity: '0', transition: 'opacity 1600ms ease' });
+    holder.innerHTML = frameSvg;
+    const frameEl = holder.querySelector('svg');
+    if (frameEl) { frameEl.setAttribute('width', fw); frameEl.setAttribute('height', fh); }
+    canvas.appendChild(holder);
+
+    const fitZ = Math.max(0.18, Math.min(1.2,
+      Math.min(window.innerWidth * 0.80 / fw, window.innerHeight * 0.66 / fh)));
+    // the field (everything but the stack) fades as the camera opens; the minimap rises under it
+    others.filter(el => el !== seatEl).forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = '0'; });
+    document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = '0'; });
+    window.setTimeout(() => { holder.style.opacity = '1'; }, 500);
+    await glide(fitZ, 2600, centreOnMap(fieldC.x, fieldC.y));
+    await wait(400);
+
+    // --- 4. the stack, the minimap and the wordmark shrink into the header ---
+    // The originals live inside the camera's transform, and the header does not, so each is
+    // replaced by a fixed clone at its exact screen box, and the clones make the flight.
+    const slotOf = (name) => document.querySelector(`[data-header-mock] [data-slot="${name}"]`)?.getBoundingClientRect();
+    const trueBox = (el, img) => {
+      let m = new DOMMatrix(), n = img;
+      while (n && n !== document.body) { const t = getComputedStyle(n).transform; if (t && t !== 'none') m = new DOMMatrix(t).multiply(m); n = n.parentElement; }
+      const sc = Math.hypot(m.a, m.b), ang = Math.atan2(m.b, m.a) * 180 / Math.PI;
+      const r = img.getBoundingClientRect();
+      const w = img.offsetWidth * sc, h = img.offsetHeight * sc;
+      return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w, h, ang };
+    };
+    const FLY = 1700;
+    const clone = (src, box, radius) => {
+      const c = document.createElement('img');
+      c.setAttribute('data-flight-clone', '');
+      c.src = src;
+      Object.assign(c.style, { position: 'fixed', left: `${box.cx - box.w / 2}px`, top: `${box.cy - box.h / 2}px`,
+        width: `${box.w}px`, height: `${box.h}px`, transform: `rotate(${box.ang}deg)`, transformOrigin: 'center center',
+        borderRadius: radius, objectFit: 'cover', zIndex: '300', pointerEvents: 'none',
+        boxShadow: '0 12px 32px rgba(0,0,0,0.7)',
+        transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), width ${FLY}ms cubic-bezier(.4,0,.2,1), height ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+      document.body.appendChild(c);
+      return c;
+    };
+    const flyTo = (c, x, y, w, h, rot) => requestAnimationFrame(() => requestAnimationFrame(() => {
+      Object.assign(c.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px`, transform: `rotate(${rot}deg)` });
+    }));
+
+    const stackSlot = slotOf('stack'), mapSlot = slotOf('minimap'), wordSlot = slotOf('wordmark');
+    if (stackSlot && mapSlot) {
+      const tBox = trueBox(target, target.querySelector('img'));
+      const dBox = trueBox(seatEl, seatImg);
+      const dClone = clone(seatOwnArt, dBox, '10px');
+      const tClone = clone(fullArt, tBox, '10px');
+      dClone.style.zIndex = '299';
+      target.style.opacity = '0'; seatEl.style.opacity = '0';
+
+      // the minimap, whole
+      const hb = holder.getBoundingClientRect();
+      const mClone = document.createElement('div');
+      mClone.setAttribute('data-flight-clone', '');
+      mClone.innerHTML = frameSvg;
+      const mSvg = mClone.querySelector('svg');
+      if (mSvg) { mSvg.setAttribute('width', '100%'); mSvg.setAttribute('height', '100%'); }
+      Object.assign(mClone.style, { position: 'fixed', left: `${hb.left}px`, top: `${hb.top}px`, width: `${hb.width}px`, height: `${hb.height}px`,
+        zIndex: '298', pointerEvents: 'none',
+        transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), width ${FLY}ms cubic-bezier(.4,0,.2,1), height ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+      document.body.appendChild(mClone);
+      holder.style.transition = 'none'; holder.style.opacity = '0';
+
+      // the wordmark, from the middle of the map to the top of the page
+      const word = document.querySelector('[data-map-wordmark]');
+      let wClone = null;
+      if (word && wordSlot) {
+        const wb = word.getBoundingClientRect();
+        wClone = document.createElement('div');
+        wClone.setAttribute('data-flight-clone', '');
+        wClone.innerHTML = word.innerHTML;
+        // The wordmark's letters carry map-unit font sizes; on screen they are scaled by the
+        // camera. The clone starts at that same scale, from the same top-left, so it matches
+        // exactly, and the flight is a scale to the slot rather than a jump to full size.
+        Object.assign(wClone.style, { position: 'fixed', left: `${wb.left}px`, top: `${wb.top}px`,
+          width: `${word.offsetWidth}px`, height: `${word.offsetHeight}px`, whiteSpace: 'nowrap',
+          transform: `scale(${cam.z})`, transformOrigin: 'top left',
+          zIndex: '301', pointerEvents: 'none',
+          transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+        document.body.appendChild(wClone);
+        word.style.transition = 'none'; word.style.opacity = '0';
+      }
+
+      // the stack in the header: durable upper-left, transient down and to the right, both upright
+      const S = Math.min(stackSlot.width * 0.66, stackSlot.height * 0.9);
+      flyTo(dClone, stackSlot.left, stackSlot.top, S, S, 0);
+      flyTo(tClone, stackSlot.left + S * PEEK.x, stackSlot.top + S * PEEK.y, S, S, 0);
+      const mw = Math.min(mapSlot.width, mapSlot.height * (MINIMAP_W / MINIMAP_H));
+      flyTo(mClone, mapSlot.left + (mapSlot.width - mw) / 2, mapSlot.top, mw, mw * (MINIMAP_H / MINIMAP_W), 0);
+      if (wClone && wordSlot) {
+        const k = Math.min(wordSlot.width / word.offsetWidth, wordSlot.height / word.offsetHeight);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})` });
+        }));
+      }
+      await wait(FLY + 200);
+    }
+    setLandedLabel(null);
     if (mapEl) mapEl.style.pointerEvents = '';
 
     setLanding(false);
@@ -712,6 +816,17 @@ export default function AnimationBench() {
           content above the viewport. /22-reader works because it uses h-screen.
           So: the wrapper below takes an explicit height. Never flex-1 around this component. */}
       <div className="flex-1 min-h-0 relative overflow-hidden">
+        {/* A silent mock of the EZ header, laid out but invisible, so the last act has real
+            boxes to fly into. When this moves into EZ these become the page's own elements. */}
+        <div data-header-mock="" className="pointer-events-none absolute inset-x-0 top-0 z-[150]" style={{ visibility: 'hidden' }}>
+          <div className="flex flex-col items-center pt-3">
+            <div data-slot="wordmark" style={{ width: 420, height: 64 }} />
+            <div className="flex items-start gap-8 mt-5">
+              <div data-slot="stack" style={{ width: 300, height: 220 }} />
+              <div data-slot="minimap" style={{ width: 220, height: 220 }} />
+            </div>
+          </div>
+        </div>
         {/* The name, once the card has landed at full resolution. */}
         {landedLabel && (
           <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[200] flex flex-col items-center gap-1 px-4 pt-16 pb-8 text-center animate-fadeIn"
@@ -720,7 +835,14 @@ export default function AnimationBench() {
               background: 'linear-gradient(to top, rgba(10,10,15,0.92) 0%, rgba(10,10,15,0.75) 45%, rgba(10,10,15,0) 100%)'
             }}>
             {landedLabel.prefix && (
-              <span className="text-[11px] uppercase tracking-[0.35em] text-zinc-400/80">{landedLabel.prefix}</span>
+              // LOUD. The founder: "it's very thin and hard to read ... that moment after the
+              // spinning stops [should] say too much ... really obvious." So it is set in the
+              // status's own colour, heavy, and large enough to be the first thing read.
+              <span className="text-2xl sm:text-4xl font-bold uppercase tracking-[0.28em]"
+                style={{ fontFamily: 'ui-sans-serif, system-ui, sans-serif', color: landedLabel.color || '#e4e4e7',
+                         textShadow: `0 0 18px ${landedLabel.color || '#fff'}88, 0 2px 10px rgba(0,0,0,0.9)` }}>
+                {landedLabel.prefix}
+              </span>
             )}
             <span className="text-3xl sm:text-4xl tracking-[0.12em] text-amber-200/95 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
               {landedLabel.name}
