@@ -627,14 +627,6 @@ export default function EZPage() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-x-hidden">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
-        {animating && (
-          <div data-ez-map="" onClick={skipLanding} className="relative w-full cursor-pointer select-none" style={{ height: '70vh' }}
-            title="tap to skip">
-            <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
-              cameraRef={cameraRef} className="w-full h-full" />
-            <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">tap to skip</div>
-          </div>
-        )}
         <div className="flex items-center justify-between mt-4 mb-6">
           <span className="text-[10px] uppercase tracking-[0.2em] text-amber-400/80">EZ mode</span>
           <div className="flex items-center gap-3">
@@ -788,6 +780,16 @@ export default function EZPage() {
                 <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} stacked={animOn} />
               ))}
             </div>
+            {/* THE MAP, full width, directly beneath the header it will land in — so the flight
+                goes UP into the page's own header and the map leaves from under it. */}
+            {animating && (
+              <div data-ez-map="" onClick={skipLanding} className="relative left-1/2 -translate-x-1/2 w-screen cursor-pointer select-none" style={{ height: '78vh' }}
+            title="tap to skip">
+                <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
+                  cameraRef={cameraRef} className="w-full h-full" />
+                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">tap to skip</div>
+              </div>
+            )}
             {revealed && (<>
             <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{question}”</p>
 
