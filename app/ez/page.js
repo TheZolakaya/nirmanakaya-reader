@@ -247,6 +247,7 @@ export default function EZPage() {
   const cameraRef = useRef(null);
   const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
+  const [asked, setAsked] = useState('');   // what the reading was actually asked — the door's own line when nothing was typed
   const [cardCount, setCardCount] = useState(1);
   const [draws, setDraws] = useState(null);
 
@@ -275,6 +276,7 @@ export default function EZPage() {
     }
     if (!surface) return;
     placeWordmark(surface);
+    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
     setOverlayIn(true);
     await new Promise(r => setTimeout(r, 550));
     try {
@@ -503,6 +505,7 @@ export default function EZPage() {
     const typed = sanitizeForAPI(question.trim());
     const q = typed || (door ? sanitizeForAPI(door.breath) : '');
     if (!q) { setError('Pick something, or say what is on your mind.'); return; }
+    setAsked(q);
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
@@ -510,7 +513,7 @@ export default function EZPage() {
     const willAnimate = animOn && cardCount === 1;
     let landed = Promise.resolve();
     if (willAnimate) {
-      try { window.scrollTo({ top: 0 }); } catch {}
+      try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
       const brand = document.querySelector('[data-slot="wordmark"]')?.parentElement;
       setOverlayTop(brand ? Math.max(0, Math.round(brand.getBoundingClientRect().bottom)) : 0);
       readyRef.current = false; setReplyReady(false);
@@ -539,7 +542,7 @@ export default function EZPage() {
         });
         if (data?.id) setSavedId(data.id);
       } catch {}
-      scrollToEnd();
+      if (!willAnimate) scrollToEnd();
     } catch (e) { setError(e.message); readyRef.current = true; setReplyReady(true); }
     await landed;
     if (willAnimate) {
@@ -818,7 +821,7 @@ export default function EZPage() {
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
-            <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{question}”</p>
+            <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{asked || question}”</p>
 
             {/* One surface: the discourse in order */}
             <div className="space-y-5">
