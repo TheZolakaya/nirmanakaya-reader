@@ -797,16 +797,25 @@ export default function EZPage() {
                 Mind upper left, Emotion upper right, Body lower left, Spirit lower right. */}
             {(() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
-              const Door = ({ d, wide = false }) => (
-                <button key={d.id} onClick={() => { setDoor(d); setQuestion(''); setError(''); }}
-                  className={`text-left rounded-xl border border-zinc-700/60 bg-zinc-900/50 px-3 py-2.5 hover:border-amber-500/50 hover:bg-zinc-900 transition-colors break-words ${wide ? 'col-span-2' : ''}`}>
-                  <span className="text-[15px] text-zinc-100">{d.label}</span>
-                  <span className="block text-xs text-zinc-500 mt-0.5">{d.sub}</span>
-                </button>
-              );
+              // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
+              const HOUSE_TINT = { spirit: '#C44444', mind: '#4A8B4A', emotion: '#3D6A99', body: '#8B6B3D', gestalt: '#6B4D8A' };
+              const Door = ({ d, className = '' }) => {
+                const c = HOUSE_TINT[d.id];
+                return (
+                  <button key={d.id} onClick={() => { setDoor(d); setQuestion(''); setError(''); }}
+                    className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
+                    style={{ borderColor: c + '99', background: c + '26' }}>
+                    <span className="text-[15px] text-zinc-100">{d.label}</span>
+                    <span className="block text-xs text-zinc-400 mt-0.5">{d.sub}</span>
+                  </button>
+                );
+              };
+              // the Gestalt door is one cell wide, centred over the four; every cell the same height
               return (
-                <div className="grid grid-cols-2 gap-2">
-                  <Door d={byId.gestalt} wide />
+                <div className="grid grid-cols-2 gap-2 auto-rows-fr">
+                  <div className="col-span-2 flex justify-center">
+                    <Door d={byId.gestalt} className="w-[calc(50%-4px)]" />
+                  </div>
                   <Door d={byId.mind} />
                   <Door d={byId.emotion} />
                   <Door d={byId.body} />
