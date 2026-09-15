@@ -22,7 +22,7 @@ export default function AnimationBench() {
   const [drawMap, setDrawMap] = useState({});
   const [colorLayer, setColorLayer] = useState('status');
   const [zoom, setZoom] = useState(0.45);
-  const [labels, setLabels] = useState(true);
+  const [labels, setLabels] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [pace, setPace] = useState(160);     // ms between pulses — 70 read as nervous
   const [lift, setLift] = useState(1.45);    // how big a pulse gets
@@ -500,7 +500,9 @@ export default function AnimationBench() {
     const st = draws[targetId] ? STATUSES[draws[targetId].status] : null;
     const cardName = sig?.name || `Signature ${displayId}`;
     const seatName = ARCHETYPES[targetId]?.name || null;
-    setLandedLabel({ name: cardName, prefix: null, seat: null });
+    // Names live on the chosen cards and nowhere else — the founder: "we've basically got it in
+    // three places ... I think we just want them on the card and specifically on the ones that
+    // are selected only." So no screen label; the plate is the name.
     burst(target, '#fde68a');
     plateFor(target, [NAME(cardName)]);
 
@@ -531,7 +533,6 @@ export default function AnimationBench() {
     target.style.transform = `scale(${heroScale}) rotate(${-seatTilt + spinBase + spinStatusRot}deg)`;
     await wait(2300 + 150);
     const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
-    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: null, color: statusColor });
     burst(target, statusColor);
     plateFor(target, [STATUS(st ? (st.prefix || 'Balanced') : '', statusColor), NAME(cardName)]);
     await wait(1100);
@@ -579,7 +580,10 @@ export default function AnimationBench() {
     // seat by a little over half a card, so the durable shows to the upper-left, about 60% of it.
     // "when it lands on it, it should be like ninety percent overlap" — and the header then
     // unfolds the pair so both faces read. Two offsets, one per moment.
-    const PEEK = { x: 0.10, y: 0.06 };
+    // "transient in your durable ... left to right": the transient sits up and to the LEFT of
+    // the seat so the durable shows to the right of it, and the header unfolds the pair the same
+    // way — transient left and in front, durable to its right and behind.
+    const PEEK = { x: -0.10, y: -0.06 };
     const PEEK_HEADER = { x: 0.55, y: 0.14 };
     const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
     // seatAngle0 was measured at rest; if the founder had dealt the table, that seat already
@@ -623,7 +627,6 @@ export default function AnimationBench() {
     void holder.offsetHeight;   // a forced style pass, so the opacity change below TRANSITIONS rather than snapping
     holder.style.opacity = '1';
 
-    setLandedLabel(null);   // the plates on the cards carry the names from here
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
       `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
@@ -710,15 +713,28 @@ export default function AnimationBench() {
       return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w, h, ang };
     };
     const FLY = 1700;
-    const clone = (src, box, radius) => {
-      const c = document.createElement('img');
+    // A card clone is a box holding the art AND its plate, so the name flies with the card and
+    // is still there in the header — "I can't tell which card is which if I'm not someone who's
+    // familiar with everything." The plate is set in header-sized type from the start.
+    const clone = (src, box, radius, plateHtml) => {
+      const c = document.createElement('div');
       c.setAttribute('data-flight-clone', '');
-      c.src = src;
       Object.assign(c.style, { position: 'fixed', left: `${box.cx - box.w / 2}px`, top: `${box.cy - box.h / 2}px`,
         width: `${box.w}px`, height: `${box.h}px`, transform: `rotate(${box.ang}deg)`, transformOrigin: 'center center',
-        borderRadius: radius, objectFit: 'cover', zIndex: '300', pointerEvents: 'none',
-        boxShadow: '0 12px 32px rgba(0,0,0,0.7)',
+        zIndex: '300', pointerEvents: 'none',
         transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), width ${FLY}ms cubic-bezier(.4,0,.2,1), height ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+      const im = document.createElement('img');
+      im.src = src;
+      Object.assign(im.style, { display: 'block', width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius,
+        boxShadow: '0 12px 32px rgba(0,0,0,0.7)' });
+      c.appendChild(im);
+      if (plateHtml) {
+        const pl = document.createElement('div');
+        Object.assign(pl.style, { position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '8px',
+          width: 'max-content', textAlign: 'center', lineHeight: '1.15', whiteSpace: 'nowrap', textShadow: '0 2px 8px rgba(0,0,0,0.95)' });
+        pl.innerHTML = plateHtml;
+        c.appendChild(pl);
+      }
       document.body.appendChild(c);
       return c;
     };
@@ -730,8 +746,12 @@ export default function AnimationBench() {
     if (stackSlot && mapSlot) {
       const tBox = trueBox(target, target.querySelector('img'));
       const dBox = trueBox(seatEl, seatImg);
-      const dClone = clone(seatOwnArt, dBox, '10px');
-      const tClone = clone(fullArt, tBox, '10px');
+      const statusWord = st ? (st.prefix || 'Balanced') : '';
+      const dClone = clone(seatOwnArt, dBox, '10px',
+        `<div style="font-size:17px;font-family:'Cormorant Garamond',serif;color:#b4b4bc;letter-spacing:0.06em">${seatName || ''}</div>`);
+      const tClone = clone(fullArt, tBox, '10px',
+        `<div style="font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${statusColor};font-family:ui-sans-serif,system-ui,sans-serif">${statusWord}</div>` +
+        `<div style="font-size:19px;font-family:'Cormorant Garamond',serif;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`);
       dClone.style.zIndex = '299';
       target.style.opacity = '0'; seatEl.style.opacity = '0';
 
@@ -770,8 +790,9 @@ export default function AnimationBench() {
 
       // the stack in the header: durable upper-left, transient down and to the right, both upright
       const S = Math.min(stackSlot.width * 0.66, stackSlot.height * 0.9);
-      flyTo(dClone, stackSlot.left, stackSlot.top, S, S, 0);
-      flyTo(tClone, stackSlot.left + S * PEEK_HEADER.x, stackSlot.top + S * PEEK_HEADER.y, S, S, 0);
+      // transient LEFT and in front; durable to its right and behind
+      flyTo(tClone, stackSlot.left, stackSlot.top, S, S, 0);
+      flyTo(dClone, stackSlot.left + S * PEEK_HEADER.x, stackSlot.top + S * PEEK_HEADER.y, S, S, 0);
       const mw = Math.min(mapSlot.width, mapSlot.height * (MINIMAP_W / MINIMAP_H));
       flyTo(mClone, mapSlot.left + (mapSlot.width - mw) / 2, mapSlot.top, mw, mw * (MINIMAP_H / MINIMAP_W), 0);
       if (wClone && wordSlot) {
@@ -780,19 +801,6 @@ export default function AnimationBench() {
           Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})`, opacity: '1' });
         }));
       }
-      // the header's own line beneath the pair, as EZ writes it: status, name, seat
-      const cap = document.createElement('div');
-      cap.setAttribute('data-flight-clone', '');
-      cap.innerHTML =
-        `<span style="color:${statusColor};font-weight:700;letter-spacing:0.18em;text-transform:uppercase;font-size:12px;font-family:ui-sans-serif,system-ui,sans-serif">${st ? (st.prefix || 'Balanced') : ''}</span>` +
-        ` <span style="color:#fde9b0;font-family:'Cormorant Garamond',serif;font-size:22px">${cardName}</span>` +
-        ` <span style="color:#a1a1aa;font-family:'Cormorant Garamond',serif;font-size:18px">in ${seatName || ''}</span>`;
-      Object.assign(cap.style, { position: 'fixed', left: `${stackSlot.left}px`, top: `${stackSlot.bottom + 10}px`,
-        width: `${mapSlot.right - stackSlot.left}px`, textAlign: 'center', opacity: '0',
-        transition: `opacity 900ms ease ${FLY - 500}ms`, zIndex: '302', pointerEvents: 'none' });
-      document.body.appendChild(cap);
-      void cap.offsetHeight;
-      cap.style.opacity = '1';
       await wait(FLY + 200);
     }
     setLandedLabel(null);
