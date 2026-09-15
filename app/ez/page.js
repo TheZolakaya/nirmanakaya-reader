@@ -502,7 +502,7 @@ export default function EZPage() {
     // one card only, for now; the answer never waits on the motion by more than the last flight
     const willAnimate = animOn && cardCount === 1;
     let landed = Promise.resolve();
-    if (willAnimate) { setRevealed(false); setAnimating(true); landed = playLanding(newDraws[0]).catch(() => {}); }
+    if (willAnimate) { try { window.scrollTo({ top: 0 }); } catch {} setRevealed(false); setAnimating(true); landed = playLanding(newDraws[0]).catch(() => {}); }
     try {
       const sk = spreadKeyFor(cardCount);
       const drawText = formatDrawForAI(newDraws, 'discover', sk, false, null, null, null);
@@ -780,10 +780,11 @@ export default function EZPage() {
                 <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} stacked={animOn} />
               ))}
             </div>
-            {/* THE MAP, full width, directly beneath the header it will land in — so the flight
-                goes UP into the page's own header and the map leaves from under it. */}
+            {/* THE MAP, laid over the whole screen while it plays. It is out of the page flow, so
+                nothing clips it and nothing shifts; the cards fly to the page's own header
+                underneath, and the overlay lifts when they land. */}
             {animating && (
-              <div data-ez-map="" onClick={skipLanding} className="relative left-1/2 -translate-x-1/2 w-screen cursor-pointer select-none" style={{ height: '78vh' }}
+              <div data-ez-map="" onClick={skipLanding} className="fixed inset-0 z-[90] bg-zinc-950 cursor-pointer select-none"
             title="tap to skip">
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   cameraRef={cameraRef} className="w-full h-full" />
