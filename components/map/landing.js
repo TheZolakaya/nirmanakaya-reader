@@ -186,6 +186,9 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // taken at hero size and the transform only ever shrinks it.
     const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
     const sharpen = (card, K) => {
+      // DISABLED 2026-09-15: on iPhone Safari the enlarged image collapsed to a thin strip
+      // (founder's photos). Kept for the next attempt, which must be tested on WebKit first.
+      if (!window.__nkyaSharpen) return;
       const img = card.querySelector('img'); if (!img || card.dataset.sharp) return;
       const W = card.offsetWidth, H = card.offsetHeight;
       if (!W || !H || K <= 1) return;
