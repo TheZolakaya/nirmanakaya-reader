@@ -502,7 +502,9 @@ export default function AnimationBench() {
     // Unacknowledged — laid on top of that.
     const houseRot = minimapSeatRotation(targetId);
     const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
-    const landScale = (fieldW * 0.085) / wHome;
+    // par.scale: a home inside a house group inherits that group's scale, and it has to be
+    // divided out here or a major and a minor land at different sizes.
+    const landScale = (fieldW * 0.085) / (wHome * par.scale);
 
     const th = -par.deg * Math.PI / 180;
     const wx = (dest.x - pHome.x) / par.scale, wy = (dest.y - pHome.y) / par.scale;
@@ -524,10 +526,17 @@ export default function AnimationBench() {
     // the frame's centre; centred on a seat near a corner, the same zoom pushes part of the
     // frame off screen. So the zoom is solved per landing from THIS seat's distance to the
     // frame's farthest edge, and the frame is whole on screen whichever seat the camera holds.
-    const ex = Math.max(dest.x - fx, fx + fw - dest.x);
-    const ey = Math.max(dest.y - fy, fy + fh - dest.y);
+    // ONE ENDING SIZE. The founder: "the starting size for the majors and the minors is
+    // different. What we need is the ending size to be the same." The card's size in map units
+    // was already one number for every class — what varied was the ZOOM, solved per seat, so the
+    // same card came out a different size on screen every landing. The final zoom is now fixed
+    // for the frame's full extent (the far corner is the worst case, so the whole frame still
+    // fits from any seat), and the card's on-screen size at the end is one number.
+    // The open-out centres the FRAME, not the seat, so the zoom can be the full field fit rather
+    // than the worst-case seat fit (which made the frame less than half the screen). The tight
+    // follow still holds the card all the way into its seat; only the final reveal re-centres.
     const fitZ = Math.max(0.18, Math.min(1.2,
-      Math.min(window.innerWidth * 0.46 / ex, window.innerHeight * 0.38 / ey)));
+      Math.min(window.innerWidth * 0.80 / fw, window.innerHeight * 0.66 / fh)));
     // TIGHT, THEN OPEN. The founder: "stay tight, like zoom out just a little bit, but stay
     // tight on the card with the center as it follows the card to its new location. Then
     // another beat, we're going to zoom out at the end of it." So the journey is made close in
@@ -540,13 +549,18 @@ export default function AnimationBench() {
       cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * gain;
       cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * gain;
     };
-    const glide = (toZ, ms) => new Promise(done => {
+    const centreOnFrame = (gain) => {
+      const cr = canvas.getBoundingClientRect();
+      cam.x += (window.innerWidth / 2 - (cr.left + (fx + fw / 2) * cam.z)) * gain;
+      cam.y += (window.innerHeight / 2 - (cr.top + (fy + fh / 2) * cam.z)) * gain;
+    };
+    const glide = (toZ, ms, centre = centreOnCard) => new Promise(done => {
       const fromZ = cam.z, t = Date.now();
       const stepZ = () => {
         const k = Math.min(1, (Date.now() - t) / ms);
         const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
         cam.z = fromZ + (toZ - fromZ) * e;
-        centreOnCard(0.18);
+        centre(0.12);
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
         if (k < 1) requestAnimationFrame(stepZ);
         else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
@@ -558,7 +572,7 @@ export default function AnimationBench() {
     await wait(250);
     setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
     await wait(1100);                      // the beat
-    await glide(fitZ, 2300);               // and the whole frame
+    await glide(fitZ, 2300, centreOnFrame); // and the whole frame, centred as a frame
     if (mapEl) mapEl.style.pointerEvents = '';
 
     setLanding(false);
