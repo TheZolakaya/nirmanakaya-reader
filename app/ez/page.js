@@ -94,7 +94,8 @@ EVERY LATER TURN:
 
 WHEN A NEW CARD IS DRAWN (a reflect or a forge): interpret that new card as the field's response — to their inquiry if they reflected, to their declaration if they forged — always in relation to the reading already on the table. The new card is a lens on what they brought, never a replacement for the original reading. Same brevity, same one question at the end.
 
-THE THREE MOVES: under every turn, write three chips FROM THIS TURN (never stock text), each a sentence the person could say next, in their voice:
+THE MOVES: under every turn, write chips FROM THIS TURN (never stock text), each a sentence the person could say next, in their voice. The FIRST chip is always the answer:
+- answer: a plain, honest, plausible ANSWER to the one question you just asked — the thing they might actually say back. Specific to this person and this moment, never generic. It is the most likely tap, so it comes first.
 - build: "Yes, and…" — carries their own thread forward.
 - pushback: "No, it's more like…" — the sentence that starts the disagreement. Offer it plainly; a person who would never argue with a machine is being handed the opening.
 - clarify: "What do you mean by…" — the term or claim most likely to need it.
@@ -112,11 +113,19 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - If every card is Balanced, "medicine" carries the growth opportunity instead: what this balance is free to feed next.
 - On a TALKING turn (no new card drawn), rewrite "medicine" only when the conversation has genuinely moved the ground under it. Otherwise repeat it unchanged.
 - On a turn where a NEW CARD IS DRAWN (a reflect or a forge), the medicine is ALWAYS that new card’s own medicine, rewritten from the Rebalancer supplied with it. Never carry the earlier reading’s medicine into it. If the new card is Balanced, the medicine carries its growth opportunity, using the target named in its own data and never an invented one.
+- THE DRAW BOUNDARY: the most recently drawn card's medicine LEADS every turn after it until another card is drawn. The opening reading stays on the table, but its medicine may be mentioned only as secondary, never as "the way through" or "the path". The field is allowed to change the subject; when it does, follow it.
+
+THE FOUR CLASSES OF MEDICINE — each has its own mechanism, and the prose must run that mechanism, not just name the card:
+- Balanced → GROWTH: an invitation, optional by definition. Nothing is broken. Growth INVITES; it never prescribes.
+- Too Much → DIAGONAL: authority in excess crosses the map to the opposite element. The medicine is the other pole's own action.
+- Too Little → VERTICAL: the seat is running on empty. The medicine is to CHARGE ITS VERTICAL TWIN — put real energy into the twin's own action, and the current pulls through the starved seat. Never tell the person to push feeling or effort into the empty seat directly; you cannot push on a vacuum.
+- Unacknowledged → REDUCTION: authorship misattributed. The medicine returns toward the simpler, earlier form of the same line.
+The medicine card's own meaning must be present in your words. If the Rebalancer is Activation, the medicine is about beginning, igniting, the fresh spark — not about anything else. A named medicine that is never administered is the commonest failure after the one above.
 
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>"}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>"}`;
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -134,6 +143,34 @@ function drawLabel(d) {
   const s = STATUSES[d.status];
   const seat = ARCHETYPES[d.position]?.name;
   return `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat}` : ''}`;
+}
+
+// THE BRIEF for a card drawn mid-conversation. Until 2026-09-15 the Reader was told six words
+// about a reflect or forge card ("Too Little Completion in Drive") and nothing about its
+// medicine, while the OPENING draw's rebalancer was restated in full every turn — so the
+// model kept the only medicine it could see, and the new card's own correction was named on
+// the page (computed here) and never administered in the prose. Keel's transcript note.
+const MECHANISM = {
+  1: 'GROWTH (Balanced): an invitation, optional — what this balance is free to feed next.',
+  2: 'DIAGONAL (Too Much): authority in excess crosses the map to the opposite element; the medicine is that other pole\'s own action.',
+  3: 'VERTICAL (Too Little): the seat is starved; the medicine is to charge its vertical twin — energy into the twin\'s own action, and the current pulls through the empty seat. Never push effort or feeling into the empty seat directly.',
+  4: 'REDUCTION (Unacknowledged): authorship misattributed; the medicine returns toward the simpler, earlier form of the same line.',
+};
+function drawBrief(d) {
+  if (!d) return '';
+  const t = getComponent(d.transient);
+  const s = STATUSES[d.status];
+  const seat = ARCHETYPES[d.position];
+  const m = medicineFor([d])[0];
+  const lines = [
+    `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat.name}` : ''}`,
+    t?.description ? `  the card: ${t.description}` : null,
+    seat?.description ? `  the seat (${seat.name}): ${seat.description}` : null,
+    m ? `  Rebalancer: ${m.to}${m.path ? ` — ${m.path}` : ''}` : '  Rebalancer: none (self)',
+    m ? `  mechanism: ${MECHANISM[d.status] || ''}` : null,
+    m && getComponent(m.toId)?.description ? `  what ${m.to} is about: ${getComponent(m.toId).description}` : null,
+  ].filter(Boolean);
+  return lines.join('\n');
 }
 
 // The medicine is computed, not generated: every imbalanced card already knows its
@@ -170,6 +207,7 @@ const DOORS = [
 ];
 
 const CHIP_STYLE = {
+  answer: 'border-amber-400/60 text-amber-100 bg-amber-950/20 hover:bg-amber-900/30',
   build: 'border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/30',
   pushback: 'border-orange-500/40 text-orange-200 hover:bg-orange-900/30',
   clarify: 'border-sky-500/40 text-sky-200 hover:bg-sky-900/30',
@@ -177,7 +215,7 @@ const CHIP_STYLE = {
   reflect: 'border-sky-500/50 text-sky-200 hover:bg-sky-900/30',
   forge: 'border-orange-500/50 text-orange-200 hover:bg-orange-900/30',
 };
-const CHIP_LABEL = { build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair' };
+const CHIP_LABEL = { answer: 'Answer', build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair' };
 
 // A drawn card and its geometry, SIDE BY SIDE and the same width — the founder's ruling
 // 2026-09-14: "I think they're equally significant." The minimap is always shown, because the
@@ -537,7 +575,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     role: 'reader',
     text: obj.reader,
     question: obj.question || '',
-    chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 4) : [],
+    chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 5) : [],
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
@@ -680,9 +718,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
+      const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
       const newCardBlock = newDraw
-        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE: ${drawLabel(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table.`
-        : '';
+        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
+        : fieldNow
+          ? `\n\nTHE CARD MOST RECENTLY DRAWN (its medicine governs this turn, the opening draw's is secondary):\n${drawBrief(fieldNow)}`
+          : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
       setTurns((list) => [...list, readerTurn(obj, newDraw ? { draw: newDraw, mode } : {})]);
@@ -764,6 +805,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
     + (usage.cache_creation_input_tokens || 0) * 3.75 + (usage.output_tokens || 0) * 15) / 1e6;
 
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader');
+  // THE FIELD AT A TURN: the most recently drawn card up to and including that turn governs
+  // its medicine container; before any reflect or forge, the opening draw. (The container
+  // used to fall back to the opening draw on every talking turn — a stale growth box.)
+  const fieldAt = (ti) => {
+    for (let i = ti; i >= 0; i--) { const t = turns[i]; if (t?.role === 'reader' && t.draw) return [t.draw]; }
+    return draws || [];
+  };
 
   // The pills re-render with the switch: talk / ask the field / declare to the field.
   const activePills = !lastReader ? []
@@ -986,7 +1034,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             {/* One surface: the discourse in order */}
             <div className="space-y-5">
-              {turns.map((t) => (
+              {turns.map((t, ti) => (
                 <div key={t.id} data-ez-turn={t.id}
                   className={t.role === 'you'
                     ? 'ml-4 sm:ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic break-words'
@@ -1017,10 +1065,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   {t.role === 'reader' && t.medicine && (
                     <div className="mt-3 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3">
                       <div className="text-[10px] uppercase tracking-wider text-emerald-300/80 mb-2">
-                        {(t.draw ? medicineFor([t.draw]) : medicineFor(draws)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
+                        {medicineFor(fieldAt(ti)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
                       </div>
                       <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
-                        {(t.draw ? medicineFor([t.draw]) : medicineFor(draws)).map((m, mi) => (
+                        {medicineFor(fieldAt(ti)).map((m, mi) => (
                           <div key={mi} className="flex flex-col items-center max-w-full">
                             <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true}
                               onImageClick={() => openInfo({ type: 'card', id: m.toId, data: getComponent(m.toId) })} />
