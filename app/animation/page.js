@@ -507,24 +507,37 @@ export default function AnimationBench() {
     const ey = Math.max(dest.y - fy, fy + fh - dest.y);
     const fitZ = Math.max(0.18, Math.min(1.2,
       Math.min(window.innerWidth * 0.46 / ex, window.innerHeight * 0.38 / ey)));
-    await new Promise(done => {
+    // TIGHT, THEN OPEN. The founder: "stay tight, like zoom out just a little bit, but stay
+    // tight on the card with the center as it follows the card to its new location. Then
+    // another beat, we're going to zoom out at the end of it." So the journey is made close in
+    // — the camera eases out only a little and holds the card centred all the way to the seat —
+    // then the card settles, the name arrives, a beat passes, and only then does the camera
+    // open out to the whole frame, still centred on the seat it just filled.
+    const tightZ = Math.max(fitZ, Math.min(1.25, cam.z * 0.62));
+    const centreOnCard = (gain) => {
+      const hr = target.getBoundingClientRect();
+      cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * gain;
+      cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * gain;
+    };
+    const glide = (toZ, ms) => new Promise(done => {
       const fromZ = cam.z, t = Date.now();
-      const follow = () => {
-        const k = Math.min(1, (Date.now() - t) / TRAVEL);
+      const stepZ = () => {
+        const k = Math.min(1, (Date.now() - t) / ms);
         const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-        cam.z = fromZ + (fitZ - fromZ) * e;
-        // closed loop on the card's own box: wherever it is, pull it to the middle
-        const hr = target.getBoundingClientRect();
-        cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * 0.18;
-        cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * 0.18;
+        cam.z = fromZ + (toZ - fromZ) * e;
+        centreOnCard(0.18);
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
-        if (k < 1) requestAnimationFrame(follow);
+        if (k < 1) requestAnimationFrame(stepZ);
         else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
       };
-      requestAnimationFrame(follow);
+      requestAnimationFrame(stepZ);
     });
+
+    await glide(tightZ, TRAVEL);           // the journey, close in
     await wait(250);
     setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
+    await wait(1100);                      // the beat
+    await glide(fitZ, 2300);               // and the whole frame
     if (mapEl) mapEl.style.pointerEvents = '';
 
     setLanding(false);
