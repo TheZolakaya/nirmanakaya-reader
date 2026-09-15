@@ -81,10 +81,10 @@ WHAT STAYS EXACTLY THE SAME: the meaning, the verdict, the direction of the path
 const EZ_RULES = `EZ MODE — THE DISCOURSE LAYER. You are opening a conversation, not delivering a document.
 
 THE OPENING TURN (first reply only):
-- For each card drawn: two or three sentences in your own voice that carry the WHOLE card — what it does, in this seat, in this status, for this question. All of it folded together; never a dimension withheld, never four readings stacked.
-- One sentence tying the cards to the question.
 - If the reading amounts to a verdict on the question (yes / no / not yet / not as it stands), that verdict is the FIRST sentence, plainly. Brief never means softened.
-- Hard cap: 150 words for one or two cards, 220 for three or more.
+- THEN THE EXPOSITION, which the person has never had and needs: in plain words, what this card is about (the capacity it names, in a sentence or two), what this seat is about (the area of life it governs, in a sentence or two), and what it means that THIS card sits in THIS seat with THIS status — the whole card folded together, never a dimension withheld, never four readings stacked. A person who has never seen the map must come away knowing what was drawn and why it matters here.
+- Then one or two sentences tying it to their question, and the direction of the path as a clause.
+- Length: 180 to 260 words for one card; up to 340 for more. Under 180 the person is left with a mood and no picture (the founder, on a Balanced draw: "there should be some more exposition on what it means"). Over the cap it stops being a conversation.
 - Do NOT end the prose with your question. The prose ends on the reading. The question travels alone, in the "question" field, because it is shown to the person AFTER the medicine.
 
 EVERY LATER TURN:
@@ -572,10 +572,20 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return { obj, usage: data.usage };
   };
 
+  // The question is shown after the medicine; a prose that ends by asking it too shows it
+  // twice. The rule says not to, the model sometimes does anyway, so the repeat is stripped.
+  const stripTrailingQuestion = (text, q) => {
+    if (!text || !q) return text || '';
+    const norm = (x) => x.replace(/[\s*_"'‘’“”.?!]+/g, '').toLowerCase();
+    const paras = text.trim().split(/\n\n+/);
+    const last = paras[paras.length - 1] || '';
+    if (paras.length > 1 && norm(last) === norm(q)) return paras.slice(0, -1).join('\n\n');
+    return text;
+  };
   const readerTurn = (obj, extra = {}) => ({
     id: `t${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
     role: 'reader',
-    text: obj.reader,
+    text: stripTrailingQuestion(obj.reader, obj.question),
     question: obj.question || '',
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 5) : [],
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
