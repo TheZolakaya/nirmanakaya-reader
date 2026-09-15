@@ -240,7 +240,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
         <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
-          className="w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03]"
+          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03]"
           style={{
             background: 'rgba(13, 13, 26, 0.85)',
             border: '1px solid rgba(107, 77, 138, 0.4)',

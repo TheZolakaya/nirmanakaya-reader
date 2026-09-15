@@ -181,6 +181,10 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // TAP TO SKIP. Every pause checks the signal; a skip rejects out of the sequence and the
     // caller clears the map and shows the finished header. The camera loops check it too.
     const wait = (ms) => new Promise((r, rej) => setTimeout(() => (signal.skip ? rej(new Error('skipped')) : r()), ms));
+    // A phone cannot re-draw a 2134px image scaled six times with a soft shadow on it, three
+    // turns a second: the spin flickered and blanked. On narrow screens the hero carries no
+    // filter at all and is promoted to its own layer before it moves.
+    const mobile = window.innerWidth < 700;
 
     // NAMES ON THE CARDS. The founder: "attach the names to the cards so when we reveal the name
     // of the card and its transient status, it stays on the card instead of just being at the
@@ -415,7 +419,11 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     //   end    2.4 / 0.017 = 141px circle around the map's centre
     const speedAt = (pr) => 1.0 + 1.4 * pr;   // px per frame: a slow circle, opening to a lean
 
-    let wantZ = 0.50, aimZ = 0.50, nextZoom = 1300;
+    // The hunt's zooms were tuned on a wide screen. On a phone the same numbers show a crop of
+    // the field, so they scale with the screen's width; the hero and the landing already size
+    // themselves from the viewport and need nothing here.
+    const zScale = Math.min(1, Math.max(0.45, window.innerWidth / 760));
+    let wantZ = 0.50 * zScale, aimZ = 0.50 * zScale, nextZoom = 1300;
     let seek = 0;              // 0 = pure lean, 1 = pure approach
 
     const camStart = Date.now();
@@ -461,8 +469,8 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       seek += (seekAim - seek) * 0.012;
 
       if (now < DRIFT_UNTIL) {
-        if (now > nextZoom) { aimZ = 0.46 + Math.random() * 0.09; nextZoom = now + 1300; }
-      } else if (now < GRAVITY_UNTIL) aimZ = 0.62;
+        if (now > nextZoom) { aimZ = (0.46 + Math.random() * 0.09) * zScale; nextZoom = now + 1300; }
+      } else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
       else aimZ = Z_END;
       wantZ += (aimZ - wantZ) * 0.020;
 
@@ -515,8 +523,10 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // so without raising the parent too, cards from later containers paint over the hero as
       // it grows. Bounds and agents have no container and are already above them at 60.
       target.closest('.archetype-group')?.style.setProperty('z-index', '100');
+      target.style.willChange = 'transform';
+      target.style.backfaceVisibility = 'hidden';
       target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
-      target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
+      target.style.filter = mobile ? 'none' : 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
       // "the borders around it when you zoom up get really thick, and it's unattractive" — the
       // coloured frame is the element background behind the image; it goes as the card rises.
       const bg = target.querySelector('.element-bg');
@@ -695,12 +705,20 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     void holder.offsetHeight;   // a forced style pass, so the opacity change below TRANSITIONS rather than snapping
     holder.style.opacity = '1';
 
-    // a slower start, so card and camera lean into the journey together (the camera's glide
-    // eases in; the card used to leave at speed, and the mismatch read as a jerk)
-    target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.7,0,.2,1), filter ${TRAVEL}ms ease`;
-    target.style.transform =
-      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
-    target.style.filter = 'brightness(1) drop-shadow(0 10px 24px rgba(0,0,0,0.75))';
+    // THE CARD AND THE CAMERA MOVE IN THE SAME FRAME. The journey used to be a CSS transition,
+    // which the phone's graphics layer runs smoothly on its own clock, while the camera following
+    // it is this loop, which only moves when the phone gives it a frame. On a busy phone the card
+    // outran the camera and left the screen — the founder: "the animation seems to outrun the
+    // camera movement." Now the card's position for each frame is set here, and the camera is
+    // centred on it in the same frame, so the two cannot separate however slow the device is.
+    const startRot = -seatTilt + spinBase + spinStatusRot;
+    const endRot = spinBase + seatTiltOnly + statusRot - homeAngle0;
+    target.style.transition = 'filter 1200ms ease';
+    target.style.filter = mobile ? 'none' : 'brightness(1) drop-shadow(0 10px 24px rgba(0,0,0,0.75))';
+    const journeyFrame = (e) => {
+      target.style.transform =
+        `translate(${dx * e}px, ${dy * e}px) scale(${heroScale + (landScale - heroScale) * e}) rotate(${startRot + (endRot - startRot) * e}deg)`;
+    };
 
     const centreOnCard = (gain) => {
       const hr = target.getBoundingClientRect();
@@ -712,13 +730,17 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       cam.x += (window.innerWidth / 2 - (cr.left + cx * cam.z)) * gain;
       cam.y += (window.innerHeight / 2 - (cr.top + cy * cam.z)) * gain;
     };
-    const glide = (toZ, ms, centre = centreOnCard) => new Promise(done => {
-      const fromZ = cam.z, t = Date.now();
+    // glide: zoom toward toZ over ms; onFrame(e) places whatever the camera is following; the
+    // follow gain is TIME-based (a 140ms lag whatever the frame rate), never per-frame.
+    const glide = (toZ, ms, centre = centreOnCard, onFrame = null) => new Promise(done => {
+      const fromZ = cam.z, t = Date.now(); let last = t;
       const stepZ = () => {
-        const k = Math.min(1, (Date.now() - t) / ms);
+        const nowT = Date.now(); const dt = Math.min(100, nowT - last); last = nowT;
+        const k = Math.min(1, (nowT - t) / ms);
         const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
         cam.z = fromZ + (toZ - fromZ) * e;
-        centre(0.12);
+        if (onFrame) onFrame(e);
+        centre(1 - Math.exp(-dt / 100));
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
         if (signal.skip) { done(); return; }
         if (k < 1) requestAnimationFrame(stepZ);
@@ -729,7 +751,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
     // "the camera's still zoomed way up on it, so you can see what's going on"
     const tightZ = Math.max(0.9, cam.z * 0.70);
-    await glide(tightZ, TRAVEL);
+    await glide(tightZ, TRAVEL, centreOnCard, journeyFrame);
 
     // MEASURED SETTLE. The solved translate lands the card near the seat but not on it — the
     // residual differs with the home card's house, and at a ninety-percent overlap even twenty
@@ -789,6 +811,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // the open-out, each card carried in its own parent space, so the finished picture is the
     // maxi map with the pair sitting on the very mark the arrow points at.
     const mp0 = minimapPoint(targetId);
+    let driftFrame = null;
     if (mp0) {
       const gl = { x: fx + mp0.x * fit, y: fy + mp0.y * fit };
       const OPEN = 2600;
@@ -797,9 +820,12 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const wx = gl.x - seatNow.x, wy = gl.y - seatNow.y;
       const toLocal = (el) => { const q = chain(el.parentElement, canvas); const a = -q.deg * Math.PI / 180, k = q.scale || 1; return { x: (wx * Math.cos(a) - wy * Math.sin(a)) / k, y: (wx * Math.sin(a) + wy * Math.cos(a)) / k }; };
       const h = toLocal(target);
+      const dx0 = dx, dy0 = dy;
       dx += h.x; dy += h.y;
-      target.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1)`;
-      target.style.transform = `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
+      target.style.transition = 'none';
+      driftFrame = (e) => {
+        target.style.transform = `translate(${dx0 + h.x * e}px, ${dy0 + h.y * e}px) scale(${landScale}) rotate(${endRot}deg)`;
+      };
       if (selfHomed && ghost) {
         ghost.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1), opacity 900ms ease`;
         ghost.style.transform = `translate(${wx}px, ${wy}px) rotate(${seatAngle0}deg)`;
@@ -809,7 +835,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
         seatEl.style.transform = `translate(${sl.x}px, ${sl.y}px) scale(1) rotate(0deg)`;
       }
     }
-    await glide(fitZ, 2600, centreOnCard);
+    await glide(fitZ, 2600, centreOnCard, driftFrame);
     await wait(400);
 
     // --- 4. the stack, the minimap and the wordmark shrink into the header ---

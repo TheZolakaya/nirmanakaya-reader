@@ -740,3 +740,8 @@ textarea.user-input-area::placeholder {
    pointer-events:auto (so bounds and agents can be hovered at all), and an inline value beats a
    plain parent rule — only !important from a stylesheet outranks it. */
 .nkya-animating, .nkya-animating * { pointer-events: none !important; cursor: default !important; }
+
+/* EZ header: the minimap fills its square whatever the screen. The component draws itself at a
+   fixed size (the "card" size is 200px), which a phone's 140px square clipped into a zoomed-in
+   corner; CSS on the svg beats its width/height attributes, and the viewBox keeps the shape. */
+.ez-minimap svg { width: 100%; height: 100%; }
