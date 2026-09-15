@@ -453,6 +453,24 @@ export default function AnimationBench() {
     // wrong, whatever the zoom or the window size happen to be.
     const fitZ = Math.max(0.18, Math.min(1.2,
       Math.min(window.innerWidth * 0.80 / fieldW, window.innerHeight * 0.68 / fieldH)));
+    // THE CARD IS HELD WHILE THE FRAME IS DRAWN AROUND IT.
+    //
+    // Without this it drifts back to its own seat on the map as the camera opens out, and only
+    // then hops across to the durable — so the eye reads the big move as the card being put
+    // BACK where it came from, and the move that actually matters as an afterthought. The card
+    // is instead pinned to the middle of the screen for the whole pull-back, and makes exactly
+    // ONE journey: out of the hand and into the seat.
+    //
+    // Pinning is a direct solve, not an easing: each frame the card's own box is measured and
+    // the residual to the centre is converted back through the house's rotation and the camera's
+    // zoom into the card's own parent space, where its translate lives.
+    const toLocal = (sx, sy, zoom) => {
+      const a = -par.deg * Math.PI / 180, k = zoom * par.scale;
+      return { x: (sx * Math.cos(a) - sy * Math.sin(a)) / k,
+               y: (sx * Math.sin(a) + sy * Math.cos(a)) / k };
+    };
+    let pinX = 0, pinY = 0;
+    target.style.transition = 'none';
     await new Promise(done => {
       const fromZ = cam.z, MS = 2400, t = Date.now();
       const pull = () => {
@@ -463,6 +481,14 @@ export default function AnimationBench() {
         cam.x += (window.innerWidth / 2 - (cr.left + fieldC.x * cam.z)) * 0.10;
         cam.y += (window.innerHeight / 2 - (cr.top + fieldC.y * cam.z)) * 0.10;
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+
+        const hr = target.getBoundingClientRect();
+        const d = toLocal(window.innerWidth / 2 - (hr.left + hr.width / 2),
+                          window.innerHeight / 2 - (hr.top + hr.height / 2), cam.z);
+        pinX += d.x; pinY += d.y;
+        target.style.transform =
+          `translate(${pinX}px, ${pinY}px) scale(${heroScale}) rotate(${-seatTilt}deg)`;
+
         if (k < 1) requestAnimationFrame(pull);
         else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
       };
