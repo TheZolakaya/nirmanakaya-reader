@@ -933,8 +933,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <Door d={byId.emotion} />
                   <Door d={byId.body} />
                   <Door d={byId.spirit} />
-                  <div className="col-span-2 flex justify-center pt-1">
-                    <Door d={byId.daily} className="w-[calc(50%-4px)]" />
+                  {/* the five doors are the five aspects of self; the random choice is a link, not a sixth door */}
+                  <div className="col-span-2 text-center pt-1">
+                    <button onClick={() => { setDoor({ ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true }); setQuestion(''); setError(''); }}
+                      className="text-sm text-amber-400/80 hover:text-amber-300 underline decoration-dotted underline-offset-4">
+                      or let one be chosen for me — my daily reading
+                    </button>
                   </div>
                 </div>
               );
