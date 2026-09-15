@@ -271,9 +271,11 @@ export default function AnimationBench() {
                y: cam.y + (v.top + v.height / 2 - (c.top + c.height / 2)) };
     };
 
-    const DRIFT_UNTIL = 7600;     // leaning across the field, going nowhere in particular
-    const GRAVITY_UNTIL = 11400;  // the card starts to pull, the lean is still in charge
-    const ARRIVE_AT = 17200;      // settled
+    // Halved 2026-09-14 at the founder's word: "the time that the camera's hunting around ...
+    // the first beat, let's cut that time in half." Everything downstream hangs off these three.
+    const DRIFT_UNTIL = 3800;     // leaning across the field, going nowhere in particular
+    const GRAVITY_UNTIL = 5700;   // the card starts to pull, the lean is still in charge
+    const ARRIVE_AT = 8600;       // settled
     const Z_END = 2.0;
 
     // THE DRIFT IS A LEAN, NOT A SEARCH.
@@ -311,10 +313,10 @@ export default function AnimationBench() {
 
     let heading = Math.random() * Math.PI * 2;
     let spin = Math.random() < 0.5 ? -1 : 1;
-    const REVERSE_AT = 3400 + Math.random() * 1600;   // the one change of mind
+    const REVERSE_AT = 1700 + Math.random() * 800;    // the one change of mind
     let reversed = false;
     let turn = spin * 0.017, turnAim = turn;
-    let nextTurn = 2600;
+    let nextTurn = 1300;
     // These three are one choice, not three. A circle's radius is speed divided by turn rate, so
     // if the radius comes out LARGER than the leash the leash fights the circle every frame and
     // you get exactly the two faults being fixed here: a map carried off to one side, and a
@@ -323,7 +325,7 @@ export default function AnimationBench() {
     //   end    2.4 / 0.017 = 141px circle around the map's centre
     const speedAt = (pr) => 1.0 + 1.4 * pr;   // px per frame: a slow circle, opening to a lean
 
-    let wantZ = 0.50, aimZ = 0.50, nextZoom = 2600;
+    let wantZ = 0.50, aimZ = 0.50, nextZoom = 1300;
     let seek = 0;              // 0 = pure lean, 1 = pure approach
 
     const camStart = Date.now();
@@ -335,7 +337,7 @@ export default function AnimationBench() {
       if (!reversed && now > REVERSE_AT) { spin = -spin; reversed = true; }
       if (now > nextTurn) {
         turnAim = spin * (0.014 + Math.random() * 0.006);
-        nextTurn = now + 2600 + Math.random() * 1600;
+        nextTurn = now + 1300 + Math.random() * 800;
       } else {
         turnAim = spin * Math.abs(turnAim);
       }
@@ -369,7 +371,7 @@ export default function AnimationBench() {
       seek += (seekAim - seek) * 0.012;
 
       if (now < DRIFT_UNTIL) {
-        if (now > nextZoom) { aimZ = 0.46 + Math.random() * 0.09; nextZoom = now + 2600; }
+        if (now > nextZoom) { aimZ = 0.46 + Math.random() * 0.09; nextZoom = now + 1300; }
       } else if (now < GRAVITY_UNTIL) aimZ = 0.62;
       else aimZ = Z_END;
       wantZ += (aimZ - wantZ) * 0.020;
@@ -507,6 +509,14 @@ export default function AnimationBench() {
       delete el.dataset.turn;
       el.style.opacity = '1';
     });
+    // The minimap rises on a layer above the field, and the two cards that matter must sit
+    // above THAT. The hero's house is already raised; the seat's must be raised too, or the
+    // durable ends up under the diagram it is supposed to be seen through.
+    // 30: above the minimap (5), below a hero at canvas level (60) and below a hero's raised
+    // house (100). Raising it to 100 tied it with the hero's house, and a tie is settled by
+    // document order, which put the durable OVER the transient.
+    seatEl.style.zIndex = '59';
+    seatEl.closest('.archetype-group')?.style.setProperty('z-index', '30');
     document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 900ms ease'; el.style.opacity = '1'; });
     await wait(1000);
 
@@ -594,11 +604,18 @@ export default function AnimationBench() {
 
     // --- 3. the field dissolves into the minimap as the camera opens out ---
 
+    // STAY ON THE CARDS. The founder: "the camera is resetting to zero instead of staying tight
+    // on the cards all the way up. I want them to stay tight on the cards all the way up and only
+    // expand enough out to include the transient, the durable, and the minimap." So the open-out
+    // keeps the stack centred and zooms out only as far as this seat's distance to the frame's
+    // far edge requires — the whole minimap comes into view around the cards, not instead of them.
+    const ex = Math.max(destMap.x - fx, fx + fw - destMap.x);
+    const ey = Math.max(destMap.y - fy, fy + fh - destMap.y);
     const fitZ = Math.max(0.18, Math.min(1.2,
-      Math.min(window.innerWidth * 0.80 / fw, window.innerHeight * 0.66 / fh)));
+      Math.min(window.innerWidth * 0.46 / ex, window.innerHeight * 0.36 / ey)));
     // the field, already at a tenth, goes the rest of the way as the camera opens
     dimmed.forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = el.hasAttribute('data-map-wordmark') ? '0.1' : '0'; });
-    await glide(fitZ, 2600, centreOnMap(fieldC.x, fieldC.y));
+    await glide(fitZ, 2600, centreOnCard);
     await wait(400);
 
     // --- 4. the stack, the minimap and the wordmark shrink into the header ---
