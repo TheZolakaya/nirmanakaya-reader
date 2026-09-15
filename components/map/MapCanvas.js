@@ -24,6 +24,7 @@ export default function MapCanvas({
   cameraRef = null
 }) {
   const containerRef = useRef(null);
+  const innerRef = useRef(null);
   const [zoom, setZoom] = useState(initialZoom);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -60,6 +61,21 @@ export default function MapCanvas({
         setZoom(z);
         setPan(p => ({ x: (p.x + dx) * k, y: (p.y + dy) * k }));
         window.setTimeout(() => setFlightMs(0), ms + 60);
+      },
+      // Frame-by-frame control, for animation that needs continuous velocity. A CSS transition
+      // always begins at rest, so redirecting one mid-flight produces a corner; driving the
+      // transform directly lets a caller integrate its own motion and keep its momentum.
+      drive: (p, z) => {
+        const el = innerRef.current;
+        if (!el) return;
+        el.style.transition = 'none';
+        el.style.transform = `translate(-50%, -50%) translate(${p.x}px, ${p.y}px) scale(${z})`;
+      },
+      // Hand the driven view back to React so dragging and the zoom buttons resume correctly.
+      commit: (p, z) => {
+        setFlightMs(0);
+        if (p) setPan(p);
+        if (typeof z === 'number') setZoom(z);
       },
       reset: (ms = 800) => {
         setFlightMs(ms);
@@ -160,6 +176,7 @@ export default function MapCanvas({
     >
       {/* Transform container */}
       <div
+        ref={innerRef}
         className="absolute"
         style={{
           width: `${width}px`,

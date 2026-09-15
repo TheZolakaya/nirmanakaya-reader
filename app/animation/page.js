@@ -102,84 +102,75 @@ export default function AnimationBench() {
     };
     tick();
 
-    // 1. THE DRIFT. The camera never sits still: it wanders among the houses from the very first
-    //    beat, so the flight toward the chosen card is a gathering of gravity rather than a lurch
-    //    into motion. Each move is issued BEFORE the last one finishes — a CSS transition
-    //    redirected mid-flight interpolates from wherever it currently is, so the camera curves
-    //    from one heading to the next and never arrives anywhere.
-    const houses = Array.from(document.querySelectorAll('.archetype-group'));
-    const DRIFT_EASE = 'cubic-bezier(.45,.05,.55,.95)';   // even, unhurried; no arrival snap
-    const driftFor = 5200;
-    const tDrift = Date.now();
-    let lastHouse = null;
-    while (Date.now() - tDrift < driftFor) {
-      let h = houses[Math.floor(Math.random() * houses.length)];
-      if (h === lastHouse && houses.length > 1) h = houses[Math.floor(Math.random() * houses.length)];
-      lastHouse = h;
-      cameraRef.current?.centreOn(h, 0.5 + Math.random() * 0.12, 3000, DRIFT_EASE);
-      await wait(1500 + Math.round(Math.random() * 400));
-    }
-
-    // 2. gravity takes hold — still wide, but now it is the chosen card being circled
-    cameraRef.current?.centreOn(target, 0.58, 2600, DRIFT_EASE);
-    await wait(1900);
-
-    // The chosen card leaves the flicker so it sits steady while the camera comes for it, and
-    // its FULL-RESOLUTION art starts loading now. Bounds and agents are drawn from 200px
-    // thumbnails on the map, which is right at map size and visibly soft at hero size, so the
-    // real 2134px image is swapped in the moment it has loaded — during the flight, well before
-    // the card is large enough for anyone to catch the change.
-    state.pool = others;
-    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
-    const fullArt = getCardImagePath(displayId);
-    const img = target.querySelector('img');
-    if (img && fullArt && !img.src.endsWith(fullArt)) {
-      const pre = new window.Image();
-      pre.onload = () => { img.src = fullArt; };
-      pre.src = fullArt;
-    }
-
-    // 2..5 — ONE MOVEMENT.
+    // 1..3 — ONE CONTINUOUS CAMERA, integrated frame by frame.
     //
-    // These used to be four separate steps with waits between them, and the seams showed: the
-    // camera stopped, then the card rose, then it rotated, then the camera pushed again. Now the
-    // camera makes a single flight all the way to its final zoom, and the card's rise, its turn
-    // upright and the field's fade are started PART WAY THROUGH that flight on overlapping
-    // curves, so everything arrives together and nothing has to stop and restart.
-    const Z_END = 2.0;
-    const FLIGHT = 4200;
-
-    // The final scale is solved up front. offsetWidth is the LAYOUT width and ignores transforms;
-    // getBoundingClientRect would return the axis-aligned box, inflated by root two for a
-    // 45-degree card, which throws the size out differently for every class.
-    const layoutW = target.offsetWidth;
-    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
-    const heroScale = targetPx / (layoutW * Z_END);
-
-    // The seat tilt is measured before anything moves. A card is tilted by its house (the
-    // 45-degree diamonds) and, for bounds and agents, by its own seat — but a drawn STATUS also
-    // rotates it and that rotation carries meaning, so it is measured out and kept.
-    const inner = target.firstElementChild;
-    const screenAngle = (el) => {
-      let deg = 0, node = el;
-      while (node && node !== document.body) {
-        const tr = getComputedStyle(node).transform;
-        if (tr && tr !== 'none') { const m = new DOMMatrix(tr); deg += Math.atan2(m.b, m.a) * 180 / Math.PI; }
-        node = node.parentElement;
-      }
-      return deg;
+    // CSS transitions cannot do this. A transition always starts at rest, so redirecting one
+    // mid-flight makes the camera stop and set off again — which is the right-angle jerk. Here
+    // the camera is a critically-damped spring chasing a waypoint: velocity carries across every
+    // change of target, so a new heading is entered as an ARC rather than a corner. The same
+    // loop does the wandering, the gathering of gravity, and the final approach, so there is not
+    // a single seam in the whole camera move.
+    const surface = document.querySelector('[data-map-surface]');
+    const cam = { x: 0, y: 0, vx: 0, vy: 0, z: 0.45, vz: 0 };
+    const panToCentre = (el) => {
+      const v = surface.getBoundingClientRect();
+      const c = el.getBoundingClientRect();
+      return { x: cam.x + (v.left + v.width / 2 - (c.left + c.width / 2)),
+               y: cam.y + (v.top + v.height / 2 - (c.top + c.height / 2)) };
     };
-    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
-    const seatTilt = screenAngle(inner) - statusRot;
 
-    // the camera departs — one flight, all the way in
-    cameraRef.current?.centreOn(target, Z_END, FLIGHT, 'cubic-bezier(.4,0,.2,1)');
+    const houses = Array.from(document.querySelectorAll('.archetype-group'));
+    const DRIFT_UNTIL = 5400;     // wandering among the houses
+    const GRAVITY_UNTIL = 8200;   // circling the chosen card, still wide
+    const ARRIVE_AT = 12600;      // settled
+    const Z_END = 2.0;
+
+    let want = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
+    let wantZ = 0.52;
+    let nextWaypoint = 1500;
+    // Damping has to match the stiffness or the spring OVERSHOOTS its waypoint and springs back,
+    // which reverses the velocity — and a reversal is exactly the jerk we are trying to remove.
+    // Critical damping is roughly damp = 1 - 2*sqrt(k); anything above that oscillates.
+    let k = 0.008, damp = 0.82;   // soft and critically damped — long lazy arcs, no rebound
+
+    const camStart = Date.now();
+    let raf = 0;
+    const step = () => {
+      const now = Date.now() - camStart;
+
+      if (now < DRIFT_UNTIL) {
+        if (now > nextWaypoint) {                       // a new heading, entered as an arc
+          want = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
+          wantZ = 0.48 + Math.random() * 0.12;
+          nextWaypoint = now + 1700 + Math.random() * 600;
+        }
+      } else if (now < GRAVITY_UNTIL) {
+        want = panToCentre(target); wantZ = 0.62;       // gravity gathers
+        k = 0.012; damp = 0.79;
+      } else {
+        want = panToCentre(target); wantZ = Z_END;      // and closes
+        k = 0.018; damp = 0.75;
+      }
+
+      cam.vx = (cam.vx + (want.x - cam.x) * k) * damp;
+      cam.vy = (cam.vy + (want.y - cam.y) * k) * damp;
+      cam.vz = (cam.vz + (wantZ - cam.z) * k * 1.3) * damp;
+      cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
+      cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+
+      if (now < ARRIVE_AT) raf = requestAnimationFrame(step);
+      else cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z);
+    };
+    raf = requestAnimationFrame(step);
+
+    // The flight's own clock, for everything that hangs off it.
+    const FLIGHT = ARRIVE_AT - GRAVITY_UNTIL;
 
     // the card begins to rise and turn once the camera is well on its way, and settles with it
-    const RISE_AT = Math.round(FLIGHT * 0.42);
+    const RISE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.30);
     window.setTimeout(() => {
       target.style.transition =
-        `transform ${FLIGHT - RISE_AT}ms cubic-bezier(.33,.9,.2,1), filter ${FLIGHT - RISE_AT}ms ease`;
+        `transform ${ARRIVE_AT - RISE_AT}ms cubic-bezier(.4,0,.2,1), filter ${ARRIVE_AT - RISE_AT}ms ease`;
       target.style.transformOrigin = 'center center';
       target.style.zIndex = '60';
       // zIndex 60 only wins INSIDE its own house container, and the containers all sit at 2 —
@@ -191,7 +182,7 @@ export default function AnimationBench() {
     }, RISE_AT);
 
     // the field eases away underneath it, finishing a beat before the card settles
-    const FADE_AT = Math.round(FLIGHT * 0.52);
+    const FADE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.42);
     window.setTimeout(() => {
       [...others, ...document.querySelectorAll('[data-house-label]')].forEach(el => {
         el.style.transition = 'opacity 1500ms ease';
@@ -201,7 +192,7 @@ export default function AnimationBench() {
 
     // the flicker keeps its life almost to the end, slowing the whole way
     const tStart = Date.now();
-    const STOP_AT = Math.round(FLIGHT * 0.74);
+    const STOP_AT = Math.round(ARRIVE_AT * 0.80);
     while (Date.now() - tStart < STOP_AT) {
       const k = (Date.now() - tStart) / STOP_AT;
       state.gap = Math.round(pace + (640 - pace) * (k * k));
@@ -212,7 +203,7 @@ export default function AnimationBench() {
     release(state.last);
     others.forEach(el => { el.style.transform = 'scale(1)'; el.style.zIndex = ''; });
 
-    await wait(FLIGHT - STOP_AT + 250);
+    await wait(ARRIVE_AT - STOP_AT + 400);
 
     const sig = signatureFor(displayId);
     const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
