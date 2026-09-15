@@ -36,7 +36,7 @@ export function clearLanding(root = document) {
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
       if (el.dataset.sharp) {
         el.style.height = '';
-        if (im) ['position', 'left', 'top', 'width', 'height', 'objectFit', 'transform', 'transformOrigin', 'willChange'].forEach(k => { im.style[k] = ''; });
+        if (im) ['position', 'left', 'top', 'width', 'height', 'maxWidth', 'maxHeight', 'objectFit', 'transform', 'transformOrigin', 'willChange'].forEach(k => { im.style[k] = ''; });
         const lb = el.querySelector('.card-label'); if (lb) lb.style.display = '';
         delete el.dataset.sharp;
       }
@@ -186,15 +186,16 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // taken at hero size and the transform only ever shrinks it.
     const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
     const sharpen = (card, K) => {
-      // DISABLED 2026-09-15: on iPhone Safari the enlarged image collapsed to a thin strip
-      // (founder's photos). Kept for the next attempt, which must be tested on WebKit first.
-      if (!window.__nkyaSharpen) return;
+      // The first cut of this shipped as a STRIP on the founder's iPhone (v0.99.305): the site's
+      // base stylesheet gives every image max-width:100%, so the enlarged image kept the card's
+      // width while its height went to full size. Lifted here, and the image is sized from its
+      // OWN box (the card has padding), placed where it already sits.
       const img = card.querySelector('img'); if (!img || card.dataset.sharp) return;
-      const W = card.offsetWidth, H = card.offsetHeight;
+      const W = img.offsetWidth, H = img.offsetHeight, L = img.offsetLeft, T = img.offsetTop;
       if (!W || !H || K <= 1) return;
-      card.style.height = `${H}px`;
-      Object.assign(img.style, { position: 'absolute', left: '0', top: '0', width: `${W * K}px`, height: `${H * K}px`,
-        objectFit: 'cover', transform: `scale(${1 / K})`, transformOrigin: '0 0', willChange: 'transform' });
+      card.style.height = `${card.offsetHeight}px`;
+      Object.assign(img.style, { position: 'absolute', left: `${L}px`, top: `${T}px`, width: `${W * K}px`, height: `${H * K}px`,
+        maxWidth: 'none', maxHeight: 'none', objectFit: 'cover', transform: `scale(${1 / K})`, transformOrigin: '0 0', willChange: 'transform' });
       const lb = card.querySelector('.card-label'); if (lb) lb.style.display = 'none';
       card.dataset.sharp = '1';
     };
