@@ -420,7 +420,24 @@ export default function AnimationBench() {
     // minimap is a separate SVG with its own geometry and its own compression constants; it is
     // derived from the same canon but it is a second implementation, and a frame that has to
     // agree with the map is a frame that will one day disagree with it. Measured, it cannot.
-    await wait(1500);
+    // THE SPIN. The founder: "before we say too much, too little, unacknowledged or balanced,
+    // the card's going to spin in place fast and then slow down fairly quickly at one side
+    // facing up ... ninety degrees to the right if it's too much, ninety degrees to the left if
+    // it's too little and inverted if it's unacknowledged." So the status is shown before it is
+    // said: three full turns that brake hard onto the status angle, and only then does the word
+    // join the name. A Balanced card spins too, and comes to rest upright.
+    //
+    // The turns are kept in spinBase, because every later transform on this card is an absolute
+    // rotate — without adding them back, the journey would unwind three turns on the way.
+    const SPINS = 3;
+    const spinBase = SPINS * 360;
+    const spinStatusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
+    await wait(600);
+    target.style.transition = 'transform 2300ms cubic-bezier(.08,.72,.16,1)';
+    target.style.transform = `scale(${heroScale}) rotate(${-seatTilt + spinBase + spinStatusRot}deg)`;
+    await wait(2300 + 150);
+    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: null });
+    await wait(1100);
 
     // THE FRAME IS THE MINIMAP ITSELF, not a second drawing of it.
     //
@@ -490,7 +507,7 @@ export default function AnimationBench() {
     const TRAVEL = 2900;
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
-      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${houseRot + statusRot - homeAngle0}deg)`;
+      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + houseRot + statusRot - homeAngle0}deg)`;
     target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
 
     // THE CAMERA FOLLOWS THE CARD. The founder: "as soon as it starts that animation, the camera
