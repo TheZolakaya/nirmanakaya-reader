@@ -47,7 +47,37 @@ export function clearLanding(root = document) {
     root.querySelectorAll('[data-map-frame]').forEach((el) => el.remove());
 }
 
-export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]', signal = { skip: false } }) {
+// THE WORDMARK, at the centre of the map. The founder: "directly beneath the Gestalt house,
+// and between the four manifest houses ... right in the middle of those four." The same rainbow
+// letters and shimmering tagline as the top of the EZ page, placed inside the camera's transform
+// so it pans and zooms with the map as text, crisp at any zoom. Its position is measured from
+// the four manifest houses themselves, not stored. Retries until the map has rendered.
+export function placeWordmark(surface, tries = 40) {
+  const canvas = surface?.firstElementChild;
+  const groups = canvas ? [...surface.querySelectorAll('.archetype-group')] : [];
+  if (!canvas || groups.length < 5) { if (tries > 0) window.setTimeout(() => placeWordmark(surface, tries - 1), 150); return null; }
+  const z = new DOMMatrix(getComputedStyle(canvas).transform).a || 1;
+  const cb = canvas.getBoundingClientRect();
+  const centre = (el) => { const r = el.getBoundingClientRect(); return { x: (r.left + r.width / 2 - cb.left) / z, y: (r.top + r.height / 2 - cb.top) / z }; };
+  const cs = groups.map(centre);
+  const manifest = [...cs].sort((a, b) => a.y - b.y).slice(1);   // the Gestalt is the one nearest the top
+  const mx = manifest.reduce((a, c) => a + c.x, 0) / 4, my = manifest.reduce((a, c) => a + c.y, 0) / 4;
+  const span = Math.max(...manifest.map(c => c.x)) - Math.min(...manifest.map(c => c.x));
+  const fs = Math.max(18, span * 0.054);   // sized to the gap between the inner agents, with air
+  let el = canvas.querySelector('[data-map-wordmark]');
+  if (!el) { el = document.createElement('div'); el.setAttribute('data-map-wordmark', ''); canvas.appendChild(el); }
+  el.innerHTML =
+    `<div style="text-align:center;white-space:nowrap;line-height:1.1">` +
+    `<div class="font-extralight" style="font-size:${fs}px;letter-spacing:0.32em;padding-left:0.32em">` +
+    'NIRMANAKAYA'.split('').map((c, i) => `<span class="rainbow-letter rainbow-letter-${i}">${c}</span>`).join('') +
+    `</div><div class="font-mono uppercase" style="font-size:${(fs * 0.42).toFixed(1)}px;letter-spacing:0.22em;padding-left:0.22em;color:rgba(161,161,170,0.62);margin-top:${(fs * 0.25).toFixed(1)}px">` +
+    'The Soul Search Engine'.split('').map((c, i) => `<span class="shimmer-letter" style="animation-delay:${-(i * 0.1 + 0.1)}s">${c === ' ' ? '&nbsp;' : c}</span>`).join('') +
+    `</div></div>`;
+  Object.assign(el.style, { position: 'absolute', left: `${mx}px`, top: `${my}px`, transform: 'translate(-50%, -50%)', pointerEvents: 'none', zIndex: '1' });
+  return el;
+}
+
+export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]', signal = { skip: false }, flyWordmark = true }) {
     // Hover scales the card too, and fights every transform we write. Off for the duration.
     const mapEl = surface;
     if (mapEl) mapEl.classList.add('nkya-animating');
@@ -832,7 +862,9 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       holder.style.transition = 'none'; holder.style.opacity = '0';
 
       // the wordmark, from the middle of the map to the top of the page
-      const word = document.querySelector('[data-map-wordmark]');
+      // In EZ the brand stays on screen the whole time, so the map's wordmark dims with the
+      // field instead of flying up to where a wordmark already is.
+      const word = flyWordmark ? document.querySelector('[data-map-wordmark]') : null;
       let wClone = null;
       if (word && wordSlot) {
         const wb = word.getBoundingClientRect();

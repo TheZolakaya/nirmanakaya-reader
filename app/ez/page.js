@@ -28,7 +28,7 @@ import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getRea
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath } from '../../lib/cardImages';
 import TheMap from '../../components/map/TheMap';
-import { runLanding, clearLanding } from '../../components/map/landing';
+import { runLanding, clearLanding, placeWordmark } from '../../components/map/landing';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import MinimapModal from '../../components/reader/MinimapModal';
@@ -239,6 +239,8 @@ export default function EZPage() {
   const [animOn, setAnimOn] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [revealed, setRevealed] = useState(true);
+  const [overlayTop, setOverlayTop] = useState(0);   // the map starts below the brand, which never leaves
+  const [overlayIn, setOverlayIn] = useState(false);
   const cameraRef = useRef(null);
   const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
@@ -269,15 +271,17 @@ export default function EZPage() {
       await new Promise(r => setTimeout(r, 100));
     }
     if (!surface) return;
-    await new Promise(r => setTimeout(r, 350));
+    placeWordmark(surface);
+    setOverlayIn(true);
+    await new Promise(r => setTimeout(r, 550));
     try {
       await runLanding({
         surface, cameraRef,
         draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
-        table: {}, slotsSelector: '[data-ez-header]', signal
+        table: {}, slotsSelector: '[data-ez-header]', signal, flyWordmark: false
       });
     } catch { /* skipped */ }
-    clearLanding(document);
+    // the clones stay parked in the header while the page comes back; begin() clears them
   };
   const skipLanding = () => { if (skipRef.current) skipRef.current.skip = true; };
   const [turns, setTurns] = useState([]); // {id, role:'reader'|'you'|'catchup', text, question, chips, reflect, forge, draw, mode, ts}
@@ -502,7 +506,13 @@ export default function EZPage() {
     // one card only, for now; the answer never waits on the motion by more than the last flight
     const willAnimate = animOn && cardCount === 1;
     let landed = Promise.resolve();
-    if (willAnimate) { try { window.scrollTo({ top: 0 }); } catch {} setRevealed(false); setAnimating(true); landed = playLanding(newDraws[0]).catch(() => {}); }
+    if (willAnimate) {
+      try { window.scrollTo({ top: 0 }); } catch {}
+      const brand = document.querySelector('[data-slot="wordmark"]')?.parentElement;
+      setOverlayTop(brand ? Math.max(0, Math.round(brand.getBoundingClientRect().bottom)) : 0);
+      setOverlayIn(false); setRevealed(false); setAnimating(true);
+      landed = playLanding(newDraws[0]).catch(() => {});
+    }
     try {
       const sk = spreadKeyFor(cardCount);
       const drawText = formatDrawForAI(newDraws, 'discover', sk, false, null, null, null);
@@ -527,7 +537,17 @@ export default function EZPage() {
       scrollToEnd();
     } catch (e) { setError(e.message); }
     await landed;
-    setAnimating(false); setRevealed(true);
+    if (willAnimate) {
+      // the page comes back under the landed cards: header and discourse fade in, the map fades
+      // out, and only then do the clones go — the real header sits exactly beneath them
+      setRevealed(true);
+      setOverlayIn(false);
+      await new Promise(r => setTimeout(r, 700));
+      clearLanding(document);
+      setAnimating(false);
+    } else {
+      setRevealed(true);
+    }
     setLoading(false);
   };
 
@@ -775,7 +795,7 @@ export default function EZPage() {
         {allowed && draws && (
           <>
             {/* The original cards: the reference, not the reading */}
-            <div data-ez-header="" className="flex flex-col items-center gap-5 mb-6 max-w-full" style={{ visibility: revealed ? 'visible' : 'hidden' }}>
+            <div data-ez-header="" className="flex flex-col items-center gap-5 mb-6 max-w-full" style={{ opacity: revealed ? 1 : 0, transition: 'opacity 600ms ease' }}>
               {draws.map((d, i) => (
                 <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} stacked={animOn} />
               ))}
@@ -784,14 +804,15 @@ export default function EZPage() {
                 nothing clips it and nothing shifts; the cards fly to the page's own header
                 underneath, and the overlay lifts when they land. */}
             {animating && (
-              <div data-ez-map="" onClick={skipLanding} className="fixed inset-0 z-[90] bg-zinc-950 cursor-pointer select-none"
+              <div data-ez-map="" onClick={skipLanding} className="fixed left-0 right-0 bottom-0 z-[90] bg-zinc-950 cursor-pointer select-none"
+                style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}
             title="tap to skip">
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   cameraRef={cameraRef} className="w-full h-full" />
                 <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">tap to skip</div>
               </div>
             )}
-            {revealed && (<>
+            <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
             <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{question}”</p>
 
             {/* One surface: the discourse in order */}
@@ -938,7 +959,7 @@ export default function EZPage() {
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
             </div>
-            </>)}
+            </div>
           </>
         )}
       </main>
