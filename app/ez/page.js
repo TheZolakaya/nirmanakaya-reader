@@ -698,6 +698,33 @@ Respond with ONLY JSON: {"q": "..."}` }],
     setLoading(false);
   };
 
+  // ---- other options: fresh pills for the latest turn ----
+  // The founder, 2026-09-15: the build / push back / clarify pills (and the reflects and
+  // forges) should be regenerable. One call rewrites all three sets for the last reader turn,
+  // told what it already offered so it takes a different angle; the turn's text is untouched.
+  const [regenning, setRegenning] = useState(false);
+  const regenPills = async () => {
+    if (loading || regenning || !lastReader || !draws) return;
+    setRegenning(true); setError('');
+    try {
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
+      const seen = [...prior.chips.map((c) => c.text), ...prior.reflect, ...prior.forge].filter(Boolean);
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, and a stair if one is obvious), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
+      // callReader insists on a non-empty "reader"; this call has none, so it goes raw, with one retry
+      let data = await rawCall(msg, systemPrompt, 900);
+      let obj = parseJson(data.reading);
+      if (!obj || !Array.isArray(obj.chips)) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, systemPrompt, 900); obj = parseJson(data.reading); }
+      if (!obj || !Array.isArray(obj.chips)) throw new Error('Could not read the new options — try again.');
+      const fresh = readerTurn({ ...obj, reader: obj.reader || ' ' });
+      setTurns((list) => list.map((t) => (t.id === lastReader.id
+        ? { ...t, chips: fresh.chips.length ? fresh.chips : t.chips, reflect: fresh.reflect.length ? fresh.reflect : t.reflect, forge: fresh.forge.length ? fresh.forge : t.forge,
+            pillsSeen: { chips: [...prior.chips, ...fresh.chips], reflect: [...prior.reflect, ...fresh.reflect], forge: [...prior.forge, ...fresh.forge] } }
+        : t)));
+    } catch (e) { setError(e.message); }
+    setRegenning(false);
+  };
+
   // ---- say that again, simpler ----
   const simplify = async (turnId) => {
     if (loading) return;
@@ -1073,12 +1100,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {activePills.length > 0 && !loading && (
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
-                  <button key={i} onClick={() => send(c.text, fieldMode)}
-                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
+                  <button key={i} onClick={() => send(c.text, fieldMode)} disabled={regenning}
+                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
                     {c.text}
                   </button>
                 ))}
+                <button onClick={regenPills} disabled={regenning}
+                  className="self-center text-xs text-zinc-500 hover:text-zinc-300 underline decoration-dotted disabled:opacity-50">
+                  {regenning ? 'finding other options…' : '↻ other options'}
+                </button>
               </div>
             )}
 
