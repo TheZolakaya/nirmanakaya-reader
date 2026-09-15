@@ -412,8 +412,7 @@ export default function EZPage() {
         ? `
 
 Already suggested this session — pick a DIFFERENT thread, not a rewording of these:
-${suggestedSeen.current.map(q => `- ${q}`).join('
-')}`
+${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
         : '';
       const res = await fetch('/api/reading', {
         method: 'POST',
