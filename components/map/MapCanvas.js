@@ -30,6 +30,7 @@ export default function MapCanvas({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const [flightMs, setFlightMs] = useState(0); // >0 while the camera is being flown
+  const [flightEase, setFlightEase] = useState('cubic-bezier(.33,.9,.2,1)');
 
   // The camera handle. centreOn takes a DOM element inside the map and works purely from screen
   // geometry — no map-coordinate maths, so it is correct for rotated house containers too.
@@ -37,14 +38,16 @@ export default function MapCanvas({
     if (!cameraRef) return;
     cameraRef.current = {
       getView: () => ({ pan, zoom }),
-      flyTo: (nextPan, nextZoom, ms = 1200) => {
+      flyTo: (nextPan, nextZoom, ms = 1200, ease) => {
         setFlightMs(ms);
+        if (ease) setFlightEase(ease);
         if (typeof nextZoom === 'number') setZoom(nextZoom);
         if (nextPan) setPan(nextPan);
         window.setTimeout(() => setFlightMs(0), ms + 60);
       },
-      centreOn: (el, nextZoom, ms = 1200) => {
+      centreOn: (el, nextZoom, ms = 1200, ease) => {
         if (!el || !containerRef.current) return;
+        if (ease) setFlightEase(ease);
         const view = containerRef.current.getBoundingClientRect();
         const card = el.getBoundingClientRect();
         const dx = (view.left + view.width / 2) - (card.left + card.width / 2);
@@ -168,7 +171,7 @@ export default function MapCanvas({
           transition: isDragging
             ? 'none'
             : flightMs > 0
-              ? `transform ${flightMs}ms cubic-bezier(.33,.9,.2,1)`
+              ? `transform ${flightMs}ms ${flightEase}`
               : 'transform 0.1s ease-out'
         }}
       >

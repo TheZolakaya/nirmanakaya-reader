@@ -102,8 +102,27 @@ export default function AnimationBench() {
     };
     tick();
 
-    // 1. the field turns, at full pace. No slowing yet — the slowing belongs to the approach.
-    await wait(5000);
+    // 1. THE DRIFT. The camera never sits still: it wanders among the houses from the very first
+    //    beat, so the flight toward the chosen card is a gathering of gravity rather than a lurch
+    //    into motion. Each move is issued BEFORE the last one finishes — a CSS transition
+    //    redirected mid-flight interpolates from wherever it currently is, so the camera curves
+    //    from one heading to the next and never arrives anywhere.
+    const houses = Array.from(document.querySelectorAll('.archetype-group'));
+    const DRIFT_EASE = 'cubic-bezier(.45,.05,.55,.95)';   // even, unhurried; no arrival snap
+    const driftFor = 5200;
+    const tDrift = Date.now();
+    let lastHouse = null;
+    while (Date.now() - tDrift < driftFor) {
+      let h = houses[Math.floor(Math.random() * houses.length)];
+      if (h === lastHouse && houses.length > 1) h = houses[Math.floor(Math.random() * houses.length)];
+      lastHouse = h;
+      cameraRef.current?.centreOn(h, 0.5 + Math.random() * 0.12, 3000, DRIFT_EASE);
+      await wait(1500 + Math.round(Math.random() * 400));
+    }
+
+    // 2. gravity takes hold — still wide, but now it is the chosen card being circled
+    cameraRef.current?.centreOn(target, 0.58, 2600, DRIFT_EASE);
+    await wait(1900);
 
     // The chosen card leaves the flicker so it sits steady while the camera comes for it, and
     // its FULL-RESOLUTION art starts loading now. Bounds and agents are drawn from 200px
@@ -154,7 +173,7 @@ export default function AnimationBench() {
     const seatTilt = screenAngle(inner) - statusRot;
 
     // the camera departs — one flight, all the way in
-    cameraRef.current?.centreOn(target, Z_END, FLIGHT);
+    cameraRef.current?.centreOn(target, Z_END, FLIGHT, 'cubic-bezier(.4,0,.2,1)');
 
     // the card begins to rise and turn once the camera is well on its way, and settles with it
     const RISE_AT = Math.round(FLIGHT * 0.42);
