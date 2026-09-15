@@ -86,9 +86,9 @@ export default function AnimationBench() {
       el.style.transition = `transform ${ms}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
       el.style.transformOrigin = 'center center';
       el.style.zIndex = '40';
-      el.style.transform = `scale(${scale})`;
+      el.style.transform = `scale(${scale}) rotate(${aQuarter()}deg)`;
       el.style.filter = 'brightness(1.5)';
-      window.setTimeout(() => { el.style.transform = 'scale(1)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
+      window.setTimeout(() => { el.style.transform = 'scale(1) rotate(0deg)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
     };
 
     // --- the flicker engine: runs until told to stop, at whatever gap is current ---
@@ -99,10 +99,19 @@ export default function AnimationBench() {
     // Instead the outgoing card is released at the moment the next is lifted — it eases down
     // while the new one eases up, which reads as a handoff rather than two pops. The gap is
     // jittered so it breathes rather than ticking.
+    // THE POP CARRIES A QUARTER TURN.
+    //
+    // Status in this architecture IS rotation — 0, 90, -90 and 180 are Balanced, Too Much, Too
+    // Little and Unacknowledged. So a card that lifts and turns to one of the four stops before
+    // settling back is showing a stranger the grammar of the field before a single word names
+    // it. No status is asserted here: the card returns to where it was, so nothing is claimed.
+    const QUARTERS = [90, 180, 270, 360];
+    const aQuarter = () => QUARTERS[Math.floor(Math.random() * QUARTERS.length)];
+
     const state = { gap: pace, alive: true, pool: cards, scale: lift, last: null };
     const release = (el) => {
       if (!el) return;
-      el.style.transform = 'scale(1)';
+      el.style.transform = 'scale(1) rotate(0deg)';
       el.style.filter = 'brightness(1)';
       window.setTimeout(() => { if (el.style.zIndex === '40') el.style.zIndex = ''; }, 500);
     };
@@ -115,7 +124,7 @@ export default function AnimationBench() {
       el.style.transition = 'transform 520ms cubic-bezier(.22,1,.36,1), filter 520ms ease';
       el.style.transformOrigin = 'center center';
       el.style.zIndex = '40';
-      el.style.transform = `scale(${state.scale})`;
+      el.style.transform = `scale(${state.scale}) rotate(${aQuarter()}deg)`;
       el.style.filter = 'brightness(1.45)';
       window.setTimeout(tick, Math.round(state.gap * (0.75 + Math.random() * 0.5)));
     };
@@ -319,7 +328,7 @@ export default function AnimationBench() {
     }
     state.alive = false;
     release(state.last);
-    others.forEach(el => { el.style.transform = 'scale(1)'; el.style.zIndex = ''; });
+    others.forEach(el => { el.style.transform = 'scale(1) rotate(0deg)'; el.style.zIndex = ''; });
 
     await wait(ARRIVE_AT - STOP_AT + 400);
 
@@ -367,10 +376,10 @@ export default function AnimationBench() {
       for (let i = 0; i < n; i++) {
         const el = cards[Math.floor(Math.random() * cards.length)];
         el.style.zIndex = '40';
-        el.style.transform = `scale(${lift})`;
+        el.style.transform = `scale(${lift}) rotate(${[90, 180, 270, 360][Math.floor(Math.random() * 4)]}deg)`;
         el.style.filter = 'brightness(1.5)';
         window.setTimeout(() => {
-          el.style.transform = 'scale(1)';
+          el.style.transform = 'scale(1) rotate(0deg)';
           el.style.filter = 'brightness(1)';
           window.setTimeout(() => { el.style.zIndex = ''; }, 420);
         }, 140);
