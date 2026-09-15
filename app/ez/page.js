@@ -293,9 +293,8 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 export default function EZPage() {
   const [user, setUser] = useState(null);
   const [allowed, setAllowed] = useState(null); // null = checking
-  // THE LANDING in EZ — behind a switch until the founder flips it: ?anim=1 once (kept in this
-  // browser), ?anim=0 to clear, or the ez_animation feature flag for everyone. Reduced-motion
-  // users never see it. The live page is unchanged with the switch off.
+  // THE LANDING in EZ — on for everyone since v0.99.300. ?anim=0 turns it off for a browser,
+  // ?anim=1 turns it back on. Reduced-motion users never see it.
   const [animOn, setAnimOn] = useState(false);
   const [animating, setAnimating] = useState(false);
   const [revealed, setRevealed] = useState(true);
@@ -332,10 +331,11 @@ export default function EZPage() {
     try {
       const p = new URLSearchParams(window.location.search).get('anim');
       if (p === '1') localStorage.setItem('nkya_ez_anim', '1');
-      if (p === '0') localStorage.removeItem('nkya_ez_anim');
+      if (p === '0') localStorage.setItem('nkya_ez_anim', '0');
       const reduced = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-      if (!reduced && localStorage.getItem('nkya_ez_anim') === '1') setAnimOn(true);
-      if (!reduced) fetch('/api/feature-flags').then(r => r.json()).then(j => { if (j?.flags?.ez_animation) setAnimOn(true); }).catch(() => {});
+      // ON for everyone on /ez (founder, 2026-09-14: "let's just push it to prod"); ?anim=0 turns it
+      // off for a browser, ?anim=1 turns it back on; reduced-motion users never see it.
+      if (!reduced && localStorage.getItem('nkya_ez_anim') !== '0') setAnimOn(true);
     } catch {}
   }, []);
 
