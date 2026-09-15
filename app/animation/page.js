@@ -460,8 +460,6 @@ export default function AnimationBench() {
     // and that is why the first attempt left the frame hanging off the bottom of the screen.
     // Measuring where the field actually IS and correcting toward the middle cannot get this
     // wrong, whatever the zoom or the window size happen to be.
-    const fitZ = Math.max(0.18, Math.min(1.2,
-      Math.min(window.innerWidth * 0.80 / fieldW, window.innerHeight * 0.68 / fieldH)));
     // STRAIGHT TO THE SEAT. The card is no longer held at the centre of the screen while the
     // frame is drawn — the founder read that hold as a stop at the Gestalt's zero point on the
     // way to the seat, and he is right that it is one stop too many. The card now sets off for
@@ -495,24 +493,37 @@ export default function AnimationBench() {
       `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${houseRot + statusRot - homeAngle0}deg)`;
     target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
 
-    // and the camera opens out underneath it, on the same drive/commit as the flight
-    const PULL_MS = 2400;
+    // THE CAMERA FOLLOWS THE CARD. The founder: "as soon as it starts that animation, the camera
+    // pans to that zero zero centre point right at the Gestalt, and then moves to the other
+    // location." It did — the pull-back centred the FIELD, which is the map's middle, so the card
+    // slid away from the middle of the screen while it travelled. Now the camera keeps the card
+    // centred the whole way and arrives on the seat with it.
+    //
+    // Which changes the zoom question. Fitting the frame to the screen assumes the camera sits on
+    // the frame's centre; centred on a seat near a corner, the same zoom pushes part of the
+    // frame off screen. So the zoom is solved per landing from THIS seat's distance to the
+    // frame's farthest edge, and the frame is whole on screen whichever seat the camera holds.
+    const ex = Math.max(dest.x - fx, fx + fw - dest.x);
+    const ey = Math.max(dest.y - fy, fy + fh - dest.y);
+    const fitZ = Math.max(0.18, Math.min(1.2,
+      Math.min(window.innerWidth * 0.46 / ex, window.innerHeight * 0.38 / ey)));
     await new Promise(done => {
       const fromZ = cam.z, t = Date.now();
-      const pull = () => {
-        const k = Math.min(1, (Date.now() - t) / PULL_MS);
+      const follow = () => {
+        const k = Math.min(1, (Date.now() - t) / TRAVEL);
         const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
         cam.z = fromZ + (fitZ - fromZ) * e;
-        const cr = canvas.getBoundingClientRect();
-        cam.x += (window.innerWidth / 2 - (cr.left + fieldC.x * cam.z)) * 0.10;
-        cam.y += (window.innerHeight / 2 - (cr.top + fieldC.y * cam.z)) * 0.10;
+        // closed loop on the card's own box: wherever it is, pull it to the middle
+        const hr = target.getBoundingClientRect();
+        cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * 0.18;
+        cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * 0.18;
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
-        if (k < 1) requestAnimationFrame(pull);
+        if (k < 1) requestAnimationFrame(follow);
         else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
       };
-      requestAnimationFrame(pull);
+      requestAnimationFrame(follow);
     });
-    await wait(TRAVEL - PULL_MS + 250);
+    await wait(250);
     setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
     if (mapEl) mapEl.style.pointerEvents = '';
 
