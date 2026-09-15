@@ -34,6 +34,12 @@ export function clearLanding(root = document) {
       delete el.dataset.turn;
       const im = el.querySelector('img');
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
+      if (el.dataset.sharp) {
+        el.style.height = '';
+        if (im) ['position', 'left', 'top', 'width', 'height', 'objectFit', 'transform', 'transformOrigin', 'willChange'].forEach(k => { im.style[k] = ''; });
+        const lb = el.querySelector('.card-label'); if (lb) lb.style.display = '';
+        delete el.dataset.sharp;
+      }
     });
     root.querySelectorAll('[data-flight-clone], [data-plate], [data-flash], [data-ghost]').forEach((el) => el.remove());
     (root.querySelector ? root.querySelector('[data-map-surface]') : null)?.classList.remove('nkya-animating');
@@ -172,11 +178,28 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // for the change to be visible.
     const fullArt = getCardImagePath(displayId);
     const heroImg = target.querySelector('img');
+    // AN LOD, as the founder put it. Swapping in the big file was not enough: a phone rasterises
+    // a card at its LAYOUT size (seventy-odd pixels) and lets the graphics chip stretch that
+    // raster six times for the hero shot — "noticeably pixelated". So the hero's image is
+    // laid out LARGE, at about the size it will fill on screen, and scaled DOWN inside its card
+    // by the same factor. Nothing moves — the card's box is unchanged — but the raster is now
+    // taken at hero size and the transform only ever shrinks it.
+    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
+    const sharpen = (card, K) => {
+      const img = card.querySelector('img'); if (!img || card.dataset.sharp) return;
+      const W = card.offsetWidth, H = card.offsetHeight;
+      if (!W || !H || K <= 1) return;
+      card.style.height = `${H}px`;
+      Object.assign(img.style, { position: 'absolute', left: '0', top: '0', width: `${W * K}px`, height: `${H * K}px`,
+        objectFit: 'cover', transform: `scale(${1 / K})`, transformOrigin: '0 0', willChange: 'transform' });
+      const lb = card.querySelector('.card-label'); if (lb) lb.style.display = 'none';
+      card.dataset.sharp = '1';
+    };
     if (heroImg && fullArt && !heroImg.src.endsWith(fullArt)) {
       const pre = new window.Image();
-      pre.onload = () => { heroImg.src = fullArt; };
+      pre.onload = () => { heroImg.src = fullArt; sharpen(target, targetPx * 1.25 / target.offsetWidth); };
       pre.src = fullArt;
-    }
+    } else if (heroImg) sharpen(target, targetPx * 1.25 / target.offsetWidth);
 
     // TAP TO SKIP. Every pause checks the signal; a skip rejects out of the sequence and the
     // caller clears the map and shows the finished header. The camera loops check it too.
@@ -358,6 +381,11 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // loop does the wandering, the gathering of gravity, and the final approach, so there is not
     // a single seam in the whole camera move.
     const cam = { x: 0, y: 0, vx: 0, vy: 0, z: 0.45, vz: 0 };
+    // THE MIDDLE OF THE PICTURE. In EZ the map is a band below the brand block, so the middle
+    // of the WINDOW is not the middle of the map — and one loop centring on the window while
+    // the other centred on the surface was the "sudden jerk at the end, then it centres it"
+    // the founder saw every time. There is one centre now, and everything measures against it.
+    const mid = () => { const v = surface.getBoundingClientRect(); return { x: v.left + v.width / 2, y: v.top + v.height / 2 }; };
     const panToCentre = (el) => {
       const v = surface.getBoundingClientRect();
       const c = el.getBoundingClientRect();
@@ -428,8 +456,15 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
     const camStart = Date.now();
     let raf = 0;
+    let arrivedResolve; const arrived = new Promise(r => { arrivedResolve = r; });
     const step = () => {
       const now = Date.now() - camStart;
+      // ARRIVAL IS A CONDITION, NOT A TIME. The loop used to stop dead when the clock said so,
+      // with the camera still moving and still short of the card, and a separate move then
+      // closed the gap — that stop was the jerk. Now, once the clock has run, the approach
+      // stiffens smoothly and the loop runs on until the card is centred and the camera still.
+      const over = Math.min(1, Math.max(0, (now - ARRIVE_AT) / 700));
+      const g = 1 + 3 * over * over * (3 - 2 * over);
 
       // --- the lean: one direction of spin, one change of mind, tightness only ---
       if (!reversed && now > REVERSE_AT) { spin = -spin; reversed = true; }
@@ -456,7 +491,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
       // --- the approach: a velocity toward the card, capped so it never whips ---
       const to = panToCentre(target);
-      let sx = (to.x - cam.x) * 0.030, sy = (to.y - cam.y) * 0.030;
+      let sx = (to.x - cam.x) * 0.030 * g, sy = (to.y - cam.y) * 0.030 * g;
       const svm = Math.hypot(sx, sy), APPROACH = 7.5;
       if (svm > APPROACH) { sx *= APPROACH / svm; sy *= APPROACH / svm; }
 
@@ -472,23 +507,26 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
         if (now > nextZoom) { aimZ = (0.46 + Math.random() * 0.09) * zScale; nextZoom = now + 1300; }
       } else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
       else aimZ = Z_END;
-      wantZ += (aimZ - wantZ) * 0.020;
+      wantZ += (aimZ - wantZ) * 0.020 * g;
 
       const wantX = leanX * (1 - seek) + sx * seek;
       const wantY = leanY * (1 - seek) + sy * seek;
 
       // Velocity is EASED toward what is wanted, never set to it. Bounded acceleration is the
       // whole trick: with it, the picture cannot corner even when the wanted heading jumps.
-      cam.vx += (wantX - cam.vx) * 0.05;
-      cam.vy += (wantY - cam.vy) * 0.05;
-      cam.vz += ((wantZ - cam.z) * 0.05 - cam.vz) * 0.05;
+      const ve = Math.min(0.6, 0.05 * g);
+      cam.vx += (wantX - cam.vx) * ve;
+      cam.vy += (wantY - cam.vy) * ve;
+      cam.vz += ((wantZ - cam.z) * 0.05 * g - cam.vz) * ve;
 
       cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
 
-      if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); return; }
-      if (now < ARRIVE_AT) raf = requestAnimationFrame(step);
-      else cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z);
+      if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); return; }
+      const err = Math.hypot(to.x - cam.x, to.y - cam.y), spd = Math.hypot(cam.vx, cam.vy);
+      const settled = now >= ARRIVE_AT && err < 0.4 && spd < 0.15 && Math.abs(cam.z - Z_END) < 0.003;
+      if (!settled && now < ARRIVE_AT + 2500) raf = requestAnimationFrame(step);
+      else { window.__arriveMs = now; cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); }
     };
     raf = requestAnimationFrame(step);
 
@@ -499,7 +537,6 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // transforms; getBoundingClientRect would return the axis-aligned box, inflated by root two
     // for a 45-degree card, which throws the size out differently for every class.
     const layoutW = target.offsetWidth;
-    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
     const heroScale = targetPx / (layoutW * Z_END);
 
     // The seat tilt, measured before anything moves. A card is tilted by its house (the
@@ -558,18 +595,24 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     release(state.last);
     others.forEach(el => { el.style.transform = `scale(1) rotate(${el.dataset.turn || 0}deg)`; el.style.zIndex = ''; });
 
-    await wait(ARRIVE_AT - STOP_AT + 400);
+    await arrived;
+    await wait(150);
 
-    // ARRIVAL, MEASURED. On a slow phone the spring can still be short of the card when the
-    // clock says it has arrived, and the hero then rises wherever the camera happens to be (a
-    // phone photo showed it half off the right edge). One measured correction, before anything
-    // else happens: where is the card, and how far is that from the middle of the screen.
+    // ARRIVAL, MEASURED. The loop above ends on the card being centred; this is the check, and
+    // the (rare) recovery if the loop hit its time cap on a very slow device — a driven ease,
+    // in the same loop style as everything else, never a separate camera move.
     {
-      const hr = target.getBoundingClientRect();
-      const ex = window.innerWidth / 2 - (hr.left + hr.width / 2), ey = window.innerHeight / 2 - (hr.top + hr.height / 2);
+      const hr = target.getBoundingClientRect(), m = mid();
+      const ex = m.x - (hr.left + hr.width / 2), ey = m.y - (hr.top + hr.height / 2);
+      window.__arriveResidualPx = [Math.round(ex), Math.round(ey)];
       if (Math.hypot(ex, ey) > 2) {
-        cam.x += ex; cam.y += ey;
-        if (cameraRef.current?.flyTo) { cameraRef.current.flyTo({ x: cam.x, y: cam.y }, cam.z, 320); await wait(340); }
+        const x0 = cam.x, y0 = cam.y, t0 = Date.now(), MS = 500;
+        await new Promise(done => { const tick = () => {
+          const k = Math.min(1, (Date.now() - t0) / MS), e = 1 - Math.pow(1 - k, 3);
+          cam.x = x0 + ex * e; cam.y = y0 + ey * e;
+          cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+          if (k < 1 && !signal.skip) requestAnimationFrame(tick); else done();
+        }; requestAnimationFrame(tick); });
         cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z);
       }
     }
@@ -642,6 +685,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       seatImg.dataset.prevSrc = seatImg.getAttribute('src');
       seatImg.src = seatOwnArt;
     }
+    if (!selfHomed) sharpen(seatEl, 3);
     // The field stays at its quarter; every popped card goes square; and the durable alone comes
     // up to full — "that's the one card that's lit up" — wearing its own name.
     others.forEach(el => {
@@ -704,7 +748,14 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     );
     const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
     const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
-    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
+    // UNDER THE DURABLE. The diagram used to be centred on the field, which put its glyph for
+    // this seat a card's width from the seat itself, and the pair sat visibly off the mark
+    // until a drift carried them across during the open-out — "the card is off of the
+    // minimap's location by a significant amount." Now the diagram is placed so that its glyph
+    // for the seat lies exactly under the durable: the landing IS the mark, and nothing drifts.
+    const mp0 = minimapPoint(targetId);
+    const fx = mp0 ? pSeat.x - mp0.x * fit : fieldC.x - fw / 2;
+    const fy = mp0 ? pSeat.y - mp0.y * fit : fieldC.y - fh / 2;
     const holder = document.createElement('div');
     holder.setAttribute('data-map-frame', '');
     Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
@@ -735,14 +786,14 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     };
 
     const centreOnCard = (gain) => {
-      const hr = target.getBoundingClientRect();
-      cam.x += (window.innerWidth / 2 - (hr.left + hr.width / 2)) * gain;
-      cam.y += (window.innerHeight / 2 - (hr.top + hr.height / 2)) * gain;
+      const hr = target.getBoundingClientRect(), m = mid();
+      cam.x += (m.x - (hr.left + hr.width / 2)) * gain;
+      cam.y += (m.y - (hr.top + hr.height / 2)) * gain;
     };
     const centreOnMap = (cx, cy) => (gain) => {
-      const cr = canvas.getBoundingClientRect();
-      cam.x += (window.innerWidth / 2 - (cr.left + cx * cam.z)) * gain;
-      cam.y += (window.innerHeight / 2 - (cr.top + cy * cam.z)) * gain;
+      const cr = canvas.getBoundingClientRect(), m = mid();
+      cam.x += (m.x - (cr.left + cx * cam.z)) * gain;
+      cam.y += (m.y - (cr.top + cy * cam.z)) * gain;
     };
     // glide: zoom toward toZ over ms; onFrame(e) places whatever the camera is following; the
     // follow gain is TIME-based (a 140ms lag whatever the frame rate), never per-frame.
@@ -819,37 +870,13 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // the field, already at a tenth, goes the rest of the way as the camera opens
     dimmed.forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = el.hasAttribute('data-map-wordmark') ? '0.1' : '0'; });
 
-    // ONTO THE MAXI MAP. The pair landed on the REAL seat, which is where a landing belongs — but
-    // the minimap rising underneath has its own geometry, so its glyph for that seat glows a
-    // card's width away. Now that the field has gone, the pair drifts across to the glyph during
-    // the open-out, each card carried in its own parent space, so the finished picture is the
-    // maxi map with the pair sitting on the very mark the arrow points at.
-    const mp0 = minimapPoint(targetId);
-    let driftFrame = null;
-    if (mp0) {
-      const gl = { x: fx + mp0.x * fit, y: fy + mp0.y * fit };
-      const OPEN = 2600;
-      // world delta from the seat's centre to the glyph; the hero keeps its peek off the seat
-      const seatNow = mapPoint(seatFace);
-      const wx = gl.x - seatNow.x, wy = gl.y - seatNow.y;
-      const toLocal = (el) => { const q = chain(el.parentElement, canvas); const a = -q.deg * Math.PI / 180, k = q.scale || 1; return { x: (wx * Math.cos(a) - wy * Math.sin(a)) / k, y: (wx * Math.sin(a) + wy * Math.cos(a)) / k }; };
-      const h = toLocal(target);
-      const dx0 = dx, dy0 = dy;
-      dx += h.x; dy += h.y;
-      target.style.transition = 'none';
-      driftFrame = (e) => {
-        target.style.transform = `translate(${dx0 + h.x * e}px, ${dy0 + h.y * e}px) scale(${landScale}) rotate(${endRot}deg)`;
-      };
-      if (selfHomed && ghost) {
-        ghost.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1), opacity 900ms ease`;
-        ghost.style.transform = `translate(${wx}px, ${wy}px) rotate(${seatAngle0}deg)`;
-      } else {
-        const sl = toLocal(seatEl);
-        seatEl.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1), opacity 900ms ease`;
-        seatEl.style.transform = `translate(${sl.x}px, ${sl.y}px) scale(1) rotate(0deg)`;
-      }
+    await glide(fitZ, 2600, centreOnCard);
+    // the check: the durable's centre against the diagram's glyph for its seat, on screen
+    {
+      const c = canvas.getBoundingClientRect(), z = new DOMMatrix(getComputedStyle(canvas).transform).a;
+      const sr = seatFace.getBoundingClientRect();
+      window.__glyphResidualPx = mp0 ? [Math.round(sr.left + sr.width / 2 - (c.left + (fx + mp0.x * fit) * z)), Math.round(sr.top + sr.height / 2 - (c.top + (fy + mp0.y * fit) * z))] : null;
     }
-    await glide(fitZ, 2600, centreOnCard, driftFrame);
     await wait(400);
 
     // --- 4. the stack, the minimap and the wordmark shrink into the header ---

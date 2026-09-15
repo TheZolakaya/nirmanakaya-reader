@@ -385,7 +385,7 @@ export default function EZPage() {
     } catch { /* skipped */ }
     // the clones stay parked in the header while the page comes back; begin() clears them
   };
-  const skipLanding = () => { if (readyRef.current && skipRef.current) skipRef.current.skip = true; };
+  // (tap-to-skip removed at the founder's word; the signal stays so a future control can use it)
   const [turns, setTurns] = useState([]); // {id, role:'reader'|'you'|'catchup', text, question, chips, reflect, forge, draw, mode, ts}
   const [input, setInput] = useState('');
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
@@ -909,13 +909,13 @@ export default function EZPage() {
             {/* THE MAP, laid over the whole screen while it plays. It is out of the page flow, so
                 nothing clips it and nothing shifts; the cards fly to the page's own header
                 underneath, and the overlay lifts when they land. */}
+            {/* No tap-to-skip and no helper line: the founder cut both ("it looks like a
+                helper or something"). The landing plays through; the reply waits for it. */}
             {animating && (
-              <div data-ez-map="" onClick={skipLanding} className="fixed left-0 right-0 bottom-0 z-[90] bg-zinc-950 cursor-pointer select-none"
-                style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}
-            title="tap to skip">
+              <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] bg-zinc-950 select-none"
+                style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}>
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   lowRes cameraRef={cameraRef} className="w-full h-full" />
-                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">{!mapReady ? 'loading the cards…' : replyReady ? 'tap to skip' : 'the reader is writing…'}</div>
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
