@@ -525,6 +525,37 @@ export default function AnimationBench() {
     const dx = wx * Math.cos(th) - wy * Math.sin(th);
     const dy = wx * Math.sin(th) + wy * Math.cos(th);
     const TRAVEL = 2900;
+
+    // THE REVEAL RIDES THE JOURNEY. The founder: "while we're moving the transient to the durable
+    // location, can we fade slowly everything but the durable location ... to like ten percent,
+    // and can we have that revealing the underlying minimap underneath?" So the minimap is built
+    // now, under the map, and rises through the field as the field dims to a tenth — only the
+    // durable and the card in flight stay at full. By the time the card sets down the diagram is
+    // already showing through, and the open-out afterwards only has to finish the fade.
+    const fromArch = getHomeArchetype(displayId);
+    const fromType = getCardType(displayId);
+    const trans = signatureFor(displayId);
+    const frameSvg = renderToStaticMarkup(
+      <Minimap fromId={fromArch} toId={targetId} fromCardType={fromType}
+               boundIsInner={fromType === 'bound' && (trans?.number ?? 99) <= 5} size="xl" />
+    );
+    const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
+    const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
+    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
+    const holder = document.createElement('div');
+    holder.setAttribute('data-map-frame', '');
+    Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
+      width: `${fw}px`, height: `${fh}px`, pointerEvents: 'none', zIndex: '5',
+      opacity: '0', transition: `opacity ${TRAVEL}ms ease` });
+    holder.innerHTML = frameSvg;
+    const frameEl = holder.querySelector('svg');
+    if (frameEl) { frameEl.setAttribute('width', fw); frameEl.setAttribute('height', fh); }
+    canvas.appendChild(holder);
+    const dimmed = [...others.filter(el => el !== seatEl), ...document.querySelectorAll('[data-house-label]'), ...document.querySelectorAll('[data-map-wordmark]')];
+    dimmed.forEach(el => { el.style.transition = `opacity ${TRAVEL}ms ease`; el.style.opacity = '0.1'; });
+    void holder.offsetHeight;   // a forced style pass, so the opacity change below TRANSITIONS rather than snapping
+    holder.style.opacity = '1';
+
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
       `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
@@ -562,32 +593,11 @@ export default function AnimationBench() {
     await wait(1200);
 
     // --- 3. the field dissolves into the minimap as the camera opens out ---
-    const fromArch = getHomeArchetype(displayId);
-    const fromType = getCardType(displayId);
-    const trans = signatureFor(displayId);
-    const frameSvg = renderToStaticMarkup(
-      <Minimap fromId={fromArch} toId={targetId} fromCardType={fromType}
-               boundIsInner={fromType === 'bound' && (trans?.number ?? 99) <= 5} size="xl" />
-    );
-    const fit = Math.min(fieldW / MINIMAP_W, fieldH / MINIMAP_H) * 0.96;
-    const fw = MINIMAP_W * fit, fh = MINIMAP_H * fit;
-    const fx = fieldC.x - fw / 2, fy = fieldC.y - fh / 2;
-    const holder = document.createElement('div');
-    holder.setAttribute('data-map-frame', '');
-    Object.assign(holder.style, { position: 'absolute', left: `${fx}px`, top: `${fy}px`,
-      width: `${fw}px`, height: `${fh}px`, pointerEvents: 'none', zIndex: '5',
-      opacity: '0', transition: 'opacity 1600ms ease' });
-    holder.innerHTML = frameSvg;
-    const frameEl = holder.querySelector('svg');
-    if (frameEl) { frameEl.setAttribute('width', fw); frameEl.setAttribute('height', fh); }
-    canvas.appendChild(holder);
 
     const fitZ = Math.max(0.18, Math.min(1.2,
       Math.min(window.innerWidth * 0.80 / fw, window.innerHeight * 0.66 / fh)));
-    // the field (everything but the stack) fades as the camera opens; the minimap rises under it
-    others.filter(el => el !== seatEl).forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = '0'; });
-    document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = '0'; });
-    window.setTimeout(() => { holder.style.opacity = '1'; }, 500);
+    // the field, already at a tenth, goes the rest of the way as the camera opens
+    dimmed.forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = el.hasAttribute('data-map-wordmark') ? '0.1' : '0'; });
     await glide(fitZ, 2600, centreOnMap(fieldC.x, fieldC.y));
     await wait(400);
 
@@ -655,9 +665,9 @@ export default function AnimationBench() {
         // exactly, and the flight is a scale to the slot rather than a jump to full size.
         Object.assign(wClone.style, { position: 'fixed', left: `${wb.left}px`, top: `${wb.top}px`,
           width: `${word.offsetWidth}px`, height: `${word.offsetHeight}px`, whiteSpace: 'nowrap',
-          transform: `scale(${cam.z})`, transformOrigin: 'top left',
+          transform: `scale(${cam.z})`, transformOrigin: 'top left', opacity: '0.1',
           zIndex: '301', pointerEvents: 'none',
-          transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+          transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1), opacity ${FLY}ms ease` });
         document.body.appendChild(wClone);
         word.style.transition = 'none'; word.style.opacity = '0';
       }
@@ -671,7 +681,7 @@ export default function AnimationBench() {
       if (wClone && wordSlot) {
         const k = Math.min(wordSlot.width / word.offsetWidth, wordSlot.height / word.offsetHeight);
         requestAnimationFrame(() => requestAnimationFrame(() => {
-          Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})` });
+          Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})`, opacity: '1' });
         }));
       }
       await wait(FLY + 200);
@@ -838,7 +848,7 @@ export default function AnimationBench() {
               // LOUD. The founder: "it's very thin and hard to read ... that moment after the
               // spinning stops [should] say too much ... really obvious." So it is set in the
               // status's own colour, heavy, and large enough to be the first thing read.
-              <span className="text-2xl sm:text-4xl font-bold uppercase tracking-[0.28em]"
+              <span className="text-lg sm:text-[27px] font-bold uppercase tracking-[0.28em]"
                 style={{ fontFamily: 'ui-sans-serif, system-ui, sans-serif', color: landedLabel.color || '#e4e4e7',
                          textShadow: `0 0 18px ${landedLabel.color || '#fff'}88, 0 2px 10px rgba(0,0,0,0.9)` }}>
                 {landedLabel.prefix}
