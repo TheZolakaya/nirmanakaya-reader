@@ -879,7 +879,7 @@ export default function AnimationBench() {
       const dBox = trueBox(seatFace, seatFace.querySelector('img'));
       const statusWord = st ? (st.prefix || 'Balanced') : '';
       const dClone = clone(seatOwnArt, dBox, '10px',
-        `<div style="font-size:19px;font-family:${SERIF};font-weight:400;color:#b4b4bc;letter-spacing:0.06em">${selfHomed ? 'its own seat' : (seatName || '')}</div>`,
+        `<div style="font-size:19px;font-family:${SERIF};font-weight:400;color:#b4b4bc;letter-spacing:0.06em">${selfHomed ? 'in its own seat' : ('in ' + (seatName || ''))}</div>`,
         null, selfHomed);
       const tClone = clone(fullArt, tBox, '10px',
         `<div style="font-size:19px;font-family:${SERIF};font-weight:400;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`,
@@ -935,29 +935,7 @@ export default function AnimationBench() {
       }
       window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), FLY - 250);
 
-      // "IN YOUR": a small arched arrow from the transient over to the durable, two words under
-      // it, arriving last and thin — the one thing a stranger has no other way to learn from the
-      // picture. Drawn against the slot geometry the clones are flying to.
-      window.setTimeout(() => {
-        const tl = stackSlot.left, tt = stackSlot.top;
-        const dl = tl + S * PEEK_HEADER.x, dt = tt + S * PEEK_HEADER.y;
-        const x1 = tl + S, y1 = tt + S * 0.30;            // off the transient's right edge
-        const x2 = dl + S * 0.78, y2 = dt - 4;             // onto the durable's top edge
-        const cx = (x1 + x2) / 2, cy = Math.min(y1, y2) - S * 0.30;
-        const mx = 0.25 * x1 + 0.5 * cx + 0.25 * x2, my = 0.25 * y1 + 0.5 * cy + 0.25 * y2;
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('data-flight-clone', '');
-        Object.assign(svg.style, { position: 'fixed', left: '0', top: '0', width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: '303', opacity: '0', transition: 'opacity 700ms ease' });
-        svg.innerHTML =
-          `<defs><marker id="nkya-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">` +
-          `<path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(212,212,216,0.85)"/></marker></defs>` +
-          `<path d="M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}" fill="none" stroke="rgba(212,212,216,0.7)" stroke-width="1.5" stroke-linecap="round" marker-end="url(#nkya-arrow)"/>` +
-          `<text x="${mx}" y="${my - 8}" text-anchor="middle" font-family="${SERIF}" font-size="15" font-style="italic" fill="rgba(212,212,216,0.85)">in your</text>`;
-        document.body.appendChild(svg);
-        void svg.offsetHeight;
-        svg.style.opacity = '1';
-      }, FLY + 700);
-      await wait(FLY + 1600);
+      await wait(FLY + 1200);
     }
     setLandedLabel(null);
     if (mapEl) mapEl.classList.remove('nkya-animating');
