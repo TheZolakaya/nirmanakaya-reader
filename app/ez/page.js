@@ -915,7 +915,7 @@ export default function EZPage() {
               <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] bg-zinc-950 select-none"
                 style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}>
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
-                  lowRes cameraRef={cameraRef} className="w-full h-full" />
+                  lowRes showControls={false} cameraRef={cameraRef} className="w-full h-full" />
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>

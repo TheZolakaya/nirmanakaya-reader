@@ -21,7 +21,8 @@ export default function MapCanvas({
   // Optional camera door. Pass a ref and MapCanvas fills it with an imperative handle so an
   // animation can fly the view without MapCanvas losing ownership of pan/zoom — a drag after a
   // flight still works, because the flight went through the same state.
-  cameraRef = null
+  cameraRef = null,
+  showControls = true   // the + / − / home buttons; off while an animation owns the camera
 }) {
   const containerRef = useRef(null);
   const innerRef = useRef(null);
@@ -196,6 +197,7 @@ export default function MapCanvas({
       </div>
 
       {/* Zoom controls */}
+      {showControls && (
       <div className="absolute bottom-4 right-4 flex flex-col gap-2 z-50">
         <button
           onClick={zoomIn}
@@ -220,6 +222,7 @@ export default function MapCanvas({
           ⌂
         </button>
       </div>
+      )}
     </div>
   );
 }
