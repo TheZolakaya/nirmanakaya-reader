@@ -38,6 +38,7 @@ export default function AnimationBench() {
       el.style.transition = ''; el.style.opacity = '';
     });
     document.querySelectorAll('.archetype-group').forEach((el) => { el.style.zIndex = ''; });
+    document.querySelectorAll('[data-map-frame]').forEach((el) => el.remove());
     setLandedLabel(null);
   };
 
@@ -63,16 +64,72 @@ export default function AnimationBench() {
     // status — landing on an empty seat loses the status line and the seat line with it.
     const dealt = cards.filter(el => drawMap[Number(el.dataset.position)]);
     const pool = dealt.length ? dealt : cards;
-    const target = pool[Math.floor(Math.random() * pool.length)];
-    const targetId = Number(target.dataset.position);
+    const seatEl = pool[Math.floor(Math.random() * pool.length)];
+    const targetId = Number(seatEl.dataset.position);
+
+    // DURABLE AND TRANSIENT, which is the whole point of the sequence.
+    //
+    // The seat is durable: it never moves. The transient is the card that gets picked up and put
+    // into it. Every drawn signature therefore has TWO addresses — the seat it landed in, and
+    // its own home among the 78 — and until now this animation only ever showed the seat, which
+    // meant the card ended where it had already been. So the subject is the card AT ITS HOME,
+    // and the last act carries it to the seat.
+    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
+    const homeEl = document.querySelector(`[data-position="${displayId}"]`) || seatEl;
+    const target = homeEl;
     const others = cards.filter(el => el !== target);
+
+    // EVERYTHING GEOMETRIC IS MEASURED NOW, while the field is still at rest. Once the flicker
+    // starts writing transforms nothing can be trusted to be where it says it is.
+    const chain = (el, stop) => {
+      let deg = 0, scale = 1, node = el;
+      while (node && node !== stop && node !== document.body) {
+        const tr = getComputedStyle(node).transform;
+        if (tr && tr !== 'none') {
+          const m = new DOMMatrix(tr);
+          deg += Math.atan2(m.b, m.a) * 180 / Math.PI;
+          scale *= Math.hypot(m.a, m.b);
+        }
+        node = node.parentElement;
+      }
+      return { deg, scale };
+    };
+    const screenAngle = (el) => chain(el, null).deg;
+
+    // Map coordinates, read LIVE. This helper is used both at rest and again at the very end to
+    // trace the frame, and by then the camera has moved — so the canvas box and the zoom have to
+    // be re-read on every call. Caching them put the whole frame off the side of the screen.
+    const canvas = document.querySelector('[data-map-surface]').firstElementChild;
+    const mapPoint = (el) => {
+      const z = new DOMMatrix(getComputedStyle(canvas).transform).a;
+      const c = canvas.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return { x: (r.left + r.width / 2 - c.left) / z, y: (r.top + r.height / 2 - c.top) / z };
+    };
+    const z0 = new DOMMatrix(getComputedStyle(canvas).transform).a;
+    const cBox = canvas.getBoundingClientRect();
+
+    // The field's own extent in MAP units, measured once at rest — used to frame it at the end.
+    let fl = Infinity, ft = Infinity, fr = -Infinity, fb = -Infinity;
+    cards.forEach(el => {
+      const r = el.getBoundingClientRect();
+      fl = Math.min(fl, (r.left - cBox.left) / z0);   ft = Math.min(ft, (r.top - cBox.top) / z0);
+      fr = Math.max(fr, (r.right - cBox.left) / z0);  fb = Math.max(fb, (r.bottom - cBox.top) / z0);
+    });
+    const fieldC = { x: (fl + fr) / 2, y: (ft + fb) / 2 };
+    const fieldW = fr - fl, fieldH = fb - ft;
+
+    const homeAngle0 = screenAngle(homeEl.firstElementChild);
+    const seatAngle0 = screenAngle(seatEl.firstElementChild);   // already carries the status turn
+    const pHome = mapPoint(homeEl), pSeat = mapPoint(seatEl);
+    const wHome = homeEl.offsetWidth, wSeat = seatEl.offsetWidth;
+    const par = chain(homeEl.parentElement, canvas);            // the house the home sits in
 
     // THE HERO'S REAL ART, restored — this was lost in the camera rewrite and is the softness.
     // Bounds and agents are drawn on the map from 200px thumbnails, which is right at map size
     // and a ten-times upscale at hero size. The full 2134px image is preloaded now, at the very
     // start, and swapped in the moment it has decoded — long before the card is large enough
     // for the change to be visible.
-    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
     const fullArt = getCardImagePath(displayId);
     const heroImg = target.querySelector('img');
     if (heroImg && fullArt && !heroImg.src.endsWith(fullArt)) {
@@ -280,18 +337,9 @@ export default function AnimationBench() {
     // The seat tilt, measured before anything moves. A card is tilted by its house (the
     // 45-degree diamonds) and, for bounds and agents, by its own seat — but a drawn STATUS also
     // rotates it and that rotation carries meaning, so it is measured out and kept.
-    const inner = target.firstElementChild;
-    const screenAngle = (el) => {
-      let deg = 0, node = el;
-      while (node && node !== document.body) {
-        const tr = getComputedStyle(node).transform;
-        if (tr && tr !== 'none') { const m = new DOMMatrix(tr); deg += Math.atan2(m.b, m.a) * 180 / Math.PI; }
-        node = node.parentElement;
-      }
-      return deg;
-    };
-    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
-    const seatTilt = screenAngle(inner) - statusRot;
+    // At its HOME the card carries no status — it has not been placed yet — so the hero shot
+    // turns it fully upright. The status turn arrives later, when it sets down in the seat.
+    const seatTilt = homeAngle0;
 
     // the card begins to rise and turn once the camera is well on its way, and settles with it
     const RISE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.30);
@@ -334,11 +382,108 @@ export default function AnimationBench() {
 
     const sig = signatureFor(displayId);
     const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
-    setLandedLabel({
-      name: sig?.name || `Signature ${displayId}`,
-      prefix: st ? (st.prefix || 'Balanced') : null,
-      seat: ARCHETYPES[targetId]?.name || null
+    const cardName = sig?.name || `Signature ${displayId}`;
+    const seatName = ARCHETYPES[targetId]?.name || null;
+    setLandedLabel({ name: cardName, prefix: null, seat: null });
+
+    // ================= THE LAST ACT: THE CARD TAKES ITS SEAT =================
+    //
+    // The hero holds, the field is black, and then the FRAME comes back on its own — the map
+    // reduced to its skeleton, with nothing in it but the shape. The card then crosses that
+    // empty frame and sets down in its durable seat, taking the status turn as it lands.
+    //
+    // The frame is TRACED FROM THE LIVE MAP rather than drawn from stored coordinates. The
+    // minimap is a separate SVG with its own geometry and its own compression constants; it is
+    // derived from the same canon but it is a second implementation, and a frame that has to
+    // agree with the map is a frame that will one day disagree with it. Measured, it cannot.
+    await wait(1500);
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', canvas.offsetWidth);
+    svg.setAttribute('height', canvas.offsetHeight);
+    Object.assign(svg.style, { position: 'absolute', left: '0', top: '0', overflow: 'visible',
+      pointerEvents: 'none', zIndex: '5', opacity: '0', transition: 'opacity 1100ms ease' });
+
+    const line = (a, b, w, o) => {
+      const el = document.createElementNS(NS, 'line');
+      el.setAttribute('x1', a.x); el.setAttribute('y1', a.y);
+      el.setAttribute('x2', b.x); el.setAttribute('y2', b.y);
+      el.setAttribute('stroke', '#d4af6a'); el.setAttribute('stroke-width', w);
+      el.setAttribute('stroke-linecap', 'round'); el.setAttribute('opacity', o);
+      svg.appendChild(el);
+    };
+    const dot = (p, r, o) => {
+      const el = document.createElementNS(NS, 'circle');
+      el.setAttribute('cx', p.x); el.setAttribute('cy', p.y); el.setAttribute('r', r);
+      el.setAttribute('fill', 'none'); el.setAttribute('stroke', '#d4af6a');
+      el.setAttribute('stroke-width', 1.5); el.setAttribute('opacity', o);
+      svg.appendChild(el);
+    };
+
+    // Each house becomes the quadrilateral through its four archetypes, corners taken in order
+    // around their own centre so the shape closes however the DOM happens to list them.
+    document.querySelectorAll('.archetype-group').forEach(group => {
+      const pts = [...group.querySelectorAll('[data-position]')]
+        .filter(el => Number(el.dataset.position) <= 21).map(mapPoint);
+      if (pts.length < 3) return;
+      const c = pts.reduce((a, p) => ({ x: a.x + p.x / pts.length, y: a.y + p.y / pts.length }), { x: 0, y: 0 });
+      pts.sort((a, b) => Math.atan2(a.y - c.y, a.x - c.x) - Math.atan2(b.y - c.y, b.x - c.x));
+      pts.forEach((p, i) => line(p, pts[(i + 1) % pts.length], 2, 0.55));
     });
+    // every other card is a mark, so the frame holds the whole field and not just the five houses
+    cards.forEach(el => {
+      if (Number(el.dataset.position) <= 21) return;
+      dot(mapPoint(el), 3, 0.28);
+    });
+    // the two portals, named by their seats
+    [10, 21].forEach(n => {
+      const el = document.querySelector(`[data-position="${n}"]`);
+      if (el) dot(mapPoint(el), 13, 0.75);
+    });
+    svg.setAttribute('data-map-frame', '');
+    canvas.appendChild(svg);
+    requestAnimationFrame(() => { svg.style.opacity = '1'; });
+
+    // the camera opens back out to hold the whole frame, on the same drive/commit as the flight
+    // The pull-back CENTRES ITSELF each frame instead of flying to a stored pan. A pan that
+    // centres the map at one zoom does not centre it at another — the two are bound together —
+    // and that is why the first attempt left the frame hanging off the bottom of the screen.
+    // Measuring where the field actually IS and correcting toward the middle cannot get this
+    // wrong, whatever the zoom or the window size happen to be.
+    const fitZ = Math.max(0.18, Math.min(1.2,
+      Math.min(window.innerWidth * 0.80 / fieldW, window.innerHeight * 0.68 / fieldH)));
+    await new Promise(done => {
+      const fromZ = cam.z, MS = 2400, t = Date.now();
+      const pull = () => {
+        const k = Math.min(1, (Date.now() - t) / MS);
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        cam.z = fromZ + (fitZ - fromZ) * e;
+        const cr = canvas.getBoundingClientRect();
+        cam.x += (window.innerWidth / 2 - (cr.left + fieldC.x * cam.z)) * 0.10;
+        cam.y += (window.innerHeight / 2 - (cr.top + fieldC.y * cam.z)) * 0.10;
+        cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+        if (k < 1) requestAnimationFrame(pull);
+        else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
+      };
+      requestAnimationFrame(pull);
+    });
+
+    // and the card crosses to its seat. The translate is in the card's OWN parent space, so a
+    // world delta has to be turned back through whatever rotation its house carries — the
+    // houses are diamonds, and a 45-degree parent would send it off at 45 degrees otherwise.
+    const th = -par.deg * Math.PI / 180;
+    const wx = (pSeat.x - pHome.x) / par.scale, wy = (pSeat.y - pHome.y) / par.scale;
+    const dx = wx * Math.cos(th) - wy * Math.sin(th);
+    const dy = wx * Math.sin(th) + wy * Math.cos(th);
+    const TRAVEL = 2600;
+    target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
+    target.style.transform =
+      `translate(${dx}px, ${dy}px) scale(${wSeat / wHome}) rotate(${seatAngle0 - homeAngle0}deg)`;
+    target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
+
+    await wait(TRAVEL + 250);
+    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
     if (mapEl) mapEl.style.pointerEvents = '';
 
     setLanding(false);
