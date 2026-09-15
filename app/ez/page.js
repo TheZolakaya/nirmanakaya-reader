@@ -115,6 +115,15 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - On a turn where a NEW CARD IS DRAWN (a reflect or a forge), the medicine is ALWAYS that new card’s own medicine, rewritten from the Rebalancer supplied with it. Never carry the earlier reading’s medicine into it. If the new card is Balanced, the medicine carries its growth opportunity, using the target named in its own data and never an invented one.
 - THE DRAW BOUNDARY: the most recently drawn card's medicine LEADS every turn after it until another card is drawn. The opening reading stays on the table, but its medicine may be mentioned only as secondary, never as "the way through" or "the path". The field is allowed to change the subject; when it does, follow it.
 
+THE FELT SIDE OF EACH STATUS. The person does not feel "excessive authority"; they feel something in their day. Let the status colour how you read the card for their topic, in their own kitchen words, never as a diagnosis and never as a label on them:
+- Too Much lives near FEAR AND ANXIETY: gripping, bracing, over-managing, the sense that if I let go it falls.
+- Too Little lives near SHAME AND REGRET: pulling back, the thing not done, the "I should have", the door not walked through.
+- Unacknowledged lives near a FLATNESS: "it doesn't matter", "that wasn't really me", the light version of nothing counting — the person's own hand not recognised as theirs.
+- Balanced lives near EASE: the thing done as one's own, nothing to brace against.
+Use the flavour, not the clinical words, and match it to their topic (fear in a relationship is not fear about money). It is a colour for the reading, never a verdict on the person.
+
+NOWISM. The reading is about NOW. What the card names is happening in the person's life today — not their history, not a forecast, not who they are in general. Present tense, this week, this situation. The medicine is a move they could make today. If you catch yourself narrating their past or predicting their future, come back to now.
+
 THE FOUR CLASSES OF MEDICINE — each has its own mechanism, and the prose must run that mechanism, not just name the card:
 - Balanced → GROWTH: an invitation, optional by definition. Nothing is broken. Growth INVITES; it never prescribes.
 - Too Much → DIAGONAL: authority in excess crosses the map to the opposite element. The medicine is the other pole's own action.
@@ -200,12 +209,15 @@ function medicineFor(draws) {
 // already the taxonomy of human concern. Phrased as a person half-says it to themselves, not as
 // the architecture names it. The house rides along to the Reader as framing, never as a verdict.
 // The open field stays: the fluent keep their blank page, the pills carry everyone else.
+// Renamed by the founder 2026-09-15 (morning): the houses in a person's own words, plus a
+// sixth door where the cards choose — a daily reading with no question brought.
 const DOORS = [
-  { id: 'spirit',  house: 'Spirit',  label: 'My purpose',    sub: 'what my life is really about',   breath: 'Your purpose — what your life is really about.' },
-  { id: 'mind',    house: 'Mind',    label: 'A decision',     sub: "one I'm trying to make",          breath: "A decision you're trying to make." },
-  { id: 'emotion', house: 'Emotion', label: 'Someone in my life', sub: 'or the space between us',      breath: 'Someone in your life — or the space between you.' },
-  { id: 'body',    house: 'Body',    label: 'My day-to-day',  sub: 'health, home, money, what I am carrying', breath: 'Your day-to-day — health, home, money, what you are carrying.' },
-  { id: 'gestalt', house: 'Gestalt', label: 'My patterns',    sub: "who I'm becoming",                breath: "Your patterns — and who you're becoming." },
+  { id: 'spirit',  house: 'Spirit',  label: 'Passions & beliefs', sub: 'what moves me, what I hold true', breath: 'Your passions and your beliefs — what moves you, and what you hold to be true.' },
+  { id: 'mind',    house: 'Mind',    label: 'Peace of mind',      sub: 'what my head keeps turning over', breath: 'Your peace of mind — what your head keeps turning over.' },
+  { id: 'emotion', house: 'Emotion', label: 'Relationships',      sub: 'the people in my life',           breath: 'Your relationships — the people in your life, and the space between you.' },
+  { id: 'body',    house: 'Body',    label: 'Health & prosperity', sub: 'my body, my home, my money',     breath: 'Your health and your prosperity — your body, your home, your money, what you carry.' },
+  { id: 'gestalt', house: 'Gestalt', label: 'Fulfillment',        sub: 'whether my life is adding up',   breath: 'Your fulfillment — whether your life is adding up to what you meant it to be.' },
+  { id: 'daily',   house: null,      label: 'My daily reading',   sub: 'no question — see what today holds', breath: 'A daily reading. No question brought: whatever the cards put on the table for today.' },
 ];
 
 const CHIP_STYLE = {
@@ -684,7 +696,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const history = await loadHistory(newDraws);
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
-      const doorBlock = door
+      const doorBlock = door && door.id === 'daily'
+        ? `\n\nA DAILY READING. They brought no question; they asked the cards to choose. Read the card for the day ahead of them — what it names, where it sits, what it asks of them today — in the same shape as any opening turn. Do not invent a question for them.`
+        : door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house). This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
       const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
@@ -897,7 +911,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {(() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
-              const HOUSE_TINT = { spirit: '#C44444', mind: '#4A8B4A', emotion: '#3D6A99', body: '#8B6B3D', gestalt: '#6B4D8A' };
+              const HOUSE_TINT = { spirit: '#C44444', mind: '#4A8B4A', emotion: '#3D6A99', body: '#8B6B3D', gestalt: '#6B4D8A', daily: '#a16207' };
               const Door = ({ d, className = '' }) => {
                 const c = HOUSE_TINT[d.id];
                 return (
@@ -919,6 +933,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <Door d={byId.emotion} />
                   <Door d={byId.body} />
                   <Door d={byId.spirit} />
+                  <div className="col-span-2 flex justify-center pt-1">
+                    <Door d={byId.daily} className="w-[calc(50%-4px)]" />
+                  </div>
                 </div>
               );
             })()}
