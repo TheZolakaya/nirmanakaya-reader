@@ -901,6 +901,22 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <p className="text-lg text-zinc-200 font-light">What&rsquo;s on your mind?</p>
             {voiceSwitch()}
 
+            {/* THE OPEN FIELD FIRST (founder, 2026-09-15 morning): say it in your own words; the
+                five doors beneath are the fallback — "or choose a more general area". */}
+            <div>
+              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
+                placeholder="Ask it the way you would say it out loud."
+                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              <div className="flex items-center mt-2">
+                <button onClick={begin} disabled={loading || !question.trim()}
+                  className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
+                  {loading ? 'Drawing…' : 'Ask'}
+                </button>
+              </div>
+            </div>
+
+            <p className="text-xs text-zinc-600">or choose a more general area</p>
+
             {/* THE FIVE DOORS, laid out like the map (founder, 2026-09-15): the Gestalt door
                 across the top, and the four manifest houses beneath it in the map's own order —
                 Mind upper left, Emotion upper right, Body lower left, Spirit lower right. */}
@@ -968,19 +984,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
               )}
             </div>
 
-            <div className="pt-1">
-              <p className="text-xs text-zinc-600 mb-2">or say it your own way</p>
-              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
-                placeholder="Ask it the way you would say it out loud."
-                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button onClick={begin} disabled={loading || !question.trim()}
-                className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                {loading ? 'Drawing…' : 'Ask'}
-              </button>
-            </div>
 
             {/* FROM YOUR READINGS, on demand: a centred button at the bottom asks for one
                 question drawn from this account's whole history; the suggestion appears above a
