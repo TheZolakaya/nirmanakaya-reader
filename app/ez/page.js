@@ -39,6 +39,43 @@ import Footer from '../../components/layout/Footer';
 
 const EZ_VERSION = 'ez-2';
 
+// THE VOICES. The founder's wife read her first reading on 2026-09-14 and could not use it: "it
+// was filled with a lot of our nomenclature ... just for people that were esoteric and really into
+// tarot." The reading was correct and unusable. So EZ carries a VOICE, chosen once and changeable
+// any time, that sets the register of every turn. The draw, the statuses and the medicine are
+// untouched; only the words change. The architecture stays visible where it belongs — on the
+// cards and the minimap — not in the vocabulary of the prose.
+//
+// "plain" is the default: anyone can read it. "map" is the reading in the map's own words, for
+// people who know them. The voice block rides AFTER the EZ rules so it wins on wording.
+const VOICES = {
+  plain: {
+    label: 'Plain words',
+    rules: `THE VOICE — PLAIN WORDS. This overrides every instruction above about wording. The person reading this has never heard of this system and does not want to learn its language. They want to be understood.
+
+WRITE FOR A SMART TWELVE-YEAR-OLD.
+- Short sentences. Most under fifteen words. One idea per sentence.
+- Common words. If a simpler word exists, use it. No word a twelve-year-old would have to look up.
+- Concrete over abstract. Say what happens in a day, a room, a conversation — not what something "represents" or "embodies".
+- Talk to the person: "you", "your". Never lecture. Never explain the system. Never say "this card means".
+
+THE SYSTEM'S WORDS ARE FORBIDDEN — in your prose, the question, the chips, the reflects, the forges and the medicine:
+- No card names and no signature names. Not "Nurturing", not "Repose", not "Steward of Resonance", none of them, ever.
+- No status words: never "Balanced", "Too Much", "Too Little", "Unacknowledged".
+- No architecture words: no "transient", "durable", "seat", "house", "archetype", "bound", "agent", "channel", "medicine", "rebalancer", "correction", "field", "portal", "Gestalt", "signature", "authorship", "agency".
+- No tarot words: no "arcana", "suit", "cups", "wands", "swords", "pentacles", "reversed", "spread", "card" as a noun for a person's situation.
+- Do not label the person's condition. Describe it in a plain sentence: "you are carrying more of this than it needs", "you have stepped back from this", "you have this and are not letting yourself see it", "this part is steady right now".
+- When you must point at a card, say "the card you drew", "the card underneath", "the card that shows the way through".
+- The draw block may carry an order to "include the word" for a position or a card, or to "name the correction card by its canonical name". In this voice those orders are cancelled. Say what that position or that card is ABOUT, in plain words, and never its name.
+
+WHAT STAYS EXACTLY THE SAME: the meaning, the verdict, the direction of the path through, the shape of the turn (what the cards say, then the move, then your one question), the chips, the reflects, the forges, and the JSON format. You are translating, not softening. Nothing added, nothing dropped, nothing made vaguer. The card's name is already on the screen; your job is what it means for this person, in words they would use themselves.`
+  },
+  map: {
+    label: "The map's words",
+    rules: ''
+  }
+};
+
 // The EZ rules ride AFTER the base system (covenant + laws) so the Reader keeps every law it has.
 const EZ_RULES = `EZ MODE — THE DISCOURSE LAYER. You are opening a conversation, not delivering a document.
 
@@ -250,6 +287,23 @@ export default function EZPage() {
   const [asked, setAsked] = useState('');   // what the reading was actually asked — the door's own line when nothing was typed
   const [cardCount, setCardCount] = useState(1);
   const [draws, setDraws] = useState(null);
+  const [voice, setVoice] = useState('plain');
+  useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
+  const chooseVoice = (v) => { setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {} };
+  // The draw block carries "MANDATORY: your interpretation MUST include the word <position>" — right
+  // for the map's words, wrong for plain ones. Stripped at the source when the voice is plain.
+  const fmtDraw = (...a) => { const t = formatDrawForAI(...a); return voice === 'plain' ? t.split('\n').filter(l => !l.includes('MANDATORY:')).join('\n') : t; };
+  const voiceSwitch = (compact = false) => (
+    <div className={`flex items-center gap-2 ${compact ? 'text-xs' : 'text-sm'} text-zinc-500`}>
+      <span>{compact ? 'voice' : 'Voice'}</span>
+      {Object.entries(VOICES).map(([k, v]) => (
+        <button key={k} onClick={() => chooseVoice(k)} title={k === 'plain' ? 'everyday words, no names for anything' : 'the reading in the map\'s own names'}
+          className={`rounded-full px-3 py-1 border transition-colors ${voice === k ? 'border-amber-500/70 text-amber-300 bg-amber-950/20' : 'border-zinc-700/70 text-zinc-500 hover:text-zinc-300'}`}>
+          {v.label}
+        </button>
+      ))}
+    </div>
+  );
 
   useEffect(() => {
     try {
@@ -370,7 +424,7 @@ export default function EZPage() {
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
   }, [turns, savedId, usage]);
 
-  const systemPrompt = `${BASE_SYSTEM}\n\n${buildPersonaPrompt('friend', 5, 'clear')}\n\n${EZ_RULES}`;
+  const systemPrompt = `${BASE_SYSTEM}\n\n${buildPersonaPrompt('friend', 5, 'clear')}\n\n${EZ_RULES}${VOICES[voice]?.rules ? `\n\n${VOICES[voice].rules}` : ''}`;
 
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
@@ -522,7 +576,7 @@ export default function EZPage() {
     }
     try {
       const sk = spreadKeyFor(cardCount);
-      const drawText = formatDrawForAI(newDraws, 'discover', sk, false, null, null, null);
+      const drawText = fmtDraw(newDraws, 'discover', sk, false, null, null, null);
       const history = await loadHistory(newDraws);
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
@@ -537,7 +591,7 @@ export default function EZPage() {
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
-          synthesis: { _ez: { version: EZ_VERSION, turns: [first] } },
+          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice } },
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) setSavedId(data.id);
@@ -572,7 +626,7 @@ export default function EZPage() {
     setFieldMode(null);
     scrollToEnd();
     try {
-      const drawText = formatDrawForAI(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const newCardBlock = newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE: ${drawLabel(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table.`
@@ -693,6 +747,7 @@ export default function EZPage() {
         {allowed && !draws && !door && (
           <div className="space-y-5">
             <p className="text-lg text-zinc-200 font-light">What&rsquo;s on your mind?</p>
+            {voiceSwitch()}
 
             {/* THE FIVE DOORS — one per house. Tapping one opens the context step, not a draw. */}
             <div className="flex flex-col gap-2">
@@ -963,6 +1018,7 @@ export default function EZPage() {
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
+              {voiceSwitch(true)}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
