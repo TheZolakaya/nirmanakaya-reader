@@ -38,6 +38,7 @@ import BrandHeader from '../../components/layout/BrandHeader';
 import Footer from '../../components/layout/Footer';
 
 const EZ_VERSION = 'ez-2';
+const STATUS_COLOR = { 1: '#34d399', 2: '#fbbf24', 3: '#38bdf8', 4: '#a78bfa' };
 
 // THE VOICES. The founder's wife read her first reading on 2026-09-14 and could not use it: "it
 // was filled with a lot of our nomenclature ... just for people that were esoteric and really into
@@ -199,7 +200,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           // THE PAIR, as the landing leaves it: the transient in front, the durable peeking out
           // to its right and behind — "transient in your durable, left to right". The box is the
           // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
-          <div data-slot="stack" className="relative shrink-0 w-[217px] h-[160px] sm:w-[287px] sm:h-[211px]">
+          <div data-slot="stack" className="relative shrink-0 w-[217px] h-[196px] sm:w-[287px] sm:h-[252px] mt-6">
             <img src={getCardImagePath(draw.position)} alt={seat || ''}
               className="absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer"
               onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
@@ -209,6 +210,26 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
                 className="!w-[140px] sm:!w-[185px]"
                 onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
             </div>
+            {/* The names, in the landing's own dress: the status above the transient, its name
+                below it, the seat's name under the durable — the same plates the flight parks
+                here, so the handoff is invisible. Each is the tap it always was. */}
+            <button onClick={() => onInfo({ type: 'status', id: draw.status, data: STATUS_INFO[draw.status] })}
+              className="absolute left-0 w-[140px] sm:w-[185px] -top-[22px] text-center text-[11px] font-semibold uppercase tracking-[0.2em] whitespace-nowrap"
+              style={{ color: STATUS_COLOR[draw.status] || '#e4e4e7', textShadow: '0 2px 8px rgba(0,0,0,0.95)' }}>
+              {STATUSES[draw.status]?.prefix || 'Balanced'}
+            </button>
+            <button onClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })}
+              className="absolute left-0 w-[140px] sm:w-[185px] top-[148px] sm:top-[193px] text-center text-[19px] whitespace-nowrap"
+              style={{ fontFamily: "'Cormorant Garamond', serif", color: '#fde9b0', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.95)' }}>
+              {trans?.name}
+            </button>
+            {seat && (
+              <button onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })}
+                className="absolute left-[77px] sm:left-[102px] w-[140px] sm:w-[185px] top-[168px] sm:top-[219px] text-center text-[19px] whitespace-nowrap"
+                style={{ fontFamily: "'Cormorant Garamond', serif", color: '#b4b4bc', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.95)' }}>
+                in {seat}
+              </button>
+            )}
           </div>
         ) : (
           <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
@@ -230,6 +251,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
         </button>
       </div>
 
+      {!stacked && (
       <div className="mt-2 text-center text-xs break-words">
         <button onClick={() => onInfo({ type: 'status', id: draw.status, data: STATUS_INFO[draw.status] })}
           title="what this status means"
@@ -250,6 +272,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           </>
         )}
       </div>
+      )}
 
       <MinimapModal
         isOpen={mapOpen}

@@ -782,6 +782,33 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       Math.min(window.innerWidth * 0.46 / ex, window.innerHeight * 0.36 / ey)));
     // the field, already at a tenth, goes the rest of the way as the camera opens
     dimmed.forEach(el => { el.style.transition = 'opacity 1500ms ease'; el.style.opacity = el.hasAttribute('data-map-wordmark') ? '0.1' : '0'; });
+
+    // ONTO THE MAXI MAP. The pair landed on the REAL seat, which is where a landing belongs — but
+    // the minimap rising underneath has its own geometry, so its glyph for that seat glows a
+    // card's width away. Now that the field has gone, the pair drifts across to the glyph during
+    // the open-out, each card carried in its own parent space, so the finished picture is the
+    // maxi map with the pair sitting on the very mark the arrow points at.
+    const mp0 = minimapPoint(targetId);
+    if (mp0) {
+      const gl = { x: fx + mp0.x * fit, y: fy + mp0.y * fit };
+      const OPEN = 2600;
+      // world delta from the seat's centre to the glyph; the hero keeps its peek off the seat
+      const seatNow = mapPoint(seatFace);
+      const wx = gl.x - seatNow.x, wy = gl.y - seatNow.y;
+      const toLocal = (el) => { const q = chain(el.parentElement, canvas); const a = -q.deg * Math.PI / 180, k = q.scale || 1; return { x: (wx * Math.cos(a) - wy * Math.sin(a)) / k, y: (wx * Math.sin(a) + wy * Math.cos(a)) / k }; };
+      const h = toLocal(target);
+      dx += h.x; dy += h.y;
+      target.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1)`;
+      target.style.transform = `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
+      if (selfHomed && ghost) {
+        ghost.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1), opacity 900ms ease`;
+        ghost.style.transform = `translate(${wx}px, ${wy}px) rotate(${seatAngle0}deg)`;
+      } else {
+        const sl = toLocal(seatEl);
+        seatEl.style.transition = `transform ${OPEN}ms cubic-bezier(.4,0,.2,1), opacity 900ms ease`;
+        seatEl.style.transform = `translate(${sl.x}px, ${sl.y}px) scale(1) rotate(0deg)`;
+      }
+    }
     await glide(fitZ, 2600, centreOnCard);
     await wait(400);
 
