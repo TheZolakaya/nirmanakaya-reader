@@ -1119,6 +1119,7 @@ export default function AnimationBench() {
           colorLayer={colorLayer}
           initialZoom={zoom}
           showLabels={labels}
+          showHouseLabels={labels}
           cameraRef={cameraRef}
           className="w-full h-full"
         />

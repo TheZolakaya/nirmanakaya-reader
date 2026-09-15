@@ -84,6 +84,7 @@ export default function TheMap({
   onCardClick = null,
   initialZoom = 0.45,
   showLabels = true,
+  showHouseLabels = true,
   className = 'w-full h-full',
   cameraRef = null,            // passed straight through to MapCanvas
   // Animation hook: given a position id, return extra inline styles for that card's wrapper.
@@ -377,7 +378,7 @@ export default function TheMap({
       })}
 
       {/* House labels */}
-      {Object.entries(HOUSE_LABELS).map(([houseName, label]) => {
+      {showHouseLabels && Object.entries(HOUSE_LABELS).map(([houseName, label]) => {
         const center = getHouseCenter(houseName);
         if (!center) return null;
         const houseHealth = analysis?.governance?.houseHealth?.[label.name.charAt(0) + label.name.slice(1).toLowerCase()];
