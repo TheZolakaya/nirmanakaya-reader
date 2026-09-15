@@ -61,12 +61,24 @@ export default function AnimationBench() {
 
     const cards = Array.from(document.querySelectorAll('[data-position]'));
     if (!cards.length) { setLanding(false); if (mapEl) mapEl.style.pointerEvents = ''; return; }
-    // Land on a card that was actually DEALT when there is a deal on the table. The real
-    // sequence always travels to a drawn card, and a drawn card is the only one that carries a
-    // status — landing on an empty seat loses the status line and the seat line with it.
-    const dealt = cards.filter(el => drawMap[Number(el.dataset.position)]);
-    const pool = dealt.length ? dealt : cards;
-    const seatEl = pool[Math.floor(Math.random() * pool.length)];
+    // THE PAIR. In the founder's words: "one is a random durable, and one is a random
+    // transient. The transient goes to the durable's location." So Land ALWAYS has a real pair.
+    // With a deal on the table the seat is taken from it. With nothing dealt, Land draws its own
+    // — the same call the reading uses — and puts it on the map before anything is measured.
+    //
+    // Before this, an undealt Land picked from all 78 cards, and a bound or an agent is not a
+    // seat: its minimap point came back empty and the card quietly landed on the map's centre,
+    // on the Gestalt axis just below the house's divider, with no status and no seat named.
+    let draws = drawMap;
+    if (!Object.keys(draws).length) {
+      const d = generateSpread(1)[0];
+      draws = { [d.position]: { transient: d.transient, status: d.status } };
+      setDrawMap(draws);
+      // let React paint the drawn card into its seat before the field is measured
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    }
+    const dealt = cards.filter(el => draws[Number(el.dataset.position)]);
+    const seatEl = dealt[Math.floor(Math.random() * dealt.length)];
     const targetId = Number(seatEl.dataset.position);
 
     // DURABLE AND TRANSIENT, which is the whole point of the sequence.
@@ -76,7 +88,7 @@ export default function AnimationBench() {
     // its own home among the 78 — and until now this animation only ever showed the seat, which
     // meant the card ended where it had already been. So the subject is the card AT ITS HOME,
     // and the last act carries it to the seat.
-    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
+    const displayId = draws[targetId] ? draws[targetId].transient : targetId;
     const homeEl = document.querySelector(`[data-position="${displayId}"]`) || seatEl;
     const target = homeEl;
     const others = cards.filter(el => el !== target);
@@ -383,7 +395,7 @@ export default function AnimationBench() {
     await wait(ARRIVE_AT - STOP_AT + 400);
 
     const sig = signatureFor(displayId);
-    const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
+    const st = draws[targetId] ? STATUSES[draws[targetId].status] : null;
     const cardName = sig?.name || `Signature ${displayId}`;
     const seatName = ARCHETYPES[targetId]?.name || null;
     setLandedLabel({ name: cardName, prefix: null, seat: null });
@@ -485,12 +497,14 @@ export default function AnimationBench() {
     // and the card crosses to its seat. The translate is in the card's OWN parent space, so a
     // world delta has to be turned back through whatever rotation its house carries — the
     // houses are diamonds, and a 45-degree parent would send it off at 45 degrees otherwise.
-    const mp = minimapPoint(targetId) || { x: MINIMAP_W / 2, y: MINIMAP_H / 2 };
+    const mp0 = minimapPoint(targetId);
+    if (!mp0) console.warn(`animation: seat ${targetId} has no minimap point; landing at centre`);
+    const mp = mp0 || { x: MINIMAP_W / 2, y: MINIMAP_H / 2 };
     const dest = { x: fx + mp.x * fit, y: fy + mp.y * fit };
 
     // On the minimap nothing is tilted by its house, so the card lands UPRIGHT and keeps only
     // the turn that means something: its status.
-    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
+    const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
     const landScale = (fieldW * 0.085) / wHome;
 
     const th = -par.deg * Math.PI / 180;
