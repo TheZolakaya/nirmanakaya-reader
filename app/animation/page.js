@@ -58,7 +58,12 @@ export default function AnimationBench() {
 
     const cards = Array.from(document.querySelectorAll('[data-position]'));
     if (!cards.length) { setLanding(false); if (mapEl) mapEl.style.pointerEvents = ''; return; }
-    const target = cards[Math.floor(Math.random() * cards.length)];
+    // Land on a card that was actually DEALT when there is a deal on the table. The real
+    // sequence always travels to a drawn card, and a drawn card is the only one that carries a
+    // status — landing on an empty seat loses the status line and the seat line with it.
+    const dealt = cards.filter(el => drawMap[Number(el.dataset.position)]);
+    const pool = dealt.length ? dealt : cards;
+    const target = pool[Math.floor(Math.random() * pool.length)];
     const targetId = Number(target.dataset.position);
     const others = cards.filter(el => el !== target);
 
@@ -120,41 +125,56 @@ export default function AnimationBench() {
     };
 
     const houses = Array.from(document.querySelectorAll('.archetype-group'));
-    const DRIFT_UNTIL = 5400;     // wandering among the houses
-    const GRAVITY_UNTIL = 8200;   // circling the chosen card, still wide
-    const ARRIVE_AT = 12600;      // settled
+    const DRIFT_UNTIL = 7600;     // wandering among the houses
+    const GRAVITY_UNTIL = 11400;  // circling the chosen card, still wide
+    const ARRIVE_AT = 17200;      // settled
     const Z_END = 2.0;
 
-    let want = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
-    let wantZ = 0.52;
-    let nextWaypoint = 1500;
-    // Damping has to match the stiffness or the spring OVERSHOOTS its waypoint and springs back,
-    // which reverses the velocity — and a reversal is exactly the jerk we are trying to remove.
-    // Critical damping is roughly damp = 1 - 2*sqrt(k); anything above that oscillates.
-    let k = 0.008, damp = 0.82;   // soft and critically damped — long lazy arcs, no rebound
+    let aim = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
+    let want = { x: aim.x, y: aim.y };   // the SMOOTHED waypoint the spring actually chases
+    let wantZ = 0.52, aimZ = 0.52;
+    let nextWaypoint = 1800;
+    let k = 0.0035, damp = 0.88;
 
     const camStart = Date.now();
     let raf = 0;
     const step = () => {
       const now = Date.now() - camStart;
 
+      // Each phase names what it WANTS. Nothing is stepped — stiffness, damping, the waypoint
+      // and the zoom are all eased toward their new values, because a step change in any of them
+      // is an instant change in acceleration, and that is felt as a corner just as surely as a
+      // step change in direction.
+      let kAim, dampAim;
       if (now < DRIFT_UNTIL) {
-        if (now > nextWaypoint) {                       // a new heading, entered as an arc
-          want = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
-          wantZ = 0.48 + Math.random() * 0.12;
-          nextWaypoint = now + 1700 + Math.random() * 600;
+        if (now > nextWaypoint) {
+          aim = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
+          aimZ = 0.48 + Math.random() * 0.10;
+          nextWaypoint = now + 2400 + Math.random() * 900;
         }
+        kAim = 0.0035; dampAim = 0.880;
       } else if (now < GRAVITY_UNTIL) {
-        want = panToCentre(target); wantZ = 0.62;       // gravity gathers
-        k = 0.012; damp = 0.79;
+        aim = panToCentre(target); aimZ = 0.62;
+        kAim = 0.0055; dampAim = 0.855;
       } else {
-        want = panToCentre(target); wantZ = Z_END;      // and closes
-        k = 0.018; damp = 0.75;
+        aim = panToCentre(target); aimZ = Z_END;
+        kAim = 0.0100; dampAim = 0.805;
       }
+
+      k += (kAim - k) * 0.015;
+      damp += (dampAim - damp) * 0.015;
+      want.x += (aim.x - want.x) * 0.025;
+      want.y += (aim.y - want.y) * 0.025;
+      wantZ += (aimZ - wantZ) * 0.025;
 
       cam.vx = (cam.vx + (want.x - cam.x) * k) * damp;
       cam.vy = (cam.vy + (want.y - cam.y) * k) * damp;
       cam.vz = (cam.vz + (wantZ - cam.z) * k * 1.3) * damp;
+
+      // A soft ceiling on speed, so nothing ever whips across the map.
+      const sp = Math.hypot(cam.vx, cam.vy), MAXV = 9;
+      if (sp > MAXV) { const f = MAXV / sp; cam.vx *= f; cam.vy *= f; }
+
       cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
 
@@ -165,6 +185,29 @@ export default function AnimationBench() {
 
     // The flight's own clock, for everything that hangs off it.
     const FLIGHT = ARRIVE_AT - GRAVITY_UNTIL;
+
+    // The hero's final scale, solved up front. offsetWidth is the LAYOUT width and ignores
+    // transforms; getBoundingClientRect would return the axis-aligned box, inflated by root two
+    // for a 45-degree card, which throws the size out differently for every class.
+    const layoutW = target.offsetWidth;
+    const targetPx = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.55, 640);
+    const heroScale = targetPx / (layoutW * Z_END);
+
+    // The seat tilt, measured before anything moves. A card is tilted by its house (the
+    // 45-degree diamonds) and, for bounds and agents, by its own seat — but a drawn STATUS also
+    // rotates it and that rotation carries meaning, so it is measured out and kept.
+    const inner = target.firstElementChild;
+    const screenAngle = (el) => {
+      let deg = 0, node = el;
+      while (node && node !== document.body) {
+        const tr = getComputedStyle(node).transform;
+        if (tr && tr !== 'none') { const m = new DOMMatrix(tr); deg += Math.atan2(m.b, m.a) * 180 / Math.PI; }
+        node = node.parentElement;
+      }
+      return deg;
+    };
+    const statusRot = drawMap[targetId] ? (STATUS_GLOW[drawMap[targetId].status]?.rotation || 0) : 0;
+    const seatTilt = screenAngle(inner) - statusRot;
 
     // the card begins to rise and turn once the camera is well on its way, and settles with it
     const RISE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.30);
@@ -192,7 +235,7 @@ export default function AnimationBench() {
 
     // the flicker keeps its life almost to the end, slowing the whole way
     const tStart = Date.now();
-    const STOP_AT = Math.round(ARRIVE_AT * 0.80);
+    const STOP_AT = Math.round(ARRIVE_AT * 0.78);
     while (Date.now() - tStart < STOP_AT) {
       const k = (Date.now() - tStart) / STOP_AT;
       state.gap = Math.round(pace + (640 - pace) * (k * k));
@@ -205,6 +248,9 @@ export default function AnimationBench() {
 
     await wait(ARRIVE_AT - STOP_AT + 400);
 
+    // The seat shows its own archetype until a draw puts a transient in it — so the NAME on
+    // screen is the transient when one is dealt, and the seat's own signature when it is not.
+    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
     const sig = signatureFor(displayId);
     const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
     setLandedLabel({
