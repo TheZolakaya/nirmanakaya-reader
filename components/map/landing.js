@@ -201,7 +201,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       Object.assign(img.style, { position: 'absolute', left: `${L}px`, top: `${T}px`, width: `${W * K}px`, height: `${H * K}px`,
         maxWidth: 'none', maxHeight: 'none', objectFit: 'cover', transform: `scale(${1 / K})`, transformOrigin: '0 0', willChange: 'transform' });
       const lb = card.querySelector('.card-label'); if (lb) lb.style.display = 'none';
-      card.dataset.sharp = '1';
+      card.dataset.sharp = String(K);
     };
     if (heroImg && fullArt && !heroImg.src.endsWith(fullArt)) {
       const pre = new window.Image();
@@ -229,12 +229,19 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       let pl = host.querySelector(`:scope > [data-plate="${side}"]`);
       if (!pl) { pl = document.createElement('div'); pl.setAttribute('data-plate', side); host.appendChild(pl); }
       const w = host.offsetWidth || el.offsetWidth || 100;
-      const edge = side === 'above' ? { bottom: '100%', marginBottom: `${(w * 0.06).toFixed(1)}px` } : { top: '100%', marginTop: `${(w * 0.06).toFixed(1)}px` };
-      Object.assign(pl.style, { position: 'absolute', left: '50%', transform: 'translateX(-50%)', ...edge,
-        width: 'max-content', maxWidth: `${(w * 2.2).toFixed(0)}px`, textAlign: 'center',
+      // TEXT AT ITS OWN RESOLUTION. The plate lives inside the card, so it is magnified with it,
+      // and iOS rasterises it at map size first — "the name and the transient state are very
+      // blurry." Like the art (sharpen), the plate is set K times larger and scaled down by K,
+      // anchored at the edge it hangs from, so the raster is taken at hero size.
+      const K = parseFloat((el.closest ? el.closest('[data-position]') : null)?.dataset.sharp) || 1;
+      const edge = side === 'above'
+        ? { bottom: '100%', marginBottom: `${(w * 0.06).toFixed(1)}px`, transformOrigin: 'bottom center' }
+        : { top: '100%', marginTop: `${(w * 0.06).toFixed(1)}px`, transformOrigin: 'top center' };
+      Object.assign(pl.style, { position: 'absolute', left: '50%', transform: `translateX(-50%) scale(${1 / K})`, ...edge,
+        width: 'max-content', maxWidth: `${(w * 2.2 * K).toFixed(0)}px`, textAlign: 'center', willChange: 'transform',
         pointerEvents: 'none', lineHeight: '1.15', textShadow: '0 2px 8px rgba(0,0,0,0.95)', opacity: '0', transition: 'opacity 600ms ease' });
       pl.innerHTML = lines.map(l =>
-        `<div style="font-size:${(w * l.size).toFixed(1)}px;font-family:${l.font};font-weight:${l.weight};letter-spacing:${l.ls};color:${l.color};text-transform:${l.upper ? 'uppercase' : 'none'};white-space:nowrap">${l.text}</div>`
+        `<div style="font-size:${(w * l.size * K).toFixed(1)}px;font-family:${l.font};font-weight:${l.weight};letter-spacing:${l.ls};color:${l.color};text-transform:${l.upper ? 'uppercase' : 'none'};white-space:nowrap">${l.text}</div>`
       ).join('');
       void pl.offsetHeight;
       pl.style.opacity = '1';
@@ -294,7 +301,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const punch = (el) => {
       el.style.transition = 'filter 160ms ease-out';
       el.style.filter = 'brightness(2.1)';
-      window.setTimeout(() => { el.style.transition = 'filter 340ms ease'; el.style.filter = 'brightness(1)'; }, 170);
+      window.setTimeout(() => { el.style.transition = 'filter 340ms ease'; el.style.filter = 'none'; }, 170);
     };
     const edgeFlash = (el, color) => {
       const b = faceBox(el);
@@ -330,7 +337,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       el.dataset.turn = aQuarter();
       el.style.transform = `scale(${scale}) rotate(${turnOf(el)}deg)`;
       el.style.filter = 'brightness(1.5)';
-      window.setTimeout(() => { el.style.transform = `scale(1) rotate(${turnOf(el)}deg)`; el.style.filter = 'brightness(1)'; }, ms * 0.45);
+      window.setTimeout(() => { el.style.transform = `scale(1) rotate(${turnOf(el)}deg)`; el.style.filter = 'none'; }, ms * 0.45);
     };
 
     // --- the flicker engine: runs until told to stop, at whatever gap is current ---
@@ -361,7 +368,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const release = (el) => {
       if (!el) return;
       el.style.transform = `scale(1) rotate(${turnOf(el)}deg)`;
-      el.style.filter = 'brightness(1)';
+      el.style.filter = 'none';
       window.setTimeout(() => { if (el.style.zIndex === '40') el.style.zIndex = ''; }, 500);
     };
     const tick = () => {
@@ -571,7 +578,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       target.style.willChange = 'transform';
       target.style.backfaceVisibility = 'hidden';
       target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
-      target.style.filter = mobile ? 'none' : 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
+      target.style.filter = 'none';   // never a filter on a magnified card (see the note above rise)
       // "the borders around it when you zoom up get really thick, and it's unattractive" — the
       // coloured frame is the element background behind the image; it goes as the card rises.
       const bg = target.querySelector('.element-bg');
@@ -787,7 +794,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const startRot = -seatTilt + spinBase + spinStatusRot;
     const endRot = spinBase + seatTiltOnly + statusRot - homeAngle0;
     target.style.transition = 'filter 1200ms ease';
-    target.style.filter = mobile ? 'none' : 'brightness(1) drop-shadow(0 10px 24px rgba(0,0,0,0.75))';
+    target.style.filter = 'none';
     const journeyFrame = (e) => {
       target.style.transform =
         `translate(${dx * e}px, ${dy * e}px) scale(${heroScale + (landScale - heroScale) * e}) rotate(${startRot + (endRot - startRot) * e}deg)`;
