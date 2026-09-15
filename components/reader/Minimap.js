@@ -745,3 +745,10 @@ export default Minimap;
 export const MINIMAP_W = MAP_WIDTH;
 export const MINIMAP_H = MAP_HEIGHT;
 export const minimapPoint = (archetypeId) => getArchetypePosition(archetypeId);
+// The tilt of the house a seat sits in, in CSS degrees (the same sign the minimap uses to set
+// its seats around the divider). "Upright" for a card in that seat means upright along this.
+export const minimapSeatRotation = (archetypeId) => {
+  const loc = ARCHETYPE_LOCATIONS[archetypeId];
+  if (!loc || loc.house === 'portal') return 0;
+  return HOUSES[loc.house]?.rotation || 0;
+};

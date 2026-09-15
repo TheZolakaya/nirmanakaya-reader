@@ -14,7 +14,7 @@ import TheMap, { STATUS_GLOW, signatureFor } from '../../components/map/TheMap.j
 import { generateSpread } from '../../lib/utils.js';
 import { getCardImagePath, getHomeArchetype, getCardType } from '../../lib/cardImages.js';
 import { renderToStaticMarkup } from 'react-dom/server';
-import Minimap, { MINIMAP_W, MINIMAP_H, minimapPoint } from '../../components/reader/Minimap';
+import Minimap, { MINIMAP_W, MINIMAP_H, minimapPoint, minimapSeatRotation } from '../../components/reader/Minimap';
 import { ARCHETYPES } from '../../lib/archetypes.js';
 import { STATUSES } from '../../lib/constants.js';
 
@@ -35,6 +35,7 @@ export default function AnimationBench() {
     document.querySelectorAll('[data-position]').forEach((el) => {
       el.style.transform = ''; el.style.filter = ''; el.style.zIndex = '';
       el.style.willChange = ''; el.style.transition = ''; el.style.opacity = '';
+      delete el.dataset.turn;
     });
     document.querySelectorAll('[data-house-label]').forEach((el) => {
       el.style.transition = ''; el.style.opacity = '';
@@ -154,12 +155,13 @@ export default function AnimationBench() {
 
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     const flash = (el, scale, ms) => {
-      el.style.transition = `transform ${ms}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
+      el.style.transition = `transform ${Math.max(ms, POP_MS)}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
       el.style.transformOrigin = 'center center';
       el.style.zIndex = '40';
-      el.style.transform = `scale(${scale}) rotate(${aQuarter()}deg)`;
+      el.dataset.turn = aQuarter();
+      el.style.transform = `scale(${scale}) rotate(${turnOf(el)}deg)`;
       el.style.filter = 'brightness(1.5)';
-      window.setTimeout(() => { el.style.transform = 'scale(1) rotate(0deg)'; el.style.filter = 'brightness(1)'; }, ms * 0.45);
+      window.setTimeout(() => { el.style.transform = `scale(1) rotate(${turnOf(el)}deg)`; el.style.filter = 'brightness(1)'; }, ms * 0.45);
     };
 
     // --- the flicker engine: runs until told to stop, at whatever gap is current ---
@@ -176,13 +178,20 @@ export default function AnimationBench() {
     // Little and Unacknowledged. So a card that lifts and turns to one of the four stops before
     // settling back is showing a stranger the grammar of the field before a single word names
     // it. No status is asserted here: the card returns to where it was, so nothing is claimed.
+    // The turn STAYS. A card that pops, turns, and comes back square has said nothing; a card
+    // that pops and settles at one of the four stops has been dealt an angle, and by the end of
+    // the seek the field is a spread of angles rather than a grid — which is what a field of
+    // statuses looks like before a word is put to any of them. The angle is remembered on the
+    // element so the release and the end of the seek both honour it. Cleared by clearCards.
     const QUARTERS = [90, 180, 270, 360];
+    const turnOf = (el) => el.dataset.turn || 0;
+    const POP_MS = 900;   // was 520 — they were turning a little too fast
     const aQuarter = () => QUARTERS[Math.floor(Math.random() * QUARTERS.length)];
 
     const state = { gap: pace, alive: true, pool: cards, scale: lift, last: null };
     const release = (el) => {
       if (!el) return;
-      el.style.transform = 'scale(1) rotate(0deg)';
+      el.style.transform = `scale(1) rotate(${turnOf(el)}deg)`;
       el.style.filter = 'brightness(1)';
       window.setTimeout(() => { if (el.style.zIndex === '40') el.style.zIndex = ''; }, 500);
     };
@@ -192,10 +201,11 @@ export default function AnimationBench() {
       if (el === state.last && state.pool.length > 1) el = state.pool[Math.floor(Math.random() * state.pool.length)];
       release(state.last);
       state.last = el;
-      el.style.transition = 'transform 520ms cubic-bezier(.22,1,.36,1), filter 520ms ease';
+      el.style.transition = `transform ${POP_MS}ms cubic-bezier(.22,1,.36,1), filter 520ms ease`;
       el.style.transformOrigin = 'center center';
       el.style.zIndex = '40';
-      el.style.transform = `scale(${state.scale}) rotate(${aQuarter()}deg)`;
+      el.dataset.turn = aQuarter();
+      el.style.transform = `scale(${state.scale}) rotate(${turnOf(el)}deg)`;
       el.style.filter = 'brightness(1.45)';
       window.setTimeout(tick, Math.round(state.gap * (0.75 + Math.random() * 0.5)));
     };
@@ -390,7 +400,7 @@ export default function AnimationBench() {
     }
     state.alive = false;
     release(state.last);
-    others.forEach(el => { el.style.transform = 'scale(1) rotate(0deg)'; el.style.zIndex = ''; });
+    others.forEach(el => { el.style.transform = `scale(1) rotate(${el.dataset.turn || 0}deg)`; el.style.zIndex = ''; });
 
     await wait(ARRIVE_AT - STOP_AT + 400);
 
@@ -452,58 +462,26 @@ export default function AnimationBench() {
     // wrong, whatever the zoom or the window size happen to be.
     const fitZ = Math.max(0.18, Math.min(1.2,
       Math.min(window.innerWidth * 0.80 / fieldW, window.innerHeight * 0.68 / fieldH)));
-    // THE CARD IS HELD WHILE THE FRAME IS DRAWN AROUND IT.
+    // STRAIGHT TO THE SEAT. The card is no longer held at the centre of the screen while the
+    // frame is drawn — the founder read that hold as a stop at the Gestalt's zero point on the
+    // way to the seat, and he is right that it is one stop too many. The card now sets off for
+    // its seat the instant the frame begins to appear, and the camera opens out underneath it,
+    // so the shrink, the travel and the reveal of the frame are a single movement.
     //
-    // Without this it drifts back to its own seat on the map as the camera opens out, and only
-    // then hops across to the durable — so the eye reads the big move as the card being put
-    // BACK where it came from, and the move that actually matters as an afterthought. The card
-    // is instead pinned to the middle of the screen for the whole pull-back, and makes exactly
-    // ONE journey: out of the hand and into the seat.
-    //
-    // Pinning is a direct solve, not an easing: each frame the card's own box is measured and
-    // the residual to the centre is converted back through the house's rotation and the camera's
-    // zoom into the card's own parent space, where its translate lives.
-    const toLocal = (sx, sy, zoom) => {
-      const a = -par.deg * Math.PI / 180, k = zoom * par.scale;
-      return { x: (sx * Math.cos(a) - sy * Math.sin(a)) / k,
-               y: (sx * Math.sin(a) + sy * Math.cos(a)) / k };
-    };
-    let pinX = 0, pinY = 0;
-    target.style.transition = 'none';
-    await new Promise(done => {
-      const fromZ = cam.z, MS = 2400, t = Date.now();
-      const pull = () => {
-        const k = Math.min(1, (Date.now() - t) / MS);
-        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-        cam.z = fromZ + (fitZ - fromZ) * e;
-        const cr = canvas.getBoundingClientRect();
-        cam.x += (window.innerWidth / 2 - (cr.left + fieldC.x * cam.z)) * 0.10;
-        cam.y += (window.innerHeight / 2 - (cr.top + fieldC.y * cam.z)) * 0.10;
-        cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
-
-        const hr = target.getBoundingClientRect();
-        const d = toLocal(window.innerWidth / 2 - (hr.left + hr.width / 2),
-                          window.innerHeight / 2 - (hr.top + hr.height / 2), cam.z);
-        pinX += d.x; pinY += d.y;
-        target.style.transform =
-          `translate(${pinX}px, ${pinY}px) scale(${heroScale}) rotate(${-seatTilt}deg)`;
-
-        if (k < 1) requestAnimationFrame(pull);
-        else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
-      };
-      requestAnimationFrame(pull);
-    });
-
-    // and the card crosses to its seat. The translate is in the card's OWN parent space, so a
-    // world delta has to be turned back through whatever rotation its house carries — the
-    // houses are diamonds, and a 45-degree parent would send it off at 45 degrees otherwise.
+    // The translate lives in the card's OWN parent space, so the world delta is turned back
+    // through whatever rotation its house carries — a 45-degree parent would otherwise send
+    // it off at 45 degrees.
     const mp0 = minimapPoint(targetId);
     if (!mp0) console.warn(`animation: seat ${targetId} has no minimap point; landing at centre`);
     const mp = mp0 || { x: MINIMAP_W / 2, y: MINIMAP_H / 2 };
     const dest = { x: fx + mp.x * fit, y: fy + mp.y * fit };
 
-    // On the minimap nothing is tilted by its house, so the card lands UPRIGHT and keeps only
-    // the turn that means something: its status.
+    // THE ANGLE IS RELATIVE TO THE HOUSE, not to the screen. The four corner houses are diamonds
+    // tilted 45 degrees, and "upright" for a card in one of them means upright along the house's
+    // own axis, the way the minimap sets its four seats around the divider. So the landing turn
+    // is the house's tilt first, and the status — 90 to the right for Too Much, upside down for
+    // Unacknowledged — laid on top of that.
+    const houseRot = minimapSeatRotation(targetId);
     const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
     const landScale = (fieldW * 0.085) / wHome;
 
@@ -511,13 +489,30 @@ export default function AnimationBench() {
     const wx = (dest.x - pHome.x) / par.scale, wy = (dest.y - pHome.y) / par.scale;
     const dx = wx * Math.cos(th) - wy * Math.sin(th);
     const dy = wx * Math.sin(th) + wy * Math.cos(th);
-    const TRAVEL = 2600;
+    const TRAVEL = 2900;
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
-      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${statusRot - homeAngle0}deg)`;
+      `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${houseRot + statusRot - homeAngle0}deg)`;
     target.style.filter = 'brightness(1) drop-shadow(0 6px 18px rgba(0,0,0,0.6))';
 
-    await wait(TRAVEL + 250);
+    // and the camera opens out underneath it, on the same drive/commit as the flight
+    const PULL_MS = 2400;
+    await new Promise(done => {
+      const fromZ = cam.z, t = Date.now();
+      const pull = () => {
+        const k = Math.min(1, (Date.now() - t) / PULL_MS);
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        cam.z = fromZ + (fitZ - fromZ) * e;
+        const cr = canvas.getBoundingClientRect();
+        cam.x += (window.innerWidth / 2 - (cr.left + fieldC.x * cam.z)) * 0.10;
+        cam.y += (window.innerHeight / 2 - (cr.top + fieldC.y * cam.z)) * 0.10;
+        cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+        if (k < 1) requestAnimationFrame(pull);
+        else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
+      };
+      requestAnimationFrame(pull);
+    });
+    await wait(TRAVEL - PULL_MS + 250);
     setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName });
     if (mapEl) mapEl.style.pointerEvents = '';
 
@@ -545,7 +540,7 @@ export default function AnimationBench() {
     if (surface) surface.style.pointerEvents = 'none';
 
     cards.forEach((el) => {
-      el.style.transition = 'transform 420ms cubic-bezier(.22,1,.36,1), filter 420ms ease';
+      el.style.transition = 'transform 900ms cubic-bezier(.22,1,.36,1), filter 420ms ease';
       el.style.transformOrigin = 'center center';
       el.style.willChange = 'transform';
     });
@@ -556,10 +551,11 @@ export default function AnimationBench() {
       for (let i = 0; i < n; i++) {
         const el = cards[Math.floor(Math.random() * cards.length)];
         el.style.zIndex = '40';
-        el.style.transform = `scale(${lift}) rotate(${[90, 180, 270, 360][Math.floor(Math.random() * 4)]}deg)`;
+        el.dataset.turn = [90, 180, 270, 360][Math.floor(Math.random() * 4)];
+        el.style.transform = `scale(${lift}) rotate(${el.dataset.turn}deg)`;
         el.style.filter = 'brightness(1.5)';
         window.setTimeout(() => {
-          el.style.transform = 'scale(1) rotate(0deg)';
+          el.style.transform = `scale(1) rotate(${el.dataset.turn || 0}deg)`;
           el.style.filter = 'brightness(1)';
           window.setTimeout(() => { el.style.zIndex = ''; }, 420);
         }, 140);
