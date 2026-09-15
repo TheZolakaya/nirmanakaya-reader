@@ -391,8 +391,49 @@ export default function EZPage() {
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
   const [hasHistory, setHasHistory] = useState(false);
   const [door, setDoor] = useState(null);            // the chosen house door, or null
-  const [threadPill, setThreadPill] = useState(''); // a question drawn from this account's own history
-  const [threadOn, setThreadOn] = useState(true);   // the founder's toggle: history-derived pill on/off
+  // A question suggested from this account's own readings — ON DEMAND. The founder, 2026-09-15:
+  // "I've had the same one show up every time ... I want to proactively press that button." So
+  // nothing is generated on load; a tap asks for one, and "try another" asks for a different one,
+  // with everything already suggested handed to the model to avoid.
+  const [suggested, setSuggested] = useState('');
+  const [suggesting, setSuggesting] = useState(false);
+  const suggestedSeen = useRef([]);
+  const suggestFromHistory = async () => {
+    if (!user || suggesting) return;
+    setSuggesting(true);
+    try {
+      const session = await getSession();
+      const token = session?.session?.access_token;
+      if (!token) return;
+      const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
+      const cj = await cr.json();
+      if (!cj?.contextBlock) return;
+      const avoid = suggestedSeen.current.length
+        ? `
+
+Already suggested this session — pick a DIFFERENT thread, not a rewording of these:
+${suggestedSeen.current.map(q => `- ${q}`).join('
+')}`
+        : '';
+      const res = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: `${cj.contextBlock}
+
+From this person's readings, write ONE short question they might want to take up today — a live thread, in their own voice, under 12 words. Name the actual subject if the history names one. Vary the angle: the whole history is fair game, not only the latest reading.${avoid}
+
+Respond with ONLY JSON: {"q": "..."}` }],
+          system: 'You write one short question and nothing else. JSON only.',
+          model: MODEL_IDS.haiku, max_tokens: 120, userId: user.id
+        })
+      });
+      const rj = await res.json();
+      const q = parseJson(rj?.reading)?.q;
+      const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
+      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); }
+    } catch {} finally { setSuggesting(false); }
+  };
   const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
   const [infoHistory, setInfoHistory] = useState([]);
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
@@ -419,38 +460,7 @@ export default function EZPage() {
         setAllowed(!!u && (isAdmin(u) || flag));
         if (u) {
           setHasHistory(true);
-          // The thread pill: one question drawn from this account's own recent readings.
-          // Private by nature — it can name a person — so it is toggleable and never
-          // shown to a signed-out visitor. Cheap model, tiny prompt.
-          try {
-            // Cached for the browser session: this used to fire a model call on every page
-            // load, including a bounce, and nothing about it changes minute to minute.
-            const cacheKey = `ez-thread-${u.id}`;
-            const cached = sessionStorage.getItem(cacheKey);
-            if (cached !== null) { if (cached) setThreadPill(cached); return; }
-            const session = await getSession();
-            const token = session?.session?.access_token;
-            if (token) {
-              const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
-              const cj = await cr.json();
-              if (cj?.contextBlock) {
-                const res = await fetch('/api/reading', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    messages: [{ role: 'user', content: `${cj.contextBlock}\n\nFrom this person's recent readings, write ONE short question they might want to pick back up today — the live thread, in their own voice, under 12 words. Name the actual subject if the history names one. If nothing is genuinely unfinished, answer with an empty string. Respond with ONLY JSON: {"q": "..."}` }],
-                    system: 'You write one short question and nothing else. JSON only.',
-                    model: MODEL_IDS.haiku, max_tokens: 120, userId: u.id
-                  })
-                });
-                const rj = await res.json();
-                const q = parseJson(rj?.reading)?.q;
-                const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
-                sessionStorage.setItem(cacheKey, clean);
-                if (clean) setThreadPill(clean);
-              }
-            }
-          } catch {}
+          // (the history question is no longer generated on load — see suggestFromHistory)
         }
       } catch { setAllowed(false); }
   }, []);
@@ -824,19 +834,6 @@ export default function EZPage() {
               );
             })()}
 
-            {/* The thread pill: this account's own live thread, from its own readings. */}
-            {threadPill && threadOn && (
-              <div className="flex items-start gap-2">
-                <button onClick={() => { setDoor(null); setQuestion(threadPill); setError(''); }}
-                  className="flex-1 text-left rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
-                  <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">Still open, from your readings</span>
-                  <span className="text-[15px] text-violet-100">{threadPill}</span>
-                </button>
-                <button onClick={() => setThreadOn(false)} title="hide history suggestions"
-                  className="text-zinc-600 hover:text-zinc-400 text-xs px-2 py-3">hide</button>
-              </div>
-            )}
-
             {/* Live reload: EZ readings resume where they stopped. */}
             <div>
               {!showPast ? (
@@ -879,6 +876,25 @@ export default function EZPage() {
                 {loading ? 'Drawing…' : 'Ask'}
               </button>
             </div>
+
+            {/* FROM YOUR READINGS, on demand: a centred button at the bottom asks for one
+                question drawn from this account's whole history; the suggestion appears above a
+                "try another" that asks for a different one. Signed-in with history only. */}
+            {user && hasHistory && (
+              <div className="pt-2 flex flex-col items-center gap-2">
+                {suggested && (
+                  <button onClick={() => { setDoor(null); setQuestion(suggested); setError(''); }}
+                    className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
+                    <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
+                    <span className="text-[15px] text-violet-100">{suggested}</span>
+                  </button>
+                )}
+                <button onClick={suggestFromHistory} disabled={suggesting}
+                  className="px-4 py-2 rounded-lg border border-violet-700/50 text-violet-200 text-sm hover:border-violet-500/60 hover:bg-violet-950/30 transition-colors disabled:opacity-50">
+                  {suggesting ? 'Reading your history…' : suggested ? 'Try another' : 'Suggest a question from my readings'}
+                </button>
+              </div>
+            )}
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
             <p className="text-xs text-zinc-600 leading-relaxed">
               The Reader opens brief and asks you one question. The reading unfolds from there.
