@@ -67,6 +67,20 @@ export default function AnimationBench() {
     const targetId = Number(target.dataset.position);
     const others = cards.filter(el => el !== target);
 
+    // THE HERO'S REAL ART, restored — this was lost in the camera rewrite and is the softness.
+    // Bounds and agents are drawn on the map from 200px thumbnails, which is right at map size
+    // and a ten-times upscale at hero size. The full 2134px image is preloaded now, at the very
+    // start, and swapped in the moment it has decoded — long before the card is large enough
+    // for the change to be visible.
+    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
+    const fullArt = getCardImagePath(displayId);
+    const heroImg = target.querySelector('img');
+    if (heroImg && fullArt && !heroImg.src.endsWith(fullArt)) {
+      const pre = new window.Image();
+      pre.onload = () => { heroImg.src = fullArt; };
+      pre.src = fullArt;
+    }
+
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     const flash = (el, scale, ms) => {
       el.style.transition = `transform ${ms}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
@@ -124,56 +138,81 @@ export default function AnimationBench() {
                y: cam.y + (v.top + v.height / 2 - (c.top + c.height / 2)) };
     };
 
-    const houses = Array.from(document.querySelectorAll('.archetype-group'));
-    const DRIFT_UNTIL = 7600;     // wandering among the houses
-    const GRAVITY_UNTIL = 11400;  // circling the chosen card, still wide
+    const DRIFT_UNTIL = 7600;     // leaning across the field, going nowhere in particular
+    const GRAVITY_UNTIL = 11400;  // the card starts to pull, the lean is still in charge
     const ARRIVE_AT = 17200;      // settled
     const Z_END = 2.0;
 
-    let aim = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
-    let want = { x: aim.x, y: aim.y };   // the SMOOTHED waypoint the spring actually chases
-    let wantZ = 0.52, aimZ = 0.52;
-    let nextWaypoint = 1800;
-    let k = 0.0035, damp = 0.88;
+    // THE DRIFT IS A LEAN, NOT A SEARCH.
+    //
+    // Chasing waypoints was the wrong idea for the feel. The camera reached a waypoint, slowed,
+    // stopped, and set off again, which reads as "is it over here? or is it over here?" — and
+    // every one of those arrivals is a corner. A drift should read as "I am heading this way —
+    // no, THIS way": the speed stays put and only the HEADING changes, along an arc.
+    //
+    // So during the drift nothing is aimed at at all. A heading turns at a rate which itself
+    // eases toward a new random rate every couple of seconds, which makes long leans that
+    // gradually reverse. Only near the end does the card's pull take over.
+    let heading = Math.random() * Math.PI * 2;
+    let turn = 0, turnAim = (Math.random() - 0.5) * 0.024;
+    let nextTurn = 2000;
+    const DRIFT_SPEED = 2.4;   // px per frame, held constant — this is what removes the stopping
+    const LEASH = 520;         // how far the lean may carry the camera from the map's centre
+
+    let wantZ = 0.50, aimZ = 0.50, nextZoom = 2600;
+    let seek = 0;              // 0 = pure lean, 1 = pure approach
 
     const camStart = Date.now();
     let raf = 0;
     const step = () => {
       const now = Date.now() - camStart;
 
-      // Each phase names what it WANTS. Nothing is stepped — stiffness, damping, the waypoint
-      // and the zoom are all eased toward their new values, because a step change in any of them
-      // is an instant change in acceleration, and that is felt as a corner just as surely as a
-      // step change in direction.
-      let kAim, dampAim;
-      if (now < DRIFT_UNTIL) {
-        if (now > nextWaypoint) {
-          aim = panToCentre(houses[Math.floor(Math.random() * houses.length)]);
-          aimZ = 0.48 + Math.random() * 0.10;
-          nextWaypoint = now + 2400 + Math.random() * 900;
-        }
-        kAim = 0.0035; dampAim = 0.880;
-      } else if (now < GRAVITY_UNTIL) {
-        aim = panToCentre(target); aimZ = 0.62;
-        kAim = 0.0055; dampAim = 0.855;
-      } else {
-        aim = panToCentre(target); aimZ = Z_END;
-        kAim = 0.0100; dampAim = 0.805;
+      // --- the lean ---
+      if (now > nextTurn) {
+        turnAim = (Math.random() - 0.5) * 0.024;
+        nextTurn = now + 2000 + Math.random() * 1400;
       }
+      turn += (turnAim - turn) * 0.02;
 
-      k += (kAim - k) * 0.015;
-      damp += (dampAim - damp) * 0.015;
-      want.x += (aim.x - want.x) * 0.025;
-      want.y += (aim.y - want.y) * 0.025;
-      wantZ += (aimZ - wantZ) * 0.025;
+      // The leash steers, it does not snap. Past the radius the heading is bent back toward the
+      // centre a little more with each frame, so coming home is just another lean.
+      const dist = Math.hypot(cam.x, cam.y);
+      if (dist > LEASH) {
+        const home = Math.atan2(-cam.y, -cam.x);
+        const diff = ((home - heading + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+        turn += Math.sign(diff) * Math.min(0.020, (dist - LEASH) / 6000);
+      }
+      heading += turn;
+      const leanX = Math.cos(heading) * DRIFT_SPEED, leanY = Math.sin(heading) * DRIFT_SPEED;
 
-      cam.vx = (cam.vx + (want.x - cam.x) * k) * damp;
-      cam.vy = (cam.vy + (want.y - cam.y) * k) * damp;
-      cam.vz = (cam.vz + (wantZ - cam.z) * k * 1.3) * damp;
+      // --- the approach: a velocity toward the card, capped so it never whips ---
+      const to = panToCentre(target);
+      let sx = (to.x - cam.x) * 0.030, sy = (to.y - cam.y) * 0.030;
+      const svm = Math.hypot(sx, sy), APPROACH = 7.5;
+      if (svm > APPROACH) { sx *= APPROACH / svm; sy *= APPROACH / svm; }
 
-      // A soft ceiling on speed, so nothing ever whips across the map.
-      const sp = Math.hypot(cam.vx, cam.vy), MAXV = 9;
-      if (sp > MAXV) { const f = MAXV / sp; cam.vx *= f; cam.vy *= f; }
+      // --- and the crossfade between them IS the phase change. Nothing else switches. ---
+      // The chosen card leaves the flicker the moment the pull begins, so it sits steady while
+      // the camera comes for it rather than being lifted by the shimmer on the way in.
+      if (now >= DRIFT_UNTIL && state.pool !== others) state.pool = others;
+
+      const seekAim = now < DRIFT_UNTIL ? 0 : now < GRAVITY_UNTIL ? 0.45 : 1;
+      seek += (seekAim - seek) * 0.012;
+
+      if (now < DRIFT_UNTIL) {
+        if (now > nextZoom) { aimZ = 0.46 + Math.random() * 0.09; nextZoom = now + 2600; }
+      } else if (now < GRAVITY_UNTIL) aimZ = 0.62;
+      else aimZ = Z_END;
+      wantZ += (aimZ - wantZ) * 0.020;
+
+      const wantX = leanX * (1 - seek) + sx * seek;
+      const wantY = leanY * (1 - seek) + sy * seek;
+
+      // Velocity is EASED toward what is wanted, never set to it. Bounded acceleration is the
+      // whole trick: with it, the picture cannot corner even when the wanted heading jumps.
+      cam.vx += (wantX - cam.vx) * 0.05;
+      cam.vy += (wantY - cam.vy) * 0.05;
+      cam.vz += ((wantZ - cam.z) * 0.05 - cam.vz) * 0.05;
 
       cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
@@ -248,9 +287,6 @@ export default function AnimationBench() {
 
     await wait(ARRIVE_AT - STOP_AT + 400);
 
-    // The seat shows its own archetype until a draw puts a transient in it — so the NAME on
-    // screen is the transient when one is dealt, and the seat's own signature when it is not.
-    const displayId = drawMap[targetId] ? drawMap[targetId].transient : targetId;
     const sig = signatureFor(displayId);
     const st = drawMap[targetId] ? STATUSES[drawMap[targetId].status] : null;
     setLandedLabel({
