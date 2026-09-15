@@ -246,7 +246,9 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
             border: '1px solid rgba(107, 77, 138, 0.4)',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px rgba(107,77,138,0.1)'
           }}>
-          <Minimap fromId={home} toId={draw.position} size="card" singleMode={true}
+          {/* With the landing on, the header shows the FULL map, every glyph, as the flight's copy
+              does — otherwise the two swap at the handoff and the little marks vanish. */}
+          <Minimap fromId={home} toId={draw.position} size="card" singleMode={!stacked}
             fromCardType={cardType} boundIsInner={boundIsInner} />
         </button>
       </div>
