@@ -153,11 +153,14 @@ export default function AnimationBench() {
     // So during the drift nothing is aimed at at all. A heading turns at a rate which itself
     // eases toward a new random rate every couple of seconds, which makes long leans that
     // gradually reverse. Only near the end does the card's pull take over.
+    // The lean also OPENS OUT. It begins as a small circling near the middle of the map — maybe
+    // this way, maybe that way — and both the speed and the leash grow across the drift, so the
+    // wandering widens into something with a direction to it before the card ever takes over.
     let heading = Math.random() * Math.PI * 2;
     let turn = 0, turnAim = (Math.random() - 0.5) * 0.024;
     let nextTurn = 2000;
-    const DRIFT_SPEED = 2.4;   // px per frame, held constant — this is what removes the stopping
-    const LEASH = 520;         // how far the lean may carry the camera from the map's centre
+    const speedAt = (pr) => 1.1 + 1.6 * pr;   // px per frame: a slow circle, opening to a lean
+    const leashAt = (pr) => 110 + 190 * pr;   // how far from the map's centre it may carry
 
     let wantZ = 0.50, aimZ = 0.50, nextZoom = 2600;
     let seek = 0;              // 0 = pure lean, 1 = pure approach
@@ -176,14 +179,17 @@ export default function AnimationBench() {
 
       // The leash steers, it does not snap. Past the radius the heading is bent back toward the
       // centre a little more with each frame, so coming home is just another lean.
+      const pr = Math.min(1, now / DRIFT_UNTIL);
+      const leash = leashAt(pr);
       const dist = Math.hypot(cam.x, cam.y);
-      if (dist > LEASH) {
+      if (dist > leash) {
         const home = Math.atan2(-cam.y, -cam.x);
         const diff = ((home - heading + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
-        turn += Math.sign(diff) * Math.min(0.020, (dist - LEASH) / 6000);
+        turn += Math.sign(diff) * Math.min(0.035, (dist - leash) / 1200);
       }
       heading += turn;
-      const leanX = Math.cos(heading) * DRIFT_SPEED, leanY = Math.sin(heading) * DRIFT_SPEED;
+      const sp = speedAt(pr);
+      const leanX = Math.cos(heading) * sp, leanY = Math.sin(heading) * sp;
 
       // --- the approach: a velocity toward the card, capped so it never whips ---
       const to = panToCentre(target);
