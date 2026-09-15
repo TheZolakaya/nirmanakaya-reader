@@ -26,7 +26,9 @@ import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
-import { getHomeArchetype, getCardType } from '../../lib/cardImages';
+import { getHomeArchetype, getCardType, getCardImagePath } from '../../lib/cardImages';
+import TheMap from '../../components/map/TheMap';
+import { runLanding, clearLanding } from '../../components/map/landing';
 import CardImage from '../../components/reader/CardImage';
 import Minimap from '../../components/reader/Minimap';
 import MinimapModal from '../../components/reader/MinimapModal';
@@ -144,7 +146,7 @@ const CHIP_LABEL = { build: 'Build', pushback: 'Push back', clarify: 'Clarify', 
 // map is how a person sees this is a derivation with boundaries and not an agreeable machine.
 // Tapping the art opens the card; tapping the map opens the RELATIONSHIP (this card, in this
 // seat) through the same MinimapModal the full reader uses — not the card alone.
-function CardWithMap({ draw, onInfo, label }) {
+function CardWithMap({ draw, onInfo, label, stacked = false }) {
   const [mapOpen, setMapOpen] = useState(false);
   if (!draw) return null;
   const trans = getComponent(draw.transient);
@@ -156,12 +158,29 @@ function CardWithMap({ draw, onInfo, label }) {
   return (
     <div className="flex flex-col items-center max-w-full">
       <div className="flex items-center justify-center gap-2 sm:gap-3 max-w-full">
-        <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
-          size="compact" showFrame={true}
-          className="!w-[140px] sm:!w-[185px]"
-          onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
+        {stacked ? (
+          // THE PAIR, as the landing leaves it: the transient in front, the durable peeking out
+          // to its right and behind — "transient in your durable, left to right". The box is the
+          // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
+          <div data-slot="stack" className="relative shrink-0 w-[217px] h-[160px] sm:w-[287px] sm:h-[211px]">
+            <img src={getCardImagePath(draw.position)} alt={seat || ''}
+              className="absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer"
+              onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
+            <div className="absolute left-0 top-0">
+              <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
+                size="compact" showFrame={true}
+                className="!w-[140px] sm:!w-[185px]"
+                onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
+            </div>
+          </div>
+        ) : (
+          <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
+            size="compact" showFrame={true}
+            className="!w-[140px] sm:!w-[185px]"
+            onImageClick={() => onInfo({ type: 'card', id: draw.transient, data: trans })} />
+        )}
 
-        <button onClick={() => setMapOpen(true)}
+        <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
           className="w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03]"
           style={{
@@ -214,9 +233,53 @@ function CardWithMap({ draw, onInfo, label }) {
 export default function EZPage() {
   const [user, setUser] = useState(null);
   const [allowed, setAllowed] = useState(null); // null = checking
+  // THE LANDING in EZ — behind a switch until the founder flips it: ?anim=1 once (kept in this
+  // browser), ?anim=0 to clear, or the ez_animation feature flag for everyone. Reduced-motion
+  // users never see it. The live page is unchanged with the switch off.
+  const [animOn, setAnimOn] = useState(false);
+  const [animating, setAnimating] = useState(false);
+  const [revealed, setRevealed] = useState(true);
+  const cameraRef = useRef(null);
+  const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
   const [cardCount, setCardCount] = useState(1);
   const [draws, setDraws] = useState(null);
+
+  useEffect(() => {
+    try {
+      const p = new URLSearchParams(window.location.search).get('anim');
+      if (p === '1') localStorage.setItem('nkya_ez_anim', '1');
+      if (p === '0') localStorage.removeItem('nkya_ez_anim');
+      const reduced = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced && localStorage.getItem('nkya_ez_anim') === '1') setAnimOn(true);
+      if (!reduced) fetch('/api/feature-flags').then(r => r.json()).then(j => { if (j?.flags?.ez_animation) setAnimOn(true); }).catch(() => {});
+    } catch {}
+  }, []);
+
+  // The sequence plays on the real draw while the Reader writes. It is the shared module the
+  // bench runs — components/map/landing.js — handed the map section below and this page's own
+  // header as the place to land. A tap anywhere on the map skips to the finished header.
+  const playLanding = async (draw) => {
+    const signal = { skip: false };
+    skipRef.current = signal;
+    let surface = null;
+    for (let i = 0; i < 80; i++) {
+      surface = document.querySelector('[data-ez-map] [data-map-surface]');
+      if (surface && surface.querySelectorAll('[data-position]').length >= 78 && cameraRef.current) break;
+      await new Promise(r => setTimeout(r, 100));
+    }
+    if (!surface) return;
+    await new Promise(r => setTimeout(r, 350));
+    try {
+      await runLanding({
+        surface, cameraRef,
+        draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
+        table: {}, slotsSelector: '[data-ez-header]', signal
+      });
+    } catch { /* skipped */ }
+    clearLanding(document);
+  };
+  const skipLanding = () => { if (skipRef.current) skipRef.current.skip = true; };
   const [turns, setTurns] = useState([]); // {id, role:'reader'|'you'|'catchup', text, question, chips, reflect, forge, draw, mode, ts}
   const [input, setInput] = useState('');
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
@@ -436,6 +499,10 @@ export default function EZPage() {
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
+    // one card only, for now; the answer never waits on the motion by more than the last flight
+    const willAnimate = animOn && cardCount === 1;
+    let landed = Promise.resolve();
+    if (willAnimate) { setRevealed(false); setAnimating(true); landed = playLanding(newDraws[0]).catch(() => {}); }
     try {
       const sk = spreadKeyFor(cardCount);
       const drawText = formatDrawForAI(newDraws, 'discover', sk, false, null, null, null);
@@ -459,6 +526,8 @@ export default function EZPage() {
       } catch {}
       scrollToEnd();
     } catch (e) { setError(e.message); }
+    await landed;
+    setAnimating(false); setRevealed(true);
     setLoading(false);
   };
 
@@ -558,6 +627,14 @@ export default function EZPage() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-x-hidden">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
+        {animating && (
+          <div data-ez-map="" onClick={skipLanding} className="relative w-full cursor-pointer select-none" style={{ height: '70vh' }}
+            title="tap to skip">
+            <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
+              cameraRef={cameraRef} className="w-full h-full" />
+            <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">tap to skip</div>
+          </div>
+        )}
         <div className="flex items-center justify-between mt-4 mb-6">
           <span className="text-[10px] uppercase tracking-[0.2em] text-amber-400/80">EZ mode</span>
           <div className="flex items-center gap-3">
@@ -706,11 +783,12 @@ export default function EZPage() {
         {allowed && draws && (
           <>
             {/* The original cards: the reference, not the reading */}
-            <div className="flex flex-col items-center gap-5 mb-6 max-w-full">
+            <div data-ez-header="" className="flex flex-col items-center gap-5 mb-6 max-w-full" style={{ visibility: revealed ? 'visible' : 'hidden' }}>
               {draws.map((d, i) => (
-                <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} />
+                <CardWithMap key={i} draw={d} onInfo={openInfo} label={drawLabel(d)} stacked={animOn} />
               ))}
             </div>
+            {revealed && (<>
             <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{question}”</p>
 
             {/* One surface: the discourse in order */}
@@ -857,6 +935,7 @@ export default function EZPage() {
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
             </div>
+            </>)}
           </>
         )}
       </main>

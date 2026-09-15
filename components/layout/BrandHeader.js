@@ -29,7 +29,7 @@ export default function BrandHeader({ hasActivity = false, compact = false }) {
       {/* Brand Title */}
       <div className="text-center mb-2 md:mb-3 relative">
         <Link href="/" className="inline-block">
-          <h1 className={`${compact ? 'text-base sm:text-lg md:text-xl' : 'text-lg sm:text-2xl md:text-3xl'} font-extralight tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] mb-1`}>
+          <h1 data-slot="wordmark" className={`${compact ? 'text-base sm:text-lg md:text-xl' : 'text-lg sm:text-2xl md:text-3xl'} font-extralight tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] mb-1`}>
             <span className="rainbow-letter rainbow-letter-0">N</span>
             <span className="rainbow-letter rainbow-letter-1">I</span>
             <span className="rainbow-letter rainbow-letter-2">R</span>

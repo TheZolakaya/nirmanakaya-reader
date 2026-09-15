@@ -47,7 +47,7 @@ export function clearLanding(root = document) {
     root.querySelectorAll('[data-map-frame]').forEach((el) => el.remove());
 }
 
-export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]' }) {
+export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]', signal = { skip: false } }) {
     // Hover scales the card too, and fights every transform we write. Off for the duration.
     const mapEl = surface;
     if (mapEl) mapEl.classList.add('nkya-animating');
@@ -148,7 +148,9 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       pre.src = fullArt;
     }
 
-    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+    // TAP TO SKIP. Every pause checks the signal; a skip rejects out of the sequence and the
+    // caller clears the map and shows the finished header. The camera loops check it too.
+    const wait = (ms) => new Promise((r, rej) => setTimeout(() => (signal.skip ? rej(new Error('skipped')) : r()), ms));
 
     // NAMES ON THE CARDS. The founder: "attach the names to the cards so when we reveal the name
     // of the card and its transient status, it stays on the card instead of just being at the
@@ -298,7 +300,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       window.setTimeout(() => { if (el.style.zIndex === '40') el.style.zIndex = ''; }, 500);
     };
     const tick = () => {
-      if (!state.alive) return;
+      if (!state.alive || signal.skip) return;
       let el = state.pool[Math.floor(Math.random() * state.pool.length)];
       if (el === state.last && state.pool.length > 1) el = state.pool[Math.floor(Math.random() * state.pool.length)];
       release(state.last);
@@ -446,6 +448,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
 
+      if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); return; }
       if (now < ARRIVE_AT) raf = requestAnimationFrame(step);
       else cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z);
     };
@@ -687,6 +690,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
         cam.z = fromZ + (toZ - fromZ) * e;
         centre(0.12);
         cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
+        if (signal.skip) { done(); return; }
         if (k < 1) requestAnimationFrame(stepZ);
         else { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); done(); }
       };
