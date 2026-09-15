@@ -241,6 +241,9 @@ export default function EZPage() {
   const [revealed, setRevealed] = useState(true);
   const [overlayTop, setOverlayTop] = useState(0);   // the map starts below the brand, which never leaves
   const [overlayIn, setOverlayIn] = useState(false);
+  // "only allow tap to skip if the reading is ready" — a skip with nothing to skip to is a freeze
+  const [replyReady, setReplyReady] = useState(false);
+  const readyRef = useRef(false);
   const cameraRef = useRef(null);
   const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
@@ -283,7 +286,7 @@ export default function EZPage() {
     } catch { /* skipped */ }
     // the clones stay parked in the header while the page comes back; begin() clears them
   };
-  const skipLanding = () => { if (skipRef.current) skipRef.current.skip = true; };
+  const skipLanding = () => { if (readyRef.current && skipRef.current) skipRef.current.skip = true; };
   const [turns, setTurns] = useState([]); // {id, role:'reader'|'you'|'catchup', text, question, chips, reflect, forge, draw, mode, ts}
   const [input, setInput] = useState('');
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
@@ -510,6 +513,7 @@ export default function EZPage() {
       try { window.scrollTo({ top: 0 }); } catch {}
       const brand = document.querySelector('[data-slot="wordmark"]')?.parentElement;
       setOverlayTop(brand ? Math.max(0, Math.round(brand.getBoundingClientRect().bottom)) : 0);
+      readyRef.current = false; setReplyReady(false);
       setOverlayIn(false); setRevealed(false); setAnimating(true);
       landed = playLanding(newDraws[0]).catch(() => {});
     }
@@ -526,6 +530,7 @@ export default function EZPage() {
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
+      readyRef.current = true; setReplyReady(true);
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
@@ -535,7 +540,7 @@ export default function EZPage() {
         if (data?.id) setSavedId(data.id);
       } catch {}
       scrollToEnd();
-    } catch (e) { setError(e.message); }
+    } catch (e) { setError(e.message); readyRef.current = true; setReplyReady(true); }
     await landed;
     if (willAnimate) {
       // the page comes back under the landed cards: header and discourse fade in, the map fades
@@ -809,7 +814,7 @@ export default function EZPage() {
             title="tap to skip">
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   cameraRef={cameraRef} className="w-full h-full" />
-                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">tap to skip</div>
+                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">{replyReady ? 'tap to skip' : 'the reader is writing…'}</div>
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
