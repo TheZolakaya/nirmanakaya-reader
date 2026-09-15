@@ -347,7 +347,9 @@ export default function EZPage() {
   const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
   const [asked, setAsked] = useState('');   // what the reading was actually asked — the door's own line when nothing was typed
-  const [cardCount, setCardCount] = useState(1);
+  // ONE CARD. EZ is one card by the founder's ruling (2026-09-15): the landing tells one card's
+  // story, and the conversation goes from there. The 1/2/3 picker is gone.
+  const cardCount = 1;
   const [draws, setDraws] = useState(null);
   const [voice, setVoice] = useState('plain');
   useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
@@ -941,11 +943,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs text-zinc-500">cards</span>
-              {[1, 2, 3].map((n) => (
-                <button key={n} onClick={() => setCardCount(n)}
-                  className={`w-8 h-8 rounded-full text-sm border ${cardCount === n ? 'border-amber-500 text-amber-300' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'}`}>{n}</button>
-              ))}
               <button onClick={begin} disabled={loading || !question.trim()}
                 className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
                 {loading ? 'Drawing…' : 'Ask'}
@@ -996,11 +993,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs text-zinc-500">cards</span>
-              {[1, 2, 3].map((n) => (
-                <button key={n} onClick={() => setCardCount(n)}
-                  className={`w-8 h-8 rounded-full text-sm border ${cardCount === n ? 'border-amber-500 text-amber-300' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'}`}>{n}</button>
-              ))}
               <button onClick={begin} disabled={loading}
                 className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
                 {loading ? 'Drawing…' : 'Draw'}
