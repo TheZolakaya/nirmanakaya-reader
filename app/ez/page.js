@@ -111,7 +111,7 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - Then fill "medicine" with one or two sentences on what that path actually asks, here, in this seat. Name the correction card by its canonical name. Say what the move IS in ordinary words, not what it symbolises.
 - The medicine always speaks from the correction card's balanced face. It opens, restores, releases, invites. It never orders, demands, prescribes, or promises an outcome, and it never diagnoses the person.
 - If every card is Balanced, "medicine" carries the growth opportunity instead: what this balance is free to feed next.
-- On a TALKING turn (no new card drawn), rewrite "medicine" only when the conversation has genuinely moved the ground under it. Otherwise repeat it unchanged.
+- On a TALKING turn (no new card drawn), "medicine" is EMPTY. The person has already read it; repeating it every turn is noise. Fill it only when the conversation has genuinely moved the ground under it, and then in one sentence — what has changed about the path, not the path again.
 - On a turn where a NEW CARD IS DRAWN (a reflect or a forge), the medicine is ALWAYS that new card’s own medicine, rewritten from the Rebalancer supplied with it. Never carry the earlier reading’s medicine into it. If the new card is Balanced, the medicine carries its growth opportunity, using the target named in its own data and never an invented one.
 - THE DRAW BOUNDARY: the most recently drawn card's medicine LEADS every turn after it until another card is drawn. The opening reading stays on the table, but its medicine may be mentioned only as secondary, never as "the way through" or "the path". The field is allowed to change the subject; when it does, follow it.
 
@@ -808,6 +808,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // THE FIELD AT A TURN: the most recently drawn card up to and including that turn governs
   // its medicine container; before any reflect or forge, the opening draw. (The container
   // used to fall back to the opening draw on every talking turn — a stale growth box.)
+  const firstReaderIdx = turns.findIndex((t) => t.role === 'reader');
   const fieldAt = (ti) => {
     for (let i = ti; i >= 0; i--) { const t = turns[i]; if (t?.role === 'reader' && t.draw) return [t.draw]; }
     return draws || [];
@@ -1062,7 +1063,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
                       The path is computed from the draw; the words come from the Reader. */}
-                  {t.role === 'reader' && t.medicine && (
+                  {t.role === 'reader' && t.medicine && !(t.draw || ti === firstReaderIdx) && (
+                    <p className="mt-3 text-xs text-emerald-300/80 italic break-words">◈ {t.medicine}</p>
+                  )}
+                  {t.role === 'reader' && t.medicine && (t.draw || ti === firstReaderIdx) && (
                     <div className="mt-3 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3">
                       <div className="text-[10px] uppercase tracking-wider text-emerald-300/80 mb-2">
                         {medicineFor(fieldAt(ti)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
