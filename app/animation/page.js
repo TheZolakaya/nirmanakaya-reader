@@ -74,7 +74,7 @@ export default function AnimationBench() {
       const im = el.querySelector('img');
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
     });
-    document.querySelectorAll('[data-flight-clone], [data-plate], [data-flash]').forEach((el) => el.remove());
+    document.querySelectorAll('[data-flight-clone], [data-plate], [data-flash], [data-ghost]').forEach((el) => el.remove());
     document.querySelector('[data-map-surface]')?.classList.remove('nkya-animating');
     document.querySelectorAll('.element-bg').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-map-wordmark]').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
@@ -118,7 +118,10 @@ export default function AnimationBench() {
     let draws = drawMap;
     if (Object.keys(draws).length < 22) {
       const d = generateSpread(1)[0];
-      draws = { [d.position]: { transient: d.transient, status: d.status } };
+      // bench switch: ?self=1 forces the self-homed draw (an archetype into its own seat), a
+      // one-in-78 event that would otherwise take an evening of pressing Land to see
+      const forceSelf = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('self') === '1';
+      draws = { [d.position]: { transient: forceSelf ? d.position : d.transient, status: d.status } };
       // The pair is NOT put on the map. An undealt seat shows its own face, which is what the
       // durable IS before anything is placed on it, and the home seat of the transient already
       // shows the transient. Both are exactly what the landing needs to find.
@@ -137,6 +140,12 @@ export default function AnimationBench() {
     const displayId = draws[targetId] ? draws[targetId].transient : targetId;
     const homeEl = document.querySelector(`[data-position="${displayId}"]`) || seatEl;
     const target = homeEl;
+    // SELF-HOMED: an archetype drawn into its own seat. There is no second card to tell the story
+    // with, so the seat becomes a GHOST of itself — a faded, desaturated copy of the card's own
+    // face, in the seat, wearing the seat's name — and the card comes home onto it exactly.
+    const selfHomed = homeEl === seatEl;
+    const seatFaceArt = getCardImagePath(targetId);
+    let ghost = null;
     const others = cards.filter(el => el !== target);
 
     // EVERYTHING GEOMETRIC IS MEASURED NOW, while the field is still at rest. Once the flicker
@@ -179,6 +188,19 @@ export default function AnimationBench() {
     const fieldC = { x: (fl + fr) / 2, y: (ft + fb) / 2 };
     const fieldW = fr - fl, fieldH = fb - ft;
 
+    const makeGhost = () => {
+      if (ghost) return ghost;
+      const face = seatEl.querySelector('.card') || seatEl;
+      const w = face.offsetWidth, hgt = face.offsetHeight || w;
+      ghost = document.createElement('div');
+      ghost.setAttribute('data-ghost', '');
+      Object.assign(ghost.style, { position: 'absolute', left: `${pSeat.x - w / 2}px`, top: `${pSeat.y - hgt / 2}px`, width: `${w}px`, height: `${hgt}px`,
+        transform: `rotate(${seatAngle0}deg)`, transformOrigin: 'center center', zIndex: '30', opacity: '0.35', pointerEvents: 'none',
+        transition: 'opacity 900ms ease' });
+      ghost.innerHTML = `<img src="${seatFaceArt}" style="display:block;width:100%;height:100%;object-fit:cover;border-radius:6px;filter:grayscale(1) brightness(0.9)">`;
+      canvas.appendChild(ghost);
+      return ghost;
+    };
     const homeAngle0 = screenAngle(homeEl.firstElementChild);
     const seatAngle0 = screenAngle(seatEl.firstElementChild);   // already carries the status turn
     const pHome = mapPoint(homeEl), pSeat = mapPoint(seatEl);
@@ -223,9 +245,14 @@ export default function AnimationBench() {
       pl.style.opacity = '1';
       return pl;
     };
-    const NAME = (t) => ({ text: t, size: 0.11, font: "'Cormorant Garamond', serif", weight: 500, ls: '0.06em', color: '#fde9b0', upper: false });
-    const STATUS = (t, c) => ({ text: t, size: 0.075, font: 'ui-sans-serif, system-ui, sans-serif', weight: 700, ls: '0.22em', color: c, upper: true });
-    const SEATNAME = (t) => ({ text: t, size: 0.10, font: "'Cormorant Garamond', serif", weight: 500, ls: '0.06em', color: '#b4b4bc', upper: false });
+    // Two families, one weight each: Cormorant at 400 (the site loads 300/400/600; a 500 was
+    // being faked) for every name, at ONE size; the site's own sans at 600 with the tagline's
+    // tracking for the status, so it rhymes with the lockup instead of shouting against it.
+    const SERIF = "'Cormorant Garamond', serif", SANS = 'system-ui, -apple-system, sans-serif';
+    const NAME = (t) => ({ text: t, size: 0.11, font: SERIF, weight: 400, ls: '0.06em', color: '#fde9b0', upper: false });
+    const STATUS = (t, c) => ({ text: t, size: 0.07, font: SANS, weight: 600, ls: '0.2em', color: c, upper: true });
+    const SEATNAME = (t) => ({ text: t, size: 0.11, font: SERIF, weight: 400, ls: '0.06em', color: '#b4b4bc', upper: false });
+    const SEATLINE = (t) => ({ text: t, size: 0.085, font: SERIF, weight: 400, ls: '0.04em', color: '#b4b4bc', upper: false });
 
     // THE FLASH. "a bright flash type of thing, emanating" — when the card is finally chosen, and
     // again when the spin stops on its status. A fixed disc at the card's own centre, so it is
@@ -257,6 +284,33 @@ export default function AnimationBench() {
       }
       document.body.appendChild(f);
       f.animate(frames, timing).onfinish = () => f.remove();
+    };
+    // The card's face on screen, through its whole transform chain: centre, size and angle.
+    const faceBox = (el) => {
+      const img = el.querySelector('img') || el;
+      let m = new DOMMatrix(), n = img;
+      while (n && n !== document.body) { const t = getComputedStyle(n).transform; if (t && t !== 'none') m = new DOMMatrix(t).multiply(m); n = n.parentElement; }
+      const sc = Math.hypot(m.a, m.b), ang = Math.atan2(m.b, m.a) * 180 / Math.PI;
+      const r = img.getBoundingClientRect();
+      return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: img.offsetWidth * sc, h: img.offsetHeight * sc, ang };
+    };
+    // "some sort of bam or some sort of flash of a border": a brightness punch on the card itself
+    // and a flash that hugs its outline and blooms outward, ahead of the disc.
+    const punch = (el) => {
+      el.style.transition = 'filter 160ms ease-out';
+      el.style.filter = 'brightness(2.1)';
+      window.setTimeout(() => { el.style.transition = 'filter 340ms ease'; el.style.filter = 'brightness(1)'; }, 170);
+    };
+    const edgeFlash = (el, color) => {
+      const b = faceBox(el);
+      const f = document.createElement('div');
+      f.setAttribute('data-flash', 'edge');
+      Object.assign(f.style, { position: 'fixed', left: `${b.cx - b.w / 2}px`, top: `${b.cy - b.h / 2}px`, width: `${b.w}px`, height: `${b.h}px`,
+        borderRadius: '8px', border: `${Math.max(3, b.w * 0.03)}px solid ${color}`, boxShadow: `0 0 ${b.w * 0.15}px ${color}, inset 0 0 ${b.w * 0.1}px ${color}`,
+        transform: `rotate(${b.ang}deg) scale(1)`, transformOrigin: 'center center', pointerEvents: 'none', zIndex: '251', mixBlendMode: 'screen' });
+      document.body.appendChild(f);
+      f.animate([{ transform: `rotate(${b.ang}deg) scale(0.96)`, opacity: 1 }, { transform: `rotate(${b.ang}deg) scale(1.45)`, opacity: 0 }],
+        { duration: 520, easing: 'cubic-bezier(.1,.8,.2,1)' }).onfinish = () => f.remove();
     };
     const sweep = (top, height) => {
       // the header's arrival: a band of light crossing the whole header, and a bloom behind it
@@ -546,9 +600,12 @@ export default function AnimationBench() {
     // the camera has settled on the card: this is the selection
     target.style.zIndex = '60';
     target.closest('.archetype-group')?.style.setProperty('z-index', '100');
-    burst(target, '#fde68a', 'disc');
+    punch(target);
+    edgeFlash(target, '#fde68a');
+    window.setTimeout(() => burst(target, '#fde68a', 'disc'), 90);
     plateFor(target, [NAME(cardName)]);
     await wait(700);
+    if (selfHomed) makeGhost();   // under the card as it rises, as every other durable's face is
     rise();
     await wait(RISE_MS + 100);
 
@@ -609,15 +666,19 @@ export default function AnimationBench() {
       delete el.dataset.turn;
       el.style.opacity = el === seatEl ? '1' : '0.25';
     });
-    if (seatName) plateFor(seatEl, [SEATNAME(seatName)]);
+    const seatFace = selfHomed ? makeGhost() : seatEl;   // the thing the card will land on
+    if (selfHomed) ghost.style.opacity = '0.6';
+    if (seatName) plateFor(seatFace, [SEATNAME(seatName)]);
     // The minimap rises on a layer above the field, and the two cards that matter must sit
     // above THAT. The hero's house is already raised; the seat's must be raised too, or the
     // durable ends up under the diagram it is supposed to be seen through.
     // 30: above the minimap (5), below a hero at canvas level (60) and below a hero's raised
     // house (100). Raising it to 100 tied it with the hero's house, and a tie is settled by
     // document order, which put the durable OVER the transient.
-    seatEl.style.zIndex = '59';
-    seatEl.closest('.archetype-group')?.style.setProperty('z-index', '30');
+    if (!selfHomed) {   // self-homed: the seat IS the hero, which already sits at 60 in a house at 100
+      seatEl.style.zIndex = '59';
+      seatEl.closest('.archetype-group')?.style.setProperty('z-index', '30');
+    }
     document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 900ms ease'; el.style.opacity = '0.25'; });
     await wait(1000);
 
@@ -635,7 +696,8 @@ export default function AnimationBench() {
     // seatAngle0 was measured at rest; if the founder had dealt the table, that seat already
     // carried this status turn, and it must not be applied twice.
     const seatTiltOnly = seatAngle0 - (drawMap[targetId] ? statusRot : 0);
-    const destMap = { x: pSeat.x + PEEK.x * wSeat, y: pSeat.y + PEEK.y * wSeat };
+    const peek = selfHomed ? { x: 0, y: 0 } : PEEK;   // home is home: no peek when it is its own seat
+    const destMap = { x: pSeat.x + peek.x * wSeat, y: pSeat.y + peek.y * wSeat };
     const landScale = wSeat / (wHome * par.scale);          // the seat's own size
     const th = -par.deg * Math.PI / 180;
     const wx = (destMap.x - pHome.x) / par.scale, wy = (destMap.y - pHome.y) / par.scale;
@@ -673,7 +735,9 @@ export default function AnimationBench() {
     void holder.offsetHeight;   // a forced style pass, so the opacity change below TRANSITIONS rather than snapping
     holder.style.opacity = '1';
 
-    target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
+    // a slower start, so card and camera lean into the journey together (the camera's glide
+    // eases in; the card used to leave at speed, and the mismatch read as a jerk)
+    target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.7,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
       `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
     target.style.filter = 'brightness(1) drop-shadow(0 10px 24px rgba(0,0,0,0.75))';
@@ -714,7 +778,7 @@ export default function AnimationBench() {
     {
       const sr = seatEl.getBoundingClientRect(), hr = target.getBoundingClientRect();
       const z = cam.z;
-      const want = { x: sr.left + sr.width / 2 + PEEK.x * wSeat * z, y: sr.top + sr.height / 2 + PEEK.y * wSeat * z };
+      const want = { x: sr.left + sr.width / 2 + peek.x * wSeat * z, y: sr.top + sr.height / 2 + peek.y * wSeat * z };
       const ex = want.x - (hr.left + hr.width / 2), ey = want.y - (hr.top + hr.height / 2);
       window.__landResidualPx = [Math.round(ex), Math.round(ey)];
       if (Math.hypot(ex, ey) > 1.5) {
@@ -727,8 +791,20 @@ export default function AnimationBench() {
         await wait(300);
       }
     }
-    // "a reverse splash for when it lands in the durable, like on the durable itself"
-    burst(seatEl, '#fde68a', 'implode');
+    // "a reverse splash ... on the durable itself", now in two colours — the durable's own element
+    // colour and gold — gathering in; and the durable's frame fades WITH it, so nothing is left
+    // to vanish when the flight begins.
+    const seatBg = seatEl.querySelector('.element-bg');
+    const elemColor = seatBg ? getComputedStyle(seatBg).backgroundColor : '#fde68a';
+    burst(seatFace, selfHomed ? '#fde68a' : elemColor, 'implode');
+    window.setTimeout(() => burst(seatFace, '#fde68a', 'implode'), 150);
+    if (!selfHomed && seatBg) { seatBg.style.transition = 'opacity 900ms ease'; seatBg.style.opacity = '0'; }
+    // Two plates in one place read as a collision. The durable's plate fades and the transient's
+    // takes a second, quieter line, so the card now says the whole thing: "Stewardship" over
+    // "in Fortitude".
+    const seatPlate = seatFace.querySelector('[data-plate="below"]');
+    if (seatPlate) seatPlate.style.opacity = '0';
+    plateFor(target, [NAME(cardName), SEATLINE(selfHomed ? 'in its own seat' : `in ${seatName || ''}`)]);
     await wait(250);
     await wait(1200);
 
@@ -764,7 +840,7 @@ export default function AnimationBench() {
     // A card clone is a box holding the art AND its plate, so the name flies with the card and
     // is still there in the header — "I can't tell which card is which if I'm not someone who's
     // familiar with everything." The plate is set in header-sized type from the start.
-    const clone = (src, box, radius, plateHtml, topHtml) => {
+    const clone = (src, box, radius, plateHtml, topHtml, ghostly = false) => {
       const c = document.createElement('div');
       c.setAttribute('data-flight-clone', '');
       Object.assign(c.style, { position: 'fixed', left: `${box.cx - box.w / 2}px`, top: `${box.cy - box.h / 2}px`,
@@ -774,7 +850,7 @@ export default function AnimationBench() {
       const im = document.createElement('img');
       im.src = src;
       Object.assign(im.style, { display: 'block', width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius,
-        boxShadow: '0 12px 32px rgba(0,0,0,0.7)' });
+        boxShadow: '0 12px 32px rgba(0,0,0,0.7)', ...(ghostly ? { filter: 'grayscale(1) brightness(0.9)', opacity: '0.6' } : {}) });
       c.appendChild(im);
       if (plateHtml) {
         const pl = document.createElement('div');
@@ -800,15 +876,16 @@ export default function AnimationBench() {
     const stackSlot = slotOf('stack'), mapSlot = slotOf('minimap'), wordSlot = slotOf('wordmark');
     if (stackSlot && mapSlot) {
       const tBox = trueBox(target, target.querySelector('img'));
-      const dBox = trueBox(seatEl, seatImg);
+      const dBox = trueBox(seatFace, seatFace.querySelector('img'));
       const statusWord = st ? (st.prefix || 'Balanced') : '';
       const dClone = clone(seatOwnArt, dBox, '10px',
-        `<div style="font-size:17px;font-family:'Cormorant Garamond',serif;color:#b4b4bc;letter-spacing:0.06em">${seatName || ''}</div>`);
+        `<div style="font-size:19px;font-family:${SERIF};font-weight:400;color:#b4b4bc;letter-spacing:0.06em">${selfHomed ? 'its own seat' : (seatName || '')}</div>`,
+        null, selfHomed);
       const tClone = clone(fullArt, tBox, '10px',
-        `<div style="font-size:19px;font-family:'Cormorant Garamond',serif;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`,
-        `<div style="font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${statusColor};font-family:ui-sans-serif,system-ui,sans-serif">${statusWord}</div>`);
+        `<div style="font-size:19px;font-family:${SERIF};font-weight:400;color:#fde9b0;letter-spacing:0.06em">${cardName}</div>`,
+        `<div style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:${statusColor};font-family:${SANS}">${statusWord}</div>`);
       dClone.style.zIndex = '299';
-      target.style.opacity = '0'; seatEl.style.opacity = '0';
+      target.style.opacity = '0'; seatEl.style.opacity = '0'; if (ghost) ghost.style.opacity = '0';
 
       // the minimap, whole
       const hb = holder.getBoundingClientRect();
@@ -857,7 +934,30 @@ export default function AnimationBench() {
         }));
       }
       window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), FLY - 250);
-      await wait(FLY + 1200);
+
+      // "IN YOUR": a small arched arrow from the transient over to the durable, two words under
+      // it, arriving last and thin — the one thing a stranger has no other way to learn from the
+      // picture. Drawn against the slot geometry the clones are flying to.
+      window.setTimeout(() => {
+        const tl = stackSlot.left, tt = stackSlot.top;
+        const dl = tl + S * PEEK_HEADER.x, dt = tt + S * PEEK_HEADER.y;
+        const x1 = tl + S, y1 = tt + S * 0.30;            // off the transient's right edge
+        const x2 = dl + S * 0.78, y2 = dt - 4;             // onto the durable's top edge
+        const cx = (x1 + x2) / 2, cy = Math.min(y1, y2) - S * 0.30;
+        const mx = 0.25 * x1 + 0.5 * cx + 0.25 * x2, my = 0.25 * y1 + 0.5 * cy + 0.25 * y2;
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('data-flight-clone', '');
+        Object.assign(svg.style, { position: 'fixed', left: '0', top: '0', width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: '303', opacity: '0', transition: 'opacity 700ms ease' });
+        svg.innerHTML =
+          `<defs><marker id="nkya-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">` +
+          `<path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(212,212,216,0.85)"/></marker></defs>` +
+          `<path d="M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}" fill="none" stroke="rgba(212,212,216,0.7)" stroke-width="1.5" stroke-linecap="round" marker-end="url(#nkya-arrow)"/>` +
+          `<text x="${mx}" y="${my - 8}" text-anchor="middle" font-family="${SERIF}" font-size="15" font-style="italic" fill="rgba(212,212,216,0.85)">in your</text>`;
+        document.body.appendChild(svg);
+        void svg.offsetHeight;
+        svg.style.opacity = '1';
+      }, FLY + 700);
+      await wait(FLY + 1600);
     }
     setLandedLabel(null);
     if (mapEl) mapEl.classList.remove('nkya-animating');
