@@ -87,6 +87,7 @@ export default function TheMap({
   showHouseLabels = true,
   className = 'w-full h-full',
   cameraRef = null,            // passed straight through to MapCanvas
+  lowRes = false,              // 200px art for every card (phones; the animation lifts full art itself)
   // Animation hook: given a position id, return extra inline styles for that card's wrapper.
   // Transform-only styles keep this cheap on a phone. Returning nothing leaves the card alone.
   styleForPosition = null
@@ -175,6 +176,7 @@ export default function TheMap({
                     transition: 'transform 0.4s ease, border-color 0.3s, box-shadow 0.3s'
                   }}>
                     <CardNode
+                lowRes={lowRes}
                       id={displayId}
                       name={displaySig?.name || `Signature ${displayId}`}
                       left={6}
@@ -245,6 +247,7 @@ export default function TheMap({
               transition: 'transform 0.4s ease'
             }}>
               <CardNode
+                lowRes={lowRes}
                 id={displayId}
                 name={displaySig?.name || `Signature ${displayId}`}
                 left={6}
@@ -312,6 +315,7 @@ export default function TheMap({
               transition: 'all 0.4s ease'
             }}>
               <CardNode
+                lowRes={lowRes}
                 id={displayId}
                 name={displaySig?.name || `Sig ${displayId}`}
                 left={3}
@@ -359,6 +363,7 @@ export default function TheMap({
               transition: 'all 0.4s ease'
             }}>
               <CardNode
+                lowRes={lowRes}
                 id={displayId}
                 name={displaySig?.name || `Sig ${displayId}`}
                 left={3}

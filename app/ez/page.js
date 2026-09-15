@@ -26,7 +26,7 @@ import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
-import { getHomeArchetype, getCardType, getCardImagePath } from '../../lib/cardImages';
+import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
 import TheMap from '../../components/map/TheMap';
 import { runLanding, clearLanding, placeWordmark } from '../../components/map/landing';
 import CardImage from '../../components/reader/CardImage';
@@ -312,6 +312,15 @@ export default function EZPage() {
   const [voice, setVoice] = useState('plain');
   useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
   const chooseVoice = (v) => { setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {} };
+
+  // WARM THE MAP while the person is still choosing a door: all 78 thumbnails (about 100KB each)
+  // into the browser cache, so the map appears whole the moment it is asked for. Idle-time work.
+  useEffect(() => {
+    if (!animOn || typeof window === 'undefined') return;
+    const run = () => { for (let i = 0; i < 78; i++) { const p = getCardThumbPath(i); if (p) { const im = new Image(); im.decoding = 'async'; im.src = p; } } };
+    if ('requestIdleCallback' in window) window.requestIdleCallback(run, { timeout: 2000 }); else window.setTimeout(run, 300);
+  }, [animOn]);
+  const [mapReady, setMapReady] = useState(false);
   // The draw block carries "MANDATORY: your interpretation MUST include the word <position>" — right
   // for the map's words, wrong for plain ones. Stripped at the source when the voice is plain.
   const fmtDraw = (...a) => { const t = formatDrawForAI(...a); return voice === 'plain' ? t.split('\n').filter(l => !l.includes('MANDATORY:')).join('\n') : t; };
@@ -355,7 +364,16 @@ export default function EZPage() {
     placeWordmark(surface);
     try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
     setOverlayIn(true);
-    await new Promise(r => setTimeout(r, 550));
+    // The first run on a phone was chunky until every card had buffered. So: wait for all 78
+    // images to load (capped at ten seconds, in case one never does) before the seek begins.
+    setMapReady(false);
+    const imgs = [...surface.querySelectorAll('[data-position] img')];
+    await Promise.race([
+      Promise.all(imgs.map(im => (im.complete && im.naturalWidth > 0) ? Promise.resolve() : new Promise(res => { im.addEventListener('load', res, { once: true }); im.addEventListener('error', res, { once: true }); }))),
+      new Promise(res => setTimeout(res, 10000))
+    ]);
+    setMapReady(true);
+    await new Promise(r => setTimeout(r, 350));
     try {
       await runLanding({
         surface, cameraRef,
@@ -894,8 +912,8 @@ export default function EZPage() {
                 style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}
             title="tap to skip">
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
-                  cameraRef={cameraRef} className="w-full h-full" />
-                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">{replyReady ? 'tap to skip' : 'the reader is writing…'}</div>
+                  lowRes cameraRef={cameraRef} className="w-full h-full" />
+                <div className="pointer-events-none absolute bottom-2 inset-x-0 text-center text-[10px] tracking-[0.25em] uppercase text-zinc-600">{!mapReady ? 'loading the cards…' : replyReady ? 'tap to skip' : 'the reader is writing…'}</div>
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>

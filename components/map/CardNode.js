@@ -46,6 +46,10 @@ const CardNode = memo(({
   revealed = true,
   highlighted = false,
   dimmed = false,
+  // Small art for EVERY card. The full archetype art is 2134px (5MB a card); a map of 22 of them
+  // decoded is hundreds of megabytes and crashed a phone. The animation swaps full art in for the
+  // one or two cards it lifts, so the map itself never needs more than the 200px thumbnails.
+  lowRes = false,
   spinning = false,
   onClick,
   onDoubleClick,
@@ -65,7 +69,7 @@ const CardNode = memo(({
   const elementColor = ELEMENT_COLORS[effectiveChannel] || ELEMENT_COLORS[null];
 
   // Use thumbnails for bounds and agents (lighter weight)
-  const imagePath = (effectiveType === 'bound' || effectiveType === 'agent')
+  const imagePath = (lowRes || effectiveType === 'bound' || effectiveType === 'agent')
     ? getThumbPath(fullImagePath)
     : fullImagePath;
 

@@ -19,6 +19,8 @@ export default function AnimationBench() {
   const [colorLayer, setColorLayer] = useState('status');
   const [zoom, setZoom] = useState(0.45);
   const [labels, setLabels] = useState(false);
+  const [lowRes, setLowRes] = useState(false);   // ?lowres=1: the 200px art for every card, as EZ uses
+  useEffect(() => { try { setLowRes(new URLSearchParams(window.location.search).get('lowres') === '1'); } catch {} }, []);
   const [scanning, setScanning] = useState(false);
   const [pace, setPace] = useState(160);     // ms between pulses — 70 read as nervous
   const [lift, setLift] = useState(1.45);    // how big a pulse gets
@@ -255,6 +257,7 @@ export default function AnimationBench() {
           initialZoom={zoom}
           showLabels={labels}
           showHouseLabels={labels}
+          lowRes={lowRes}
           cameraRef={cameraRef}
           className="w-full h-full"
         />
