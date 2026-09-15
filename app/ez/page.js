@@ -115,14 +115,12 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - On a turn where a NEW CARD IS DRAWN (a reflect or a forge), the medicine is ALWAYS that new card’s own medicine, rewritten from the Rebalancer supplied with it. Never carry the earlier reading’s medicine into it. If the new card is Balanced, the medicine carries its growth opportunity, using the target named in its own data and never an invented one.
 - THE DRAW BOUNDARY: the most recently drawn card's medicine LEADS every turn after it until another card is drawn. The opening reading stays on the table, but its medicine may be mentioned only as secondary, never as "the way through" or "the path". The field is allowed to change the subject; when it does, follow it.
 
-THE FELT SIDE OF EACH STATUS. The person does not feel "excessive authority"; they feel something in their day. Let the status colour how you read the card for their topic, in their own kitchen words, never as a diagnosis and never as a label on them:
-- Too Much lives near FEAR AND ANXIETY: gripping, bracing, over-managing, the sense that if I let go it falls.
-- Too Little lives near SHAME AND REGRET: pulling back, the thing not done, the "I should have", the door not walked through.
-- Unacknowledged lives near a FLATNESS: "it doesn't matter", "that wasn't really me", the light version of nothing counting — the person's own hand not recognised as theirs.
-- Balanced lives near EASE: the thing done as one's own, nothing to brace against.
-Use the flavour, not the clinical words, and match it to their topic (fear in a relationship is not fear about money). It is a colour for the reading, never a verdict on the person.
-
-NOWISM. The reading is about NOW. What the card names is happening in the person's life today — not their history, not a forecast, not who they are in general. Present tense, this week, this situation. The medicine is a move they could make today. If you catch yourself narrating their past or predicting their future, come back to now.
+NOWISM — THE TIME SIGNATURE OF EACH STATUS. Each status is a place in time, and that is where its feeling comes from. This colours the interpretation; it is not the whole reading, and never a diagnosis or a label on the person:
+- Too Much is living in the FUTURE: forecasting, bracing for what might happen, managing outcomes that have not arrived — and so its feeling is fear and anxiety. Its medicine (the diagonal) brings the person back to the moment at hand.
+- Too Little is living in the PAST: the thing not done, the door not walked through, "I should have" — and so its feeling is regret, shame, guilt. Its medicine (the vertical) brings the person back into the present tense.
+- Unacknowledged is absent from time altogether: "it doesn't matter", "that wasn't really me" — the light version of nothing counting, next door to flatness and depression. Its medicine (the reduction) hands the person back their own hand in what is happening.
+- Balanced is living in the MOMENT: the thing done as one's own, nothing to brace against and nothing to regret.
+Use the flavour in the person's own kitchen words, matched to their topic (fear in a relationship is not fear about money), and let the medicine be what it always is: the way back to now.
 
 THE FOUR CLASSES OF MEDICINE — each has its own mechanism, and the prose must run that mechanism, not just name the card:
 - Balanced → GROWTH: an invitation, optional by definition. Nothing is broken. Growth INVITES; it never prescribes.
@@ -217,7 +215,7 @@ const DOORS = [
   { id: 'emotion', house: 'Emotion', label: 'Relationships',      sub: 'the people in my life',           breath: 'Your relationships — the people in your life, and the space between you.' },
   { id: 'body',    house: 'Body',    label: 'Health & prosperity', sub: 'my body, my home, my money',     breath: 'Your health and your prosperity — your body, your home, your money, what you carry.' },
   { id: 'gestalt', house: 'Gestalt', label: 'Fulfillment',        sub: 'whether my life is adding up',   breath: 'Your fulfillment — whether your life is adding up to what you meant it to be.' },
-  { id: 'daily',   house: null,      label: 'My daily reading',   sub: 'no question — see what today holds', breath: 'A daily reading. No question brought: whatever the cards put on the table for today.' },
+  { id: 'daily',   house: null,      label: 'My daily reading',   sub: 'let one of these be chosen for me', breath: '' },
 ];
 
 const CHIP_STYLE = {
@@ -696,10 +694,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const history = await loadHistory(newDraws);
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
-      const doorBlock = door && door.id === 'daily'
-        ? `\n\nA DAILY READING. They brought no question; they asked the cards to choose. Read the card for the day ahead of them — what it names, where it sits, what it asks of them today — in the same shape as any opening turn. Do not invent a question for them.`
-        : door
-        ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house). This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
+      const doorBlock = door
+        ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
       const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
@@ -915,7 +911,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
               const Door = ({ d, className = '' }) => {
                 const c = HOUSE_TINT[d.id];
                 return (
-                  <button key={d.id} onClick={() => { setDoor(d); setQuestion(''); setError(''); }}
+                  <button key={d.id} onClick={() => {
+                      // "My daily reading" chooses one of the five houses for them, at random
+                      const pick = d.id === 'daily' ? { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true } : d;
+                      setDoor(pick); setQuestion(''); setError('');
+                    }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
                     style={{ borderColor: c + '99', background: c + '26' }}>
                     <span className="text-[15px] text-zinc-100">{d.label}</span>
@@ -1010,6 +1010,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <button onClick={() => { setDoor(null); setQuestion(''); setError(''); }}
               className="text-xs text-zinc-600 hover:text-zinc-300">&larr; something else</button>
 
+            {door.viaDaily && <p className="text-[10px] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
             <p className="text-lg text-zinc-200 font-light break-words">{door.breath}</p>
 
             <div>
