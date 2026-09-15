@@ -74,7 +74,8 @@ export default function AnimationBench() {
       const im = el.querySelector('img');
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
     });
-    document.querySelectorAll('[data-flight-clone]').forEach((el) => el.remove());
+    document.querySelectorAll('[data-flight-clone], [data-plate], [data-flash]').forEach((el) => el.remove());
+    document.querySelectorAll('.element-bg').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-map-wordmark]').forEach((el) => { el.style.opacity = ''; el.style.transition = ''; });
     document.querySelectorAll('[data-house-label]').forEach((el) => {
       el.style.transition = ''; el.style.opacity = '';
@@ -197,6 +198,45 @@ export default function AnimationBench() {
     }
 
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+    // NAMES ON THE CARDS. The founder: "attach the names to the cards so when we reveal the name
+    // of the card and its transient status, it stays on the card instead of just being at the
+    // bottom of the screen ... as well as the destination card." The plate lives INSIDE the card
+    // element, so it scales, turns and travels with it — on an inverted card it hangs off the
+    // top, upside down, exactly as the card is. Sizes are fractions of the card's own width.
+    const plateFor = (el, lines) => {
+      const host = el.querySelector('.card') || el;
+      let pl = host.querySelector(':scope > [data-plate]');
+      if (!pl) { pl = document.createElement('div'); pl.setAttribute('data-plate', ''); host.appendChild(pl); }
+      const w = host.offsetWidth || el.offsetWidth || 100;
+      Object.assign(pl.style, { position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+        marginTop: `${(w * 0.06).toFixed(1)}px`, width: 'max-content', maxWidth: `${(w * 2.2).toFixed(0)}px`, textAlign: 'center',
+        pointerEvents: 'none', lineHeight: '1.15', textShadow: '0 2px 8px rgba(0,0,0,0.95)', opacity: '0', transition: 'opacity 600ms ease' });
+      pl.innerHTML = lines.map(l =>
+        `<div style="font-size:${(w * l.size).toFixed(1)}px;font-family:${l.font};font-weight:${l.weight};letter-spacing:${l.ls};color:${l.color};text-transform:${l.upper ? 'uppercase' : 'none'};white-space:nowrap">${l.text}</div>`
+      ).join('');
+      void pl.offsetHeight;
+      pl.style.opacity = '1';
+      return pl;
+    };
+    const NAME = (t) => ({ text: t, size: 0.11, font: "'Cormorant Garamond', serif", weight: 500, ls: '0.06em', color: '#fde9b0', upper: false });
+    const STATUS = (t, c) => ({ text: t, size: 0.075, font: 'ui-sans-serif, system-ui, sans-serif', weight: 700, ls: '0.22em', color: c, upper: true });
+    const SEATNAME = (t) => ({ text: t, size: 0.10, font: "'Cormorant Garamond', serif", weight: 500, ls: '0.06em', color: '#b4b4bc', upper: false });
+
+    // THE FLASH. "a bright flash type of thing, emanating" — when the card is finally chosen, and
+    // again when the spin stops on its status. A fixed disc at the card's own centre, so it is
+    // untouched by the map's transform, that swells and fades in three quarters of a second.
+    const burst = (el, color) => {
+      const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * 1.1;
+      const f = document.createElement('div');
+      f.setAttribute('data-flash', '');
+      Object.assign(f.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`,
+        width: `${d}px`, height: `${d}px`, borderRadius: '50%', pointerEvents: 'none', zIndex: '250',
+        background: `radial-gradient(circle, ${color} 0%, ${color}66 35%, transparent 70%)`, mixBlendMode: 'screen' });
+      document.body.appendChild(f);
+      f.animate([{ transform: 'scale(0.35)', opacity: 0.95 }, { transform: 'scale(2.4)', opacity: 0 }],
+        { duration: 750, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => f.remove();
+    };
     const flash = (el, scale, ms) => {
       el.style.transition = `transform ${Math.max(ms, POP_MS)}ms cubic-bezier(.22,1,.36,1), filter ${ms}ms ease`;
       el.style.transformOrigin = 'center center';
@@ -423,14 +463,21 @@ export default function AnimationBench() {
       target.closest('.archetype-group')?.style.setProperty('z-index', '100');
       target.style.transform = `scale(${heroScale}) rotate(${-seatTilt}deg)`;
       target.style.filter = 'brightness(1.12) drop-shadow(0 20px 48px rgba(0,0,0,0.8))';
+      // "the borders around it when you zoom up get really thick, and it's unattractive" — the
+      // coloured frame is the element background behind the image; it goes as the card rises.
+      const bg = target.querySelector('.element-bg');
+      if (bg) { bg.style.transition = 'opacity 900ms ease'; bg.style.opacity = '0'; }
     }, RISE_AT);
 
     // the field eases away underneath it, finishing a beat before the card settles
     const FADE_AT = GRAVITY_UNTIL + Math.round(FLIGHT * 0.42);
     window.setTimeout(() => {
+      // "the background isn't fully faded out. It's only partially faded out" — the field stays
+      // at a quarter behind the hero, so that when the durable lights up it lights up OUT OF the
+      // field, and the minimap has something to rise through.
       [...others, ...document.querySelectorAll('[data-house-label]')].forEach(el => {
         el.style.transition = 'opacity 1500ms ease';
-        el.style.opacity = '0';
+        el.style.opacity = '0.25';
       });
     }, FADE_AT);
 
@@ -454,6 +501,8 @@ export default function AnimationBench() {
     const cardName = sig?.name || `Signature ${displayId}`;
     const seatName = ARCHETYPES[targetId]?.name || null;
     setLandedLabel({ name: cardName, prefix: null, seat: null });
+    burst(target, '#fde68a');
+    plateFor(target, [NAME(cardName)]);
 
     // ================= THE LAST ACT: THE CARD TAKES ITS SEAT =================
     //
@@ -483,6 +532,8 @@ export default function AnimationBench() {
     await wait(2300 + 150);
     const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
     setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: null, color: statusColor });
+    burst(target, statusColor);
+    plateFor(target, [STATUS(st ? (st.prefix || 'Balanced') : '', statusColor), NAME(cardName)]);
     await wait(1100);
 
     // ============================ THE LAST ACT, as the founder laid it out ============================
@@ -503,12 +554,15 @@ export default function AnimationBench() {
       seatImg.dataset.prevSrc = seatImg.getAttribute('src');
       seatImg.src = seatOwnArt;
     }
+    // The field stays at its quarter; every popped card goes square; and the durable alone comes
+    // up to full — "that's the one card that's lit up" — wearing its own name.
     others.forEach(el => {
       el.style.transition = 'opacity 900ms ease, transform 900ms ease';
       el.style.transform = 'scale(1) rotate(0deg)';
       delete el.dataset.turn;
-      el.style.opacity = '1';
+      el.style.opacity = el === seatEl ? '1' : '0.25';
     });
+    if (seatName) plateFor(seatEl, [SEATNAME(seatName)]);
     // The minimap rises on a layer above the field, and the two cards that matter must sit
     // above THAT. The hero's house is already raised; the seat's must be raised too, or the
     // durable ends up under the diagram it is supposed to be seen through.
@@ -517,13 +571,16 @@ export default function AnimationBench() {
     // document order, which put the durable OVER the transient.
     seatEl.style.zIndex = '59';
     seatEl.closest('.archetype-group')?.style.setProperty('z-index', '30');
-    document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 900ms ease'; el.style.opacity = '1'; });
+    document.querySelectorAll('[data-house-label]').forEach(el => { el.style.transition = 'opacity 900ms ease'; el.style.opacity = '0.25'; });
     await wait(1000);
 
     // --- 2. the transient sets down ON the durable, which peeks out from beneath ---
     // ASSUMPTION (founder to confirm by eye): the transient sits down and to the right of the
     // seat by a little over half a card, so the durable shows to the upper-left, about 60% of it.
-    const PEEK = { x: 0.55, y: 0.14 };
+    // "when it lands on it, it should be like ninety percent overlap" — and the header then
+    // unfolds the pair so both faces read. Two offsets, one per moment.
+    const PEEK = { x: 0.10, y: 0.06 };
+    const PEEK_HEADER = { x: 0.55, y: 0.14 };
     const statusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
     // seatAngle0 was measured at rest; if the founder had dealt the table, that seat already
     // carried this status turn, and it must not be applied twice.
@@ -532,8 +589,8 @@ export default function AnimationBench() {
     const landScale = wSeat / (wHome * par.scale);          // the seat's own size
     const th = -par.deg * Math.PI / 180;
     const wx = (destMap.x - pHome.x) / par.scale, wy = (destMap.y - pHome.y) / par.scale;
-    const dx = wx * Math.cos(th) - wy * Math.sin(th);
-    const dy = wx * Math.sin(th) + wy * Math.cos(th);
+    let dx = wx * Math.cos(th) - wy * Math.sin(th);
+    let dy = wx * Math.sin(th) + wy * Math.cos(th);
     const TRAVEL = 2900;
 
     // THE REVEAL RIDES THE JOURNEY. The founder: "while we're moving the transient to the durable
@@ -566,6 +623,7 @@ export default function AnimationBench() {
     void holder.offsetHeight;   // a forced style pass, so the opacity change below TRANSITIONS rather than snapping
     holder.style.opacity = '1';
 
+    setLandedLabel(null);   // the plates on the cards carry the names from here
     target.style.transition = `transform ${TRAVEL}ms cubic-bezier(.45,0,.2,1), filter ${TRAVEL}ms ease`;
     target.style.transform =
       `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
@@ -598,8 +656,29 @@ export default function AnimationBench() {
     // "the camera's still zoomed way up on it, so you can see what's going on"
     const tightZ = Math.max(0.9, cam.z * 0.70);
     await glide(tightZ, TRAVEL);
+
+    // MEASURED SETTLE. The solved translate lands the card near the seat but not on it — the
+    // residual differs with the home card's house, and at a ninety-percent overlap even twenty
+    // map units reads as "off to the side". So the landing is finished the way every other
+    // placement in this sequence is: measure where the card actually is against where the seat
+    // actually is, and take out the difference in a short settle.
+    {
+      const sr = seatEl.getBoundingClientRect(), hr = target.getBoundingClientRect();
+      const z = cam.z;
+      const want = { x: sr.left + sr.width / 2 + PEEK.x * wSeat * z, y: sr.top + sr.height / 2 + PEEK.y * wSeat * z };
+      const ex = want.x - (hr.left + hr.width / 2), ey = want.y - (hr.top + hr.height / 2);
+      window.__landResidualPx = [Math.round(ex), Math.round(ey)];
+      if (Math.hypot(ex, ey) > 1.5) {
+        const k = z * par.scale, a = -par.deg * Math.PI / 180;
+        const lx = (ex * Math.cos(a) - ey * Math.sin(a)) / k, ly = (ex * Math.sin(a) + ey * Math.cos(a)) / k;
+        dx += lx; dy += ly;
+        target.style.transition = 'transform 280ms ease-out';
+        target.style.transform =
+          `translate(${dx}px, ${dy}px) scale(${landScale}) rotate(${spinBase + seatTiltOnly + statusRot - homeAngle0}deg)`;
+        await wait(300);
+      }
+    }
     await wait(250);
-    setLandedLabel({ name: cardName, prefix: st ? (st.prefix || 'Balanced') : null, seat: seatName, color: statusColor });
     await wait(1200);
 
     // --- 3. the field dissolves into the minimap as the camera opens out ---
@@ -692,7 +771,7 @@ export default function AnimationBench() {
       // the stack in the header: durable upper-left, transient down and to the right, both upright
       const S = Math.min(stackSlot.width * 0.66, stackSlot.height * 0.9);
       flyTo(dClone, stackSlot.left, stackSlot.top, S, S, 0);
-      flyTo(tClone, stackSlot.left + S * PEEK.x, stackSlot.top + S * PEEK.y, S, S, 0);
+      flyTo(tClone, stackSlot.left + S * PEEK_HEADER.x, stackSlot.top + S * PEEK_HEADER.y, S, S, 0);
       const mw = Math.min(mapSlot.width, mapSlot.height * (MINIMAP_W / MINIMAP_H));
       flyTo(mClone, mapSlot.left + (mapSlot.width - mw) / 2, mapSlot.top, mw, mw * (MINIMAP_H / MINIMAP_W), 0);
       if (wClone && wordSlot) {
@@ -701,6 +780,19 @@ export default function AnimationBench() {
           Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})`, opacity: '1' });
         }));
       }
+      // the header's own line beneath the pair, as EZ writes it: status, name, seat
+      const cap = document.createElement('div');
+      cap.setAttribute('data-flight-clone', '');
+      cap.innerHTML =
+        `<span style="color:${statusColor};font-weight:700;letter-spacing:0.18em;text-transform:uppercase;font-size:12px;font-family:ui-sans-serif,system-ui,sans-serif">${st ? (st.prefix || 'Balanced') : ''}</span>` +
+        ` <span style="color:#fde9b0;font-family:'Cormorant Garamond',serif;font-size:22px">${cardName}</span>` +
+        ` <span style="color:#a1a1aa;font-family:'Cormorant Garamond',serif;font-size:18px">in ${seatName || ''}</span>`;
+      Object.assign(cap.style, { position: 'fixed', left: `${stackSlot.left}px`, top: `${stackSlot.bottom + 10}px`,
+        width: `${mapSlot.right - stackSlot.left}px`, textAlign: 'center', opacity: '0',
+        transition: `opacity 900ms ease ${FLY - 500}ms`, zIndex: '302', pointerEvents: 'none' });
+      document.body.appendChild(cap);
+      void cap.offsetHeight;
+      cap.style.opacity = '1';
       await wait(FLY + 200);
     }
     setLandedLabel(null);
