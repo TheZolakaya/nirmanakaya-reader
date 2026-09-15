@@ -792,16 +792,28 @@ export default function EZPage() {
             <p className="text-lg text-zinc-200 font-light">What&rsquo;s on your mind?</p>
             {voiceSwitch()}
 
-            {/* THE FIVE DOORS — one per house. Tapping one opens the context step, not a draw. */}
-            <div className="flex flex-col gap-2">
-              {DOORS.map((d) => (
+            {/* THE FIVE DOORS, laid out like the map (founder, 2026-09-15): the Gestalt door
+                across the top, and the four manifest houses beneath it in the map's own order —
+                Mind upper left, Emotion upper right, Body lower left, Spirit lower right. */}
+            {(() => {
+              const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
+              const Door = ({ d, wide = false }) => (
                 <button key={d.id} onClick={() => { setDoor(d); setQuestion(''); setError(''); }}
-                  className="text-left rounded-xl border border-zinc-700/60 bg-zinc-900/50 px-4 py-3 hover:border-amber-500/50 hover:bg-zinc-900 transition-colors break-words">
+                  className={`text-left rounded-xl border border-zinc-700/60 bg-zinc-900/50 px-3 py-2.5 hover:border-amber-500/50 hover:bg-zinc-900 transition-colors break-words ${wide ? 'col-span-2' : ''}`}>
                   <span className="text-[15px] text-zinc-100">{d.label}</span>
                   <span className="block text-xs text-zinc-500 mt-0.5">{d.sub}</span>
                 </button>
-              ))}
-            </div>
+              );
+              return (
+                <div className="grid grid-cols-2 gap-2">
+                  <Door d={byId.gestalt} wide />
+                  <Door d={byId.mind} />
+                  <Door d={byId.emotion} />
+                  <Door d={byId.body} />
+                  <Door d={byId.spirit} />
+                </div>
+              );
+            })()}
 
             {/* The thread pill: this account's own live thread, from its own readings. */}
             {threadPill && threadOn && (
