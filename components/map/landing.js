@@ -35,7 +35,7 @@ export function clearLanding(root = document) {
       const im = el.querySelector('img');
       if (im && im.dataset.prevSrc) { im.src = im.dataset.prevSrc; delete im.dataset.prevSrc; }
       if (el.dataset.sharp) {
-        el.style.height = '';
+        el.style.height = ''; const hst = el.querySelector('.card'); if (hst) hst.style.height = '';
         if (im) ['position', 'left', 'top', 'width', 'height', 'maxWidth', 'maxHeight', 'objectFit', 'transform', 'transformOrigin', 'willChange'].forEach(k => { im.style[k] = ''; });
         const lb = el.querySelector('.card-label'); if (lb) lb.style.display = '';
         delete el.dataset.sharp;
@@ -190,10 +190,14 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // base stylesheet gives every image max-width:100%, so the enlarged image kept the card's
       // width while its height went to full size. Lifted here, and the image is sized from its
       // OWN box (the card has padding), placed where it already sits.
+      // The map node is a WRAPPER; the box the image sizes is the .card inside it, and that is
+      // the box the frame and the plates hang off. v0.99.307 pinned the wrapper and let the
+      // .card collapse to nothing (frame a thin outline, names drawn on the face). Pin the .card.
       const img = card.querySelector('img'); if (!img || card.dataset.sharp) return;
+      const host = card.querySelector('.card') || card;
       const W = img.offsetWidth, H = img.offsetHeight, L = img.offsetLeft, T = img.offsetTop;
       if (!W || !H || K <= 1) return;
-      card.style.height = `${card.offsetHeight}px`;
+      host.style.height = `${host.offsetHeight}px`;
       Object.assign(img.style, { position: 'absolute', left: `${L}px`, top: `${T}px`, width: `${W * K}px`, height: `${H * K}px`,
         maxWidth: 'none', maxHeight: 'none', objectFit: 'cover', transform: `scale(${1 / K})`, transformOrigin: '0 0', willChange: 'transform' });
       const lb = card.querySelector('.card-label'); if (lb) lb.style.display = 'none';
