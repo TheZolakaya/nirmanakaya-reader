@@ -1185,8 +1185,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   </button>
                 ))}
                 <button onClick={regenPills} disabled={regenning}
-                  className="self-center text-xs text-zinc-500 hover:text-zinc-300 underline decoration-dotted disabled:opacity-50">
-                  {regenning ? 'finding other options…' : '↻ other options'}
+                  className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors disabled:opacity-50">
+                  {regenning ? 'finding other options…' : '↻ Other options'}
                 </button>
               </div>
             )}
