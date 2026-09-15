@@ -966,7 +966,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             <div className="pt-1">
               <p className="text-xs text-zinc-600 mb-2">or say it your own way</p>
-              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={2}
+              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
                 placeholder="Ask it the way you would say it out loud."
                 className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
             </div>
@@ -1017,7 +1017,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <label className="block text-xs text-zinc-500 mb-2">
                 Add anything that matters — or draw as it stands.
               </label>
-              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={3}
+              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
                 placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
                 className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
             </div>
