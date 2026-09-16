@@ -448,25 +448,25 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const home = { x: cam.x + (vb.left + vb.width / 2 - (l + r) / 2),
                    y: cam.y + (vb.top + vb.height / 2 - (t + b) / 2) };
 
-    let heading = Math.random() * Math.PI * 2;
+    // THE SPIRAL (the founder's sister, 2026-09-16: "started slowly circling and then broader and
+    // broader and then came to what it finds"). The camera follows a point that circles the
+    // field's centre, small at first and opening outward, with one change of direction on the
+    // way. Because the point is tied to the centre, the field is always in frame when the pull
+    // begins — the old lean could wander off the map and then whip across to the card.
+    const vmin = Math.min(window.innerWidth, window.innerHeight);
+    const SPIRAL_R0 = 0.04 * vmin, SPIRAL_R1 = 0.26 * vmin;   // screen px: tight, then wide
+    const SPIRAL_TURNS = 2.0;                                   // over the whole drift
+    let theta = Math.random() * Math.PI * 2;
     let spin = Math.random() < 0.5 ? -1 : 1;
     const REVERSE_AT = 1700 + Math.random() * 800;    // the one change of mind
     let reversed = false;
-    let turn = spin * 0.017, turnAim = turn;
-    let nextTurn = 1300;
-    // These three are one choice, not three. A circle's radius is speed divided by turn rate, so
-    // if the radius comes out LARGER than the leash the leash fights the circle every frame and
-    // you get exactly the two faults being fixed here: a map carried off to one side, and a
-    // heading that keeps being argued with. Radius stays inside the leash at both ends:
-    //   start  1.0 / 0.017 =  59px circle around the map's centre
-    //   end    2.4 / 0.017 = 141px circle around the map's centre
-    const speedAt = (pr) => 1.0 + 1.4 * pr;   // px per frame: a slow circle, opening to a lean
+    let lastT = Date.now();
 
     // The hunt's zooms were tuned on a wide screen. On a phone the same numbers show a crop of
     // the field, so they scale with the screen's width; the hero and the landing already size
     // themselves from the viewport and need nothing here.
     const zScale = Math.min(1, Math.max(0.45, window.innerWidth / 760));
-    let wantZ = 0.50 * zScale, aimZ = 0.50 * zScale, nextZoom = 1300;
+    let wantZ = 0.58 * zScale, aimZ = 0.58 * zScale;
     let seek = 0;              // 0 = pure lean, 1 = pure approach
 
     const camStart = Date.now();
@@ -478,36 +478,33 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // with the camera still moving and still short of the card, and a separate move then
       // closed the gap — that stop was the jerk. Now, once the clock has run, the approach
       // stiffens smoothly and the loop runs on until the card is centred and the camera still.
-      const over = Math.min(1, Math.max(0, (now - ARRIVE_AT) / 700));
-      const g = 1 + 3 * over * over * (3 - 2 * over);
+      // The stiffening is gentle now (the founder: the stop was "pretty sudden"): a little over
+      // double over a second, and the zoom settles alongside the pan instead of after it.
+      const over = Math.min(1, Math.max(0, (now - ARRIVE_AT) / 1000));
+      const g = 1 + 2.0 * over * over * (3 - 2 * over);
 
-      // --- the lean: one direction of spin, one change of mind, tightness only ---
+      // --- the spiral: a point circling the field's centre, opening outward; the camera follows ---
+      const tNow = Date.now(); const dt = Math.min(50, tNow - lastT); lastT = tNow;
       if (!reversed && now > REVERSE_AT) { spin = -spin; reversed = true; }
-      if (now > nextTurn) {
-        turnAim = spin * (0.014 + Math.random() * 0.006);
-        nextTurn = now + 1300 + Math.random() * 800;
-      } else {
-        turnAim = spin * Math.abs(turnAim);
-      }
-      turn += (turnAim - turn) * 0.012;
-
-      // HOME IS A PULL, NOT A LEASH. Bending the heading back toward the centre was what
-      // produced the extra changes of mind: every correction flips the direction of curvature,
-      // so the camera argues with itself. A gentle pull ADDED to the motion instead never
-      // touches the heading at all — the circle simply drifts home, an inward spiral, and the
-      // direction of turn stays exactly the one that was chosen.
       const pr = Math.min(1, now / DRIFT_UNTIL);
-      heading += turn;
-      const sp = speedAt(pr);
-      let hx = (home.x - cam.x) * 0.010, hy = (home.y - cam.y) * 0.010;
-      const hm = Math.hypot(hx, hy), HOME_MAX = 1.6;
-      if (hm > HOME_MAX) { hx *= HOME_MAX / hm; hy *= HOME_MAX / hm; }
-      const leanX = Math.cos(heading) * sp + hx, leanY = Math.sin(heading) * sp + hy;
+      const grow = pr * pr * (3 - 2 * pr);
+      const rad = SPIRAL_R0 + (SPIRAL_R1 - SPIRAL_R0) * grow;
+      // the point stops circling when the pull begins — otherwise it keeps dragging the camera
+      // round while the approach tries to leave, and the two fight all the way to the card
+      if (now < DRIFT_UNTIL) theta += spin * (SPIRAL_TURNS * 2 * Math.PI / DRIFT_UNTIL) * dt;
+      const P = { x: home.x + Math.cos(theta) * rad, y: home.y + Math.sin(theta) * rad };
+      let leanX = (P.x - cam.x) * 0.12, leanY = (P.y - cam.y) * 0.12;
+      const lm = Math.hypot(leanX, leanY), LEAN_MAX = 7.0;
+      if (lm > LEAN_MAX) { leanX *= LEAN_MAX / lm; leanY *= LEAN_MAX / lm; }
+      if (now < DRIFT_UNTIL + 400 && (Math.floor(now / 100) !== Math.floor((now - dt) / 100))) {
+        (window.__huntTrace = window.__huntTrace || []).push([Math.round(now), Math.round(cam.x - home.x), Math.round(cam.y - home.y), +cam.z.toFixed(3)]);
+      }
 
       // --- the approach: a velocity toward the card, capped so it never whips ---
       const to = panToCentre(target);
-      let sx = (to.x - cam.x) * 0.030 * g, sy = (to.y - cam.y) * 0.030 * g;
-      const svm = Math.hypot(sx, sy), APPROACH = 7.5;
+      let sx = (to.x - cam.x) * 0.040 * g, sy = (to.y - cam.y) * 0.040 * g;
+      // the cap grows with the zoom so the MAP moves at one speed whatever the magnification
+      const svm = Math.hypot(sx, sy), APPROACH = 7.5 * Math.min(3, Math.max(1, cam.z / (0.62 * zScale)));
       if (svm > APPROACH) { sx *= APPROACH / svm; sy *= APPROACH / svm; }
 
       // --- and the crossfade between them IS the phase change. Nothing else switches. ---
@@ -515,14 +512,13 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // the camera comes for it rather than being lifted by the shimmer on the way in.
       if (now >= DRIFT_UNTIL && state.pool !== others) state.pool = others;
 
-      const seekAim = now < DRIFT_UNTIL ? 0 : now < GRAVITY_UNTIL ? 0.45 : 1;
-      seek += (seekAim - seek) * 0.012;
+      const seekAim = now < DRIFT_UNTIL ? 0 : now < GRAVITY_UNTIL ? 0.7 : 1;
+      seek += (seekAim - seek) * 0.02;
 
-      if (now < DRIFT_UNTIL) {
-        if (now > nextZoom) { aimZ = (0.46 + Math.random() * 0.09) * zScale; nextZoom = now + 1300; }
-      } else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
+      if (now < DRIFT_UNTIL) aimZ = (0.58 - 0.12 * grow) * zScale;   // tight at first, opening with the spiral
+      else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
       else aimZ = Z_END;
-      wantZ += (aimZ - wantZ) * 0.020 * g;
+      wantZ += (aimZ - wantZ) * 0.025 * g;   // the pan leads, the zoom follows: zoom multiplies the distance left to pan
 
       const wantX = leanX * (1 - seek) + sx * seek;
       const wantY = leanY * (1 - seek) + sy * seek;
@@ -539,8 +535,8 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
       if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); return; }
       const err = Math.hypot(to.x - cam.x, to.y - cam.y), spd = Math.hypot(cam.vx, cam.vy);
-      const settled = now >= ARRIVE_AT && err < 0.4 && spd < 0.15 && Math.abs(cam.z - Z_END) < 0.003;
-      if (!settled && now < ARRIVE_AT + 2500) raf = requestAnimationFrame(step);
+      const settled = now >= ARRIVE_AT && err < 0.8 && spd < 0.3 && Math.abs(cam.z - Z_END) < 0.015;
+      if (!settled && now < ARRIVE_AT + 3500) raf = requestAnimationFrame(step);
       else { window.__arriveMs = now; cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); }
     };
     raf = requestAnimationFrame(step);
