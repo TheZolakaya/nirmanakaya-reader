@@ -785,6 +785,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
         if (el) window.scrollBy({ top: el.getBoundingClientRect().top - top - 8, behavior: 'instant' });
         setOverlayTop(Math.max(0, Math.round(top)));
       } catch {}
+      // the page beneath fades away for the flight, as it does for the opening (the founder
+      // saw the conversation and the buttons showing through the map)
+      setRevealed(false);
       setOverlayIn(false); setAnimating(true);
       landed = playLanding(newDraw, `[data-ez-turn="${pid}"]`, false);
     } else {
@@ -807,6 +810,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
         setTurns((list) => list.map((x) => (x.id === pid ? { ...turn, id: pid } : x)));
+        setRevealed(true);
         setOverlayIn(false);
         await new Promise(r => setTimeout(r, 700));
         clearLanding(document);
@@ -818,7 +822,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     } catch (e) {
       // Take the orphaned turn back out and hand the person their words again, so a failure
       // costs a tap instead of a thought.
-      if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setOverlayIn(false); clearLanding(document); setAnimating(false); }
+      if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setRevealed(true); setOverlayIn(false); clearLanding(document); setAnimating(false); }
       setTurns((list) => list.filter((x) => x.id !== you.id && x.id !== pid));
       setInput(text);
       setFieldMode(mode || null);
@@ -1350,7 +1354,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         />
       )}
 
-      <Footer />
+      <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 600ms ease' }}><Footer /></div>
     </div>
   );
 }
