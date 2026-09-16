@@ -1058,9 +1058,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <button onClick={() => setShowPast(false)} className="text-xs text-zinc-600 hover:text-zinc-300">close</button>
                   </div>
                   {pastReadings.length === 0 && <p className="text-xs text-zinc-600">Nothing here yet.</p>}
-                  {pastReadings.slice(0, 12).map((r) => (
+                  {pastReadings.slice(0, 12).map((r, ri) => (
+                    // each row flashes the rainbow once as the list opens, top to bottom (the same
+                    // one-shot the front page's Enter uses), staggered so it reads as a cascade
                     <button key={r.id} onClick={() => openPast(r.id)} disabled={loading}
-                      className="w-full text-left rounded-lg border border-zinc-700/50 px-3 py-2 hover:border-amber-500/40 transition-colors break-words disabled:opacity-40">
+                      style={{ animationDelay: `${ri * 90}ms` }}
+                      className="animate-border-rainbow-fast w-full text-left rounded-lg border border-zinc-700/50 px-3 py-2 hover:border-amber-500/40 transition-colors break-words disabled:opacity-40">
                       <span className="text-sm text-zinc-200 break-words">{r.topic || 'Untitled'}</span>
                       <span className="block text-[10px] text-zinc-600 mt-0.5">{new Date(r.created_at).toLocaleDateString()}</span>
                     </button>
