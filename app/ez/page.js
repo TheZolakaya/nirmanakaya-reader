@@ -965,7 +965,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             <div className="grid grid-cols-3 items-center text-[13px]">
               <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
-                className="justify-self-start text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
+                className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
               <button onClick={() => setAreasOpen(!areasOpen)}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
                 Areas
@@ -973,7 +973,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
               {user && hasHistory ? (
                 <button onClick={suggestFromHistory} disabled={suggesting}
-                  className="justify-self-end text-right text-violet-300/90 hover:text-violet-200 transition-colors disabled:opacity-50">
+                  className="justify-self-center text-center text-violet-300/90 hover:text-violet-200 transition-colors disabled:opacity-50">
                   {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
                 </button>
               ) : <span />}
