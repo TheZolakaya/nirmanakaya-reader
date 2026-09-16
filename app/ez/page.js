@@ -454,6 +454,7 @@ export default function EZPage() {
   // with everything already suggested handed to the model to avoid.
   const [suggested, setSuggested] = useState('');
   const [suggesting, setSuggesting] = useState(false);
+  const [suggestOpen, setSuggestOpen] = useState(true); // the suggestion card can fold away and come back without a new ask
   const suggestedSeen = useRef([]);
   const suggestFromHistory = async () => {
     if (!user || suggesting) return;
@@ -487,7 +488,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const rj = await res.json();
       const q = parseJson(rj?.reading)?.q;
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
-      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); }
+      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestOpen(true); }
     } catch {} finally { setSuggesting(false); }
   };
   const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
@@ -962,7 +963,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               row beneath — areas, past readings, from my readings, voice. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || suggested || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
+          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
@@ -985,15 +986,23 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {user && hasHistory ? (
-                <button onClick={suggestFromHistory} disabled={suggesting}
-                  className="justify-self-center text-center text-violet-300/90 hover:text-violet-200 transition-colors disabled:opacity-50">
-                  {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
-                </button>
+                <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
+                  <button onClick={suggestFromHistory} disabled={suggesting}
+                    className="text-center hover:text-violet-200 transition-colors disabled:opacity-50">
+                    {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
+                  </button>
+                  {suggested && !suggesting && (
+                    <button onClick={() => setSuggestOpen(!suggestOpen)} title={suggestOpen ? 'fold it away' : 'show it again'}
+                      className="hover:text-violet-200 transition-colors">
+                      <svg className={`w-3.5 h-3.5 transition-transform ${suggestOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                  )}
+                </div>
               ) : <span />}
             </div>
           </div>
 
-          {(areasOpen || showPast || suggested || error) && (
+          {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
           <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
@@ -1052,7 +1061,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 </div>
             )}
 
-                {suggested && (
+                {suggested && suggestOpen && (
                   <button onClick={() => { setDoor(null); setQuestion(suggested); setError(''); }}
                     className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
                     <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
