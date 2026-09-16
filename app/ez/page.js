@@ -412,7 +412,7 @@ export default function EZPage() {
   // The sequence plays on the real draw while the Reader writes. It is the shared module the
   // bench runs — components/map/landing.js — handed the map section below and this page's own
   // header as the place to land. A tap anywhere on the map skips to the finished header.
-  const playLanding = async (draw) => {
+  const playLanding = async (draw, slotsSelector = '[data-ez-header]', scrollTop = true) => {
     const signal = { skip: false };
     skipRef.current = signal;
     let surface = null;
@@ -423,7 +423,7 @@ export default function EZPage() {
     }
     if (!surface) return;
     placeWordmark(surface);
-    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
+    if (scrollTop) { try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {} }
     setOverlayIn(true);
     // The first run on a phone was chunky until every card had buffered. So: wait for all 78
     // images to load (capped at ten seconds, in case one never does) before the seek begins.
@@ -439,7 +439,7 @@ export default function EZPage() {
       await runLanding({
         surface, cameraRef,
         draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
-        table: {}, slotsSelector: '[data-ez-header]', signal, flyWordmark: false
+        table: {}, slotsSelector, signal, flyWordmark: false
       });
     } catch { /* skipped */ }
     // the clones stay parked in the header while the page comes back; begin() clears them
@@ -766,9 +766,31 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const newDraw = mode ? generateSpread(1)[0] : null;
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, ts: Date.now() };
     const withYou = [...turns, you];
-    setTurns(withYou);
     setFieldMode(null);
-    scrollToEnd();
+    // THE NEW CARD LANDS IN ITS OWN TURN (founder, 2026-09-16, an experiment): a reflect or
+    // forge draws its card at once, a pending reader turn holding only the stacked card is
+    // added, the page is scrolled so that card sits just under the brand — where the header
+    // sits for the opening — and the same landing flies the card into it while the reply is
+    // fetched. The words arrive underneath when the Reader answers.
+    const willAnimate = !!newDraw && animOn;
+    const pid = `t${Date.now()}p`;
+    let landed = Promise.resolve();
+    if (willAnimate) {
+      setTurns([...withYou, { id: pid, role: 'reader', pending: true, draw: newDraw, mode, text: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      try {
+        const brand = document.querySelector('[data-slot="tagline"]') || document.querySelector('[data-slot="wordmark"]')?.parentElement;
+        const top = brand ? brand.getBoundingClientRect().bottom + 6 : 0;
+        const el = document.querySelector(`[data-ez-turn="${pid}"]`);
+        if (el) window.scrollBy({ top: el.getBoundingClientRect().top - top - 8, behavior: 'instant' });
+        setOverlayTop(Math.max(0, Math.round(top)));
+      } catch {}
+      setOverlayIn(false); setAnimating(true);
+      landed = playLanding(newDraw, `[data-ez-turn="${pid}"]`, false);
+    } else {
+      setTurns(withYou);
+      scrollToEnd();
+    }
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
@@ -780,12 +802,24 @@ Respond with ONLY JSON: {"q": "..."}` }],
           : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
-      setTurns((list) => [...list, readerTurn(obj, newDraw ? { draw: newDraw, mode } : {})]);
-      scrollToEnd();
+      const turn = readerTurn(obj, newDraw ? { draw: newDraw, mode } : {});
+      if (willAnimate) {
+        // the words arrive under the landed card; the same id keeps the card's element in place
+        await landed;
+        setTurns((list) => list.map((x) => (x.id === pid ? { ...turn, id: pid } : x)));
+        setOverlayIn(false);
+        await new Promise(r => setTimeout(r, 700));
+        clearLanding(document);
+        setAnimating(false);
+      } else {
+        setTurns((list) => [...list, turn]);
+        scrollToEnd();
+      }
     } catch (e) {
       // Take the orphaned turn back out and hand the person their words again, so a failure
       // costs a tap instead of a thought.
-      setTurns((list) => list.filter((x) => x.id !== you.id));
+      if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setOverlayIn(false); clearLanding(document); setAnimating(false); }
+      setTurns((list) => list.filter((x) => x.id !== you.id && x.id !== pid));
       setInput(text);
       setFieldMode(mode || null);
       setError(e.message);
@@ -1148,6 +1182,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <div className="space-y-5">
               {turns.map((t, ti) => (
                 <div key={t.id} data-ez-turn={t.id}
+                  style={{ opacity: t.pending ? 0 : 1, transition: 'opacity 600ms ease' }}
                   className={t.role === 'you'
                     ? 'ml-4 sm:ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic break-words'
                     : t.role === 'catchup'
