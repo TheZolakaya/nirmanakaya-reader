@@ -711,8 +711,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
     let landed = Promise.resolve();
     if (willAnimate) {
       try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {}
-      const brand = document.querySelector('[data-slot="wordmark"]')?.parentElement;
-      setOverlayTop(brand ? Math.max(0, Math.round(brand.getBoundingClientRect().bottom)) : 0);
+      // the map starts just under the tagline ("THE SOUL SEARCH ENGINE"), not over it
+      const brand = document.querySelector('[data-slot="tagline"]') || document.querySelector('[data-slot="wordmark"]')?.parentElement;
+      setOverlayTop(brand ? Math.max(0, Math.round(brand.getBoundingClientRect().bottom + 6)) : 0);
       readyRef.current = false; setReplyReady(false);
       setOverlayIn(false); setRevealed(false); setAnimating(true);
       landed = playLanding(newDraws[0]).catch(() => {});
@@ -1132,9 +1133,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 helper or something"). The landing plays through; the reply waits for it. */}
             {animating && (
               <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] select-none"
-                style={{ top: overlayTop, background: 'rgba(9, 9, 11, 0.6)', opacity: overlayIn ? 1 : 0, transition: overlayIn ? 'opacity 900ms ease' : 'opacity 450ms ease' }}>
-              {/* THE VIDEO BREATHES THROUGH (founder, 2026-09-16): the overlay is 60% black, not
-                  solid, so the same fade that brings the map in dims the background by half,
+                style={{ top: overlayTop, background: 'rgba(9, 9, 11, 0.1)', opacity: overlayIn ? 1 : 0, transition: overlayIn ? 'opacity 900ms ease' : 'opacity 450ms ease' }}>
+              {/* THE VIDEO BREATHES THROUGH (founder, 2026-09-16): the overlay is 10% black, barely
+                  there, so the video plays under the map almost at full strength,
                   and the quicker fade-out brings the world back when the cards land. */}
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   lowRes showControls={false} cameraRef={cameraRef} className="w-full h-full" />

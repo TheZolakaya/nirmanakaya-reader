@@ -43,7 +43,7 @@ export default function BrandHeader({ hasActivity = false, compact = false }) {
             <span className="rainbow-letter rainbow-letter-10">A</span>
           </h1>
         </Link>
-        <p className={`font-mono text-zinc-400/60 ${compact ? 'text-[8px] sm:text-[10px] md:text-xs' : 'text-[10px] sm:text-xs md:text-sm'} tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] uppercase`}>
+        <p data-slot="tagline" className={`font-mono text-zinc-400/60 ${compact ? 'text-[8px] sm:text-[10px] md:text-xs' : 'text-[10px] sm:text-xs md:text-sm'} tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] uppercase`}>
           {'The Soul Search Engine'.split('').map((char, i, arr) => {
             const delay = shimmerLTR
               ? -(i * 0.1 + 0.1)
