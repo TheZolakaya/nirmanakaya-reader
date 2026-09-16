@@ -468,6 +468,8 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const zScale = Math.min(1, Math.max(0.45, window.innerWidth / 760));
     let wantZ = 0.58 * zScale, aimZ = 0.58 * zScale;
     let seek = 0;              // 0 = pure lean, 1 = pure approach
+    let zoomPhase = false;     // latched once the camera is over the card: the zoom never goes back
+    let zoomT0 = 0, zoomZ0 = 0; const ZOOM_MS = 1600;   // the zoom is a timed ease with a definite end
 
     const camStart = Date.now();
     let raf = 0;
@@ -505,10 +507,10 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const to = panToCentre(target);
       // gain and ease are a pair: ease = 4 × gain is critical damping — the camera settles
       // straight onto the card with no overshoot (the founder saw a 'warble' at the end)
-      const GAIN = 0.03;
+      const GAIN = 0.04;
       let sx = (to.x - cam.x) * GAIN * g, sy = (to.y - cam.y) * GAIN * g;
       // the cap grows with the zoom so the MAP moves at one speed whatever the magnification
-      const svm = Math.hypot(sx, sy), APPROACH = 5.5 * Math.min(3, Math.max(1, cam.z / (0.62 * zScale)));
+      const svm = Math.hypot(sx, sy), APPROACH = 6.5 * Math.min(3, Math.max(1, cam.z / (0.62 * zScale)));
       if (svm > APPROACH) { sx *= APPROACH / svm; sy *= APPROACH / svm; }
 
       // --- and the crossfade between them IS the phase change. Nothing else switches. ---
@@ -519,10 +521,21 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const seekAim = now < DRIFT_UNTIL ? 0 : now < GRAVITY_UNTIL ? 0.7 : 1;
       seek += (seekAim - seek) * 0.02 * df;
 
+      // FIND FIRST, THEN ZOOM (founder, 2026-09-16: "we already know what card it is — zoom only
+      // to the card"). The zoom to hero size waits until the camera is over the card, so the
+      // magnification happens ON the card rather than on whatever was under the centre while
+      // it travelled. Until then the camera stays at the search zoom.
+      const nearErr = Math.hypot(to.x - cam.x, to.y - cam.y);
+      // latched, not tested every frame: magnifying enlarges whatever offset is left, which would
+      // push the error back over the line and reverse the zoom — a chatter, measured on the bench
+      if (!zoomPhase && now >= GRAVITY_UNTIL && nearErr < 24) { zoomPhase = true; zoomT0 = now; zoomZ0 = cam.z; }
       if (now < DRIFT_UNTIL) aimZ = (0.58 - 0.12 * grow) * zScale;   // tight at first, opening with the spiral
-      else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
+      else if (!zoomPhase) aimZ = 0.62 * zScale;
       else aimZ = Z_END;
-      wantZ += (aimZ - wantZ) * 0.02 * g * df;   // the pan leads, the zoom follows: zoom multiplies the distance left to pan
+      if (now >= DRIFT_UNTIL && Math.floor(now / 200) !== Math.floor((now - dt) / 200)) {
+        (window.__approachTrace = window.__approachTrace || []).push([Math.round(now), Math.round(nearErr), +cam.z.toFixed(2)]);
+      }
+      wantZ += (aimZ - wantZ) * 0.025 * df;   // the zoom has its own pace; the arrival stiffening is for the pan
 
       const wantX = leanX * (1 - seek) + sx * seek;
       const wantY = leanY * (1 - seek) + sy * seek;
@@ -532,15 +545,27 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const ve = Math.min(0.6, 4 * GAIN * g * df);
       cam.vx += (wantX - cam.vx) * ve;
       cam.vy += (wantY - cam.vy) * ve;
-      cam.vz += ((wantZ - cam.z) * 0.05 * g - cam.vz) * Math.min(0.6, 0.05 * g * df);
+      cam.vz += ((wantZ - cam.z) * 0.06 - cam.vz) * Math.min(0.6, 0.06 * df);
 
-      cam.x += cam.vx * df; cam.y += cam.vy * df; cam.z += cam.vz * df;
+      const z0 = cam.z;
+      cam.x += cam.vx * df; cam.y += cam.vy * df;
+      if (zoomPhase) {
+        // an ease-in-out over ZOOM_MS from the zoom at the latch to hero size — ends on time,
+        // no exponential creep at the end
+        const k = Math.min(1, (now - zoomT0) / ZOOM_MS), e = k * k * (3 - 2 * k);
+        cam.z = zoomZ0 + (Z_END - zoomZ0) * e; cam.vz = 0; wantZ = cam.z;
+      } else cam.z += cam.vz * df;
+      // ZOOM ABOUT THE CARD. The canvas scales about its own centre, so a change of zoom moves
+      // every off-centre point — including the card the camera has just found. `to` is the pan
+      // that centres the card, i.e. −m·z for the card's map offset m; adding to·(Δz/z) each frame
+      // is exactly the pan that keeps the card where it is while the world grows around it.
+      if (zoomPhase && z0 > 0) { const k = (cam.z - z0) / z0; cam.x += to.x * k; cam.y += to.y * k; }
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
 
       if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); return; }
       const err = Math.hypot(to.x - cam.x, to.y - cam.y), spd = Math.hypot(cam.vx, cam.vy);
       const settled = now >= ARRIVE_AT && err < 1.5 && spd < 0.6 && Math.abs(cam.z - Z_END) < 0.02;
-      if (!settled && now < ARRIVE_AT + 3500) raf = requestAnimationFrame(step);
+      if (!settled && now < ARRIVE_AT + 4500) raf = requestAnimationFrame(step);
       else { window.__arriveMs = now; cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); }
     };
     raf = requestAnimationFrame(step);
