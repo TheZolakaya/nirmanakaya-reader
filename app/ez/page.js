@@ -936,10 +936,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
         )}
 
         {allowed && !draws && !door && (
-          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-5 sm:p-8 space-y-5">
-            {/* THE OPEN FIELD FIRST (founder, 2026-09-15 morning): say it in your own words; the
-                five doors beneath are the fallback — "or choose a more general area". */}
-            {/* the Ask button lives INSIDE the box, bottom right, as on the main reader */}
+          <div className="flex-1 flex flex-col justify-center min-h-[62vh]">
+          {/* THE ENTRY, like the front page: one frame, the box with Ask inside it, and one quiet
+              row beneath — areas, past readings, from my readings, voice. Everything else folds.
+              The frame sits in the middle of the screen (founder: "like Bing or Google, right
+              there in the middle, very simple"). */}
+          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-5 space-y-3">
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
@@ -953,15 +955,22 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
-            <button onClick={() => setAreasOpen(!areasOpen)}
-              className="w-full flex items-center justify-center gap-2 pt-1 text-base text-zinc-400 hover:text-zinc-200 transition-colors">
-              <span>or choose a general area of curiosity</span>
-              <svg className={`w-4 h-4 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-            </button>
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <button onClick={() => setAreasOpen(!areasOpen)} className="flex items-center gap-1 hover:text-zinc-300 transition-colors">
+                  areas
+                  <svg className={`w-3 h-3 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <button onClick={() => (showPast ? setShowPast(false) : loadPastList())} className="hover:text-zinc-300 transition-colors">past readings</button>
+                {user && hasHistory && (
+                  <button onClick={suggestFromHistory} disabled={suggesting} className="hover:text-violet-300 transition-colors disabled:opacity-50">
+                    {suggesting ? 'reading your history…' : suggested ? 'another from my readings' : 'from my readings'}
+                  </button>
+                )}
+              </div>
+              <div className="normal-case tracking-normal font-sans">{voiceSwitch(true)}</div>
+            </div>
 
-            {/* THE FIVE DOORS, laid out like the map (founder, 2026-09-15): the Gestalt door
-                across the top, and the four manifest houses beneath it in the map's own order —
-                Mind upper left, Emotion upper right, Body lower left, Spirit lower right. */}
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
@@ -1002,13 +1011,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               );
             })()}
 
-            {/* Live reload: EZ readings resume where they stopped. */}
-            <div>
-              {!showPast ? (
-                <button onClick={loadPastList} className="text-xs text-zinc-500 hover:text-zinc-300 underline decoration-dotted">
-                  open a reading I already started
-                </button>
-              ) : (
+            {showPast && (
                 <div className="rounded-xl border border-zinc-700/60 bg-zinc-900/50 p-3 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] uppercase tracking-wider text-zinc-500">Your EZ readings</span>
@@ -1023,15 +1026,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     </button>
                   ))}
                 </div>
-              )}
-            </div>
+            )}
 
-
-            {/* FROM YOUR READINGS, on demand: a centred button at the bottom asks for one
-                question drawn from this account's whole history; the suggestion appears above a
-                "try another" that asks for a different one. Signed-in with history only. */}
-            {user && hasHistory && (
-              <div className="pt-2 flex flex-col items-center gap-2">
                 {suggested && (
                   <button onClick={() => { setDoor(null); setQuestion(suggested); setError(''); }}
                     className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
@@ -1039,18 +1035,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="text-[15px] text-violet-100">{suggested}</span>
                   </button>
                 )}
-                <button onClick={suggestFromHistory} disabled={suggesting}
-                  className="px-4 py-2 rounded-lg border border-violet-700/50 text-violet-200 text-sm hover:border-violet-500/60 hover:bg-violet-950/30 transition-colors disabled:opacity-50">
-                  {suggesting ? 'Reading your history…' : suggested ? 'Try another' : 'Suggest a question from my readings'}
-                </button>
-              </div>
-            )}
-            <div className="pt-2 flex justify-center">{voiceSwitch()}</div>
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              The Reader opens brief and asks you one question. The reading unfolds from there.
-              {hasHistory ? ' Your recent readings are in the room with you.' : ''}
-            </p>
+          </div>
           </div>
         )}
 
