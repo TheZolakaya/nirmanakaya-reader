@@ -1073,7 +1073,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
                 {suggested && suggestOpen && (
                   <button onClick={() => { setDoor(null); setQuestion(suggested); setError(''); }}
-                    className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 hover:border-violet-500/60 transition-colors break-words">
+                    style={{ animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: '-900ms' }}
+                    className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 break-words">
                     <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
                     <span className="text-[15px] text-violet-100">{suggested}</span>
                   </button>
