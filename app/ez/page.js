@@ -499,6 +499,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // THE BOX IS THE ANCHOR. The frame used to be centred as a whole, so unfolding the areas grew it
   // and the box slid up. Now only the box-and-row part is measured, and the top padding is set so
   // THAT sits where the centred frame sat; whatever unfolds is added beneath it and the box stays.
+  // The scrollbar's gutter is reserved all the time on this page, so the frame does not shift
+  // left by half a scrollbar when the areas unfold and the page grows tall enough to scroll.
+  useEffect(() => {
+    const el = document.documentElement; const prev = el.style.scrollbarGutter;
+    el.style.scrollbarGutter = 'stable';
+    return () => { el.style.scrollbarGutter = prev; };
+  }, []);
   const anchorRef = useRef(null);
   const [anchorPad, setAnchorPad] = useState(null);
   useEffect(() => {
