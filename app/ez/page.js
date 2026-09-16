@@ -935,16 +935,20 @@ Respond with ONLY JSON: {"q": "..."}` }],
         )}
 
         {allowed && !draws && !door && (
-          <div className="space-y-5">
+          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-5 sm:p-8 space-y-5">
             {/* THE OPEN FIELD FIRST (founder, 2026-09-15 morning): say it in your own words; the
                 five doors beneath are the fallback — "or choose a more general area". */}
             {/* the Ask button lives INSIDE the box, bottom right, as on the main reader */}
-            <div className="relative content-pane rounded-xl">
-              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
-                placeholder="What's on your mind? Ask it the way you would say it out loud."
-                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              <button onClick={begin} disabled={loading || !question.trim()} className="absolute bottom-3 right-3 px-5 py-2 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                {loading ? 'Drawing…' : 'Ask'}
+            <div className="relative">
+              <div className="content-pane rounded-xl">
+                <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
+                  placeholder="What's on your mind? Ask it the way you would say it out loud."
+                  className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              </div>
+              <button onClick={begin} disabled={loading || !question.trim()} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Ask'}</span>
+                <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
 
@@ -1058,12 +1062,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <label className="block text-xs text-zinc-500 mb-2">
                 Add anything that matters — or draw as it stands.
               </label>
-              <div className="relative content-pane rounded-xl">
-                <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
-                  placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
-                  className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-                <button onClick={begin} disabled={loading} className="absolute bottom-3 right-3 px-5 py-2 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                  {loading ? 'Drawing…' : 'Draw'}
+              <div className="relative">
+                <div className="content-pane rounded-xl">
+                  <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
+                    placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
+                    className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                </div>
+                <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Draw'}</span>
+                  <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </button>
               </div>
             </div>
