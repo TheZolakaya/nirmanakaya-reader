@@ -1129,8 +1129,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {/* No tap-to-skip and no helper line: the founder cut both ("it looks like a
                 helper or something"). The landing plays through; the reply waits for it. */}
             {animating && (
-              <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] bg-zinc-950 select-none"
-                style={{ top: overlayTop, opacity: overlayIn ? 1 : 0, transition: 'opacity 550ms ease' }}>
+              <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] select-none"
+                style={{ top: overlayTop, background: 'rgba(9, 9, 11, 0.82)', opacity: overlayIn ? 1 : 0, transition: overlayIn ? 'opacity 900ms ease' : 'opacity 450ms ease' }}>
+              {/* THE VIDEO BREATHES THROUGH (founder, 2026-09-16): the overlay is 82% black, not
+                  solid, so the same fade that brings the map in dims the background to a fifth,
+                  and the quicker fade-out brings the world back when the cards land. */}
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   lowRes showControls={false} cameraRef={cameraRef} className="w-full h-full" />
               </div>
