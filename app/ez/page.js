@@ -494,6 +494,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [infoHistory, setInfoHistory] = useState([]);
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
   const [showPast, setShowPast] = useState(false);
+  const [areasOpen, setAreasOpen] = useState(false); // the five doors fold away under a toggle (founder, 2026-09-16)
   const [explain, setExplain] = useState(null);           // 'reflect' | 'forge' | null
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState('signin');
@@ -952,12 +953,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
-            <p className="text-center text-base text-zinc-400 pt-1">or choose a more general area</p>
+            <button onClick={() => setAreasOpen(!areasOpen)}
+              className="w-full flex items-center justify-center gap-2 pt-1 text-base text-zinc-400 hover:text-zinc-200 transition-colors">
+              <span>or choose a general area of curiosity</span>
+              <svg className={`w-4 h-4 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            </button>
 
             {/* THE FIVE DOORS, laid out like the map (founder, 2026-09-15): the Gestalt door
                 across the top, and the four manifest houses beneath it in the map's own order —
                 Mind upper left, Emotion upper right, Body lower left, Spirit lower right. */}
-            {(() => {
+            {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
               const HOUSE_TINT = { spirit: '#C44444', mind: '#4A8B4A', emotion: '#3D6A99', body: '#8B6B3D', gestalt: '#6B4D8A', daily: '#a16207' };
