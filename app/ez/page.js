@@ -876,15 +876,20 @@ Respond with ONLY JSON: {"q": "..."}` }],
       : fieldMode === 'forge' ? (lastReader.forge || []).map((text) => ({ kind: 'forge', text }))
         : (lastReader.chips || []);
 
+  // The two switches are, in the founder's words, "probably the most valuable buttons in the
+  // whole thing" — and people scrolled past them. Now each takes half the row, sized like the
+  // pills, with one line inside saying what it does.
   const switchBtn = (mode, label, glyph) => {
     const on = fieldMode === mode;
     const tone = mode === 'reflect'
-      ? (on ? 'border-sky-500 bg-sky-900/40 text-sky-200' : 'border-zinc-700 text-zinc-500 hover:text-sky-300 hover:border-sky-700')
-      : (on ? 'border-orange-500 bg-orange-900/40 text-orange-200' : 'border-zinc-700 text-zinc-500 hover:text-orange-300 hover:border-orange-700');
+      ? (on ? 'border-sky-400 bg-sky-900/40 text-sky-100' : 'border-sky-700/50 bg-sky-950/20 text-sky-200 hover:border-sky-500 hover:bg-sky-900/30')
+      : (on ? 'border-orange-400 bg-orange-900/40 text-orange-100' : 'border-orange-700/50 bg-orange-950/20 text-orange-200 hover:border-orange-500 hover:bg-orange-900/30');
+    const hint = mode === 'reflect' ? 'ask the cards a question' : 'declare a move — the cards answer';
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
-        className={`px-3 py-1.5 rounded-full border text-xs transition-colors disabled:opacity-40 ${tone}`}>
-        {glyph} {label}
+        className={`flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
+        <span className="block text-[15px] font-medium">{glyph} {label}</span>
+        <span className="block text-[11px] opacity-75 mt-0.5 break-words">{hint}</span>
       </button>
     );
   };
@@ -1173,18 +1178,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
             </div>
 
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
-            <div className="mt-5 flex items-center gap-2 flex-wrap">
+            <div className="mt-5 flex items-stretch gap-2">
               {switchBtn('reflect', 'Reflect', '↩')}
-              <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')}
-                className="w-5 h-5 rounded-full border border-zinc-700 text-zinc-500 hover:text-sky-300 hover:border-sky-700 text-[10px] leading-none">?</button>
               {switchBtn('forge', 'Forge', '⚡')}
-              <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')}
-                className="w-5 h-5 rounded-full border border-zinc-700 text-zinc-500 hover:text-orange-300 hover:border-orange-700 text-[10px] leading-none">?</button>
-              {fieldMode && (
-                <span className="text-[11px] text-zinc-600">
-                  {fieldMode === 'reflect' ? 'ask the field — a card will answer' : 'declare — a card will answer'}
-                </span>
-              )}
+            </div>
+            <div className="mt-1 flex justify-between text-[11px]">
+              <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
+              <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
             </div>
 
             {explain && (
