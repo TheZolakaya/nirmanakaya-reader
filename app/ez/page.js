@@ -940,16 +940,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             {/* THE OPEN FIELD FIRST (founder, 2026-09-15 morning): say it in your own words; the
                 five doors beneath are the fallback — "or choose a more general area". */}
-            <div>
+            {/* the Ask button lives INSIDE the box, bottom right, as on the main reader */}
+            <div className="relative">
               <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
                 placeholder="Ask it the way you would say it out loud."
-                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              <div className="flex items-center mt-2">
-                <button onClick={begin} disabled={loading || !question.trim()}
-                  className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                  {loading ? 'Drawing…' : 'Ask'}
-                </button>
-              </div>
+                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              <button onClick={begin} disabled={loading || !question.trim()} className="absolute bottom-3 right-3 px-5 py-2 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
+                {loading ? 'Drawing…' : 'Ask'}
+              </button>
             </div>
 
             <p className="text-center text-base text-zinc-400 pt-1">or choose a more general area</p>
@@ -1061,16 +1059,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <label className="block text-xs text-zinc-500 mb-2">
                 Add anything that matters — or draw as it stands.
               </label>
-              <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
-                placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
-                className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button onClick={begin} disabled={loading}
-                className="ml-auto px-6 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
-                {loading ? 'Drawing…' : 'Draw'}
-              </button>
+              <div className="relative">
+                <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
+                  placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
+                  className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                <button onClick={begin} disabled={loading} className="absolute bottom-3 right-3 px-5 py-2 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm font-medium">
+                  {loading ? 'Drawing…' : 'Draw'}
+                </button>
+              </div>
             </div>
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
           </div>
