@@ -821,6 +821,36 @@ Respond with ONLY JSON: {"q": "..."}` }],
     setLoading(false);
   };
 
+  // EXPORT — the reading and the whole conversation as one markdown file, the way the full
+  // reader exports (founder, 2026-09-16: "shift the export feature over").
+  const exportMarkdown = () => {
+    if (!draws) return;
+    const L = [];
+    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ``);
+    L.push(`## The draw`);
+    draws.forEach((d) => {
+      const m = medicineFor([d])[0];
+      L.push(`- ${drawLabel(d)}${m ? ` — ${m.balanced ? 'grows toward' : 'corrected by'} ${m.to}${m.path ? ` (${m.path})` : ''}` : ''}`);
+    });
+    L.push(``, `## The conversation`, ``);
+    turns.forEach((t) => {
+      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : ''}:** ${t.text}`, ``); return; }
+      if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
+      if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
+      L.push(`**Reader:**`, ``, t.text, ``);
+      if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
+      if (t.question) L.push(`*${t.question}*`, ``);
+    });
+    L.push(`---`, `*nirmanakaya.com/ez*`);
+    const md = L.join('\n');
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `nirmanakaya-ez-${new Date().toISOString().slice(0, 10)}.md`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+
   const reset = () => {
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
@@ -1211,6 +1241,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
+              <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
               {voiceSwitch(true)}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
