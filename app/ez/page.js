@@ -907,8 +907,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
           <button onClick={() => chooseVoice(voice === 'plain' ? 'map' : 'plain')}
             title={voice === 'plain' ? 'Plain words — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
-            className={`h-8 px-2 rounded-lg border backdrop-blur-sm text-[9px] font-mono uppercase tracking-wider flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-300'}`}>
-            {voice === 'plain' ? 'plain' : 'map'}
+            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[13px] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
+            {voice === 'plain' ? 'Aa' : '◈'}
           </button>
         } />}
       <div className="relative z-10 flex-1 flex flex-col w-full">
@@ -949,7 +949,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               row beneath — areas, past readings, from my readings, voice. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 sm:p-5 space-y-3">
+          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 space-y-3">
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
@@ -963,19 +963,20 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <button onClick={() => setAreasOpen(!areasOpen)} className="flex items-center gap-1 hover:text-zinc-300 transition-colors">
-                  areas
-                  <svg className={`w-3 h-3 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <div className="grid grid-cols-3 items-center text-[13px]">
+              <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
+                className="justify-self-start text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
+              <button onClick={() => setAreasOpen(!areasOpen)}
+                className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
+                Areas
+                <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {user && hasHistory ? (
+                <button onClick={suggestFromHistory} disabled={suggesting}
+                  className="justify-self-end text-right text-violet-300/90 hover:text-violet-200 transition-colors disabled:opacity-50">
+                  {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
                 </button>
-                <button onClick={() => (showPast ? setShowPast(false) : loadPastList())} className="hover:text-zinc-300 transition-colors">past readings</button>
-                {user && hasHistory && (
-                  <button onClick={suggestFromHistory} disabled={suggesting} className="hover:text-violet-300 transition-colors disabled:opacity-50">
-                    {suggesting ? 'reading your history…' : suggested ? 'another from my readings' : 'from my readings'}
-                  </button>
-                )}
-              </div>
+              ) : <span />}
             </div>
 
             {areasOpen && (() => {
