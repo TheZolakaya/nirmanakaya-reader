@@ -35,6 +35,7 @@ import MinimapModal from '../../components/reader/MinimapModal';
 import InfoModal from '../../components/shared/InfoModal';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
+import { useBackdropPrefs, Backdrop, CornerControls } from '../../components/shared/SiteChrome';
 import Footer from '../../components/layout/Footer';
 
 const EZ_VERSION = 'ez-2';
@@ -346,6 +347,8 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
 export default function EZPage() {
   const [user, setUser] = useState(null);
+  // the moving background and the corner controls, shared with the main page
+  const chrome = useBackdropPrefs();
   const [allowed, setAllowed] = useState(null); // null = checking
   // THE LANDING in EZ — on for everyone since v0.99.300. ?anim=0 turns it off for a browser,
   // ?anim=1 turns it back on. Reduced-motion users never see it.
@@ -895,7 +898,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-x-hidden">
+    <div className={`min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
+      data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
+      {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
+      {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }} />}
+      <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
         <div className="mt-6" />
@@ -932,7 +939,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {/* THE OPEN FIELD FIRST (founder, 2026-09-15 morning): say it in your own words; the
                 five doors beneath are the fallback — "or choose a more general area". */}
             {/* the Ask button lives INSIDE the box, bottom right, as on the main reader */}
-            <div className="relative">
+            <div className="relative content-pane rounded-xl">
               <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
                 placeholder="What's on your mind? Ask it the way you would say it out loud."
                 className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
@@ -1051,7 +1058,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <label className="block text-xs text-zinc-500 mb-2">
                 Add anything that matters — or draw as it stands.
               </label>
-              <div className="relative">
+              <div className="relative content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
                   placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
                   className="w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-14 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
@@ -1239,6 +1246,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
           </>
         )}
       </main>
+      </div>
 
       <AuthModal
         isOpen={authOpen}
