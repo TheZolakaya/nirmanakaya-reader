@@ -902,7 +902,15 @@ Respond with ONLY JSON: {"q": "..."}` }],
     <div className={`min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
-      {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }} />}
+      {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
+        rightExtra={
+          // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
+          <button onClick={() => chooseVoice(voice === 'plain' ? 'map' : 'plain')}
+            title={voice === 'plain' ? 'Plain words — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
+            className={`h-8 px-2 rounded-lg border backdrop-blur-sm text-[9px] font-mono uppercase tracking-wider flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-300'}`}>
+            {voice === 'plain' ? 'plain' : 'map'}
+          </button>
+        } />}
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
@@ -968,7 +976,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   </button>
                 )}
               </div>
-              <div className="normal-case tracking-normal font-sans">{voiceSwitch(true)}</div>
             </div>
 
             {areasOpen && (() => {
@@ -1236,7 +1243,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
-              {voiceSwitch(true)}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>

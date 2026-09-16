@@ -94,7 +94,7 @@ const ICON_BTN = 'w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border bor
 
 // The four corner controls: background panel + feedback mail on the left, account + text size on
 // the right. Shown only to a signed-in person, as on the main page.
-export function CornerControls({ prefs, set, onAuthChange }) {
+export function CornerControls({ prefs, set, onAuthChange, rightExtra = null }) {
   const [open, setOpen] = useState(false);
   const list = prefs.backgroundType === 'video' ? VIDEO_BACKGROUNDS : IMAGE_BACKGROUNDS;
   const idx = prefs.backgroundType === 'video' ? prefs.selectedVideo : prefs.selectedImage;
@@ -109,6 +109,7 @@ export function CornerControls({ prefs, set, onAuthChange }) {
         <AuthButton onAuthChange={onAuthChange}
           buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
         <TextSizeSlider />
+        {rightExtra}
       </div>
       <div className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
         <button onClick={() => setOpen(!open)} className={ICON_BTN} title={open ? 'Hide background controls' : 'Show background controls'}>
