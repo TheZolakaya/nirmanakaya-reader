@@ -1015,7 +1015,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
               const HOUSE_TINT = { spirit: '#C44444', mind: '#4A8B4A', emotion: '#3D6A99', body: '#8B6B3D', gestalt: '#6B4D8A', daily: '#a16207' };
-              const Door = ({ d, className = '' }) => {
+              const Door = ({ d, className = '', delay = 0 }) => {
                 const c = HOUSE_TINT[d.id];
                 return (
                   <button key={d.id} onClick={() => {
@@ -1024,7 +1024,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                       setDoor(pick); setQuestion(''); setError('');
                     }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
-                    style={{ borderColor: c + '99', background: c + '26' }}>
+                    style={{ borderColor: c + '99', background: c + '26', animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `${delay}ms` }}>
                     <span className="text-[15px] text-zinc-100">{d.label}</span>
                     <span className="block text-xs text-zinc-400 mt-0.5">{d.sub}</span>
                   </button>
@@ -1034,12 +1034,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
               return (
                 <div className="grid grid-cols-2 gap-2 auto-rows-fr">
                   <div className="col-span-2 flex justify-center">
-                    <Door d={byId.gestalt} className="w-[calc(50%-4px)]" />
+                    <Door d={byId.gestalt} className="w-[calc(50%-4px)]" delay={0} />
                   </div>
-                  <Door d={byId.mind} />
-                  <Door d={byId.emotion} />
-                  <Door d={byId.body} />
-                  <Door d={byId.spirit} />
+                  <Door d={byId.mind} delay={180} />
+                  <Door d={byId.emotion} delay={360} />
+                  <Door d={byId.body} delay={540} />
+                  <Door d={byId.spirit} delay={720} />
                   {/* the five doors are the five aspects of self; the random choice is a link, not a sixth door */}
                   <div className="col-span-2 text-center pt-1">
                     <button onClick={() => { setDoor({ ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true }); setQuestion(''); setError(''); }}
