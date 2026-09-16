@@ -1158,7 +1158,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   {/* A card drawn in answer to a reflect or a forge */}
                   {t.draw && (
                     <div className="flex justify-center mb-3">
-                      <CardWithMap draw={t.draw} onInfo={openInfo} label={drawLabel(t.draw)} />
+                      {/* the same stacked pair + minimap as the header (founder, 2026-09-16) */}
+                      <CardWithMap draw={t.draw} onInfo={openInfo} label={drawLabel(t.draw)} stacked />
                     </div>
                   )}
 
