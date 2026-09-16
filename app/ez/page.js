@@ -915,7 +915,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </div>
             </div>
 
-            <p className="text-xs text-zinc-600">or choose a more general area</p>
+            <p className="text-center text-base text-zinc-400 pt-1">or choose a more general area</p>
 
             {/* THE FIVE DOORS, laid out like the map (founder, 2026-09-15): the Gestalt door
                 across the top, and the four manifest houses beneath it in the map's own order —
