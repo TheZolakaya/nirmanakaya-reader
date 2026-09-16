@@ -481,10 +481,11 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // The stiffening is gentle now (the founder: the stop was "pretty sudden"): a little over
       // double over a second, and the zoom settles alongside the pan instead of after it.
       const over = Math.min(1, Math.max(0, (now - ARRIVE_AT) / 1000));
-      const g = 1 + 2.0 * over * over * (3 - 2 * over);
+      const g = 1 + 3.0 * over * over * (3 - 2 * over);
 
       // --- the spiral: a point circling the field's centre, opening outward; the camera follows ---
       const tNow = Date.now(); const dt = Math.min(50, tNow - lastT); lastT = tNow;
+      const df = Math.min(2, Math.max(0.4, dt / 33.3));   // frames of 33ms elapsed since the last step
       if (!reversed && now > REVERSE_AT) { spin = -spin; reversed = true; }
       const pr = Math.min(1, now / DRIFT_UNTIL);
       const grow = pr * pr * (3 - 2 * pr);
@@ -493,8 +494,8 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       // round while the approach tries to leave, and the two fight all the way to the card
       if (now < DRIFT_UNTIL) theta += spin * (SPIRAL_TURNS * 2 * Math.PI / DRIFT_UNTIL) * dt;
       const P = { x: home.x + Math.cos(theta) * rad, y: home.y + Math.sin(theta) * rad };
-      let leanX = (P.x - cam.x) * 0.12, leanY = (P.y - cam.y) * 0.12;
-      const lm = Math.hypot(leanX, leanY), LEAN_MAX = 7.0;
+      let leanX = (P.x - cam.x) * 0.10, leanY = (P.y - cam.y) * 0.10;
+      const lm = Math.hypot(leanX, leanY), LEAN_MAX = 6.0;
       if (lm > LEAN_MAX) { leanX *= LEAN_MAX / lm; leanY *= LEAN_MAX / lm; }
       if (now < DRIFT_UNTIL + 400 && (Math.floor(now / 100) !== Math.floor((now - dt) / 100))) {
         (window.__huntTrace = window.__huntTrace || []).push([Math.round(now), Math.round(cam.x - home.x), Math.round(cam.y - home.y), +cam.z.toFixed(3)]);
@@ -502,9 +503,12 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
       // --- the approach: a velocity toward the card, capped so it never whips ---
       const to = panToCentre(target);
-      let sx = (to.x - cam.x) * 0.040 * g, sy = (to.y - cam.y) * 0.040 * g;
+      // gain and ease are a pair: ease = 4 × gain is critical damping — the camera settles
+      // straight onto the card with no overshoot (the founder saw a 'warble' at the end)
+      const GAIN = 0.03;
+      let sx = (to.x - cam.x) * GAIN * g, sy = (to.y - cam.y) * GAIN * g;
       // the cap grows with the zoom so the MAP moves at one speed whatever the magnification
-      const svm = Math.hypot(sx, sy), APPROACH = 7.5 * Math.min(3, Math.max(1, cam.z / (0.62 * zScale)));
+      const svm = Math.hypot(sx, sy), APPROACH = 5.5 * Math.min(3, Math.max(1, cam.z / (0.62 * zScale)));
       if (svm > APPROACH) { sx *= APPROACH / svm; sy *= APPROACH / svm; }
 
       // --- and the crossfade between them IS the phase change. Nothing else switches. ---
@@ -513,29 +517,29 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       if (now >= DRIFT_UNTIL && state.pool !== others) state.pool = others;
 
       const seekAim = now < DRIFT_UNTIL ? 0 : now < GRAVITY_UNTIL ? 0.7 : 1;
-      seek += (seekAim - seek) * 0.02;
+      seek += (seekAim - seek) * 0.02 * df;
 
       if (now < DRIFT_UNTIL) aimZ = (0.58 - 0.12 * grow) * zScale;   // tight at first, opening with the spiral
       else if (now < GRAVITY_UNTIL) aimZ = 0.62 * zScale;
       else aimZ = Z_END;
-      wantZ += (aimZ - wantZ) * 0.025 * g;   // the pan leads, the zoom follows: zoom multiplies the distance left to pan
+      wantZ += (aimZ - wantZ) * 0.02 * g * df;   // the pan leads, the zoom follows: zoom multiplies the distance left to pan
 
       const wantX = leanX * (1 - seek) + sx * seek;
       const wantY = leanY * (1 - seek) + sy * seek;
 
       // Velocity is EASED toward what is wanted, never set to it. Bounded acceleration is the
       // whole trick: with it, the picture cannot corner even when the wanted heading jumps.
-      const ve = Math.min(0.6, 0.05 * g);
+      const ve = Math.min(0.6, 4 * GAIN * g * df);
       cam.vx += (wantX - cam.vx) * ve;
       cam.vy += (wantY - cam.vy) * ve;
-      cam.vz += ((wantZ - cam.z) * 0.05 * g - cam.vz) * ve;
+      cam.vz += ((wantZ - cam.z) * 0.05 * g - cam.vz) * Math.min(0.6, 0.05 * g * df);
 
-      cam.x += cam.vx; cam.y += cam.vy; cam.z += cam.vz;
+      cam.x += cam.vx * df; cam.y += cam.vy * df; cam.z += cam.vz * df;
       cameraRef.current?.drive({ x: cam.x, y: cam.y }, cam.z);
 
       if (signal.skip) { cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); return; }
       const err = Math.hypot(to.x - cam.x, to.y - cam.y), spd = Math.hypot(cam.vx, cam.vy);
-      const settled = now >= ARRIVE_AT && err < 0.8 && spd < 0.3 && Math.abs(cam.z - Z_END) < 0.015;
+      const settled = now >= ARRIVE_AT && err < 1.5 && spd < 0.6 && Math.abs(cam.z - Z_END) < 0.02;
       if (!settled && now < ARRIVE_AT + 3500) raf = requestAnimationFrame(step);
       else { window.__arriveMs = now; cameraRef.current?.commit({ x: cam.x, y: cam.y }, cam.z); arrivedResolve(); }
     };
@@ -616,7 +620,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const hr = target.getBoundingClientRect(), m = mid();
       const ex = m.x - (hr.left + hr.width / 2), ey = m.y - (hr.top + hr.height / 2);
       window.__arriveResidualPx = [Math.round(ex), Math.round(ey)];
-      if (Math.hypot(ex, ey) > 2) {
+      if (Math.hypot(ex, ey) > 1) {
         const x0 = cam.x, y0 = cam.y, t0 = Date.now(), MS = 500;
         await new Promise(done => { const tick = () => {
           const k = Math.min(1, (Date.now() - t0) / MS), e = 1 - Math.pow(1 - k, 3);
