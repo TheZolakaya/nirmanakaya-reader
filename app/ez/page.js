@@ -495,6 +495,19 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
   const [showPast, setShowPast] = useState(false);
   const [areasOpen, setAreasOpen] = useState(false); // the five doors fold away under a toggle (founder, 2026-09-16)
+  // THE BOX IS THE ANCHOR. The frame used to be centred as a whole, so unfolding the areas grew it
+  // and the box slid up. Now only the box-and-row part is measured, and the top padding is set so
+  // THAT sits where the centred frame sat; whatever unfolds is added beneath it and the box stays.
+  const anchorRef = useRef(null);
+  const [anchorPad, setAnchorPad] = useState(null);
+  useEffect(() => {
+    const el = anchorRef.current; if (!el) return;
+    const fit = () => setAnchorPad(Math.max(16, Math.round((window.innerHeight * 0.62 - el.offsetHeight) / 2)));
+    fit();
+    const ro = new ResizeObserver(fit); ro.observe(el);
+    window.addEventListener('resize', fit);
+    return () => { ro.disconnect(); window.removeEventListener('resize', fit); };
+  }, [draws, door, allowed]);
   const [explain, setExplain] = useState(null);           // 'reflect' | 'forge' | null
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState('signin');
@@ -944,12 +957,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
         )}
 
         {allowed && !draws && !door && (
-          <div className="flex-1 flex flex-col justify-center min-h-[62vh]">
+          <div style={{ paddingTop: anchorPad === null ? '20vh' : anchorPad }}>
           {/* THE ENTRY, like the front page: one frame, the box with Ask inside it, and one quiet
               row beneath — areas, past readings, from my readings, voice. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 space-y-3">
+          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || suggested || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
@@ -978,7 +991,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 </button>
               ) : <span />}
             </div>
+          </div>
 
+          {(areasOpen || showPast || suggested || error) && (
+          <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
@@ -1045,6 +1061,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 )}
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
           </div>
+          )}
           </div>
         )}
 
