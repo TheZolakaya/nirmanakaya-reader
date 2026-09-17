@@ -1463,7 +1463,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                       ))}
                       {r === 3 && (
-                        <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link></p>
+                        <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
                       )}
                     </div>
                   ))}

@@ -677,6 +677,9 @@ export default function NirmanakaReader() {
   const [currentUser, setCurrentUser] = useState(null);
   const [authChecked, setAuthChecked] = useState(false); // Track if auth check is complete
   const [savedReadingId, setSavedReadingId] = useState(null);
+  // THE WAY BACK: set when an EZ reading was opened here over the Brazier's bridge (&bridge=1);
+  // the easy reading's conversation is autosaved, so /ez?load=<id> restores it whole.
+  const [bridgedFromEz, setBridgedFromEz] = useState(null);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [communityActivity, setCommunityActivity] = useState(false); // For header indicator
   // Glistener state
@@ -1151,6 +1154,7 @@ export default function NirmanakaReader() {
         const bridged = params.get('bridge') === '1';
         if (!error && data && data.mode === 'ez' && !bridged) { window.location.replace(`/ez?load=${loadId}`); return; }
         const isEzRow = !!(data && data.mode === 'ez');
+        if (isEzRow && bridged) setBridgedFromEz(loadId);
         if (error || !data) {
           console.error('Failed to load saved reading:', error);
           return;
@@ -6095,6 +6099,17 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
 
         {/* Global Header Nav */}
         {currentUser && <Header hasActivity={communityActivity} />}
+
+        {/* THE WAY BACK — arrived here from an easy reading over the Brazier's bridge; the
+            conversation over there is saved, so the link restores it whole (founder, 2026-09-16
+            night: "we definitely don't want to erase the existing conversation"). Same tab on
+            purpose: a second tab is where a phone loses its place. */}
+        {bridgedFromEz && (
+          <div className="mb-3 flex items-center justify-between gap-3 rounded-lg border border-violet-700/40 bg-violet-950/30 px-3 py-2 text-sm">
+            <span className="text-violet-200/90">You are looking at your easy reading's full derivation. Your conversation is safe.</span>
+            <a href={`/ez?load=${bridgedFromEz}`} className="whitespace-nowrap text-violet-100 underline decoration-dotted hover:text-white">← back to your easy reading</a>
+          </div>
+        )}
 
         {/* Title - click to scroll to top (hidden on cosmic landing) */}
         {currentUser && (
