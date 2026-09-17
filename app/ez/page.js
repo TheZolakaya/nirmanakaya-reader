@@ -1496,7 +1496,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
               {user && hasHistory ? (
                 <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
-                  <button onClick={suggestFromHistory} disabled={suggesting}
+                  <button onClick={() => { setAreasOpen(false); setShowPast(false); suggestFromHistory(); }} disabled={suggesting}
                     className="text-center hover:text-violet-200 transition-colors disabled:opacity-50">
                     {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
                   </button>
