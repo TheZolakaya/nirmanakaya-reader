@@ -416,7 +416,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
           <div data-slot="stack" className="relative shrink-0 w-[217px] h-[196px] sm:w-[287px] sm:h-[252px] mt-6">
             <img src={getCardImagePath(draw.position)} alt={seat || ''}
-              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-transform duration-200 ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
+              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)] ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
               onMouseLeave={() => setDurableFront(false)}
               onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
             {/* the durable's reachable edge was under the transient's box; this hit area sits above both:
@@ -425,7 +425,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
               <div className="absolute z-30 left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] w-[140px] sm:w-[185px] bottom-0 cursor-pointer"
                 onMouseEnter={() => setDurableFront(true)} onClick={() => setDurableFront(true)} title={seat ? `in ${seat}` : ''} />
             )}
-            <div className="absolute left-0 top-0 z-10">
+            <div className="absolute left-0 top-0 z-10 rounded-lg transition-shadow duration-200 hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)]">
               <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
                 size="compact" showFrame={true}
                 className="!w-[140px] sm:!w-[185px]"
@@ -461,7 +461,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
         <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
-          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03]"
+          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)]"
           style={{
             background: 'rgba(13, 13, 26, 0.85)',
             border: '1px solid rgba(107, 77, 138, 0.4)',
