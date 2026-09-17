@@ -1030,6 +1030,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, ts: Date.now() };
     const withYou = [...turns, you];
     setFieldMode(null);
+    // any new turn folds the panels (founder, 2026-09-17: "I'd rather have it minimized"); their answers
+    // are kept for the same card, so reopening is free
+    setBrazierOpen(false); setStepOpen(false);
     // THE NEW CARD LANDS IN ITS OWN TURN (founder, 2026-09-16, an experiment): a reflect or
     // forge draws its card at once, a pending reader turn holding only the stacked card is
     // added, the page is scrolled so that card sits just under the brand — where the header
