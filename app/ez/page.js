@@ -226,6 +226,58 @@ Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "re
 
 const CATCHUP_RULES = `WHERE AM I — write a catch-up card for a person returning to this reading. Under 80 words, plain, four short lines: their question; the verdict or where the reading pointed; where the conversation last landed; the open thread (what was being asked when they left). No new interpretation. Respond with ONLY a JSON object: {"reader": "<the card>", "question": "<the open thread as a question>", "chips": [], "reflect": [], "forge": []}`;
 
+// THE LAYOUT BENCH — /ez?bench=1 (founder, 2026-09-16 night: "a bench where we're just looking at
+// what the draw looks like and the structure, so we can futz with it in real time" without
+// spending API calls or polluting his history). A fixed draw, a canned conversation, and every
+// model call answered locally from the shapes below after a short delay so the pending states
+// show too. Nothing is saved. Signed-in gate still applies.
+const BENCH_DRAW = { transient: 51, position: 13, status: 3 }; // Too Little Completion in Transformation → Activation
+const BENCH_QUESTION = "What's ready to close that I'm still holding open?";
+const BENCH_CHIPS = [
+  { kind: 'answer', text: "Honestly? Probably lighter than I want to admit." },
+  { kind: 'build', text: "Yes, and I think I already know which one it is." },
+  { kind: 'pushback', text: "No, it's more like I don't get to decide when it closes." },
+  { kind: 'clarify', text: "What do you mean by 'a cycle that has finished'?" },
+  { kind: 'stair', text: "What am I afraid happens the day after it closes?" },
+  { kind: 'locate', what: 'the thing that is already done', text: "Help me find which thing this actually is." },
+];
+const BENCH_REFLECT = ["What is the door that's already shut?", "Why do I keep my hand on the handle?", "What would open if this closed?", "Is there something I owe it before it closes?"];
+const BENCH_FORGE = ["I will say out loud that this is done.", "I will start one small thing this week.", "I will stop tending what stopped giving back.", "I will let the day after be a new day."];
+const BENCH_OPENING = {
+  reader: "Something is done. You already know what it is.\n\nThe card you drew is about the feeling of completion — that quiet click when something has genuinely finished. Not almost done, not wrapping up, but done. That feeling is supposed to land, settle, and release you. Right now it's running low. It's like standing at a door that's already swung shut, with your hand still on the handle.\n\nThe seat it landed in is the part of life where things change shape — where one thing ends so another can begin. When the sense of completion is quiet here, the old thing doesn't compost. You keep tending it out of habit, or loyalty, or because closing it feels like losing it.\n\nThe way through starts with igniting something new — not finishing the old thing, but striking a fresh spark somewhere nearby. When you begin something, your whole system reorients to what's coming instead of what was, and the held-open door lets go on its own.",
+  question: "What would actually change for you if you let this one thing close today?",
+  chips: BENCH_CHIPS, reflect: BENCH_REFLECT, forge: BENCH_FORGE,
+  medicine: "The way through isn't forcing the close — it's starting something fresh. Pick one small, real beginning this week: a new conversation, a first page, a single action you haven't taken yet. When you ignite something new in the same space where the old thing lived, the hold releases on its own.",
+  act: "I keep my hand on a door that's already shut. What's one small thing I could actually do about that in the next minute?",
+};
+const BENCH_TALK = {
+  reader: "That fits. A thing you keep tending out of loyalty is exactly what this card calls held open — the loyalty is real, and so is the fact that it stopped giving anything back a while ago.\n\nNothing here says leave badly. It says the part of you that knows when something is finished has gone quiet, and that's why the hand stays on the handle.",
+  question: "If it were gone tomorrow, what would you start?",
+  chips: BENCH_CHIPS.slice(0, 5), reflect: BENCH_REFLECT, forge: BENCH_FORGE, medicine: '', act: '',
+};
+const BENCH_FUNNEL = {
+  reader: "The card landed in the part of life where things change shape, so that's where to look. Three places this usually lives: a role you still show up for though the reason you started it is gone; a relationship that quietly ended but is still technically on; or a version of yourself you haven't officially retired.\n\nWhich of those is warm?",
+  question: "Which one of those feels like the real one?",
+  chips: [{ kind: 'answer', text: "Honestly, the role. I keep showing up out of habit." }, { kind: 'build', text: "It's the version of me one — a story that stopped being true." }, { kind: 'pushback', text: "None of those. It's something else." }],
+  reflect: BENCH_REFLECT, forge: BENCH_FORGE, medicine: '', act: '', located: '',
+};
+const BENCH_ACT = { reader: "Pick one thing that is finished — one conversation, one project, one chapter — and say out loud: \"This is done.\" Two words. That's the spark. Not a plan, not a list. Just the sound of a door closing, in your own voice, right now.", question: '', chips: [], reflect: [], forge: [], medicine: '' };
+const BENCH_RINGS = {
+  1: "Part of you is still standing at a door that's already behind you — that's why the direction feels missing, and why the tending has started to feel like a job. Something here has genuinely finished; you can feel that it has. What this moment is asking isn't a decision or a ceremony. It's a single move: let something begin. Not the next big thing — something small, available, requiring nothing but a yes. A fresh page, a message started, one action that belongs entirely to now. That move doesn't close the old thing by force. It just puts you on the other side of it.",
+  2: "The card is Completion, and it landed in Transformation — the seat where endings clear the ground for what comes next. Its status is Too Little: the sense of a thing being finished is running low, so the ending never quite lands.\n\nThe medicine runs on the vertical: a seat running on empty is charged through its twin, Activation — the fresh spark, beginning for its own sake. The geometry sends you there because you cannot push feeling into an empty seat; you put energy into the twin's own action and the current pulls through.",
+  3: "Completion is the outer bound of Recognition in the Gestalt house, through the Resonance channel, at the Feedback stage: the point where a cycle is known to be whole. Too Little places it in the past tense — a door already behind you. The vertical pair fixes the medicine before any words are written: Activation, the first spark, through Intent.\n\nThis is a derivation, not a guess: the card, the seat and the status settle the partner. If you want every card laid out like this, the full reader holds it.",
+};
+const benchReply = (msg) => {
+  if (/Write ring (\d)\. JSON only\./.test(msg)) return { text: BENCH_RINGS[msg.match(/Write ring (\d)/)[1]] };
+  if (msg.includes('ONE SMALL REAL ACT')) return BENCH_ACT;
+  if (msg.includes('FIND IT. The person tapped')) return msg.includes('narrowing turn 1') ? BENCH_FUNNEL : { ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' };
+  if (msg.includes('OTHER OPTIONS')) return { reader: '', question: '', chips: [...BENCH_CHIPS].reverse(), reflect: [...BENCH_REFLECT].reverse(), forge: [...BENCH_FORGE].reverse() };
+  if (msg.includes('SAY IT SIMPLER')) return { reader: "Something is finished and you're still holding it. Start one small new thing and the old one will let go.", question: 'What would change if you let it close today?', chips: [], reflect: [], forge: [] };
+  if (msg.includes('WHERE AM I')) return { reader: "You asked what's ready to close.\nThe card said: something is already done.\nYou found it: a role kept out of habit.\nOpen thread: what would you start?", question: 'What would you start?', chips: [], reflect: [], forge: [] };
+  if (msg.includes('A NEW CARD WAS DRAWN')) return { ...BENCH_TALK, medicine: "This card's own medicine, rewritten from its Rebalancer, would sit here." };
+  return BENCH_TALK;
+};
+
 function parseJson(text) {
   const m = String(text || '').match(/\{[\s\S]*\}/);
   if (!m) return null;
@@ -453,6 +505,7 @@ export default function EZPage() {
   const cardCount = 1;
   const [draws, setDraws] = useState(null);
   const [voice, setVoice] = useState('plain');
+  const [bench, setBench] = useState(false); // /ez?bench=1 — the layout bench: no API, nothing saved
   useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
   const chooseVoice = (v) => { setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {} };
 
@@ -663,6 +716,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   }, [discourseText]);
 
   const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+    if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     const res = await fetch('/api/reading', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -756,6 +810,28 @@ Respond with ONLY JSON: {"q": "..."}` }],
       setShowPast(true);
     } catch { setError('Could not load your readings.'); }
   };
+
+  // /ez?bench=1 — THE LAYOUT BENCH: a fixed draw and a canned conversation, no API, nothing saved
+  useEffect(() => {
+    if (!allowed || !user || draws) return;
+    let on = false;
+    try { on = new URLSearchParams(window.location.search).get('bench') === '1'; } catch {}
+    if (!on) return;
+    setBench(true);
+    setDraws([BENCH_DRAW]); setQuestion(BENCH_QUESTION); setAsked(BENCH_QUESTION); setSavedId(null);
+    const now = Date.now();
+    const opening = readerTurn(BENCH_OPENING);
+    setTurns([
+      { ...opening, id: 'b1', ts: now },
+      { id: 'b2', role: 'you', text: 'Help me find which thing this actually is.', mode: null, ts: now + 1 },
+      { ...readerTurn(BENCH_FUNNEL), id: 'b3', locating: { what: 'the thing that is already done', step: 1 }, ts: now + 2 },
+      { id: 'b4', role: 'you', text: "Honestly, the role. I keep showing up out of habit.", mode: null, ts: now + 3 },
+      { ...readerTurn({ ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' }), id: 'b5', locating: { what: 'the thing that is already done', step: 2 }, ts: now + 4 },
+      { id: 'b6', role: 'you', text: BENCH_OPENING.act, mode: null, act: true, ts: now + 5 },
+      { ...readerTurn(BENCH_ACT), id: 'b7', act: true, ts: now + 6 },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowed, user]);
 
   // /ez?load=<id> — arriving from the journal or the main reader's redirect
   useEffect(() => {
@@ -1368,6 +1444,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </div>
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
+            {bench && (
+              <div className="mb-4 rounded-md border border-fuchsia-700/50 bg-fuchsia-950/30 px-3 py-1.5 text-center text-[11px] uppercase tracking-wider text-fuchsia-200/90">
+                layout bench — canned reading, no API calls, nothing saved
+              </div>
+            )}
             <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{asked || question}”</p>
 
             {/* One surface: the discourse in order */}
