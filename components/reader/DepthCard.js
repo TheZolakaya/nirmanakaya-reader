@@ -10,6 +10,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getBoundCorrect
 import { renderWithHotlinks } from '../../lib/hotlinks.js';
 import { ensureParagraphBreaks } from '../../lib/utils.js';
 import { getGlossaryEntry } from '../../lib/glossary.js';
+import { tenseFor } from '../../lib/kernel.js';
 import ArchitectureBox from './ArchitectureBox.js';
 import FrameContextBox from './FrameContextBox.js';
 import MirrorSection from './MirrorSection.js';
@@ -1652,6 +1653,11 @@ const DepthCard = ({
                 ) : (
                   <>Why {statusPrefix ? `${statusPrefix} ` : ''}{trans.name} in {posLabel} appeared</>
                 )}
+              </div>
+              {/* THE TENSE RING (Keel's spec §1.3) — one line before the teleology: the status as a place in time */}
+              <div className="text-xs text-cyan-200/80 mb-3">
+                <span className="uppercase tracking-wider text-cyan-400/60 mr-2">Tense</span>
+                {tenseFor(draw.status).label} — {tenseFor(draw.status).line}
               </div>
               {/* THE MIRROR - poetic reflection, no depth navigation */}
               <div className="mb-4">

@@ -22,6 +22,8 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
+import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
+import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
@@ -145,7 +147,7 @@ FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing 
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "act": "<on a turn that carries a card: the person's OWN first-person line asking for one small real thing to do right now, composed from this card, its status and their topic — e.g. \"I keep redesigning the plan. What's one thing I could actually do in the next minute?\" Never stock text. Empty on a talking turn>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
 
 // FIND IT — the funnel (founder, 2026-09-16 evening). The Reader names its own vagueness with
 // a locate chip; tapping it runs up to three narrowing rounds whose questions come from the
@@ -166,6 +168,61 @@ ${brief}
 Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the card points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
+
+// THE BRAZIER — "why is this happening?" (Keel's spec, 2026-09-16). The kernel is data; this
+// prompt renders it in the KITCHEN register. Ring 1 is all kitchen; ring 2 names the map's
+// words; ring 3 is the whole derivation and the one invitation into the full reader.
+const BRAZIER_HARD_RULE = `THE HARD RULE: The Brazier explains the PERSON to themselves, using the philosophy as its grammar. It never explains the philosophy using the person as an illustration. Lint: could this paragraph have been written before their card was drawn? If yes, it fails. It must be about THIS card, THIS status, THIS seat, THIS topic.
+THE ASK-CLAUSE RULE: the ask-clause ("what this moment is asking") is derived from the kernel's medicine field — the partner card and its mechanism — never from status alone.
+ONLY THE KERNEL'S FACTS: every structural fact you state (house, channel, stage, horizon, seat, partner, mechanism) comes from THE KERNEL below. If the kernel does not state it, you do not state it — your own memory of the map is not a source. No square-bracketed labels, no headings, no lists: prose only. Word limits are HARD limits; count.`;
+const BRAZIER_RULES = {
+  1: `RING 1 — KITCHEN. Write one paragraph, 90 to 125 words (hard limit 135), addressed to the person, that answers "why is this happening?" TENSE LEADS (it is felt): open from the kernel's tense line, in kitchen words matched to their topic. Then the purpose (it is understood): what this moment is asking, DERIVED FROM THE PARTNER CARD's character in ordinary words — the specific way back, not a wiser version of the card they drew. Zero framework vocabulary: no "nowism", no "the framework", no "in Nirmanakaya terms", no "this illustrates", no "the principle of", no archetype, house, seat, status or card names beyond the status word itself, no philosophy named. No diagnosis words (anxiety, depression, trauma, etc.) — name TENSES, never conditions. Not advice; a mirror with a direction in it.
+THE FROZEN STANDARD (founder-judged; match its register and its mechanism, never copy its sentences — if this person's draw or topic resembles one of them, write a fresh render in the same mechanism):
+1. BALANCED — Imagination in Nurturing · growth → DRIVE (directed momentum; movement from feeling; direction through resistance)
+   Topic: "I have three ideas for a neighborhood workshop. Which one should I grow?"
+   You're here with this choice, not racing ahead of it — and that's the right place to be. Nothing is broken; three possibilities are alive at once, and that's not indecision, it's a full room. What this moment is asking isn't a better comparison. It's motion. One of the three already moves you more than the others — you can feel it in your body before you can defend it in a plan. Give that one a first real push this week: a message sent, a date named, a room asked for. Direction doesn't come from choosing perfectly; it shows up by going. The other two can wait without being abandoned. You'll know more after one step than after another week of weighing.
+
+2. BALANCED — Discipline in Culture · growth → BREAKTHROUGH (sudden clearing of false structure; structures fall that needed to fall; liberation, not catastrophe)
+   Topic: "How do I keep my morning practice from turning into another obligation?"
+   You're in the present with the practice itself, not chasing a version of you who finally does it right. That's balanced, and it's real. But here's the growth waiting in it: some part of the routine has quietly turned from a life you chose into a rule you obey — and that part is allowed to fall. What this moment is asking is not more consistency. It's permission to let one piece of the structure crack: skip the part that's become ceremony, drop the step you keep because you've always kept it, and see what's still standing afterward. Whatever survives the crack is the actual practice. Whatever needed the rule to stay alive was never it.
+
+3. TOO MUCH — Drive in Compassion · diagonal → TUNE (active calibration; sensing when to subtract; centered presence holding complexity)
+   Topic: "Why do I keep checking whether they texted me back?"
+   Part of you is already living inside the reply you want, even though it hasn't arrived — that's why the wanting feels so busy. The checking keeps reaching forward, trying to turn someone else's next move into something you can hold now. What this moment is asking isn't for you to care less. It's a small adjustment, not a shutoff: dial the momentum down a notch, to the setting where you can want contact and still sit with the not-yet. That adjustment is in you, not in their phone. Their answer gets to arrive as theirs. The connection doesn't get more real with each refresh — it gets more real when you can stay steady inside the waiting.
+
+4. TOO MUCH — Authority in Imagination · diagonal → ABSTRACTION (pattern stripped of content; clarity about mechanism; seeing how things work beneath surface)
+   Topic: "Why do I keep redesigning the launch plan instead of shipping?"
+   You're trying to make decisions inside futures that haven't happened. Every imagined reaction becomes another branch to manage, and the plan keeps growing because there's always one more version of the world to prepare for. What this moment is asking isn't a tighter plan. It's to step back far enough to see the shape: every version you've drafted is the same plan wearing different weather. Underneath the hundred cases there's one mechanism that actually has to work — one thing that has to be true for the launch to be a launch. Find that, and the branches stop being decisions and become detail. Control loosens the moment you can see the pattern instead of the cases.
+
+5. TOO LITTLE — Compassion in Transformation · vertical → TUNE (continuous adjustment maintaining flow; sensing when to ADD; blending)
+   Topic: "Why can't I start dating again after the relationship ended?"
+   Part of you is still standing with a relationship that has already ended. That doesn't make the love false or the grief wrong; it means some of your warmth is still facing a door that can't open the same way again. What this moment is asking isn't to love again all at once — nobody can decide their way into that. It's smaller and slower: let a little warmth back into the mix, a degree at a time, blended with the grief instead of replacing it. Coffee, not commitment. Feeling doesn't return by decision; it returns by adjustment — you sense how much is bearable today, and you let in that much. The old bond stays real. You're just letting the temperature change.
+
+6. TOO LITTLE — Inspiration in Discipline · vertical → NURTURING (tending what needs to develop; conditions for growth without forcing; patient attention that allows emergence)
+   Topic: "I used to paint every weekend. After one brutal critique, I stopped."
+   Part of you is still taking instructions from an old room. The critique is over, but the part of you that used to reach for the paint is still waiting for permission that isn't coming. What this moment is asking isn't a comeback, and it isn't disproving what was said. It's to treat the small willingness that's left like something young: give it shelter. Low stakes, no audience, no verdict — a sketch nobody will see, made on a Tuesday, kept warm. You don't push a seedling to prove it can grow; you keep it out of the wind and let it. Whatever wants to come back will come back on its own timing, if you stop putting it on trial.
+
+7. UNACKNOWLEDGED — Fortitude in Discipline · reduction → INSPIRATION (the draw toward what's genuinely desired; knowing which star to steer by; recognized, not given; remembered, not arrived)
+   Topic: "I'm exhausted from taking care of everyone. I don't even know what I want."
+   You're already in this day, but your own share of it has gone very quiet. When you're this tired, "figure out what you want" sounds like one more job somebody handed you — and that's not what's being asked. It's smaller. Somewhere under the tiredness there's still one faint pull: something you'd want if wanting weren't so expensive right now. Not a goal. A direction you'd lean toward if you had an inch to lean. You don't have to move toward it tonight. Just notice it's still there, and that it's yours. That noticing is the whole first step. The strength you don't see in yourself is often just the pull that survived — and it did.
+
+8. UNACKNOWLEDGED — Recognition in Authority · reduction → WISDOM (deep knowing that precedes analysis; recognizing what matters before understanding why; seeing through to essence)
+   Topic: "I keep saying there's nothing I can do about our team process, but I'm the manager."
+   You're already in the room where some of this can change, but you're speaking as if the pen were somewhere else entirely. That protects you from overreaching — and it hides the part that's genuinely yours. What this moment is asking isn't for you to build the case first. It's quieter than that: you already know which piece of this is yours. You knew before the reasons — the one thing you've been carefully not saying in meetings. Trust the knowing that came before the analysis, and say that one thing out loud. Other people still get their own answers. Your responsibility gets clearer the moment it's neither everything nor nothing — and you already know where that line is.`,
+  2: `RING 2 — GO DEEPER. One or two short paragraphs, 100 to 150 words (hard limit 170). Now the map's words are allowed, each one introduced the first time it appears in a plain aside: name the seat (where the card landed) and what that part of life is; name the stage; name the status by its full name and say what it looks like here; name the medicine's mechanism (diagonal, vertical, reduction or growth) and the partner card, and say in one sentence WHY the geometry sends them there. Still about this person and this draw. Still no philosophy named, no diagnosis words.`,
+  3: `RING 3 — THE WHOLE PICTURE. Two or three short paragraphs, 160 to 220 words (hard limit 240): the full derivation with the architecture named — the house and channel, the horizon (inner or outer), the stage, the status as a place in time, the medicine as the map's geometry (which pair, why that pair), and what the partner's balanced character supplies. Say plainly that this is a derivation, not a guess: the card, the seat and the status fix the medicine before any words are written. End with ONE sentence of invitation, once, to the full reader, where every card's derivation is laid out like this — an offer, never a nag.`,
+};
+const brazierSystem = (ring) => `${BASE_SYSTEM}\n\n${BRAZIER_HARD_RULE}\n\n${BRAZIER_RULES[ring]}\n\nRespond with ONLY a JSON object: {"text": "<the ring, paragraphs separated by blank lines>"}`;
+
+// THE DO-SOMETHING BUTTON (Keel's spec §2). Not a mode. Consults nothing. One small real act,
+// then the Reader goes quiet. The name is a config string — the founder picks.
+const DO_SOMETHING_LABEL = 'what can I do about this?';
+const DO_SOMETHING_HINT = 'one small real thing, in the next minute';
+const doSomethingBlock = (k) => `
+
+ONE SMALL REAL ACT. The person asked for one thing they can do right now. Hand them ONE act — doable in the next minute, in the medicine card's OWN character (${k.partner || 'this card'}: ${k.partnerDescription || 'its own balanced face'}), shaped for the status: ${k.actShape}
+Rules: one act, sized small, concrete, in ordinary words; say in one clause why it is the way back for THIS draw; then get out of the way. NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card. Under 80 words. The pen grammar if a framing line is needed, at most once: "Your pen. Four ways of holding it. It only writes now."
+Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
 
 const CATCHUP_RULES = `WHERE AM I — write a catch-up card for a person returning to this reading. Under 80 words, plain, four short lines: their question; the verdict or where the reading pointed; where the conversation last landed; the open thread (what was being asked when they left). No new interpretation. Respond with ONLY a JSON object: {"reader": "<the card>", "question": "<the open thread as a question>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -587,11 +644,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
       const verb = t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
-        : t.mode === 'forge' ? 'ASKER FORGES (declares)' : 'ASKER';
+        : t.mode === 'forge' ? 'ASKER FORGES (declares)' : t.act ? 'ASKER (asks for one small thing to do)' : 'ASKER';
       return `${verb}: "${t.text}"`;
     }
     if (t.role === 'catchup') return '[catch-up card shown]';
-    return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : ''}: ${t.text}`;
+    return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}`;
   }), []);
 
   // Every turn used to be re-sent in full on every call, so a long session paid more and more
@@ -658,6 +715,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
+    actLine: typeof obj.act === 'string' ? obj.act.trim() : '',
     ts: Date.now(),
     ...extra
   });
@@ -875,6 +933,75 @@ Respond with ONLY JSON: {"q": "..."}` }],
     setLoading(false);
   };
 
+  // ---- the do-something button: one small real act, no draw, no question ----
+  const fieldCard = () => [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0] || null;
+  const actLineNow = () => { const t = [...turns].reverse().find((x) => x.role === 'reader' && x.actLine); return t?.actLine || ''; };
+  const doSomething = async () => {
+    if (loading || !draws) return;
+    const card = fieldCard(); if (!card) return;
+    const k = buildKernel(card, DEFS);
+    const line = actLineNow() || `What is one small real thing I can do about this in the next minute?`;
+    setError(''); setLoading(true); setFieldMode(null);
+    const you = { id: `y${Date.now()}`, role: 'you', text: line, mode: null, act: true, ts: Date.now() };
+    const withYou = [...turns, you];
+    setTurns(withYou); scrollToEnd();
+    try {
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${doSomethingBlock(k)}`;
+      const { obj } = await callReader(msg, systemPrompt, 500);
+      const turn = readerTurn({ ...obj, question: '', chips: [], reflect: [], forge: [], medicine: '' }, { act: true });
+      setTurns((list) => [...list, turn]); scrollToEnd();
+    } catch (e) {
+      setTurns((list) => list.filter((x) => x.id !== you.id));
+      setError(e.message);
+    }
+    setLoading(false);
+  };
+
+  // ---- THE BRAZIER: "why is this happening?" — beside the conversation, not in it ----
+  const [brazierOpen, setBrazierOpen] = useState(false);
+  const [brazier, setBrazier] = useState({});          // { [ring]: text }
+  const [brazierRing, setBrazierRing] = useState(1);   // how deep the person has gone
+  const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
+  const [brazierGlow, setBrazierGlow] = useState(false);
+  const brazierKeyRef = useRef('');
+  const fetchRing = async (ring) => {
+    const card = fieldCard(); if (!card || brazierBusy) return;
+    const key = `${card.transient}:${card.position}:${card.status}`;
+    if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setBrazierRing(1); }
+    setBrazierBusy(ring); setError('');
+    try {
+      const k = buildKernel(card, DEFS);
+      const prior = [1, 2, 3].filter((r) => r < ring && brazier[r]).map((r) => `RING ${r}, already shown to them:\n${brazier[r]}`).join('\n\n');
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}${prior ? `\n\n${prior}` : ''}\n\nWrite ring ${ring}. JSON only.`;
+      let data = await rawCall(msg, brazierSystem(ring), ring === 1 ? 500 : 800);
+      let obj = parseJson(data.reading);
+      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(ring), 800); obj = parseJson(data.reading); }
+      if (!obj?.text) throw new Error('The brazier went out — try again.');
+      // the word limits are hard (Keel's spec: ring 1 is 90–135); one rewrite if the model ran long
+      const LIMIT = { 1: 135, 2: 170, 3: 240 }[ring];
+      const words = (t) => String(t).split(/\s+/).filter(Boolean).length;
+      if (words(obj.text) > LIMIT) {
+        data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(ring), 800);
+        const again = parseJson(data.reading);
+        if (again?.text && words(again.text) <= words(obj.text)) obj = again;
+      }
+      setBrazier((b) => ({ ...b, [ring]: obj.text.trim() }));
+      setBrazierRing(ring);
+    } catch (e) { setError(e.message); }
+    setBrazierBusy(0);
+  };
+  const toggleBrazier = () => {
+    const next = !brazierOpen;
+    setBrazierOpen(next);
+    if (next) {
+      setBrazierGlow(true); setTimeout(() => setBrazierGlow(false), 900);
+      const card = fieldCard();
+      const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
+      if (key !== brazierKeyRef.current || !brazier[1]) fetchRing(1);
+    }
+  };
+
   // ---- other options: fresh pills for the latest turn ----
   // The founder, 2026-09-15: the build / push back / clarify pills (and the reflects and
   // forges) should be regenerable. One call rewrites all three sets for the last reader turn,
@@ -944,7 +1071,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     });
     L.push(``, `## The conversation`, ``);
     turns.forEach((t) => {
-      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : ''}:** ${t.text}`, ``); return; }
+      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, t.text, ``);
@@ -1244,6 +1371,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
                       {t.mode === 'reflect' ? '↩ Reflecting' : '⚡ Forging'}
                     </div>
                   )}
+                  {t.role === 'reader' && t.act && (
+                    <div className="text-[10px] uppercase tracking-wider mb-2 text-zinc-500">one small thing</div>
+                  )}
 
                   {/* A card drawn in answer to a reflect or a forge */}
                   {t.draw && (
@@ -1310,11 +1440,52 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <div ref={endRef} />
             </div>
 
+            {/* THE BRAZIER — "why is this happening?" Collapsed by default; opening it is consent.
+                Beside the conversation, not in it (Keel's spec §1). */}
+            <div className="mt-5 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
+              <button onClick={toggleBrazier} className="w-full flex items-center gap-3 px-4 py-3 text-left">
+                <span className={`brazier-ember ${brazierGlow ? 'brazier-ember-open' : ''}`}>
+                  <video src="/video/brazier.mp4" autoPlay loop muted playsInline aria-hidden="true" />
+                </span>
+                <span className="font-serif text-[19px] leading-none text-zinc-200">why is this happening?</span>
+                <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${brazierOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {brazierOpen && (
+                <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
+                  {[1, 2, 3].filter((r) => r <= brazierRing && brazier[r]).map((r) => (
+                    <div key={r} className={r > 1 ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
+                      {r === 2 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
+                      {r === 3 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
+                      {ensureParagraphBreaks(brazier[r]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                        <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                      ))}
+                      {r === 3 && (
+                        <p className="mt-3 text-[13px]"><Link href="/advanced" className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open the full reader</Link></p>
+                      )}
+                    </div>
+                  ))}
+                  {brazierBusy > 0 && <div className="text-xs text-zinc-500 animate-pulse">{brazierBusy === 1 ? 'the brazier is catching…' : 'going deeper…'}</div>}
+                  {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
+                    <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[13px] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
+                      {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
-            <div className="mt-5 flex items-stretch gap-2">
+            <div className="mt-3 flex items-stretch gap-2">
               {switchBtn('reflect', 'Reflect', '↩')}
               {switchBtn('forge', 'Forge', '⚡')}
             </div>
+            {/* THE DO-SOMETHING BUTTON — not a mode: draws nothing, concludes. Unboxed and lighter
+                than its neighbours on purpose (Keel's spec §2.6). */}
+            <button onClick={doSomething} disabled={loading}
+              className="mt-2 w-full text-center py-2 disabled:opacity-40">
+              <span className="block font-serif text-[17px] text-zinc-300 hover:text-amber-200 transition-colors">{DO_SOMETHING_LABEL}</span>
+              <span className="block text-[11px] text-zinc-500 mt-0.5">{DO_SOMETHING_HINT}</span>
+            </button>
             <div className="mt-1 flex justify-between text-[11px]">
               <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
               <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
@@ -1375,6 +1546,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
+              <button onClick={doSomething} disabled={loading} className="font-serif text-[13px] text-zinc-400 hover:text-amber-200 disabled:opacity-40">{DO_SOMETHING_LABEL}</button>
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>

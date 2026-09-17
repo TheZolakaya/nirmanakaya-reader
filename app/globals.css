@@ -745,3 +745,18 @@ textarea.user-input-area::placeholder {
    fixed size (the "card" size is 200px), which a phone's 140px square clipped into a zoomed-in
    corner; CSS on the svg beats its width/height attributes, and the viewBox keeps the shape. */
 .ez-minimap svg { width: 100%; height: 100%; }
+
+
+/* THE BRAZIER's ember — a small bowl with a low fire; slow breathing glow, a beat brighter on open, never a blaze */
+@keyframes brazier-breathe {
+  0%, 100% { box-shadow: 0 0 6px 1px rgba(251, 146, 60, 0.25); }
+  50% { box-shadow: 0 0 12px 3px rgba(251, 146, 60, 0.45); }
+}
+.brazier-ember {
+  display: inline-block; width: 30px; height: 30px; border-radius: 9999px; overflow: hidden; flex: none;
+  background: #1a1210; animation: brazier-breathe 4.5s ease-in-out infinite;
+  transition: box-shadow 300ms ease;
+}
+.brazier-ember video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.brazier-ember-open { box-shadow: 0 0 18px 6px rgba(251, 191, 36, 0.6) !important; }
+@media (prefers-reduced-motion: reduce) { .brazier-ember { animation: none; } }
