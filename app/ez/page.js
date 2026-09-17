@@ -1030,7 +1030,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
       try {
         const brand = document.querySelector('[data-slot="tagline"]') || document.querySelector('[data-slot="wordmark"]')?.parentElement;
-        const top = brand ? brand.getBoundingClientRect().bottom + 6 : 0;
+        const top = Math.max(16, brand ? brand.getBoundingClientRect().bottom + 6 : 0);
         const el = document.querySelector(`[data-ez-turn="${pid}"]`);
         if (el) window.scrollBy({ top: el.getBoundingClientRect().top - top - 8, behavior: 'instant' });
         setOverlayTop(Math.max(0, Math.round(top)));
