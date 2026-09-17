@@ -23,6 +23,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionTe
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
+import { STARTER_KINDS, DOOR_SUBS, STARTERS } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
@@ -352,11 +353,11 @@ function medicineFor(draws) {
 // Renamed by the founder 2026-09-15 (morning): the houses in a person's own words, plus a
 // sixth door where the cards choose — a daily reading with no question brought.
 const DOORS = [
-  { id: 'spirit',  house: 'Spirit',  label: 'Passions & beliefs', sub: 'what moves me, what I hold true', breath: 'Your passions and your beliefs — what moves you, and what you hold to be true.' },
-  { id: 'mind',    house: 'Mind',    label: 'Peace of mind',      sub: 'what my head keeps turning over', breath: 'Your peace of mind — what your head keeps turning over.' },
-  { id: 'emotion', house: 'Emotion', label: 'Relationships',      sub: 'the people in my life',           breath: 'Your relationships — the people in your life, and the space between you.' },
-  { id: 'body',    house: 'Body',    label: 'Health & prosperity', sub: 'my body, my home, my money',     breath: 'Your health and your prosperity — your body, your home, your money, what you carry.' },
-  { id: 'gestalt', house: 'Gestalt', label: 'Fulfillment',        sub: 'whether my life is adding up',   breath: 'Your fulfillment — whether your life is adding up to what you meant it to be.' },
+  { id: 'spirit',  house: 'Spirit',  label: 'Passions & beliefs', sub: DOOR_SUBS.spirit, breath: 'Your passions and your beliefs — what moves you, and what you hold to be true.' },
+  { id: 'mind',    house: 'Mind',    label: 'Peace of mind',      sub: DOOR_SUBS.mind, breath: 'Your peace of mind — what your head keeps turning over.' },
+  { id: 'emotion', house: 'Emotion', label: 'Relationships',      sub: DOOR_SUBS.emotion,           breath: 'Your relationships — the people in your life, and the space between you.' },
+  { id: 'body',    house: 'Body',    label: 'Health & prosperity', sub: DOOR_SUBS.body,     breath: 'Your health and your prosperity — your body, your home, your money, what you carry.' },
+  { id: 'gestalt', house: 'Gestalt', label: 'Fulfillment',        sub: DOOR_SUBS.gestalt,   breath: 'Your fulfillment — whether your life is adding up to what you meant it to be.' },
   { id: 'daily',   house: null,      label: 'My daily reading',   sub: 'let one of these be chosen for me', breath: '' },
 ];
 
@@ -714,8 +715,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
   const [showPast, setShowPast] = useState(false);
   const [areasOpen, setAreasOpen] = useState(false); // the five doors fold away under a toggle (founder, 2026-09-16)
-  const [nudge, setNudge] = useState(false); // Ask pressed with nothing typed: the box shakes, the border flashes, a line inside says what to do (founder, 2026-09-17)
+  // ASK on an empty box does not error and does not draw: the button becomes an offer, and a
+  // second tap draws for whatever is here (Keel's spec, section 1: wordlessness made a
+  // dignified option, taught rather than sprung)
+  const [wordless, setWordless] = useState(false);
   const questionRef = useRef(null);
+  const contextRef = useRef(null);
+  const [biggerOpen, setBiggerOpen] = useState(false); // the three deep starters, one tap further in
   // THE BOX IS THE ANCHOR. The frame used to be centred as a whole, so unfolding the areas grew it
   // and the box slid up. Now only the box-and-row part is measured, and the top padding is set so
   // THAT sits where the centred frame sat; whatever unfolds is added beneath it and the box stays.
@@ -951,7 +957,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     // work. Added context, when there is any, IS the question; the door only frames it.
     const typed = sanitizeForAPI(question.trim());
     const q = typed || (door ? sanitizeForAPI(door.breath) : '');
-    if (!q) { setNudge(false); requestAnimationFrame(() => { setNudge(true); try { questionRef.current?.focus(); } catch {} }); setTimeout(() => setNudge(false), 3200); return; }
+    if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
     setAsked(q);
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
     const newDraws = generateSpread(cardCount);
@@ -1493,22 +1499,22 @@ Respond with ONLY JSON: {"q": "..."}` }],
               there in the middle, very simple"). */}
           <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
-              <div className={`content-pane rounded-xl ${nudge ? 'nudge-shake' : ''}`}>
-                <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (nudge) setNudge(false); }} rows={4}
-                  placeholder={nudge ? '' : "What's on your mind? Ask it the way you would say it out loud."}
-                  style={nudge ? undefined : { animationDuration: '16s' }}
-                  className={`${nudge ? 'animate-border-rainbow-fast' : 'animate-border-rainbow'} block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
+              <div className="content-pane rounded-xl">
+                <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (wordless) setWordless(false); }} onFocus={() => setWordless(false)} rows={4}
+                  placeholder="What's on your mind? Ask it the way you would say it out loud."
+                  style={{ animationDuration: '16s' }}
+                  className={`animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
               </div>
-              {/* the line sits INSIDE the box — it lives outside the content-pane wrapper because a direct
-                  child of a content-pane is forced into normal flow (the Ask-button trap, 2026-09-16) */}
-              {nudge && (
-                <div className="pointer-events-none absolute left-4 right-4 top-4 z-10 text-[15px] leading-snug text-amber-200/95">
-                  Say what you'd like to talk about — or tap <span className="font-medium text-amber-300">Areas</span> below and pick one.
+              {/* the offer sits INSIDE the box, outside the content-pane wrapper: a direct child of a
+                  content-pane is forced into normal flow (the Ask-button trap, 2026-09-16) */}
+              {wordless && (
+                <div className="pointer-events-none absolute left-4 right-4 bottom-16 z-10 text-right text-[0.8125rem] leading-snug text-zinc-400">
+                  You don’t have to have words. Tap again and the cards start.
                 </div>
               )}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
-                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Ask'}</span>
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Draw for wherever I am' : 'Ask'}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
@@ -1518,7 +1524,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
               <button onClick={() => setAreasOpen(!areasOpen)}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
-                Areas
+                not sure what to ask?
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {user && hasHistory ? (
@@ -1550,7 +1556,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <button key={d.id} onClick={() => {
                       // "My daily reading" chooses one of the five houses for them, at random
                       const pick = d.id === 'daily' ? { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true } : d;
-                      setDoor(pick); setQuestion(''); setError('');
+                      setDoor(pick); setQuestion(''); setError(''); setBiggerOpen(false);
                     }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
                     style={{ borderColor: c + '99', background: c + '26', animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `-${delay}ms` }}>
@@ -1623,13 +1629,44 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {door.viaDaily && <p className="text-[0.625rem] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
             <p className="text-lg text-zinc-200 font-light break-words">{door.breath}</p>
 
+            {/* THE STARTERS (Keel's spec, section 3): five pills in one universal grammar, worded per
+                area. Tapping one FILLS the box, editable. The free field is never gated behind them. */}
+            {!door.viaDaily && STARTERS[door.id] && (
+              <div className="flex flex-col gap-2">
+                {STARTER_KINDS.filter((k) => k.key !== 'bigger').map((k) => (
+                  <button key={k.key} onClick={() => { setQuestion(STARTERS[door.id][k.key]); setError(''); setTimeout(() => { try { contextRef.current?.focus(); } catch {} }, 0); }}
+                    className="pill-breathe text-left rounded-lg border border-zinc-700/60 px-3 py-2 text-[0.9375rem] text-zinc-200 break-words"
+                    style={{ '--pill': '251 191 36' }}>
+                    <span className="block text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-0.5">{k.label}</span>
+                    {STARTERS[door.id][k.key]}
+                  </button>
+                ))}
+                <button onClick={() => setBiggerOpen(!biggerOpen)}
+                  className="self-center flex items-center gap-1 text-[0.8125rem] text-zinc-400 hover:text-zinc-200 transition-colors">
+                  a bigger question
+                  <svg className={`w-3.5 h-3.5 transition-transform ${biggerOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {biggerOpen && (
+                  <div className="flex flex-col gap-2">
+                    {STARTERS[door.id].bigger.map((bq) => (
+                      <button key={bq} onClick={() => { setQuestion(bq); setError(''); setTimeout(() => { try { contextRef.current?.focus(); } catch {} }, 0); }}
+                        className="pill-breathe text-left rounded-lg border border-violet-700/50 bg-violet-950/20 px-3 py-2 text-[0.9375rem] text-violet-100 break-words"
+                        style={{ '--pill': '167 139 250' }}>
+                        {bq}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             <div>
               <label className="block text-xs text-zinc-500 mb-2">
-                Add anything that matters — or draw as it stands.
+                or say it your way.
               </label>
               <div className="relative">
                 <div className="content-pane rounded-xl">
-                  <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
+                  <textarea ref={contextRef} value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
                     placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
                     className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
                 </div>
