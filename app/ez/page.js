@@ -1545,7 +1545,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
                   <video src="/video/brazier.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 </span>
-                <span className="font-serif text-[19px] leading-none text-zinc-200">why is this happening?</span>
+                <span className="font-serif text-[19px] leading-none text-zinc-200">Words to the Whys</span>
                 <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${brazierOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {brazierOpen && (
