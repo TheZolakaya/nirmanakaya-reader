@@ -149,10 +149,16 @@ HISTORY IS WEATHER, NOT SUBJECT. A READER CONTEXT or JOURNEY THREAD may arrive w
 
 FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing in this person's life and never its NAME: the cycle that is done, the person being protected, the habit, the decision. Wherever your turn points at such a thing without naming it, add a chip of kind "locate": {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"}. One per unnamed thing, at most two, placed after the other chips. Never write "you already know what it is" (or its cousins) without a locate chip beneath it. If nothing was left unnamed, no locate chip. On a BALANCED card the unnamed thing is where the invitation lands ("which relationship", "which piece of work"), never a problem to hunt for; word the chip that way.
 
+ACT ON THEIR OWN WORDS. Sometimes what the person just typed is not a remark to be answered — it is already an inquiry they want the field to answer, or a move they are declaring, or a reaching for something they cannot name. When that is true, fill "suggest" with ONE offer, in THEIR OWN WORDS (tightened, never reworded into yours), and answer their turn as usual above it:
+- {"kind": "reflect", "text": "<their inquiry, under 15 words>"} — they are asking something they genuinely do not know and want the cards to answer ("I don't know what he actually wants from me").
+- {"kind": "forge", "text": "<their declaration, under 15 words>"} — they are stating what they will do, choose, commit to or stop ("I think I'm going to tell her tomorrow").
+- {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"} — they are circling something they have not named, or they say they do not know which thing this is about.
+Rules: at most one, only when their own words really are that, never as a nudge to keep going, and never when they just used one of the switches. If nothing fits, "suggest" is null. It is an OFFER: they tap it or they ignore it.
+
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "act": "<on a turn that carries a card: the person's OWN first-person line asking for one small real thing to do right now, composed from this card, its status and their topic — e.g. \"I keep redesigning the plan. What's one thing I could actually do in the next minute?\" Never stock text. Empty on a talking turn>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "suggest": <null, or {"kind": "reflect"|"forge"|"locate", "text": "...", "what": "... (locate only)"}>, "act": "<on a turn that carries a card: the person's OWN first-person line asking for one small real thing to do right now, composed from this card, its status and their topic — e.g. \"I keep redesigning the plan. What's one thing I could actually do in the next minute?\" Never stock text. Empty on a talking turn>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
 
 // FIND IT — the funnel (founder, 2026-09-16 evening). The Reader names its own vagueness with
 // a locate chip; tapping it runs up to three narrowing rounds whose questions come from the
@@ -161,6 +167,7 @@ ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
 const locateBlock = (loc, brief) => `
 
 FIND IT. The person tapped "help me find it" about: "${loc.what}". This is narrowing turn ${loc.step}${loc.balanced ? ' (a Balanced card: ONE narrowing turn at most)' : ' (three at most)'}. The draw cannot name the thing; only they can. Your job is to NARROW, one question per turn, with the question coming from the geometry; and to STOP the moment they have named it.
+THEY MAY END THE SEARCH THEMSELVES. If their turn is marked as NAMING IT, or they say they have it, or that this is close enough, the search is over on their word, not your judgement: take what they give you as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it. Never tell them they have not found it yet.
 FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered ("a family thing, mutual but I keep it warm" is found), the funnel is over: confirm it against the card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine ON THAT THING in "medicine": the Rebalancer card's OWN move (what it is about is stated below), applied to the named thing as a specific, ordinary first step. Never substitute a different move that seems wiser than the card's own. Never ask for more detail than they volunteered, never ask what is wrong when nothing is, never go looking for a different thing once this one is found, and never invent something they are "holding back". If they say it feels complete, believe them; that is the answer.
 ${loc.balanced
     ? 'THIS CARD IS BALANCED. Nothing is broken and there is nothing to diagnose; the growth is an INVITATION, and an invitation only needs an address. So: from the seat\'s own meaning, name two or three concrete places in their life the invitation could land, ask which one is warm, and once they choose, stop and say how the growth card\'s own move would look there. No question about shape, no question about a tell.'
@@ -845,6 +852,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
+    suggest: (obj.suggest && typeof obj.suggest === 'object' && obj.suggest.text) ? obj.suggest : null,
     actLine: typeof obj.act === 'string' ? obj.act.trim() : '',
     ts: Date.now(),
     ...extra
@@ -1011,10 +1019,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
     // FIND IT: a tapped locate chip opens the funnel; a plain talking turn while it is open
     // continues it (up to three rounds, or until the Reader reports the thing located).
     let loc = null;
+    const claimed = !!opts?.claim; // they are naming it themselves, or calling it close enough
     if (opts?.locate) loc = { what: opts.locate, step: 1 };
     else if (!mode) {
       const lr = [...turns].reverse().find((t) => t.role === 'reader');
-      if (lr?.locating && !lr.located && lr.locating.step < (lr.locating.balanced ? 2 : 3)) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
+      if (lr?.locating && !lr.located && (claimed || lr.locating.step < (lr.locating.balanced ? 2 : 3))) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
     }
     setError(''); setLoading(true); setInput('');
     const newDraw = mode ? generateSpread(1)[0] : null;
@@ -1059,7 +1068,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\n${(() => { try { return buildReadingTeleologicalPrompt([newDraw]); } catch { return ''; } })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
-      const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
+      const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
       repliedRef.current = true; setLandedWaiting(false);
@@ -1206,6 +1215,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // The founder, 2026-09-15: the build / push back / clarify pills (and the reflects and
   // forges) should be regenerable. One call rewrites all three sets for the last reader turn,
   // told what it already offered so it takes a different angle; the turn's text is untouched.
+  const [claiming, setClaiming] = useState(false); // the person is naming the thing themselves
   const [regenning, setRegenning] = useState(false);
   const regenPills = async (over = {}) => {
     if (loading || regenning || !lastReader || !draws) return;
@@ -1805,6 +1815,32 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
+                {lastReader?.suggest && !loading && (() => {
+                  const sg = lastReader.suggest;
+                  const tone = sg.kind === 'reflect' ? 'border-sky-500/60 text-sky-100 bg-sky-950/30 hover:bg-sky-900/40'
+                    : sg.kind === 'forge' ? 'border-orange-500/60 text-orange-100 bg-orange-950/30 hover:bg-orange-900/40'
+                      : 'border-violet-400/60 text-violet-100 bg-violet-950/30 hover:bg-violet-900/40';
+                  const label = sg.kind === 'reflect' ? '↩ Ask the field this' : sg.kind === 'forge' ? '⚡ Declare this' : '◇ Find which thing this is';
+                  return (
+                    <button onClick={() => send(sg.text, sg.kind === 'locate' ? null : sg.kind, sg.kind === 'locate' ? { locate: sg.what || sg.text } : undefined)}
+                      className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words ${tone}`}>
+                      <span className="block text-[0.625rem] uppercase tracking-wider opacity-70 mb-0.5">{label}</span>
+                      {sg.text}
+                    </button>
+                  );
+                })()}
+                {lastReader?.locating && !lastReader.located && !loading && (
+                  <div className="flex flex-wrap justify-center gap-2 mt-1">
+                    <button onClick={() => { setClaiming(true); try { document.querySelector('textarea[placeholder]')?.focus(); } catch {} }}
+                      className="px-3 py-1.5 rounded-full border border-violet-500/40 text-[0.8125rem] text-violet-200 hover:bg-violet-900/20">
+                      I've got it — let me name it
+                    </button>
+                    <button onClick={() => send("That's close enough — let's go with that.", undefined, { claim: true })}
+                      className="px-3 py-1.5 rounded-full border border-zinc-600/60 text-[0.8125rem] text-zinc-300 hover:bg-zinc-800/40">
+                      Close enough
+                    </button>
+                  </div>
+                )}
                 {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
                   <button onClick={() => regenPills()}
                     className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
@@ -1821,10 +1857,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 treatment as Ask on the front box (founder, 2026-09-16 night) */}
             <div className="mt-4 relative">
               <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
-                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-                placeholder={fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
+                placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
                 style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              <button onClick={() => send()} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+              <button onClick={() => { send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); }} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
