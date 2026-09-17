@@ -1323,7 +1323,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               row beneath — areas, past readings, from my readings, voice. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
+          <div ref={anchorRef} style={{ animationDuration: '16s' }} className={`content-pane animate-border-rainbow bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
@@ -1363,7 +1363,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
           </div>
 
           {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
-          <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
+          <div style={{ animationDuration: '16s' }} className="content-pane animate-border-rainbow bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
