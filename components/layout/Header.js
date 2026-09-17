@@ -10,6 +10,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Header({ hasActivity = false }) {
   const pathname = usePathname();
@@ -25,6 +26,12 @@ export default function Header({ hasActivity = false }) {
   const isBookActive = pathname?.startsWith('/book');
   const isWikiActive = pathname?.startsWith('/wiki');
   const isHome = pathname === '/';
+  const isPhoneActive = pathname?.startsWith('/phone');
+  // "Put this on your phone" hides once the site IS on the phone (running from the home screen)
+  const [installed, setInstalled] = useState(false);
+  useEffect(() => {
+    try { setInstalled(window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true); } catch {}
+  }, []);
 
   return (
     // px reserves the corner lanes on mobile so the wrapping nav pill can't slide
@@ -41,6 +48,18 @@ export default function Header({ hasActivity = false }) {
         >
           Nirmanakaya
         </Link>
+
+        {/* ON YOUR PHONE — the web-app install page (founder, 2026-09-17); gone once installed */}
+        {!installed && (
+          <Link
+            href="/phone"
+            className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+              isPhoneActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
+            }`}
+          >
+            On your phone
+          </Link>
+        )}
 
         {/* COMMUNITY - dot on right for centering */}
         <Link

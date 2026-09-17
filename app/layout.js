@@ -5,8 +5,13 @@ export const metadata = {
   description: 'Consciousness Architecture Reading System - AI oracle for exploring patterns of meaning',
   icons: {
     icon: '/favicon.png',
-    apple: '/favicon.png',
+    apple: '/icons/apple-touch-icon.png',
   },
+  // THE WEB APP (founder, 2026-09-17): a manifest and icons so "Add to Home Screen" yields a real
+  // app — its own icon and name, full screen, a dark splash — and Android/desktop Chrome offer install.
+  manifest: '/manifest.webmanifest',
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Nirmanakaya' },
+  applicationName: 'Nirmanakaya',
   verification: {
     google: 'tsUiRn7orVfh2SYaB4xB61BDR89n16URB8t92WA2gDY',
   },
@@ -14,6 +19,8 @@ export const metadata = {
     'privacy-policy': 'https://www.nirmanakaya.com/privacy',
   },
 };
+
+export const viewport = { themeColor: '#09090b', viewportFit: 'cover', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }) {
   return (
