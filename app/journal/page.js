@@ -281,7 +281,7 @@ export default function JournalPage() {
                     {/* Actions */}
                     <div className="flex gap-2 flex-wrap">
                       <Link
-                        href={reading.mode === 'ez' ? `/ez?load=${reading.id}` : `/?load=${reading.id}`}
+                        href={reading.mode === 'ez' ? `/ez?load=${reading.id}` : `/advanced?load=${reading.id}`}
                         className="text-xs px-3 py-1.5 rounded bg-amber-600/20 text-amber-400 hover:bg-amber-600/30 transition-colors"
                       >
                         Reload Reading
