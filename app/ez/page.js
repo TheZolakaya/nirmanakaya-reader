@@ -1098,7 +1098,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${doSomethingBlock(k)}`;
+      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
       regenPills({ step: String(obj.reader || '').trim() }); // the pills under the commentary now know the step
@@ -1143,7 +1144,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
     try {
       const k = buildKernel(card, DEFS);
       const prior = [1, 2, 3].filter((r) => r < ring && brazier[r]).map((r) => `RING ${r}, already shown to them:\n${brazier[r]}`).join('\n\n');
-      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}${prior ? `\n\n${prior}` : ''}\n\nWrite ring ${ring}. JSON only.`;
+      // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
+      // the whole record, and the same teleology block the advanced Why works from
+      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${prior ? `\n\n${prior}` : ''}\n\nWrite ring ${ring}. JSON only.`;
       let data = await rawCall(msg, brazierSystem(ring), ring === 1 ? 500 : 800);
       let obj = parseJson(data.reading);
       if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(ring), 800); obj = parseJson(data.reading); }
