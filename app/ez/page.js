@@ -564,6 +564,7 @@ export default function EZPage() {
   const [animating, setAnimating] = useState(false);
   const [revealed, setRevealed] = useState(true);
   const [overlayTop, setOverlayTop] = useState(0);   // the map starts below the brand, which never leaves
+  const [animPending, setAnimPending] = useState(false); // a flight is about to start: nothing may scroll itself
   const [landedWaiting, setLandedWaiting] = useState(false); // the flight has landed but the reply has not arrived: show 'the Reader is writing' under the parked cards (founder, 2026-09-17: the primary use case)
   const [overlayIn, setOverlayIn] = useState(false);
   // "only allow tap to skip if the reading is ready" — a skip with nothing to skip to is a freeze
@@ -1030,6 +1031,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const repliedRef = { current: false };
     let landed = Promise.resolve();
     if (willAnimate) {
+      setAnimPending(true);
       setTurns([...withYou, { id: pid, role: 'reader', pending: true, draw: newDraw, mode, text: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
       try {
@@ -1070,7 +1072,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         setOverlayIn(false);
         await new Promise(r => setTimeout(r, 700));
         clearLanding(document);
-        setAnimating(false);
+        setAnimating(false); setAnimPending(false);
       } else {
         setTurns((list) => [...list, turn]);
         scrollToEnd();
@@ -1078,7 +1080,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     } catch (e) {
       // Take the orphaned turn back out and hand the person their words again, so a failure
       // costs a tap instead of a thought.
-      repliedRef.current = true; setLandedWaiting(false);
+      repliedRef.current = true; setLandedWaiting(false); setAnimPending(false);
       if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setRevealed(true); setOverlayIn(false); clearLanding(document); setAnimating(false); }
       setTurns((list) => list.filter((x) => x.id !== you.id && x.id !== pid));
       setInput(text);
@@ -1746,7 +1748,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   )}
                 </div>
               ))}
-              {loading && <Writing scroll={!animating} />}
+              {loading && <Writing scroll={!animating && !animPending} />}
               {error && <div className="text-xs text-red-400 pl-2 break-words">{error}</div>}
               <div ref={endRef} />
             </div>
