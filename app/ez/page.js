@@ -24,6 +24,8 @@ import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks 
 import { BASE_SYSTEM } from '../../lib/prompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
+import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
+import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS } from '../../lib/modelConfig';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
@@ -304,40 +306,13 @@ const MECHANISM = {
   3: 'VERTICAL (Too Little): the seat is starved; the medicine is to charge its vertical twin — energy into the twin\'s own action, and the current pulls through the empty seat. Never push effort or feeling into the empty seat directly.',
   4: 'REDUCTION (Unacknowledged): authorship misattributed; the medicine returns toward the simpler, earlier form of the same line.',
 };
-// THE MEDICINE CARD, FROM THE RECORD — what the partner actually means, so the Reader never
-// reads its name as an English word (the founder caught Reverie rendered as daydreaming,
-// 2026-09-17; the record says Compassion through Water — the heart at rest and connected).
-function medicineRecord(d) {
-  if (!d) return '';
-  const m = medicineFor([d])[0];
-  if (!m || m.toId == null) return '';
-  const c = getComponent(m.toId) || {};
-  const def = DEFS?.signatures?.[m.toId] || null;
-  const parent = def?.associatedArchetypeName ? ` (${def.associatedArchetypeName} through ${def.channel || def.house || ''}, ${c.traditional || ''})`.replace(', )', ')') : (c.traditional ? ` (${c.traditional})` : '');
-  return [
-    `THE MEDICINE CARD, FROM THE RECORD: ${m.to}${parent}`,
-    c.description ? `  what it is: ${c.description}` : null,
-    c.extended ? `  more: ${String(c.extended).split(/(?<=\.)\s/).slice(0, 2).join(' ')}` : null,
-    def?.states?.balanced ? `  its balanced face (the face the medicine speaks from): ${def.states.balanced}` : null,
-  ].filter(Boolean).join('\n');
-}
+const medicineRecord = (d) => medicineRecordOf(d, DEFS);
 
+// THE DRAW, FROM THE RECORD — the same full record the advanced reader works from (founder,
+// 2026-09-17: "the easy reader is easy on the user, not on the Reader API"). Used on every
+// card-carrying turn; the opening adds the teleology block as well.
 function drawBrief(d) {
-  if (!d) return '';
-  const t = getComponent(d.transient);
-  const s = STATUSES[d.status];
-  const seat = ARCHETYPES[d.position];
-  const m = medicineFor([d])[0];
-  const lines = [
-    `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat.name}` : ''}`,
-    t?.description ? `  the card: ${t.description}` : null,
-    seat?.description ? `  the seat (${seat.name}): ${seat.description}` : null,
-    m ? `  Rebalancer: ${m.to}${m.path ? ` — ${m.path}` : ''}` : '  Rebalancer: none (self)',
-    m ? `  mechanism: ${MECHANISM[d.status] || ''}` : null,
-    m && getComponent(m.toId)?.description ? `  what ${m.to} is about: ${getComponent(m.toId).description}` : null,
-    m && DEFS?.signatures?.[m.toId]?.states?.balanced ? `  ${m.to}'s balanced face (the face the medicine speaks from): ${DEFS.signatures[m.toId].states.balanced}` : null,
-  ].filter(Boolean);
-  return lines.join('\n');
+  return drawRecord(d, DEFS);
 }
 
 // The medicine is computed, not generated: every imbalanced card already knows its
@@ -988,8 +963,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const doorBlock = door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
-      const record = medicineRecord(newDraws[0]);
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}${record ? `\n\n${record}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      let record = '';
+      try { record = `${drawRecord(newDraws[0], DEFS)}\n\n${buildReadingTeleologicalPrompt(newDraws)}`; } catch { record = drawRecord(newDraws[0], DEFS); }
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\n${record}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
@@ -1069,7 +1045,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
       const newCardBlock = newDraw
-        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
+        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\n${(() => { try { return buildReadingTeleologicalPrompt([newDraw]); } catch { return ''; } })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : fieldNow
           ? `\n\nTHE CARD MOST RECENTLY DRAWN (its medicine governs this turn, the opening draw's is secondary):\n${drawBrief(fieldNow)}`
           : '';
