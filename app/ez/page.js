@@ -673,6 +673,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
     } catch { setError('Could not load your readings.'); }
   };
 
+  // /ez?load=<id> — arriving from the journal or the main reader's redirect
+  useEffect(() => {
+    if (!allowed || !user || draws) return;
+    let id = null;
+    try { id = new URLSearchParams(window.location.search).get('load'); } catch {}
+    if (id) { openPast(id); try { window.history.replaceState(null, '', '/ez'); } catch {} }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowed, user]);
   const openPast = async (id) => {
     setLoading(true); setError('');
     try {

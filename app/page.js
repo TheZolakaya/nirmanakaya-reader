@@ -1145,6 +1145,8 @@ export default function NirmanakaReader() {
 
       try {
         const { data, error } = await getReading(loadId);
+        // an EZ reading opens in EZ — its conversation lives where the main reader never looks
+        if (!error && data && data.mode === 'ez') { window.location.replace(`/ez?load=${loadId}`); return; }
         if (error || !data) {
           console.error('Failed to load saved reading:', error);
           return;
