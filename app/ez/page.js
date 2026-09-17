@@ -1343,12 +1343,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
               row beneath — areas, past readings, from my readings, voice. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div ref={anchorRef} style={{ animationDuration: '16s' }} className={`content-pane animate-border-rainbow bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
+          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
                   placeholder="What's on your mind? Ask it the way you would say it out loud."
-                  className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                  style={{ animationDuration: '16s' }}
+                  className="animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none" />
               </div>
               <button onClick={begin} disabled={loading || !question.trim()} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
@@ -1383,7 +1384,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
           </div>
 
           {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
-          <div style={{ animationDuration: '16s' }} className="content-pane animate-border-rainbow bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
+          <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
