@@ -1611,9 +1611,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 {activePills.filter((c) => c?.text).map((c, i) => (
                   <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
                     style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
-                    className={`pill-breathe text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
-                    {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
-                    {c.text}
+                    className={`pill-breathe flex items-baseline gap-2 text-left rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
+                    {/* a fixed label column (sized to PUSH BACK) so every pill's text starts at the same x */}
+                    {CHIP_LABEL[c.kind] && <span className="w-[5.6rem] shrink-0 text-[10px] uppercase tracking-wider opacity-70">{CHIP_LABEL[c.kind]}</span>}
+                    <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
                 <button onClick={regenPills} disabled={regenning}
