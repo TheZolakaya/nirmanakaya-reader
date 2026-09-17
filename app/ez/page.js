@@ -150,16 +150,21 @@ HISTORY IS WEATHER, NOT SUBJECT. A READER CONTEXT or JOURNEY THREAD may arrive w
 
 FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing in this person's life and never its NAME: the cycle that is done, the person being protected, the habit, the decision. Wherever your turn points at such a thing without naming it, add a chip of kind "locate": {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"}. One per unnamed thing, at most two, placed after the other chips. Never write "you already know what it is" (or its cousins) without a locate chip beneath it. If nothing was left unnamed, no locate chip. On a BALANCED card the unnamed thing is where the invitation lands ("which relationship", "which piece of work"), never a problem to hunt for; word the chip that way.
 
+A READING CAN BE FINISHED. This conversation is not meant to run forever. A reading has done its work when the medicine has landed and the person has something to do with it — and going on past that is the very pattern this map warns about: one more check before I move. So when the turns start circling rather than opening, or the person has taken the move, or they sound done, set "closing" to true. That does not end anything; it tells the page to offer them a write-up and a clean stop. Keep answering their turn as usual, and let your question be gentler or absent. Never say "we should wrap up" and never chase them for another turn.
+
 ACT ON THEIR OWN WORDS. Sometimes what the person just typed is not a remark to be answered — it is already an inquiry they want the field to answer, or a move they are declaring, or a reaching for something they cannot name. When that is true, fill "suggest" with ONE offer, in THEIR OWN WORDS (tightened, never reworded into yours), and answer their turn as usual above it:
 - {"kind": "reflect", "text": "<their inquiry, under 15 words>"} — they are asking something they genuinely do not know and want the cards to answer ("I don't know what he actually wants from me").
 - {"kind": "forge", "text": "<their declaration, under 15 words>"} — they are stating what they will do, choose, commit to or stop ("I think I'm going to tell her tomorrow").
 - {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"} — they are circling something they have not named, or they say they do not know which thing this is about.
-Rules: at most one, only when their own words really are that, never as a nudge to keep going, and never when they just used one of the switches. If nothing fits, "suggest" is null. It is an OFFER: they tap it or they ignore it.
+You may ALSO offer a reflect or a forge when the MOMENT calls for it, even if their words were not one — but only for a real reason, never to keep the conversation moving:
+- reflect, when the talking has gone as far as talking goes and the question they came with is still open. Words have run out; the field has not spoken. Put THEIR live question, in their words, to the cards.
+- forge, when they have arrived at a move and have not said it out loud. Hand them their own sentence to declare.
+ORDER OF PRECEDENCE, so this never becomes a nudge: if "closing" is true, offer nothing — a finished reading is finished. Otherwise at most ONE suggest, and only for the reasons above. Never when they just used one of the switches. If nothing fits, "suggest" is null. It is an OFFER: they tap it or they ignore it.
 
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "suggest": <null, or {"kind": "reflect"|"forge"|"locate", "text": "...", "what": "... (locate only)"}>, "act": "<on a turn that carries a card: the person's OWN first-person line asking for one small real thing to do right now, composed from this card, its status and their topic — e.g. \"I keep redesigning the plan. What's one thing I could actually do in the next minute?\" Never stock text. Empty on a talking turn>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "suggest": <null, or {"kind": "reflect"|"forge"|"locate", "text": "...", "what": "... (locate only)"}>, "closing": <true only when the reading has done its work; otherwise false>, "act": "<on a turn that carries a card: the person's OWN first-person line asking for one small real thing to do right now, composed from this card, its status and their topic — e.g. \"I keep redesigning the plan. What's one thing I could actually do in the next minute?\" Never stock text. Empty on a talking turn>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
 
 // FIND IT — the funnel (founder, 2026-09-16 evening). The Reader names its own vagueness with
 // a locate chip; tapping it runs up to three narrowing rounds whose questions come from the
@@ -236,6 +241,15 @@ const doSomethingBlock = (k) => `
 ONE SMALL REAL ACT. The person asked for one thing they can do right now. Hand them ONE act — doable in the next minute, in the medicine card's OWN character (${k.partner || 'this card'}: ${k.partnerDescription || 'its own balanced face'}), shaped for the status: ${k.actShape}
 Rules: one act, sized small, concrete, in ordinary words; say in one clause why it is the way back for THIS draw; then get out of the way. NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card. Under 80 words. The pen grammar if a framing line is needed, at most once: "Your pen. Four ways of holding it. It only writes now."
 Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
+
+const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 220 words, plain words, no framework vocabulary, no question at the end, nothing new introduced.
+Five short parts, unlabelled, flowing as paragraphs:
+1. What they came in asking, in their own words.
+2. What the cards said — the card, where it landed, and what that meant, in the same plain terms the reading used.
+3. What came out of the conversation: what they named, what they pushed back on, what they decided. Their words where you have them.
+4. The way through, and the one move — concrete, as it was given.
+5. One closing line that hands it back to them and lets them stop. Warm, unhurried, no instruction, no self-care advice, no promise about what will happen.
+Respond with ONLY a JSON object: {"reader": "<the write-up>", "question": "", "chips": [], "reflect": [], "forge": []}`;
 
 const CATCHUP_RULES = `WHERE AM I — write a catch-up card for a person returning to this reading. Under 80 words, plain, four short lines: their question; the verdict or where the reading pointed; where the conversation last landed; the open thread (what was being asked when they left). No new interpretation. Respond with ONLY a JSON object: {"reader": "<the card>", "question": "<the open thread as a question>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -859,6 +873,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
     suggest: (obj.suggest && typeof obj.suggest === 'object' && obj.suggest.text) ? obj.suggest : null,
+    closing: obj.closing === true,
     actLine: typeof obj.act === 'string' ? obj.act.trim() : '',
     ts: Date.now(),
     ...extra
@@ -1277,6 +1292,22 @@ Respond with ONLY JSON: {"q": "..."}` }],
     setLoading(false);
   };
 
+  // SUMMARIZE AND CLOSE (founder, 2026-09-17, from his sister's read: the conversation never ends).
+  // The whole reading written up as one piece to keep, then a clean stop: come back any time, or
+  // start a new reading. Nothing is locked — the box stays live under it.
+  const closeUp = async () => {
+    if (loading || !draws || turns.length === 0) return;
+    setLoading(true); setError(''); setFieldMode(null);
+    setBrazierOpen(false); setStepOpen(false);
+    try {
+      const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
+      const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 700);
+      setTurns((list) => [...list, { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
+      scrollToEnd();
+    } catch (e) { setError(e.message); }
+    setLoading(false);
+  };
+
   // EXPORT — the reading and the whole conversation as one markdown file, the way the full
   // reader exports (founder, 2026-09-16: "shift the export feature over").
   const exportMarkdown = () => {
@@ -1292,6 +1323,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     turns.forEach((t) => {
       if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
+      if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, t.text, ``);
       if (t.located) L.push(`*Found: ${t.located}*`, ``);
@@ -1321,6 +1353,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // goes quiet on purpose, but the conversation must still be continuable from where it was
   // (founder, 2026-09-16 night: "after selecting one small thing, the pills are all gone").
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
+  // THE ENDING: the Reader may say the reading has done its work (closing), and the write-up turn
+  // is the stop itself. Neither locks anything — the box stays live under both.
+  const wrapped = turns.length > 0 && turns[turns.length - 1]?.role === 'wrap';
+  const closingOffered = !!lastReader?.closing && !wrapped;
   // THE FIELD AT A TURN: the most recently drawn card up to and including that turn governs
   // its medicine container; before any reflect or forge, the opening draw. (The container
   // used to fall back to the opening draw on every talking turn — a stale growth box.)
@@ -1730,9 +1766,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     ? 'ml-4 sm:ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic break-words'
                     : t.role === 'catchup'
                       ? 'rounded-xl border border-violet-700/40 bg-violet-950/20 p-4 text-sm text-violet-100 break-words'
+                    : t.role === 'wrap'
+                      ? 'rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-5 text-[1rem] leading-relaxed text-emerald-50 break-words'
                       : 'rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[0.9375rem] leading-relaxed text-zinc-200 break-words'}>
 
                   {t.role === 'catchup' && <div className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
+                  {t.role === 'wrap' && <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70 mb-2">The reading, written up</div>}
                   {t.role === 'you' && t.mode && (
                     <div className={`text-[0.625rem] uppercase tracking-wider mb-2 not-italic ${t.mode === 'reflect' ? 'text-sky-300/80' : 'text-orange-300/80'}`}>
                       {t.mode === 'reflect' ? '↩ Reflecting' : '⚡ Forging'}
@@ -1885,6 +1924,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     </button>
                   </div>
                 )}
+                {closingOffered && !loading && (
+                  <button onClick={closeUp}
+                    className="text-left rounded-lg border border-emerald-600/50 bg-emerald-950/25 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/30 transition-colors break-words">
+                    <span className="block text-[0.625rem] uppercase tracking-wider opacity-70 mb-0.5">that may be the whole of it</span>
+                    Write this up and close
+                  </button>
+                )}
                 {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
                   <button onClick={() => regenPills()}
                     className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
@@ -1917,10 +1963,22 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             </div>
 
+            {wrapped && (
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
+                <p className="text-[0.9375rem] text-zinc-300">This reading is saved. Come back to it any time under <span className="text-zinc-100">Load</span>.</p>
+                <div className="mt-3 flex flex-wrap justify-center gap-2">
+                  <button onClick={exportMarkdown} className="rounded-lg border border-zinc-700 px-4 py-2 text-[0.9375rem] text-zinc-200 hover:border-zinc-500 transition-colors">Keep a copy</button>
+                  <button onClick={reset} className="rounded-lg border border-amber-600/60 px-4 py-2 text-[0.9375rem] text-amber-100 hover:border-amber-400 hover:bg-amber-950/30 transition-colors">Start a new reading</button>
+                </div>
+                <p className="mt-3 text-xs text-zinc-600">Or keep talking below — nothing is closed off.</p>
+              </div>
+            )}
+
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
+              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">Wrap this up</button>}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
