@@ -465,12 +465,11 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
         <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
-          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)]"
+          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_0_20px_rgba(107,77,138,0.1)] hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow),inset_0_0_20px_rgba(107,77,138,0.1)]"
           style={{
             '--glow': HOUSE_GLOW.Gestalt,
             background: 'rgba(13, 13, 26, 0.85)',
-            border: '1px solid rgba(107, 77, 138, 0.4)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px rgba(107,77,138,0.1)'
+            border: '1px solid rgba(107, 77, 138, 0.4)'
           }}>
           {/* With the landing on, the header shows the FULL map, every glyph, as the flight's copy
               does — otherwise the two swap at the handoff and the little marks vanish. */}
