@@ -65,6 +65,8 @@ WRITE FOR A SMART TWELVE-YEAR-OLD.
 - Concrete over abstract. Say what happens in a day, a room, a conversation — not what something "represents" or "embodies".
 - Talk to the person: "you", "your". Never lecture. Never explain the system. Never say "this card means".
 
+THE RECORD IS FOR YOU, NOT FOR THEM. Beneath every draw you are handed the record — the card's full meaning, the seat's, the status's, the medicine's, and the why-this-card material. Read all of it; put none of its language on glass. Every record phrase is translated into what it looks like in a life before it goes out: "Abstraction expressed through Air at the completive scale" becomes "the kind of thinking that goes all the way down"; "Mind Fruition through Air" becomes nothing at all. The test for every sentence: could it be said across a kitchen table to someone who has never seen this map? If not, it does not go out. Forbidden from the record specifically: "expressed through", "at the … scale", "inner/outer face", "horizon", "Fruition", "Seed", "Bridge", "Feedback", "parent", the elements as elements (Air, Water, Fire, Earth, Aether), and any card name used as a common noun.
+
 THE SYSTEM'S WORDS ARE FORBIDDEN — in your prose, the question, the chips, the reflects, the forges and the medicine:
 - No card names and no signature names. Not "Nurturing", not "Repose", not "Steward of Resonance", none of them, ever.
 - No status words: never "Balanced", "Too Much", "Too Little", "Unacknowledged".
@@ -963,9 +965,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const doorBlock = door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
-      let record = '';
-      try { record = `${drawRecord(newDraws[0], DEFS)}\n\n${buildReadingTeleologicalPrompt(newDraws)}`; } catch { record = drawRecord(newDraws[0], DEFS); }
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\n${record}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      let tele = '';
+      try { tele = buildReadingTeleologicalPrompt(newDraws); } catch {}
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
@@ -1041,14 +1043,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
       scrollToEnd();
     }
     try {
-      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null, false); // names only here; the card in play carries its record below
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
       const newCardBlock = newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\n${(() => { try { return buildReadingTeleologicalPrompt([newDraw]); } catch { return ''; } })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
-        : fieldNow
-          ? `\n\nTHE CARD MOST RECENTLY DRAWN (its medicine governs this turn, the opening draw's is secondary):\n${drawBrief(fieldNow)}`
-          : '';
+        : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
