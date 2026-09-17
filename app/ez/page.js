@@ -1136,10 +1136,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const hint = mode === 'reflect' ? 'ask the cards a question' : 'declare a move — the cards answer';
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
-        className={`flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
+        className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
           {mode === 'reflect'
-            ? <span className="brazier-ember" style={{ width: 26, height: 26, animation: 'none', boxShadow: on ? '0 0 10px 2px rgba(56, 189, 248, 0.45)' : 'none' }}><video src="/video/reflect.mp4" autoPlay loop muted playsInline aria-hidden="true" /></span>
+            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><video src="/video/reflect.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>
             : <span>{glyph}</span>}
           <span>{label}</span>
         </span>
