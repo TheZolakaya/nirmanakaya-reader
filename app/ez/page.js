@@ -1120,6 +1120,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !stepOpen;
     setStepOpen(next);
     if (next) {
+      showPanels();
       if (!brazierOpen) setPanelFirst('step');
       const card = fieldCard();
       const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
@@ -1190,6 +1191,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !brazierOpen;
     setBrazierOpen(next);
     if (next) {
+      showPanels();
       if (!stepOpen) setPanelFirst('brazier');
       setBrazierGlow(true); setTimeout(() => setBrazierGlow(false), 900);
       const card = fieldCard();
@@ -1317,10 +1319,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const dimTop = dim(anyBusy);
   const dimPills = dim(loading || brazierBusy > 0 || stepBusy);
   const dimBox = dim(anyBusy);
-  const dimPanels = dim(loading || regenning);
+  const dimPanels = dim(loading); // NOT regenning: the pills reroll off screen while the panel's answer is being read
   /* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
      are closed; the one you open takes a full row with its answer and the other drops
      beneath it on a row of its own. The step's loop sits flush RIGHT, the whys' flush LEFT. */
+  const panelsRef = useRef(null);
+  const showPanels = () => { setTimeout(() => { try { const el = panelsRef.current; if (!el) return; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' }); } catch {} }, 80); };
   const renderPanels = () => {
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
@@ -1352,7 +1356,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         )}
                       </div>
                     ))}
-                    {brazierBusy > 0 && <Writing label={brazierBusy === 1 ? 'the Reader is writing…' : 'the Reader is going deeper…'} />}
+                    {brazierBusy > 0 && <Writing scroll={false} label={brazierBusy === 1 ? 'the Reader is writing…' : 'the Reader is going deeper…'} />}
                     {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
                       <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[0.8125rem] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
                         {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
@@ -1363,7 +1367,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 : (stepOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
-                    {stepBusy && <Writing label="the Reader is finding the step…" />}
+                    {stepBusy && <Writing scroll={false} label="the Reader is finding the step…" />}
                     {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                     ))}
@@ -1380,9 +1384,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 );
               }
               const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
-              return order.map((kind, i) => (
-                <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
-              ));
+              return (
+                <div ref={panelsRef}>
+                  {order.map((kind, i) => (
+                    <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
+                  ))}
+                </div>
+              );
   };
 
   const activePills = !lastReader ? []
