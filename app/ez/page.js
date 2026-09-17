@@ -1098,7 +1098,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const estCost = ((usage.input_tokens || 0) * 3 + (usage.cache_read_input_tokens || 0) * 0.3
     + (usage.cache_creation_input_tokens || 0) * 3.75 + (usage.output_tokens || 0) * 15) / 1e6;
 
-  const lastReader = [...turns].reverse().find((t) => t.role === 'reader');
+  // The pills come from the last reader turn that CARRIES pills: an act turn ("one small thing")
+  // goes quiet on purpose, but the conversation must still be continuable from where it was
+  // (founder, 2026-09-16 night: "after selecting one small thing, the pills are all gone").
+  const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
   // THE FIELD AT A TURN: the most recently drawn card up to and including that turn governs
   // its medicine container; before any reflect or forge, the opening draw. (The container
   // used to fall back to the opening draw on every talking turn — a stale growth box.)
