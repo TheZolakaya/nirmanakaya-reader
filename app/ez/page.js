@@ -397,6 +397,9 @@ const CHIP_RGB = { answer: '251 191 36', build: '52 211 153', pushback: '251 146
 // map is how a person sees this is a derivation with boundaries and not an agreeable machine.
 // Tapping the art opens the card; tapping the map opens the RELATIONSHIP (this card, in this
 // seat) through the same MinimapModal the full reader uses — not the card alone.
+const HOUSE_GLOW = { Spirit: '#C44444', Mind: '#4A8B4A', Emotion: '#3D6A99', Body: '#8B6B3D', Gestalt: '#6B4D8A' };
+const houseGlow = (archId) => HOUSE_GLOW[ARCHETYPES[archId]?.house] || HOUSE_GLOW.Gestalt;
+
 function CardWithMap({ draw, onInfo, label, stacked = false }) {
   const [mapOpen, setMapOpen] = useState(false);
   const [durableFront, setDurableFront] = useState(false); // hover or tap brings the durable to the front of the stack (founder, 2026-09-16 night)
@@ -416,7 +419,8 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
           <div data-slot="stack" className="relative shrink-0 w-[217px] h-[196px] sm:w-[287px] sm:h-[252px] mt-6">
             <img src={getCardImagePath(draw.position)} alt={seat || ''}
-              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)] ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
+              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)] ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
+              style={{ '--glow': houseGlow(draw.position) }}
               onMouseLeave={() => setDurableFront(false)}
               onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
             {/* the durable's reachable edge was under the transient's box; this hit area sits above both:
@@ -425,7 +429,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
               <div className="absolute z-30 left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] w-[140px] sm:w-[185px] bottom-0 cursor-pointer"
                 onMouseEnter={() => setDurableFront(true)} onClick={() => setDurableFront(true)} title={seat ? `in ${seat}` : ''} />
             )}
-            <div className="absolute left-0 top-0 z-10 rounded-lg transition-shadow duration-200 hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)]">
+            <div style={{ '--glow': houseGlow(home) }} className="absolute left-0 top-0 z-10 rounded-lg transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)]">
               <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
                 size="compact" showFrame={true}
                 className="!w-[140px] sm:!w-[185px]"
@@ -461,8 +465,9 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
         <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
-          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] hover:shadow-[0_0_0_2px_rgba(253,224,171,0.85),0_0_16px_4px_rgba(253,224,171,0.45)]"
+          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)]"
           style={{
+            '--glow': HOUSE_GLOW.Gestalt,
             background: 'rgba(13, 13, 26, 0.85)',
             border: '1px solid rgba(107, 77, 138, 0.4)',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3), inset 0 0 20px rgba(107,77,138,0.1)'
