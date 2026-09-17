@@ -1630,10 +1630,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
                 placeholder={fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
-                className="block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[17px] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[17px] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
               <button onClick={() => send()} disabled={loading || !input.trim()} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
-                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say'}</span>
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
@@ -1689,18 +1689,19 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     ))}
                   </div>
                 ));
-              const frame = 'rounded-xl border border-zinc-800/70 bg-zinc-950/40';
+              const frame = 'pill-breathe rounded-xl border border-zinc-800/70 bg-zinc-950/40';
+              const glow = { '--pill': '253 224 171' };
               if (!brazierOpen && !stepOpen) {
                 return (
                   <div className="mt-4 flex items-stretch gap-2">
-                    <div className={`flex-1 min-w-0 ${frame}`}>{header('brazier')}</div>
-                    <div className={`flex-1 min-w-0 ${frame}`}>{header('step')}</div>
+                    <div style={glow} className={`flex-1 min-w-0 ${frame}`}>{header('brazier')}</div>
+                    <div style={glow} className={`flex-1 min-w-0 ${frame}`}>{header('step')}</div>
                   </div>
                 );
               }
               const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
               return order.map((kind, i) => (
-                <div key={kind} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
+                <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
               ));
             })()}
 

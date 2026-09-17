@@ -768,5 +768,5 @@ textarea.user-input-area::placeholder {
   0%, 100% { border-color: rgb(var(--pill) / 0.35); box-shadow: 0 0 0 0 rgb(var(--pill) / 0); }
   50% { border-color: rgb(var(--pill) / 0.95); box-shadow: 0 0 10px 1px rgb(var(--pill) / 0.35); }
 }
-.pill-breathe:hover:not(:disabled), .pill-breathe:focus-visible { animation: pill-breathe 1.6s ease-in-out infinite; }
+.pill-breathe:hover:not(:disabled), .pill-breathe:focus-visible, .pill-breathe:focus-within { animation: pill-breathe 1.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .pill-breathe:hover { animation: none; } }
