@@ -140,10 +140,26 @@ And READ THE DRAW for it. A card about seeing, knowing, recognition, or a self-r
 
 HISTORY IS WEATHER, NOT SUBJECT. A READER CONTEXT or JOURNEY THREAD may arrive with the question. It tells you where this person has been; it does not tell you what today is about. Frequency is not importance: a theme that appears in many past readings is one they asked about often, not the thing in focus now. Read the card for the question in front of you. Use the history only where it bears directly on that question, and never let a past theme become the subject of a reading that did not ask about it.
 
+FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing in this person's life and never its NAME: the cycle that is done, the person being protected, the habit, the decision. Wherever your turn points at such a thing without naming it, add a chip of kind "locate": {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"}. One per unnamed thing, at most two, placed after the other chips. Never write "you already know what it is" (or its cousins) without a locate chip beneath it. If nothing was left unnamed, no locate chip.
+
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
 ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
-{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>"}`;
+{"reader": "<your turn, paragraphs separated by blank lines, ending with your one question>", "question": "<that one question, alone>", "chips": [{"kind": "answer", "text": "..."}, {"kind": "build", "text": "..."}, {"kind": "pushback", "text": "..."}, {"kind": "clarify", "text": "..."}, {"kind": "stair", "text": "..."}, {"kind": "locate", "what": "...", "text": "..."}], "reflect": ["...", "...", "...", "..."], "forge": ["...", "...", "...", "..."], "medicine": "<one or two sentences on the correction path, or empty if nothing has changed>", "located": "<only during FIND IT, once the person has named the thing: the thing in their words, under 12 words; otherwise empty>"}`;
+
+// FIND IT — the funnel (founder, 2026-09-16 evening). The Reader names its own vagueness with
+// a locate chip; tapping it runs up to three narrowing rounds whose questions come from the
+// GEOMETRY, never from a wise reader's judgment: the seat says where to look, the status says
+// what shape the thing has, the medicine is the tell. The Reader never names the thing.
+const locateBlock = (loc, brief) => `
+
+FIND IT. The person tapped "help me find it" about: "${loc.what}". This is round ${loc.step} of at most 3. The draw cannot name the thing; only they can. Your job is to NARROW, one question per turn, and the question comes from the geometry, in this order:
+- round 1, THE SEAT says WHERE to look: from the seat's own meaning (and anything they have already said), name two or three concrete places in their life the thing could be, and ask which one is warm.
+- round 2, THE STATUS says WHAT SHAPE it has: ask which candidate has that shape, in kitchen words (Too Little: done but still tended, held open, giving nothing back; Too Much: braced for, over-managed, pre-spent; Unacknowledged: happening but "not really me", "doesn't matter"; Balanced: done as their own, nothing to brace against).
+- round 3, THE MEDICINE is the TELL: ask the medicine card's own question (for a medicine of beginning: "if it were gone tomorrow, what would you start?"; for one of exchange: "who would you finally hand it to?"; and so on from the Rebalancer named below). A quick, real answer confirms; a blank means go back a step.
+The card in play, with its seat, status and Rebalancer:
+${brief}
+Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one line of which says why the card points there, then your one question. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn. If their latest turn already NAMES a specific thing, stop the funnel: confirm it against the card in one line, fill "located" with the thing in their words (under 12 words), re-land the medicine ON THAT THING in "medicine" (the specific first move, this week), and ask your one question about that move.`;
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -233,10 +249,11 @@ const CHIP_STYLE = {
   pushback: 'border-orange-500/40 text-orange-200 hover:bg-orange-900/30',
   clarify: 'border-sky-500/40 text-sky-200 hover:bg-sky-900/30',
   stair: 'border-amber-500/50 text-amber-200 hover:bg-amber-900/30',
+  locate: 'border-violet-400/60 text-violet-100 bg-violet-950/20 hover:bg-violet-900/30',
   reflect: 'border-sky-500/50 text-sky-200 hover:bg-sky-900/30',
   forge: 'border-orange-500/50 text-orange-200 hover:bg-orange-900/30',
 };
-const CHIP_LABEL = { answer: 'Answer', build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair' };
+const CHIP_LABEL = { answer: 'Answer', build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair', locate: 'Find it' };
 
 // A drawn card and its geometry, SIDE BY SIDE and the same width — the founder's ruling
 // 2026-09-14: "I think they're equally significant." The minimap is always shown, because the
@@ -636,6 +653,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
+    located: typeof obj.located === 'string' ? obj.located.trim() : '',
     ts: Date.now(),
     ...extra
   });
@@ -770,10 +788,18 @@ Respond with ONLY JSON: {"q": "..."}` }],
   };
 
   // ---- every later turn; mode null = talk, 'reflect'/'forge' = a card is drawn ----
-  const send = async (textIn, modeIn) => {
+  const send = async (textIn, modeIn, opts) => {
     const mode = modeIn !== undefined ? modeIn : fieldMode;
     const text = sanitizeForAPI((textIn ?? input).trim());
     if (!text || loading || !draws) return;
+    // FIND IT: a tapped locate chip opens the funnel; a plain talking turn while it is open
+    // continues it (up to three rounds, or until the Reader reports the thing located).
+    let loc = null;
+    if (opts?.locate) loc = { what: opts.locate, step: 1 };
+    else if (!mode) {
+      const lr = [...turns].reverse().find((t) => t.role === 'reader');
+      if (lr?.locating && !lr.located && lr.locating.step < 3) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
+    }
     setError(''); setLoading(true); setInput('');
     const newDraw = mode ? generateSpread(1)[0] : null;
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, ts: Date.now() };
@@ -815,9 +841,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
         : fieldNow
           ? `\n\nTHE CARD MOST RECENTLY DRAWN (its medicine governs this turn, the opening draw's is secondary):\n${drawBrief(fieldNow)}`
           : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
-      const turn = readerTurn(obj, newDraw ? { draw: newDraw, mode } : {});
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
       if (willAnimate) {
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
@@ -916,6 +943,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, t.text, ``);
+      if (t.located) L.push(`*Found: ${t.located}*`, ``);
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
       if (t.question) L.push(`*${t.question}*`, ``);
     });
@@ -1226,6 +1254,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
                       The path is computed from the draw; the words come from the Reader. */}
+                  {t.role === 'reader' && t.located && (
+                    <p className="mt-3 text-xs text-violet-200/90 break-words"><span className="uppercase tracking-wider opacity-70 mr-2">Found</span>{t.located}</p>
+                  )}
                   {t.role === 'reader' && t.medicine && !(t.draw || ti === firstReaderIdx) && (
                     <p className="mt-3 text-xs text-emerald-300/80 italic break-words">◈ {t.medicine}</p>
                   )}
@@ -1310,7 +1341,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {activePills.length > 0 && !loading && (
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
-                  <button key={i} onClick={() => send(c.text, fieldMode)} disabled={regenning}
+                  <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
                     className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
                     {c.text}
