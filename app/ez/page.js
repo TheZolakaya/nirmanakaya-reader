@@ -905,7 +905,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
           : '';
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
       if (willAnimate) {
@@ -961,6 +961,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // ---- THE BRAZIER: "why is this happening?" — beside the conversation, not in it ----
   const [brazierOpen, setBrazierOpen] = useState(false);
   const [brazier, setBrazier] = useState({});          // { [ring]: text }
+  // WHAT THEY HAVE READ ABOUT WHY — handed to the Reader as background (founder, 2026-09-16
+  // night), so the next turn and its pills build on where the person's understanding actually
+  // is instead of repeating the tense line back to them. Background, never subject; never quoted.
+  const brazierBlock = () => {
+    const read = [1, 2, 3].filter((r) => brazier[r]);
+    if (!read.length) return '';
+    return `\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => brazier[r]).join('\n\n')}`;
+  };
   const [brazierRing, setBrazierRing] = useState(1);   // how deep the person has gone
   const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
   const [brazierGlow, setBrazierGlow] = useState(false);
@@ -1014,7 +1022,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
       const seen = [...prior.chips.map((c) => c.text), ...prior.reflect, ...prior.forge].filter(Boolean);
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, and a stair if one is obvious), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock()}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, and a stair if one is obvious), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
       // callReader insists on a non-empty "reader"; this call has none, so it goes raw, with one retry
       let data = await rawCall(msg, systemPrompt, 900);
       let obj = parseJson(data.reading);
