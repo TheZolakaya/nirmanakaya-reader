@@ -78,7 +78,7 @@ const TextSizeSlider = () => {
               <input
                 type="range"
                 min="0.8"
-                max="1.2"
+                max="1.4"
                 step="0.05"
                 value={scale}
                 onChange={(e) => updateAppearance('scale', parseFloat(e.target.value))}

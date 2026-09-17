@@ -390,7 +390,7 @@ function Writing({ label = 'the Reader is writing…', size = 96, className = ''
       <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
         <video src={src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
       </span>
-      <span className="font-serif text-[17px] tracking-wide text-center"
+      <span className="font-serif text-[1.0625rem] tracking-wide text-center"
         style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>
         {label}
       </span>
@@ -1281,13 +1281,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
         className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
-        <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
+        <span className="flex items-center justify-center gap-2 text-[0.9375rem] font-medium">
           {mode === 'reflect'
             ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><HoverVideo src="/video/reflect.mp4" className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
             : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><HoverVideo src="/video/forge.mp4" className="w-full h-full object-cover" /></span>}
           <span>{label}</span>
         </span>
-        <span className="block text-[11px] opacity-75 mt-0.5 break-words">{hint}</span>
+        <span className="block text-[0.6875rem] opacity-75 mt-0.5 break-words">{hint}</span>
       </button>
     );
   };
@@ -1301,7 +1301,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
           <button onClick={() => chooseVoice(voice === 'plain' ? 'map' : 'plain')}
             title={voice === 'plain' ? 'Plain words — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
-            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[13px] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
+            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
             {voice === 'plain' ? 'Aa' : '◈'}
           </button>
         } />}
@@ -1358,7 +1358,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
-            <div className="grid grid-cols-3 items-center text-[13px]">
+            <div className="grid grid-cols-3 items-center text-[0.8125rem]">
               <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
               <button onClick={() => setAreasOpen(!areasOpen)}
@@ -1399,7 +1399,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
                     style={{ borderColor: c + '99', background: c + '26', animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `-${delay}ms` }}>
-                    <span className="text-[15px] text-zinc-100">{d.label}</span>
+                    <span className="text-[0.9375rem] text-zinc-100">{d.label}</span>
                     <span className="block text-xs text-zinc-400 mt-0.5">{d.sub}</span>
                   </button>
                 );
@@ -1428,7 +1428,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {showPast && (
                 <div className="rounded-xl border border-zinc-700/60 bg-zinc-900/50 p-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] uppercase tracking-wider text-zinc-500">Your EZ readings</span>
+                    <span className="text-[0.625rem] uppercase tracking-wider text-zinc-500">Your EZ readings</span>
                     <button onClick={() => setShowPast(false)} className="text-xs text-zinc-600 hover:text-zinc-300">close</button>
                   </div>
                   {pastReadings.length === 0 && <p className="text-xs text-zinc-600">Nothing here yet.</p>}
@@ -1439,7 +1439,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                       style={{ animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `-${ri * 180}ms` }}
                       className="w-full text-left rounded-lg border border-zinc-700/50 px-3 py-2 hover:border-amber-500/40 transition-colors break-words disabled:opacity-40">
                       <span className="text-sm text-zinc-200 break-words">{r.topic || 'Untitled'}</span>
-                      <span className="block text-[10px] text-zinc-600 mt-0.5">{new Date(r.created_at).toLocaleDateString()}</span>
+                      <span className="block text-[0.625rem] text-zinc-600 mt-0.5">{new Date(r.created_at).toLocaleDateString()}</span>
                     </button>
                   ))}
                 </div>
@@ -1449,8 +1449,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <button onClick={() => { setDoor(null); setQuestion(suggested); setError(''); }}
                     style={{ animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: '-900ms' }}
                     className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 break-words">
-                    <span className="text-[10px] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
-                    <span className="text-[15px] text-violet-100">{suggested}</span>
+                    <span className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
+                    <span className="text-[0.9375rem] text-violet-100">{suggested}</span>
                   </button>
                 )}
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
@@ -1465,7 +1465,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <button onClick={() => { setDoor(null); setQuestion(''); setError(''); }}
               className="text-xs text-zinc-600 hover:text-zinc-300">&larr; something else</button>
 
-            {door.viaDaily && <p className="text-[10px] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
+            {door.viaDaily && <p className="text-[0.625rem] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
             <p className="text-lg text-zinc-200 font-light break-words">{door.breath}</p>
 
             <div>
@@ -1514,7 +1514,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             )}
             <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease' }}>
             {bench && (
-              <div className="mb-4 rounded-md border border-fuchsia-700/50 bg-fuchsia-950/30 px-3 py-1.5 text-center text-[11px] uppercase tracking-wider text-fuchsia-200/90">
+              <div className="mb-4 rounded-md border border-fuchsia-700/50 bg-fuchsia-950/30 px-3 py-1.5 text-center text-[0.6875rem] uppercase tracking-wider text-fuchsia-200/90">
                 layout bench — canned reading, no API calls, nothing saved
               </div>
             )}
@@ -1529,16 +1529,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     ? 'ml-4 sm:ml-6 rounded-xl border border-amber-700/30 bg-amber-950/10 p-4 text-sm text-amber-100/90 italic break-words'
                     : t.role === 'catchup'
                       ? 'rounded-xl border border-violet-700/40 bg-violet-950/20 p-4 text-sm text-violet-100 break-words'
-                      : 'rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[15px] leading-relaxed text-zinc-200 break-words'}>
+                      : 'rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[0.9375rem] leading-relaxed text-zinc-200 break-words'}>
 
-                  {t.role === 'catchup' && <div className="text-[10px] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
+                  {t.role === 'catchup' && <div className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
                   {t.role === 'you' && t.mode && (
-                    <div className={`text-[10px] uppercase tracking-wider mb-2 not-italic ${t.mode === 'reflect' ? 'text-sky-300/80' : 'text-orange-300/80'}`}>
+                    <div className={`text-[0.625rem] uppercase tracking-wider mb-2 not-italic ${t.mode === 'reflect' ? 'text-sky-300/80' : 'text-orange-300/80'}`}>
                       {t.mode === 'reflect' ? '↩ Reflecting' : '⚡ Forging'}
                     </div>
                   )}
                   {t.role === 'reader' && t.act && (
-                    <div className="text-[10px] uppercase tracking-wider mb-2 text-zinc-500">one small thing</div>
+                    <div className="text-[0.625rem] uppercase tracking-wider mb-2 text-zinc-500">one small thing</div>
                   )}
 
                   {/* A card drawn in answer to a reflect or a forge */}
@@ -1563,7 +1563,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   )}
                   {t.role === 'reader' && t.medicine && (t.draw || ti === firstReaderIdx) && (
                     <div className="mt-3 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3">
-                      <div className="text-[10px] uppercase tracking-wider text-emerald-300/80 mb-2">
+                      <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/80 mb-2">
                         {medicineFor(fieldAt(ti)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
                       </div>
                       <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
@@ -1571,10 +1571,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                           <div key={mi} className="flex flex-col items-center max-w-full">
                             <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true}
                               onImageClick={() => openInfo({ type: 'card', id: m.toId, data: getComponent(m.toId) })} />
-                            <span className="text-[11px] text-emerald-300/90 mt-1 text-center break-words">
+                            <span className="text-[0.6875rem] text-emerald-300/90 mt-1 text-center break-words">
                               {m.from} → {m.to}
                             </span>
-                            {m.path && <span className="text-[10px] text-emerald-500/60 text-center break-words">{m.path}</span>}
+                            {m.path && <span className="text-[0.625rem] text-emerald-500/60 text-center break-words">{m.path}</span>}
                           </div>
                         ))}
                       </div>
@@ -1590,12 +1590,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                       a question composed without the medicine in view ignores the very thing
                       the person just read. */}
                   {t.role === 'reader' && t.question && (
-                    <p className="mt-4 text-[17px] leading-snug text-amber-300/90 break-words">{t.question}</p>
+                    <p className="mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words">{t.question}</p>
                   )}
 
                   {t.role === 'reader' && !t.simplified && !loading && (
                     <button onClick={() => simplify(t.id)}
-                      className="mt-2 text-[11px] text-zinc-600 hover:text-zinc-400 underline decoration-dotted">
+                      className="mt-2 text-[0.6875rem] text-zinc-600 hover:text-zinc-400 underline decoration-dotted">
                       say it simpler
                     </button>
                   )}
@@ -1611,7 +1611,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               {switchBtn('reflect', 'Reflect', '↩')}
               {switchBtn('forge', 'Forge', '⚡')}
             </div>
-            <div className="mt-1 flex justify-between text-[11px]">
+            <div className="mt-1 flex justify-between text-[0.6875rem]">
               <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
               <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
             </div>
@@ -1623,15 +1623,15 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     {explain === 'reflect' ? (
                       <>
                         <p className="font-medium mb-1">Reflect — you ask, the field answers.</p>
-                        <p className="text-[13px] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
+                        <p className="text-[0.8125rem] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
                       </>
                     ) : (
                       <>
                         <p className="font-medium mb-1">Forge — you declare, the field responds.</p>
-                        <p className="text-[13px] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
+                        <p className="text-[0.8125rem] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
                       </>
                     )}
-                    <p className="text-[12px] opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
+                    <p className="text-xs opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
                   </div>
                   <button onClick={() => setExplain(null)} className="text-xs opacity-60 hover:opacity-100">close</button>
                 </div>
@@ -1646,7 +1646,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
                     className={`pill-breathe flex items-baseline gap-2 text-left rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {/* a fixed label column (sized to PUSH BACK) so every pill's text starts at the same x */}
-                    {CHIP_LABEL[c.kind] && <span className="w-[7.6em] shrink-0 text-[10px] uppercase tracking-wider opacity-70">{CHIP_LABEL[c.kind]}</span>}
+                    {CHIP_LABEL[c.kind] && <span className="w-[7.6em] shrink-0 text-[0.625rem] uppercase tracking-wider opacity-70">{CHIP_LABEL[c.kind]}</span>}
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
@@ -1666,7 +1666,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
                 placeholder={fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
-                style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[17px] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+                style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
               <button onClick={() => send()} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
@@ -1683,42 +1683,42 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 ? (
                   <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
-                    <span className="font-serif text-[19px] leading-none text-zinc-200 break-words">Words to the Whys</span>
+                    <span className="font-serif text-[1.1875rem] leading-none text-zinc-200 break-words">Words to the Whys</span>
                     <span className="ml-auto">{chev(brazierOpen)}</span>
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-4 pr-[64px] py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-xl" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
                     {chev(stepOpen)}
-                    <span className="font-serif text-[19px] leading-none text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
+                    <span className="font-serif text-[1.1875rem] leading-none text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
                   </button>
                 );
               const body = (kind) => kind === 'brazier'
                 ? (brazierOpen && (
-                  <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
+                  <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     {[1, 2, 3].filter((r) => r <= brazierRing && brazier[r]).map((r) => (
                       <div key={r} className={r > 1 ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
-                        {r === 2 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
-                        {r === 3 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
+                        {r === 2 && <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
+                        {r === 3 && <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
                         {ensureParagraphBreaks(brazier[r]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                           <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                         ))}
                         {r === 3 && (
-                          <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
+                          <p className="mt-3 text-[0.8125rem]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
                         )}
                       </div>
                     ))}
                     {brazierBusy > 0 && <Writing label={brazierBusy === 1 ? 'the Reader is writing…' : 'the Reader is going deeper…'} />}
                     {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
-                      <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[13px] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
+                      <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[0.8125rem] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
                         {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
                       </button>
                     )}
                   </div>
                 ))
                 : (stepOpen && (
-                  <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
-                    <div className="text-[11px] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
+                  <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
+                    <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
                     {stepBusy && <Writing label="the Reader is finding the step…" />}
                     {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
