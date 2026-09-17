@@ -389,6 +389,8 @@ const CHIP_STYLE = {
   forge: 'border-orange-500/50 text-orange-200 hover:bg-orange-900/30',
 };
 const CHIP_LABEL = { answer: 'Answer', build: 'Build', pushback: 'Push back', clarify: 'Clarify', stair: 'Stair', locate: 'Find it' };
+// each kind's own colour (rgb triplet) for the hover breathe — shades of itself, never another hue
+const CHIP_RGB = { answer: '251 191 36', build: '52 211 153', pushback: '251 146 60', clarify: '56 189 248', stair: '251 191 36', locate: '167 139 250', reflect: '56 189 248', forge: '251 146 60' };
 
 // A drawn card and its geometry, SIDE BY SIDE and the same width — the founder's ruling
 // 2026-09-14: "I think they're equally significant." The minimap is always shown, because the
@@ -1605,7 +1607,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
                   <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
-                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
+                    style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
+                    className={`pill-breathe text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
                     {c.text}
                   </button>

@@ -760,3 +760,13 @@ textarea.user-input-area::placeholder {
 .brazier-ember video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .brazier-ember-open { box-shadow: 0 0 18px 6px rgba(251, 191, 36, 0.6) !important; }
 @media (prefers-reduced-motion: reduce) { .brazier-ember { animation: none; } }
+
+
+/* PILLS BREATHE ON HOVER (founder, 2026-09-16 night): the border cycles through shades of the pill's
+   own colour (--pill is an rgb triplet set per kind), with a faint ring of the same colour. Hover only. */
+@keyframes pill-breathe {
+  0%, 100% { border-color: rgb(var(--pill) / 0.35); box-shadow: 0 0 0 0 rgb(var(--pill) / 0); }
+  50% { border-color: rgb(var(--pill) / 0.95); box-shadow: 0 0 10px 1px rgb(var(--pill) / 0.35); }
+}
+.pill-breathe:hover:not(:disabled), .pill-breathe:focus-visible { animation: pill-breathe 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .pill-breathe:hover { animation: none; } }
