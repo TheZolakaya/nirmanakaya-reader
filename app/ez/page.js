@@ -1137,7 +1137,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
         className={`flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
-        <span className="block text-[15px] font-medium">{glyph} {label}</span>
+        <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
+          {mode === 'reflect'
+            ? <span className="brazier-ember" style={{ width: 26, height: 26, animation: 'none', boxShadow: on ? '0 0 10px 2px rgba(56, 189, 248, 0.45)' : 'none' }}><video src="/video/reflect.mp4" autoPlay loop muted playsInline aria-hidden="true" /></span>
+            : <span>{glyph}</span>}
+          <span>{label}</span>
+        </span>
         <span className="block text-[11px] opacity-75 mt-0.5 break-words">{hint}</span>
       </button>
     );
