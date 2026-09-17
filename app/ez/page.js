@@ -705,6 +705,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [pastReadings, setPastReadings] = useState([]);   // this account's EZ readings, for live reload
   const [showPast, setShowPast] = useState(false);
   const [areasOpen, setAreasOpen] = useState(false); // the five doors fold away under a toggle (founder, 2026-09-16)
+  const [nudge, setNudge] = useState(false); // Ask pressed with nothing typed: the box shakes, the border flashes, a line inside says what to do (founder, 2026-09-17)
+  const questionRef = useRef(null);
   // THE BOX IS THE ANCHOR. The frame used to be centred as a whole, so unfolding the areas grew it
   // and the box slid up. Now only the box-and-row part is measured, and the top padding is set so
   // THAT sits where the centred frame sat; whatever unfolds is added beneath it and the box stays.
@@ -939,7 +941,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     // work. Added context, when there is any, IS the question; the door only frames it.
     const typed = sanitizeForAPI(question.trim());
     const q = typed || (door ? sanitizeForAPI(door.breath) : '');
-    if (!q) { setError('Pick something, or say what is on your mind.'); return; }
+    if (!q) { setNudge(false); requestAnimationFrame(() => { setNudge(true); try { questionRef.current?.focus(); } catch {} }); setTimeout(() => setNudge(false), 3200); return; }
     setAsked(q);
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
     const newDraws = generateSpread(cardCount);
@@ -1457,13 +1459,18 @@ Respond with ONLY JSON: {"q": "..."}` }],
               there in the middle, very simple"). */}
           <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
             <div className="relative">
-              <div className="content-pane rounded-xl">
-                <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={4}
-                  placeholder="What's on your mind? Ask it the way you would say it out loud."
-                  style={{ animationDuration: '16s' }}
-                  className="animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none" />
+              <div className={`content-pane rounded-xl ${nudge ? 'nudge-shake' : ''}`}>
+                <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (nudge) setNudge(false); }} rows={4}
+                  placeholder={nudge ? '' : "What's on your mind? Ask it the way you would say it out loud."}
+                  style={nudge ? undefined : { animationDuration: '16s' }}
+                  className={`${nudge ? 'animate-border-rainbow-fast' : 'animate-border-rainbow'} block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
+                {nudge && (
+                  <div className="pointer-events-none absolute left-4 right-4 top-4 text-[15px] leading-snug text-amber-200/95">
+                    Say what you'd like to talk about — or tap <span className="font-medium text-amber-300">Areas</span> below and pick one.
+                  </div>
+                )}
               </div>
-              <button onClick={begin} disabled={loading || !question.trim()} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+              <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Ask'}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>

@@ -784,3 +784,16 @@ textarea.user-input-area::placeholder {
 .glow-pulse:hover { animation: glow-pulse 2.2s ease-in-out infinite; }
 .glow-pulse-map:hover { animation: glow-pulse-map 2.2s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .glow-pulse:hover, .glow-pulse-map:hover { animation: none; box-shadow: 0 0 0 2px var(--glow); } }
+
+
+/* ASK WITH NOTHING TYPED (founder, 2026-09-17): the box shakes once, briefly */
+@keyframes nudge-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-7px); }
+  30% { transform: translateX(6px); }
+  45% { transform: translateX(-5px); }
+  60% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+.nudge-shake { animation: nudge-shake 0.55s ease-in-out 1; }
+@media (prefers-reduced-motion: reduce) { .nudge-shake { animation: none; } }
