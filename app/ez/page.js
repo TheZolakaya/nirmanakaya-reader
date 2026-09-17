@@ -564,6 +564,7 @@ export default function EZPage() {
   const [animating, setAnimating] = useState(false);
   const [revealed, setRevealed] = useState(true);
   const [overlayTop, setOverlayTop] = useState(0);   // the map starts below the brand, which never leaves
+  const [landedWaiting, setLandedWaiting] = useState(false); // the flight has landed but the reply has not arrived: show 'the Reader is writing' under the parked cards (founder, 2026-09-17: the primary use case)
   const [overlayIn, setOverlayIn] = useState(false);
   // "only allow tap to skip if the reading is ready" — a skip with nothing to skip to is a freeze
   const [replyReady, setReplyReady] = useState(false);
@@ -957,6 +958,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       readyRef.current = false; setReplyReady(false);
       setOverlayIn(false); setRevealed(false); setAnimating(true);
       landed = playLanding(newDraws[0]).catch(() => {});
+      landed.then(() => { if (!readyRef.current) setLandedWaiting(true); });
     }
     try {
       const sk = spreadKeyFor(cardCount);
@@ -973,7 +975,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
-      readyRef.current = true; setReplyReady(true);
+      readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
@@ -983,8 +985,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
         if (data?.id) setSavedId(data.id);
       } catch {}
       if (!willAnimate) scrollToEnd();
-    } catch (e) { setError(e.message); readyRef.current = true; setReplyReady(true); }
+    } catch (e) { setError(e.message); readyRef.current = true; setReplyReady(true); setLandedWaiting(false); }
     await landed;
+    setLandedWaiting(false);
     if (willAnimate) {
       // the page comes back under the landed cards: header and discourse fade in, the map fades
       // out, and only then do the clones go — the real header sits exactly beneath them
@@ -1024,6 +1027,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     // fetched. The words arrive underneath when the Reader answers.
     const willAnimate = !!newDraw && animOn;
     const pid = `t${Date.now()}p`;
+    const repliedRef = { current: false };
     let landed = Promise.resolve();
     if (willAnimate) {
       setTurns([...withYou, { id: pid, role: 'reader', pending: true, draw: newDraw, mode, text: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
@@ -1040,6 +1044,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       setRevealed(false);
       setOverlayIn(false); setAnimating(true);
       landed = playLanding(newDraw, `[data-ez-turn="${pid}"]`, false);
+      landed.then(() => { if (!repliedRef.current) setLandedWaiting(true); });
     } else {
       setTurns(withYou);
       scrollToEnd();
@@ -1055,6 +1060,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
+      repliedRef.current = true; setLandedWaiting(false);
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
       if (willAnimate) {
         // the words arrive under the landed card; the same id keeps the card's element in place
@@ -1072,6 +1078,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     } catch (e) {
       // Take the orphaned turn back out and hand the person their words again, so a failure
       // costs a tap instead of a thought.
+      repliedRef.current = true; setLandedWaiting(false);
       if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setRevealed(true); setOverlayIn(false); clearLanding(document); setAnimating(false); }
       setTurns((list) => list.filter((x) => x.id !== you.id && x.id !== pid));
       setInput(text);
@@ -1629,6 +1636,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
               {/* THE VIDEO BREATHES THROUGH (founder, 2026-09-16): the overlay is 10% black, barely
                   there, so the video plays under the map almost at full strength,
                   and the quicker fade-out brings the world back when the cards land. */}
+                {landedWaiting && (
+                  <div className="absolute left-0 right-0 flex justify-center pointer-events-none" style={{ top: '56vh' }}>
+                    <Writing scroll={false} />
+                  </div>
+                )}
                 <TheMap drawMap={{}} colorLayer="status" initialZoom={0.45} showLabels={false} showHouseLabels={false}
                   lowRes showControls={false} cameraRef={cameraRef} className="w-full h-full" />
               </div>
