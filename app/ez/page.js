@@ -1613,7 +1613,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
                     className={`pill-breathe flex items-baseline gap-2 text-left rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {/* a fixed label column (sized to PUSH BACK) so every pill's text starts at the same x */}
-                    {CHIP_LABEL[c.kind] && <span className="w-[5.6rem] shrink-0 text-[10px] uppercase tracking-wider opacity-70">{CHIP_LABEL[c.kind]}</span>}
+                    {CHIP_LABEL[c.kind] && <span className="w-[7.6em] shrink-0 text-[10px] uppercase tracking-wider opacity-70">{CHIP_LABEL[c.kind]}</span>}
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
