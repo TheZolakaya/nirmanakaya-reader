@@ -710,7 +710,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     role: 'reader',
     text: stripTrailingQuestion(obj.reader, obj.question),
     question: obj.question || '',
-    chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 5) : [],
+    chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
@@ -1022,7 +1022,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
       const seen = [...prior.chips.map((c) => c.text), ...prior.reflect, ...prior.forge].filter(Boolean);
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock()}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, and a stair if one is obvious), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock()}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, a stair if one is obvious, and a locate chip for anything the turn left unnamed — FIND IT), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
       // callReader insists on a non-empty "reader"; this call has none, so it goes raw, with one retry
       let data = await rawCall(msg, systemPrompt, 900);
       let obj = parseJson(data.reading);
