@@ -78,8 +78,8 @@ export default function PhonePage() {
     <div className="min-h-screen flex flex-col bg-[#09090b] text-zinc-100">
       <div className="flex-1 w-full max-w-xl mx-auto px-4 pt-4 pb-10">
         <BrandHeader compact />
-        <h1 className="font-serif text-3xl text-zinc-100 mt-6 mb-2">Put this on your phone</h1>
-        <p className="text-zinc-400 mb-8">Nirmanakaya works as an app: its own icon on your home screen, full screen, no browser bars. It takes a few taps and nothing to download.</p>
+        <h1 className="font-serif text-3xl text-zinc-100 mt-6 mb-2">{d.kind === 'installed' ? 'Share the app' : 'Put this on your phone'}</h1>
+        <p className="text-zinc-400 mb-8">{d.kind === 'installed' ? 'Send someone this page and it walks them through putting Nirmanakaya on their own phone. A few taps, nothing to download.' : 'Nirmanakaya works as an app: its own icon on your home screen, full screen, no browser bars. It takes a few taps and nothing to download.'}</p>
 
         {d.kind === 'installed' && (
           <div className="rounded-xl border border-emerald-700/50 bg-emerald-950/30 p-5 text-emerald-100">
@@ -126,10 +126,10 @@ export default function PhonePage() {
           </div>
         )}
 
-        {d.kind !== 'installed' && (
+        {(
           <div className="mt-10 rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
-            <div className="text-zinc-300 mb-3">Send this page to someone</div>
-            <button onClick={share} className="rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-200 hover:border-zinc-500">{shared === 'sent' ? 'Sent' : shared === 'copied' ? 'Link copied' : 'Share the link'}</button>
+            <div className="text-zinc-300 mb-3">{d.kind === 'installed' ? 'Hand it to someone else' : 'Send this page to someone'}</div>
+            <button onClick={share} className="rounded-lg border border-amber-600/60 px-4 py-2.5 text-[0.9375rem] text-amber-100 hover:border-amber-400 hover:bg-amber-950/30 transition-colors">{shared === 'sent' ? 'Sent' : shared === 'copied' ? 'Link copied' : 'Share the link'}</button>
             <div className="mt-3 font-mono text-xs text-zinc-500 break-all">{SITE}</div>
           </div>
         )}
