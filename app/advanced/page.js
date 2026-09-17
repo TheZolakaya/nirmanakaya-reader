@@ -1145,8 +1145,12 @@ export default function NirmanakaReader() {
 
       try {
         const { data, error } = await getReading(loadId);
-        // an EZ reading opens in EZ — its conversation lives where the main reader never looks
-        if (!error && data && data.mode === 'ez') { window.location.replace(`/ez?load=${loadId}`); return; }
+        // an EZ reading opens in EZ — its conversation lives where the main reader never looks —
+        // UNLESS the person crossed the bridge from the Brazier's ring 3 (&bridge=1): then the
+        // same question and draw open here, and each card's full derivation loads on demand.
+        const bridged = params.get('bridge') === '1';
+        if (!error && data && data.mode === 'ez' && !bridged) { window.location.replace(`/ez?load=${loadId}`); return; }
+        const isEzRow = !!(data && data.mode === 'ez');
         if (error || !data) {
           console.error('Failed to load saved reading:', error);
           return;
@@ -1166,8 +1170,11 @@ export default function NirmanakaReader() {
 
         // Restore state from saved reading
         setQuestion(savedQuestion);
-        setSpreadType(data.mode || 'discover');
-        if (data.spread_type) {
+        setSpreadType(isEzRow ? 'discover' : (data.mode || 'discover'));
+        if (isEzRow) {
+          const n = Array.isArray(savedCards) ? savedCards.length : 1;
+          setSpreadKey(n === 1 ? 'one' : n === 2 ? 'two' : n === 3 ? 'three' : n === 4 ? 'four' : 'five');
+        } else if (data.spread_type) {
           if (data.mode === 'reflect') {
             setReflectSpreadKey(data.spread_type);
           } else {

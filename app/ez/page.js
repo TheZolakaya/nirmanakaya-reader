@@ -1463,7 +1463,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                       ))}
                       {r === 3 && (
-                        <p className="mt-3 text-[13px]"><Link href="/advanced" className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open the full reader</Link></p>
+                        <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link></p>
                       )}
                     </div>
                   ))}
