@@ -1664,13 +1664,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
             )}
 
             <div>
-              <label className="block text-[0.9375rem] text-zinc-300 mb-2">
-                Or say it your way
+              <label className="block text-[0.9375rem] text-zinc-300 mb-1">
+                Or ask it in your own words
               </label>
+              <p className="text-xs text-zinc-500 mb-2">Tapping one above fills this box. Edit it, or draw as it stands.</p>
               <div className="relative">
                 <div className="content-pane rounded-xl">
                   <textarea ref={contextRef} value={question} onChange={(e) => setQuestion(e.target.value)} rows={5}
-                    placeholder="A sentence or two is plenty. Names, what happened, what you are weighing."
+                    placeholder="Whatever you would actually say out loud. A sentence or two is plenty."
                     className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
                 </div>
                 <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
