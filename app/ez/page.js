@@ -23,7 +23,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionTe
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
-import { STARTER_KINDS, DOOR_SUBS, STARTERS } from '../../lib/starters';
+import { STARTER_KINDS, DOOR_SUBS, STARTERS, allStartersFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
@@ -1555,8 +1555,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 return (
                   <button key={d.id} onClick={() => {
                       // "My daily reading" chooses one of the five houses for them, at random
+                      // "Let one be chosen for me" picks a house AND one of its sentences at
+                      // random, the deep ones included (founder, 2026-09-17)
                       const pick = d.id === 'daily' ? { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true } : d;
-                      setDoor(pick); setQuestion(''); setError(''); setBiggerOpen(false);
+                      const pool = pick.viaDaily ? allStartersFor(pick.id) : [];
+                      setDoor(pick); setQuestion(pool.length ? pool[Math.floor(Math.random() * pool.length)] : ''); setError(''); setBiggerOpen(false);
                     }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
                     style={{ borderColor: c + '99', background: c + '26', animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `-${delay}ms` }}>
@@ -1577,7 +1580,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <Door d={byId.spirit} delay={720} />
                   {/* the five doors are the five aspects of self; the random choice is a link, not a sixth door */}
                   <div className="col-span-2 text-center pt-1">
-                    <button onClick={() => { setDoor({ ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true }); setQuestion(''); setError(''); }}
+                    <button onClick={() => { const pick = { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true }; const pool = allStartersFor(pick.id); setDoor(pick); setQuestion(pool.length ? pool[Math.floor(Math.random() * pool.length)] : ''); setError(''); setBiggerOpen(false); }}
                       className="text-sm text-amber-400/80 hover:text-amber-300 underline decoration-dotted underline-offset-4">
                       or let one be chosen for me — my daily reading
                     </button>
@@ -1623,8 +1626,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
         {/* The context step: the door has been chosen, the box becomes "add anything that matters". */}
         {allowed && !draws && door && (
           <div className="space-y-5">
-            <button onClick={() => { setDoor(null); setQuestion(''); setError(''); }}
-              className="text-xs text-zinc-600 hover:text-zinc-300">&larr; something else</button>
+            <button onClick={() => { setDoor(null); setQuestion(''); setError(''); setBiggerOpen(false); }}
+              className="rounded-lg border border-zinc-700/60 px-3 py-1.5 text-[0.9375rem] text-zinc-300 hover:border-zinc-500 hover:text-zinc-100 transition-colors">&larr; Something else</button>
 
             {door.viaDaily && <p className="text-[0.625rem] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
             <p className="text-lg text-zinc-200 font-light break-words">{door.breath}</p>
@@ -1643,7 +1646,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 ))}
                 <button onClick={() => setBiggerOpen(!biggerOpen)}
                   className="self-center flex items-center gap-1 text-[0.8125rem] text-zinc-400 hover:text-zinc-200 transition-colors">
-                  a bigger question
+                  A bigger question
                   <svg className={`w-3.5 h-3.5 transition-transform ${biggerOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 {biggerOpen && (
@@ -1661,8 +1664,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
             )}
 
             <div>
-              <label className="block text-xs text-zinc-500 mb-2">
-                or say it your way.
+              <label className="block text-[0.9375rem] text-zinc-300 mb-2">
+                Or say it your way
               </label>
               <div className="relative">
                 <div className="content-pane rounded-xl">
