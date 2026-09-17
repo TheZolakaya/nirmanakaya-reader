@@ -1325,7 +1325,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
      beneath it on a row of its own. The step's loop sits flush RIGHT, the whys' flush LEFT. */
   const panelsRef = useRef(null);
   const showPanels = () => { setTimeout(() => { try { const el = panelsRef.current; if (!el) return; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' }); } catch {} }, 80); };
-  const renderPanels = () => {
+  const renderPanels = (which) => {
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
@@ -1375,7 +1375,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 ));
               const frame = 'pill-breathe rounded-xl border bg-zinc-950/40';
               const glow = { '--pill': '139 92 246', borderColor: '#4c1d95' }; // dark purple at rest; breathes violet on hover
-              if (!brazierOpen && !stepOpen) {
+              const isOpen = (kind) => (kind === 'brazier' ? brazierOpen : stepOpen);
+              const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
+              const mine = order.filter((kind) => (which === 'open' ? isOpen(kind) : !isOpen(kind)));
+              if (!mine.length) return null;
+              // both shut: the pair shares one row under the text box
+              if (which === 'closed' && mine.length === 2) {
                 return (
                   <div className="mt-4 flex items-stretch gap-2">
                     <div style={glow} className={`flex-1 min-w-0 ${frame}`}>{header('brazier')}</div>
@@ -1383,11 +1388,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   </div>
                 );
               }
-              const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
               return (
-                <div ref={panelsRef}>
-                  {order.map((kind, i) => (
-                    <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
+                <div ref={which === 'open' ? panelsRef : undefined}>
+                  {mine.map((kind, i) => (
+                    <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
                   ))}
                 </div>
               );
@@ -1747,6 +1751,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <div ref={endRef} />
             </div>
 
+            {/* AN OPEN PANEL FOLLOWS THE CONVERSATION (founder, 2026-09-17): its answer renders here,
+                above the block that never moves — Reflect and Forge, the pills, the text box, and
+                whichever panel is still shut. */}
+            {(brazierOpen || stepOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+
             <div className={dimTop}>
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-5 flex items-stretch gap-2">
@@ -1781,10 +1790,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </div>
             )}
 
-            {/* AN OPEN PANEL TAKES ITS PLACE IN THE SEQUENCE (founder, 2026-09-17): Words to the Whys or
-                One small step, once opened, sits here above the pills, so the pills regenerated from
-                it fall beneath it. Closed, the pair lives under the text box. */}
-            {(brazierOpen || stepOpen) && <div className={dimPanels}>{renderPanels()}</div>}
             <div className={dimPills}>
             {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
             {activePills.length > 0 && !loading && (
@@ -1798,10 +1803,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
-                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding other options…" scroll={false} /> : (
+                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
                   <button onClick={() => regenPills()}
                     className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
-                    ↻ Other options
+                    ↻ More choices
                   </button>
                 )}
               </div>
@@ -1826,7 +1831,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             </div>
             <div className={dimPanels}>
-            {!(brazierOpen || stepOpen) && renderPanels()}
+            {renderPanels('closed')}
 
             </div>
 
