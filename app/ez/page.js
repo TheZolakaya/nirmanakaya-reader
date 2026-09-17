@@ -1161,6 +1161,17 @@ Respond with ONLY JSON: {"q": "..."}` }],
     } catch (e) { setError(e.message); }
     setBrazierBusy(0);
   };
+  // A NEW CARD IN PLAY (a reflect or a forge) RESETS BOTH PANELS: their answers belonged to the old
+  // card (founder, 2026-09-17: they stayed open and stale until closed and reopened).
+  const fieldKey = (() => { const c = [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0]; return c ? `${c.transient}:${c.position}:${c.status}` : ''; })();
+  const fieldKeyRef = useRef(fieldKey);
+  useEffect(() => {
+    if (fieldKeyRef.current === fieldKey) return;
+    fieldKeyRef.current = fieldKey;
+    setBrazierOpen(false); setBrazier({}); setBrazierRing(1); brazierKeyRef.current = '';
+    setStepOpen(false); setStepText(''); stepKeyRef.current = '';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fieldKey]);
   const toggleBrazier = () => {
     const next = !brazierOpen;
     setBrazierOpen(next);
