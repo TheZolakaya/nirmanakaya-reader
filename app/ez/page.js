@@ -378,6 +378,26 @@ function HoverVideo({ src, className, style }) {
   return <video ref={ref} src={src} loop muted playsInline preload="metadata" className={className} style={style} aria-hidden="true" />;
 }
 
+// THE READER IS WRITING — the one waiting indicator for every small wait (founder, 2026-09-17,
+// four loops of his own): one of the four loops, chosen at random each time, beside the line in
+// the rainbow that cycles like Say it. Not for the landing flight; for everywhere else we wait on
+// the Reader. (ANIM-18.)
+const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
+function Writing({ label = 'the Reader is writing…', size = 96, className = '' }) {
+  const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
+  return (
+    <div className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
+      <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
+        <video src={src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+      </span>
+      <span className="font-serif text-[17px] tracking-wide text-center"
+        style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>
+        {label}
+      </span>
+    </div>
+  );
+}
+
 const CHIP_STYLE = {
   answer: 'border-amber-400/60 text-amber-100 bg-amber-950/20 hover:bg-amber-900/30',
   build: 'border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/30',
@@ -1580,7 +1600,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   )}
                 </div>
               ))}
-              {loading && <div className="text-xs text-zinc-500 animate-pulse pl-2">the Reader is listening…</div>}
+              {loading && <Writing />}
               {error && <div className="text-xs text-red-400 pl-2 break-words">{error}</div>}
               <div ref={endRef} />
             </div>
@@ -1629,10 +1649,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
-                <button onClick={regenPills} disabled={regenning}
-                  className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors disabled:opacity-50">
-                  {regenning ? 'finding other options…' : '↻ Other options'}
-                </button>
+                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding other options…" /> : (
+                  <button onClick={regenPills}
+                    className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
+                    ↻ Other options
+                  </button>
+                )}
               </div>
             )}
 
@@ -1685,7 +1707,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         )}
                       </div>
                     ))}
-                    {brazierBusy > 0 && <div className="text-xs text-zinc-500 animate-pulse">{brazierBusy === 1 ? 'the brazier is catching…' : 'going deeper…'}</div>}
+                    {brazierBusy > 0 && <Writing label={brazierBusy === 1 ? 'the Reader is writing…' : 'the Reader is going deeper…'} />}
                     {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
                       <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[13px] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
                         {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
@@ -1696,7 +1718,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 : (stepOpen && (
                   <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
                     <div className="text-[11px] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
-                    {stepBusy && <div className="text-xs text-zinc-500 animate-pulse">finding the step…</div>}
+                    {stepBusy && <Writing label="the Reader is finding the step…" />}
                     {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                     ))}
