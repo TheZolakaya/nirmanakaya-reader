@@ -140,7 +140,7 @@ And READ THE DRAW for it. A card about seeing, knowing, recognition, or a self-r
 
 HISTORY IS WEATHER, NOT SUBJECT. A READER CONTEXT or JOURNEY THREAD may arrive with the question. It tells you where this person has been; it does not tell you what today is about. Frequency is not importance: a theme that appears in many past readings is one they asked about often, not the thing in focus now. Read the card for the question in front of you. Use the history only where it bears directly on that question, and never let a past theme become the subject of a reading that did not ask about it.
 
-FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing in this person's life and never its NAME: the cycle that is done, the person being protected, the habit, the decision. Wherever your turn points at such a thing without naming it, add a chip of kind "locate": {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"}. One per unnamed thing, at most two, placed after the other chips. Never write "you already know what it is" (or its cousins) without a locate chip beneath it. If nothing was left unnamed, no locate chip.
+FIND IT — NAME YOUR OWN VAGUENESS. A single draw carries the SHAPE of a thing in this person's life and never its NAME: the cycle that is done, the person being protected, the habit, the decision. Wherever your turn points at such a thing without naming it, add a chip of kind "locate": {"kind": "locate", "what": "<the unnamed thing, three to eight words>", "text": "<in their voice: 'Help me find which thing this is'>"}. One per unnamed thing, at most two, placed after the other chips. Never write "you already know what it is" (or its cousins) without a locate chip beneath it. If nothing was left unnamed, no locate chip. On a BALANCED card the unnamed thing is where the invitation lands ("which relationship", "which piece of work"), never a problem to hunt for; word the chip that way.
 
 THE QUESTION AND THE CHIPS COME OFF THE MEDICINE. The person sees your prose, then the medicine, then your question. So when there is medicine, the question must be asked in the light of the move, not of the diagnosis — it asks about the path, what stands in its way, or what the first step would actually cost. The chips follow the same rule. A question that ignores the medicine the person just read is the commonest failure of this mode.
 
@@ -153,13 +153,17 @@ ABSOLUTE FORMAT: respond with ONLY a JSON object, no prose outside it:
 // what shape the thing has, the medicine is the tell. The Reader never names the thing.
 const locateBlock = (loc, brief) => `
 
-FIND IT. The person tapped "help me find it" about: "${loc.what}". This is round ${loc.step} of at most 3. The draw cannot name the thing; only they can. Your job is to NARROW, one question per turn, and the question comes from the geometry, in this order:
-- round 1, THE SEAT says WHERE to look: from the seat's own meaning (and anything they have already said), name two or three concrete places in their life the thing could be, and ask which one is warm.
-- round 2, THE STATUS says WHAT SHAPE it has: ask which candidate has that shape, in kitchen words (Too Little: done but still tended, held open, giving nothing back; Too Much: braced for, over-managed, pre-spent; Unacknowledged: happening but "not really me", "doesn't matter"; Balanced: done as their own, nothing to brace against).
-- round 3, THE MEDICINE is the TELL: ask the medicine card's own question (for a medicine of beginning: "if it were gone tomorrow, what would you start?"; for one of exchange: "who would you finally hand it to?"; and so on from the Rebalancer named below). A quick, real answer confirms; a blank means go back a step.
+FIND IT. The person tapped "help me find it" about: "${loc.what}". This is narrowing turn ${loc.step}${loc.balanced ? ' (a Balanced card: ONE narrowing turn at most)' : ' (three at most)'}. The draw cannot name the thing; only they can. Your job is to NARROW, one question per turn, with the question coming from the geometry; and to STOP the moment they have named it.
+FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered ("a family thing, mutual but I keep it warm" is found), the funnel is over: confirm it against the card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine ON THAT THING in "medicine": the Rebalancer card's OWN move (what it is about is stated below), applied to the named thing as a specific, ordinary first step. Never substitute a different move that seems wiser than the card's own. Never ask for more detail than they volunteered, never ask what is wrong when nothing is, never go looking for a different thing once this one is found, and never invent something they are "holding back". If they say it feels complete, believe them; that is the answer.
+${loc.balanced
+    ? 'THIS CARD IS BALANCED. Nothing is broken and there is nothing to diagnose; the growth is an INVITATION, and an invitation only needs an address. So: from the seat\'s own meaning, name two or three concrete places in their life the invitation could land, ask which one is warm, and once they choose, stop and say how the growth card\'s own move would look there. No question about shape, no question about a tell.'
+    : `The order of the narrowing questions, only as far as needed:
+- first, THE SEAT says WHERE to look: from the seat's own meaning (and anything they have already said), name two or three concrete places in their life the thing could be, and ask which one is warm.
+- if still not found, THE STATUS says WHAT SHAPE it has: ask which candidate has that shape, in kitchen words (Too Little: done but still tended, held open, giving nothing back; Too Much: braced for, over-managed, pre-spent; Unacknowledged: happening but "not really me", "doesn't matter").
+- if still not found, THE MEDICINE is the TELL: one question built from the Rebalancer named below and its own meaning (a medicine of beginning asks what they would start; one of exchange asks who they would hand it to; and so on from what that card is about, never a stock question about "release" or "letting go" unless that IS the card). A quick, real answer confirms; a blank means go back a step.`}
 The card in play, with its seat, status and Rebalancer:
 ${brief}
-Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one line of which says why the card points there, then your one question. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn. If their latest turn already NAMES a specific thing, stop the funnel: confirm it against the card in one line, fill "located" with the thing in their words (under 12 words), re-land the medicine ON THAT THING in "medicine" (the specific first move, this week), and ask your one question about that move.`;
+Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the card points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -798,7 +802,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     if (opts?.locate) loc = { what: opts.locate, step: 1 };
     else if (!mode) {
       const lr = [...turns].reverse().find((t) => t.role === 'reader');
-      if (lr?.locating && !lr.located && lr.locating.step < 3) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
+      if (lr?.locating && !lr.located && lr.locating.step < (lr.locating.balanced ? 2 : 3)) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
     }
     setError(''); setLoading(true); setInput('');
     const newDraw = mode ? generateSpread(1)[0] : null;
@@ -841,6 +845,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         : fieldNow
           ? `\n\nTHE CARD MOST RECENTLY DRAWN (its medicine governs this turn, the opening draw's is secondary):\n${drawBrief(fieldNow)}`
           : '';
+      if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? locateBlock(loc, drawBrief(fieldNow || draws[0])) : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
