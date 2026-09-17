@@ -1546,9 +1546,71 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <div ref={endRef} />
             </div>
 
+            {/* Tier 2: the two switches — flipping one re-renders the pills below */}
+            <div className="mt-5 flex items-stretch gap-2">
+              {switchBtn('reflect', 'Reflect', '↩')}
+              {switchBtn('forge', 'Forge', '⚡')}
+            </div>
+            <div className="mt-1 flex justify-between text-[11px]">
+              <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
+              <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
+            </div>
+
+            {explain && (
+              <div className={`mt-3 rounded-lg border p-3 text-sm break-words ${explain === 'reflect' ? 'border-sky-700/40 bg-sky-950/20 text-sky-100' : 'border-orange-700/40 bg-orange-950/20 text-orange-100'}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    {explain === 'reflect' ? (
+                      <>
+                        <p className="font-medium mb-1">Reflect — you ask, the field answers.</p>
+                        <p className="text-[13px] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-medium mb-1">Forge — you declare, the field responds.</p>
+                        <p className="text-[13px] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
+                      </>
+                    )}
+                    <p className="text-[12px] opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
+                  </div>
+                  <button onClick={() => setExplain(null)} className="text-xs opacity-60 hover:opacity-100">close</button>
+                </div>
+              </div>
+            )}
+
+            {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
+            {activePills.length > 0 && !loading && (
+              <div className="mt-3 flex flex-col gap-2">
+                {activePills.filter((c) => c?.text).map((c, i) => (
+                  <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
+                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
+                    {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
+                    {c.text}
+                  </button>
+                ))}
+                <button onClick={regenPills} disabled={regenning}
+                  className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors disabled:opacity-50">
+                  {regenning ? 'finding other options…' : '↻ Other options'}
+                </button>
+              </div>
+            )}
+
+            {/* Free text always present */}
+            <div className="mt-4 flex gap-2 items-end">
+              <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
+                placeholder={fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
+                className="flex-1 min-w-0 resize-y rounded-lg bg-zinc-900/70 border border-zinc-700/60 px-3 py-3 text-[17px] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              <button onClick={() => send()} disabled={loading || !input.trim()}
+                className="px-4 py-3 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm whitespace-nowrap">
+                {fieldMode ? 'Draw' : 'Say'}
+              </button>
+            </div>
+
+            {/* Words to the Whys and one small step live under the text box (founder, 2026-09-16 night) */}
             {/* THE BRAZIER — "why is this happening?" Collapsed by default; opening it is consent.
                 Beside the conversation, not in it (Keel's spec §1). */}
-            <div className="mt-5 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
+            <div className="mt-4 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
               <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                 {/* the loop fills the header's full height, flush left — the same treatment as Reflect and Forge */}
                 <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
@@ -1601,66 +1663,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
               )}
             </div>
 
-            {/* Tier 2: the two switches — flipping one re-renders the pills below */}
-            <div className="mt-3 flex items-stretch gap-2">
-              {switchBtn('reflect', 'Reflect', '↩')}
-              {switchBtn('forge', 'Forge', '⚡')}
-            </div>
-            <div className="mt-1 flex justify-between text-[11px]">
-              <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
-              <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
-            </div>
-
-            {explain && (
-              <div className={`mt-3 rounded-lg border p-3 text-sm break-words ${explain === 'reflect' ? 'border-sky-700/40 bg-sky-950/20 text-sky-100' : 'border-orange-700/40 bg-orange-950/20 text-orange-100'}`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    {explain === 'reflect' ? (
-                      <>
-                        <p className="font-medium mb-1">Reflect — you ask, the field answers.</p>
-                        <p className="text-[13px] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="font-medium mb-1">Forge — you declare, the field responds.</p>
-                        <p className="text-[13px] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
-                      </>
-                    )}
-                    <p className="text-[12px] opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
-                  </div>
-                  <button onClick={() => setExplain(null)} className="text-xs opacity-60 hover:opacity-100">close</button>
-                </div>
-              </div>
-            )}
-
-            {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
-            {activePills.length > 0 && !loading && (
-              <div className="mt-3 flex flex-col gap-2">
-                {activePills.filter((c) => c?.text).map((c, i) => (
-                  <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
-                    className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
-                    {CHIP_LABEL[c.kind] && <span className="text-[10px] uppercase tracking-wider opacity-70 mr-2">{CHIP_LABEL[c.kind]}</span>}
-                    {c.text}
-                  </button>
-                ))}
-                <button onClick={regenPills} disabled={regenning}
-                  className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors disabled:opacity-50">
-                  {regenning ? 'finding other options…' : '↻ Other options'}
-                </button>
-              </div>
-            )}
-
-            {/* Free text always present */}
-            <div className="mt-4 flex gap-2">
-              <input value={input} onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-                placeholder={fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
-                className="flex-1 min-w-0 rounded-lg bg-zinc-900/70 border border-zinc-700/60 px-3 py-2.5 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              <button onClick={() => send()} disabled={loading || !input.trim()}
-                className="px-4 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] disabled:opacity-40 text-sm whitespace-nowrap">
-                {fieldMode ? 'Draw' : 'Say'}
-              </button>
-            </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
