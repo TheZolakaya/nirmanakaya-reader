@@ -216,7 +216,7 @@ const brazierSystem = (ring) => `${BASE_SYSTEM}\n\n${BRAZIER_HARD_RULE}\n\n${BRA
 
 // THE DO-SOMETHING BUTTON (Keel's spec §2). Not a mode. Consults nothing. One small real act,
 // then the Reader goes quiet. The name is a config string — the founder picks.
-const DO_SOMETHING_LABEL = 'what can I do about this?';
+const DO_SOMETHING_LABEL = 'one small step'; // founder, 2026-09-16 night (was 'what can I do about this?')
 const DO_SOMETHING_HINT = 'one small real thing, in the next minute';
 const doSomethingBlock = (k) => `
 
@@ -827,8 +827,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
       { ...readerTurn(BENCH_FUNNEL), id: 'b3', locating: { what: 'the thing that is already done', step: 1 }, ts: now + 2 },
       { id: 'b4', role: 'you', text: "Honestly, the role. I keep showing up out of habit.", mode: null, ts: now + 3 },
       { ...readerTurn({ ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' }), id: 'b5', locating: { what: 'the thing that is already done', step: 2 }, ts: now + 4 },
-      { id: 'b6', role: 'you', text: BENCH_OPENING.act, mode: null, act: true, ts: now + 5 },
-      { ...readerTurn(BENCH_ACT), id: 'b7', act: true, ts: now + 6 },
     ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allowed, user]);
@@ -1012,26 +1010,36 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // ---- the do-something button: one small real act, no draw, no question ----
   const fieldCard = () => [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0] || null;
   const actLineNow = () => { const t = [...turns].reverse().find((x) => x.role === 'reader' && x.actLine); return t?.actLine || ''; };
-  const doSomething = async () => {
-    if (loading || !draws) return;
-    const card = fieldCard(); if (!card) return;
+  // ONE SMALL STEP — a panel like the Brazier (founder, 2026-09-16 night): collapsed by default,
+  // opening it fetches ONE act for the card in play and shows it inside; nothing enters the
+  // transcript. The Reader is told what was handed over (see brazierBlock) so the pills know.
+  const [stepOpen, setStepOpen] = useState(false);
+  const [stepText, setStepText] = useState('');
+  const [stepBusy, setStepBusy] = useState(false);
+  const stepKeyRef = useRef('');
+  const fetchStep = async () => {
+    const card = fieldCard(); if (!card || stepBusy) return;
     const k = buildKernel(card, DEFS);
     const line = actLineNow() || `What is one small real thing I can do about this in the next minute?`;
-    setError(''); setLoading(true); setFieldMode(null);
-    const you = { id: `y${Date.now()}`, role: 'you', text: line, mode: null, act: true, ts: Date.now() };
-    const withYou = [...turns, you];
-    setTurns(withYou); scrollToEnd();
+    setStepBusy(true); setError('');
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${doSomethingBlock(k)}`;
+      const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
-      const turn = readerTurn({ ...obj, question: '', chips: [], reflect: [], forge: [], medicine: '' }, { act: true });
-      setTurns((list) => [...list, turn]); scrollToEnd();
-    } catch (e) {
-      setTurns((list) => list.filter((x) => x.id !== you.id));
-      setError(e.message);
+      setStepText(String(obj.reader || '').trim());
+      stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
+    } catch (e) { setError(e.message); }
+    setStepBusy(false);
+  };
+  const toggleStep = () => {
+    const next = !stepOpen;
+    setStepOpen(next);
+    if (next) {
+      const card = fieldCard();
+      const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
+      if (key !== stepKeyRef.current || !stepText) { setStepText(''); fetchStep(); }
     }
-    setLoading(false);
   };
 
   // ---- THE BRAZIER: "why is this happening?" — beside the conversation, not in it ----
@@ -1042,8 +1050,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // is instead of repeating the tense line back to them. Background, never subject; never quoted.
   const brazierBlock = () => {
     const read = [1, 2, 3].filter((r) => brazier[r]);
-    if (!read.length) return '';
-    return `\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => brazier[r]).join('\n\n')}`;
+    const step = stepText ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${stepText}` : '';
+    if (!read.length) return step;
+    return `${step}\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => brazier[r]).join('\n\n')}`;
   };
   const [brazierRing, setBrazierRing] = useState(1);   // how deep the person has gone
   const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
@@ -1572,18 +1581,31 @@ Respond with ONLY JSON: {"q": "..."}` }],
               )}
             </div>
 
+            {/* ONE SMALL STEP — the do-something panel: draws nothing, concludes (Keel's spec §2). */}
+            <div className="mt-3 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
+              <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
+                  <video src="/video/step.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                </span>
+                <span className="font-serif text-[19px] leading-none text-zinc-200">{DO_SOMETHING_LABEL}</span>
+                <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${stepOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {stepOpen && (
+                <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
+                  <div className="text-[11px] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
+                  {stepBusy && <div className="text-xs text-zinc-500 animate-pulse">finding the step…</div>}
+                  {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                    <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-3 flex items-stretch gap-2">
               {switchBtn('reflect', 'Reflect', '↩')}
               {switchBtn('forge', 'Forge', '⚡')}
             </div>
-            {/* THE DO-SOMETHING BUTTON — not a mode: draws nothing, concludes. Unboxed and lighter
-                than its neighbours on purpose (Keel's spec §2.6). */}
-            <button onClick={doSomething} disabled={loading}
-              className="mt-2 w-full text-center py-2 disabled:opacity-40">
-              <span className="block font-serif text-[17px] text-zinc-300 hover:text-amber-200 transition-colors">{DO_SOMETHING_LABEL}</span>
-              <span className="block text-[11px] text-zinc-500 mt-0.5">{DO_SOMETHING_HINT}</span>
-            </button>
             <div className="mt-1 flex justify-between text-[11px]">
               <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
               <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
@@ -1644,7 +1666,6 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
-              <button onClick={doSomething} disabled={loading} className="font-serif text-[13px] text-zinc-400 hover:text-amber-200 disabled:opacity-40">{DO_SOMETHING_LABEL}</button>
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
