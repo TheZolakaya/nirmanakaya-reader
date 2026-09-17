@@ -383,7 +383,7 @@ function HoverVideo({ src, className, style }) {
 // the rainbow that cycles like Say it. Not for the landing flight; for everywhere else we wait on
 // the Reader. (ANIM-18.)
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
-function Writing({ label = 'the Reader is writing…', size = 96, className = '' }) {
+function Writing({ label = 'the Reader is writing…', size = 160, className = '' }) {
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
   return (
     <div className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
@@ -1264,6 +1264,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
   };
 
   // The pills re-render with the switch: talk / ask the field / declare to the field.
+  // WHILE THE READER IS WRITING (founder, 2026-09-17, on the phone): the things a person might tap
+  // instead — the switches, the pills, the text box, the panels — dim and go inert, so the one
+  // moving thing on the page is the indicator. Each section stays live only where its own
+  // indicator lives.
+  const anyBusy = loading || regenning || brazierBusy > 0 || stepBusy;
+  const dim = (on) => (on ? 'opacity-30 pointer-events-none transition-opacity duration-300' : 'transition-opacity duration-300');
+  const dimTop = dim(anyBusy);
+  const dimPills = dim(loading || brazierBusy > 0 || stepBusy);
+  const dimBox = dim(anyBusy);
+  const dimPanels = dim(loading || regenning);
   const activePills = !lastReader ? []
     : fieldMode === 'reflect' ? (lastReader.reflect || []).map((text) => ({ kind: 'reflect', text }))
       : fieldMode === 'forge' ? (lastReader.forge || []).map((text) => ({ kind: 'forge', text }))
@@ -1280,11 +1290,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const hint = mode === 'reflect' ? 'ask the cards a question' : 'declare a move — the cards answer';
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
-        className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
+        className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[0.9375rem] font-medium">
           {mode === 'reflect'
-            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><HoverVideo src="/video/reflect.mp4" className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
-            : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><HoverVideo src="/video/forge.mp4" className="w-full h-full object-cover" /></span>}
+            ? <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-lg" aria-hidden="true"><HoverVideo src="/video/reflect.mp4" className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
+            : <span className="absolute right-0 top-0 h-full w-14 overflow-hidden rounded-r-lg" aria-hidden="true"><HoverVideo src="/video/forge.mp4" className="w-full h-full object-cover" /></span>}
           <span>{label}</span>
         </span>
         <span className="block text-[0.6875rem] opacity-75 mt-0.5 break-words">{hint}</span>
@@ -1606,6 +1616,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <div ref={endRef} />
             </div>
 
+            <div className={dimTop}>
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-5 flex items-stretch gap-2">
               {switchBtn('reflect', 'Reflect', '↩')}
@@ -1614,6 +1625,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <div className="mt-1 flex justify-between text-[0.6875rem]">
               <button onClick={() => setExplain(explain === 'reflect' ? null : 'reflect')} className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">what is Reflect?</button>
               <button onClick={() => setExplain(explain === 'forge' ? null : 'forge')} className="text-zinc-500 hover:text-orange-300 underline decoration-dotted">what is Forge?</button>
+            </div>
             </div>
 
             {explain && (
@@ -1638,6 +1650,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </div>
             )}
 
+            <div className={dimPills}>
             {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
             {activePills.length > 0 && !loading && (
               <div className="mt-3 flex flex-col gap-2">
@@ -1660,6 +1673,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
             )}
 
             {/* Free text always present */}
+            </div>
+            <div className={dimBox}>
             {/* Say sits INSIDE the box, bottom-right, the rainbow word with the chevron — the same
                 treatment as Ask on the front box (founder, 2026-09-16 night) */}
             <div className="mt-4 relative">
@@ -1674,6 +1689,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
+            </div>
+            <div className={dimPanels}>
             {/* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
                 are closed; the one you open takes a full row with its answer and the other drops
                 beneath it on a row of its own. The step's loop sits flush RIGHT, the whys' flush LEFT. */}
@@ -1681,16 +1698,16 @@ Respond with ONLY JSON: {"q": "..."}` }],
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
-                  <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
-                    <span className="font-serif text-[1.1875rem] leading-none text-zinc-200 break-words">Words to the Whys</span>
+                  <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-16 pr-3 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-200 break-words">Words to the Whys</span>
                     <span className="ml-auto">{chev(brazierOpen)}</span>
                   </button>
                 ) : (
-                  <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-4 pr-[64px] py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-xl" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
+                  <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-3 pr-16 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute right-0 top-0 h-full w-14 overflow-hidden rounded-r-xl" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
                     {chev(stepOpen)}
-                    <span className="font-serif text-[1.1875rem] leading-none text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
+                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
                   </button>
                 );
               const body = (kind) => kind === 'brazier'
@@ -1740,6 +1757,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
               ));
             })()}
+            </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
