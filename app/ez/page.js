@@ -356,6 +356,28 @@ const DOORS = [
   { id: 'daily',   house: null,      label: 'My daily reading',   sub: 'let one of these be chosen for me', breath: '' },
 ];
 
+// A loop that plays only while its parent (the button it sits in) is hovered, focused or
+// touched (founder, 2026-09-16 night). Paused it shows its first frame, so it still reads as an icon.
+function HoverVideo({ src, className, style }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const v = ref.current; if (!v) return;
+    const host = v.closest('button') || v.parentElement?.parentElement || v.parentElement;
+    if (!host) return;
+    const play = () => { try { v.play().catch(() => {}); } catch {} };
+    const stop = () => { try { v.pause(); } catch {} };
+    host.addEventListener('mouseenter', play); host.addEventListener('mouseleave', stop);
+    host.addEventListener('focus', play); host.addEventListener('blur', stop);
+    host.addEventListener('touchstart', play, { passive: true }); host.addEventListener('touchend', stop); host.addEventListener('touchcancel', stop);
+    return () => {
+      host.removeEventListener('mouseenter', play); host.removeEventListener('mouseleave', stop);
+      host.removeEventListener('focus', play); host.removeEventListener('blur', stop);
+      host.removeEventListener('touchstart', play); host.removeEventListener('touchend', stop); host.removeEventListener('touchcancel', stop);
+    };
+  }, []);
+  return <video ref={ref} src={src} loop muted playsInline preload="metadata" className={className} style={style} aria-hidden="true" />;
+}
+
 const CHIP_STYLE = {
   answer: 'border-amber-400/60 text-amber-100 bg-amber-950/20 hover:bg-amber-900/30',
   build: 'border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/30',
@@ -1224,8 +1246,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
         className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
           {mode === 'reflect'
-            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><video src="/video/reflect.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
-            : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><video src="/video/forge.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>}
+            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><HoverVideo src="/video/reflect.mp4" className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
+            : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><HoverVideo src="/video/forge.mp4" className="w-full h-full object-cover" /></span>}
           <span>{label}</span>
         </span>
         <span className="block text-[11px] opacity-75 mt-0.5 break-words">{hint}</span>
@@ -1614,7 +1636,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                 {/* the loop fills the header's full height, flush left — the same treatment as Reflect and Forge */}
                 <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
-                  <video src="/video/brazier.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                  <HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" />
                 </span>
                 <span className="font-serif text-[19px] leading-none text-zinc-200">Words to the Whys</span>
                 <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${brazierOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -1647,7 +1669,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             <div className="mt-3 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
               <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                 <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
-                  <video src="/video/step.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                  <HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" />
                 </span>
                 <span className="font-serif text-[19px] leading-none text-zinc-200">{DO_SOMETHING_LABEL}</span>
                 <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${stepOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
