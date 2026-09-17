@@ -216,7 +216,7 @@ const brazierSystem = (ring) => `${BASE_SYSTEM}\n\n${BRAZIER_HARD_RULE}\n\n${BRA
 
 // THE DO-SOMETHING BUTTON (Keel's spec §2). Not a mode. Consults nothing. One small real act,
 // then the Reader goes quiet. The name is a config string — the founder picks.
-const DO_SOMETHING_LABEL = 'one small step'; // founder, 2026-09-16 night (was 'what can I do about this?')
+const DO_SOMETHING_LABEL = 'One small step'; // founder, 2026-09-16 night (was 'what can I do about this?')
 const DO_SOMETHING_HINT = 'one small real thing, in the next minute';
 const doSomethingBlock = (k) => `
 
@@ -1038,6 +1038,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // opening it fetches ONE act for the card in play and shows it inside; nothing enters the
   // transcript. The Reader is told what was handed over (see brazierBlock) so the pills know.
   const [stepOpen, setStepOpen] = useState(false);
+  const [panelFirst, setPanelFirst] = useState('brazier'); // the opened panel takes the first full row; the other drops beneath
   const [stepText, setStepText] = useState('');
   const [stepBusy, setStepBusy] = useState(false);
   const stepKeyRef = useRef('');
@@ -1060,6 +1061,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !stepOpen;
     setStepOpen(next);
     if (next) {
+      if (!brazierOpen) setPanelFirst('step');
       const card = fieldCard();
       const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
       if (key !== stepKeyRef.current || !stepText) { setStepText(''); fetchStep(); }
@@ -1112,6 +1114,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !brazierOpen;
     setBrazierOpen(next);
     if (next) {
+      if (!stepOpen) setPanelFirst('brazier');
       setBrazierGlow(true); setTimeout(() => setBrazierGlow(false), 900);
       const card = fieldCard();
       const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
@@ -1635,62 +1638,71 @@ Respond with ONLY JSON: {"q": "..."}` }],
               </button>
             </div>
 
-            {/* Words to the Whys and one small step live under the text box (founder, 2026-09-16 night) */}
-            {/* THE BRAZIER — "why is this happening?" Collapsed by default; opening it is consent.
-                Beside the conversation, not in it (Keel's spec §1). */}
-            <div className="mt-4 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
-              <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                {/* the loop fills the header's full height, flush left — the same treatment as Reflect and Forge */}
-                <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
-                  <HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" />
-                </span>
-                <span className="font-serif text-[19px] leading-none text-zinc-200">Words to the Whys</span>
-                <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${brazierOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-              </button>
-              {brazierOpen && (
-                <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
-                  {[1, 2, 3].filter((r) => r <= brazierRing && brazier[r]).map((r) => (
-                    <div key={r} className={r > 1 ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
-                      {r === 2 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
-                      {r === 3 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
-                      {ensureParagraphBreaks(brazier[r]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                        <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
-                      ))}
-                      {r === 3 && (
-                        <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
-                      )}
-                    </div>
-                  ))}
-                  {brazierBusy > 0 && <div className="text-xs text-zinc-500 animate-pulse">{brazierBusy === 1 ? 'the brazier is catching…' : 'going deeper…'}</div>}
-                  {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
-                    <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[13px] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
-                      {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* ONE SMALL STEP — the do-something panel: draws nothing, concludes (Keel's spec §2). */}
-            <div className="mt-3 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
-              <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
-                  <HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" />
-                </span>
-                <span className="font-serif text-[19px] leading-none text-zinc-200">{DO_SOMETHING_LABEL}</span>
-                <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${stepOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-              </button>
-              {stepOpen && (
-                <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
-                  <div className="text-[11px] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
-                  {stepBusy && <div className="text-xs text-zinc-500 animate-pulse">finding the step…</div>}
-                  {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                    <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
-                  ))}
-                </div>
-              )}
-            </div>
-
+            {/* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
+                are closed; the one you open takes a full row with its answer and the other drops
+                beneath it on a row of its own. The step's loop sits flush RIGHT, the whys' flush LEFT. */}
+            {(() => {
+              const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
+              const header = (kind) => kind === 'brazier'
+                ? (
+                  <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="font-serif text-[19px] leading-none text-zinc-200 break-words">Words to the Whys</span>
+                    <span className="ml-auto">{chev(brazierOpen)}</span>
+                  </button>
+                ) : (
+                  <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-4 pr-[64px] py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-xl" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
+                    {chev(stepOpen)}
+                    <span className="font-serif text-[19px] leading-none text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
+                  </button>
+                );
+              const body = (kind) => kind === 'brazier'
+                ? (brazierOpen && (
+                  <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
+                    {[1, 2, 3].filter((r) => r <= brazierRing && brazier[r]).map((r) => (
+                      <div key={r} className={r > 1 ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
+                        {r === 2 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
+                        {r === 3 && <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
+                        {ensureParagraphBreaks(brazier[r]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                          <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                        ))}
+                        {r === 3 && (
+                          <p className="mt-3 text-[13px]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
+                        )}
+                      </div>
+                    ))}
+                    {brazierBusy > 0 && <div className="text-xs text-zinc-500 animate-pulse">{brazierBusy === 1 ? 'the brazier is catching…' : 'going deeper…'}</div>}
+                    {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
+                      <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[13px] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
+                        {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
+                      </button>
+                    )}
+                  </div>
+                ))
+                : (stepOpen && (
+                  <div className="px-4 pb-4 text-[15px] leading-relaxed text-zinc-300">
+                    <div className="text-[11px] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
+                    {stepBusy && <div className="text-xs text-zinc-500 animate-pulse">finding the step…</div>}
+                    {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                      <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                    ))}
+                  </div>
+                ));
+              const frame = 'rounded-xl border border-zinc-800/70 bg-zinc-950/40';
+              if (!brazierOpen && !stepOpen) {
+                return (
+                  <div className="mt-4 flex items-stretch gap-2">
+                    <div className={`flex-1 min-w-0 ${frame}`}>{header('brazier')}</div>
+                    <div className={`flex-1 min-w-0 ${frame}`}>{header('step')}</div>
+                  </div>
+                );
+              }
+              const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
+              return order.map((kind, i) => (
+                <div key={kind} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{body(kind)}</div>
+              ));
+            })()}
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
