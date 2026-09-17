@@ -6261,9 +6261,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 >
                   {loading ? 'Reading...' : 'Reveal the Pattern'}
                 </button>
-                <p className="text-center mt-3">
-                  <a href="/" className="text-sm text-amber-400/80 hover:text-amber-300 underline decoration-dotted underline-offset-4">try easy mode instead</a>
-                </p>
 
                 {error && <p className="text-red-400 text-sm text-center mt-4">{error}</p>}
               </div>
@@ -6991,9 +6988,6 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                     </motion.button>
                   )}
                 </div>
-                <p className="text-center mt-3">
-                  <a href="/" className="text-sm text-amber-400/80 hover:text-amber-300 underline decoration-dotted underline-offset-4">try easy mode instead</a>
-                </p>
                 {/* Status label removed — clean minimized state */}
               </div>
 
