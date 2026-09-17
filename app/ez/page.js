@@ -1464,12 +1464,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   placeholder={nudge ? '' : "What's on your mind? Ask it the way you would say it out loud."}
                   style={nudge ? undefined : { animationDuration: '16s' }}
                   className={`${nudge ? 'animate-border-rainbow-fast' : 'animate-border-rainbow'} block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
-                {nudge && (
-                  <div className="pointer-events-none absolute left-4 right-4 top-4 text-[15px] leading-snug text-amber-200/95">
-                    Say what you'd like to talk about — or tap <span className="font-medium text-amber-300">Areas</span> below and pick one.
-                  </div>
-                )}
               </div>
+              {/* the line sits INSIDE the box — it lives outside the content-pane wrapper because a direct
+                  child of a content-pane is forced into normal flow (the Ask-button trap, 2026-09-16) */}
+              {nudge && (
+                <div className="pointer-events-none absolute left-4 right-4 top-4 z-10 text-[15px] leading-snug text-amber-200/95">
+                  Say what you'd like to talk about — or tap <span className="font-medium text-amber-300">Areas</span> below and pick one.
+                </div>
+              )}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Ask'}</span>
