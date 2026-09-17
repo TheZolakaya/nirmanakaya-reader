@@ -1521,17 +1521,17 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             <div className="grid grid-cols-3 items-center text-[0.8125rem]">
               <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
-                className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Past readings</button>
+                className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
               <button onClick={() => setAreasOpen(!areasOpen)}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
-                not sure what to ask?
+                Unsure
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {user && hasHistory ? (
                 <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
                   <button onClick={() => { setAreasOpen(false); setShowPast(false); suggestFromHistory(); }} disabled={suggesting}
                     className="text-center hover:text-violet-200 transition-colors disabled:opacity-50">
-                    {suggesting ? 'Reading your history…' : suggested ? 'Another from my readings' : 'From my readings'}
+                    {suggesting ? 'Reading your history…' : suggested ? 'Another' : 'Personalized'}
                   </button>
                   {suggested && !suggesting && (
                     <button onClick={() => setSuggestOpen(!suggestOpen)} title={suggestOpen ? 'fold it away' : 'show it again'}
