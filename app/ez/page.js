@@ -389,10 +389,19 @@ function HoverVideo({ src, className, style }) {
 // the rainbow that cycles like Say it. Not for the landing flight; for everywhere else we wait on
 // the Reader. (ANIM-18.)
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
-function Writing({ label = 'the Reader is writing…', size = 160, className = '' }) {
+function Writing({ label = 'the Reader is writing…', size = 160, className = '', scroll = true }) {
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
+  const ref = useRef(null);
+  // it was appearing half off the bottom of a phone screen (founder, 2026-09-17): bring it to the top
+  useEffect(() => {
+    if (!scroll) return;
+    const t = setTimeout(() => {
+      try { const el = ref.current; if (!el) return; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); } catch {}
+    }, 60);
+    return () => clearTimeout(t);
+  }, [scroll]);
   return (
-    <div className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
+    <div ref={ref} className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
       <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
         <video src={src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
       </span>
@@ -1091,6 +1100,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
+      regenPills({ step: String(obj.reader || '').trim() }); // the pills under the commentary now know the step
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setStepBusy(false);
@@ -1112,11 +1122,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // WHAT THEY HAVE READ ABOUT WHY — handed to the Reader as background (founder, 2026-09-16
   // night), so the next turn and its pills build on where the person's understanding actually
   // is instead of repeating the tense line back to them. Background, never subject; never quoted.
-  const brazierBlock = () => {
-    const read = [1, 2, 3].filter((r) => brazier[r]);
-    const step = stepText ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${stepText}` : '';
+  const brazierBlock = (over = {}) => {
+    const rings = over.rings || brazier;
+    const st = over.step !== undefined ? over.step : stepText;
+    const read = [1, 2, 3].filter((r) => rings[r]);
+    const step = st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '';
     if (!read.length) return step;
-    return `${step}\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => brazier[r]).join('\n\n')}`;
+    return `${step}\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => rings[r]).join('\n\n')}`;
   };
   const [brazierRing, setBrazierRing] = useState(1);   // how deep the person has gone
   const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
@@ -1145,6 +1157,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       }
       setBrazier((b) => ({ ...b, [ring]: obj.text.trim() }));
       setBrazierRing(ring);
+      regenPills({ rings: { ...brazier, [ring]: obj.text.trim() } }); // the pills under the commentary now know what was read
     } catch (e) { setError(e.message); }
     setBrazierBusy(0);
   };
@@ -1165,14 +1178,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // forges) should be regenerable. One call rewrites all three sets for the last reader turn,
   // told what it already offered so it takes a different angle; the turn's text is untouched.
   const [regenning, setRegenning] = useState(false);
-  const regenPills = async () => {
+  const regenPills = async (over = {}) => {
     if (loading || regenning || !lastReader || !draws) return;
     setRegenning(true); setError('');
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
       const seen = [...prior.chips.map((c) => c.text), ...prior.reflect, ...prior.forge].filter(Boolean);
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock()}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, a stair if one is obvious, and a locate chip for anything the turn left unnamed — FIND IT), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock(over)}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, a stair if one is obvious, and a locate chip for anything the turn left unnamed — FIND IT), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
       // callReader insists on a non-empty "reader"; this call has none, so it goes raw, with one retry
       let data = await rawCall(msg, systemPrompt, 900);
       let obj = parseJson(data.reading);
@@ -1617,7 +1630,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   )}
                 </div>
               ))}
-              {loading && <Writing />}
+              {loading && <Writing scroll={!animating} />}
               {error && <div className="text-xs text-red-400 pl-2 break-words">{error}</div>}
               <div ref={endRef} />
             </div>
@@ -1669,8 +1682,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="flex-1 min-w-0 break-words">{c.text}</span>
                   </button>
                 ))}
-                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding other options…" /> : (
-                  <button onClick={regenPills}
+                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding other options…" scroll={false} /> : (
+                  <button onClick={() => regenPills()}
                     className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
                     ↻ Other options
                   </button>
