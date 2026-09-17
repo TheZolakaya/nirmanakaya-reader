@@ -1140,7 +1140,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
           {mode === 'reflect'
             ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><video src="/video/reflect.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>
-            : <span>{glyph}</span>}
+            : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><video src="/video/forge.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>}
           <span>{label}</span>
         </span>
         <span className="block text-[11px] opacity-75 mt-0.5 break-words">{hint}</span>
