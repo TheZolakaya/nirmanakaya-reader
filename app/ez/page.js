@@ -419,7 +419,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
           <div data-slot="stack" className="relative shrink-0 w-[217px] h-[196px] sm:w-[287px] sm:h-[252px] mt-6">
             <img src={getCardImagePath(draw.position)} alt={seat || ''}
-              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)] ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
+              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 glow-pulse ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
               style={{ '--glow': houseGlow(draw.position) }}
               onMouseLeave={() => setDurableFront(false)}
               onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
@@ -429,7 +429,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
               <div className="absolute z-30 left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] w-[140px] sm:w-[185px] bottom-0 cursor-pointer"
                 onMouseEnter={() => setDurableFront(true)} onClick={() => setDurableFront(true)} title={seat ? `in ${seat}` : ''} />
             )}
-            <div style={{ '--glow': houseGlow(home) }} className="absolute left-0 top-0 z-10 rounded-lg transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow)]">
+            <div style={{ '--glow': houseGlow(home) }} className="absolute left-0 top-0 z-10 rounded-lg transition-shadow duration-200 glow-pulse">
               <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
                 size="compact" showFrame={true}
                 className="!w-[140px] sm:!w-[185px]"
@@ -465,7 +465,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
 
         <button data-slot="minimap" onClick={() => setMapOpen(true)}
           title="the geometry of this draw — tap to expand"
-          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_0_20px_rgba(107,77,138,0.1)] hover:shadow-[0_0_0_2px_var(--glow),0_0_18px_4px_var(--glow),inset_0_0_20px_rgba(107,77,138,0.1)]"
+          className="ez-minimap w-[140px] h-[140px] sm:w-[185px] sm:h-[185px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_0_20px_rgba(107,77,138,0.1)] glow-pulse-map"
           style={{
             '--glow': HOUSE_GLOW.Gestalt,
             background: 'rgba(13, 13, 26, 0.85)',

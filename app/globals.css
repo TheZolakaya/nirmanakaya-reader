@@ -770,3 +770,17 @@ textarea.user-input-area::placeholder {
 }
 .pill-breathe:hover:not(:disabled), .pill-breathe:focus-visible, .pill-breathe:focus-within { animation: pill-breathe 1.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .pill-breathe:hover { animation: none; } }
+
+
+/* HOUSE-COLOUR HOVER GLOW that pulses softly (founder, 2026-09-16 night). --glow is the house tint. */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--glow) 45%, transparent), 0 0 10px 2px color-mix(in srgb, var(--glow) 20%, transparent); }
+  50% { box-shadow: 0 0 0 2px var(--glow), 0 0 22px 6px color-mix(in srgb, var(--glow) 60%, transparent); }
+}
+@keyframes glow-pulse-map {
+  0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--glow) 45%, transparent), 0 0 10px 2px color-mix(in srgb, var(--glow) 20%, transparent), inset 0 0 20px rgba(107,77,138,0.1); }
+  50% { box-shadow: 0 0 0 2px var(--glow), 0 0 22px 6px color-mix(in srgb, var(--glow) 60%, transparent), inset 0 0 20px rgba(107,77,138,0.1); }
+}
+.glow-pulse:hover { animation: glow-pulse 2.2s ease-in-out infinite; }
+.glow-pulse-map:hover { animation: glow-pulse-map 2.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .glow-pulse:hover, .glow-pulse-map:hover { animation: none; box-shadow: 0 0 0 2px var(--glow); } }
