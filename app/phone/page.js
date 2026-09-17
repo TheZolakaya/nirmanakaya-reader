@@ -33,6 +33,16 @@ const ShareGlyph = () => (
     <path d="M12 3v12" /><path d="M8 7l4-4 4 4" /><path d="M5 11v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9" />
   </svg>
 );
+const DotsGlyph = () => (
+  <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor" aria-hidden="true">
+    <circle cx="6" cy="12" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="18" cy="12" r="1.7" />
+  </svg>
+);
+const ChevronDown = () => (
+  <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" /><path d="M8 10.5l4 4 4-4" />
+  </svg>
+);
 const PlusSquare = () => (
   <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <rect x="4" y="4" width="16" height="16" rx="3" /><path d="M12 8v8" /><path d="M8 12h8" />
@@ -98,8 +108,10 @@ export default function PhonePage() {
         {(d.kind === 'ios-safari' || d.kind === 'ios-other' || d.kind === 'unknown') && (
           <ol className="space-y-5">
             <Step n="1">You're on this page in Safari. Good — that's the only browser Apple lets do this.</Step>
-            <Step n="2" icon={<ShareGlyph />}>Tap the share button — the square with the arrow, at the bottom of the screen (on an iPad, at the top).</Step>
-            <Step n="3" icon={<PlusSquare />}>Scroll the sheet down a little and tap <span className="text-zinc-100 font-medium">Add to Home Screen</span>, then <span className="text-zinc-100 font-medium">Add</span>.</Step>
+            <Step n="2" icon={<DotsGlyph />}>At the bottom, tap the three dots beside the web address. (If your iPhone shows a share arrow there instead, tap that and skip to step 4.)</Step>
+            <Step n="3" icon={<ShareGlyph />}>Tap <span className="text-zinc-100 font-medium">Share</span>.</Step>
+            <Step n="4" icon={<ChevronDown />}>If you don't see <span className="text-zinc-100 font-medium">Add to Home Screen</span> yet, tap <span className="text-zinc-100 font-medium">View More</span>.</Step>
+            <Step n="5" icon={<PlusSquare />}>Tap <span className="text-zinc-100 font-medium">Add to Home Screen</span>, then <span className="text-zinc-100 font-medium">Add</span>. Done — it's on your home screen.</Step>
           </ol>
         )}
 
