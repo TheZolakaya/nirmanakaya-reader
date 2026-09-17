@@ -23,7 +23,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionTe
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
-import { STARTER_KINDS, DOOR_SUBS, STARTERS, allStartersFor } from '../../lib/starters';
+import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
@@ -366,6 +366,24 @@ function medicineFor(draws) {
 // The open field stays: the fluent keep their blank page, the pills carry everyone else.
 // Renamed by the founder 2026-09-15 (morning): the houses in a person's own words, plus a
 // sixth door where the cards choose — a daily reading with no question brought.
+// "LET ONE BE CHOSEN FOR ME" — a house and one of its open sentences, with a memory, so the
+// daily does not hand back yesterday's line or the same room two mornings running (Keel, 2026-09-17:
+// "a random table with no memory will hand somebody 'What am I here for?' three days in a row and
+// the daily stops feeling like a draw"). The pool is fenced in lib/starters.js.
+const DAILY_KEY = 'nirmanakaya_daily_last';
+const pickDaily = (doors) => {
+  let last = {};
+  try { last = JSON.parse(localStorage.getItem(DAILY_KEY) || '{}') || {}; } catch {}
+  const houses = doors.slice(0, 5);
+  const rooms = houses.filter((d) => d.id !== last.area);
+  const house = (rooms.length ? rooms : houses)[Math.floor(Math.random() * (rooms.length ? rooms.length : houses.length))];
+  const pool = dailyPoolFor(house.id);
+  const fresh = pool.filter((t) => t !== last.text);
+  const text = (fresh.length ? fresh : pool)[Math.floor(Math.random() * (fresh.length ? fresh.length : pool.length))] || '';
+  try { localStorage.setItem(DAILY_KEY, JSON.stringify({ area: house.id, text })); } catch {}
+  return { door: { ...house, viaDaily: true }, text };
+};
+
 const DOORS = [
   { id: 'spirit',  house: 'Spirit',  label: 'Passions & beliefs', sub: DOOR_SUBS.spirit, breath: 'Your passions and your beliefs — what moves you, and what you hold to be true.' },
   { id: 'mind',    house: 'Mind',    label: 'Peace of mind',      sub: DOOR_SUBS.mind, breath: 'Your peace of mind — what your head keeps turning over.' },
@@ -1591,11 +1609,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 return (
                   <button key={d.id} onClick={() => {
                       // "My daily reading" chooses one of the five houses for them, at random
-                      // "Let one be chosen for me" picks a house AND one of its sentences at
-                      // random, the deep ones included (founder, 2026-09-17)
-                      const pick = d.id === 'daily' ? { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true } : d;
-                      const pool = pick.viaDaily ? allStartersFor(pick.id) : [];
-                      setDoor(pick); setQuestion(pool.length ? pool[Math.floor(Math.random() * pool.length)] : ''); setError(''); setBiggerOpen(false);
+                      // "Let one be chosen for me": a house and one of its open sentences, never
+                      // yesterday's (pickDaily); a chosen door brings no sentence of its own
+                      const daily = d.id === 'daily' ? pickDaily(DOORS) : null;
+                      setDoor(daily ? daily.door : d); setQuestion(daily ? daily.text : ''); setError(''); setBiggerOpen(false);
                     }}
                     className={`text-center rounded-xl border px-3 py-2.5 transition-colors break-words hover:brightness-125 ${className}`}
                     style={{ borderColor: c + '99', background: c + '26', animation: 'border-rainbow 3s ease-in-out infinite', animationDelay: `-${delay}ms` }}>
@@ -1616,7 +1633,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <Door d={byId.spirit} delay={720} />
                   {/* the five doors are the five aspects of self; the random choice is a link, not a sixth door */}
                   <div className="col-span-2 text-center pt-1">
-                    <button onClick={() => { const pick = { ...DOORS[Math.floor(Math.random() * 5)], viaDaily: true }; const pool = allStartersFor(pick.id); setDoor(pick); setQuestion(pool.length ? pool[Math.floor(Math.random() * pool.length)] : ''); setError(''); setBiggerOpen(false); }}
+                    <button onClick={() => { const daily = pickDaily(DOORS); setDoor(daily.door); setQuestion(daily.text); setError(''); setBiggerOpen(false); }}
                       className="text-sm text-amber-400/80 hover:text-amber-300 underline decoration-dotted underline-offset-4">
                       or let one be chosen for me — my daily reading
                     </button>
