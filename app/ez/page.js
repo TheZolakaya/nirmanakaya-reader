@@ -1215,7 +1215,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
         className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border px-3 py-2.5 transition-colors disabled:opacity-40 ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[15px] font-medium">
           {mode === 'reflect'
-            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><video src="/video/reflect.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>
+            ? <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-lg" aria-hidden="true"><video src="/video/reflect.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
             : <span className="absolute right-0 top-0 h-full aspect-square overflow-hidden rounded-r-lg" aria-hidden="true"><video src="/video/forge.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" /></span>}
           <span>{label}</span>
         </span>
