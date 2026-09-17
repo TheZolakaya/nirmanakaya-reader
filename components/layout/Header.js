@@ -49,15 +49,16 @@ export default function Header({ hasActivity = false }) {
           Nirmanakaya
         </Link>
 
-        {/* ON YOUR PHONE — the web-app install page (founder, 2026-09-17); gone once installed */}
-        {!installed && (
+        {/* ON YOUR PHONE — the web-app install page (founder, 2026-09-17). It stays visible once
+            installed, because that page is also how a person hands the app to someone else. */}
+        {(
           <Link
             href="/phone"
             className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
               isPhoneActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
             }`}
           >
-            On your phone
+            {installed ? 'Share the app' : 'On your phone'}
           </Link>
         )}
 
