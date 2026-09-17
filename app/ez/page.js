@@ -1540,9 +1540,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {/* THE BRAZIER — "why is this happening?" Collapsed by default; opening it is consent.
                 Beside the conversation, not in it (Keel's spec §1). */}
             <div className="mt-5 rounded-xl border border-zinc-800/70 bg-zinc-950/40">
-              <button onClick={toggleBrazier} className="w-full flex items-center gap-3 px-4 py-3 text-left">
-                <span className={`brazier-ember ${brazierGlow ? 'brazier-ember-open' : ''}`}>
-                  <video src="/video/brazier.mp4" autoPlay loop muted playsInline aria-hidden="true" />
+              <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-[64px] pr-4 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                {/* the loop fills the header's full height, flush left — the same treatment as Reflect and Forge */}
+                <span className="absolute left-0 top-0 h-full aspect-square overflow-hidden rounded-l-xl" aria-hidden="true">
+                  <video src="/video/brazier.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 </span>
                 <span className="font-serif text-[19px] leading-none text-zinc-200">why is this happening?</span>
                 <svg className={`ml-auto w-4 h-4 text-zinc-500 transition-transform ${brazierOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
