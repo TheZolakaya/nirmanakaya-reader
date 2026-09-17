@@ -399,6 +399,7 @@ const CHIP_RGB = { answer: '251 191 36', build: '52 211 153', pushback: '251 146
 // seat) through the same MinimapModal the full reader uses — not the card alone.
 function CardWithMap({ draw, onInfo, label, stacked = false }) {
   const [mapOpen, setMapOpen] = useState(false);
+  const [durableFront, setDurableFront] = useState(false); // hover or tap brings the durable to the front of the stack (founder, 2026-09-16 night)
   if (!draw) return null;
   const trans = getComponent(draw.transient);
   const home = getHomeArchetype(draw.transient);
@@ -415,9 +416,16 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
           // flight's [data-slot="stack"] target, sized so the clones land on these very cards.
           <div data-slot="stack" className="relative shrink-0 w-[217px] h-[196px] sm:w-[287px] sm:h-[252px] mt-6">
             <img src={getCardImagePath(draw.position)} alt={seat || ''}
-              className="absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer"
+              className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-transform duration-200 ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
+              onMouseLeave={() => setDurableFront(false)}
               onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
-            <div className="absolute left-0 top-0">
+            {/* the durable's reachable edge was under the transient's box; this hit area sits above both:
+                hover (or a first tap) brings the durable to the front, where its own click opens it */}
+            {!durableFront && (
+              <div className="absolute z-30 left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] w-[140px] sm:w-[185px] bottom-0 cursor-pointer"
+                onMouseEnter={() => setDurableFront(true)} onClick={() => setDurableFront(true)} title={seat ? `in ${seat}` : ''} />
+            )}
+            <div className="absolute left-0 top-0 z-10">
               <CardImage transient={draw.transient} status={draw.status} cardName={trans?.name}
                 size="compact" showFrame={true}
                 className="!w-[140px] sm:!w-[185px]"
