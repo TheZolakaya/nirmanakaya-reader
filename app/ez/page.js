@@ -366,6 +366,12 @@ function HoverVideo({ src, className, style }) {
     if (!host) return;
     const play = () => { try { v.play().catch(() => {}); } catch {} };
     const stop = () => { try { v.pause(); } catch {} };
+    // PRIME THE FIRST FRAME: a paused video that has never played paints nothing on many phones
+    // (blank until tapped — founder, 2026-09-17). A silent play-then-pause as soon as data arrives
+    // leaves the first frame on screen.
+    let primed = false;
+    const prime = () => { if (primed) return; primed = true; try { const pr = v.play(); if (pr && pr.then) pr.then(() => { if (!host.matches(':hover')) v.pause(); }).catch(() => {}); } catch {} };
+    if (v.readyState >= 2) prime(); else v.addEventListener('loadeddata', prime, { once: true });
     host.addEventListener('mouseenter', play); host.addEventListener('mouseleave', stop);
     host.addEventListener('focus', play); host.addEventListener('blur', stop);
     host.addEventListener('touchstart', play, { passive: true }); host.addEventListener('touchend', stop); host.addEventListener('touchcancel', stop);
@@ -375,7 +381,7 @@ function HoverVideo({ src, className, style }) {
       host.removeEventListener('touchstart', play); host.removeEventListener('touchend', stop); host.removeEventListener('touchcancel', stop);
     };
   }, []);
-  return <video ref={ref} src={src} loop muted playsInline preload="metadata" className={className} style={style} aria-hidden="true" />;
+  return <video ref={ref} src={src} loop muted playsInline preload="auto" className={className} style={style} aria-hidden="true" />;
 }
 
 // THE READER IS WRITING — the one waiting indicator for every small wait (founder, 2026-09-17,
