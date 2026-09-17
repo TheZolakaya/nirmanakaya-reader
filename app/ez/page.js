@@ -1689,8 +1689,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     ))}
                   </div>
                 ));
-              const frame = 'pill-breathe rounded-xl border border-zinc-800/70 bg-zinc-950/40';
-              const glow = { '--pill': '253 224 171' };
+              const frame = 'pill-breathe rounded-xl border bg-zinc-950/40';
+              const glow = { '--pill': '139 92 246', borderColor: '#4c1d95' }; // dark purple at rest; breathes violet on hover
               if (!brazierOpen && !stepOpen) {
                 return (
                   <div className="mt-4 flex items-stretch gap-2">
