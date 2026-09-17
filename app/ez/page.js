@@ -393,13 +393,17 @@ function Writing({ label = 'the Reader is writing…', size = 160, className = '
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
   const ref = useRef(null);
   // it was appearing half off the bottom of a phone screen (founder, 2026-09-17): bring it to the top
+  // ONCE, when it first appears — never again when the prop flips (a flight ending flipped it and
+  // the scroll yanked the view to the bottom just as the words arrived — founder, 2026-09-17)
+  const scrollOnce = useRef(scroll);
   useEffect(() => {
-    if (!scroll) return;
+    if (!scrollOnce.current) return;
     const t = setTimeout(() => {
       try { const el = ref.current; if (!el) return; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); } catch {}
     }, 60);
     return () => clearTimeout(t);
-  }, [scroll]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div ref={ref} className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
       <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
