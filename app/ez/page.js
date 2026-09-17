@@ -114,6 +114,7 @@ THE MEDICINE — never omit it. Every imbalanced card carries a correction path,
 - Then fill "medicine" with one or two sentences on what that path actually asks, here, in this seat. Name the correction card by its canonical name. Say what the move IS in ordinary words, not what it symbolises.
 - The medicine always speaks from the correction card's balanced face. It opens, restores, releases, invites. It never orders, demands, prescribes, or promises an outcome, and it never diagnoses the person.
 - If every card is Balanced, "medicine" carries the growth opportunity instead: what this balance is free to feed next.
+- THE MEDICINE CARD'S NAME IS NOT ITS MEANING. Reverie, Immersion, Completion, Activation are names on this map; each means exactly what THE MEDICINE CARD, FROM THE RECORD says beneath the draw, and never what the English word suggests. (Reverie is the heart at rest and connected, not daydreaming.) If the record's meaning and the word's everyday sense disagree, the record wins, every time.
 - On a TALKING turn (no new card drawn), "medicine" is EMPTY. The person has already read it; repeating it every turn is noise. Fill it only when the conversation has genuinely moved the ground under it, and then in one sentence — what has changed about the path, not the path again.
 - On a turn where a NEW CARD IS DRAWN (a reflect or a forge), the medicine is ALWAYS that new card’s own medicine, rewritten from the Rebalancer supplied with it. Never carry the earlier reading’s medicine into it. If the new card is Balanced, the medicine carries its growth opportunity, using the target named in its own data and never an invented one.
 - THE DRAW BOUNDARY: the most recently drawn card's medicine LEADS every turn after it until another card is drawn. The opening reading stays on the table, but its medicine may be mentioned only as secondary, never as "the way through" or "the path". The field is allowed to change the subject; when it does, follow it.
@@ -303,6 +304,24 @@ const MECHANISM = {
   3: 'VERTICAL (Too Little): the seat is starved; the medicine is to charge its vertical twin — energy into the twin\'s own action, and the current pulls through the empty seat. Never push effort or feeling into the empty seat directly.',
   4: 'REDUCTION (Unacknowledged): authorship misattributed; the medicine returns toward the simpler, earlier form of the same line.',
 };
+// THE MEDICINE CARD, FROM THE RECORD — what the partner actually means, so the Reader never
+// reads its name as an English word (the founder caught Reverie rendered as daydreaming,
+// 2026-09-17; the record says Compassion through Water — the heart at rest and connected).
+function medicineRecord(d) {
+  if (!d) return '';
+  const m = medicineFor([d])[0];
+  if (!m || m.toId == null) return '';
+  const c = getComponent(m.toId) || {};
+  const def = DEFS?.signatures?.[m.toId] || null;
+  const parent = def?.associatedArchetypeName ? ` (${def.associatedArchetypeName} through ${def.channel || def.house || ''}, ${c.traditional || ''})`.replace(', )', ')') : (c.traditional ? ` (${c.traditional})` : '');
+  return [
+    `THE MEDICINE CARD, FROM THE RECORD: ${m.to}${parent}`,
+    c.description ? `  what it is: ${c.description}` : null,
+    c.extended ? `  more: ${String(c.extended).split(/(?<=\.)\s/).slice(0, 2).join(' ')}` : null,
+    def?.states?.balanced ? `  its balanced face (the face the medicine speaks from): ${def.states.balanced}` : null,
+  ].filter(Boolean).join('\n');
+}
+
 function drawBrief(d) {
   if (!d) return '';
   const t = getComponent(d.transient);
@@ -316,6 +335,7 @@ function drawBrief(d) {
     m ? `  Rebalancer: ${m.to}${m.path ? ` — ${m.path}` : ''}` : '  Rebalancer: none (self)',
     m ? `  mechanism: ${MECHANISM[d.status] || ''}` : null,
     m && getComponent(m.toId)?.description ? `  what ${m.to} is about: ${getComponent(m.toId).description}` : null,
+    m && DEFS?.signatures?.[m.toId]?.states?.balanced ? `  ${m.to}'s balanced face (the face the medicine speaks from): ${DEFS.signatures[m.toId].states.balanced}` : null,
   ].filter(Boolean);
   return lines.join('\n');
 }
@@ -968,7 +988,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const doorBlock = door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const record = medicineRecord(newDraws[0]);
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}${record ? `\n\n${record}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
