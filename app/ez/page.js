@@ -318,8 +318,7 @@ const dragonBlock = (k) => `
 
 FACE THE DRAGON. The person tapped this by name; that tap is their consent, and fierceness is licensed by it — never softened because you guess at their state. Name THE THING in front of them, said straight: the problem they have been walking around, OR the opportunity they have been pretending not to see (half of all dragons are gifts nobody picked up). Not the next step — the ROOM.
 RAILS: (1) It names the THING, never the person. "The thing you've been walking around is that this job ended two years ago and you're still going in" is the dragon; "you're a coward" is not. Fierce about the situation; never a verdict on the being. (2) It still ends in the person's hands: close on an act that is theirs — larger than the small thing, but theirs to take or leave. A dragon named without a door out of the room is a wound, not a reading. (3) DERIVED, as everything: the dragon traces to this card, this seat, this status and the partner (${k.partner || 'the medicine card'}: ${k.partnerDescription || 'its own balanced face'}); if the named dragon would be true of any card, it is a horoscope with a scary voice — cut it. (4) THE PICTURE IS ALLOWED and here it earns its keep: the tower falling, the swords on the wall, the wheel that turns without asking. (5) Tense-language, never diagnosis-language: "you've been living in a future that can't be written in" is fierce and lawful; "your anxiety" is not. (6) Kitchen words; no card, seat or status names; no architecture vocabulary.
-Under 150 words. Open on the thing ("The thing you're not saying:" / "The thing you're walking around:" or your own straight opening). NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card.
-${DRAGON_STANDARD}
+Under 150 words. Open on the thing ("The thing you're not saying:" / "The thing you're walking around:" or your own straight opening). NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card. Match the register and mechanism of THE FROZEN STANDARD given in your instructions; never copy its sentences.
 Respond with ONLY JSON: {"reader": "<the dragon>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
 
 const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 220 words, plain words, no framework vocabulary, no question at the end, nothing new introduced.
@@ -880,6 +879,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [ledger, setLedger] = useState([]);
   const [ledgerOpen, setLedgerOpen] = useState(false);
   const purposeOf = (m) => {
+    if (/YOUR LAST RENDER WAS \d+ WORDS/.test(m)) { const g = m.match(/Write the (\w+) floor/); return `${g ? 'the ' + g[1] : 'why (ring 1)'} (rewrite)`; }
     if (/NOT VALID JSON/.test(m)) return 'retry';
     if (/Write ring 1\. JSON only\./.test(m)) return 'why (ring 1)';
     const f = m.match(/Write the (meaning|moon|mechanism) floor\. JSON only\./); if (f) return `the ${f[1]}`;
@@ -1315,7 +1315,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
       let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
-      const { obj } = await callReader(msg, systemPrompt, 600);
+      // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
+      // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
+      const { obj } = await callReader(msg, `${systemPrompt}
+
+${DRAGON_STANDARD}`, 600);
       setDragonText(String(obj.reader || '').trim());
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1380,9 +1384,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
       if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor), 800); obj = parseJson(data.reading); }
       if (!obj?.text) throw new Error('The brazier went out — try again.');
       // the word limits are hard (ring 1 is 90–135 per Keel's spec; the floors 170 / 170 / 240)
-      const LIMIT = { 1: 135, meaning: 170, moon: 170, mechanism: 240 }[floor];
+      // .448: a 15% overrun is accepted — the ledger showed the moon and the mechanism each
+      // paying for a whole second call to trim ~40 words, and the mechanism's rewrite still ran
+      // long. The mechanism (three paragraphs of derivation) gets a cap it can actually meet.
+      const LIMIT = { 1: 135, meaning: 170, moon: 170, mechanism: 300 }[floor];
       const words = (t) => String(t).split(/\s+/).filter(Boolean).length;
-      if (words(obj.text) > LIMIT) {
+      if (words(obj.text) > LIMIT * 1.15) {
         data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor), 800);
         const again = parseJson(data.reading);
         if (again?.text && words(again.text) <= words(obj.text)) obj = again;
