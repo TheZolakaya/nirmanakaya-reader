@@ -112,6 +112,23 @@ export default function BakeoffPage() {
       loadTally(run.lane);
     } catch (e) { setError(e.message); setPick(null); }
   };
+  // CAN'T DECIDE / BOTH (founder, 2026-09-19): a tie is a vote too — recorded as pick 'tie', counted
+  // against every lane shown, never as a pick for any of them. Not choosing is data.
+  const chooseTie = async () => {
+    if (voted || busy) return;
+    setPick('tie');
+    try {
+      await api('/api/bakeoff/votes', { method: 'POST', body: JSON.stringify({
+        lane: run.lane, preset: run.preset, question: run.question, draw: run.draw,
+        lanes: run.lanes, pick: 'tie', pickLetter: null,
+        tags: tagsByLane(), note, cost_visible: costBefore || revealed,
+        shared_opening: run.opening ? { usage: run.opening.usage, cost: run.opening.cost } : null,
+      }) });
+      setVoted(true); setRevealed(true);
+      setSession((s) => ({ ...s, picks: { ...s.picks, 'both (tie)': (s.picks['both (tie)'] || 0) + 1 } }));
+      loadTally(run.lane);
+    } catch (e) { setError(e.message); setPick(null); }
+  };
 
   const markdown = () => {
     if (!run) return '';
@@ -130,7 +147,7 @@ export default function BakeoffPage() {
       } else L.push('```', R.text, '```', '');
     }
     const tl = tagsByLane();
-    L.push('## The judgment', '', pick ? `Pick: **${run.lanes.find((x) => x.key === pick)?.label}** (${run.lanes.find((x) => x.key === pick)?.letter})` : 'No pick recorded.', ...run.lanes.filter((R) => tl[R.key]?.length).map((R) => `Tags on ${R.letter} (${R.label}): ${tl[R.key].join(', ')}`), note ? `Note: ${note}` : '', '');
+    L.push('## The judgment', '', pick === 'tie' ? 'Pick: **both — could not decide** (a tie, counted against every lane shown)' : pick ? `Pick: **${run.lanes.find((x) => x.key === pick)?.label}** (${run.lanes.find((x) => x.key === pick)?.letter})` : 'No pick recorded.', ...run.lanes.filter((R) => tl[R.key]?.length).map((R) => `Tags on ${R.letter} (${R.label}): ${tl[R.key].join(', ')}`), note ? `Note: ${note}` : '', '');
     if (run.lane === 'prompt') for (const R of run.lanes) if (R.key !== 'live') { const v = variants.find((x) => x.id === R.key); if (v) L.push(`## Variant text — ${v.name} (${v.target})`, '', '```', v.text, '```', ''); }
     return L.join('\n');
   };
@@ -180,8 +197,8 @@ export default function BakeoffPage() {
         <div className="text-zinc-500">TALLY · {lane} lane · all-time {tally?.all?.total ?? 0} votes ({tally?.all?.judges?.length ?? 0} judge{(tally?.all?.judges?.length ?? 0) === 1 ? '' : 's'}) · mine {tally?.mine?.total ?? 0} · this session {Object.values(session.picks).reduce((a, b) => a + b, 0)}
           {tally?.all?.total < 20 && <span className="text-amber-400"> · TOO SMALL to conclude anything (twenty per preset, across the four statuses)</span>}</div>
         {tallyRows.length ? (
-          <div className="overflow-x-auto"><table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">lane</th><th className="pr-3">picks</th><th className="pr-3">blind / cost shown</th><th className="pr-3">shown</th><th className="pr-3">avg words</th><th className="pr-3">B/TM/TL/UA</th><th className="pr-3">mine</th><th>tags</th></tr></thead>
-            <tbody>{tallyRows.map(([k, t]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td><td className="pr-3">{t.picks}</td><td className="pr-3">{t.picksBlind} / {t.picksCostVisible}</td><td className="pr-3">{t.shown}</td><td className="pr-3">{t.avgWords}</td><td className="pr-3">{t.statuses[1]}/{t.statuses[2]}/{t.statuses[3]}/{t.statuses[4]}</td><td className="pr-3">{tally.mine.per[k]?.picks || 0}</td><td className="text-zinc-400">{Object.entries(t.tags).map(([g, n]) => `${g} ${n}`).join(' · ')}</td></tr>)}</tbody></table></div>
+          <div className="overflow-x-auto"><table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">lane</th><th className="pr-3">picks</th><th className="pr-3">ties</th><th className="pr-3">blind / cost shown</th><th className="pr-3">shown</th><th className="pr-3">avg words</th><th className="pr-3">B/TM/TL/UA</th><th className="pr-3">mine</th><th>tags</th></tr></thead>
+            <tbody>{tallyRows.map(([k, t]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td><td className="pr-3">{t.picks}</td><td className="pr-3">{t.ties || 0}</td><td className="pr-3">{t.picksBlind} / {t.picksCostVisible}</td><td className="pr-3">{t.shown}</td><td className="pr-3">{t.avgWords}</td><td className="pr-3">{t.statuses[1]}/{t.statuses[2]}/{t.statuses[3]}/{t.statuses[4]}</td><td className="pr-3">{tally.mine.per[k]?.picks || 0}</td><td className="text-zinc-400">{Object.entries(t.tags).map(([g, n]) => `${g} ${n}`).join(' · ')}</td></tr>)}</tbody></table></div>
         ) : <div className="text-zinc-600">no votes yet in this lane</div>}
         {tally?.all?.perPreset && <div className="text-zinc-600">per preset: {Object.entries(tally.all.perPreset).map(([p, n]) => `${p} ${n}`).join(' · ')}</div>}
       </section>
@@ -289,6 +306,7 @@ export default function BakeoffPage() {
 
           <div className="flex flex-wrap gap-3 items-center">
             <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="a note with the vote (optional; goes in the export)" className="flex-1 min-w-[16rem] bg-zinc-900 border border-zinc-700 rounded px-2 py-1" />
+            {!voted && <button onClick={chooseTie} disabled={busy} className="px-3 py-1 rounded border border-amber-600/60 text-amber-200">can&apos;t decide — both</button>}
             {!voted && !revealed && blind && <button onClick={() => setRevealed(true)} className="text-zinc-500 underline">reveal without voting (no vote is recorded)</button>}
             <button onClick={exportRun} className="px-3 py-1 rounded border border-zinc-600 text-zinc-200">Export to the council</button>
             {exported && <span className="text-emerald-400 text-xs">{exported}</span>}
