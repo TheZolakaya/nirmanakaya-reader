@@ -109,7 +109,7 @@ Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "re
 const DRAGON_LABEL = 'Face the dragon';
 const DRAGON_HINT = 'the thing itself, said straight — a problem walked around, or a gift not picked up';
 
-const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 220 words, plain words, no framework vocabulary, no question at the end, nothing new introduced.
+const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 300 words (raised from 220 on 2026-09-19 — it is the thing they keep), plain words, no framework vocabulary, no question at the end, nothing new introduced.
 Five short parts, unlabelled, flowing as paragraphs:
 1. What they came in asking, in their own words.
 2. What the cards said — the card, where it landed, and what that meant, in the same plain terms the reading used.
@@ -738,7 +738,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return lines.join('\n\n') + note;
   }, [discourseText]);
 
-  const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+  const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     const res = await fetch('/api/reading', {
@@ -765,7 +765,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
   // One strict retry before giving up. A dropped brace used to cost the person their turn and
   // the tokens both; now it costs one cheap re-ask.
-  const callReader = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+  const callReader = async (userMessage, system = systemPrompt, maxTokens = 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens);
     let obj = parseJson(data.reading);
     if (!obj || !obj.reader) {
@@ -1168,7 +1168,7 @@ ${DRAGON_STANDARD}`, 600);
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
       const ask = floor === 1 ? 'Write ring 1. JSON only.' : `Write the ${floor} floor. JSON only.`;
       const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}\n\n${ask}`;
-      let data = await rawCall(msg, brazierSystem(floor), floor === 1 ? 500 : 800);
+      let data = await rawCall(msg, brazierSystem(floor), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469)
       let obj = parseJson(data.reading);
       if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor), 800); obj = parseJson(data.reading); }
       if (!obj?.text) throw new Error('The brazier went out — try again.');
@@ -1176,7 +1176,7 @@ ${DRAGON_STANDARD}`, 600);
       // .448: a 15% overrun is accepted — the ledger showed the moon and the mechanism each
       // paying for a whole second call to trim ~40 words, and the mechanism's rewrite still ran
       // long. The mechanism (three paragraphs of derivation) gets a cap it can actually meet.
-      const LIMIT = { 1: 135, meaning: 170, moon: 170, mechanism: 300 }[floor];
+      const LIMIT = { 1: 135, meaning: 250, moon: 250, mechanism: 300 }[floor]; // meaning/moon 170→250 (.469)
       const words = (t) => String(t).split(/\s+/).filter(Boolean).length;
       if (words(obj.text) > LIMIT * 1.15) {
         data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor), 800);
@@ -1293,7 +1293,7 @@ ${DRAGON_STANDARD}`, 600);
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
-      const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 700);
+      const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 1000) // 700→1000 with the band (.469);
       setTurns((list) => [...list, { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
       scrollToEnd();
     } catch (e) { setError(e.message); }
