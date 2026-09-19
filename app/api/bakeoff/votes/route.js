@@ -31,6 +31,7 @@ export async function POST(request) {
       // themselves stay out of the vote file (the export carries them)
       lanes: b.lanes.map((L) => ({ letter: L.letter, key: L.key, label: L.label, model: L.model, usage: L.usage, cost: L.cost, ms: L.ms, flags: (L.lint?.flags || []).map((f) => f.code), words: L.lint?.words || 0 })),
       pick: b.pick, pickLetter: b.pickLetter || null,
+      strength: b.strength === 2 ? 2 : 1, // the preference spectrum (.462): 2 = strongly, 1 = prefer; a tie carries 1 and is not a pick
       tags: b.tags && typeof b.tags === 'object' && !Array.isArray(b.tags) ? b.tags : {},   // { laneKey: [tag, …] }
       note: String(b.note || '').slice(0, 2000),
       cost_visible: !!b.cost_visible,

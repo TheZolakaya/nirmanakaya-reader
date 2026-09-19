@@ -76,6 +76,7 @@ export default function BakeoffPage() {
   const [error, setError] = useState('');
   const [revealed, setRevealed] = useState(false);
   const [pick, setPick] = useState(null);
+  const [pickStrength, setPickStrength] = useState(1);
   const [tags, setTags] = useState({});
   const [note, setNote] = useState('');
   const [voted, setVoted] = useState(false);
@@ -110,13 +111,15 @@ export default function BakeoffPage() {
   // tags are per column: { laneKey: [tag, …] } — the data the addendum asks for
   const tagsByLane = () => { const out = {}; for (const k of Object.keys(tags)) { if (!tags[k]) continue; const [lk, t] = k.split('|'); (out[lk] = out[lk] || []).push(t); } return out; };
 
-  const choose = async (L) => {
+  // THE PREFERENCE SPECTRUM (founder, 2026-09-19): strongly A · A · can't decide · B · strongly B.
+  // strength 2 = strongly, 1 = prefer. A rout and a coin-flip should not count the same.
+  const choose = async (L, strength = 1) => {
     if (voted || busy) return;
-    setPick(L.key);
+    setPick(L.key); setPickStrength(strength);
     try {
       await api('/api/bakeoff/votes', { method: 'POST', body: JSON.stringify({
         lane: run.lane, preset: run.preset, question: run.question, draw: run.draw,
-        lanes: run.lanes, pick: L.key, pickLetter: L.letter,
+        lanes: run.lanes, pick: L.key, pickLetter: L.letter, strength,
         tags: tagsByLane(), note, cost_visible: costBefore || revealed,
         shared_opening: run.opening ? { usage: run.opening.usage, cost: run.opening.cost } : null,
       }) });
@@ -160,7 +163,7 @@ export default function BakeoffPage() {
       } else L.push('```', R.text, '```', '');
     }
     const tl = tagsByLane();
-    L.push('## The judgment', '', pick === 'tie' ? 'Pick: **both — could not decide** (a tie, counted against every lane shown)' : pick ? `Pick: **${run.lanes.find((x) => x.key === pick)?.label}** (${run.lanes.find((x) => x.key === pick)?.letter})` : 'No pick recorded.', ...run.lanes.filter((R) => tl[R.key]?.length).map((R) => `Tags on ${R.letter} (${R.label}): ${tl[R.key].join(', ')}`), note ? `Note: ${note}` : '', '');
+    L.push('## The judgment', '', pick === 'tie' ? 'Pick: **both — could not decide** (a tie, counted against every lane shown)' : pick ? `Pick: **${run.lanes.find((x) => x.key === pick)?.label}** (${run.lanes.find((x) => x.key === pick)?.letter})${pickStrength === 2 ? ' — STRONGLY' : ''}` : 'No pick recorded.', ...run.lanes.filter((R) => tl[R.key]?.length).map((R) => `Tags on ${R.letter} (${R.label}): ${tl[R.key].join(', ')}`), note ? `Note: ${note}` : '', '');
     if (run.lane === 'prompt') for (const R of run.lanes) if (R.key !== 'live') { const v = variants.find((x) => x.id === R.key); if (v) L.push(`## Variant text — ${v.name} (${v.target})`, '', '```', v.text, '```', ''); }
     return L.join('\n');
   };
@@ -210,8 +213,8 @@ export default function BakeoffPage() {
         <div className="text-zinc-500">TALLY · {lane} lane · all-time {tally?.all?.total ?? 0} votes ({tally?.all?.judges?.length ?? 0} judge{(tally?.all?.judges?.length ?? 0) === 1 ? '' : 's'}) · mine {tally?.mine?.total ?? 0} · this session {Object.values(session.picks).reduce((a, b) => a + b, 0)}
           {tally?.all?.total < 20 && <span className="text-amber-400"> · TOO SMALL to conclude anything (twenty per preset, across the four statuses)</span>}</div>
         {tallyRows.length ? (
-          <div className="overflow-x-auto"><table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">lane</th><th className="pr-3">picks</th><th className="pr-3">ties</th><th className="pr-3">blind / cost shown</th><th className="pr-3">shown</th><th className="pr-3">avg words</th><th className="pr-3">B/TM/TL/UA</th><th className="pr-3">mine</th><th>tags</th></tr></thead>
-            <tbody>{tallyRows.map(([k, t]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td><td className="pr-3">{t.picks}</td><td className="pr-3">{t.ties || 0}</td><td className="pr-3">{t.picksBlind} / {t.picksCostVisible}</td><td className="pr-3">{t.shown}</td><td className="pr-3">{t.avgWords}</td><td className="pr-3">{t.statuses[1]}/{t.statuses[2]}/{t.statuses[3]}/{t.statuses[4]}</td><td className="pr-3">{tally.mine.per[k]?.picks || 0}</td><td className="text-zinc-400">{Object.entries(t.tags).map(([g, n]) => `${g} ${n}`).join(' · ')}</td></tr>)}</tbody></table></div>
+          <div className="overflow-x-auto"><table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">lane</th><th className="pr-3">picks</th><th className="pr-3">strong</th><th className="pr-3">ties</th><th className="pr-3">blind / cost shown</th><th className="pr-3">shown</th><th className="pr-3">avg words</th><th className="pr-3">B/TM/TL/UA</th><th className="pr-3">mine</th><th>tags</th></tr></thead>
+            <tbody>{tallyRows.map(([k, t]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td><td className="pr-3">{t.picks}</td><td className="pr-3">{t.strong || 0}</td><td className="pr-3">{t.ties || 0}</td><td className="pr-3">{t.picksBlind} / {t.picksCostVisible}</td><td className="pr-3">{t.shown}</td><td className="pr-3">{t.avgWords}</td><td className="pr-3">{t.statuses[1]}/{t.statuses[2]}/{t.statuses[3]}/{t.statuses[4]}</td><td className="pr-3">{tally.mine.per[k]?.picks || 0}</td><td className="text-zinc-400">{Object.entries(t.tags).map(([g, n]) => `${g} ${n}`).join(' · ')}</td></tr>)}</tbody></table></div>
         ) : <div className="text-zinc-600">no votes yet in this lane</div>}
         {tally?.all?.perPreset && <div className="text-zinc-600">per preset: {Object.entries(tally.all.perPreset).map(([p, n]) => `${p} ${n}`).join(' · ')}</div>}
       </section>
@@ -337,7 +340,8 @@ export default function BakeoffPage() {
                   {!voted && !R.error && (
                     <div className="pt-2 border-t border-zinc-800 space-y-2">
                       <div className="flex flex-wrap gap-1">{TAGS.map((t) => { const k = `${R.key}|${t}`; return <button key={t} onClick={() => setTags({ ...tags, [k]: !tags[k] })} className={`px-1.5 py-0.5 rounded border text-[11px] ${tags[k] ? 'border-amber-400 text-amber-300' : 'border-zinc-700 text-zinc-500'}`}>{t}</button>; })}</div>
-                      <button onClick={() => choose(R)} disabled={busy} className="px-3 py-1 rounded bg-zinc-200 text-black">this one</button>
+                      <button onClick={() => choose(R, 1)} disabled={busy} className="px-3 py-1 rounded bg-zinc-200 text-black">this one</button>
+                      <button onClick={() => choose(R, 2)} disabled={busy} className="px-3 py-1 rounded bg-amber-300 text-black font-semibold" title="a clear win, not a coin-flip">strongly this one</button>
                     </div>
                   )}
                   {voted && picked && <div className="text-amber-300">← the pick</div>}
