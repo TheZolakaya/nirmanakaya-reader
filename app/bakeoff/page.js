@@ -312,7 +312,7 @@ export default function BakeoffPage() {
                         {R.parsed.act && <p>act: {R.parsed.act}</p>}
                       </details>}
                     </div>
-                  ) : <pre className="whitespace-pre-wrap text-xs text-zinc-400 max-h-96 overflow-auto">{R.text}</pre>}
+                  ) : <p className="whitespace-pre-wrap text-zinc-100 max-h-96 overflow-auto">{R.text}</p>}{/* same size and colour as a parsed reading — a smaller, greyer fallback was a tell before the pick (founder, 2026-09-19) */}
                   {!voted && !R.error && (
                     <div className="pt-2 border-t border-zinc-800 space-y-2">
                       <div className="flex flex-wrap gap-1">{TAGS.map((t) => { const k = `${R.key}|${t}`; return <button key={t} onClick={() => setTags({ ...tags, [k]: !tags[k] })} className={`px-1.5 py-0.5 rounded border text-[11px] ${tags[k] ? 'border-amber-400 text-amber-300' : 'border-zinc-700 text-zinc-500'}`}>{t}</button>; })}</div>
