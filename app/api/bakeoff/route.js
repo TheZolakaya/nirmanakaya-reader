@@ -67,14 +67,26 @@ export async function POST(request) {
   // retry's cost and time are added to the lane's, and the lane is marked so the tally can show
   // how often each model needed it.
   const RETRY = '\n\nYOUR LAST REPLY WAS NOT VALID JSON AND COULD NOT BE READ. Send the same answer again as ONE JSON object and nothing else — no preamble, no code fence, no trailing text.';
+  // .460: an opening that PARSED but left out the medicine, the question or the chips is also a
+  // miss (run 4: non-thinking flash wrote {"reader"} and stopped cleanly — no cap, no parse error,
+  // nothing to tap). The reader's page only retries on a missing "reader"; the bench retries on an
+  // incomplete envelope too, naming the missing fields, so every model gets the same second chance.
+  const REQUIRED = ['medicine', 'question', 'chips'];
+  const missingOf = (parsed) => (preset.kind === 'opening' && parsed) ? REQUIRED.filter((k) => !parsed[k] || (Array.isArray(parsed[k]) && !parsed[k].length)) : [];
   results = await Promise.all(results.map(async (r, i) => {
-    if (r.error || !r.text || parseJson(r.text)) return r;
+    if (r.error || !r.text) return r;
+    const first = parseJson(r.text);
+    const missing = missingOf(first);
+    if (first && !missing.length) return r;
     const { L, p } = built[i];
-    const again = await callModel({ modelKey: L.modelKey, system: p.system, message: p.message + RETRY, maxTokens: p.maxTokens });
+    const ask = first
+      ? `\n\nYOUR LAST REPLY PARSED BUT LEFT OUT: ${missing.join(', ')}. Send the WHOLE JSON object again — reader, medicine, question, chips, reflect, forge, and every other field — as ONE JSON object and nothing else.`
+      : RETRY;
+    const again = await callModel({ modelKey: L.modelKey, system: p.system, message: p.message + ask, maxTokens: p.maxTokens });
     if (again.error) return { ...r, retried: true, note: `${r.note ? r.note + '; ' : ''}retry failed: ${again.error}` };
     const sum = (a, b, k) => (a?.[k] || 0) + (b?.[k] || 0);
     const usage = { input_tokens: sum(r.usage, again.usage, 'input_tokens'), output_tokens: sum(r.usage, again.usage, 'output_tokens'), cache_read_input_tokens: sum(r.usage, again.usage, 'cache_read_input_tokens'), cache_creation_input_tokens: sum(r.usage, again.usage, 'cache_creation_input_tokens') };
-    return { ...again, retried: true, firstText: r.text, usage, cost: (r.cost || 0) + (again.cost || 0), ms: (r.ms || 0) + (again.ms || 0), note: `${r.note ? r.note + '; ' : ''}retried once (first reply did not parse)` };
+    return { ...again, retried: true, firstText: r.text, usage, cost: (r.cost || 0) + (again.cost || 0), ms: (r.ms || 0) + (again.ms || 0), note: `${r.note ? r.note + '; ' : ''}retried once (first reply ${first ? 'left out ' + missing.join(', ') : 'did not parse'})` };
   }));
 
   const rows = built.map(({ L, p }, i) => {
@@ -83,7 +95,7 @@ export async function POST(request) {
     const lint = r.error ? { ok: false, flags: [{ code: 'error', detail: r.error }], words: 0, prose: '' } : lintOutput({ text: r.text, parsed, preset, hostile: !!preset.hostile });
     // parsed only because the shared parser repaired it (raw newlines in strings, fences, trailing commas): a flag, not a failure
     if (parsed && neededRepair(r.text)) lint.flags = [...(lint.flags || []), { code: 'json-repaired', detail: 'parsed only after repair (raw line breaks inside strings, fences or trailing commas)' }];
-    if (r.retried) lint.flags = [...(lint.flags || []), { code: 'retried', detail: 'first reply did not parse; the reader\'s one retry was used' }];
+    if (r.retried) lint.flags = [...(lint.flags || []), { code: 'retried', detail: r.note || 'the one retry was used' }];
     // .458: hit the reader's token cap — the envelope is incomplete (no medicine, no chips) even if the prose looks whole.
     // The founder spotted it on non-thinking flash: "doesn't include the end". A cut reply is not a shorter reading; it is a broken one.
     if (r.stop === 'max_tokens') lint.flags = [...(lint.flags || []), { code: 'cut', detail: `stopped at the token cap (${p.maxTokens}); the envelope is incomplete` }];
