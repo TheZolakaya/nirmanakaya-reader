@@ -8,6 +8,9 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { getUser, getSession, isAdmin } from '../../lib/supabase';
 import { STARTERS, STARTER_KINDS } from '../../lib/starters';
+import { ARCHETYPES } from '../../lib/archetypes';
+import { getComponent } from '../../lib/corrections';
+import CardImage from '../../components/reader/CardImage';
 
 // PRESET QUESTIONS (founder, 2026-09-19: "we should have preset questions"): the EZ front door's
 // own forty starters, flattened — so the bench judges the exact sentences real people are handed.
@@ -274,6 +277,24 @@ export default function BakeoffPage() {
       {/* THE RUN */}
       {run && (
         <section className="space-y-3">
+          {/* THE DRAW, AS PICTURES (founder, 2026-09-19: "put the pictures of the transient and durable
+              at the top of each turn so we can rapidly see the reading"). The transient wears the draw's
+              status; the durable (the seat) is shown balanced, as the reader's own header does. */}
+          {run.draw && (
+            <div className="flex items-center justify-center gap-4 py-2">
+              <div className="flex flex-col items-center">
+                <CardImage transient={run.draw.transient} status={run.draw.status} cardName={getComponent(run.draw.transient)?.name || ''} size="compact" showFrame={true} />
+                <span className="mt-1 text-xs text-zinc-300">{getComponent(run.draw.transient)?.name}</span>
+                <span className="text-[0.625rem] uppercase tracking-wider text-zinc-500">the card</span>
+              </div>
+              <span className="text-zinc-600 text-xl">in</span>
+              <div className="flex flex-col items-center">
+                <CardImage transient={run.draw.position} status={1} cardName={ARCHETYPES[run.draw.position]?.name || ''} size="compact" showFrame={true} />
+                <span className="mt-1 text-xs text-zinc-300">{ARCHETYPES[run.draw.position]?.name}</span>
+                <span className="text-[0.625rem] uppercase tracking-wider text-zinc-500">the seat</span>
+              </div>
+            </div>
+          )}
           <div className="text-zinc-400 flex flex-wrap gap-x-4 gap-y-1">
             <span>preset <b className="text-zinc-200">{run.preset}</b></span>
             <span>draw <b className="text-zinc-200">{run.drawLabel}</b></span>
