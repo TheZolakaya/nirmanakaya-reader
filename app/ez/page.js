@@ -1479,14 +1479,23 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         staircase — any one in one tap. Lowercase, quiet, one row. A floor already opened
                         goes dim. Gated floors appear when their exemplars freeze; the bench shows all three. */}
                     {!brazierBusy && brazier[1] && (
-                      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem] text-zinc-400">
+                      <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                        {/* real buttons, equally spaced, centred at the foot of the panel, each in its own
+                            colour (founder, 2026-09-19 night, first look on production) */}
                         {/* gated floors show for admins too (founder, 2026-09-19 night: "I'm curious if this works before I go to sleep") */}
-                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => (
-                          <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
-                            className={brazier[f] ? 'text-zinc-600 cursor-default' : 'underline decoration-dotted hover:text-zinc-200'}>
-                            {FLOOR_LABEL[f]}
-                          </button>
-                        ))}
+                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => {
+                          const tone = {
+                            meaning: 'border-amber-500/50 text-amber-200 hover:bg-amber-900/25',
+                            moon: 'border-violet-500/50 text-violet-200 hover:bg-violet-900/25',
+                            mechanism: 'border-cyan-500/50 text-cyan-200 hover:bg-cyan-900/25',
+                          }[f];
+                          return (
+                            <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
+                              className={`flex-1 basis-0 min-w-[7rem] max-w-[12rem] rounded-full border px-4 py-2 text-[0.875rem] font-serif transition-colors ${tone} ${brazier[f] ? 'opacity-40 cursor-default' : ''}`}>
+                              {FLOOR_LABEL[f]}
+                            </button>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -1907,6 +1916,18 @@ Respond with ONLY JSON: {"q": "..."}` }],
                       className="mt-2 text-[0.6875rem] text-zinc-600 hover:text-zinc-400 underline decoration-dotted">
                       say it simpler
                     </button>
+                  )}
+
+                  {/* PULL IT TOGETHER, inline at the base of the LATEST message, centred, every turn
+                      (founder, 2026-09-19 night: the footer link was "super tiny… impossible to find").
+                      The footer link stays; this is the one people will see. The label is provisional. */}
+                  {t.role === 'reader' && t.id === lastReader?.id && !wrapped && !loading && (
+                    <div className="mt-4 flex justify-center">
+                      <button onClick={closeUp}
+                        className="rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors">
+                        pull it together
+                      </button>
+                    </div>
                   )}
                 </div>
               ))}
