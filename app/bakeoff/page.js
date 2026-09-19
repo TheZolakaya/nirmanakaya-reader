@@ -90,10 +90,14 @@ export default function BakeoffPage() {
   const [pickStrength, setPickStrength] = useState(1);
   const [tags, setTags] = useState({});
   const [note, setNote] = useState('');
+  const [voted, setVoted] = useState(false);
+  const [exported, setExported] = useState('');
   // THE STYLE PROBE (2026-09-19): the founder and the GPT seat both see the two columns render
   // differently; the bench's own CSS is identical. So read the COMPUTED styles and the exact pixel
   // offset of each column's prose off the live DOM and print them — a half-pixel x-offset changes
   // antialiasing on monospace text, and that is a difference nobody can name by eye.
+  // (Sits AFTER every state it depends on — the first placement referenced `voted` before its
+  // declaration and crashed the page: "cannot access before initialization".)
   const [probe, setProbe] = useState({});
   useEffect(() => {
     if (!run) return;
@@ -107,8 +111,6 @@ export default function BakeoffPage() {
     }, 150);
     return () => clearTimeout(t);
   }, [run, revealed, voted]);
-  const [voted, setVoted] = useState(false);
-  const [exported, setExported] = useState('');
 
   // tallies
   const [tally, setTally] = useState(null);
