@@ -1265,7 +1265,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !stepOpen;
     setStepOpen(next);
     if (next) {
-      showPanels();
+      showPanels('step');
       if (!brazierOpen) setPanelFirst('step');
       const card = fieldCard();
       const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
@@ -1298,7 +1298,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !dragonOpen;
     setDragonOpen(next);
     if (next) {
-      showPanels();
+      showPanels('dragon');
       if (!brazierOpen && !stepOpen) setPanelFirst('dragon');
       const card = fieldCard();
       const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
@@ -1394,7 +1394,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const next = !brazierOpen;
     setBrazierOpen(next);
     if (next) {
-      showPanels();
+      showPanels('brazier');
       if (!stepOpen) setPanelFirst('brazier');
       setBrazierGlow(true); setTimeout(() => setBrazierGlow(false), 900);
       const card = fieldCard();
@@ -1498,6 +1498,14 @@ Respond with ONLY JSON: {"q": "..."}` }],
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
       if (t.question) L.push(`*${t.question}*`, ``);
     });
+    // the doors they opened — Words to the Whys (ring 1 + any floors), the dragon, the step
+    if (brazier[1] || dragonText || stepText) {
+      L.push(`## The doors`, ``);
+      if (brazier[1]) L.push(`**Words to the Whys — why this is happening:**`, ``, brazier[1], ``);
+      floorsOpened.filter((f) => brazier[f]).forEach((f) => L.push(`**${FLOOR_LABEL[f]}:**`, ``, brazier[f], ``));
+      if (dragonText) L.push(`**Face the dragon:**`, ``, dragonText, ``);
+      if (stepText) L.push(`**One small step:**`, ``, stepText, ``);
+    }
     L.push(`---`, `*nirmanakaya.com/ez*`);
     const md = L.join('\n');
     const blob = new Blob([md], { type: 'text/markdown' });
@@ -1549,7 +1557,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
      are closed; the one you open takes a full row with its answer and the other drops
      beneath it on a row of its own. The step's loop sits flush RIGHT, the whys' flush LEFT. */
   const panelsRef = useRef(null);
-  const showPanels = () => { setTimeout(() => { try { const el = panelsRef.current; if (!el) return; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' }); } catch {} }, 80); };
+  const showPanels = (kind) => { setTimeout(() => { try {
+    const el = (kind && document.querySelector(`[data-ez-panel="${kind}"]`)) || panelsRef.current;
+    if (!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
+  } catch {} }, 80); };
   const renderPanels = (which) => {
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
@@ -1599,9 +1611,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         {/* gated floors show for admins too (founder, 2026-09-19 night: "I'm curious if this works before I go to sleep") */}
                         {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => {
                           const tone = {
-                            meaning: 'border-amber-500/50 text-amber-200 hover:bg-amber-900/25',
-                            moon: 'border-violet-500/50 text-violet-200 hover:bg-violet-900/25',
-                            mechanism: 'border-cyan-500/50 text-cyan-200 hover:bg-cyan-900/25',
+                            meaning: 'border-amber-400/90 bg-amber-950/30 text-amber-100 hover:bg-amber-900/40',
+                            moon: 'border-violet-400/90 bg-violet-950/30 text-violet-100 hover:bg-violet-900/40',
+                            mechanism: 'border-cyan-400/90 bg-cyan-950/30 text-cyan-100 hover:bg-cyan-900/40',
                           }[f];
                           return (
                             <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
@@ -1653,7 +1665,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               return (
                 <div ref={which === 'open' ? panelsRef : undefined}>
                   {mine.map((kind, i) => (
-                    <div key={kind} style={glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
+                    <div key={kind} data-ez-panel={kind} style={kind === 'dragon' ? { '--pill': '244 63 94', borderColor: '#881337' } : glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
                   ))}
                 </div>
               );
@@ -2067,6 +2079,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 whichever panel is still shut. */}
             {(brazierOpen || stepOpen || dragonOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
 
+            {/* THE DOORS, right above Reflect and Forge (founder, 2026-09-19 night, first live pass:
+                beneath the text box they were out of sight too often) */}
+            <div className={dimPanels}>{renderPanels('closed')}</div>
+
             <div className={dimTop}>
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-5 flex items-stretch gap-2">
@@ -2175,7 +2191,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
             </div>
             <div className={dimPanels}>
-            {renderPanels('closed')}
+            {null /* the closed panels moved above Reflect and Forge (.445) */}
 
             </div>
 
