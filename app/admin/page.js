@@ -17,6 +17,7 @@ import {
   getLevelInfo
 } from '../../lib/complexity.js';
 import {
+  getSession,
   getUser,
   isAdmin,
   updateUserBanStatus,
@@ -28,6 +29,17 @@ import {
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
 const SUPER_ADMIN_EMAIL = 'chriscrilly@gmail.com';
+
+// Every admin API call carries the SESSION TOKEN. The server reads identity from the token and
+// ignores anything the body claims — the old routes trusted an `adminEmail` field, which meant
+// the credential was a public email address printed in the source.
+async function adminFetch(url, options = {}) {
+  const session = await getSession();
+  const token = session?.session?.access_token;
+  const headers = { ...(options.headers || {}) };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  return fetch(url, { ...options, headers });
+}
 
 // Stat Card Component
 const StatCard = ({ value, label, color = 'text-zinc-300', size = 'normal', highlight = false }) => (
@@ -609,10 +621,10 @@ export default function AdminPanel() {
   async function loadUsers() {
     setUsersLoading(true);
     try {
-      const response = await fetch('/api/admin/stats', {
+      const response = await adminFetch('/api/admin/stats', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user?.id })
+        body: JSON.stringify({})
       });
       const data = await response.json();
       if (!data.error) {
@@ -699,10 +711,10 @@ export default function AdminPanel() {
   async function handleDeleteUser(userId) {
     setDeletingId(userId);
     try {
-      const response = await fetch('/api/admin/delete-user', {
+      const response = await adminFetch('/api/admin/delete-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ adminEmail: user?.email, userId })
+        body: JSON.stringify({ userId })
       });
       const data = await response.json();
       if (data.error) {
@@ -718,7 +730,7 @@ export default function AdminPanel() {
 
   async function loadSubscriberCount() {
     try {
-      const response = await fetch(`/api/admin/broadcast?adminEmail=${encodeURIComponent(user?.email)}`);
+      const response = await adminFetch('/api/admin/broadcast');
       const data = await response.json();
       if (!data.error) {
         setSubscriberCount(data.subscriberCount || 0);
@@ -732,7 +744,7 @@ export default function AdminPanel() {
   async function loadUnconfirmedUsers() {
     setResendLoading(true);
     try {
-      const response = await fetch(`/api/admin/resend-confirmations?adminEmail=${encodeURIComponent(user?.email)}`);
+      const response = await adminFetch('/api/admin/resend-confirmations');
       const data = await response.json();
       if (!data.error) {
         setUnconfirmedUsers(data.unconfirmedUsers || []);
@@ -748,10 +760,10 @@ export default function AdminPanel() {
     setSendingTo(userId || 'all');
     setResendResult(null);
     try {
-      const response = await fetch('/api/admin/resend-confirmations', {
+      const response = await adminFetch('/api/admin/resend-confirmations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ adminEmail: user?.email, userId, resendAll })
+        body: JSON.stringify({ userId, resendAll })
       });
       const data = await response.json();
       if (data.error && !data.sent) {
@@ -782,13 +794,12 @@ export default function AdminPanel() {
     setBroadcastResult(null);
 
     try {
-      const response = await fetch('/api/admin/broadcast', {
+      const response = await adminFetch('/api/admin/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           subject: broadcastSubject,
           body: broadcastBody,
-          adminEmail: user?.email,
           includeAll
         })
       });
@@ -824,10 +835,10 @@ export default function AdminPanel() {
     setConfigSaved(false);
     setConfigWarning(null);
     try {
-      const response = await fetch('/api/admin/config', {
+      const response = await adminFetch('/api/admin/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ adminEmail: user?.email, config: featureConfig })
+        body: JSON.stringify({ config: featureConfig })
       });
       const data = await response.json();
       if (data.success) {

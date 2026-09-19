@@ -29,16 +29,20 @@ function DriftingLight({ moving = true }) {
   useFrame(({ clock }) => {
     if (!ref.current || !moving) return;
     const t = clock.getElapsedTime() * 0.35;
-    ref.current.position.set(Math.sin(t) * 3.2, 1.6 + Math.sin(t * 0.7) * 0.9, 3.4 + Math.cos(t) * 1.1);
+    // Drift ACROSS the face — the face is on Y/Z, so the light travels in Z and rides up and
+    // down in Y while staying out on X where the viewer is.
+    ref.current.position.set(3.4 + Math.cos(t) * 1.1, 1.6 + Math.sin(t * 0.7) * 0.9, Math.sin(t) * 3.2);
   });
-  return <directionalLight ref={ref} position={[2, 2, 4]} intensity={2.3} castShadow />;
+  return <directionalLight ref={ref} position={[4, 2, 2]} intensity={2.3} castShadow />;
 }
 
 export default function CardRelief({ src = '/models/10_source.glb', label = 'Source' }) {
   const [moving, setMoving] = useState(true);
   return (
     <div className="w-full h-full relative">
-      <Canvas shadows camera={{ position: [0, 0, 4], fov: 40 }} dpr={[1, 2]}>
+      {/* The slab's face is the Y/Z plane — it is thin on X — so the camera sits out on X.
+          Opening on the edge of the card is a bench bug, not a feature. */}
+      <Canvas shadows camera={{ position: [4, 0, 0], fov: 40 }} dpr={[1, 2]}>
         <color attach="background" args={['#0b0b0f']} />
         <ambientLight intensity={0.35} />
         <DriftingLight moving={moving} />

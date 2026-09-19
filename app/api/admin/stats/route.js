@@ -2,6 +2,7 @@
 // Server-side admin stats - bypasses RLS to see all users' data
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from '../../../../lib/adminAuth.js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -37,20 +38,11 @@ export async function POST(request) {
     return Response.json({ error: 'Supabase not configured' }, { status: 500 });
   }
 
-  // Verify the requester is an admin
-  const { userId } = await request.json();
-
-  if (userId) {
-    const { data: profile } = await supabaseAdmin
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', userId)
-      .single();
-
-    if (!profile?.is_admin) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
-    }
-  }
+  // Verify the requester is an admin — from the session token, not from the body. The previous
+  // version only ran its check `if (userId)`, so sending {} skipped the gate entirely and this
+  // route returned every user's data through the service-role key.
+  const gate = await requireAdmin(request);
+  if (!gate.ok) return gate.response;
 
   // Get all profiles
   const { data: profiles, error: profileError } = await supabaseAdmin

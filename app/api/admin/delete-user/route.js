@@ -2,8 +2,7 @@
 // Delete a user from the system (admin only)
 
 import { createClient } from '@supabase/supabase-js';
-
-const ADMIN_EMAILS = ['chriscrilly@gmail.com'];
+import { requireAdmin } from '../../../../lib/adminAuth.js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -13,12 +12,13 @@ const supabaseAdmin = supabaseUrl && supabaseServiceKey
 
 export async function POST(request) {
   try {
-    const { adminEmail, userId } = await request.json();
+    // Identity comes from the verified session, never from the body. The previous version
+    // accepted an `adminEmail` string supplied by the caller and compared it to a hardcoded
+    // list — a password printed in the source, and a public email address at that.
+    const gate = await requireAdmin(request);
+    if (!gate.ok) return gate.response;
 
-    // Verify admin
-    if (!ADMIN_EMAILS.includes(adminEmail?.toLowerCase())) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
-    }
+    const { userId } = await request.json();
 
     if (!userId) {
       return Response.json({ error: 'userId required' }, { status: 400 });
@@ -28,14 +28,8 @@ export async function POST(request) {
       return Response.json({ error: 'Server not configured' }, { status: 500 });
     }
 
-    // Don't allow deleting self
-    const { data: adminUser } = await supabaseAdmin
-      .from('profiles')
-      .select('id')
-      .eq('email', adminEmail.toLowerCase())
-      .single();
-
-    if (adminUser?.id === userId) {
+    // Don't allow deleting self — compared against the id on the verified token.
+    if (gate.user.id === userId) {
       return Response.json({ error: 'Cannot delete yourself' }, { status: 400 });
     }
 

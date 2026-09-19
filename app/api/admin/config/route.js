@@ -2,6 +2,7 @@
 // Admin endpoint to manage site-wide feature configuration
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from '../../../../lib/adminAuth.js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -9,7 +10,6 @@ const supabaseAdmin = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null;
 
-const ADMIN_EMAILS = ['chriscrilly@gmail.com'];
 const CONFIG_KEY = 'site_features';
 
 // Default configuration
@@ -119,12 +119,11 @@ export async function GET(request) {
 // POST - Update config (admin only)
 export async function POST(request) {
   try {
-    const { adminEmail, config } = await request.json();
+    // Identity from the verified session, never from the body.
+    const gate = await requireAdmin(request);
+    if (!gate.ok) return gate.response;
 
-    // Verify admin
-    if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
-    }
+    const { config } = await request.json();
 
     if (!config) {
       return Response.json({ error: 'config required' }, { status: 400 });

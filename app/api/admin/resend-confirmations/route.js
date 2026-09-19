@@ -3,6 +3,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { requireAdmin } from '../../../../lib/adminAuth.js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -18,16 +19,12 @@ const FROM_EMAIL = process.env.EMAIL_FROM || 'ZolaKaya@nirmanakaya.com';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nirmanakaya.com';
 const SITE_NAME = 'Nirmanakaya Reader';
 
-const ADMIN_EMAILS = ['chriscrilly@gmail.com'];
 
 // GET - List unconfirmed users
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const adminEmail = searchParams.get('adminEmail');
-
-  if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
-    return Response.json({ error: 'Unauthorized' }, { status: 403 });
-  }
+  // Identity from the verified session, never from the query string.
+  const gate = await requireAdmin(request);
+  if (!gate.ok) return gate.response;
 
   if (!supabaseAdmin) {
     return Response.json({ error: 'Server not configured' }, { status: 500 });
@@ -66,11 +63,11 @@ export async function GET(request) {
 // POST - Resend confirmation to specific user or all unconfirmed
 export async function POST(request) {
   try {
-    const { adminEmail, userId, resendAll } = await request.json();
+    // Identity from the verified session, never from the body.
+    const gate = await requireAdmin(request);
+    if (!gate.ok) return gate.response;
 
-    if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
-    }
+    const { userId, resendAll } = await request.json();
 
     if (!supabaseAdmin) {
       return Response.json({ error: 'Server not configured' }, { status: 500 });

@@ -4,6 +4,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { sendBroadcast } from '../../../../lib/email.js';
 import { getUsersForBroadcast } from '../../../../lib/supabase.js';
+import { requireAdmin } from '../../../../lib/adminAuth.js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -11,16 +12,14 @@ const supabaseAdmin = supabaseUrl && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null;
 
-const ADMIN_EMAILS = ['chriscrilly@gmail.com'];
 
 export async function POST(request) {
   try {
-    const { subject, body, adminEmail, includeAll } = await request.json();
+    // Identity from the verified session, never from the body.
+    const gate = await requireAdmin(request);
+    if (!gate.ok) return gate.response;
 
-    // Verify admin
-    if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
-    }
+    const { subject, body, includeAll } = await request.json();
 
     if (!subject || !body) {
       return Response.json({ error: 'subject and body required' }, { status: 400 });
@@ -73,13 +72,9 @@ export async function POST(request) {
 
 // GET endpoint to fetch recipient counts
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const adminEmail = searchParams.get('adminEmail');
-
-  // Verify admin
-  if (!adminEmail || !ADMIN_EMAILS.includes(adminEmail.toLowerCase())) {
-    return Response.json({ error: 'Unauthorized' }, { status: 403 });
-  }
+  // Identity from the verified session, never from the query string.
+  const gate = await requireAdmin(request);
+  if (!gate.ok) return gate.response;
 
   if (!supabaseAdmin) {
     return Response.json({ error: 'Server not configured' }, { status: 500 });
