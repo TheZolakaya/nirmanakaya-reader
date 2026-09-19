@@ -340,8 +340,8 @@ export default function BakeoffPage() {
                   {!voted && !R.error && (
                     <div className="pt-2 border-t border-zinc-800 space-y-2">
                       <div className="flex flex-wrap gap-1">{TAGS.map((t) => { const k = `${R.key}|${t}`; return <button key={t} onClick={() => setTags({ ...tags, [k]: !tags[k] })} className={`px-1.5 py-0.5 rounded border text-[11px] ${tags[k] ? 'border-amber-400 text-amber-300' : 'border-zinc-700 text-zinc-500'}`}>{t}</button>; })}</div>
-                      <button onClick={() => choose(R, 1)} disabled={busy} className="px-3 py-1 rounded bg-zinc-200 text-black">this one</button>
-                      <button onClick={() => choose(R, 2)} disabled={busy} className="px-3 py-1 rounded bg-amber-300 text-black font-semibold" title="a clear win, not a coin-flip">strongly this one</button>
+                      {run.lanes.length !== 2 && <button onClick={() => choose(R, 1)} disabled={busy} className="px-3 py-1 rounded bg-zinc-200 text-black">this one</button>}
+                      {run.lanes.length !== 2 && <button onClick={() => choose(R, 2)} disabled={busy} className="px-3 py-1 rounded bg-amber-300 text-black font-semibold" title="a clear win, not a coin-flip">strongly this one</button>}
                     </div>
                   )}
                   {voted && picked && <div className="text-amber-300">← the pick</div>}
@@ -350,9 +350,22 @@ export default function BakeoffPage() {
             })}
           </div>
 
+          {/* THE PREFERENCE SPECTRUM (founder, 2026-09-19): "Strongly · Prefer · About the same · Prefer · Strongly" —
+              one bar under the pair, left half for A, right half for B. Only for a pair; 3+ lanes keep per-column buttons. */}
+          {!voted && run.lanes.length === 2 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 py-2">
+              <span className="text-amber-300 font-semibold mr-1">A</span>
+              <button onClick={() => choose(run.lanes[0], 2)} disabled={busy} className="px-3 py-1.5 rounded border border-amber-400 bg-amber-950/40 text-amber-100 font-semibold">◀ Strongly</button>
+              <button onClick={() => choose(run.lanes[0], 1)} disabled={busy} className="px-3 py-1.5 rounded border border-amber-600/60 text-amber-200">◀ Prefer</button>
+              <button onClick={chooseTie} disabled={busy} className="px-3 py-1.5 rounded border border-zinc-600 text-zinc-300">About the same</button>
+              <button onClick={() => choose(run.lanes[1], 1)} disabled={busy} className="px-3 py-1.5 rounded border border-amber-600/60 text-amber-200">Prefer ▶</button>
+              <button onClick={() => choose(run.lanes[1], 2)} disabled={busy} className="px-3 py-1.5 rounded border border-amber-400 bg-amber-950/40 text-amber-100 font-semibold">Strongly ▶</button>
+              <span className="text-amber-300 font-semibold ml-1">B</span>
+            </div>
+          )}
           <div className="flex flex-wrap gap-3 items-center">
             <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="a note with the vote (optional; goes in the export)" className="flex-1 min-w-[16rem] bg-zinc-900 border border-zinc-700 rounded px-2 py-1" />
-            {!voted && <button onClick={chooseTie} disabled={busy} className="px-3 py-1 rounded border border-amber-600/60 text-amber-200">can&apos;t decide — both</button>}
+            {!voted && run.lanes.length !== 2 && <button onClick={chooseTie} disabled={busy} className="px-3 py-1 rounded border border-amber-600/60 text-amber-200">can&apos;t decide — both</button>}
             {!voted && !revealed && blind && <button onClick={() => setRevealed(true)} className="text-zinc-500 underline">reveal without voting (no vote is recorded)</button>}
             <button onClick={exportRun} className="px-3 py-1 rounded border border-zinc-600 text-zinc-200">Export to the council</button>
             {exported && <span className="text-emerald-400 text-xs">{exported}</span>}
