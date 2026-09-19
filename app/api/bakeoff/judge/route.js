@@ -4,7 +4,7 @@
 // run until that run's six sections are all judged by this judge.
 // GET ?id&code&judge → the blind view + this judge's progress. POST { id, code, judge, run, section, pick (letter|'tie'), strength, tags, note }.
 
-import { readBatch, blindView, laneForLetter, lanesOf } from '../../../../lib/bakeoff/batch.js';
+import { readBatch, blindView, laneForLetter, lanesOf, sectionsOf } from '../../../../lib/bakeoff/batch.js';
 import { presetById, SECTIONS } from '../../../../lib/bakeoff/presets.js';
 import { appendVote, readVotes } from '../../../../lib/bakeoff/store.js';
 
@@ -23,7 +23,7 @@ export async function GET(request) {
   if (error) return error;
   const judge = name(u.searchParams.get('judge'));
   const judged = judge ? progressOf(b.id, judge) : {};
-  return Response.json({ view: blindView(b, judged), judged, sections: SECTIONS.map((s) => ({ id: s.id, label: s.label })), code: b.code });
+  return Response.json({ view: blindView(b, judged), judged, sections: sectionsOf(b).map((s) => ({ id: s.id, label: s.label })), code: b.code });
 }
 
 export async function POST(request) {
@@ -41,9 +41,9 @@ export async function POST(request) {
   // tags arrive per LETTER from a blind judge; store them per lane key so the tally reads them
   const tags = {}; if (body.tags && typeof body.tags === 'object') for (const [letter, list] of Object.entries(body.tags)) { const L = laneForLetter(b, run.i, sec.id, letter); if (L && Array.isArray(list) && list.length) tags[L.key] = list.map(String).slice(0, 12); }
   try {
-    appendVote({ judge, judgeKind: 'person', batch: b.id, run: run.i, section: sec.id, lane: b.lane, preset: presetById(sec.preset).id, question: run.question, draw: run.draw, lanes, pick, pickLetter, strength: body.strength === 2 ? 2 : 1, tags, note: String(body.note || '').slice(0, 2000), cost_visible: false, version: b.version });
+    appendVote({ judge, judgeKind: 'person', batch: b.id, run: run.i, section: sec.id, lane: b.lane, preset: run.preset || presetById(sec.preset).id, question: run.question, draw: run.draw, lanes, pick, pickLetter, strength: body.strength === 2 ? 2 : 1, tags, note: String(body.note || '').slice(0, 2000), cost_visible: false, version: b.version });
   } catch (e) { return Response.json({ error: `vote not saved: ${e.message}` }, { status: 500 }); }
   const judged = progressOf(b.id, judge);
-  const done = SECTIONS.every((s) => judged[`${run.i}:${s.id}`]);
+  const done = sectionsOf(b).every((s) => judged[`${run.i}:${s.id}`]);
   return Response.json({ ok: true, judged, runRevealed: done, reveal: done ? blindView(b, judged).runs.find((r) => r.i === run.i) : null });
 }

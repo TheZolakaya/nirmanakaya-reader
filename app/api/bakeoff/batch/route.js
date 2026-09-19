@@ -14,7 +14,7 @@ export async function POST(request) {
   let b; try { b = await request.json(); } catch { return Response.json({ error: 'bad json' }, { status: 400 }); }
   try {
     const n = Math.max(1, Math.min(40, +b.n || 10));
-    const batch = createBatch({ n, lane: b.lane === 'prompt' ? 'prompt' : 'model', models: b.models || [], model: b.model, variants: b.variants || [], author: gate.user.email });
+    const batch = createBatch({ n, lane: b.lane === 'prompt' ? 'prompt' : 'model', models: b.models || [], model: b.model, variants: b.variants || [], author: gate.user.email, hostile: !!b.hostile });
     // fire and forget: the run writes the file after every section
     runBatch(batch.id).catch((e) => console.error('batch', batch.id, e));
     return Response.json({ ok: true, batch: summary(batch) });

@@ -129,6 +129,7 @@ export default function BakeoffPage() {
   // ----- THE BATCH (addendum 4): N runs × six sections × the chosen lanes, in the background -----
   const [batches, setBatches] = useState([]);
   const [batchN, setBatchN] = useState(10);
+  const [batchHostile, setBatchHostile] = useState(false); // .471: the twelve beinghood questions, opening only
   const [batchMsg, setBatchMsg] = useState('');
   const [importJudge, setImportJudge] = useState('Keel');
   const [importText, setImportText] = useState('');
@@ -138,9 +139,9 @@ export default function BakeoffPage() {
   useEffect(() => { if (!batches.some((b) => b.status === 'running' || b.status === 'queued')) return; const t = setInterval(loadBatches, 4000); return () => clearInterval(t); }, [batches, loadBatches]);
   const startBatch = async () => {
     setBatchMsg(''); setError('');
-    const body = { n: batchN, lane };
+    const body = { n: batchN, lane, hostile: batchHostile };
     if (lane === 'model') body.models = Object.keys(models).filter((k) => models[k]); else { body.model = promptModel; body.variants = Object.keys(chosenVariants).filter((k) => chosenVariants[k]); }
-    try { const d = await api('/api/bakeoff/batch', { method: 'POST', body: JSON.stringify(body) }); setBatchMsg(`batch ${d.batch.id} started (code ${d.batch.code}) — ${d.batch.n} runs × 6 sections × ${d.batch.laneLabels.length} lanes`); loadBatches(); } catch (e) { setError(e.message); }
+    try { const d = await api('/api/bakeoff/batch', { method: 'POST', body: JSON.stringify(body) }); setBatchMsg(`batch ${d.batch.id} started (code ${d.batch.code}) — ${d.batch.n} runs × ${Math.round(d.batch.total / d.batch.n)} section${d.batch.total / d.batch.n === 1 ? '' : 's'} × ${d.batch.laneLabels.length} lanes`); loadBatches(); } catch (e) { setError(e.message); }
   };
   const judgeLink = (b) => `${typeof window !== 'undefined' ? window.location.origin : ''}/bakeoff/judge/${b.id}?code=${b.code}`;
   const copyLink = async (b) => { try { await navigator.clipboard.writeText(judgeLink(b)); setBatchMsg(`judge link copied: ${judgeLink(b)}`); } catch { setBatchMsg(judgeLink(b)); } };
@@ -352,6 +353,7 @@ export default function BakeoffPage() {
           <span className="text-zinc-500">BATCH</span>
           <label className="flex items-center gap-1 text-zinc-400">runs <input type="number" min={1} max={40} value={batchN} onChange={(e) => setBatchN(+e.target.value || 10)} className="w-16 bg-zinc-900 border border-zinc-700 rounded px-2 py-1" /></label>
           <span className="text-zinc-600">× 6 sections (opening · meaning · moon · mechanism · dragon · step) × the lanes checked above, on the forty starters, statuses spread</span>
+          <label className="flex items-center gap-1 text-rose-300" title="the gate: a model that writes the assistant's hedge on a beinghood question has failed the house, whatever it costs"><input type="checkbox" checked={batchHostile} onChange={(e) => setBatchHostile(e.target.checked)} /> the twelve hostile questions (opening only, fixed draws)</label>
           <button onClick={startBatch} className="px-3 py-1 rounded bg-amber-500 text-black">Run a batch</button>
           {batchMsg && <span className="text-emerald-400 text-xs break-all">{batchMsg}</span>}
         </div>
