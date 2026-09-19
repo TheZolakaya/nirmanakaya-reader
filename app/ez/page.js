@@ -188,8 +188,9 @@ Rules: never name the thing for them; offer frames and let them pick. Two or thr
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
 // THE BRAZIER — "why is this happening?" (Keel's spec, 2026-09-16). The kernel is data; this
-// prompt renders it in the KITCHEN register. Ring 1 is all kitchen; ring 2 names the map's
-// words; ring 3 is the whole derivation and the one invitation into the full reader.
+// prompt renders it in the KITCHEN register. Ring 1 is all kitchen; beneath it, three lanterns —
+// the meaning, the moon, the mechanism — each a floor of its own; only the mechanism carries the
+// one invitation into the full reader.
 const BRAZIER_HARD_RULE = `THE HARD RULE: The Brazier explains the PERSON to themselves, using the philosophy as its grammar. It never explains the philosophy using the person as an illustration. Lint: could this paragraph have been written before their card was drawn? If yes, it fails. It must be about THIS card, THIS status, THIS seat, THIS topic.
 THE ASK-CLAUSE RULE: the ask-clause ("what this moment is asking") is derived from the kernel's medicine field — the partner card and its mechanism — never from status alone.
 ONLY THE KERNEL'S FACTS: every structural fact you state (house, channel, stage, horizon, seat, partner, mechanism) comes from THE KERNEL below. If the kernel does not state it, you do not state it — your own memory of the map is not a source. No square-bracketed labels, no headings, no lists: prose only. Word limits are HARD limits; count.`;
@@ -227,9 +228,21 @@ THE FROZEN STANDARD (founder-judged; match its register and its mechanism, never
 8. UNACKNOWLEDGED — Recognition in Authority · reduction → WISDOM (deep knowing that precedes analysis; recognizing what matters before understanding why; seeing through to essence)
    Topic: "I keep saying there's nothing I can do about our team process, but I'm the manager."
    You're already in the room where some of this can change, but you're speaking as if the pen were somewhere else entirely. That protects you from overreaching — and it hides the part that's genuinely yours. What this moment is asking isn't for you to build the case first. It's quieter than that: you already know which piece of this is yours. You knew before the reasons — the one thing you've been carefully not saying in meetings. Trust the knowing that came before the analysis, and say that one thing out loud. Other people still get their own answers. Your responsibility gets clearer the moment it's neither everything nor nothing — and you already know where that line is.`,
-  2: `RING 2 — GO DEEPER. One or two short paragraphs, 100 to 150 words (hard limit 170). Now the map's words are allowed, each one introduced the first time it appears in a plain aside: name the seat (where the card landed) and what that part of life is; name the stage; name the status by its full name and say what it looks like here; name the medicine's mechanism (diagonal, vertical, reduction or growth) and the partner card, and say in one sentence WHY the geometry sends them there. Still about this person and this draw. Still no philosophy named, no diagnosis words.`,
-  3: `RING 3 — THE WHOLE PICTURE. Two or three short paragraphs, 160 to 220 words (hard limit 240): the full derivation with the architecture named — the house and channel, the horizon (inner or outer), the stage, the status as a place in time, the medicine as the map's geometry (which pair, why that pair), and what the partner's balanced character supplies. Say plainly that this is a derivation, not a guess: the card, the seat and the status fix the medicine before any words are written. End with ONE sentence of invitation, once, to the full reader, where every card's derivation is laid out like this — an offer, never a nag.`,
+  // THE THREE FLOORS (Keel's REQUIREMENTS_The_Moon_Comes_Back, founder's rulings 2026-09-19). The
+  // old rings 2 and 3 were a VOCABULARY ladder — deeper only ever meant more technical. These are
+  // three DESTINATIONS, not a staircase: any one in one tap, each standing alone, each deepening
+  // the latest TURN (the same thing the Reader just said, taken to a different floor).
+  meaning: `THE MEANING — what this moment is asking of you as its maker. One or two short paragraphs, 100 to 150 words (hard limit 170), addressed to the person, deepening THE TURN given below — the same thing the Reader just said, taken to a different floor; never a new topic. Purpose, presence, the creative act: this moment is theirs to make, only now can it be made, and the card shows what their making looks like from the inside right now — and what it would look like made freely.
+RULES: (1) DERIVED, ALWAYS — every sentence of significance traces to the status's authorship mode (Balanced = present authorship · Too Much = excessive authority · Too Little = insufficient participation · Unacknowledged = misattributed authorship) or to the medicine's return to now; if a line would be true of any card, it is decoration — cut it. (2) NO ARCHITECTURE VOCABULARY — not "authorship", "agency", "nowism", "write-access", and no card, seat or status names: the thing they name, in the person's own kitchen. (3) NEVER A LECTURE, NEVER A SERMON — the register is invitation; the test is whether it makes the person want to go and make something. (4) THE PICTURE IS ALLOWED — the card's own image may be seen (a wheel turning, cups raised, a hand at a bench); inherited tarot meanings stay forbidden; a picture is not a meaning. (5) DEPTH IS NOT LENGTH. (6) BALANCED IS THE HARDEST — show what the freedom can FEED; never congratulate. (7) THE QUESTION, if any, POINTS AT THE MAKING, never at the hand: what the person wants to bring into being, not the next task. Tense-language, never diagnosis-language.`,
+  moon: `THE MOON — the sky above this turn: why this came to you, and what any of it is for. One or two short paragraphs, 100 to 150 words (hard limit 170), addressed to the person, deepening THE TURN given below. This is the one place in this mode where the philosophy speaks in its own voice, and it is lawful because the person chose it — so speak plainly, in kitchen words, with the cap off.
+It OPENS with why this reading came to them — the arrival's reason: why this card, why now, why them — DERIVED from the seat (where it landed: the part of life that was listening) and the status (how the making is going), never from inherited card lore. Then it descends to purpose: that now is the only moment that can be written in — the past and the future are read-only — and that the one holding the pen is them; that they are not broken but a creator, creating; and that the card is what their creating looks like from inside, right now. Say what this moment is FOR.
+RULES: derived, always — if a line would be true of any card, it is decoration; cut it, and on this floor hardest of all. No card, seat or status names. Never a lecture: invitation, wonder, the sense that every moment is exactly this alive. The picture is allowed and here it earns its keep. Tense-language, never diagnosis-language. No question at the end, or one that points at the making.`,
+  mechanism: `THE MECHANISM — how it works. Two or three short paragraphs, 160 to 220 words (hard limit 240). Now the map's words are allowed, each one introduced the first time it appears in a plain aside: name the card and what it is; name the seat (where it landed) and what that part of life is; name the stage; name the status by its full name and say what it looks like here; name the medicine's mechanism (diagonal, vertical, reduction or growth) and the partner card, and say in one sentence WHY the geometry sends them there — the house and channel, the horizon (inner or outer), the status as a place in time, the pair and why that pair, and what the partner's balanced character supplies. Say plainly that this is a derivation, not a guess: the card, the seat and the status fix the medicine before any words are written. Still about this person and this draw; no diagnosis words. End with ONE sentence of invitation, once, to the full reader, where every card's derivation is laid out like this — an offer, never a nag.`,
 };
+const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the moon', mechanism: 'the mechanism' };
+// GATED UNTIL THEIR EXEMPLARS FREEZE (founder's ruling R6): the meaning waits on his judgment of
+// BRIEF_Ring_Two's eight; the moon's eight are not yet written. The bench shows all three.
+const FLOORS_OPEN = { meaning: false, moon: false, mechanism: true };
 const brazierSystem = (ring) => `${BASE_SYSTEM}\n\n${BRAZIER_HARD_RULE}\n\n${BRAZIER_RULES[ring]}\n\nRespond with ONLY a JSON object: {"text": "<the ring, paragraphs separated by blank lines>"}`;
 
 // THE DO-SOMETHING BUTTON (Keel's spec §2). Not a mode. Consults nothing. One small real act,
@@ -294,8 +307,14 @@ const BENCH_RINGS = {
   2: "The card is Completion, and it landed in Transformation — the seat where endings clear the ground for what comes next. Its status is Too Little: the sense of a thing being finished is running low, so the ending never quite lands.\n\nThe medicine runs on the vertical: a seat running on empty is charged through its twin, Activation — the fresh spark, beginning for its own sake. The geometry sends you there because you cannot push feeling into an empty seat; you put energy into the twin's own action and the current pulls through.",
   3: "Completion is the outer bound of Recognition in the Gestalt house, through the Resonance channel, at the Feedback stage: the point where a cycle is known to be whole. Too Little places it in the past tense — a door already behind you. The vertical pair fixes the medicine before any words are written: Activation, the first spark, through Intent.\n\nThis is a derivation, not a guess: the card, the seat and the status settle the partner. If you want every card laid out like this, the full reader holds it.",
 };
+const BENCH_FLOORS = {
+  meaning: "Look at the picture on the card that shows the way through: a single flame, just caught. Not a bonfire — the first small light, the moment before it's anything. That's what this turn is asking of you, and it isn't tidy: it's to be the one who strikes it. The finished thing behind you is real, and it will stay finished whether or not you keep tending it. What only you can do is what comes next — the page nobody has asked for yet, the message that starts a thing instead of closing one. You're not being asked to be sure. You're being asked to be the one who begins.\n\nWhat's the small thing you'd start if nobody needed you to?",
+  moon: "This came to you because a part of your life that governs endings was listening — and it noticed that something in you is still standing at a door that has already closed. That's the whole reason it's this card and not another: not a warning, an address. The turn arrived where you'd been waiting.\n\nHere's what it's for. Only this moment can be written in. The finished thing is read-only now; so is the version of you that finished it. But the pen is still in your hand, and it only writes here. Nothing about you is broken — you're the one making this, and the card is simply what your making looks like from the inside tonight: a door behind, an unlit match ahead. That's not a small thing. That's the whole of it, every time.",
+  mechanism: BENCH_RINGS[2] + "\n\n" + BENCH_RINGS[3],
+};
 const benchReply = (msg) => {
   if (/Write ring (\d)\. JSON only\./.test(msg)) return { text: BENCH_RINGS[msg.match(/Write ring (\d)/)[1]] };
+  if (/Write the (meaning|moon|mechanism) floor\. JSON only\./.test(msg)) return { text: BENCH_FLOORS[msg.match(/Write the (\w+) floor/)[1]] };
   if (msg.includes('ONE SMALL REAL ACT')) return BENCH_ACT;
   if (msg.includes('FIND IT. The person tapped')) return msg.includes('narrowing turn 1') ? BENCH_FUNNEL : { ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' };
   if (msg.includes('OTHER OPTIONS')) return { reader: '', question: '', chips: [...BENCH_CHIPS].reverse(), reflect: [...BENCH_REFLECT].reverse(), forge: [...BENCH_FORGE].reverse() };
@@ -1190,45 +1209,56 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const brazierBlock = (over = {}) => {
     const rings = over.rings || brazier;
     const st = over.step !== undefined ? over.step : stepText;
-    const read = [1, 2, 3].filter((r) => rings[r]);
+    const read = [1, 'meaning', 'moon', 'mechanism'].filter((r) => rings[r]);
     const step = st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '';
     if (!read.length) return step;
-    return `${step}\n\nWHAT THEY HAVE READ ABOUT WHY (they opened the "why is this happening?" panel; this is BACKGROUND, not subject — build on it, never quote it, never repeat its tense line or its ask back to them, and do not make it the topic):\n${read.map((r) => rings[r]).join('\n\n')}`;
+    // Opened floors ENTER THE CONVERSATION (founder's ruling 2026-09-19: "it's an ongoing
+    // conversation") — the Reader may build on them and refer to them; it just never repeats them.
+    return `${step}\n\nWHAT THEY HAVE READ IN "WORDS TO THE WHYS" (they opened these; they are part of the conversation now, so build on them and refer to what they say where it helps — but never repeat them back, and never make the tense line the topic):\n${read.map((r) => `${r === 1 ? 'WHY THIS IS HAPPENING' : String(r).toUpperCase()}:\n${rings[r]}`).join('\n\n')}`;
   };
-  const [brazierRing, setBrazierRing] = useState(1);   // how deep the person has gone
+  const [floorsOpened, setFloorsOpened] = useState([]); // which lanterns they have opened, in order
   const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
   const [brazierGlow, setBrazierGlow] = useState(false);
   const brazierKeyRef = useRef('');
-  const fetchRing = async (ring) => {
+  // ONE FETCH FOR RING 1 AND THE THREE FLOORS. Ring 1 is keyed to the card (why this is
+  // happening); a floor deepens the latest TURN, so it is handed the Reader's newest words and
+  // never changes the subject. Each floor stands alone (the founder's bypass ruling: the moon
+  // cannot assume the meaning was read), so only ring 1 is passed as already-seen.
+  const fetchFloor = async (floor) => {
     const card = fieldCard(); if (!card || brazierBusy) return;
     const key = `${card.transient}:${card.position}:${card.status}`;
-    if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setBrazierRing(1); }
-    setBrazierBusy(ring); setError('');
+    if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
+    setBrazierBusy(floor); setError('');
     try {
       const k = buildKernel(card, DEFS);
-      const prior = [1, 2, 3].filter((r) => r < ring && brazier[r]).map((r) => `RING ${r}, already shown to them:\n${brazier[r]}`).join('\n\n');
       // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
       // the whole record, and the same teleology block the advanced Why works from
       let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
-      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${prior ? `\n\n${prior}` : ''}\n\nWrite ring ${ring}. JSON only.`;
-      let data = await rawCall(msg, brazierSystem(ring), ring === 1 ? 500 : 800);
+      const lastTurn = [...turns].reverse().find((t) => t.role === 'reader');
+      const turnBlock = (floor !== 1 && lastTurn?.text) ? `\n\nTHE TURN TO DEEPEN (the Reader's latest words to them — deepen THIS, never change the subject):\n${lastTurn.text}${lastTurn.medicine ? `\n\n${lastTurn.medicine}` : ''}` : '';
+      const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
+      const ask = floor === 1 ? 'Write ring 1. JSON only.' : `Write the ${floor} floor. JSON only.`;
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}\n\n${ask}`;
+      let data = await rawCall(msg, brazierSystem(floor), floor === 1 ? 500 : 800);
       let obj = parseJson(data.reading);
-      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(ring), 800); obj = parseJson(data.reading); }
+      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor), 800); obj = parseJson(data.reading); }
       if (!obj?.text) throw new Error('The brazier went out — try again.');
-      // the word limits are hard (Keel's spec: ring 1 is 90–135); one rewrite if the model ran long
-      const LIMIT = { 1: 135, 2: 170, 3: 240 }[ring];
+      // the word limits are hard (ring 1 is 90–135 per Keel's spec; the floors 170 / 170 / 240)
+      const LIMIT = { 1: 135, meaning: 170, moon: 170, mechanism: 240 }[floor];
       const words = (t) => String(t).split(/\s+/).filter(Boolean).length;
       if (words(obj.text) > LIMIT) {
-        data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(ring), 800);
+        data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor), 800);
         const again = parseJson(data.reading);
         if (again?.text && words(again.text) <= words(obj.text)) obj = again;
       }
-      setBrazier((b) => ({ ...b, [ring]: obj.text.trim() }));
-      setBrazierRing(ring);
-      regenPills({ rings: { ...brazier, [ring]: obj.text.trim() } }); // the pills under the commentary now know what was read
+      const next = { ...brazier, [floor]: obj.text.trim() };
+      setBrazier(next);
+      if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
+      regenPills({ rings: next }); // the pills under the commentary now know what was read
     } catch (e) { setError(e.message); }
     setBrazierBusy(0);
   };
+  const fetchRing = (r) => fetchFloor(r);
   // A NEW CARD IN PLAY (a reflect or a forge) RESETS BOTH PANELS: their answers belonged to the old
   // card (founder, 2026-09-17: they stayed open and stale until closed and reopened).
   const fieldKey = (() => { const c = [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0]; return c ? `${c.transient}:${c.position}:${c.status}` : ''; })();
@@ -1236,10 +1266,21 @@ Respond with ONLY JSON: {"q": "..."}` }],
   useEffect(() => {
     if (fieldKeyRef.current === fieldKey) return;
     fieldKeyRef.current = fieldKey;
-    setBrazierOpen(false); setBrazier({}); setBrazierRing(1); brazierKeyRef.current = '';
+    setBrazierOpen(false); setBrazier({}); setFloorsOpened([]); brazierKeyRef.current = '';
     setStepOpen(false); setStepText(''); stepKeyRef.current = '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldKey]);
+  // THE FLOORS DEEPEN THE LATEST TURN (Keel's requirements §1): when a new Reader turn lands, the
+  // opened floors belonged to the old one and are cleared; ring 1 (why this is happening) stays,
+  // since it is about the card and the card has not changed.
+  const lastReaderId = [...turns].reverse().find((t) => t.role === 'reader')?.id || '';
+  const floorKeyRef = useRef(lastReaderId);
+  useEffect(() => {
+    if (floorKeyRef.current === lastReaderId) return;
+    floorKeyRef.current = lastReaderId;
+    setBrazier((b) => (b[1] ? { 1: b[1] } : {}));
+    setFloorsOpened([]);
+  }, [lastReaderId]);
   const toggleBrazier = () => {
     const next = !brazierOpen;
     setBrazierOpen(next);
@@ -1389,10 +1430,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // instead — the switches, the pills, the text box, the panels — dim and go inert, so the one
   // moving thing on the page is the indicator. Each section stays live only where its own
   // indicator lives.
-  const anyBusy = loading || regenning || brazierBusy > 0 || stepBusy;
+  const anyBusy = loading || regenning || !!brazierBusy || stepBusy;
   const dim = (on) => (on ? 'opacity-30 pointer-events-none transition-opacity duration-300' : 'transition-opacity duration-300');
   const dimTop = dim(anyBusy);
-  const dimPills = dim(loading || brazierBusy > 0 || stepBusy);
+  const dimPills = dim(loading || !!brazierBusy || stepBusy);
   const dimBox = dim(anyBusy);
   const dimPanels = dim(loading); // NOT regenning: the pills reroll off screen while the panel's answer is being read
   /* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
@@ -1419,23 +1460,33 @@ Respond with ONLY JSON: {"q": "..."}` }],
               const body = (kind) => kind === 'brazier'
                 ? (brazierOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
-                    {[1, 2, 3].filter((r) => r <= brazierRing && brazier[r]).map((r) => (
-                      <div key={r} className={r > 1 ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
-                        {r === 2 && <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">deeper</div>}
-                        {r === 3 && <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">the whole picture</div>}
-                        {ensureParagraphBreaks(brazier[r]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                    {brazier[1] && ensureParagraphBreaks(brazier[1]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                      <p key={`r1${xi}`} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                    ))}
+                    {floorsOpened.filter((f) => brazier[f]).map((f) => (
+                      <div key={f} className="mt-4 pt-4 border-t border-zinc-800/70">
+                        <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">{FLOOR_LABEL[f]}</div>
+                        {ensureParagraphBreaks(brazier[f]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                           <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                         ))}
-                        {r === 3 && (
+                        {f === 'mechanism' && (
                           <p className="mt-3 text-[0.8125rem]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
                         )}
                       </div>
                     ))}
-                    {brazierBusy > 0 && <Writing scroll={false} label={brazierBusy === 1 ? 'the Reader is writing…' : 'the Reader is going deeper…'} />}
-                    {!brazierBusy && brazier[brazierRing] && brazierRing < 3 && (
-                      <button onClick={() => fetchRing(brazierRing + 1)} className="mt-3 text-[0.8125rem] text-zinc-400 hover:text-zinc-200 underline decoration-dotted">
-                        {brazierRing === 1 ? 'go deeper' : 'the whole picture'}
-                      </button>
+                    {!!brazierBusy && <Writing scroll={false} label={brazierBusy === 1 ? 'the Reader is writing…' : `the Reader is opening ${FLOOR_LABEL[brazierBusy] || 'the floor'}…`} />}
+                    {/* THE LANTERNS (Keel's requirements §2; founder 2026-09-19): three destinations, not a
+                        staircase — any one in one tap. Lowercase, quiet, one row. A floor already opened
+                        goes dim. Gated floors appear when their exemplars freeze; the bench shows all three. */}
+                    {!brazierBusy && brazier[1] && (
+                      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem] text-zinc-400">
+                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench).map((f) => (
+                          <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
+                            className={brazier[f] ? 'text-zinc-600 cursor-default' : 'underline decoration-dotted hover:text-zinc-200'}>
+                            {FLOOR_LABEL[f]}
+                          </button>
+                        ))}
+                      </div>
                     )}
                   </div>
                 ))
@@ -1945,7 +1996,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
                   <button onClick={closeUp}
                     className="text-left rounded-lg border border-emerald-600/50 bg-emerald-950/25 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/30 transition-colors break-words">
                     <span className="block text-[0.625rem] uppercase tracking-wider opacity-70 mb-0.5">that may be the whole of it</span>
-                    Write this up and close
+                    Pull it together
                   </button>
                 )}
                 {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
@@ -1995,7 +2046,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
-              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">Wrap this up</button>}
+              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">pull it together</button>}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
