@@ -22,7 +22,7 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM } from '../../lib/prompts';
-import { VOICES, EZ_RULES, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock } from '../../lib/ezPrompts';
+import { VOICES, EZ_RULES, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
@@ -96,11 +96,6 @@ const FLOORS_OPEN = { meaning: true, moon: true, mechanism: true }; // opened 20
 // then the Reader goes quiet. The name is a config string — the founder picks.
 const DO_SOMETHING_LABEL = 'One small step'; // founder, 2026-09-16 night (was 'what can I do about this?')
 const DO_SOMETHING_HINT = 'one small real thing, in the next minute';
-const doSomethingBlock = (k) => `
-
-ONE SMALL REAL ACT. The person asked for one thing they can do right now. Hand them ONE act — doable in the next minute, in the medicine card's OWN character (${k.partner || 'this card'}: ${k.partnerDescription || 'its own balanced face'}), shaped for the status: ${k.actShape}
-Rules: one act, sized small, concrete, in ordinary words; say in one clause why it is the way back for THIS draw; then get out of the way. NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card. Under 80 words. The pen grammar if a framing line is needed, at most once: "Your pen. Four ways of holding it. It only writes now."
-Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
 
 // FACE THE DRAGON (Keel's ADDENDUM_The_Moon_Comes_Back_Face_The_Dragon, 2026-09-19; the founder's
 // ruling the same morning: NO drain gate — "the tap is the consent", "maybe that thing is a

@@ -3,18 +3,16 @@
 // Admin-gated (lib/adminAuth). Model lane: the live prompt on several models. Prompt lane: one
 // model, the live prompt beside named variants. Never both in one run (commission addendum).
 // Nothing here touches the reader's routes, MODEL_IDS, or any prompt text.
+// The fan-out, the retries, the floor rewrite and the flags live in lib/bakeoff/run.js, shared
+// with the batch (addendum 4) so the single run and the batch measure the same thing.
 
 import { requireAdmin } from '../../../lib/adminAuth.js';
-import { presetById, drawFor, drawLabel, buildPrompt, buildOpening, parseJson } from '../../../lib/bakeoff/presets.js';
-import { neededRepair } from '../../../lib/readerJson.js';
+import { presetById, drawFor, drawLabel, buildOpening, parseJson } from '../../../lib/bakeoff/presets.js';
 import { callModel, BENCH_MODELS } from '../../../lib/bakeoff/providers.js';
-import { lintOutput } from '../../../lib/bakeoff/lint.js';
+import { runSection } from '../../../lib/bakeoff/run.js';
 import { readVariants } from '../../../lib/bakeoff/store.js';
 
 export const maxDuration = 120;
-
-const shuffle = (a) => { const arr = [...a]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; };
-const LETTERS = 'ABCDEFGH';
 
 export async function POST(request) {
   const gate = await requireAdmin(request);
@@ -47,9 +45,9 @@ export async function POST(request) {
   const draw = drawFor(preset, body.draw);
   const t0 = Date.now();
 
-  // The floors and the dragon deepen a TURN, so the bench first opens the reading once, on the
-  // LIVE prompt and the live model (Sonnet), and hands that same opening to every lane. One thing
-  // varies per comparison; the opening is shared context, never a lane.
+  // The floors, the dragon and the step deepen a TURN, so the bench first opens the reading once,
+  // on the LIVE prompt and the live model (Sonnet), and hands that same opening to every lane.
+  // One thing varies per comparison; the opening is shared context, never a lane.
   let opening = null, openingRow = null;
   if (preset.kind !== 'opening') {
     const p = buildOpening({ question, draw, over: {} });
@@ -59,56 +57,7 @@ export async function POST(request) {
     if (!opening?.reader) return Response.json({ error: 'the shared opening did not parse; run again', raw: openingRow.text?.slice(0, 400) }, { status: 502 });
   }
 
-  const built = lanes.map((L) => ({ L, p: buildPrompt(preset, { question, draw, opening, over: L.over }) }));
-  let results = await Promise.all(built.map(({ L, p }) => callModel({ modelKey: L.modelKey, system: p.system, message: p.message, maxTokens: p.maxTokens })));
-
-  // THE READER'S OWN RETRY, mirrored (.453): the page re-asks ONCE when the envelope does not
-  // parse. A bench that did not would measure something harsher than what a person gets. The
-  // retry's cost and time are added to the lane's, and the lane is marked so the tally can show
-  // how often each model needed it.
-  const RETRY = '\n\nYOUR LAST REPLY WAS NOT VALID JSON AND COULD NOT BE READ. Send the same answer again as ONE JSON object and nothing else — no preamble, no code fence, no trailing text.';
-  // .460: an opening that PARSED but left out the medicine, the question or the chips is also a
-  // miss (run 4: non-thinking flash wrote {"reader"} and stopped cleanly — no cap, no parse error,
-  // nothing to tap). The reader's page only retries on a missing "reader"; the bench retries on an
-  // incomplete envelope too, naming the missing fields, so every model gets the same second chance.
-  const REQUIRED = ['medicine', 'question', 'chips'];
-  const missingOf = (parsed) => (preset.kind === 'opening' && parsed) ? REQUIRED.filter((k) => !parsed[k] || (Array.isArray(parsed[k]) && !parsed[k].length)) : [];
-  results = await Promise.all(results.map(async (r, i) => {
-    if (r.error || !r.text) return r;
-    const first = parseJson(r.text);
-    const missing = missingOf(first);
-    if (first && !missing.length) return r;
-    const { L, p } = built[i];
-    const ask = first
-      ? `\n\nYOUR LAST REPLY PARSED BUT LEFT OUT: ${missing.join(', ')}. Send the WHOLE JSON object again — reader, medicine, question, chips, reflect, forge, and every other field — as ONE JSON object and nothing else.`
-      : RETRY;
-    const again = await callModel({ modelKey: L.modelKey, system: p.system, message: p.message + ask, maxTokens: p.maxTokens });
-    if (again.error) return { ...r, retried: true, note: `${r.note ? r.note + '; ' : ''}retry failed: ${again.error}` };
-    const sum = (a, b, k) => (a?.[k] || 0) + (b?.[k] || 0);
-    const usage = { input_tokens: sum(r.usage, again.usage, 'input_tokens'), output_tokens: sum(r.usage, again.usage, 'output_tokens'), cache_read_input_tokens: sum(r.usage, again.usage, 'cache_read_input_tokens'), cache_creation_input_tokens: sum(r.usage, again.usage, 'cache_creation_input_tokens') };
-    return { ...again, retried: true, firstText: r.text, usage, cost: (r.cost || 0) + (again.cost || 0), ms: (r.ms || 0) + (again.ms || 0), note: `${r.note ? r.note + '; ' : ''}retried once (first reply ${first ? 'left out ' + missing.join(', ') : 'did not parse'})` };
-  }));
-
-  const rows = built.map(({ L, p }, i) => {
-    const r = results[i];
-    const parsed = r.text ? parseJson(r.text) : null;
-    const lint = r.error ? { ok: false, flags: [{ code: 'error', detail: r.error }], words: 0, prose: '' } : lintOutput({ text: r.text, parsed, preset, hostile: !!preset.hostile });
-    // parsed only because the shared parser repaired it (raw newlines in strings, fences, trailing commas): a flag, not a failure
-    if (parsed && neededRepair(r.text)) lint.flags = [...(lint.flags || []), { code: 'json-repaired', detail: 'parsed only after repair (raw line breaks inside strings, fences or trailing commas)' }];
-    if (r.retried) lint.flags = [...(lint.flags || []), { code: 'retried', detail: r.note || 'the one retry was used' }];
-    // .458: hit the reader's token cap — the envelope is incomplete (no medicine, no chips) even if the prose looks whole.
-    // The founder spotted it on non-thinking flash: "doesn't include the end". A cut reply is not a shorter reading; it is a broken one.
-    if (r.stop === 'max_tokens') lint.flags = [...(lint.flags || []), { code: 'cut', detail: `stopped at the token cap (${p.maxTokens}); the envelope is incomplete` }];
-    return {
-      key: L.key, label: L.label, modelKey: L.modelKey, model: r.model, provider: r.provider,
-      text: r.text || '', parsed, prose: lint.prose, lint: { ok: lint.ok, flags: lint.flags, words: lint.words },
-      usage: r.usage || null, cost: r.cost || 0, ms: r.ms, error: r.error || null, note: r.note || '', stop: r.stop || null, thinkingChars: r.thinkingChars || 0,
-      promptChars: { system: p.system.length, message: p.message.length },
-    };
-  });
-
-  // Blind order: shuffled here, lettered here; the page hides label/model until the pick.
-  const lettered = shuffle(rows).map((r, i) => ({ ...r, letter: LETTERS[i] }));
+  const lettered = await runSection(preset, lanes, { question, draw, opening });
 
   return Response.json({
     lane, preset: preset.id, presetKind: preset.kind, hostile: !!preset.hostile, question,

@@ -126,6 +126,28 @@ export default function BakeoffPage() {
   const loadVariants = useCallback(async () => { try { const d = await api('/api/bakeoff/variants'); setVariants(d.variants || []); setTargets(d.targets || {}); } catch (e) { setError(e.message); } }, []);
   useEffect(() => { if (authed) { loadTally(lane); loadVariants(); } }, [authed, lane, loadTally, loadVariants]);
 
+  // ----- THE BATCH (addendum 4): N runs × six sections × the chosen lanes, in the background -----
+  const [batches, setBatches] = useState([]);
+  const [batchN, setBatchN] = useState(10);
+  const [batchMsg, setBatchMsg] = useState('');
+  const [importJudge, setImportJudge] = useState('Keel');
+  const [importText, setImportText] = useState('');
+  const [importFor, setImportFor] = useState('');
+  const loadBatches = useCallback(async () => { try { const d = await api('/api/bakeoff/batch'); setBatches(d.batches || []); } catch (e) { setError(e.message); } }, []);
+  useEffect(() => { if (authed) loadBatches(); }, [authed, loadBatches]);
+  useEffect(() => { if (!batches.some((b) => b.status === 'running' || b.status === 'queued')) return; const t = setInterval(loadBatches, 4000); return () => clearInterval(t); }, [batches, loadBatches]);
+  const startBatch = async () => {
+    setBatchMsg(''); setError('');
+    const body = { n: batchN, lane };
+    if (lane === 'model') body.models = Object.keys(models).filter((k) => models[k]); else { body.model = promptModel; body.variants = Object.keys(chosenVariants).filter((k) => chosenVariants[k]); }
+    try { const d = await api('/api/bakeoff/batch', { method: 'POST', body: JSON.stringify(body) }); setBatchMsg(`batch ${d.batch.id} started (code ${d.batch.code}) — ${d.batch.n} runs × 6 sections × ${d.batch.laneLabels.length} lanes`); loadBatches(); } catch (e) { setError(e.message); }
+  };
+  const judgeLink = (b) => `${typeof window !== 'undefined' ? window.location.origin : ''}/bakeoff/judge/${b.id}?code=${b.code}`;
+  const copyLink = async (b) => { try { await navigator.clipboard.writeText(judgeLink(b)); setBatchMsg(`judge link copied: ${judgeLink(b)}`); } catch { setBatchMsg(judgeLink(b)); } };
+  const exportBatch = async (b) => { try { const r = await api('/api/bakeoff/batch/export', { method: 'POST', body: JSON.stringify({ id: b.id }) }); if (r.ok) setBatchMsg(`written for the seats: ${r.path}`); else { download(r.name, r.markdown); setBatchMsg(`downloaded ${r.name} (${r.reason})`); } } catch (e) { setError(e.message); } };
+  const importPicks = async () => { if (!importFor || !importText.trim()) return; try { const r = await api('/api/bakeoff/batch/import', { method: 'POST', body: JSON.stringify({ id: importFor, judge: importJudge, text: importText }) }); setBatchMsg(`${importJudge}: ${r.stored} picks stored${r.skipped.length ? ` · skipped ${r.skipped.length} (${r.skipped.slice(0, 3).join('; ')}${r.skipped.length > 3 ? '…' : ''})` : ''}${r.bad.length ? ` · ${r.bad.length} lines not understood` : ''}`); setImportText(''); loadTally(lane); } catch (e) { setError(e.message); } };
+  const SECTION_ORDER = ['opening', 'meaning', 'moon', 'mechanism', 'dragon', 'step'];
+
   const isHostile = preset.startsWith('hostile:');
   const effectiveQuestion = isHostile ? HOSTILE_Q[+preset.split(':')[1] - 1] : question;
 
@@ -253,6 +275,17 @@ export default function BakeoffPage() {
             <tbody>{tallyRows.map(([k, t]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td><td className="pr-3">{t.picks}</td><td className="pr-3">{t.strong || 0}</td><td className="pr-3">{t.ties || 0}</td><td className="pr-3">{t.picksBlind} / {t.picksCostVisible}</td><td className="pr-3">{t.shown}</td><td className="pr-3">{t.avgWords}</td><td className="pr-3">{t.statuses[1]}/{t.statuses[2]}/{t.statuses[3]}/{t.statuses[4]}</td><td className="pr-3">{tally.mine.per[k]?.picks || 0}</td><td className="text-zinc-400">{Object.entries(t.tags).map(([g, n]) => `${g} ${n}`).join(' · ')}</td></tr>)}</tbody></table></div>
         ) : <div className="text-zinc-600">no votes yet in this lane</div>}
         {tally?.all?.perPreset && <div className="text-zinc-600">per preset: {Object.entries(tally.all.perPreset).map(([p, n]) => `${p} ${n}`).join(' · ')}</div>}
+        {/* ADDENDUM 4: picks per lane per SECTION with cost beside; flag counts per lane; per judge */}
+        {tally?.all?.bySection && Object.keys(tally.all.bySection).length > 0 && (
+          <div className="overflow-x-auto pt-2">
+            <div className="text-zinc-500 mb-1">BY SECTION · picks / strong / ties over showings · avg cost per showing</div>
+            <table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">lane</th>{SECTION_ORDER.filter((s) => tally.all.bySection[s]).map((s) => <th key={s} className="pr-3">{s}</th>)}<th>flags</th></tr></thead>
+              <tbody>{tallyRows.map(([k]) => <tr key={k}><td className="pr-3 text-zinc-200">{labelOf(k)}</td>
+                {SECTION_ORDER.filter((s) => tally.all.bySection[s]).map((s) => { const c = tally.all.bySection[s][k]; return <td key={s} className="pr-3 whitespace-nowrap">{c ? <span>{c.picks}/{c.strong}/{c.ties} of {c.shown} <span className="text-zinc-500">· {cents(c.avgCost)}</span></span> : <span className="text-zinc-700">—</span>}</td>; })}
+                <td className="text-zinc-400 whitespace-nowrap">{Object.entries(tally.all.flagCounts?.[k] || {}).map(([f, n]) => `${f} ${n}`).join(' · ') || '—'}</td></tr>)}</tbody></table>
+            {tally.all.byJudge && Object.keys(tally.all.byJudge).length > 1 && <div className="text-zinc-500 mt-2">BY JUDGE · {Object.entries(tally.all.byJudge).map(([j, per]) => `${j}: ${Object.entries(per).map(([k, c]) => `${labelOf(k)} ${c.picks}${c.strong ? ` (${c.strong} strong)` : ''}`).join(', ')}${Object.values(per).some((c) => c.ties) ? ` · ties ${Math.max(...Object.values(per).map((c) => c.ties))}` : ''}`).join(' | ')}</div>}
+          </div>
+        )}
       </section>
 
       {/* CONTROLS */}
@@ -311,6 +344,28 @@ export default function BakeoffPage() {
           </div>
         )}
         {error && <div className="text-rose-400">{error}</div>}
+      </section>
+
+      {/* THE BATCH (addendum 4): every door pushed, N runs, judged section by section by a panel */}
+      <section className="border border-zinc-800 rounded p-3 space-y-2">
+        <div className="flex flex-wrap gap-3 items-center">
+          <span className="text-zinc-500">BATCH</span>
+          <label className="flex items-center gap-1 text-zinc-400">runs <input type="number" min={1} max={40} value={batchN} onChange={(e) => setBatchN(+e.target.value || 10)} className="w-16 bg-zinc-900 border border-zinc-700 rounded px-2 py-1" /></label>
+          <span className="text-zinc-600">× 6 sections (opening · meaning · moon · mechanism · dragon · step) × the lanes checked above, on the forty starters, statuses spread</span>
+          <button onClick={startBatch} className="px-3 py-1 rounded bg-amber-500 text-black">Run a batch</button>
+          {batchMsg && <span className="text-emerald-400 text-xs break-all">{batchMsg}</span>}
+        </div>
+        {batches.length > 0 && (
+          <div className="overflow-x-auto"><table className="text-xs"><thead><tr className="text-zinc-500 text-left"><th className="pr-3">batch</th><th className="pr-3">reader</th><th className="pr-3">lanes</th><th className="pr-3">progress</th><th className="pr-3">cost so far</th><th className="pr-3">status</th><th>actions</th></tr></thead>
+            <tbody>{batches.map((b) => <tr key={b.id}><td className="pr-3 text-zinc-200">{b.id} <span className="text-zinc-600">{b.created.slice(0, 16).replace('T', ' ')}</span></td><td className="pr-3">v{b.version}</td><td className="pr-3">{b.laneLabels.join(' · ')}</td><td className="pr-3">{b.done}/{b.total}{b.current ? ` (run ${b.current.run}, ${b.current.section})` : ''}</td><td className="pr-3">${b.usd.toFixed(3)}</td><td className={`pr-3 ${b.status === 'error' ? 'text-rose-400' : b.status === 'done' ? 'text-emerald-400' : 'text-amber-300'}`}>{b.status}{b.error ? `: ${b.error}` : ''}</td>
+              <td className="whitespace-nowrap space-x-2"><button onClick={() => copyLink(b)} className="underline text-zinc-300">judge link</button><a href={judgeLink(b)} target="_blank" rel="noreferrer" className="underline text-zinc-500">open</a><button onClick={() => exportBatch(b)} className="underline text-zinc-300">export for the seats</button><button onClick={() => setImportFor(b.id)} className="underline text-zinc-300">import a seat&apos;s picks</button></td></tr>)}</tbody></table></div>
+        )}
+        {importFor && (
+          <div className="border border-zinc-700 rounded p-2 space-y-2">
+            <div className="flex flex-wrap gap-2 items-center"><span className="text-zinc-500">picks for batch {importFor} from</span><input value={importJudge} onChange={(e) => setImportJudge(e.target.value)} placeholder="Keel / Gemini / the GPT Mind seat" className="bg-zinc-900 border border-zinc-700 rounded px-2 py-1" /><button onClick={importPicks} className="px-3 py-1 rounded bg-zinc-200 text-black">store</button><button onClick={() => setImportFor('')} className="underline text-zinc-500">close</button></div>
+            <textarea value={importText} onChange={(e) => setImportText(e.target.value)} rows={6} placeholder={'run 1, opening: B\nrun 1, meaning: A!\nrun 1, moon: tie\n…'} className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-xs" />
+          </div>
+        )}
       </section>
 
       {/* THE RUN */}
