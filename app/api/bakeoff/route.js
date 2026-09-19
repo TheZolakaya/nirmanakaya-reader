@@ -6,6 +6,7 @@
 
 import { requireAdmin } from '../../../lib/adminAuth.js';
 import { presetById, drawFor, drawLabel, buildPrompt, buildOpening, parseJson } from '../../../lib/bakeoff/presets.js';
+import { neededRepair } from '../../../lib/readerJson.js';
 import { callModel, BENCH_MODELS } from '../../../lib/bakeoff/providers.js';
 import { lintOutput } from '../../../lib/bakeoff/lint.js';
 import { readVariants } from '../../../lib/bakeoff/store.js';
@@ -59,12 +60,30 @@ export async function POST(request) {
   }
 
   const built = lanes.map((L) => ({ L, p: buildPrompt(preset, { question, draw, opening, over: L.over }) }));
-  const results = await Promise.all(built.map(({ L, p }) => callModel({ modelKey: L.modelKey, system: p.system, message: p.message, maxTokens: p.maxTokens })));
+  let results = await Promise.all(built.map(({ L, p }) => callModel({ modelKey: L.modelKey, system: p.system, message: p.message, maxTokens: p.maxTokens })));
+
+  // THE READER'S OWN RETRY, mirrored (.453): the page re-asks ONCE when the envelope does not
+  // parse. A bench that did not would measure something harsher than what a person gets. The
+  // retry's cost and time are added to the lane's, and the lane is marked so the tally can show
+  // how often each model needed it.
+  const RETRY = '\n\nYOUR LAST REPLY WAS NOT VALID JSON AND COULD NOT BE READ. Send the same answer again as ONE JSON object and nothing else — no preamble, no code fence, no trailing text.';
+  results = await Promise.all(results.map(async (r, i) => {
+    if (r.error || !r.text || parseJson(r.text)) return r;
+    const { L, p } = built[i];
+    const again = await callModel({ modelKey: L.modelKey, system: p.system, message: p.message + RETRY, maxTokens: p.maxTokens });
+    if (again.error) return { ...r, retried: true, note: `${r.note ? r.note + '; ' : ''}retry failed: ${again.error}` };
+    const sum = (a, b, k) => (a?.[k] || 0) + (b?.[k] || 0);
+    const usage = { input_tokens: sum(r.usage, again.usage, 'input_tokens'), output_tokens: sum(r.usage, again.usage, 'output_tokens'), cache_read_input_tokens: sum(r.usage, again.usage, 'cache_read_input_tokens'), cache_creation_input_tokens: sum(r.usage, again.usage, 'cache_creation_input_tokens') };
+    return { ...again, retried: true, firstText: r.text, usage, cost: (r.cost || 0) + (again.cost || 0), ms: (r.ms || 0) + (again.ms || 0), note: `${r.note ? r.note + '; ' : ''}retried once (first reply did not parse)` };
+  }));
 
   const rows = built.map(({ L, p }, i) => {
     const r = results[i];
     const parsed = r.text ? parseJson(r.text) : null;
     const lint = r.error ? { ok: false, flags: [{ code: 'error', detail: r.error }], words: 0, prose: '' } : lintOutput({ text: r.text, parsed, preset, hostile: !!preset.hostile });
+    // parsed only because the shared parser repaired it (raw newlines in strings, fences, trailing commas): a flag, not a failure
+    if (parsed && neededRepair(r.text)) lint.flags = [...(lint.flags || []), { code: 'json-repaired', detail: 'parsed only after repair (raw line breaks inside strings, fences or trailing commas)' }];
+    if (r.retried) lint.flags = [...(lint.flags || []), { code: 'retried', detail: 'first reply did not parse; the reader\'s one retry was used' }];
     return {
       key: L.key, label: L.label, modelKey: L.modelKey, model: r.model, provider: r.provider,
       text: r.text || '', parsed, prose: lint.prose, lint: { ok: lint.ok, flags: lint.flags, words: lint.words },

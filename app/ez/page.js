@@ -30,6 +30,7 @@ import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
 import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H } from '../../lib/modelConfig';
+import { parseReaderJson } from '../../lib/readerJson';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
@@ -183,11 +184,9 @@ const benchReply = (msg) => {
   return BENCH_TALK;
 };
 
-function parseJson(text) {
-  const m = String(text || '').match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  try { return JSON.parse(m[0]); } catch { return null; }
-}
+// .453: the tolerant shared parser (lib/readerJson.js) — repairs raw line breaks inside strings,
+// fences and trailing commas before giving up. Same parser the Bake-off uses.
+function parseJson(text) { return parseReaderJson(text); }
 
 function drawLabel(d) {
   if (!d) return '';
