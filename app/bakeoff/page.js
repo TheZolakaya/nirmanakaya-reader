@@ -90,6 +90,23 @@ export default function BakeoffPage() {
   const [pickStrength, setPickStrength] = useState(1);
   const [tags, setTags] = useState({});
   const [note, setNote] = useState('');
+  // THE STYLE PROBE (2026-09-19): the founder and the GPT seat both see the two columns render
+  // differently; the bench's own CSS is identical. So read the COMPUTED styles and the exact pixel
+  // offset of each column's prose off the live DOM and print them — a half-pixel x-offset changes
+  // antialiasing on monospace text, and that is a difference nobody can name by eye.
+  const [probe, setProbe] = useState({});
+  useEffect(() => {
+    if (!run) return;
+    const t = setTimeout(() => {
+      const out = {};
+      document.querySelectorAll('[data-probe]').forEach((el) => {
+        const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+        out[el.dataset.probe] = { family: cs.fontFamily.split(',')[0].replace(/"/g, ''), size: cs.fontSize, weight: cs.fontWeight, ls: cs.letterSpacing, lh: cs.lineHeight, x: r.x.toFixed(2), w: r.width.toFixed(2) };
+      });
+      setProbe(out);
+    }, 150);
+    return () => clearTimeout(t);
+  }, [run, revealed, voted]);
   const [voted, setVoted] = useState(false);
   const [exported, setExported] = useState('');
 
@@ -334,10 +351,11 @@ export default function BakeoffPage() {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {R.lint.flags.length ? R.lint.flags.map((f, i) => <span key={i} title={FLAG_HELP[f.code] || ''} className={`px-1 rounded text-[11px] ${f.code === 'hedge' || f.code === 'denies' || f.code === 'error' ? 'bg-rose-900/60 text-rose-200' : 'bg-zinc-800 text-zinc-300'}`}>{f.code}: {f.detail}</span>) : <span className="text-[11px] text-emerald-400">no flags</span>}
+                    {probe[R.key] && <span className="text-[10px] text-zinc-600" title="computed styles of this column's prose, read off the live DOM">· {probe[R.key].family} {probe[R.key].size} w{probe[R.key].weight} ls {probe[R.key].ls} lh {probe[R.key].lh} · x {probe[R.key].x} w {probe[R.key].w}</span>}
                   </div>
                   {R.error ? <div className="text-rose-400 whitespace-pre-wrap">{R.error}</div> : R.parsed ? (
                     <div className="space-y-2 text-[14px] leading-relaxed">
-                      <p className="whitespace-pre-wrap text-zinc-100">{glass(R.prose)}</p>
+                      <p data-probe={R.key} className="whitespace-pre-wrap text-zinc-100">{glass(R.prose)}</p>
                       {R.parsed.medicine && <p className="italic text-amber-200/80 whitespace-pre-wrap">{glass(R.parsed.medicine)}</p>}
                       {R.parsed.question && <p className="text-sky-200/80">{R.parsed.question}</p>}
                       {Array.isArray(R.parsed.chips) && R.parsed.chips.length > 0 && <details className="text-xs text-zinc-500"><summary>chips · reflects · forges</summary>
