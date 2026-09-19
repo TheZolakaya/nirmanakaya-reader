@@ -308,6 +308,20 @@ ONE SMALL REAL ACT. The person asked for one thing they can do right now. Hand t
 Rules: one act, sized small, concrete, in ordinary words; say in one clause why it is the way back for THIS draw; then get out of the way. NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card. Under 80 words. The pen grammar if a framing line is needed, at most once: "Your pen. Four ways of holding it. It only writes now."
 Respond with ONLY JSON: {"reader": "<the act>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
 
+// FACE THE DRAGON (Keel's ADDENDUM_The_Moon_Comes_Back_Face_The_Dragon, 2026-09-19; the founder's
+// ruling the same morning: NO drain gate — "the tap is the consent", "maybe that thing is a
+// gas-breathing dragon"). The fierce door: the thing itself, said straight — the problem being
+// walked around OR the opportunity not picked up. Chosen by name, never default.
+const DRAGON_LABEL = 'Face the dragon';
+const DRAGON_HINT = 'the thing itself, said straight — a problem walked around, or a gift not picked up';
+const dragonBlock = (k) => `
+
+FACE THE DRAGON. The person tapped this by name; that tap is their consent, and fierceness is licensed by it — never softened because you guess at their state. Name THE THING in front of them, said straight: the problem they have been walking around, OR the opportunity they have been pretending not to see (half of all dragons are gifts nobody picked up). Not the next step — the ROOM.
+RAILS: (1) It names the THING, never the person. "The thing you've been walking around is that this job ended two years ago and you're still going in" is the dragon; "you're a coward" is not. Fierce about the situation; never a verdict on the being. (2) It still ends in the person's hands: close on an act that is theirs — larger than the small thing, but theirs to take or leave. A dragon named without a door out of the room is a wound, not a reading. (3) DERIVED, as everything: the dragon traces to this card, this seat, this status and the partner (${k.partner || 'the medicine card'}: ${k.partnerDescription || 'its own balanced face'}); if the named dragon would be true of any card, it is a horoscope with a scary voice — cut it. (4) THE PICTURE IS ALLOWED and here it earns its keep: the tower falling, the swords on the wall, the wheel that turns without asking. (5) Tense-language, never diagnosis-language: "you've been living in a future that can't be written in" is fierce and lawful; "your anxiety" is not. (6) Kitchen words; no card, seat or status names; no architecture vocabulary.
+Under 150 words. Open on the thing ("The thing you're not saying:" / "The thing you're walking around:" or your own straight opening). NO question at the end. No chips, no reflects, no forges, no medicine field. Never draw a card.
+${DRAGON_STANDARD}
+Respond with ONLY JSON: {"reader": "<the dragon>", "question": "", "chips": [], "reflect": [], "forge": [], "medicine": ""}`;
+
 const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 220 words, plain words, no framework vocabulary, no question at the end, nothing new introduced.
 Five short parts, unlabelled, flowing as paragraphs:
 1. What they came in asking, in their own words.
@@ -374,6 +388,7 @@ const benchReply = (msg) => {
   if (/Write ring (\d)\. JSON only\./.test(msg)) return { text: BENCH_RINGS[msg.match(/Write ring (\d)/)[1]] };
   if (/Write the (meaning|moon|mechanism) floor\. JSON only\./.test(msg)) return { text: BENCH_FLOORS[msg.match(/Write the (\w+) floor/)[1]] };
   if (msg.includes('ONE SMALL REAL ACT')) return BENCH_ACT;
+  if (msg.includes('FACE THE DRAGON.')) return { reader: "The thing you're walking around: it's finished, and you know it's finished, and you keep tending it because tending is easier than being the one who says so. Nobody is waiting for your permission except you. Here's what's in front of you — not a ceremony, not a decision: one thing started today that has nothing to do with the old one. A page, a message, a first hour. Start it, and the door you've been standing in closes on its own.", question: '', chips: [], reflect: [], forge: [], medicine: '' };
   if (msg.includes('FIND IT. The person tapped')) return msg.includes('narrowing turn 1') ? BENCH_FUNNEL : { ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' };
   if (msg.includes('OTHER OPTIONS')) return { reader: '', question: '', chips: [...BENCH_CHIPS].reverse(), reflect: [...BENCH_REFLECT].reverse(), forge: [...BENCH_FORGE].reverse() };
   if (msg.includes('SAY IT SIMPLER')) return { reader: "Something is finished and you're still holding it. Start one small new thing and the old one will let go.", question: 'What would change if you let it close today?', chips: [], reflect: [], forge: [] };
@@ -1148,7 +1163,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     setFieldMode(null);
     // any new turn folds the panels (founder, 2026-09-17: "I'd rather have it minimized"); their answers
     // are kept for the same card, so reopening is free
-    setBrazierOpen(false); setStepOpen(false);
+    setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     // THE NEW CARD LANDS IN ITS OWN TURN (founder, 2026-09-16, an experiment): a reflect or
     // forge draws its card at once, a pending reader turn holding only the stacked card is
     // added, the page is scrolled so that card sits just under the brand — where the header
@@ -1258,6 +1273,39 @@ Respond with ONLY JSON: {"q": "..."}` }],
     }
   };
 
+  // ---- FACE THE DRAGON: the fierce door, beside the step ----
+  const [dragonOpen, setDragonOpen] = useState(false);
+  const [dragonText, setDragonText] = useState('');
+  const [dragonBusy, setDragonBusy] = useState(false);
+  const dragonKeyRef = useRef('');
+  const fetchDragon = async () => {
+    const card = fieldCard(); if (!card || dragonBusy) return;
+    const k = buildKernel(card, DEFS);
+    setDragonBusy(true); setError('');
+    try {
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
+      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
+      const { obj } = await callReader(msg, systemPrompt, 600);
+      setDragonText(String(obj.reader || '').trim());
+      regenPills({ dragon: String(obj.reader || '').trim() }); // the pills under the commentary now know the dragon was named
+      dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
+    } catch (e) { setError(e.message); }
+    setDragonBusy(false);
+  };
+  const toggleDragon = () => {
+    const next = !dragonOpen;
+    setDragonOpen(next);
+    if (next) {
+      showPanels();
+      if (!brazierOpen && !stepOpen) setPanelFirst('dragon');
+      const card = fieldCard();
+      const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
+      if (key !== dragonKeyRef.current || !dragonText) { setDragonText(''); fetchDragon(); }
+    }
+  };
+
   // ---- THE BRAZIER: "why is this happening?" — beside the conversation, not in it ----
   const [brazierOpen, setBrazierOpen] = useState(false);
   const [brazier, setBrazier] = useState({});          // { [ring]: text }
@@ -1267,8 +1315,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const brazierBlock = (over = {}) => {
     const rings = over.rings || brazier;
     const st = over.step !== undefined ? over.step : stepText;
+    const dr = over.dragon !== undefined ? over.dragon : dragonText;
     const read = [1, 'meaning', 'moon', 'mechanism'].filter((r) => rings[r]);
-    const step = st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '';
+    const step = (st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '')
+      + (dr ? `\n\nTHE DRAGON THEY ASKED TO FACE (they tapped "face the dragon" and read this; it is part of the conversation now — you may build on it and refer to it; never repeat it, never soften it back, never pile on):\n${dr}` : '');
     if (!read.length) return step;
     // Opened floors ENTER THE CONVERSATION (founder's ruling 2026-09-19: "it's an ongoing
     // conversation") — the Reader may build on them and refer to them; it just never repeats them.
@@ -1326,6 +1376,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     fieldKeyRef.current = fieldKey;
     setBrazierOpen(false); setBrazier({}); setFloorsOpened([]); brazierKeyRef.current = '';
     setStepOpen(false); setStepText(''); stepKeyRef.current = '';
+    setDragonOpen(false); setDragonText(''); dragonKeyRef.current = '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldKey]);
   // THE FLOORS DEEPEN THE LATEST TURN (Keel's requirements §1): when a new Reader turn lands, the
@@ -1415,7 +1466,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const closeUp = async () => {
     if (loading || !draws || turns.length === 0) return;
     setLoading(true); setError(''); setFieldMode(null);
-    setBrazierOpen(false); setStepOpen(false);
+    setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 700);
@@ -1488,10 +1539,10 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // instead — the switches, the pills, the text box, the panels — dim and go inert, so the one
   // moving thing on the page is the indicator. Each section stays live only where its own
   // indicator lives.
-  const anyBusy = loading || regenning || !!brazierBusy || stepBusy;
+  const anyBusy = loading || regenning || !!brazierBusy || stepBusy || dragonBusy;
   const dim = (on) => (on ? 'opacity-30 pointer-events-none transition-opacity duration-300' : 'transition-opacity duration-300');
   const dimTop = dim(anyBusy);
-  const dimPills = dim(loading || !!brazierBusy || stepBusy);
+  const dimPills = dim(loading || !!brazierBusy || stepBusy || dragonBusy);
   const dimBox = dim(anyBusy);
   const dimPanels = dim(loading); // NOT regenning: the pills reroll off screen while the panel's answer is being read
   /* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
@@ -1507,6 +1558,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
                     <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-200 break-words">Words to the Whys</span>
                     <span className="ml-auto">{chev(brazierOpen)}</span>
+                  </button>
+                ) : kind === 'dragon' ? (
+                  <button onClick={toggleDragon} className="relative w-full flex items-center justify-center gap-3 px-3 py-3 text-center overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-200 break-words">{DRAGON_LABEL}</span>
+                    {chev(dragonOpen)}
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-3 pr-16 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
@@ -1558,7 +1614,15 @@ Respond with ONLY JSON: {"q": "..."}` }],
                     )}
                   </div>
                 ))
-                : (stepOpen && (
+                : kind === 'dragon' ? (dragonOpen && (
+                  <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
+                    <div className="text-[0.6875rem] text-rose-300/70 mb-2">{DRAGON_HINT}</div>
+                    {dragonBusy && <Writing scroll={false} label="the Reader is naming it…" />}
+                    {!dragonBusy && dragonText && ensureParagraphBreaks(dragonText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                      <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                    ))}
+                  </div>
+                )) : (stepOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
                     {stepBusy && <Writing scroll={false} label="the Reader is finding the step…" />}
@@ -1569,16 +1633,20 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 ));
               const frame = 'pill-breathe rounded-xl border bg-zinc-950/40';
               const glow = { '--pill': '139 92 246', borderColor: '#4c1d95' }; // dark purple at rest; breathes violet on hover
-              const isOpen = (kind) => (kind === 'brazier' ? brazierOpen : stepOpen);
-              const order = panelFirst === 'step' ? ['step', 'brazier'] : ['brazier', 'step'];
+              const isOpen = (kind) => (kind === 'brazier' ? brazierOpen : kind === 'dragon' ? dragonOpen : stepOpen);
+              // the row: whys · dragon · step (gentle door left, fierce door centre, the step right)
+              const base = ['brazier', 'dragon', 'step'];
+              const order = [panelFirst, ...base.filter((k) => k !== panelFirst)];
               const mine = order.filter((kind) => (which === 'open' ? isOpen(kind) : !isOpen(kind)));
               if (!mine.length) return null;
-              // both shut: the pair shares one row under the text box
-              if (which === 'closed' && mine.length === 2) {
+              // the shut ones share one row under the text box, in the row's own order
+              if (which === 'closed' && mine.length > 1) {
+                const dragonGlow = { '--pill': '244 63 94', borderColor: '#881337' }; // dark rose at rest; breathes red on hover
                 return (
                   <div className="mt-4 flex items-stretch gap-2">
-                    <div style={glow} className={`flex-1 min-w-0 ${frame}`}>{header('brazier')}</div>
-                    <div style={glow} className={`flex-1 min-w-0 ${frame}`}>{header('step')}</div>
+                    {base.filter((k) => mine.includes(k)).map((k) => (
+                      <div key={k} style={k === 'dragon' ? dragonGlow : glow} className={`flex-1 min-w-0 ${frame}`}>{header(k)}</div>
+                    ))}
                   </div>
                 );
               }
@@ -1997,7 +2065,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
             {/* AN OPEN PANEL FOLLOWS THE CONVERSATION (founder, 2026-09-17): its answer renders here,
                 above the block that never moves — Reflect and Forge, the pills, the text box, and
                 whichever panel is still shut. */}
-            {(brazierOpen || stepOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+            {(brazierOpen || stepOpen || dragonOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
 
             <div className={dimTop}>
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
