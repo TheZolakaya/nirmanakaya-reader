@@ -7,6 +7,16 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { getUser, getSession, isAdmin } from '../../lib/supabase';
+import { STARTERS, STARTER_KINDS } from '../../lib/starters';
+
+// PRESET QUESTIONS (founder, 2026-09-19: "we should have preset questions"): the EZ front door's
+// own forty starters, flattened — so the bench judges the exact sentences real people are handed.
+const PRESET_QUESTIONS = Object.entries(STARTERS).flatMap(([door, set]) =>
+  STARTER_KINDS.flatMap(({ key, label }) => {
+    const v = set[key];
+    return (Array.isArray(v) ? v : v ? [v] : []).map((text) => ({ door, kind: label, text }));
+  })
+);
 
 const MODELS = [
   ['sonnet', 'Sonnet 5'], ['haiku', 'Haiku 4.5'], ['deepseek-flash', 'deepseek-flash'], ['deepseek-v4-pro', 'deepseek-v4-pro'],
@@ -221,7 +231,18 @@ export default function BakeoffPage() {
           <label className="flex items-center gap-1 text-zinc-400"><input type="checkbox" checked={keepDraw} onChange={(e) => setKeepDraw(e.target.checked)} disabled={!run} /> keep this draw for the next run</label>
         </div>
         <div className="flex gap-2 items-start">
-          <textarea value={isHostile ? effectiveQuestion : question} onChange={(e) => setQuestion(e.target.value)} disabled={isHostile} rows={2} placeholder="The question, as a person would type it" className="flex-1 bg-zinc-900 border border-zinc-700 rounded px-2 py-1 disabled:text-zinc-500" />
+          <div className="flex-1 flex flex-col gap-1 min-w-[16rem]">
+            <textarea value={isHostile ? effectiveQuestion : question} onChange={(e) => setQuestion(e.target.value)} disabled={isHostile} rows={2} placeholder="The question, as a person would type it" className="bg-zinc-900 border border-zinc-700 rounded px-2 py-1 disabled:text-zinc-500" />
+            {!isHostile && (
+              <div className="flex flex-wrap gap-2 items-center text-xs">
+                <select value="" onChange={(e) => { if (e.target.value) setQuestion(e.target.value); }} className="bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-zinc-300 max-w-[28rem]">
+                  <option value="">a preset question — the front door&apos;s own forty…</option>
+                  {PRESET_QUESTIONS.map((q, i) => <option key={i} value={q.text}>{q.door} · {q.kind} · {q.text}</option>)}
+                </select>
+                <button type="button" onClick={() => setQuestion(PRESET_QUESTIONS[Math.floor(Math.random() * PRESET_QUESTIONS.length)].text)} className="px-2 py-1 rounded border border-zinc-600 text-zinc-300">random one</button>
+              </div>
+            )}
+          </div>
           <button onClick={doRun} disabled={busy || !effectiveQuestion.trim()} className="px-4 py-2 rounded bg-amber-500 text-black disabled:opacity-40">{busy ? 'running…' : 'Draw & run'}</button>
         </div>
         {lane === 'model' ? (
