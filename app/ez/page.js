@@ -1256,7 +1256,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
-      regenPills({ step: String(obj.reader || '').trim() }); // the pills under the commentary now know the step
+      // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setStepBusy(false);
@@ -1289,7 +1289,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 600);
       setDragonText(String(obj.reader || '').trim());
-      regenPills({ dragon: String(obj.reader || '').trim() }); // the pills under the commentary now know the dragon was named
+      // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setDragonBusy(false);
@@ -1362,7 +1362,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
       if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
-      regenPills({ rings: next }); // the pills under the commentary now know what was read
+      // no pill regen here (.446): the next real turn already receives every opened floor via brazierBlock
     } catch (e) { setError(e.message); }
     setBrazierBusy(0);
   };
