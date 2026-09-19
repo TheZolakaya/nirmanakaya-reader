@@ -874,6 +874,27 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
   const [usage, setUsage] = useState({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
+  // THE COST LEDGER (.447): one row per API call — purpose, fresh / cache-written / cache-read /
+  // out, cents, cold or warm. Visible to admins and on the bench. The purpose is read off the
+  // message itself so no caller has to be touched.
+  const [ledger, setLedger] = useState([]);
+  const [ledgerOpen, setLedgerOpen] = useState(false);
+  const purposeOf = (m) => {
+    if (/NOT VALID JSON/.test(m)) return 'retry';
+    if (/Write ring 1\. JSON only\./.test(m)) return 'why (ring 1)';
+    const f = m.match(/Write the (meaning|moon|mechanism) floor\. JSON only\./); if (f) return `the ${f[1]}`;
+    if (m.includes('FACE THE DRAGON.')) return 'face the dragon';
+    if (m.includes('ONE SMALL REAL ACT')) return 'one small step';
+    if (m.includes('OTHER OPTIONS. Do NOT write a new turn')) return 'other options';
+    if (m.includes('WRITE THIS UP AND CLOSE')) return 'pull it together';
+    if (m.includes('SAY IT SIMPLER')) return 'say it simpler';
+    if (m.includes('WHERE AM I')) return 'where am I';
+    if (m.includes('FIND IT. The person tapped')) return 'find it';
+    if (m.includes('THE DISCOURSE SO FAR')) return 'turn';
+    return 'opening';
+  };
+  const centsOf = (u) => ((u.input_tokens || 0) * 3 + (u.cache_read_input_tokens || 0) * 0.3
+    + (u.cache_creation_input_tokens || 0) * 3.75 + (u.output_tokens || 0) * 15) / 1e4;
   const endRef = useRef(null);
   const saveTimer = useRef(null);
 
@@ -929,6 +950,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   }, [discourseText]);
 
   const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1100) => {
+    const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     const res = await fetch('/api/reading', {
       method: 'POST',
@@ -937,6 +959,12 @@ Respond with ONLY JSON: {"q": "..."}` }],
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
+    if (data.usage) setLedger((L) => [...L, {
+      t: Date.now(), purpose: purposeOf(userMessage), ms: Date.now() - t0,
+      fresh: data.usage.input_tokens || 0, written: data.usage.cache_creation_input_tokens || 0,
+      read: data.usage.cache_read_input_tokens || 0, out: data.usage.output_tokens || 0,
+      cents: centsOf(data.usage),
+    }]);
     if (data.usage) setUsage((u) => ({
       input_tokens: (u.input_tokens || 0) + (data.usage.input_tokens || 0),
       output_tokens: (u.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -1519,6 +1547,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   const reset = () => {
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
+    setLedger([]);
   };
 
   // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
@@ -2215,6 +2244,48 @@ Respond with ONLY JSON: {"q": "..."}` }],
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
             </div>
+
+            {/* THE COST LEDGER (.447) — admins and the bench. One row per call. "cold" = this call
+                had to WRITE the prompt cache (125% of input) instead of reading it (10%). */}
+            {(isAdmin(user) || bench) && ledger.length > 0 && (
+              <div className="mt-2 text-xs text-zinc-500">
+                <button onClick={() => setLedgerOpen(!ledgerOpen)} className="underline decoration-dotted hover:text-zinc-300">
+                  {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · {ledger.filter((r) => r.written > 0).length} cold
+                </button>
+                {ledgerOpen && (
+                  <div className="mt-2 overflow-x-auto">
+                    <table className="font-mono text-[0.6875rem] text-zinc-400 tabular-nums">
+                      <thead className="text-zinc-600">
+                        <tr><th className="text-left pr-3">call</th><th className="text-right pr-3">fresh</th><th className="text-right pr-3">written</th><th className="text-right pr-3">read</th><th className="text-right pr-3">out</th><th className="text-right pr-3">¢</th><th className="text-right pr-3">s</th><th className="text-left"></th></tr>
+                      </thead>
+                      <tbody>
+                        {ledger.map((r, i) => (
+                          <tr key={i} className={r.written > 0 ? 'text-amber-300/80' : ''}>
+                            <td className="pr-3 whitespace-nowrap">{r.purpose}</td>
+                            <td className="text-right pr-3">{r.fresh.toLocaleString()}</td>
+                            <td className="text-right pr-3">{r.written.toLocaleString()}</td>
+                            <td className="text-right pr-3">{r.read.toLocaleString()}</td>
+                            <td className="text-right pr-3">{r.out.toLocaleString()}</td>
+                            <td className="text-right pr-3">{r.cents.toFixed(2)}</td>
+                            <td className="text-right pr-3">{(r.ms / 1000).toFixed(1)}</td>
+                            <td>{r.written > 0 ? 'cold' : ''}</td>
+                          </tr>
+                        ))}
+                        <tr className="text-zinc-300 border-t border-zinc-800">
+                          <td className="pr-3 pt-1">total</td>
+                          <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.fresh, 0).toLocaleString()}</td>
+                          <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.written, 0).toLocaleString()}</td>
+                          <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.read, 0).toLocaleString()}</td>
+                          <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.out, 0).toLocaleString()}</td>
+                          <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.cents, 0).toFixed(2)}</td>
+                          <td></td><td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
             </div>
           </>
         )}
