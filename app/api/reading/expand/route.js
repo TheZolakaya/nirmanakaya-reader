@@ -200,6 +200,7 @@ Each marker on its own line.`;
 
     const response = await client.messages.create({
       model: MODEL_IDS.sonnet,
+      thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
       max_tokens: 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]

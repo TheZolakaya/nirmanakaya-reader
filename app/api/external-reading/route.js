@@ -414,6 +414,7 @@ async function generateReading({
 
   const response = await client.messages.create({
     model,
+    thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 8000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]

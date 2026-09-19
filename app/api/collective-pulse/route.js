@@ -119,6 +119,7 @@ async function generateMonitorReading(monitorId, voicePreset = null, priorReadin
   // Call Anthropic for interpretation
   const response = await client.messages.create({
     model: MODEL_IDS.sonnet,
+    thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 2000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]
@@ -196,6 +197,7 @@ async function generateVoicedReading(monitorId, card, draw, voicePreset, priorRe
 
   const response = await client.messages.create({
     model: MODEL_IDS.sonnet,
+    thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 2000,
     system: systemPrompt,
     messages: [{ role: 'user', content: userMessage }]
@@ -238,6 +240,7 @@ Write a 4-6 sentence throughline paragraph that captures the overall pattern acr
 
   const response = await client.messages.create({
     model: MODEL_IDS.sonnet,
+    thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 500,
     system: THROUGHLINE_SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }]
@@ -443,6 +446,7 @@ export async function POST(request) {
             );
             const response = await client.messages.create({
               model: MODEL_IDS.sonnet,
+              thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
               max_tokens: 200,
               system: systemPrompt,
               messages: [{ role: 'user', content: userMessage }]
@@ -490,6 +494,7 @@ export async function POST(request) {
 
               const dailyThroughlineResponse = await client.messages.create({
                 model: MODEL_IDS.sonnet,
+                thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
                 max_tokens: 200,
                 system: DAILY_THROUGHLINE_SYSTEM_PROMPT,
                 messages: [{ role: 'user', content: `Here are today's five Collective Pulse readings. Write a 2-sentence throughline that normalizes today against the week's arc.${weekContext}\n${monitorSummaries}` }]

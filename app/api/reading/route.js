@@ -139,6 +139,7 @@ export async function POST(request) {
         },
         body: JSON.stringify({
           model: MODEL_IDS.sonnet,
+          thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
           max_tokens: 500,  // Small - only extracting tokens
           system: dtpSystem,
           messages: dtpMessages
@@ -247,6 +248,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: effectiveModel,
+        thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
         max_tokens: effectiveMaxTokens,
         system: systemWithCache,
         messages: messagesOut
