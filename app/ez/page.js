@@ -28,7 +28,7 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
 import { buildPersonaPrompt } from '../../lib/personas';
-import { MODEL_IDS } from '../../lib/modelConfig';
+import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H } from '../../lib/modelConfig';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
@@ -893,8 +893,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
     if (m.includes('THE DISCOURSE SO FAR')) return 'turn';
     return 'opening';
   };
-  const centsOf = (u) => ((u.input_tokens || 0) * 3 + (u.cache_read_input_tokens || 0) * 0.3
-    + (u.cache_creation_input_tokens || 0) * 3.75 + (u.output_tokens || 0) * 15) / 1e4;
+  // priced off lib/modelConfig (Sonnet, 1-hour cache: writes are 2x input, reads 0.1x)
+  const centsOf = (u) => ((u.input_tokens || 0) * MODEL_PRICING.sonnet.input
+    + (u.cache_read_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_READ
+    + (u.cache_creation_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_WRITE_1H
+    + (u.output_tokens || 0) * MODEL_PRICING.sonnet.output) / 1e4;
   const endRef = useRef(null);
   const saveTimer = useRef(null);
 
@@ -1558,8 +1561,10 @@ ${DRAGON_STANDARD}`, 600);
   };
 
   // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
-  const estCost = ((usage.input_tokens || 0) * 3 + (usage.cache_read_input_tokens || 0) * 0.3
-    + (usage.cache_creation_input_tokens || 0) * 3.75 + (usage.output_tokens || 0) * 15) / 1e6;
+  const estCost = ((usage.input_tokens || 0) * MODEL_PRICING.sonnet.input
+    + (usage.cache_read_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_READ
+    + (usage.cache_creation_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_WRITE_1H
+    + (usage.output_tokens || 0) * MODEL_PRICING.sonnet.output) / 1e6;
 
   // The pills come from the last reader turn that CARRIES pills: an act turn ("one small thing")
   // goes quiet on purpose, but the conversation must still be continuable from where it was
