@@ -104,6 +104,12 @@ export default function BakeoffPage() {
     const t = setTimeout(() => {
       const out = {};
       document.querySelectorAll('[data-probe]').forEach((el) => {
+        // PIXEL SNAP (.467): the probe proved the styles identical and only the x-offset fractional
+        // (A at .55px, B at .11px) — monospace glyphs antialias differently on different fractions, and
+        // that was the "different font". Nudge each column's prose onto a whole pixel, then measure.
+        el.style.position = 'relative'; el.style.left = '0px';
+        const r0 = el.getBoundingClientRect();
+        el.style.left = `${(Math.round(r0.x) - r0.x).toFixed(3)}px`;
         const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
         out[el.dataset.probe] = { family: cs.fontFamily.split(',')[0].replace(/"/g, ''), size: cs.fontSize, weight: cs.fontWeight, ls: cs.letterSpacing, lh: cs.lineHeight, x: r.x.toFixed(2), w: r.width.toFixed(2) };
       });
