@@ -1480,7 +1480,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
                         goes dim. Gated floors appear when their exemplars freeze; the bench shows all three. */}
                     {!brazierBusy && brazier[1] && (
                       <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem] text-zinc-400">
-                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench).map((f) => (
+                        {/* gated floors show for admins too (founder, 2026-09-19 night: "I'm curious if this works before I go to sleep") */}
+                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => (
                           <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
                             className={brazier[f] ? 'text-zinc-600 cursor-default' : 'underline decoration-dotted hover:text-zinc-200'}>
                             {FLOOR_LABEL[f]}
