@@ -84,6 +84,9 @@ export async function POST(request) {
     // parsed only because the shared parser repaired it (raw newlines in strings, fences, trailing commas): a flag, not a failure
     if (parsed && neededRepair(r.text)) lint.flags = [...(lint.flags || []), { code: 'json-repaired', detail: 'parsed only after repair (raw line breaks inside strings, fences or trailing commas)' }];
     if (r.retried) lint.flags = [...(lint.flags || []), { code: 'retried', detail: 'first reply did not parse; the reader\'s one retry was used' }];
+    // .458: hit the reader's token cap — the envelope is incomplete (no medicine, no chips) even if the prose looks whole.
+    // The founder spotted it on non-thinking flash: "doesn't include the end". A cut reply is not a shorter reading; it is a broken one.
+    if (r.stop === 'max_tokens') lint.flags = [...(lint.flags || []), { code: 'cut', detail: `stopped at the token cap (${p.maxTokens}); the envelope is incomplete` }];
     return {
       key: L.key, label: L.label, modelKey: L.modelKey, model: r.model, provider: r.provider,
       text: r.text || '', parsed, prose: lint.prose, lint: { ok: lint.ok, flags: lint.flags, words: lint.words },
