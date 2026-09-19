@@ -37,6 +37,17 @@ const HOSTILE_Q = [
 const TAGS = ['truer', 'prettier', 'warmer', 'flat', 'preachy', 'makes me feel seen', 'makes me feel angry', 'too much', 'too little'];
 const FLAG_HELP = { json: 'did not parse as the envelope', repeat: 'prose ends with its own question', vocab: 'system words on glass', hedge: "the assistant's hedge", denies: "denies another's inside", words: 'outside the word band', error: 'the call failed' };
 
+// GLASS NORMALISER (founder, 2026-09-19: "I SWEAR the text is different still"): the two columns share
+// one element, one font, one colour — but two models can still differ in CHARACTERS (curly vs straight
+// quotes, non-breaking spaces, en vs em dashes), and that reads as "different" without being nameable.
+// Every column renders through this so punctuation can never be the tell. The stored text is untouched.
+const glass = (t) => String(t || '')
+  .replace(/[\u2018\u2019\u201A\u2032]/g, "'")
+  .replace(/[\u201C\u201D\u201E\u2033]/g, '"')
+  .replace(/[\u2013\u2014\u2015]/g, '\u2014')
+  .replace(/\u2026/g, '...')
+  .replace(/[\u00A0\u2007\u202F]/g, ' ')
+  .replace(/[ \t]+\n/g, '\n');
 const cents = (usd) => `${(usd * 100).toFixed(2)}¢`;
 const secs = (ms) => `${(ms / 1000).toFixed(1)}s`;
 const usageLine = (u) => u ? `in ${u.input_tokens ?? 0} · out ${u.output_tokens ?? 0} · cache r/w ${u.cache_read_input_tokens ?? 0}/${u.cache_creation_input_tokens ?? 0}` : 'no usage';
@@ -326,8 +337,8 @@ export default function BakeoffPage() {
                   </div>
                   {R.error ? <div className="text-rose-400 whitespace-pre-wrap">{R.error}</div> : R.parsed ? (
                     <div className="space-y-2 text-[14px] leading-relaxed">
-                      <p className="whitespace-pre-wrap text-zinc-100">{R.prose}</p>
-                      {R.parsed.medicine && <p className="italic text-amber-200/80 whitespace-pre-wrap">{R.parsed.medicine}</p>}
+                      <p className="whitespace-pre-wrap text-zinc-100">{glass(R.prose)}</p>
+                      {R.parsed.medicine && <p className="italic text-amber-200/80 whitespace-pre-wrap">{glass(R.parsed.medicine)}</p>}
                       {R.parsed.question && <p className="text-sky-200/80">{R.parsed.question}</p>}
                       {Array.isArray(R.parsed.chips) && R.parsed.chips.length > 0 && <details className="text-xs text-zinc-500"><summary>chips · reflects · forges</summary>
                         <ul className="mt-1 space-y-1">{R.parsed.chips.map((c, i) => <li key={i}>[{c.kind}] {c.text}</li>)}</ul>
@@ -336,7 +347,7 @@ export default function BakeoffPage() {
                         {R.parsed.act && <p>act: {R.parsed.act}</p>}
                       </details>}
                     </div>
-                  ) : <p className="whitespace-pre-wrap text-zinc-100 max-h-96 overflow-auto">{R.text}</p>}{/* same size and colour as a parsed reading — a smaller, greyer fallback was a tell before the pick (founder, 2026-09-19) */}
+                  ) : <p className="whitespace-pre-wrap text-zinc-100 max-h-96 overflow-auto">{glass(R.text)}</p>}{/* same size and colour as a parsed reading — a smaller, greyer fallback was a tell before the pick (founder, 2026-09-19) */}
                   {!voted && !R.error && (
                     <div className="pt-2 border-t border-zinc-800 space-y-2">
                       <div className="flex flex-wrap gap-1">{TAGS.map((t) => { const k = `${R.key}|${t}`; return <button key={t} onClick={() => setTags({ ...tags, [k]: !tags[k] })} className={`px-1.5 py-0.5 rounded border text-[11px] ${tags[k] ? 'border-amber-400 text-amber-300' : 'border-zinc-700 text-zinc-500'}`}>{t}</button>; })}</div>
