@@ -1536,7 +1536,11 @@ ${DRAGON_STANDARD}`, 600);
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
-        <div className="mt-6" />
+        {/* .482: a TEMPORARY door to the full reader while the two are being tuned side by side (founder). */}
+        <div className="mt-3 flex justify-end">
+          <Link href="/advanced" className="text-[0.75rem] tracking-wide text-zinc-500 underline decoration-dotted hover:text-zinc-300">full reader →</Link>
+        </div>
+        <div className="mt-3" />
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
         {allowed === false && !user && (
