@@ -2521,13 +2521,13 @@ export default function NirmanakaReader() {
       updateReadingContent(savedReadingId, {
         usage: {
           tokens: tokenUsage,
-          model: selectedModel,
+          model: usageModel || selectedModel, // .477: the model that ANSWERED, so a restored reading prices true
           estCostUSD: Number(usdFor(tokenUsage, usageModel || selectedModel).toFixed(6))
         }
       }).catch(() => {});
     }, 3000);
     return () => { if (usageSaveTimer.current) clearTimeout(usageSaveTimer.current); };
-  }, [tokenUsage, savedReadingId, selectedModel]);
+  }, [tokenUsage, savedReadingId, selectedModel, usageModel]);
 
   // Persist the yield the same way — the end-state artifact travels with the reading.
   const yieldSavedRef = useRef(null);
