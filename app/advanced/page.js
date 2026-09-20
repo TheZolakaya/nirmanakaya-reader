@@ -1139,6 +1139,7 @@ export default function NirmanakaReader() {
     async function loadSavedReading() {
       const params = new URLSearchParams(window.location.search);
       let loadId = params.get('load');
+      const explicit = !!loadId;
 
       // Auto-resume: if no URL param, check sessionStorage for active reading
       if (!loadId) {
@@ -1152,7 +1153,13 @@ export default function NirmanakaReader() {
         // UNLESS the person crossed the bridge from the Brazier's ring 3 (&bridge=1): then the
         // same question and draw open here, and each card's full derivation loads on demand.
         const bridged = params.get('bridge') === '1';
-        if (!error && data && data.mode === 'ez' && !bridged) { window.location.replace(`/ez?load=${loadId}`); return; }
+        if (!error && data && data.mode === 'ez' && !bridged) {
+          // .474: only an EXPLICIT ?load= of an EZ reading crosses to /ez. A silent auto-resume that
+          // finds an EZ id in the slot (left there by an earlier bridge crossing) must not bounce the
+          // person who simply typed /advanced — drop the slot and open the full reader fresh.
+          if (!explicit) { try { sessionStorage.removeItem('nirmanakaya_active_reading'); } catch (e) { /* ignore */ } return; }
+          window.location.replace(`/ez?load=${loadId}`); return;
+        }
         const isEzRow = !!(data && data.mode === 'ez');
         if (isEzRow && bridged) setBridgedFromEz(loadId);
         if (error || !data) {
