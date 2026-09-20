@@ -499,6 +499,17 @@ export default function EZPage() {
     plain: ["Plain words", "For anyone. Short, everyday words; nothing of the map's language."],
     grown: ['Plain words, grown', 'For an adult who has never seen the map. Plain, not simple.'],
     map: ["The map's words", 'The map speaks in its own names: cards, seats, statuses.'],
+    deep: ['Deep', "The map's words and the derivation shown — how this card, seat and status fix the medicine."],
+    mystical: ['Mystical', "The house's own philosophy, leaned into: purpose, the present, the pillars. No borrowed spirituality."],
+  };
+  // .491: the dial, in order, and each stop's colour on the button
+  const VOICE_ORDER = ['plain', 'grown', 'map', 'deep', 'mystical'];
+  const VOICE_STYLE = {
+    plain: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40',
+    grown: 'bg-violet-950/40 border-violet-500/40 text-violet-200 hover:bg-violet-900/40',
+    map: 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800',
+    deep: 'bg-cyan-950/40 border-cyan-500/40 text-cyan-200 hover:bg-cyan-900/40',
+    mystical: 'bg-rose-950/40 border-rose-500/40 text-rose-200 hover:bg-rose-900/40',
   };
   const [voiceToast, setVoiceToast] = useState(null);
   const voiceToastTimer = useRef(null);
@@ -748,7 +759,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return lines.join('\n\n') + note;
   }, [discourseText]);
 
-  const rawCall = async (userMessage, system = systemPrompt, maxTokens = 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
+  const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500) => { // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     const res = await fetch('/api/reading', {
@@ -776,7 +787,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
   // One strict retry before giving up. A dropped brace used to cost the person their turn and
   // the tokens both; now it costs one cheap re-ask.
-  const callReader = async (userMessage, system = systemPrompt, maxTokens = 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
+  const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens);
     let obj = parseJson(data.reading);
     if (!obj || !obj.reader) {
@@ -1545,15 +1556,15 @@ ${DRAGON_STANDARD}`, 600);
       {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
         rightExtra={
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
-          <button onClick={() => chooseVoice(voice === 'plain' ? 'grown' : voice === 'grown' ? 'map' : 'plain')}
-            title={voice === 'plain' ? 'Plain words — tap for plain words, grown' : voice === 'grown' ? 'Plain words, grown — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
-            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : voice === 'grown' ? 'bg-violet-950/40 border-violet-500/40 text-violet-200 hover:bg-violet-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
-            {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : '◈'}
+          <button onClick={() => chooseVoice(VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length])}
+            title={`${VOICE_NOTES[voice]?.[0] || voice} — tap for ${VOICE_NOTES[VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length]]?.[0]}`}
+            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${VOICE_STYLE[voice] || VOICE_STYLE.map}`}>
+            {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
           </button>
         } />}
       {voiceToast && VOICE_NOTES[voiceToast] && (
         <div className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
-          <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
+          <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
           <div className="text-[0.75rem] leading-snug text-zinc-400 mt-0.5">{VOICE_NOTES[voiceToast][1]}</div>
           <div className="text-[0.625rem] text-zinc-600 mt-1">takes effect on the next reply</div>
         </div>
