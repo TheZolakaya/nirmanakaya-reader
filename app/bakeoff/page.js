@@ -23,6 +23,7 @@ const PRESET_QUESTIONS = Object.entries(STARTERS).flatMap(([door, set]) =>
 
 const MODELS = [
   ['sonnet', 'Sonnet 5'], ['haiku', 'Haiku 4.5'], ['deepseek-flash', 'deepseek-flash'], ['deepseek-v4-pro', 'deepseek-v4-pro'],
+  ['or-v4.1-flash', 'OpenRouter · v4.1-flash'], ['or-v4-flash', 'OpenRouter · v4-flash'], ['or-v4-pro', 'OpenRouter · v4-pro'],
   ['deepseek-flash:think', 'deepseek-flash · thinking'], ['deepseek-v4-pro:think', 'deepseek-v4-pro · thinking'],
 ];
 const PRESET_GROUPS = [
