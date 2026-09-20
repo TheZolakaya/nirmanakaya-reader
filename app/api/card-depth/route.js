@@ -11,7 +11,7 @@ import {
   getAgentCorrection,
   getComponent
 } from '../../../lib/corrections.js';
-import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { providerFetch as fetchWithRetry } from "../../../lib/provider.js"; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { buildCardDossier, drawsToCards, formatCardGeometry } from '../../../lib/geometryEngine.js';
 import { resolveModelId } from '../../../lib/modelConfig.js';

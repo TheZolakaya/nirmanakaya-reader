@@ -4,7 +4,7 @@
 // Uses Haiku for cost efficiency — classification is lightweight
 
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
-import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { providerFetch as fetchWithRetry } from "../../../lib/provider.js"; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
 
 // Build the classification system prompt with the full routing map

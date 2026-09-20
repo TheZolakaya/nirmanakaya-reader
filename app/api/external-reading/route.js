@@ -5,6 +5,7 @@
 
 import { randomBytes } from 'crypto';
 import Anthropic from '@anthropic-ai/sdk';
+import { createMessage } from '../../../lib/provider.js'; // .475: the one door (client below kept for anything else)
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
 import {
   ARCHETYPES,
@@ -323,7 +324,7 @@ async function generateReading({
         : buildFastMultiCardMessage(safeQuestion, cards);
     }
 
-    const response = await client.messages.create({
+    const response = await createMessage({
       model: MODEL_IDS.haiku,
       max_tokens: cards.length === 1 ? 200 : 400,
       system: systemPrompt,
@@ -412,7 +413,7 @@ async function generateReading({
 
   const userMessage = `QUESTION: "${safeQuestion}"\n\nTHE ENCOUNTER (${spreadName}):\n\n${drawText}\n\n${teleologicalPrompt}\n\nRespond using the exact section markers: [SUMMARY], [CARD:1], [CARD:2], etc., [CORRECTION:N] for each imbalanced signature, [PATH] (if 2+ imbalanced), [WORDS_TO_WHYS], [LETTER]. Each marker on its own line.`;
 
-  const response = await client.messages.create({
+  const response = await createMessage({
     model,
     thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 8000,

@@ -7,6 +7,7 @@
 // POST: Processes a batch (default 20). Call repeatedly until remaining=0.
 //   Optional body: { batchSize: 20, reconcileTopics: true }
 
+import { providerFetch } from '../../../../lib/provider.js'; // .475: the one door
 import { createClient } from '@supabase/supabase-js';
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../../lib/archetypes.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
@@ -74,7 +75,7 @@ async function generateNarrative(reading) {
   const question = reading.topic || 'General reading';
   const mode = reading.mode || 'reflect';
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await providerFetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

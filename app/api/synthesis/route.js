@@ -5,7 +5,7 @@
 
 import { ARCHETYPES, BOUNDS, AGENTS } from '../../../lib/archetypes.js';
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
-import { fetchWithRetry } from "../../../lib/fetchWithRetry.js";
+import { providerFetch as fetchWithRetry } from "../../../lib/provider.js"; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { STATUSES } from '../../../lib/constants.js';
 import { buildDossier, drawsToCards } from '../../../lib/geometryEngine.js';

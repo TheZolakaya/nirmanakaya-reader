@@ -5,7 +5,7 @@
  * Converts a mythic transmission to plain language
  */
 
-import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
+import { providerFetch as fetchWithRetry } from '../../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { buildPlainLanguagePrompt } from '../../../../lib/glistener/index.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
 

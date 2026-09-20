@@ -8,6 +8,7 @@ export const maxDuration = 300;
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
+import { createMessage } from '../../../lib/provider.js'; // .475: the one door (client below kept for anything else)
 import { randomBytes } from 'crypto';
 import { uniformInt } from '../../../lib/uniformInt.js';
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
@@ -117,7 +118,7 @@ async function generateMonitorReading(monitorId, voicePreset = null, priorReadin
   );
 
   // Call Anthropic for interpretation
-  const response = await client.messages.create({
+  const response = await createMessage({
     model: MODEL_IDS.sonnet,
     thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 2000,
@@ -195,7 +196,7 @@ async function generateVoicedReading(monitorId, card, draw, voicePreset, priorRe
     priorReadings
   );
 
-  const response = await client.messages.create({
+  const response = await createMessage({
     model: MODEL_IDS.sonnet,
     thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 2000,
@@ -238,7 +239,7 @@ ${monitorSummaries}
 
 Write a 4-6 sentence throughline paragraph that captures the overall pattern across all five monitors.`;
 
-  const response = await client.messages.create({
+  const response = await createMessage({
     model: MODEL_IDS.sonnet,
     thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
     max_tokens: 500,
@@ -444,7 +445,7 @@ export async function POST(request) {
               reading.monitor,
               priorReadings
             );
-            const response = await client.messages.create({
+            const response = await createMessage({
               model: MODEL_IDS.sonnet,
               thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
               max_tokens: 200,
@@ -492,7 +493,7 @@ export async function POST(request) {
                 }).join('\n');
               const weekContext = weekStatusSummary ? `\nWEEK TREND (status progression, newest first):\n${weekStatusSummary}\n` : '';
 
-              const dailyThroughlineResponse = await client.messages.create({
+              const dailyThroughlineResponse = await createMessage({
                 model: MODEL_IDS.sonnet,
                 thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
                 max_tokens: 200,

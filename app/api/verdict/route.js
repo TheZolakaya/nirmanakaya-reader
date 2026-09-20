@@ -4,7 +4,7 @@
 // draw analysis and returns the care floor + a Reflect reroute instruction.
 // Kill switch: VERDICT_ENABLED. Fail-quiet: on any failure the client simply shows no box.
 
-import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
+import { providerFetch as fetchWithRetry } from '../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import {
   typeQuestion, computeFieldLean, computeBranchScores,
   buildDiscernmentPrompt, buildChoicePrompt, parseVerdictResponse,

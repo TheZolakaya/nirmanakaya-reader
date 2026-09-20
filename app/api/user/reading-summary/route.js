@@ -2,6 +2,7 @@
 // Auto-generates narrative micro-summary + hashtags for a reading using Haiku
 // Called non-blocking after synthesis saves — powers the Ariadne Thread journey narrative
 
+import { providerFetch } from '../../../../lib/provider.js'; // .475: the one door
 import { createClient } from '@supabase/supabase-js';
 import { ARCHETYPES, BOUNDS, AGENTS, STATUSES } from '../../../../lib/archetypes.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
@@ -87,7 +88,7 @@ export async function POST(request) {
     const mode = reading.mode || 'reflect';
 
     // Call Haiku — compact prompt for micro-summary + hashtags
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await providerFetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

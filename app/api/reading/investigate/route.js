@@ -20,7 +20,7 @@ import {
   handleToolCall,
   buildTriageSeed
 } from '../../../../lib/diagnosticTools.js';
-import { fetchWithRetry } from '../../../../lib/fetchWithRetry.js';
+import { providerFetch as fetchWithRetry } from '../../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { PERSONA_PROMPTS } from '../../../../lib/personas.js';
 import { getComplexityDescription, getHumorDescription } from '../../../../lib/personas.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';

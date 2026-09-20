@@ -6,7 +6,7 @@
  * Bones -> Symbolism -> Transmission -> Integration -> Crystal
  */
 
-import { fetchWithRetry } from '../../../lib/fetchWithRetry.js';
+import { providerFetch as fetchWithRetry } from '../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import {
   generateBoneSet,
   validateBoneSet,
