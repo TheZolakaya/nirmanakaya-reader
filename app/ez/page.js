@@ -2095,7 +2095,7 @@ ${DRAGON_STANDARD}`, 600);
                         {ledger.map((r, i) => (
                           <tr key={i} className={r.written > 0 ? 'text-amber-300/80' : ''}>
                             <td className="pr-3 whitespace-nowrap">{r.purpose}</td>
-                            <td className="pr-3 whitespace-nowrap text-zinc-500">{r.model || ''}</td>
+                            <td className="pr-3 whitespace-nowrap text-zinc-500" title={r.model || ''}>{r.provider ? <span className={r.provider === 'anthropic' ? 'text-amber-300/80' : r.provider === 'openrouter' ? 'text-cyan-300/80' : 'text-zinc-300'}>{r.provider}</span> : null}{r.provider ? ' · ' : ''}{String(r.model || '').replace(/^deepseek\/deepseek-/, '').replace(/^claude-/, '')}</td>
                             <td className="text-right pr-3">{r.fresh.toLocaleString()}</td>
                             <td className="text-right pr-3">{r.written.toLocaleString()}</td>
                             <td className="text-right pr-3">{r.read.toLocaleString()}</td>
