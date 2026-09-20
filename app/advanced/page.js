@@ -1766,7 +1766,11 @@ export default function NirmanakaReader() {
   // Re-interpret with current stance (same draws)
   const reinterpret = async () => {
     if (!draws) return;
-    await performReadingWithDraws(draws, question);
+    // .480: SAME TABLE, NEW VOICE. A re-interpret must read the draw under the frame the reading was made
+    // in. Without the locked overrides, the letter took the picker's live spread (Arc) while the card
+    // lenses still came from the derived spread (Law) — one draw read through two maps, and the model
+    // wrote fluently through the contradiction. The tokens keep dynamic seat labels alive too.
+    await performReadingWithDraws(draws, question, dtpTokens, activeReadingOverrides.current || {});
   };
 
   // V3: translateReading and retranslate removed — voice is single-pass in generation
@@ -7232,7 +7236,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                               delay: index * 0.06,
                               ease: [0.25, 0.46, 0.45, 0.94]
                             }}
-                            onClick={(e) => { if (!handleHelpClick('persona-' + p.key, e)) setPersona(p.key); }}
+                            onClick={(e) => { handleHelpClick('persona-' + p.key, e); setPersona(p.key); }} // .480: in help mode a voice tap shows its note AND selects — it used to swallow the tap (founder: "I was trying to change the voice but it didn't")
                             data-help={`persona-${p.key}`}
                             title={p.desc}
                             className={`px-2 py-2 min-h-[40px] rounded-md text-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 ${
