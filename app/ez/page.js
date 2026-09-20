@@ -1793,7 +1793,12 @@ ${DRAGON_STANDARD}`, 600);
                 layout bench — canned reading, no API calls, nothing saved
               </div>
             )}
-            <p className="text-xs text-zinc-500 italic mb-6 text-center break-words">“{asked || question}”</p>
+            {/* .486: THE QUESTION, AT SIZE. It was text-xs zinc-500 — the smallest thing on the page — and the
+                founder: "that should be one of the biggest things there, to ground you on what you asked." */}
+            <div className="mb-7 text-center">
+              <div className="text-[0.625rem] uppercase tracking-[0.2em] text-amber-300/60 mb-2">You asked</div>
+              <p className="font-serif text-[1.375rem] sm:text-[1.5rem] leading-snug text-amber-100 break-words" style={{ textWrap: 'balance' }}>“{asked || question}”</p>
+            </div>
 
             {/* One surface: the discourse in order */}
             <div className="space-y-5">
