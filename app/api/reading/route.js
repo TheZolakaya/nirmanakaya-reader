@@ -15,7 +15,49 @@ import { buildDossier } from '../../../lib/geometryEngine.js';
 // Set false and redeploy to disable instantly; injection is fail-open (errors skip it).
 const DOSSIER_ENABLED = true;
 import { createClient } from '@supabase/supabase-js';
-import { MODEL_IDS } from '../../../lib/modelConfig.js';
+import { MODEL_IDS, READER_PROVIDER, DEEPSEEK_MODEL_IDS } from '../../../lib/modelConfig.js';
+
+// THE PROVIDER CALL (v0.99.473). Same Anthropic-format request, two possible doors. On DeepSeek the
+// claude model id is translated to an EXPLICIT DeepSeek id (never their mapping). If the DeepSeek call
+// fails — network, 5xx, an error body — the same request goes to Anthropic with the original model,
+// so a reading is never lost to the cheaper door being shut. Returns { data, provider, model }.
+const DEEPSEEK_URL = 'https://api.deepseek.com/anthropic/v1/messages';
+const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+const toDeepseekModel = (id) => {
+  const s = String(id || '');
+  if (s.startsWith('deepseek')) return s;
+  if (s.includes('opus')) return DEEPSEEK_MODEL_IDS.opus;
+  if (s.includes('haiku')) return DEEPSEEK_MODEL_IDS.haiku;
+  return DEEPSEEK_MODEL_IDS.sonnet;
+};
+async function callProvider(body, { beta } = {}) {
+  const send = async (provider, model) => {
+    const url = provider === 'deepseek' ? DEEPSEEK_URL : ANTHROPIC_URL;
+    const key = provider === 'deepseek' ? process.env.DEEPSEEK_API_KEY : process.env.ANTHROPIC_API_KEY;
+    const headers = { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' };
+    if (beta) headers['anthropic-beta'] = beta; // ignored by DeepSeek, harmless
+    const res = await fetchWithRetry(url, { method: 'POST', headers, body: JSON.stringify({ ...body, model }) });
+    const data = await res.json();
+    return { data, provider, model, ok: !data?.error && Array.isArray(data?.content) };
+  };
+  if (READER_PROVIDER === 'deepseek') {
+    try {
+      const r = await send('deepseek', toDeepseekModel(body.model));
+      if (r.ok) return r;
+      console.error('[reading] deepseek answered with an error; falling back to anthropic:', r.data?.error?.message || 'no content');
+    } catch (e) {
+      console.error('[reading] deepseek call threw; falling back to anthropic:', e.message);
+    }
+  }
+  return send('anthropic', body.model);
+}
+// On the DeepSeek route the person's own facts about their life stay home until the founder lifts it.
+const withholdPersonalContext = (messages) => {
+  if (READER_PROVIDER !== 'deepseek' || process.env.READER_CONTEXT_ON_DEEPSEEK === 'all') return messages;
+  return messages.map((m) => (typeof m.content === 'string'
+    ? { ...m, content: m.content.replace(/=== PERSONAL CONTEXT ===[\s\S]*?=== END PERSONAL CONTEXT ===\n?/g, '') }
+    : m));
+};
 
 // Server-side Supabase client for ban/throttle checks
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -130,23 +172,13 @@ export async function POST(request) {
     ];
 
     try {
-      const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": process.env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01"
-        },
-        body: JSON.stringify({
-          model: MODEL_IDS.sonnet,
-          thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
-          max_tokens: 500,  // Small - only extracting tokens
-          system: dtpSystem,
-          messages: dtpMessages
-        })
+      const { data } = await callProvider({
+        model: MODEL_IDS.sonnet,
+        thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
+        max_tokens: 500,  // Small - only extracting tokens
+        system: dtpSystem,
+        messages: dtpMessages
       });
-
-      const data = await response.json();
 
       if (data.error) {
         return Response.json({ error: data.error.message }, { status: 500 });
@@ -238,24 +270,13 @@ export async function POST(request) {
   }
 
   try {
-    const response = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-beta": ANTHROPIC_BETA_HEADERS
-      },
-      body: JSON.stringify({
-        model: effectiveModel,
-        thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
-        max_tokens: effectiveMaxTokens,
-        system: systemWithCache,
-        messages: messagesOut
-      })
-    });
-
-    const data = await response.json();
+    const { data, provider, model: servedModel } = await callProvider({
+      model: effectiveModel,
+      thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
+      max_tokens: effectiveMaxTokens,
+      system: systemWithCache,
+      messages: withholdPersonalContext(messagesOut)
+    }, { beta: ANTHROPIC_BETA_HEADERS });
 
     if (data.error) {
       return Response.json({ error: data.error.message }, { status: 500 });
@@ -277,6 +298,7 @@ export async function POST(request) {
         cache_creation_input_tokens: data.usage?.cache_creation_input_tokens || 0,
         cache_read_input_tokens: data.usage?.cache_read_input_tokens || 0
       },
+      provider, model: servedModel, // who actually answered — the page prices by this
       isFirstContact
     });
 

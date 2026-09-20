@@ -29,7 +29,7 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
 import { buildPersonaPrompt } from '../../lib/personas';
-import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H } from '../../lib/modelConfig';
+import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -658,6 +658,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
   // out, cents, cold or warm. Visible to admins and on the bench. The purpose is read off the
   // message itself so no caller has to be touched.
   const [ledger, setLedger] = useState([]);
+  const [usd, setUsd] = useState(0); // running cost priced per call by the model that answered (.473)
   const [ledgerOpen, setLedgerOpen] = useState(false);
   const purposeOf = (m) => {
     if (/YOUR LAST RENDER WAS \d+ WORDS/.test(m)) { const g = m.match(/Write the (\w+) floor/); return `${g ? 'the ' + g[1] : 'why (ring 1)'} (rewrite)`; }
@@ -747,8 +748,9 @@ Respond with ONLY JSON: {"q": "..."}` }],
       t: Date.now(), purpose: purposeOf(userMessage), ms: Date.now() - t0,
       fresh: data.usage.input_tokens || 0, written: data.usage.cache_creation_input_tokens || 0,
       read: data.usage.cache_read_input_tokens || 0, out: data.usage.output_tokens || 0,
-      cents: centsOf(data.usage),
+      cents: usdFor(data.usage, data.model) * 100, model: data.model || '', provider: data.provider || '',
     }]);
+    if (data.usage) setUsd((u) => u + usdFor(data.usage, data.model)); // priced by the model that ANSWERED (.473)
     if (data.usage) setUsage((u) => ({
       input_tokens: (u.input_tokens || 0) + (data.usage.input_tokens || 0),
       output_tokens: (u.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -1338,14 +1340,11 @@ ${DRAGON_STANDARD}`, 600);
   const reset = () => {
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
-    setLedger([]);
+    setLedger([]); setUsd(0);
   };
 
   // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
-  const estCost = ((usage.input_tokens || 0) * MODEL_PRICING.sonnet.input
-    + (usage.cache_read_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_READ
-    + (usage.cache_creation_input_tokens || 0) * MODEL_PRICING.sonnet.input * CACHE_WRITE_1H
-    + (usage.output_tokens || 0) * MODEL_PRICING.sonnet.output) / 1e6;
+  const estCost = usd; // summed per call by the model that answered (.473) — Sonnet and DeepSeek priced apart
 
   // The pills come from the last reader turn that CARRIES pills: an act turn ("one small thing")
   // goes quiet on purpose, but the conversation must still be continuable from where it was
@@ -2049,12 +2048,13 @@ ${DRAGON_STANDARD}`, 600);
                   <div className="mt-2 overflow-x-auto">
                     <table className="font-mono text-[0.6875rem] text-zinc-400 tabular-nums">
                       <thead className="text-zinc-600">
-                        <tr><th className="text-left pr-3">call</th><th className="text-right pr-3">fresh</th><th className="text-right pr-3">written</th><th className="text-right pr-3">read</th><th className="text-right pr-3">out</th><th className="text-right pr-3">¢</th><th className="text-right pr-3">s</th><th className="text-left"></th></tr>
+                        <tr><th className="text-left pr-3">call</th><th className="text-left pr-3">door</th><th className="text-right pr-3">fresh</th><th className="text-right pr-3">written</th><th className="text-right pr-3">read</th><th className="text-right pr-3">out</th><th className="text-right pr-3">¢</th><th className="text-right pr-3">s</th><th className="text-left"></th></tr>
                       </thead>
                       <tbody>
                         {ledger.map((r, i) => (
                           <tr key={i} className={r.written > 0 ? 'text-amber-300/80' : ''}>
                             <td className="pr-3 whitespace-nowrap">{r.purpose}</td>
+                            <td className="pr-3 whitespace-nowrap text-zinc-500">{r.model || ''}</td>
                             <td className="text-right pr-3">{r.fresh.toLocaleString()}</td>
                             <td className="text-right pr-3">{r.written.toLocaleString()}</td>
                             <td className="text-right pr-3">{r.read.toLocaleString()}</td>
@@ -2066,6 +2066,7 @@ ${DRAGON_STANDARD}`, 600);
                         ))}
                         <tr className="text-zinc-300 border-t border-zinc-800">
                           <td className="pr-3 pt-1">total</td>
+                          <td></td>
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.fresh, 0).toLocaleString()}</td>
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.written, 0).toLocaleString()}</td>
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.read, 0).toLocaleString()}</td>
