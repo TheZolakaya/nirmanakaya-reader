@@ -1536,11 +1536,7 @@ ${DRAGON_STANDARD}`, 600);
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
-        {/* .482: a TEMPORARY door to the full reader while the two are being tuned side by side (founder). */}
-        <div className="mt-3 flex justify-end">
-          <Link href="/advanced" className="text-[0.75rem] tracking-wide text-zinc-500 underline decoration-dotted hover:text-zinc-300">full reader →</Link>
-        </div>
-        <div className="mt-3" />
+        <div className="mt-6" />
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
         {allowed === false && !user && (
@@ -2108,6 +2104,11 @@ ${DRAGON_STANDARD}`, 600);
       )}
 
       <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 600ms ease' }}><Footer /></div>
+      {/* .483: a TEMPORARY door to the full reader while the two are tuned side by side — a fixed button,
+          bottom right, so it never pushes the text box down (founder, 2026-09-20). */}
+      {user && (
+        <Link href="/advanced" className="fixed bottom-3 right-3 z-40 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[0.75rem] tracking-wide text-zinc-400 hover:text-zinc-200 transition-all">full reader →</Link>
+      )}
     </div>
   );
 }

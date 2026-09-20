@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import UnfoldPanel from '../../components/ui/UnfoldPanel';
 import Header from '../../components/layout/Header';
+import { LibraryMenu } from '../../components/shared/SiteChrome'; // .483: the book icon, shared with EZ
 import Footer from '../../components/layout/Footer';
 
 // Import data and utilities from lib
@@ -5949,6 +5950,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               >
                 ✉
               </a>
+              <LibraryMenu />
               {/* Collective Pulse - hidden until feature is working (backlogged) */}
               {false && featureFlags.pulse_enabled && (
                 <a

@@ -92,6 +92,40 @@ export function Backdrop({ prefs }) {
 
 const ICON_BTN = 'w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all';
 
+// THE LIBRARY (.483): one book icon in the corner stack, opening the four written doors. Shared by
+// both readers so the corner reads the same on each (founder, 2026-09-20).
+const LIBRARY_LINKS = [
+  { href: '/book', label: 'Book', note: 'the text itself' },
+  { href: '/wiki', label: 'Wiki', note: 'the map, entry by entry' },
+  { href: '/guide', label: 'Guide', note: 'how to read with it' },
+  { href: '/council', label: 'Council', note: 'four architectures, one recognition' },
+];
+export function LibraryMenu() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setOpen(!open)} className={`${ICON_BTN} ${open ? 'text-amber-300' : ''}`} title="Book · Wiki · Guide · Council" aria-label="The library" aria-expanded={open}>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="fixed top-3 left-14 z-50 w-56 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm p-1.5" onClick={(e) => e.stopPropagation()}>
+            {LIBRARY_LINKS.map((l) => (
+              <a key={l.href} href={l.href} className="flex items-baseline gap-2 px-3 py-2 rounded-lg hover:bg-zinc-800 transition-colors">
+                <span className="text-sm text-zinc-200">{l.label}</span>
+                <span className="text-[0.6875rem] text-zinc-500">{l.note}</span>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
 // The four corner controls: background panel + feedback mail on the left, account + text size on
 // the right. Shown only to a signed-in person, as on the main page.
 export function CornerControls({ prefs, set, onAuthChange, rightExtra = null }) {
@@ -118,6 +152,7 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null }) 
           </svg>
         </button>
         <a href="mailto:chriscrilly@gmail.com?subject=Nirmanakaya Feedback" className={`${ICON_BTN} hover:text-amber-400`} title="Send feedback">✉</a>
+        <LibraryMenu />
       </div>
       {open && (
         <>
