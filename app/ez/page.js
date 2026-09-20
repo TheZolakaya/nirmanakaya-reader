@@ -21,7 +21,7 @@ import { STATUSES, STATUS_INFO } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
-import { BASE_SYSTEM } from '../../lib/prompts';
+import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
@@ -78,6 +78,27 @@ ${loc.balanced
 The card in play, with its seat, status and Rebalancer:
 ${brief}
 Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the card points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
+
+// THE THREE MOVES (.500) — the full reader's Clarify / Unpack / Example, as EZ turns. Each is answered as a
+// NEW Reader turn under the one it is about; the original is never rewritten. A move is a talking turn
+// (no draw) and keeps the whole envelope — medicine, question, chips — so the conversation goes on from it.
+const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
+// The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
+// did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
+const MOVE_RULES = {
+  clarify: `THE MOVE — CLARIFY, exactly as the full reader does it:
+${EXPANSION_PROMPTS.clarify.prompt}
+
+This answers as a NEW turn under the turn quoted below — never a rewrite of it. Open the way a person would: "Okay — let me put it to you this way." Same meaning, same verdict, same medicine. Then your one question, plainly.`,
+  unpack: `THE MOVE — UNPACK, exactly as the full reader does it:
+${EXPANSION_PROMPTS.unpack.prompt}
+
+This answers as a NEW turn under the turn quoted below — never a rewrite of it, nothing dropped from it. Then your one question.`,
+  example: `THE MOVE — EXAMPLE, exactly as the full reader does it:
+${EXPANSION_PROMPTS.example.prompt}
+
+This answers as a NEW turn under the turn quoted below. Their own situation if they have named one in this conversation, otherwise a plausible stranger's, said as such. Never claim the field picked the card because of the scene. Then your one question.`,
+};
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
@@ -1001,7 +1022,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     }
     setError(''); setLoading(true); setInput('');
     const newDraw = mode ? generateSpread(1)[0] : null;
-    const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, ts: Date.now() };
+    const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ts: Date.now() };
     const withYou = [...turns, you];
     setFieldMode(null);
     // any new turn folds the panels (founder, 2026-09-17: "I'd rather have it minimized"); their answers
@@ -1046,7 +1067,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const moveBlock = opts?.move ? `\n\n${MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[voice]?.[0] || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg);
       repliedRef.current = true; setLandedWaiting(false);
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
@@ -1281,20 +1303,12 @@ ${DRAGON_STANDARD}`, 600);
     setRegenning(false);
   };
 
-  // ---- say that again, simpler ----
-  const simplify = async (turnId) => {
+  // ---- clarify / unpack / example (.500): a NEW turn about the one tapped; nothing is rewritten ----
+  const move = async (turnId, kind) => {
     if (loading) return;
     const src = turns.find((t) => t.id === turnId);
-    if (!src) return;
-    setLoading(true); setError('');
-    try {
-      const msg = `THE TURN TO REWRITE:\n${src.text}\n\n${SIMPLER_RULES}`;
-      const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${SIMPLER_RULES}`, 700);
-      setTurns((list) => list.map((t) => (t.id === turnId
-        ? { ...t, text: obj.reader, question: obj.question || t.question, simplified: true }
-        : t)));
-    } catch (e) { setError(e.message); }
-    setLoading(false);
+    if (!src || !MOVE_RULES[kind]) return;
+    await send(MOVE_LABEL[kind], null, { move: { kind, src: src.text } });
   };
 
   // ---- where am I ----
@@ -1339,7 +1353,7 @@ ${DRAGON_STANDARD}`, 600);
     });
     L.push(``, `## The conversation`, ``);
     turns.forEach((t) => {
-      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
+      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.move ? ` (${t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
@@ -1855,6 +1869,9 @@ ${DRAGON_STANDARD}`, 600);
                       {t.mode === 'reflect' ? '↩ Reflecting' : '⚡ Forging'}
                     </div>
                   )}
+                  {t.role === 'you' && t.move && (
+                    <div className="text-[0.625rem] uppercase tracking-wider mb-2 not-italic text-zinc-400/80">◇ {t.move === 'example' ? 'an example' : t.move}</div>
+                  )}
                   {t.role === 'reader' && t.act && (
                     <div className="text-[0.625rem] uppercase tracking-wider mb-2 text-zinc-500">one small thing</div>
                   )}
@@ -1911,11 +1928,12 @@ ${DRAGON_STANDARD}`, 600);
                     <p className="mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words">{t.question}</p>
                   )}
 
-                  {t.role === 'reader' && !t.simplified && !loading && (
-                    <button onClick={() => simplify(t.id)}
-                      className="mt-2 text-[0.6875rem] text-zinc-600 hover:text-zinc-400 underline decoration-dotted">
-                      say it simpler
-                    </button>
+                  {t.role === 'reader' && !t.pending && !loading && (
+                    <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.6875rem] tracking-wide">
+                      <button onClick={() => move(t.id, 'clarify')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="say it so I can hold it — a register plainer, nothing lost">clarify</button>
+                      <button onClick={() => move(t.id, 'unpack')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="the same turn with its seams showing: card, seat, status, medicine">unpack</button>
+                      <button onClick={() => move(t.id, 'example')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="one concrete scene where this shows up">give me an example</button>
+                    </div>
                   )}
 
                   {/* PULL IT TOGETHER, inline at the base of the LATEST message, centred, every turn
