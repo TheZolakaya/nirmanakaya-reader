@@ -493,7 +493,20 @@ export default function EZPage() {
   const [voice, setVoice] = useState('plain');
   const [bench, setBench] = useState(false); // /ez?bench=1 — the layout bench: no API, nothing saved
   useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
-  const chooseVoice = (v) => { setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {} };
+  // .487: the Aa toggle has three stops and no words on it — on a phone there is no hover title, so a
+  // tap says what it did: a small card under the corner naming the register, gone after a moment.
+  const VOICE_NOTES = {
+    plain: ["Plain words", "For anyone. Short, everyday words; nothing of the map's language."],
+    grown: ['Plain words, grown', 'For an adult who has never seen the map. Plain, not simple.'],
+    map: ["The map's words", 'The map speaks in its own names: cards, seats, statuses.'],
+  };
+  const [voiceToast, setVoiceToast] = useState(null);
+  const voiceToastTimer = useRef(null);
+  const chooseVoice = (v) => {
+    setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {}
+    setVoiceToast(v); if (voiceToastTimer.current) clearTimeout(voiceToastTimer.current);
+    voiceToastTimer.current = setTimeout(() => setVoiceToast(null), 3200);
+  };
   const plainish = voice === 'plain' || voice === 'grown'; // .484: both plain registers hide the map's words
 
   // WARM THE MAP while the person is still choosing a door: all 78 thumbnails (about 100KB each)
@@ -1534,6 +1547,13 @@ ${DRAGON_STANDARD}`, 600);
             {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : '◈'}
           </button>
         } />}
+      {voiceToast && VOICE_NOTES[voiceToast] && (
+        <div className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
+          <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
+          <div className="text-[0.75rem] leading-snug text-zinc-400 mt-0.5">{VOICE_NOTES[voiceToast][1]}</div>
+          <div className="text-[0.625rem] text-zinc-600 mt-1">takes effect on the next reply</div>
+        </div>
+      )}
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
