@@ -2271,7 +2271,7 @@ export default function NirmanakaReader() {
       // (same pattern as First Contact auto-load)
       setTimeout(() => {
         drawsToUse.forEach((_, i) => {
-          loadCardDepth(i, drawsToUse, questionToUse, data.letter, systemPrompt, tokens ? tokens[i] : null, tokens && tokens.length > 0 ? questionToUse : null);
+          loadCardDepth(i, drawsToUse, questionToUse, data.letter, systemPrompt, tokens ? tokens[i] : null, tokens && tokens.length > 0 ? questionToUse : null, true);
         });
       }, 150);
 
@@ -2545,8 +2545,11 @@ export default function NirmanakaReader() {
   }, [yieldResult, savedReadingId, posture]);
 
   // On-demand: Load a single card's depth content
-  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null) => {
-    if (cardLoaded[cardIndex] || cardLoading[cardIndex]) return; // Already loaded or loading
+  const loadCardDepth = async (cardIndex, drawsToUse, questionToUse, letterData, systemPromptToUse, token = null, originalInput = null, force = false) => {
+    // .481: the auto-load after a reading passes force — this closure's cardLoaded is a snapshot from the
+    // render that created it, and on a RE-INTERPRET that snapshot still says every card is loaded, so all
+    // of them bailed here and the person had to tap each card (founder). A tap comes from a fresh render.
+    if (!force && (cardLoaded[cardIndex] || cardLoading[cardIndex])) return; // Already loaded or loading
 
     setCardLoading(prev => ({ ...prev, [cardIndex]: true }));
 
