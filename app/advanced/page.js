@@ -4606,7 +4606,7 @@ ORIGIN: ${sourceTrans.name} in ${sourceArch.name} position
 ${chainContext ? `CHAIN SO FAR: ${chainContext}\n` : ''}
 CURRENT STEP ${stepIndex + 1}: ${statusPrefix} ${trans.name} drawn in ${posArch.name} position
 
-THE SIGNATURE: ${trans.name}${trans.traditional ? ` (${trans.traditional})` : ''}
+THE SIGNATURE: ${trans.name}
 ${trans.extended || trans.description}
 Status: ${statusPrefix} (${stat.name} — ${stat.desc})
 Position: ${posArch.name} — ${posArch.description}
@@ -5167,7 +5167,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       const statusPhrase = stat.prefix ? `${stat.prefix} ${trans.name}` : `Balanced ${trans.name}`;
 
       md += `### Signature ${card.index + 1} — ${context}\n\n`;
-      md += `**${statusPhrase}** (${trans.traditional})  \n`;
+      md += `**${statusPhrase}**${showTraditional && trans.traditional ? ` (${trans.traditional})` : ''}  \n`; // .490: opt-in on the page, so opt-in in the export
       md += `*Status: ${stat.name}*\n\n`;
 
       // Frame context (position lens)

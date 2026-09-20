@@ -939,7 +939,11 @@ Respond with ONLY JSON: {"q": "..."}` }],
         : '';
       let tele = '';
       try { tele = buildReadingTeleologicalPrompt(newDraws); } catch {}
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      // .490: the question's SHAPE, stated in the turn itself — flash kept opening a how-question with "Not yet"
+      // even after the rule moved into EZ_RULES (.485); it weighs the user turn far more than the system prompt.
+      const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
+      const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${shape}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
