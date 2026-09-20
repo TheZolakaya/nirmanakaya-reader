@@ -83,7 +83,7 @@ import {
 
 // Import renderWithHotlinks for reading text parsing
 import { renderWithHotlinks, processBracketHotlinks } from '../../lib/hotlinks.js';
-import { resolveModelId, MODEL_PRICING, MODEL_LABELS, costOfUsage, addUsage } from '../../lib/modelConfig.js';
+import { resolveModelId, MODEL_PRICING, MODEL_LABELS, costOfUsage, addUsage, usdFor } from '../../lib/modelConfig.js';
 
 // Import glossary utilities
 import { getGlossaryEntry } from '../../lib/glossary.js';
@@ -2103,7 +2103,7 @@ export default function NirmanakaReader() {
           _onDemand: true,
           _isFirstContact: true
         });
-        setTokenUsage(data.usage);
+        setTokenUsage(data.usage); if (data.model) setUsageModel(data.model);
 
         // Auto-save First Contact reading (skipped in incognito mode)
         if (!incognitoMode) {
@@ -2232,7 +2232,7 @@ export default function NirmanakaReader() {
         // DTP mode: Store original input for grounded interpretations
         originalInput: tokens && tokens.length > 0 ? questionToUse : null
       });
-      setTokenUsage(data.usage);
+      setTokenUsage(data.usage); if (data.model) setUsageModel(data.model);
 
       // Auto-save reading to database (skipped in incognito mode)
       if (!incognitoMode) {
@@ -2340,7 +2340,7 @@ export default function NirmanakaReader() {
       const data = await res.json();
       if (!data.error && data.reading) {
         setPlainAnswer(stripSignature(filterProhibitedTerms(data.reading)).trim());
-        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage));
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); if (data.model) setUsageModel(data.model);
       }
     } catch (e) { /* fail-quiet: no closing word is better than a broken one */ }
     setPlainAnswerLoading(false);
@@ -2434,7 +2434,7 @@ export default function NirmanakaReader() {
         if (!pageMountedRef.current) return;
         if (!data.error && !data.disabled) setVerdictResult(data);
         else if (data.error) setVerdictError(true);
-        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); // count the Answer in the meter
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); if (data.model) setUsageModel(data.model); // count the Answer in the meter
         setVerdictLoading(false);
       })
       .catch(() => {
@@ -2473,7 +2473,7 @@ export default function NirmanakaReader() {
         if (!pageMountedRef.current) return;
         if (data.yield) setYieldResult(data);
         else if (data.error) setYieldError(true);
-        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); // count the yield in the meter
+        if (data.usage) setTokenUsage(prev => addUsage(prev, data.usage)); if (data.model) setUsageModel(data.model); // count the yield in the meter
         setYieldLoading(false);
       })
       .catch(() => {
@@ -2522,7 +2522,7 @@ export default function NirmanakaReader() {
         usage: {
           tokens: tokenUsage,
           model: selectedModel,
-          estCostUSD: Number(costOfUsage(tokenUsage, selectedModel).toFixed(6))
+          estCostUSD: Number(usdFor(tokenUsage, usageModel || selectedModel).toFixed(6))
         }
       }).catch(() => {});
     }, 3000);
@@ -2607,7 +2607,7 @@ export default function NirmanakaReader() {
       setCardLoaded(prev => ({ ...prev, [cardIndex]: true }));
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -2677,7 +2677,7 @@ export default function NirmanakaReader() {
       });
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -2773,7 +2773,7 @@ export default function NirmanakaReader() {
       setParsedReading(completeReading);
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -2841,7 +2841,7 @@ export default function NirmanakaReader() {
       setLetterDepth(targetDepth);
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -2971,7 +2971,7 @@ export default function NirmanakaReader() {
       });
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0),
@@ -3138,8 +3138,8 @@ export default function NirmanakaReader() {
       }
 
       // Track token extraction usage
-      if (data.usage) {
-        setTokenUsage(data.usage);
+      if (data.usage) { if (data.model) setUsageModel(data.model);
+        setTokenUsage(data.usage); if (data.model) setUsageModel(data.model);
       }
 
       // Step 2: Slice draws to match token count and use standard flow
@@ -3539,7 +3539,7 @@ Interpret this new card as the architecture's response to their declared directi
       ];
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
@@ -3780,7 +3780,7 @@ Interpret this new card as the architecture's response to their declared directi
       ];
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
@@ -4175,7 +4175,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
       }
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
@@ -4420,7 +4420,7 @@ CRITICAL FORMATTING RULES:
       setFollowUp('');
 
       // Accumulate token usage
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
@@ -4639,7 +4639,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         { section: `ariadne-step-${stepIndex + 1}`, userText: `Traced to ${posArch.name}: ${trans.name}` }
       ];
 
-      if (data.usage) {
+      if (data.usage) { if (data.model) setUsageModel(data.model);
         setTokenUsage(prev => prev ? {
           input_tokens: (prev.input_tokens || 0) + (data.usage.input_tokens || 0),
           output_tokens: (prev.output_tokens || 0) + (data.usage.output_tokens || 0)
@@ -5326,7 +5326,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     // The reading carries its own bill: model + tokens + estimated cost travel with the export
     if (tokenUsage) {
       const exportModel = usageModel || selectedModel;
-      md += `---\n\n*Model: ${getModelLabel(exportModel).split(' ')[0]} • Tokens: ${(tokenUsage.input_tokens || 0).toLocaleString()} in / ${(tokenUsage.output_tokens || 0).toLocaleString()} out • Est. cost: $${costOfUsage(tokenUsage, exportModel).toFixed(4)}*\n\n`;
+      md += `---\n\n*Model: ${getModelLabel(exportModel).split(' ')[0]} • Tokens: ${(tokenUsage.input_tokens || 0).toLocaleString()} in / ${(tokenUsage.output_tokens || 0).toLocaleString()} out • Est. cost: $${usdFor(tokenUsage, exportModel).toFixed(4)}*\n\n`;
     }
     md += `---\n\n*Generated by Nirmanakaya The Soul Search Engine — v${APP_VERSION}*\n`;
 
@@ -5829,7 +5829,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
   <div class="section">
     <div style="text-align: center; color: #52525b; font-size: 0.75rem;">
       Tokens: ${tokenUsage.input_tokens?.toLocaleString()} in / ${tokenUsage.output_tokens?.toLocaleString()} out •
-      Cost: $${costOfUsage(tokenUsage, selectedModel).toFixed(4)}
+      Cost: $${usdFor(tokenUsage, usageModel || selectedModel).toFixed(4)}
     </div>
   </div>` : ''}
 
@@ -9576,7 +9576,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             )}
             {/* Cache-aware pricing via lib/modelConfig costOfUsage — one formula everywhere.
                 usageModel (the model a restored reading actually ran on) beats the session setting */}
-            {' '}• Cost: ${costOfUsage(tokenUsage, usageModel || selectedModel).toFixed(4)} ({getModelLabel(usageModel || selectedModel).split(' ')[0]})
+            {' '}• Cost: ${usdFor(tokenUsage, usageModel || selectedModel).toFixed(4)} ({getModelLabel(usageModel || selectedModel).split(' ')[0]})
 {/* V3: Translation usage display removed */}
           </div>
         )}
