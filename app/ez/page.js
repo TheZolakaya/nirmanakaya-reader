@@ -494,6 +494,7 @@ export default function EZPage() {
   const [bench, setBench] = useState(false); // /ez?bench=1 — the layout bench: no API, nothing saved
   useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
   const chooseVoice = (v) => { setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {} };
+  const plainish = voice === 'plain' || voice === 'grown'; // .484: both plain registers hide the map's words
 
   // WARM THE MAP while the person is still choosing a door: all 78 thumbnails (about 100KB each)
   // into the browser cache, so the map appears whole the moment it is asked for. Idle-time work.
@@ -505,7 +506,7 @@ export default function EZPage() {
   const [mapReady, setMapReady] = useState(false);
   // The draw block carries "MANDATORY: your interpretation MUST include the word <position>" — right
   // for the map's words, wrong for plain ones. Stripped at the source when the voice is plain.
-  const fmtDraw = (...a) => { const t = formatDrawForAI(...a); return voice === 'plain' ? t.split('\n').filter(l => !l.includes('MANDATORY:')).join('\n') : t; };
+  const fmtDraw = (...a) => { const t = formatDrawForAI(...a); return plainish ? t.split('\n').filter(l => !l.includes('MANDATORY:')).join('\n') : t; };
   const voiceSwitch = (compact = false) => (
     <div className={`flex items-center gap-2 ${compact ? 'text-xs' : 'text-sm'} text-zinc-500`}>
       <span>{compact ? 'voice' : 'Voice'}</span>
@@ -1527,10 +1528,10 @@ ${DRAGON_STANDARD}`, 600);
       {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
         rightExtra={
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
-          <button onClick={() => chooseVoice(voice === 'plain' ? 'map' : 'plain')}
-            title={voice === 'plain' ? 'Plain words — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
-            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
-            {voice === 'plain' ? 'Aa' : '◈'}
+          <button onClick={() => chooseVoice(voice === 'plain' ? 'grown' : voice === 'grown' ? 'map' : 'plain')}
+            title={voice === 'plain' ? 'Plain words — tap for plain words, grown' : voice === 'grown' ? 'Plain words, grown — tap for the map\'s words' : 'The map\'s words — tap for plain words'}
+            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${voice === 'plain' ? 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40' : voice === 'grown' ? 'bg-violet-950/40 border-violet-500/40 text-violet-200 hover:bg-violet-900/40' : 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'}`}>
+            {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : '◈'}
           </button>
         } />}
       <div className="relative z-10 flex-1 flex flex-col w-full">
