@@ -230,13 +230,13 @@ export async function POST(request) {
   }
 
   try {
-    const { data, provider, model: servedModel } = await callProvider({
+    const { data, provider, model: servedModel } = await callProvider({ // .498: session = the person, so their turns stay on one warm host
       model: effectiveModel,
       thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
       max_tokens: effectiveMaxTokens,
       system: systemWithCache,
       messages: withholdPersonalContext(messagesOut)
-    }, { beta: ANTHROPIC_BETA_HEADERS });
+    }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined }); // .498: the person's id keeps their turns on one warm host
 
     if (data.error) {
       return Response.json({ error: data.error.message }, { status: 500 });
