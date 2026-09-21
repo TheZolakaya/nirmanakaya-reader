@@ -1961,10 +1961,14 @@ ${DRAGON_STANDARD}`, 600);
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
-                    <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.6875rem] tracking-wide">
-                      <button onClick={() => move(t.id, 'clarify')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="say it so I can hold it — a register plainer, nothing lost">clarify</button>
-                      <button onClick={() => move(t.id, 'unpack')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="the same turn with its seams showing: card, seat, status, medicine">unpack</button>
-                      <button onClick={() => move(t.id, 'example')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="one concrete scene where this shows up">give me an example</button>
+                    <div className="mt-4 flex flex-wrap justify-center gap-2">
+                      {/* .514: three buttons, centred, inside the frame — not whispers (founder, 2026-09-21) */}
+                      {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost'], ['unpack', 'Unpack', 'the same turn with its seams showing: card, seat, status, medicine'], ['example', 'Give me an example', 'one concrete scene where this shows up']].map(([k, label, tip]) => (
+                        <button key={k} onClick={() => move(t.id, k)} title={tip}
+                          className="rounded-lg border border-zinc-700/60 bg-zinc-900/40 px-3.5 py-1.5 text-[0.8125rem] text-zinc-300 hover:text-zinc-100 hover:border-zinc-500 hover:bg-zinc-800/60 transition-colors">
+                          {label}
+                        </button>
+                      ))}
                     </div>
                   )}
 
