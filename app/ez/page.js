@@ -1983,17 +1983,6 @@ ${DRAGON_STANDARD}`, 600);
                     </div>
                   )}
 
-                  {/* PULL IT TOGETHER, inline at the base of the LATEST message, centred, every turn
-                      (founder, 2026-09-19 night: the footer link was "super tiny… impossible to find").
-                      The footer link stays; this is the one people will see. The label is provisional. */}
-                  {t.role === 'reader' && t.id === lastReader?.id && !wrapped && !loading && (
-                    <div className="mt-4 flex justify-center">
-                      <button onClick={closeUp}
-                        className="rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors">
-                        pull it together
-                      </button>
-                    </div>
-                  )}
                 </div>
               ))}
               {loading && <Writing scroll={!animating && !animPending} />}
@@ -2001,15 +1990,23 @@ ${DRAGON_STANDARD}`, 600);
               <div ref={endRef} />
             </div>
 
-            {/* AN OPEN PANEL FOLLOWS THE CONVERSATION (founder, 2026-09-17): its answer renders here,
-                above the block that never moves — Reflect and Forge, the pills, the text box, and
-                whichever panel is still shut. */}
-            {(brazierOpen || stepOpen || dragonOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+            <div className={dimBox}>
+            {/* THE BOX, RIGHT UNDER THE OUTPUT (founder, 2026-09-21): answer in your own words first; the pills,
+                the doors and the wrap-up follow below. Say sits INSIDE the box, bottom-right, the rainbow word
+                with the chevron — the same treatment as Ask on the front box (founder, 2026-09-16 night) */}
+            <div className="mt-4 relative">
+              <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
+                placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
+                style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              <button onClick={() => { send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); }} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
+                <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            </div>
 
-            {/* THE DOORS, right above Reflect and Forge (founder, 2026-09-19 night, first live pass:
-                beneath the text box they were out of sight too often) */}
-            <div className={dimPanels}>{renderPanels('closed')}</div>
-
+            </div>
             <div className={dimTop}>
             {/* Tier 2: the two switches — flipping one re-renders the pills below */}
             <div className="mt-5 flex items-stretch gap-2">
@@ -2101,26 +2098,23 @@ ${DRAGON_STANDARD}`, 600);
 
             {/* Free text always present */}
             </div>
-            <div className={dimBox}>
-            {/* Say sits INSIDE the box, bottom-right, the rainbow word with the chevron — the same
-                treatment as Ask on the front box (founder, 2026-09-16 night) */}
-            <div className="mt-4 relative">
-              <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
-                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
-                placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
-                style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              <button onClick={() => { send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); }} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
-                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
-                <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-            </div>
+            {/* THE DOORS (founder, 2026-09-21, the block re-ordered): after the text box and the pills — an open
+                door's answer first, then the row of doors still shut. */}
+            {(brazierOpen || stepOpen || dragonOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
 
-            </div>
-            <div className={dimPanels}>
-            {null /* the closed panels moved above Reflect and Forge (.445) */}
+            {/* the doors still shut */}
+            <div className={dimPanels}>{renderPanels('closed')}</div>
 
-            </div>
+            {/* SUMMARIZE AND WRAP IT UP — the very bottom of the block (founder, 2026-09-21; was 'pull it together'
+                inline under the latest message). The whole reading written up as one piece, then a clean stop. */}
+            {!wrapped && turns.length > 0 && !loading && (
+              <div className="mt-6 flex justify-center">
+                <button onClick={closeUp}
+                  className="rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors">
+                  Summarize and wrap it up
+                </button>
+              </div>
+            )}
 
             {wrapped && (
               <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
@@ -2137,7 +2131,7 @@ ${DRAGON_STANDARD}`, 600);
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
-              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">pull it together</button>}
+              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">Summarize &amp; wrap up</button>}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
