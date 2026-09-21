@@ -1683,7 +1683,7 @@ ${DRAGON_STANDARD}`, 600);
               </button>
             </div>
 
-            <div className="grid grid-cols-3 items-center text-[0.8125rem]">
+            <div className="flex items-center justify-center gap-7 sm:gap-12 text-[0.8125rem]"> {/* .521: a centred group, evenly spaced — equal thirds crowded on a phone (founder) */}
               <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
               <button onClick={() => setAreasOpen(!areasOpen)}
