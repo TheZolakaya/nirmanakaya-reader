@@ -127,7 +127,7 @@ CRITICAL: Return ONLY the JSON object with the tokens array. No interpretation, 
 }
 
 export async function POST(request) {
-  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, userId } = await request.json();
+  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, userId, turn } = await request.json(); // .507: turn = 'talk' | 'card' | 'door' (EZ)
 
   // Check if user is banned or throttled (if userId provided)
   if (userId) {
@@ -245,6 +245,11 @@ export async function POST(request) {
 
   try {
     const sensitive = isSensitiveTurn(messagesOut);
+    // .507 THE TALK LANE: the free conversation (typed replies, chips, the three moves) may ride a named lane —
+    // TALK_LANE=anthropic — while openings, new cards and the doors stay on the cheap one. Off unless set.
+    const talkLane = turn === 'talk' && process.env.TALK_LANE ? [process.env.TALK_LANE] : null;
+    const laneOnly = (sensitive && process.env.SENSITIVE_LANE) ? [process.env.SENSITIVE_LANE] : talkLane;
+    if (talkLane) console.log(`[reading] talk turn — routed to ${talkLane[0]}`);
     if (sensitive) console.log(`[reading] sensitive turn — ${process.env.SENSITIVE_LANE ? `routed to ${process.env.SENSITIVE_LANE}` : 'same lane, rails on'}`);
     const { data, provider, model: servedModel } = await callProvider({ // .498: session = the person, so their turns stay on one warm host
       model: effectiveModel,
@@ -252,7 +257,7 @@ export async function POST(request) {
       max_tokens: effectiveMaxTokens,
       system: systemWithCache,
       messages: withholdPersonalContext(messagesOut)
-    }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined, only: sensitive && process.env.SENSITIVE_LANE ? [process.env.SENSITIVE_LANE] : null }); // .498 session; .505 the sensitive turn stays on the cheap lane with the rails on (founder: help the model be warmer, not route around it); SENSITIVE_LANE=anthropic is the switch if a rate ever shows
+    }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined, only: laneOnly }); // .498 session; .505 the sensitive turn stays on the cheap lane with the rails on (founder: help the model be warmer, not route around it); SENSITIVE_LANE=anthropic is the switch if a rate ever shows
 
     if (data.error) {
       return Response.json({ error: data.error.message }, { status: 500 });

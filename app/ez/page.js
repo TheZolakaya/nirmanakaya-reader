@@ -780,13 +780,13 @@ Respond with ONLY JSON: {"q": "..."}` }],
     return lines.join('\n\n') + note;
   }, [discourseText]);
 
-  const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500) => { // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
+  const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // .507: extra rides in the body (turn: 'talk' | 'card' | 'door') // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     const res = await fetch('/api/reading', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id })
+      body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra })
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
@@ -808,8 +808,8 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
   // One strict retry before giving up. A dropped brace used to cost the person their turn and
   // the tokens both; now it costs one cheap re-ask.
-  const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
-    let data = await rawCall(userMessage, system, maxTokens);
+  const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
+    let data = await rawCall(userMessage, system, maxTokens, extra);
     let obj = parseJson(data.reading);
     if (!obj || !obj.reader) {
       data = await rawCall(
@@ -1073,7 +1073,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
       const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const moveBlock = opts?.move ? `\n\n${MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[voice]?.[0] || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
-      const { obj } = await callReader(msg);
+      const { obj } = await callReader(msg, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); // .507: the free conversation may ride its own lane
       repliedRef.current = true; setLandedWaiting(false);
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
       if (willAnimate) {
