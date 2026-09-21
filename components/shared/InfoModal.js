@@ -135,7 +135,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
               isArchetype && detailedType?.subtype === 'INGRESS' ? 'ingress-portal' :
               isArchetype && detailedType?.subtype === 'EGRESS' ? 'egress-portal' :
               isAgent ? 'agent' :
-              component.type.toLowerCase()
+              (component.type || 'archetype').toLowerCase() // .518: the durable seat arrives without a type; it is an archetype
             }>
               <span className={`text-xs px-2 py-1 rounded-full cursor-pointer hover:opacity-80 ${
                 isArchetype ? 'bg-amber-500/20 text-amber-300' :
@@ -179,7 +179,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
                 </span>
                 <span>
                   <span className="text-zinc-500">Process:</span>{' '}
-                  <GlossaryTerm slug={component.function.toLowerCase()}>
+                  <GlossaryTerm slug={String(component.function || '').toLowerCase()}>
                     <span className="text-emerald-300/80">{component.function}</span>
                   </GlossaryTerm>
                 </span>
@@ -214,7 +214,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
                 </span>
                 <span>
                   <span className="text-zinc-500">Process:</span>{' '}
-                  <GlossaryTerm slug={associatedArchetype.function.toLowerCase()}>
+                  <GlossaryTerm slug={String(associatedArchetype.function || '').toLowerCase()}>
                     <span className="text-emerald-300/80">{associatedArchetype.function}</span>
                   </GlossaryTerm>
                 </span>

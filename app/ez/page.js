@@ -391,7 +391,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
               className={`absolute rounded-lg w-[140px] sm:w-[185px] left-[77px] top-[20px] sm:left-[102px] sm:top-[26px] shadow-lg cursor-pointer transition-all duration-200 glow-pulse ${durableFront ? 'z-40 scale-[1.03]' : ''}`}
               style={{ '--glow': houseGlow(draw.position) }}
               onMouseLeave={() => setDurableFront(false)}
-              onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })} />
+              onClick={() => onInfo({ type: 'card', id: draw.position, data: { type: 'Archetype', ...ARCHETYPES[draw.position] } })} />
             {/* the durable's reachable edge was under the transient's box; this hit area sits above both:
                 hover (or a first tap) brings the durable to the front, where its own click opens it */}
             {!durableFront && (
@@ -418,7 +418,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
               {trans?.name}
             </button>
             {seat && (
-              <button onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })}
+              <button onClick={() => onInfo({ type: 'card', id: draw.position, data: { type: 'Archetype', ...ARCHETYPES[draw.position] } })}
                 className="absolute left-[77px] sm:left-[102px] w-[140px] sm:w-[185px] top-[168px] sm:top-[219px] text-center text-[19px] whitespace-nowrap"
                 style={{ fontFamily: "'Cormorant Garamond', serif", color: '#b4b4bc', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.95)' }}>
                 in {seat}
@@ -461,7 +461,7 @@ function CardWithMap({ draw, onInfo, label, stacked = false }) {
         {seat && (
           <>
             <span className="text-zinc-500"> in </span>
-            <button onClick={() => onInfo({ type: 'card', id: draw.position, data: ARCHETYPES[draw.position] })}
+            <button onClick={() => onInfo({ type: 'card', id: draw.position, data: { type: 'Archetype', ...ARCHETYPES[draw.position] } })}
               className="text-zinc-300 hover:text-zinc-100 underline decoration-dotted underline-offset-2">
               {seat}
             </button>
