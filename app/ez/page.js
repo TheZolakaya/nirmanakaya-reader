@@ -622,6 +622,8 @@ export default function EZPage() {
   // nothing is generated on load; a tap asks for one, and "try another" asks for a different one,
   // with everything already suggested handed to the model to avoid.
   const [suggested, setSuggested] = useState('');
+  const [suggestedWhy, setSuggestedWhy] = useState(''); // .511: the thread it pulls on, shown under the question
+  const [resolution, setResolution] = useState(null); // .511: did it land? 'landed' | 'open' | 'missed'
   const [suggesting, setSuggesting] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(true); // the suggestion card can fold away and come back without a new ask
   const suggestedSeen = useRef([]);
@@ -647,17 +649,18 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
         body: JSON.stringify({
           messages: [{ role: 'user', content: `${cj.contextBlock}
 
-From this person's readings, write ONE short question they might want to take up today — a live thread, in their own voice, under 12 words. Name the actual subject if the history names one. Vary the angle: the whole history is fair game, not only the latest reading.${avoid}
+You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a card can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.${avoid}
 
-Respond with ONLY JSON: {"q": "..."}` }],
+Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, addressed to them, on which thread this pulls on — e.g. 'Last week you were handed X and haven't taken it yet.'>"}` }],
           system: 'You write one short question and nothing else. JSON only.',
-          model: MODEL_IDS.haiku, max_tokens: 120, userId: user.id
+          model: MODEL_IDS.haiku, max_tokens: 220, userId: user.id
         })
       });
       const rj = await res.json();
-      const q = parseJson(rj?.reading)?.q;
+      const parsedS = parseJson(rj?.reading) || {};
+      const q = parsedS.q;
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
-      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestOpen(true); }
+      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(typeof parsedS.why === 'string' ? parsedS.why.trim() : ''); setSuggestOpen(true); }
     } catch {} finally { setSuggesting(false); }
   };
   const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
@@ -762,7 +765,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns } }, usage })
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, ...(resolution ? { resolution } : {}) } }, usage })
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
@@ -956,7 +959,7 @@ Respond with ONLY JSON: {"q": "..."}` }],
     const q = typed || (door ? sanitizeForAPI(door.breath) : '');
     if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
     setAsked(q);
-    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null);
+    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null);
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
     // one card only, for now; the answer never waits on the motion by more than the last flight
@@ -1319,6 +1322,16 @@ ${DRAGON_STANDARD}`, 600);
     setRegenning(false);
   };
 
+  // ---- did it land? (.511) ----
+  const markLanding = async (k) => {
+    setResolution(k);
+    if (!savedId) return;
+    try {
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, resolution: k } } });
+      summarize(savedId, true); // the mark rides into the summary the suggester reads
+    } catch {}
+  };
+
   // ---- clarify / unpack / example (.500): a NEW turn about the one tapped; nothing is rewritten ----
   const move = async (turnId, kind) => {
     if (loading) return;
@@ -1397,7 +1410,7 @@ ${DRAGON_STANDARD}`, 600);
   };
 
   const reset = () => {
-    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setError(''); setDoor(null); setQuestion('');
+    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
     setLedger([]); setUsd(0);
   };
@@ -1754,6 +1767,7 @@ ${DRAGON_STANDARD}`, 600);
                     className="w-full text-center rounded-xl border border-violet-700/50 bg-violet-950/20 px-4 py-3 break-words">
                     <span className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 block mb-1">From your readings — tap to use</span>
                     <span className="text-[0.9375rem] text-violet-100">{suggested}</span>
+                    {suggestedWhy && <span className="block mt-1.5 text-[0.75rem] leading-snug text-violet-300/70">{suggestedWhy}</span>}
                   </button>
                 )}
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
@@ -1949,6 +1963,23 @@ ${DRAGON_STANDARD}`, 600);
                       <button onClick={() => move(t.id, 'clarify')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="say it so I can hold it — a register plainer, nothing lost">clarify</button>
                       <button onClick={() => move(t.id, 'unpack')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="the same turn with its seams showing: card, seat, status, medicine">unpack</button>
                       <button onClick={() => move(t.id, 'example')} className="text-zinc-500 hover:text-zinc-300 underline decoration-dotted" title="one concrete scene where this shows up">give me an example</button>
+                    </div>
+                  )}
+
+                  {/* DID IT LAND? (.511) — after the write-up, three taps in the reading's own voice. Not a survey:
+                      did you figure it out? The mark is saved with the reading, carried into its summary, and the
+                      Personalized suggester reads it — an open thread is the best next question; a landed one is done. */}
+                  {t.role === 'wrap' && !loading && (
+                    <div className="mt-4 text-center">
+                      <div className="text-[0.625rem] uppercase tracking-[0.18em] text-emerald-300/60 mb-2">{resolution ? 'noted' : 'did it land?'}</div>
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {[['landed', "I've got it"], ['open', 'Still turning it over'], ['missed', "That wasn't it"]].map(([k, label]) => (
+                          <button key={k} onClick={() => markLanding(k)}
+                            className={`px-3 py-1.5 rounded-lg border text-[0.8125rem] transition-colors ${resolution === k ? 'border-emerald-400/70 bg-emerald-950/40 text-emerald-100' : 'border-zinc-700/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`}>
+                            {label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )}
 
