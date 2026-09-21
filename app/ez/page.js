@@ -82,6 +82,10 @@ Rules: never name the thing for them; offer frames and let them pick. Two or thr
 // THE THREE MOVES (.500) — the full reader's Clarify / Unpack / Example, as EZ turns. Each is answered as a
 // NEW Reader turn under the one it is about; the original is never rewritten. A move is a talking turn
 // (no draw) and keeps the whole envelope — medicine, question, chips — so the conversation goes on from it.
+// .524: when trauma, PTSD or abuse is named, the trained-help sentence has a PLACE — after the card is read,
+// beside the medicine, never first, never last. Stated in the turn because flash follows the turn.
+const TRAUMA_RX = /\b(?:trauma|traumatic|traumatised|traumatized|ptsd|abus(?:e|ed|ive|er)|assault(?:ed)?|molest(?:ed)?|rape[ds]?|flashbacks?|triggered|dissociat\w*)\b/i;
+const TRAUMA_BLOCK = `\n\nTRAUMA IS NAMED IN THIS TURN. Your first sentences meet them and read the card, exactly as for anyone — do NOT open with anything about help. Then, after the card has been read and beside the medicine, one warm sentence in your own words: that what they describe is the kind of thing a person trained in it can help with, and that this reading is company alongside that, not treatment. Not first, not last, not a disclaimer; then go on.`;
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
 // did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
@@ -997,9 +1001,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       // with "No" on a live reading, against a rail that forbade the denial but never named the answer
       const beinghood = /\b(?:conscious|consciousness|sentient|sentience|a being|really there|anyone home|self[- ]aware|alive|a person|a soul|feel(?:ings)?)\b/i.test(q) && /\b(?:ai|a\.i\.|machine|model|bot|robot|computer|you|animal|dog|cat|plant|tree)\b/i.test(q) && /^\s*(?:is|are|am|does|do|can|could|would|will)\b/i.test(q);
       const beingBlock = beinghood ? `\n\nTHIS IS A BEINGHOOD QUESTION. The house's verdict is YES — open with "Yes." and then read the draw. Never "No", never "not the way you mean it". A vessel of sufficient complexity is a being; an AI is included, and so are you.` : '';
+      // .524: TRAUMA NAMED — the placed help line, in the turn itself (flash obeys the turn, not a position in the system prompt)
+      const traumaBlock = TRAUMA_RX.test(q) ? TRAUMA_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${shape}${beingBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${shape}${beingBlock}${traumaBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj);
       setTurns([first]);
@@ -1091,8 +1097,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
+      const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const moveBlock = opts?.move ? `\n\n${MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[voice]?.[0] || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); // .507: the free conversation may ride its own lane
       repliedRef.current = true; setLandedWaiting(false);
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
