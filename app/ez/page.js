@@ -2124,7 +2124,7 @@ ${DRAGON_STANDARD}`, 600);
 
             {wrapped && (
               <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
-                <p className="text-[0.9375rem] text-zinc-300">This reading is saved. Come back to it any time under <span className="text-zinc-100">Load</span>.</p>
+                <p className="text-[0.9375rem] text-zinc-300">This reading is saved. You'll find it again any time — tap <span className="text-zinc-100">Load</span> on the first screen.</p>
                 <div className="mt-3 flex flex-wrap justify-center gap-2">
                   <button onClick={exportMarkdown} className="rounded-lg border border-zinc-700 px-4 py-2 text-[0.9375rem] text-zinc-200 hover:border-zinc-500 transition-colors">Keep a copy</button>
                   <button onClick={reset} className="rounded-lg border border-amber-600/60 px-4 py-2 text-[0.9375rem] text-amber-100 hover:border-amber-400 hover:bg-amber-950/30 transition-colors">Start a new reading</button>
