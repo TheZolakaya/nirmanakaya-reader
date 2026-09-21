@@ -1465,7 +1465,9 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="ml-auto">{chev(brazierOpen)}</span>
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button onClick={toggleDragon} className="relative w-full flex items-center justify-center gap-3 px-3 py-3 text-center overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button onClick={toggleDragon} className="relative w-full flex items-center gap-3 pl-16 pr-3 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
+                    <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" className="h-full w-full object-cover" /></span>
                     <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-200 break-words">{DRAGON_LABEL}</span>
                     {chev(dragonOpen)}
                   </button>
