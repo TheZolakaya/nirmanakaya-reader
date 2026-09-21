@@ -1691,9 +1691,9 @@ ${DRAGON_STANDARD}`, 600);
             </div>
 
             <div className="flex items-center justify-center gap-7 sm:gap-12 text-[0.8125rem]"> {/* .521: a centred group, evenly spaced — equal thirds crowded on a phone (founder) */}
-              <button onClick={() => (showPast ? setShowPast(false) : loadPastList())}
+              <button onClick={() => { setAreasOpen(false); setSuggestOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time */
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
-              <button onClick={() => setAreasOpen(!areasOpen)}
+              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setAreasOpen(!areasOpen); }}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
                 Unsure
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -1705,7 +1705,7 @@ ${DRAGON_STANDARD}`, 600);
                     {suggesting ? 'Reading your history…' : suggested ? 'Another' : 'Personalized'}
                   </button>
                   {suggested && !suggesting && (
-                    <button onClick={() => setSuggestOpen(!suggestOpen)} title={suggestOpen ? 'fold it away' : 'show it again'}
+                    <button onClick={() => { setShowPast(false); setAreasOpen(false); setSuggestOpen(!suggestOpen); }} title={suggestOpen ? 'fold it away' : 'show it again'}
                       className="hover:text-violet-200 transition-colors">
                       <svg className={`w-3.5 h-3.5 transition-transform ${suggestOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                     </button>
