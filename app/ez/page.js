@@ -747,12 +747,24 @@ Respond with ONLY JSON: {"q": "..."}` }],
 
   useEffect(() => { rememberAuthReturn('/ez'); checkGate(); }, [checkGate]);
 
+  // THE TRACE (.510): EZ readings never left a narrative summary, so the journey thread — and the Personalized
+  // suggestion built from it — saw nothing of them. Ask for one after the opening lands, every fourth turn, and
+  // at the write-up; the summariser reads the conversation itself. Non-blocking, best-effort.
+  const summarize = async (id, refresh) => {
+    try {
+      const session = await getSession(); const token = session?.session?.access_token;
+      if (!token || !id) return;
+      await fetch('/api/user/reading-summary', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ readingId: id, refresh: !!refresh }) });
+    } catch {}
+  };
   // Persist the discourse with the reading (debounced), same table as every other reading.
   useEffect(() => {
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns } }, usage }).catch(() => {});
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns } }, usage })
+        .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
+        .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
   }, [turns, savedId, usage]);
