@@ -1464,23 +1464,27 @@ ${DRAGON_STANDARD}`, 600);
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
-                  <button onClick={toggleBrazier} className="relative w-full flex items-center gap-3 pl-16 pr-3 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
-                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-200 break-words">Words to the Whys</span>
-                    <span className="ml-auto">{chev(brazierOpen)}</span>
+                  <button onClick={toggleBrazier} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
+                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Words to the Whys</span>
+                    <span className="relative z-10 sm:ml-auto">{chev(brazierOpen)}</span>
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button onClick={toggleDragon} className="relative w-full flex items-center gap-3 pl-16 pr-3 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button onClick={toggleDragon} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
-                    <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-xl" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" className="h-full w-full object-cover" /></span>
-                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-200 break-words">{DRAGON_LABEL}</span>
-                    {chev(dragonOpen)}
+                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" className="h-full w-full object-cover" /></span>
+                    <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-100 sm:text-rose-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DRAGON_LABEL}</span>
+                    <span className="relative z-10">{chev(dragonOpen)}</span>
                   </button>
                 ) : (
-                  <button onClick={toggleStep} className="relative w-full flex items-center gap-3 pl-3 pr-16 py-3 text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute right-0 top-0 h-full w-14 overflow-hidden rounded-r-xl" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
-                    {chev(stepOpen)}
-                    <span className="font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-200 break-words">{DO_SOMETHING_LABEL}</span>
+                  <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
+                    <span className="relative z-10">{chev(stepOpen)}</span>
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DO_SOMETHING_LABEL}</span>
                   </button>
                 );
               const body = (kind) => kind === 'brazier'
