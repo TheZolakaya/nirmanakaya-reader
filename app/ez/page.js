@@ -1476,7 +1476,7 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Words to the Whys</span>
-                    <span className="relative z-10 sm:ml-auto">{chev(brazierOpen)}</span>
+                    {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
                   <button onClick={toggleDragon} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
@@ -1484,13 +1484,13 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-100 sm:text-rose-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DRAGON_LABEL}</span>
-                    <span className="relative z-10">{chev(dragonOpen)}</span>
+                    {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
-                    <span className="relative z-10">{chev(stepOpen)}</span>
+                    {stepOpen && <span className="relative z-10">{chev(true)}</span>}
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DO_SOMETHING_LABEL}</span>
                   </button>
                 );
