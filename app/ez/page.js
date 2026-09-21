@@ -959,7 +959,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const q = typed || (door ? sanitizeForAPI(door.breath) : '');
     if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
     setAsked(q);
-    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null);
+    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
     // one card only, for now; the answer never waits on the motion by more than the last flight
@@ -1410,7 +1410,7 @@ ${DRAGON_STANDARD}`, 600);
   };
 
   const reset = () => {
-    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setError(''); setDoor(null); setQuestion('');
+    setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
     setLedger([]); setUsd(0);
   };
