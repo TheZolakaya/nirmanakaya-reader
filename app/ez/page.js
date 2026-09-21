@@ -2154,7 +2154,7 @@ ${DRAGON_STANDARD}`, 600);
 
             {/* THE COST LEDGER (.447) — admins and the bench. One row per call. "cold" = this call
                 had to WRITE the prompt cache (125% of input) instead of reading it (10%). */}
-            {(isAdmin(user) || bench) && ledger.length > 0 && (
+            {ledger.length > 0 && ( // .520: the cost ledger is open to everyone for now (founder, 2026-09-21) — was admin/bench only
               <div className="mt-2 text-xs text-zinc-500">
                 <button onClick={() => setLedgerOpen(!ledgerOpen)} className="underline decoration-dotted hover:text-zinc-300">
                   {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · {ledger.filter((r) => r.written > 0).length} cold
