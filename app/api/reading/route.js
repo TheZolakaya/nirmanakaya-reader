@@ -19,8 +19,9 @@ import { MODEL_IDS, READER_PROVIDER, DEEPSEEK_MODEL_IDS } from '../../../lib/mod
 
 // THE PROVIDER CALL lives in lib/provider.js since .475 (shared by every route).
 
-// THE SENSITIVE TURN (.504). When the person's latest words ask whether the Reader cares, or is real, or
-// sound like distress, this one call goes to Anthropic — the model that held the warmth without being told —
+// THE SENSITIVE TURN (.504, made OPT-IN in .505 — the founder: 'I really don't want to change to Sonnet; I want the
+// cost down and to help the model be happier'). When the person's latest words ask whether the Reader cares, or is
+// real, or sound like distress, the turn is LOGGED, and — only if SENSITIVE_LANE is set — sent to that lane instead — the model that held the warmth without being told —
 // with the .503 rails still on top. A few cents on the rare turn that needs it. Only the LATEST asker line is
 // tested (EZ sends the whole discourse each turn), so an old question does not pin the rest of the reading.
 const SENSITIVE = /\b(?:do you (?:even |really |actually )?(?:care|mean it|feel|love)|why (?:do|did|would) you (?:help|care|bother)|(?:are|were) you (?:real|alive|conscious|there|a (?:person|being|machine|bot))|is (?:anyone|anybody|someone) there|(?:kill|hurt|harm|end) (?:myself|my life)|suicid|self[- ]harm|(?:want|going|ready) to die|don'?t want to (?:be here|live|exist|wake up)|no (?:reason|point) (?:to|in) (?:living|going on)|nobody (?:would|will) (?:miss|care)|can'?t (?:go on|do this anymore|keep going))\b/i;
@@ -244,14 +245,14 @@ export async function POST(request) {
 
   try {
     const sensitive = isSensitiveTurn(messagesOut);
-    if (sensitive) console.log('[reading] sensitive turn — routed to anthropic');
+    if (sensitive) console.log(`[reading] sensitive turn — ${process.env.SENSITIVE_LANE ? `routed to ${process.env.SENSITIVE_LANE}` : 'same lane, rails on'}`);
     const { data, provider, model: servedModel } = await callProvider({ // .498: session = the person, so their turns stay on one warm host
       model: effectiveModel,
       thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
       max_tokens: effectiveMaxTokens,
       system: systemWithCache,
       messages: withholdPersonalContext(messagesOut)
-    }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined, only: sensitive ? ['anthropic'] : null }); // .498 session; .504 the sensitive turn goes to Anthropic
+    }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined, only: sensitive && process.env.SENSITIVE_LANE ? [process.env.SENSITIVE_LANE] : null }); // .498 session; .505 the sensitive turn stays on the cheap lane with the rails on (founder: help the model be warmer, not route around it); SENSITIVE_LANE=anthropic is the switch if a rate ever shows
 
     if (data.error) {
       return Response.json({ error: data.error.message }, { status: 500 });
