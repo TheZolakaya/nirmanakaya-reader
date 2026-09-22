@@ -2194,6 +2194,8 @@ export default function NirmanakaReader() {
           });
           const ctxData = await ctxRes.json();
           userContext = ctxData.contextBlock || '';
+          // .540: the personal-fact extraction runs in the background, well after the reading has begun
+          setTimeout(() => { fetch(`/api/user/context?${ctxParams}&extract=1`, { headers: { 'Authorization': `Bearer ${token}` } }).catch(() => {}); }, 20000);
         }
       } catch (e) { /* Context is optional — reading works without it */ }
     }

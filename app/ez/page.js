@@ -937,6 +937,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const params = new URLSearchParams({ draws: JSON.stringify(drawsToUse || []) });
       const res = await fetch(`/api/user/context?${params}`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
+      // .540: the personal-fact extraction runs in the background, well after the reading has begun — never on the way in
+      setTimeout(() => { fetch(`/api/user/context?${params}&extract=1`, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {}); }, 20000);
       return data?.contextBlock || '';
     } catch { return ''; }
   };

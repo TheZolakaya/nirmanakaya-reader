@@ -85,6 +85,7 @@ export async function GET(request) {
 
   const { searchParams } = new URL(request.url);
   const topicId = searchParams.get('topic_id');
+  const extractRequested = searchParams.get('extract') === '1'; // .540: the fact extraction runs only when asked, never on the way into a reading
   // Current draws passed as JSON string for echo detection
   const currentDrawsParam = searchParams.get('draws');
   const currentDraws = currentDrawsParam ? JSON.parse(currentDrawsParam) : [];
@@ -156,8 +157,9 @@ export async function GET(request) {
 
       personalFacts = facts || [];
 
-      // Auto-extraction: check for unprocessed conversations (non-blocking, best-effort)
-      try {
+      // Auto-extraction: check for unprocessed conversations — ONLY on an extract=1 call (.540: it ran up to three
+      // Haiku calls on the request path before every opening; the pages now ask for it in the background)
+      if (extractRequested) try {
         // Get IDs of readings we've already scanned
         const { data: scannedIds } = await supabase
           .from('user_profile_context')
