@@ -2424,6 +2424,8 @@ export default function NirmanakaReader() {
   }, [frameSource]);
   const verdictDrawsRef = useRef(null); // identity of the draws we already asked about
   const fetchVerdict = (drawsToUse, questionToUse) => {
+    // .534: no question, no verdict — a General reading has no assertion to test (Keel: 'Strained — but' on an empty question)
+    if (!String(questionToUse || '').trim() || /^general reading$/i.test(String(questionToUse).trim())) { setVerdictResult(null); setVerdictLoading(false); return; }
     setVerdictResult(null);
     setVerdictError(false);
     setVerdictLoading(true);
@@ -3449,7 +3451,6 @@ ${threadConverseBlock}USER'S INQUIRY/QUESTION (about ${parentLabel}):
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
-Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
 ${correctionInfo}${dtpContext}
@@ -3496,7 +3497,6 @@ USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
-Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
 ${correctionInfo}${dtpContext}
@@ -3684,7 +3684,6 @@ USER'S INQUIRY/QUESTION:
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
-Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
 
@@ -3718,7 +3717,6 @@ USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
 NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
-Traditional: ${newTrans.traditional}
 ${newTrans.description}
 ${newTrans.extended || ''}
 
