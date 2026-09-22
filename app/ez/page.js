@@ -23,7 +23,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionTe
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
 import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
-import { VOICES, EZ_RULES, ezSystem, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
+import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
@@ -130,6 +130,12 @@ const DO_SOMETHING_HINT = 'one small real thing, in the next minute';
 // gas-breathing dragon"). The fierce door: the thing itself, said straight — the problem being
 // walked around OR the opportunity not picked up. Chosen by name, never default.
 const DRAGON_LABEL = 'Face the dragon';
+
+// THE MEDICINE, TAKEN (.538; founder, 2026-09-22 morning: "more treatment… that deepens the understanding of the
+// medicine"). The fourth door: what it is, why it is the medicine, how to take it over a week. Follows the register.
+const MEDICINE_LABEL = 'The medicine';
+const MEDICINE_HINT = 'what it is, why it is the way through, how to take it over a week';
+const MEDICINE_PARTS = [['WHAT IT IS:', 'what it is'], ['WHY IT IS THE MEDICINE:', 'why it is the medicine'], ['HOW TO TAKE IT:', 'how to take it']];
 const DRAGON_HINT = 'the thing itself, said straight — a problem walked around, or a gift not picked up';
 
 const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 300 words (raised from 220 on 2026-09-19 — it is the thing they keep), plain words, no framework vocabulary, no question at the end, nothing new introduced.
@@ -748,6 +754,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const f = m.match(/Write the (meaning|moon|mechanism) floor\. JSON only\./); if (f) return `the ${f[1]}`;
     if (m.includes('FACE THE DRAGON.')) return 'face the dragon';
     if (m.includes('ONE SMALL REAL ACT')) return 'one small step';
+    if (m.includes('THE MEDICINE, TAKEN.')) return 'the medicine';
     if (m.includes('OTHER OPTIONS. Do NOT write a new turn')) return 'other options';
     if (m.includes('WRITE THIS UP AND CLOSE')) return 'pull it together';
     if (m.includes('SAY IT SIMPLER')) return 'say it simpler';
@@ -1209,6 +1216,39 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   };
 
   // ---- FACE THE DRAGON: the fierce door, beside the step ----
+  // THE MEDICINE, TAKEN (.538) — a panel like the step: collapsed by default; opening it fetches the course for the
+  // card in play. Follows the register (the REGISTER line rides on the main system prompt).
+  const [medOpen, setMedOpen] = useState(false);
+  const [medText, setMedText] = useState('');
+  const [medBusy, setMedBusy] = useState(false);
+  const medKeyRef = useRef('');
+  const fetchMedicine = async () => {
+    const card = fieldCard(); if (!card || medBusy) return;
+    const k = buildKernel(card, DEFS);
+    setMedBusy(true); setError('');
+    try {
+      const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
+      const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
+      const tele = seedFor(card, question).block;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
+      const { obj } = await callReader(msg, systemPrompt, 900);
+      setMedText(String(obj.reader || '').trim());
+      medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
+    } catch (e) { setError(e.message); }
+    setMedBusy(false);
+  };
+  const toggleMedicine = () => {
+    const next = !medOpen;
+    setMedOpen(next);
+    if (next) {
+      showPanels('medicine');
+      if (!brazierOpen && !stepOpen && !dragonOpen) setPanelFirst('medicine');
+      const card = fieldCard();
+      const key = card ? `${card.transient}:${card.position}:${card.status}` : '';
+      if (key !== medKeyRef.current || !medText) { setMedText(''); fetchMedicine(); }
+    }
+  };
+
   const [dragonOpen, setDragonOpen] = useState(false);
   const [dragonText, setDragonText] = useState('');
   const [dragonBusy, setDragonBusy] = useState(false);
@@ -1255,8 +1295,10 @@ ${DRAGON_STANDARD}`, 600);
     const rings = over.rings || brazier;
     const st = over.step !== undefined ? over.step : stepText;
     const dr = over.dragon !== undefined ? over.dragon : dragonText;
+    const md = over.medicineTaken !== undefined ? over.medicineTaken : medText;
     const read = [1, 'meaning', 'moon', 'mechanism'].filter((r) => rings[r]);
-    const step = (st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '')
+    const step = (md ? `\n\nTHE MEDICINE, TAKEN (they opened "the medicine" and read this course — what it is, why, how to take it; it is part of the conversation now: build on it, never repeat it, never hand them a second medicine):\n${md}` : '')
+      + (st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '')
       + (dr ? `\n\nTHE DRAGON THEY ASKED TO FACE (they tapped "face the dragon" and read this; it is part of the conversation now — you may build on it and refer to it; never repeat it, never soften it back, never pile on):\n${dr}` : '');
     if (!read.length) return step;
     // Opened floors ENTER THE CONVERSATION (founder's ruling 2026-09-19: "it's an ongoing
@@ -1319,6 +1361,7 @@ ${DRAGON_STANDARD}`, 600);
     setBrazierOpen(false); setBrazier({}); setFloorsOpened([]); brazierKeyRef.current = '';
     setStepOpen(false); setStepText(''); stepKeyRef.current = '';
     setDragonOpen(false); setDragonText(''); dragonKeyRef.current = '';
+    setMedOpen(false); setMedText(''); medKeyRef.current = '';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldKey]);
   // THE FLOORS DEEPEN THE LATEST TURN (Keel's requirements §1): when a new Reader turn lands, the
@@ -1445,11 +1488,12 @@ ${DRAGON_STANDARD}`, 600);
       if (t.question) L.push(`*${t.question}*`, ``);
     });
     // the doors they opened — Words to the Whys (ring 1 + any floors), the dragon, the step
-    if (brazier[1] || dragonText || stepText) {
+    if (brazier[1] || dragonText || stepText || medText) {
       L.push(`## The doors`, ``);
       if (brazier[1]) L.push(`**Words to the Whys — why this is happening:**`, ``, brazier[1], ``);
       floorsOpened.filter((f) => brazier[f]).forEach((f) => L.push(`**${FLOOR_LABEL[f]}:**`, ``, brazier[f], ``));
       if (dragonText) L.push(`**Face the dragon:**`, ``, dragonText, ``);
+      if (medText) L.push(`**The medicine, taken:**`, ``, medText, ``);
       if (stepText) L.push(`**One small step:**`, ``, stepText, ``);
     }
     L.push(`---`, `*nirmanakaya.com/ez*`);
@@ -1493,10 +1537,10 @@ ${DRAGON_STANDARD}`, 600);
   // instead — the switches, the pills, the text box, the panels — dim and go inert, so the one
   // moving thing on the page is the indicator. Each section stays live only where its own
   // indicator lives.
-  const anyBusy = loading || regenning || !!brazierBusy || stepBusy || dragonBusy;
+  const anyBusy = loading || regenning || !!brazierBusy || stepBusy || dragonBusy || medBusy;
   const dim = (on) => (on ? 'opacity-30 pointer-events-none transition-opacity duration-300' : 'transition-opacity duration-300');
   const dimTop = dim(anyBusy);
-  const dimPills = dim(loading || !!brazierBusy || stepBusy || dragonBusy);
+  const dimPills = dim(loading || !!brazierBusy || stepBusy || dragonBusy || medBusy);
   const dimBox = dim(anyBusy);
   const dimPanels = dim(loading); // NOT regenning: the pills reroll off screen while the panel's answer is being read
   /* WORDS TO THE WHYS and ONE SMALL STEP (founder, 2026-09-16 night): side by side while both
@@ -1526,6 +1570,13 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-100 sm:text-rose-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DRAGON_LABEL}</span>
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
+                  </button>
+                ) : kind === 'medicine' ? (
+                  <button onClick={toggleMedicine} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
+                    {medOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
@@ -1586,6 +1637,29 @@ ${DRAGON_STANDARD}`, 600);
                       <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                     ))}
                   </div>
+                )) : kind === 'medicine' ? (medOpen && (
+                  <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
+                    <div className="text-[0.6875rem] text-emerald-300/70 mb-2">{MEDICINE_HINT}</div>
+                    {medBusy && <Writing scroll={false} label="the Reader is opening the medicine…" />}
+                    {!medBusy && medText && (() => {
+                      // split on the three headings; anything before the first heading renders plain
+                      const parts = []; let rest = medText;
+                      const idx = MEDICINE_PARTS.map(([h]) => rest.indexOf(h));
+                      if (idx.every((i) => i < 0)) return ensureParagraphBreaks(medText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>);
+                      MEDICINE_PARTS.forEach(([h, label], pi) => {
+                        const i = rest.indexOf(h); if (i < 0) return;
+                        const next = MEDICINE_PARTS.slice(pi + 1).map(([hh]) => rest.indexOf(hh)).filter((j) => j > i);
+                        const end = next.length ? Math.min(...next) : rest.length;
+                        parts.push([label, rest.slice(i + h.length, end).trim()]);
+                      });
+                      return parts.map(([label, text], pi) => (
+                        <div key={label} className={pi ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
+                          <div className="text-[0.625rem] uppercase tracking-wider text-emerald-400/70 mb-2">{label}</div>
+                          {ensureParagraphBreaks(text).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>)}
+                        </div>
+                      ));
+                    })()}
+                  </div>
                 )) : (stepOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
@@ -1597,19 +1671,20 @@ ${DRAGON_STANDARD}`, 600);
                 ));
               const frame = 'pill-breathe rounded-xl border bg-zinc-950/40';
               const glow = { '--pill': '139 92 246', borderColor: '#4c1d95' }; // dark purple at rest; breathes violet on hover
-              const isOpen = (kind) => (kind === 'brazier' ? brazierOpen : kind === 'dragon' ? dragonOpen : stepOpen);
-              // the row: whys · dragon · step (gentle door left, fierce door centre, the step right)
-              const base = ['brazier', 'dragon', 'step'];
+              const isOpen = (kind) => (kind === 'brazier' ? brazierOpen : kind === 'dragon' ? dragonOpen : kind === 'medicine' ? medOpen : stepOpen);
+              // the row: whys · dragon · the medicine · step (.538: four doors; on a phone the shut ones sit two by two)
+              const base = ['brazier', 'dragon', 'medicine', 'step'];
               const order = [panelFirst, ...base.filter((k) => k !== panelFirst)];
               const mine = order.filter((kind) => (which === 'open' ? isOpen(kind) : !isOpen(kind)));
               if (!mine.length) return null;
               // the shut ones share one row under the text box, in the row's own order
               if (which === 'closed' && mine.length > 1) {
                 const dragonGlow = { '--pill': '244 63 94', borderColor: '#881337' }; // dark rose at rest; breathes red on hover
+                const medicineGlow = { '--pill': '52 211 153', borderColor: '#064e3b' }; // dark emerald at rest; breathes green on hover
                 return (
-                  <div className="mt-4 flex items-stretch gap-2">
+                  <div className="mt-4 flex flex-wrap items-stretch gap-2">
                     {base.filter((k) => mine.includes(k)).map((k) => (
-                      <div key={k} style={k === 'dragon' ? dragonGlow : glow} className={`flex-1 min-w-0 ${frame}`}>{header(k)}</div>
+                      <div key={k} style={k === 'dragon' ? dragonGlow : k === 'medicine' ? medicineGlow : glow} className={`flex-1 min-w-0 basis-[calc(50%-0.25rem)] sm:basis-0 ${frame}`}>{header(k)}</div>
                     ))}
                   </div>
                 );
@@ -1617,7 +1692,7 @@ ${DRAGON_STANDARD}`, 600);
               return (
                 <div ref={which === 'open' ? panelsRef : undefined}>
                   {mine.map((kind, i) => (
-                    <div key={kind} data-ez-panel={kind} style={kind === 'dragon' ? { '--pill': '244 63 94', borderColor: '#881337' } : glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
+                    <div key={kind} data-ez-panel={kind} style={kind === 'dragon' ? { '--pill': '244 63 94', borderColor: '#881337' } : kind === 'medicine' ? { '--pill': '52 211 153', borderColor: '#064e3b' } : glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
                   ))}
                 </div>
               );
@@ -2171,7 +2246,7 @@ ${DRAGON_STANDARD}`, 600);
             </div>
             {/* THE DOORS (founder, 2026-09-21, the block re-ordered): after the text box and the pills — an open
                 door's answer first, then the row of doors still shut. */}
-            {(brazierOpen || stepOpen || dragonOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+            {(brazierOpen || stepOpen || dragonOpen || medOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
 
             {/* the doors still shut */}
             <div className={dimPanels}>{renderPanels('closed')}</div>
