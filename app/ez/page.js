@@ -22,13 +22,11 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
-import { VOICES, EZ_RULES, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
+import { VOICES, EZ_RULES, ezSystem, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
-import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
-import { buildPersonaPrompt } from '../../lib/personas';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
@@ -559,7 +557,11 @@ export default function EZPage() {
   const [mapReady, setMapReady] = useState(false);
   // The draw block carries "MANDATORY: your interpretation MUST include the word <position>" — right
   // for the map's words, wrong for plain ones. Stripped at the source when the voice is plain.
-  const fmtDraw = (...a) => { const t = formatDrawForAI(...a); return plainish ? t.split('\n').filter(l => !l.includes('MANDATORY:')).join('\n') : t; };
+  // .528: EZ sends THE RECORD, not the advanced reader's section grammar (Agency/Domain/REBALANCER TARGET/
+  // Grammar rule) — the audit found the draw described three times in three vocabularies. The signature
+  // header line stays; the record under it is the draw.
+  const ADVANCED_GRAMMAR = /^(?:Agency \(THE SUBJECT\)|Domain \(POSITION|Status: |Rebalancer: |REBALANCER TARGET|REBALANCER CONTEXT|Grammar rule|MANDATORY)/;
+  const fmtDraw = (...a) => formatDrawForAI(...a).split('\n').filter(l => !ADVANCED_GRAMMAR.test(l) && !l.includes('MANDATORY:')).join('\n');
   const voiceSwitch = (compact = false) => (
     <div className={`flex items-center gap-2 ${compact ? 'text-xs' : 'text-sm'} text-zinc-500`}>
       <span>{compact ? 'voice' : 'Voice'}</span>
@@ -780,7 +782,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
   }, [turns, savedId, usage]);
 
-  const systemPrompt = `${BASE_SYSTEM}\n\n${buildPersonaPrompt('friend', 5, 'clear')}\n\n${EZ_RULES}${VOICES[voice]?.rules ? `\n\n${VOICES[voice].rules}` : ''}`;
+  const systemPrompt = ezSystem(BASE_SYSTEM, voice); // .528: no hardcoded FRIEND persona (it sat under Deep and Mystical too); the kernel's rails that EZ_RULES already carries are stripped once
 
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
@@ -789,7 +791,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       return `${verb}: "${t.text}"`;
     }
     if (t.role === 'catchup') return '[catch-up card shown]';
-    return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}`;
+    // .528: the Reader's own medicine and question ride with its turn — later turns used to see 'One question.' and nothing
+    const gave = t.medicine ? `\n  THE MEDICINE IT GAVE: ${t.medicine}` : '';
+    const askedQ = t.question ? `\n  IT ASKED: "${t.question}"` : '';
+    return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
   }), []);
 
   // Every turn used to be re-sent in full on every call, so a long session paid more and more
@@ -997,8 +1002,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const doorBlock = door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
-      let tele = '';
-      try { tele = buildReadingTeleologicalPrompt(newDraws); } catch {}
+      const tele = ''; // .528: no teleology block in EZ — it named the SEAT as the card and ended with foreign output instructions; the record is the draw
       // .490: the question's SHAPE, stated in the turn itself — flash kept opening a how-question with "Not yet"
       // even after the rule moved into EZ_RULES (.485); it weighs the user turn far more than the system prompt.
       // .506: a BEINGHOOD question gets the house's verdict in the turn itself — flash answered "Is AI a conscious being?"
@@ -1099,7 +1103,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
       const newCardBlock = newDraw
-        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\n${(() => { try { return buildReadingTeleologicalPrompt([newDraw]); } catch { return ''; } })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
+        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
@@ -1155,7 +1159,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
-      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const tele = ''; // .528: no teleology block in EZ
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
@@ -1188,7 +1192,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
-      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const tele = ''; // .528: no teleology block in EZ
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
@@ -1248,7 +1252,7 @@ ${DRAGON_STANDARD}`, 600);
       const k = buildKernel(card, DEFS);
       // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
       // the whole record, and the same teleology block the advanced Why works from
-      let tele = ''; try { tele = buildReadingTeleologicalPrompt([card]); } catch {}
+      const tele = ''; // .528: no teleology block in EZ
       const lastTurn = [...turns].reverse().find((t) => t.role === 'reader');
       const turnBlock = (floor !== 1 && lastTurn?.text) ? `\n\nTHE TURN TO DEEPEN (the Reader's latest words to them — deepen THIS, never change the subject):\n${lastTurn.text}${lastTurn.medicine ? `\n\n${lastTurn.medicine}` : ''}` : '';
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
