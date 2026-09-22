@@ -20,7 +20,8 @@ import Link from 'next/link';
 import { STATUSES, STATUS_INFO } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
-import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks } from '../../lib/utils';
+import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
+import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
@@ -561,6 +562,16 @@ export default function EZPage() {
   // Grammar rule) — the audit found the draw described three times in three vocabularies. The signature
   // header line stays; the record under it is the draw.
   const ADVANCED_GRAMMAR = /^(?:Agency \(THE SUBJECT\)|Domain \(POSITION|Status: |Rebalancer: |REBALANCER TARGET|REBALANCER CONTEXT|Grammar rule|MANDATORY)/;
+  // .530: THE SEED. Every draw in the conversation so far (the opening plus every reflect/forge card), and the
+  // computed geometry + teleology for the card a turn is about — lines in a never-reproduce wrapper (lib/ezSeed.js).
+  const allDrawsSoFar = (base = draws, list = turns) => [...(base || []), ...(list || []).filter((t) => t.draw).map((t) => t.draw)];
+  const seedFor = (card, q, base, list) => {
+    try {
+      const all = allDrawsSoFar(base, list);
+      const i = all.findIndex((d) => d && card && d.transient === card.transient && d.position === card.position);
+      return seedParts({ question: q, draws: all, index: i < 0 ? 0 : i });
+    } catch { return { block: '', lines: '' }; }
+  };
   const fmtDraw = (...a) => formatDrawForAI(...a).split('\n').filter(l => !ADVANCED_GRAMMAR.test(l) && !l.includes('MANDATORY:')).join('\n');
   const voiceSwitch = (compact = false) => (
     <div className={`flex items-center gap-2 ${compact ? 'text-xs' : 'text-sm'} text-zinc-500`}>
@@ -868,12 +879,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   const readerTurn = (obj, extra = {}) => ({
     id: `t${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
     role: 'reader',
-    text: stripTrailingQuestion(obj.reader, obj.question),
+    text: stripDirectiveEcho(stripTrailingQuestion(obj.reader, obj.question)), // .530: no directive echo on glass
     question: obj.question || '',
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
-    medicine: typeof obj.medicine === 'string' ? obj.medicine.trim() : '',
+    medicine: typeof obj.medicine === 'string' ? stripDirectiveEcho(obj.medicine.trim()) : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
     suggest: (obj.suggest && typeof obj.suggest === 'object' && obj.suggest.text) ? obj.suggest : null,
     closing: obj.closing === true,
@@ -1002,7 +1013,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const doorBlock = door
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
         : '';
-      const tele = ''; // .528: no teleology block in EZ — it named the SEAT as the card and ended with foreign output instructions; the record is the draw
+      const seed = seedFor(newDraws[0], q, newDraws, []); // .530: the geometry + teleology of this draw, after the record
+      const tele = seed.block;
       // .490: the question's SHAPE, stated in the turn itself — flash kept opening a how-question with "Not yet"
       // even after the rule moved into EZ_RULES (.485); it weighs the user turn far more than the system prompt.
       // .506: a BEINGHOOD question gets the house's verdict in the turn itself — flash answered "Is AI a conscious being?"
@@ -1017,7 +1029,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
       const msg = `${ctx}QUESTION: "${q}"${doorBlock}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
-      const first = readerTurn(obj);
+      const first = readerTurn(obj, seed.lines ? { geometry: seed.lines } : {});
       setTurns([first]);
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       try {
@@ -1103,7 +1115,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
       const newCardBlock = newDraw
-        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
+        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
@@ -1113,7 +1125,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); // .507: the free conversation may ride its own lane
       repliedRef.current = true; setLandedWaiting(false);
-      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}) });
+      const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}) });
       if (willAnimate) {
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
@@ -1159,7 +1172,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
-      const tele = ''; // .528: no teleology block in EZ
+      const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
@@ -1192,7 +1205,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
-      const tele = ''; // .528: no teleology block in EZ
+      const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
@@ -1252,7 +1265,7 @@ ${DRAGON_STANDARD}`, 600);
       const k = buildKernel(card, DEFS);
       // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
       // the whole record, and the same teleology block the advanced Why works from
-      const tele = ''; // .528: no teleology block in EZ
+      const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const lastTurn = [...turns].reverse().find((t) => t.role === 'reader');
       const turnBlock = (floor !== 1 && lastTurn?.text) ? `\n\nTHE TURN TO DEEPEN (the Reader's latest words to them — deepen THIS, never change the subject):\n${lastTurn.text}${lastTurn.medicine ? `\n\n${lastTurn.medicine}` : ''}` : '';
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
@@ -1985,6 +1998,14 @@ ${DRAGON_STANDARD}`, 600);
                       the person just read. */}
                   {t.role === 'reader' && t.question && (
                     <p className="mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words">{t.question}</p>
+                  )}
+
+                  {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
+                  {t.role === 'reader' && t.geometry && (
+                    <details className="mt-3">
+                      <summary className="cursor-pointer select-none text-[0.6875rem] uppercase tracking-wider text-zinc-500 hover:text-zinc-300">the geometry</summary>
+                      <pre className="mt-2 whitespace-pre-wrap break-words text-[0.75rem] leading-relaxed text-zinc-400 font-mono">{t.geometry}</pre>
+                    </details>
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
