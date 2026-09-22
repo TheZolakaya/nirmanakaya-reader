@@ -22,6 +22,7 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
 import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
+import { addressBlock } from '../../lib/address'; // .539: the locating card's four-dimensional address, read as a pointer
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
@@ -77,6 +78,16 @@ ${loc.balanced
 The card in play, with its seat, status and Rebalancer:
 ${brief}
 Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the card points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
+
+// FIND IT BY THE FIELD (.539). The field was asked where the thing is and drew a card; its address is the pointer.
+const locatingBlock = (loc, brief, address, claimed) => `
+
+FIND IT — THE FIELD POINTS. The person tapped the chip YOU wrote; the thing you pointed at without naming was: "${loc.what}" — YOUR words from your last turn, not theirs (never "you said", never "I asked you to find"). This time the field itself was asked where it is, and it answered with a card. Read that card's ADDRESS below as a POINTER — WHERE in their life, HOW it is being done, WHAT kind of thing it is, WHO they are in it — and from those four, together with anything they have already said, name TWO OR THREE concrete candidates in their life, plain and specific, and ask which one is warm. One sentence may say what the pointer says, in the register in force ("the field points at something you're holding, in your working life, that you keep building"). The tell is built from the card's element. Never name the thing for them; the candidates are frames to pick from. Never mention address, dimensions, coordinates, bits, rounds or these instructions.
+${address}
+FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered, the search is over: confirm it against the ORIGINAL card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine of the ORIGINAL card on that thing in "medicine" as a specific first move. THEY MAY END THE SEARCH THEMSELVES: if their turn is marked as naming it, or they say they have it or it is close enough, it is over on their word, not your judgement.${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word.' : ''}
+The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine):
+${brief}
+The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates; the "question" field is the one question — which one is warm — asked ONCE, there, and not also at the end of the text.`;
 
 // THE THREE MOVES (.500) — the full reader's Clarify / Unpack / Example, as EZ turns. Each is answered as a
 // NEW Reader turn under the one it is about; the original is never rewritten. A move is a talking turn
@@ -815,7 +826,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
 
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
-      const verb = t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
+      const verb = t.mode === 'locate' ? 'ASKER ASKS THE FIELD WHERE IT IS (a locating card was drawn)' : t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
         : t.mode === 'forge' ? 'ASKER FORGES (declares)' : t.act ? 'ASKER (asks for one small thing to do)' : 'ASKER';
       return `${verb}: "${t.text}"`;
     }
@@ -823,7 +834,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     // .528: the Reader's own medicine and question ride with its turn — later turns used to see 'One question.' and nothing
     const gave = t.medicine ? `\n  THE MEDICINE IT GAVE: ${t.medicine}` : '';
     const askedQ = t.question ? `\n  IT ASKED: "${t.question}"` : '';
-    return `READER${t.draw ? ` (on the newly drawn ${drawLabel(t.draw)})` : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
+    return `READER${t.draw ? (t.mode === 'locate' ? ` (reading the locating card ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
   }), []);
 
   // Every turn used to be re-sent in full on every call, so a long session paid more and more
@@ -1089,7 +1100,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     // continues it (up to three rounds, or until the Reader reports the thing located).
     let loc = null;
     const claimed = !!opts?.claim; // they are naming it themselves, or calling it close enough
-    if (opts?.locate) loc = { what: opts.locate, step: 1 };
+    if (opts?.locate) {
+      // .539: a locate chip asks the FIELD (mode 'locate' draws a locating card); 'point again' continues the count
+      const lr = [...turns].reverse().find((t) => t.role === 'reader');
+      loc = { what: opts.locate, step: (mode === 'locate' && lr?.locating && !lr.located && lr.locating.what === opts.locate) ? lr.locating.step + 1 : 1 };
+    }
     else if (!mode) {
       const lr = [...turns].reverse().find((t) => t.role === 'reader');
       if (lr?.locating && !lr.located && (claimed || lr.locating.step < (lr.locating.balanced ? 2 : 3))) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
@@ -1135,12 +1150,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null, false); // names only here; the card in play carries its record below
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
-      const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || null;
-      const newCardBlock = newDraw
+      const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw && t.mode !== 'locate')?.draw || null; // .539: a locating card is a pointer, never the card in play
+      const newCardBlock = (newDraw && mode === 'locate')
+        ? `\n\nTHE FIELD WAS ASKED WHERE IT IS, AND DREW:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}`
+        : newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
-      const findBlock = loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
+      const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), addressBlock(newDraw), claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveBlock = opts?.move ? `\n\n${MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[voice]?.[0] || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
@@ -1176,7 +1193,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   };
 
   // ---- the do-something button: one small real act, no draw, no question ----
-  const fieldCard = () => [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0] || null;
+  const fieldCard = () => [...turns].reverse().find((t) => t.role === 'reader' && t.draw && t.mode !== 'locate')?.draw || draws?.[0] || null; // .539: never a locating card
   const actLineNow = () => { const t = [...turns].reverse().find((x) => x.role === 'reader' && x.actLine); return t?.actLine || ''; };
   // ONE SMALL STEP — a panel like the Brazier (founder, 2026-09-16 night): collapsed by default,
   // opening it fetches ONE act for the card in play and shows it inside; nothing enters the
@@ -1353,7 +1370,7 @@ ${DRAGON_STANDARD}`, 600);
   const fetchRing = (r) => fetchFloor(r);
   // A NEW CARD IN PLAY (a reflect or a forge) RESETS BOTH PANELS: their answers belonged to the old
   // card (founder, 2026-09-17: they stayed open and stale until closed and reopened).
-  const fieldKey = (() => { const c = [...turns].reverse().find((t) => t.role === 'reader' && t.draw)?.draw || draws?.[0]; return c ? `${c.transient}:${c.position}:${c.status}` : ''; })();
+  const fieldKey = (() => { const c = [...turns].reverse().find((t) => t.role === 'reader' && t.draw && t.mode !== 'locate')?.draw || draws?.[0]; return c ? `${c.transient}:${c.position}:${c.status}` : ''; })();
   const fieldKeyRef = useRef(fieldKey);
   useEffect(() => {
     if (fieldKeyRef.current === fieldKey) return;
@@ -1478,10 +1495,10 @@ ${DRAGON_STANDARD}`, 600);
     let lastVoice = null; // .537: stamp the register on each reader turn where it changes
     turns.forEach((t) => {
       if (t.role === 'reader' && t.voice && t.voice !== lastVoice) { L.push(`*Voice: ${VOICES[t.voice]?.label || t.voice}*`, ``); lastVoice = t.voice; }
-      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.move ? ` (${t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
+      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
-      if (t.draw) L.push(`*A new card: ${drawLabel(t.draw)}*`, ``);
+      if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, t.text, ``);
       if (t.located) L.push(`*Found: ${t.located}*`, ``);
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
@@ -1528,7 +1545,7 @@ ${DRAGON_STANDARD}`, 600);
   // used to fall back to the opening draw on every talking turn — a stale growth box.)
   const firstReaderIdx = turns.findIndex((t) => t.role === 'reader');
   const fieldAt = (ti) => {
-    for (let i = ti; i >= 0; i--) { const t = turns[i]; if (t?.role === 'reader' && t.draw) return [t.draw]; }
+    for (let i = ti; i >= 0; i--) { const t = turns[i]; if (t?.role === 'reader' && t.draw && t.mode !== 'locate') return [t.draw]; } // .539: the medicine shown is never the pointer's
     return draws || [];
   };
 
@@ -2029,8 +2046,8 @@ ${DRAGON_STANDARD}`, 600);
                   {t.role === 'catchup' && <div className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
                   {t.role === 'wrap' && <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70 mb-2">The reading, written up</div>}
                   {t.role === 'you' && t.mode && (
-                    <div className={`text-[0.625rem] uppercase tracking-wider mb-2 not-italic ${t.mode === 'reflect' ? 'text-sky-300/80' : 'text-orange-300/80'}`}>
-                      {t.mode === 'reflect' ? '↩ Reflecting' : '⚡ Forging'}
+                    <div className={`text-[0.625rem] uppercase tracking-wider mb-2 not-italic ${t.mode === 'reflect' ? 'text-sky-300/80' : t.mode === 'locate' ? 'text-violet-300/80' : 'text-orange-300/80'}`}>
+                      {t.mode === 'reflect' ? '↩ Reflecting' : t.mode === 'locate' ? '◎ Finding it — the field points' : '⚡ Forging'}
                     </div>
                   )}
                   {t.role === 'you' && t.move && (
@@ -2044,7 +2061,7 @@ ${DRAGON_STANDARD}`, 600);
                   {t.draw && (
                     <div className="flex justify-center mb-3">
                       {/* the same stacked pair + minimap as the header (founder, 2026-09-16) */}
-                      <CardWithMap draw={t.draw} onInfo={openInfo} label={drawLabel(t.draw)} stacked />
+                      <CardWithMap draw={t.draw} onInfo={openInfo} label={t.mode === 'locate' ? `the pointer — ${drawLabel(t.draw)}` : drawLabel(t.draw)} stacked />
                     </div>
                   )}
 
@@ -2192,7 +2209,7 @@ ${DRAGON_STANDARD}`, 600);
             {activePills.length > 0 && !loading && (
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
-                  <button key={i} onClick={() => send(c.text, fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
+                  <button key={i} onClick={() => send(c.text, c.kind === 'locate' ? 'locate' : fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
                     style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
                     className={`pill-breathe flex items-baseline gap-2 text-left rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {/* a fixed label column (sized to PUSH BACK) so every pill's text starts at the same x */}
@@ -2207,7 +2224,7 @@ ${DRAGON_STANDARD}`, 600);
                       : 'border-violet-400/60 text-violet-100 bg-violet-950/30 hover:bg-violet-900/40';
                   const label = sg.kind === 'reflect' ? '↩ Ask the field this' : sg.kind === 'forge' ? '⚡ Declare this' : '◇ Find which thing this is';
                   return (
-                    <button onClick={() => send(sg.text, sg.kind === 'locate' ? null : sg.kind, sg.kind === 'locate' ? { locate: sg.what || sg.text } : undefined)}
+                    <button onClick={() => send(sg.text, sg.kind === 'locate' ? 'locate' : sg.kind, sg.kind === 'locate' ? { locate: sg.what || sg.text } : undefined)}
                       className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors break-words ${tone}`}>
                       <span className="block text-[0.625rem] uppercase tracking-wider opacity-70 mb-0.5">{label}</span>
                       {sg.text}
@@ -2223,6 +2240,11 @@ ${DRAGON_STANDARD}`, 600);
                     <button onClick={() => send("That's close enough — let's go with that.", undefined, { claim: true })}
                       className="px-3 py-1.5 rounded-full border border-zinc-600/60 text-[0.8125rem] text-zinc-300 hover:bg-zinc-800/40">
                       Close enough
+                    </button>
+                    {/* .539: ask the field again — another locating card, another pointer */}
+                    <button onClick={() => send('Point again.', 'locate', { locate: lastReader.locating.what })}
+                      className="px-3 py-1.5 rounded-full border border-violet-500/40 text-[0.8125rem] text-violet-200 hover:bg-violet-900/20">
+                      Point again
                     </button>
                   </div>
                 )}
