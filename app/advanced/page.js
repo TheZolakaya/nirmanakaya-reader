@@ -2335,7 +2335,7 @@ export default function NirmanakaReader() {
 - Your certainty may NEVER exceed the delivered verdict's. If the verdict says "but", your answer keeps the but. If no verdict was delivered, answer at the reading's own strength: "the reading doesn't rule on this, but it consistently points at..."
 - Temporal frame: you read the current vector — "as it stands" — never the future. Mirror language, never prophecy.
 - Common tongue ONLY: no signature names, no statuses, no houses/channels/geometry. The reading already carries the machinery; you carry the meaning.
-- 3-6 sentences. No headers, no lists. End by handing the helm back in one natural phrase.`;
+- 3-6 sentences. No headers, no lists. End by handing the choice back to them in one natural phrase of your own — never the word "helm", never a stock closer.`;
       const userMsg = `THE PERSON'S QUESTION: "${question}"\n\n${vBlock}${yBlock}READING SUMMARY:\n${summaryText}\n\nPATH/MEDICINE SUMMARY:\n${pathText}\n\nSpeak the closing word now — the direct, plain answer to what they asked, from everything above.`;
       const res = await fetch('/api/reading', {
         method: 'POST',
@@ -5170,10 +5170,19 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
       md += `**${statusPhrase}**${showTraditional && trans.traditional ? ` (${trans.traditional})` : ''}  \n`; // .490: opt-in on the page, so opt-in in the export
       md += `*Status: ${stat.name}*\n\n`;
 
-      // Frame context (position lens)
+      // Frame context (position lens). .529 (Keel): the lens's house and the seat's house are BOTH true and were
+      // reading as a contradiction ('Meaning — your Spirit house…' over a Culture/Mind section). One framing line
+      // names both layers; the lens's house sentence is dropped when the seat's house differs.
       const fcMd = getFrameContextForCard(card.index);
       if (fcMd && !fcMd.isEmpty && fcMd.label) {
-        md += `**${fcMd.label}**${fcMd.lens ? ` — ${fcMd.lens}` : ''}\n\n`;
+        const seatHouse = ARCHETYPES[draw.position]?.house;
+        const lensHouse = (String(fcMd.lens || '').match(/your (\w+) house/i) || [])[1];
+        let lensText = fcMd.lens || '';
+        if (lensHouse && seatHouse && lensHouse.toLowerCase() !== String(seatHouse).toLowerCase()) {
+          lensText = lensText.replace(/^This signature is how your \w+ house is expressing[^.]*\.\s*/i, '');
+        }
+        md += `*Spread position: ${fcMd.label}${lensHouse ? ` (${lensHouse} lens)` : ''} · Seat: ${durableName}${seatHouse ? ` (${seatHouse})` : ''}*\n\n`;
+        md += `**${fcMd.label}**${lensText ? ` — ${lensText}` : ''}\n\n`;
       }
 
       // Card art (absolute URL — Markdown can't embed the geometry SVG; HTML export carries that)

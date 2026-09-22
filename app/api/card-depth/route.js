@@ -1,3 +1,4 @@
+import { stripDirectiveEcho } from '../../../lib/utils.js';
 // app/api/card-depth/route.js
 // V3: Single-depth card interpretation — always full depth, all structural data
 // No progressive deepening. One pass. Full transmission.
@@ -521,16 +522,16 @@ Respond with these markers:
 [CARD:${n}:WHY]
 (Full transmission on the teleological pressure. Why did THIS signature emerge for THIS question? What is it pointing at? No sentence limits.)
 ${isImbalanced ? `
-${correctionTarget ? `REBALANCER TARGET: ${correctionTarget} via ${correctionType} rebalancing. You MUST discuss ${correctionTarget} specifically.
+${correctionTarget ? `[[instruction — never reproduce any of this line in the reading]] Rebalancer target: ${correctionTarget} via ${correctionType} rebalancing — the rebalancer section is about ${correctionTarget} specifically, in your own words.
 ⚠️ EXACT NAME LAW: the rebalancer is named "${correctionTarget}" — use that name VERBATIM every time. Never substitute a different rank or role (e.g. do not write "Initiate of X" when the computed target is "Executor of X"); the rank is computed, not stylistic. Cite the name, never paraphrase it.
-REBALANCER CONTEXT: This rebalancing is happening in the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the rebalancing.` : ''}
+[[instruction — never reproduce]] Rebalancer context: the rebalancing belongs to the ${positionName} position. The rebalancing must address how ${correctionTarget} restores balance specifically within the domain of ${positionName}. Position shapes the rebalancing.` : ''}
 
 [CARD:${n}:REBALANCER]
 (Full transmission on the rebalancing path through ${correctionTarget || 'the rebalancer target'} as it operates in ${positionName}. No sentence limits. How does this rebalancing restore balance HERE? What does it look like in practice? Explore philosophy, psychology, practical application.)` : ''}
 ${isBalanced ? `
 GROWTH OPPORTUNITY: Balance is a launchpad, not a destination.${growthIsSelf ? `
 This is a RECURSION POINT - ${trans?.name || 'this signature'} in balance grows by investing FURTHER in itself. The loop IS the growth.` : `
-GROWTH TARGET: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
+[[instruction — never reproduce]] Growth target: ${growthTarget || 'the growth partner'} via ${growthType || 'growth'} opportunity.`}
 
 [CARD:${n}:GROWTH]
 (Full transmission on the growth invitation. No sentence limits.${growthIsSelf ? ` Balanced ${trans?.name || 'this signature'} grows by going deeper here. MORE of this. Frame as "continue investing" and "the loop is the path" — NOT "rest here" or "you've arrived".` : ` The developmental invitation from balance toward ${growthTarget}. Frame as "from here, you're invited toward..." Not rebalancing — INVITATION.`})` : ''}
@@ -569,20 +570,21 @@ function parseCardResponse(text, n, draw) {
   const isBalanced = draw.status === 1;
   const isImbalanced = draw.status !== 1;
 
+  const clean = (marker) => stripDirectiveEcho(extractSection(marker)); // .529: no directive echo reaches the page
   const cardData = {
-    summary: extractSection(`CARD:${n}:SUMMARY`),
-    reading: extractSection(`CARD:${n}:READING`),
+    summary: clean(`CARD:${n}:SUMMARY`),
+    reading: clean(`CARD:${n}:READING`),
     architecture: architectureText,
-    mirror: extractSection(`CARD:${n}:MIRROR`),
-    why: extractSection(`CARD:${n}:WHY`)
+    mirror: clean(`CARD:${n}:MIRROR`),
+    why: clean(`CARD:${n}:WHY`)
   };
 
   if (isImbalanced) {
-    cardData.rebalancer = extractSection(`CARD:${n}:REBALANCER`);
+    cardData.rebalancer = clean(`CARD:${n}:REBALANCER`);
   }
 
   if (isBalanced) {
-    cardData.growth = extractSection(`CARD:${n}:GROWTH`);
+    cardData.growth = clean(`CARD:${n}:GROWTH`);
   }
 
   return cardData;
