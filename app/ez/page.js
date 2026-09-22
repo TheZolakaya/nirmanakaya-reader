@@ -532,6 +532,17 @@ export default function EZPage() {
   };
   // .491: the dial, in order, and each stop's colour on the button
   const VOICE_ORDER = ['plain', 'grown', 'map', 'deep', 'mystical'];
+  // .536: THE REGISTER RIDES IN THE TURN. The five voices lived only at the tail of an ~18k-token system prompt, and
+  // flash weighs the turn far more than the system prompt (the question shape, the beinghood verdict, the trauma line
+  // and the AI question all had to move into the turn before they held). Founder: "not noticing much difference in
+  // our new voices." One line, every reader-facing turn, says which register this reply is in.
+  const REGISTER_LINE = {
+    plain: "PLAIN WORDS. Short everyday sentences a smart twelve-year-old follows; NONE of the map's language on glass — no card, seat, status, medicine, house, channel or stage names; the meaning in their words only.",
+    grown: "PLAIN WORDS, GROWN. For an adult who has never seen the map: plain, not simple — full sentences, adult vocabulary, no condescension — and still NONE of the map's language on glass.",
+    map: "THE MAP'S WORDS. Name the card, the seat, the status and the medicine by their names, and say what each is in the same breath; ordinary depth, the map speaking as itself.",
+    deep: "DEEP. The map's words AND the derivation shown — how this card in this seat with this status fixes this medicine, step by step, in a collegiate register; take the room you need.",
+    mystical: "MYSTICAL. The house's own philosophy leaned all the way in — purpose (why this, now), the present as the only place authorship lives, the pillars, the geometry named and felt; no borrowed spirituality, only this house's; take the room you need.",
+  };
   const VOICE_STYLE = {
     plain: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40',
     grown: 'bg-violet-950/40 border-violet-500/40 text-violet-200 hover:bg-violet-900/40',
@@ -822,10 +833,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // .507: extra rides in the body (turn: 'talk' | 'card' | 'door') // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
+    // .536: the register, stated in the turn, on every reader-facing call (the main EZ system and the write-up; the brazier keeps its kitchen)
+    const readerFacing = system === systemPrompt || String(system).startsWith(systemPrompt) || String(system).includes(CLOSING_RULES);
+    const sent = readerFacing && REGISTER_LINE[voice] && !userMessage.includes('\n\nREGISTER — ') ? `${userMessage}\n\nREGISTER — ${REGISTER_LINE[voice]}` : userMessage;
     const res = await fetch('/api/reading', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'user', content: userMessage }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra })
+      body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra })
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
