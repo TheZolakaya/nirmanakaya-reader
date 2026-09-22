@@ -345,6 +345,10 @@ function HoverVideo({ src, className, style }) {
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
 function Writing({ label = 'the Reader is writing…', size = 160, className = '', scroll = true }) {
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
+  // .541: the seconds show, so a long wait is a long wait and not a dead page
+  const [secs, setSecs] = useState(0);
+  useEffect(() => { const t0 = Date.now(); const iv = setInterval(() => setSecs(Math.floor((Date.now() - t0) / 1000)), 1000); return () => clearInterval(iv); }, []);
+  const slow = secs >= 20 ? (secs >= 60 ? 'still trying — the door is on its last host' : 'the host is slow — the door is handing it to the next one') : '';
   const ref = useRef(null);
   // it was appearing half off the bottom of a phone screen (founder, 2026-09-17): bring it to the top
   // ONCE, when it first appears — never again when the prop flips (a flight ending flipped it and
@@ -365,8 +369,9 @@ function Writing({ label = 'the Reader is writing…', size = 160, className = '
       </span>
       <span className="font-serif text-[1.0625rem] tracking-wide text-center"
         style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>
-        {label}
+        {label}{secs >= 4 ? <span className="opacity-70"> {secs}s</span> : null}
       </span>
+      {slow && <span className="text-[0.75rem] text-zinc-400 text-center px-4">{slow}</span>}
     </div>
   );
 }
@@ -652,11 +657,16 @@ export default function EZPage() {
     setMapReady(true);
     await new Promise(r => setTimeout(r, 350));
     try {
-      await runLanding({
-        surface, cameraRef,
-        draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
-        table: {}, slotsSelector, signal, flyWordmark: false
-      });
+      // .541: the flight is capped. A paused tab (iOS backgrounds the app), a transition that never ends or an image
+      // that never loads used to hold the reply hostage — the founder saw a landed card with nothing under it.
+      await Promise.race([
+        runLanding({
+          surface, cameraRef,
+          draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
+          table: {}, slotsSelector, signal, flyWordmark: false
+        }),
+        new Promise((r) => setTimeout(() => { signal.skip = true; r(); }, 25000)),
+      ]);
     } catch { /* skipped */ }
     // the clones stay parked in the header while the page comes back; begin() clears them
   };
@@ -854,12 +864,24 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     // .536: the register, stated in the turn, on every reader-facing call (the main EZ system and the write-up; the brazier keeps its kitchen)
     const readerFacing = system === systemPrompt || String(system).startsWith(systemPrompt) || String(system).includes(CLOSING_RULES);
     const sent = readerFacing && REGISTER_LINE[voice] && !userMessage.includes('\n\nREGISTER — ') ? `${userMessage}\n\nREGISTER — ${REGISTER_LINE[voice]}` : userMessage;
-    const res = await fetch('/api/reading', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra })
-    });
-    const data = await res.json();
+    // .541: the call has its own clock; a dead connection or a stuck function is said out loud, never sat through in silence
+    const ac = new AbortController();
+    const clock = setTimeout(() => ac.abort(new Error('the Reader did not answer in time — the connection or the host stalled. Ask again.')), 100000);
+    let res, data;
+    try {
+      res = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),
+        signal: ac.signal,
+      });
+      const raw = await res.text();
+      try { data = JSON.parse(raw); } catch { throw new Error(`the Reader's door answered ${res.status} without a reading (${raw.slice(0, 80).replace(/\s+/g, ' ')}…). Ask again.`); }
+    } catch (e) {
+      if (e?.name === 'AbortError' || /did not answer in time/.test(String(e?.message))) throw new Error('the Reader did not answer in time — the connection or the host stalled. Ask again.');
+      if (e instanceof TypeError) throw new Error('could not reach the Reader — check the connection and ask again.');
+      throw e;
+    } finally { clearTimeout(clock); }
     if (data.error) throw new Error(data.error);
     if (data.usage) setLedger((L) => [...L, {
       t: Date.now(), purpose: purposeOf(userMessage), ms: Date.now() - t0,
