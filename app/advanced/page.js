@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import UnfoldPanel from '../../components/ui/UnfoldPanel';
@@ -1979,7 +1980,13 @@ export default function NirmanakaReader() {
   const prevFollowUpCount = useRef(0);
   useEffect(() => {
     if (followUpMessages.length > prevFollowUpCount.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      // .535: the old anchor (messagesEndRef) sits INSIDE the reading block, ABOVE the follow-up list — every new turn
+      // scrolled the page back to the beginning of the dialog (founder). Scroll to the newest message itself.
+      requestAnimationFrame(() => setTimeout(() => {
+        const el = document.getElementById('followup-newest');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 60));
     }
     prevFollowUpCount.current = followUpMessages.length;
   }, [followUpMessages]);
@@ -9371,7 +9378,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         {followUpMessages.length > 0 && (
           <div className="content-pane space-y-4 mt-6">
             {followUpMessages.map((msg, i) => (
-              <div key={i} className={`rounded-lg p-4 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
+              <div key={i} id={i === followUpMessages.length - 1 ? 'followup-newest' : undefined} className={`rounded-lg p-4 scroll-mt-20 ${msg.role === 'user' ? 'bg-zinc-800/50 ml-8' : 'bg-zinc-900/50 border border-zinc-800/50'}`}>
                 {msg.role === 'user' && <div className="text-[0.625rem] text-zinc-500 uppercase tracking-wider mb-2">Follow-up</div>}
                 <div className="text-zinc-300 leading-relaxed text-sm space-y-3">
                   {msg.content.split(/\n\n+/).filter(p => p.trim()).map((para, pi) => (
@@ -9683,6 +9690,9 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         transientId={cardDetailId}
         stats={userStatsRef.current}
       />
+
+      {/* .535: the way back to the easy reader — same corner as EZ's "full reader →" (founder, 2026-09-22) */}
+      <Link href="/ez" className="fixed bottom-3 right-3 z-40 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[0.75rem] tracking-wide text-zinc-400 hover:text-zinc-200 transition-all">← easy reader</Link>
 
     </div>
   );
