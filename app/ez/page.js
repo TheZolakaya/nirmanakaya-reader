@@ -900,6 +900,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? stripDirectiveEcho(obj.medicine.trim()) : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
+    voice, // .537: the register this turn was written in, so an export shows a mid-read switch
     suggest: (obj.suggest && typeof obj.suggest === 'object' && obj.suggest.text) ? obj.suggest : null,
     closing: obj.closing === true,
     actLine: typeof obj.act === 'string' ? obj.act.trim() : '',
@@ -1431,7 +1432,9 @@ ${DRAGON_STANDARD}`, 600);
       L.push(`- ${drawLabel(d)}${m ? ` — ${m.balanced ? 'grows toward' : 'corrected by'} ${m.to}${m.path ? ` (${m.path})` : ''}` : ''}`);
     });
     L.push(``, `## The conversation`, ``);
+    let lastVoice = null; // .537: stamp the register on each reader turn where it changes
     turns.forEach((t) => {
+      if (t.role === 'reader' && t.voice && t.voice !== lastVoice) { L.push(`*Voice: ${VOICES[t.voice]?.label || t.voice}*`, ``); lastVoice = t.voice; }
       if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.move ? ` (${t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
