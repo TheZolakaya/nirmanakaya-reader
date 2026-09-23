@@ -2291,6 +2291,10 @@ ${DRAGON_STANDARD}`, 600);
               <div ref={endRef} />
             </div>
 
+            {/* .553: AN OPEN DOOR'S ANSWER, RIGHT UNDER THE LAST TURN (founder: 'never end the last post without having some
+                choices underneath it and the capability to enter something custom'). The box and the pills stay the last thing on the page. */}
+            {(brazierOpen || stepOpen || dragonOpen || medOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+
             <div className={dimBox}>
             {/* THE BOX, RIGHT UNDER THE OUTPUT (founder, 2026-09-21): answer in your own words first; the pills,
                 the doors and the wrap-up follow below. Say sits INSIDE the box, bottom-right, the rainbow word
@@ -2404,9 +2408,7 @@ ${DRAGON_STANDARD}`, 600);
 
             {/* Free text always present */}
             </div>
-            {/* THE DOORS (founder, 2026-09-21, the block re-ordered): after the text box and the pills — an open
-                door's answer first, then the row of doors still shut. */}
-            {(brazierOpen || stepOpen || dragonOpen || medOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+            {/* the open door's answer now sits ABOVE the box (.553) — see below the turns */}
 
             {/* the doors still shut */}
             <div className={dimPanels}>{renderPanels('closed')}</div>
