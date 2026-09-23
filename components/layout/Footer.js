@@ -23,6 +23,10 @@ export default function Footer() {
             Nirmanakaya <span className="text-emerald-500/50 mx-2">::</span> v{VERSION}
           </h4>
 
+          {/* The name (founder, 2026-09-23): "Nirmanakaya — the map of awakened consciousness." */}
+          <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-400 group-hover:text-zinc-300 transition-colors duration-500">
+            The map of awakened consciousness
+          </p>
           {/* The Law */}
           <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 group-hover:text-zinc-400 transition-colors duration-500">
             Consciousness is Primary <span className="mx-2 text-zinc-600">|</span> Encounter Precedes Understanding

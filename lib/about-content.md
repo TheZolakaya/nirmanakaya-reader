@@ -2,6 +2,10 @@
 
 ## A Complete Introduction to the Consciousness Architecture
 
+**Nirmanakaya — the map of awakened consciousness.**
+
+*About the name.* In Buddhist philosophy, *nirmanakaya* is the emanation body: the form awakened consciousness takes when it appears in the world. The map is named for it because the map is that form — the geometry of how awareness emanates, individuates, and expresses itself, drawn out in full. Not a journey home. You are already home; this is the map of where you stand.
+
 ---
 
 ## Quick Navigation
