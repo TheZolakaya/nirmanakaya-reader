@@ -1861,10 +1861,19 @@ ${DRAGON_STANDARD}`, 600);
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
           <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
+            {/* .545: THE FRAME, ON THE BOX — the founder set a frame, hit done, and "nothing happened": the only sign was the small
+                About ✓. Now the frame sits on the question box itself, in words, with a way to change or clear it. */}
+            {frame && !draws && (
+              <div className="mb-2 flex flex-wrap items-center justify-center gap-2 text-[0.8125rem]">
+                <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">About: {frameLabel(frame)}</span>
+                <button onClick={() => setFrameOpen(true)} className="text-emerald-300/80 underline decoration-dotted hover:text-emerald-200">change</button>
+                <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="text-zinc-400 underline decoration-dotted hover:text-zinc-200">clear</button>
+              </div>
+            )}
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (wordless) setWordless(false); }} onFocus={() => setWordless(false)} rows={4}
-                  placeholder="What's on your mind? Ask it the way you would say it out loud."
+                  placeholder={frame ? `Ask about ${frameLabel(frame)} — the way you would say it out loud.` : "What's on your mind? Ask it the way you would say it out loud."}
                   style={{ animationDuration: '16s' }}
                   className={`animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
               </div>
@@ -1931,7 +1940,7 @@ ${DRAGON_STANDARD}`, 600);
                     onKeyDown={(e) => { if (e.key === 'Enter') setFrameOpen(false); }}
                     placeholder={frameOf(frame.k).ask} maxLength={80}
                     className="flex-1 min-w-0 rounded-lg border border-emerald-700/40 bg-zinc-950/60 px-3 py-2 text-[0.9375rem] text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-400" />
-                  <button onClick={() => setFrameOpen(false)} className="rounded-lg border border-emerald-500/50 px-3 py-2 text-[0.8125rem] text-emerald-100 hover:bg-emerald-900/30">done</button>
+                  <button onClick={() => { setFrameOpen(false); try { questionRef.current?.focus(); } catch {} }} className="rounded-lg border border-emerald-500/50 px-3 py-2 text-[0.8125rem] text-emerald-100 hover:bg-emerald-900/30">done</button>
                 </div>
               )}
               {frame && <div className="text-[0.75rem] text-emerald-200/70">About: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
