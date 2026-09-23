@@ -123,6 +123,19 @@ const FRAMES = [
 ];
 const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
 const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
+// .569: THE FRAME ON EVERY READING (founder, 2026-09-24: "frame should just be a part of every reading — auto detect a custom frame
+// per reading, thematic, based on the querent's question, and allow for manual framing"). When no frame was chosen, the opening
+// turn asks the Reader to name what the question is about, in the envelope's "frame" field; the house keeps it as the frame in
+// force (marked auto) and the person can change or clear it from the reading itself. A manual frame always wins.
+const FRAME_ASK = `\n\nTHE FRAME: none was chosen. Name it yourself — what this question is ABOUT: one of ${FRAMES.map((f) => f.k).join(', ')}, and the subject in their own words (a name, the job, the move; under eight words; empty when the category is the whole of it — "custom" needs words). Put it in "frame" and read INSIDE it exactly as if it had been set: your first sentence names the subject in their words and every paragraph after stays there. A draw with no question at all is "week".`;
+const pickFrame = (f) => {
+  if (!f || typeof f !== 'object') return null;
+  const k = String(f.k || f.kind || f.category || '').trim().toLowerCase();
+  if (!frameOf(k)) return null;
+  const detail = typeof f.detail === 'string' ? f.detail.trim().replace(/^["'“”]+|["'“”.]+$/g, '').slice(0, 80) : '';
+  if (k === 'custom' && !detail) return null;
+  return { k, detail, auto: true };
+};
 const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
 // .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
@@ -716,6 +729,7 @@ export default function EZPage() {
   const [frame, setFrame] = useState(null);          // .544: THE FRAME — { k, detail } or null
   const [frameOpen, setFrameOpen] = useState(false);
   const [frameDetail, setFrameDetail] = useState('');
+  const [frameEdit, setFrameEdit] = useState(false);   // .569: changing the frame from inside the reading
   // A question suggested from this account's own readings — ON DEMAND. The founder, 2026-09-15:
   // "I've had the same one show up every time ... I want to proactively press that button." So
   // nothing is generated on load; a tap asks for one, and "try another" asks for a different one,
@@ -1147,8 +1161,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const aiBlock = AI_RX.test(q) ? AI_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameBlock(frame)}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frame ? frameBlock(frame) : FRAME_ASK}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       let { obj, usage: u } = await callReader(msg);
+      let fr = frame; // .569: the frame in force for this reading — chosen by the person, or named by the Reader just now
+      if (!fr) { const named = pickFrame(obj?.frame); if (named) { fr = named; setFrame(named); setFrameDetail(named.detail || ''); } }
       { const mm = medicineMismatch(obj, newDraws[0]); if (mm) { console.warn('[medicine check] opening named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`); if (r2?.obj?.reader) { obj = r2.obj; u = r2.usage || u; } } } // .557
       let openingNotes = [];
       { const rv = reviewTurn({ obj, register: voice, prev: [], cardBalanced: newDraws[0]?.status === 1, isOpening: true }); // .560
@@ -1161,7 +1177,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
-          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice, ...(frame ? { frame } : {}) } },
+          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice, ...(fr ? { frame: fr } : {}) } },
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) setSavedId(data.id);
@@ -1609,7 +1625,7 @@ ${DRAGON_STANDARD}`, 600);
   const exportMarkdown = () => {
     if (!draws) return;
     const L = [];
-    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ...(frame ? [`**About:** ${frameLabel(frame)}`] : []), ``);
+    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ...(frame ? [`**About:** ${frameLabel(frame)}${frame.auto ? ' (named by the Reader)' : ''}`] : []), ``);
     L.push(`## The draw`);
     draws.forEach((d) => {
       const m = medicineFor([d])[0];
@@ -1652,7 +1668,7 @@ ${DRAGON_STANDARD}`, 600);
   const reset = () => {
     // .559: NEW QUESTION RESETS EVERYTHING — the founder hit it and found his old question still in the box and the About
     // fold open. The question, the box, the door, the frame and its fold, the folds, the panels, the error: all gone.
-    setQuestion(''); setInput(''); setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setWordless(false); setError('');
+    setQuestion(''); setInput(''); setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setFrameEdit(false); setWordless(false); setError('');
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false);
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
@@ -2207,6 +2223,34 @@ ${DRAGON_STANDARD}`, 600);
             <div className="mb-7 text-center">
               <div className="text-[0.625rem] uppercase tracking-[0.2em] text-amber-300/60 mb-2">You asked</div>
               <p className="font-serif text-[1.375rem] sm:text-[1.5rem] leading-snug text-amber-100 break-words" style={{ textWrap: 'balance' }}>“{asked || question}”</p>
+              {/* .569: THE FRAME, ON THE READING — named by the Reader when none was chosen, or set by the person; change or clear it
+                  here and the next turn is read inside the new one. */}
+              {!bench && (frame || frameEdit) && (
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[0.8125rem]">
+                  {frame && <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">About: {frameLabel(frame)}{frame.auto ? <span className="text-emerald-300/60"> · the Reader's read</span> : null}</span>}
+                  <button onClick={() => setFrameEdit(!frameEdit)} className="text-emerald-300/80 underline decoration-dotted hover:text-emerald-200">{frameEdit ? 'done' : 'change'}</button>
+                  {frame && <button onClick={() => { setFrame(null); setFrameDetail(''); setFrameEdit(false); }} className="text-zinc-400 underline decoration-dotted hover:text-zinc-200">clear</button>}
+                </div>
+              )}
+              {!bench && frameEdit && (
+                <div className="mt-3 mx-auto max-w-xl rounded-xl border border-emerald-700/40 bg-emerald-950/15 p-3 space-y-2 text-left">
+                  <div className="flex flex-wrap gap-1.5 justify-center">
+                    {FRAMES.map((f) => (
+                      <button key={f.k} onClick={() => { setFrame({ k: f.k, detail: f.ask ? (frame?.k === f.k ? frameDetail : '') : '' }); if (!f.ask) setFrameEdit(false); }}
+                        className={`rounded-full border px-3 py-1 text-[0.8125rem] transition-colors ${frame?.k === f.k ? 'border-emerald-400 bg-emerald-900/40 text-emerald-100' : 'border-emerald-700/40 text-emerald-200/90 hover:bg-emerald-900/25'}`}>
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+                  {frame && frameOf(frame.k)?.ask && (
+                    <input value={frameDetail} onChange={(e) => { setFrameDetail(e.target.value); setFrame({ k: frame.k, detail: e.target.value.trim() }); }}
+                      onKeyDown={(e) => { if (e.key === 'Enter') setFrameEdit(false); }}
+                      placeholder={frameOf(frame.k).ask} maxLength={80}
+                      className="w-full rounded-lg border border-emerald-700/40 bg-zinc-950/60 px-3 py-2 text-[0.9375rem] text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-400" />
+                  )}
+                  <div className="text-[0.75rem] text-emerald-200/70 text-center">The next turn is read inside this.</div>
+                </div>
+              )}
             </div>
 
             {/* One surface: the discourse in order */}
