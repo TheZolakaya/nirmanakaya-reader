@@ -979,6 +979,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     id: `t${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
     role: 'reader',
     text: stripDirectiveEcho(stripTrailingQuestion(obj.reader, obj.question)), // .530: no directive echo on glass
+    gist: typeof obj.gist === 'string' ? stripDirectiveEcho(obj.gist.trim()) : '', // .555: the thesis, at the top
     question: obj.question || '',
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
@@ -1308,6 +1309,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   // THE MEDICINE, TAKEN (.538) — a panel like the step: collapsed by default; opening it fetches the course for the
   // card in play. Follows the register (the REGISTER line rides on the main system prompt).
   const [voicePickFor, setVoicePickFor] = useState(null); // .543: which turn's 'voice' row is open
+  const [folded, setFolded] = useState(() => new Set()); // .555: reader turns whose body is folded under the gist
+  const toggleFold = (id) => setFolded((f) => { const n = new Set(f); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const [medOpen, setMedOpen] = useState(false);
   const [medText, setMedText] = useState('');
   const [medBusy, setMedBusy] = useState(false);
@@ -1573,7 +1576,7 @@ ${DRAGON_STANDARD}`, 600);
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
-      L.push(`**Reader:**`, ``, t.text, ``);
+      L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
       if (t.located) L.push(`*Found: ${t.located}*`, ``);
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
       if (t.question) L.push(`*${t.question}*`, ``);
@@ -2188,7 +2191,17 @@ ${DRAGON_STANDARD}`, 600);
                     </div>
                   )}
 
-                  {ensureParagraphBreaks(t.text).split(/\n\n+/).filter((p) => p.trim()).map((p, i) => (
+                  {/* .555: THE GIST — the thesis first; the body beneath, open unless folded */}
+                  {t.role === 'reader' && t.gist && !t.pending && (
+                    <div className="mb-3 flex items-start gap-2">
+                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-zinc-100 break-words">{t.gist}</p>
+                      <button onClick={() => toggleFold(t.id)} title={folded.has(t.id) ? 'show the whole turn' : 'fold the turn under its gist'} aria-label="fold"
+                        className="shrink-0 mt-0.5 rounded-full border border-zinc-700/60 p-1 text-zinc-500 hover:text-zinc-200 hover:border-zinc-500">
+                        <svg className={`w-3.5 h-3.5 transition-transform ${folded.has(t.id) ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                      </button>
+                    </div>
+                  )}
+                  {!(t.role === 'reader' && t.gist && folded.has(t.id)) && ensureParagraphBreaks(t.text).split(/\n\n+/).filter((p) => p.trim()).map((p, i) => (
                     <p key={i} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{p.trim()}</p>
                   ))}
 
