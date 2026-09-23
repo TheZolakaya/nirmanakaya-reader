@@ -213,8 +213,11 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // caller clears the map and shows the finished header. The camera loops check it too.
     // .549: THE VIRTUAL CLOCK. Once the reply is in hand (signal.hurry, set by the page) the flight's clock runs at HURRY×.
     // Every pause, glide and camera step reads the clock through speed(); the shape of the flight never changes, only its tempo.
-    const HURRY = 2.5;
-    const speed = () => (signal.hurry ? HURRY : 1);
+    // .551: a FLOOR and a CEILING, not a jump (founder: "slow at first, really fast at the end… speed up the first half…
+    // a max speed for the whole thing"). The whole flight runs at BASE from the first frame; once the reply is in hand it
+    // steps up to HURRY, the ceiling — steadier, and nobody gets dizzy.
+    const BASE = 1.5, HURRY = 2.2;
+    const speed = () => (signal.hurry ? HURRY : BASE);
     const wait = (ms) => new Promise((r, rej) => {
       let vt = 0, last = Date.now();
       const tick = () => {

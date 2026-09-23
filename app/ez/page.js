@@ -678,8 +678,8 @@ export default function EZPage() {
     const imgs = [...surface.querySelectorAll('[data-position] img')];
     await Promise.race([
       Promise.all(imgs.map(im => (im.complete && im.naturalWidth > 0) ? Promise.resolve() : new Promise(res => { im.addEventListener('load', res, { once: true }); im.addEventListener('error', res, { once: true }); }))),
-      new Promise(res => setTimeout(res, 10000)),
-      new Promise(res => { const iv = setInterval(() => { if (signal.hurry) { clearInterval(iv); res(); } }, 200); setTimeout(() => clearInterval(iv), 10000); }) // .549
+      new Promise(res => setTimeout(res, 6000)), // .551: 10s → 6s
+      new Promise(res => { const iv = setInterval(() => { if (signal.hurry) { clearInterval(iv); res(); } }, 200); setTimeout(() => clearInterval(iv), 6000); }) // .549
     ]);
     setMapReady(true);
     await new Promise(r => setTimeout(r, 350));
