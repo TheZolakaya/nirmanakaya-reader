@@ -338,19 +338,22 @@ const DOORS = [
 
 // A loop that plays only while its parent (the button it sits in) is hovered, focused or
 // touched (founder, 2026-09-16 night). Paused it shows its first frame, so it still reads as an icon.
-function HoverVideo({ src, className, style }) {
+function HoverVideo({ src, className, style, playing = false }) {
   const ref = useRef(null);
+  // .552: an OPEN door keeps its loop running for as long as it is open (founder) — playing overrides hover/touch
+  const playingRef = useRef(playing);
+  useEffect(() => { playingRef.current = playing; const v = ref.current; if (!v) return; try { if (playing) v.play().catch(() => {}); else v.pause(); } catch {} }, [playing]);
   useEffect(() => {
     const v = ref.current; if (!v) return;
     const host = v.closest('button') || v.parentElement?.parentElement || v.parentElement;
     if (!host) return;
     const play = () => { try { v.play().catch(() => {}); } catch {} };
-    const stop = () => { try { v.pause(); } catch {} };
+    const stop = () => { if (playingRef.current) return; try { v.pause(); } catch {} };
     // PRIME THE FIRST FRAME: a paused video that has never played paints nothing on many phones
     // (blank until tapped — founder, 2026-09-17). A silent play-then-pause as soon as data arrives
     // leaves the first frame on screen.
     let primed = false;
-    const prime = () => { if (primed) return; primed = true; try { const pr = v.play(); if (pr && pr.then) pr.then(() => { if (!host.matches(':hover')) v.pause(); }).catch(() => {}); } catch {} };
+    const prime = () => { if (primed) return; primed = true; try { const pr = v.play(); if (pr && pr.then) pr.then(() => { if (!host.matches(':hover') && !playingRef.current) v.pause(); }).catch(() => {}); } catch {} };
     if (v.readyState >= 2) prime(); else v.addEventListener('loadeddata', prime, { once: true });
     host.addEventListener('mouseenter', play); host.addEventListener('mouseleave', stop);
     host.addEventListener('focus', play); host.addEventListener('blur', stop);
@@ -1646,7 +1649,7 @@ ${DRAGON_STANDARD}`, 600);
                 ? (
                   <button onClick={toggleBrazier} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
-                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Words to the Whys</span>
                     {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
@@ -1654,7 +1657,7 @@ ${DRAGON_STANDARD}`, 600);
                 ) : kind === 'dragon' ? (
                   <button onClick={toggleDragon} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
-                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" className="h-full w-full object-cover" /></span>
+                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" playing={dragonOpen} className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-100 sm:text-rose-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DRAGON_LABEL}</span>
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
@@ -1662,14 +1665,14 @@ ${DRAGON_STANDARD}`, 600);
                 ) : kind === 'medicine' ? (
                   <button onClick={toggleMedicine} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
                     {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
-                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" playing={medOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     {medOpen && <span className="relative z-10">{chev(true)}</span>}
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" className="w-full h-full object-cover" /></span>
+                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" playing={stepOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     {stepOpen && <span className="relative z-10">{chev(true)}</span>}
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DO_SOMETHING_LABEL}</span>
