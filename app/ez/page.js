@@ -22,7 +22,7 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
 import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
-import { addressBlock } from '../../lib/address'; // .539: the locating card's four-dimensional address, read as a pointer
+import { addressBlock, distanceLine } from '../../lib/address'; // .539: the locating card's address as a pointer; .563: its distance from where they were looking
 import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560: the house's notes — the application reviews every turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
@@ -89,6 +89,7 @@ FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever 
 The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine — the pointer's own rebalancer does not apply and is not mentioned):
 ${brief}
 THE MEDICINE FIELD ON THIS TURN: while the thing is still being found, "medicine" and "medicineCard" stay EMPTY. Only when it is found does the ORIGINAL card's medicine land on the named thing.
+THE DISTANCE: the pointer's relation to the card they asked about appears above as a locator's line — one door away means the thing sits right beside what they asked about; the far side means look where they were not looking; the same room means the same part of life; a pair means the thing is the axis between the two. Between two pointers, agreement (one or two bits) means one thing; scatter (the far side) usually means two things wearing one worry — say so. Use the distance to rank and to place the candidates.
 THE POINTER'S DIRECTION: the pointer's own rebalancer appears above as a BEARING — which way the ground slopes from where the thing is. Use it to rank the candidates ("it leans toward what you keep, so the finished job is warmer than the plan"); render it as "leans toward", never as a move or a medicine.
 The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates; the "question" field is the one question — which one is warm — asked ONCE, there, and not also at the end of the text.`;
 
@@ -1251,7 +1252,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       // .558: a BALANCED card in play is never read as a gap (the founder, on Balanced Formation: "why do you keep leaning on a gap?")
       const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? `\n\nTHE CARD IN PLAY IS BALANCED. Nothing is missing and nothing is broken; do not find a gap, a floor that isn't there, a piece that "isn't online". The growth partner is an INVITATION — what this balance is free to feed next — and it is offered as one, never as a deficiency; if they push back that things are fine, they are right, and you say so without defending a gap you named.` : '';
-      const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), addressBlock(newDraw), claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
+      // .563: the pointer's distance from the card they asked about, and from any earlier pointer (does the field agree, or scatter?)
+      const pointerDistances = (newDraw && mode === 'locate') ? [
+        distanceLine(newDraw, fieldNow || draws[0]),
+        ...withYou.filter((t) => t.role === 'reader' && t.draw && t.mode === 'locate').slice(-2).map((t) => distanceLine(newDraw, t.draw, 'the earlier pointer')),
+      ].filter(Boolean).join('\n') : '';
+      const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), `${addressBlock(newDraw)}${pointerDistances ? `\n${pointerDistances}` : ''}`, claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
