@@ -963,6 +963,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const nq = norm(q);
     if (paras.length > 1 && nq && (norm(last) === nq || norm(lead) === nq)) return paras.slice(0, -1).join('\n\n');
     if (paras.length > 1 && nq && nq.length > 12 && norm(last).endsWith(nq) && norm(last).length - nq.length < 12) return paras.slice(0, -1).join('\n\n');
+    // .550: the same question REWORDED — "So: which one is warm — is it your work…?" in the prose and "Which one is warm — your
+    // work…?" in the field. If the last paragraph is a question sharing most of its real words with the field, it is the repeat.
+    if (paras.length > 1 && /\?\s*$/.test(last)) {
+      const words = (x) => new Set(x.toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').split(/\s+/).filter((w) => w.length >= 4));
+      const A = words(lead), B = words(q);
+      if (A.size >= 4 && B.size >= 4) { let shared = 0; for (const w of B) if (A.has(w)) shared++; if (shared / Math.min(A.size, B.size) >= 0.6) return paras.slice(0, -1).join('\n\n'); }
+    }
     return text;
   };
   const readerTurn = (obj, extra = {}) => ({
