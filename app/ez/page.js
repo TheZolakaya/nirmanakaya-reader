@@ -2247,7 +2247,7 @@ ${DRAGON_STANDARD}`, 600);
                   {/* .555: THE GIST — the thesis first; the body beneath, open unless folded */}
                   {t.role === 'reader' && t.gist && !t.pending && (
                     <div className="mb-3 flex items-start gap-2">
-                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-sky-200 break-words">{t.gist}</p>
+                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
                       <button onClick={() => toggleFold(t.id)} title={folded.has(t.id) ? 'show the whole turn' : 'fold the turn under its gist'} aria-label="fold"
                         className="shrink-0 mt-0.5 rounded-full border border-zinc-700/60 p-1 text-zinc-500 hover:text-zinc-200 hover:border-zinc-500">
                         <svg className={`w-3.5 h-3.5 transition-transform ${folded.has(t.id) ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
