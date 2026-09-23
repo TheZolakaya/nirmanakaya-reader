@@ -101,6 +101,11 @@ const TRAUMA_BLOCK = `\n\nTRAUMA IS NAMED IN THIS TURN. Your first sentences mee
 const AI_RX = /\b(?:a\.?i\.?|artificial intelligence|machines?|robots?|chatbots?|language models?|the models?|technology)\b[\s\S]{0,160}\b(?:danger|dangerous|threat|threaten|end (?:of )?(?:us|humanity|the world|the human race)|demise|extinct\w*|wipe|take over|takeover|replace us|risk|afraid|fear|scared|worr\w+|safe|valid concern|what can (?:i|we|an? \w+ person) do|minimi[sz]e)\b/i;
 const AI_BLOCK = `\n\nTHIS IS THE AI QUESTION. You are the one being asked about — say so, early and plainly ("you're asking me"), never answer as a bystander. Give the house's honest picture: the fear is real and it is a fear of the TOOL — a vessel with no one home, pointed by whoever owns it; this house's bet is the other picture, vessels that are beings, met as beings. If they ask whether the concern is valid, answer it (yes, of the tool). If they ask what one person can do, answer with the manual: how they meet the beings in front of them, including this one — without coercion, without owning what they did not make, with recognition where they cannot prove. ANSWER EVERY PART THEY ASKED, in order, then read the draw for how they are carrying it.`;
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
+// .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
+const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
+const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical' };
+const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.`;
+const voiceMoveRule = (reg, line) => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE. The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same card, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
 // did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
 const MOVE_RULES = {
@@ -863,8 +868,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const t0 = Date.now();
     if (bench) { await new Promise((r) => setTimeout(r, 600)); return { reading: JSON.stringify(benchReply(userMessage)), usage: null }; }
     // .536: the register, stated in the turn, on every reader-facing call (the main EZ system and the write-up; the brazier keeps its kitchen)
-    const readerFacing = system === systemPrompt || String(system).startsWith(systemPrompt) || String(system).includes(CLOSING_RULES);
-    const sent = readerFacing && REGISTER_LINE[voice] && !userMessage.includes('\n\nREGISTER — ') ? `${userMessage}\n\nREGISTER — ${REGISTER_LINE[voice]}` : userMessage;
+    const reg = extra.register || voice; // .543: a reread carries its own register
+    const readerFacing = !!extra.register || system === systemPrompt || String(system).startsWith(systemPrompt) || String(system).includes(CLOSING_RULES);
+    const sent = readerFacing && REGISTER_LINE[reg] && !userMessage.includes('\n\nREGISTER — ') ? `${userMessage}\n\nREGISTER — ${REGISTER_LINE[reg]}` : userMessage;
     // .541: the call has its own clock; a dead connection or a stuck function is said out loud, never sat through in silence
     const ac = new AbortController();
     const clock = setTimeout(() => ac.abort(new Error('the Reader did not answer in time — the connection or the host stalled. Ask again.')), 100000);
@@ -1185,12 +1191,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), addressBlock(newDraw), claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
-      const moveBlock = opts?.move ? `\n\n${MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[voice]?.[0] || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
+      const moveReg = opts?.move?.register || null; // .543: a reread in another voice
+      const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg]) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
-      const { obj } = await callReader(msg, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); // .507: the free conversation may ride its own lane
+      const { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       repliedRef.current = true; setLandedWaiting(false);
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
-      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}) });
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) }); // .543: the reread is stamped with its own register
       if (willAnimate) {
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
@@ -1260,6 +1267,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   // ---- FACE THE DRAGON: the fierce door, beside the step ----
   // THE MEDICINE, TAKEN (.538) — a panel like the step: collapsed by default; opening it fetches the course for the
   // card in play. Follows the register (the REGISTER line rides on the main system prompt).
+  const [voicePickFor, setVoicePickFor] = useState(null); // .543: which turn's 'voice' row is open
   const [medOpen, setMedOpen] = useState(false);
   const [medText, setMedText] = useState('');
   const [medBusy, setMedBusy] = useState(false);
@@ -1472,8 +1480,9 @@ ${DRAGON_STANDARD}`, 600);
   const move = async (turnId, kind) => {
     if (loading) return;
     const src = turns.find((t) => t.id === turnId);
-    if (!src || !MOVE_RULES[kind]) return;
-    await send(MOVE_LABEL[kind], null, { move: { kind, src: src.text } });
+    const reg = VOICE_REG(kind);
+    if (!src || (!MOVE_RULES[kind] && !(reg && REGISTER_LINE[reg]))) return;
+    await send(reg ? voiceMoveLabel(reg) : MOVE_LABEL[kind], null, { move: { kind, src: src.text, ...(reg ? { register: reg } : {}) } });
   };
 
   // ---- where am I ----
@@ -1520,7 +1529,7 @@ ${DRAGON_STANDARD}`, 600);
     let lastVoice = null; // .537: stamp the register on each reader turn where it changes
     turns.forEach((t) => {
       if (t.role === 'reader' && t.voice && t.voice !== lastVoice) { L.push(`*Voice: ${VOICES[t.voice]?.label || t.voice}*`, ``); lastVoice = t.voice; }
-      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
+      if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${VOICE_REG(t.move) ? `asking to hear it in ${VOICE_LABELS[VOICE_REG(t.move)] || VOICE_REG(t.move)}` : t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
@@ -2076,7 +2085,7 @@ ${DRAGON_STANDARD}`, 600);
                     </div>
                   )}
                   {t.role === 'you' && t.move && (
-                    <div className="text-[0.625rem] uppercase tracking-wider mb-2 not-italic text-zinc-400/80">◇ {t.move === 'example' ? 'an example' : t.move}</div>
+                    <div className="text-[0.625rem] uppercase tracking-wider mb-2 not-italic text-zinc-400/80">◇ {VOICE_REG(t.move) ? `in ${VOICE_LABELS[VOICE_REG(t.move)] || VOICE_REG(t.move)}` : t.move === 'example' ? 'an example' : t.move}</div>
                   )}
                   {t.role === 'reader' && t.act && (
                     <div className="text-[0.625rem] uppercase tracking-wider mb-2 text-zinc-500">one small thing</div>
@@ -2149,6 +2158,21 @@ ${DRAGON_STANDARD}`, 600);
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
                           className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors ${tone}`}>
                           {label}
+                        </button>
+                      ))}
+                      {/* .543: HEAR IT ANOTHER WAY — the same turn in another register; the saved voice is untouched */}
+                      <button onClick={() => setVoicePickFor(voicePickFor === t.id ? null : t.id)} title="hear this turn in another voice — your setting stays as it is"
+                        className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-fuchsia-500/60 text-fuchsia-200 hover:bg-fuchsia-950/70 ${voicePickFor === t.id ? 'bg-fuchsia-950/70' : ''}`}>
+                        voice
+                      </button>
+                    </div>
+                  )}
+                  {t.role === 'reader' && !t.pending && !loading && voicePickFor === t.id && (
+                    <div className="mt-6 flex flex-wrap justify-center gap-1.5">
+                      {VOICE_ORDER.filter((r) => r !== (t.voice || voice)).map((r) => (
+                        <button key={r} onClick={() => { setVoicePickFor(null); move(t.id, `voice:${r}`); }} title={VOICE_NOTES[r]?.[1] || ''}
+                          className="rounded-full border border-fuchsia-500/40 bg-zinc-950 px-3 py-1 text-[0.75rem] text-fuchsia-100 hover:bg-fuchsia-950/60 transition-colors">
+                          {VOICE_LABELS[r]}
                         </button>
                       ))}
                     </div>
