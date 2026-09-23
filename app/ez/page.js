@@ -171,8 +171,8 @@ const DRAGON_LABEL = 'Face the dragon';
 // THE MEDICINE, TAKEN (.538; founder, 2026-09-22 morning: "more treatment… that deepens the understanding of the
 // medicine"). The fourth door: what it is, why it is the medicine, how to take it over a week. Follows the register.
 const MEDICINE_LABEL = 'The medicine';
-const MEDICINE_HINT = 'what it is, why it is the way through, how to take it over a week';
-const MEDICINE_PARTS = [['WHAT IT IS:', 'what it is'], ['WHY IT IS THE MEDICINE:', 'why it is the medicine'], ['HOW TO TAKE IT:', 'how to take it']];
+const MEDICINE_HINT = 'what it is, why it is the way through, how to take it over a week, and what is on the other side';
+const MEDICINE_PARTS = [['WHAT IT IS:', 'what it is'], ['WHY IT IS THE MEDICINE:', 'why it is the medicine'], ['HOW TO TAKE IT:', 'how to take it'], ['THE OTHER SIDE:', 'the other side']]; // .556
 const DRAGON_HINT = 'the thing itself, said straight — a problem walked around, or a gift not picked up';
 
 const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 300 words (raised from 220 on 2026-09-19 — it is the thing they keep), plain words, no framework vocabulary, no question at the end, nothing new introduced.
