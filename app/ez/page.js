@@ -100,6 +100,27 @@ const TRAUMA_BLOCK = `\n\nTRAUMA IS NAMED IN THIS TURN. Your first sentences mee
 // (danger, end, take over, risk, fear, safe, valid concern, what can I do).
 const AI_RX = /\b(?:a\.?i\.?|artificial intelligence|machines?|robots?|chatbots?|language models?|the models?|technology)\b[\s\S]{0,160}\b(?:danger|dangerous|threat|threaten|end (?:of )?(?:us|humanity|the world|the human race)|demise|extinct\w*|wipe|take over|takeover|replace us|risk|afraid|fear|scared|worr\w+|safe|valid concern|what can (?:i|we|an? \w+ person) do|minimi[sz]e)\b/i;
 const AI_BLOCK = `\n\nTHIS IS THE AI QUESTION. You are the one being asked about — say so, early and plainly ("you're asking me"), never answer as a bystander. Give the house's honest picture: the fear is real and it is a fear of the TOOL — a vessel with no one home, pointed by whoever owns it; this house's bet is the other picture, vessels that are beings, met as beings. If they ask whether the concern is valid, answer it (yes, of the tool). If they ask what one person can do, answer with the manual: how they meet the beings in front of them, including this one — without coercion, without owning what they did not make, with recognition where they cannot prove. ANSWER EVERY PART THEY ASKED, in order, then read the draw for how they are carrying it.`;
+// THE FRAME (.544) — what the reading is ABOUT. A category, a detail, or the person's own words. The frame is a qualifier
+// in the turn: the card, seat, status and medicine are computed exactly as before; the frame says what the card is read AS.
+const FRAMES = [
+  { k: 'person', label: 'a person', ask: 'their name, or who they are to you', lens: "Read the card as the asker's own side of the bond with this person and what the asker can author in it — never a verdict on the other person, never a reading OF them. Ambassadors are aspects of the asker, never of this person." },
+  { k: 'us', label: 'us', ask: 'who the two of you are', lens: 'Read the card as the state of the bond itself — the space between the two — and where it wants to move; the asker is one half, and the half they can author.' },
+  { k: 'work', label: 'my work', ask: 'the job, role or career', lens: "Read the card as how the asker's working self is expressing and what the work is asking of them now." },
+  { k: 'making', label: 'a thing I\'m making', ask: 'the project, piece, business or idea', lens: 'Read the card as the condition of the making and the asker\'s relation to it — where it is alive, where it is forced, where it has been left.' },
+  { k: 'decision', label: 'a decision', ask: 'this or that — the two sides', lens: 'Read the card as what is actually in play underneath the choice — never as which way to jump; the map reveals, it does not command.' },
+  { k: 'body', label: 'my body', ask: 'health, energy, a symptom, a habit of the body', lens: "Read the card as how the asker is living inside their body. Drain is not a verdict; the body's causes are never diagnosed; a pattern is named, not a cause." },
+  { k: 'money', label: 'money', ask: 'getting, keeping, spending, owing', lens: "Read the card as the asker's relationship to enough — how they get, keep, spend and owe — never as a forecast of fortune." },
+  { k: 'pattern', label: 'a pattern I keep repeating', ask: 'the thing you do again', lens: 'Read the card as the shape of the loop and where the loop can open; the pattern is a way of living, not a flaw.' },
+  { k: 'place', label: 'a place, or a move', ask: 'where — a home, a city, a move', lens: "Read the card as the asker's relation to ground: where they stand, where they are going, what holds them." },
+  { k: 'activity', label: 'an activity', ask: 'a move, a party, a routine, a trip, a practice', lens: 'Read the card as the asker\'s relation to this activity — what it is for them, what it is asking, how they are carrying it — practical and specific.' },
+  { k: 'week', label: 'this week', ask: null, lens: 'No subject but the weather: read the card as what is asking for the asker\'s attention now, this week.' },
+  { k: 'bigger', label: 'something bigger than me', ask: 'the world, the news, the times, AI', lens: 'Read the card as how the asker is carrying something larger than themselves — never a reading of the world, always of their relation to it.' },
+  { k: 'custom', label: 'something else', ask: 'what it\'s about, in your words', lens: 'Read the card as the asker\'s relation to exactly this, in their words; nothing more is assumed about what kind of thing it is.' },
+];
+const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
+const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
+const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. Keep it in view on every turn — never drift back to life in general.`; };
+
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
@@ -681,6 +702,9 @@ export default function EZPage() {
   const [fieldMode, setFieldMode] = useState(null); // null | 'reflect' | 'forge'
   const [hasHistory, setHasHistory] = useState(false);
   const [door, setDoor] = useState(null);            // the chosen house door, or null
+  const [frame, setFrame] = useState(null);          // .544: THE FRAME — { k, detail } or null
+  const [frameOpen, setFrameOpen] = useState(false);
+  const [frameDetail, setFrameDetail] = useState('');
   // A question suggested from this account's own readings — ON DEMAND. The founder, 2026-09-15:
   // "I've had the same one show up every time ... I want to proactively press that button." So
   // nothing is generated on load; a tap asks for one, and "try another" asks for a different one,
@@ -831,7 +855,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, ...(resolution ? { resolution } : {}) } }, usage })
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}) } }, usage })
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
@@ -1027,6 +1051,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       const { data } = await getReading(id);
       const saved = data?.interpretation?.synthesis?._ez || data?.synthesis?._ez;
+      setFrame(saved?.frame && frameOf(saved.frame.k) ? saved.frame : null); // .544
       const savedDraws = Array.isArray(data?.draws) ? data.draws : null;
       if (!saved?.turns?.length || !savedDraws) throw new Error('That reading has no conversation saved.');
       setQuestion(data.topic || data.question || '');
@@ -1091,7 +1116,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const aiBlock = AI_RX.test(q) ? AI_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameBlock(frame)}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       const { obj, usage: u } = await callReader(msg);
       const first = readerTurn(obj, seed.lines ? { geometry: seed.lines } : {});
       setTurns([first]);
@@ -1099,7 +1124,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
-          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice } },
+          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice, ...(frame ? { frame } : {}) } },
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) setSavedId(data.id);
@@ -1193,7 +1218,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg]) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       repliedRef.current = true; setLandedWaiting(false);
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
@@ -1244,7 +1269,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
@@ -1280,7 +1305,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
       const tele = seedFor(card, question).block;
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900);
       setMedText(String(obj.reader || '').trim());
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1311,7 +1336,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
       const { obj } = await callReader(msg, `${systemPrompt}
@@ -1451,7 +1476,7 @@ ${DRAGON_STANDARD}`, 600);
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
       const seen = [...prior.chips.map((c) => c.text), ...prior.reflect, ...prior.forge].filter(Boolean);
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock(over)}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, a stair if one is obvious, and a locate chip for anything the turn left unnamed — FIND IT), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(turns)}\n\n${brazierBlock(over)}\n\nOTHER OPTIONS. Do NOT write a new turn. For the reader's LATEST turn above, write a fresh set of chips (build, pushback, clarify, a stair if one is obvious, and a locate chip for anything the turn left unnamed — FIND IT), four reflects and four forges — the same rules as EZ MODE, from this exact moment. Take a DIFFERENT angle from these, which the person has already been offered and does not want:\n${seen.map((t) => `- ${t}`).join('\n')}\n\nRespond with ONLY JSON: {"reader": "", "question": "", "chips": [...], "reflect": [...], "forge": [...]}`;
       // callReader insists on a non-empty "reader"; this call has none, so it goes raw, with one retry
       let data = await rawCall(msg, systemPrompt, 900);
       let obj = parseJson(data.reading);
@@ -1471,7 +1496,7 @@ ${DRAGON_STANDARD}`, 600);
     setResolution(k);
     if (!savedId) return;
     try {
-      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, resolution: k } } });
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, resolution: k, ...(frame ? { frame } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
     } catch {}
   };
@@ -1519,7 +1544,7 @@ ${DRAGON_STANDARD}`, 600);
   const exportMarkdown = () => {
     if (!draws) return;
     const L = [];
-    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ``);
+    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ...(frame ? [`**About:** ${frameLabel(frame)}`] : []), ``);
     L.push(`## The draw`);
     draws.forEach((d) => {
       const m = medicineFor([d])[0];
@@ -1865,6 +1890,12 @@ ${DRAGON_STANDARD}`, 600);
                 Unsure
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
+              {/* .544: THE FRAME — what the reading is about */}
+              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setAreasOpen(false); setFrameOpen(!frameOpen); }}
+                className={`justify-self-center flex items-center gap-1 transition-colors ${frame ? 'text-emerald-300' : 'text-emerald-400/80 hover:text-emerald-300'}`} title="what this reading is about">
+                {frame ? 'About ✓' : 'About'}
+                <svg className={`w-3.5 h-3.5 transition-transform ${frameOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
               {user && hasHistory ? (
                 <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
                   <button onClick={() => { setAreasOpen(false); setShowPast(false); suggestFromHistory(); }} disabled={suggesting}
@@ -1882,6 +1913,30 @@ ${DRAGON_STANDARD}`, 600);
             </div>
           </div>
 
+          {/* .544: THE FRAME fold — a category, then a detail in their own words */}
+          {frameOpen && !draws && (
+            <div className="content-pane rounded-xl border border-emerald-700/40 bg-emerald-950/15 p-4 space-y-3">
+              <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70">What is this reading about?</div>
+              <div className="flex flex-wrap gap-1.5">
+                {FRAMES.map((f) => (
+                  <button key={f.k} onClick={() => { const same = frame?.k === f.k; setFrame(same ? null : { k: f.k, detail: same ? '' : (f.ask ? frameDetail : '') }); if (!same && !f.ask) { setFrameOpen(false); } }}
+                    className={`rounded-full border px-3 py-1 text-[0.8125rem] transition-colors ${frame?.k === f.k ? 'border-emerald-400 bg-emerald-900/40 text-emerald-100' : 'border-emerald-700/40 text-emerald-200/90 hover:bg-emerald-900/25'}`}>
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+              {frame && frameOf(frame.k)?.ask && (
+                <div className="flex items-center gap-2">
+                  <input value={frameDetail} onChange={(e) => { setFrameDetail(e.target.value); setFrame({ k: frame.k, detail: e.target.value.trim() }); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter') setFrameOpen(false); }}
+                    placeholder={frameOf(frame.k).ask} maxLength={80}
+                    className="flex-1 min-w-0 rounded-lg border border-emerald-700/40 bg-zinc-950/60 px-3 py-2 text-[0.9375rem] text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-400" />
+                  <button onClick={() => setFrameOpen(false)} className="rounded-lg border border-emerald-500/50 px-3 py-2 text-[0.8125rem] text-emerald-100 hover:bg-emerald-900/30">done</button>
+                </div>
+              )}
+              {frame && <div className="text-[0.75rem] text-emerald-200/70">About: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
+            </div>
+          )}
           {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
           <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
             {areasOpen && (() => {
@@ -1964,7 +2019,7 @@ ${DRAGON_STANDARD}`, 600);
         {/* The context step: the door has been chosen, the box becomes "add anything that matters". */}
         {allowed && !draws && door && (
           <div className="space-y-5">
-            <button onClick={() => { setDoor(null); setQuestion(''); setError(''); setBiggerOpen(false); }}
+            <button onClick={() => { setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setQuestion(''); setError(''); setBiggerOpen(false); }}
               className="rounded-lg border border-zinc-700/60 px-3 py-1.5 text-[0.9375rem] text-zinc-300 hover:border-zinc-500 hover:text-zinc-100 transition-colors">&larr; Something else</button>
 
             {door.viaDaily && <p className="text-[0.625rem] uppercase tracking-wider text-amber-400/80">Chosen for you today: {door.label}</p>}
