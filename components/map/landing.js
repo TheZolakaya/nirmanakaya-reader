@@ -211,7 +211,19 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
 
     // TAP TO SKIP. Every pause checks the signal; a skip rejects out of the sequence and the
     // caller clears the map and shows the finished header. The camera loops check it too.
-    const wait = (ms) => new Promise((r, rej) => setTimeout(() => (signal.skip ? rej(new Error('skipped')) : r()), ms));
+    // .549: THE VIRTUAL CLOCK. Once the reply is in hand (signal.hurry, set by the page) the flight's clock runs at HURRY×.
+    // Every pause, glide and camera step reads the clock through speed(); the shape of the flight never changes, only its tempo.
+    const HURRY = 2.5;
+    const speed = () => (signal.hurry ? HURRY : 1);
+    const wait = (ms) => new Promise((r, rej) => {
+      let vt = 0, last = Date.now();
+      const tick = () => {
+        if (signal.skip) { rej(new Error('skipped')); return; }
+        const n = Date.now(); vt += (n - last) * speed(); last = n;
+        if (vt >= ms) r(); else setTimeout(tick, Math.min(40, Math.max(8, (ms - vt) / speed())));
+      };
+      setTimeout(tick, Math.min(40, ms));
+    });
     // A phone cannot re-draw a 2134px image scaled six times with a soft shadow on it, three
     // turns a second: the spin flickered and blanked. On narrow screens the hero carries no
     // filter at all and is promoted to its own layer before it moves.
@@ -472,10 +484,12 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     let zoomT0 = 0, zoomZ0 = 0; const ZOOM_MS = 1600;   // the zoom is a timed ease with a definite end
 
     const camStart = Date.now();
+    let vnow = 0, vLast = camStart; // .549: the loop's own virtual clock
     let raf = 0;
     let arrivedResolve; const arrived = new Promise(r => { arrivedResolve = r; });
     const step = () => {
-      const now = Date.now() - camStart;
+      { const real = Date.now(); vnow += (real - vLast) * speed(); vLast = real; }
+      const now = vnow;
       // ARRIVAL IS A CONDITION, NOT A TIME. The loop used to stop dead when the clock said so,
       // with the camera still moving and still short of the card, and a separate move then
       // closed the gap — that stop was the jerk. Now, once the clock has run, the approach
@@ -486,7 +500,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       const g = 1 + 3.0 * over * over * (3 - 2 * over);
 
       // --- the spiral: a point circling the field's centre, opening outward; the camera follows ---
-      const tNow = Date.now(); const dt = Math.min(50, tNow - lastT); lastT = tNow;
+      const tNow = Date.now(); const dt = Math.min(50, tNow - lastT) * speed(); lastT = tNow; // .549: physics steps faster when hurried
       const df = Math.min(2, Math.max(0.4, dt / 33.3));   // frames of 33ms elapsed since the last step
       if (!reversed && now > REVERSE_AT) { spin = -spin; reversed = true; }
       const pr = Math.min(1, now / DRIFT_UNTIL);
@@ -593,7 +607,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // the name on it. And then we pull it up." So: arrive, splash, name, and only then the rise.
     const RISE_MS = 1500;
     const rise = () => {
-      target.style.transition = `transform ${RISE_MS}ms cubic-bezier(.4,0,.2,1), filter ${RISE_MS}ms ease`;
+      target.style.transition = `transform ${Math.round(RISE_MS / speed())}ms cubic-bezier(.4,0,.2,1), filter ${Math.round(RISE_MS / speed())}ms ease`;
       target.style.transformOrigin = 'center center';
       target.style.zIndex = '60';
       // zIndex 60 only wins INSIDE its own house container, and the containers all sit at 2 —
@@ -623,10 +637,11 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     }, FADE_AT);
 
     // the flicker keeps its life almost to the end, slowing the whole way
-    const tStart = Date.now();
     const STOP_AT = Math.round(ARRIVE_AT * 0.78);
-    while (Date.now() - tStart < STOP_AT) {
-      const k = (Date.now() - tStart) / STOP_AT;
+    let fvt = 0, fvl = Date.now(); // .549: the flicker's own virtual clock
+    while (fvt < STOP_AT) {
+      { const n = Date.now(); fvt += (n - fvl) * speed(); fvl = n; }
+      const k = fvt / STOP_AT;
       state.gap = Math.round(pace + (640 - pace) * (k * k));
       state.scale = lift - (lift - 1.15) * k;
       await wait(70);
@@ -699,7 +714,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const spinBase = SPINS * 360;
     const spinStatusRot = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.rotation || 0) : 0;
     await wait(600);
-    target.style.transition = 'transform 2300ms cubic-bezier(.08,.72,.16,1)';
+    target.style.transition = `transform ${Math.round(2300 / speed())}ms cubic-bezier(.08,.72,.16,1)`;
     target.style.transform = `scale(${heroScale}) rotate(${-seatTilt + spinBase + spinStatusRot}deg)`;
     await wait(2300 + 150);
     const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
@@ -838,10 +853,10 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     // glide: zoom toward toZ over ms; onFrame(e) places whatever the camera is following; the
     // follow gain is TIME-based (a 140ms lag whatever the frame rate), never per-frame.
     const glide = (toZ, ms, centre = centreOnCard, onFrame = null) => new Promise(done => {
-      const fromZ = cam.z, t = Date.now(); let last = t;
+      const fromZ = cam.z, t = Date.now(); let last = t; let vt = 0; // .549: virtual
       const stepZ = () => {
         const nowT = Date.now(); const dt = Math.min(100, nowT - last); last = nowT;
-        const k = Math.min(1, (nowT - t) / ms);
+        vt += dt * speed(); const k = Math.min(1, vt / ms);
         const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
         cam.z = fromZ + (toZ - fromZ) * e;
         if (onFrame) onFrame(e);
@@ -941,7 +956,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       Object.assign(c.style, { position: 'fixed', left: `${box.cx - box.w / 2}px`, top: `${box.cy - box.h / 2}px`,
         width: `${box.w}px`, height: `${box.h}px`, transform: `rotate(${box.ang}deg)`, transformOrigin: 'center center',
         zIndex: '300', pointerEvents: 'none',
-        transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), width ${FLY}ms cubic-bezier(.4,0,.2,1), height ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+        transition: `left ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), top ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), width ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), height ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), transform ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1)` });
       const im = document.createElement('img');
       im.src = src;
       Object.assign(im.style, { display: 'block', width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius,
@@ -991,7 +1006,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
       if (mSvg) { mSvg.setAttribute('width', '100%'); mSvg.setAttribute('height', '100%'); }
       Object.assign(mClone.style, { position: 'fixed', left: `${hb.left}px`, top: `${hb.top}px`, width: `${hb.width}px`, height: `${hb.height}px`,
         zIndex: '298', pointerEvents: 'none',
-        transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), width ${FLY}ms cubic-bezier(.4,0,.2,1), height ${FLY}ms cubic-bezier(.4,0,.2,1)` });
+        transition: `left ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), top ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), width ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), height ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1)` });
       document.body.appendChild(mClone);
       holder.style.transition = 'none'; holder.style.opacity = '0';
 
@@ -1012,7 +1027,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
           width: `${word.offsetWidth}px`, height: `${word.offsetHeight}px`, whiteSpace: 'nowrap',
           transform: `scale(${cam.z})`, transformOrigin: 'top left', opacity: '0.1',
           zIndex: '301', pointerEvents: 'none',
-          transition: `left ${FLY}ms cubic-bezier(.4,0,.2,1), top ${FLY}ms cubic-bezier(.4,0,.2,1), transform ${FLY}ms cubic-bezier(.4,0,.2,1), opacity ${FLY}ms ease` });
+          transition: `left ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), top ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), transform ${Math.round(FLY / speed())}ms cubic-bezier(.4,0,.2,1), opacity ${Math.round(FLY / speed())}ms ease` });
         document.body.appendChild(wClone);
         word.style.transition = 'none'; word.style.opacity = '0';
       }
@@ -1046,7 +1061,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
           Object.assign(wClone.style, { left: `${wordSlot.left + (wordSlot.width - word.offsetWidth * k) / 2}px`, top: `${wordSlot.top}px`, transform: `scale(${k})`, opacity: '1' });
         }));
       }
-      window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), FLY - 250);
+      window.setTimeout(() => sweep(Math.max(0, wordSlot ? wordSlot.top - 30 : 0), (stackSlot.bottom + 60) - (wordSlot ? wordSlot.top - 30 : 0)), Math.round(FLY / speed()) - 250);
 
       await wait(FLY + 900);
 

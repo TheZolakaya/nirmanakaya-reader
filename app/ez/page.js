@@ -678,7 +678,8 @@ export default function EZPage() {
     const imgs = [...surface.querySelectorAll('[data-position] img')];
     await Promise.race([
       Promise.all(imgs.map(im => (im.complete && im.naturalWidth > 0) ? Promise.resolve() : new Promise(res => { im.addEventListener('load', res, { once: true }); im.addEventListener('error', res, { once: true }); }))),
-      new Promise(res => setTimeout(res, 10000))
+      new Promise(res => setTimeout(res, 10000)),
+      new Promise(res => { const iv = setInterval(() => { if (signal.hurry) { clearInterval(iv); res(); } }, 200); setTimeout(() => clearInterval(iv), 10000); }) // .549
     ]);
     setMapReady(true);
     await new Promise(r => setTimeout(r, 350));
@@ -1124,6 +1125,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const first = readerTurn(obj, seed.lines ? { geometry: seed.lines } : {});
       setTurns([first]);
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
+      if (skipRef.current) skipRef.current.hurry = true; // .549: the reading is ready — hurry the flight along
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
@@ -1223,7 +1225,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg]) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       const { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
-      repliedRef.current = true; setLandedWaiting(false);
+      repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) }); // .543: the reread is stamped with its own register
       if (willAnimate) {
@@ -1242,7 +1244,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     } catch (e) {
       // Take the orphaned turn back out and hand the person their words again, so a failure
       // costs a tap instead of a thought.
-      repliedRef.current = true; setLandedWaiting(false); setAnimPending(false);
+      repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549 setAnimPending(false);
       if (willAnimate) { if (skipRef.current) skipRef.current.skip = true; setRevealed(true); setOverlayIn(false); clearLanding(document); setAnimating(false); }
       setTurns((list) => list.filter((x) => x.id !== you.id && x.id !== pid));
       setInput(text);
