@@ -9,29 +9,121 @@
       "agents": "16 Court cards (to be added)"
     }
   },
-
   "constants": {
     "phases": {
-      "creation": { "steps": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "description": "Consciousness building its own architecture" },
-      "turn": { "steps": [10], "description": "The pivot — creation complete, operation begins" },
-      "operation": { "steps": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], "description": "Consciousness operating through what it built" }
+      "creation": {
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "description": "Consciousness building its own architecture"
+      },
+      "turn": {
+        "steps": [
+          10
+        ],
+        "description": "The pivot — creation complete, operation begins"
+      },
+      "operation": {
+        "steps": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "description": "Consciousness operating through what it built"
+      }
     },
     "rings": {
-      "0": { "name": "Source/Origin", "function": "The original creative act" },
-      "1": { "name": "Ingress", "function": "Portal boundary — where potential enters" },
-      "2": { "name": "Identity", "house": "Gestalt", "function": "Soul coherence" },
-      "3": { "name": "Foundation", "house": "Body", "function": "Embodied structure" },
-      "4": { "name": "Resonance", "house": "Emotion", "function": "Felt connection" },
-      "5": { "name": "Agency", "house": "Mind", "function": "WHERE CREATION HAPPENS — conscious choice in the Now" },
-      "6": { "name": "Direction", "house": "Spirit", "function": "Cultural/group manifestation — creation expressing outward" },
-      "7": { "name": "Egress/Un-Now", "function": "Residue beyond recursive reach — retrievable only through conscious return" }
+      "0": {
+        "name": "Source/Origin",
+        "function": "The original creative act"
+      },
+      "1": {
+        "name": "Ingress",
+        "function": "Portal boundary — where potential enters"
+      },
+      "2": {
+        "name": "Identity",
+        "house": "Gestalt",
+        "function": "Soul coherence"
+      },
+      "3": {
+        "name": "Foundation",
+        "house": "Body",
+        "function": "Embodied structure"
+      },
+      "4": {
+        "name": "Resonance",
+        "house": "Emotion",
+        "function": "Felt connection"
+      },
+      "5": {
+        "name": "Agency",
+        "house": "Mind",
+        "function": "WHERE CREATION HAPPENS — conscious choice in the Now"
+      },
+      "6": {
+        "name": "Direction",
+        "house": "Spirit",
+        "function": "Cultural/group manifestation — creation expressing outward"
+      },
+      "7": {
+        "name": "Egress/Un-Now",
+        "function": "Residue beyond recursive reach — retrievable only through conscious return"
+      }
     },
     "houses": {
-      "gestalt": { "command": "Fulfill Your Destiny", "gender": "Neutral", "span": 38, "governed_by": null, "ring": 2 },
-      "spirit": { "command": "Witness Creation", "gender": "Feminine", "span": 30, "governed_by": 0, "ring": 6 },
-      "mind": { "command": "Channel the Force", "gender": "Masculine", "span": 22, "governed_by": 19, "ring": 5 },
-      "emotion": { "command": "Free Will", "gender": "Feminine", "span": 14, "governed_by": 20, "ring": 4 },
-      "body": { "command": "Uphold the Law", "gender": "Masculine", "span": 6, "governed_by": 1, "ring": 3 }
+      "gestalt": {
+        "command": "Fulfill Your Destiny",
+        "gender": "Neutral",
+        "span": 38,
+        "governed_by": null,
+        "ring": 2
+      },
+      "spirit": {
+        "command": "Witness Creation",
+        "gender": "Feminine",
+        "span": 30,
+        "governed_by": 0,
+        "ring": 6
+      },
+      "mind": {
+        "command": "Channel the Force",
+        "gender": "Masculine",
+        "span": 22,
+        "governed_by": 19,
+        "ring": 5
+      },
+      "emotion": {
+        "command": "Free Will",
+        "gender": "Feminine",
+        "span": 14,
+        "governed_by": 20,
+        "ring": 4
+      },
+      "body": {
+        "command": "Uphold the Law",
+        "gender": "Masculine",
+        "span": 6,
+        "governed_by": 1,
+        "ring": 3
+      }
     },
     "functions": {
       "seed": "Initiates — opens the capacity",
@@ -40,13 +132,67 @@
       "feedback": "Integrates — weaves back into the cycle"
     },
     "pillars": {
-      "1": { "name": "You Are Creating", "archetypes": [0] },
-      "2": { "name": "You Are the Creator", "archetypes": [1] },
-      "3": { "name": "The Seven Pillars of Purpose", "archetypes": [10] },
-      "4": { "name": "Authentic Creation", "archetypes": [2, 3, 17, 18], "house": "Spirit" },
-      "5": { "name": "Genuine Participation", "archetypes": [4, 5, 15, 16], "house": "Mind" },
-      "6": { "name": "Unified Purpose", "archetypes": [6, 7, 13, 14, 21], "house": "Emotion" },
-      "7": { "name": "Present Moment Awareness", "archetypes": [8, 9, 11, 12, 19, 20], "house": "Body" }
+      "1": {
+        "name": "You Are Creating",
+        "archetypes": [
+          0
+        ]
+      },
+      "2": {
+        "name": "You Are the Creator",
+        "archetypes": [
+          1
+        ]
+      },
+      "3": {
+        "name": "The Seven Pillars of Purpose",
+        "archetypes": [
+          10
+        ]
+      },
+      "4": {
+        "name": "Authentic Creation",
+        "archetypes": [
+          2,
+          3,
+          17,
+          18
+        ],
+        "house": "Spirit"
+      },
+      "5": {
+        "name": "Genuine Participation",
+        "archetypes": [
+          4,
+          5,
+          15,
+          16
+        ],
+        "house": "Mind"
+      },
+      "6": {
+        "name": "Unified Purpose",
+        "archetypes": [
+          6,
+          7,
+          13,
+          14,
+          21
+        ],
+        "house": "Emotion"
+      },
+      "7": {
+        "name": "Present Moment Recognition",
+        "archetypes": [
+          8,
+          9,
+          11,
+          12,
+          19,
+          20
+        ],
+        "house": "Body"
+      }
     },
     "status_frames": {
       "balanced": {
@@ -76,7 +222,6 @@
     },
     "instant_return": "I acknowledge my connection to the Whole. I am a creator within the Creator. I come home to Now."
   },
-
   "archetypes": {
     "0": {
       "name": "Potential",
@@ -95,11 +240,27 @@
         "governance_note": "Self-originating — the ground of all possibility",
         "sequence": {
           "before": null,
-          "after": { "position": 1, "name": "Will", "relationship": "Direction emerges from existence" }
+          "after": {
+            "position": 1,
+            "name": "Will",
+            "relationship": "Direction emerges from existence"
+          }
         },
-        "vertical_partner": { "position": 20, "name": "Awareness", "sum": 20 },
-        "diagonal_partner": { "position": 19, "name": "Actualization", "sum": 19 },
-        "reduction": { "root": 0, "partners": [], "note": "Unique — zero reduces only to itself" },
+        "vertical_partner": {
+          "position": 20,
+          "name": "Recognition",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 19,
+          "name": "Actualization",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 0,
+          "partners": [],
+          "note": "Unique — zero reduces only to itself"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -110,14 +271,14 @@
           "too_little": {
             "partner_type": "vertical",
             "archetype": 20,
-            "name": "Awareness",
-            "instruction": "Open to what's actually present. Awareness restores the capacity for possibility."
+            "name": "Recognition",
+            "instruction": "Open to what's actually present. Recognition restores the capacity for possibility."
           },
           "unacknowledged": {
             "partner_type": "reduction",
             "archetype": null,
             "name": null,
-            "instruction": "Potential has no reduction partner. Look to Awareness — the Gestalt sees what the Gestalt hides."
+            "instruction": "Potential has no reduction partner. Look to Recognition — the Gestalt sees what the Gestalt hides."
           }
         },
         "status_specific": {
@@ -130,7 +291,6 @@
         "question": "Are you allowing possibility? Or have you foreclosed it?"
       }
     },
-
     "1": {
       "name": "Will",
       "traditional": "The Magician",
@@ -144,15 +304,41 @@
         "function": "medium",
         "ring": 2,
         "pillar": 2,
-        "governed_by": { "position": 10, "name": "Source" },
+        "governed_by": {
+          "position": 10,
+          "name": "Source"
+        },
         "governance_note": "Will carries the eternal pattern into focused expression",
         "sequence": {
-          "before": { "position": 0, "name": "Potential", "relationship": "Direction requires existence first" },
-          "after": { "position": 2, "name": "Wisdom", "relationship": "Direction needs perception to see where it's pointed" }
+          "before": {
+            "position": 0,
+            "name": "Potential",
+            "relationship": "Direction requires existence first"
+          },
+          "after": {
+            "position": 2,
+            "name": "Wisdom",
+            "relationship": "Direction needs perception to see where it's pointed"
+          }
         },
-        "vertical_partner": { "position": 19, "name": "Actualization", "sum": 20 },
-        "diagonal_partner": { "position": 18, "name": "Imagination", "sum": 19 },
-        "reduction": { "root": 1, "partners": [10, 19], "note": "The Creator thread — Will → Source → Actualization" },
+        "vertical_partner": {
+          "position": 19,
+          "name": "Actualization",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 18,
+          "name": "Imagination",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 1,
+          "partners": [
+            10,
+            19
+          ],
+          "note": "The Creator thread — Will → Source → Actualization"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -183,7 +369,6 @@
         "question": "What are you actually choosing? And do you know you're choosing it?"
       }
     },
-
     "2": {
       "name": "Wisdom",
       "traditional": "The High Priestess",
@@ -197,15 +382,41 @@
         "function": "seed",
         "ring": 6,
         "pillar": 4,
-        "governed_by": { "position": 0, "name": "Potential" },
-        "governance_note": "Wisdom carries the Fool's infinite openness into focused attunement",
-        "sequence": {
-          "before": { "position": 1, "name": "Will", "relationship": "Direction needs perception to see where it's pointed" },
-          "after": { "position": 3, "name": "Nurturing", "relationship": "Perception needs cultivation to sustain what it sees" }
+        "governed_by": {
+          "position": 0,
+          "name": "Potential"
         },
-        "vertical_partner": { "position": 18, "name": "Imagination", "sum": 20 },
-        "diagonal_partner": { "position": 17, "name": "Inspiration", "sum": 19 },
-        "reduction": { "root": 2, "partners": [11, 20], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "governance_note": "Wisdom carries Potential's infinite openness into focused attunement",
+        "sequence": {
+          "before": {
+            "position": 1,
+            "name": "Will",
+            "relationship": "Direction needs perception to see where it's pointed"
+          },
+          "after": {
+            "position": 3,
+            "name": "Nurturing",
+            "relationship": "Perception needs cultivation to sustain what it sees"
+          }
+        },
+        "vertical_partner": {
+          "position": 18,
+          "name": "Imagination",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 17,
+          "name": "Inspiration",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 2,
+          "partners": [
+            11,
+            20
+          ],
+          "note": "The Witness thread — Wisdom → Equity → Recognition"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -236,7 +447,6 @@
         "question": "What are you actually seeing? Is your eye open — or are you creating blind?"
       }
     },
-
     "3": {
       "name": "Nurturing",
       "traditional": "The Empress",
@@ -250,15 +460,41 @@
         "function": "medium",
         "ring": 6,
         "pillar": 4,
-        "governed_by": { "position": 0, "name": "Potential" },
-        "governance_note": "Nurturing carries the Fool's generosity into sustained care",
-        "sequence": {
-          "before": { "position": 2, "name": "Wisdom", "relationship": "Perception needs cultivation to sustain what it sees" },
-          "after": { "position": 4, "name": "Order", "relationship": "Cultivation needs structure to give it form" }
+        "governed_by": {
+          "position": 0,
+          "name": "Potential"
         },
-        "vertical_partner": { "position": 17, "name": "Inspiration", "sum": 20 },
-        "diagonal_partner": { "position": 16, "name": "Breakthrough", "sum": 19 },
-        "reduction": { "root": 3, "partners": [12, 21], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "governance_note": "Nurturing carries Potential's generosity into sustained care",
+        "sequence": {
+          "before": {
+            "position": 2,
+            "name": "Wisdom",
+            "relationship": "Perception needs cultivation to sustain what it sees"
+          },
+          "after": {
+            "position": 4,
+            "name": "Authority",
+            "relationship": "Cultivation needs structure to give it form"
+          }
+        },
+        "vertical_partner": {
+          "position": 17,
+          "name": "Inspiration",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 16,
+          "name": "Breakthrough",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 3,
+          "partners": [
+            12,
+            21
+          ],
+          "note": "The Steward thread — Nurturing → Faith → Creation"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -275,8 +511,8 @@
           "unacknowledged": {
             "partner_type": "reduction",
             "archetype": 12,
-            "name": "Sacrifice",
-            "instruction": "You're caring without knowing you're caring — or refusing care you don't admit. Sacrifice reveals what's actually being tended or abandoned."
+            "name": "Faith",
+            "instruction": "You're caring without knowing you're caring — or refusing care you don't admit. Faith reveals what's actually being tended or abandoned."
           }
         },
         "status_specific": {
@@ -289,9 +525,8 @@
         "question": "What are you actually growing? And is your care aligned with what truly needs tending?"
       }
     },
-
     "4": {
-      "name": "Order",
+      "name": "Authority",
       "traditional": "The Emperor",
       "teleological": {
         "step": 4,
@@ -303,15 +538,40 @@
         "function": "seed",
         "ring": 5,
         "pillar": 5,
-        "governed_by": { "position": 19, "name": "Actualization" },
-        "governance_note": "Order carries the Sun's clarity into foundational structure",
-        "sequence": {
-          "before": { "position": 3, "name": "Nurturing", "relationship": "Cultivation needs structure to give it form" },
-          "after": { "position": 5, "name": "Culture", "relationship": "Structure needs transmission to persist" }
+        "governed_by": {
+          "position": 19,
+          "name": "Actualization"
         },
-        "vertical_partner": { "position": 16, "name": "Breakthrough", "sum": 20 },
-        "diagonal_partner": { "position": 15, "name": "Abstraction", "sum": 19 },
-        "reduction": { "root": 4, "partners": [13], "note": "Order ↔ Change — structure and transformation mirror" },
+        "governance_note": "Authority carries Actualization's clarity into foundational structure",
+        "sequence": {
+          "before": {
+            "position": 3,
+            "name": "Nurturing",
+            "relationship": "Cultivation needs structure to give it form"
+          },
+          "after": {
+            "position": 5,
+            "name": "Culture",
+            "relationship": "Structure needs transmission to persist"
+          }
+        },
+        "vertical_partner": {
+          "position": 16,
+          "name": "Breakthrough",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 15,
+          "name": "Abstraction",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 4,
+          "partners": [
+            13
+          ],
+          "note": "Authority ↔ Transformation — structure and transformation mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -328,12 +588,12 @@
           "unacknowledged": {
             "partner_type": "reduction",
             "archetype": 13,
-            "name": "Change",
-            "instruction": "You're imposing order without seeing it — or resisting structure you won't admit you need. Change reveals the hidden architecture."
+            "name": "Transformation",
+            "instruction": "You're imposing order without seeing it — or resisting structure you won't admit you need. Transformation reveals the hidden architecture."
           }
         },
         "status_specific": {
-          "balanced": "Your structure is aligned with Now. The frameworks you build here support creation. Order that enables.",
+          "balanced": "Your structure is aligned with Now. The frameworks you build here support creation. Authority that enables.",
           "too_much": "You're over-structuring, rigidifying what needs flexibility. Future-projected — controlling through rules.",
           "too_little": "You've abandoned structure. Past failures made order feel oppressive. Creating in chaos.",
           "unacknowledged": "You're imposing or resisting structure without awareness. Hidden rules are running the show."
@@ -342,7 +602,6 @@
         "question": "What structure are you building? Does it serve creation or block it?"
       }
     },
-
     "5": {
       "name": "Culture",
       "traditional": "The Hierophant",
@@ -356,21 +615,46 @@
         "function": "medium",
         "ring": 5,
         "pillar": 5,
-        "governed_by": { "position": 19, "name": "Actualization" },
-        "governance_note": "Culture carries the Sun's radiance into shared meaning",
-        "sequence": {
-          "before": { "position": 4, "name": "Order", "relationship": "Structure needs transmission to persist" },
-          "after": { "position": 6, "name": "Compassion", "relationship": "Transmission needs love to become relational" }
+        "governed_by": {
+          "position": 19,
+          "name": "Actualization"
         },
-        "vertical_partner": { "position": 15, "name": "Abstraction", "sum": 20 },
-        "diagonal_partner": { "position": 14, "name": "Balance", "sum": 19 },
-        "reduction": { "root": 5, "partners": [14], "note": "Culture ↔ Balance — teaching and integration mirror" },
+        "governance_note": "Culture carries Actualization's radiance into shared meaning",
+        "sequence": {
+          "before": {
+            "position": 4,
+            "name": "Authority",
+            "relationship": "Structure needs transmission to persist"
+          },
+          "after": {
+            "position": 6,
+            "name": "Compassion",
+            "relationship": "Transmission needs love to become relational"
+          }
+        },
+        "vertical_partner": {
+          "position": 15,
+          "name": "Abstraction",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 14,
+          "name": "Tune",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 5,
+          "partners": [
+            14
+          ],
+          "note": "Culture ↔ Tune — teaching and integration mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
             "archetype": 14,
-            "name": "Balance",
-            "instruction": "Let Balance temper dogma. What you're transmitting may need integration, not enforcement."
+            "name": "Tune",
+            "instruction": "Let Tune temper dogma. What you're transmitting may need integration, not enforcement."
           },
           "too_little": {
             "partner_type": "vertical",
@@ -381,8 +665,8 @@
           "unacknowledged": {
             "partner_type": "reduction",
             "archetype": 14,
-            "name": "Balance",
-            "instruction": "You're teaching or refusing to teach without seeing it. Balance reveals the hidden transmission."
+            "name": "Tune",
+            "instruction": "You're teaching or refusing to teach without seeing it. Tune reveals the hidden transmission."
           }
         },
         "status_specific": {
@@ -395,7 +679,6 @@
         "question": "What are you transmitting? And does it serve the Whole or just your position?"
       }
     },
-
     "6": {
       "name": "Compassion",
       "traditional": "The Lovers",
@@ -409,27 +692,52 @@
         "function": "seed",
         "ring": 4,
         "pillar": 6,
-        "governed_by": { "position": 20, "name": "Awareness" },
-        "governance_note": "Compassion carries Awareness's clarity into loving connection",
-        "sequence": {
-          "before": { "position": 5, "name": "Culture", "relationship": "Transmission needs love to become relational" },
-          "after": { "position": 7, "name": "Drive", "relationship": "Bonding needs momentum to sustain connection" }
+        "governed_by": {
+          "position": 20,
+          "name": "Recognition"
         },
-        "vertical_partner": { "position": 14, "name": "Balance", "sum": 20 },
-        "diagonal_partner": { "position": 13, "name": "Change", "sum": 19 },
-        "reduction": { "root": 6, "partners": [15], "note": "Compassion ↔ Abstraction — love and seeing-bonds mirror" },
+        "governance_note": "Compassion carries Recognition's clarity into loving connection",
+        "sequence": {
+          "before": {
+            "position": 5,
+            "name": "Culture",
+            "relationship": "Transmission needs love to become relational"
+          },
+          "after": {
+            "position": 7,
+            "name": "Drive",
+            "relationship": "Bonding needs momentum to sustain connection"
+          }
+        },
+        "vertical_partner": {
+          "position": 14,
+          "name": "Tune",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 13,
+          "name": "Transformation",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 6,
+          "partners": [
+            15
+          ],
+          "note": "Compassion ↔ Abstraction — love and seeing-bonds mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
             "archetype": 13,
-            "name": "Change",
-            "instruction": "Let Change release what over-bonding has trapped. Sometimes love means letting die what needs to end."
+            "name": "Transformation",
+            "instruction": "Let Transformation release what over-bonding has trapped. Sometimes love means letting die what needs to end."
           },
           "too_little": {
             "partner_type": "vertical",
             "archetype": 14,
-            "name": "Balance",
-            "instruction": "Balance restores the capacity for connection by finding equilibrium first. Center before bonding."
+            "name": "Tune",
+            "instruction": "Tune restores the capacity for connection by finding equilibrium first. Center before bonding."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -448,7 +756,6 @@
         "question": "What are you bonded to? And are those bonds conscious choices or hidden chains?"
       }
     },
-
     "7": {
       "name": "Drive",
       "traditional": "The Chariot",
@@ -462,27 +769,52 @@
         "function": "medium",
         "ring": 4,
         "pillar": 6,
-        "governed_by": { "position": 20, "name": "Awareness" },
-        "governance_note": "Drive carries Awareness's seeing into directional momentum",
-        "sequence": {
-          "before": { "position": 6, "name": "Compassion", "relationship": "Bonding needs momentum to sustain connection" },
-          "after": { "position": 8, "name": "Fortitude", "relationship": "Momentum needs strength to hold its course" }
+        "governed_by": {
+          "position": 20,
+          "name": "Recognition"
         },
-        "vertical_partner": { "position": 13, "name": "Change", "sum": 20 },
-        "diagonal_partner": { "position": 12, "name": "Sacrifice", "sum": 19 },
-        "reduction": { "root": 7, "partners": [16], "note": "Drive ↔ Breakthrough — momentum and breakthrough mirror" },
+        "governance_note": "Drive carries Recognition's seeing into directional momentum",
+        "sequence": {
+          "before": {
+            "position": 6,
+            "name": "Compassion",
+            "relationship": "Bonding needs momentum to sustain connection"
+          },
+          "after": {
+            "position": 8,
+            "name": "Fortitude",
+            "relationship": "Momentum needs strength to hold its course"
+          }
+        },
+        "vertical_partner": {
+          "position": 13,
+          "name": "Transformation",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 12,
+          "name": "Faith",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 7,
+          "partners": [
+            16
+          ],
+          "note": "Drive ↔ Breakthrough — momentum and breakthrough mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
             "archetype": 12,
-            "name": "Sacrifice",
-            "instruction": "Let Sacrifice release the grip. Over-driving exhausts what surrender would restore."
+            "name": "Faith",
+            "instruction": "Let Faith release the grip. Over-driving exhausts what surrender would restore."
           },
           "too_little": {
             "partner_type": "vertical",
             "archetype": 13,
-            "name": "Change",
-            "instruction": "Change restores momentum by releasing what's blocking movement. Something needs to die so you can move."
+            "name": "Transformation",
+            "instruction": "Transformation restores momentum by releasing what's blocking movement. Something needs to die so you can move."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -501,7 +833,6 @@
         "question": "What's driving you? And is that momentum aligned with where you actually want to go?"
       }
     },
-
     "8": {
       "name": "Fortitude",
       "traditional": "Strength",
@@ -515,15 +846,40 @@
         "function": "seed",
         "ring": 3,
         "pillar": 7,
-        "governed_by": { "position": 1, "name": "Will" },
+        "governed_by": {
+          "position": 1,
+          "name": "Will"
+        },
         "governance_note": "Fortitude carries Will's direction into embodied capacity",
         "sequence": {
-          "before": { "position": 7, "name": "Drive", "relationship": "Momentum needs strength to hold its course" },
-          "after": { "position": 9, "name": "Discipline", "relationship": "Holding needs practice to become reliable" }
+          "before": {
+            "position": 7,
+            "name": "Drive",
+            "relationship": "Momentum needs strength to hold its course"
+          },
+          "after": {
+            "position": 9,
+            "name": "Discipline",
+            "relationship": "Holding needs practice to become reliable"
+          }
         },
-        "vertical_partner": { "position": 12, "name": "Sacrifice", "sum": 20 },
-        "diagonal_partner": { "position": 11, "name": "Equity", "sum": 19 },
-        "reduction": { "root": 8, "partners": [17], "note": "Fortitude ↔ Inspiration — embodied strength and radiant light mirror" },
+        "vertical_partner": {
+          "position": 12,
+          "name": "Faith",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 11,
+          "name": "Equity",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 8,
+          "partners": [
+            17
+          ],
+          "note": "Fortitude ↔ Inspiration — embodied strength and radiant light mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -534,8 +890,8 @@
           "too_little": {
             "partner_type": "vertical",
             "archetype": 12,
-            "name": "Sacrifice",
-            "instruction": "Sacrifice restores strength by releasing what you're trying to hold that isn't yours to hold."
+            "name": "Faith",
+            "instruction": "Faith restores strength by releasing what you're trying to hold that isn't yours to hold."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -554,7 +910,6 @@
         "question": "What are you holding? And is that grip serving or strangling?"
       }
     },
-
     "9": {
       "name": "Discipline",
       "traditional": "The Hermit",
@@ -568,15 +923,40 @@
         "function": "medium",
         "ring": 3,
         "pillar": 7,
-        "governed_by": { "position": 1, "name": "Will" },
+        "governed_by": {
+          "position": 1,
+          "name": "Will"
+        },
         "governance_note": "Discipline carries Will's direction into refined practice",
         "sequence": {
-          "before": { "position": 8, "name": "Fortitude", "relationship": "Holding needs practice to become reliable" },
-          "after": { "position": 10, "name": "Source", "relationship": "Practice complete — the Turn begins" }
+          "before": {
+            "position": 8,
+            "name": "Fortitude",
+            "relationship": "Holding needs practice to become reliable"
+          },
+          "after": {
+            "position": 10,
+            "name": "Source",
+            "relationship": "Practice complete — the Turn begins"
+          }
         },
-        "vertical_partner": { "position": 11, "name": "Equity", "sum": 20 },
-        "diagonal_partner": { "position": 10, "name": "Source", "sum": 19 },
-        "reduction": { "root": 9, "partners": [18], "note": "Discipline ↔ Imagination — refined practice and visionary depth mirror" },
+        "vertical_partner": {
+          "position": 11,
+          "name": "Equity",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 10,
+          "name": "Source",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 9,
+          "partners": [
+            18
+          ],
+          "note": "Discipline ↔ Imagination — refined practice and visionary depth mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -607,7 +987,6 @@
         "question": "What are you practicing? And does that practice serve what you're actually here to create?"
       }
     },
-
     "10": {
       "name": "Source",
       "traditional": "Wheel of Fortune",
@@ -624,12 +1003,35 @@
         "governed_by": null,
         "governance_note": "Source IS the governor of Gestalt — the eternal pattern itself",
         "sequence": {
-          "before": { "position": 9, "name": "Discipline", "relationship": "Practice complete — the Turn begins" },
-          "after": { "position": 11, "name": "Equity", "relationship": "After the Turn, operation begins with fairness" }
+          "before": {
+            "position": 9,
+            "name": "Discipline",
+            "relationship": "Practice complete — the Turn begins"
+          },
+          "after": {
+            "position": 11,
+            "name": "Equity",
+            "relationship": "After the Turn, operation begins with fairness"
+          }
         },
-        "vertical_partner": { "position": 11, "name": "Equity", "sum": 21 },
-        "diagonal_partner": { "position": 9, "name": "Discipline", "sum": 19 },
-        "reduction": { "root": 1, "partners": [1, 19], "note": "The Creator thread — Will → Source → Actualization" },
+        "vertical_partner": {
+          "position": 11,
+          "name": "Equity",
+          "sum": 21
+        },
+        "diagonal_partner": {
+          "position": 9,
+          "name": "Discipline",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 1,
+          "partners": [
+            1,
+            19
+          ],
+          "note": "The Creator thread — Will → Source → Actualization"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -641,7 +1043,7 @@
             "partner_type": "vertical",
             "archetype": 11,
             "name": "Equity",
-            "instruction": "Equity restores connection to Source by showing what's fair. Justice opens the portal."
+            "instruction": "Equity restores connection to Source by showing what's fair. Equity opens the portal."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -660,7 +1062,6 @@
         "question": "Are you turning with the wheel or being turned by it? Do you know you're at the threshold?"
       }
     },
-
     "11": {
       "name": "Equity",
       "traditional": "Justice",
@@ -674,27 +1075,53 @@
         "function": "fruition",
         "ring": 3,
         "pillar": 7,
-        "governed_by": { "position": 1, "name": "Will" },
+        "governed_by": {
+          "position": 1,
+          "name": "Will"
+        },
         "governance_note": "Equity carries Will's direction into fair outcome",
         "sequence": {
-          "before": { "position": 10, "name": "Source", "relationship": "After the Turn, operation begins with fairness" },
-          "after": { "position": 12, "name": "Sacrifice", "relationship": "After accounting, release becomes possible" }
+          "before": {
+            "position": 10,
+            "name": "Source",
+            "relationship": "After the Turn, operation begins with fairness"
+          },
+          "after": {
+            "position": 12,
+            "name": "Faith",
+            "relationship": "After accounting, release becomes possible"
+          }
         },
-        "vertical_partner": { "position": 9, "name": "Discipline", "sum": 20 },
-        "diagonal_partner": { "position": 8, "name": "Fortitude", "sum": 19 },
-        "reduction": { "root": 2, "partners": [2, 20], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "vertical_partner": {
+          "position": 9,
+          "name": "Discipline",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 8,
+          "name": "Fortitude",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 2,
+          "partners": [
+            2,
+            20
+          ],
+          "note": "The Witness thread — Wisdom → Equity → Recognition"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
             "archetype": 8,
             "name": "Fortitude",
-            "instruction": "Let Fortitude hold what harsh judgment has cut. Justice needs strength to be merciful."
+            "instruction": "Let Fortitude hold what harsh judgment has cut. Equity needs strength to be merciful."
           },
           "too_little": {
             "partner_type": "vertical",
             "archetype": 9,
             "name": "Discipline",
-            "instruction": "Discipline restores fairness through consistent practice. Justice requires showing up."
+            "instruction": "Discipline restores fairness through consistent practice. Equity requires showing up."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -704,7 +1131,7 @@
           }
         },
         "status_specific": {
-          "balanced": "Your accounting is aligned with Now. What you balance here creates genuine fairness. Justice that serves.",
+          "balanced": "Your accounting is aligned with Now. What you balance here creates genuine fairness. Equity that serves.",
           "too_much": "You're over-judging, harsh where mercy is needed. Future-projected — the scales become weapons.",
           "too_little": "You've abandoned fairness. Past injustice made balance feel impossible. Creating without accountability.",
           "unacknowledged": "You're weighing and measuring without seeing it. Hidden judgments shape your creation."
@@ -713,9 +1140,8 @@
         "question": "What are your scales weighing? And is your judgment clear or clouded?"
       }
     },
-
     "12": {
-      "name": "Sacrifice",
+      "name": "Faith",
       "traditional": "The Hanged Man",
       "teleological": {
         "step": 12,
@@ -727,15 +1153,41 @@
         "function": "feedback",
         "ring": 3,
         "pillar": 7,
-        "governed_by": { "position": 1, "name": "Will" },
-        "governance_note": "Sacrifice carries Will's direction into conscious letting go",
-        "sequence": {
-          "before": { "position": 11, "name": "Equity", "relationship": "After accounting, release becomes possible" },
-          "after": { "position": 13, "name": "Change", "relationship": "Release enables transformation" }
+        "governed_by": {
+          "position": 1,
+          "name": "Will"
         },
-        "vertical_partner": { "position": 8, "name": "Fortitude", "sum": 20 },
-        "diagonal_partner": { "position": 7, "name": "Drive", "sum": 19 },
-        "reduction": { "root": 3, "partners": [3, 21], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "governance_note": "Faith carries Will's direction into conscious letting go",
+        "sequence": {
+          "before": {
+            "position": 11,
+            "name": "Equity",
+            "relationship": "After accounting, release becomes possible"
+          },
+          "after": {
+            "position": 13,
+            "name": "Transformation",
+            "relationship": "Release enables transformation"
+          }
+        },
+        "vertical_partner": {
+          "position": 8,
+          "name": "Fortitude",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 7,
+          "name": "Drive",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 3,
+          "partners": [
+            3,
+            21
+          ],
+          "note": "The Steward thread — Nurturing → Faith → Creation"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -757,18 +1209,17 @@
           }
         },
         "status_specific": {
-          "balanced": "Your release is aligned with Now. What you let go of here clears space for new creation. Sacrifice that serves.",
+          "balanced": "Your release is aligned with Now. What you let go of here clears space for new creation. Faith that serves.",
           "too_much": "You're over-sacrificing, releasing what should be kept. Future-projected — martyrdom replacing wisdom.",
           "too_little": "You're gripping what needs releasing. Past loss made letting go feel dangerous. Creating in accumulation.",
           "unacknowledged": "You're sacrificing or hoarding without seeing it. Hidden releases or hidden grips shape your creation."
         },
-        "teaching": "Letting go is an act of trust. Sacrifice isn't loss — it's making space. What you release returns transformed.",
+        "teaching": "Letting go is an act of trust. Faith isn't loss — it's making space. What you release returns transformed.",
         "question": "What are you holding that wants to be released? And what are you releasing that wants to be held?"
       }
     },
-
     "13": {
-      "name": "Change",
+      "name": "Transformation",
       "traditional": "Death",
       "teleological": {
         "step": 13,
@@ -780,15 +1231,40 @@
         "function": "fruition",
         "ring": 4,
         "pillar": 6,
-        "governed_by": { "position": 20, "name": "Awareness" },
-        "governance_note": "Change carries Awareness's clarity into necessary endings",
-        "sequence": {
-          "before": { "position": 12, "name": "Sacrifice", "relationship": "Release enables transformation" },
-          "after": { "position": 14, "name": "Balance", "relationship": "Transformation seeks equilibrium" }
+        "governed_by": {
+          "position": 20,
+          "name": "Recognition"
         },
-        "vertical_partner": { "position": 7, "name": "Drive", "sum": 20 },
-        "diagonal_partner": { "position": 6, "name": "Compassion", "sum": 19 },
-        "reduction": { "root": 4, "partners": [4], "note": "Change ↔ Order — transformation and structure mirror" },
+        "governance_note": "Transformation carries Recognition's clarity into necessary endings",
+        "sequence": {
+          "before": {
+            "position": 12,
+            "name": "Faith",
+            "relationship": "Release enables transformation"
+          },
+          "after": {
+            "position": 14,
+            "name": "Tune",
+            "relationship": "Transformation seeks equilibrium"
+          }
+        },
+        "vertical_partner": {
+          "position": 7,
+          "name": "Drive",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 6,
+          "name": "Compassion",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 4,
+          "partners": [
+            4
+          ],
+          "note": "Transformation ↔ Authority — transformation and structure mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -805,8 +1281,8 @@
           "unacknowledged": {
             "partner_type": "reduction",
             "archetype": 4,
-            "name": "Order",
-            "instruction": "You're transforming or resisting transformation without seeing it. Order reveals the hidden architecture of change."
+            "name": "Authority",
+            "instruction": "You're transforming or resisting transformation without seeing it. Authority reveals the hidden architecture of change."
           }
         },
         "status_specific": {
@@ -819,9 +1295,8 @@
         "question": "What's dying in your life? And are you letting it go or keeping a corpse animated?"
       }
     },
-
     "14": {
-      "name": "Balance",
+      "name": "Tune",
       "traditional": "Temperance",
       "teleological": {
         "step": 14,
@@ -833,15 +1308,40 @@
         "function": "feedback",
         "ring": 4,
         "pillar": 6,
-        "governed_by": { "position": 20, "name": "Awareness" },
-        "governance_note": "Balance carries Awareness's clarity into harmonious blending",
-        "sequence": {
-          "before": { "position": 13, "name": "Change", "relationship": "Transformation seeks equilibrium" },
-          "after": { "position": 15, "name": "Abstraction", "relationship": "Equilibrium reveals deeper patterns" }
+        "governed_by": {
+          "position": 20,
+          "name": "Recognition"
         },
-        "vertical_partner": { "position": 6, "name": "Compassion", "sum": 20 },
-        "diagonal_partner": { "position": 5, "name": "Culture", "sum": 19 },
-        "reduction": { "root": 5, "partners": [5], "note": "Balance ↔ Culture — integration and transmission mirror" },
+        "governance_note": "Tune carries Recognition's clarity into harmonious blending",
+        "sequence": {
+          "before": {
+            "position": 13,
+            "name": "Transformation",
+            "relationship": "Transformation seeks equilibrium"
+          },
+          "after": {
+            "position": 15,
+            "name": "Abstraction",
+            "relationship": "Equilibrium reveals deeper patterns"
+          }
+        },
+        "vertical_partner": {
+          "position": 6,
+          "name": "Compassion",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 5,
+          "name": "Culture",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 5,
+          "partners": [
+            5
+          ],
+          "note": "Tune ↔ Culture — integration and transmission mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -863,16 +1363,15 @@
           }
         },
         "status_specific": {
-          "balanced": "Your integration is aligned with Now. The opposites you blend here create genuine harmony. Balance that serves.",
-          "too_much": "You're over-blending, losing distinction in endless equilibrium. Future-projected — temperance becoming tepidness.",
+          "balanced": "Your integration is aligned with Now. The opposites you blend here create genuine harmony. Tune that serves.",
+          "too_much": "You're over-blending, losing distinction in endless equilibrium. Future-projected — tuning becoming tepidness.",
           "too_little": "You've abandoned integration. Past imbalances made harmony feel impossible. Creating from extremes.",
           "unacknowledged": "You're mixing or refusing to mix without seeing it. Hidden blends shape your creation."
         },
-        "teaching": "Opposites aren't meant to destroy each other — they're meant to create together. Balance isn't stillness; it's dynamic harmony.",
+        "teaching": "Opposites aren't meant to destroy each other — they're meant to create together. Tune isn't stillness; it's dynamic harmony.",
         "question": "What opposites are you holding? And are you integrating them or keeping them at war?"
       }
     },
-
     "15": {
       "name": "Abstraction",
       "traditional": "The Devil",
@@ -886,21 +1385,46 @@
         "function": "fruition",
         "ring": 5,
         "pillar": 5,
-        "governed_by": { "position": 19, "name": "Actualization" },
-        "governance_note": "Abstraction carries the Sun's clarity into seeing hidden chains",
-        "sequence": {
-          "before": { "position": 14, "name": "Balance", "relationship": "Equilibrium reveals deeper patterns" },
-          "after": { "position": 16, "name": "Breakthrough", "relationship": "Seeing bonds precedes breaking them" }
+        "governed_by": {
+          "position": 19,
+          "name": "Actualization"
         },
-        "vertical_partner": { "position": 5, "name": "Culture", "sum": 20 },
-        "diagonal_partner": { "position": 4, "name": "Order", "sum": 19 },
-        "reduction": { "root": 6, "partners": [6], "note": "Abstraction ↔ Compassion — seeing bonds and loving bonds mirror" },
+        "governance_note": "Abstraction carries Actualization's clarity into seeing hidden chains",
+        "sequence": {
+          "before": {
+            "position": 14,
+            "name": "Tune",
+            "relationship": "Equilibrium reveals deeper patterns"
+          },
+          "after": {
+            "position": 16,
+            "name": "Breakthrough",
+            "relationship": "Seeing bonds precedes breaking them"
+          }
+        },
+        "vertical_partner": {
+          "position": 5,
+          "name": "Culture",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 4,
+          "name": "Authority",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 6,
+          "partners": [
+            6
+          ],
+          "note": "Abstraction ↔ Compassion — seeing bonds and loving bonds mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
             "archetype": 4,
-            "name": "Order",
-            "instruction": "Let Order simplify what over-analysis has tangled. Sometimes the structure is simpler than it looks."
+            "name": "Authority",
+            "instruction": "Let Authority simplify what over-analysis has tangled. Sometimes the structure is simpler than it looks."
           },
           "too_little": {
             "partner_type": "vertical",
@@ -925,7 +1449,6 @@
         "question": "What are you bound to? And do you see the chains or only feel them?"
       }
     },
-
     "16": {
       "name": "Breakthrough",
       "traditional": "The Tower",
@@ -939,15 +1462,40 @@
         "function": "feedback",
         "ring": 5,
         "pillar": 5,
-        "governed_by": { "position": 19, "name": "Actualization" },
-        "governance_note": "Breakthrough carries the Sun's clarity into necessary destruction",
-        "sequence": {
-          "before": { "position": 15, "name": "Abstraction", "relationship": "Seeing bonds precedes breaking them" },
-          "after": { "position": 17, "name": "Inspiration", "relationship": "After shattering, new light enters" }
+        "governed_by": {
+          "position": 19,
+          "name": "Actualization"
         },
-        "vertical_partner": { "position": 4, "name": "Order", "sum": 20 },
-        "diagonal_partner": { "position": 3, "name": "Nurturing", "sum": 19 },
-        "reduction": { "root": 7, "partners": [7], "note": "Breakthrough ↔ Drive — shattering and momentum mirror" },
+        "governance_note": "Breakthrough carries Actualization's clarity into necessary destruction",
+        "sequence": {
+          "before": {
+            "position": 15,
+            "name": "Abstraction",
+            "relationship": "Seeing bonds precedes breaking them"
+          },
+          "after": {
+            "position": 17,
+            "name": "Inspiration",
+            "relationship": "After shattering, new light enters"
+          }
+        },
+        "vertical_partner": {
+          "position": 4,
+          "name": "Authority",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 3,
+          "name": "Nurturing",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 7,
+          "partners": [
+            7
+          ],
+          "note": "Breakthrough ↔ Drive — shattering and momentum mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -958,8 +1506,8 @@
           "too_little": {
             "partner_type": "vertical",
             "archetype": 4,
-            "name": "Order",
-            "instruction": "Order reveals what structure actually needs to fall. Sometimes the tower is rotten."
+            "name": "Authority",
+            "instruction": "Authority reveals what structure actually needs to fall. Sometimes the structure is rotten."
           },
           "unacknowledged": {
             "partner_type": "reduction",
@@ -978,7 +1526,6 @@
         "question": "What's breaking in your life? And is it a catastrophe or a liberation?"
       }
     },
-
     "17": {
       "name": "Inspiration",
       "traditional": "The Star",
@@ -992,15 +1539,40 @@
         "function": "fruition",
         "ring": 6,
         "pillar": 4,
-        "governed_by": { "position": 0, "name": "Potential" },
-        "governance_note": "Inspiration carries the Fool's generosity into luminous giving",
-        "sequence": {
-          "before": { "position": 16, "name": "Breakthrough", "relationship": "After shattering, new light enters" },
-          "after": { "position": 18, "name": "Imagination", "relationship": "Radiance becomes vision" }
+        "governed_by": {
+          "position": 0,
+          "name": "Potential"
         },
-        "vertical_partner": { "position": 3, "name": "Nurturing", "sum": 20 },
-        "diagonal_partner": { "position": 2, "name": "Wisdom", "sum": 19 },
-        "reduction": { "root": 8, "partners": [8], "note": "Inspiration ↔ Fortitude — radiant light and embodied strength mirror" },
+        "governance_note": "Inspiration carries Potential's generosity into luminous giving",
+        "sequence": {
+          "before": {
+            "position": 16,
+            "name": "Breakthrough",
+            "relationship": "After shattering, new light enters"
+          },
+          "after": {
+            "position": 18,
+            "name": "Imagination",
+            "relationship": "Radiance becomes vision"
+          }
+        },
+        "vertical_partner": {
+          "position": 3,
+          "name": "Nurturing",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 2,
+          "name": "Wisdom",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 8,
+          "partners": [
+            8
+          ],
+          "note": "Inspiration ↔ Fortitude — radiant light and embodied strength mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -1031,7 +1603,6 @@
         "question": "What light are you giving? And is that radiance sustainable or are you burning yourself to shine?"
       }
     },
-
     "18": {
       "name": "Imagination",
       "traditional": "The Moon",
@@ -1045,15 +1616,40 @@
         "function": "feedback",
         "ring": 6,
         "pillar": 4,
-        "governed_by": { "position": 0, "name": "Potential" },
-        "governance_note": "Imagination carries the Fool's openness into symbolic depth",
-        "sequence": {
-          "before": { "position": 17, "name": "Inspiration", "relationship": "Radiance becomes vision" },
-          "after": { "position": 19, "name": "Actualization", "relationship": "Vision crystallizes into manifestation" }
+        "governed_by": {
+          "position": 0,
+          "name": "Potential"
         },
-        "vertical_partner": { "position": 2, "name": "Wisdom", "sum": 20 },
-        "diagonal_partner": { "position": 1, "name": "Will", "sum": 19 },
-        "reduction": { "root": 9, "partners": [9], "note": "Imagination ↔ Discipline — visionary depth and refined practice mirror" },
+        "governance_note": "Imagination carries Potential's openness into symbolic depth",
+        "sequence": {
+          "before": {
+            "position": 17,
+            "name": "Inspiration",
+            "relationship": "Radiance becomes vision"
+          },
+          "after": {
+            "position": 19,
+            "name": "Actualization",
+            "relationship": "Vision crystallizes into manifestation"
+          }
+        },
+        "vertical_partner": {
+          "position": 2,
+          "name": "Wisdom",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 1,
+          "name": "Will",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 9,
+          "partners": [
+            9
+          ],
+          "note": "Imagination ↔ Discipline — visionary depth and refined practice mirror"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -1084,7 +1680,6 @@
         "question": "What are you envisioning? And is that vision aligned with truth or fleeing from it?"
       }
     },
-
     "19": {
       "name": "Actualization",
       "traditional": "The Sun",
@@ -1098,15 +1693,41 @@
         "function": "fruition",
         "ring": 2,
         "pillar": 7,
-        "governed_by": { "position": 10, "name": "Source" },
+        "governed_by": {
+          "position": 10,
+          "name": "Source"
+        },
         "governance_note": "Actualization carries Source's eternal pattern into radiant expression",
         "sequence": {
-          "before": { "position": 18, "name": "Imagination", "relationship": "Vision crystallizes into manifestation" },
-          "after": { "position": 20, "name": "Awareness", "relationship": "Manifestation leads to recognition" }
+          "before": {
+            "position": 18,
+            "name": "Imagination",
+            "relationship": "Vision crystallizes into manifestation"
+          },
+          "after": {
+            "position": 20,
+            "name": "Recognition",
+            "relationship": "Manifestation leads to recognition"
+          }
         },
-        "vertical_partner": { "position": 1, "name": "Will", "sum": 20 },
-        "diagonal_partner": { "position": 0, "name": "Potential", "sum": 19 },
-        "reduction": { "root": 1, "partners": [1, 10], "note": "The Creator thread — Will → Source → Actualization" },
+        "vertical_partner": {
+          "position": 1,
+          "name": "Will",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 0,
+          "name": "Potential",
+          "sum": 19
+        },
+        "reduction": {
+          "root": 1,
+          "partners": [
+            1,
+            10
+          ],
+          "note": "The Creator thread — Will → Source → Actualization"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -1137,9 +1758,8 @@
         "question": "What are you becoming? And is that radiance what you actually intended?"
       }
     },
-
     "20": {
-      "name": "Awareness",
+      "name": "Recognition",
       "traditional": "Judgement",
       "teleological": {
         "step": 20,
@@ -1151,15 +1771,42 @@
         "function": "feedback",
         "ring": 2,
         "pillar": 7,
-        "governed_by": { "position": 10, "name": "Source" },
-        "governance_note": "Awareness carries Source's eternal pattern into integrative seeing",
-        "sequence": {
-          "before": { "position": 19, "name": "Actualization", "relationship": "Manifestation leads to recognition" },
-          "after": { "position": 21, "name": "Creation", "relationship": "Recognition enables completion" }
+        "governed_by": {
+          "position": 10,
+          "name": "Source"
         },
-        "vertical_partner": { "position": 0, "name": "Potential", "sum": 20 },
-        "diagonal_partner": { "position": 21, "name": "Creation", "sum": 41, "note": "Special case — portal pairing" },
-        "reduction": { "root": 2, "partners": [2, 11], "note": "The Witness thread — Wisdom → Equity → Awareness" },
+        "governance_note": "Recognition carries Source's eternal pattern into integrative seeing",
+        "sequence": {
+          "before": {
+            "position": 19,
+            "name": "Actualization",
+            "relationship": "Manifestation leads to recognition"
+          },
+          "after": {
+            "position": 21,
+            "name": "Creation",
+            "relationship": "Recognition enables completion"
+          }
+        },
+        "vertical_partner": {
+          "position": 0,
+          "name": "Potential",
+          "sum": 20
+        },
+        "diagonal_partner": {
+          "position": 21,
+          "name": "Creation",
+          "sum": 41,
+          "note": "Special case — portal pairing"
+        },
+        "reduction": {
+          "root": 2,
+          "partners": [
+            2,
+            11
+          ],
+          "note": "The Witness thread — Wisdom → Equity → Recognition"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "diagonal",
@@ -1181,7 +1828,7 @@
           }
         },
         "status_specific": {
-          "balanced": "Your recognition is aligned with Now. What you see here integrates. Awareness that serves completion.",
+          "balanced": "Your recognition is aligned with Now. What you see here integrates. Recognition that serves completion.",
           "too_much": "You're over-recognizing, judging without mercy. Future-projected — awareness becoming condemnation.",
           "too_little": "You've stopped seeing. Past reckonings made awareness feel dangerous. Creating without integration.",
           "unacknowledged": "You're seeing or not seeing without knowing it. Hidden recognitions shape your creation."
@@ -1190,7 +1837,6 @@
         "question": "What do you recognize about yourself? And can you see with mercy as well as clarity?"
       }
     },
-
     "21": {
       "name": "Creation",
       "traditional": "The World",
@@ -1207,18 +1853,42 @@
         "governed_by": null,
         "governance_note": "Creation is the egress portal — where consciousness returns to Source transformed",
         "sequence": {
-          "before": { "position": 20, "name": "Awareness", "relationship": "Recognition enables completion" },
-          "after": { "position": 0, "name": "Potential", "relationship": "Completion touches Potential — the cycle begins again" }
+          "before": {
+            "position": 20,
+            "name": "Recognition",
+            "relationship": "Recognition enables completion"
+          },
+          "after": {
+            "position": 0,
+            "name": "Potential",
+            "relationship": "Completion touches Potential — the cycle begins again"
+          }
         },
-        "vertical_partner": { "position": null, "name": null, "note": "Portal — no vertical partner" },
-        "diagonal_partner": { "position": 20, "name": "Awareness", "sum": 41, "note": "Special case — portal pairing" },
-        "reduction": { "root": 3, "partners": [3, 12], "note": "The Steward thread — Nurturing → Sacrifice → Creation" },
+        "vertical_partner": {
+          "position": null,
+          "name": null,
+          "note": "Portal — no vertical partner"
+        },
+        "diagonal_partner": {
+          "position": 20,
+          "name": "Recognition",
+          "sum": 41,
+          "note": "Special case — portal pairing"
+        },
+        "reduction": {
+          "root": 3,
+          "partners": [
+            3,
+            12
+          ],
+          "note": "The Steward thread — Nurturing → Faith → Creation"
+        },
         "retrieval_routes": {
           "too_much": {
             "partner_type": "thread",
             "archetype": 12,
-            "name": "Sacrifice",
-            "instruction": "Let Sacrifice release attachment to completion. Wholeness doesn't mean finished."
+            "name": "Faith",
+            "instruction": "Let Faith release attachment to completion. Wholeness doesn't mean finished."
           },
           "too_little": {
             "partner_type": "thread",
@@ -1239,7 +1909,7 @@
           "too_little": "You've refused completion. Past endings were too painful. Creating without closure.",
           "unacknowledged": "Things are completing or refusing to complete without your awareness. Hidden wholeness shapes your creation."
         },
-        "teaching": "The World touches the Fool. Completion is not ending — it's returning transformed. Everything cycles.",
+        "teaching": "The World touches Potential. Completion is not ending — it's returning transformed. Everything cycles.",
         "question": "What's completing in your life? And can you let it return to Source?"
       }
     }
