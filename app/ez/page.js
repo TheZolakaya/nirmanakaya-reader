@@ -715,7 +715,8 @@ export default function EZPage() {
   const [suggesting, setSuggesting] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(true); // the suggestion card can fold away and come back without a new ask
   const suggestedSeen = useRef([]);
-  const suggestFromHistory = async () => {
+  const suggestFromHistory = async (opts = {}) => {
+    const forFrame = opts.frame || null; // .546: a question ABOUT the frame they set
     if (!user || suggesting) return;
     setSuggesting(true);
     try {
@@ -724,7 +725,7 @@ export default function EZPage() {
       if (!token) return;
       const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
       const cj = await cr.json();
-      if (!cj?.contextBlock) return;
+      if (!cj?.contextBlock && !forFrame) return;
       const avoid = suggestedSeen.current.length
         ? `
 
@@ -735,7 +736,9 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [{ role: 'user', content: `${cj.contextBlock}
+          messages: [{ role: 'user', content: `${cj.contextBlock || '(no reading history yet)'}${forFrame ? `
+
+THE FRAME THEY CHOSE: this reading is about ${forFrame.k === 'custom' ? `"${forFrame.detail}"` : `${frameOf(forFrame.k)?.label || forFrame.k}${forFrame.detail ? ` — ${forFrame.detail}` : ''}`}. The ONE question must be about exactly this — name it in their words ("Dan", "the move") — and history is only weather behind it.` : ''}
 
 You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a card can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.
 KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line is the same register: "Last time the reading said start one small thing, and you didn't yet." — one plain sentence, no map words.${avoid}
@@ -1074,7 +1077,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     // A door with no added context is a complete question on its own — tap-and-draw must always
     // work. Added context, when there is any, IS the question; the door only frames it.
     const typed = sanitizeForAPI(question.trim());
-    const q = typed || (door ? sanitizeForAPI(door.breath) : '');
+    const q = typed || (door ? sanitizeForAPI(door.breath) : '') || (frame ? sanitizeForAPI(`A reading about ${frameLabel(frame)}.`) : ''); // .546: a frame alone is a complete ask, like a door
     if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
     setAsked(q);
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets
@@ -1944,6 +1947,15 @@ ${DRAGON_STANDARD}`, 600);
                 </div>
               )}
               {frame && <div className="text-[0.75rem] text-emerald-200/70">About: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
+              {frame && user && (
+                <div className="flex flex-wrap items-center gap-2 text-[0.8125rem]">
+                  <button onClick={() => { setFrameOpen(false); suggestFromHistory({ frame }); }} disabled={suggesting}
+                    className="rounded-full border border-violet-500/50 bg-violet-950/30 px-3 py-1 text-violet-100 hover:bg-violet-900/40 disabled:opacity-50">
+                    {suggesting ? 'thinking…' : 'suggest a question about this'}
+                  </button>
+                  <span className="text-zinc-500">or just tap Ask — the frame is a complete question on its own</span>
+                </div>
+              )}
             </div>
           )}
           {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
