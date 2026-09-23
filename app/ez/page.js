@@ -119,7 +119,7 @@ const FRAMES = [
 ];
 const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
 const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
-const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. Keep it in view on every turn — never drift back to life in general.`; };
+const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
@@ -858,7 +858,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}) } }, usage })
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}) } }, usage })
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
@@ -1499,7 +1499,7 @@ ${DRAGON_STANDARD}`, 600);
     setResolution(k);
     if (!savedId) return;
     try {
-      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, resolution: k, ...(frame ? { frame } : {}) } } });
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
     } catch {}
   };
@@ -1651,11 +1651,12 @@ ${DRAGON_STANDARD}`, 600);
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : kind === 'medicine' ? (
-                  <button onClick={toggleMedicine} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
-                    <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" className="w-full h-full object-cover" /></span>
+                  <button onClick={toggleMedicine} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                    {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
+                    <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
-                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                     {medOpen && <span className="relative z-10">{chev(true)}</span>}
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
                   <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
