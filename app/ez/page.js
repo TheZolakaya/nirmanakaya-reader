@@ -89,6 +89,7 @@ FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever 
 The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine — the pointer's own rebalancer does not apply and is not mentioned):
 ${brief}
 THE MEDICINE FIELD ON THIS TURN: while the thing is still being found, "medicine" and "medicineCard" stay EMPTY. Only when it is found does the ORIGINAL card's medicine land on the named thing.
+THE POINTER'S DIRECTION: the pointer's own rebalancer appears above as a BEARING — which way the ground slopes from where the thing is. Use it to rank the candidates ("it leans toward what you keep, so the finished job is warmer than the plan"); render it as "leans toward", never as a move or a medicine.
 The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates; the "question" field is the one question — which one is warm — asked ONCE, there, and not also at the end of the text.`;
 
 // THE THREE MOVES (.500) — the full reader's Clarify / Unpack / Example, as EZ turns. Each is answered as a
