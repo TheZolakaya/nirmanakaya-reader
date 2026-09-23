@@ -121,12 +121,15 @@ const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
 const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
 const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
+// .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
+const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the card did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the card, ask your ordinary question.`;
+
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
 const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical' };
 const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.`;
-const voiceMoveRule = (reg, line) => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE. The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same card, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
+const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same card, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same card, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
 // did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
 const MOVE_RULES = {
@@ -180,7 +183,7 @@ Five short parts, unlabelled, flowing as paragraphs:
 1. What they came in asking, in their own words.
 2. What the cards said — the card, where it landed, and what that meant, in the same plain terms the reading used.
 3. What came out of the conversation: what they named, what they pushed back on, what they decided. Their words where you have them.
-4. The way through, and the one move — concrete, as it was given.
+4. The way through, and the one move — concrete, as it was given. Then return to the FIRST thing they said they were worried about and say where it stands now — a reading that moved on from the opening concern still owes it an answer.
 5. One closing line that hands it back to them and lets them stop. Warm, unhurried, no instruction, no self-care advice, no promise about what will happen.
 THE FROZEN STANDARD (Keel, from the founder's own sessions, 2026-09-19; a synthesis, not a new reading — gather everything drawn and said into one honest account of where the person is NOW; end with the state, not a question):
 1. C1. The founder's 2026-09-19 session (Too Much Celebration in Drive → Balanced Source in Inspiration)
@@ -975,11 +978,20 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     }
     return text;
   };
+  // .557: THE MEDICINE CHECK. The record's partner for a card (lib/kernel.js) against the hidden medicineCard the Reader named.
+  const expectedMedicine = (card) => { try { return card ? (buildKernel(card, DEFS)?.partner || '') : ''; } catch { return ''; } };
+  const medicineMismatch = (obj, card) => {
+    const want = expectedMedicine(card); const got = String(obj?.medicineCard || '').trim();
+    return want && got && got.toLowerCase() !== want.toLowerCase() ? { want, got } : null;
+  };
+  const medicineRetryNote = (mm) => `\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. THE RECORD'S MEDICINE FOR THIS CARD IS ${mm.want}. Rewrite the whole turn with the medicine as ${mm.want}'s own action, from the record — never the drawn card prescribing itself — and fill "medicineCard" with "${mm.want}". JSON only.`;
   const readerTurn = (obj, extra = {}) => ({
     id: `t${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
     role: 'reader',
     text: stripDirectiveEcho(stripTrailingQuestion(obj.reader, obj.question)), // .530: no directive echo on glass
     gist: typeof obj.gist === 'string' ? stripDirectiveEcho(obj.gist.trim()) : '', // .555: the thesis, at the top
+    medicineCard: typeof obj.medicineCard === 'string' ? obj.medicineCard.trim() : '', // .557: hidden; checked against the record
+    hunchFlag: /\byou(?:'ve| have)? (?:never|haven't|not once)\b|without anyone knowing|nobody (?:knows|has heard)|no one (?:knows|has heard)|whole years of this/i.test(String(obj.reader || '')), // .557: a soft watch on biography claims (never on glass)
     question: obj.question || '',
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
@@ -1131,8 +1143,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const aiBlock = AI_RX.test(q) ? AI_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameBlock(frame)}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
-      const { obj, usage: u } = await callReader(msg);
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameBlock(frame)}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      let { obj, usage: u } = await callReader(msg);
+      { const mm = medicineMismatch(obj, newDraws[0]); if (mm) { console.warn('[medicine check] opening named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`); if (r2?.obj?.reader) { obj = r2.obj; u = r2.usage || u; } } } // .557
       const first = readerTurn(obj, seed.lines ? { geometry: seed.lines } : {});
       setTurns([first]);
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
@@ -1233,9 +1246,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
-      const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg]) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
-      const { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
+      const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      let { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
+      if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new card named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
       repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
       const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) }); // .543: the reread is stamped with its own register
@@ -1525,7 +1539,7 @@ ${DRAGON_STANDARD}`, 600);
     const src = turns.find((t) => t.id === turnId);
     const reg = VOICE_REG(kind);
     if (!src || (!MOVE_RULES[kind] && !(reg && REGISTER_LINE[reg]))) return;
-    await send(reg ? voiceMoveLabel(reg) : MOVE_LABEL[kind], null, { move: { kind, src: src.text, ...(reg ? { register: reg } : {}) } });
+    await send(reg ? voiceMoveLabel(reg) : MOVE_LABEL[kind], null, { move: { kind, src: src.text, ...(reg ? { register: reg, srcMedicine: src.medicine || '' } : {}) } });
   };
 
   // ---- where am I ----
@@ -1577,6 +1591,7 @@ ${DRAGON_STANDARD}`, 600);
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
+      if (t.hunchFlag) L.push(`*(watch: this turn asserts something about your history — was it asked first?)*`, ``);
       if (t.located) L.push(`*Found: ${t.located}*`, ``);
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
       if (t.question) L.push(`*${t.question}*`, ``);
