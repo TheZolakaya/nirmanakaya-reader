@@ -2249,6 +2249,11 @@ ${DRAGON_STANDARD}`, 600);
                           {label}
                         </button>
                       ))}
+                      {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
+                      <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating card is drawn and read as a pointer"
+                        className="rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
+                        find it
+                      </button>
                       {/* .543: HEAR IT ANOTHER WAY — the same turn in another register; the saved voice is untouched */}
                       <button onClick={() => setVoicePickFor(voicePickFor === t.id ? null : t.id)} title="hear this turn in another voice — your setting stays as it is"
                         className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-fuchsia-500/60 text-fuchsia-200 hover:bg-fuchsia-950/70 ${voicePickFor === t.id ? 'bg-fuchsia-950/70' : ''}`}>
