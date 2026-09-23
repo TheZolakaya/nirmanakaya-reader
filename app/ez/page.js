@@ -23,6 +23,7 @@ import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionTe
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
 import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
 import { addressBlock } from '../../lib/address'; // .539: the locating card's four-dimensional address, read as a pointer
+import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560: the house's notes — the application reviews every turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
@@ -1146,7 +1147,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameBlock(frame)}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       let { obj, usage: u } = await callReader(msg);
       { const mm = medicineMismatch(obj, newDraws[0]); if (mm) { console.warn('[medicine check] opening named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`); if (r2?.obj?.reader) { obj = r2.obj; u = r2.usage || u; } } } // .557
-      const first = readerTurn(obj, seed.lines ? { geometry: seed.lines } : {});
+      let openingNotes = [];
+      { const rv = reviewTurn({ obj, register: voice, prev: [], cardBalanced: newDraws[0]?.status === 1, isOpening: true }); // .560
+        if (rv.hard.length) { console.warn('[house] opening hard:', rv.hard); const r3 = await callReader(`${msg}${retryNote(rv.hard)}`); if (r3?.obj?.reader) { obj = r3.obj; u = r3.usage || u; } }
+        openingNotes = rv.soft; if (rv.soft.length) console.warn('[house] opening notes:', rv.soft); }
+      const first = readerTurn(obj, { ...(seed.lines ? { geometry: seed.lines } : {}), ...(openingNotes.length ? { notes: openingNotes } : {}) });
       setTurns([first]);
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       if (skipRef.current) skipRef.current.hurry = true; // .549: the reading is ready — hurry the flight along
@@ -1249,12 +1254,16 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       let { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new card named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
+      let turnNotes = [];
+      if (!moveReg) { const rv = reviewTurn({ obj, register: voice, prev: withYou.filter((t) => t.role === 'reader'), cardBalanced: (newDraw || fieldNow || draws[0])?.status === 1, isOpening: false }); // .560
+        if (rv.hard.length) { console.warn('[house] hard:', rv.hard); const r3 = await callReader(`${msg}${retryNote(rv.hard)}`, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); if (r3?.obj?.reader) obj = r3.obj; }
+        turnNotes = rv.soft; if (rv.soft.length) console.warn('[house] notes:', rv.soft); }
       repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
-      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) });
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}), ...(turnNotes.length ? { notes: turnNotes } : {}) });
       // .558: MEDICINE ONCE, MECHANICALLY. A talking turn's medicine that repeats the last one (word for word, or reworded
       // and sharing most of its real words) is dropped — from the screen AND from the record the next turn reads, so the
       // repeat never teaches by example (the founder's money reading: the same ◈ box three times running).
@@ -1604,6 +1613,7 @@ ${DRAGON_STANDARD}`, 600);
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
       if (t.hunchFlag) L.push(`*(watch: this turn asserts something about your history — was it asked first?)*`, ``);
+      if (Array.isArray(t.notes) && t.notes.length) L.push(`*(the house's notes on this turn: ${t.notes.join(' · ')})*`, ``);
       if (t.located) L.push(`*Found: ${t.located}*`, ``);
       if (t.medicine) L.push(`> ◈ ${t.medicine}`, ``);
       if (t.question) L.push(`*${t.question}*`, ``);
@@ -1628,6 +1638,10 @@ ${DRAGON_STANDARD}`, 600);
   };
 
   const reset = () => {
+    // .559: NEW QUESTION RESETS EVERYTHING — the founder hit it and found his old question still in the box and the About
+    // fold open. The question, the box, the door, the frame and its fold, the folds, the panels, the error: all gone.
+    setQuestion(''); setInput(''); setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setWordless(false); setError('');
+    setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false);
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
     setLedger([]); setUsd(0);
