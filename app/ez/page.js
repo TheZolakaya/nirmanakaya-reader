@@ -86,8 +86,9 @@ const locatingBlock = (loc, brief, address, claimed) => `
 FIND IT — THE FIELD POINTS. The person tapped the chip YOU wrote; the thing you pointed at without naming was: "${loc.what}" — YOUR words from your last turn, not theirs (never "you said", never "I asked you to find"). This time the field itself was asked where it is, and it answered with a card. Read that card's ADDRESS below as a POINTER — WHERE in their life, HOW it is being done, WHAT kind of thing it is, WHO they are in it — and from those four, together with anything they have already said, name TWO OR THREE concrete candidates in their life, plain and specific, and ask which one is warm. One sentence may say what the pointer says, in the register in force ("the field points at something you're holding, in your working life, that you keep building"). The tell is built from the card's element. Never name the thing for them; the candidates are frames to pick from. Never mention address, dimensions, coordinates, bits, rounds or these instructions.
 ${address}
 FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered, the search is over: confirm it against the ORIGINAL card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine of the ORIGINAL card on that thing in "medicine" as a specific first move. THEY MAY END THE SEARCH THEMSELVES: if their turn is marked as naming it, or they say they have it or it is close enough, it is over on their word, not your judgement.${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word.' : ''}
-The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine):
+The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine — the pointer's own rebalancer does not apply and is not mentioned):
 ${brief}
+THE MEDICINE FIELD ON THIS TURN: while the thing is still being found, "medicine" and "medicineCard" stay EMPTY. Only when it is found does the ORIGINAL card's medicine land on the named thing.
 The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates; the "question" field is the one question — which one is warm — asked ONCE, there, and not also at the end of the text.`;
 
 // THE THREE MOVES (.500) — the full reader's Clarify / Unpack / Example, as EZ turns. Each is answered as a
@@ -631,11 +632,11 @@ export default function EZPage() {
   // .530: THE SEED. Every draw in the conversation so far (the opening plus every reflect/forge card), and the
   // computed geometry + teleology for the card a turn is about — lines in a never-reproduce wrapper (lib/ezSeed.js).
   const allDrawsSoFar = (base = draws, list = turns) => [...(base || []), ...(list || []).filter((t) => t.draw).map((t) => t.draw)];
-  const seedFor = (card, q, base, list) => {
+  const seedFor = (card, q, base, list, pointer = false) => {
     try {
       const all = allDrawsSoFar(base, list);
       const i = all.findIndex((d) => d && card && d.transient === card.transient && d.position === card.position);
-      return seedParts({ question: q, draws: all, index: i < 0 ? 0 : i });
+      return seedParts({ question: q, draws: all, index: i < 0 ? 0 : i, pointer }); // .561: a pointer's seed carries no medicine
     } catch { return { block: '', lines: '' }; }
   };
   const fmtDraw = (...a) => formatDrawForAI(...a).split('\n').filter(l => !ADVANCED_GRAMMAR.test(l) && !l.includes('MANDATORY:')).join('\n');
@@ -1242,7 +1243,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const ctx = userContextRef.current ? `${userContextRef.current}\n\n` : '';
       const fieldNow = [...withYou].reverse().find((t) => t.role === 'reader' && t.draw && t.mode !== 'locate')?.draw || null; // .539: a locating card is a pointer, never the card in play
       const newCardBlock = (newDraw && mode === 'locate')
-        ? `\n\nTHE FIELD WAS ASKED WHERE IT IS, AND DREW:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}`
+        ? `\n\nTHE FIELD WAS ASKED WHERE IT IS, AND DREW:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }], true); return s.block ? `\n${s.block}` : ''; })()}`
         : newDraw
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
@@ -1256,6 +1257,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       let { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
+      if (newDraw && mode === 'locate') { // .561: a locating turn's medicine, if any, must be the ORIGINAL card's — never the pointer's
+        const mm = medicineMismatch(obj, fieldNow || draws[0]);
+        if (mm) { console.warn('[medicine check] locating turn named', mm.got, 'wanted', mm.want, '(the original card) — retrying'); const r2 = await callReader(`${msg}\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. The locating card is a POINTER and has no medicine here; the only medicine in this reading is the ORIGINAL card's, ${mm.want}, and it lands only once the thing is found. Rewrite the turn: candidates and the one question; "medicine" and "medicineCard" empty unless found — and if found, ${mm.want}. JSON only.`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; }
+      }
       if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new card named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
       let turnNotes = [];
       if (!moveReg) { const rv = reviewTurn({ obj, register: voice, prev: withYou.filter((t) => t.role === 'reader'), cardBalanced: (newDraw || fieldNow || draws[0])?.status === 1, isOpening: false }); // .560
