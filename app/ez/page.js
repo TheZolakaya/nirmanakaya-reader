@@ -1242,17 +1242,29 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
         ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
         : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
+      // .558: a BALANCED card in play is never read as a gap (the founder, on Balanced Formation: "why do you keep leaning on a gap?")
+      const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? `\n\nTHE CARD IN PLAY IS BALANCED. Nothing is missing and nothing is broken; do not find a gap, a floor that isn't there, a piece that "isn't online". The growth partner is an INVITATION — what this balance is free to feed next — and it is offered as one, never as a deficiency; if they push back that things are fine, they are right, and you say so without defending a gap you named.` : '';
       const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), addressBlock(newDraw), claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
+      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
       let { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new card named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
       repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
-      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) }); // .543: the reread is stamped with its own register
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}) });
+      // .558: MEDICINE ONCE, MECHANICALLY. A talking turn's medicine that repeats the last one (word for word, or reworded
+      // and sharing most of its real words) is dropped — from the screen AND from the record the next turn reads, so the
+      // repeat never teaches by example (the founder's money reading: the same ◈ box three times running).
+      if (!newDraw && turn.medicine) {
+        const prev = [...withYou].reverse().find((t) => t.role === 'reader' && t.medicine)?.medicine || '';
+        const words = (x) => new Set(String(x).toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').split(/\s+/).filter((w) => w.length >= 4));
+        const A = words(turn.medicine), B = words(prev);
+        let shared = 0; for (const w of A) if (B.has(w)) shared++;
+        if (prev && A.size >= 4 && B.size >= 4 && shared / Math.min(A.size, B.size) >= 0.6) turn.medicine = '';
+      } // .543: the reread is stamped with its own register
       if (willAnimate) {
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
