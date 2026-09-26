@@ -34,6 +34,34 @@ function medicineOf(transient, status) {
   } catch { return null; }
 }
 
+// THE FOUNDER'S METHOD (2026-09-26): "see if a medicine was imbalanced as well, then keep following that
+// chain until I found something that was balanced. And if the whole thing looped, then we discuss the
+// intricacies." From the opened card: its medicine → find that card in the cast → its state → if not
+// Balanced, its medicine → … until Balanced (the way through), a loop (locked), or a card not in the cast.
+function medicineTrail(bySeat, startSeat) {
+  const seatOfCard = {};
+  for (const [seat, d] of Object.entries(bySeat)) seatOfCard[d.transient] = Number(seat);
+  const first = bySeat[startSeat];
+  if (!first) return { steps: [], end: '' };
+  const steps = [];
+  const seen = new Set([first.transient]);
+  let cur = { card: first.transient, status: first.status };
+  if (cur.status === 1) return { steps, end: 'the opened card is Balanced — its medicine is growth, not a way back', growth: medicineOf(cur.card, 1) };
+  while (steps.length < 78) {
+    const med = medicineOf(cur.card, cur.status);
+    if (!med) return { steps, end: 'no medicine on record' };
+    const seat = seatOfCard[med.id];
+    if (seat === undefined) { steps.push({ from: cur, med, seat: null, status: null }); return { steps, end: `${med.name} was not drawn in this cast — its state is unknown (the full 78 cast always has it)` }; }
+    const status = bySeat[seat].status;
+    steps.push({ from: cur, med, seat, status });
+    if (status === 1) return { steps, end: `balanced at ${med.name} — the way through` };
+    if (seen.has(med.id)) return { steps, end: 'the medicines loop without finding balance — the intricacies' };
+    seen.add(med.id);
+    cur = { card: med.id, status };
+  }
+  return { steps, end: '' };
+}
+
 function castAll(n = 78) {
   // n = 78: every signature into every seat, once each. n = 22: the founder's classic reading —
   // 22 cards drawn from all 78, laid in the 22 archetype seats.
@@ -112,6 +140,7 @@ export default function ChainsPage() {
   const chain = useMemo(() => (bySeat ? traceChain(bySeat, start, rule) : { steps: [], loopBack: '' }), [bySeat, start, rule]);
   const cycles = useMemo(() => (bySeat && Object.keys(bySeat).length === 78 ? cycleLengths(bySeat) : []), [bySeat]);
   const family = useMemo(() => (bySeat ? familyStructure(bySeat) : []), [bySeat]);
+  const medTrail = useMemo(() => (bySeat ? medicineTrail(bySeat, start) : null), [bySeat, start]);
   const trails = useMemo(() => { // length of the trail from every seat, under the rule in force
     if (!bySeat) return null;
     const lens = Object.keys(bySeat).map(Number).map((s) => traceChain(bySeat, s, rule).steps.length).sort((a, b) => a - b);
@@ -181,6 +210,24 @@ export default function ChainsPage() {
           )}
         </section>
 
+        {medTrail && (
+          <section className="rounded-xl border border-violet-800/50 bg-violet-950/15 p-4 space-y-2 text-sm">
+            <div className="text-[0.7rem] uppercase tracking-wider text-violet-300/70">The medicine trail, from the opened card</div>
+            {medTrail.steps.map((m, i) => (
+              <div key={i}>
+                <span className="text-zinc-100">{nameOf(m.from.card)}</span> <span className={STATUS_COLOR[m.from.status]}>({STATUSES[m.from.status].name})</span>
+                <span className="text-zinc-500"> → its medicine ({m.med.kind}) is </span>
+                <span className="text-zinc-100">{m.med.name}</span>
+                {m.seat != null
+                  ? <> <span className="text-zinc-500">, sitting in {nameOf(m.seat)},</span> <span className={STATUS_COLOR[m.status]}>{STATUSES[m.status].name}</span></>
+                  : <span className="text-zinc-500"> — not in this cast</span>}
+              </div>
+            ))}
+            {medTrail.growth && <div><span className="text-zinc-500">Growth toward </span>{medTrail.growth.name}</div>}
+            <div className="text-violet-200">{medTrail.end}</div>
+          </section>
+        )}
+
         <section className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -200,7 +247,7 @@ export default function ChainsPage() {
                   <tr key={s.seat} className="border-t border-zinc-800 align-top">
                     <td className="py-2 pr-3 text-zinc-500">{i + 1}</td>
                     <td className="py-2 pr-3"><button onClick={() => setStart(s.seat)} className="underline decoration-dotted hover:text-amber-200">{nameOf(s.seat)}</button><div className="text-[0.7rem] text-zinc-500">{houseOf(s.seat)} · {classOf(s.seat)}</div></td>
-                    <td className="py-2 pr-3 text-zinc-100">{nameOf(s.card)}<div className="text-[0.7rem] text-zinc-500">{houseOf(s.card)} · {classOf(s.card)}</div></td>
+                    <td className={`py-2 pr-3 ${s.card < 22 && s.status !== 1 ? 'text-amber-200 font-semibold' : 'text-zinc-100'}`}>{nameOf(s.card)}<div className="text-[0.7rem] text-zinc-500">{houseOf(s.card)} · {classOf(s.card)}</div></td>
                     <td className={`py-2 pr-3 ${STATUS_COLOR[s.status]}`}>{STATUSES[s.status].name}</td>
                     <td className="py-2 pr-3 text-zinc-400">{s.next != null ? nameOf(s.next) : '—'}{s.card === s.seat ? <span className="text-emerald-400"> (sitting at home)</span> : rule === 'parent' && s.next === s.seat ? <span className="text-emerald-400"> (family at home)</span> : null}</td>
                     <td className="py-2 pr-3 text-zinc-300">{med ? <>{med.name}<div className="text-[0.7rem] text-zinc-500">{med.kind}</div></> : '—'}</td>
