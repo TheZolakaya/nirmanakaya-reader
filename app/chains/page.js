@@ -38,26 +38,27 @@ function medicineOf(transient, status) {
 // chain until I found something that was balanced. And if the whole thing looped, then we discuss the
 // intricacies." From the opened card: its medicine → find that card in the cast → its state → if not
 // Balanced, its medicine → … until Balanced (the way through), a loop (locked), or a card not in the cast.
-function medicineTrail(bySeat, startSeat) {
-  const seatOfCard = {};
-  for (const [seat, d] of Object.entries(bySeat)) seatOfCard[d.transient] = Number(seat);
+// Founder's correction (2026-09-26): follow the medicine's HOME SEAT (the durable), not where the medicine
+// card itself was drawn. Go to the medicine's seat, read whoever sits there; if they're imbalanced, take
+// THEIR medicine's seat; on until a Balanced occupant. Seats move the trail, as in the chain.
+function medicineTrail(bySeat, startSeat, home) {
   const first = bySeat[startSeat];
   if (!first) return { steps: [], end: '' };
   const steps = [];
-  const seen = new Set([first.transient]);
+  const seen = new Set([startSeat]);
   let cur = { card: first.transient, status: first.status };
   if (cur.status === 1) return { steps, end: 'the opened card is Balanced — its medicine is growth, not a way back', growth: medicineOf(cur.card, 1) };
   while (steps.length < 78) {
     const med = medicineOf(cur.card, cur.status);
     if (!med) return { steps, end: 'no medicine on record' };
-    const seat = seatOfCard[med.id];
-    if (seat === undefined) { steps.push({ from: cur, med, seat: null, status: null }); return { steps, end: `${med.name} was not drawn in this cast — its state is unknown (the full 78 cast always has it)` }; }
-    const status = bySeat[seat].status;
-    steps.push({ from: cur, med, seat, status });
-    if (status === 1) return { steps, end: `balanced at ${med.name} — the way through` };
-    if (seen.has(med.id)) return { steps, end: 'the medicines loop without finding balance — the intricacies' };
-    seen.add(med.id);
-    cur = { card: med.id, status };
+    const seat = home(med.id);
+    const occ = bySeat[seat];
+    if (!occ) { steps.push({ from: cur, med, seat, occupant: null, status: null }); return { steps, end: `${nameOf(seat)} is not a seat in this cast` }; }
+    steps.push({ from: cur, med, seat, occupant: occ.transient, status: occ.status });
+    if (occ.status === 1) return { steps, end: `balanced in ${nameOf(seat)} — the way through` };
+    if (seen.has(seat)) return { steps, end: 'the medicine trail loops without finding balance — the intricacies' };
+    seen.add(seat);
+    cur = { card: occ.transient, status: occ.status };
   }
   return { steps, end: '' };
 }
@@ -140,7 +141,7 @@ export default function ChainsPage() {
   const chain = useMemo(() => (bySeat ? traceChain(bySeat, start, rule) : { steps: [], loopBack: '' }), [bySeat, start, rule]);
   const cycles = useMemo(() => (bySeat && Object.keys(bySeat).length === 78 ? cycleLengths(bySeat) : []), [bySeat]);
   const family = useMemo(() => (bySeat ? familyStructure(bySeat) : []), [bySeat]);
-  const medTrail = useMemo(() => (bySeat ? medicineTrail(bySeat, start) : null), [bySeat, start]);
+  const medTrail = useMemo(() => (bySeat ? medicineTrail(bySeat, start, (id) => (rule === 'parent' ? parentOf(id) : id)) : null), [bySeat, start, rule]);
   const trails = useMemo(() => { // length of the trail from every seat, under the rule in force
     if (!bySeat) return null;
     const lens = Object.keys(bySeat).map(Number).map((s) => traceChain(bySeat, s, rule).steps.length).sort((a, b) => a - b);
@@ -218,9 +219,9 @@ export default function ChainsPage() {
                 <span className="text-zinc-100">{nameOf(m.from.card)}</span> <span className={STATUS_COLOR[m.from.status]}>({STATUSES[m.from.status].name})</span>
                 <span className="text-zinc-500"> → its medicine ({m.med.kind}) is </span>
                 <span className="text-zinc-100">{m.med.name}</span>
-                {m.seat != null
-                  ? <> <span className="text-zinc-500">, sitting in {nameOf(m.seat)},</span> <span className={STATUS_COLOR[m.status]}>{STATUSES[m.status].name}</span></>
-                  : <span className="text-zinc-500"> — not in this cast</span>}
+                {m.occupant != null
+                  ? <> <span className="text-zinc-500">→ in its seat, {nameOf(m.seat)}, sits</span> <span className="text-zinc-100">{nameOf(m.occupant)}</span> <span className={STATUS_COLOR[m.status]}>({STATUSES[m.status].name})</span></>
+                  : <span className="text-zinc-500"> → its seat, {nameOf(m.seat)}, is not in this cast</span>}
               </div>
             ))}
             {medTrail.growth && <div><span className="text-zinc-500">Growth toward </span>{medTrail.growth.name}</div>}
