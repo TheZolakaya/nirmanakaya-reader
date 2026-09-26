@@ -70,6 +70,32 @@ function cycleLengths(bySeat) {
   return lens.sort((a, b) => b - a);
 }
 
+function familyStructure(bySeat) {
+  // parent rule: next(seat) = parent archetype of the card sitting there. Not a permutation — every seat
+  // flows into the 22, so the shape is loops (all among archetype seats) with streams of seats draining in.
+  const next = (s) => parentOf(bySeat[s].transient);
+  const cycleOf = {}; // seat -> cycle index, for seats ON a loop
+  const cycles = [];
+  const state = {}; // 0 unvisited, 1 in progress, 2 done
+  for (let s = 0; s < 78; s++) {
+    if (state[s]) continue;
+    const path = []; let cur = s;
+    while (!state[cur]) { state[cur] = 1; path.push(cur); cur = next(cur); }
+    if (state[cur] === 1) { // found a new loop
+      const loop = path.slice(path.indexOf(cur));
+      loop.forEach((x) => { cycleOf[x] = cycles.length; });
+      cycles.push({ seats: loop, basin: 0 });
+    }
+    path.forEach((x) => { state[x] = 2; });
+  }
+  for (let s = 0; s < 78; s++) { // every seat drains into exactly one loop
+    let cur = s, guard = 0;
+    while (cycleOf[cur] === undefined && guard++ < 80) cur = next(cur);
+    if (cycleOf[cur] !== undefined) cycles[cycleOf[cur]].basin++;
+  }
+  return cycles.sort((a, b) => b.basin - a.basin);
+}
+
 export default function ChainsPage() {
   // cast in the browser only (a random cast on the server would not match the browser's)
   const [bySeat, setBySeat] = useState(null);
@@ -79,6 +105,7 @@ export default function ChainsPage() {
 
   const chain = useMemo(() => (bySeat ? traceChain(bySeat, start, rule) : { steps: [], loopBack: '' }), [bySeat, start, rule]);
   const cycles = useMemo(() => (bySeat ? cycleLengths(bySeat) : []), [bySeat]);
+  const family = useMemo(() => (bySeat ? familyStructure(bySeat) : []), [bySeat]);
   const summary = useMemo(() => {
     const st = { 1: 0, 2: 0, 3: 0, 4: 0 }; const houses = {}; const classes = { archetype: 0, bound: 0, agent: 0 };
     for (const s of chain.steps) { st[s.status]++; houses[houseOf(s.card)] = (houses[houseOf(s.card)] || 0) + 1; classes[classOf(s.card)]++; }
@@ -122,6 +149,14 @@ export default function ChainsPage() {
           <div className="text-zinc-400">Houses: {Object.entries(summary.houses).map(([h, n]) => `${h} ${n}`).join(' · ')}</div>
           <div className="text-zinc-400">Classes: archetypes {summary.classes.archetype} · bounds {summary.classes.bound} · agents {summary.classes.agent}</div>
           {rule === 'own' && <div className="text-zinc-500">Whole cast (own-seat rule): {cycles.length} loops, lengths {cycles.join(', ')}</div>}
+          {rule === 'parent' && (
+            <div className="text-zinc-500 space-y-1">
+              <div>Whole cast (family rule): {family.length} loop{family.length === 1 ? '' : 's'} among the archetype seats; every one of the 78 seats drains into one of them.</div>
+              {family.map((c, i) => (
+                <div key={i} className="pl-3">Loop {i + 1}: {c.seats.length} archetype seat{c.seats.length === 1 ? '' : 's'} ({c.seats.map((s) => nameOf(s)).join(' → ')}) · {c.basin} of 78 seats drain in</div>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="overflow-x-auto">
