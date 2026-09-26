@@ -34,8 +34,10 @@ function medicineOf(transient, status) {
   } catch { return null; }
 }
 
-function castAll() {
-  const draws = generateSpread(78); // 78 seats, 78 signatures, each exactly once
+function castAll(n = 78) {
+  // n = 78: every signature into every seat, once each. n = 22: the founder's classic reading —
+  // 22 cards drawn from all 78, laid in the 22 archetype seats.
+  const draws = generateSpread(n);
   const bySeat = {};
   for (const d of draws) bySeat[d.position] = d;
   return bySeat;
@@ -53,7 +55,8 @@ function traceChain(bySeat, startSeat, rule) {
     seat = home(d.transient);
   }
   const closesOn = seat; // the seat we would revisit
-  const loopBack = closesOn === startSeat ? 'loops back to the start' : closesOn != null && seen.has(closesOn) ? `joins the loop at ${nameOf(closesOn)}` : 'ends';
+  const familyHome = rule === 'parent' && closesOn != null && steps.length && steps[steps.length - 1].seat === closesOn;
+  const loopBack = familyHome ? `ends: the card in ${nameOf(closesOn)} sits in its own family's seat` : closesOn === startSeat ? 'loops back to the start' : closesOn != null && seen.has(closesOn) ? `joins the loop at ${nameOf(closesOn)}` : 'ends';
   return { steps, loopBack };
 }
 
@@ -71,13 +74,14 @@ function cycleLengths(bySeat) {
 }
 
 function familyStructure(bySeat) {
+  const seats = Object.keys(bySeat).map(Number);
   // parent rule: next(seat) = parent archetype of the card sitting there. Not a permutation — every seat
   // flows into the 22, so the shape is loops (all among archetype seats) with streams of seats draining in.
   const next = (s) => parentOf(bySeat[s].transient);
   const cycleOf = {}; // seat -> cycle index, for seats ON a loop
   const cycles = [];
   const state = {}; // 0 unvisited, 1 in progress, 2 done
-  for (let s = 0; s < 78; s++) {
+  for (const s of seats) {
     if (state[s]) continue;
     const path = []; let cur = s;
     while (!state[cur]) { state[cur] = 1; path.push(cur); cur = next(cur); }
@@ -88,7 +92,7 @@ function familyStructure(bySeat) {
     }
     path.forEach((x) => { state[x] = 2; });
   }
-  for (let s = 0; s < 78; s++) { // every seat drains into exactly one loop
+  for (const s of seats) { // every seat drains into exactly one loop
     let cur = s, guard = 0;
     while (cycleOf[cur] === undefined && guard++ < 80) cur = next(cur);
     if (cycleOf[cur] !== undefined) cycles[cycleOf[cur]].basin++;
@@ -100,11 +104,13 @@ export default function ChainsPage() {
   // cast in the browser only (a random cast on the server would not match the browser's)
   const [bySeat, setBySeat] = useState(null);
   const [start, setStart] = useState(0);
-  const [rule, setRule] = useState('own');
-  useEffect(() => { setBySeat(castAll()); setStart(Math.floor(Math.random() * 78)); }, []);
+  const [rule, setRule] = useState('parent');
+  const [mode, setMode] = useState('22'); // '22' = the classic reading (founder's practice), '78' = the full MRI
+  const N = mode === '22' ? 22 : 78;
+  useEffect(() => { setBySeat(castAll(N)); setStart(Math.floor(Math.random() * N)); if (N === 22) setRule('parent'); }, [N]);
 
   const chain = useMemo(() => (bySeat ? traceChain(bySeat, start, rule) : { steps: [], loopBack: '' }), [bySeat, start, rule]);
-  const cycles = useMemo(() => (bySeat ? cycleLengths(bySeat) : []), [bySeat]);
+  const cycles = useMemo(() => (bySeat && Object.keys(bySeat).length === 78 ? cycleLengths(bySeat) : []), [bySeat]);
   const family = useMemo(() => (bySeat ? familyStructure(bySeat) : []), [bySeat]);
   const summary = useMemo(() => {
     const st = { 1: 0, 2: 0, 3: 0, 4: 0 }; const houses = {}; const classes = { archetype: 0, bound: 0, agent: 0 };
@@ -112,30 +118,37 @@ export default function ChainsPage() {
     return { st, houses, classes };
   }, [chain]);
 
-  const recast = () => { setBySeat(castAll()); setStart(Math.floor(Math.random() * 78)); };
+  const recast = () => { setBySeat(castAll(N)); setStart(Math.floor(Math.random() * N)); };
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-200 px-4 py-8">
       <div className="mx-auto max-w-5xl space-y-6">
         <header className="space-y-2">
           <h1 className="text-2xl font-light tracking-wide text-amber-200">The Chain Viewer</h1>
-          <p className="text-sm text-zinc-400">All 78 cast into all 78 seats. The reading opens on one seat; the chain follows each card to its home seat, and whoever sits there, home again, until it loops.</p>
+          <p className="text-sm text-zinc-400">Classic: 22 cards drawn from all 78, laid in the 22 archetype seats. Full: all 78 into all 78. The reading opens on one seat; the chain follows each card to its family's seat, then whoever sits there, until a card sits at its own family's seat or the trail loops.</p>
         </header>
 
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <button onClick={recast} className="rounded-lg border border-amber-500/50 px-3 py-1.5 text-amber-100 hover:bg-amber-900/30">Cast again</button>
-          <button onClick={() => setStart(Math.floor(Math.random() * 78))} className="rounded-lg border border-zinc-600 px-3 py-1.5 hover:bg-zinc-800">Open another seat</button>
+          <button onClick={() => setStart(Math.floor(Math.random() * N))} className="rounded-lg border border-zinc-600 px-3 py-1.5 hover:bg-zinc-800">Open another seat</button>
           <label className="flex items-center gap-2">
+            <span className="text-zinc-400">Cast</span>
+            <select value={mode} onChange={(e) => setMode(e.target.value)} className="rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1">
+              <option value="22">22 seats (classic reading)</option>
+              <option value="78">78 into 78 (full)</option>
+            </select>
+          </label>
+          {mode === '78' && <label className="flex items-center gap-2">
             <span className="text-zinc-400">Home rule</span>
             <select value={rule} onChange={(e) => setRule(e.target.value)} className="rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1">
               <option value="own">own seat (true permutation)</option>
               <option value="parent">parent archetype (diagnostic rule)</option>
             </select>
-          </label>
+          </label>}
           <label className="flex items-center gap-2">
             <span className="text-zinc-400">Open on seat</span>
             <select value={start} onChange={(e) => setStart(Number(e.target.value))} className="rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 max-w-[14rem]">
-              {Array.from({ length: 78 }, (_, i) => <option key={i} value={i}>{i} · {nameOf(i)}</option>)}
+              {Array.from({ length: N }, (_, i) => <option key={i} value={i}>{nameOf(i)}</option>)}
             </select>
           </label>
         </div>
@@ -151,9 +164,11 @@ export default function ChainsPage() {
           {rule === 'own' && <div className="text-zinc-500">Whole cast (own-seat rule): {cycles.length} loops, lengths {cycles.join(', ')}</div>}
           {rule === 'parent' && (
             <div className="text-zinc-500 space-y-1">
-              <div>Whole cast (family rule): {family.length} loop{family.length === 1 ? '' : 's'} among the archetype seats; every one of the 78 seats drains into one of them.</div>
+              <div>Whole cast: every trail ends one of two ways, at a card sitting in its own family's seat, or in a loop. This cast has {family.filter((c) => c.seats.length === 1).length} of the first and {family.filter((c) => c.seats.length > 1).length} of the second.</div>
               {family.map((c, i) => (
-                <div key={i} className="pl-3">Loop {i + 1}: {c.seats.length} archetype seat{c.seats.length === 1 ? '' : 's'} ({c.seats.map((s) => nameOf(s)).join(' → ')}) · {c.basin} of 78 seats drain in</div>
+                <div key={i} className="pl-3">{c.seats.length === 1
+                  ? <>Ends at {nameOf(c.seats[0])}: family at home · {c.basin} of {N} seats end here</>
+                  : <>Loop: {c.seats.map((s) => nameOf(s)).join(' → ')} → back · {c.basin} of {N} seats drain in</>}</div>
               ))}
             </div>
           )}
@@ -180,7 +195,7 @@ export default function ChainsPage() {
                     <td className="py-2 pr-3"><button onClick={() => setStart(s.seat)} className="underline decoration-dotted hover:text-amber-200">{nameOf(s.seat)}</button><div className="text-[0.7rem] text-zinc-500">{houseOf(s.seat)} · {classOf(s.seat)}</div></td>
                     <td className="py-2 pr-3 text-zinc-100">{nameOf(s.card)}<div className="text-[0.7rem] text-zinc-500">{houseOf(s.card)} · {classOf(s.card)}</div></td>
                     <td className={`py-2 pr-3 ${STATUS_COLOR[s.status]}`}>{STATUSES[s.status].name}</td>
-                    <td className="py-2 pr-3 text-zinc-400">{s.next != null ? nameOf(s.next) : '—'}{s.card === s.seat ? <span className="text-emerald-400"> (sitting at home)</span> : null}</td>
+                    <td className="py-2 pr-3 text-zinc-400">{s.next != null ? nameOf(s.next) : '—'}{s.card === s.seat ? <span className="text-emerald-400"> (sitting at home)</span> : rule === 'parent' && s.next === s.seat ? <span className="text-emerald-400"> (family at home)</span> : null}</td>
                     <td className="py-2 pr-3 text-zinc-300">{med ? <>{med.name}<div className="text-[0.7rem] text-zinc-500">{med.kind}</div></> : '—'}</td>
                   </tr>
                 );
