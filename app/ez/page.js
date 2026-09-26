@@ -740,6 +740,11 @@ export default function EZPage() {
   const [suggesting, setSuggesting] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(true); // the suggestion card can fold away and come back without a new ask
   const suggestedSeen = useRef([]);
+  // .570: CLOSED TOPICS (founder, 2026-09-25: "a check mark that says I'm done with this topic when you ask for a suggested reading
+  // from your history"). Kept per account on this device and handed to the suggester as threads it must never offer again.
+  const closedKey = user?.id ? `nkya_ez_closed_topics_${user.id}` : null;
+  const readClosed = () => { try { const v = closedKey ? JSON.parse(localStorage.getItem(closedKey) || '[]') : []; return Array.isArray(v) ? v : []; } catch { return []; } };
+  const [lastClosed, setLastClosed] = useState(null);
   const suggestFromHistory = async (opts = {}) => {
     const forFrame = opts.frame || null; // .546: a question ABOUT the frame they set
     if (!user || suggesting) return;
@@ -751,6 +756,8 @@ export default function EZPage() {
       const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
       const cj = await cr.json();
       if (!cj?.contextBlock && !forFrame) return;
+      const closed = readClosed(); // .570: threads they marked done
+      const closedBlock = closed.length ? `\n\nTOPICS THEY HAVE CLOSED — they marked these threads done. Never suggest anything on these threads again, reworded or from another angle; choose a different part of their life:\n${closed.map((e) => `- ${e.q}${e.why ? ` (${e.why})` : ''}`).join('\n')}` : '';
       const avoid = suggestedSeen.current.length
         ? `
 
@@ -766,7 +773,7 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
 THE FRAME THEY CHOSE: this reading is about ${forFrame.k === 'custom' ? `"${forFrame.detail}"` : `${frameOf(forFrame.k)?.label || forFrame.k}${forFrame.detail ? ` — ${forFrame.detail}` : ''}`}. The ONE question must be about exactly this — name it in their words ("Dan", "the move") — and history is only weather behind it.` : ''}
 
 You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a card can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.
-KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line is the same register: "Last time the reading said start one small thing, and you didn't yet." — one plain sentence, no map words.${avoid}
+KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line is the same register: "Last time the reading said start one small thing, and you didn't yet." — one plain sentence, no map words.${avoid}${closedBlock}
 
 Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, addressed to them, on which thread this pulls on, in the same kitchen-table words — e.g. 'Last time it came down to one small step, and you haven't taken it yet.'>"}` }],
           system: 'You write one short question and nothing else. JSON only.',
@@ -779,6 +786,18 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
       if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(typeof parsedS.why === 'string' ? parsedS.why.trim() : ''); setSuggestOpen(true); }
     } catch {} finally { setSuggesting(false); }
+  };
+  const closeTopic = () => {
+    if (!suggested || suggesting) return;
+    const entry = { q: suggested, why: suggestedWhy || '', at: Date.now() };
+    try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify([...readClosed(), entry].slice(-40))); } catch {}
+    setLastClosed(entry); setSuggested(''); setSuggestedWhy('');
+    suggestFromHistory();
+  };
+  const undoClose = () => {
+    if (!lastClosed) return;
+    try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify(readClosed().filter((e) => e.at !== lastClosed.at))); } catch {}
+    setLastClosed(null);
   };
   const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
   const [infoHistory, setInfoHistory] = useState([]);
@@ -2115,6 +2134,15 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="text-[0.9375rem] text-violet-100">{suggested}</span>
                     {suggestedWhy && <span className="block mt-1.5 text-[0.75rem] leading-snug text-violet-300/70">{suggestedWhy}</span>}
                   </button>
+                )}
+                {suggested && suggestOpen && (
+                  <div className="flex justify-center">
+                    <button onClick={closeTopic} disabled={suggesting}
+                      className="text-[0.75rem] text-violet-300/80 underline decoration-dotted hover:text-violet-100 disabled:opacity-50">✓ I&apos;m done with this topic</button>
+                  </div>
+                )}
+                {lastClosed && !suggesting && (
+                  <div className="text-center text-[0.75rem] text-violet-300/60 break-words">Closed: &ldquo;{lastClosed.q}&rdquo; · <button onClick={undoClose} className="underline decoration-dotted hover:text-violet-100">undo</button></div>
                 )}
             {error && <p className="text-xs text-red-400 break-words">{error}</p>}
           </div>
