@@ -112,6 +112,12 @@ export default function ChainsPage() {
   const chain = useMemo(() => (bySeat ? traceChain(bySeat, start, rule) : { steps: [], loopBack: '' }), [bySeat, start, rule]);
   const cycles = useMemo(() => (bySeat && Object.keys(bySeat).length === 78 ? cycleLengths(bySeat) : []), [bySeat]);
   const family = useMemo(() => (bySeat ? familyStructure(bySeat) : []), [bySeat]);
+  const trails = useMemo(() => { // length of the trail from every seat, under the rule in force
+    if (!bySeat) return null;
+    const lens = Object.keys(bySeat).map(Number).map((s) => traceChain(bySeat, s, rule).steps.length).sort((a, b) => a - b);
+    const avg = lens.reduce((a, b) => a + b, 0) / lens.length;
+    return { min: lens[0], max: lens[lens.length - 1], avg: avg.toFixed(1), median: lens[Math.floor(lens.length / 2)] };
+  }, [bySeat, rule]);
   const summary = useMemo(() => {
     const st = { 1: 0, 2: 0, 3: 0, 4: 0 }; const houses = {}; const classes = { archetype: 0, bound: 0, agent: 0 };
     for (const s of chain.steps) { st[s.status]++; houses[houseOf(s.card)] = (houses[houseOf(s.card)] || 0) + 1; classes[classOf(s.card)]++; }
@@ -161,6 +167,7 @@ export default function ChainsPage() {
           </div>
           <div className="text-zinc-400">Houses: {Object.entries(summary.houses).map(([h, n]) => `${h} ${n}`).join(' · ')}</div>
           <div className="text-zinc-400">Classes: archetypes {summary.classes.archetype} · bounds {summary.classes.bound} · agents {summary.classes.agent}</div>
+          {trails && <div className="text-zinc-400">Trail lengths across the cast (cards visited from each seat): shortest {trails.min} · typical {trails.median} · average {trails.avg} · longest {trails.max}</div>}
           {rule === 'own' && <div className="text-zinc-500">Whole cast (own-seat rule): {cycles.length} loops, lengths {cycles.join(', ')}</div>}
           {rule === 'parent' && (
             <div className="text-zinc-500 space-y-1">
