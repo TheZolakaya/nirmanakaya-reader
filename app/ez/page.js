@@ -122,6 +122,16 @@ const FRAMES = [
   { k: 'custom', label: 'something else', ask: 'what it\'s about, in your words', lens: 'Read the card as the asker\'s relation to exactly this, in their words; nothing more is assumed about what kind of thing it is.' },
 ];
 const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
+// .571: THE TOPICS, GROUPED (founder, 2026-09-25: "we should call this topic… better organization and categorization — this looks
+// sloppy"). Layout only: the keys and lenses are unchanged. The grouping is plain-language, not a ruling on the frame survey.
+const FRAME_GROUPS = [
+  { label: 'People', keys: ['person', 'us'] },
+  { label: 'Work & making', keys: ['work', 'making'] },
+  { label: 'Daily life', keys: ['body', 'money', 'place', 'activity'] },
+  { label: 'Choices & patterns', keys: ['decision', 'pattern'] },
+  { label: 'The bigger picture', keys: ['week', 'bigger'] },
+  { label: 'Or', keys: ['custom'] },
+];
 const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
 // .569: THE FRAME ON EVERY READING (founder, 2026-09-24: "frame should just be a part of every reading — auto detect a custom frame
 // per reading, thematic, based on the querent's question, and allow for manual framing"). When no frame was chosen, the opening
@@ -730,6 +740,23 @@ export default function EZPage() {
   const [frameOpen, setFrameOpen] = useState(false);
   const [frameDetail, setFrameDetail] = useState('');
   const [frameEdit, setFrameEdit] = useState(false);   // .569: changing the frame from inside the reading
+  const topicChips = (onPick) => ( // .571: grouped topic chips, shared by the front picker and the in-reading picker
+    <div className="space-y-2.5">
+      {FRAME_GROUPS.map((g) => (
+        <div key={g.label} className="grid gap-1.5 sm:grid-cols-[9.5rem_1fr] sm:items-center">
+          <div className="text-[0.6875rem] uppercase tracking-wider text-emerald-300/60">{g.label}</div>
+          <div className="flex flex-wrap gap-1.5">
+            {g.keys.map((k) => frameOf(k)).filter(Boolean).map((f) => (
+              <button key={f.k} onClick={() => onPick(f)}
+                className={`rounded-full border px-3 py-1 text-[0.8125rem] transition-colors ${frame?.k === f.k ? 'border-emerald-400 bg-emerald-900/40 text-emerald-100' : 'border-emerald-700/40 text-emerald-200/90 hover:bg-emerald-900/25'}`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
   // A question suggested from this account's own readings — ON DEMAND. The founder, 2026-09-15:
   // "I've had the same one show up every time ... I want to proactively press that button." So
   // nothing is generated on load; a tap asks for one, and "try another" asks for a different one,
@@ -1644,7 +1671,7 @@ ${DRAGON_STANDARD}`, 600);
   const exportMarkdown = () => {
     if (!draws) return;
     const L = [];
-    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ...(frame ? [`**About:** ${frameLabel(frame)}${frame.auto ? ' (named by the Reader)' : ''}`] : []), ``);
+    L.push(`# Nirmanakaya — EZ reading`, ``, `**Asked:** ${question || (door ? door.breath : '')}`, `**When:** ${new Date().toLocaleString()}`, `**Voice:** ${VOICES[voice]?.label || voice}`, ...(frame ? [`**Topic:** ${frameLabel(frame)}${frame.auto ? ' (named by the Reader)' : ''}`] : []), ``);
     L.push(`## The draw`);
     draws.forEach((d) => {
       const m = medicineFor([d])[0];
@@ -1972,7 +1999,7 @@ ${DRAGON_STANDARD}`, 600);
                 About ✓. Now the frame sits on the question box itself, in words, with a way to change or clear it. */}
             {frame && !draws && (
               <div className="mb-2 flex flex-wrap items-center justify-center gap-2 text-[0.8125rem]">
-                <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">About: {frameLabel(frame)}</span>
+                <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">Topic: {frameLabel(frame)}</span>
                 <button onClick={() => setFrameOpen(true)} className="text-emerald-300/80 underline decoration-dotted hover:text-emerald-200">change</button>
                 <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="text-zinc-400 underline decoration-dotted hover:text-zinc-200">clear</button>
               </div>
@@ -2008,8 +2035,8 @@ ${DRAGON_STANDARD}`, 600);
               </button>
               {/* .544: THE FRAME — what the reading is about */}
               <button onClick={() => { setShowPast(false); setSuggestOpen(false); setAreasOpen(false); setFrameOpen(!frameOpen); }}
-                className={`justify-self-center flex items-center gap-1 transition-colors ${frame ? 'text-emerald-300' : 'text-emerald-400/80 hover:text-emerald-300'}`} title="what this reading is about">
-                {frame ? 'About ✓' : 'About'}
+                className={`justify-self-center flex items-center gap-1 transition-colors ${frame ? 'text-emerald-300' : 'text-emerald-400/80 hover:text-emerald-300'}`} title="the topic of this reading">
+                {frame ? 'Topic ✓' : 'Topic'}
                 <svg className={`w-3.5 h-3.5 transition-transform ${frameOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {user && hasHistory ? (
@@ -2032,15 +2059,8 @@ ${DRAGON_STANDARD}`, 600);
           {/* .544: THE FRAME fold — a category, then a detail in their own words */}
           {frameOpen && !draws && (
             <div className="content-pane rounded-xl border border-emerald-700/40 bg-emerald-950/15 p-4 space-y-3">
-              <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70">What is this reading about?</div>
-              <div className="flex flex-wrap gap-1.5">
-                {FRAMES.map((f) => (
-                  <button key={f.k} onClick={() => { const same = frame?.k === f.k; setFrame(same ? null : { k: f.k, detail: same ? '' : (f.ask ? frameDetail : '') }); if (!same && !f.ask) { setFrameOpen(false); } }}
-                    className={`rounded-full border px-3 py-1 text-[0.8125rem] transition-colors ${frame?.k === f.k ? 'border-emerald-400 bg-emerald-900/40 text-emerald-100' : 'border-emerald-700/40 text-emerald-200/90 hover:bg-emerald-900/25'}`}>
-                    {f.label}
-                  </button>
-                ))}
-              </div>
+              <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70">What&apos;s the topic?</div>
+              {topicChips((f) => { const same = frame?.k === f.k; setFrame(same ? null : { k: f.k, detail: same ? '' : (f.ask ? frameDetail : '') }); if (!same && !f.ask) { setFrameOpen(false); } })}
               {frame && frameOf(frame.k)?.ask && (
                 <div className="flex items-center gap-2">
                   <input value={frameDetail} onChange={(e) => { setFrameDetail(e.target.value); setFrame({ k: frame.k, detail: e.target.value.trim() }); }}
@@ -2050,7 +2070,7 @@ ${DRAGON_STANDARD}`, 600);
                   <button onClick={() => { setFrameOpen(false); try { questionRef.current?.focus(); } catch {} }} className="rounded-lg border border-emerald-500/50 px-3 py-2 text-[0.8125rem] text-emerald-100 hover:bg-emerald-900/30">done</button>
                 </div>
               )}
-              {frame && <div className="text-[0.75rem] text-emerald-200/70">About: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
+              {frame && <div className="text-[0.75rem] text-emerald-200/70">Topic: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
               {frame && user && (
                 <div className="flex flex-wrap items-center gap-2 text-[0.8125rem]">
                   <button onClick={() => { setFrameOpen(false); suggestFromHistory({ frame }); }} disabled={suggesting}
@@ -2255,21 +2275,14 @@ ${DRAGON_STANDARD}`, 600);
                   here and the next turn is read inside the new one. */}
               {!bench && (frame || frameEdit) && (
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[0.8125rem]">
-                  {frame && <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">About: {frameLabel(frame)}{frame.auto ? <span className="text-emerald-300/60"> · the Reader's read</span> : null}</span>}
+                  {frame && <span className="rounded-full border border-emerald-500/50 bg-emerald-950/30 px-3 py-1 text-emerald-100">Topic: {frameLabel(frame)}{frame.auto ? <span className="text-emerald-300/60"> · the Reader's read</span> : null}</span>}
                   <button onClick={() => setFrameEdit(!frameEdit)} className="text-emerald-300/80 underline decoration-dotted hover:text-emerald-200">{frameEdit ? 'done' : 'change'}</button>
                   {frame && <button onClick={() => { setFrame(null); setFrameDetail(''); setFrameEdit(false); }} className="text-zinc-400 underline decoration-dotted hover:text-zinc-200">clear</button>}
                 </div>
               )}
               {!bench && frameEdit && (
                 <div className="mt-3 mx-auto max-w-xl rounded-xl border border-emerald-700/40 bg-emerald-950/15 p-3 space-y-2 text-left">
-                  <div className="flex flex-wrap gap-1.5 justify-center">
-                    {FRAMES.map((f) => (
-                      <button key={f.k} onClick={() => { setFrame({ k: f.k, detail: f.ask ? (frame?.k === f.k ? frameDetail : '') : '' }); if (!f.ask) setFrameEdit(false); }}
-                        className={`rounded-full border px-3 py-1 text-[0.8125rem] transition-colors ${frame?.k === f.k ? 'border-emerald-400 bg-emerald-900/40 text-emerald-100' : 'border-emerald-700/40 text-emerald-200/90 hover:bg-emerald-900/25'}`}>
-                        {f.label}
-                      </button>
-                    ))}
-                  </div>
+                  {topicChips((f) => { setFrame({ k: f.k, detail: f.ask ? (frame?.k === f.k ? frameDetail : '') : '' }); if (!f.ask) setFrameEdit(false); })}
                   {frame && frameOf(frame.k)?.ask && (
                     <input value={frameDetail} onChange={(e) => { setFrameDetail(e.target.value); setFrame({ k: frame.k, detail: e.target.value.trim() }); }}
                       onKeyDown={(e) => { if (e.key === 'Enter') setFrameEdit(false); }}
