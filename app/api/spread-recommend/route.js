@@ -6,6 +6,7 @@
 import { REFLECT_SPREADS } from '../../../lib/spreads.js';
 import { providerFetch as fetchWithRetry } from "../../../lib/provider.js"; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 // Build the classification system prompt with the full routing map
 // This caches across users via Anthropic prompt caching
@@ -71,6 +72,7 @@ const VALID_HOUSES = ['gestalt', 'spirit', 'mind', 'emotion', 'body'];
 const VALID_COUNTS = [1, 2, 3, 4];
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   const { question } = await request.json();
 
   if (!question || question.trim().length < 10) {

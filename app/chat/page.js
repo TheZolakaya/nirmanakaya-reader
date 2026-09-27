@@ -11,6 +11,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { getCardImagePath } from '../../lib/cardImages';
+import { readingAuth } from '../../lib/supabase';
 
 const HOUSE_LABELS = {
   Mind: { label: 'Mind', color: 'text-sky-400' },
@@ -53,7 +54,7 @@ export default function ChatPage() {
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({ messages: newMessages })
       });
       const data = await res.json();

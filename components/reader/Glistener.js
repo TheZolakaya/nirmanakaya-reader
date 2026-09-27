@@ -21,6 +21,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GlistenSourcePanel from './GlistenSourcePanel';
+import { readingAuth } from '../../lib/supabase';
 
 // Timing constants
 const STREAM_DURATION = 5000;     // Total ghost stream time (ms) - slow enough to see scroll
@@ -151,7 +152,7 @@ export default function Glistener({
     }, 1800);
 
     try {
-      const response = await fetch('/api/glisten', { method: 'POST' });
+      const response = await fetch('/api/glisten', { method: 'POST', headers: { ...(await readingAuth()) } });
       clearInterval(msgInterval);  // Stop cycling once we have response
       clearInterval(pulseInterval);  // Stop pulse animation
       const result = await response.json();
@@ -359,7 +360,7 @@ function ViewSourcePanel({ data, onReset, onClose, onTransfer }) {
         try {
           const res = await fetch('/api/glisten/simplify', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
             body: JSON.stringify({
               crystal: currentCrystal,  // Use PREVIOUS depth as input
               targetDepth

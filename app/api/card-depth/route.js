@@ -16,8 +16,10 @@ import { providerFetch as fetchWithRetry } from "../../../lib/provider.js"; // .
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSystem.js";
 import { buildCardDossier, drawsToCards, formatCardGeometry } from '../../../lib/geometryEngine.js';
 import { resolveModelId } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   const {
     cardIndex,      // Which card (0-indexed)
     draw,           // The card draw data {transient, status, position}

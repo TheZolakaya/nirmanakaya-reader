@@ -39,6 +39,7 @@ import { ARCHETYPES, BOUNDS, AGENTS } from '../../lib/archetypes.js';
 import { STATUSES, HOUSES, INNER_OUTER_HORIZON, BEING_GROUPS, IDENTITY_GROUPS } from '../../lib/constants.js';
 import { getArchetypeCorrection } from '../../lib/corrections.js';
 import { getCardImagePath } from '../../lib/cardImages.js';
+import { readingAuth } from '../../lib/supabase';
 import { getGestaltCondition } from '../../lib/gestaltConditions.js';
 import { getAllHouseConditions } from '../../lib/houseConditions.js';
 
@@ -441,7 +442,7 @@ function DiagnosticPage() {
       if (liveQuestion.trim()) body.question = liveQuestion.trim();
       const res = await fetch('/api/reading/investigate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify(body)
       });
       const data = await res.json();

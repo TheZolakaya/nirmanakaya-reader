@@ -8,8 +8,10 @@
 import { providerFetch as fetchWithRetry } from '../../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { buildPlainLanguagePrompt } from '../../../../lib/glistener/index.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
+import { requireUser } from '../../../../lib/requireUser.js'; // .573: signed-in only
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   try {
     const { transmission } = await request.json();
 

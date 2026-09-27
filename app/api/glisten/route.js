@@ -18,6 +18,7 @@ import {
   validateCrystal
 } from '../../../lib/glistener/index.js';
 import { resolveModelId } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 const MAX_RETRIES = 1;
 
@@ -51,6 +52,7 @@ async function callClaude(prompt, maxTokens = 1000) {
 }
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   try {
     let totalUsage = {
       input_tokens: 0,

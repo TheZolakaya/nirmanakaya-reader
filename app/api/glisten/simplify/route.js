@@ -8,6 +8,7 @@
 
 import { providerFetch as fetchWithRetry } from '../../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { resolveModelId } from '../../../../lib/modelConfig.js';
+import { requireUser } from '../../../../lib/requireUser.js'; // .573: signed-in only
 
 const DEPTH_PROMPTS = {
   deep: `Refine this question for clarity while preserving its philosophical depth and poetic quality.
@@ -57,6 +58,7 @@ async function callClaude(prompt, maxTokens = 100) {
 }
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   try {
     const { crystal, targetDepth } = await request.json();
 

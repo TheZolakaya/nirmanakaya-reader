@@ -10,8 +10,10 @@ import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from "../../../lib/cachedSy
 import { STATUSES } from '../../../lib/constants.js';
 import { buildDigest, drawsToCards } from '../../../lib/geometryEngine.js';
 import { resolveModelId } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   const {
     question,
     draws,           // All draws for context awareness

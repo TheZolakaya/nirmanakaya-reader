@@ -932,7 +932,7 @@ export default function NirmanakaReader() {
       try {
         const res = await fetch('/api/spread-recommend', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
           body: JSON.stringify({ question: question.trim() })
         });
         const data = await res.json();
@@ -2081,7 +2081,7 @@ export default function NirmanakaReader() {
       try {
         const res = await fetch('/api/letter', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
           body: JSON.stringify({
             question: safeQuestion,
             draws: drawsToUse,
@@ -2204,7 +2204,7 @@ export default function NirmanakaReader() {
     try {
       const res = await fetch('/api/letter', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           question: safeQuestion,
           draws: drawsToUse,
@@ -2440,11 +2440,11 @@ export default function NirmanakaReader() {
     setVerdictLoading(true);
     // Choice reading: the active options ride along; the route runs the comparative pass.
     const choiceOpts = activeReadingOverrides.current?.choiceOptions || null;
-    fetch('/api/verdict', {
+    readingAuth().then((auth) => fetch('/api/verdict', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...auth },
       body: JSON.stringify({ question: questionToUse, draws: drawsToUse, options: choiceOpts, model: getModelId(selectedModel) })
-    })
+    }))
       .then((r) => r.json())
       .then((data) => {
         if (!pageMountedRef.current) return;
@@ -2479,11 +2479,11 @@ export default function NirmanakaReader() {
     setYieldResult(null);
     setYieldError(false);
     setYieldLoading(true);
-    fetch('/api/verdict', {
+    readingAuth().then((auth) => fetch('/api/verdict', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...auth },
       body: JSON.stringify({ question: questionToUse, draws: drawsToUse, posture: postureToUse, model: getModelId(selectedModel) })
-    })
+    }))
       .then((r) => r.json())
       .then((data) => {
         if (!pageMountedRef.current) return;
@@ -2576,7 +2576,7 @@ export default function NirmanakaReader() {
       const frameLens = fc.lens;
       const res = await fetch('/api/card-depth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           cardIndex,
           draw: drawsToUse[cardIndex],
@@ -2725,7 +2725,7 @@ export default function NirmanakaReader() {
       const effectiveSpreadKey = ov?.spreadKey || (effectiveSpreadType === 'reflect' ? reflectSpreadKey : spreadKey);
       const res = await fetch('/api/synthesis', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           question: questionToUse,
           draws: drawsToUse,
@@ -2757,7 +2757,7 @@ export default function NirmanakaReader() {
         console.warn('Synthesis returned empty content — retrying once:', data);
         const retryRes = await fetch('/api/synthesis', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
           body: JSON.stringify({
             question: questionToUse, draws: drawsToUse, cards: currentCards,
             letter: parsedReading?.letter, spreadType: effectiveSpreadType, spreadKey: effectiveSpreadKey,
@@ -2834,7 +2834,7 @@ export default function NirmanakaReader() {
 
       const res = await fetch('/api/letter', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           question,
           draws,
@@ -2923,7 +2923,7 @@ export default function NirmanakaReader() {
 
       const res = await fetch('/api/synthesis', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           question,
           draws,
@@ -3085,7 +3085,7 @@ export default function NirmanakaReader() {
         try {
           const res = await fetch('/api/spread-recommend', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
             body: JSON.stringify({ question: actualQuestion.trim() })
           });
           const data = await res.json();

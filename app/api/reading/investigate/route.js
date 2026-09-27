@@ -24,6 +24,7 @@ import { providerFetch as fetchWithRetry } from '../../../../lib/provider.js'; /
 import { PERSONA_PROMPTS } from '../../../../lib/personas.js';
 import { getComplexityDescription, getHumorDescription } from '../../../../lib/personas.js';
 import { MODEL_IDS } from '../../../../lib/modelConfig.js';
+import { requireUser } from '../../../../lib/requireUser.js'; // .573: signed-in only
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = MODEL_IDS.sonnet;
@@ -153,6 +154,7 @@ function buildDiagnosticSystemPrompt(options = {}) {
 }
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   try {
     const {
       draws,

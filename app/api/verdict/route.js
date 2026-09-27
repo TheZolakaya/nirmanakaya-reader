@@ -13,12 +13,14 @@ import {
 } from '../../../lib/verdictEngine.js';
 import { buildCardDossier, drawsToCards } from '../../../lib/geometryEngine.js';
 import { resolveModelId } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 const VERDICT_ENABLED = true; // kill switch — set false to disable the Answer Box everywhere
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   if (!VERDICT_ENABLED) return Response.json({ disabled: true });
 
   const { question, draws, options, posture, model } = await request.json();

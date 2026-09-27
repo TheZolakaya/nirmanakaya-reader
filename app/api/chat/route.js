@@ -16,6 +16,7 @@
 import { drawForAI, buildSingleReadingV9 } from '../../../lib/drawForAI.js';
 import { providerFetch as fetchWithRetry } from '../../../lib/provider.js'; // .475: the one door (DeepSeek when READER_PROVIDER=deepseek, Anthropic fallback)
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .573: signed-in only
 
 const CHAT_SYSTEM = `You are a warm, perceptive conversational companion. You listen deeply, reflect honestly, and offer insight that helps people see their situation more clearly.
 
@@ -52,6 +53,7 @@ async function callClaude(system, messages) {
 }
 
 export async function POST(request) {
+  { const denied = await requireUser(request); if (denied) return denied; } // .573
   try {
     const { messages, persona = 'friend' } = await request.json();
 
