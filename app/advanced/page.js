@@ -98,7 +98,7 @@ import BadgeNotification from '../../components/shared/BadgeNotification.js';
 import TopicBar from '../../components/reader/TopicBar.js';
 import CardDetailModal from '../../components/reader/CardDetailModal.js';
 import LastReadingStrip from '../../components/reader/LastReadingStrip.js';
-import { getReading, getUser, getSession, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../../lib/supabase';
+import { getReading, getUser, getSession, readingAuth, supabase, saveReading, updateReadingTelemetry, updateReadingContent, isAdmin, getUserReadingCount, checkCommunityActivity, subscribeToGlobalPresence, trackGlobalPresence, subscribeToGlobalMessages } from '../../lib/supabase';
 
 // Import teleology utilities for Words to the Whys
 import { buildReadingTeleologicalPrompt } from '../../lib/teleology-utils.js';
@@ -2348,7 +2348,7 @@ export default function NirmanakaReader() {
       const userMsg = `THE PERSON'S QUESTION: "${question}"\n\n${vBlock}${yBlock}READING SUMMARY:\n${summaryText}\n\nPATH/MEDICINE SUMMARY:\n${pathText}\n\nSpeak the closing word now — the direct, plain answer to what they asked, from everything above.`;
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({ messages: [{ role: 'user', content: userMsg }], system: sys, model: getModelId(selectedModel), max_tokens: 500, userId: currentUser?.id })
       });
       const data = await res.json();
@@ -3133,7 +3133,7 @@ export default function NirmanakaReader() {
       // Step 1: Call DTP API to extract tokens only
       const response = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           isDTP: true,
           dtpInput: input,
@@ -3515,7 +3515,7 @@ Interpret this new card as the architecture's response to their declared directi
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
@@ -3735,7 +3735,7 @@ Interpret this new card as the architecture's response to their declared directi
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,
@@ -4149,7 +4149,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({ messages, system: systemPrompt, model: getModelId(selectedModel), max_tokens: 2000, userId: currentUser?.id })
       });
       const data = await res.json();
@@ -4416,7 +4416,7 @@ CRITICAL FORMATTING RULES:
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           messages: [{ role: 'user', content: contextMessage }],
           system: systemPrompt,
@@ -4627,7 +4627,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
     try {
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           messages: [{ role: 'user', content: userMessage }],
           system: systemPrompt,

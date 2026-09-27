@@ -126,11 +126,33 @@ RESPONSE FORMAT (JSON):
 CRITICAL: Return ONLY the JSON object with the tokens array. No interpretation, no synthesis, no explanation.`;
 }
 
-export async function POST(request) {
-  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, userId, turn } = await request.json(); // .507: turn = 'talk' | 'card' | 'door' (EZ)
+// .572: THE DOOR IS LOCKED (the full accounting, A106, 2026-09-27). The endpoint was open: with no userId it let any
+// request through, system prompt and all — anyone who found the URL could run any prompt on the house's bill. Now:
+// a signed-in session is required (the userId is taken from the verified token, never from the body), the model must
+// be one of the house's own, and the length is capped.
+async function getAuthUser(request) {
+  const authHeader = request.headers.get('authorization');
+  if (!authHeader?.startsWith('Bearer ') || !supabaseUrl || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return null;
+  try {
+    const anon = createClient(supabaseUrl, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    const { data: { user }, error } = await anon.auth.getUser(authHeader.slice(7));
+    return error || !user ? null : user;
+  } catch { return null; }
+}
+const ALLOWED_MODELS = new Set(Object.values(MODEL_IDS));
+const MAX_TOKENS_CAP = 8000;
 
-  // Check if user is banned or throttled (if userId provided)
-  if (userId) {
+export async function POST(request) {
+  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, turn } = await request.json(); // .507: turn = 'talk' | 'card' | 'door' (EZ)
+
+  const authUser = await getAuthUser(request);
+  if (!authUser) {
+    return Response.json({ error: 'Please sign in to get a reading.' }, { status: 401 });
+  }
+  const userId = authUser.id;
+
+  // Check if user is banned or throttled
+  {
     const { canRead, reason } = await checkUserAccess(userId);
     if (!canRead) {
       return Response.json({ error: reason }, { status: 403 });
@@ -206,11 +228,11 @@ export async function POST(request) {
   // First Contact mode uses Sonnet for quality interpretations
   const effectiveModel = isFirstContact
     ? MODEL_IDS.sonnet
-    : (model || MODEL_IDS.sonnet);
+    : (ALLOWED_MODELS.has(model) ? model : MODEL_IDS.sonnet); // .572: only the house's own models
 
   const effectiveMaxTokens = isFirstContact
     ? 4000
-    : (max_tokens || 4000);
+    : Math.min(Math.max(Number(max_tokens) || 4000, 64), MAX_TOKENS_CAP); // .572: capped
 
   // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
   // all users/settings), variable dial/persona parts ride uncached after it.

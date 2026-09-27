@@ -32,7 +32,7 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
-import { getUser, getSession, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
+import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
 import TheMap from '../../components/map/TheMap';
@@ -793,7 +793,7 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
         : '';
       const res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
           messages: [{ role: 'user', content: `${cj.contextBlock || '(no reading history yet)'}${forFrame ? `
 
@@ -976,7 +976,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     try {
       res = await fetch('/api/reading', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),
         signal: ac.signal,
       });

@@ -2,6 +2,8 @@
 
 ## The DSM-5 Mapping
 
+> **A note before you read.** This chapter explores a symbolic correspondence between two ways of organizing human experience. It is philosophy, not medicine. Nothing in it is a diagnosis, a treatment, or health advice, and nothing in it replaces the care of a doctor, a therapist, or medication your doctor prescribes. If you are struggling, please talk to a qualified professional. If you are in danger, contact your local emergency number or a crisis line right away.
+
 ---
 
 Chapter 17 showed the architecture's patterns in physics, biology, and neuroscience. This chapter shows them in psychology — and the correspondence is more precise than any other domain.
@@ -10,7 +12,7 @@ The Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5-
 
 The Nirmanakaya architecture contains twenty-two positions.
 
-The mapping is one-to-one. Each diagnostic domain corresponds to a specific archetype in a specific state of displacement. And the architecture does something the DSM cannot: it provides a structural corrective pathway for each condition.
+This chapter proposes a correspondence between them: each diagnostic domain set beside a specific archetype in a specific state of displacement. It is offered as correspondence only, a way of looking at two systems side by side, not a clinical claim and not a treatment for any condition.
 
 ---
 
@@ -135,15 +137,13 @@ Or take Order (position 4, Mind House):
 | **Too Little** | Structural collapse | Disorganized thinking, loss of coherent reality-modeling — not enough structure |
 | **Unacknowledged** | Structural fracture | Negative symptoms, flat affect — the structural framework operating in shadow, without the person's conscious participation |
 
-The architecture doesn't just name the disorder. It locates the displacement — Too Much, Too Little, or Unacknowledged — and that location determines the corrective path.
+In the map's own language, each pattern sits at a location, Too Much, Too Little, or Unacknowledged, and every location in the map has a rebalancing partner. The next section shows those partners, read as correspondence.
 
 ---
 
-### The Correction Pathways
+### The Map's Rebalancing Partners, Read as Correspondence
 
-This is where the architecture does something that the DSM cannot. The DSM diagnoses. It classifies. It names the condition with precision and rigor. But it does not contain within its own structure a corrective mechanism. Treatment comes from outside the taxonomy — from clinical experience, pharmaceutical research, and therapeutic traditions.
-
-The Nirmanakaya architecture contains its correction pathways within its own geometry. The three duality systems from Chapter 12 provide them:
+The DSM is a clinical tool, used by trained professionals, and treatment for mental illness comes from clinical care: doctors, therapists, research, and medication where it is prescribed. The map is something else, a philosophical lens. Within the map, every imbalance has a rebalancing partner, given by the three duality systems from Chapter 12. Set beside the patterns above, they read like this, as a lens for reflection and never as treatment:
 
 | Displacement | Correction Path | Mechanism | Geometric Operation |
 |-------------|----------------|-----------|-------------------|
@@ -161,15 +161,13 @@ The Nirmanakaya architecture contains its correction pathways within its own geo
 
 ### What This Means
 
-The mapping is not offered as a replacement for clinical psychology. It is offered as a structural framework that contextualizes what clinical psychology observes.
+The correspondence is not a replacement for clinical psychology or medical care, and it does not diagnose or treat anyone. It is a philosophical lens, offered for reflection.
 
-When a clinician diagnoses Major Depressive Disorder, the architecture agrees with the diagnosis and adds: this is Drive displaced toward Too Little — the emotional engine anchored in the past, creating from what already happened rather than what is happening now. The correction pathway is the vertical partner: Change. Not "think positive" — but encounter the structural opposite of stagnation within the same domain, the archetype whose very definition is transformation.
+Read through that lens, the map sets Major Depressive Disorder beside Drive at Too Little: the emotional engine anchored in the past. In the map, Drive's rebalancing partner is Transformation, the archetype whose nature is movement. That is a symbolic reading of a pattern. It is not a treatment, and it is no substitute for care.
 
-When a clinician diagnoses Generalized Anxiety Disorder, the architecture agrees and adds: this is Change displaced toward Too Much — the capacity for transformation projected forward, generating dread about future transformations that haven't occurred. The correction pathway is the diagonal partner: Compassion. Not "stop worrying" — but encounter the force of connection that grounds the future-projected anxiety in present relationship.
+The map sets Generalized Anxiety Disorder beside Transformation at Too Much: the capacity for change projected forward into dread. In the map, its rebalancing partner is Compassion, connection in the present. Again, a symbolic reading, not a treatment.
 
-The architecture provides what the DSM's taxonomic structure cannot: a geometric rationale for why specific interventions work for specific conditions. Cognitive Behavioral Therapy works for anxiety because it brings future-projected consciousness back to present engagement — the same correction the architecture prescribes for Too Much displacement. Trauma therapy works through relational reconnection because it restores the Compassion archetype's capacity for safe connection — the same correction the architecture prescribes for Too Little displacement at position 6.
-
-The architecture doesn't replace the therapist. It provides the therapist with a map of *why* the intervention works — grounding clinical intuition in geometric structure.
+Whether this correspondence has any clinical value is an open question the house has not tested. Anyone living with a mental illness deserves real care from qualified people. The map can sit beside that care for someone who finds it meaningful. It never belongs in place of it.
 
 ---
 
@@ -185,15 +183,13 @@ If the architecture were arbitrary — a symbolic system imposed on consciousnes
 
 ---
 
-### The Bridge to Healing
+### Two Systems, Side by Side
 
-The DSM-5-TR is diagnostic. It tells you what is wrong. The architecture is navigational. It tells you where you are and what direction to move.
+The DSM-5-TR is a clinical instrument in the hands of trained professionals. The map is a philosophical lens. Set side by side, each may help a reader think about the other, and that is all this chapter claims.
 
-The combination provides something neither offers alone: a diagnostic system with built-in geometric correction pathways. Name the condition, locate the displacement, identify the correction partner, and the geometry itself suggests the direction of healing.
+Healing from a mental illness is the work of real care: doctors, therapists, medication where it is prescribed, and the people around you. Nothing in this book is a reason to stop, delay, or avoid that care.
 
-Not as prescription. Not as replacement for clinical judgment. As structural support for the work that therapists, healers, and individuals already do — grounded in the same mathematics that produced the Seals, the same geometry that organizes the pentagram, the same operations of Polarity and Recursion that generate the architecture itself.
-
-Healing is de-noun-ification. Chapter 15 said it: Ring 7 is where verbs freeze into nouns, and healing is the thaw. The DSM-5 mapping shows exactly which verb has frozen at which position and in which direction the thaw needs to proceed.
+In the house's own language, the map reads imbalance as a verb that has frozen, and rebalancing as the thaw. That is its philosophy of change, offered for reflection. It is not a clinical claim.
 
 ---
 

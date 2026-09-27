@@ -16,7 +16,7 @@
 - [The Dream Transmission (1991)](#the-dream-transmission-1991)
 - [The Historical Convergence](#the-historical-convergence)
 - [The Derivation: How Consciousness Creates Structure](#the-derivation-how-consciousness-creates-structure)
-- [The Five Seals: Mathematical Proof](#the-five-seals-mathematical-proof)
+- [The Five Seals: The Counted Structure](#the-five-seals-mathematical-proof)
 - [The Seven Rings: Vertical Architecture](#the-seven-rings-vertical-architecture)
 - [The Quadraverse: Physical Correlations](#the-quadraverse-physical-correlations)
 - [The Lemniscate Key: How Infinity Becomes Structure](#the-lemniscate-key-how-infinity-becomes-structure)
@@ -133,7 +133,7 @@ What he didn't know: he'd been given the **twist point of a Möbius strip**. The
 
 The framework wasn't invented. It was *received* and then painstakingly *reconstructed*.
 
-The mathematics that validate the structure — the 1-in-10²² rarity, the nested seals, the topological proofs — were discovered decades after the transmission. The dream contained data that satisfied constraints the dreamer didn't know existed.
+The counted structure — the nested seals, the sums that hold across rows, columns and blocks — was checked decades after the transmission. The dream contained data that satisfied constraints the dreamer didn't know existed.
 
 This is what authentic transmission looks like: **the answer arriving before the question is known.**
 
@@ -249,16 +249,13 @@ The 22 archetypes aren't symbols we invented. They're **positions** in the struc
 ---
 
 <a name="the-five-seals-mathematical-proof"></a>
-## The Five Seals: Mathematical Proof
+## The Five Seals: The Counted Structure
 
 ### The Claim
 
-The framework contains mathematical properties so rare they occur in fewer than **1 in 10²²** random arrangements.
+The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way.
 
-For perspective:
-- Grains of sand on Earth: ~10¹⁸
-- Stars in the observable universe: ~10²⁴
-- **This configuration's rarity: 10²²**
+Earlier versions of this page quoted odds for how rare such an arrangement is. Those figures were retired in July 2026 after an exhaustive count, and we no longer state them. The relationships themselves are real and checkable. What they mean is the larger inquiry.
 
 ### The Forty-Fold Seal
 
@@ -368,7 +365,7 @@ Every house diagonal encodes the portals:
 
 **Every diagonal in every house points to Source and Creation.**
 
-This is the structural proof of "creators within the Creator" — not metaphor, but geometry.
+This is the structural picture of "creators within the Creator" — geometry, not only metaphor.
 
 ---
 
@@ -392,14 +389,12 @@ The Seven Rings map the **vertical** territory — how deeply consciousness is o
 
 ### Ring 0: The Unnameable
 
-Ring 0 is necessary being — the Unnameable ground.
-
-*Proof by contradiction:*
+Ring 0 is the Unnameable ground. The house holds, as its working axiom, that consciousness is primary. Here is the reasoning behind that starting point — offered as the argument for the axiom, not as a proof:
 1. Assume total non-existence
 2. To conceive "nothing exists" requires consciousness
 3. Therefore consciousness is required to register non-existence
 4. Therefore consciousness cannot not-exist
-5. **Therefore consciousness is necessary being**
+5. So the house takes consciousness as the place all knowing begins
 
 Ring 0 is outside the navigable system. It is what cannot be known while individuality persists.
 

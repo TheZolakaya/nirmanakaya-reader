@@ -14,7 +14,7 @@ export default function PrivacyPage() {
 
       <div className="prose prose-invert prose-zinc max-w-none">
       <h1 className="text-3xl font-light text-amber-400 mb-2">Privacy Policy</h1>
-      <p className="text-zinc-500 text-sm mb-8">Last updated: January 24, 2026</p>
+      <p className="text-zinc-500 text-sm mb-8">Last updated: September 27, 2026</p>
 
       <section className="mb-8">
         <h2 className="text-xl text-zinc-200 font-normal">Overview</h2>
@@ -86,8 +86,19 @@ export default function PrivacyPage() {
             services. Data is stored securely in Supabase's infrastructure.
           </li>
           <li>
-            <strong className="text-zinc-300">Anthropic (Claude)</strong> — For generating reading 
-            interpretations. Your questions are processed by Anthropic's AI service.
+            <strong className="text-zinc-300">AI models, for generating readings</strong> — When you ask for a reading,
+            your question, the cards drawn, your conversation with the Reader so far, and short summaries of your recent
+            readings are sent to an AI model to write the reading. We use, in this order:
+            <ul className="list-[circle] list-inside ml-5 mt-1 space-y-1">
+              <li><strong className="text-zinc-300">OpenRouter</strong>, which routes the request to a DeepSeek model run by
+                US-based hosts (currently Together AI, Parasail, or Novita)</li>
+              <li><strong className="text-zinc-300">DeepSeek</strong>, the model&apos;s maker, as a backup if those hosts are unavailable</li>
+              <li><strong className="text-zinc-300">Anthropic (Claude)</strong>, as the final backup</li>
+            </ul>
+            <span className="block mt-1">Background tasks, such as writing the short summary of a reading that appears in your
+              history, use the same providers in the same order.</span>
+            <span className="block mt-1">Personal details you choose to save to your profile are sent only to Anthropic, never
+              to the other providers. Each provider&apos;s own privacy terms apply to what it receives.</span>
           </li>
           <li>
             <strong className="text-zinc-300">Resend</strong> — For sending emails. Your email 

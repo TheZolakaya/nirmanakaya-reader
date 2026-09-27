@@ -94,15 +94,15 @@ These are not metaphors. They are structural descriptions of how consciousness n
 
 If imbalance is navigational error in a real topology, mental illness reframes entirely.
 
-Not defect. Not chemical failure. Dislocation.
+In the framework's own philosophical language (not a clinical one), suffering can also be described as dislocation. This sits beside the medical understanding of mental illness; it does not replace it.
 
 Anxiety is a loop — attention captured by future-leaning residue, cycling through Ring 7 without reaching Ring 5 agency. Depression is stuckness — a coordinate frozen in Ring 7, unable to access the upper rings where meaning and purpose live. Trauma is a frozen coordinate — an experience that reached Ring 7 without completing recursion, now pulling attention back to itself with the insistence of unfinished business. Addiction is echo — a broken correction path that keeps routing to the same signature instead of progressing through the architecture.
 
-This explains why medication helps but does not cure — it shifts chemistry, not coordinates. Why insight helps but is not sufficient — knowing where you are is not the same as moving. Why healing often involves movement, not fixing — the architecture responds to navigation, not repair.
+None of this is health advice. Medication, therapy, and medical care do real work, and nothing in this framework is a reason to stop, delay, or avoid them. The map offers a language of location that some people may find meaningful alongside that care.
 
 The therapeutic question changes from "What is wrong with you?" to "Where are you stuck?"
 
-Therapy becomes wayfinding. Correction paths are calculable, not just intuited. Growth becomes measurable — progression through the Rings, from disorientation to integration. Not vague aspiration — traversal through defined space.
+For those who find it useful, the map can add a language of wayfinding to the work they already do with qualified professionals. Whether that language has clinical value is a question for careful study, not an assumption.
 
 The four transient states provide diagnostic clarity. Balanced: the signature is functioning. Too Much: over-expression, pushing too hard, grasping. Too Little: under-expression, withdrawing, withholding. Unacknowledged: the signature is operating but the person cannot see it. Each state has specific correction paths — vertical, diagonal, reduction — not generic advice but geometric directions.
 
