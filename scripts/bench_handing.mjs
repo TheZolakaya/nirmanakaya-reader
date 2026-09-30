@@ -7,8 +7,8 @@
 //   npx tsx scripts/bench_handing.mjs shelf  <batchId>                  # the blind markdown to G:\My Drive\For Air Review (for the council's judging)
 // The keys come from .env.local, read here (values never printed).
 import fs from 'node:fs';
-for (const line of (fs.existsSync('.env.local') ? fs.readFileSync('.env.local', 'utf8').split(/?
-/) : [])) {
+const ENV = fs.existsSync('.env.local') ? fs.readFileSync('.env.local', 'utf8') : '';
+for (const line of ENV.split(/\r?\n/)) {
   const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/); if (!m || line.trim().startsWith('#')) continue;
   const v = m[2].replace(/^["']|["']$/g, ''); if (process.env[m[1]] === undefined) process.env[m[1]] = v;
 }
