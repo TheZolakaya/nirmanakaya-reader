@@ -1428,7 +1428,9 @@ export default function NirmanakaReader() {
 
   // Model helpers - determine available models based on config and admin status
   const getAvailableModels = () => {
-    return userIsAdmin ? (featureConfig.modelsForAdmins || ['sonnet']) : (featureConfig.modelsForUsers || ['sonnet']);
+    const base = userIsAdmin ? (featureConfig.modelsForAdmins || ['sonnet']) : (featureConfig.modelsForUsers || ['sonnet']);
+    // 2026-09-30 (founder, friends-and-family): the two Opus models are open to every signed-in tester, beside the admin list. Gate again when public.
+    return [...new Set([...base, 'opus', 'opus55'])];
   };
   // Model IDs, pricing, labels live in lib/modelConfig.js — the ONLY place they're defined
   // (founder rule 2026-08-13: model settings are configurable, never hardcoded again).

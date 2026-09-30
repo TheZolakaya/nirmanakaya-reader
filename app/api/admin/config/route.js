@@ -18,7 +18,7 @@ const DEFAULT_CONFIG = {
   advancedVoiceFor: 'everyone', // 'admins' | 'everyone'
 
   // Model availability
-  modelsForAdmins: ['haiku', 'sonnet', 'opus'],
+  modelsForAdmins: ['haiku', 'sonnet', 'opus', 'opus55'],
   modelsForUsers: ['sonnet'], // Default: only Sonnet for users
 
   // Default model selection

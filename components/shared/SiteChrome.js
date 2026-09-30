@@ -34,7 +34,7 @@ export const IMAGE_BACKGROUNDS = [
 ];
 
 const PREFS_KEY = 'nirmanakaya_prefs';
-const DEFAULTS = { backgroundType: 'video', selectedVideo: 0, selectedImage: 0, backgroundOpacity: 30, contentDim: 0, theme: 'dark' };
+const DEFAULTS = { backgroundType: 'video', selectedVideo: 0, selectedImage: 0, backgroundOpacity: 30, contentDim: 0, theme: 'dark', selectedModel: 'sonnet' };   // selectedModel: the same key /advanced persists (2026-09-30)
 
 // The visual preferences, shared with the main page. Reads once on mount; each change merges
 // back into the stored object so nothing the main page saved is lost.

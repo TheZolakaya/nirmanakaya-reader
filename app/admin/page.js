@@ -332,7 +332,7 @@ export default function AdminPanel() {
   // Feature config state
   const [featureConfig, setFeatureConfig] = useState({
     advancedVoiceFor: 'everyone',
-    modelsForAdmins: ['haiku', 'sonnet', 'opus'],
+    modelsForAdmins: ['haiku', 'sonnet', 'opus', 'opus55'],
     modelsForUsers: ['sonnet'],
     defaultModelAdmin: 'sonnet',
     defaultModelUser: 'sonnet',
@@ -1443,7 +1443,7 @@ export default function AdminPanel() {
                   <h3 className="text-sm font-medium text-violet-400 mb-2">Models for Admins</h3>
                   <p className="text-xs text-zinc-500 mb-4">Which models can admins select?</p>
                   <div className="flex gap-2 mb-4">
-                    {['haiku', 'sonnet', 'opus'].map(model => (
+                    {['haiku', 'sonnet', 'opus', 'opus55'].map(model => (
                       <button
                         key={model}
                         onClick={() => toggleModelForAdmins(model)}
@@ -1476,7 +1476,7 @@ export default function AdminPanel() {
                   <h3 className="text-sm font-medium text-cyan-400 mb-2">Models for Users</h3>
                   <p className="text-xs text-zinc-500 mb-4">Which models can regular users select?</p>
                   <div className="flex gap-2 mb-4">
-                    {['haiku', 'sonnet', 'opus'].map(model => (
+                    {['haiku', 'sonnet', 'opus', 'opus55'].map(model => (
                       <button
                         key={model}
                         onClick={() => toggleModelForUsers(model)}

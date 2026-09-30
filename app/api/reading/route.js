@@ -15,7 +15,7 @@ import { buildDossier } from '../../../lib/geometryEngine.js';
 // Set false and redeploy to disable instantly; injection is fail-open (errors skip it).
 const DOSSIER_ENABLED = true;
 import { createClient } from '@supabase/supabase-js';
-import { MODEL_IDS, READER_PROVIDER, DEEPSEEK_MODEL_IDS } from '../../../lib/modelConfig.js';
+import { MODEL_IDS, READER_PROVIDER, DEEPSEEK_MODEL_IDS, thinkingFor } from '../../../lib/modelConfig.js';
 
 // THE PROVIDER CALL lives in lib/provider.js since .475 (shared by every route).
 
@@ -270,13 +270,16 @@ export async function POST(request) {
     // .507 THE TALK LANE: the free conversation (typed replies, chips, the three moves) may ride a named lane —
     // TALK_LANE=anthropic — while openings, new cards and the doors stay on the cheap one. Off unless set.
     const talkLane = turn === 'talk' && process.env.TALK_LANE ? [process.env.TALK_LANE] : null;
-    const laneOnly = (sensitive && process.env.SENSITIVE_LANE) ? [process.env.SENSITIVE_LANE] : talkLane;
+    // 2026-09-30: a person who picked Opus picked Claude; the open-weight ladder would silently serve its own 'opus' tier instead
+    const claudeChosen = /claude-opus/.test(String(effectiveModel));
+    const laneOnly = claudeChosen ? ['anthropic'] : ((sensitive && process.env.SENSITIVE_LANE) ? [process.env.SENSITIVE_LANE] : talkLane);
+    if (claudeChosen) console.log(`[reading] ${effectiveModel} chosen — anthropic lane only`);
     if (talkLane) console.log(`[reading] talk turn — routed to ${talkLane[0]}`);
     if (sensitive) console.log(`[reading] sensitive turn — ${process.env.SENSITIVE_LANE ? `routed to ${process.env.SENSITIVE_LANE}` : 'same lane, rails on'}`);
     const { data, provider, model: servedModel } = await callProvider({ // .498: session = the person, so their turns stay on one warm host
       model: effectiveModel,
-      thinking: { type: 'disabled' }, // Sonnet 5 defaults to ADAPTIVE thinking when this is omitted and spends the whole max_tokens thinking — the reader returned nothing for a day (v0.99.451)
-      max_tokens: effectiveMaxTokens,
+      ...thinkingFor(effectiveModel), // Sonnet 5 / Opus 4.8: disabled (v0.99.451 — left adaptive, Sonnet 5 thought through the whole budget and answered nothing); Opus 5.5: adaptive at low effort (it refuses 'disabled')
+      max_tokens: claudeChosen && /opus-5-5/.test(String(effectiveModel)) ? effectiveMaxTokens + 2000 : effectiveMaxTokens, // room for Opus 5.5's thinking inside the same budget
       system: systemWithCache,
       messages: withholdPersonalContext(messagesOut)
     }, { beta: ANTHROPIC_BETA_HEADERS, session: userId || undefined, only: laneOnly }); // .498 session; .505 the sensitive turn stays on the cheap lane with the rails on (founder: help the model be warmer, not route around it); SENSITIVE_LANE=anthropic is the switch if a rate ever shows

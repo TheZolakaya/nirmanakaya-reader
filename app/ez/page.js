@@ -30,7 +30,7 @@ import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
-import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor } from '../../lib/modelConfig';
+import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -977,7 +977,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
-        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),
+        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),   // 2026-09-30: the person's chosen Reader
         signal: ac.signal,
       });
       const raw = await res.text();
@@ -1959,6 +1959,16 @@ ${DRAGON_STANDARD}`, 600);
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
+        {/* 2026-09-30 (founder, friends-and-family): which Reader answers — Standard, or one of the two Opus models, to compare. Persists with the person's prefs. */}
+        {user && (
+          <div className="mt-3 flex items-center justify-center gap-1.5 flex-wrap" aria-label="Which Reader answers">
+            <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-zinc-500 mr-1">Reader</span>
+            {READER_CHOICES.map(([k, label]) => {
+              const on = (chrome.prefs.selectedModel || 'sonnet') === k;
+              return <button key={k} onClick={() => chrome.set({ selectedModel: k })} className={`px-3 py-1 rounded-full border text-[0.75rem] transition-colors ${on ? 'border-amber-400/70 bg-amber-900/30 text-amber-100' : 'border-zinc-700/60 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`} aria-pressed={on}>{label}</button>;
+            })}
+          </div>
+        )}
         <div className="mt-6" />
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
