@@ -1967,8 +1967,9 @@ ${DRAGON_STANDARD}`, 600);
             <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-zinc-500 mr-1">Reader</span>
             {READER_CHOICES.map(([k, label]) => {
               const on = (chrome.prefs.selectedModel || 'sonnet') === k;
-              return <button key={k} onClick={() => chrome.set({ selectedModel: k })} className={`px-3 py-1 rounded-full border text-[0.75rem] transition-colors ${on ? 'border-amber-400/70 bg-amber-900/30 text-amber-100' : 'border-zinc-700/60 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`} aria-pressed={on}>{label}</button>;
+              return <button key={k} type="button" onClick={() => chrome.set({ selectedModel: k })} style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }} className={`px-3.5 py-1.5 rounded-full border text-[0.8125rem] transition-colors ${on ? 'border-amber-300 bg-amber-500/90 text-zinc-950 font-semibold' : 'border-zinc-600/70 bg-zinc-900/70 text-zinc-300 hover:text-zinc-100 hover:border-zinc-400'}`} aria-pressed={on}>{on ? '✓ ' : ''}{label}</button>;
             })}
+            <span className="basis-full text-center text-[0.6875rem] text-zinc-500 mt-1">{(READER_CHOICES.find(([k]) => k === (chrome.prefs.selectedModel || 'sonnet')) || READER_CHOICES[0])[1]} answers from your next question</span>
           </div>
         )}
         <div className="mt-6" />
@@ -2259,7 +2260,7 @@ ${DRAGON_STANDARD}`, 600);
                 helper or something"). The landing plays through; the reply waits for it. */}
             {animating && (
               <div data-ez-map="" className="fixed left-0 right-0 bottom-0 z-[90] select-none"
-                style={{ top: overlayTop, background: 'rgba(9, 9, 11, 0.1)', opacity: overlayIn ? 1 : 0, transition: overlayIn ? 'opacity 900ms ease' : 'opacity 450ms ease' }}>
+                style={{ top: overlayTop, background: 'rgba(9, 9, 11, 0.1)', opacity: overlayIn ? 1 : 0, pointerEvents: overlayIn ? 'auto' : 'none', transition: overlayIn ? 'opacity 900ms ease' : 'opacity 450ms ease' }}>
               {/* THE VIDEO BREATHES THROUGH (founder, 2026-09-16): the overlay is 10% black, barely
                   there, so the video plays under the map almost at full strength,
                   and the quicker fade-out brings the world back when the cards land. */}
