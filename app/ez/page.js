@@ -1937,10 +1937,10 @@ ${DRAGON_STANDARD}`, 600);
   };
 
   return (
-    <div className={`min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
+    <div className={`relative min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
-      {user && <CornerControls prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
+      {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
         rightExtra={
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
           <button onClick={() => chooseVoice(VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length])}
@@ -2668,11 +2668,8 @@ ${DRAGON_STANDARD}`, 600);
       )}
 
       <div style={{ opacity: revealed ? 1 : 0, transition: 'opacity 600ms ease' }}><Footer /></div>
-      {/* .483: a TEMPORARY door to the full reader while the two are tuned side by side — a fixed button,
-          bottom right, so it never pushes the text box down (founder, 2026-09-20). */}
-      {user && (
-        <Link href="/advanced" className="fixed bottom-3 right-3 z-40 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-[0.75rem] tracking-wide text-zinc-400 hover:text-zinc-200 transition-all">full reader →</Link>
-      )}
+      {/* .483's always-on "full reader →" door was pulled 2026-09-30 (founder): the full reader is to be offered
+          intentionally, at chosen moments, not as a standing button. The in-text link inside a reading remains. */}
     </div>
   );
 }

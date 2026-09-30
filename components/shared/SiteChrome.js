@@ -100,7 +100,7 @@ const LIBRARY_LINKS = [
   { href: '/guide', label: 'Guide', note: 'how to read with it' },
   { href: '/council', label: 'Council', note: 'four architectures, one recognition' },
 ];
-export function LibraryMenu() {
+export function LibraryMenu({ side = 'left' }) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -112,7 +112,7 @@ export function LibraryMenu() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="fixed top-3 left-14 z-50 w-56 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm p-1.5" onClick={(e) => e.stopPropagation()}>
+          <div className={`fixed top-3 ${side === 'right' ? 'right-14' : 'left-14'} z-50 w-56 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm p-1.5`} onClick={(e) => e.stopPropagation()}>
             {LIBRARY_LINKS.map((l) => (
               <a key={l.href} href={l.href} className="flex items-baseline gap-2 px-3 py-2 rounded-lg hover:bg-zinc-800 transition-colors">
                 <span className="text-sm text-zinc-200">{l.label}</span>
@@ -128,8 +128,14 @@ export function LibraryMenu() {
 
 // The four corner controls: background panel + feedback mail on the left, account + text size on
 // the right. Shown only to a signed-in person, as on the main page.
-export function CornerControls({ prefs, set, onAuthChange, rightExtra = null }) {
+// `collapsed` (2026-09-30, founder): the six fold behind ONE handle, docked in the header's right-hand corner lane
+// (absolute, so it scrolls away with the header and never floats over the reading). Tap the handle and the six
+// roll out beneath it in three labeled pairs — you / the look / the site — each a beat after the last; tap it
+// again, tap anywhere else, or scroll, and they roll back. Closed on every load: the controls are offered, not
+// standing. The same component, the same six; a page that does not pass `collapsed` keeps the two corner stacks.
+export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, collapsed = false }) {
   const [open, setOpen] = useState(false);
+  const [fly, setFly] = useState(false);     // collapsed mode: the six are out
   const list = prefs.backgroundType === 'video' ? VIDEO_BACKGROUNDS : IMAGE_BACKGROUNDS;
   const idx = prefs.backgroundType === 'video' ? prefs.selectedVideo : prefs.selectedImage;
   const current = list[idx] || list[0];
@@ -137,27 +143,80 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null }) 
     const n = (idx + d + list.length) % list.length;
     set(prefs.backgroundType === 'video' ? { selectedVideo: n } : { selectedImage: n });
   };
-  return (
+  // scrolling closes the flyout, so the reading always wins (a popover a control opened stays: it is not the flyout)
+  useEffect(() => {
+    if (!fly) return;
+    let y0 = window.scrollY;
+    const onScroll = () => { if (Math.abs(window.scrollY - y0) > 24) setFly(false); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [fly]);
+  const bgBtn = (
+    <button onClick={() => setOpen(!open)} className={ICON_BTN} title={open ? 'Hide background controls' : 'Show background controls'}>
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    </button>
+  );
+  const mailBtn = <a href="mailto:chriscrilly@gmail.com?subject=Nirmanakaya Feedback" className={`${ICON_BTN} hover:text-amber-400`} title="Send feedback">✉</a>;
+  const authBtn = (
+    <AuthButton onAuthChange={onAuthChange}
+      buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
+  );
+  const corners = collapsed ? (
+    <>
+      {fly && <div className="fixed inset-0 z-40" onClick={() => setFly(false)} />}
+      <div className="absolute top-3 right-3 z-50 flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => setFly((f) => !f)} className={`${ICON_BTN} ${fly ? 'text-amber-300 border-amber-500/40' : ''}`} title={fly ? 'Put the controls away' : 'Controls'} aria-label="Controls" aria-expanded={fly}>
+          <svg className={`w-4 h-4 transition-transform duration-200 motion-reduce:transition-none ${fly ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h10M4 18h6" />
+          </svg>
+        </button>
+        {/* the six, in three pairs; each item lands a beat after the one before it (40 ms), and leaves in the same order reversed */}
+        {[
+          { cap: 'you', items: [authBtn, rightExtra].filter(Boolean) },
+          { cap: 'the look', items: [<TextSizeSlider key="t" />, bgBtn] },
+          { cap: 'the site', items: [mailBtn, <LibraryMenu key="l" side="right" />] },
+        ].map((g, gi, arr) => {
+          const before = arr.slice(0, gi).reduce((n, x) => n + x.items.length, 0);
+          return (
+            <div key={g.cap} className="flex items-center gap-1" style={{ pointerEvents: fly ? 'auto' : 'none' }}>
+              <span className="text-[0.625rem] tracking-[0.15em] uppercase text-zinc-500 transition-opacity duration-150 motion-reduce:transition-none" style={{ opacity: fly ? 1 : 0, transitionDelay: fly ? `${(before + g.items.length) * 40}ms` : '0ms' }}>{g.cap}</span>
+              {g.items.map((it, i) => {
+                const n = before + i; const total = 6;
+                return (
+                  <div key={i} className="transition-all duration-150 ease-out motion-reduce:transition-none" aria-hidden={!fly}
+                    style={{ opacity: fly ? 1 : 0, transform: fly ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.9)', transitionDelay: `${(fly ? n : total - 1 - n) * 40}ms` }}>
+                    {it}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </>
+  ) : (
     <>
       <div className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
-        <AuthButton onAuthChange={onAuthChange}
-          buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
+        {authBtn}
         <TextSizeSlider />
         {rightExtra}
       </div>
       <div className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
-        <button onClick={() => setOpen(!open)} className={ICON_BTN} title={open ? 'Hide background controls' : 'Show background controls'}>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        </button>
-        <a href="mailto:chriscrilly@gmail.com?subject=Nirmanakaya Feedback" className={`${ICON_BTN} hover:text-amber-400`} title="Send feedback">✉</a>
+        {bgBtn}
+        {mailBtn}
         <LibraryMenu />
       </div>
+    </>
+  );
+  return (
+    <>
+      {corners}
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="fixed top-14 left-3 z-50 w-72 max-w-[calc(100vw-1.5rem)] bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
+          <div className={`fixed top-14 ${collapsed ? 'right-3' : 'left-3'} z-50 w-72 max-w-[calc(100vw-1.5rem)] bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm`} onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-zinc-800/50 flex items-center justify-between">
               <h3 className="text-sm font-medium text-zinc-200">Background</h3>
               <button onClick={() => setOpen(false)} className="text-zinc-500 hover:text-zinc-300">
