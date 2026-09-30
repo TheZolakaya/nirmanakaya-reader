@@ -171,8 +171,9 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, co
   const corners = collapsed ? (
     <>
       {fly && <div className="fixed inset-0 z-40" onClick={() => setFly(false)} />}
-      <div style={SAFE_CORNER_R} className="absolute top-3 right-3 z-50 flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
-        <button onClick={() => setFly((f) => !f)} className={`${ICON_BTN} ${fly ? 'text-amber-300 border-amber-500/40' : ''}`} title={fly ? 'Put the controls away' : 'Controls'} aria-label="Controls" aria-expanded={fly}>
+      {/* the box itself ignores taps unless the flyout is open (2026-09-30: closed, its invisible extent sat over the Reader control on a phone and swallowed every tap); only the handle is always live */}
+      <div style={{ ...SAFE_CORNER_R, pointerEvents: fly ? 'auto' : 'none' }} className="absolute top-3 right-3 z-50 flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => setFly((f) => !f)} style={{ pointerEvents: 'auto' }} className={`${ICON_BTN} ${fly ? 'text-amber-300 border-amber-500/40' : ''}`} title={fly ? 'Put the controls away' : 'Controls'} aria-label="Controls" aria-expanded={fly}>
           <svg className={`w-4 h-4 transition-transform duration-200 motion-reduce:transition-none ${fly ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h10M4 18h6" />
           </svg>
