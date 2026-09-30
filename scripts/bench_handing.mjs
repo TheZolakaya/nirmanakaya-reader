@@ -1,16 +1,22 @@
 // THE HANDING BENCH — run the bake-off from the command line (the HTTP route is admin-gated on the founder's
 // session; this uses the same library directly, with the keys from .env.local). Nothing here touches the Reader.
 //
-//   node --env-file=.env.local --import tsx scripts/bench_handing.mjs save   <id> <name> <file.json>   # store a variant: {"BASE_SYSTEM": "...", "EZ_RULES": "..."} (a set) or {"target":"EZ_RULES","text":"..."}
-//   node --env-file=.env.local --import tsx scripts/bench_handing.mjs run    <variantId> [n=6] [hostile]  # create + run a prompt-lane batch: LIVE vs the variant, on Sonnet
-//   node --env-file=.env.local --import tsx scripts/bench_handing.mjs tally  <batchId>                  # lint flags per lane, per section
-//   node --env-file=.env.local --import tsx scripts/bench_handing.mjs shelf  <batchId>                  # the blind markdown to G:\My Drive\For Air Review (for the council's judging)
+//   npx tsx scripts/bench_handing.mjs save   <id> <name> <file.json>   # store a variant: {"BASE_SYSTEM": "...", "EZ_RULES": "..."} (a set) or {"target":"EZ_RULES","text":"..."}
+//   npx tsx scripts/bench_handing.mjs run    <variantId> [n=6] [hostile]  # create + run a prompt-lane batch: LIVE vs the variant, on Sonnet
+//   npx tsx scripts/bench_handing.mjs tally  <batchId>                  # lint flags per lane, per section
+//   npx tsx scripts/bench_handing.mjs shelf  <batchId>                  # the blind markdown to G:\My Drive\For Air Review (for the council's judging)
+// The keys come from .env.local, read here (values never printed).
 import fs from 'node:fs';
+for (const line of (fs.existsSync('.env.local') ? fs.readFileSync('.env.local', 'utf8').split(/?
+/) : [])) {
+  const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/); if (!m || line.trim().startsWith('#')) continue;
+  const v = m[2].replace(/^["']|["']$/g, ''); if (process.env[m[1]] === undefined) process.env[m[1]] = v;
+}
 import { createBatch, runBatch, readBatch, exportMarkdown, sectionsOf } from '../lib/bakeoff/batch.js';
 import { saveVariant, readVariants, writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
 
 const [cmd, ...a] = process.argv.slice(2);
-const need = (k) => { if (!process.env[k]) { console.error(`missing ${k} — run with --env-file=.env.local`); process.exit(2); } };
+const need = (k) => { if (!process.env[k]) { console.error(`missing ${k} in .env.local`); process.exit(2); } };
 
 if (cmd === 'save') {
   const [id, name, file] = a; const j = JSON.parse(fs.readFileSync(file, 'utf8'));
