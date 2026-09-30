@@ -2,7 +2,7 @@
 // session; this uses the same library directly, with the keys from .env.local). Nothing here touches the Reader.
 //
 //   npx tsx scripts/bench_handing.mjs save   <id> <name> <file.json>   # store a variant: {"BASE_SYSTEM": "...", "EZ_RULES": "..."} (a set) or {"target":"EZ_RULES","text":"..."}
-//   npx tsx scripts/bench_handing.mjs run    <variantId> [n=6] [hostile]  # create + run a prompt-lane batch: LIVE vs the variant, on Sonnet
+//   npx tsx scripts/bench_handing.mjs run    <variantId> [n=6] [hostile|ordinary] [model=or-v4.1-flash]  # LIVE vs the variant, on PRODUCTION'S FIRST LANE by default (OpenRouter · DeepSeek v4.1-flash); 'sonnet' = the last-rung fallback
 //   npx tsx scripts/bench_handing.mjs tally  <batchId>                  # lint flags per lane, per section
 //   npx tsx scripts/bench_handing.mjs shelf  <batchId>                  # the blind markdown to G:\My Drive\For Air Review (for the council's judging)
 // The keys come from .env.local, read here (values never printed).
@@ -25,10 +25,10 @@ if (cmd === 'save') {
   console.log('saved variant', row.id, Object.keys(row.over || { [row.target]: 1 }).join('+'));
 } else if (cmd === 'run') {
   need('ANTHROPIC_API_KEY');
-  const [variantId, nRaw = '6', hostileRaw = ''] = a; const n = Number(nRaw) || 6; const hostile = hostileRaw === 'hostile';
+  const [variantId, nRaw = '6', hostileRaw = '', model = 'or-v4.1-flash'] = a; const n = Number(nRaw) || 6; const hostile = hostileRaw === 'hostile';
   if (!readVariants().some((v) => v.id === variantId)) { console.error('no such variant', variantId); process.exit(2); }
-  const b = createBatch({ n, lane: 'prompt', model: 'sonnet', variants: [variantId], author: 'True', hostile });
-  console.log(`batch ${b.id} code ${b.code}: ${b.runs.length} runs × ${sectionsOf(b).length} sections × ${b.lanes.length} lanes — running…`);
+  const b = createBatch({ n, lane: 'prompt', model, variants: [variantId], author: 'True', hostile });
+  console.log(`batch ${b.id} code ${b.code}: ${b.runs.length} runs × ${sectionsOf(b).length} sections × ${b.lanes.length} lanes on ${b.lanes[0].label.split(' · ').pop()} — running…`);
   const t0 = Date.now();
   await runBatch(b.id);
   const done = readBatch(b.id);
