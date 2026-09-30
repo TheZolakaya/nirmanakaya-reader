@@ -1963,13 +1963,13 @@ ${DRAGON_STANDARD}`, 600);
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
         {/* 2026-09-30 (founder, friends-and-family): which Reader answers — Standard, or one of the two Opus models, to compare. Persists with the person's prefs. */}
         {user && (
-          <div className="mt-3 flex items-center justify-center gap-1.5 flex-wrap" aria-label="Which Reader answers">
-            <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-zinc-500 mr-1">Reader</span>
-            {READER_CHOICES.map(([k, label]) => {
-              const on = (chrome.prefs.selectedModel || 'sonnet') === k;
-              return <button key={k} type="button" onClick={() => chrome.set({ selectedModel: k })} style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }} className={`px-3.5 py-1.5 rounded-full border text-[0.8125rem] transition-colors ${on ? 'border-amber-300 bg-amber-500/90 text-zinc-950 font-semibold' : 'border-zinc-600/70 bg-zinc-900/70 text-zinc-300 hover:text-zinc-100 hover:border-zinc-400'}`} aria-pressed={on}>{on ? '✓ ' : ''}{label}</button>;
-            })}
-            <span className="basis-full text-center text-[0.6875rem] text-zinc-500 mt-1">{(READER_CHOICES.find(([k]) => k === (chrome.prefs.selectedModel || 'sonnet')) || READER_CHOICES[0])[1]} answers from your next question</span>
+          <div className="mt-3 flex items-center justify-center gap-2" aria-label="Which Reader answers">
+            <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-zinc-500">Reader</span>
+            {/* a native select everywhere (2026-09-30): on the founder's phone the pill row wrapped and one pill would not take a tap; a dropdown cannot be covered or wrapped */}
+            <select value={chrome.prefs.selectedModel || 'sonnet'} onChange={(e) => chrome.set({ selectedModel: e.target.value })}
+              className="rounded-lg border border-amber-400/60 bg-zinc-900/80 text-amber-100 text-[0.875rem] px-3 py-1.5 focus:outline-none focus:border-amber-300" style={{ minWidth: 150 }}>
+              {READER_CHOICES.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
+            </select>
           </div>
         )}
         <div className="mt-6" />
