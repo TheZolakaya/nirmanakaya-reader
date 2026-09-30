@@ -1950,7 +1950,7 @@ ${DRAGON_STANDARD}`, 600);
           </button>
         } />}
       {voiceToast && VOICE_NOTES[voiceToast] && (
-        <div className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
+        <div style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
           <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
           <div className="text-[0.75rem] leading-snug text-zinc-400 mt-0.5">{VOICE_NOTES[voiceToast][1]}</div>
           <div className="text-[0.625rem] text-zinc-600 mt-1">takes effect on the next reply</div>

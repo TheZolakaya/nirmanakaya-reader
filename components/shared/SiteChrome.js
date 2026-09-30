@@ -90,6 +90,10 @@ export function Backdrop({ prefs }) {
   );
 }
 
+// the phone's status bar (the layout is viewport-fit=cover): every corner placement is pushed down and in by the safe area
+const SAFE_TOP = { marginTop: 'var(--safe-top, 0px)' };
+const SAFE_CORNER_R = { marginTop: 'var(--safe-top, 0px)', marginRight: 'env(safe-area-inset-right, 0px)' };
+const SAFE_CORNER_L = { marginTop: 'var(--safe-top, 0px)', marginLeft: 'env(safe-area-inset-left, 0px)' };
 const ICON_BTN = 'w-8 h-8 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm text-zinc-400 hover:text-zinc-200 text-xs font-medium flex items-center justify-center transition-all';
 
 // THE LIBRARY (.483): one book icon in the corner stack, opening the four written doors. Shared by
@@ -99,6 +103,7 @@ const LIBRARY_LINKS = [
   { href: '/wiki', label: 'Wiki', note: 'the map, entry by entry' },
   { href: '/guide', label: 'Guide', note: 'how to read with it' },
   { href: '/council', label: 'Council', note: 'four architectures, one recognition' },
+  { href: '/phone', label: 'Share the app', note: 'hand it to someone' },   // 2026-09-30: off the rail, into the library
 ];
 export function LibraryMenu({ side = 'left' }) {
   const [open, setOpen] = useState(false);
@@ -112,7 +117,7 @@ export function LibraryMenu({ side = 'left' }) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className={`fixed top-3 ${side === 'right' ? 'right-14' : 'left-14'} z-50 w-56 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm p-1.5`} onClick={(e) => e.stopPropagation()}>
+          <div style={SAFE_TOP} className={`fixed top-3 ${side === 'right' ? 'right-14' : 'left-14'} z-50 w-56 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm p-1.5`} onClick={(e) => e.stopPropagation()}>
             {LIBRARY_LINKS.map((l) => (
               <a key={l.href} href={l.href} className="flex items-baseline gap-2 px-3 py-2 rounded-lg hover:bg-zinc-800 transition-colors">
                 <span className="text-sm text-zinc-200">{l.label}</span>
@@ -166,7 +171,7 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, co
   const corners = collapsed ? (
     <>
       {fly && <div className="fixed inset-0 z-40" onClick={() => setFly(false)} />}
-      <div className="absolute top-3 right-3 z-50 flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
+      <div style={SAFE_CORNER_R} className="absolute top-3 right-3 z-50 flex flex-col items-end gap-1" onClick={(e) => e.stopPropagation()}>
         <button onClick={() => setFly((f) => !f)} className={`${ICON_BTN} ${fly ? 'text-amber-300 border-amber-500/40' : ''}`} title={fly ? 'Put the controls away' : 'Controls'} aria-label="Controls" aria-expanded={fly}>
           <svg className={`w-4 h-4 transition-transform duration-200 motion-reduce:transition-none ${fly ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h10M4 18h6" />
@@ -198,12 +203,12 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, co
     </>
   ) : (
     <>
-      <div className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
+      <div style={SAFE_CORNER_R} className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
         {authBtn}
         <TextSizeSlider />
         {rightExtra}
       </div>
-      <div className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
+      <div style={SAFE_CORNER_L} className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
         {bgBtn}
         {mailBtn}
         <LibraryMenu />
@@ -216,7 +221,7 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, co
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className={`fixed top-14 ${collapsed ? 'right-3' : 'left-3'} z-50 w-72 max-w-[calc(100vw-1.5rem)] bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm`} onClick={(e) => e.stopPropagation()}>
+          <div style={SAFE_TOP} className={`fixed top-14 ${collapsed ? 'right-3' : 'left-3'} z-50 w-72 max-w-[calc(100vw-1.5rem)] bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm`} onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-zinc-800/50 flex items-center justify-between">
               <h3 className="text-sm font-medium text-zinc-200">Background</h3>
               <button onClick={() => setOpen(false)} className="text-zinc-500 hover:text-zinc-300">

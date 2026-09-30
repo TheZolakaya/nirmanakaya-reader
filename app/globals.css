@@ -797,3 +797,9 @@ textarea.user-input-area::placeholder {
 }
 .nudge-shake { animation: nudge-shake 0.55s ease-in-out 1; }
 @media (prefers-reduced-motion: reduce) { .nudge-shake { animation: none; } }
+
+/* THE PHONE'S STATUS BAR (2026-09-30): the layout is viewport-fit=cover, so the page runs under the clock and
+   battery. Everything pinned to the top edge adds --safe-top. In the installed app in landscape the bar is
+   drawn over the page while iOS reports no top inset, so a floor is set there (a guess to verify on the phone). */
+:root { --safe-top: env(safe-area-inset-top, 0px); }
+@media (display-mode: standalone) and (orientation: landscape) { :root { --safe-top: max(env(safe-area-inset-top, 0px), 28px); } }

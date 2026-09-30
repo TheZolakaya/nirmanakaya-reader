@@ -5943,12 +5943,12 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
         {currentUser && (
           <>
             {/* Right column - top right */}
-            <div className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
+            <div style={{ marginTop: 'var(--safe-top, 0px)', marginRight: 'env(safe-area-inset-right, 0px)' }} className="fixed top-3 right-3 z-50 flex flex-col items-center gap-1" onClick={(e) => e.stopPropagation()}>
               <AuthButton onAuthChange={setCurrentUser} buttonClassName="w-8 h-8 flex items-center justify-center text-purple-400 hover:text-purple-300 transition-colors rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/50 backdrop-blur-sm" />
               <TextSizeSlider />
             </div>
             {/* Background controls toggle button - top left */}
-            <div className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
+            <div style={{ marginTop: 'var(--safe-top, 0px)', marginLeft: 'env(safe-area-inset-left, 0px)' }} className="fixed top-3 left-3 z-50 flex flex-col items-center gap-1">
               <button
                 data-help="bg-toggle"
                 onClick={(e) => { if (!handleHelpClick('bg-toggle', e)) setShowBgControls(!showBgControls); }}
@@ -6002,7 +6002,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div
                 data-help="bg-controls"
                 onClick={(e) => { e.stopPropagation(); handleHelpClick('bg-controls', e); }}
-                className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
+                style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-14 left-3 z-50 w-72 bg-zinc-900/95 border border-zinc-700/50 rounded-xl shadow-2xl backdrop-blur-sm"
               >
                 <div className="p-4 border-b border-zinc-800/50">
                   <div className="flex items-center justify-between">

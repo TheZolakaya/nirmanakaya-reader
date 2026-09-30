@@ -3,7 +3,9 @@
 /**
  * Header - The HUD (Heads-Up Display)
  *
- * Ghost links, terminal style, monospace typography.
+ * Ghost links, terminal style, monospace typography. Five doors (2026-09-30, founder: "what really needs
+ * to belong there"): home, Community, Journey, Map, Explore — plus "On your phone" until the app is installed.
+ * Book, Wiki, Guide, Council and Share the app live in the library menu (the corner controls).
  * Community indicator only pulses when there's activity (users online or unread messages).
  * Council link has tooltip for "Synthetic Witness" reveal.
  */
@@ -17,14 +19,10 @@ export default function Header({ hasActivity = false }) {
 
   // Check if we're in the community section (includes /hub and /lounge)
   const isCommunityActive = pathname?.startsWith('/hub') || pathname?.startsWith('/lounge');
-  const isGuideActive = pathname?.startsWith('/guide');
-  const isCouncilActive = pathname?.startsWith('/council');
   const isMapActive = pathname?.startsWith('/22-reader');
   const isExploreActive = pathname?.startsWith('/explore');
   const isJourneyActive = pathname?.startsWith('/stats') || pathname?.startsWith('/collection') || pathname?.startsWith('/journal');
 
-  const isBookActive = pathname?.startsWith('/book');
-  const isWikiActive = pathname?.startsWith('/wiki');
   const isHome = pathname === '/';
   const isPhoneActive = pathname?.startsWith('/phone');
   // "Put this on your phone" hides once the site IS on the phone (running from the home screen)
@@ -36,7 +34,7 @@ export default function Header({ hasActivity = false }) {
   return (
     // px reserves the corner lanes on mobile so the wrapping nav pill can't slide
     // under the floating icon buttons (blur-over-icons bug, founder 2026-08-18)
-    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-14 md:px-4">
+    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-14 md:px-4" style={{ paddingTop: 'calc(0.5rem + var(--safe-top, 0px))' }}>
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
         {/* HOME - Nirmanakaya wordmark */}
@@ -49,16 +47,16 @@ export default function Header({ hasActivity = false }) {
           Nirmanakaya
         </Link>
 
-        {/* ON YOUR PHONE — the web-app install page (founder, 2026-09-17). It stays visible once
-            installed, because that page is also how a person hands the app to someone else. */}
-        {(
+        {/* ON YOUR PHONE — the web-app install page (founder, 2026-09-17). Once installed the same page
+            becomes "Share the app" and moves into the library menu (rail trimmed 2026-09-30). */}
+        {!installed && (
           <Link
             href="/phone"
             className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
               isPhoneActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
             }`}
           >
-            {installed ? 'Share the app' : 'On your phone'}
+            On your phone
           </Link>
         )}
 
@@ -78,26 +76,6 @@ export default function Header({ hasActivity = false }) {
           </div>
         </Link>
 
-        {/* BOOK */}
-        <Link
-          href="/book"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
-            isBookActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
-          }`}
-        >
-          Book
-        </Link>
-
-        {/* WIKI — static site served from public/wiki/, plain anchor */}
-        <a
-          href="/wiki"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
-            isWikiActive ? 'text-fuchsia-300' : 'text-zinc-500 hover:text-fuchsia-300'
-          }`}
-        >
-          Wiki
-        </a>
-
         {/* JOURNEY (Stats / Collection) */}
         <Link
           href="/stats"
@@ -106,27 +84,6 @@ export default function Header({ hasActivity = false }) {
           }`}
         >
           Journey
-        </Link>
-
-        {/* GUIDE */}
-        <Link
-          href="/guide"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
-            isGuideActive ? 'text-white' : 'text-zinc-500 hover:text-white'
-          }`}
-        >
-          Guide
-        </Link>
-
-        {/* 3. COUNCIL (The Hall of Records) */}
-        <Link
-          href="/council"
-          title="Synthetic Witness: Four architectures, one recognition."
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
-            isCouncilActive ? 'text-amber-200' : 'text-zinc-500 hover:text-amber-200'
-          }`}
-        >
-          Council
         </Link>
 
         {/* 4. MAP (The Coordinates) */}
