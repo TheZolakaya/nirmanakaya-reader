@@ -899,6 +899,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   // Gate: signed in AND (admin OR ez_enabled flag). Then load the history block.
   // Runs on mount and again the moment someone signs in, so the door opens in place.
   const checkGate = useCallback(async () => {
+      // development only: /ez?bench=1&devuser=1 renders the signed-in page as a bench user (no account, no API — the bench answers)
+      if (process.env.NODE_ENV !== 'production') { try { if (new URLSearchParams(window.location.search).get('devuser') === '1') { setUser({ id: 'dev-bench', email: 'bench@localhost' }); setAllowed(true); return; } } catch {} }
       try {
         const { user: u } = await getUser();
         setUser(u || null);
@@ -1940,7 +1942,7 @@ ${DRAGON_STANDARD}`, 600);
     <div className={`relative min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
-      {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u) setUser(null); }}
+      {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u && user?.id !== 'dev-bench') setUser(null); }}
         rightExtra={
           // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
           <button onClick={() => chooseVoice(VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length])}
