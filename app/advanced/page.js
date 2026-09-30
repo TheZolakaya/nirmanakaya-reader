@@ -1444,9 +1444,7 @@ export default function NirmanakaReader() {
   // user who didn't touch the selector ran Sonnet regardless of the admin console.
   useEffect(() => {
     if (!authChecked) return; // need to know admin status before choosing which default applies
-    const available = userIsAdmin
-      ? (featureConfig.modelsForAdmins || ['sonnet'])
-      : (featureConfig.modelsForUsers || ['sonnet']);
+    const available = getAvailableModels(); // 2026-09-30: the SAME list the selector offers (the clamp had kept the admin list alone, so a saved Opus choice was clamped back on load)
     if (!modelTouchedRef.current && !modelDefaultAppliedRef.current) {
       const def = userIsAdmin ? featureConfig.defaultModelAdmin : featureConfig.defaultModelUser;
       if (def && available.includes(def)) {
