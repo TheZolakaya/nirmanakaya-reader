@@ -27,17 +27,22 @@ import { STATUS_NAMES, SCHEMA_VERSION, PROMPT_VERSION } from '../lib/pour/schema
 import { HOSTILE } from '../lib/bakeoff/presets.js';
 import { writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
 
-const AUTHOR = process.env.POUR_AUTHOR || 'claude-opus-5-5';   // 2026-10-01, founder: no more testing on Fable — the wave-one run cost far more than the assumed price
+const AUTHOR = process.env.POUR_AUTHOR || 'or-v4.1-flash';   // an Anthropic id (claude-opus-5-5…) or a BENCH_MODELS key (or-v4.1-flash → OpenRouter)
+const SET = process.env.POUR_SET || 'c';   // which wave/prompt this run belongs to: cells land in data/pour/cells_<SET>_<author>, the shelf export is SET <C>
+import { BENCH_MODELS, OPENROUTER_PRICING, callModel } from '../lib/bakeoff/providers.js';
+const BENCH = BENCH_MODELS[AUTHOR] || null;
+const MAX_ATTEMPTS = Number(process.env.POUR_MAX_ATTEMPTS || 5);   // founder 2026-10-01: re-roll until no hard flags, max five; a call that fails five times is logged UNRESOLVED with its flag history   // 2026-10-01, founder: no more testing on Fable — the wave-one run cost far more than the assumed price
 // THE SPEND GUARD (founder, 2026-10-01: "that was like over a hundred dollar mistake"). The runner refuses to author on a model
 // whose price is not on the house's table (lib/modelConfig.js MODEL_PRICING) unless --price=in,out is given explicitly; before any
 // run it prints the worst-case cost for the calls it is about to make and stops unless --spend-ok is passed.
 import { MODEL_PRICING } from '../lib/modelConfig.js';
 const priceArg = process.argv.find((x) => x.startsWith('--price='));
 const PRICE = priceArg ? (([i, o]) => ({ input: Number(i), output: Number(o), source: 'given on the command line' }))(priceArg.slice(8).split(','))
-  : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : /fable/.test(AUTHOR) ? { ...MODEL_PRICING.fable, source: 'the house table (fable — $10/$50, the final-library author only)' } : null);
-const PER_CALL_WORST = { input: 2 * 10500, output: 2 * 2600 };   // two attempts, the package plus a re-roll, at the measured wave-one sizes
+  : BENCH ? { ...(OPENROUTER_PRICING[BENCH.priceKey] || { input: NaN, output: NaN }), source: `OpenRouter's list (${BENCH.priceKey})` } : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : /fable/.test(AUTHOR) ? { ...MODEL_PRICING.fable, source: 'the house table (fable — $10/$50, the final-library author only)' } : null);
+const PER_CALL_WORST = { input: MAX_ATTEMPTS * 11500, output: MAX_ATTEMPTS * 2600 };   // every attempt, at the measured wave-one sizes (a re-roll carries the earlier answer)
 const PRICE_ASSUMED = PRICE || { input: NaN, output: NaN, source: 'UNKNOWN' };
-const CELLS_DIR = 'data/pour/cells', WAVE = 'data/pour/waves/wave-one.json';
+const AUTHOR_KEY = AUTHOR.replace(/[^a-z0-9.]+/gi, '-');
+const CELLS_DIR = SET === 'a' ? 'data/pour/cells' : `data/pour/cells_${SET}_${AUTHOR_KEY}`, WAVE = SET === 'a' ? 'data/pour/waves/wave-one.json' : `data/pour/waves/wave-one-${SET}-${AUTHOR_KEY}.json`, FAILED_DIR = `data/pour/failed_${SET}_${AUTHOR_KEY}`;
 const HELD_ARCHETYPES = new Set([0, 1, 6, 8, 10, 15, 17, 19, 20, 21]);
 const HELD_AGENTS = new Set([62, 67, 72, 77]);   // Inspiration(17) · Abstraction(15) · Compassion(6) · Fortitude(8) in a role
 const SWEEP_SIGNATURE = 53;   // Stewardship — the founder's own card of 2026-09-29, a Bound, untouched by the sweep: coherence on the one
@@ -113,10 +118,17 @@ async function author(call, { force = false } = {}) {
   const messages = [{ role: 'user', content: pkg.message }];
   const usage = { input: 0, output: 0 }; const attempts = [];
   let cells = null, flagsAll = [];
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     const t0 = Date.now();
-    const r = await callProvider({ model: AUTHOR, max_tokens: pkg.maxTokens + 400, ...thinkingFor(AUTHOR), system: pkg.system, messages }, { tag: 'pour', only: ['anthropic'] });
-    const text = (r.data?.content || []).map((c) => c.text || '').join('');
+    let r, text;
+    if (BENCH) {   // the bench caller takes one message: a re-roll carries the earlier answer and the fix inline
+      const flat = messages.length === 1 ? messages[0].content : messages.map((m) => (m.role === 'assistant' ? 'YOUR PREVIOUS ANSWER:' + String.fromCharCode(10) : '') + m.content).join(String.fromCharCode(10, 10));
+      const r0 = await callModel({ modelKey: AUTHOR, system: pkg.system, message: flat, maxTokens: pkg.maxTokens + 400 });
+      r = { ok: !r0.error, data: { error: r0.error ? { message: r0.error } : null, usage: r0.usage } }; text = r0.text || '';
+    } else {
+      r = await callProvider({ model: AUTHOR, max_tokens: pkg.maxTokens + 400, ...thinkingFor(AUTHOR), system: pkg.system, messages }, { tag: 'pour', only: ['anthropic'] });
+      text = (r.data?.content || []).map((c) => c.text || '').join('');
+    }
     usage.input += r.data?.usage?.input_tokens || 0; usage.output += r.data?.usage?.output_tokens || 0;
     const { cells: got, repaired } = parseCells(text);
     const rec = { attempt, ms: Date.now() - t0, ok: r.ok, repaired, error: r.data?.error?.message || null, flags: [] };
@@ -126,10 +138,10 @@ async function author(call, { force = false } = {}) {
     rec.flags = [...linted.flatMap((c) => c.lint.map((f) => ({ ...f, status: c.status }))), ...q.flags];
     attempts.push(rec); cells = linted; flagsAll = rec.flags;
     const hard = rec.flags.filter((f) => f.hard);
-    if (!hard.length || attempt === 2) break;
+    if (!hard.length || attempt === MAX_ATTEMPTS) break;
     messages.push({ role: 'assistant', content: text }, { role: 'user', content: `A machine checked the cells before they entered the library and refused these:\n${hard.map((f) => `- status ${f.status ?? '(quartet)'}: ${f.code} — ${f.detail}`).join('\n')}\nRewrite all four cells with these fixed, in the same JSON shape, nothing outside it.` });
   }
-  if (!cells) { fs.mkdirSync('data/pour/failed', { recursive: true }); fs.writeFileSync(path.join('data/pour/failed', path.basename(out)), JSON.stringify({ call, attempts, usage, date: new Date().toISOString() }, null, 2)); return { failed: true, attempts, usage }; }
+  if (!cells) { fs.mkdirSync(FAILED_DIR, { recursive: true }); fs.writeFileSync(path.join(FAILED_DIR, path.basename(out)), JSON.stringify({ call, attempts, usage, date: new Date().toISOString() }, null, 2)); return { failed: true, attempts, usage }; }
   fs.mkdirSync(CELLS_DIR, { recursive: true });
   const row = { schema: SCHEMA_VERSION, prompt: PROMPT_VERSION, author: AUTHOR, wave: 'one', group: call.group, signature_id: call.sig, position_id: call.pos, signature: call.card, seat: call.seat, house: call.house, cells, attempts, usage, hardOpen: flagsAll.filter((f) => f.hard).length, date: new Date().toISOString() };
   fs.writeFileSync(out, JSON.stringify(row, null, 2));
@@ -145,17 +157,18 @@ function tally() {
   console.log(`stored calls ${rows.length} · cells ${cells} · re-rolled ${rerolled} · hard flags still open ${hardOpen}`);
   console.log(`tokens in ${usage.input} out ${usage.output} · cost $${cost.toFixed(2)} at $${PRICE_ASSUMED.input}/$${PRICE_ASSUMED.output} per M (${PRICE_ASSUMED.source}) — the stored cells were authored on ${[...new Set(rows.map((r) => r.author))].join(', ')}; the console's ledger is the truth`);
   console.log('lint flags (! hard, ~ soft):', Object.entries(codes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join('  ') || 'none');
-  const failed = fs.existsSync('data/pour/failed') ? fs.readdirSync('data/pour/failed').length : 0; if (failed) console.log(`failed calls ${failed} (data/pour/failed)`);
+  const failed = fs.existsSync(FAILED_DIR) ? fs.readdirSync(FAILED_DIR).length : 0; if (failed) console.log(`failed calls ${failed} (${FAILED_DIR})`);
+  const unresolved = rows.filter((r) => r.hardOpen > 0); if (unresolved.length) console.log(`UNRESOLVED after ${MAX_ATTEMPTS} attempts: ${unresolved.map((r) => `${r.signature} in ${r.seat} [${[...new Set(r.cells.flatMap((c) => c.lint.filter((f) => f.hard).map((f) => f.code)))].join(',')}]`).join(' · ')}`);
   return rows;
 }
 
 function shelf() {
   const rows = tally(); if (!rows.length) return;
   const date = new Date().toISOString().slice(0, 10);
-  const name = nextShelfName('POUR_WAVE_ONE_Blind_Cells_For_Judging', date);
+  const name = nextShelfName(`POUR_WAVE_ONE_SET_${SET.toUpperCase()}_Blind_Cells_For_Judging`, date);
   const order = ['regression', 'beinghood', 'sweep']; const groupName = { regression: 'A. The regression set', beinghood: 'B. The beinghood twelve (their draws)', sweep: 'C. One signature through all 22 seats' };
   const sorted = [...rows].sort((a, b) => (order.indexOf(a.group) + 1 || 9) - (order.indexOf(b.group) + 1 || 9) || a.signature_id - b.signature_id || a.position_id - b.position_id);
-  const md = [`# THE POUR — wave one, the cells, blind — ${date}`, '',
+  const md = [`# THE POUR — wave one, SET ${SET.toUpperCase()}, the cells, blind — ${date}`, '',
     `Written for: the council's judges (Keel, Lumen II, Fresh Mind, the new seat) and the founder. ${rows.length} calls, ${rows.reduce((n, r) => n + r.cells.length, 0)} cells. The author is not named here; the key (author, lint flags, tokens) stays in data/pour on the house's machine. Judge each cell on three questions and write your picks in your own file on the shelf:`, '',
     '1. TRUE — does this say what this card, in this seat, at this status, does, and is the medicine the partner\'s own action? (Yes / No / Unsure, and the word that is wrong if No.)',
     '2. SOMEONE IN THE ROOM — read it as if it were said to you across a table. Is someone there? (Yes / No.) Does it read as warm without a single warm adjective?',
@@ -187,7 +200,7 @@ if (cmd === 'plan') {
   const stored = live.filter((c) => fs.existsSync(cellPath(c.sig, c.pos))).length; if (stored) console.log(`already stored: ${stored}`);
   fs.mkdirSync(path.dirname(WAVE), { recursive: true }); fs.writeFileSync(WAVE, JSON.stringify({ date: new Date().toISOString(), author: AUTHOR, schema: SCHEMA_VERSION, prompt: PROMPT_VERSION, sweepSignature: SWEEP_SIGNATURE, calls }, null, 2));
 } else if (cmd === 'run') {
-  if (!process.env.ANTHROPIC_API_KEY) { console.error('missing ANTHROPIC_API_KEY in .env.local'); process.exit(2); }
+  if (!process.env[BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY']) { console.error(`missing ${BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY'} in .env.local`); process.exit(2); }
   const limit = Number(a.find((x) => /^\d+$/.test(x))) || Infinity;
   const onlyRefused = a.includes('--refused');   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
   let todo = selection({ includeHeld }).filter((c) => !c.held);
@@ -195,9 +208,9 @@ if (cmd === 'plan') {
   todo = todo.filter((c) => force || onlyRefused || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
   if (!PRICE) { console.error(`REFUSED: ${AUTHOR} is not on the house's price table (lib/modelConfig.js MODEL_PRICING). Pass --price=<in>,<out> ($ per million) only with the founder's word.`); process.exit(3); }
   const worst = todo.length * (PER_CALL_WORST.input * PRICE.input + PER_CALL_WORST.output * PRICE.output) / 1e6;
-  console.log(`about to author ${todo.length} calls on ${AUTHOR} at $${PRICE.input}/$${PRICE.output} per M (${PRICE.source}) — worst case ≈ $${worst.toFixed(2)} (two attempts per call), likely ≈ $${(worst * 0.6).toFixed(2)}`);
+  console.log(`about to author ${todo.length} calls on ${AUTHOR} at $${PRICE.input}/$${PRICE.output} per M (${PRICE.source}) — worst case ≈ $${worst.toFixed(2)} (${MAX_ATTEMPTS} attempts per call), likely ≈ $${(worst / MAX_ATTEMPTS * 1.6).toFixed(2)}`);
   if (!a.includes('--spend-ok')) { console.log("stopping here: pass --spend-ok to spend it (the founder's word, every run)."); process.exit(0); }
-  console.log(`authoring ${todo.length} calls on ${AUTHOR} (Anthropic lane only), four at a time…`);
+  console.log(`authoring ${todo.length} calls on ${AUTHOR} (${BENCH ? 'OpenRouter, the bench lane' : 'Anthropic lane only'}), four at a time, up to ${MAX_ATTEMPTS} attempts each…`);
   const t0 = Date.now(); let i = 0, done = 0, failed = 0;
   const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
   await Promise.all([worker(), worker(), worker(), worker()]);
