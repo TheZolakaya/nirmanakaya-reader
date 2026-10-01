@@ -133,7 +133,8 @@ async function author(call, { force = false } = {}) {
     const { cells: got, repaired } = parseCells(text);
     const rec = { attempt, ms: Date.now() - t0, ok: r.ok, repaired, error: r.data?.error?.message || null, flags: [] };
     if (!got) { rec.flags.push({ code: 'shape', detail: 'no cells array', hard: true }); attempts.push(rec); if (!r.ok) break; messages.push({ role: 'assistant', content: text }, { role: 'user', content: 'That was not the JSON shape asked for. Return ONLY the JSON object with the four cells.' }); continue; }
-    const linted = got.map((c) => { const status = Number(c.status); const l = lintCell({ ...c, status }, ctx(status)); return { ...c, status, provenance: provenanceFor(pkg, status), lint: l.flags }; });
+    const cap = (t) => { const x = String(t || '').trimStart(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
+    const linted = got.map((c0) => { const c = { ...c0, tense: cap(c0.tense), ask: cap(c0.ask), sheetLine: cap(c0.sheetLine), core: cap(c0.core) }; const status = Number(c.status); const l = lintCell({ ...c, status }, ctx(status)); return { ...c, status, provenance: provenanceFor(pkg, status), lint: l.flags }; });
     const q = lintQuartet(linted);
     rec.flags = [...linted.flatMap((c) => c.lint.map((f) => ({ ...f, status: c.status }))), ...q.flags];
     attempts.push(rec); cells = linted; flagsAll = rec.flags;
