@@ -28,7 +28,7 @@ const clean = (t) => String(t || '').replace(/\\n/g, '\n');
 // the stranger's packet
 const stranger = [`# Twenty-four short readings — ${date}`, '', 'Each one was written to be read by one person about one part of their life. Read each as if it were written to you.', ''];
 picked.forEach(({ cell }, i) => stranger.push(`## ${i + 1}`, '', `*${cell.sheetLine}*`, '', clean(cell.core), ''));
-const sName = `PACKET_Stranger_Twenty_Four_Readings_No_Key_${date}.md`;
+const sName = `PACKET_Stranger_Set_${SET.toUpperCase()}_Twenty_Four_Readings_No_Key_${date}.md`;
 writeToShelf(sName, stranger.join('\n'));
 
 // the key (stays with the founder; goes into the engineer's packet only)
