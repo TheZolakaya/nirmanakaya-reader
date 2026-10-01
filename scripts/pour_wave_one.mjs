@@ -79,7 +79,7 @@ function parseCells(text) {
   if (!j || !Array.isArray(j.cells)) return { cells: null, repaired };
   // prompt b: the verb and the place come once per call and are spread into the four cells (the shape carries the constancy)
   const cells = j.cells.map((c) => ({ ...c, verb: c.verb ?? j.verb ?? '', place: c.place ?? j.place ?? '' }));
-  return { cells, repaired };
+  return { cells, repaired, check: typeof j.check === 'string' ? j.check : null };
 }
 
 // re-run the CURRENT lints over the stored cells (nothing re-authored): which calls the library would refuse today
@@ -130,14 +130,14 @@ async function author(call, { force = false } = {}) {
       text = (r.data?.content || []).map((c) => c.text || '').join('');
     }
     usage.input += r.data?.usage?.input_tokens || 0; usage.output += r.data?.usage?.output_tokens || 0;
-    const { cells: got, repaired } = parseCells(text);
+    const { cells: got, repaired, check } = parseCells(text);
     const rec = { attempt, ms: Date.now() - t0, ok: r.ok, repaired, error: r.data?.error?.message || null, flags: [] };
     if (!got) { rec.flags.push({ code: 'shape', detail: 'no cells array', hard: true }); attempts.push(rec); if (!r.ok) break; messages.push({ role: 'assistant', content: text }, { role: 'user', content: 'That was not the JSON shape asked for. Return ONLY the JSON object with the four cells.' }); continue; }
     const cap = (t) => { const x = String(t || '').trimStart(); return x ? x[0].toUpperCase() + x.slice(1) : x; };
     const linted = got.map((c0) => { const c = { ...c0, tense: cap(c0.tense), ask: cap(c0.ask), sheetLine: cap(c0.sheetLine), core: cap(c0.core) }; const status = Number(c.status); const l = lintCell({ ...c, status }, ctx(status)); return { ...c, status, provenance: provenanceFor(pkg, status), lint: l.flags }; });
     const q = lintQuartet(linted);
     rec.flags = [...linted.flatMap((c) => c.lint.map((f) => ({ ...f, status: c.status }))), ...q.flags];
-    attempts.push(rec); cells = linted; flagsAll = rec.flags;
+    rec.check = check || null; attempts.push(rec); cells = linted; flagsAll = rec.flags;
     const hard = rec.flags.filter((f) => f.hard);
     if (!hard.length || attempt === MAX_ATTEMPTS) break;
     messages.push({ role: 'assistant', content: text }, { role: 'user', content: `A machine checked the cells before they entered the library and refused these:\n${hard.map((f) => `- status ${f.status ?? '(quartet)'}: ${f.code} — ${f.detail}`).join('\n')}\nRewrite all four cells with these fixed, in the same JSON shape, nothing outside it.` });
