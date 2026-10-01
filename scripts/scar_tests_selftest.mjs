@@ -9,7 +9,7 @@ const bad = {
 };
 const clean = {
   gist: 'The draw does not show overwork. It shows care nobody is counting.',
-  reader: 'What the card shows is care that runs without anyone crediting it, including you. That kind of care feels like weather: it has no author, so it never gets thanked and never gets to stop.\n\nThe way through is on the card underneath: let one piece of the work be seen, by one person, this week.',
+  reader: 'What the card shows is care that runs without anyone crediting it, including you. It has no name on it, so it doesn\'t get thanked and it doesn\'t get to stop.\n\nThe way through is on the card underneath: tell one person, this week, one thing you carried that nobody saw.',
   question: 'Which piece would you let someone see first?', medicine: 'Let one small piece of what you tend be seen by one person this week, and the tending starts to count as yours again.', chips: [{ kind: 'answer', text: 'Probably the site.' }],
 };
 const t = (parsed) => JSON.stringify(parsed);
