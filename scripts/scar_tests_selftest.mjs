@@ -10,7 +10,7 @@ const bad = {
 const clean = {
   gist: 'The draw does not show overwork. It shows care nobody is counting.',
   reader: 'What the card shows is care that runs without anyone crediting it, including you. It has no name on it, so it doesn\'t get thanked and it doesn\'t get to stop.\n\nThe way through is on the card underneath: tell one person, this week, one thing you carried that nobody saw.',
-  question: 'Which piece would you let someone see first?', medicine: 'Let one small piece of what you tend be seen by one person this week, and the tending starts to count as yours again.', chips: [{ kind: 'answer', text: 'Probably the site.' }],
+  question: 'Which piece would you let someone see first?', medicine: 'Tell one person this week one thing you carried that nobody saw, and what you tend starts to count as yours again.', chips: [{ kind: 'answer', text: 'Probably the site.' }],
 };
 const t = (parsed) => JSON.stringify(parsed);
 const want = ['pet', 'verdict2', 'backstory', 'groove', 'diagnosis', 'must', 'letter', 'commands', 'garble', 'gap'];
