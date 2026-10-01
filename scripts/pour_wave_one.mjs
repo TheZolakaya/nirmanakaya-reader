@@ -22,7 +22,7 @@ import { getComponent } from '../lib/corrections.js';
 import { ARCHETYPES } from '../lib/archetypes.js';
 import { buildKernel } from '../lib/kernel.js';
 import { authoringPackage, provenanceFor } from '../lib/pour/assemble.js';
-import { lintCell, lintQuartet } from '../lib/pour/lint.js';
+import { lintCell, lintQuartet, lintWave } from '../lib/pour/lint.js';
 import { STATUS_NAMES, SCHEMA_VERSION, PROMPT_VERSION } from '../lib/pour/schema.js';
 import { HOSTILE } from '../lib/bakeoff/presets.js';
 import { writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
@@ -64,7 +64,34 @@ function parseCells(text) {
   let j = attempt(strip); let repaired = false;
   if (!j) { const a = strip.indexOf('{'), b = strip.lastIndexOf('}'); if (a >= 0 && b > a) { const inner = strip.slice(a, b + 1); j = attempt(inner) || attempt(inner.replace(/(?<=:\s*"[^"]*)\n/g, '\\n').replace(/,\s*([}\]])/g, '$1')); repaired = !!j; } }
   if (!j || !Array.isArray(j.cells)) return { cells: null, repaired };
-  return { cells: j.cells, repaired };
+  // prompt b: the verb and the place come once per call and are spread into the four cells (the shape carries the constancy)
+  const cells = j.cells.map((c) => ({ ...c, verb: c.verb ?? j.verb ?? '', place: c.place ?? j.place ?? '' }));
+  return { cells, repaired };
+}
+
+// re-run the CURRENT lints over the stored cells (nothing re-authored): which calls the library would refuse today
+function relint({ quiet = false } = {}) {
+  const rows = fs.existsSync(CELLS_DIR) ? fs.readdirSync(CELLS_DIR).filter((f) => f.endsWith('.json')).map((f) => ({ f, r: JSON.parse(fs.readFileSync(path.join(CELLS_DIR, f), 'utf8')) })) : [];
+  const refused = []; const codes = {};
+  for (const { f, r } of rows) {
+    const ctx = (c) => ({ signatureId: r.signature_id, positionId: r.position_id, partner: c.provenance?.partner, partnerId: c.provenance?.partner_id });
+    const per = r.cells.map((c) => lintCell(c, ctx(c)).flags.map((x) => ({ ...x, status: c.status })));
+    const q = lintQuartet(r.cells).flags;
+    const flags = [...per.flat(), ...q];
+    for (const x of flags) codes[x.code + (x.hard ? '!' : '~')] = (codes[x.code + (x.hard ? '!' : '~')] || 0) + 1;
+    const hard = flags.filter((x) => x.hard);
+    if (hard.length) refused.push({ f, sig: r.signature_id, pos: r.position_id, card: r.signature, seat: r.seat, group: r.group, hard: hard.map((x) => `${x.status ?? 'q'}:${x.code}`) });
+  }
+  if (!quiet) {
+    console.log(`relint under ${PROMPT_VERSION}'s lints: ${rows.length} stored calls · ${refused.length} would be refused (re-pour list) · ${rows.length - refused.length} stand`);
+    console.log('flags (! hard, ~ soft):', Object.entries(codes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join('  '));
+    const why = {}; for (const x of refused) for (const h of new Set(x.hard.map((s) => s.split(':')[1]))) why[h] = (why[h] || 0) + 1;
+    console.log('calls refused by code:', Object.entries(why).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join('  '));
+    const w = lintWave(rows.map((x) => x.r));
+    console.log(`refrain budget (cap ${w.refrainLimit} of ${w.cells} cells):`, w.refrains.slice(0, 8).map((x) => `"${x.gram}" ${x.cells}`).join('  ') || 'none over the cap');
+    console.log(`seat-swap pairs (same card, same status, asks ≥ 45% alike): ${w.seatSwaps.length}`, w.seatSwaps.slice(0, 4).map((s) => `${s.signature} ${STATUS_NAMES[s.status]} ${s.seats.join('/')} ${s.overlap}`).join(' · '));
+  }
+  return { rows: rows.map((x) => x.r), refused };
 }
 
 async function author(call, { force = false } = {}) {
@@ -154,13 +181,17 @@ if (cmd === 'plan') {
 } else if (cmd === 'run') {
   if (!process.env.ANTHROPIC_API_KEY) { console.error('missing ANTHROPIC_API_KEY in .env.local'); process.exit(2); }
   const limit = Number(a.find((x) => /^\d+$/.test(x))) || Infinity;
-  const todo = selection({ includeHeld }).filter((c) => !c.held).filter((c) => force || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
+  const onlyRefused = a.includes('--refused');   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
+  let todo = selection({ includeHeld }).filter((c) => !c.held);
+  if (onlyRefused) { const { refused } = relint({ quiet: true }); const set = new Set(refused.map((x) => key(x.sig, x.pos))); todo = todo.filter((c) => set.has(key(c.sig, c.pos))); fs.mkdirSync('data/pour/replaced', { recursive: true }); for (const c of todo) { const p = cellPath(c.sig, c.pos); if (fs.existsSync(p)) fs.copyFileSync(p, path.join('data/pour/replaced', `${path.basename(p, '.json')}.${Date.now()}.json`)); } }
+  todo = todo.filter((c) => force || onlyRefused || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
   console.log(`authoring ${todo.length} calls on ${AUTHOR} (Anthropic lane only), four at a time…`);
   const t0 = Date.now(); let i = 0, done = 0, failed = 0;
-  const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
+  const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
   await Promise.all([worker(), worker(), worker(), worker()]);
   console.log(`done ${done}, failed ${failed} in ${Math.round((Date.now() - t0) / 1000)}s`);
   tally();
 } else if (cmd === 'tally') tally();
+else if (cmd === 'relint') relint();
 else if (cmd === 'shelf') shelf();
-else { console.error('plan | run [limit] [--include-held] [--force] | tally | shelf'); process.exit(2); }
+else { console.error('plan | run [limit] [--include-held] [--force] [--refused] | tally | relint | shelf'); process.exit(2); }
