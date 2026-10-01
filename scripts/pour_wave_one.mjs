@@ -159,7 +159,7 @@ function shelf() {
     if (g !== group) { group = g; md.push(`## ${groupName[g] || 'D. The spread across the houses'}`, ''); }
     md.push(`### ${r.signature} in ${r.seat}${r.group === 'beinghood' ? '' : ''}`, '');
     for (const c of [...r.cells].sort((a, b) => a.status - b.status)) {
-      md.push(`**${STATUS_NAMES[c.status]}** — _${c.sheetLine}_`, '', `- tense: ${c.tense}`, `- verb: ${c.verb}`, `- place: ${c.place}`, `- ask: ${c.ask}`, '', String(c.core).replace(/\\n/g, '\n'), '');
+      md.push(`**${STATUS_NAMES[c.status]}** — _${c.sheetLine}_`, '', `- tense: ${c.tense}`, `- the card, as what it does: ${c.verb}`, `- the seat, as where: ${c.place}`, `- the medicine (${String(c.provenance?.mechanism || '').toUpperCase()} → ${c.provenance?.partner || '?'}), as the ask: ${c.ask}`, '', String(c.core).replace(/\\n/g, '\n'), '');
     }
   }
   const res = writeToShelf(name, md.join('\n'));
