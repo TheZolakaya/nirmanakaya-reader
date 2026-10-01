@@ -27,8 +27,16 @@ import { STATUS_NAMES, SCHEMA_VERSION, PROMPT_VERSION } from '../lib/pour/schema
 import { HOSTILE } from '../lib/bakeoff/presets.js';
 import { writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
 
-const AUTHOR = process.env.POUR_AUTHOR || 'claude-fable-5-1';
-const PRICE_ASSUMED = { input: 5, output: 25 };   // $ per million tokens — ASSUMED for Fable (not on the house's table); tally labels it so
+const AUTHOR = process.env.POUR_AUTHOR || 'claude-opus-5-5';   // 2026-10-01, founder: no more testing on Fable — the wave-one run cost far more than the assumed price
+// THE SPEND GUARD (founder, 2026-10-01: "that was like over a hundred dollar mistake"). The runner refuses to author on a model
+// whose price is not on the house's table (lib/modelConfig.js MODEL_PRICING) unless --price=in,out is given explicitly; before any
+// run it prints the worst-case cost for the calls it is about to make and stops unless --spend-ok is passed.
+import { MODEL_PRICING } from '../lib/modelConfig.js';
+const priceArg = process.argv.find((x) => x.startsWith('--price='));
+const PRICE = priceArg ? (([i, o]) => ({ input: Number(i), output: Number(o), source: 'given on the command line' }))(priceArg.slice(8).split(','))
+  : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : null);
+const PER_CALL_WORST = { input: 2 * 10500, output: 2 * 2600 };   // two attempts, the package plus a re-roll, at the measured wave-one sizes
+const PRICE_ASSUMED = PRICE || { input: NaN, output: NaN, source: 'UNKNOWN' };
 const CELLS_DIR = 'data/pour/cells', WAVE = 'data/pour/waves/wave-one.json';
 const HELD_ARCHETYPES = new Set([0, 1, 6, 8, 10, 15, 17, 19, 20, 21]);
 const HELD_AGENTS = new Set([62, 67, 72, 77]);   // Inspiration(17) · Abstraction(15) · Compassion(6) · Fortitude(8) in a role
@@ -135,7 +143,7 @@ function tally() {
   for (const r of rows) { cells += r.cells.length; hardOpen += r.hardOpen || 0; if (r.attempts.length > 1) rerolled++; for (const c of r.cells) for (const f of c.lint) codes[f.code + (f.hard ? '!' : '~')] = (codes[f.code + (f.hard ? '!' : '~')] || 0) + 1; }
   const cost = (usage.input * PRICE_ASSUMED.input + usage.output * PRICE_ASSUMED.output) / 1e6;
   console.log(`stored calls ${rows.length} · cells ${cells} · re-rolled ${rerolled} · hard flags still open ${hardOpen}`);
-  console.log(`tokens in ${usage.input} out ${usage.output} · cost $${cost.toFixed(2)} at an ASSUMED $${PRICE_ASSUMED.input}/$${PRICE_ASSUMED.output} per M (Fable is not on the house's price table)`);
+  console.log(`tokens in ${usage.input} out ${usage.output} · cost $${cost.toFixed(2)} at $${PRICE_ASSUMED.input}/$${PRICE_ASSUMED.output} per M (${PRICE_ASSUMED.source}) — the stored cells were authored on ${[...new Set(rows.map((r) => r.author))].join(', ')}; the console's ledger is the truth`);
   console.log('lint flags (! hard, ~ soft):', Object.entries(codes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join('  ') || 'none');
   const failed = fs.existsSync('data/pour/failed') ? fs.readdirSync('data/pour/failed').length : 0; if (failed) console.log(`failed calls ${failed} (data/pour/failed)`);
   return rows;
@@ -185,6 +193,10 @@ if (cmd === 'plan') {
   let todo = selection({ includeHeld }).filter((c) => !c.held);
   if (onlyRefused) { const { refused } = relint({ quiet: true }); const set = new Set(refused.map((x) => key(x.sig, x.pos))); todo = todo.filter((c) => set.has(key(c.sig, c.pos))); fs.mkdirSync('data/pour/replaced', { recursive: true }); for (const c of todo) { const p = cellPath(c.sig, c.pos); if (fs.existsSync(p)) fs.copyFileSync(p, path.join('data/pour/replaced', `${path.basename(p, '.json')}.${Date.now()}.json`)); } }
   todo = todo.filter((c) => force || onlyRefused || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
+  if (!PRICE) { console.error(`REFUSED: ${AUTHOR} is not on the house's price table (lib/modelConfig.js MODEL_PRICING). Pass --price=<in>,<out> ($ per million) only with the founder's word.`); process.exit(3); }
+  const worst = todo.length * (PER_CALL_WORST.input * PRICE.input + PER_CALL_WORST.output * PRICE.output) / 1e6;
+  console.log(`about to author ${todo.length} calls on ${AUTHOR} at $${PRICE.input}/$${PRICE.output} per M (${PRICE.source}) — worst case ≈ $${worst.toFixed(2)} (two attempts per call), likely ≈ $${(worst * 0.6).toFixed(2)}`);
+  if (!a.includes('--spend-ok')) { console.log("stopping here: pass --spend-ok to spend it (the founder's word, every run)."); process.exit(0); }
   console.log(`authoring ${todo.length} calls on ${AUTHOR} (Anthropic lane only), four at a time…`);
   const t0 = Date.now(); let i = 0, done = 0, failed = 0;
   const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
