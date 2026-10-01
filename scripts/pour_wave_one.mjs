@@ -34,7 +34,7 @@ const AUTHOR = process.env.POUR_AUTHOR || 'claude-opus-5-5';   // 2026-10-01, fo
 import { MODEL_PRICING } from '../lib/modelConfig.js';
 const priceArg = process.argv.find((x) => x.startsWith('--price='));
 const PRICE = priceArg ? (([i, o]) => ({ input: Number(i), output: Number(o), source: 'given on the command line' }))(priceArg.slice(8).split(','))
-  : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : null);
+  : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : /fable/.test(AUTHOR) ? { ...MODEL_PRICING.fable, source: 'the house table (fable — $10/$50, the final-library author only)' } : null);
 const PER_CALL_WORST = { input: 2 * 10500, output: 2 * 2600 };   // two attempts, the package plus a re-roll, at the measured wave-one sizes
 const PRICE_ASSUMED = PRICE || { input: NaN, output: NaN, source: 'UNKNOWN' };
 const CELLS_DIR = 'data/pour/cells', WAVE = 'data/pour/waves/wave-one.json';
