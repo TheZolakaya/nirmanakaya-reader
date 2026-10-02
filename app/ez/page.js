@@ -784,9 +784,28 @@ export default function EZPage() {
       const session = await getSession();
       const token = session?.session?.access_token;
       if (!token) { say('Still signing you in — try that again in a moment.'); return; }
-      const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
-      const cj = await cr.json();
-      if (!cj?.contextBlock && !forFrame) { say('Your history did not come back this time — try again.'); return; }
+      // .596: THEIR OWN WORDS ONLY (founder 2026-10-02: "I didn't say those things, the reader did — it's not really a question
+      // of mine"). The material is what they asked and what they typed in the conversations; the Reader's answers and the journey
+      // summaries are left out on purpose, so the suggestion can only be the next thing THEY would ask.
+      const { data: rows } = await getReadings(60);
+      const own = [];
+      for (const r of rows || []) {
+        const asked = String(r.topic || '').trim();
+        if (!asked || /^general reading$/i.test(asked)) continue;
+        const turns = r.interpretation?.synthesis?._ez?.turns || [];
+        // only what they TYPED: a tapped chip, a reflect/forge line or an "act" line was written by the Reader in their voice, not by them
+        const offered = new Set();
+        for (const t of turns) { if (!t || t.role !== 'reader') continue; for (const c of [...(t.chips || []), ...(t.reflect || []), ...(t.forge || [])]) offered.add(String(typeof c === 'string' ? c : c?.text || '').trim()); if (t.act) offered.add(String(t.act).trim()); }
+        const said = turns
+          .filter((t) => t && t.role === 'you' && t.text && !t.move && !offered.has(String(t.text).trim()))
+          .map((t) => String(t.text).trim()).filter((x) => x.length > 12 && x !== asked)
+          .slice(0, 4).map((x) => (x.length > 160 ? x.slice(0, 157) + '…' : x));
+        const when = new Date(r.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        own.push(`${when} — they asked: "${asked}"${said.length ? `\n   and in that conversation they said: ${said.map((x) => `"${x}"`).join(' · ')}` : ''}`);
+        if (own.length >= 14) break;
+      }
+      if (!own.length && !forFrame) { say('No questions of yours to draw from yet.'); return; }
+      const ownBlock = `THEIR OWN WORDS — what this person has asked and said, newest first. This is the ONLY material. The Reader's answers are left out on purpose: a question built from what a reading concluded is the Reader's question, not theirs.\n${own.join('\n')}`;
       const closed = readClosed(); // .570: threads they marked done
       const closedBlock = closed.length ? `\n\nTOPICS THEY HAVE CLOSED — they marked these threads done. Never suggest anything on these threads again, reworded or from another angle; choose a different part of their life:\n${closed.map((e) => `- ${e.q}${e.why ? ` (${e.why})` : ''}`).join('\n')}` : '';
       const avoid = suggestedSeen.current.length
@@ -799,15 +818,15 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
         body: JSON.stringify({
-          messages: [{ role: 'user', content: `${cj.contextBlock || '(no reading history yet)'}${forFrame ? `
+          messages: [{ role: 'user', content: `${ownBlock}${forFrame ? `
 
 THE FRAME THEY CHOSE: this reading is about ${forFrame.k === 'custom' ? `"${forFrame.detail}"` : `${frameOf(forFrame.k)?.label || forFrame.k}${forFrame.detail ? ` — ${forFrame.detail}` : ''}`}. The ONE question must be about exactly this — name it in their words ("Dan", "the move") — and history is only weather behind it.` : ''}
 
-You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a signature can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.
+You are choosing ONE question for this person to bring to a reading today — a question that is THEIRS: the next thing they would ask about something they already asked or said, or a question they asked once and left. Look in this order: (1) something they said they would do, try or decide — ask how it went, in their words; (2) a thing they keep asking about across readings — ask the NEXT question on it, not the same one again; (3) a question they asked once and never came back to — bring it back as it stands now. FREQUENCY IS WEATHER: the topic they ask about most is not automatically the one to suggest — rotate, at most one suggestion in three on the dominant topic. The question must be SPECIFIC — the actual subject, person, work or choice, in THEIR words — and ASKABLE: a real question under 14 words that they could answer with plain facts about their life. Never a question that presumes what a reading concluded about them.
 THE SUBJECT IS THEIR LIFE, NOT THE LAST READING'S PICTURES (founder, 2026-10-02: "these questions seem nonsensical"). The history lines may carry a reading's images — a grip, something untied, a door, a rope, weather. Those are never the subject. Ask about the real thing the reading was about — the work, the person, the decision, this week — and the test is simple: could they answer your question with plain facts about their life? A riddle built from an image fails that test. "What should I stop adding to Nirmanakaya this week?" passes. When the history gives you only images and no concrete subject, ask the plain forward question about the named work or person: "What's the next real step on Nirmanakaya?" Call what was drawn "the reading" or "the signature".
-KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line is the same register: "Last time the reading said start one small thing, and you didn't yet." — one plain sentence, no map words.${avoid}${closedBlock}
+KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line QUOTES THEM: 'On Sept 30 you asked "Am I overworking Nirmanakaya?"' — their own words with the date, one sentence, never a paraphrase of what a reading said.${avoid}${closedBlock}
 
-Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, addressed to them, on which thread this pulls on, in the same kitchen-table words — e.g. 'Last time it came down to one small step, and you haven't taken it yet.'>"}` }],
+Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting what THEY asked or said, with the date — e.g. 'On Sept 30 you asked \"Am I overworking Nirmanakaya?\"'>"}` }],
           system: 'You write one short question and nothing else. JSON only.',
           model: MODEL_IDS.haiku, max_tokens: 220, userId: user.id
         })
