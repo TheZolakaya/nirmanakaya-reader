@@ -943,7 +943,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
 
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
-  const handing = !!user && isAdmin(user) && chrome.prefs.handing !== false;
+  const handing = !!user && chrome.prefs.handing !== false; // .590: everyone (was admins only, .587–.589); prefs.handing === false opts a device out
   const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
   const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
@@ -2056,9 +2056,9 @@ ${DRAGON_STANDARD}`, 600);
             </div>
 
             <div className="flex items-center justify-center gap-7 sm:gap-12 text-[0.8125rem]"> {/* .521: a centred group, evenly spaced — equal thirds crowded on a phone (founder) */}
-              <button onClick={() => { setAreasOpen(false); setSuggestOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time */
+              <button onClick={() => { setAreasOpen(false); setSuggestOpen(false); setFrameOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time; .590: Topic too */
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
-              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setAreasOpen(!areasOpen); }}
+              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setFrameOpen(false); setAreasOpen(!areasOpen); }}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
                 Unsure
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -2071,7 +2071,7 @@ ${DRAGON_STANDARD}`, 600);
               </button>
               {user && hasHistory ? (
                 <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
-                  <button onClick={() => { setAreasOpen(false); setShowPast(false); suggestFromHistory(); }} disabled={suggesting}
+                  <button onClick={() => { setAreasOpen(false); setShowPast(false); setFrameOpen(false); suggestFromHistory(); }} disabled={suggesting}
                     className="text-center hover:text-violet-200 transition-colors disabled:opacity-50">
                     {suggesting ? 'Reading your history…' : suggested ? 'Another' : 'Personalized'}
                   </button>
