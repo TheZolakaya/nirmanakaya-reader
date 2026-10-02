@@ -32,6 +32,8 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
+import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
+import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
@@ -938,7 +940,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
   }, [turns, savedId, usage]);
 
-  const systemPrompt = ezSystem(BASE_SYSTEM, voice); // .528: no hardcoded FRIEND persona (it sat under Deep and Mystical too); the kernel's rails that EZ_RULES already carries are stripped once
+  // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
+  // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
+  const handing = !!user && isAdmin(user) && chrome.prefs.handing !== false;
+  const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
+  const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
+  const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
 
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
@@ -979,7 +986,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
-        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),   // 2026-09-30: the person's chosen Reader
+        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet /* EZ reads on Standard (2026-10-02) */ || MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),   // 2026-09-30: the person's chosen Reader
         signal: ac.signal,
       });
       const raw = await res.text();
@@ -1019,6 +1026,24 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       obj = parseJson(data.reading);
     }
     if (!obj || !obj.reader) throw new Error('The Reader answered in a shape I could not read, twice. Nothing was lost — try that again.');
+    // THE GARBLE GUARD (2026-10-02): the scar tests on every reply; a turn that trips one is asked for again, once, with the reason named.
+    // ('the newsletter says', a closing letter, the December commands, a pet name, a leak-shaped line — none of them reaches the glass.)
+    try {
+      const scars = new Set(['garble', 'letter', 'commands', 'pet']);
+      const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || null }).flags || []).filter((f) => scars.has(f.code));
+      const bad = check(obj, data.reading);
+      if (bad.length) {
+        const again = await rawCall(`${userMessage}\n\nYOUR LAST REPLY WAS SET ASIDE: ${bad.map((f) => f.detail).join('; ')}. Answer the turn again, in your own words, without that.`, system, maxTokens, extra);
+        const o2 = parseJson(again.reading);
+        if (o2 && o2.reader && !check(o2, again.reading).length) { obj = o2; data = again; }
+      }
+    } catch {}
+    // THE VERDICT, ONCE: the gist opens with it; if the body opens with the same word, the body's copy is dropped (the rule says so, the model sometimes doesn't).
+    try {
+      const V = /^\s*["“]?(yes|no|not yet|not as it stands)\b[.,;:!—–-]?\s*/i;
+      const g = V.exec(String(obj.gist || '')), b = V.exec(String(obj.reader || ''));
+      if (g && b && g[1].toLowerCase() === b[1].toLowerCase()) { const rest = String(obj.reader).replace(V, ''); if (rest.trim().length > 40) obj.reader = rest.charAt(0).toUpperCase() + rest.slice(1); }
+    } catch {}
     return { obj, usage: data.usage };
   };
 
@@ -1327,7 +1352,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
       const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
-      let { obj } = await callReader(msg, moveReg ? ezSystem(BASE_SYSTEM, moveReg) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
+      let { obj } = await callReader(msg, moveReg ? ezSystem(promptBase, moveReg, promptOver) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode === 'locate') { // .561: a locating turn's medicine, if any, must be the ORIGINAL card's — never the pointer's
         const mm = medicineMismatch(obj, fieldNow || draws[0]);
         if (mm) { console.warn('[medicine check] locating turn named', mm.got, 'wanted', mm.want, '(the original card) — retrying'); const r2 = await callReader(`${msg}\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. The locating card is a POINTER and has no medicine here; the only medicine in this reading is the ORIGINAL card's, ${mm.want}, and it lands only once the thing is found. Rewrite the turn: candidates and the one question; "medicine" and "medicineCard" empty unless found — and if found, ${mm.want}. JSON only.`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; }
@@ -1961,17 +1986,7 @@ ${DRAGON_STANDARD}`, 600);
       <div className="relative z-10 flex-1 flex flex-col w-full">
       <BrandHeader compact />
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 pb-24 overflow-x-hidden">
-        {/* 2026-09-30 (founder, friends-and-family): which Reader answers — Standard, or one of the two Opus models, to compare. Persists with the person's prefs. */}
-        {user && (
-          <div className="mt-3 flex items-center justify-center gap-2" aria-label="Which Reader answers">
-            <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-zinc-500">Reader</span>
-            {/* a native select everywhere (2026-09-30): on the founder's phone the pill row wrapped and one pill would not take a tap; a dropdown cannot be covered or wrapped */}
-            <select value={chrome.prefs.selectedModel || 'sonnet'} onChange={(e) => chrome.set({ selectedModel: e.target.value })}
-              className="rounded-lg border border-amber-400/60 bg-zinc-900/80 text-amber-100 text-[0.875rem] px-3 py-1.5 focus:outline-none focus:border-amber-300" style={{ minWidth: 150 }}>
-              {READER_CHOICES.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
-            </select>
-          </div>
-        )}
+        {/* 2026-10-02 (founder): the Reader selector left the front — EZ reads on Standard; /advanced keeps the choice. */}
         <div className="mt-6" />
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
