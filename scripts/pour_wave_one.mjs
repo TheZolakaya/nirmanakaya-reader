@@ -58,6 +58,12 @@ const cellPath = (s, p) => path.join(CELLS_DIR, `${String(s).padStart(2, '0')}-$
 // a small seeded generator so the house spread is the same list every run (and in the manifest)
 function rng(seed) { let x = seed >>> 0; return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
 
+export function allCalls() {
+  const calls = [];
+  for (let sig = 0; sig < 78; sig++) for (let pos = 0; pos < 22; pos++) calls.push({ sig, pos, group: 'library', why: '', card: getComponent(sig)?.name, seat: ARCHETYPES[pos]?.name, house: houseOf(sig), held: false });
+  return calls;
+}
+
 export function selection({ includeHeld = false } = {}) {
   const calls = []; const seen = new Set();
   const add = (sig, pos, group, why = '') => { const k = key(sig, pos); if (seen.has(k)) return; seen.add(k); calls.push({ sig, pos, group, why, card: getComponent(sig)?.name, seat: ARCHETYPES[pos]?.name, house: houseOf(sig), held: held(sig) && !includeHeld }); };
@@ -204,20 +210,22 @@ if (cmd === 'plan') {
   if (!process.env[BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY']) { console.error(`missing ${BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY'} in .env.local`); process.exit(2); }
   const limit = Number(a.find((x) => /^\d+$/.test(x))) || Infinity;
   const onlyRefused = a.includes('--refused');   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
-  let todo = selection({ includeHeld }).filter((c) => !c.held);
+  const wholeLibrary = a.includes('--all');   // founder 2026-10-02: 'are we ready to roll?' — the library is every card in every seat
+  let todo = (wholeLibrary ? allCalls() : selection({ includeHeld })).filter((c) => !c.held);
   if (onlyRefused) { const { refused } = relint({ quiet: true }); const set = new Set(refused.map((x) => key(x.sig, x.pos))); todo = todo.filter((c) => set.has(key(c.sig, c.pos))); fs.mkdirSync('data/pour/replaced', { recursive: true }); for (const c of todo) { const p = cellPath(c.sig, c.pos); if (fs.existsSync(p)) fs.copyFileSync(p, path.join('data/pour/replaced', `${path.basename(p, '.json')}.${Date.now()}.json`)); } }
   todo = todo.filter((c) => force || onlyRefused || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
   if (!PRICE) { console.error(`REFUSED: ${AUTHOR} is not on the house's price table (lib/modelConfig.js MODEL_PRICING). Pass --price=<in>,<out> ($ per million) only with the founder's word.`); process.exit(3); }
   const worst = todo.length * (PER_CALL_WORST.input * PRICE.input + PER_CALL_WORST.output * PRICE.output) / 1e6;
   console.log(`about to author ${todo.length} calls on ${AUTHOR} at $${PRICE.input}/$${PRICE.output} per M (${PRICE.source}) — worst case ≈ $${worst.toFixed(2)} (${MAX_ATTEMPTS} attempts per call), likely ≈ $${(worst / MAX_ATTEMPTS * 1.6).toFixed(2)}`);
   if (!a.includes('--spend-ok')) { console.log("stopping here: pass --spend-ok to spend it (the founder's word, every run)."); process.exit(0); }
-  console.log(`authoring ${todo.length} calls on ${AUTHOR} (${BENCH ? 'OpenRouter, the bench lane' : 'Anthropic lane only'}), four at a time, up to ${MAX_ATTEMPTS} attempts each…`);
+  console.log(`authoring ${todo.length} calls on ${AUTHOR} (${BENCH ? 'OpenRouter, the bench lane' : 'Anthropic lane only'}), ${Number(process.env.POUR_WORKERS || 4)} at a time, up to ${MAX_ATTEMPTS} attempts each…`);
   const t0 = Date.now(); let i = 0, done = 0, failed = 0;
   const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
-  await Promise.all([worker(), worker(), worker(), worker()]);
+  const WORKERS = Number(process.env.POUR_WORKERS || 4);
+  await Promise.all(Array.from({ length: WORKERS }, () => worker()));
   console.log(`done ${done}, failed ${failed} in ${Math.round((Date.now() - t0) / 1000)}s`);
   tally();
 } else if (cmd === 'tally') tally();
 else if (cmd === 'relint') relint();
 else if (cmd === 'shelf') shelf();
-else { console.error('plan | run [limit] [--include-held] [--force] [--refused] | tally | relint | shelf'); process.exit(2); }
+else { console.error('plan | run [limit] [--all] [--include-held] [--force] [--refused] | tally | relint | shelf'); process.exit(2); }
