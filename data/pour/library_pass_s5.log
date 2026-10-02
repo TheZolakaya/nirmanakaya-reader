@@ -1,0 +1,184 @@
+route: DeepSeek → Alibaba → DeepInfra (no router fallbacks)
+live price for deepseek/deepseek-v4.1-flash: $0.150 / $0.600 per M (fallback table said $0.3 / $1.2)
+about to author 174 calls on or-v4.1-flash at $0.15/$0.6 per M (OpenRouter live, host DeepSeek (dearest host in the order: $0.150/M in)) — worst case ≈ $2.86 (5 attempts per call), likely ≈ $0.91
+authoring 174 calls on or-v4.1-flash (OpenRouter, the bench lane), 8 at a time, up to 5 attempts each…
+    1 Wisdom in Imagination — 5 attempt(s), clean, 15231+6188 tok
+    2 Potential in Potential — 5 attempt(s), 4 hard flag(s) open, 16407+6461 tok
+    3 Wisdom in Culture — 5 attempt(s), 1 hard flag(s) open, 16326+6387 tok
+    4 Nurturing in Equity — 5 attempt(s), 1 hard flag(s) open, 15018+5845 tok
+    5 Nurturing in Will — 5 attempt(s), 1 hard flag(s) open, 14865+6221 tok
+    6 Potential in Faith — 5 attempt(s), clean, 15593+6217 tok
+    7 Nurturing in Fortitude — 5 attempt(s), clean, 16362+6317 tok
+    8 Nurturing in Potential — 5 attempt(s), 1 hard flag(s) open, 16134+5937 tok
+    9 Discipline in Faith — 3 attempt(s), clean, 9297+3484 tok
+   10 Nurturing in Faith — 5 attempt(s), 1 hard flag(s) open, 13815+5798 tok
+   11 Discipline in Compassion — 3 attempt(s), clean, 8248+3789 tok
+   12 Nurturing in Actualization — 5 attempt(s), clean, 12428+6350 tok
+   13 Compassion in Recognition — 5 attempt(s), clean, 13220+6597 tok
+   14 Authority in Recognition — 5 attempt(s), clean, 9840+5875 tok
+   15 Nurturing in Recognition — 5 attempt(s), 1 hard flag(s) open, 10831+6026 tok
+   16 Discipline in Potential — 5 attempt(s), 3 hard flag(s) open, 14139+6019 tok
+   17 Faith in Faith — 3 attempt(s), clean, 8205+3684 tok
+   18 Equity in Faith — 3 attempt(s), clean, 8133+3749 tok
+   19 Source in Culture — 5 attempt(s), 3 hard flag(s) open, 11830+5930 tok
+   20 Source in Fortitude — 4 attempt(s), clean, 9254+4655 tok
+   21 Equity in Potential — 4 attempt(s), clean, 10340+4941 tok
+   22 Source in Abstraction — 5 attempt(s), 1 hard flag(s) open, 12775+6378 tok
+   23 Abstraction in Transformation — 3 attempt(s), clean, 7591+3521 tok
+   24 Transformation in Culture — 5 attempt(s), 4 hard flag(s) open, 13022+6025 tok
+   25 Faith in Authority — 5 attempt(s), 2 hard flag(s) open, 10999+6005 tok
+   26 Abstraction in Abstraction — 5 attempt(s), 1 hard flag(s) open, 11542+6260 tok
+   27 Transformation in Transformation — 5 attempt(s), 2 hard flag(s) open, 12022+6549 tok
+   28 Imagination in Drive — 5 attempt(s), clean, 10835+6106 tok
+   29 Abstraction in Potential — 5 attempt(s), 1 hard flag(s) open, 12564+6362 tok
+   30 Imagination in Faith — 4 attempt(s), clean, 10090+4766 tok
+   31 Imagination in Discipline — 5 attempt(s), 4 hard flag(s) open, 13118+5836 tok
+   32 Actualization in Will — 5 attempt(s), 1 hard flag(s) open, 11296+5715 tok
+   33 Actualization in Fortitude — 5 attempt(s), 2 hard flag(s) open, 12356+6782 tok
+   34 Actualization in Recognition — 5 attempt(s), 1 hard flag(s) open, 12414+5755 tok
+   35 Creation in Source — 5 attempt(s), 1 hard flag(s) open, 12286+6373 tok
+   36 Creation in Breakthrough — 3 attempt(s), clean, 8247+3392 tok
+   37 Recognition in Nurturing — 5 attempt(s), clean, 10721+5815 tok
+   38 Creation in Transformation — 5 attempt(s), 1 hard flag(s) open, 12190+6356 tok
+   39 Creation in Abstraction — 5 attempt(s), 2 hard flag(s) open, 11445+5949 tok
+   40 Activation in Nurturing — 4 attempt(s), clean, 10581+4982 tok
+   41 Activation in Culture — 5 attempt(s), 2 hard flag(s) open, 12157+6528 tok
+   42 Assertion in Source — 4 attempt(s), clean, 9281+4207 tok
+   43 Activation in Equity — 5 attempt(s), 1 hard flag(s) open, 10990+6344 tok
+   44 Orientation in Recognition — 5 attempt(s), clean, 12194+6112 tok
+   45 Assertion in Abstraction — 5 attempt(s), 1 hard flag(s) open, 11757+6082 tok
+   46 Alignment in Nurturing — 5 attempt(s), 1 hard flag(s) open, 12086+6211 tok
+   47 Activation in Imagination — 5 attempt(s), 1 hard flag(s) open, 13406+6566 tok
+   48 Dedication in Culture — 5 attempt(s), 2 hard flag(s) open, 11791+5554 tok
+   49 Honor in Compassion — 5 attempt(s), 5 hard flag(s) open, 10934+5857 tok
+   50 Honor in Breakthrough — 5 attempt(s), 1 hard flag(s) open, 11462+5699 tok
+   51 Resolve in Will — 5 attempt(s), clean, 12408+6467 tok
+   52 Resolve in Source — 5 attempt(s), clean, 11513+5715 tok
+   53 Resolve in Transformation — 5 attempt(s), 1 hard flag(s) open, 10909+5945 tok
+   54 Resolve in Tune — 5 attempt(s), clean, 11633+5984 tok
+   55 Resolve in Breakthrough — 5 attempt(s), 1 hard flag(s) open, 11380+5818 tok
+   56 Resolve in Recognition — 4 attempt(s), clean, 9394+4541 tok
+   57 Resolve in Creation — 4 attempt(s), clean, 8429+4844 tok
+   58 Command in Compassion — 5 attempt(s), clean, 11684+6052 tok
+   59 Perception in Inspiration — 4 attempt(s), clean, 9764+4246 tok
+   60 Perception in Fortitude — 5 attempt(s), 1 hard flag(s) open, 11465+5239 tok
+   61 Command in Drive — 5 attempt(s), 1 hard flag(s) open, 10620+6344 tok
+   62 Resilience in Transformation — 5 attempt(s), 2 hard flag(s) open, 11317+5922 tok
+   63 Perception in Equity — 5 attempt(s), clean, 12574+6363 tok
+   64 Perception in Transformation — 5 attempt(s), clean, 10136+5727 tok
+   65 Reflection in Wisdom — 5 attempt(s), 1 hard flag(s) open, 11497+6371 tok
+   66 Reflection in Drive — 5 attempt(s), 1 hard flag(s) open, 11350+5464 tok
+   67 Reconciliation in Drive — 4 attempt(s), clean, 9897+4529 tok
+   68 Guidance in Actualization — 5 attempt(s), clean, 10776+5986 tok
+   69 Reconciliation in Nurturing — 5 attempt(s), 1 hard flag(s) open, 10882+5689 tok
+   70 Reconciliation in Creation — 5 attempt(s), 2 hard flag(s) open, 10239+6183 tok
+   71 Discernment in Nurturing — 5 attempt(s), 1 hard flag(s) open, 10966+5760 tok
+   72 Immersion in Recognition — 5 attempt(s), 5 hard flag(s) open, 11999+6227 tok
+   73 Clarity in Discipline — 4 attempt(s), clean, 9443+4660 tok
+   74 Receptivity in Abstraction — 4 attempt(s), clean, 9832+4901 tok
+   75 Clarity in Faith — 5 attempt(s), 2 hard flag(s) open, 11974+5898 tok
+   76 Receptivity in Wisdom — 5 attempt(s), 5 hard flag(s) open, 11692+6503 tok
+   77 Clarity in Creation — 5 attempt(s), 1 hard flag(s) open, 13900+6419 tok
+   78 Celebration in Actualization — 4 attempt(s), clean, 10310+4696 tok
+   79 Celebration in Authority — 5 attempt(s), clean, 11676+6203 tok
+   80 Celebration in Drive — 5 attempt(s), 1 hard flag(s) open, 11604+6540 tok
+   81 Celebration in Nurturing — 5 attempt(s), clean, 10935+6816 tok
+   82 Reverie in Imagination — 3 attempt(s), clean, 9075+3473 tok
+   83 Reverie in Compassion — 5 attempt(s), 3 hard flag(s) open, 11077+6018 tok
+   84 Reverie in Drive — 5 attempt(s), clean, 11913+6921 tok
+   85 Conscience in Drive — 5 attempt(s), 1 hard flag(s) open, 12650+6430 tok
+   86 Conscience in Abstraction — 4 attempt(s), clean, 8789+4904 tok
+   87 Conscience in Culture — 5 attempt(s), 2 hard flag(s) open, 10443+5694 tok
+   88 Conscience in Wisdom — 5 attempt(s), 3 hard flag(s) open, 11008+6135 tok
+   89 Conscience in Discipline — 5 attempt(s), 1 hard flag(s) open, 12137+6388 tok
+   90 Conscience in Breakthrough — 5 attempt(s), 4 hard flag(s) open, 12699+6005 tok
+   91 Reciprocity in Potential — 5 attempt(s), 1 hard flag(s) open, 10954+5882 tok
+   92 Reciprocity in Will — 5 attempt(s), 2 hard flag(s) open, 10159+5522 tok
+   93 Reciprocity in Nurturing — 5 attempt(s), 1 hard flag(s) open, 11245+6025 tok
+   94 Reciprocity in Authority — 5 attempt(s), 3 hard flag(s) open, 12103+5884 tok
+   95 Reciprocity in Wisdom — 5 attempt(s), 1 hard flag(s) open, 12795+5879 tok
+   96 Reciprocity in Culture — 5 attempt(s), 2 hard flag(s) open, 10988+5859 tok
+   97 Reciprocity in Fortitude — 5 attempt(s), clean, 10804+5863 tok
+   98 Reciprocity in Faith — 5 attempt(s), 4 hard flag(s) open, 12198+5850 tok
+   99 Reciprocity in Breakthrough — 4 attempt(s), clean, 10879+5326 tok
+  100 Reciprocity in Inspiration — 5 attempt(s), 3 hard flag(s) open, 12039+6764 tok
+  101 Allure in Discipline — 5 attempt(s), 2 hard flag(s) open, 9685+5834 tok
+  102 Reciprocity in Recognition — 5 attempt(s), 3 hard flag(s) open, 10757+5807 tok
+  103 Allure in Abstraction — 5 attempt(s), 3 hard flag(s) open, 10902+5945 tok
+  104 Allure in Will — 5 attempt(s), clean, 10348+6141 tok
+  105 Allure in Transformation — 5 attempt(s), 2 hard flag(s) open, 11282+6379 tok
+  106 Passage in Tune — 4 attempt(s), clean, 9063+4583 tok
+  107 Fulfillment in Nurturing — 4 attempt(s), clean, 9066+4698 tok
+  108 Fulfillment in Faith — 4 attempt(s), clean, 10476+4700 tok
+  109 Completion in Faith — 5 attempt(s), clean, 11240+5959 tok
+  110 Fulfillment in Culture — 5 attempt(s), 1 hard flag(s) open, 12437+6896 tok
+  111 Formation in Fortitude — 4 attempt(s), clean, 9852+4466 tok
+  112 Formation in Culture — 4 attempt(s), clean, 8779+4838 tok
+  113 Definition in Fortitude — 5 attempt(s), 2 hard flag(s) open, 12766+5930 tok
+  114 Definition in Tune — 5 attempt(s), 2 hard flag(s) open, 11944+6379 tok
+  115 Preservation in Authority — 3 attempt(s), clean, 8031+3781 tok
+  116 Formation in Faith — 5 attempt(s), 2 hard flag(s) open, 11304+6084 tok
+  117 Steadfastness in Will — 3 attempt(s), clean, 8194+3336 tok
+  118 Preservation in Discipline — 5 attempt(s), 4 hard flag(s) open, 10682+6045 tok
+  119 Support in Faith — 4 attempt(s), clean, 9776+4666 tok
+  120 Steadfastness in Culture — 5 attempt(s), 1 hard flag(s) open, 10930+6046 tok
+  121 Support in Wisdom — 5 attempt(s), 2 hard flag(s) open, 12170+6127 tok
+  122 Support in Source — 5 attempt(s), clean, 10963+5958 tok
+  123 Support in Recognition — 4 attempt(s), clean, 8746+4490 tok
+  124 Harvest in Will — 4 attempt(s), clean, 10085+4903 tok
+  125 Harvest in Compassion — 5 attempt(s), clean, 12312+5672 tok
+  126 Commitment in Drive — 5 attempt(s), 1 hard flag(s) open, 11733+6090 tok
+  127 Commitment in Fortitude — 5 attempt(s), 5 hard flag(s) open, 11002+5504 tok
+  128 Commitment in Actualization — 5 attempt(s), 2 hard flag(s) open, 12703+5811 tok
+  129 Commitment in Source — 5 attempt(s), clean, 11841+6241 tok
+  130 Commitment in Faith — 5 attempt(s), clean, 11226+6444 tok
+  131 Flourishing in Equity — 4 attempt(s), clean, 10991+4733 tok
+  132 Achievement in Potential — 5 attempt(s), 2 hard flag(s) open, 12250+5714 tok
+  133 Achievement in Wisdom — 5 attempt(s), 1 hard flag(s) open, 11148+5912 tok
+  134 Achievement in Source — 4 attempt(s), clean, 9257+4765 tok
+  135 Achievement in Actualization — 5 attempt(s), clean, 12745+6118 tok
+  136 Achievement in Equity — 4 attempt(s), clean, 9245+5234 tok
+  137 Initiate of Intent in Will — 4 attempt(s), clean, 10215+4896 tok
+  138 Achievement in Fortitude — 5 attempt(s), clean, 11773+7074 tok
+  139 Achievement in Transformation — 5 attempt(s), 1 hard flag(s) open, 12206+5840 tok
+  140 Catalyst of Intent in Faith — 4 attempt(s), clean, 8941+4915 tok
+  141 Steward of Intent in Culture — 5 attempt(s), 2 hard flag(s) open, 10433+5780 tok
+  142 Steward of Intent in Drive — 4 attempt(s), clean, 9388+4653 tok
+  143 Steward of Intent in Creation — 4 attempt(s), clean, 8367+4920 tok
+  144 Executor of Intent in Inspiration — 5 attempt(s), 2 hard flag(s) open, 12437+5940 tok
+  145 Executor of Intent in Potential — 5 attempt(s), clean, 11249+6668 tok
+  146 Initiate of Cognition in Culture — 5 attempt(s), 1 hard flag(s) open, 11517+5641 tok
+  147 Initiate of Cognition in Source — 5 attempt(s), clean, 12835+5937 tok
+  148 Executor of Intent in Actualization — 5 attempt(s), 2 hard flag(s) open, 12439+6332 tok
+  149 Catalyst of Cognition in Equity — 4 attempt(s), clean, 11294+4824 tok
+  150 Catalyst of Cognition in Culture — 5 attempt(s), clean, 10715+6238 tok
+  151 Steward of Cognition in Breakthrough — 4 attempt(s), clean, 10195+4864 tok
+  152 Executor of Cognition in Culture — 4 attempt(s), clean, 9260+5037 tok
+  153 Steward of Resonance in Equity — 4 attempt(s), clean, 11136+4929 tok
+  154 Executor of Resonance in Potential — 5 attempt(s), 1 hard flag(s) open, 12188+5635 tok
+  155 Executor of Resonance in Will — 5 attempt(s), 3 hard flag(s) open, 11927+5925 tok
+  156 Steward of Resonance in Transformation — 5 attempt(s), 3 hard flag(s) open, 12105+6618 tok
+  157 Executor of Resonance in Compassion — 5 attempt(s), 1 hard flag(s) open, 11082+5850 tok
+  158 Executor of Resonance in Faith — 5 attempt(s), 6 hard flag(s) open, 12159+6112 tok
+  159 Executor of Resonance in Authority — 5 attempt(s), 3 hard flag(s) open, 13269+7195 tok
+  160 Executor of Resonance in Breakthrough — 5 attempt(s), 5 hard flag(s) open, 12034+5890 tok
+  161 Executor of Resonance in Recognition — 5 attempt(s), 7 hard flag(s) open, 11827+5884 tok
+  162 Executor of Resonance in Imagination — 5 attempt(s), clean, 11888+5920 tok
+  163 Initiate of Structure in Potential — 5 attempt(s), clean, 13030+5860 tok
+  164 Catalyst of Structure in Wisdom — 5 attempt(s), 2 hard flag(s) open, 11111+5925 tok
+  165 Initiate of Structure in Faith — 5 attempt(s), 1 hard flag(s) open, 10951+6278 tok
+  166 Catalyst of Structure in Culture — 5 attempt(s), 2 hard flag(s) open, 12052+5392 tok
+  167 Catalyst of Structure in Breakthrough — 5 attempt(s), 3 hard flag(s) open, 11393+5715 tok
+  168 Executor of Structure in Authority — 4 attempt(s), clean, 8843+4350 tok
+  169 Steward of Structure in Imagination — 5 attempt(s), 3 hard flag(s) open, 11462+5779 tok
+  170 Steward of Structure in Faith — 5 attempt(s), 1 hard flag(s) open, 13044+6010 tok
+  171 Executor of Structure in Nurturing — 5 attempt(s), 1 hard flag(s) open, 12085+5761 tok
+  172 Executor of Structure in Transformation — 4 attempt(s), clean, 9450+4806 tok
+  173 Executor of Structure in Inspiration — 4 attempt(s), clean, 11197+4455 tok
+  174 Executor of Structure in Imagination — 5 attempt(s), 1 hard flag(s) open, 11429+5781 tok
+done 174, failed 0 in 1129s
+stored calls 1716 · cells 6856 · re-rolled 1714 · hard flags still open 196
+tokens in 14520286 out 9129390 · cost $7.66 at $0.15/$0.6 per M (OpenRouter live, host DeepSeek (dearest host in the order: $0.150/M in)) — the stored cells were authored on or-v4.1-flash; the console's ledger is the truth
+lint flags (! hard, ~ soft): seat~ 5658  medicine~ 3043  length~ 2687  refrain~ 2284  tense~ 2039  ask~ 1709  vocab~ 1622  said~ 1150  weave~ 1132  scope~ 839  wound~ 544  format~ 372  hunch~ 181  refrain! 113  diagnosis~ 87  medicine! 12  vocab! 10  scope! 9  length! 3  glass! 3  weave! 2  imperative! 1  label! 1  wound! 1
+failed calls 176 (data/pour/failed_l_or-v4.1-flash)
+UNRESOLVED after 5 attempts: Potential in Potential [imperative,refrain] · Wisdom in Culture [refrain] · Nurturing in Potential [refrain] · Nurturing in Will [refrain] · Nurturing in Equity [refrain] · Nurturing in Faith [scope] · Nurturing in Recognition [] · Discipline in Potential [refrain,medicine] · Source in Culture [scope,refrain] · Source in Abstraction [refrain] · Faith in Authority [vocab] · Transformation in Culture [refrain] · Transformation in Transformation [refrain] · Abstraction in Potential [refrain] · Abstraction in Abstraction [refrain] · Imagination in Discipline [refrain] · Actualization in Will [refrain] · Actualization in Fortitude [medicine] · Actualization in Recognition [length] · Creation in Source [medicine] · Creation in Transformation [] · Creation in Abstraction [] · Activation in Culture [vocab] · Activation in Equity [] · Activation in Imagination [] · Assertion in Abstraction [] · Alignment in Nurturing [refrain] · Dedication in Culture [refrain] · Honor in Compassion [refrain,scope] · Honor in Breakthrough [refrain] · Resolve in Transformation [] · Resolve in Breakthrough [refrain] · Command in Drive [refrain] · Resilience in Transformation [glass,vocab] · Perception in Fortitude [refrain] · Reflection in Wisdom [refrain] · Reflection in Drive [refrain] · Reconciliation in Nurturing [] · Reconciliation in Creation [refrain] · Immersion in Recognition [refrain,vocab,length] · Discernment in Nurturing [vocab] · Clarity in Faith [refrain] · Clarity in Creation [refrain] · Receptivity in Wisdom [weave,glass,scope] · Celebration in Drive [refrain] · Reverie in Compassion [refrain] · Conscience in Wisdom [refrain] · Conscience in Culture [scope,refrain] · Conscience in Drive [refrain] · Conscience in Discipline [refrain] · Conscience in Breakthrough [refrain,scope] · Reciprocity in Potential [vocab] · Reciprocity in Will [vocab,refrain] · Reciprocity in Wisdom [refrain] · Reciprocity in Nurturing [refrain] · Reciprocity in Authority [refrain] · Reciprocity in Culture [refrain] · Reciprocity in Faith [refrain,label] · Reciprocity in Inspiration [medicine] · Reciprocity in Recognition [refrain] · Allure in Discipline [medicine] · Allure in Transformation [medicine,refrain] · Allure in Abstraction [medicine,refrain] · Fulfillment in Culture [medicine] · Definition in Fortitude [refrain] · Definition in Tune [vocab] · Formation in Faith [refrain,medicine] · Preservation in Discipline [vocab,refrain] · Steadfastness in Culture [refrain] · Support in Wisdom [refrain] · Commitment in Drive [refrain] · Commitment in Fortitude [refrain,medicine] · Commitment in Actualization [length,refrain] · Achievement in Potential [refrain] · Achievement in Wisdom [refrain] · Achievement in Transformation [refrain] · Steward of Intent in Culture [refrain] · Executor of Intent in Inspiration [refrain] · Executor of Intent in Actualization [refrain] · Initiate of Cognition in Culture [refrain] · Steward of Resonance in Transformation [refrain,medicine,scope] · Executor of Resonance in Potential [refrain] · Executor of Resonance in Will [refrain] · Executor of Resonance in Authority [vocab,refrain] · Executor of Resonance in Compassion [] · Executor of Resonance in Faith [refrain] · Executor of Resonance in Breakthrough [refrain,medicine] · Executor of Resonance in Recognition [scope,refrain,wound] · Initiate of Structure in Faith [] · Catalyst of Structure in Wisdom [refrain] · Catalyst of Structure in Culture [refrain] · Catalyst of Structure in Breakthrough [refrain] · Steward of Structure in Faith [scope] · Steward of Structure in Imagination [refrain] · Executor of Structure in Nurturing [refrain] · Executor of Structure in Imagination [refrain]

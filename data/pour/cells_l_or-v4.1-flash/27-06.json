@@ -12,13 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are keeping the thing that grew out of hard work alive, and the nod can come without you chasing it.",
-      "act": "tend the resource with responsible care",
-      "ask": "Give ordinary upkeep to something that grew out of work you carried, and never ask anyone to notice it.",
-      "core": "You know what a thing costs, and you can hold to it beyond the mark where other people stop. What grows where you look after it is allowed to grow without being pushed, and you can hold room for the other person without holding on. When the hard work is finished and someone says so, you take it in, and the connection stays yours to give.\n\nCare that doesn't exhaust is what carries this. Give ordinary upkeep to one thing that grew from work you carried — not a bigger push, just tending. What is alive gets kept without clutching. That upkeep is the whole instruction; asking is not part of it. The part of the connection that bends when effort goes unreceived can sit a week without you fracturing it to reach for thanks.",
-      "sheetLine": "Let the recognition arrive without chasing it",
-      "verb": "Being seen for the weight you took on",
-      "place": "Where two people meet and find their way level with each other",
+      "tense": "What was carried quietly has been seen and named, and here you are with it.",
+      "act": "steward it without clutching",
+      "ask": "Retire a routine kept going since the sacrifice ended — a weekly call, a small duty nobody is waiting on — for one week, with no replacement.",
+      "core": "What you carried a while has been seen and named. That is the thing complete: a private effort turned visible, no defense required, no translation needed for anyone at the table. You can sit where people pass things back and forth without first explaining the shape of it.\n\nA load held correctly is still hard to release. You can keep tending the same routine long after the need that started it ended, and call that loyalty. Retire one of them — not the whole meaning, just one weekly thing that began around the same stretch. Let it go quiet a week and watch what happens when it is not kept up. Most often nothing topples, and the people beside you are fine.",
+      "sheetLine": "What you carried is out in the open now.",
+      "verb": "receiving the honor after the sacrifice",
+      "place": "a place where people take in each other",
       "provenance": {
         "signature_id": 27,
         "position_id": 6,
@@ -33,18 +33,18 @@
       },
       "lint": [
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "hunch",
+          "detail": "\"call that loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -56,13 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You will carry the next thing so cleanly that they cannot miss what it costs, and outrun the slower rhythm of being seen.",
-      "act": "strike one thing from the list that does not serve",
-      "ask": "Take the list you are holding for other people and strike one item off that does not serve — no replacement.",
-      "core": "Feeling with people rather than just about them is what you do well, and here it has turned outward into proving the sacrifice: the bearing is cleaner, the load carried further, the receipt demanded sooner. Done right, finishing ends in ease — not a loss — not in an encore nobody requested. The faster you run past when others can notice, the more invisible the work gets, and the more you pour in to make it land.\n\nWhat pulls you back is refining what you perceive. Strike one thing from the list that does not serve. Look at what you are holding for other people, cross off one item that will not be missed, and then stand firm with that crossed line. Sharpening serves growth, not worry. One item is enough; the wish to be told can stay in your hand instead of steering the load.",
-      "sheetLine": "You're racing past the slower rhythm of being seen",
-      "verb": "Being seen for the weight you took on",
-      "place": "Where two people meet and find their way level with each other",
+      "tense": "You are already living at the far end of the sacrifice, waiting on a thank-you not yet said.",
+      "act": "sort what matters from what does not, carefully",
+      "ask": "Split this week's obligations into three rows — freely agreed, quietly added, and done to dodge being seen as less — then strike the third.",
+      "core": "The work keeps being arranged for a moment that has not arrived, and anything short of that moment reads as unfinished. Every week a little extra gets added to something already done, in case it turns out not to count. What is actually happening now gets spent on a verdict still to come.\n\nIt goes heavy fast, and it goes clean just as fast. Take this week's obligations and split them three ways: what you freely said yes to, what quietly got added, what you do so nobody thinks less of you. Strike the third. What remains is honest work, and honest work can be left standing on its own.",
+      "sheetLine": "You keep checking for the notice before it is due.",
+      "verb": "receiving the honor after the sacrifice",
+      "place": "a place where people take in each other",
       "provenance": {
         "signature_id": 27,
         "position_id": 6,
@@ -75,17 +75,43 @@
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
     },
     {
       "status": 3,
-      "tense": "You carried the weight quietly and stood at the door after the going was already done.",
-      "act": "stand firm in the material hardship",
-      "ask": "Stand firm in the hardship of this week exactly as it comes, without looking around to see who noticed before you set it down.",
-      "core": "The place where two people meet goes quiet on your side when the work has gone unseen. You stay at the door after the walking is done, and the connection sits present but unreceived. What you sacrificed for has not been said by the person holding it, and the room where that would happen stays thinner than it needs to be. This was once a place you could stand in and simply be met.\n\nWhat steadies you is standing where the pressure lands. Stand firm in the material hardship. Hold the week as it comes on what you have in you, without looking around to see who noticed before you set it down. What you have is yours, not evidence to be filed. Don't push effort or feeling into the thin part directly — let standing where you are be enough.",
-      "sheetLine": "The door is behind you and you're standing at it",
-      "verb": "Being seen for the weight you took on",
-      "place": "Where two people meet and find their way level with each other",
+      "tense": "The giving is behind you, and you are at the doorway still unsure it counted.",
+      "act": "carry your own share, all of it",
+      "ask": "Hold one thing you gave as yours to carry, and stop checking whether it registered with anyone.",
+      "core": "Something was paid earlier, and it is not being counted here — not from modesty, more that the payment stopped being yours to hold. You keep half in the doorway, listening for confirmation it was wanted. The warmth has not gone anywhere. You stand outside it, keeping the question open.\n\nOwning what was paid is what lets the rest arrive. Take one thing you gave — a year, a stretch of time, a comfort you went without. Hold it as yours, near enough to touch, and stop checking whether it registered with anyone. Nobody is being asked for anything here. The point is to stop holding the door.",
+      "sheetLine": "It was paid. You're standing in the doorway.",
+      "verb": "receiving the honor after the sacrifice",
+      "place": "a place where people take in each other",
       "provenance": {
         "signature_id": 27,
         "position_id": 6,
@@ -100,14 +126,29 @@
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
         },
         {
           "code": "seat",
@@ -118,13 +159,13 @@
     },
     {
       "status": 4,
-      "tense": "The connection is kept alive by you, and by your account it is simply how the two of you happen to be.",
+      "tense": "You hold each of them steady and have not once called what you do by a name.",
       "act": "look after what grows with a steady hand",
-      "ask": "Look after one thing between you and someone else with a steady hand, and hold in your own mind that this care comes from you.",
-      "core": "What is carried between you and other people is kept moving — the load redistributed, the moment held open, the sacrifice made smooth enough not to notice. Nobody else has been told where it comes from, and your own account says the connection simply runs this way. What you gave up for these people is real and working, and the one thing it has not reached is your own recognition of it.\n\nStart with one piece. Look after what grows with a steady hand — one thing between you and someone else, kept steady the way you keep the rest. Then hold this in your own mind: what you are doing is yours. You don't have to tell anyone. Done right, this ends in release arriving on its own from finishing, and here release is your own awareness of the work, not more work.",
-      "sheetLine": "The care is yours and your account of it isn't",
-      "verb": "Being seen for the weight you took on",
-      "place": "Where two people meet and find their way level with each other",
+      "ask": "For one week, note what you quietly keep steady for someone — hours, costs, arrangements — and count it as tending.",
+      "core": "The people near you know exactly where they stand. That has been kept true a long while — the calendar moved, the cup filled, the difficult room made easy before anyone had to ask. The one keeping it level has not described it as upkeep. So far as you tell it, it is simply what you do.\n\nThe ground does not hold itself. For one week, note down what you are quietly keeping steady — a person, a load, an arrangement — and count the hours and costs as tending. No mailing it anywhere, no collecting thanks. Not credit. Just the one carrying it knowing where they stand, the way you know it for everybody else.",
+      "sheetLine": "You keep the ground level and never count it.",
+      "verb": "receiving the honor after the sacrifice",
+      "place": "a place where people take in each other",
       "provenance": {
         "signature_id": 27,
         "position_id": 6,
@@ -139,9 +180,19 @@
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
         },
         {
           "code": "tense",
@@ -159,45 +210,45 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5997,
+      "ms": 19605,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "wound",
+          "detail": "\"no one saw\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
           "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"it past the point where\"",
+          "code": "person",
+          "detail": "first person: \"we\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one piece of it down\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -207,56 +258,32 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Compassion",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"anxiety\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "hunch",
+          "detail": "\"for an audience\" — a motive the cell cannot know",
           "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "detail": "\"The giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 2
         },
         {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Honing does\") — the act in plain words, the name once at most",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "detail": "\"tell them\" — a speech act in the cell under a medicine that is not about people",
           "hard": true,
           "status": 2
         },
@@ -267,8 +294,8 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "code": "person",
+          "detail": "first person: \"we\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 2
         },
@@ -277,12 +304,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty side\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "wound",
@@ -292,19 +313,13 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Steadfastness does\") — the act in plain words, the name once at most",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -316,31 +331,13 @@
         },
         {
           "code": "refrain",
-          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "detail": "\"pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"on your own reserves through\"",
+          "code": "person",
+          "detail": "first person: \"we\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 3
         },
@@ -351,21 +348,345 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"we\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported claim: the Balanced core says 'the people around you already see it' — the record says acknowledgment is a completed external fact, which I cannot verify for any given person; I narrowed that to what the person can put down. The reader could reasonably object to 'six months,' which is my line, not the record's; I removed it. If the Too Much read is wrong, the ask still works: watching for the ask that comes too fast is useful whether or not anyone is bracing. The sentence that serves me more than them was 'the recognition is real even when it arrives late' — pretty, and it puts my words in their mouth, so it is gone."
+    },
+    {
+      "attempt": 2,
+      "ms": 11066,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "hunch",
+          "detail": "\"call that loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one piece of it down\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported claim: the Balanced core says 'they're treating it as real' — the record declares acknowledgment a completed external fact, but I cannot know what any room is doing; I moved the whole cell onto what the person can set down. The reader could reasonably say the Too Much cell assumes they're building a case for an audience; I removed the motive and kept only the visible extra work. All four asks survive a wrong read: sorting a pile, laying a load down, naming what was paid, and counting steady upkeep all teach something even if the diagnosis misses. The sentence that served me more than them was 'the giving is what makes you someone who can be met' — it flattered my own construction, so it is gone."
+    },
+    {
+      "attempt": 3,
+      "ms": 10427,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"signature\"",
+          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"Everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
@@ -375,14 +696,132 @@
           "status": 4
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported claim: the Balanced core leans on the room 'taking it in' — the record declares acknowledgment complete, but the cell can only know what the person can put down, so the core now stays on that. The reader could say the Too Much cell assumes a coming verdict nobody named; I kept only the visible extra work and cut the motive. All four asks survive a wrong read — setting a routine down, sorting a pile, holding one thing given as yours, and counting quiet upkeep each teach something on their own. The sentence that served me more than them was 'the giving is what makes you someone who can be met'; it flattered my construction and is gone."
+    },
+    {
+      "attempt": 4,
+      "ms": 9362,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -404,202 +843,30 @@
           "hard": true
         }
       ],
-      "check": "The record supports sacrifice offered and not yet acknowledged as the shape of the imbalance, but not what was given up, for whom, or for how long; locate the person after the moment rather than inside a story I invent. A reader could reasonably say the giving is simply not recognized yet, or never will be, and that is different from being carried without knowing. The asks stand either way, because each is a form of tending that leaves the person better even if my read is wrong. The sentence that serves me more than them is any line that tells them what their effort has been for."
+      "check": "Unsupported claim: the Balanced core still leans on the sacrifice being 'seen and named' as a fact — the record declares acknowledgment complete, but a cell can only know what the person can put down, so the core stays on that. The Too Much cell assumes a coming verdict; I kept only the visible extra work and cut the motive, and I cut any speech act from the asks since the medicine is not about people. All four asks survive a wrong read — laying a routine down, cutting a third of a pile, holding one thing given as yours, and counting quiet upkeep each teach something on their own. The sentence that served me more than them was 'the giving is what makes you someone who can be met'; it flattered my construction and is gone."
     },
     {
-      "attempt": 2,
-      "ms": 4381,
+      "attempt": 5,
+      "ms": 8686,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\" and let it land\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Steadfastness does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"on your own reserves through\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the letting go\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports sacrifice offered and recognition not yet arrived as the shape of the imbalance, but not what was given up, for whom, or for how long; locate the person after the moment rather than inside a story I invent. A reader could reasonably say the giving is simply not recognized yet, or never will be, and that is different from being carried without knowing. The asks stand either way, because each is a form of tending that leaves the person better even if my read is wrong. The sentence that serves me more than them is any line that tells them what their effort has been for."
-    },
-    {
-      "attempt": 3,
-      "ms": 4087,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "detail": "\"call that loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -610,231 +877,87 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the letting go\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "faces",
-          "detail": "3 of the four asks carry a clock — let some have none",
-          "hard": true
-        }
-      ],
-      "check": "The record supports sacrifice offered and recognition not yet arrived as the shape of the imbalance, but not what was given up, for whom, or for how long; locate the person after the moment rather than inside a story I invent. A reader could reasonably say the giving is simply not recognized yet, or never will be, and that is different from being carried without knowing. The asks stand either way, because each is a form of tending that leaves the person better even if my read is wrong. The sentence that serves me more than them is any line that tells them what their effort has been for."
-    },
-    {
-      "attempt": 4,
-      "ms": 4303,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\", and let the week\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
+          "status": 2
         },
         {
           "code": "refrain",
           "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "faces",
-          "detail": "3 of the four asks carry a clock — let some have none",
-          "hard": true
-        }
-      ],
-      "check": "The record supports sacrifice offered and recognition not yet arrived as the shape of the imbalance, but not what was given up, for whom, or how long ago; locate the person on the near side of the moment, not inside a story I invent. A reader could reasonably say the giving is merely unrecognized so far, or never will be — different from carrying something without knowing it. Each ask still leaves the person with a usable act if my read is wrong. The sentence that serves me more than them is any line telling them what all their effort has been for."
-    },
-    {
-      "attempt": 5,
-      "ms": 4011,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
           "status": 4
         },
         {
@@ -848,15 +971,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record supports sacrifice offered and recognition not yet arrived as the shape of the imbalance, but not what was given up, for whom, or how long ago; locate the person on the near side of the moment, not inside a story I invent. A reader could reasonably say the giving is merely unrecognized so far, or never will be — different from carrying something without knowing it. Each ask still leaves the person with a usable act if my read is wrong. The sentence that serves me more than them is any line telling them what all their effort has been for."
+      "check": "Unsupported claim: the Balanced core still treats the acknowledgment as a finished external fact — the record says so, but a cell can only work with what the person can set down, so the core stays there. The Too Much cell could be said to assume a coming verdict; I kept only the visible extra work and cut the motive. All four asks survive a wrong read — retiring a routine, striking a third of a pile, carrying one thing given as yours, and counting a stretch of quiet upkeep each teach something on their own. The sentence that served me more than them was 'honest work is the only kind that carries its own weight'; it admired itself and is gone."
     }
   ],
   "usage": {
-    "input": 6610,
-    "output": 6218
+    "input": 10934,
+    "output": 5857
   },
-  "hardOpen": 2,
-  "date": "2026-10-02T13:28:58.933Z"
+  "hardOpen": 5,
+  "date": "2026-10-02T17:29:54.029Z"
 }

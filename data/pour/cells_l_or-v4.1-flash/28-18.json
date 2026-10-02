@@ -12,13 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing on ground you chose and holding it, with the pen in your hand right now",
-      "act": "mark the good thing together, out loud",
-      "ask": "When something you've been holding ground for actually lands, say so out loud to whoever's nearby — just the fact of it, not the long defense behind it.",
-      "core": "You can hold a direction in the half-lit part of things. Not blindly — there's pressure, there's resistance, and you keep going anyway. You've gathered what was scattered into one clear line. The path ahead is still only lit a step at a time, and you don't need more than that. With the pen in your hand, you're still writing.\n\nThe useful thing here isn't to stop holding. It's to look at who's on this stretch with you and say what's good, out loud, while it's happening. Not after. Not in a recap. The weight you're carrying gets lighter when it's shared mid-step, and the people with you can feel where the ground actually is. Say it now, while it's live, and the momentum goes further than defending it alone would.",
-      "sheetLine": "You can hold a direction in the half-lit part without forcing the whole road.",
-      "verb": "Gathering what was scattered and holding one chosen direction against pressure, on a road you can't see past the next step",
-      "place": "A stretch of half-lit path where the way forward only shows itself one step at a time",
+      "tense": "You can keep a chosen direction without the rest of the road showing.",
+      "act": "let the gladness go out to the room",
+      "ask": "When something good comes of holding your ground, take it to the ones who walked that stretch with you. Don't wait to be asked.",
+      "core": "In this half-light you can gather what you have and point it, and the line stays put even when the dark asks you to redraw it each morning. That's the thing working, not stubbornness. You don't need the whole road lit to keep walking the next piece of it.\n\nWhat this opens onto is shared meaning. When something good comes of standing your ground, pass that good along to the ones who were there. Gladness kept in one set of hands goes thin. Say it where they can hear it, the day it happens, not after the next thing is locked down. The standing firm is yours; what it meant is meant to be spoken aloud to the people who were in it, and they can tell you what it weighs.",
+      "sheetLine": "You can hold a line without the whole road lit.",
+      "verb": "gathering what was scattered into a single direction and holding it there",
+      "place": "in half-light, where the next step shows and the whole road does not",
       "provenance": {
         "signature_id": 28,
         "position_id": 18,
@@ -34,12 +34,17 @@
       "lint": [
         {
           "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the gladness go out to the room\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -51,13 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for the next stretch before the ground under you has shown its shape",
+      "tense": "You are bracing against a future that hasn't asked to be met.",
       "act": "let the mind rest instead of working the problem",
-      "ask": "For an hour, don't solve the stretch you can't see yet. Not a break from work — set it aside and let your mind have nothing to fix.",
-      "core": "The strain in you is running past the road. You're gathering for a defense that hasn't arrived, bracing against resistance nobody's actually put on you yet. Every half-lit stretch gets solved in advance, and the solving is heavier than the walking would be. Somewhere in there the sheer work of holding has crowded out the direction it was meant to serve.\n\nWhat's thin isn't the effort. It's the quiet that lets you feel which way you're actually pointed. Let it be unsolved for a while. Don't redraw your plan. Sit with the ambiguity you've been trying to outrun, and let your mind calibrate to something other than the next threat. The choice you make once you're rested will come from you, not from the bracing. That's what holding ground is for — to keep you pointed, not to keep you clenched.",
-      "sheetLine": "You're solving a stretch you haven't reached yet. Stop for an hour.",
-      "verb": "Gathering what was scattered and holding one chosen direction against pressure, on a road you can't see past the next step",
-      "place": "A stretch of half-lit path where the way forward only shows itself one step at a time",
+      "ask": "One hour today with nothing to solve. When your mind reaches for the problem, let it come back empty.",
+      "core": "Out here in the half-light you're gathered against a future that hasn't arrived. Every objection gets a wall built before anyone speaks it. The direction is chosen, and the defending has outrun it. What was strength is bracing now: the body tensed for an impact that may not come, the mind assigned to run the simulations until it finds one it can't beat.\n\nThe part of you doing that work hasn't been given a rest in a while. An hour with nothing to solve won't cost the line. It may show you which parts of the defense were real and which were only the sound of your own thinking. The direction doesn't need shelter from every imagined version of next week. It needs you rested enough to meet the one that actually shows up.",
+      "sheetLine": "You're bracing for a road that hasn't arrived yet.",
+      "verb": "gathering what was scattered into a single direction and holding it there",
+      "place": "in half-light, where the next step shows and the whole road does not",
       "provenance": {
         "signature_id": 28,
         "position_id": 18,
@@ -70,17 +75,38 @@
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door you already walked through, holding a direction that has moved on without you",
-      "act": "keep what the change produced from drifting",
-      "ask": "Find one thing the ending left you — a new rhythm, a cleared space, something that took — and do a small thing that holds it where it is.",
-      "core": "Something worth protecting already came through, and the effort to keep it stopped before the thing did. You're standing at a door that's behind you. The half-lit path keeps asking for the next step, and nothing in you is laying it — not because you can't, but because the last stretch used everything and you're still there. The strength hasn't gone. It's just aimed at ground you've already covered.\n\nWhat the ending produced is still lying around, unkept. Find one piece you can see — a new rhythm, a cleared space, something that took — and do a small thing today that holds it where it is. Not a big move. Not a new direction. Just the quiet work of keeping what already changed from drifting back. Something real to hold is what the stalled part of you needs, so the next step has ground under it again.",
-      "sheetLine": "The ending already gave you something. One small act keeps it.",
-      "verb": "Gathering what was scattered and holding one chosen direction against pressure, on a road you can't see past the next step",
-      "place": "A stretch of half-lit path where the way forward only shows itself one step at a time",
+      "tense": "You stood at a door that already closed and kept the position.",
+      "act": "hold the new form steady",
+      "ask": "Take one thing the last ending left you — a habit, a skill, a quieter morning — and find the shape that keeps it.",
+      "core": "The door you were holding has already swung shut, and you haven't stepped out of the frame. The direction was chosen, and the gathering that made it possible has scattered. What you defended isn't there to defend anymore, and the standing has gone quiet. That isn't a loss. It's a posture left over from an earlier stretch.\n\nWhat the ending produced is still with you, in pieces: a skill you practiced, a way of saying no you didn't have before, a morning that got quieter. That's what wants keeping now — the new shape, not the old position. Put it where you'll see it: written down, on the calendar, in the routine. The work is to keep what survived from drifting, so the next time the dark asks, you aren't building the line from nothing.",
+      "sheetLine": "The door closed. You're still holding the frame.",
+      "verb": "gathering what was scattered into a single direction and holding it there",
+      "place": "in half-light, where the next step shows and the whole road does not",
       "provenance": {
         "signature_id": 28,
         "position_id": 18,
@@ -95,18 +121,13 @@
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, path) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -116,7 +137,7 @@
         },
         {
           "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -128,13 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "The ground you stand on was shaped by your own effort, and you describe it as land you happened upon",
-      "act": "build the first new thing from what the clearing showed",
-      "ask": "Make one new thing with your hands — nothing depends on it, nobody's asking for it — because starting is what you do.",
-      "core": "The direction you're holding was authored by you. You gathered what was scattered and pointed it where it points. From inside the pressure, it reads as the situation you're in, not the work you did. The half-lit path looks like land you found. It isn't. It's what you made.\n\nBefore you were holding ground for something, you started things because starting is what you do. That earlier act — taking a direction with no guarantee and walking it — is still you. Begin something small this week. Nothing rides on it, no one needs it, and the road under your feet will show the old footprints. It reads differently once you remember the building.",
-      "sheetLine": "You're holding ground you built, and calling it terrain.",
-      "verb": "Gathering what was scattered and holding one chosen direction against pressure, on a road you can't see past the next step",
-      "place": "A stretch of half-lit path where the way forward only shows itself one step at a time",
+      "tense": "The line is being held by your hand, and you don't count it yours.",
+      "act": "form the new structure with your hands",
+      "ask": "Where something false fell away, form a small thing in its place — with your hands, this week.",
+      "core": "You've been holding a direction through this ambiguous stretch, and your account of it is that you're managing, or waiting for clarity, or getting through. The line is being drawn. The drawing is yours. You don't say it that way, and nobody has reason to check.\n\nBefore you were a person holding a line against the dark, you made things. Small ones, first tries, the pleasure of starting before you knew the shape. That earlier form is still in your hands. Form a small thing on the ground where the false structure fell. Not because the situation demands it — because building shows you what the clearing was for. The line you're holding started somewhere. Start another, and sign it.",
+      "sheetLine": "You're holding the line, and not signing it.",
+      "verb": "gathering what was scattered into a single direction and holding it there",
+      "place": "in half-light, where the next step shows and the whole road does not",
       "provenance": {
         "signature_id": 28,
         "position_id": 18,
@@ -150,17 +171,12 @@
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (path, road) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -179,32 +195,50 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6911,
+      "ms": 13600,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (path, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "detail": "five words in a row from the medicine's own acts: \"the people it belongs to\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -215,57 +249,63 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, map) — one at most, usually none",
+          "detail": "two images in one core (wall, road) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from the medicine's own acts: \"put the problem down and\" — say the act in the person's words",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you make after that will\"",
-          "hard": true,
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
           "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"empty seat\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "hunch",
+          "detail": "\"It's not lost; it's just\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (door, room, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (door, path, shape) — a parable, not a sentence to a person",
-          "hard": true,
           "status": 3
         },
         {
@@ -276,7 +316,7 @@
         },
         {
           "code": "refrain",
-          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -287,32 +327,26 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (path, road) — one at most, usually none",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -324,14 +358,8 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"no one waiting on it\"",
+          "detail": "five words in a row from an exemplar or a rule: \"is how you find out\"",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
           "status": 4
         },
         {
@@ -347,28 +375,57 @@
         },
         {
           "code": "faces",
-          "detail": "4 of the four asks carry a clock — let some have none",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
           "hard": true
         }
       ],
-      "check": "The unsupported claim in my draft is that the person is actively reading the room or timing celebrations — the record only says Resolve is holding ground on ambiguous terrain, and I let that imply social vigilance. A reader could reasonably say the strain is private and internal, not about other people at all; nothing in the draw requires the pressure to be social. The ask survives either way because 'let the mind rest instead of working the problem' is useful whether the overwork is about others' reactions or about a decision with no map. The sentence that serves me more than them is the one that makes the whole thing sound like a social performance problem — it flatters my reading and pins a motive on them, so I cut it."
+      "check": "The record does not say the person is defending anything currently under opposition; it says the capacity for gathered determination has landed in a place that is ambiguous. The reader could reasonably say 'I'm not defending anything right now, I'm just not sure what's next.' The asks survive being wrong: each is small, doable, and teaches the person something about how they hold a line or wait for one. The line that serves the writer more than the person would be any sentence that implies the ambiguity itself is the enemy rather than the condition."
     },
     {
       "attempt": 2,
-      "ms": 4577,
+      "ms": 11846,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
+          "detail": "\"The holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -379,14 +436,44 @@
           "status": 1
         },
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, path) — one at most, usually none",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -415,26 +502,161 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (path, road) — one at most, usually none",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before you know what it's\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record doesn't say anything is currently under opposition, only that this capacity for gathered determination landed in a place that's ambiguous. A reader could fairly say 'I'm not defending anything, I'm just not sure what's next.' Each ask survives that being wrong — they're small, they don't depend on my read, and each teaches something about how the person holds a line or waits for one. The sentence that serves the writer more than the person would be any line implying ambiguity itself is the enemy rather than the condition."
+    },
+    {
+      "attempt": 3,
+      "ms": 9490,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"The opening\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -462,118 +684,24 @@
           "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person is actively reading or performing for others — the record only says Resolve is holding ground on ambiguous terrain, and I let that imply social vigilance. A reader could reasonably say the strain is entirely private, a decision with no map and no audience; nothing in the draw requires the pressure to be social. The ask survives either way because stepping away from the problem helps whether the overwork is about others' reactions or about an unmapped choice. The sentence that serves me more than them is any line that makes this a social-performance problem — it flatters my read and pins a motive on them, so it is out."
-    },
-    {
-      "attempt": 3,
-      "ms": 4154,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, path) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (path, road) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person is actively reading or performing for others — the record only says Resolve is holding ground on ambiguous terrain, and I let that imply social vigilance. A reader could reasonably say the strain is entirely private, a decision with no map and no audience; nothing in the draw requires the pressure to be social. The ask survives either way because stepping away from the problem helps whether the overwork is about others' reactions or about an unmapped choice. The sentence that serves me more than them is any line that makes this a social-performance problem — it flatters my read and pins a motive on them, so it is out."
+      "check": "The record doesn't place this capacity under current opposition; it says gathered determination landed in an ambiguous stretch. A reader could fairly answer 'I'm not defending anything, I'm just unsure what's next.' The asks hold up either way — they're small, none of them needs my read to be correct, and each one teaches something about how this person holds a line or waits for one. The line that would serve me rather than the person is any sentence treating the ambiguity itself as the problem instead of the weather."
     },
     {
       "attempt": 4,
-      "ms": 5147,
+      "ms": 9428,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -584,26 +712,50 @@
           "status": 1
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, path) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -627,19 +779,130 @@
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (path, road) — one at most, usually none",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 4
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record doesn't put this capacity under active opposition; it says gathered determination landed in an ambiguous stretch. A reader could fairly answer 'I'm not defending anything, I'm just unsure what's next.' The asks survive that being wrong — none of them needs my read, each is small, and each teaches something about how this person holds a line or waits for one. The sentence that would serve me over the person is any line treating the ambiguity as the problem instead of the weather."
+    },
+    {
+      "attempt": 5,
+      "ms": 8534,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "medicine",
-          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "detail": "the ask shares no word with the chosen act (\"let the gladness go out to the room\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 4
         },
@@ -656,13 +919,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is actively reading or performing for others — the record only says Resolve is holding ground on ambiguous terrain, and I let that imply social vigilance. A reader could reasonably say the strain is entirely private, a decision with no map and no audience; nothing in the draw requires the pressure to be social. The ask survives either way because stepping away from the problem helps whether the overwork is about others' reactions or about an unmapped choice. The sentence that serves me more than them is any line that makes this a social-performance problem — it flatters my read and pins a motive on them, so it is out."
+      "check": "The record doesn't put this capacity under active opposition; it says gathered determination landed in an ambiguous stretch. A reader could fairly answer 'I'm not defending anything, I'm just unsure what's next.' The asks survive that being wrong — none of them needs my read, each is small, and each teaches something about how this person holds a line or waits for one. The sentence that would serve me over the person is any line treating the ambiguity as the problem instead of the weather."
     }
   ],
   "usage": {
-    "input": 8425,
-    "output": 5301
+    "input": 11060,
+    "output": 6048
   },
   "hardOpen": 0,
-  "date": "2026-10-02T11:51:23.939Z"
+  "date": "2026-10-02T16:47:28.940Z"
 }
