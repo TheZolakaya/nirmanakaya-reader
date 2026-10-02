@@ -234,6 +234,8 @@ if (cmd === 'plan') {
       if (!m) throw new Error(`no live endpoint price for ${BENCH.priceKey}`);
       const dear = Math.max(...POUR_HOSTS.map((h) => { const e = eps.find((x) => String(x.provider_name || x.name || '').toLowerCase() === h.toLowerCase()); return e ? Number(e.pricing.prompt) * 1e6 : 0; }));
       PRICE.input = Number(m.pricing.prompt) * 1e6; PRICE.output = Number(m.pricing.completion) * 1e6; PRICE.source = `OpenRouter live, host ${m.provider_name || m.name} (dearest host in the order: $${dear.toFixed(3)}/M in)`;
+      // 2026-10-03 (founder: "the cheap one only for batches, and no rollover to something more expensive"): refuse an order with a dearer host in it
+      if (dear > PRICE.input + 1e-9) { console.error(`REFUSED: the order ${POUR_HOSTS.join(' → ')} contains a host dearer than the pinned one ($${dear.toFixed(3)}/M in vs $${PRICE.input.toFixed(3)}); a batch never rolls over to a dearer host`); process.exit(2); }
       console.log(`route: ${POUR_HOSTS.join(' → ')} (no router fallbacks)`);
       console.log(`live price for ${BENCH.priceKey}: $${PRICE.input.toFixed(3)} / $${PRICE.output.toFixed(3)} per M (fallback table said $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).input} / $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).output})`);
     } catch (e) { console.error(`REFUSED: could not fetch the live price (${e.message}); the fallback table is not trusted`); process.exit(2); }
