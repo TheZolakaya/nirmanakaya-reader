@@ -43,8 +43,8 @@ const PER_CALL_WORST = { input: MAX_ATTEMPTS * 11500, output: MAX_ATTEMPTS * 260
 const PRICE_ASSUMED = PRICE || { input: NaN, output: NaN, source: 'UNKNOWN' };
 const AUTHOR_KEY = AUTHOR.replace(/[^a-z0-9.]+/gi, '-');
 const CELLS_DIR = SET === 'a' ? 'data/pour/cells' : `data/pour/cells_${SET}_${AUTHOR_KEY}`, WAVE = SET === 'a' ? 'data/pour/waves/wave-one.json' : `data/pour/waves/wave-one-${SET}-${AUTHOR_KEY}.json`, FAILED_DIR = `data/pour/failed_${SET}_${AUTHOR_KEY}`;
-const HELD_ARCHETYPES = new Set([0, 1, 6, 8, 10, 15, 17, 19, 20, 21]);
-const HELD_AGENTS = new Set([62, 67, 72, 77]);   // Inspiration(17) · Abstraction(15) · Compassion(6) · Fortitude(8) in a role
+const HELD_ARCHETYPES = new Set([]);   // the medicine sweep landed 2026-10-02; nothing is held for it
+const HELD_AGENTS = new Set([]);   // Inspiration(17) · Abstraction(15) · Compassion(6) · Fortitude(8) in a role
 const SWEEP_SIGNATURE = 53;   // Stewardship — the founder's own card of 2026-09-29, a Bound, untouched by the sweep: coherence on the one
 const HOUSES = ['Gestalt', 'Spirit', 'Mind', 'Emotion', 'Body'];
 

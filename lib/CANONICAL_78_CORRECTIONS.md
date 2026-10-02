@@ -442,3 +442,17 @@ Their Bounds (Aces and 10s) therefore have no growth opportunity defined. When b
 **Authoritative values now live in lib/corrections.js AGENT_VERTICAL_TARGETS and AGENT_DIAGONAL_TARGETS (bug fix 2026-07-27), each row derived and machine-verified against ARCHETYPE pair tables + resident-agent map (8/8 live-function spot checks). The Agents Complete Reference table above is UNRELIABLE for the Too Little and Too Much columns until regenerated; Growth and Unacknowledged columns verified correct.**
 
 **Discovery context:** caught by the founder from an iPad, from memory, against a live reading served to the production seat (Too Little Executor of Structure had returned Initiate of Intent; true target Executor of Intent). Engine fixed same night.
+
+
+## AMENDMENT — THE MEDICINE SWEEP (founder-gaveled 2026-09-27, 4:30–5:10am; applied to the table 2026-10-02)
+
+Four rulings, recorded the night of 2026-09-26/27 and held for the founder's rested look; applied on his word 2026-10-02 ("we want to keep all those things, we want to apply them to production"). They supersede the corresponding rows in Parts I, II and III above and the NOTES ON GESTALT ARCHETYPES.
+
+1. **Pure growth pairs.** The four pure cards grow Seed with Seed and Fruition with Fruition: Compassion 6 ↔ Fortitude 8; Abstraction 15 ↔ Inspiration 17. (Replaces 6↔15 and 8↔17.) The four pure-card Agents follow: Inspiration 62 ↔ Abstraction 67; Compassion 72 ↔ Fortitude 77.
+2. **Unacknowledged for the outside six** — step down nine, wrap at the bottom: Potential 0 → Imagination 18; Will 1 → Actualization 19; Source 10 → Will 1; Actualization 19 → Source 10; Recognition 20 → Equity 11; Creation 21 → Faith 12. (Replaces 0 and 1 → self, 20 → 2, 21 → 3.) No archetype reduces to itself.
+3. **Soul-house growth** — each grows one-way into the pure card of its designator: Potential 0 → Inspiration 17; Will 1 → Fortitude 8; Actualization 19 → Abstraction 15; Recognition 20 → Compassion 6. (Replaces → self.) The portals keep 10 ↔ 21.
+4. **Portal Too Much / Too Little** — both go to the other door, like growth: Source 10 → Creation 21; Creation 21 → Source 10. Unacknowledged stays −9 (10 → 1, 21 → 12). (Replaces 10: TM 1 / TL 19; 21: TM 0 / TL 20.)
+
+With these, the whole 22 is derived and no archetype's medicine is itself.
+
+**Still open (not ruled):** the eight Gestalt Bounds (the Aces and Tens: 22, 31, 32, 41, 42, 51, 52, 61) remain their own growth and reduction partners in Part V. Whether they follow the outside-six move or stay self is the founder's ruling to make.

@@ -10,7 +10,7 @@ cases.push(['wrong seat', readPlan({ transient: 53, position: 5, status: 4 }, DE
 // 2. right card, right seat, wrong status
 cases.push(['wrong status', readPlan({ transient: 53, position: 1, status: 2 }, DEFS), good(53, 1, 4), null, [], 'ownership']);
 // 3. a stale cell after a canon sweep: provenance says a different partner than the record now computes
-const stale = good(6, 3, 1); stale.provenance.partner_id = 8; stale.provenance.partner = 'Fortitude';   // a cell authored under the 2026-09-27 gavel (pure growth 6↔8) meets a record that still computes 6↔15 — the live mismatch today, until corrections.js carries the sweep
+const stale = good(6, 3, 1); stale.provenance.partner_id = 15; stale.provenance.partner = 'Abstraction';   // a cell authored before the medicine sweep (6↔15) meets the record that now computes 6↔8 (applied 2026-10-02) — exactly the cells the sweep darkens
 cases.push(['stale partner', readPlan({ transient: 6, position: 3, status: 1 }, DEFS), stale, null, [], 'provenance']);
 // 4. optional growth turned into a deficiency in a Balanced cell
 const gap = good(2, 2, 1); gap.core = 'This part of you is steady, but something is missing here: the next step hasn\'t arrived.';
