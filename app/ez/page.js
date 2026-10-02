@@ -767,7 +767,7 @@ export default function EZPage() {
   const [suggestedWhy, setSuggestedWhy] = useState(''); // .511: the thread it pulls on, shown under the question
   const [resolution, setResolution] = useState(null); // .511: did it land? 'landed' | 'open' | 'missed'
   const [suggesting, setSuggesting] = useState(false);
-  const [suggestOpen, setSuggestOpen] = useState(true); // the suggestion card can fold away and come back without a new ask
+  const [suggestOpen, setSuggestOpen] = useState(false); // .592: shown only when chosen from the menu (prefetched quietly on page open) // the suggestion card can fold away and come back without a new ask
   const suggestedSeen = useRef([]);
   // .570: CLOSED TOPICS (founder, 2026-09-25: "a check mark that says I'm done with this topic when you ask for a suggested reading
   // from your history"). Kept per account on this device and handed to the suggester as threads it must never offer again.
@@ -817,7 +817,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
       if (clean) {
         const why = typeof parsedS.why === 'string' ? parsedS.why.trim() : '';
-        suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(why); setSuggestOpen(true);
+        suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(why); if (!quiet) setSuggestOpen(true);
         try { sessionStorage.setItem(`nkya_ez_suggest_${user.id}`, JSON.stringify({ q: clean, why })); } catch {} // .591: once per browser session
       }
       else say(rj?.error ? `The suggester could not answer: ${String(rj.error).slice(0, 120)}` : 'The suggester came back empty — try again.');
@@ -933,7 +933,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     autoSuggestedRef.current = true;
     try {
       const c = JSON.parse(sessionStorage.getItem(`nkya_ez_suggest_${user.id}`) || 'null');
-      if (c?.q) { suggestedSeen.current.push(c.q); setSuggested(c.q); setSuggestedWhy(c.why || ''); setSuggestOpen(true); return; }
+      if (c?.q) { suggestedSeen.current.push(c.q); setSuggested(c.q); setSuggestedWhy(c.why || ''); return; }
     } catch {}
     suggestFromHistory({ quiet: true });
   }, [user, allowed, draws]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -2043,7 +2043,7 @@ ${DRAGON_STANDARD}`, 600);
         {allowed && !draws && !door && (
           <div style={{ paddingTop: anchorPad === null ? '20vh' : anchorPad }}>
           {/* THE ENTRY, like the front page: one frame, the box with Ask inside it, and one quiet
-              row beneath — areas, past readings, from my readings, voice. Everything else folds.
+              menu in its corner (.592) — help, topic, past readings, from my readings. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
           <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
@@ -2075,24 +2075,27 @@ ${DRAGON_STANDARD}`, 600);
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Draw for wherever I am' : 'Ask'}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
+              {/* .592: ONE QUIET MENU (founder 2026-10-02: "we should always just have the google box… load, unsure, topic and from your
+                  readings could be a selection menu instead of buttons. I want it to be clear and clean as possible"). A native select: on a
+                  phone it opens the system picker, and it cannot wrap or be covered (.576 precedent). Each choice opens one fold, or closes it. */}
+              <select value="" aria-label="more" title="help finding a question, the topic, your readings"
+                onChange={(e) => {
+                  const v = e.target.value;
+                  const closeAll = () => { setShowPast(false); setAreasOpen(false); setFrameOpen(false); setSuggestOpen(false); };
+                  if (v === 'readings') { const was = suggestOpen; closeAll(); if (!was) { setSuggestOpen(true); if (!suggested && !suggesting) suggestFromHistory(); } }
+                  else if (v === 'unsure') { const was = areasOpen; closeAll(); setAreasOpen(!was); }
+                  else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
+                  else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
+                }}
+                className="absolute bottom-4 left-4 z-10 appearance-none bg-transparent border-0 p-0 text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                <option value="">more ▾</option>
+                {user && hasHistory && <option value="readings">{suggestOpen ? 'Hide the question from my readings' : 'A question from my readings'}</option>}
+                <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
+                <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
+                <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
+              </select>
             </div>
 
-            <div className="flex items-center justify-center gap-7 sm:gap-12 text-[0.8125rem]"> {/* .521: a centred group, evenly spaced — equal thirds crowded on a phone (founder) */}
-              <button onClick={() => { setAreasOpen(false); setFrameOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time; .590: Topic too */
-                className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
-              <button onClick={() => { setShowPast(false); setFrameOpen(false); setAreasOpen(!areasOpen); }}
-                className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
-                Unsure
-                <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-              </button>
-              {/* .544: THE FRAME — what the reading is about */}
-              <button onClick={() => { setShowPast(false); setAreasOpen(false); setFrameOpen(!frameOpen); }}
-                className={`justify-self-center flex items-center gap-1 transition-colors ${frame ? 'text-emerald-300' : 'text-emerald-400/80 hover:text-emerald-300'}`} title="the topic of this reading">
-                {frame ? 'Topic ✓' : 'Topic'}
-                <svg className={`w-3.5 h-3.5 transition-transform ${frameOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-              </button>
-              <span />{/* .591: Personalized is no longer a button — the suggestion appears under the box on its own (founder 2026-10-02) */}
-            </div>
           </div>
 
           {/* .544: THE FRAME fold — a category, then a detail in their own words */}
@@ -2194,7 +2197,7 @@ ${DRAGON_STANDARD}`, 600);
                     {suggestedWhy && <span className="block mt-1.5 text-[0.75rem] leading-snug text-violet-300/70">{suggestedWhy}</span>}
                   </button>
                 )}
-                {!suggested && suggesting && <p className="text-center text-[0.75rem] text-violet-300/50">Reading your history…</p>}
+                {!suggested && suggesting && suggestOpen && <p className="text-center text-[0.75rem] text-violet-300/50">Reading your history…</p>}
                 {suggested && suggestOpen && (
                   <div className="flex justify-center items-center gap-3 text-[0.75rem]">
                     <button onClick={() => suggestFromHistory()} disabled={suggesting} title="a different thread from your readings"
