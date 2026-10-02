@@ -781,10 +781,10 @@ export default function EZPage() {
     try {
       const session = await getSession();
       const token = session?.session?.access_token;
-      if (!token) return;
+      if (!token) { setError('Still signing you in — try that again in a moment.'); return; }
       const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
       const cj = await cr.json();
-      if (!cj?.contextBlock && !forFrame) return;
+      if (!cj?.contextBlock && !forFrame) { setError('Your history did not come back this time — try again.'); return; }
       const closed = readClosed(); // .570: threads they marked done
       const closedBlock = closed.length ? `\n\nTOPICS THEY HAVE CLOSED — they marked these threads done. Never suggest anything on these threads again, reworded or from another angle; choose a different part of their life:\n${closed.map((e) => `- ${e.q}${e.why ? ` (${e.why})` : ''}`).join('\n')}` : '';
       const avoid = suggestedSeen.current.length
@@ -814,7 +814,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const q = parsedS.q;
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
       if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(typeof parsedS.why === 'string' ? parsedS.why.trim() : ''); setSuggestOpen(true); }
-    } catch {} finally { setSuggesting(false); }
+      else setError(rj?.error ? `The suggester could not answer: ${String(rj.error).slice(0, 120)}` : 'The suggester came back empty — try again.');
+    } catch (e) { setError(`The suggester failed: ${e?.message || 'network'}`); } finally { setSuggesting(false); }
   };
   const closeTopic = () => {
     if (!suggested || suggesting) return;
@@ -1130,10 +1131,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
   // query and four pieces of state — no separate save/load path was ever built.
   const loadPastList = async () => {
     try {
-      const { data } = await getReadings(50);
+      const { data, error: ge } = await getReadings(120); // .589: 120, not 50 — the full reader's rows were crowding EZ's out of the window
+      if (ge) throw new Error(typeof ge === 'string' ? ge : ge.message || 'query failed');
       setPastReadings((data || []).filter((r) => r.mode === 'ez'));
       setShowPast(true);
-    } catch { setError('Could not load your readings.'); }
+    } catch (e) { setError(`Could not load your readings: ${e?.message || 'unknown'}`); }
   };
 
   // /ez?bench=1 — THE LAYOUT BENCH: a fixed draw and a canned conversation, no API, nothing saved
@@ -1243,7 +1245,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       { const rv = reviewTurn({ obj, register: voice, prev: [], cardBalanced: newDraws[0]?.status === 1, isOpening: true }); // .560
         if (rv.hard.length) { console.warn('[house] opening hard:', rv.hard); const r3 = await callReader(`${msg}${retryNote(rv.hard)}`); if (r3?.obj?.reader) { obj = r3.obj; u = r3.usage || u; } }
         openingNotes = rv.soft; if (rv.soft.length) console.warn('[house] opening notes:', rv.soft); }
-      const first = readerTurn(obj, { ...(seed.lines ? { geometry: seed.lines } : {}), ...(openingNotes.length ? { notes: openingNotes } : {}) });
+      const first = readerTurn(obj, { voice, ...(seed.lines ? { geometry: seed.lines } : {}), ...(openingNotes.length ? { notes: openingNotes } : {}) }); // .589: stamped with its voice
       setTurns([first]);
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       if (skipRef.current) skipRef.current.hurry = true; // .549: the reading is ready — hurry the flight along
@@ -1364,7 +1366,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
         turnNotes = rv.soft; if (rv.soft.length) console.warn('[house] notes:', rv.soft); }
       repliedRef.current = true; setLandedWaiting(false); if (skipRef.current) skipRef.current.hurry = true; // .549
       const newSeedLines = newDraw ? seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]).lines : '';
-      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), ...(moveReg ? { voice: moveReg } : {}), ...(turnNotes.length ? { notes: turnNotes } : {}) });
+      const turn = readerTurn(obj, { ...(newDraw ? { draw: newDraw, mode } : {}), ...(loc ? { locating: loc } : {}), ...(newSeedLines ? { geometry: newSeedLines } : {}), voice: moveReg || voice, ...(turnNotes.length ? { notes: turnNotes } : {}) });
       // .558: MEDICINE ONCE, MECHANICALLY. A talking turn's medicine that repeats the last one (word for word, or reworded
       // and sharing most of its real words) is dropped — from the screen AND from the record the next turn reads, so the
       // repeat never teaches by example (the founder's money reading: the same ◈ box three times running).
