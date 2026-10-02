@@ -47,11 +47,12 @@ async function checkUserAccess(userId) {
 
   const { data: profile } = await supabaseAdmin
     .from('profiles')
-    .select('is_banned, daily_token_limit, tokens_used_today, last_token_reset')
+    .select('is_banned, daily_token_limit, tokens_used_today, last_token_reset, is_admin')
     .eq('id', userId)
     .single();
 
   if (!profile) return { canRead: true };
+  const isAdminUser = !!profile.is_admin;
 
   // Check ban
   if (profile.is_banned) {
@@ -68,7 +69,7 @@ async function checkUserAccess(userId) {
         .from('profiles')
         .update({ tokens_used_today: 0, last_token_reset: today })
         .eq('id', userId);
-      return { canRead: true };
+      return { canRead: true, isAdmin: isAdminUser };
     }
 
     if (profile.tokens_used_today >= profile.daily_token_limit) {
@@ -76,7 +77,7 @@ async function checkUserAccess(userId) {
     }
   }
 
-  return { canRead: true };
+  return { canRead: true, isAdmin: isAdminUser };
 }
 
 // Record token usage after successful reading
@@ -154,7 +155,7 @@ export async function POST(request) {
 
   // Check if user is banned or throttled
   {
-    const { canRead, reason } = await checkUserAccess(userId);
+    const access = await checkUserAccess(userId); const { canRead, reason } = access; const floorForThisUser = process.env.POUR_FLOOR === '1' || (!!access.isAdmin && process.env.POUR_FLOOR !== '0'); // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
     if (!canRead) {
       return Response.json({ error: reason }, { status: 403 });
     }
@@ -266,8 +267,8 @@ export async function POST(request) {
     }
   }
   // THE FLOOR: the poured cell under the Reader, appended after the dossier to the same final user message. Off unless POUR_FLOOR=1.
-  if (FLOOR_ENABLED) {
-    const floored = appendFloor(messagesOut, draws, { turn });
+  if (FLOOR_ENABLED || floorForThisUser) {
+    const floored = appendFloor(messagesOut, draws, { turn, enabled: true });
     messagesOut = floored.messages;
     if (floored.floors) console.log(`[reading] the floor: ${floored.floors} poured cell(s) under this turn`);
   }

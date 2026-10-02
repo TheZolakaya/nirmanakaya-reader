@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // THE FLOOR (the Pour): the snapshot files are read with fs at request time; trace them into the reading function's bundle.
+  experimental: { outputFileTracingIncludes: { '/api/reading': ['./data/pour/snapshot/**'] } },
   // Wiki is a Quartz-built static site living in public/wiki/.
   // Quartz emits relative paths and extensionless URLs. We handle both via:
   // - Rewrite /wiki -> /wiki/index.html so the homepage URL works
