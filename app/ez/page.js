@@ -2087,7 +2087,8 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                 }}
-                className="absolute bottom-4 left-4 z-10 appearance-none bg-transparent border-0 p-0 text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                style={{ width: '4.75rem' }} /* .593 HOTFIX: a select is sized by its LONGEST option — it ran invisibly across the box and covered ASK (founder: "when I select ask the more button opens") */
+                className="absolute bottom-4 left-4 z-[5] appearance-none bg-transparent border-0 p-0 text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
                 <option value="">more ▾</option>
                 {user && hasHistory && <option value="readings">{suggestOpen ? 'Hide the question from my readings' : 'A question from my readings'}</option>}
                 <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
